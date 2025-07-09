@@ -9,6 +9,7 @@ import 'package:money/core/intents/app_intents.dart';
 import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/core/widgets/widgets.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/storage/import/import_transactions_from_text.dart';
 import 'package:money/views/home/home_routes.dart';
 import 'package:money/views/platforms/platforms_routes.dart';
 import 'package:money/views/policies/policy_routes.dart';
@@ -59,6 +60,8 @@ class MyApp extends StatelessWidget {
     LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.minus): const ZoomOutIntent(),
     LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.digit0): const ZoomResetIntent(),
     LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.digit0): const ZoomResetIntent(),
+    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyT): const NewTransactionIntent(),
+    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyT): const NewTransactionIntent(),
   };
 
   // Actions for keyboard shortcuts
@@ -88,6 +91,13 @@ class MyApp extends StatelessWidget {
     ZoomResetIntent: CallbackAction<ZoomResetIntent>(
       onInvoke: (ZoomResetIntent intent) {
         ThemeController.to.setFontScaleTo(1);
+        return null;
+      },
+    ),
+
+    NewTransactionIntent: CallbackAction<NewTransactionIntent>(
+      onInvoke: (NewTransactionIntent intent) {
+        showImportTransactionsFromTextInput(Get.context!);
         return null;
       },
     ),

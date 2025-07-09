@@ -57,31 +57,40 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   PopupMenuItem<int> _buildMenuItem(
     int value,
     String caption,
-    IconData iconData,
-  ) {
+    IconData iconData, {
+    String? shortcut,
+  }) {
     return PopupMenuItem<int>(
       value: value,
-      child: ThreePartLabel(icon: Icon(iconData), text1: caption, small: true),
+      child: ThreePartLabel(
+        icon: Icon(iconData),
+        text1: caption,
+        text2: shortcut ?? '',
+        small: true,
+      ),
     );
   }
 
   Widget _buildPopupMenu() {
     final List<PopupMenuItem<int>> menuItems = <PopupMenuItem<int>>[
-      _buildMenuItem(Constants.commandFileNew, 'New', Icons.note_add_outlined),
+      _buildMenuItem(Constants.commandFileNew, 'New', Icons.note_add_outlined, shortcut: 'Ctrl+N'),
       _buildMenuItem(
         Constants.commandFileOpen,
         'Open...',
         Icons.file_open_outlined,
+        shortcut: 'Ctrl+O',
       ),
       _buildMenuItem(
         Constants.commandAddTransactions,
         'Add transactions...',
         Icons.post_add_outlined,
+        shortcut: 'Ctrl+T',
       ),
       _buildMenuItem(
         Constants.commandRebalance,
         'Rebalance...',
         Icons.refresh_outlined,
+        shortcut: 'Ctrl+R',
       ),
       if (!kIsWeb) ...<PopupMenuItem<int>>[
         _buildMenuItem(

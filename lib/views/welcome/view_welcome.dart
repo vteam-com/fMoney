@@ -47,8 +47,7 @@ class WelcomeScreen extends StatelessWidget {
               OutlinedButton(
                 onPressed: () async {
                   DataController.to.closeFile();
-                  final DataController dataController = Get.find();
-                  dataController.loadDemoData().then((final _) {
+                  DataController.to.loadDemoData().then((final _) {
                     Get.offAllNamed<dynamic>(Constants.routeHomePage);
                   });
                 },

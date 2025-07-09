@@ -19,3 +19,8 @@ class ZoomOutIntent extends Intent {
 class ZoomResetIntent extends Intent {
   const ZoomResetIntent();
 }
+
+/// Intent for creating new transaction
+class NewTransactionIntent extends Intent {
+  const NewTransactionIntent();
+}
