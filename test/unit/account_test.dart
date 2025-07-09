@@ -268,7 +268,7 @@ String? dateToIso8601OrDefaultString(DateTime? date, {String defaultValue = ''})
 // so AccountFlags.closed.index should work.
 
 // Minimal MyJson mock for testing
-extension TestJsonExtensions on Map<String, dynamic> {
+extension TestJsonHelpers on Map<String, dynamic> { // Named the extension
   String getString(String key, [String defaultValue = '']) {
     return this[key] as String? ?? defaultValue;
   }

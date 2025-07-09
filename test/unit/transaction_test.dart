@@ -20,7 +20,8 @@ import 'package:money/core/helpers/date_helper.dart'; // For dateToString
 
 // --- Manual MockAccount can still be useful for creating test data ---
 class MockAccount extends Account {
-  MockAccount({required int id, String name = 'Mock Account', String currency = 'USD'}) : super() {
+  MockAccount({required int id, String name = 'Mock Account', String currency = 'USD'})
+      : super() {
     this.fieldId.value = id;
     this.fieldName.value = name;
     this.fieldCurrency.value = currency;
@@ -30,8 +31,12 @@ class MockAccount extends Account {
   @override
   double getCurrencyRatio() {
     // Simplify for tests; assume USD or direct ratio if needed
-    if (fieldCurrency.value == 'USD') return 1.0;
-    if (fieldCurrency.value == 'EUR') return 1.2; // Example
+    if (fieldCurrency.value == 'USD') {
+      return 1.0;
+    }
+    if (fieldCurrency.value == 'EUR') {
+      return 1.2; // Example
+    }
     return 1.0;
   }
 }
@@ -213,7 +218,7 @@ void main() {
 
   group('Transaction Getters', () {
     final mockAccount = MockAccount(id: 1, name: 'Test Bank Account', currency: 'EUR');
-    final mockPayee = Payee()..fieldId.value = 20 ..fieldName.value = 'Test Payee';
+    // final mockPayee = Payee()..fieldId.value = 20 ..fieldName.value = 'Test Payee'; // Unused variable removed
     // Note: Mocking Categories and Payees on MockData would be needed if not using real Data()
     // For these simple getters, we can often construct the Transaction such that these are pre-set
     // or the Data().xxx.getNameFromId calls are stubbed.
@@ -279,27 +284,36 @@ void main() {
 }
 
 // Minimal MyJson mock for testing (can be shared in a test_helper.dart)
-extension TestJsonExtensions on Map<String, dynamic> {
+extension TransactionTestJsonHelpers on Map<String, dynamic> {
   String getString(String key, [String defaultValue = '']) {
-    return this[key] as String? ?? defaultValue;
+    return this[key] as String? ?? // Ensure ?? is on a new line or spaced if too long
+        defaultValue;
   }
 
   int getInt(String key, [int defaultValue = 0]) {
-    final value = this[key];
-    if (value is int) return value;
-    if (value is double) return value.toInt(); // Allow double to int conversion if applicable
+    final dynamic value = this[key]; // Added type for clarity
+    if (value is int) {
+      return value;
+    }
+    if (value is double) {
+      return value.toInt(); // Allow double to int conversion if applicable
+    }
     return defaultValue;
   }
 
   double getDouble(String key, [double defaultValue = 0.0]) {
-    final value = this[key];
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
+    final dynamic value = this[key]; // Added type for clarity
+    if (value is double) {
+      return value;
+    }
+    if (value is int) {
+      return value.toDouble();
+    }
     return defaultValue;
   }
 
   DateTime? getDate(String key) {
-    final value = this[key];
+    final dynamic value = this[key]; // Added type for clarity
     if (value is String) {
       return DateTime.tryParse(value);
     }
