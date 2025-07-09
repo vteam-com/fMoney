@@ -131,6 +131,12 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
                 value as num,
               );
             }
+            if (field.footer == FooterType.range) {
+              _footerAccumulators.accumulatorNumericRange.cumulate(
+                field,
+                value as num,
+              );
+            }
 
           case FieldType.widget:
             if (field.getValueForReading != null) {
@@ -152,6 +158,12 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
               );
               if (field.footer == FooterType.average) {
                 _footerAccumulators.accumulatorForAverage.cumulate(
+                  field,
+                  value,
+                );
+              }
+              if (field.footer == FooterType.range) {
+                _footerAccumulators.accumulatorNumericRange.cumulate(
                   field,
                   value,
                 );

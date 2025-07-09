@@ -161,6 +161,45 @@ class AccumulatorAverage<K> {
   RunningAverage? getValue(final K key) => values[key];
 }
 
+/// Calculates running range for values by key.
+/// Features:
+/// - Running min, average, max calculation
+/// - Count tracking
+/// - Zero value handling
+/// - High/low watermark tracking
+class AccumulatorRange<K> {
+  final Map<K, RunningAverage> values = <K, RunningAverage>{};
+  final Map<K, num> highWatermark = <K, num>{};
+  final Map<K, num> lowWatermark = <K, num>{};
+
+  void clear() {
+    values.clear();
+    highWatermark.clear();
+    lowWatermark.clear();
+  }
+
+  bool containsKey(final K key) => values.containsKey(key);
+
+  void cumulate(final K key, final num value) {
+    final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
+    average.addValue(value);
+
+    // Update high/low watermarks
+    if (!highWatermark.containsKey(key) || value > highWatermark[key]!) {
+      highWatermark[key] = value;
+    }
+    if (!lowWatermark.containsKey(key) || value < lowWatermark[key]!) {
+      lowWatermark[key] = value;
+    }
+  }
+
+  RunningAverage? getValue(final K key) => values[key];
+
+  num? getHighWatermark(final K key) => highWatermark[key];
+
+  num? getLowWatermark(final K key) => lowWatermark[key];
+}
+
 /// Two-level accumulator mapping keys to sums.
 /// Features:
 /// - Nested key structure
@@ -221,7 +260,7 @@ class RunningAverage {
     if (isConsideredZero(newValue)) {
       _countZeros++;
     } else {
-      _sum += newValue.abs();
+      _sum += newValue;
       _count++;
       range.inflate(newValue);
     }

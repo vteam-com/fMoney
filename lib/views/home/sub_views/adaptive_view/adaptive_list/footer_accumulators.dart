@@ -5,20 +5,29 @@ import 'package:money/data/models/fields/field.dart';
 
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();
+  final AccumulatorRange<Field<dynamic>> accumulatorNumericRange = AccumulatorRange<Field<dynamic>>();
   final AccumulatorAverage<Field<dynamic>> accumulatorForAverage = AccumulatorAverage<Field<dynamic>>();
   final AccumulatorList<Field<dynamic>, String> accumulatorListOfText = AccumulatorList<Field<dynamic>, String>();
   final AccumulatorSum<Field<dynamic>, double> accumulatorSumAmount = AccumulatorSum<Field<dynamic>, double>();
   final AccumulatorSum<Field<dynamic>, double> accumulatorSumNumber = AccumulatorSum<Field<dynamic>, double>();
 
-  /// Allowed to be override by derived classes
-  /// to be overridden by derived class
+  /// Allowed  to be overridden by derived class
   /// Use the field FooterType to decide how to render the bottom button of each columns
   Widget buildWidget(final Field<dynamic> field) {
     switch (field.footer) {
       case FooterType.range:
-        if (accumulatorDateRange.containsKey(field)) {
-          final DateRange value = accumulatorDateRange.getValue(field)!;
-          return getFooterForDateRange(value);
+        if (field.type == FieldType.date) {
+          if (accumulatorDateRange.containsKey(field)) {
+            final DateRange value = accumulatorDateRange.getValue(field)!;
+            return getFooterForDateRange(value);
+          }
+        } else if (field.type == FieldType.numeric ||
+            field.type == FieldType.amount ||
+            field.type == FieldType.quantity) {
+          if (accumulatorNumericRange.containsKey(field)) {
+            final RunningAverage range = accumulatorNumericRange.getValue(field)!;
+            return getFooterForNumericRange(range, field.type);
+          }
         }
       case FooterType.count:
         List<String> list = <String>[];
@@ -84,6 +93,7 @@ class FooterAccumulators {
     accumulatorSumAmount.clear();
     accumulatorSumNumber.clear();
     accumulatorForAverage.clear();
+    accumulatorNumericRange.clear();
     accumulatorDateRange.clear();
     accumulatorListOfText.clear();
   }

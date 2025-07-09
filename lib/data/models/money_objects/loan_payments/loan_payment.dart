@@ -59,6 +59,7 @@ class LoanPayment extends MoneyObject {
 
   FieldMoney fieldBalance = FieldMoney(
     name: 'Balance',
+    footer: FooterType.range,
     getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
     getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
   );

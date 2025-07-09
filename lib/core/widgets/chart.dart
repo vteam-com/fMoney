@@ -110,7 +110,7 @@ class Chart extends StatelessWidget {
       fitInsideHorizontally: true,
       fitInsideVertically: true,
       getTooltipColor: (BarChartGroupData group) => getColorTheme(context).secondaryContainer,
-      tooltipRoundedRadius: 8,
+
       getTooltipItem:
           (
             final BarChartGroupData group,

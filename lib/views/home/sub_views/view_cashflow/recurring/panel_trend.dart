@@ -62,7 +62,6 @@ class _PanelTrendState extends State<PanelTrend> {
       BarChartData(
         barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
-            tooltipRoundedRadius: 8,
             tooltipPadding: const EdgeInsets.all(8),
             tooltipMargin: 16, // Increased margin to prevent clipping
             fitInsideHorizontally: true,

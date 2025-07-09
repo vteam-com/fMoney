@@ -171,7 +171,7 @@ class Transaction extends MoneyObject {
   FieldMoney fieldBalanceNative = FieldMoney(
     name: columnIdBalance,
     columnWidth: ColumnWidth.small,
-    footer: FooterType.none,
+    footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final MoneyObject instance) => MoneyModel(
       amount: (instance as Transaction).balance,
@@ -183,7 +183,7 @@ class Transaction extends MoneyObject {
   FieldMoney fieldBalanceNormalized = FieldMoney(
     name: 'Balance(USD)',
     columnWidth: ColumnWidth.small,
-    footer: FooterType.none,
+    footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final MoneyObject instance) => MoneyModel(
       amount: (instance as Transaction).getNormalizedAmount(

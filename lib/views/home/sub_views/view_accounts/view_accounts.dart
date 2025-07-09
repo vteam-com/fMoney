@@ -26,6 +26,7 @@ import 'package:money/data/storage/import/import_investment.dart';
 import 'package:money/data/storage/import/import_investment_panel.dart';
 import 'package:money/data/storage/import/import_wizard.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/adaptive_columns_or_rows_list.dart';
+import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 

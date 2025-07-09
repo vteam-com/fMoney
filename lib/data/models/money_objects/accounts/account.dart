@@ -68,7 +68,7 @@ class Account extends MoneyObject {
   /// Balance in Native currency
   FieldMoney fieldBalanceNative = FieldMoney(
     name: 'BalanceN',
-    footer: FooterType.none,
+    footer: FooterType.range,
     getValueForDisplay: (final MoneyObject instance) {
       final Account accountInstance = instance as Account;
       return MoneyModel(
@@ -81,6 +81,7 @@ class Account extends MoneyObject {
   /// Balance Normalized use in the List view
   FieldMoney fieldBalanceNormalized = FieldMoney(
     name: 'Balance(USD)',
+    footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final MoneyObject instance) {
       final Account accountInstance = instance as Account;

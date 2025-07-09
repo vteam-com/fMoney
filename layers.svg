@@ -954,7 +954,7 @@ window_manager</title>
   </g>
   <g id='Labels_fl_chart'>
     <text class="nodeName" x="3750" y="225" font-size="120%">fl_chart</text>
-    <text class="nodeName" x="3750" y="245" font-size="80%">0.70.2</text>
+    <text class="nodeName" x="3750" y="245" font-size="80%">1.0.0</text>
   </g>
   <g id='Labels_get'>
     <text class="nodeName" x="4950" y="225" font-size="120%">get</text>

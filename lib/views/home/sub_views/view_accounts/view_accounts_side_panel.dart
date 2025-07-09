@@ -393,83 +393,81 @@ extension ViewAccountsSidePanel on ViewAccountsState {
       getPreferenceKey(settingKeySidePanel + settingKeySortBy),
       0,
     );
-    bool sortAscending = PreferenceController.to.getBool(
+    final bool sortAscending = PreferenceController.to.getBool(
       getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
       true,
     );
-    int selectedItemId = PreferenceController.to.getInt(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      -1,
+
+    final SelectionController selectionController = Get.put(
+      SelectionController(
+        getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
+      ),
     );
 
-    final List<LoanPayment> aggregatedList = getAccountLoanPayments(account);
+    selectionController.load();
 
-    MoneyObjects.sortList(
-      aggregatedList,
-      LoanPayment.fieldsForColumnView.definitions,
-      sortFieldIndex,
-      sortAscending,
-    );
+    return Obx(() {
+      final List<LoanPayment> aggregatedList = getAccountLoanPayments(account);
 
-    return AdaptiveListColumnsOrRows(
-      list: aggregatedList,
-      fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,
-      filters: FieldFilters(),
-      sortByFieldIndex: sortFieldIndex,
-      sortAscending: sortAscending,
-      listController: Get.find<ListControllerSidePanel>(),
+      MoneyObjects.sortList(
+        aggregatedList,
+        LoanPayment.fieldsForColumnView.definitions,
+        sortFieldIndex,
+        sortAscending,
+      );
 
-      // Display as Cards or Columns
-      // On small device you can display rows a Cards instead of Columns
-      displayAsColumns: true,
-      backgroundColorForHeaderFooter: Colors.transparent,
-      onColumnHeaderTap: (int columnHeaderIndex) {
-        // ignore: invalid_use_of_protected_member
-        setState(() {
-          if (columnHeaderIndex == sortFieldIndex) {
-            // toggle order
-            sortAscending = !sortAscending;
-          } else {
-            sortFieldIndex = columnHeaderIndex;
-          }
-          PreferenceController.to.setInt(
-            getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-            sortFieldIndex,
-          );
-          PreferenceController.to.setBool(
-            getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-            sortAscending,
-          );
-        });
-      },
-      isMultiSelectionOn: false,
-      selectedItemsByUniqueId: ValueNotifier<List<int>>(<int>[selectedItemId]),
-      onSelectionChanged: (int uniqueId) {
-        // ignore: invalid_use_of_protected_member
-        setState(() {
-          selectedItemId = uniqueId;
+      return AdaptiveListColumnsOrRowsSingleSelection(
+        key: Key(
+          'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataController.to.lastUpdateAsString}',
+        ),
+        list: aggregatedList,
+        fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,
+        filters: FieldFilters(),
+        sortByFieldIndex: sortFieldIndex,
+        sortAscending: sortAscending,
+        selectedId: selectionController.firstSelectedId,
+        listController: Get.find<ListControllerSidePanel>(),
+        displayAsColumns: true,
+        backgroundColorForHeaderFooter: Colors.transparent,
+        onSelectionChanged: (int uniqueId) {
+          sortFieldIndex = sortFieldIndex;
+          selectionController.select(uniqueId);
           PreferenceController.to.setInt(
             getPreferenceKey(
               settingKeySidePanel + settingKeySelectedListItemId,
             ),
-            selectedItemId,
+            uniqueId,
           );
-        });
-      },
-      onItemLongPress: (BuildContext context2, int itemId) {
-        final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
-        myShowDialogAndActionsForMoneyObject(
-          title: 'Loan Payment',
-          moneyObject: instance,
-        );
-
-        selectedItemId = itemId;
-        PreferenceController.to.setInt(
-          getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-          selectedItemId,
-        );
-      },
-    );
+        },
+        onColumnHeaderTap: (int columnHeaderIndex) {
+          // ignore: invalid_use_of_protected_member
+          setState(() {
+            if (columnHeaderIndex == sortFieldIndex) {
+              // toggle order
+              sortFieldIndex = sortFieldIndex;
+            } else {
+              sortFieldIndex = columnHeaderIndex;
+            }
+            PreferenceController.to.setInt(
+              getPreferenceKey(settingKeySidePanel + settingKeySortBy),
+              sortFieldIndex,
+            );
+          });
+        },
+        onItemLongPress: (BuildContext context2, int itemId) {
+          final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
+          myShowDialogAndActionsForMoneyObject(
+            title: 'Loan Payment',
+            moneyObject: instance,
+          );
+          selectionController.select(itemId);
+          PreferenceController.to.setInt(
+            getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
+            itemId,
+          );
+        },
+      );
+    });
   }
 
   List<Transaction> getTransactionForLastSelectedAccount(

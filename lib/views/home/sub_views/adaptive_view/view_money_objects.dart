@@ -308,6 +308,14 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
               );
             }
 
+          case FieldType.widget:
+            if (field.getValueForReading != null) {
+              _footerAccumulators.accumulatorListOfText.cumulate(
+                field,
+                field.getValueForReading?.call(item)!.toString() ?? '',
+              );
+            }
+
           case FieldType.amount:
             final double value = smartToDouble(field.getValueForDisplay(item));
             if (isNumber(value)) {
@@ -318,14 +326,12 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
                   value,
                 );
               }
-            }
-
-          case FieldType.widget:
-            if (field.getValueForReading != null) {
-              _footerAccumulators.accumulatorListOfText.cumulate(
-                field,
-                field.getValueForReading?.call(item)!.toString() ?? '',
-              );
+              if (field.footer == FooterType.range) {
+                _footerAccumulators.accumulatorNumericRange.cumulate(
+                  field,
+                  value,
+                );
+              }
             }
 
           case FieldType.numeric:
@@ -344,12 +350,18 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
                   field,
                   value.toDouble(),
                 );
-              }
-              if (field.footer == FooterType.average) {
-                _footerAccumulators.accumulatorForAverage.cumulate(
-                  field,
-                  value as num,
-                );
+                if (field.footer == FooterType.average) {
+                  _footerAccumulators.accumulatorForAverage.cumulate(
+                    field,
+                    value,
+                  );
+                }
+                if (field.footer == FooterType.range) {
+                  _footerAccumulators.accumulatorNumericRange.cumulate(
+                    field,
+                    value,
+                  );
+                }
               }
             }
           default:
