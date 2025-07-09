@@ -142,7 +142,7 @@ class Data {
       Timer(
         const Duration(milliseconds: 100),
         () => SnackBarService.displayWarning(
-          message: '$dangling Dangling transfers have been found',
+          message: '${dangling.length} Dangling transfers have been found',
           title: 'Dangling Transfers',
           autoDismiss: false,
         ),
@@ -152,10 +152,7 @@ class Data {
 
   void clear() {
     DataController.to.trackMutations.reset();
-
-    for (final MoneyObjects<dynamic> element in tables) {
-      element.clear();
-    }
+    clearExistingData();
   }
 
   void clearExistingData() {
@@ -164,7 +161,7 @@ class Data {
     }
   }
 
-  void clearTransferToAccount(Transaction t, Account a) {
+  void clearTransferToAccount(final Transaction t, final Account a) {
     // TODO
     // if (t.isSplit) {
     //   for (MoneySplit s in t.splits) {
@@ -201,7 +198,6 @@ class Data {
     DataController.to.trackMutations.reset();
   }
 
-  /// Bulk Delete
   void deleteItems(final List<MoneyObject> itemsToDelete) {
     for (final MoneyObject item in itemsToDelete) {
       Data().notifyMutationChanged(
@@ -217,7 +213,7 @@ class Data {
     final Set<Transaction> dangling = <Transaction>{};
     final List<Account> deletedAccounts = <Account>[];
     transactions.checkTransfers(dangling, deletedAccounts);
-    for (Account a in deletedAccounts) {
+    for (final Account a in deletedAccounts) {
       accounts.removeAccount(a);
     }
     return dangling;
@@ -225,11 +221,10 @@ class Data {
 
   DateTime? getLastDateTimeModified(final String fullPathToFile) {
     final File file = File(fullPathToFile);
-    // Get the last modified date and time of the file
     return file.lastModifiedSync();
   }
 
-  List<MoneyObject> getMutatedInstances(MutationType typeOfMutation) {
+  List<MoneyObject> getMutatedInstances(final MutationType typeOfMutation) {
     final List<MoneyObject> mutated = <MoneyObject>[];
     for (final MoneyObjects<dynamic> listOfInstance in tables) {
       mutated.addAll(listOfInstance.getMutatedObjects(typeOfMutation));
@@ -237,7 +232,7 @@ class Data {
     return mutated;
   }
 
-  List<MutationGroup> getMutationGroups(MutationType typeOfMutation) {
+  List<MutationGroup> getMutationGroups(final MutationType typeOfMutation) {
     final List<MutationGroup> allMutationGroups = <MutationGroup>[];
 
     for (final MoneyObjects<dynamic> moneyObjects in tables) {

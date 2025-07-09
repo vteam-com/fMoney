@@ -21,6 +21,8 @@ class WelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Spacer(),
+          const Text('Choose an option to get started:', style: TextStyle(fontSize: 16)),
+          gapLarge(),
           Wrap(
             alignment: WrapAlignment.center,
             runAlignment: WrapAlignment.center,
@@ -29,27 +31,25 @@ class WelcomeScreen extends StatelessWidget {
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {
-                  Get.offAllNamed<dynamic>(Constants.routeHomePage);
                   DataController.to.onFileNew();
+                  Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
                 child: const Text('New File ...'),
               ),
               OutlinedButton(
-                onPressed: () {
-                  DataController.to.onFileOpen().then((final bool succeeded) {
-                    if (succeeded) {
-                      Get.offAllNamed<dynamic>(Constants.routeHomePage);
-                    }
-                  });
+                onPressed: () async {
+                  final bool succeeded = await DataController.to.onFileOpen();
+                  if (succeeded) {
+                    Get.offAllNamed<dynamic>(Constants.routeHomePage);
+                  }
                 },
                 child: const Text('Open File ...'),
               ),
               OutlinedButton(
                 onPressed: () async {
                   DataController.to.closeFile();
-                  DataController.to.loadDemoData().then((final _) {
-                    Get.offAllNamed<dynamic>(Constants.routeHomePage);
-                  });
+                  await DataController.to.loadDemoData();
+                  Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
                 child: const Text('Use Demo Data'),
               ),

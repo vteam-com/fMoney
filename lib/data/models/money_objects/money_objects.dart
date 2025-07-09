@@ -134,8 +134,8 @@ class MoneyObjects<T> {
     return _list;
   }
 
-  List<MoneyObject> getMutatedObjects(MutationType typeOfMutation) {
-    return _list.where((MoneyObject element) => element.mutation == typeOfMutation).toList();
+  List<MoneyObject> getMutatedObjects(final MutationType typeOfMutation) {
+    return _list.where((final MoneyObject element) => element.mutation == typeOfMutation).toList();
   }
 
   int getNextId() {
@@ -158,9 +158,9 @@ class MoneyObjects<T> {
 
   static bool isFieldMatchingCondition(
     final Field<dynamic> field,
-    bool forSerialization,
+    final bool forSerialization,
   ) {
-    return (forSerialization == true && field.serializeName.isNotEmpty) || (forSerialization == false);
+    return !forSerialization || field.serializeName.isNotEmpty;
   }
 
   bool get isNotEmpty => !isEmpty;
@@ -257,21 +257,20 @@ class MoneyObjects<T> {
   }
 
   static String toStringAsSeparatedValues(
-    FieldDefinitions fieldDefinitions,
-    MoneyObject item, [
+    final FieldDefinitions fieldDefinitions,
+    final MoneyObject item, [
     final String valueSeparator = ',',
-    bool forSerialization = true,
+    final bool forSerialization = true,
   ]) {
-    final List<String> listValues = <String>[];
-    for (final Field<dynamic> field in fieldDefinitions) {
-      final dynamic value = field.getValueForSerialization == defaultCallbackValue || forSerialization == false
-          ? item.toReadableString(field)
-          : field.getValueForSerialization(item);
-
-      final String valueAsString = '"$value"';
-      listValues.add(valueAsString);
-    }
-    return listValues.join(valueSeparator);
+    return fieldDefinitions
+        .where((final Field<dynamic> field) => isFieldMatchingCondition(field, forSerialization))
+        .map((final Field<dynamic> field) {
+          final dynamic value = field.getValueForSerialization == defaultCallbackValue || !forSerialization
+              ? item.toReadableString(field)
+              : field.getValueForSerialization(item);
+          return '"$value"';
+        })
+        .join(valueSeparator);
   }
 
   List<Widget> whatWasMutated(List<MoneyObject> objects) {
