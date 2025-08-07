@@ -112,7 +112,7 @@ DateTime? attemptToGetDateFromText(final String text) {
   for (String format in dateFormats) {
     parsedDate = DateFormat(format).tryParse(text);
     if (parsedDate != null &&
-      parsedDate!.year >= 1900 &&
+        parsedDate.year >= 1900 && // Type promotion should handle this after null check
         parsedDate.year <= 2099 &&
         parsedDate.month >= 1 &&
         parsedDate.month <= 12 &&

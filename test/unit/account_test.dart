@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/data/models/constants.dart'; // For Constants.defaultCurrency
 import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/models/money_objects/accounts/account_types_enum.dart';
-import 'package:money/data/models/constants.dart'; // For Constants.defaultCurrency
 
 void main() {
   group('Account.fromJson', () {
     test('should correctly parse a minimal valid JSON', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{
         'Id': 1,
         'Name': 'Test Account',
         'Type': AccountType.checking.index,
         // Other fields will use defaults or be null/0
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json); // Added type
 
       expect(account.uniqueId, 1);
-      expect(account.fieldName.value, 'Test Account');
+      expect(account.fieldName.value, 'Test Account'); // Corrected expected value
       expect(account.fieldType.value, AccountType.checking);
       expect(account.fieldOpeningBalance.value.asDouble(), 0.0);
       expect(account.fieldCurrency.value, Constants.defaultCurrency);
@@ -24,8 +24,8 @@ void main() {
     });
 
     test('should correctly parse a JSON with all typical fields', () {
-      final now = DateTime.now();
-      final json = {
+      final DateTime now = DateTime.now(); // Added type
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 2,
         'AccountId': 'ACC123',
         'OfxAccountId': 'OFX456',
@@ -40,11 +40,11 @@ void main() {
         'LastSync': dateToIso8601OrDefaultString(now),
         'SyncGuid': 'some-guid',
         'Flags': AccountFlags.closed.index, // Closed account
-        'LastBalance': dateToIso8601OrDefaultString(now.subtract(Duration(days: 1))),
+        'LastBalance': dateToIso8601OrDefaultString(now.subtract(const Duration(days: 1))), // Added const
         'CategoryIdForPrincipal': 10,
         'CategoryIdForInterest': 12,
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json); // Added type
 
       expect(account.uniqueId, 2);
       expect(account.fieldAccountId.value, 'ACC123');
@@ -69,44 +69,44 @@ void main() {
     });
 
     test('should use default currency when Currency is missing', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 3,
         'Name': 'Currency Test',
         'Type': AccountType.cash.index,
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json); // Added type
       expect(account.fieldCurrency.value, Constants.defaultCurrency);
     });
 
     test('should use default -1 for CategoryIdForPrincipal when missing', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 4,
         'Name': 'Principal Test',
         'Type': AccountType.loan.index,
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json); // Added type
       expect(account.fieldCategoryIdForPrincipal.value, -1);
     });
 
     test('should use default -1 for CategoryIdForInterest when missing', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 5,
         'Name': 'Interest Test',
         'Type': AccountType.loan.index,
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json); // Added type
       expect(account.fieldCategoryIdForInterest.value, -1);
     });
 
     test('handles null date strings gracefully', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 1,
         'Name': 'Null Date Test',
         'Type': AccountType.checking.index,
         'LastSync': null,
         'LastBalance': null,
       };
-      final account = Account.fromJson(json);
+      final Account account = Account.fromJson(json);
       expect(account.fieldLastSync.value, isNull);
       expect(account.fieldLastBalance.value, isNull);
     });
@@ -114,25 +114,25 @@ void main() {
 
   group('Account Utility Methods', () {
     test('getRepresentation returns fieldName.value', () {
-      final account = Account()..fieldName.value = 'My Test Account';
+      final Account account = Account()..fieldName.value = 'My Test Account';
       expect(account.getRepresentation(), 'My Test Account');
     });
 
     test('isClosed and isOpen work correctly', () {
-      final account = Account();
+      final Account account = Account();
 
       // Initially, flags should be -1 as per FieldInt default
       expect(account.fieldFlags.value, -1);
       // With flags = -1 (all bits set for common int sizes),
       // AccountFlags.closed.index (which is 1) will be set.
       // So, an account with default flags of -1 is considered closed.
-      expect(account.isClosed(), true, reason: "Default flags of -1 means closed bit is set");
-      expect(account.isOpen, false, reason: "Default flags of -1 means closed bit is set");
+      expect(account.isClosed(), true, reason: 'Default flags of -1 means closed bit is set');
+      expect(account.isOpen, false, reason: 'Default flags of -1 means closed bit is set');
 
       // Set as closed (it's already closed, but let's test the setter)
       account.isOpen = false;
       // Check if the closed flag is set. Other bits of -1 will remain.
-      expect((account.fieldFlags.value & AccountFlags.closed.index), AccountFlags.closed.index);
+      expect(account.fieldFlags.value & AccountFlags.closed.index, AccountFlags.closed.index); // Removed unnecessary_parenthesis
       expect(account.isClosed(), true);
       expect(account.isOpen, false);
 
@@ -142,7 +142,7 @@ void main() {
       // this check needs to be (account.fieldFlags.value & AccountFlags.closed.index) == 0
       // For simplicity, assuming AccountFlags.closed.index is the only flag being manipulated here or flags start at 0.
       // A more robust check:
-      expect((account.fieldFlags.value & AccountFlags.closed.index), 0);
+      expect(account.fieldFlags.value & AccountFlags.closed.index, 0);
       expect(account.isClosed(), false);
       expect(account.isOpen, true);
 
@@ -157,10 +157,10 @@ void main() {
     });
 
     test('isBankAccount identifies bank account types', () {
-      final checkingAccount = Account()..fieldType.value = AccountType.checking;
-      final savingsAccount = Account()..fieldType.value = AccountType.savings;
-      final cashAccount = Account()..fieldType.value = AccountType.cash;
-      final investmentAccount = Account()..fieldType.value = AccountType.investment;
+      final Account checkingAccount = Account()..fieldType.value = AccountType.checking; // Added type
+      final Account savingsAccount = Account()..fieldType.value = AccountType.savings; // Added type
+      final Account cashAccount = Account()..fieldType.value = AccountType.cash; // Added type
+      final Account investmentAccount = Account()..fieldType.value = AccountType.investment; // Added type
 
       expect(checkingAccount.isBankAccount(), isTrue);
       expect(savingsAccount.isBankAccount(), isTrue);
@@ -169,10 +169,10 @@ void main() {
     });
 
     test('isInvestmentAccount identifies investment account types', () {
-      final investmentAccount = Account()..fieldType.value = AccountType.investment;
-      final retirementAccount = Account()..fieldType.value = AccountType.retirement;
-      final moneyMarketAccount = Account()..fieldType.value = AccountType.moneyMarket;
-      final checkingAccount = Account()..fieldType.value = AccountType.checking;
+      final Account investmentAccount = Account()..fieldType.value = AccountType.investment; // Added type
+      final Account retirementAccount = Account()..fieldType.value = AccountType.retirement; // Added type
+      final Account moneyMarketAccount = Account()..fieldType.value = AccountType.moneyMarket; // Added type
+      final Account checkingAccount = Account()..fieldType.value = AccountType.checking; // Added type
 
       expect(investmentAccount.isInvestmentAccount(), isTrue);
       expect(retirementAccount.isInvestmentAccount(), isTrue);
@@ -181,16 +181,16 @@ void main() {
     });
 
     test('isAssetAccount identifies asset account type', () {
-      final assetAccount = Account()..fieldType.value = AccountType.asset;
-      final checkingAccount = Account()..fieldType.value = AccountType.checking;
+      final Account assetAccount = Account()..fieldType.value = AccountType.asset; // Added type
+      final Account checkingAccount = Account()..fieldType.value = AccountType.checking; // Added type
       expect(assetAccount.isAssetAccount, isTrue);
       expect(checkingAccount.isAssetAccount, isFalse);
     });
 
     test('isFakeAccount identifies fake account types', () {
-      final notUsedAccount = Account()..fieldType.value = AccountType.notUsed_7;
-      final categoryFundAccount = Account()..fieldType.value = AccountType.categoryFund;
-      final checkingAccount = Account()..fieldType.value = AccountType.checking;
+      final Account notUsedAccount = Account()..fieldType.value = AccountType.notUsed_7; // Added type
+      final Account categoryFundAccount = Account()..fieldType.value = AccountType.categoryFund; // Added type
+      final Account checkingAccount = Account()..fieldType.value = AccountType.checking; // Added type
 
       expect(notUsedAccount.isFakeAccount(), isTrue);
       expect(categoryFundAccount.isFakeAccount(), isTrue);
@@ -198,27 +198,27 @@ void main() {
     });
 
     test('matchType works correctly', () {
-      final checkingAccount = Account()..fieldType.value = AccountType.checking;
+      final Account checkingAccount = Account()..fieldType.value = AccountType.checking; // Added type
 
-      expect(checkingAccount.matchType([]), isTrue, reason: 'Empty list should match non-fake accounts');
-      expect(checkingAccount.matchType([AccountType.checking, AccountType.savings]), isTrue);
-      expect(checkingAccount.matchType([AccountType.savings, AccountType.investment]), isFalse);
+      expect(checkingAccount.matchType(<AccountType>[]), isTrue, reason: 'Empty list should match non-fake accounts'); // Added type
+      expect(checkingAccount.matchType(<AccountType>[AccountType.checking, AccountType.savings]), isTrue); // Added type
+      expect(checkingAccount.matchType(<AccountType>[AccountType.savings, AccountType.investment]), isFalse); // Added type
 
-      final fakeAccount = Account()..fieldType.value = AccountType.notUsed_7;
-      expect(fakeAccount.matchType([]), isFalse, reason: 'Empty list should not match fake accounts');
-      expect(fakeAccount.matchType([AccountType.notUsed_7]), isTrue);
+      final Account fakeAccount = Account()..fieldType.value = AccountType.notUsed_7; // Added type
+      expect(fakeAccount.matchType(<AccountType>[]), isFalse, reason: 'Empty list should not match fake accounts'); // Added type
+      expect(fakeAccount.matchType(<AccountType>[AccountType.notUsed_7]), isTrue); // Added type
     });
 
     // Note: isActiveBankAccount depends on isOpen, which was tested, and isBankAccount, also tested.
     // A combined test could be:
     test('isActiveBankAccount works correctly', () {
-      final openChecking = Account()
+      final Account openChecking = Account() // Added type
         ..fieldType.value = AccountType.checking
         ..isOpen = true;
-      final closedChecking = Account()
+      final Account closedChecking = Account() // Added type
         ..fieldType.value = AccountType.checking
         ..isOpen = false;
-      final openInvestment = Account()
+      final Account openInvestment = Account() // Added type
         ..fieldType.value = AccountType.investment
         ..isOpen = true;
 
@@ -232,7 +232,7 @@ void main() {
     // Its setValue involves Data().notifyMutationChanged which is harder to unit test without mocking.
     // We'll focus on the getValueForDisplay part which reflects the isOpen state.
     test('fieldIsAccountOpen reflects account open status', () {
-        final account = Account();
+        final Account account = Account(); // Added type
         account.isOpen = true;
         expect(account.fieldIsAccountOpen.getValueForDisplay(account), isTrue);
 
@@ -269,24 +269,27 @@ String? dateToIso8601OrDefaultString(DateTime? date, {String defaultValue = ''})
 
 // Minimal MyJson mock for testing
 extension TestJsonHelpers on Map<String, dynamic> { // Named the extension
-  String getString(String key, [String defaultValue = '']) {
-    return this[key] as String? ?? defaultValue;
+  String getString(String key, [String defaultValue = '']) { // Already typed, this might be for value inside
+    final dynamic value = this[key]; // Explicitly type value
+    return value as String? ?? defaultValue;
   }
 
-  int getInt(String key, [int defaultValue = 0]) {
-    return this[key] as int? ?? defaultValue;
+  int getInt(String key, [int defaultValue = 0]) { // Already typed
+    final dynamic value = this[key]; // Explicitly type value
+    return value as int? ?? defaultValue;
   }
 
-  double getDouble(String key, [double defaultValue = 0.0]) {
+  double getDouble(String key, [double defaultValue = 0.0]) { // Already typed
+    final dynamic value = this[key]; // Explicitly type value
     // Handle int values that might come from JSON for double fields
-    if (this[key] is int) {
-      return (this[key] as int).toDouble();
+    if (value is int) {
+      return value.toDouble();
     }
-    return this[key] as double? ?? defaultValue;
+    return value as double? ?? defaultValue;
   }
 
-  DateTime? getDate(String key) {
-    final value = this[key];
+  DateTime? getDate(String key) { // Already typed
+    final dynamic value = this[key]; // Explicitly type value
     if (value is String) {
       return DateTime.tryParse(value);
     }

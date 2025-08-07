@@ -2,11 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:money/data/models/money_objects/aliases/alias.dart';
 import 'package:money/data/models/money_objects/payees/payee.dart'; // Needed for Payee mock/instances
 import 'package:money/data/models/money_objects/payees/payees.dart'; // Import for the Payees class itself
-import 'package:money/data/storage/data/data.dart'; // For mocking Data and Payees
+// import 'package:money/data/storage/data/data.dart'; // Unused import removed
 
 // Mock classes
 class MockPayees extends Payees {
-  final Map<int, Payee> _payees = {};
+  final Map<int, Payee> _payees = <int, Payee>{}; // Explicit type args for map literal
 
   void addPayee(Payee payee) {
     _payees[payee.uniqueId] = payee;
@@ -29,13 +29,13 @@ class MockPayees extends Payees {
 void main() {
   group('Alias.fromJson', () {
     test('should correctly parse JSON', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         'Id': 1,
         'Pattern': 'Test Pattern',
         'Flags': 1, // Regex
         'Payee': 10,
       };
-      final alias = Alias.fromJson(json);
+      final Alias alias = Alias.fromJson(json); // Added type
 
       expect(alias.uniqueId, 1);
       expect(alias.fieldPattern.value, 'Test Pattern');
@@ -44,13 +44,13 @@ void main() {
     });
 
     test('should use default -1 for Id and Payee if missing', () {
-      final json = {
+      final Map<String, dynamic> json = <String, dynamic>{ // Added type
         // Id is missing
         'Pattern': 'Default ID Pattern',
         'Flags': 0, // None
         // Payee is missing
       };
-      final alias = Alias.fromJson(json);
+      final Alias alias = Alias.fromJson(json); // Added type
       expect(alias.uniqueId, -1); // Default from Alias.fromJson
       expect(alias.fieldPayeeId.value, -1); // Default from Alias.fromJson
     });
@@ -58,29 +58,29 @@ void main() {
 
   group('Alias.type getter', () {
     test('should return AliasType.none when flags is 0', () {
-      final alias = Alias(id: 1, pattern: 'p', flags: 0, payeeId: 1);
+      final Alias alias = Alias(id: 1, pattern: 'p', flags: 0, payeeId: 1); // Added type
       expect(alias.type, AliasType.none);
     });
 
     test('should return AliasType.regex when flags is not 0', () {
-      final alias = Alias(id: 1, pattern: 'p', flags: 1, payeeId: 1);
+      final Alias alias = Alias(id: 1, pattern: 'p', flags: 1, payeeId: 1); // Added type
       expect(alias.type, AliasType.regex);
 
-      final alias2 = Alias(id: 1, pattern: 'p', flags: -1, payeeId: 1);
+      final Alias alias2 = Alias(id: 1, pattern: 'p', flags: -1, payeeId: 1); // Added type
       expect(alias2.type, AliasType.regex);
     });
   });
 
   group('Alias.getRepresentation', () {
     test('should return fieldPattern.value', () {
-      final alias = Alias(id: 1, pattern: 'My Pattern', flags: 0, payeeId: 1);
+      final Alias alias = Alias(id: 1, pattern: 'My Pattern', flags: 0, payeeId: 1); // Added type
       expect(alias.getRepresentation(), 'My Pattern');
     });
   });
 
   group('Alias.isMatch', () {
     test('matches non-regex type with case-insensitive string comparison', () {
-      final alias = Alias(id: 1, pattern: 'Hello World', flags: AliasType.none.index, payeeId: 1); // flags = 0
+      final Alias alias = Alias(id: 1, pattern: 'Hello World', flags: AliasType.none.index, payeeId: 1); // Added type
       expect(alias.isMatch('Hello World'), isTrue);
       expect(alias.isMatch('hello world'), isTrue);
       expect(alias.isMatch('HELLO WORLD'), isTrue);
@@ -88,7 +88,7 @@ void main() {
     });
 
     test('matches regex type using RegExp', () {
-      final alias = Alias(id: 1, pattern: r'^Hel?lo\sW\w*d$', flags: AliasType.regex.index, payeeId: 1); // flags = 1
+      final Alias alias = Alias(id: 1, pattern: r'^Hel?lo\sW\w*d$', flags: AliasType.regex.index, payeeId: 1); // Added type
       expect(alias.isMatch('Hello World'), isTrue);
       expect(alias.isMatch('Helo Wold'), isTrue); // ? makes l optional
       expect(alias.isMatch('Hello Word'), isTrue); // * allows zero or more word chars after W
@@ -97,17 +97,17 @@ void main() {
     });
 
     test('regex is cached after first match attempt for regex type', () {
-      final alias = Alias(id: 1, pattern: r'^\d+$', flags: AliasType.regex.index, payeeId: 1);
+      final Alias alias = Alias(id: 1, pattern: r'^\d+$', flags: AliasType.regex.index, payeeId: 1); // Added type
       expect(alias.regex, isNull);
       alias.isMatch('123'); // First match
       expect(alias.regex, isNotNull);
-      final firstRegexInstance = alias.regex;
+      final RegExp? firstRegexInstance = alias.regex; // Added type
       alias.isMatch('456'); // Second match
       expect(alias.regex, same(firstRegexInstance)); // Should be the same instance
     });
 
     test('regex is not created for non-regex type', () {
-      final alias = Alias(id: 1, pattern: 'abc', flags: AliasType.none.index, payeeId: 1);
+      final Alias alias = Alias(id: 1, pattern: 'abc', flags: AliasType.none.index, payeeId: 1); // Added type
       alias.isMatch('abc');
       expect(alias.regex, isNull);
     });
@@ -121,9 +121,10 @@ void main() {
 // If these tests are run together, this extension might cause a conflict if not guarded.
 // For simplicity in this step, I'm assuming it's okay or these files are tested separately.
 // A shared test_helper.dart would be better for such extensions.
-extension TestJsonExtensions on Map<String, dynamic> {
+extension AliasTestJsonHelpers on Map<String, dynamic> { // Named extension
   String getString(String key, [String defaultValue = '']) {
-    return this[key] as String? ?? defaultValue;
+    final dynamic value = this[key]; // Added type
+    return value as String? ?? defaultValue;
   }
 
   int getInt(String key, [int defaultValue = 0]) {

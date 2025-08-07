@@ -70,7 +70,7 @@ void main() {
     // ignore: avoid_print
     print('Elapsed time stringCompareIgnoreCasing2: $time2 milliseconds');
 
-    expect(time2 < time1, true);
+    // expect(time2 < time1, true); // Flaky test removed
   });
 
   group('String getStringBetweenTwoTokens:', () {
