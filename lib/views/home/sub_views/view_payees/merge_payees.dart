@@ -140,16 +140,8 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
       final String categoryName = Data().categories.getNameFromId(categoryId).trim();
       if (categoryName.isNotEmpty) {
         radioButtonChoices.add(
-          ListTile(
-            leading: Radio<int?>(
-              value: categoryId,
-              groupValue: _estimatedCategory,
-              onChanged: (int? value) {
-                setState(() {
-                  _estimatedCategory = value;
-                });
-              },
-            ),
+          RadioListTile<int?>(
+            value: categoryId,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -186,17 +178,9 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
     if (radioButtonChoices.isNotEmpty) {
       radioButtonChoices.insert(
         0,
-        ListTile(
-          leading: Radio<int?>(
-            value: null,
-            groupValue: _estimatedCategory,
-            onChanged: (int? value) {
-              setState(() {
-                _estimatedCategory = value;
-              });
-            },
-          ),
-          title: const Text(
+        const RadioListTile<int?>(
+          value: null,
+          title: Text(
             'Keep all transactions to their current categories',
           ),
         ),
@@ -205,7 +189,17 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
 
     return SizedBox(
       height: 400,
-      child: SingleChildScrollView(child: Column(children: radioButtonChoices)),
+      child: SingleChildScrollView(
+        child: RadioGroup<int?>(
+          groupValue: _estimatedCategory,
+          onChanged: (int? value) {
+            setState(() {
+              _estimatedCategory = value;
+            });
+          },
+          child: Column(children: radioButtonChoices),
+        ),
+      ),
     );
   }
 }

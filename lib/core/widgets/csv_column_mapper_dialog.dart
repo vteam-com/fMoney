@@ -118,7 +118,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
           labelText: label,
           border: const OutlineInputBorder(),
         ),
-        value: currentValue,
+        initialValue: currentValue,
         hint: const Text('Select column'),
         isExpanded: true,
         items: widget.headers.map<DropdownMenuItem<String>>((String value) {
