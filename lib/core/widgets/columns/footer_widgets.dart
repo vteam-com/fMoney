@@ -141,6 +141,9 @@ Widget getFooterForNumericRange(final RunningAverage range, final FieldType fiel
 }
 
 String _formatValue(double value, FieldType fieldType) {
+  if (!isNumber(value)) {
+    return '---';
+  }
   switch (fieldType) {
     case FieldType.amount:
       return isSmallValue(value)
