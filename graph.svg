@@ -9697,8 +9697,8 @@
 <text xml:space="preserve" text-anchor="start" x="27793.62" y="-1234.45" font-family="Arial" font-size="15.00"> ccd: 27577 </text>
 <text xml:space="preserve" text-anchor="start" x="27793.62" y="-1216.45" font-family="Arial" font-size="15.00"> acd: 96.42 </text>
 <text xml:space="preserve" text-anchor="start" x="27793.62" y="-1198.45" font-family="Arial" font-size="15.00"> nccd: 13.4 </text>
-<text xml:space="preserve" text-anchor="start" x="27793.62" y="-1180.45" font-family="Arial" font-size="15.00"> totalSloc: 35212 </text>
-<text xml:space="preserve" text-anchor="start" x="27793.62" y="-1162.45" font-family="Arial" font-size="15.00"> avgSloc: 123.12 </text>
+<text xml:space="preserve" text-anchor="start" x="27793.62" y="-1180.45" font-family="Arial" font-size="15.00"> totalSloc: 35184 </text>
+<text xml:space="preserve" text-anchor="start" x="27793.62" y="-1162.45" font-family="Arial" font-size="15.00"> avgSloc: 123.02 </text>
 </g>
 </g>
 </svg>

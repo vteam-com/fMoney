@@ -305,14 +305,8 @@ extension ViewAccountsSidePanel on ViewAccountsState {
     required final Account account,
     required final bool showAsNativeCurrency,
   }) {
-    int sortFieldIndex = PreferenceController.to.getInt(
-      getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-      0,
-    );
-    final bool sortAscending = PreferenceController.to.getBool(
-      getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-      true,
-    );
+    int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
+    final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
 
     final SelectionController selectionController = Get.put(
       SelectionController(
@@ -362,23 +356,12 @@ extension ViewAccountsSidePanel on ViewAccountsState {
               // Save user choices
 
               // Select Column
-              PreferenceController.to.setInt(
-                getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-                sortByFieldIndex,
-              );
+              PreferenceController.to.setSidePanelSortBy(sortByFieldIndex);
               // Sort
-              PreferenceController.to.setBool(
-                getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-                sortAscending,
-              );
+              PreferenceController.to.setSidePanelSortAscending(sortAscending);
 
               // last item selected
-              PreferenceController.to.setInt(
-                getPreferenceKey(
-                  settingKeySidePanel + settingKeySelectedListItemId,
-                ),
-                selectedTransactionId,
-              );
+              PreferenceController.to.setSidePanelSelectedItemId(selectedTransactionId);
             },
       );
     });
@@ -389,14 +372,8 @@ extension ViewAccountsSidePanel on ViewAccountsState {
     required final Account account,
     required final bool showAsNativeCurrency,
   }) {
-    int sortFieldIndex = PreferenceController.to.getInt(
-      getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-      0,
-    );
-    final bool sortAscending = PreferenceController.to.getBool(
-      getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-      true,
-    );
+    int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
+    final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
 
     final SelectionController selectionController = Get.put(
       SelectionController(
@@ -432,12 +409,7 @@ extension ViewAccountsSidePanel on ViewAccountsState {
         onSelectionChanged: (int uniqueId) {
           sortFieldIndex = sortFieldIndex;
           selectionController.select(uniqueId);
-          PreferenceController.to.setInt(
-            getPreferenceKey(
-              settingKeySidePanel + settingKeySelectedListItemId,
-            ),
-            uniqueId,
-          );
+          PreferenceController.to.setSidePanelSelectedItemId(uniqueId);
         },
         onColumnHeaderTap: (int columnHeaderIndex) {
           // ignore: invalid_use_of_protected_member
@@ -448,10 +420,7 @@ extension ViewAccountsSidePanel on ViewAccountsState {
             } else {
               sortFieldIndex = columnHeaderIndex;
             }
-            PreferenceController.to.setInt(
-              getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-              sortFieldIndex,
-            );
+            PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
           });
         },
         onItemLongPress: (BuildContext context2, int itemId) {
@@ -461,10 +430,7 @@ extension ViewAccountsSidePanel on ViewAccountsState {
             moneyObject: instance,
           );
           selectionController.select(itemId);
-          PreferenceController.to.setInt(
-            getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-            itemId,
-          );
+          PreferenceController.to.setSidePanelSelectedItemId(itemId);
         },
       );
     });

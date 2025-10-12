@@ -88,6 +88,19 @@ class PreferenceController extends GetxController {
     setInt(settingKeySelectedSidePanelTab, value.index);
   }
 
+  // Side panel helper methods to reduce duplication
+  int getSidePanelSortBy() => getInt('$settingKeySidePanel$settingKeySortBy', 0);
+
+  void setSidePanelSortBy(int value) => setInt('$settingKeySidePanel$settingKeySortBy', value);
+
+  bool getSidePanelSortAscending() => getBool('$settingKeySidePanel$settingKeySortAscending', true);
+
+  void setSidePanelSortAscending(bool value) => setBool('$settingKeySidePanel$settingKeySortAscending', value);
+
+  int getSidePanelSelectedItemId() => getInt('$settingKeySidePanel$settingKeySelectedListItemId', -1);
+
+  void setSidePanelSelectedItemId(int value) => setInt('$settingKeySidePanel$settingKeySelectedListItemId', value);
+
   //////////////////////////////////////////////////////
   // Persistable user preference
 
