@@ -50,18 +50,21 @@ class MyApp extends StatelessWidget {
   // Theme Color and Font Size
   final ThemeController themeController = Get.put(ThemeController());
 
+  // Helper to generate shortcuts for both Control and Meta keys
+  static Map<ShortcutActivator, Intent> _dualShortcut(LogicalKeyboardKey key, Intent intent) {
+    return <ShortcutActivator, Intent>{
+      LogicalKeySet(LogicalKeyboardKey.control, key): intent,
+      LogicalKeySet(LogicalKeyboardKey.meta, key): intent,
+    };
+  }
+
   // Keyboard shortcuts
   final Map<ShortcutActivator, Intent> _shortcuts = <ShortcutActivator, Intent>{
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyR): const RebalanceIntent(),
-    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyR): const RebalanceIntent(),
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.equal): const ZoomInIntent(),
-    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.equal): const ZoomInIntent(),
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.minus): const ZoomOutIntent(),
-    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.minus): const ZoomOutIntent(),
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.digit0): const ZoomResetIntent(),
-    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.digit0): const ZoomResetIntent(),
-    LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyT): const NewTransactionIntent(),
-    LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyT): const NewTransactionIntent(),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.keyR, const RebalanceIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.equal, const ZoomInIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.minus, const ZoomOutIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.digit0, const ZoomResetIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.keyT, const NewTransactionIntent()),
   };
 
   // Actions for keyboard shortcuts
