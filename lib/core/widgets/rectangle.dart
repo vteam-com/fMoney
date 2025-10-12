@@ -22,11 +22,12 @@ class MyRectangle extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return DottedBorder(
-      padding: EdgeInsets.zero,
-      dashPattern: colorFill == Colors.transparent ? const <double>[4.0, 2.0] : const <double>[100.0, 0.0],
-      color: colorBorder,
-      strokeWidth: borderSize,
-      borderType: BorderType.Circle,
+      options: CircularDottedBorderOptions(
+        padding: EdgeInsets.zero,
+        dashPattern: colorFill == Colors.transparent ? const <double>[4.0, 2.0] : const <double>[100.0, 0.0],
+        color: colorBorder,
+        strokeWidth: borderSize,
+      ),
       child: Container(
         width: size,
         height: size,

@@ -116,7 +116,9 @@ unlinked_spec.ds
 **/linux/flutter/generated_plugin_registrant.h
 
 # Coverage
-coverage/
+coverage/**
+!coverage/cc.txt
+!coverage/lcov.info
 
 # Symbols
 app.*.symbols

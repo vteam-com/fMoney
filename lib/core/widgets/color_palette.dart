@@ -120,8 +120,11 @@ class ColorPalette extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(2),
       child: DottedBorder(
-        radius: const Radius.circular(3),
-        color: Colors.grey.withValues(alpha: 0.5),
+        options: RoundedRectDottedBorderOptions(
+          radius: const Radius.circular(3),
+          color: Colors.grey.withValues(alpha: 0.5),
+        ),
+
         child: SizedBox(
           width: 300,
           height: 70,

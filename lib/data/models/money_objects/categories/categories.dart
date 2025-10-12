@@ -52,9 +52,11 @@ class Categories extends MoneyObjects<Category> {
   }
 
   static Widget categoryWidgetForSplit = DottedBorder(
-    color: Colors.grey.shade600,
-    padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
-    radius: const Radius.circular(3),
+    options: RoundedRectDottedBorderOptions(
+      color: Colors.grey.shade600,
+      padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
+      radius: const Radius.circular(3),
+    ),
     child: const Text('Split'),
   );
 

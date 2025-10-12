@@ -33,9 +33,12 @@ Widget scaleDown(
 ///
 Widget buildDashboardWidget(final Widget child) {
   return DottedBorder(
-    color: Colors.grey.shade600,
-    padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
-    radius: const Radius.circular(3),
+    options: RoundedRectDottedBorderOptions(
+      color: Colors.grey.shade600,
+      padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
+      radius: const Radius.circular(3),
+    ),
+
     child: child,
   );
 }
