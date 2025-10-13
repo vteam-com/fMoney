@@ -120,18 +120,6 @@ class Constants {
   static String viewTransactionFieldNamePayee = 'Payee/Transfer';
 }
 
-class SizeForDoubles {
-  static const double huge = 55;
-  static const double large = 13;
-  static const double largeX = 21;
-  static const double largeXX = 34;
-  static const double nano = 2;
-  static const double normal = 8;
-  static const double one = 1;
-  static const double small = 5;
-  static const double tiny = 3;
-}
-
 class SizeForPadding {
   static const double huge = 21;
   static const double large = 13;
