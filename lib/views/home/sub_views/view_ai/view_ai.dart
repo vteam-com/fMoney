@@ -6,6 +6,7 @@ import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/core/widgets/text_title.dart';
 import 'package:money/core/widgets/working.dart';
+import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -429,6 +430,11 @@ class ViewAIState extends ViewWidgetState {
     // Cancel any existing timeout
     _timeoutTimer?.cancel();
 
+    String contextPrompt = '';
+    if (_contextMode == 1) {
+      contextPrompt = _getDataAsCSV();
+    }
+
     // Add user message to chat history
     setState(() {
       _chatHistory.add(
@@ -437,7 +443,7 @@ class ViewAIState extends ViewWidgetState {
           type: MessageType.user,
           timestamp: DateTime.now(),
           contextMode: _contextMode,
-          fullPrompt: _contextMode == 1 ? '$text\n\n${_getDataAsCSV()}' : null,
+          fullPrompt: _contextMode == 1 ? '$text\n\n$contextPrompt' : null,
         ),
       );
       _isProcessingPrompt = true;
@@ -467,8 +473,11 @@ class ViewAIState extends ViewWidgetState {
       String fullPrompt = text;
       if (_contextMode == 1) {
         // All data mode
-        fullPrompt = 'USER QUESTION: $text\n\n${_getDataAsCSV()}';
+        fullPrompt = 'USER QUESTION: $text\n\n$contextPrompt';
       }
+
+      // Ensure the prompt is valid UTF-8
+      fullPrompt = utf8.decode(utf8.encode(fullPrompt));
 
       // Send prompt to Ollama via HTTP API
       final Uri generateUrl = Uri.parse('http://localhost:11434/api/generate');
@@ -476,16 +485,19 @@ class ViewAIState extends ViewWidgetState {
 
       // Create the HTTP request
       final HttpClientRequest request = await client.postUrl(generateUrl);
-      request.headers.set(HttpHeaders.contentTypeHeader, 'application/json');
 
       // Prepare the JSON payload
       final Map<String, dynamic> payload = <String, dynamic>{
-        'model': 'llama2',
+        'model': 'deepseek-r1:14b', //'gpt-oss:20b',
         'prompt': fullPrompt,
         'stream': false, // Set to false for simplicity, response comes back all at once
       };
 
-      request.write(jsonEncode(payload));
+      // Write JSON-encoded body and set content-type (send as proper UTF-8 bytes)
+      request.headers.contentType = ContentType.json;
+      final List<int> utf8Body = utf8.encode(jsonEncode(payload));
+      request.add(utf8Body);
+
       final HttpClientResponse response = await request.close();
       final String responseBody = await response.transform(utf8.decoder).join();
 
@@ -570,68 +582,71 @@ class ViewAIState extends ViewWidgetState {
     final StringBuffer fullCsv = StringBuffer();
 
     // Header
-    fullCsv.writeln('ACCOUNTS');
+    // fullCsv.writeln('ACCOUNTS');
+    // try {
+    //   fullCsv.writeln(Data().accounts.toCSV());
+    // } catch (e) {
+    //   fullCsv.writeln('Error loading accounts data');
+    // }
+    // fullCsv.writeln();
+    // fullCsv.writeln('CATEGORIES');
+    // try {
+    //   fullCsv.writeln(Data().categories.toCSV());
+    // } catch (e) {
+    //   fullCsv.writeln('Error loading categories data');
+    // }
+    // fullCsv.writeln();
+    // fullCsv.writeln('PAYEES');
+    // try {
+    //   fullCsv.writeln(Data().payees.toCSV());
+    // } catch (e) {
+    //   fullCsv.writeln('Error loading payees data');
+    // }
+    // fullCsv.writeln();
+    // fullCsv.writeln('TRANSACTIONS');
     try {
-      fullCsv.writeln(Data().accounts.toCSV());
-    } catch (e) {
-      fullCsv.writeln('Error loading accounts data');
-    }
-    fullCsv.writeln();
-    fullCsv.writeln('CATEGORIES');
-    try {
-      fullCsv.writeln(Data().categories.toCSV());
-    } catch (e) {
-      fullCsv.writeln('Error loading categories data');
-    }
-    fullCsv.writeln();
-    fullCsv.writeln('PAYEES');
-    try {
-      fullCsv.writeln(Data().payees.toCSV());
-    } catch (e) {
-      fullCsv.writeln('Error loading payees data');
-    }
-    fullCsv.writeln();
-    fullCsv.writeln('TRANSACTIONS');
-    try {
-      fullCsv.writeln(Data().transactions.toCSV());
+      String csvString = '';
+
+      for (final Transaction transaction in Data().transactions.iterableList()) {
+        csvString +=
+            '"${transaction.accountName}"\t"${transaction.dateTimeAsString}"\t"${transaction.amountAsString}"'
+            '\n';
+      }
+
+      fullCsv.writeln(csvString);
     } catch (e) {
       fullCsv.writeln('Error loading transactions data');
     }
-    fullCsv.writeln();
-    fullCsv.writeln('INVESTMENTS');
-    try {
-      fullCsv.writeln(Data().investments.toCSV());
-    } catch (e) {
-      fullCsv.writeln('Error loading investments data');
-    }
-    fullCsv.writeln();
-    fullCsv.writeln('SECURITIES');
-    try {
-      fullCsv.writeln(Data().securities.toCSV());
-    } catch (e) {
-      fullCsv.writeln('Error loading securities data');
-    }
+    // fullCsv.writeln();
+    // fullCsv.writeln('INVESTMENTS');
+    // try {
+    //   fullCsv.writeln(Data().investments.toCSV());
+    // } catch (e) {
+    //   fullCsv.writeln('Error loading investments data');
+    // }
+    // fullCsv.writeln();
+    // fullCsv.writeln('SECURITIES');
+    // try {
+    //   fullCsv.writeln(Data().securities.toCSV());
+    // } catch (e) {
+    //   fullCsv.writeln('Error loading securities data');
+    // }
 
-    // Clean up the CSV string (remove carriage returns and nulls)
-    final String csvString = fullCsv.toString().replaceAll('\r', '').replaceAll('\u0000', '');
-    final int byteLength = utf8.encode(csvString).length;
+    // Clean up the CSV string (remove carriage returns, nulls, and UTF-8 BOM)
+    final String finacialData = fullCsv
+        .toString()
+        .replaceAll('\r', '')
+        .replaceAll('\u0000', '')
+        .replaceAll('\uFEFF', '');
 
-    // If CSV is less than 100,000 bytes, provide as plain CSV in a code block
-    if (byteLength < 100000) {
-      return "You are a financial AI assistant. Here is the user's financial data as CSV. Use this data to answer the user's questions and provide insights.\n"
-          'The CSV is formatted with section headers (e.g., ACCOUNTS, CATEGORIES, etc.).\n'
-          'CSV data:\n\n'
-          '```csv\n'
-          '$csvString'
-          '```\n';
-    } else {
-      // Otherwise, base64 encode and instruct the model to decode
-      final String base64Encoded = base64Encode(utf8.encode(csvString));
-      return "You are a financial AI assistant. Here is the user's financial data encoded in base64 (to avoid prompt size limits). "
-          'First, decode the following base64 string to retrieve the CSV data (the decoded text is UTF-8, sectioned by headers like ACCOUNTS, CATEGORIES, etc). '
-          "Then, use the decoded CSV to answer the user's questions and provide insights.\n"
-          'Base64 encoded CSV data:\n\n'
-          '$base64Encoded\n';
-    }
+    // Updated prompt to clarify CSV includes headers and is not code/numeric input
+    return 'You are an experienced financial analyst AI, not a programmer or developer. '
+        'You analyze transactions data and provide insights, summaries, and answers using clear, natural English sentences only. '
+        'You must NEVER write, mention, or generate any kind of code (including Python, VBA, SQL, or shell scripts)". '
+        'When the user asks a question such as "find the largest transaction amount", you must read the data, find the correct value, and respond like a financial report: '
+        'If multiple relevant insights exist, summarize them succinctly. '
+        '```Tab delimited rows\n'
+        '$finacialData'
+        '```\n';
   }
 }
