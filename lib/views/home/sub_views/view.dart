@@ -21,7 +21,12 @@ abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
   Widget build(final BuildContext context) {
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints constraints) {
-        return buildViewContent(const Center(child: Text('Content goes here')));
+        return Column(
+          children: <Widget>[
+            buildHeader(),
+            Expanded(child: buildViewContent(const Center(child: Text('Content goes here')))),
+          ],
+        );
       },
     );
   }

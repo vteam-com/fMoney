@@ -180,6 +180,7 @@ enum ViewId {
   viewInvestments,
   viewStocks,
   viewRentals,
+  viewAI,
   viewPolicy,
 }
 
@@ -215,6 +216,8 @@ extension ViewExtension on ViewId {
         return Icons.event_outlined;
       case ViewId.viewPolicy:
         return Icons.policy_outlined;
+      case ViewId.viewAI:
+        return Icons.smart_toy_outlined;
     }
   }
 

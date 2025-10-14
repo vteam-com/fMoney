@@ -147,17 +147,19 @@ class MyNavigationBar extends StatelessWidget {
         tooltip: 'Stocks tracking',
         icon: ViewId.viewStocks.getIcon(),
       ),
-    ];
-
-    if (PreferenceController.to.includeRentalManagement) {
-      appBarDestinations.add(
+      if (PreferenceController.to.includeRentalManagement)
         MyNavigationItem(
           label: 'Rentals',
           tooltip: 'Rentals',
           icon: ViewId.viewRentals.getIcon(),
         ),
-      );
-    }
+
+      MyNavigationItem(
+        label: 'AI Assistant',
+        tooltip: 'AI-powered financial insights',
+        icon: ViewId.viewAI.getIcon(),
+      ),
+    ];
 
     return appBarDestinations;
   }
