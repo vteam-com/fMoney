@@ -45,7 +45,6 @@ class ViewAIState extends ViewWidgetState {
   bool _isOllamaRunning = false;
   bool _isChecking = true;
   bool _isProcessingPrompt = false;
-  String _ollamaOutput = '';
   Timer? _timeoutTimer;
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
@@ -63,7 +62,6 @@ class ViewAIState extends ViewWidgetState {
             onPressed: () {
               setState(() {
                 _chatHistory.clear();
-                _ollamaOutput = '';
               });
             },
             icon: const Icon(Icons.delete_sweep_outlined),
@@ -134,35 +132,9 @@ class ViewAIState extends ViewWidgetState {
               reverse: false,
               itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
               itemBuilder: (BuildContext context, int index) {
-                // Show quick suggestions when no chat history
                 if (_chatHistory.isEmpty && !_isProcessingPrompt) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Text('Quick suggestions:', style: TextStyle(fontWeight: FontWeight.bold)),
-                      gapSmall(),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: <Widget>[
-                          ElevatedButton(
-                            onPressed: () => _sendUserPrompt('Analyze my spending patterns'),
-                            child: const Text('Analyze spending'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => _sendUserPrompt('Suggest budget optimizations'),
-                            child: const Text('Budget tips'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => _sendUserPrompt('Predict future expenses'),
-                            child: const Text('Expense predictions'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+                  return const Text('Welcome to your AI Accountant');
                 }
-
                 // Handle chat messages
                 final int messageIndex = index - (_chatHistory.isEmpty ? 1 : 0);
 
@@ -279,6 +251,7 @@ class ViewAIState extends ViewWidgetState {
             ),
             child: Column(
               spacing: 8,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 mySegmentSelector(
                   segments: <ButtonSegment<int>>[
@@ -297,6 +270,27 @@ class ViewAIState extends ViewWidgetState {
                       _contextMode = newSelection;
                     });
                   },
+                ),
+                SizedBox(
+                  width: 600,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () => _sendUserPrompt('Analyze my spending patterns'),
+                        child: const Text('Analyze spending'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _sendUserPrompt('Suggest budget optimizations'),
+                        child: const Text('Budget tips'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _sendUserPrompt('Predict future expenses'),
+                        child: const Text('Expense predictions'),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: <Widget>[
@@ -344,21 +338,17 @@ class ViewAIState extends ViewWidgetState {
       final HttpClient client = HttpClient();
       final HttpClientRequest request = await client.getUrl(ollamaUrl);
       final HttpClientResponse response = await request.close();
-      final String responseBody = await response.transform(utf8.decoder).join();
 
       if (response.statusCode == 200) {
         _isOllamaInstalled = true;
         _isOllamaRunning = true;
-        _ollamaOutput = 'Ollama detected and running. $responseBody';
       } else {
         _isOllamaInstalled = false;
         _isOllamaRunning = false;
-        _ollamaOutput = 'Ollama not running or not accessible via HTTP.';
       }
     } catch (e) {
       _isOllamaInstalled = false;
       _isOllamaRunning = false;
-      _ollamaOutput = 'Error checking Ollama status via HTTP: $e';
       if (kDebugMode) {
         print('Ollama check error: $e');
       }
@@ -377,9 +367,7 @@ class ViewAIState extends ViewWidgetState {
 
   Future<void> _sendUserPrompt(final String text) async {
     if (!_isOllamaRunning) {
-      setState(() {
-        _ollamaOutput = 'Ollama is not running. Please start the Ollama service.';
-      });
+      setState(() {});
       return;
     }
 
