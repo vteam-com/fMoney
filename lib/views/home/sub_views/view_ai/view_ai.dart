@@ -279,8 +279,6 @@ class ViewAIState extends ViewWidgetState {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          const WorkingIndicator(size: 16),
-                          gapSmall(),
                           Text(
                             'Thinking...',
                             style: TextStyle(
@@ -288,6 +286,8 @@ class ViewAIState extends ViewWidgetState {
                               fontStyle: FontStyle.italic,
                             ),
                           ),
+                          gapLarge(),
+                          const WorkingIndicator(size: 10),
                         ],
                       ),
                     ),
