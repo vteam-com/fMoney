@@ -13,12 +13,21 @@ import 'package:url_launcher/url_launcher.dart';
 enum MessageType { user, ai }
 
 class ChatMessage {
-  ChatMessage({required this.message, required this.type, required this.timestamp, this.isExpanded = false});
+  ChatMessage({
+    required this.message,
+    required this.type,
+    required this.timestamp,
+    this.isExpanded = false,
+    this.contextMode = 0,
+    this.fullPrompt,
+  });
 
   final String message;
   final MessageType type;
   final DateTime timestamp;
   bool isExpanded;
+  final int contextMode;
+  final String? fullPrompt;
 }
 
 class ViewAI extends ViewWidget {
@@ -147,57 +156,103 @@ class ViewAIState extends ViewWidgetState {
 
                   return Align(
                     alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 4),
-                      padding: const EdgeInsets.all(12),
+                    child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * 0.7,
                       ),
-                      decoration: BoxDecoration(
-                        color: isUser
-                            ? getColorTheme(context).primaryContainer
-                            : getColorTheme(context).surfaceContainerHighest,
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(16),
-                          topRight: const Radius.circular(16),
-                          bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(4),
-                          bottomRight: isUser ? const Radius.circular(4) : const Radius.circular(16),
-                        ),
-                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                         children: <Widget>[
-                          SelectableText(
-                            shouldTruncate && !message.isExpanded
-                                ? '${message.message.trim().split('\n').take(100).join('\n')}\n...'
-                                : message.message.trim(),
-                            style: TextStyle(
+                          if (isUser)
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Icon(
+                                  message.contextMode == 0 ? Icons.chat_bubble_outline : Icons.data_object,
+                                  color: getColorTheme(context).primary,
+                                  size: 16,
+                                ),
+                                gapSmall(),
+                                Text(
+                                  message.contextMode == 0 ? 'Generic' : 'Data context',
+                                  style: TextStyle(
+                                    color: getColorTheme(context).primary,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                if (message.fullPrompt != null) ...<Widget>[
+                                  gapSmall(),
+                                  IconButton(
+                                    onPressed: () {
+                                      _showPromptPopup(message.fullPrompt!);
+                                    },
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: getColorTheme(context).primary,
+                                      size: 16,
+                                    ),
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 24,
+                                      maxHeight: 24,
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
                               color: isUser
-                                  ? getColorTheme(context).onPrimaryContainer
-                                  : getColorTheme(context).onSurface,
+                                  ? getColorTheme(context).primaryContainer
+                                  : getColorTheme(context).surfaceContainerHighest,
+                              borderRadius: BorderRadius.only(
+                                topLeft: const Radius.circular(16),
+                                topRight: const Radius.circular(16),
+                                bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(4),
+                                bottomRight: isUser ? const Radius.circular(4) : const Radius.circular(16),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SelectableText(
+                                  shouldTruncate && !message.isExpanded
+                                      ? '${message.message.trim().split('\n').take(100).join('\n')}\n...'
+                                      : message.message.trim(),
+                                  style: TextStyle(
+                                    color: isUser
+                                        ? getColorTheme(context).onPrimaryContainer
+                                        : getColorTheme(context).onSurface,
+                                  ),
+                                ),
+                                if (shouldTruncate)
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        message.isExpanded = !message.isExpanded;
+                                      });
+                                    },
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      minimumSize: Size.zero,
+                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    child: Text(
+                                      message.isExpanded ? 'Read Less' : 'Read More',
+                                      style: TextStyle(
+                                        color: getColorTheme(context).primary,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
-                          if (shouldTruncate)
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  message.isExpanded = !message.isExpanded;
-                                });
-                              },
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              child: Text(
-                                message.isExpanded ? 'Read Less' : 'Read More',
-                                style: TextStyle(
-                                  color: getColorTheme(context).primary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
                         ],
                       ),
                     ),
@@ -376,7 +431,15 @@ class ViewAIState extends ViewWidgetState {
 
     // Add user message to chat history
     setState(() {
-      _chatHistory.add(ChatMessage(message: text, type: MessageType.user, timestamp: DateTime.now()));
+      _chatHistory.add(
+        ChatMessage(
+          message: text,
+          type: MessageType.user,
+          timestamp: DateTime.now(),
+          contextMode: _contextMode,
+          fullPrompt: _contextMode == 1 ? '$text\n\n${_getDataAsCSV()}' : null,
+        ),
+      );
       _isProcessingPrompt = true;
     });
 
@@ -384,7 +447,7 @@ class ViewAIState extends ViewWidgetState {
     _textController.clear();
 
     // Set 20-second timeout
-    _timeoutTimer = Timer(const Duration(seconds: 20), () {
+    _timeoutTimer = Timer(const Duration(seconds: 120), () {
       if (_isProcessingPrompt) {
         setState(() {
           _isProcessingPrompt = false;
@@ -474,39 +537,101 @@ class ViewAIState extends ViewWidgetState {
     }
   }
 
+  void _showPromptPopup(final String fullPrompt) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Full Prompt Sent to AI'),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: SingleChildScrollView(
+              child: SelectableText(
+                fullPrompt,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   String _getDataAsCSV() {
-    final StringBuffer context = StringBuffer();
-    context.writeln('You are a financial AI assistant. Here is the user\'s financial data for context:');
-    context.writeln();
+    final StringBuffer fullCsv = StringBuffer();
 
-    // Accounts Summary
-    context.writeln('ACCOUNTS:');
-    context.writeln(Data().accounts.toCSV());
-    context.writeln();
+    // Header
+    fullCsv.writeln('ACCOUNTS');
+    try {
+      fullCsv.writeln(Data().accounts.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading accounts data');
+    }
+    fullCsv.writeln();
+    fullCsv.writeln('CATEGORIES');
+    try {
+      fullCsv.writeln(Data().categories.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading categories data');
+    }
+    fullCsv.writeln();
+    fullCsv.writeln('PAYEES');
+    try {
+      fullCsv.writeln(Data().payees.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading payees data');
+    }
+    fullCsv.writeln();
+    fullCsv.writeln('TRANSACTIONS');
+    try {
+      fullCsv.writeln(Data().transactions.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading transactions data');
+    }
+    fullCsv.writeln();
+    fullCsv.writeln('INVESTMENTS');
+    try {
+      fullCsv.writeln(Data().investments.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading investments data');
+    }
+    fullCsv.writeln();
+    fullCsv.writeln('SECURITIES');
+    try {
+      fullCsv.writeln(Data().securities.toCSV());
+    } catch (e) {
+      fullCsv.writeln('Error loading securities data');
+    }
 
-    // Categories Summary
-    context.writeln('CATEGORIES:');
-    context.writeln(Data().categories.toCSV());
+    // Clean up the CSV string (remove carriage returns and nulls)
+    final String csvString = fullCsv.toString().replaceAll('\r', '').replaceAll('\u0000', '');
+    final int byteLength = utf8.encode(csvString).length;
 
-    // Payees Summary
-    context.writeln('PAYEES:');
-    context.writeln(Data().payees.toCSV());
-    context.writeln();
-
-    // Recent Transactions Summary (last 50 transactions)
-    context.writeln('RECENT TRANSACTIONS');
-    context.writeln(Data().transactions.toCSV());
-    context.writeln();
-
-    // Investments Summary
-    context.writeln('INVESTMENTS:');
-    context.writeln(Data().investments.toCSV());
-    context.writeln();
-
-    // Securities Summary
-    context.writeln('SECURITIES:');
-    context.writeln(Data().securities.toCSV());
-    context.writeln();
-    return context.toString();
+    // If CSV is less than 100,000 bytes, provide as plain CSV in a code block
+    if (byteLength < 100000) {
+      return "You are a financial AI assistant. Here is the user's financial data as CSV. Use this data to answer the user's questions and provide insights.\n"
+          'The CSV is formatted with section headers (e.g., ACCOUNTS, CATEGORIES, etc.).\n'
+          'CSV data:\n\n'
+          '```csv\n'
+          '$csvString'
+          '```\n';
+    } else {
+      // Otherwise, base64 encode and instruct the model to decode
+      final String base64Encoded = base64Encode(utf8.encode(csvString));
+      return "You are a financial AI assistant. Here is the user's financial data encoded in base64 (to avoid prompt size limits). "
+          'First, decode the following base64 string to retrieve the CSV data (the decoded text is UTF-8, sectioned by headers like ACCOUNTS, CATEGORIES, etc). '
+          "Then, use the decoded CSV to answer the user's questions and provide insights.\n"
+          'Base64 encoded CSV data:\n\n'
+          '$base64Encoded\n';
+    }
   }
 }
