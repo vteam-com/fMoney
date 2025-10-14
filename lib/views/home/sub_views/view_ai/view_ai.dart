@@ -10,6 +10,17 @@ import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+enum MessageType { user, ai }
+
+class ChatMessage {
+  ChatMessage({required this.message, required this.type, required this.timestamp, this.isExpanded = false});
+
+  final String message;
+  final MessageType type;
+  final DateTime timestamp;
+  bool isExpanded;
+}
+
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
 
@@ -38,6 +49,7 @@ class ViewAIState extends ViewWidgetState {
   Timer? _timeoutTimer;
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
+  final List<ChatMessage> _chatHistory = <ChatMessage>[];
 
   @override
   Widget buildHeader([final Widget? child]) {
@@ -50,6 +62,7 @@ class ViewAIState extends ViewWidgetState {
           IconButton(
             onPressed: () {
               setState(() {
+                _chatHistory.clear();
                 _ollamaOutput = '';
               });
             },
@@ -116,55 +129,144 @@ class ViewAIState extends ViewWidgetState {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            child: SingleChildScrollView(
+            child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  if (_ollamaOutput.isNotEmpty)
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: getColorTheme(context).surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: _isProcessingPrompt
-                          ? Row(
-                              spacing: 8,
-                              children: <Widget>[
-                                const WorkingIndicator(
-                                  size: 13,
-                                ),
-                                gapMedium(),
-                                SelectableText(_ollamaOutput),
-                              ],
-                            )
-                          : SelectableText(_ollamaOutput),
-                    ),
-                  gapLarge(),
-                  const Text('Quick suggestions:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  gapSmall(),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+              reverse: false,
+              itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
+              itemBuilder: (BuildContext context, int index) {
+                // Show quick suggestions when no chat history
+                if (_chatHistory.isEmpty && !_isProcessingPrompt) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => _sendPrompt('Analyze my spending patterns'),
-                        child: const Text('Analyze spending'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _sendPrompt('Suggest budget optimizations'),
-                        child: const Text('Budget tips'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _sendPrompt('Predict future expenses'),
-                        child: const Text('Expense predictions'),
+                      const Text('Quick suggestions:', style: TextStyle(fontWeight: FontWeight.bold)),
+                      gapSmall(),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: <Widget>[
+                          ElevatedButton(
+                            onPressed: () => _sendUserPrompt('Analyze my spending patterns'),
+                            child: const Text('Analyze spending'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _sendUserPrompt('Suggest budget optimizations'),
+                            child: const Text('Budget tips'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _sendUserPrompt('Predict future expenses'),
+                            child: const Text('Expense predictions'),
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
-              ),
+                  );
+                }
+
+                // Handle chat messages
+                final int messageIndex = index - (_chatHistory.isEmpty ? 1 : 0);
+
+                if (messageIndex < _chatHistory.length) {
+                  final ChatMessage message = _chatHistory[messageIndex];
+                  final bool isUser = message.type == MessageType.user;
+
+                  // Only apply truncation to AI messages, not user messages
+                  final bool shouldTruncate = !isUser && message.message.trim().split('\n').length > 100;
+
+                  return Align(
+                    alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.all(12),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isUser
+                            ? getColorTheme(context).primaryContainer
+                            : getColorTheme(context).surfaceContainerHighest,
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(16),
+                          topRight: const Radius.circular(16),
+                          bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(4),
+                          bottomRight: isUser ? const Radius.circular(4) : const Radius.circular(16),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SelectableText(
+                            shouldTruncate && !message.isExpanded
+                                ? '${message.message.trim().split('\n').take(100).join('\n')}\n...'
+                                : message.message.trim(),
+                            style: TextStyle(
+                              color: isUser
+                                  ? getColorTheme(context).onPrimaryContainer
+                                  : getColorTheme(context).onSurface,
+                            ),
+                          ),
+                          if (shouldTruncate)
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  message.isExpanded = !message.isExpanded;
+                                });
+                              },
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: Text(
+                                message.isExpanded ? 'Read Less' : 'Read More',
+                                style: TextStyle(
+                                  color: getColorTheme(context).primary,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  // Show processing indicator
+                  return Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.all(12),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                      decoration: BoxDecoration(
+                        color: getColorTheme(context).surfaceContainerHighest,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(4),
+                          bottomRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          const WorkingIndicator(size: 16),
+                          gapSmall(),
+                          Text(
+                            'Thinking...',
+                            style: TextStyle(
+                              color: getColorTheme(context).onSurfaceVariant,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
           ),
 
@@ -284,17 +386,27 @@ class ViewAIState extends ViewWidgetState {
     // Cancel any existing timeout
     _timeoutTimer?.cancel();
 
+    // Add user message to chat history
     setState(() {
+      _chatHistory.add(ChatMessage(message: text, type: MessageType.user, timestamp: DateTime.now()));
       _isProcessingPrompt = true;
-      _ollamaOutput = 'Sending prompt to AI: $text\n\nProcessing...';
     });
+
+    // Clear input field
+    _textController.clear();
 
     // Set 20-second timeout
     _timeoutTimer = Timer(const Duration(seconds: 20), () {
       if (_isProcessingPrompt) {
         setState(() {
           _isProcessingPrompt = false;
-          _ollamaOutput = 'Request timed out after 20 seconds. Please try again.';
+          _chatHistory.add(
+            ChatMessage(
+              message: 'Request timed out. Please try again.',
+              type: MessageType.ai,
+              timestamp: DateTime.now(),
+            ),
+          );
         });
       }
     });
@@ -336,13 +448,24 @@ class ViewAIState extends ViewWidgetState {
         final String aiResponse = jsonResponse['response'] as String;
         setState(() {
           _isProcessingPrompt = false;
-          _ollamaOutput = 'AI Response:\n$aiResponse';
-          _textController.clear(); // Clear the input text after sending
+          _chatHistory.add(
+            ChatMessage(
+              message: aiResponse.trim(),
+              type: MessageType.ai,
+              timestamp: DateTime.now(),
+            ),
+          );
         });
       } else {
         setState(() {
           _isProcessingPrompt = false;
-          _ollamaOutput = 'Error: HTTP ${response.statusCode} - $responseBody';
+          _chatHistory.add(
+            ChatMessage(
+              message: 'Error: HTTP ${response.statusCode}',
+              type: MessageType.ai,
+              timestamp: DateTime.now(),
+            ),
+          );
         });
       }
     } catch (e) {
@@ -352,83 +475,13 @@ class ViewAIState extends ViewWidgetState {
 
       setState(() {
         _isProcessingPrompt = false;
-        _ollamaOutput = 'Error sending prompt via HTTP: $e';
-      });
-    }
-  }
-
-  Future<void> _sendPrompt(final String prompt, [String fullPrompt = '']) async {
-    if (!_isOllamaRunning) {
-      setState(() {
-        _ollamaOutput = 'Ollama is not running. Please start the Ollama service.';
-      });
-      return;
-    }
-
-    // Cancel any existing timeout
-    _timeoutTimer?.cancel();
-
-    setState(() {
-      _isProcessingPrompt = true;
-      _ollamaOutput = 'Sending prompt to AI: $prompt\n\nProcessing...';
-    });
-
-    // Set 20-second timeout
-    _timeoutTimer = Timer(const Duration(seconds: 20), () {
-      if (_isProcessingPrompt) {
-        setState(() {
-          _isProcessingPrompt = false;
-          _ollamaOutput = 'Request timed out after 20 seconds. Please try again.';
-        });
-      }
-    });
-
-    try {
-      // Send prompt to Ollama via HTTP API
-      final Uri generateUrl = Uri.parse('http://localhost:11434/api/generate');
-      final HttpClient client = HttpClient();
-
-      // Create the HTTP request
-      final HttpClientRequest request = await client.postUrl(generateUrl);
-      request.headers.set(HttpHeaders.contentTypeHeader, 'application/json');
-
-      // Prepare the JSON payload
-      final Map<String, dynamic> payload = <String, dynamic>{
-        'model': 'llama2',
-        'prompt': fullPrompt.isEmpty ? prompt : fullPrompt,
-        'stream': false, // Set to false for simplicity, response comes back all at once
-      };
-
-      request.write(jsonEncode(payload));
-      final HttpClientResponse response = await request.close();
-      final String responseBody = await response.transform(utf8.decoder).join();
-
-      // Cancel the timeout timer since we got a response
-      _timeoutTimer?.cancel();
-      _timeoutTimer = null;
-
-      if (response.statusCode == 200) {
-        // Parse the JSON response
-        final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
-        final String aiResponse = jsonResponse['response'] as String;
-        setState(() {
-          _isProcessingPrompt = false;
-          _ollamaOutput = 'AI Response:\n$aiResponse';
-        });
-      } else {
-        setState(() {
-          _isProcessingPrompt = false;
-          _ollamaOutput = 'Error: HTTP ${response.statusCode} - $responseBody';
-        });
-      }
-    } catch (e) {
-      // Cancel the timeout timer since we got an error
-      _timeoutTimer?.cancel();
-      _timeoutTimer = null;
-
-      setState(() {
-        _isProcessingPrompt = false;
-        _ollamaOutput = 'Error sending prompt via HTTP: $e';
+        _chatHistory.add(
+          ChatMessage(
+            message: 'Error: $e',
+            type: MessageType.ai,
+            timestamp: DateTime.now(),
+          ),
+        );
       });
     }
   }
