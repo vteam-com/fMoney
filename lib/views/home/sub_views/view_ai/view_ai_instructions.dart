@@ -67,12 +67,12 @@ class OllamaManager {
   static bool _isOllamaInstalled = false;
   static bool _isOllamaRunning = false;
   static final List<Map<String, dynamic>> _availableModels = <Map<String, dynamic>>[];
-  static String _selectedModel = modelToUseInOllama;
+  // Selected model is now managed in OllamaService
 
   static bool get isOllamaInstalled => _isOllamaInstalled;
   static bool get isOllamaRunning => _isOllamaRunning;
   static List<Map<String, dynamic>> get availableModels => _availableModels;
-  static String get selectedModel => _selectedModel;
+  // Selected model is now managed in OllamaService
 
   static Future<void> checkOllamaStatus() async {
     _isOllamaInstalled = false;
@@ -161,7 +161,7 @@ class OllamaManager {
         // 🧩 Launch Ollama as a background process, *without showing its window*
         await Process.start(
           'ollama',
-          <String>['run', modelToUseInOllama],
+          <String>['run', OllamaService.selectedModel],
           mode: ProcessStartMode.detached,
           environment: Platform.environment,
         );
@@ -222,8 +222,7 @@ class OllamaManager {
           (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
               stringCompareIgnoreCasing2(a['name'] as String, b['name'] as String),
         );
-        _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
-        modelToUseInOllama = _selectedModel;
+        OllamaService.selectedModel = models.isNotEmpty ? models.first['name'] as String : OllamaService.selectedModel;
       }
     } catch (e) {
       if (kDebugMode) {
@@ -234,14 +233,12 @@ class OllamaManager {
 
   static Future<void> loadSelectedModel() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _selectedModel = prefs.getString('selected_ollama_model') ?? modelToUseInOllama;
-    modelToUseInOllama = _selectedModel;
+    OllamaService.selectedModel = prefs.getString('selected_ollama_model') ?? OllamaService.selectedModel;
   }
 
   static Future<void> saveSelectedModel(final String model) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selected_ollama_model', model);
-    _selectedModel = model;
-    modelToUseInOllama = model;
+    OllamaService.selectedModel = model;
   }
 }

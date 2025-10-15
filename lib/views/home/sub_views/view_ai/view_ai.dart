@@ -42,8 +42,7 @@ class ViewAIState extends ViewWidgetState {
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
-  final List<Map<String, dynamic>> _availableModels = <Map<String, dynamic>>[];
-  String _selectedModel = modelToUseInOllama;
+  // Selected model is now managed in OllamaService
 
   @override
   void initState() {
@@ -55,13 +54,11 @@ class ViewAIState extends ViewWidgetState {
   @override
   Widget buildHeader([final Widget? child]) {
     return ViewAIModelSelection(
-      availableModels: _availableModels,
-      selectedModel: _selectedModel,
+      availableModels: OllamaService.availableModels,
+      selectedModel: OllamaService.selectedModel,
       onModelSelected: (final String selectedModel) async {
-        setState(() {
-          _selectedModel = selectedModel;
-          modelToUseInOllama = selectedModel;
-        });
+        setState(() {}); // Refresh to update the selected model display
+        OllamaService.selectedModel = selectedModel;
         await OllamaService.saveSelectedModel(selectedModel);
       },
       onClearChat: () {
@@ -317,7 +314,7 @@ class ViewAIState extends ViewWidgetState {
 
     // Prepare the JSON payload
     final Map<String, dynamic> payload = <String, dynamic>{
-      'model': modelToUseInOllama,
+      'model': OllamaService.selectedModel,
       'system':
           "You are a professional financial analyst AI. Your only task is to read the provided transaction data and directly answer the user's question in plain English. Do NOT include reasoning, internal thoughts, <think> tags, explanations, or commentary. Only output the final result as concise natural sentences.",
       'prompt': 'Question: $fullPrompt',
@@ -506,7 +503,8 @@ class ViewAIState extends ViewWidgetState {
 
         // Get the list of models
         if (_isOllamaRunning) {
-          await _loadAvailableModels();
+          await OllamaService.loadAvailableModels();
+          setState(() {});
         }
       }
     } catch (e) {
@@ -514,14 +512,5 @@ class ViewAIState extends ViewWidgetState {
     }
 
     setState(() => _isChecking = false);
-  }
-
-  Future<void> _loadAvailableModels() async {
-    final List<Map<String, dynamic>> models = await OllamaService.loadAvailableModels();
-    setState(() {
-      _availableModels.clear();
-      _availableModels.addAll(models);
-      _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
-    });
   }
 }

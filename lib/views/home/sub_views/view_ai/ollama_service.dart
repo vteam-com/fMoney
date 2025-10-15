@@ -6,9 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Using a const for now, but this should be configurable and loaded dynamically
-String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
 
 class OllamaService {
+  static const String defaultModel = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
+
+  static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
+  static String selectedModel = defaultModel;
   static Future<bool> checkIfOllamaInstalled() async {
     try {
       final ProcessResult installResult = await Process.run('which', <String>['ollama']);
@@ -62,7 +65,7 @@ class OllamaService {
       if (Platform.isMacOS) {
         await Process.start(
           'ollama',
-          <String>['run', modelToUseInOllama],
+          <String>['run', selectedModel],
           mode: ProcessStartMode.detached,
           environment: Platform.environment,
         );
@@ -117,8 +120,7 @@ class OllamaService {
         final String responseBody = await response.transform(utf8.decoder).join();
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
-        final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
-
+        availableModels.clear();
         availableModels.addAll(
           models.map((final dynamic model) => model as Map<String, dynamic>),
         );
@@ -128,8 +130,8 @@ class OllamaService {
               (a['name'] as String).compareTo(b['name'] as String),
         );
 
-        final String firstModelName = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
-        modelToUseInOllama = firstModelName;
+        final String firstModelName = models.isNotEmpty ? models.first['name'] as String : selectedModel;
+        selectedModel = firstModelName;
 
         return availableModels;
       }
@@ -143,8 +145,8 @@ class OllamaService {
 
   static Future<void> loadSelectedModel() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String selectedModel = prefs.getString('selected_ollama_model') ?? modelToUseInOllama;
-    modelToUseInOllama = selectedModel;
+    final String loadedModel = prefs.getString('selected_ollama_model') ?? selectedModel;
+    selectedModel = loadedModel;
   }
 
   static Future<void> saveSelectedModel(final String model) async {
