@@ -4,11 +4,6 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 
 enum MessageType { user, ai }
 
-// Using a const for now, but this should be configurable and loaded dynamically
-String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
-
-// Sub-widgets for better organization
-
 class ChatInterface extends StatefulWidget {
   const ChatInterface({
     super.key,

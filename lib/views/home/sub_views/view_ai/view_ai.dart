@@ -5,24 +5,18 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/box.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/core/widgets/my_svg.dart';
-import 'package:money/core/widgets/text_title.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-// Using a const for now, but this should be configurable and loaded dynamically
-String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
-
-// Sub-widgets for better organization
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -104,53 +98,15 @@ class ViewAIState extends ViewWidgetState {
       );
     }
 
-    if (!_isOllamaInstalled) {
-      return _buildOllamaInstructions();
+    if (!_isOllamaInstalled || !_isOllamaRunning) {
+      return ViewAIInstructions(
+        isOllamaInstalled: _isOllamaInstalled,
+        isOllamaRunning: _isOllamaRunning,
+        onInstall: _installOllama,
+        onCheckStatus: _checkOllamaStatus,
+      );
     }
 
-    if (!_isOllamaRunning) {
-      return _buildOllamaInstructions();
-    }
-    return _buildChatInterface();
-  }
-
-  Widget _buildOllamaInstructions() {
-    return Center(
-      child: Box(
-        padding: SizeForPadding.large,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            MySvg(
-              assetName: 'ollama.svg',
-              size: 64,
-              color: getColorTheme(context).primary,
-            ),
-            gapLarge(),
-            const TextTitle('Ollama AI Assistant'),
-            gapMedium(),
-            const Text(
-              'Ollama is required to use the AI assistant. Click below to install it.',
-              textAlign: TextAlign.center,
-            ),
-            gapLarge(),
-            if (!_isOllamaInstalled)
-              ElevatedButton(
-                onPressed: _installOllama,
-                child: const Text('Install Ollama now'),
-              ),
-            if (!_isOllamaRunning)
-              ElevatedButton(
-                onPressed: _checkOllamaStatus,
-                child: const Text('Run Ollama'),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildChatInterface() {
     return Container(
       color: getColorTheme(context).surface,
       child: Column(
