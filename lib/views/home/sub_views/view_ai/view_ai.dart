@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/box.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
@@ -874,6 +875,11 @@ class ViewAIState extends ViewWidgetState {
           _availableModels.clear();
           _availableModels.addAll(
             models.map((final dynamic model) => model as Map<String, dynamic>),
+          );
+          // Sort models by name
+          _availableModels.sort(
+            (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
+                stringCompareIgnoreCasing2(a['name'] as String, b['name'] as String),
           );
           _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
           modelToUseInOllama = _selectedModel;
