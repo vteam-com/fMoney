@@ -13,11 +13,13 @@ import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 enum MessageType { user, ai }
 
-const String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
+// Using a const for now, but this should be configurable and loaded dynamically
+String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
 
 class ChatMessage {
   ChatMessage({
@@ -65,6 +67,8 @@ class ViewAIState extends ViewWidgetState {
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
+  final List<Map<String, dynamic>> _availableModels = <Map<String, dynamic>>[];
+  late String _selectedModel;
 
   @override
   Widget buildHeader([final Widget? child]) {
@@ -73,7 +77,93 @@ class ViewAIState extends ViewWidgetState {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const TextTitle('AI Assistant'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 16,
+            children: <Widget>[
+              const TextTitle('AI Assistant'),
+              if (_availableModels.isNotEmpty)
+                PopupMenuButton<String>(
+                  onSelected: (final String selectedModel) async {
+                    setState(() {
+                      _selectedModel = selectedModel;
+                      modelToUseInOllama = selectedModel;
+                    });
+                    await _saveSelectedModel(selectedModel);
+                  },
+                  itemBuilder: (final BuildContext context) =>
+                      _availableModels.map<PopupMenuEntry<String>>((final Map<String, dynamic> model) {
+                        final String modelName = model['name'] as String;
+                        final String size = _formatSize(model['size'] as int);
+                        // final Map<String, dynamic> details = model['details'] as Map<String, dynamic>;
+                        // final String family = details['family'] as String;
+                        // final String parameterSize = details['parameter_size'] as String;
+                        // final String quantization = details['quantization_level'] as String;
+
+                        return PopupMenuItem<String>(
+                          value: modelName,
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              spacing: 4,
+                              children: <Widget>[
+                                Expanded(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      modelName,
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Chip(
+                                    padding: const EdgeInsets.all(0),
+                                    label: Text(
+                                      size,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: getColorTheme(context).onSurfaceVariant.withAlpha(200),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      SvgPicture.asset(
+                        'assets/images/ollama.svg',
+                        width: 20,
+                        height: 20,
+                        colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
+                      ),
+                      gapSmall(),
+                      Text(
+                        _selectedModel,
+                        style: TextStyle(
+                          color: getColorTheme(context).primary,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: getColorTheme(context).primary,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
           IconButton(
             onPressed: () {
               setState(() {
@@ -123,6 +213,7 @@ class ViewAIState extends ViewWidgetState {
   @override
   void initState() {
     super.initState();
+    _loadSelectedModel();
     _checkOllamaStatus();
   }
 
@@ -653,7 +744,11 @@ class ViewAIState extends ViewWidgetState {
           await _startOllama();
           _isOllamaRunning = await _checkIfOllamaRunning();
         }
-        // Check if Ollama is running via HTTP request
+
+        // Get the list of models
+        if (_isOllamaRunning) {
+          await _loadAvailableModels();
+        }
       }
     } catch (e) {
       if (kDebugMode) {
@@ -764,5 +859,55 @@ class ViewAIState extends ViewWidgetState {
     } catch (e) {
       print('❌ Failed to start Ollama: $e');
     }
+  }
+
+  Future<void> _loadAvailableModels() async {
+    try {
+      final HttpClient client = HttpClient();
+      final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
+      final HttpClientResponse response = await request.close();
+      if (response.statusCode == 200) {
+        final String responseBody = await response.transform(utf8.decoder).join();
+        final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
+        final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
+        setState(() {
+          _availableModels.clear();
+          _availableModels.addAll(
+            models.map((final dynamic model) => model as Map<String, dynamic>),
+          );
+          _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
+          modelToUseInOllama = _selectedModel;
+        });
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error loading models: $e');
+      }
+    }
+  }
+
+  String _formatSize(final int bytes) {
+    if (bytes >= 1024 * 1024 * 1024) {
+      return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
+    } else if (bytes >= 1024 * 1024) {
+      return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+    } else if (bytes >= 1024) {
+      return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    } else {
+      return '$bytes B';
+    }
+  }
+
+  Future<void> _loadSelectedModel() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedModel = prefs.getString('selected_ollama_model') ?? modelToUseInOllama;
+      modelToUseInOllama = _selectedModel;
+    });
+  }
+
+  Future<void> _saveSelectedModel(final String model) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selected_ollama_model', model);
   }
 }
