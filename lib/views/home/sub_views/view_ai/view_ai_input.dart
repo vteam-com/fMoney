@@ -3,10 +3,6 @@
 import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/data/storage/data/data.dart';
 
-enum MessageType { user, ai }
-
-// Sub-widgets for better organization
-
 class ChatInputArea extends StatefulWidget {
   const ChatInputArea({
     super.key,

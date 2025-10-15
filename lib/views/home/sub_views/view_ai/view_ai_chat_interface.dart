@@ -2,8 +2,6 @@ import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 
-enum MessageType { user, ai }
-
 class ChatInterface extends StatefulWidget {
   const ChatInterface({
     super.key,

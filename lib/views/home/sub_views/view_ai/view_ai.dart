@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -273,116 +273,29 @@ class ViewAIState extends ViewWidgetState {
               },
             ),
           ),
-
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: getColorTheme(context).outline.withAlpha(100)),
-              ),
-            ),
-            child: Column(
-              spacing: 8,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  width: 600,
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => _sendUserPrompt('Analyze my spending patterns'),
-                        child: const Text('Analyze spending'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          _contextMode = 1;
-                          _sendUserPrompt('Identify the largest single transaction amount in each account');
-                        },
-                        child: const Text('Largest transactions'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _sendUserPrompt('Predict future expenses'),
-                        child: const Text('Expense predictions'),
-                      ),
-                    ],
+          ChatInputArea(
+            contextMode: _contextMode,
+            onContextModeChanged: (int value) {
+              setState(() {
+                _contextMode = value;
+              });
+            },
+            onSendPrompt: _sendUserPrompt,
+            isProcessing: _isProcessingPrompt,
+            onCancel: () {
+              setState(() {
+                _cancelled = true;
+                _isProcessingPrompt = false;
+                _chatHistory.add(
+                  ChatMessage(
+                    message: 'Request was cancelled.',
+                    type: MessageType.ai,
+                    timestamp: DateTime.now(),
+                    payloadSentToOllama: <String, dynamic>{},
                   ),
-                ),
-                Row(
-                  spacing: 8,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 100,
-                      child: mySegmentSelector(
-                        direction: Axis.vertical,
-                        showSelectedIcon: false,
-                        segments: <ButtonSegment<int>>[
-                          const ButtonSegment<int>(
-                            value: 0,
-                            label: Text('Generic'),
-                          ),
-                          const ButtonSegment<int>(
-                            value: 1,
-                            label: Text('All data'),
-                          ),
-                        ],
-                        selectedId: _contextMode,
-                        onSelectionChanged: (final int newSelection) {
-                          setState(() {
-                            _contextMode = newSelection;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _textController,
-                        decoration: InputDecoration(
-                          hintText: 'Ask the AI assistant...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        ),
-                        onSubmitted: (final String text) {
-                          _sendUserPrompt(text);
-                        },
-                      ),
-                    ),
-
-                    if (_isProcessingPrompt)
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _cancelled = true;
-                            _isProcessingPrompt = false;
-                            _chatHistory.add(
-                              ChatMessage(
-                                message: 'Request was cancelled.',
-                                type: MessageType.ai,
-                                timestamp: DateTime.now(),
-                                payloadSentToOllama: <String, dynamic>{},
-                              ),
-                            );
-                          });
-                        },
-                        icon: Icon(Icons.cancel, color: getColorTheme(context).primary),
-                      )
-                    else
-                      IconButton(
-                        onPressed: () {
-                          final String text = _textController.text;
-                          if (text.isNotEmpty) {
-                            _sendUserPrompt(text);
-                          }
-                        },
-                        icon: Icon(Icons.send, color: getColorTheme(context).primary),
-                      ),
-                  ],
-                ),
-              ],
-            ),
+                );
+              });
+            },
           ),
         ],
       ),
