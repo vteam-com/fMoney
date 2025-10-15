@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/working.dart';
@@ -14,7 +13,6 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -50,7 +48,7 @@ class ViewAIState extends ViewWidgetState {
   @override
   void initState() {
     super.initState();
-    _loadSelectedModel();
+
     _checkOllamaStatus();
   }
 
@@ -64,7 +62,7 @@ class ViewAIState extends ViewWidgetState {
           _selectedModel = selectedModel;
           modelToUseInOllama = selectedModel;
         });
-        await _saveSelectedModel(selectedModel);
+        await OllamaService.saveSelectedModel(selectedModel);
       },
       onClearChat: () {
         setState(() {
@@ -519,45 +517,11 @@ class ViewAIState extends ViewWidgetState {
   }
 
   Future<void> _loadAvailableModels() async {
-    try {
-      final HttpClient client = HttpClient();
-      final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-      final HttpClientResponse response = await request.close();
-      if (response.statusCode == 200) {
-        final String responseBody = await response.transform(utf8.decoder).join();
-        final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
-        final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
-        setState(() {
-          _availableModels.clear();
-          _availableModels.addAll(
-            models.map((final dynamic model) => model as Map<String, dynamic>),
-          );
-          // Sort models by name
-          _availableModels.sort(
-            (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
-                stringCompareIgnoreCasing2(a['name'] as String, b['name'] as String),
-          );
-          _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
-          modelToUseInOllama = _selectedModel;
-        });
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error loading models: $e');
-      }
-    }
-  }
-
-  Future<void> _loadSelectedModel() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<Map<String, dynamic>> models = await OllamaService.loadAvailableModels();
     setState(() {
-      _selectedModel = prefs.getString('selected_ollama_model') ?? modelToUseInOllama;
-      modelToUseInOllama = _selectedModel;
+      _availableModels.clear();
+      _availableModels.addAll(models);
+      _selectedModel = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
     });
-  }
-
-  Future<void> _saveSelectedModel(final String model) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selected_ollama_model', model);
   }
 }

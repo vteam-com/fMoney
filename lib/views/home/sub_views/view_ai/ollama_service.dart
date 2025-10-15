@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Using a const for now, but this should be configurable and loaded dynamically
@@ -12,9 +14,7 @@ class OllamaService {
       final ProcessResult installResult = await Process.run('which', <String>['ollama']);
       return installResult.exitCode == 0;
     } catch (e) {
-      if (kDebugMode) {
-        print('Ollama check error: $e');
-      }
+      debugPrint('Ollama check error: $e');
       return false;
     }
   }
@@ -106,5 +106,49 @@ class OllamaService {
     } catch (e) {
       debugPrint('❌ Failed to start Ollama: $e');
     }
+  }
+
+  static Future<List<Map<String, dynamic>>> loadAvailableModels() async {
+    try {
+      final HttpClient client = HttpClient();
+      final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
+      final HttpClientResponse response = await request.close();
+      if (response.statusCode == 200) {
+        final String responseBody = await response.transform(utf8.decoder).join();
+        final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
+        final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
+        final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
+
+        availableModels.addAll(
+          models.map((final dynamic model) => model as Map<String, dynamic>),
+        );
+        // Sort models by name
+        availableModels.sort(
+          (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
+              (a['name'] as String).compareTo(b['name'] as String),
+        );
+
+        final String firstModelName = models.isNotEmpty ? models.first['name'] as String : modelToUseInOllama;
+        modelToUseInOllama = firstModelName;
+
+        return availableModels;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error loading models: $e');
+      }
+    }
+    return <Map<String, dynamic>>[];
+  }
+
+  static Future<void> loadSelectedModel() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String selectedModel = prefs.getString('selected_ollama_model') ?? modelToUseInOllama;
+    modelToUseInOllama = selectedModel;
+  }
+
+  static Future<void> saveSelectedModel(final String model) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selected_ollama_model', model);
   }
 }
