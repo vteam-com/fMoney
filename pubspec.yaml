@@ -66,6 +66,7 @@ dependencies:
   window_manager: ^0.5.0
 
 dev_dependencies:
+  analyzer:
   flutter_launcher_icons:
   flutter_lints: ^6.0.0
   flutter_test:
@@ -104,6 +105,7 @@ flutter:
   assets:
     - assets/flags/
     - assets/images/
+    - assets/images/platforms/
 
   fonts:
     - family: RobotoFlex
