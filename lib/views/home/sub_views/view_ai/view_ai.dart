@@ -309,24 +309,6 @@ class ViewAIState extends ViewWidgetState {
               spacing: 8,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                mySegmentSelector(
-                  segments: <ButtonSegment<int>>[
-                    const ButtonSegment<int>(
-                      value: 0,
-                      label: Text('Generic'),
-                    ),
-                    const ButtonSegment<int>(
-                      value: 1,
-                      label: Text('All data'),
-                    ),
-                  ],
-                  selectedId: _contextMode,
-                  onSelectionChanged: (final int newSelection) {
-                    setState(() {
-                      _contextMode = newSelection;
-                    });
-                  },
-                ),
                 SizedBox(
                   width: 600,
                   child: Wrap(
@@ -338,8 +320,11 @@ class ViewAIState extends ViewWidgetState {
                         child: const Text('Analyze spending'),
                       ),
                       ElevatedButton(
-                        onPressed: () => _sendUserPrompt('Suggest budget optimizations'),
-                        child: const Text('Budget tips'),
+                        onPressed: () {
+                          _contextMode = 1;
+                          _sendUserPrompt('Identify the largest single transaction amount in each account');
+                        },
+                        child: const Text('Largest transactions'),
                       ),
                       ElevatedButton(
                         onPressed: () => _sendUserPrompt('Predict future expenses'),
@@ -349,7 +334,31 @@ class ViewAIState extends ViewWidgetState {
                   ),
                 ),
                 Row(
+                  spacing: 8,
                   children: <Widget>[
+                    SizedBox(
+                      width: 100,
+                      child: mySegmentSelector(
+                        direction: Axis.vertical,
+                        showSelectedIcon: false,
+                        segments: <ButtonSegment<int>>[
+                          const ButtonSegment<int>(
+                            value: 0,
+                            label: Text('Generic'),
+                          ),
+                          const ButtonSegment<int>(
+                            value: 1,
+                            label: Text('All data'),
+                          ),
+                        ],
+                        selectedId: _contextMode,
+                        onSelectionChanged: (final int newSelection) {
+                          setState(() {
+                            _contextMode = newSelection;
+                          });
+                        },
+                      ),
+                    ),
                     Expanded(
                       child: TextField(
                         controller: _textController,
