@@ -10,8 +10,10 @@ class MySvg extends StatelessWidget {
   });
 
   final String assetName;
-  final double size;
+
   final Color color;
+
+  final double size;
 
   @override
   Widget build(BuildContext context) {

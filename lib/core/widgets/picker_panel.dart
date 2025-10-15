@@ -65,14 +65,17 @@ class PickerPanel extends StatefulWidget {
 }
 
 class PickerPanelState extends State<PickerPanel> {
-  List<String> filteredList = <String>[];
-  int indexToScrollTo = -1;
-  List<String> uniqueLetters = <String>[];
+  String _filterByTextAnywhere = '';
+
+  String _filterStartWith = '';
 
   final ScrollController _scrollController = ScrollController();
 
-  String _filterByTextAnywhere = '';
-  String _filterStartWith = '';
+  List<String> filteredList = <String>[];
+
+  int indexToScrollTo = -1;
+
+  List<String> uniqueLetters = <String>[];
 
   @override
   void initState() {

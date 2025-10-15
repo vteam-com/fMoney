@@ -11,14 +11,17 @@ class FilterInput extends StatelessWidget {
     required this.autoSubmitAfterSeconds,
   });
 
-  final int autoSubmitAfterSeconds;
-  final String hintText;
-  final String initialValue;
-  final void Function(String) onChanged;
-
   late final Debouncer _debouncerForFilterText = Debouncer(
     Duration(seconds: autoSubmitAfterSeconds),
   );
+
+  final int autoSubmitAfterSeconds;
+
+  final String hintText;
+
+  final String initialValue;
+
+  final void Function(String) onChanged;
 
   @override
   Widget build(final BuildContext context) {

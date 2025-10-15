@@ -41,8 +41,10 @@ class ConfirmationDialog extends StatelessWidget {
     this.content, // optional
   });
 
-  final Widget? content; // or a widget
+  final Widget? content;
+
   final VoidCallback onConfirm;
+
   final String question;
 
   @override

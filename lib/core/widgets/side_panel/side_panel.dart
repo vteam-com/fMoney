@@ -105,18 +105,21 @@ class SidePanel extends StatefulWidget {
     super.key,
   });
 
-  final void Function(int) currencySelectionChanged;
-  final List<String> Function(SidePanelSubViewEnum, List<int>) getCurrencyChoices;
-  final bool isExpanded;
-  final void Function(bool) onExpanded;
-  final ValueNotifier<List<int>> selectedItems;
-  final SidePanelSupport sidePanelSupport;
-
-  // Currency selection
   final int currencySelected;
 
-  // Actions
+  final void Function(int) currencySelectionChanged;
+
   final List<Widget> Function(bool) getActionButtons;
+
+  final List<String> Function(SidePanelSubViewEnum, List<int>) getCurrencyChoices;
+
+  final bool isExpanded;
+
+  final void Function(bool) onExpanded;
+
+  final ValueNotifier<List<int>> selectedItems;
+
+  final SidePanelSupport sidePanelSupport;
 
   @override
   State<SidePanel> createState() => _SidePanelState();

@@ -25,10 +25,10 @@ class MoneyWidget extends StatelessWidget {
     );
   }
 
-  final MoneyWidgetSize size;
-
   /// Amount to display
   final MoneyModel amountModel;
+
+  final MoneyWidgetSize size;
 
   @override
   Widget build(final BuildContext context) {

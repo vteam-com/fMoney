@@ -30,9 +30,10 @@ class ImportTransactionsPanel extends StatefulWidget {
 }
 
 class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
-  late String userChoiceOfDateFormat = _possibleDateFormats.first;
+  late Account _account;
 
   final FocusNode _focusNode = FocusNode();
+
   final List<String> _possibleDateFormats = <String>[
     // Dash
     'yyyy-MM-dd',
@@ -54,16 +55,15 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     'dd/MM/yy',
   ];
 
-  late Account _account;
   late String _textToParse;
+
   int _userChoiceDebitVsCredit = 0;
+
   int _userChoiceNativeVsUSD = 0;
+
   List<ValuesQuality> _values = <ValuesQuality>[];
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  late String userChoiceOfDateFormat = _possibleDateFormats.first;
 
   @override
   void initState() {
@@ -71,6 +71,11 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     _account = widget.account;
     _textToParse = widget.inputText;
     convertAndNotify(context, _textToParse);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

@@ -26,10 +26,11 @@ class NetWorthChart extends StatefulWidget {
 }
 
 class NetWorthChartState extends State<NetWorthChart> {
-  final List<FlSpot> _yearMonthDataPoints = <FlSpot>[];
-
   List<ChartEvent> _milestoneTransactions = <ChartEvent>[];
+
   List<Transaction> _transactions = <Transaction>[];
+
+  final List<FlSpot> _yearMonthDataPoints = <FlSpot>[];
 
   @override
   void initState() {

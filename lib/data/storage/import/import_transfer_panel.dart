@@ -43,23 +43,25 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
   late final TextEditingController _controllerAmount = TextEditingController(
     text: widget.inputFields.amount.toString(),
   );
+
   late final TextEditingController _controllerDescription = TextEditingController(
     text: widget.inputFields.memo.toString(),
   );
-  final FocusNode _focusNode = FocusNode();
 
-  @override
-  void dispose() {
-    _controllerAmount.dispose();
-    _controllerDescription.dispose();
-    super.dispose();
-  }
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _controllerAmount.addListener(_updateInputFields);
     _controllerDescription.addListener(_updateInputFields);
+  }
+
+  @override
+  void dispose() {
+    _controllerAmount.dispose();
+    _controllerDescription.dispose();
+    super.dispose();
   }
 
   @override

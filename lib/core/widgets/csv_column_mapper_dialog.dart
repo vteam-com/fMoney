@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
 class CsvColumnMapperDialog extends StatefulWidget {
-  // First few rows for preview
-
   const CsvColumnMapperDialog({
     super.key,
     required this.headers,
     required this.dataRows,
   });
-  final List<String> headers;
+
   final List<List<String>> dataRows;
+
+  final List<String> headers;
 
   @override
   State<CsvColumnMapperDialog> createState() => _CsvColumnMapperDialogState();
 }
 
 class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
-  String? _selectedDateColumn;
-  String? _selectedDescriptionColumn;
   String? _selectedAmountColumn;
+
+  String? _selectedDateColumn;
+
+  String? _selectedDescriptionColumn;
 
   @override
   void initState() {
@@ -88,28 +90,6 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
-  Widget _buildMappingDropdowns() {
-    return Column(
-      children: <Widget>[
-        _buildDropdown('Date Column:', _selectedDateColumn, (String? newValue) {
-          setState(() {
-            _selectedDateColumn = newValue;
-          });
-        }),
-        _buildDropdown('Description Column:', _selectedDescriptionColumn, (String? newValue) {
-          setState(() {
-            _selectedDescriptionColumn = newValue;
-          });
-        }),
-        _buildDropdown('Amount Column:', _selectedAmountColumn, (String? newValue) {
-          setState(() {
-            _selectedAmountColumn = newValue;
-          });
-        }),
-      ],
-    );
-  }
-
   Widget _buildDropdown(String label, String? currentValue, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -129,6 +109,28 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
         }).toList(),
         onChanged: onChanged,
       ),
+    );
+  }
+
+  Widget _buildMappingDropdowns() {
+    return Column(
+      children: <Widget>[
+        _buildDropdown('Date Column:', _selectedDateColumn, (String? newValue) {
+          setState(() {
+            _selectedDateColumn = newValue;
+          });
+        }),
+        _buildDropdown('Description Column:', _selectedDescriptionColumn, (String? newValue) {
+          setState(() {
+            _selectedDescriptionColumn = newValue;
+          });
+        }),
+        _buildDropdown('Amount Column:', _selectedAmountColumn, (String? newValue) {
+          setState(() {
+            _selectedAmountColumn = newValue;
+          });
+        }),
+      ],
     );
   }
 

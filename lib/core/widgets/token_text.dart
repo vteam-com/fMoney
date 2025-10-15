@@ -8,14 +8,10 @@ class TokenText extends StatelessWidget {
   }
 
   late final TokenTextStyle style;
+
   final String text;
 
   List<String> tokens = <String>[];
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return text;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +49,11 @@ class TokenText extends StatelessWidget {
     return IntrinsicWidth(
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: widgets),
     );
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return text;
   }
 }
 

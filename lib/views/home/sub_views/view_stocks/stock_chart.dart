@@ -37,7 +37,10 @@ class StockChartWidget extends StatefulWidget {
 }
 
 class StockChartWidgetState extends State<StockChartWidget> {
+  bool _refreshing = false;
+
   List<FlSpot> dataPoints = <FlSpot>[];
+
   StockPriceHistoryCache latestPriceHistoryData = StockPriceHistoryCache(
     '',
     StockLookupStatus.notFoundInCache,
@@ -45,8 +48,6 @@ class StockChartWidgetState extends State<StockChartWidget> {
   );
 
   late Security? security = Data().securities.getBySymbol(widget.symbol);
-
-  bool _refreshing = false;
 
   @override
   void initState() {

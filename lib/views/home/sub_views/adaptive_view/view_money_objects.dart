@@ -40,41 +40,53 @@ class ViewForMoneyObjects extends StatefulWidget {
 }
 
 class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
+  Fields<MoneyObject> _fieldToDisplay = Fields<MoneyObject>();
+
+  FieldFilters _filterByFieldsValue = FieldFilters();
+
+  String _filterByText = '';
+
+  final FooterAccumulators _footerAccumulators = FooterAccumulators();
+
+  bool _isMultiSelectionOn = false;
+
+  int _lastSelectedItemId = -1;
+
+  final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
+
+  bool _sortAscending = true;
+
+  int _sortByFieldIndex = 0;
+
   final DataController dataController = Get.find();
-  final ListControllerMain lc = ListControllerMain();
-  late final SidePanelSupport sidePanelOptions;
-  late final ViewId viewId;
 
   bool firstLoadCompleted = false;
-  // list management
+
+  final ListControllerMain lc = ListControllerMain();
+
   List<MoneyObject> list = <MoneyObject>[];
 
   List<String> listOfUniqueString = <String>[];
-  List<ValueSelection> listOfValueSelected = <ValueSelection>[];
-  PreferenceController preferenceController = Get.find();
-  // detail panel
-  Object? subViewSelectedItem;
 
-  // Multi selection support
-  bool supportsMultiSelection = false;
+  List<ValueSelection> listOfValueSelected = <ValueSelection>[];
 
   void Function()? onAddTransaction;
+
   VoidCallback? onDeleteItems;
+
   VoidCallback? onEditItems;
+
   VoidCallback? onMultiSelect;
 
-  final FooterAccumulators _footerAccumulators = FooterAccumulators();
-  final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
+  PreferenceController preferenceController = Get.find();
 
-  Fields<MoneyObject> _fieldToDisplay = Fields<MoneyObject>();
-  FieldFilters _filterByFieldsValue = FieldFilters();
-  // header
-  String _filterByText = '';
+  late final SidePanelSupport sidePanelOptions;
 
-  bool _isMultiSelectionOn = false;
-  int _lastSelectedItemId = -1;
-  bool _sortAscending = true;
-  int _sortByFieldIndex = 0;
+  Object? subViewSelectedItem;
+
+  bool supportsMultiSelection = false;
+
+  late final ViewId viewId;
 
   @override
   void initState() {

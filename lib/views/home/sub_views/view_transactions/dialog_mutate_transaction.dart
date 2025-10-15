@@ -42,10 +42,11 @@ class DialogMutateTransaction extends StatefulWidget {
 }
 
 class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
-  bool dataWasModified = false;
-  bool isInEditingMode = false;
-
   late Transaction _transaction;
+
+  bool dataWasModified = false;
+
+  bool isInEditingMode = false;
 
   @override
   void initState() {

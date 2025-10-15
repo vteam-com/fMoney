@@ -11,11 +11,15 @@ class ChatInputArea extends StatefulWidget {
     required this.onTeachAI,
   });
 
-  final ValueChanged<String> onSendPrompt;
-  final bool isProcessing;
-  final VoidCallback onCancel;
-  final VoidCallback onTeachAI;
   final TextEditingController inputController;
+
+  final bool isProcessing;
+
+  final VoidCallback onCancel;
+
+  final ValueChanged<String> onSendPrompt;
+
+  final VoidCallback onTeachAI;
 
   @override
   State<ChatInputArea> createState() => _ChatInputAreaState();

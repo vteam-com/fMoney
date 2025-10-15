@@ -34,40 +34,6 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final DataController dataController = Get.put(DataController());
-  final ListControllerSidePanel listControllerSidePanel = Get.put(
-    ListControllerSidePanel(),
-  );
-
-  // Use in the two major list
-  final ListControllerMain listControllerMain = Get.put(ListControllerMain());
-
-  // Leave these declared in this order
-  final PreferenceController preferenceController = Get.put(
-    PreferenceController(),
-  );
-
-  // Theme Color and Font Size
-  final ThemeController themeController = Get.put(ThemeController());
-
-  // Helper to generate shortcuts for both Control and Meta keys
-  static Map<ShortcutActivator, Intent> _dualShortcut(LogicalKeyboardKey key, Intent intent) {
-    return <ShortcutActivator, Intent>{
-      LogicalKeySet(LogicalKeyboardKey.control, key): intent,
-      LogicalKeySet(LogicalKeyboardKey.meta, key): intent,
-    };
-  }
-
-  // Keyboard shortcuts
-  final Map<ShortcutActivator, Intent> _shortcuts = <ShortcutActivator, Intent>{
-    ...MyApp._dualShortcut(LogicalKeyboardKey.keyR, const RebalanceIntent()),
-    ...MyApp._dualShortcut(LogicalKeyboardKey.equal, const ZoomInIntent()),
-    ...MyApp._dualShortcut(LogicalKeyboardKey.minus, const ZoomOutIntent()),
-    ...MyApp._dualShortcut(LogicalKeyboardKey.digit0, const ZoomResetIntent()),
-    ...MyApp._dualShortcut(LogicalKeyboardKey.keyT, const NewTransactionIntent()),
-  };
-
-  // Actions for keyboard shortcuts
   final Map<Type, Action<Intent>> _actions = <Type, Action<Intent>>{
     RebalanceIntent: CallbackAction<RebalanceIntent>(
       onInvoke: (RebalanceIntent intent) {
@@ -105,6 +71,28 @@ class MyApp extends StatelessWidget {
       },
     ),
   };
+
+  final Map<ShortcutActivator, Intent> _shortcuts = <ShortcutActivator, Intent>{
+    ...MyApp._dualShortcut(LogicalKeyboardKey.keyR, const RebalanceIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.equal, const ZoomInIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.minus, const ZoomOutIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.digit0, const ZoomResetIntent()),
+    ...MyApp._dualShortcut(LogicalKeyboardKey.keyT, const NewTransactionIntent()),
+  };
+
+  final DataController dataController = Get.put(DataController());
+
+  final ListControllerMain listControllerMain = Get.put(ListControllerMain());
+
+  final ListControllerSidePanel listControllerSidePanel = Get.put(
+    ListControllerSidePanel(),
+  );
+
+  final PreferenceController preferenceController = Get.put(
+    PreferenceController(),
+  );
+
+  final ThemeController themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
@@ -155,5 +143,12 @@ class MyApp extends StatelessWidget {
         ),
       );
     });
+  }
+
+  static Map<ShortcutActivator, Intent> _dualShortcut(LogicalKeyboardKey key, Intent intent) {
+    return <ShortcutActivator, Intent>{
+      LogicalKeySet(LogicalKeyboardKey.control, key): intent,
+      LogicalKeySet(LogicalKeyboardKey.meta, key): intent,
+    };
   }
 }

@@ -34,9 +34,18 @@ class PanelTrend extends StatefulWidget {
 /// Handles data preparation and chart rendering.
 class _PanelTrendState extends State<PanelTrend> {
   double maxY = 0;
+
   double minY = 0;
+
   Map<int, RecurringExpenses> yearCategoryIncomeExpenseSums = <int, RecurringExpenses>{};
+
   List<int> years = <int>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _generateList();
+  }
 
   @override
   void didUpdateWidget(covariant PanelTrend oldWidget) {
@@ -48,12 +57,6 @@ class _PanelTrendState extends State<PanelTrend> {
         _generateList();
       });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _generateList();
   }
 
   @override
@@ -184,7 +187,6 @@ class _PanelTrendState extends State<PanelTrend> {
     return colorBasedOnValue(value).withValues(alpha: 0.3);
   }
 
-  // Data for the chart
   List<BarChartGroupData> _buildBarGroups() {
     return List<BarChartGroupData>.generate(years.length, (int index) {
       final int year = years[index];
@@ -228,7 +230,6 @@ class _PanelTrendState extends State<PanelTrend> {
     });
   }
 
-  // Titles on the x-axis
   FlTitlesData _buildTitlesData() {
     return FlTitlesData(
       leftTitles: AxisTitles(

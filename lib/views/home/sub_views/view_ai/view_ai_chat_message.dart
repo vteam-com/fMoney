@@ -40,67 +40,6 @@ class ChatMessageWidget extends StatefulWidget {
 }
 
 class ChatMessageWidgetState extends State<ChatMessageWidget> {
-  void _showMessageDetails() {
-    final bool isUser = widget.message.type == MessageType.user;
-
-    if (isUser) {
-      // Show prompt details for user messages
-      _showPromptPopup(widget.message.payloadSentToOllama);
-    } else {
-      // Show message details for AI messages
-      showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Message Details'),
-            content: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Timestamp: ${widget.message.timestamp.toString()}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    gapMedium(),
-                    Text(
-                      'Elapsed: ${getElapsedTime(widget.message.timestamp)}',
-                      style: const TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                    gapMedium(),
-                    const Text(
-                      'Content:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    gapSmall(),
-                    SelectableText(widget.message.message),
-                  ],
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () async {
-                  await Clipboard.setData(ClipboardData(text: widget.message.message));
-                },
-                icon: const Icon(Icons.copy_all),
-                tooltip: 'Copy message',
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
   @override
   Widget build(final BuildContext context) {
     final ChatMessage message = widget.message;
@@ -166,6 +105,67 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
     );
   }
 
+  void _showMessageDetails() {
+    final bool isUser = widget.message.type == MessageType.user;
+
+    if (isUser) {
+      // Show prompt details for user messages
+      _showPromptPopup(widget.message.payloadSentToOllama);
+    } else {
+      // Show message details for AI messages
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Message Details'),
+            content: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Timestamp: ${widget.message.timestamp.toString()}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    gapMedium(),
+                    Text(
+                      'Elapsed: ${getElapsedTime(widget.message.timestamp)}',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    gapMedium(),
+                    const Text(
+                      'Content:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    gapSmall(),
+                    SelectableText(widget.message.message),
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () async {
+                  await Clipboard.setData(ClipboardData(text: widget.message.message));
+                },
+                icon: const Icon(Icons.copy_all),
+                tooltip: 'Copy message',
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   void _showPromptPopup(final Map<String, dynamic> jsonAsTextpayloadSentToOllama) {
     final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextpayloadSentToOllama);
 
@@ -189,7 +189,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: jsonAsText));
               },
-              icon: const Icon(Icons.copy_all),
+              icon: const Icon(Icons.copy),
             ),
             TextButton(
               onPressed: () {

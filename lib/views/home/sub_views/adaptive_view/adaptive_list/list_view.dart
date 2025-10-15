@@ -25,15 +25,24 @@ class MyListView<T> extends StatefulWidget {
     this.isMultiSelectionOn = false,
   });
 
-  final void Function(BuildContext, int uniqueId)? onTap;
-  final void Function(BuildContext, int uniqueId)? onDoubleTap;
-  final void Function(BuildContext, int uniqueId)? onLongPress;
-  final void Function(int /* uniqueId */)? onSelectionChanged;
   final bool displayAsColumn;
+
   final FieldDefinitions fields;
+
   final bool isMultiSelectionOn;
+
   final List<T> list;
+
+  final void Function(BuildContext, int uniqueId)? onDoubleTap;
+
+  final void Function(BuildContext, int uniqueId)? onLongPress;
+
+  final void Function(int /* uniqueId */)? onSelectionChanged;
+
+  final void Function(BuildContext, int uniqueId)? onTap;
+
   final ScrollController scrollController;
+
   final ValueNotifier<List<int>> selectedItemIds;
 
   @override
@@ -41,9 +50,9 @@ class MyListView<T> extends StatefulWidget {
 }
 
 class MyListViewState<T> extends State<MyListView<T>> {
-  double padding = 0;
-
   double _rowHeight = 30;
+
+  double padding = 0;
 
   @override
   Widget build(final BuildContext context) {
@@ -142,7 +151,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// don't make it flush to the top, we do this in order to give some clue that there's other item above,
-  double getListOffsetOfItemIndex(final int index) => index * _rowHeight; // * -1.5;
+  double getListOffsetOfItemIndex(final int index) => index * _rowHeight;
 
   MoneyObject getMoneyObjectFromIndex(int index) {
     return widget.list[index] as MoneyObject;

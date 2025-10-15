@@ -18,9 +18,8 @@ class MiniTimelineDaily extends StatelessWidget {
   });
 
   final Color? color;
+
   final double lineWidth;
-  final int yearEnd;
-  final int yearStart;
 
   /// X values are using days from 1970, use this offset to bring back the X scaling to location
   /// that match the desired UX, supplying the offset days of the first element in the values will start
@@ -29,6 +28,10 @@ class MiniTimelineDaily extends StatelessWidget {
 
   // [int = Days from millisecondFromEpoch], [double = amount]
   final List<Pair<int, double>> values;
+
+  final int yearEnd;
+
+  final int yearStart;
 
   @override
   Widget build(BuildContext context) {

@@ -27,10 +27,11 @@ class DialogMutateSplit extends StatefulWidget {
 }
 
 class _DialogMutateSplitState extends State<DialogMutateSplit> {
-  bool dataWasModified = false;
-  bool isInEditingMode = false;
-
   late MoneySplit _split;
+
+  bool dataWasModified = false;
+
+  bool isInEditingMode = false;
 
   @override
   void initState() {

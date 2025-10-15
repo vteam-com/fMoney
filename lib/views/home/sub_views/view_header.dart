@@ -34,27 +34,40 @@ class ViewHeader extends StatelessWidget {
     this.child, // An optional child widget to display in the header.
   });
 
-  final void Function(String)? onTextFilterChanged;
-  final void Function()? onClearAllFilters;
   final Widget? child;
+
   final String description;
-  final num itemCount;
-  final VoidCallback? onAddMoneyObject;
-  final VoidCallback? onDeleteMoneyObject;
-  final VoidCallback? onEditMoneyObject;
-  final VoidCallback? onMergeMoneyObject;
-  final VoidCallback? onScrollToBottom;
-  final VoidCallback? onScrollToSelection;
-  final VoidCallback? onScrollToTop;
-  final ValueNotifier<List<int>> selectedItems;
-  final String textFilter;
-  final String title;
 
   /// Creates a new instance of [ViewHeader].
   final List<Widget> Function(bool)? getActionButtons;
 
-  // Optional, used for multi-selection UX
+  final num itemCount;
+
   final ViewHeaderMultipleSelection? multipleSelection;
+
+  final VoidCallback? onAddMoneyObject;
+
+  final void Function()? onClearAllFilters;
+
+  final VoidCallback? onDeleteMoneyObject;
+
+  final VoidCallback? onEditMoneyObject;
+
+  final VoidCallback? onMergeMoneyObject;
+
+  final VoidCallback? onScrollToBottom;
+
+  final VoidCallback? onScrollToSelection;
+
+  final VoidCallback? onScrollToTop;
+
+  final void Function(String)? onTextFilterChanged;
+
+  final ValueNotifier<List<int>> selectedItems;
+
+  final String textFilter;
+
+  final String title;
 
   @override
   Widget build(final BuildContext context) {

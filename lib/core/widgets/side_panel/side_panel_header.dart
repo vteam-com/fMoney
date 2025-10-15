@@ -22,23 +22,23 @@ class SidePanelHeader extends StatelessWidget {
     super.key,
   });
 
-  final int currencySelected;
-  final void Function(int) currentSelectionChanged;
-  final bool isExpanded;
-  final void Function(bool) onExpanded;
-  final void Function(SidePanelSubViewEnum) subViewSelectionChanged;
-
-  // Actions
   final List<Widget> Function(bool) actionButtons;
 
-  // Currency
   final List<String> currencyChoices;
 
-  // final List<SidePanelSubViewEnum> supportedSubViews;
+  final int currencySelected;
+
+  final void Function(int) currentSelectionChanged;
+
+  final bool isExpanded;
+
+  final void Function(bool) onExpanded;
+
   final SidePanelSupport sidePanelSupport;
 
-  // SubView
   final SidePanelSubViewEnum subViewSelected;
+
+  final void Function(SidePanelSubViewEnum) subViewSelectionChanged;
 
   @override
   Widget build(final BuildContext context) {

@@ -32,19 +32,19 @@ class MyListItem extends StatefulWidget {
 }
 
 class MyListItemState extends State<MyListItem> {
-  bool isSelected = false;
-
   bool _hovering = false;
 
-  @override
-  void didUpdateWidget(final MyListItem oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    isSelected = widget.isSelected;
-  }
+  bool isSelected = false;
 
   @override
   void initState() {
     super.initState();
+    isSelected = widget.isSelected;
+  }
+
+  @override
+  void didUpdateWidget(final MyListItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
     isSelected = widget.isSelected;
   }
 

@@ -23,14 +23,14 @@ class _ColorPickerState extends State<ColorPicker> {
   late double hue;
 
   @override
-  void didUpdateWidget(covariant ColorPicker oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void initState() {
+    super.initState();
     fromInputColorToHueAndBrightness();
   }
 
   @override
-  void initState() {
-    super.initState();
+  void didUpdateWidget(covariant ColorPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
     fromInputColorToHueAndBrightness();
   }
 

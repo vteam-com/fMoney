@@ -44,11 +44,6 @@ class KeyboardWidget extends StatefulWidget {
     this.callbackOnHide,
   }) : assert(columnCount > 0);
 
-  final VoidCallback? callbackOnHide;
-  final Widget child;
-  final bool hasFocus;
-  final bool showMap;
-
   ///The color of the surface of the card used to display a help screen.
   ///If null, the card color of the inherited [ThemeData.colorScheme] will be used
   final Color? backgroundColor;
@@ -56,12 +51,18 @@ class KeyboardWidget extends StatefulWidget {
   ///The list of keystrokes and methods called
   final List<KeyAction> bindings;
 
+  final VoidCallback? callbackOnHide;
+
+  final Widget child;
+
   ///The number of columns of text in the help screen
   final int columnCount;
 
   ///Have group the keybindings shown in the overlay grouped according to
   ///the (optional) headers associated with each shortcut
   final bool groupByCategory;
+
+  final bool hasFocus;
 
   ///Optional introductory/descriptive text to include above the table of
   ///keystroke shortcuts. It expects text in the
@@ -75,6 +76,8 @@ class KeyboardWidget extends StatefulWidget {
   ///Whether underlines should be shown between each help entry
   final bool showLines;
 
+  final bool showMap;
+
   ///The text style for the text used in the help screen. If null, the
   ///inherited [TextTheme.labelSmall] is used.
   final TextStyle? textStyle;
@@ -84,21 +87,39 @@ class KeyboardWidget extends StatefulWidget {
 }
 
 class KeyboardWidgetState extends State<KeyboardWidget> {
-  bool isKeyPressedAlt = false;
-  bool isKeyPressedCtrl = false;
-  bool isKeyPressedMeta = false;
-  bool isKeyPressedShift = false;
-  late bool showingOverlay;
-
   late FocusNode _focusNode;
+
   late OverlayEntry _overlayEntry;
 
+  static const Color defaultBackground = Color(0xFF0a0a0a);
+
+  static const Color defaultTextColor = Colors.white;
+
+  static const TextStyle defaultTextStyle = TextStyle(
+    color: defaultTextColor,
+    fontSize: 12,
+  );
+
+  static const double horizontalMargin = 16.0;
+
+  bool isKeyPressedAlt = false;
+
+  bool isKeyPressedCtrl = false;
+
+  bool isKeyPressedMeta = false;
+
+  bool isKeyPressedShift = false;
+
+  static const Color shadow = Color(0x55000000);
+
+  late bool showingOverlay;
+
   @override
-  void didUpdateWidget(final KeyboardWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.hasFocus) {
-      _focusNode.requestFocus();
-    }
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.requestFocus();
+    showingOverlay = widget.showMap;
   }
 
   @override
@@ -108,11 +129,11 @@ class KeyboardWidgetState extends State<KeyboardWidget> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _focusNode.requestFocus();
-    showingOverlay = widget.showMap;
+  void didUpdateWidget(final KeyboardWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.hasFocus) {
+      _focusNode.requestFocus();
+    }
   }
 
   ///Returns the keyboard widget on desktop platforms. It does not
@@ -168,15 +189,6 @@ class KeyboardWidgetState extends State<KeyboardWidget> {
       child: FocusTraversalGroup(child: widget.child),
     );
   }
-
-  static const Color defaultBackground = Color(0xFF0a0a0a);
-  static const Color defaultTextColor = Colors.white;
-  static const TextStyle defaultTextStyle = TextStyle(
-    color: defaultTextColor,
-    fontSize: 12,
-  );
-  static const double horizontalMargin = 16.0;
-  static const Color shadow = Color(0x55000000);
 
   void toggleOverlay() {
     setState(() {

@@ -47,12 +47,15 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
   late final TextEditingController _controllerAmount = TextEditingController(
     text: widget.inputFields.amountPerUnit.toString(),
   );
+
   late final TextEditingController _controllerDescription = TextEditingController(
     text: widget.inputFields.description.toString(),
   );
+
   late final TextEditingController _controllerSymbol = TextEditingController(
     text: widget.inputFields.symbol.toString(),
   );
+
   late final TextEditingController _controllerTransactionAmount = TextEditingController(
     text: widget.inputFields.transactionAmount.toString(),
   );
@@ -60,17 +63,8 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
   late final TextEditingController _controllerUnites = TextEditingController(
     text: widget.inputFields.units.toString(),
   );
-  final FocusNode _focusNode = FocusNode();
 
-  @override
-  void dispose() {
-    _controllerSymbol.dispose();
-    _controllerUnites.dispose();
-    _controllerAmount.dispose();
-    _controllerTransactionAmount.dispose();
-    _controllerDescription.dispose();
-    super.dispose();
-  }
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -80,6 +74,16 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
     _controllerAmount.addListener(_updateInputFields);
     _controllerTransactionAmount.addListener(_updateInputFields);
     _controllerDescription.addListener(_updateInputFields);
+  }
+
+  @override
+  void dispose() {
+    _controllerSymbol.dispose();
+    _controllerUnites.dispose();
+    _controllerAmount.dispose();
+    _controllerTransactionAmount.dispose();
+    _controllerDescription.dispose();
+    super.dispose();
   }
 
   @override

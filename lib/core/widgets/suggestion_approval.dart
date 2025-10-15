@@ -26,16 +26,11 @@ class SuggestionApproval extends StatefulWidget {
 }
 
 class SuggestionApprovalState extends State<SuggestionApproval> with SingleTickerProviderStateMixin {
-  bool approved = false;
-
   late AnimationController _animationController;
+
   late Animation<double> _opacityAnimation;
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  bool approved = false;
 
   @override
   void initState() {
@@ -51,6 +46,12 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
         curve: const Interval(0.0, 1.0, curve: Curves.ease),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override

@@ -73,7 +73,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
   ];
 
   /// Currently selected mutation type index.
-  int _displayMutationType = 0; // 0=Added, 1=Modified, 2=Deleted
+  int _displayMutationType = 0;
 
   /// Indicates whether data is being loaded.
   bool _isLoading = true;

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:money/core/widgets/my_svg.dart';
+import 'package:money/core/widgets/text_title.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
@@ -11,6 +12,28 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_header.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 
+/// ViewAI - AI-Powered Financial Assistant
+///
+/// This widget provides an AI chat interface for financial data analysis.
+/// It integrates with Ollama to provide intelligent financial guidance based on
+/// anonymized account patterns and user queries.
+///
+/// Features:
+/// - Privacy-focused data sharing (pattern summaries only, no sensitive data)
+/// - Incremental AI training (metadata-first, then pattern insights)
+/// - Conversational AI interface with context retention
+/// - Model selection and management
+/// - Financial query assistance without exposing sensitive data
+///
+/// Architecture:
+/// - Pattern recognition over data enumeration
+/// - Metadata aggregation before sending to AI
+/// - Privacy-by-design approach to financial AI
+///
+/// Example usage:
+/// ```dart
+/// ViewAI()
+/// ```
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
 
@@ -27,21 +50,54 @@ class ViewAI extends ViewWidget {
   String getDescription() => '';
 }
 
+/// State management for the ViewAI widget.
+///
+/// Handles all state changes for the AI assistant including:
+/// - Ollama service status monitoring
+/// - Chat conversation history
+/// - Model selection and context management
+/// - Anonymous data learning operations
+///
+/// This class manages complex async operations while maintaining UI responsiveness.
+/// All financial data interactions prioritize user privacy through anonymization.
 // ignore: always_specify_types
 class ViewAIState extends ViewWidgetState {
+  /// Creates the ViewAIState with initial empty state.
   ViewAIState();
 
+  /// Whether Ollama AI service is installed on the system.
   bool _isOllamaInstalled = false;
-  bool _isOllamaRunning = false;
-  bool _isChecking = true;
-  bool _isProcessingPrompt = false;
-  bool _cancelled = false;
-  final TextEditingController _textController = TextEditingController();
-  final List<ChatMessage> _chatHistory = <ChatMessage>[];
-  final ScrollController _scrollController = ScrollController();
-  List<int>? _conversationContext; // Store Ollama conversation context
-  // Selected model is now managed in OllamaService
 
+  /// Whether Ollama service is currently running and available.
+  bool _isOllamaRunning = false;
+
+  /// Whether we are currently checking Ollama status.
+  bool _isChecking = true;
+
+  /// Whether an AI prompt is currently being processed.
+  bool _isProcessingPrompt = false;
+
+  /// Whether the current prompt processing should be cancelled.
+  bool _cancelled = false;
+
+  /// Controller for the text input field used for manual queries.
+  final TextEditingController _textController = TextEditingController();
+
+  /// History of all chat messages in the conversation.
+  final List<ChatMessage> _chatHistory = <ChatMessage>[];
+
+  /// Controller for the chat list scroll view to enable auto-scrolling.
+  final ScrollController _scrollController = ScrollController();
+
+  /// Conversation context tokens returned by Ollama for maintaining AI memory.
+  /// Stored as nullable to indicate when no context exists yet.
+  List<int>? _conversationContext;
+
+  /// Initializes the AI assistant state.
+  ///
+  /// Loads the previously selected AI model from preferences and restores
+  /// any saved conversation context for that model. Then checks the Ollama
+  /// service status to ensure AI functionality is available.
   @override
   void initState() {
     super.initState();
@@ -319,7 +375,9 @@ Answer the question:''';
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
       itemBuilder: (BuildContext context, int index) {
         if (_chatHistory.isEmpty && !_isProcessingPrompt) {
-          return const Text('Welcome to your AI Accountant');
+          return const Center(
+            child: TextTitle('Welcome to your AI Accountant'),
+          );
         }
         // Handle chat messages
         final int messageIndex = index - (_chatHistory.isEmpty ? 1 : 0);

@@ -9,12 +9,12 @@ class AdaptiveColumns extends StatelessWidget {
   });
 
   final List<Widget> children;
+
   final int columnWidth;
 
   @override
   Widget build(final BuildContext context) => context.isWidthSmall ? singleColumn() : multiColumns();
 
-  // optimize for larger screen into multiple columns
   Widget multiColumns() => LayoutBuilder(
     builder: (final BuildContext context, final BoxConstraints constraints) {
       // how many columnsWidth  can fit in the give container

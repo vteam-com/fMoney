@@ -33,33 +33,48 @@ class AdaptiveViewWithList extends StatefulWidget {
     this.getColumnFooterWidget,
   });
 
-  final void Function(BuildContext, int)? onItemTap;
-  final void Function(int columnHeaderIndex)? onColumnHeaderTap;
-  final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
-  final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
   final bool applySorting;
-  final Widget bottom;
-  final FieldDefinitions fieldDefinitions;
-  final FieldFilters filters;
-  final int flexBottom;
-  final bool isMultiSelectionOn;
-  final List<MoneyObject> list;
-  final ListController listController;
-  final void Function(int) onSelectionChanged;
-  final bool sortAscending;
-  final int sortByFieldIndex;
-  final Widget top;
 
-  // Selection
+  final Widget bottom;
+
+  final FieldDefinitions fieldDefinitions;
+
+  final FieldFilters filters;
+
+  final int flexBottom;
+
+  final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
+
+  final bool isMultiSelectionOn;
+
+  final List<MoneyObject> list;
+
+  final ListController listController;
+
+  final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
+
+  final void Function(int columnHeaderIndex)? onColumnHeaderTap;
+
+  final void Function(BuildContext, int)? onItemTap;
+
+  final void Function(int) onSelectionChanged;
+
   final ValueNotifier<List<int>> selectedItemsByUniqueId;
+
+  final bool sortAscending;
+
+  final int sortByFieldIndex;
+
+  final Widget top;
 
   @override
   State<AdaptiveViewWithList> createState() => _AdaptiveViewWithListState();
 }
 
 class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
-  final MultiSplitViewController _splitController = MultiSplitViewController();
   final FocusNode _keyboardFocusNode = FocusNode();
+
+  final MultiSplitViewController _splitController = MultiSplitViewController();
 
   @override
   void initState() {
@@ -82,13 +97,6 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     _keyboardFocusNode.dispose();
     _splitController.removeListener(_rebuild);
     super.dispose();
-  }
-
-  void _rebuild() async {
-    if (PreferenceController.to.isSidePanelExpanded) {
-      // save the height of the side panel
-      PreferenceController.to.sidePanelHeight = _splitController.areas[1].size!.toInt();
-    }
   }
 
   @override
@@ -136,59 +144,6 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     );
   }
 
-  // Extract keyboard handling to a separate method
-  KeyEventResult _handleKeyboardShortcuts(FocusNode node, KeyEvent event) {
-    if (event is KeyDownEvent) {
-      // F9 shortcut
-      if (event.logicalKey == LogicalKeyboardKey.f9) {
-        _toggleSidePanel();
-        return KeyEventResult.handled;
-      }
-
-      // Command+J for macOS or Ctrl+J for Windows/Linux
-      if (event.logicalKey == LogicalKeyboardKey.keyJ &&
-          (Platform.isMacOS ? HardwareKeyboard.instance.isMetaPressed : HardwareKeyboard.instance.isControlPressed)) {
-        _toggleSidePanel();
-        return KeyEventResult.handled;
-      }
-    }
-    return KeyEventResult.ignored;
-  }
-
-  // Extract panel toggle to a separate method
-  void _toggleSidePanel() {
-    setState(() {
-      PreferenceController.to.isSidePanelExpanded = !PreferenceController.to.isSidePanelExpanded;
-    });
-    HapticFeedback.lightImpact();
-  }
-
-  // Extract split panel configuration to a separate method
-  void _configureSplitPanelAreas() {
-    if (PreferenceController.to.isSidePanelExpanded) {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 100.0;
-      _splitController.areas[1].size = PreferenceController.to.sidePanelHeight.toDouble();
-    } else {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 0.0;
-      _splitController.areas[1].size = Constants.sidePanelHeightWhenCollapsed.toDouble();
-    }
-  }
-
-  // Extract divider builder to a separate method
-  Widget _buildSplitDivider(
-    Axis axis,
-    int index,
-    bool resizable,
-    bool dragging,
-    bool highlighted,
-    MultiSplitViewThemeData themeData,
-  ) {
-    return ColoredBox(
-      key: const Key('SidePanelSplitter'),
-      color: highlighted ? ThemeController.to.primaryColor : Colors.transparent,
-    );
-  }
-
   Widget topSection(final bool displayAsColumns) {
     return Column(
       children: <Widget>[
@@ -223,5 +178,61 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
         ),
       ],
     );
+  }
+
+  Widget _buildSplitDivider(
+    Axis axis,
+    int index,
+    bool resizable,
+    bool dragging,
+    bool highlighted,
+    MultiSplitViewThemeData themeData,
+  ) {
+    return ColoredBox(
+      key: const Key('SidePanelSplitter'),
+      color: highlighted ? ThemeController.to.primaryColor : Colors.transparent,
+    );
+  }
+
+  void _configureSplitPanelAreas() {
+    if (PreferenceController.to.isSidePanelExpanded) {
+      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 100.0;
+      _splitController.areas[1].size = PreferenceController.to.sidePanelHeight.toDouble();
+    } else {
+      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 0.0;
+      _splitController.areas[1].size = Constants.sidePanelHeightWhenCollapsed.toDouble();
+    }
+  }
+
+  KeyEventResult _handleKeyboardShortcuts(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent) {
+      // F9 shortcut
+      if (event.logicalKey == LogicalKeyboardKey.f9) {
+        _toggleSidePanel();
+        return KeyEventResult.handled;
+      }
+
+      // Command+J for macOS or Ctrl+J for Windows/Linux
+      if (event.logicalKey == LogicalKeyboardKey.keyJ &&
+          (Platform.isMacOS ? HardwareKeyboard.instance.isMetaPressed : HardwareKeyboard.instance.isControlPressed)) {
+        _toggleSidePanel();
+        return KeyEventResult.handled;
+      }
+    }
+    return KeyEventResult.ignored;
+  }
+
+  void _rebuild() async {
+    if (PreferenceController.to.isSidePanelExpanded) {
+      // save the height of the side panel
+      PreferenceController.to.sidePanelHeight = _splitController.areas[1].size!.toInt();
+    }
+  }
+
+  void _toggleSidePanel() {
+    setState(() {
+      PreferenceController.to.isSidePanelExpanded = !PreferenceController.to.isSidePanelExpanded;
+    });
+    HapticFeedback.lightImpact();
   }
 }

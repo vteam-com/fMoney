@@ -29,27 +29,39 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
     this.backgroundColorForHeaderFooter,
   });
 
-  final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
-  final void Function(int uniqueId)? onSelectionChanged;
-  final void Function(int columnHeaderIndex)? onColumnHeaderTap;
-  final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
-  final void Function(BuildContext context, int itemId)? onItemTap;
-  final void Function(BuildContext context, int itemId)? onItemLongPress;
   final Color? backgroundColorForHeaderFooter;
-  final FieldDefinitions fieldDefinitions;
-  final FieldFilters filters;
-  final bool isMultiSelectionOn;
-  final List<MoneyObject> list;
-  final ListController listController;
-  final void Function()? onContextMenu;
-  final bool sortAscending;
-  final int sortByFieldIndex;
 
-  // Display as Card vs Columns
   final bool displayAsColumns;
 
-  // Selections
+  final FieldDefinitions fieldDefinitions;
+
+  final FieldFilters filters;
+
+  final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
+
+  final bool isMultiSelectionOn;
+
+  final List<MoneyObject> list;
+
+  final ListController listController;
+
+  final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
+
+  final void Function(int columnHeaderIndex)? onColumnHeaderTap;
+
+  final void Function()? onContextMenu;
+
+  final void Function(BuildContext context, int itemId)? onItemLongPress;
+
+  final void Function(BuildContext context, int itemId)? onItemTap;
+
+  final void Function(int uniqueId)? onSelectionChanged;
+
   final ValueNotifier<List<int>> selectedItemsByUniqueId;
+
+  final bool sortAscending;
+
+  final int sortByFieldIndex;
 
   @override
   Widget build(BuildContext context) {

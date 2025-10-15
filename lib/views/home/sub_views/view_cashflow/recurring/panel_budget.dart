@@ -42,17 +42,21 @@ class PanelBudget extends StatefulWidget {
 }
 
 class _PanelBudgetState extends State<PanelBudget> {
+  late BudgetRecommendation _budget;
+
+  bool _sortAscending = false;
+
+  int _sortColumnIndex = 1;
+
   List<RecurringExpenses> items = <RecurringExpenses>[];
+
   late BudgetViewAs panelType = isForIncome
       ? PreferenceController.to.budgetViewAsForIncomes.value
       : PreferenceController.to.budgetViewAsForExpenses.value;
 
   double sumForAllCategories = 0.00;
-  double sumForAllCategoriesBudget = 0.00;
 
-  late BudgetRecommendation _budget;
-  bool _sortAscending = false;
-  int _sortColumnIndex = 1;
+  double sumForAllCategoriesBudget = 0.00;
 
   @override
   void initState() {

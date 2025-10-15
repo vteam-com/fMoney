@@ -16,11 +16,16 @@ class ViewAiHeader extends StatelessWidget {
   });
 
   final List<Map<String, dynamic>> availableModels;
-  final String selectedModel;
-  final ValueChanged<String> onModelSelected;
-  final VoidCallback onClearChat;
-  final int questionCount;
+
   final int contextTokensCount;
+
+  final VoidCallback onClearChat;
+
+  final ValueChanged<String> onModelSelected;
+
+  final int questionCount;
+
+  final String selectedModel;
 
   @override
   Widget build(final BuildContext context) {

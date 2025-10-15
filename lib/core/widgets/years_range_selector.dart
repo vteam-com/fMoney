@@ -31,11 +31,10 @@ class YearRangeSlider extends StatefulWidget {
 }
 
 class YearRangeSliderState extends State<YearRangeSlider> {
-  // Bottom drag related properties
-  final double sliderEdgePadding = 20;
-
   double _dragBottomWidth = 0;
+
   double _dragGesturePosition = 0;
+
   double _leftMarginOfBottomText = 0;
 
   /// The currently selected year range.
@@ -43,6 +42,8 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     min: widget.initialRange.min,
     max: widget.initialRange.max,
   );
+
+  final double sliderEdgePadding = 20;
 
   @override
   Widget build(BuildContext context) {

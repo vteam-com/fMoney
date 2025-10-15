@@ -91,9 +91,9 @@ class DialogMutateMoneyObject extends StatefulWidget {
 }
 
 class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
-  bool dataWasModified = false;
-
   late MoneyObject _moneyObject;
+
+  bool dataWasModified = false;
 
   @override
   void initState() {
