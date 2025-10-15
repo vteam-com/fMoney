@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:money/core/helpers/color_helper.dart';
+import 'package:money/core/helpers/date_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/fields/field_filters.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.dart';
 
 enum MessageType { user, ai }
 
@@ -39,6 +40,67 @@ class ChatMessageWidget extends StatefulWidget {
 }
 
 class ChatMessageWidgetState extends State<ChatMessageWidget> {
+  void _showMessageDetails() {
+    final bool isUser = widget.message.type == MessageType.user;
+
+    if (isUser) {
+      // Show prompt details for user messages
+      _showPromptPopup(widget.message.payloadSentToOllama);
+    } else {
+      // Show message details for AI messages
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Message Details'),
+            content: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Timestamp: ${widget.message.timestamp.toString()}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    gapMedium(),
+                    Text(
+                      'Elapsed: ${getElapsedTime(widget.message.timestamp)}',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    gapMedium(),
+                    const Text(
+                      'Content:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    gapSmall(),
+                    SelectableText(widget.message.message),
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () async {
+                  await Clipboard.setData(ClipboardData(text: widget.message.message));
+                },
+                icon: const Icon(Icons.copy_all),
+                tooltip: 'Copy message',
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(final BuildContext context) {
     final ChatMessage message = widget.message;
@@ -56,6 +118,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
         child: Column(
           crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
+            // Message bubble
             Container(
               margin: const EdgeInsets.symmetric(vertical: 4),
               padding: const EdgeInsets.all(12),
@@ -66,16 +129,14 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(16),
                   topRight: const Radius.circular(16),
-                  bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(4),
-                  bottomRight: isUser ? const Radius.circular(4) : const Radius.circular(16),
+                  bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(3),
+                  bottomRight: isUser ? const Radius.circular(3) : const Radius.circular(16),
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  IntrinsicWidth(
-                    child: SelectableText(
+              child: IntrinsicWidth(
+                child: Column(
+                  children: <Widget>[
+                    SelectableText(
                       shouldTruncate && !message.isExpanded
                           ? '${message.message.trim().split('\n').take(50).join('\n')}\n...'
                           : message.message.trim(),
@@ -83,51 +144,22 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                         color: isUser ? getColorTheme(context).onPrimaryContainer : getColorTheme(context).onSurface,
                       ),
                     ),
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 16,
-                    children: <Widget>[
-                      if (shouldTruncate)
-                        TextButton(
-                          onPressed: widget.onToggleExpanded,
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: Text(
-                            textAlign: TextAlign.start,
-                            message.isExpanded ? 'Read Less' : 'Read More',
-                            style: TextStyle(
-                              color: getColorTheme(context).primary,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      Opacity(opacity: 0.5, child: Text(getElapsedTime(message.timestamp))),
-                      if (isUser)
-                        IconButton(
-                          onPressed: () => _showPromptPopup(message.payloadSentToOllama),
-                          icon: Icon(
-                            Icons.comment,
-                            color: getColorTheme(context).primary.withAlpha(200),
-                            size: 20,
-                          ),
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(
-                            maxWidth: 24,
-                            maxHeight: 24,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
+                    Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(60)),
+                    Opacity(
+                      opacity: 0.7,
+                      child: ChatMessageFooter(
+                        message: message,
+                        onToggleExpanded: widget.onToggleExpanded,
+                        onViewDetails: _showMessageDetails,
+                        shouldTruncate: shouldTruncate,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+
+            // Footer with read more/less, time, copy, and details
           ],
         ),
       ),
