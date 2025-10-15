@@ -48,7 +48,10 @@ class ViewAIState extends ViewWidgetState {
   void initState() {
     super.initState();
 
-    _checkOllamaStatus();
+    // Load the selected model from preferences first
+    OllamaService.getLastUserSelectedModel().then((final _) {
+      _checkOllamaStatus();
+    });
   }
 
   @override

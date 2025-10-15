@@ -2,16 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:money/core/helpers/list_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// Using a const for now, but this should be configurable and loaded dynamically
-
 class OllamaService {
-  static const String defaultModel = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
-
   static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
-  static String selectedModel = defaultModel;
+  static String selectedModel = '';
   static Future<bool> checkIfOllamaInstalled() async {
     try {
       final ProcessResult installResult = await Process.run('which', <String>['ollama']);
@@ -127,11 +124,18 @@ class OllamaService {
         // Sort models by name
         availableModels.sort(
           (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
-              (a['name'] as String).compareTo(b['name'] as String),
+              sortByString(a['name'] as String, b['name'] as String, true),
         );
 
-        final String firstModelName = models.isNotEmpty ? models.first['name'] as String : selectedModel;
-        selectedModel = firstModelName;
+        // Verify that the selected model is still available, otherwise use the first one
+        if (selectedModel.isNotEmpty &&
+            !availableModels.any((final Map<String, dynamic> model) => model['name'] == selectedModel)) {
+          // User's selected model is no longer available, reset to first available
+          selectedModel = models.isNotEmpty ? models.first['name'] as String : '';
+        } else if (selectedModel.isEmpty && models.isNotEmpty) {
+          // No model selected yet, use the first available
+          selectedModel = models.first['name'] as String;
+        }
 
         return availableModels;
       }
@@ -143,7 +147,7 @@ class OllamaService {
     return <Map<String, dynamic>>[];
   }
 
-  static Future<void> loadSelectedModel() async {
+  static Future<void> getLastUserSelectedModel() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String loadedModel = prefs.getString('selected_ollama_model') ?? selectedModel;
     selectedModel = loadedModel;
