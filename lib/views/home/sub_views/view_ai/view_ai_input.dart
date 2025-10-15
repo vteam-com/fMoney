@@ -1,19 +1,15 @@
-import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/data/storage/data/data.dart';
 
 class ChatInputArea extends StatefulWidget {
   const ChatInputArea({
     super.key,
-    required this.contextMode,
-    required this.onContextModeChanged,
+
     required this.onSendPrompt,
     required this.isProcessing,
     required this.onCancel,
     required this.inputController,
   });
 
-  final int contextMode;
-  final ValueChanged<int> onContextModeChanged;
   final ValueChanged<String> onSendPrompt;
   final bool isProcessing;
   final VoidCallback onCancel;
@@ -50,7 +46,6 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    widget.onContextModeChanged(1);
                     widget.onSendPrompt('Identify the largest single transaction amount in each account');
                   },
                   child: const Text('Largest transactions'),
@@ -65,24 +60,11 @@ class _ChatInputAreaState extends State<ChatInputArea> {
           Row(
             spacing: 8,
             children: <Widget>[
-              SizedBox(
-                width: 100,
-                child: mySegmentSelector(
-                  direction: Axis.vertical,
-                  showSelectedIcon: false,
-                  segments: <ButtonSegment<int>>[
-                    const ButtonSegment<int>(
-                      value: 0,
-                      label: Text('Generic'),
-                    ),
-                    const ButtonSegment<int>(
-                      value: 1,
-                      label: Text('All data'),
-                    ),
-                  ],
-                  selectedId: widget.contextMode,
-                  onSelectionChanged: widget.onContextModeChanged,
-                ),
+              OutlinedButton(
+                onPressed: () {
+                  widget.onSendPrompt('#transaction');
+                },
+                child: const Text('Transactions'),
               ),
               Expanded(
                 child: TextField(

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
@@ -39,7 +37,6 @@ class ViewAIState extends ViewWidgetState {
   bool _isChecking = true;
   bool _isProcessingPrompt = false;
   bool _cancelled = false;
-  int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
   final ScrollController _scrollController = ScrollController();
@@ -140,12 +137,6 @@ class ViewAIState extends ViewWidgetState {
             child: _chatListView(),
           ),
           ChatInputArea(
-            contextMode: _contextMode,
-            onContextModeChanged: (int value) {
-              setState(() {
-                _contextMode = value;
-              });
-            },
             onSendPrompt: _sendUserPrompt,
             isProcessing: _isProcessingPrompt,
             onCancel: () {
@@ -175,13 +166,12 @@ class ViewAIState extends ViewWidgetState {
       return;
     }
 
-    String contextPrompt = '';
-    if (_contextMode == 1) {
-      contextPrompt = _getFinancialData();
-    }
+    String fullPrompt = promptAsked;
 
-    // Create the full prompt based on context mode
-    String fullPrompt = '\n$promptAsked\n${_contextMode == 1 ? contextPrompt : ''}';
+    // Create the full prompt
+    if (promptAsked == '#transactions') {
+      fullPrompt += 'learn these transactions \n${_getFinancialData()}';
+    }
 
     // Ensure the prompt is valid UTF-8
     fullPrompt = utf8.decode(utf8.encode(fullPrompt));
@@ -189,9 +179,9 @@ class ViewAIState extends ViewWidgetState {
     // Prepare the JSON payload
     final Map<String, dynamic> payload = <String, dynamic>{
       'model': OllamaService.selectedModel,
-      'system':
-          "You are a professional financial analyst AI. Your only task is to read the provided transaction data and directly answer the user's question in plain English. Do NOT include reasoning, internal thoughts, <think> tags, explanations, or commentary. Only output the final result as concise natural sentences.",
-      'prompt': 'Question: $fullPrompt',
+      // 'system':
+      //     "You are a professional financial analyst AI. Your only task is to read the provided transaction data and directly answer the user's question in plain English. Do NOT include reasoning, internal thoughts, <think> tags, explanations, or commentary. Only output the final result as concise natural sentences.",
+      'prompt': fullPrompt,
       'stream': false, // Set to false for simplicity, response comes back all at once
     };
 
@@ -204,10 +194,9 @@ class ViewAIState extends ViewWidgetState {
     setState(() {
       _chatHistory.add(
         ChatMessage(
-          message: promptAsked,
+          message: fullPrompt,
           type: MessageType.user,
           timestamp: DateTime.now(),
-          contextMode: _contextMode,
           payloadSentToOllama: payload,
         ),
       );
@@ -302,43 +291,6 @@ class ViewAIState extends ViewWidgetState {
     _cancelled = false;
   }
 
-  void _showPromptPopup(final Map<String, dynamic> jsonAsTextpayloadSentToOllama) {
-    final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextpayloadSentToOllama);
-
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Full Prompt Sent to AI'),
-          content: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: SingleChildScrollView(
-              child: SelectableText(
-                jsonAsText,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () async {
-                await Clipboard.setData(ClipboardData(text: jsonAsText));
-              },
-              icon: const Icon(Icons.copy_all),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   String _getFinancialData() {
     final StringBuffer data = StringBuffer();
 
@@ -349,7 +301,7 @@ class ViewAIState extends ViewWidgetState {
         final String account = transaction.accountName;
         transactionsByAccount.putIfAbsent(account, () => <Transaction>[]).add(transaction);
       }
-      data.writeln('Here is the input data its all the accounts with their their transactions as date, amount ');
+      data.writeln('Here are all my accounts with their transactions as date, amount \n');
       for (final MapEntry<String, List<Transaction>> entry in transactionsByAccount.entries) {
         final String accountName = entry.key;
         final List<Transaction> transactions = entry.value;
@@ -414,149 +366,15 @@ class ViewAIState extends ViewWidgetState {
 
         if (messageIndex < _chatHistory.length) {
           final ChatMessage message = _chatHistory[messageIndex];
-          final bool isUser = message.type == MessageType.user;
-
-          // Only apply truncation to AI messages, not user messages
-          final bool shouldTruncate = !isUser && message.message.trim().split('\n').length > 100;
-
-          return Align(
-            alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
-              ),
-              child: Column(
-                crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                children: <Widget>[
-                  if (isUser)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Icon(
-                          message.contextMode == 0 ? Icons.chat_bubble_outline : Icons.data_object,
-                          color: getColorTheme(context).primary,
-                          size: 16,
-                        ),
-                        gapSmall(),
-                        Text(
-                          message.contextMode == 0 ? 'Generic' : 'Data context',
-                          style: TextStyle(
-                            color: getColorTheme(context).primary,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        ...<Widget>[
-                          gapSmall(),
-                          IconButton(
-                            onPressed: () {
-                              _showPromptPopup(message.payloadSentToOllama);
-                            },
-                            icon: Icon(
-                              Icons.info_outline,
-                              color: getColorTheme(context).primary,
-                              size: 16,
-                            ),
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(
-                              maxWidth: 24,
-                              maxHeight: 24,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: isUser
-                          ? getColorTheme(context).primaryContainer
-                          : getColorTheme(context).surfaceContainerHighest,
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(16),
-                        topRight: const Radius.circular(16),
-                        bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(4),
-                        bottomRight: isUser ? const Radius.circular(4) : const Radius.circular(16),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SelectableText(
-                          shouldTruncate && !message.isExpanded
-                              ? '${message.message.trim().split('\n').take(100).join('\n')}\n...'
-                              : message.message.trim(),
-                          style: TextStyle(
-                            color: isUser
-                                ? getColorTheme(context).onPrimaryContainer
-                                : getColorTheme(context).onSurface,
-                          ),
-                        ),
-                        if (shouldTruncate)
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                message.isExpanded = !message.isExpanded;
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(
-                              message.isExpanded ? 'Read Less' : 'Read More',
-                              style: TextStyle(
-                                color: getColorTheme(context).primary,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          return ChatMessageWidget(
+            message: message,
+            onToggleExpanded: () => setState(() {
+              message.isExpanded = !message.isExpanded;
+            }),
           );
         } else {
           // Show processing indicator
-          return Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 4),
-              padding: const EdgeInsets.all(12),
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
-              ),
-              decoration: BoxDecoration(
-                color: getColorTheme(context).surfaceContainerHighest,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                  bottomLeft: Radius.circular(4),
-                  bottomRight: Radius.circular(16),
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    'Thinking...',
-                    style: TextStyle(
-                      color: getColorTheme(context).onSurfaceVariant,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  gapLarge(),
-                  const WorkingIndicator(size: 20),
-                ],
-              ),
-            ),
-          );
+          return const ProcessingIndicator();
         }
       },
     );

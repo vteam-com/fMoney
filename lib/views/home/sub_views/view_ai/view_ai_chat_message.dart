@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:money/core/helpers/color_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/working.dart';
@@ -10,7 +13,6 @@ class ChatMessage {
     required this.type,
     required this.timestamp,
     required this.payloadSentToOllama,
-    this.contextMode = 0,
     this.isExpanded = false,
   });
 
@@ -18,7 +20,6 @@ class ChatMessage {
   final MessageType type;
   final DateTime timestamp;
   final Map<String, dynamic> payloadSentToOllama;
-  final int contextMode;
   bool isExpanded;
 }
 
@@ -27,12 +28,10 @@ class ChatMessageWidget extends StatefulWidget {
     super.key,
     required this.message,
     required this.onToggleExpanded,
-    required this.onShowPromptPopup,
   });
 
   final ChatMessage message;
   final VoidCallback onToggleExpanded;
-  final ValueChanged<Map<String, dynamic>> onShowPromptPopup;
 
   @override
   State<ChatMessageWidget> createState() => ChatMessageWidgetState();
@@ -62,13 +61,13 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Icon(
-                    message.contextMode == 0 ? Icons.chat_bubble_outline : Icons.data_object,
+                    Icons.data_object,
                     color: getColorTheme(context).primary,
                     size: 16,
                   ),
                   gapSmall(),
                   Text(
-                    message.contextMode == 0 ? 'Generic' : 'Data context',
+                    'Context',
                     style: TextStyle(
                       color: getColorTheme(context).primary,
                       fontSize: 10,
@@ -78,7 +77,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                   ...<Widget>[
                     gapSmall(),
                     IconButton(
-                      onPressed: () => widget.onShowPromptPopup(message.payloadSentToOllama),
+                      onPressed: () => _showPromptPopup(message.payloadSentToOllama),
                       icon: Icon(
                         Icons.info_outline,
                         color: getColorTheme(context).primary,
@@ -141,6 +140,43 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showPromptPopup(final Map<String, dynamic> jsonAsTextpayloadSentToOllama) {
+    final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextpayloadSentToOllama);
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Full Prompt Sent to AI'),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: SingleChildScrollView(
+              child: SelectableText(
+                jsonAsText,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () async {
+                await Clipboard.setData(ClipboardData(text: jsonAsText));
+              },
+              icon: const Icon(Icons.copy_all),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
