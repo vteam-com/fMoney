@@ -135,7 +135,7 @@ class ViewAiHeader extends StatelessWidget {
               ),
               if (questionCount > 0 || contextTokensCount > 0)
                 Text(
-                  'Questions: $questionCount | Tokens: $contextTokensCount',
+                  'Questions: $questionCount | Tokens: ${formatByteSize(contextTokensCount)}',
                   style: TextStyle(
                     fontSize: 12,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,

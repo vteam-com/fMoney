@@ -10,9 +10,9 @@ import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_header.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_header.dart';
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -251,6 +251,10 @@ class ViewAIState extends ViewWidgetState {
         // Parse the JSON response
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final String aiResponse = jsonResponse['response'] as String;
+
+        // Update conversation context with the returned context
+        _conversationContext = (jsonResponse['context'] as List<dynamic>?)?.cast<int>();
+
         if (!_cancelled) {
           setState(() {
             _isProcessingPrompt = false;
