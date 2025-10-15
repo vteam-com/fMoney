@@ -6,6 +6,16 @@ import 'package:money/core/helpers/list_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+class OllamaStatus {
+  OllamaStatus({
+    required this.isInstalled,
+    required this.isRunning,
+  });
+
+  final bool isInstalled;
+  final bool isRunning;
+}
+
 class OllamaService {
   static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
   static String selectedModel = '';
@@ -156,5 +166,25 @@ class OllamaService {
   static Future<void> saveSelectedModel(final String model) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selected_ollama_model', model);
+  }
+
+  static Future<OllamaStatus> checkOllamaStatus() async {
+    final bool isInstalled = await checkIfOllamaInstalled();
+    bool isRunning = false;
+
+    if (isInstalled) {
+      isRunning = await checkIfOllamaRunning();
+      if (!isRunning) {
+        await startOllama();
+        isRunning = await checkIfOllamaRunning();
+      }
+
+      // Get the list of models if running
+      if (isRunning) {
+        await loadAvailableModels();
+      }
+    }
+
+    return OllamaStatus(isInstalled: isInstalled, isRunning: isRunning);
   }
 }

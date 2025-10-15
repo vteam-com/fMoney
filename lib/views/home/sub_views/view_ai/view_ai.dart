@@ -325,27 +325,14 @@ class ViewAIState extends ViewWidgetState {
   Future<void> _checkOllamaStatus() async {
     setState(() => _isChecking = true);
 
-    _isOllamaInstalled = false;
-    _isOllamaRunning = false;
-
     try {
-      _isOllamaInstalled = await OllamaService.checkIfOllamaInstalled();
-
-      if (_isOllamaInstalled) {
-        _isOllamaRunning = await OllamaService.checkIfOllamaRunning();
-        if (!_isOllamaRunning) {
-          await OllamaService.startOllama();
-          _isOllamaRunning = await OllamaService.checkIfOllamaRunning();
-        }
-
-        // Get the list of models
-        if (_isOllamaRunning) {
-          await OllamaService.loadAvailableModels();
-          setState(() {});
-        }
-      }
+      final OllamaStatus status = await OllamaService.checkOllamaStatus();
+      _isOllamaInstalled = status.isInstalled;
+      _isOllamaRunning = status.isRunning;
     } catch (e) {
       debugPrint('Ollama check error: $e');
+      _isOllamaInstalled = false;
+      _isOllamaRunning = false;
     }
 
     setState(() => _isChecking = false);
