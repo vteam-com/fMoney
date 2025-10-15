@@ -14,31 +14,15 @@ import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-enum MessageType { user, ai }
 
 // Using a const for now, but this should be configurable and loaded dynamically
 String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
 
-class ChatMessage {
-  ChatMessage({
-    required this.message,
-    required this.type,
-    required this.timestamp,
-    required this.payloadSentToOllama,
-    this.contextMode = 0,
-    this.isExpanded = false,
-  });
-
-  final String message;
-  final MessageType type;
-  final DateTime timestamp;
-  final Map<String, dynamic> payloadSentToOllama;
-  final int contextMode;
-  bool isExpanded;
-}
+// Sub-widgets for better organization
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -72,125 +56,29 @@ class ViewAIState extends ViewWidgetState {
   late String _selectedModel;
 
   @override
-  Widget buildHeader([final Widget? child]) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: 16,
-            children: <Widget>[
-              const TextTitle('AI Assistant'),
-              if (_availableModels.isNotEmpty)
-                PopupMenuButton<String>(
-                  constraints: const BoxConstraints(minWidth: 400),
-                  onSelected: (final String selectedModel) async {
-                    setState(() {
-                      _selectedModel = selectedModel;
-                      modelToUseInOllama = selectedModel;
-                    });
-                    await _saveSelectedModel(selectedModel);
-                  },
-                  itemBuilder: (final BuildContext context) =>
-                      _availableModels.map<PopupMenuEntry<String>>((final Map<String, dynamic> model) {
-                        final String modelName = model['name'] as String;
-                        final String size = _formatSize(model['size'] as int);
-                        // final Map<String, dynamic> details = model['details'] as Map<String, dynamic>;
-                        // final String family = details['family'] as String;
-                        // final String parameterSize = details['parameter_size'] as String;
-                        // final String quantization = details['quantization_level'] as String;
+  void initState() {
+    super.initState();
+    _loadSelectedModel();
+    _checkOllamaStatus();
+  }
 
-                        final bool isSelected = modelName == _selectedModel;
-                        return PopupMenuItem<String>(
-                          value: modelName,
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: isSelected
-                                ? BoxDecoration(
-                                    color: getColorTheme(context).primaryContainer.withAlpha(100),
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  )
-                                : null,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              spacing: 4,
-                              children: <Widget>[
-                                Expanded(
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      modelName,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                        color: isSelected
-                                            ? getColorTheme(context).primary
-                                            : getColorTheme(context).onSurface,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Chip(
-                                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                  backgroundColor: getColorTheme(context).surfaceContainerHigh,
-                                  label: SizedBox(
-                                    width: 50,
-                                    child: Center(
-                                      child: Text(
-                                        size,
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: getColorTheme(context).onSurfaceVariant.withAlpha(200),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        'assets/images/ollama.svg',
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
-                      ),
-                      gapSmall(),
-                      Text(
-                        _selectedModel,
-                        style: TextStyle(
-                          color: getColorTheme(context).primary,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_drop_down,
-                        color: getColorTheme(context).primary,
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _chatHistory.clear();
-              });
-            },
-            icon: const Icon(Icons.delete_sweep_outlined),
-          ),
-        ],
-      ),
+  @override
+  Widget buildHeader([final Widget? child]) {
+    return ViewAIModelSelection(
+      availableModels: _availableModels,
+      selectedModel: _selectedModel,
+      onModelSelected: (final String selectedModel) async {
+        setState(() {
+          _selectedModel = selectedModel;
+          modelToUseInOllama = selectedModel;
+        });
+        await _saveSelectedModel(selectedModel);
+      },
+      onClearChat: () {
+        setState(() {
+          _chatHistory.clear();
+        });
+      },
     );
   }
 
@@ -225,13 +113,6 @@ class ViewAIState extends ViewWidgetState {
       return _buildOllamaInstructions();
     }
     return _buildChatInterface();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSelectedModel();
-    _checkOllamaStatus();
   }
 
   Widget _buildOllamaInstructions() {
@@ -905,18 +786,6 @@ class ViewAIState extends ViewWidgetState {
       if (kDebugMode) {
         print('Error loading models: $e');
       }
-    }
-  }
-
-  String _formatSize(final int bytes) {
-    if (bytes >= 1024 * 1024 * 1024) {
-      return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
-    } else if (bytes >= 1024 * 1024) {
-      return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
-    } else if (bytes >= 1024) {
-      return '${(bytes / 1024).toStringAsFixed(1)} KB';
-    } else {
-      return '$bytes B';
     }
   }
 

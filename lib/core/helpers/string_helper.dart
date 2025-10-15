@@ -381,3 +381,15 @@ String validDoubleToCurrency(final num value) => doubleToCurrency(
 );
 
 bool isNumber(num value) => value.isFinite && !value.isNaN;
+
+String formatByteSize(final int bytes) {
+  if (bytes >= 1024 * 1024 * 1024) {
+    return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
+  } else if (bytes >= 1024 * 1024) {
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  } else if (bytes >= 1024) {
+    return '${(bytes / 1024).toStringAsFixed(1)} KB';
+  } else {
+    return '$bytes B';
+  }
+}
