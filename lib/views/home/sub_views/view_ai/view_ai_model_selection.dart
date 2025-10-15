@@ -1,9 +1,10 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
+import 'package:money/core/widgets/my_svg.dart';
+import 'package:money/core/widgets/text_title.dart';
 
 String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
 
@@ -32,14 +33,7 @@ class ViewAIModelSelection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             spacing: 16,
             children: <Widget>[
-              const Text(
-                'AI Assistant',
-                style: TextStyle(
-                  color: Color(0xFF183660),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const TextTitle('AI Assistant'),
               if (availableModels.isNotEmpty)
                 PopupMenuButton<String>(
                   constraints: const BoxConstraints(minWidth: 400),
@@ -110,11 +104,10 @@ class ViewAIModelSelection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      SvgPicture.asset(
-                        'assets/images/ollama.svg',
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                      MySvg(
+                        assetName: 'ollama.svg',
+                        size: 20,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       gapSmall(),
                       Text(

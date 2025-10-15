@@ -4,11 +4,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/box.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
+import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/text_title.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
@@ -53,7 +53,7 @@ class ViewAIState extends ViewWidgetState {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
   final List<Map<String, dynamic>> _availableModels = <Map<String, dynamic>>[];
-  late String _selectedModel;
+  String _selectedModel = modelToUseInOllama;
 
   @override
   void initState() {
@@ -90,11 +90,10 @@ class ViewAIState extends ViewWidgetState {
           mainAxisSize: MainAxisSize.min,
           spacing: 32,
           children: <Widget>[
-            SvgPicture.asset(
-              'assets/images/ollama.svg',
-              width: 64,
-              height: 64,
-              colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
+            MySvg(
+              assetName: 'ollama.svg',
+              size: 64,
+              color: getColorTheme(context).primary,
             ),
             const Text('Checking Ollama status...'),
             const WorkingIndicator(
@@ -122,11 +121,10 @@ class ViewAIState extends ViewWidgetState {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SvgPicture.asset(
-              'assets/images/ollama.svg',
-              width: 64,
-              height: 64,
-              colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
+            MySvg(
+              assetName: 'ollama.svg',
+              size: 64,
+              color: getColorTheme(context).primary,
             ),
             gapLarge(),
             const TextTitle('Ollama AI Assistant'),
