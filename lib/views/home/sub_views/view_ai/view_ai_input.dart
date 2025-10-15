@@ -29,6 +29,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        color: getColorTheme(context).surfaceContainer,
         border: Border(
           top: BorderSide(color: getColorTheme(context).outline.withAlpha(100)),
         ),
@@ -92,6 +93,8 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    filled: true,
+                    fillColor: getColorTheme(context).surface,
                   ),
                   onSubmitted: widget.onSendPrompt,
                 ),
