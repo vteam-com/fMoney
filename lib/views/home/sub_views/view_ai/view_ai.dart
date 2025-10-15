@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:money/core/widgets/box.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
@@ -13,22 +17,24 @@ import 'package:url_launcher/url_launcher.dart';
 
 enum MessageType { user, ai }
 
+const String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
+
 class ChatMessage {
   ChatMessage({
     required this.message,
     required this.type,
     required this.timestamp,
-    this.isExpanded = false,
+    required this.payloadSentToOllama,
     this.contextMode = 0,
-    this.fullPrompt,
+    this.isExpanded = false,
   });
 
   final String message;
   final MessageType type;
   final DateTime timestamp;
-  bool isExpanded;
+  final Map<String, dynamic> payloadSentToOllama;
   final int contextMode;
-  final String? fullPrompt;
+  bool isExpanded;
 }
 
 class ViewAI extends ViewWidget {
@@ -84,13 +90,34 @@ class ViewAIState extends ViewWidgetState {
   @override
   Widget buildViewContent(final Widget child) {
     if (_isChecking) {
-      return const Center(child: Text('Checking Ollama status...'));
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 32,
+          children: <Widget>[
+            SvgPicture.asset(
+              'assets/images/ollama.svg',
+              width: 64,
+              height: 64,
+              colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
+            ),
+            const Text('Checking Ollama status...'),
+            const WorkingIndicator(
+              size: 64,
+            ),
+          ],
+        ),
+      );
     }
 
-    if (_isOllamaInstalled && _isOllamaRunning) {
-      return _buildChatInterface();
+    if (!_isOllamaInstalled) {
+      return _buildOllamaInstructions();
     }
-    return _buildInstallPrompt();
+
+    if (!_isOllamaRunning) {
+      return _buildOllamaInstructions();
+    }
+    return _buildChatInterface();
   }
 
   @override
@@ -99,14 +126,19 @@ class ViewAIState extends ViewWidgetState {
     _checkOllamaStatus();
   }
 
-  Widget _buildInstallPrompt() {
+  Widget _buildOllamaInstructions() {
     return Center(
       child: Box(
         padding: SizeForPadding.large,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(Icons.smart_toy_outlined, size: 64, color: getColorTheme(context).primary),
+            SvgPicture.asset(
+              'assets/images/ollama.svg',
+              width: 64,
+              height: 64,
+              colorFilter: ColorFilter.mode(getColorTheme(context).primary, BlendMode.srcIn),
+            ),
             gapLarge(),
             const TextTitle('Ollama AI Assistant'),
             gapMedium(),
@@ -115,15 +147,16 @@ class ViewAIState extends ViewWidgetState {
               textAlign: TextAlign.center,
             ),
             gapLarge(),
-            ElevatedButton(
-              onPressed: _installOllama,
-              child: const Text('Install Ollama now'),
-            ),
-            gapMedium(),
-            TextButton(
-              onPressed: _checkOllamaStatus,
-              child: const Text('Recheck status'),
-            ),
+            if (!_isOllamaInstalled)
+              ElevatedButton(
+                onPressed: _installOllama,
+                child: const Text('Install Ollama now'),
+              ),
+            if (!_isOllamaRunning)
+              ElevatedButton(
+                onPressed: _checkOllamaStatus,
+                child: const Text('Run Ollama'),
+              ),
           ],
         ),
       ),
@@ -183,11 +216,11 @@ class ViewAIState extends ViewWidgetState {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                if (message.fullPrompt != null) ...<Widget>[
+                                ...<Widget>[
                                   gapSmall(),
                                   IconButton(
                                     onPressed: () {
-                                      _showPromptPopup(message.fullPrompt!);
+                                      _showPromptPopup(message.payloadSentToOllama);
                                     },
                                     icon: Icon(
                                       Icons.info_outline,
@@ -288,7 +321,7 @@ class ViewAIState extends ViewWidgetState {
                             ),
                           ),
                           gapLarge(),
-                          const WorkingIndicator(size: 10),
+                          const WorkingIndicator(size: 20),
                         ],
                       ),
                     ),
@@ -394,15 +427,15 @@ class ViewAIState extends ViewWidgetState {
                         icon: Icon(Icons.cancel, color: getColorTheme(context).primary),
                       )
                     else
-                    IconButton(
-                      onPressed: () {
-                        final String text = _textController.text;
-                        if (text.isNotEmpty) {
-                          _sendUserPrompt(text);
-                        }
-                      },
-                      icon: Icon(Icons.send, color: getColorTheme(context).primary),
-                    ),
+                      IconButton(
+                        onPressed: () {
+                          final String text = _textController.text;
+                          if (text.isNotEmpty) {
+                            _sendUserPrompt(text);
+                          }
+                        },
+                        icon: Icon(Icons.send, color: getColorTheme(context).primary),
+                      ),
                   ],
                 ),
               ],
@@ -413,65 +446,41 @@ class ViewAIState extends ViewWidgetState {
     );
   }
 
-  Future<void> _checkOllamaStatus() async {
-    setState(() => _isChecking = true);
-
-    try {
-      // Check Ollama status via HTTP request
-      final Uri ollamaUrl = Uri.parse('http://localhost:11434/api/tags');
-      final HttpClient client = HttpClient();
-      final HttpClientRequest request = await client.getUrl(ollamaUrl);
-      final HttpClientResponse response = await request.close();
-
-      if (response.statusCode == 200) {
-        _isOllamaInstalled = true;
-        _isOllamaRunning = true;
-      } else {
-        _isOllamaInstalled = false;
-        _isOllamaRunning = false;
-      }
-    } catch (e) {
-      _isOllamaInstalled = false;
-      _isOllamaRunning = false;
-      if (kDebugMode) {
-        print('Ollama check error: $e');
-      }
-    }
-
-    setState(() => _isChecking = false);
-  }
-
-  Future<void> _installOllama() async {
-    // Open Ollama download page
-    final Uri url = Uri.parse('https://ollama.com/download');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    }
-  }
-
-  Future<void> _sendUserPrompt(final String text) async {
+  Future<void> _sendUserPrompt(final String promptAsked) async {
     if (!_isOllamaRunning) {
       setState(() {});
       return;
     }
 
-    // Cancel any existing timeout
-    _timeoutTimer?.cancel();
-
     String contextPrompt = '';
     if (_contextMode == 1) {
-      contextPrompt = _getDataAsCSV();
+      contextPrompt = _getFinancialData();
     }
+
+    // Create the full prompt based on context mode
+    String fullPrompt = '\n$promptAsked\n${_contextMode == 1 ? contextPrompt : ''}';
+
+    // Ensure the prompt is valid UTF-8
+    fullPrompt = utf8.decode(utf8.encode(fullPrompt));
+
+    // Prepare the JSON payload
+    final Map<String, dynamic> payload = <String, dynamic>{
+      'model': modelToUseInOllama,
+      'system':
+          "You are a professional financial analyst AI. Your only task is to read the provided transaction data and directly answer the user's question in plain English. Do NOT include reasoning, internal thoughts, <think> tags, explanations, or commentary. Only output the final result as concise natural sentences.",
+      'prompt': 'Question: $fullPrompt',
+      'stream': false, // Set to false for simplicity, response comes back all at once
+    };
 
     // Add user message to chat history
     setState(() {
       _chatHistory.add(
         ChatMessage(
-          message: text,
+          message: promptAsked,
           type: MessageType.user,
           timestamp: DateTime.now(),
           contextMode: _contextMode,
-          fullPrompt: _contextMode == 1 ? '$text\n\n$contextPrompt' : null,
+          payloadSentToOllama: payload,
         ),
       );
       _isProcessingPrompt = true;
@@ -480,46 +489,13 @@ class ViewAIState extends ViewWidgetState {
     // Clear input field
     _textController.clear();
 
-    // Set 20-second timeout
-    _timeoutTimer = Timer(const Duration(seconds: 120), () {
-      if (_isProcessingPrompt) {
-        setState(() {
-          _isProcessingPrompt = false;
-          _chatHistory.add(
-            ChatMessage(
-              message: 'Request timed out. Please try again.',
-              type: MessageType.ai,
-              timestamp: DateTime.now(),
-            ),
-          );
-        });
-      }
-    });
-
     try {
-      // Create the full prompt based on context mode
-      String fullPrompt = text;
-      if (_contextMode == 1) {
-        // All data mode
-        fullPrompt = 'USER QUESTION: $text\n\n$contextPrompt';
-      }
-
-      // Ensure the prompt is valid UTF-8
-      fullPrompt = utf8.decode(utf8.encode(fullPrompt));
-
       // Send prompt to Ollama via HTTP API
       final Uri generateUrl = Uri.parse('http://localhost:11434/api/generate');
       final HttpClient client = HttpClient();
 
       // Create the HTTP request
       final HttpClientRequest request = await client.postUrl(generateUrl);
-
-      // Prepare the JSON payload
-      final Map<String, dynamic> payload = <String, dynamic>{
-        'model': 'deepseek-r1:14b', //'gpt-oss:20b',
-        'prompt': fullPrompt,
-        'stream': false, // Set to false for simplicity, response comes back all at once
-      };
 
       // Write JSON-encoded body and set content-type (send as proper UTF-8 bytes)
       request.headers.contentType = ContentType.json;
@@ -547,51 +523,54 @@ class ViewAIState extends ViewWidgetState {
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final String aiResponse = jsonResponse['response'] as String;
         if (!_cancelled) {
-        setState(() {
-          _isProcessingPrompt = false;
-          _chatHistory.add(
-            ChatMessage(
-              message: aiResponse.trim(),
-              type: MessageType.ai,
-              timestamp: DateTime.now(),
+          setState(() {
+            _isProcessingPrompt = false;
+            _chatHistory.add(
+              ChatMessage(
+                message: aiResponse.trim(),
+                type: MessageType.ai,
+                timestamp: DateTime.now(),
                 payloadSentToOllama: payload,
-            ),
-          );
-        });
+              ),
+            );
+          });
         }
       } else {
         if (!_cancelled) {
+          setState(() {
+            _isProcessingPrompt = false;
+            _chatHistory.add(
+              ChatMessage(
+                message: 'Error: HTTP ${response.statusCode}',
+                type: MessageType.ai,
+                timestamp: DateTime.now(),
+                payloadSentToOllama: <String, dynamic>{},
+              ),
+            );
+          });
+        }
+      }
+    } catch (e) {
+      if (!_cancelled) {
         setState(() {
           _isProcessingPrompt = false;
           _chatHistory.add(
             ChatMessage(
-              message: 'Error: HTTP ${response.statusCode}',
+              message: 'Error: $e',
               type: MessageType.ai,
               timestamp: DateTime.now(),
+              payloadSentToOllama: <String, dynamic>{},
             ),
           );
         });
       }
-    } catch (e) {
-      if (!_cancelled) {
-      setState(() {
-        _isProcessingPrompt = false;
-        _chatHistory.add(
-          ChatMessage(
-            message: 'Error: $e',
-            type: MessageType.ai,
-            timestamp: DateTime.now(),
-          ),
-        );
-      });
     }
-  }
     _cancelled = false;
   }
 
+  void _showPromptPopup(final Map<String, dynamic> jsonAsTextpayloadSentToOllama) {
+    final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextpayloadSentToOllama);
 
-
-  void _showPromptPopup(final String fullPrompt) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -602,12 +581,18 @@ class ViewAIState extends ViewWidgetState {
             height: MediaQuery.of(context).size.height * 0.6,
             child: SingleChildScrollView(
               child: SelectableText(
-                fullPrompt,
+                jsonAsText,
                 style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
             ),
           ),
           actions: <Widget>[
+            IconButton(
+              onPressed: () async {
+                await Clipboard.setData(ClipboardData(text: jsonAsText));
+              },
+              icon: const Icon(Icons.copy_all),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -620,75 +605,164 @@ class ViewAIState extends ViewWidgetState {
     );
   }
 
-  String _getDataAsCSV() {
-    final StringBuffer fullCsv = StringBuffer();
+  String _getFinancialData() {
+    final StringBuffer data = StringBuffer();
 
-    // Header
-    // fullCsv.writeln('ACCOUNTS');
-    // try {
-    //   fullCsv.writeln(Data().accounts.toCSV());
-    // } catch (e) {
-    //   fullCsv.writeln('Error loading accounts data');
-    // }
-    // fullCsv.writeln();
-    // fullCsv.writeln('CATEGORIES');
-    // try {
-    //   fullCsv.writeln(Data().categories.toCSV());
-    // } catch (e) {
-    //   fullCsv.writeln('Error loading categories data');
-    // }
-    // fullCsv.writeln();
-    // fullCsv.writeln('PAYEES');
-    // try {
-    //   fullCsv.writeln(Data().payees.toCSV());
-    // } catch (e) {
-    //   fullCsv.writeln('Error loading payees data');
-    // }
-    // fullCsv.writeln();
-    // fullCsv.writeln('TRANSACTIONS');
     try {
-      String csvString = '';
+      final Map<String, List<Transaction>> transactionsByAccount = <String, List<Transaction>>{};
 
       for (final Transaction transaction in Data().transactions.iterableList()) {
-        csvString +=
-            '"${transaction.accountName}"\t"${transaction.dateTimeAsString}"\t"${transaction.amountAsString}"'
-            '\n';
+        final String account = transaction.accountName;
+        transactionsByAccount.putIfAbsent(account, () => <Transaction>[]).add(transaction);
       }
+      data.writeln('Here is the input data its all the accounts with their their transactions as date, amount ');
+      for (final MapEntry<String, List<Transaction>> entry in transactionsByAccount.entries) {
+        final String accountName = entry.key;
+        final List<Transaction> transactions = entry.value;
 
-      fullCsv.writeln(csvString);
+        data.writeln('Transactions in account "$accountName" ');
+
+        for (final Transaction t in transactions) {
+          data.writeln('${t.dateTimeAsString}, ${t.amountAsString}');
+        }
+
+        data.writeln('');
+      }
     } catch (e) {
-      fullCsv.writeln('Error loading transactions data');
+      data.writeln('Error loading transactions data');
     }
-    // fullCsv.writeln();
-    // fullCsv.writeln('INVESTMENTS');
-    // try {
-    //   fullCsv.writeln(Data().investments.toCSV());
-    // } catch (e) {
-    //   fullCsv.writeln('Error loading investments data');
-    // }
-    // fullCsv.writeln();
-    // fullCsv.writeln('SECURITIES');
-    // try {
-    //   fullCsv.writeln(Data().securities.toCSV());
-    // } catch (e) {
-    //   fullCsv.writeln('Error loading securities data');
-    // }
-
-    // Clean up the CSV string (remove carriage returns, nulls, and UTF-8 BOM)
-    final String finacialData = fullCsv
-        .toString()
-        .replaceAll('\r', '')
-        .replaceAll('\u0000', '')
-        .replaceAll('\uFEFF', '');
 
     // Updated prompt to clarify CSV includes headers and is not code/numeric input
-    return 'You are an experienced financial analyst AI, not a programmer or developer. '
-        'You analyze transactions data and provide insights, summaries, and answers using clear, natural English sentences only. '
-        'You must NEVER write, mention, or generate any kind of code (including Python, VBA, SQL, or shell scripts)". '
-        'When the user asks a question such as "find the largest transaction amount", you must read the data, find the correct value, and respond like a financial report: '
-        'If multiple relevant insights exist, summarize them succinctly. '
-        '```Tab delimited rows\n'
-        '$finacialData'
-        '```\n';
+    return data.toString();
+  }
+
+  Future<void> _checkOllamaStatus() async {
+    setState(() => _isChecking = true);
+
+    _isOllamaInstalled = false;
+    _isOllamaRunning = false;
+
+    try {
+      // First check if Ollama is installed using shell command
+      _isOllamaInstalled = await _checkIfOllamaInstalled();
+
+      if (_isOllamaInstalled) {
+        _isOllamaInstalled = true;
+        _isOllamaRunning = await _checkIfOllamaRunning();
+        if (!_isOllamaRunning) {
+          await _startOllama();
+          _isOllamaRunning = await _checkIfOllamaRunning();
+        }
+        // Check if Ollama is running via HTTP request
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Ollama check error: $e');
+      }
+    }
+
+    setState(() => _isChecking = false);
+  }
+
+  Future<bool> _checkIfOllamaInstalled() async {
+    try {
+      // First check if Ollama is installed using shell command
+      final ProcessResult installResult = await Process.run('which', <String>['ollama']);
+
+      return installResult.exitCode == 0;
+    } catch (e) {
+      _isOllamaInstalled = false;
+      if (kDebugMode) {
+        print('Ollama check error: $e');
+      }
+    }
+    return false;
+  }
+
+  Future<bool> _checkIfOllamaRunning() async {
+    try {
+      final Uri ollamaUrl = Uri.parse('http://localhost:11434/api/tags');
+      final HttpClient client = HttpClient();
+      final HttpClientRequest request = await client.getUrl(ollamaUrl);
+      final HttpClientResponse response = await request.close();
+
+      return (response.statusCode == 200);
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<void> _installOllama() async {
+    // Open Ollama download page
+    final Uri url = Uri.parse('https://ollama.com/download');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  }
+
+  // Launch the macOS Ollama app directly (same as clicking it in Applications)
+  Future<void> _startOllama() async {
+    try {
+      // Check if Ollama is already running
+      final HttpClient client = HttpClient();
+      try {
+        final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
+        final HttpClientResponse response = await request.close();
+        if (response.statusCode == 200) {
+          print('Ollama is already running.');
+          return;
+        }
+      } catch (_) {
+        // Not running, we'll launch it
+      } finally {
+        client.close();
+      }
+
+      if (Platform.isMacOS) {
+        // 🧩 Launch Ollama as a background process, *without showing its window*
+        await Process.start(
+          'ollama',
+          <String>['run', modelToUseInOllama],
+          mode: ProcessStartMode.detached,
+          environment: Platform.environment,
+        );
+        print('Launching Ollama silently on macOS...');
+      } else if (Platform.isWindows) {
+        // 🧩 Launch Ollama in the background (no console window)
+        await Process.start(
+          'cmd',
+          <String>['/c', 'start', '/min', 'ollama', 'serve'],
+          mode: ProcessStartMode.detached,
+        );
+        print('Launching Ollama silently on Windows...');
+      } else if (Platform.isLinux) {
+        // 🧩 Linux typically only has the CLI
+        await Process.start(
+          'ollama',
+          <String>['serve'],
+          mode: ProcessStartMode.detached,
+        );
+        print('Launching Ollama silently on Linux...');
+      } else {
+        throw UnsupportedError('Unsupported platform');
+      }
+
+      // Give Ollama a few seconds to boot up
+      await Future<dynamic>.delayed(const Duration(seconds: 5));
+
+      // Verify Ollama API is ready
+      final HttpClient verifyClient = HttpClient();
+      final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
+      final HttpClientResponse verifyResponse = await verifyRequest.close();
+      if (verifyResponse.statusCode == 200) {
+        print('✅ Ollama started and responding.');
+      } else {
+        print('⚠️ Ollama started but not responding correctly.');
+      }
+      verifyClient.close();
+    } catch (e) {
+      print('❌ Failed to start Ollama: $e');
+    }
   }
 }

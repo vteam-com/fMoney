@@ -44,6 +44,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
+  flutter_svg: ^2.2.1
   get: ^4.7.2
   http: ^1.4.0
   intl: ^0.20.2
@@ -102,7 +103,7 @@ flutter:
   # assets section
   assets:
     - assets/flags/
-    - assets/images/platforms/
+    - assets/images/
 
   fonts:
     - family: RobotoFlex
