@@ -42,6 +42,7 @@ class ViewAIState extends ViewWidgetState {
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
+  final ScrollController _scrollController = ScrollController();
   // Selected model is now managed in OllamaService
 
   @override
@@ -51,6 +52,24 @@ class ViewAIState extends ViewWidgetState {
     // Load the selected model from preferences first
     OllamaService.getLastUserSelectedModel().then((final _) {
       _checkOllamaStatus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((final _) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
   }
 
@@ -108,7 +127,9 @@ class ViewAIState extends ViewWidgetState {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(child: _chatListView()),
+          Expanded(
+            child: _chatListView(),
+          ),
           ChatInputArea(
             contextMode: _contextMode,
             onContextModeChanged: (int value) {
@@ -176,6 +197,7 @@ class ViewAIState extends ViewWidgetState {
         ),
       );
       _isProcessingPrompt = true;
+      _scrollToBottom();
     });
 
     // Clear input field
@@ -225,6 +247,7 @@ class ViewAIState extends ViewWidgetState {
                 payloadSentToOllama: payload,
               ),
             );
+            _scrollToBottom();
           });
         }
       } else {
@@ -359,6 +382,7 @@ class ViewAIState extends ViewWidgetState {
 
   Widget _chatListView() {
     return ListView.builder(
+      controller: _scrollController,
       padding: const EdgeInsets.all(16),
       reverse: false,
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
