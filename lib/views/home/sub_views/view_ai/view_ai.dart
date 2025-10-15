@@ -55,7 +55,7 @@ class ViewAIState extends ViewWidgetState {
   bool _isOllamaRunning = false;
   bool _isChecking = true;
   bool _isProcessingPrompt = false;
-  Timer? _timeoutTimer;
+  bool _cancelled = false;
   int _contextMode = 0;
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
@@ -374,7 +374,26 @@ class ViewAIState extends ViewWidgetState {
                         },
                       ),
                     ),
-                    gapSmall(),
+
+                    if (_isProcessingPrompt)
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _cancelled = true;
+                            _isProcessingPrompt = false;
+                            _chatHistory.add(
+                              ChatMessage(
+                                message: 'Request was cancelled.',
+                                type: MessageType.ai,
+                                timestamp: DateTime.now(),
+                                payloadSentToOllama: <String, dynamic>{},
+                              ),
+                            );
+                          });
+                        },
+                        icon: Icon(Icons.cancel, color: getColorTheme(context).primary),
+                      )
+                    else
                     IconButton(
                       onPressed: () {
                         final String text = _textController.text;
@@ -507,17 +526,27 @@ class ViewAIState extends ViewWidgetState {
       final List<int> utf8Body = utf8.encode(jsonEncode(payload));
       request.add(utf8Body);
 
+      if (_cancelled) {
+        return;
+      }
+
       final HttpClientResponse response = await request.close();
+
+      if (_cancelled) {
+        return;
+      }
+
       final String responseBody = await response.transform(utf8.decoder).join();
 
-      // Cancel the timeout timer since we got a response
-      _timeoutTimer?.cancel();
-      _timeoutTimer = null;
+      if (_cancelled) {
+        return;
+      }
 
       if (response.statusCode == 200) {
         // Parse the JSON response
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final String aiResponse = jsonResponse['response'] as String;
+        if (!_cancelled) {
         setState(() {
           _isProcessingPrompt = false;
           _chatHistory.add(
@@ -525,10 +554,13 @@ class ViewAIState extends ViewWidgetState {
               message: aiResponse.trim(),
               type: MessageType.ai,
               timestamp: DateTime.now(),
+                payloadSentToOllama: payload,
             ),
           );
         });
+        }
       } else {
+        if (!_cancelled) {
         setState(() {
           _isProcessingPrompt = false;
           _chatHistory.add(
@@ -541,10 +573,7 @@ class ViewAIState extends ViewWidgetState {
         });
       }
     } catch (e) {
-      // Cancel the timeout timer since we got an error
-      _timeoutTimer?.cancel();
-      _timeoutTimer = null;
-
+      if (!_cancelled) {
       setState(() {
         _isProcessingPrompt = false;
         _chatHistory.add(
@@ -557,6 +586,10 @@ class ViewAIState extends ViewWidgetState {
       });
     }
   }
+    _cancelled = false;
+  }
+
+
 
   void _showPromptPopup(final String fullPrompt) {
     showDialog<void>(
