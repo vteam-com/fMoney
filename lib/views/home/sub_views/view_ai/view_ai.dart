@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/working.dart';
+import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
@@ -48,7 +47,9 @@ class ViewAIState extends ViewWidgetState {
     super.initState();
 
     // Load the selected model from preferences first
-    OllamaService.getLastUserSelectedModel().then((final _) {
+    OllamaService.getLastUserSelectedModel().then((final _) async {
+      // Load conversation context for the selected model
+      _conversationContext = await OllamaService.loadConversationContext();
       _checkOllamaStatus();
     });
   }
@@ -85,12 +86,16 @@ class ViewAIState extends ViewWidgetState {
         setState(() {}); // Refresh to update the selected model display
         OllamaService.selectedModel = selectedModel;
         await OllamaService.saveSelectedModel(selectedModel);
+        // Load context for the new model
+        _conversationContext = await OllamaService.loadConversationContext();
       },
       onClearChat: () {
         setState(() {
           _chatHistory.clear();
           _conversationContext = null;
         });
+        // Save the cleared context
+        OllamaService.saveConversationContext(null);
       },
       questionCount: questionCount,
       contextTokensCount: contextTokensCount,
@@ -137,7 +142,8 @@ class ViewAIState extends ViewWidgetState {
             child: _chatListView(),
           ),
           ChatInputArea(
-            onSendPrompt: _sendUserPrompt,
+            onSendPrompt: _submitPrompt,
+            onTeachAI: () async => await teachAIAboutAccounts(),
             isProcessing: _isProcessingPrompt,
             onCancel: () {
               setState(() {
@@ -160,33 +166,50 @@ class ViewAIState extends ViewWidgetState {
     );
   }
 
-  Future<void> _sendUserPrompt(final String promptAsked) async {
+  Future<void> _submitPrompt(final String promptAsked) async {
     if (!_isOllamaRunning) {
       setState(() {});
       return;
     }
+    // Clear input textfield
+    _textController.clear();
 
     String fullPrompt = promptAsked;
-
-    // Create the full prompt
-    if (promptAsked == '#transactions') {
-      fullPrompt += 'learn these transactions \n${_getFinancialData()}';
-    }
 
     // Ensure the prompt is valid UTF-8
     fullPrompt = utf8.decode(utf8.encode(fullPrompt));
 
-    // Prepare the JSON payload
+    // Create direct prompt combining context instructions + user question
+    final String aiPrompt =
+        '''
+You have been provided with financial data containing accounts and transactions (dates and amounts).
+
+Answer this question directly using the financial data you learned: $fullPrompt
+
+Guidelines:
+- Use ONLY the account and transaction data provided
+- Answer in plain English
+- Be concise and direct
+- List specific account names and amounts when asked
+- Do NOT add generic financial advice
+- Do NOT introduce yourself or talk about capabilities
+- Focus only on the financial data and the specific question asked
+
+Answer the question:''';
+
     final Map<String, dynamic> payload = <String, dynamic>{
       'model': OllamaService.selectedModel,
-      // 'system':
-      //     "You are a professional financial analyst AI. Your only task is to read the provided transaction data and directly answer the user's question in plain English. Do NOT include reasoning, internal thoughts, <think> tags, explanations, or commentary. Only output the final result as concise natural sentences.",
-      'prompt': fullPrompt,
-      'stream': false, // Set to false for simplicity, response comes back all at once
+      'messages': <Map<String, String>>[
+        <String, String>{
+          'role': 'user',
+          'content': aiPrompt,
+        },
+      ],
+      'stream': false,
     };
 
-    // Include conversation context if available
-    if (_conversationContext != null) {
+    // Add conversation context to payload if it exists and has content
+    if (_conversationContext != null && _conversationContext!.isNotEmpty) {
       payload['context'] = _conversationContext;
     }
 
@@ -204,45 +227,26 @@ class ViewAIState extends ViewWidgetState {
       _scrollToBottom();
     });
 
-    // Clear input field
-    _textController.clear();
-
     try {
-      // Send prompt to Ollama via HTTP API
-      final Uri generateUrl = Uri.parse('http://localhost:11434/api/generate');
-      final HttpClient client = HttpClient();
+      if (_cancelled) {
+        return;
+      }
 
-      // Create the HTTP request
-      final HttpClientRequest request = await client.postUrl(generateUrl);
-
-      // Write JSON-encoded body and set content-type (send as proper UTF-8 bytes)
-      request.headers.contentType = ContentType.json;
-      final List<int> utf8Body = utf8.encode(jsonEncode(payload));
-      request.add(utf8Body);
+      final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
 
       if (_cancelled) {
         return;
       }
 
-      final HttpClientResponse response = await request.close();
-
-      if (_cancelled) {
-        return;
-      }
-
-      final String responseBody = await response.transform(utf8.decoder).join();
-
-      if (_cancelled) {
-        return;
-      }
-
-      if (response.statusCode == 200) {
-        // Parse the JSON response
-        final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
+      if (jsonResponse.containsKey('response')) {
         final String aiResponse = jsonResponse['response'] as String;
 
         // Update conversation context with the returned context
-        _conversationContext = (jsonResponse['context'] as List<dynamic>?)?.cast<int>();
+        if (jsonResponse.containsKey('context')) {
+          _conversationContext = (jsonResponse['context'] as List<dynamic>).cast<int>();
+          // Save updated context to persistent storage
+          await OllamaService.saveConversationContext(_conversationContext);
+        }
 
         if (!_cancelled) {
           setState(() {
@@ -264,7 +268,7 @@ class ViewAIState extends ViewWidgetState {
             _isProcessingPrompt = false;
             _chatHistory.add(
               ChatMessage(
-                message: 'Error: HTTP ${response.statusCode}',
+                message: 'Error: Invalid response from Ollama',
                 type: MessageType.ai,
                 timestamp: DateTime.now(),
                 payloadSentToOllama: <String, dynamic>{},
@@ -289,37 +293,6 @@ class ViewAIState extends ViewWidgetState {
       }
     }
     _cancelled = false;
-  }
-
-  String _getFinancialData() {
-    final StringBuffer data = StringBuffer();
-
-    try {
-      final Map<String, List<Transaction>> transactionsByAccount = <String, List<Transaction>>{};
-
-      for (final Transaction transaction in Data().transactions.iterableList()) {
-        final String account = transaction.accountName;
-        transactionsByAccount.putIfAbsent(account, () => <Transaction>[]).add(transaction);
-      }
-      data.writeln('Here are all my accounts with their transactions as date, amount \n');
-      for (final MapEntry<String, List<Transaction>> entry in transactionsByAccount.entries) {
-        final String accountName = entry.key;
-        final List<Transaction> transactions = entry.value;
-
-        data.writeln('Transactions in account "$accountName" ');
-
-        for (final Transaction t in transactions) {
-          data.writeln('${t.dateTimeAsString}, ${t.amountAsString}');
-        }
-
-        data.writeln('');
-      }
-    } catch (e) {
-      data.writeln('Error loading transactions data');
-    }
-
-    // Updated prompt to clarify CSV includes headers and is not code/numeric input
-    return data.toString();
   }
 
   Future<void> _checkOllamaStatus() async {
@@ -365,5 +338,133 @@ class ViewAIState extends ViewWidgetState {
         }
       },
     );
+  }
+
+  Future<void> teachAIAboutAccounts() async {
+    if (mounted) {
+      setState(() {
+        _isProcessingPrompt = true;
+      });
+    }
+
+    // Build a single comprehensive prompt with ALL account data
+    final StringBuffer fullData = StringBuffer();
+    fullData.writeln(
+      'Here is ALL of my financial data. Memorize this information for answering future questions. '
+      'Store all accounts and transactions in your context.\n\n',
+    );
+
+    int accountCount = 0;
+    for (final Account account in Data().accounts.getOpenAccounts()) {
+      if (_cancelled) {
+        break;
+      }
+
+      final String accountName = account.fieldName.value;
+      if (accountName.startsWith('Category:')) {
+        continue;
+      }
+
+      fullData.writeln('=== ACCOUNT ${accountCount + 1} ===');
+      fullData.writeln('Name: "$accountName"');
+      fullData.writeln('Transactions:');
+
+      final List<Transaction> transactions = account.getTransaction();
+      for (final Transaction t in transactions) {
+        fullData.writeln('  ${t.dateTimeAsString}  ${t.amountAsString}');
+      }
+      fullData.writeln(); // Empty line between accounts
+      accountCount++;
+    }
+
+    if (accountCount == 0) {
+      if (mounted) {
+        setState(() {
+          _isProcessingPrompt = false;
+        });
+      }
+      return;
+    }
+
+    final String teachingMessage = 'Teaching AI about $accountCount accounts with their transactions...';
+
+    final Map<String, dynamic> payload = <String, dynamic>{
+      'model': OllamaService.selectedModel,
+      'messages': <Map<String, String>>[
+        <String, String>{
+          'role': 'user',
+          'content': fullData.toString(),
+        },
+      ],
+      'stream': false,
+    };
+
+    // Don't include existing context when teaching - start fresh
+    // The AI will build context from this comprehensive data
+
+    _chatHistory.add(
+      ChatMessage(
+        message: teachingMessage,
+        type: MessageType.user,
+        timestamp: DateTime.now(),
+        payloadSentToOllama: payload,
+      ),
+    );
+
+    if (mounted) {
+      setState(() {
+        _scrollToBottom();
+      });
+    }
+
+    final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
+
+    if (response.containsKey('response')) {
+      // Update conversation context with the returned context
+      if (response.containsKey('context')) {
+        _conversationContext = (response['context'] as List<dynamic>).cast<int>();
+        // Save the context with all account data
+        await OllamaService.saveConversationContext(_conversationContext);
+        debugPrint(
+          '📚 Taught AI about all $accountCount accounts (context saved: ${_conversationContext!.length} tokens)',
+        );
+
+        _chatHistory.add(
+          ChatMessage(
+            message: 'AI has learned about $accountCount accounts and their transactions.',
+            type: MessageType.ai,
+            timestamp: DateTime.now(),
+            payloadSentToOllama: payload,
+          ),
+        );
+      } else {
+        debugPrint('📚 Taught AI about accounts but no context returned');
+        _chatHistory.add(
+          ChatMessage(
+            message: 'Teaching completed, but context not returned by AI.',
+            type: MessageType.ai,
+            timestamp: DateTime.now(),
+            payloadSentToOllama: payload,
+          ),
+        );
+      }
+    } else {
+      debugPrint('📚 Teaching failed - no response from AI');
+      _chatHistory.add(
+        ChatMessage(
+          message: 'Failed to teach AI - no response from the model.',
+          type: MessageType.ai,
+          timestamp: DateTime.now(),
+          payloadSentToOllama: <String, dynamic>{},
+        ),
+      );
+    }
+
+    if (mounted) {
+      setState(() {
+        _isProcessingPrompt = false;
+        _scrollToBottom();
+      });
+    }
   }
 }

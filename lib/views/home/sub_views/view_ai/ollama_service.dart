@@ -168,6 +168,79 @@ class OllamaService {
     await prefs.setString('selected_ollama_model', model);
   }
 
+  static Future<void> saveConversationContext(final List<int>? context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (context != null) {
+      await prefs.setString('ollama_context_$selectedModel', jsonEncode(context));
+    } else {
+      await prefs.remove('ollama_context_$selectedModel');
+    }
+  }
+
+  static Future<List<int>?> loadConversationContext() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? contextString = prefs.getString('ollama_context_$selectedModel');
+    if (contextString != null) {
+      final List<dynamic> contextList = jsonDecode(contextString) as List<dynamic>;
+      return contextList.cast<int>();
+    }
+    return null;
+  }
+
+  static Future<Map<String, dynamic>> sendPayload(final Map<String, dynamic> payload) async {
+    const String endpoint = 'generate'; // Use /api/generate for context support instead of /api/chat
+    final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
+    final HttpClient client = HttpClient();
+    final HttpClientRequest request = await client.postUrl(generateUrl);
+    request.headers.contentType = ContentType.json;
+
+    // Convert messages format if needed for /api/generate
+    if (endpoint == 'generate' && payload.containsKey('messages')) {
+      final List<Map<String, String>> messages = payload['messages'] as List<Map<String, String>>;
+      // Combine messages into a single prompt for /api/generate
+      final StringBuffer prompt = StringBuffer();
+      for (final Map<String, String> message in messages) {
+        final String role = message['role'] ?? '';
+        final String content = message['content'] ?? '';
+        if (role == 'system') {
+          prompt.write('System: $content\n\n');
+        } else if (role == 'user') {
+          prompt.write('User: $content\n\n');
+        } else if (role == 'assistant') {
+          prompt.write('Assistant: $content\n\n');
+        }
+      }
+
+      // Create new payload for /api/generate
+      final Map<String, dynamic> generatePayload = <String, dynamic>{
+        'model': payload['model'],
+        'prompt': prompt.toString(),
+        'stream': false,
+      };
+
+      // Add context if present
+      if (payload.containsKey('context')) {
+        generatePayload['context'] = payload['context'];
+      }
+
+      final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
+      request.add(utf8Body);
+    } else {
+      final List<int> utf8Body = utf8.encode(jsonEncode(payload));
+      request.add(utf8Body);
+    }
+
+    final HttpClientResponse response = await request.close();
+    final String responseBody = await response.transform(utf8.decoder).join();
+    if (response.statusCode == 200) {
+      client.close();
+      return jsonDecode(responseBody) as Map<String, dynamic>;
+    } else {
+      client.close();
+      throw Exception('HTTP ${response.statusCode}: $responseBody');
+    }
+  }
+
   static Future<OllamaStatus> checkOllamaStatus() async {
     final bool isInstalled = await checkIfOllamaInstalled();
     bool isRunning = false;

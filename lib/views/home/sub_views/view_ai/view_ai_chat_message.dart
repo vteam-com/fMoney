@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:money/core/helpers/color_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/working.dart';
+import 'package:money/data/models/fields/field_filters.dart';
 
 enum MessageType { user, ai }
 
@@ -44,7 +45,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
     final bool isUser = message.type == MessageType.user;
 
     // Only apply truncation to AI messages, not user messages
-    final bool shouldTruncate = !isUser && message.message.trim().split('\n').length > 100;
+    final bool shouldTruncate = message.message.trim().split('\n').length > 100;
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -55,43 +56,6 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
         child: Column(
           crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
-            if (isUser)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Icon(
-                    Icons.data_object,
-                    color: getColorTheme(context).primary,
-                    size: 16,
-                  ),
-                  gapSmall(),
-                  Text(
-                    'Context',
-                    style: TextStyle(
-                      color: getColorTheme(context).primary,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  ...<Widget>[
-                    gapSmall(),
-                    IconButton(
-                      onPressed: () => _showPromptPopup(message.payloadSentToOllama),
-                      icon: Icon(
-                        Icons.info_outline,
-                        color: getColorTheme(context).primary,
-                        size: 16,
-                      ),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(
-                        maxWidth: 24,
-                        maxHeight: 24,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 4),
               padding: const EdgeInsets.all(12),
@@ -107,33 +71,60 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  SelectableText(
-                    shouldTruncate && !message.isExpanded
-                        ? '${message.message.trim().split('\n').take(100).join('\n')}\n...'
-                        : message.message.trim(),
-                    style: TextStyle(
-                      color: isUser ? getColorTheme(context).onPrimaryContainer : getColorTheme(context).onSurface,
+                  IntrinsicWidth(
+                    child: SelectableText(
+                      shouldTruncate && !message.isExpanded
+                          ? '${message.message.trim().split('\n').take(50).join('\n')}\n...'
+                          : message.message.trim(),
+                      style: TextStyle(
+                        color: isUser ? getColorTheme(context).onPrimaryContainer : getColorTheme(context).onSurface,
+                      ),
                     ),
                   ),
-                  if (shouldTruncate)
-                    TextButton(
-                      onPressed: widget.onToggleExpanded,
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        message.isExpanded ? 'Read Less' : 'Read More',
-                        style: TextStyle(
-                          color: getColorTheme(context).primary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 16,
+                    children: <Widget>[
+                      if (shouldTruncate)
+                        TextButton(
+                          onPressed: widget.onToggleExpanded,
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            message.isExpanded ? 'Read Less' : 'Read More',
+                            style: TextStyle(
+                              color: getColorTheme(context).primary,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      Opacity(opacity: 0.5, child: Text(getElapsedTime(message.timestamp))),
+                      if (isUser)
+                        IconButton(
+                          onPressed: () => _showPromptPopup(message.payloadSentToOllama),
+                          icon: Icon(
+                            Icons.comment,
+                            color: getColorTheme(context).primary.withAlpha(200),
+                            size: 20,
+                          ),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(
+                            maxWidth: 24,
+                            maxHeight: 24,
+                          ),
+                        ),
+                    ],
+                  ),
                 ],
               ),
             ),

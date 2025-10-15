@@ -8,16 +8,20 @@ class ChatInputArea extends StatefulWidget {
     required this.isProcessing,
     required this.onCancel,
     required this.inputController,
+    required this.onTeachAI,
   });
 
   final ValueChanged<String> onSendPrompt;
   final bool isProcessing;
   final VoidCallback onCancel;
+  final VoidCallback onTeachAI;
   final TextEditingController inputController;
 
   @override
   State<ChatInputArea> createState() => _ChatInputAreaState();
 }
+
+const String chatKeywordTransaction = '#transaction';
 
 class _ChatInputAreaState extends State<ChatInputArea> {
   @override
@@ -34,35 +38,38 @@ class _ChatInputAreaState extends State<ChatInputArea> {
         spacing: 8,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          SizedBox(
-            width: 600,
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () => widget.onSendPrompt('Analyze my spending patterns'),
-                  child: const Text('Analyze spending'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    widget.onSendPrompt('Identify the largest single transaction amount in each account');
-                  },
-                  child: const Text('Largest transactions'),
-                ),
-                ElevatedButton(
-                  onPressed: () => widget.onSendPrompt('Predict future expenses'),
-                  child: const Text('Expense predictions'),
-                ),
-              ],
-            ),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  widget.onSendPrompt('List all the account names');
+                },
+                child: const Text('Account names'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  widget.onSendPrompt('Identify the largest single transaction amount in each account');
+                },
+                child: const Text('Largest transactions'),
+              ),
+              ElevatedButton(
+                onPressed: () => widget.onSendPrompt('Analyze my spending patterns'),
+                child: const Text('Analyze spending'),
+              ),
+              ElevatedButton(
+                onPressed: () => widget.onSendPrompt('Predict future expenses'),
+                child: const Text('Expense predictions'),
+              ),
+            ],
           ),
           Row(
             spacing: 8,
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {
-                  widget.onSendPrompt('#transaction');
+                  widget.onTeachAI();
                 },
                 child: const Text('Transactions'),
               ),
