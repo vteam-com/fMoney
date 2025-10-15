@@ -85,6 +85,7 @@ class ViewAIState extends ViewWidgetState {
               const TextTitle('AI Assistant'),
               if (_availableModels.isNotEmpty)
                 PopupMenuButton<String>(
+                  constraints: const BoxConstraints(minWidth: 400),
                   onSelected: (final String selectedModel) async {
                     setState(() {
                       _selectedModel = selectedModel;
@@ -101,34 +102,49 @@ class ViewAIState extends ViewWidgetState {
                         // final String parameterSize = details['parameter_size'] as String;
                         // final String quantization = details['quantization_level'] as String;
 
+                        final bool isSelected = modelName == _selectedModel;
                         return PopupMenuItem<String>(
                           value: modelName,
                           child: Container(
                             padding: const EdgeInsets.all(8.0),
+                            decoration: isSelected
+                                ? BoxDecoration(
+                                    color: getColorTheme(context).primaryContainer.withAlpha(100),
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  )
+                                : null,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               spacing: 4,
                               children: <Widget>[
                                 Expanded(
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
                                       modelName,
                                       textAlign: TextAlign.left,
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                        color: isSelected
+                                            ? getColorTheme(context).primary
+                                            : getColorTheme(context).onSurface,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Chip(
-                                    padding: const EdgeInsets.all(0),
-                                    label: Text(
-                                      size,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: getColorTheme(context).onSurfaceVariant.withAlpha(200),
+                                Chip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                  backgroundColor: getColorTheme(context).surfaceContainerHigh,
+                                  label: SizedBox(
+                                    width: 50,
+                                    child: Center(
+                                      child: Text(
+                                        size,
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: getColorTheme(context).onSurfaceVariant.withAlpha(200),
+                                        ),
                                       ),
                                     ),
                                   ),
