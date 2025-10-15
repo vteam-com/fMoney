@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
@@ -9,7 +7,7 @@ import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/text_title.dart';
 import 'package:money/data/storage/data/data.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
+import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -150,7 +148,7 @@ class OllamaManager {
         final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
         final HttpClientResponse response = await request.close();
         if (response.statusCode == 200) {
-          print('Ollama is already running.');
+          debugPrint('Ollama is already running.');
           return;
         }
       } catch (_) {
@@ -167,7 +165,7 @@ class OllamaManager {
           mode: ProcessStartMode.detached,
           environment: Platform.environment,
         );
-        print('Launching Ollama silently on macOS...');
+        debugPrint('Launching Ollama silently on macOS...');
       } else if (Platform.isWindows) {
         // 🧩 Launch Ollama in the background (no console window)
         await Process.start(
@@ -175,7 +173,7 @@ class OllamaManager {
           <String>['/c', 'start', '/min', 'ollama', 'serve'],
           mode: ProcessStartMode.detached,
         );
-        print('Launching Ollama silently on Windows...');
+        debugPrint('Launching Ollama silently on Windows...');
       } else if (Platform.isLinux) {
         // 🧩 Linux typically only has the CLI
         await Process.start(
@@ -183,7 +181,7 @@ class OllamaManager {
           <String>['serve'],
           mode: ProcessStartMode.detached,
         );
-        print('Launching Ollama silently on Linux...');
+        debugPrint('Launching Ollama silently on Linux...');
       } else {
         throw UnsupportedError('Unsupported platform');
       }
@@ -196,13 +194,13 @@ class OllamaManager {
       final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
       final HttpClientResponse verifyResponse = await verifyRequest.close();
       if (verifyResponse.statusCode == 200) {
-        print('✅ Ollama started and responding.');
+        debugPrint('✅ Ollama started and responding.');
       } else {
-        print('⚠️ Ollama started but not responding correctly.');
+        debugPrint('⚠️ Ollama started but not responding correctly.');
       }
       verifyClient.close();
     } catch (e) {
-      print('❌ Failed to start Ollama: $e');
+      debugPrint('❌ Failed to start Ollama: $e');
     }
   }
 

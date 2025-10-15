@@ -1,12 +1,8 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/text_title.dart';
-
-String modelToUseInOllama = 'martain7r/finance-llama-8b:q4_k_m'; //'gpt-oss:20b',
 
 class ViewAIModelSelection extends StatelessWidget {
   const ViewAIModelSelection({

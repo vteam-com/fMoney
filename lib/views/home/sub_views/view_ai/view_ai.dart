@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
@@ -11,12 +9,12 @@ import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
+import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -102,7 +100,7 @@ class ViewAIState extends ViewWidgetState {
       return ViewAIInstructions(
         isOllamaInstalled: _isOllamaInstalled,
         isOllamaRunning: _isOllamaRunning,
-        onInstall: _installOllama,
+        onInstall: () => OllamaService.installOllama(),
         onCheckStatus: _checkOllamaStatus,
       );
     }
@@ -499,15 +497,13 @@ class ViewAIState extends ViewWidgetState {
     _isOllamaRunning = false;
 
     try {
-      // First check if Ollama is installed using shell command
-      _isOllamaInstalled = await _checkIfOllamaInstalled();
+      _isOllamaInstalled = await OllamaService.checkIfOllamaInstalled();
 
       if (_isOllamaInstalled) {
-        _isOllamaInstalled = true;
-        _isOllamaRunning = await _checkIfOllamaRunning();
+        _isOllamaRunning = await OllamaService.checkIfOllamaRunning();
         if (!_isOllamaRunning) {
-          await _startOllama();
-          _isOllamaRunning = await _checkIfOllamaRunning();
+          await OllamaService.startOllama();
+          _isOllamaRunning = await OllamaService.checkIfOllamaRunning();
         }
 
         // Get the list of models
@@ -516,114 +512,10 @@ class ViewAIState extends ViewWidgetState {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Ollama check error: $e');
-      }
+      debugPrint('Ollama check error: $e');
     }
 
     setState(() => _isChecking = false);
-  }
-
-  Future<bool> _checkIfOllamaInstalled() async {
-    try {
-      // First check if Ollama is installed using shell command
-      final ProcessResult installResult = await Process.run('which', <String>['ollama']);
-
-      return installResult.exitCode == 0;
-    } catch (e) {
-      _isOllamaInstalled = false;
-      if (kDebugMode) {
-        print('Ollama check error: $e');
-      }
-    }
-    return false;
-  }
-
-  Future<bool> _checkIfOllamaRunning() async {
-    try {
-      final Uri ollamaUrl = Uri.parse('http://localhost:11434/api/tags');
-      final HttpClient client = HttpClient();
-      final HttpClientRequest request = await client.getUrl(ollamaUrl);
-      final HttpClientResponse response = await request.close();
-
-      return (response.statusCode == 200);
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
-  }
-
-  Future<void> _installOllama() async {
-    // Open Ollama download page
-    final Uri url = Uri.parse('https://ollama.com/download');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    }
-  }
-
-  // Launch the macOS Ollama app directly (same as clicking it in Applications)
-  Future<void> _startOllama() async {
-    try {
-      // Check if Ollama is already running
-      final HttpClient client = HttpClient();
-      try {
-        final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-        final HttpClientResponse response = await request.close();
-        if (response.statusCode == 200) {
-          print('Ollama is already running.');
-          return;
-        }
-      } catch (_) {
-        // Not running, we'll launch it
-      } finally {
-        client.close();
-      }
-
-      if (Platform.isMacOS) {
-        // 🧩 Launch Ollama as a background process, *without showing its window*
-        await Process.start(
-          'ollama',
-          <String>['run', modelToUseInOllama],
-          mode: ProcessStartMode.detached,
-          environment: Platform.environment,
-        );
-        print('Launching Ollama silently on macOS...');
-      } else if (Platform.isWindows) {
-        // 🧩 Launch Ollama in the background (no console window)
-        await Process.start(
-          'cmd',
-          <String>['/c', 'start', '/min', 'ollama', 'serve'],
-          mode: ProcessStartMode.detached,
-        );
-        print('Launching Ollama silently on Windows...');
-      } else if (Platform.isLinux) {
-        // 🧩 Linux typically only has the CLI
-        await Process.start(
-          'ollama',
-          <String>['serve'],
-          mode: ProcessStartMode.detached,
-        );
-        print('Launching Ollama silently on Linux...');
-      } else {
-        throw UnsupportedError('Unsupported platform');
-      }
-
-      // Give Ollama a few seconds to boot up
-      await Future<dynamic>.delayed(const Duration(seconds: 5));
-
-      // Verify Ollama API is ready
-      final HttpClient verifyClient = HttpClient();
-      final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-      final HttpClientResponse verifyResponse = await verifyRequest.close();
-      if (verifyResponse.statusCode == 200) {
-        print('✅ Ollama started and responding.');
-      } else {
-        print('⚠️ Ollama started but not responding correctly.');
-      }
-      verifyClient.close();
-    } catch (e) {
-      print('❌ Failed to start Ollama: $e');
-    }
   }
 
   Future<void> _loadAvailableModels() async {

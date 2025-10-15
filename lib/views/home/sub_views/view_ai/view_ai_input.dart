@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:money/core/widgets/my_segment.dart';
 import 'package:money/data/storage/data/data.dart';
 
