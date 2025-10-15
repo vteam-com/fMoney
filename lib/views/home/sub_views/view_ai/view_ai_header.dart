@@ -4,12 +4,14 @@ import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_svg.dart';
 import 'package:money/core/widgets/text_title.dart';
 
-class ViewAIModelSelection extends StatelessWidget {
-  const ViewAIModelSelection({
+class ViewAiHeader extends StatelessWidget {
+  const ViewAiHeader({
     required this.availableModels,
     required this.selectedModel,
     required this.onModelSelected,
     required this.onClearChat,
+    required this.questionCount,
+    required this.contextTokensCount,
     super.key,
   });
 
@@ -17,6 +19,8 @@ class ViewAIModelSelection extends StatelessWidget {
   final String selectedModel;
   final ValueChanged<String> onModelSelected;
   final VoidCallback onClearChat;
+  final int questionCount;
+  final int contextTokensCount;
 
   @override
   Widget build(final BuildContext context) {
@@ -122,9 +126,22 @@ class ViewAIModelSelection extends StatelessWidget {
                 ),
             ],
           ),
-          IconButton(
-            onPressed: onClearChat,
-            icon: const Icon(Icons.delete_sweep_outlined),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                onPressed: onClearChat,
+                icon: const Icon(Icons.delete_sweep_outlined),
+              ),
+              if (questionCount > 0 || contextTokensCount > 0)
+                Text(
+                  'Questions: $questionCount | Tokens: $contextTokensCount',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+            ],
           ),
         ],
       ),

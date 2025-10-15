@@ -9,6 +9,7 @@ class ChatInputArea extends StatefulWidget {
     required this.onSendPrompt,
     required this.isProcessing,
     required this.onCancel,
+    required this.inputController,
   });
 
   final int contextMode;
@@ -16,14 +17,13 @@ class ChatInputArea extends StatefulWidget {
   final ValueChanged<String> onSendPrompt;
   final bool isProcessing;
   final VoidCallback onCancel;
+  final TextEditingController inputController;
 
   @override
   State<ChatInputArea> createState() => _ChatInputAreaState();
 }
 
 class _ChatInputAreaState extends State<ChatInputArea> {
-  final TextEditingController _textController = TextEditingController();
-
   @override
   Widget build(final BuildContext context) {
     return Container(
@@ -86,7 +86,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
               ),
               Expanded(
                 child: TextField(
-                  controller: _textController,
+                  controller: widget.inputController,
                   decoration: InputDecoration(
                     hintText: 'Ask the AI assistant...',
                     border: OutlineInputBorder(
@@ -108,7 +108,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
               else
                 IconButton(
                   onPressed: () {
-                    final String text = _textController.text;
+                    final String text = widget.inputController.text;
                     if (text.isNotEmpty) {
                       widget.onSendPrompt(text);
                     }

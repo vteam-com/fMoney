@@ -29,6 +29,20 @@ class ChatInterface extends StatefulWidget {
 }
 
 class ChatInterfaceState extends State<ChatInterface> {
+  late final TextEditingController inputController;
+
+  @override
+  void initState() {
+    super.initState();
+    inputController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    inputController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(final BuildContext context) {
     return Container(
@@ -70,6 +84,7 @@ class ChatInterfaceState extends State<ChatInterface> {
             onSendPrompt: widget.onSendPrompt,
             isProcessing: widget.isProcessing,
             onCancel: widget.onCancel,
+            inputController: inputController,
           ),
         ],
       ),

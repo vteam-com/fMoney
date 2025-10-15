@@ -12,7 +12,7 @@ import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_model_selection.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_header.dart';
 
 class ViewAI extends ViewWidget {
   const ViewAI({super.key});
@@ -43,6 +43,7 @@ class ViewAIState extends ViewWidgetState {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _chatHistory = <ChatMessage>[];
   final ScrollController _scrollController = ScrollController();
+  List<int>? _conversationContext; // Store Ollama conversation context
   // Selected model is now managed in OllamaService
 
   @override
@@ -75,7 +76,12 @@ class ViewAIState extends ViewWidgetState {
 
   @override
   Widget buildHeader([final Widget? child]) {
-    return ViewAIModelSelection(
+    final int questionCount = _chatHistory
+        .where((final ChatMessage message) => message.type == MessageType.user)
+        .length;
+    final int contextTokensCount = _conversationContext?.length ?? 0;
+
+    return ViewAiHeader(
       availableModels: OllamaService.availableModels,
       selectedModel: OllamaService.selectedModel,
       onModelSelected: (final String selectedModel) async {
@@ -86,8 +92,11 @@ class ViewAIState extends ViewWidgetState {
       onClearChat: () {
         setState(() {
           _chatHistory.clear();
+          _conversationContext = null;
         });
       },
+      questionCount: questionCount,
+      contextTokensCount: contextTokensCount,
     );
   }
 
@@ -153,6 +162,7 @@ class ViewAIState extends ViewWidgetState {
                 );
               });
             },
+            inputController: _textController,
           ),
         ],
       ),
@@ -184,6 +194,11 @@ class ViewAIState extends ViewWidgetState {
       'prompt': 'Question: $fullPrompt',
       'stream': false, // Set to false for simplicity, response comes back all at once
     };
+
+    // Include conversation context if available
+    if (_conversationContext != null) {
+      payload['context'] = _conversationContext;
+    }
 
     // Add user message to chat history
     setState(() {
