@@ -1060,7 +1060,7 @@ window_manager</title>
   </g>
   <g id='Labels_textify'>
     <text class="nodeName" x="5850" y="225" font-size="120%">textify</text>
-    <text class="nodeName" x="5850" y="245" font-size="80%">0.4.5</text>
+    <text class="nodeName" x="5850" y="245" font-size="80%">0.4.7</text>
   </g>
   <g id='Labels_universal_io'>
     <text class="nodeName" x="3450" y="225" font-size="120%">universal_io</text>

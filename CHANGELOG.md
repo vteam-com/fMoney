@@ -1,5 +1,41 @@
 # Change Log
 
+## [version 1.13.04] 2025-10-16
+
+### Add
+
+- TEXTify version 0.4.7
+- AI View with Ollama integration for chat and assistant functionality
+- CSV importer feature
+- Better Keyboard Shortcut system
+- SplitResizer for the bottom panel
+- MySvg widget for SVG rendering
+- Chat history management and Markdown support in AI View
+
+### Update
+
+- Flutter and Dart version updates to latest
+- Extensive refactoring of AI-related widgets and services
+- Improved keyboard shortcut handling
+- Refactored SidePanel to StatefulWidget
+- Simplified dual key helper for shortcuts
+- Upgraded various packages
+- Improved splitter design and package updates
+- Enhanced footer functionality with balance calculations
+- Renamed folder from tools to tool
+- Various UI improvements and theme font scaling
+
+### Fix
+
+- Fixed null value check in footer
+- Fixed iOS configuration issues
+- Fixed deprecated API code
+- Fixed pubspec.yaml for assets/images/platforms/
+- Fixed working indicator radius
+- Fixed URL for desktop download
+- Fixed desktop download names and naming patterns
+- Various small improvements and bug fixes
+
 ## [version 1.12.00] 2025-03-19
 
 ### Add
@@ -1069,4 +1105,3 @@
 ## [version 1.0.0]
 
 - Initial app
-  
