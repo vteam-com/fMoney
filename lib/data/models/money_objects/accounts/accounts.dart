@@ -164,7 +164,7 @@ class Accounts extends MoneyObjects<Account> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
-  List<Account> activeAccount(
+  List<Account> activeAccounts(
     final List<AccountType> types, {
     final bool? isActive = true,
   }) {
@@ -179,7 +179,7 @@ class Accounts extends MoneyObjects<Account> {
     }).toList();
   }
 
-  bool activeBankAccount(final Account account) {
+  bool activeBankAccounts(final Account account) {
     return account.isActiveBankAccount();
   }
 

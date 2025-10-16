@@ -201,7 +201,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
     bool includeDeleted = false,
     bool applyFilter = true,
   }) {
-    List<Account> list = Data().accounts.activeAccount(
+    List<Account> list = Data().accounts.activeAccounts(
       getSelectedAccountType(),
       isActive: PreferenceController.to.includeClosedAccounts ? null : true,
     );

@@ -405,37 +405,15 @@ Answer the question:''';
       });
     }
 
-    // Build a single comprehensive prompt with ALL account data
-    final StringBuffer fullData = StringBuffer();
-    fullData.writeln(
-      'Here is ALL of my financial data. Memorize this information for answering future questions. '
-      'Store all accounts and transactions in your context.\n\n',
-    );
+    final List<Account> accounts = Data().accounts
+        .getOpenRealAccounts()
+        .where((final Account account) {
+          return account.isActiveBankAccount();
+        })
+        // .take(3)
+        .toList();
 
-    int accountCount = 0;
-    for (final Account account in Data().accounts.getOpenAccounts()) {
-      if (_cancelled) {
-        break;
-      }
-
-      final String accountName = account.fieldName.value;
-      if (accountName.startsWith('Category:')) {
-        continue;
-      }
-
-      fullData.writeln('=== ACCOUNT ${accountCount + 1} ===');
-      fullData.writeln('Name: "$accountName"');
-      fullData.writeln('Transactions:');
-
-      final List<Transaction> transactions = account.getTransaction();
-      for (final Transaction t in transactions) {
-        fullData.writeln('  ${t.dateTimeAsString}  ${t.amountAsString}');
-      }
-      fullData.writeln(); // Empty line between accounts
-      accountCount++;
-    }
-
-    if (accountCount == 0) {
+    if (accounts.isEmpty) {
       if (mounted) {
         setState(() {
           _isProcessingPrompt = false;
@@ -444,73 +422,96 @@ Answer the question:''';
       return;
     }
 
-    final String teachingMessage = 'Teaching AI about $accountCount accounts with their transactions...';
+    int successCount = 0;
+    bool failed = false;
 
-    final Map<String, dynamic> payload = <String, dynamic>{
-      'model': OllamaService.selectedModel,
-      'messages': <Map<String, String>>[
-        <String, String>{
-          'role': 'user',
-          'content': fullData.toString(),
-        },
-      ],
-      'stream': false,
-    };
+    for (final Account account in accounts) {
+      if (_cancelled) {
+        break;
+      }
 
-    // Don't include existing context when teaching - start fresh
-    // The AI will build context from this comprehensive data
+      final String accountName = account.fieldName.value;
+      final List<Transaction> transactions = account.getTransaction();
+      final List<String> transactionsData = transactions
+          .where((final Transaction t) => t.dateTimeAsString.compareTo('2023-12-31') > -1)
+          .map((final Transaction t) => '${t.dateTimeAsString},${t.amountAsString}')
+          .toList();
 
-    _chatHistory.add(
-      ChatMessage(
-        message: teachingMessage,
-        type: MessageType.user,
-        timestamp: DateTime.now(),
-        payloadSentToOllama: payload,
-      ),
-    );
+      final String accountData =
+          '''
+Here is account data in compact format. Memorize this for future calculations:
 
-    if (mounted) {
-      setState(() {
-        _scrollToBottom();
-      });
+ACCOUNT:$accountName
+TRANSACTIONS:${transactionsData.join(';')}
+---''';
+
+      final Map<String, dynamic> payload = <String, dynamic>{
+        'model': OllamaService.selectedModel,
+        'messages': <Map<String, String>>[
+          <String, String>{
+            'role': 'user',
+            'content': accountData,
+          },
+        ],
+        'stream': false,
+      };
+
+      // Add current context to payload if it exists
+      if (_conversationContext != null && _conversationContext!.isNotEmpty) {
+        payload['context'] = _conversationContext;
+      }
+
+      try {
+        final String teachingMessage = 'Teaching AI about acocunt "$accountName" ...';
+
+        _chatHistory.add(
+          ChatMessage(
+            message: teachingMessage,
+            type: MessageType.user,
+            timestamp: DateTime.now(),
+            payloadSentToOllama: payload,
+          ),
+        );
+
+        if (mounted) {
+          setState(() {
+            _scrollToBottom();
+          });
+        }
+        final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
+
+        if (response.containsKey('context')) {
+          _conversationContext = (response['context'] as List<dynamic>).cast<int>();
+          successCount++;
+          debugPrint('📚 Sent account $accountName ($successCount/${accounts.length})');
+        }
+      } catch (e) {
+        failed = true;
+        debugPrint('📚 Error sending account $accountName: $e');
+        break;
+      }
     }
 
-    final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
+    // Save the final context
+    await OllamaService.saveConversationContext(_conversationContext);
 
-    if (response.containsKey('response')) {
-      // Update conversation context with the returned context
-      if (response.containsKey('context')) {
-        _conversationContext = (response['context'] as List<dynamic>).cast<int>();
-        // Save the context with all account data
-        await OllamaService.saveConversationContext(_conversationContext);
-        debugPrint(
-          '📚 Taught AI about all $accountCount accounts (context saved: ${_conversationContext!.length} tokens)',
-        );
-
-        _chatHistory.add(
-          ChatMessage(
-            message: 'AI has learned about $accountCount accounts and their transactions.',
-            type: MessageType.ai,
-            timestamp: DateTime.now(),
-            payloadSentToOllama: payload,
-          ),
-        );
-      } else {
-        debugPrint('📚 Taught AI about accounts but no context returned');
-        _chatHistory.add(
-          ChatMessage(
-            message: 'Teaching completed, but context not returned by AI.',
-            type: MessageType.ai,
-            timestamp: DateTime.now(),
-            payloadSentToOllama: payload,
-          ),
-        );
-      }
-    } else {
-      debugPrint('📚 Teaching failed - no response from AI');
+    if (failed || _cancelled) {
       _chatHistory.add(
         ChatMessage(
-          message: 'Failed to teach AI - no response from the model.',
+          message: _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
+          type: MessageType.ai,
+          timestamp: DateTime.now(),
+          payloadSentToOllama: <String, dynamic>{},
+        ),
+      );
+    } else {
+      debugPrint(
+        '📚 Taught AI about all ${accounts.length} accounts (context saved: ${_conversationContext?.length ?? 0} tokens)',
+      );
+
+      _chatHistory.add(
+        ChatMessage(
+          message: 'AI has learned about ${accounts.length} accounts and their transactions.',
           type: MessageType.ai,
           timestamp: DateTime.now(),
           payloadSentToOllama: <String, dynamic>{},

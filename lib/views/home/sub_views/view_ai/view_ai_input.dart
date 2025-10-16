@@ -75,7 +75,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                 onPressed: () {
                   widget.onTeachAI();
                 },
-                child: const Text('Transactions'),
+                child: const Text('BankAccounts'),
               ),
               Expanded(
                 child: TextField(
