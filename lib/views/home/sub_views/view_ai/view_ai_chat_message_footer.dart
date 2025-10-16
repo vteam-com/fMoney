@@ -20,7 +20,7 @@ class ChatMessageFooter extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final bool isUser = message.type == MessageType.user;
+    final bool isUser = message.type == ChatFrom.user;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

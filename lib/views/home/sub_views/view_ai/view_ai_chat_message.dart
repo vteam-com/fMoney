@@ -7,7 +7,7 @@ import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.dart';
 
-enum MessageType { user, ai }
+enum ChatFrom { user, ai }
 
 class ChatMessage {
   ChatMessage({
@@ -19,7 +19,7 @@ class ChatMessage {
   });
 
   final String message;
-  final MessageType type;
+  final ChatFrom type;
   final DateTime timestamp;
   final Map<String, dynamic> payloadSentToOllama;
   bool isExpanded;
@@ -43,7 +43,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
   @override
   Widget build(final BuildContext context) {
     final ChatMessage message = widget.message;
-    final bool isUser = message.type == MessageType.user;
+    final bool isUser = message.type == ChatFrom.user;
 
     // Only apply truncation to AI messages, not user messages
     final bool shouldTruncate = message.message.trim().split('\n').length > 100;
@@ -106,7 +106,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
   }
 
   void _showMessageDetails() {
-    final bool isUser = widget.message.type == MessageType.user;
+    final bool isUser = widget.message.type == ChatFrom.user;
 
     if (isUser) {
       // Show prompt details for user messages

@@ -130,9 +130,7 @@ class ViewAIState extends ViewWidgetState {
 
   @override
   Widget buildHeader([final Widget? child]) {
-    final int questionCount = _chatHistory
-        .where((final ChatMessage message) => message.type == MessageType.user)
-        .length;
+    final int questionCount = _chatHistory.where((final ChatMessage message) => message.type == ChatFrom.user).length;
     final int contextTokensCount = _conversationContext?.length ?? 0;
 
     return ViewAiHeader(
@@ -205,14 +203,7 @@ class ViewAIState extends ViewWidgetState {
               setState(() {
                 _cancelled = true;
                 _isProcessingPrompt = false;
-                _chatHistory.add(
-                  ChatMessage(
-                    message: 'Request was cancelled.',
-                    type: MessageType.ai,
-                    timestamp: DateTime.now(),
-                    payloadSentToOllama: <String, dynamic>{},
-                  ),
-                );
+                _appendChatHistory('Request was cancelled.', ChatFrom.ai);
               });
             },
             inputController: _textController,
@@ -271,16 +262,8 @@ Answer the question:''';
 
     // Add user message to chat history
     setState(() {
-      _chatHistory.add(
-        ChatMessage(
-          message: fullPrompt,
-          type: MessageType.user,
-          timestamp: DateTime.now(),
-          payloadSentToOllama: payload,
-        ),
-      );
+      _appendChatHistory(fullPrompt, ChatFrom.user, payload);
       _isProcessingPrompt = true;
-      _scrollToBottom();
     });
 
     try {
@@ -307,28 +290,16 @@ Answer the question:''';
         if (!_cancelled) {
           setState(() {
             _isProcessingPrompt = false;
-            _chatHistory.add(
-              ChatMessage(
-                message: aiResponse.trim(),
-                type: MessageType.ai,
-                timestamp: DateTime.now(),
-                payloadSentToOllama: payload,
-              ),
-            );
-            _scrollToBottom();
+            _appendChatHistory(aiResponse.trim(), ChatFrom.ai, payload);
           });
         }
       } else {
         if (!_cancelled) {
           setState(() {
             _isProcessingPrompt = false;
-            _chatHistory.add(
-              ChatMessage(
-                message: 'Error: Invalid response from Ollama',
-                type: MessageType.ai,
-                timestamp: DateTime.now(),
-                payloadSentToOllama: <String, dynamic>{},
-              ),
+            _appendChatHistory(
+              'Error: Invalid response from Ollama',
+              ChatFrom.ai,
             );
           });
         }
@@ -337,18 +308,28 @@ Answer the question:''';
       if (!_cancelled) {
         setState(() {
           _isProcessingPrompt = false;
-          _chatHistory.add(
-            ChatMessage(
-              message: 'Error: $e',
-              type: MessageType.ai,
-              timestamp: DateTime.now(),
-              payloadSentToOllama: <String, dynamic>{},
-            ),
-          );
+          _appendChatHistory('Error: $e', ChatFrom.ai);
         });
       }
     }
     _cancelled = false;
+  }
+
+  void _appendChatHistory(final String text, ChatFrom source, [Map<String, dynamic>? payload]) {
+    _chatHistory.add(
+      ChatMessage(
+        message: text,
+        type: source,
+        timestamp: DateTime.now(),
+        payloadSentToOllama: payload ?? <String, dynamic>{},
+      ),
+    );
+
+    if (mounted) {
+      setState(() {
+        _scrollToBottom();
+      });
+    }
   }
 
   Future<void> _checkOllamaStatus() async {
@@ -462,22 +443,10 @@ TRANSACTIONS:${transactionsData.join(';')}
       }
 
       try {
-        final String teachingMessage = 'Teaching AI about acocunt "$accountName" ...';
+        final String teachingMessage = 'Acocunt "$accountName" with ${transactionsData.length} transactions.';
 
-        _chatHistory.add(
-          ChatMessage(
-            message: teachingMessage,
-            type: MessageType.user,
-            timestamp: DateTime.now(),
-            payloadSentToOllama: payload,
-          ),
-        );
+        _appendChatHistory(teachingMessage, ChatFrom.user, payload);
 
-        if (mounted) {
-          setState(() {
-            _scrollToBottom();
-          });
-        }
         final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
 
         if (response.containsKey('context')) {
@@ -496,34 +465,19 @@ TRANSACTIONS:${transactionsData.join(';')}
     await OllamaService.saveConversationContext(_conversationContext);
 
     if (failed || _cancelled) {
-      _chatHistory.add(
-        ChatMessage(
-          message: _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
-          type: MessageType.ai,
-          timestamp: DateTime.now(),
-          payloadSentToOllama: <String, dynamic>{},
-        ),
+      _appendChatHistory(
+        _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
+        ChatFrom.ai,
       );
     } else {
       debugPrint(
         '📚 Taught AI about all ${accounts.length} accounts (context saved: ${_conversationContext?.length ?? 0} tokens)',
       );
 
-      _chatHistory.add(
-        ChatMessage(
-          message: 'AI has learned about ${accounts.length} accounts and their transactions.',
-          type: MessageType.ai,
-          timestamp: DateTime.now(),
-          payloadSentToOllama: <String, dynamic>{},
-        ),
+      _appendChatHistory(
+        'AI has learned about ${accounts.length} accounts and their transactions.',
+        ChatFrom.ai,
       );
-    }
-
-    if (mounted) {
-      setState(() {
-        _isProcessingPrompt = false;
-        _scrollToBottom();
-      });
     }
   }
 }

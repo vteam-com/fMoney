@@ -50,6 +50,7 @@ dependencies:
   intl: ^0.20.2
   js: ^0.7.2
   logger: ^2.6.0
+  markdown: ^7.3.0
   multi_split_view: ^3.6.0
   pasteboard: ^0.4.0
   path: ^1.9.1
