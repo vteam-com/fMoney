@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:money/core/helpers/color_helper.dart';
 import 'package:money/core/helpers/date_helper.dart';
 import 'package:money/core/widgets/gaps.dart';
@@ -52,7 +53,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.7,
+          maxWidth: MediaQuery.of(context).size.width * 0.50,
         ),
         child: Column(
           crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -72,29 +73,32 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                   bottomRight: isUser ? const Radius.circular(3) : const Radius.circular(16),
                 ),
               ),
-              child: IntrinsicWidth(
-                child: Column(
-                  children: <Widget>[
-                    SelectableText(
-                      shouldTruncate && !message.isExpanded
-                          ? '${message.message.trim().split('\n').take(50).join('\n')}\n...'
-                          : message.message.trim(),
-                      style: TextStyle(
+              child: Column(
+                crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  MarkdownBody(
+                    data: shouldTruncate && !message.isExpanded
+                        ? '${message.message.trim().split('\n').take(50).join('\n')}\n...'
+                        : message.message.trim(),
+                    styleSheet: MarkdownStyleSheet(
+                      p: TextStyle(
                         color: isUser ? getColorTheme(context).onPrimaryContainer : getColorTheme(context).onSurface,
                       ),
                     ),
-                    Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(60)),
-                    Opacity(
-                      opacity: 0.7,
-                      child: ChatMessageFooter(
-                        message: message,
-                        onToggleExpanded: widget.onToggleExpanded,
-                        onViewDetails: _showMessageDetails,
-                        shouldTruncate: shouldTruncate,
-                      ),
+                    selectable: true,
+                  ),
+                  Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(60)),
+                  Opacity(
+                    opacity: 0.7,
+                    child: ChatMessageFooter(
+                      message: message,
+                      onToggleExpanded: widget.onToggleExpanded,
+                      onViewDetails: _showMessageDetails,
+                      shouldTruncate: shouldTruncate,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
 
