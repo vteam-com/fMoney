@@ -49,7 +49,7 @@ void main() {
     await pumpDialog(tester);
 
     // Verify dialog title
-    expect(find.text('Map CSV Columns'), findsOneWidget);
+    expect(find.text('Choose Columns'), findsOneWidget);
 
     // Verify presence of mapping dropdowns (identified by their labels for now)
     expect(find.text('Date Column:'), findsOneWidget);
@@ -285,7 +285,7 @@ void main() {
     );
 
     // Verify dialog title (to ensure dialog loaded)
-    expect(find.text('Map CSV Columns'), findsOneWidget);
+    expect(find.text('Choose Columns'), findsOneWidget);
 
     // Verify headers are displayed
     for (final String header in headersForInconsistentTest) {
@@ -353,7 +353,7 @@ void main() {
     );
 
     // 2. Verify dialog and table are present
-    expect(find.text('Map CSV Columns'), findsOneWidget);
+    expect(find.text('Choose Columns'), findsOneWidget);
     final Finder dataTableFinder = find.byType(DataTable);
     expect(dataTableFinder, findsOneWidget);
 

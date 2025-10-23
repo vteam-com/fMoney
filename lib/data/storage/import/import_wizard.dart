@@ -9,6 +9,7 @@ import 'package:money/data/storage/import/import_qfx.dart';
 import 'package:money/data/storage/import/import_qif.dart';
 import 'package:money/data/storage/import/import_transactions_from_text.dart';
 import 'package:money/data/storage/import/import_trasnsfer.dart';
+import 'package:money/data/storage/import/import_xlsx.dart';
 
 void showImportTransactionsWizard() {
   final BuildContext originalContext = Get.context!; // Store the original context
@@ -24,8 +25,8 @@ void showImportTransactionsWizard() {
         children: <Widget>[
           gapMedium(),
           WizardChoice(
-            title: 'From QFX/QIF/CSV file', // Changed title
-            description: 'Import transactions from a QFX, QIF, or CSV bank file.', // Changed description
+            title: 'From QFX|QIF|XLSX|CSV file', // Changed title
+            description: 'Import transactions from a QFX, QIF, XLSX, or CSV file.', // Changed description
             onPressed: () {
               Navigator.of(originalContext).pop(true); // Use originalContext
               onImportFromFile(originalContext); // Pass original, still-mounted context
@@ -75,6 +76,9 @@ void onImportFromFile(final BuildContext context) async {
         case 'qfx':
           importQFX(context, pickerResult.files.single.path.toString());
           break; // Added break
+        case 'xlsx': // XLSX import
+          importXLSX(context, pickerResult.files.single.path.toString());
+          break;
         case 'csv': // Added csv case
           importCSV(context, pickerResult.files.single.path.toString());
           break;

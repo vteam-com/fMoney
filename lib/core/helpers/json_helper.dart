@@ -231,7 +231,7 @@ extension MyJsonExtensions on MyJson {
 /// Converts raw CSV text content into a list of [MyJson] objects.
 ///
 /// The function takes a [fileContent] string, which is expected to be in CSV format.
-/// It parses the CSV content, extracts the header columns, and then creates a list
+/// It parses the sheet content, extracts the header columns, and then creates a list
 /// of [MyJson] objects, where each object represents a row in the CSV data.
 ///
 /// The function assumes that the CSV file has at least one row of data (excluding the header).

@@ -200,7 +200,7 @@ void _saveToCache(final String symbol, List<StockDatePrice> prices) async {
   // CSV Header
   String csvContent = '"date","price"\n';
 
-  // CSV Content
+  // Sheet Content
   for (final StockDatePrice item in prices) {
     csvContent += '${dateToString(item.date)},${item.price.toString()}\n';
   }

@@ -1,0 +1,196 @@
+import 'package:flutter/material.dart';
+
+class XlsxHeaderRowSelectorDialog extends StatefulWidget {
+  const XlsxHeaderRowSelectorDialog({
+    super.key,
+    required this.rows,
+  });
+
+  final List<List<String>> rows;
+
+  @override
+  State<XlsxHeaderRowSelectorDialog> createState() => _XlsxHeaderRowSelectorDialogState();
+}
+
+class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialog> {
+  late int _selectedRowIndex;
+  late List<List<String>> _filteredRows;
+  late List<int> _originalIndices; // Track which indices from original rows were kept
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Filter rows to only include those with 3 or more columns and track original indices
+    _filteredRows = <List<String>>[];
+    _originalIndices = <int>[];
+    for (int i = 0; i < widget.rows.length; i++) {
+      if (widget.rows[i].length >= 3) {
+        _filteredRows.add(widget.rows[i]);
+        _originalIndices.add(i);
+      }
+    }
+
+    // Find the best row to select by default (index in _filteredRows)
+    final int filteredIndex = _findBestHeaderRowIndex(_filteredRows);
+    // Convert to original index for return value
+    _selectedRowIndex = filteredIndex >= 0 ? _originalIndices[filteredIndex] : -1;
+    if (_selectedRowIndex < 0 && _originalIndices.isNotEmpty) {
+      _selectedRowIndex = _originalIndices[0]; // Fallback to first available row
+    }
+  }
+
+  int _findBestHeaderRowIndex(List<List<String>> rows) {
+    if (rows.isEmpty) {
+      return -1;
+    }
+
+    // Keywords for different column types (case insensitive)
+    final Set<String> dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
+    final Set<String> descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
+    final Set<String> amountKeywords = <String>{
+      'amount',
+      'valor',
+      'value',
+      'montante',
+      'debit',
+      'credit',
+      'entrada',
+      'saida',
+      'saldo',
+      'balance',
+    };
+
+    int bestIndex = -1;
+    int highestScore = -1;
+
+    for (int i = 0; i < rows.length; i++) {
+      final List<String> row = rows[i];
+      final List<String> headers = row.map((String cell) => cell.trim().toLowerCase()).toList();
+
+      int score = 0;
+
+      // Count matches for each type
+      final int dateMatches = headers.where((String h) => dateKeywords.any((String k) => h.contains(k))).length;
+      final int descMatches = headers.where((String h) => descriptionKeywords.any((String k) => h.contains(k))).length;
+      final int amountMatches = headers.where((String h) => amountKeywords.any((String k) => h.contains(k))).length;
+
+      // Score based on having matches for different types
+      score += dateMatches * 10;
+      score += descMatches * 8;
+      score += amountMatches * 9;
+
+      // Bonus for having a good combination (date + description + amount/value)
+      if (dateMatches > 0 && descMatches > 0 && amountMatches > 0) {
+        score += 15; // Significant bonus for having all three types
+      } else if (dateMatches > 0 && (descMatches > 0 || amountMatches > 0)) {
+        score += 8; // Medium bonus for date plus at least one other type
+      }
+
+      // Prefer rows with 3-5 columns (typical for financial data)
+      final int columnCount = row.length;
+      if (columnCount >= 3 && columnCount <= 5) {
+        score += 5;
+      }
+
+      // Update best index if this row has higher score
+      if (score > highestScore) {
+        highestScore = score;
+        bestIndex = i;
+      }
+    }
+
+    return bestIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final int maxRowsToShow = _originalIndices.length > 10 ? 10 : _originalIndices.length;
+
+    return AlertDialog(
+      title: const Text('Select Header Row'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text(
+              'Select the row that contains the column headers (automatically selected based on content):',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            if (_originalIndices.isEmpty)
+              const Text('No rows found with 3 or more columns.', style: TextStyle(fontStyle: FontStyle.italic))
+            else
+              RadioGroup<int>(
+                groupValue: _selectedRowIndex,
+                onChanged: (int? value) {
+                  if (value != null) {
+                    setState(() {
+                      _selectedRowIndex = value;
+                    });
+                  }
+                },
+                child: Column(
+                  children: List<Widget>.generate(maxRowsToShow, (int index) {
+                    final int originalIndex = _originalIndices[index];
+                    final String rowPreview = widget.rows[originalIndex].join(' | ').length > 100
+                        ? '${widget.rows[originalIndex].join(' | ').substring(0, 100)}...'
+                        : widget.rows[originalIndex].join(' | ');
+                    return RadioListTile<int>(
+                      title: Text('Row ${originalIndex + 1}', style: const TextStyle(fontWeight: FontWeight.w500)),
+                      subtitle: Text(
+                        rowPreview,
+                        style: const TextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      value: originalIndex,
+                    );
+                  }),
+                ),
+              ),
+            if (_originalIndices.length > 10)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  'Showing first 10 of ${_originalIndices.length} eligible rows',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              )
+            else if (_originalIndices.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  'Showing ${_originalIndices.length} eligible rows (excluded rows with < 3 columns)',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        TextButton(
+          child: const Text('OK'),
+          onPressed: () => Navigator.of(context).pop(_selectedRowIndex),
+        ),
+      ],
+    );
+  }
+}
+
+// Helper function to show the dialog
+Future<int?> showXlsxHeaderRowSelectorDialog({
+  required BuildContext context,
+  required List<List<String>> rows,
+}) {
+  return showDialog<int>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return XlsxHeaderRowSelectorDialog(rows: rows);
+    },
+  );
+}

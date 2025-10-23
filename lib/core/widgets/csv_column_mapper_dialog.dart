@@ -47,7 +47,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     }
 
     return AlertDialog(
-      title: const Text('Map CSV Columns'),
+      title: const Text('Choose Columns'),
       content: SingleChildScrollView(
         child: SizedBox(
           width: double.maxFinite, // Use available width
