@@ -38,5 +38,29 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_macos_build_settings(target)
+
+    # Suppress sqlite3 build warnings
+    if target.name == 'sqlite3'
+      target.build_configurations.each do |config|
+        config.build_settings['OTHER_CFLAGS'] ||= ['$(inherited)']
+        config.build_settings['OTHER_CFLAGS'] += [
+          '-Wno-shorten-64-to-32',
+          '-Wno-ambiguous-macro',
+          '-Wno-comma',
+          '-Wno-unreachable-code'
+        ]
+      end
+    end
+
+    # Fix Flutter merged UI/platform thread issues
+    if target.name == 'Runner'
+      target.build_configurations.each do |config|
+        # Ensure proper threading behavior for plugin communication
+        config.build_settings['OTHER_LDFLAGS'] ||= ['$(inherited)']
+        config.build_settings['OTHER_LDFLAGS'] += [
+          '-Wl,--no-as-needed'
+        ]
+      end
+    end
   end
 end

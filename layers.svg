@@ -1008,7 +1008,7 @@ window_manager</title>
   </g>
   <g id='Labels_desktop_drop'>
     <text class="nodeName" x="1950" y="225" font-size="120%">desktop_drop</text>
-    <text class="nodeName" x="1950" y="245" font-size="80%">0.6.1</text>
+    <text class="nodeName" x="1950" y="245" font-size="80%">0.7.0</text>
   </g>
   <g id='Labels_dotted_border'>
     <text class="nodeName" x="1950" y="375" font-size="120%">dotted_border</text>
