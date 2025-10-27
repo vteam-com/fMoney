@@ -22,12 +22,161 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
 
   String? _selectedDescriptionColumn;
 
+  /// Map from unique identifier to display name
+  late final Map<String, String> _uniqueIdToHeaderName;
+
+  /// Unique identifiers for each header (handles duplicates)
+  late final List<String> _uniqueIds;
+
   @override
   void initState() {
     super.initState();
-    // Try to pre-select based on common names, if possible, or leave null
-    // For simplicity, we'll leave them null for now.
-    // Users must explicitly map them.
+    // Initialize unique header mappings
+    _initializeUniqueHeaderMappings();
+    // Auto-detect the best matching columns based on header names
+    _autoDetectColumns();
+  }
+
+  void _initializeUniqueHeaderMappings() {
+    _uniqueIdToHeaderName = <String, String>{};
+    final Map<String, int> headerCounts = <String, int>{};
+
+    for (int i = 0; i < widget.headers.length; i++) {
+      final String header = widget.headers[i];
+      final String uniqueId;
+
+      if (headerCounts.containsKey(header)) {
+        // Duplicate header, add index to make it unique
+        final int count = headerCounts[header]! + 1;
+        headerCounts[header] = count;
+        uniqueId = '$header ($count)';
+      } else {
+        headerCounts[header] = 1;
+        uniqueId = header;
+      }
+
+      _uniqueIdToHeaderName[uniqueId] = header;
+    }
+
+    _uniqueIds = _uniqueIdToHeaderName.keys.toList();
+  }
+
+  void _autoDetectColumns() {
+    if (widget.headers.isEmpty) {
+      return;
+    }
+
+    // Find best matches for each required column type
+    _selectedDateColumn = _findBestMatchUniqueId(_getDateColumnPatterns());
+    _selectedDescriptionColumn = _findBestMatchUniqueId(_getDescriptionColumnPatterns());
+    _selectedAmountColumn = _findBestMatchUniqueId(_getAmountColumnPatterns());
+  }
+
+  String? _findBestMatch(List<String> patterns) {
+    if (patterns.isEmpty) {
+      return null;
+    }
+
+    int bestScore = 0;
+    String? bestMatch;
+
+    for (final String header in widget.headers) {
+      final String headerLower = header.toLowerCase().trim();
+
+      for (final String pattern in patterns) {
+        final String patternLower = pattern.toLowerCase();
+
+        // Exact match gets highest score
+        if (headerLower == patternLower) {
+          return header; // Perfect match, return immediately
+        }
+
+        // Contains pattern gets points
+        if (headerLower.contains(patternLower)) {
+          final int score = patternLower.length; // Longer patterns get more points
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = header;
+          }
+        }
+      }
+    }
+
+    return bestMatch;
+  }
+
+  String? _findBestMatchUniqueId(List<String> patterns) {
+    final String? bestHeader = _findBestMatch(patterns);
+    if (bestHeader == null) {
+      return null;
+    }
+
+    // Find the corresponding unique ID
+    return _uniqueIdToHeaderName.keys.firstWhere(
+      (String uniqueId) => _uniqueIdToHeaderName[uniqueId] == bestHeader,
+      orElse: () => bestHeader, // Fallback to just the header if not found (though this shouldn't happen)
+    );
+  }
+
+  List<String> _getDateColumnPatterns() {
+    return <String>[
+      'date',
+      'transaction date',
+      'posting date',
+      'value date',
+      'check date',
+      'deposit date',
+      'withdrawal date',
+      'transfer date',
+      'settlement date',
+      'effective date',
+      'processed date',
+      'timestamp',
+      'time',
+    ];
+  }
+
+  List<String> _getDescriptionColumnPatterns() {
+    return <String>[
+      'description',
+      'transaction description',
+      'details',
+      'memo',
+      'reference',
+      'payee',
+      'vendor',
+      'transaction',
+      'narration',
+      'remarks',
+      'note',
+      'comment',
+      'merchant',
+      'recipient',
+      'supplier',
+      'store',
+    ];
+  }
+
+  List<String> _getAmountColumnPatterns() {
+    return <String>[
+      'amount',
+      'transaction amount',
+      'value',
+      'debit',
+      'credit',
+      'withdrawn',
+      'withdrawal',
+      'deposited',
+      'deposit',
+      'payment',
+      'transfer amount',
+      'balance',
+      'charge',
+      'fee',
+      'cost',
+      'price',
+      'total',
+    ];
   }
 
   @override
@@ -56,7 +205,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
             children: <Widget>[
               _buildMappingDropdowns(),
               const SizedBox(height: 20),
-              const Text('CSV Data Preview (First 5 rows):', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('Data Preview (First 5 rows):', style: TextStyle(fontWeight: FontWeight.bold)),
               _buildPreviewTable(),
             ],
           ),
@@ -70,18 +219,23 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
         TextButton(
           child: const Text('Confirm'),
           onPressed: () {
-            // TODO: Validate selections (e.g., all are selected, no duplicates if necessary)
-            // For now, just print and pop with a map of selections
+            // Validate selections (all are selected)
             if (_selectedDateColumn == null || _selectedDescriptionColumn == null || _selectedAmountColumn == null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Please map all fields (Date, Description, Amount).')),
               );
               return;
             }
+            // Convert unique IDs back to original header names for the result
+            final String dateHeader = _uniqueIdToHeaderName[_selectedDateColumn!] ?? _selectedDateColumn!;
+            final String descriptionHeader =
+                _uniqueIdToHeaderName[_selectedDescriptionColumn!] ?? _selectedDescriptionColumn!;
+            final String amountHeader = _uniqueIdToHeaderName[_selectedAmountColumn!] ?? _selectedAmountColumn!;
+
             final Map<String, String> mapping = <String, String>{
-              'date': _selectedDateColumn!,
-              'description': _selectedDescriptionColumn!,
-              'amount': _selectedAmountColumn!,
+              'date': dateHeader,
+              'description': descriptionHeader,
+              'amount': amountHeader,
             };
             Navigator.of(context).pop(mapping);
           },
@@ -101,10 +255,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
         initialValue: currentValue,
         hint: const Text('Select column'),
         isExpanded: true,
-        items: widget.headers.map<DropdownMenuItem<String>>((String value) {
+        items: _uniqueIds.map<DropdownMenuItem<String>>((String uniqueId) {
           return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+            value: uniqueId, // Use unique ID to prevent duplicate values
+            child: Text(uniqueId), // Display the unique ID (with suffix if duplicated)
           );
         }).toList(),
         onChanged: onChanged,

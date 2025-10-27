@@ -57,7 +57,7 @@ void main() {
     expect(find.text('Amount Column:'), findsOneWidget);
 
     // Verify presence of preview table title
-    expect(find.text('CSV Data Preview (First 5 rows):'), findsOneWidget);
+    expect(find.text('Data Preview (First 5 rows):'), findsOneWidget);
 
     // Verify presence of action buttons
     expect(find.widgetWithText(TextButton, 'Cancel'), findsOneWidget);
@@ -122,26 +122,31 @@ void main() {
     expect(find.descendant(of: amountDropdownFinder, matching: find.text('Amount')), findsOneWidget);
   });
 
-  testWidgets('Confirm button shows SnackBar if not all fields are mapped', (WidgetTester tester) async {
+  testWidgets('Confirm button works correctly with auto-detected mappings', (WidgetTester tester) async {
     await pumpDialog(tester);
 
-    final Finder dateDropdownFinder = find.byType(DropdownButtonFormField<String>).at(0);
-
-    // Tap Confirm button without selecting anything
+    // With standard headers, auto-detection should work and confirm should succeed
     await tester.tap(find.widgetWithText(TextButton, 'Confirm'));
-    await tester.pumpAndSettle(); // Allow time for SnackBar to appear
+    await tester.pumpAndSettle(); // Allow dialog to close
 
-    expect(find.text('Please map all fields (Date, Description, Amount).'), findsOneWidget);
+    // Dialog should close successfully with auto-detected mappings
+    expect(find.text('Choose Columns'), findsNothing);
+  });
 
-    // Select only Date
-    await tester.tap(dateDropdownFinder);
-    await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last);
-    await tester.pumpAndSettle();
+  testWidgets('User can clear auto-detected selections and get validation error', (WidgetTester tester) async {
+    // Use headers that won't auto-match to test validation
+    final List<String> customHeaders = <String>['Field A', 'Field B', 'Field C'];
+    const List<List<String>> customDataRows = <List<String>>[
+      <String>['Value A1', 'Value B1', 'Value C1'],
+    ];
 
-    // Tap Confirm button again
+    await pumpDialog(tester, headers: customHeaders, dataRows: customDataRows);
+
+    // With custom headers that don't match patterns, nothing should be auto-selected
+    // Try to confirm - should get validation error
     await tester.tap(find.widgetWithText(TextButton, 'Confirm'));
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(); // Allow SnackBar to appear
+
     expect(find.text('Please map all fields (Date, Description, Amount).'), findsOneWidget);
   });
 
@@ -335,6 +340,109 @@ void main() {
     // This is implicitly covered by the list equality check above if the list length is correct,
     // but an explicit check makes the truncation test clearer.
     expect(find.descendant(of: dataTableFinder, matching: find.text('R3C4')), findsNothing);
+  });
+
+  testWidgets('Auto-detects Date column from common header names', (WidgetTester tester) async {
+    final List<String> testHeaders = <String>[
+      'Transaction Date',
+      'Description',
+      'Amount',
+      'Category',
+    ];
+    const List<List<String>> testDataRows = <List<String>>[
+      <String>['2023-01-01', 'Groceries', '50.00', 'Food'],
+    ];
+
+    await pumpDialog(tester, headers: testHeaders, dataRows: testDataRows);
+
+    // Verify Date column is auto-selected to 'Transaction Date'
+    final Finder dateDropdownFinder = find.byType(DropdownButtonFormField<String>).at(0);
+    expect(find.descendant(of: dateDropdownFinder, matching: find.text('Transaction Date')), findsOneWidget);
+  });
+
+  testWidgets('Auto-detects Description column from common header names', (WidgetTester tester) async {
+    final List<String> testHeaders = <String>[
+      'Date',
+      'Payee',
+      'Amount',
+      'Category',
+    ];
+    const List<List<String>> testDataRows = <List<String>>[
+      <String>['2023-01-01', 'Groceries', '50.00', 'Food'],
+    ];
+
+    await pumpDialog(tester, headers: testHeaders, dataRows: testDataRows);
+
+    // Verify Description column is auto-selected to 'Payee'
+    final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
+    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Payee')), findsOneWidget);
+  });
+
+  testWidgets('Auto-detects Amount column from common header names', (WidgetTester tester) async {
+    final List<String> testHeaders = <String>[
+      'Date',
+      'Description',
+      'Credit',
+      'Category',
+    ];
+    const List<List<String>> testDataRows = <List<String>>[
+      <String>['2023-01-01', 'Groceries', '50.00', 'Food'],
+    ];
+
+    await pumpDialog(tester, headers: testHeaders, dataRows: testDataRows);
+
+    // Verify Amount column is auto-selected to 'Credit'
+    final Finder amountDropdownFinder = find.byType(DropdownButtonFormField<String>).at(2);
+    expect(find.descendant(of: amountDropdownFinder, matching: find.text('Credit')), findsOneWidget);
+  });
+
+  testWidgets('User can override auto-detected columns', (WidgetTester tester) async {
+    final List<String> testHeaders = <String>[
+      'Transaction Date',
+      'Memo', // Should auto-detect as Description
+      'Amount',
+    ];
+    const List<List<String>> testDataRows = <List<String>>[
+      <String>['2023-01-01', 'Groceries', '50.00'],
+    ];
+
+    await pumpDialog(tester, headers: testHeaders, dataRows: testDataRows);
+
+    // Verify auto-detection worked
+    final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
+    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Memo')), findsOneWidget);
+
+    // Override the selection
+    await tester.tap(descriptionDropdownFinder);
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Transaction Date').last);
+    await tester.pumpAndSettle();
+
+    // Verify override worked
+    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Transaction Date')), findsOneWidget);
+  });
+
+  testWidgets('Handles headers with no matches gracefully', (WidgetTester tester) async {
+    final List<String> testHeaders = <String>[
+      'CustomField1',
+      'CustomField2',
+      'CustomField3',
+    ];
+    const List<List<String>> testDataRows = <List<String>>[
+      <String>['Value1', 'Value2', 'Value3'],
+    ];
+
+    await pumpDialog(tester, headers: testHeaders, dataRows: testDataRows);
+
+    // Verify no columns are pre-selected (they should be null)
+    final Finder dateDropdownFinder = find.byType(DropdownButtonFormField<String>).at(0);
+    final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
+    final Finder amountDropdownFinder = find.byType(DropdownButtonFormField<String>).at(2);
+
+    // Should show "Select column" hint text when no value is selected
+    expect(find.descendant(of: dateDropdownFinder, matching: find.text('Select column')), findsOneWidget);
+    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Select column')), findsOneWidget);
+    expect(find.descendant(of: amountDropdownFinder, matching: find.text('Select column')), findsOneWidget);
   });
 
   testWidgets('Preview table scrolls horizontally with many columns', (WidgetTester tester) async {

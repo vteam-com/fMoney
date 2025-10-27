@@ -76,6 +76,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     final RegExp cellRegex = RegExp(r'<(?:\w+:)?c[^>]*?(?:t="(?<t>[^"]+)")?[^>]*?>(.*?)</(?:\w+:)?c>', dotAll: true);
     final RegExp valueRegex = RegExp(r'<(?:\w+:)?v[^>]*>(.*?)</(?:\w+:)?v>', dotAll: true);
 
+    debugPrint('Parsing worksheet XML...');
     final List<List<String>> worksheetData = <List<String>>[];
     for (final RegExpMatch rowMatch in rowRegex.allMatches(sheetXml)) {
       final String rowXml = rowMatch.group(1) ?? '';
@@ -145,12 +146,26 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       worksheetData.add(rowData);
     }
 
+    debugPrint('Before filtering: ${worksheetData.length} rows');
+    if (worksheetData.isNotEmpty) {
+      debugPrint('First few raw rows:');
+      for (int i = 0; i < worksheetData.length && i < 5; i++) {
+        debugPrint('  Row $i: ${worksheetData[i]}');
+      }
+    }
+
     // Filter out completely empty rows, but keep rows that might be headers
     final List<List<String>> filteredData = worksheetData
         .where((List<String> row) => row.isNotEmpty && row.any((String cell) => cell.trim().isNotEmpty))
         .toList();
 
+    debugPrint('After filtering empty rows: ${filteredData.length} rows');
+    if (filteredData.length < worksheetData.length) {
+      debugPrint('Some rows were filtered out as empty');
+    }
+
     if (filteredData.isEmpty) {
+      debugPrint('ERROR: No valid data rows found after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('XLSX file contains no valid data.')),
       );
@@ -161,10 +176,17 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     worksheetData.addAll(filteredData);
 
     if (worksheetData.isEmpty) {
+      debugPrint('ERROR: Worksheet data is empty after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('XLSX file contains no data rows.')),
       );
       return;
+    }
+
+    debugPrint('Final worksheet data: ${worksheetData.length} rows');
+    debugPrint('Preview of data:');
+    for (int i = 0; i < worksheetData.length && i < 5; i++) {
+      debugPrint('  Row $i: ${worksheetData[i]}');
     }
 
     // Prompt user to select the header row
@@ -245,49 +267,84 @@ ImportData loadXLSX(
   final String descriptionColumnName = columnMapping['description']!;
   final String amountColumnName = columnMapping['amount']!;
 
+  debugPrint('Loading XLSX data...');
+  debugPrint('Headers: $headers');
+  debugPrint('Column mapping: $columnMapping');
+  debugPrint('Processing ${dataRows.length} data rows');
+
   final int dateIndex = headers.indexOf(dateColumnName);
   final int descriptionIndex = headers.indexOf(descriptionColumnName);
   final int amountIndex = headers.indexOf(amountColumnName);
 
+  debugPrint('Column indices: date=$dateIndex, description=$descriptionIndex, amount=$amountIndex');
+
   if (dateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
+    debugPrint('ERROR: Column mapping failed - could not find required columns');
     return importData;
   }
 
+  int processedRows = 0;
+  int skippedRows = 0;
+  int validRows = 0;
+
   for (int i = 0; i < dataRows.length; i++) {
+    processedRows++;
     final List<String> row = dataRows[i];
 
     final int maxIndex = <int>[dateIndex, descriptionIndex, amountIndex].reduce((int a, int b) => a > b ? a : b);
     if (row.length <= maxIndex) {
+      debugPrint('Row ${i + 1}: Skipped - insufficient columns (${row.length} vs required ${maxIndex + 1})');
+      skippedRows++;
       continue;
     }
+
+    // Debug: Show values for this row
+    final String rawDate = row[dateIndex].trim();
+    final String rawDescription = row[descriptionIndex].trim();
+    final String rawAmount = row[amountIndex].trim();
+
+    debugPrint('Row ${i + 1}: Date="$rawDate", Desc="$rawDescription", Amount="$rawAmount"');
 
     DateTime? date;
     try {
-      date = DateTime.parse(row[dateIndex].trim());
+      date = _parseFlexibleDate(rawDate);
+      if (date == null) {
+        throw const FormatException('Could not parse date');
+      }
     } catch (e) {
+      debugPrint('Row ${i + 1}: Skipped - invalid date format: "$rawDate"');
+      skippedRows++;
       continue;
     }
 
-    final String description = row[descriptionIndex].trim();
-    if (description.isEmpty) {
+    if (rawDescription.isEmpty) {
+      debugPrint('Row ${i + 1}: Skipped - empty description');
+      skippedRows++;
       continue;
     }
 
     double? amount;
     try {
-      final String amountStr = row[amountIndex].trim().replaceAll(',', ''); // Handle common number formats
+      final String amountStr = rawAmount.replaceAll(',', ''); // Handle common number formats
       amount = double.tryParse(amountStr);
       if (amount == null) {
+        debugPrint('Row ${i + 1}: Skipped - invalid amount: "$rawAmount"');
+        skippedRows++;
         continue;
       }
     } catch (e) {
+      debugPrint('Row ${i + 1}: Skipped - amount parsing error: "$rawAmount"');
+      skippedRows++;
       continue;
     }
+
+    debugPrint('Row ${i + 1}: Successfully added entry - Date: ${date.toIso8601String()}, Amount: $amount');
+    validRows++;
 
     importData.entries.add(
       ImportEntry(
         date: date,
-        name: description,
+        name: rawDescription,
         amount: amount,
         type: 'XLSXImport',
         fitid: 'xlsx_row_${i + 1}_${date.millisecondsSinceEpoch}',
@@ -301,5 +358,85 @@ ImportData loadXLSX(
       ),
     );
   }
+
+  debugPrint('Processing summary: $processedRows total rows, $validRows valid, $skippedRows skipped');
+  debugPrint('Final: ${importData.entries.length} entries added to import data');
+
   return importData;
+}
+
+/// Parses dates in multiple common formats:
+/// - ISO format: YYYY-MM-DD (2023-01-01)
+/// - European format: DD/MM/YYYY (30/06/2025)
+/// - US format: MM/DD/YYYY (06/30/2025)
+/// - Short year formats: DD/MM/YY (30/06/25)
+DateTime? _parseFlexibleDate(String dateStr) {
+  dateStr = dateStr.trim();
+  if (dateStr.isEmpty) {
+    return null;
+  }
+
+  // Try ISO format first (Dart's native format)
+  try {
+    return DateTime.parse(dateStr);
+  } catch (_) {
+    // Continue to other formats
+  }
+
+  // Try European format: DD/MM/YYYY or DD/MM/YY
+  final RegExp euroFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
+  final RegExpMatch? euroMatch = euroFormat.firstMatch(dateStr);
+  if (euroMatch != null) {
+    final int day = int.parse(euroMatch.group(1)!);
+    final int month = int.parse(euroMatch.group(2)!);
+    final int yearStr = int.parse(euroMatch.group(3)!);
+
+    // Handle 2-digit years
+    final int year = yearStr < 100 ? (yearStr < 50 ? 2000 + yearStr : 1900 + yearStr) : yearStr;
+
+    try {
+      return DateTime(year, month, day);
+    } catch (_) {
+      // Invalid date
+      return null;
+    }
+  }
+
+  // Try US format: MM/DD/YYYY or MM/DD/YY
+  final RegExp usFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
+  final RegExpMatch? usMatch = usFormat.firstMatch(dateStr);
+  if (usMatch != null) {
+    final int month = int.parse(usMatch.group(1)!);
+    final int day = int.parse(usMatch.group(2)!);
+    final int yearStr = int.parse(usMatch.group(3)!);
+
+    // Handle 2-digit years
+    final int year = yearStr < 100 ? (yearStr < 50 ? 2000 + yearStr : 1900 + yearStr) : yearStr;
+
+    try {
+      return DateTime(year, month, day);
+    } catch (_) {
+      // Invalid date
+      return null;
+    }
+  }
+
+  // Try YYYY/MM/DD format (sometimes used internationally)
+  final RegExp ymdFormat = RegExp(r'^(\d{4})/(\d{1,2})/(\d{1,2})$');
+  final RegExpMatch? ymdMatch = ymdFormat.firstMatch(dateStr);
+  if (ymdMatch != null) {
+    final int year = int.parse(ymdMatch.group(1)!);
+    final int month = int.parse(ymdMatch.group(2)!);
+    final int day = int.parse(ymdMatch.group(3)!);
+
+    try {
+      return DateTime(year, month, day);
+    } catch (_) {
+      // Invalid date
+      return null;
+    }
+  }
+
+  // No valid format found
+  return null;
 }
