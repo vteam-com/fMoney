@@ -31,7 +31,9 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
   ];
 
   bool _sortAscending = true;
-  int _sortColumnIndex = 0; // 0=Date, 1=Memo, 2=Amount
+
+  /// 0=Date, 1=Memo, 2=Amount
+  int _sortColumnIndex = 0;
 
   @override
   void initState() {

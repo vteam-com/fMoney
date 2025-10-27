@@ -15,10 +15,10 @@ class SuggestionApproval extends StatefulWidget {
   /// Optional - Approval button will show if there's a callback function
   final void Function()? onApproved;
 
-  // Optional - Dropdown button
+  /// Optional - Dropdown button
   final void Function(BuildContext)? onChooseCategory;
 
-  // Optional - for Split Transaction
+  /// Optional - for Split Transaction
   final void Function()? onShowSplit;
 
   @override

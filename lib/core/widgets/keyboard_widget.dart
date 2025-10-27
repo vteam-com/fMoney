@@ -487,7 +487,6 @@ class KeyboardWidgetState extends State<KeyboardWidget> {
     return map;
   }
 
-  // returns text surrounded with a rounded-rect
   Widget _getBubble(
     final String text,
     final Color color,
@@ -536,7 +535,6 @@ class KeyboardWidgetState extends State<KeyboardWidget> {
     return dataRow;
   }
 
-  // returns the modifier key as text or a symbol (where possible)
   String _getModifiers(final KeyAction rep) {
     final StringBuffer buffer = StringBuffer();
     if (rep.isMetaPressed) {

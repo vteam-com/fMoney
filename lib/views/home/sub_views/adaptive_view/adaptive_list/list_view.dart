@@ -161,7 +161,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return getMoneyObjectFromIndex(index).uniqueId;
   }
 
-  // use this if total item count is known
+  /// use this if total item count is known
   NumRange indexOfItemsInView() {
     final int itemCount = widget.list.length;
     final double scrollOffset = widget.scrollController.position.pixels;

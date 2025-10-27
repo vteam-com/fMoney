@@ -13,9 +13,11 @@ class XlsxHeaderRowSelectorDialog extends StatefulWidget {
 }
 
 class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialog> {
-  late int _selectedRowIndex;
   late List<List<String>> _filteredRows;
-  late List<int> _originalIndices; // Track which indices from original rows were kept
+
+  late List<int> _originalIndices;
+
+  late int _selectedRowIndex;
 
   @override
   void initState() {
@@ -38,69 +40,6 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
     if (_selectedRowIndex < 0 && _originalIndices.isNotEmpty) {
       _selectedRowIndex = _originalIndices[0]; // Fallback to first available row
     }
-  }
-
-  int _findBestHeaderRowIndex(List<List<String>> rows) {
-    if (rows.isEmpty) {
-      return -1;
-    }
-
-    // Keywords for different column types (case insensitive)
-    final Set<String> dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
-    final Set<String> descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
-    final Set<String> amountKeywords = <String>{
-      'amount',
-      'valor',
-      'value',
-      'montante',
-      'debit',
-      'credit',
-      'entrada',
-      'saida',
-      'saldo',
-      'balance',
-    };
-
-    int bestIndex = -1;
-    int highestScore = -1;
-
-    for (int i = 0; i < rows.length; i++) {
-      final List<String> row = rows[i];
-      final List<String> headers = row.map((String cell) => cell.trim().toLowerCase()).toList();
-
-      int score = 0;
-
-      // Count matches for each type
-      final int dateMatches = headers.where((String h) => dateKeywords.any((String k) => h.contains(k))).length;
-      final int descMatches = headers.where((String h) => descriptionKeywords.any((String k) => h.contains(k))).length;
-      final int amountMatches = headers.where((String h) => amountKeywords.any((String k) => h.contains(k))).length;
-
-      // Score based on having matches for different types
-      score += dateMatches * 10;
-      score += descMatches * 8;
-      score += amountMatches * 9;
-
-      // Bonus for having a good combination (date + description + amount/value)
-      if (dateMatches > 0 && descMatches > 0 && amountMatches > 0) {
-        score += 15; // Significant bonus for having all three types
-      } else if (dateMatches > 0 && (descMatches > 0 || amountMatches > 0)) {
-        score += 8; // Medium bonus for date plus at least one other type
-      }
-
-      // Prefer rows with 3-5 columns (typical for financial data)
-      final int columnCount = row.length;
-      if (columnCount >= 3 && columnCount <= 5) {
-        score += 5;
-      }
-
-      // Update best index if this row has higher score
-      if (score > highestScore) {
-        highestScore = score;
-        bestIndex = i;
-      }
-    }
-
-    return bestIndex;
   }
 
   @override
@@ -178,6 +117,69 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
         ),
       ],
     );
+  }
+
+  int _findBestHeaderRowIndex(List<List<String>> rows) {
+    if (rows.isEmpty) {
+      return -1;
+    }
+
+    // Keywords for different column types (case insensitive)
+    final Set<String> dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
+    final Set<String> descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
+    final Set<String> amountKeywords = <String>{
+      'amount',
+      'valor',
+      'value',
+      'montante',
+      'debit',
+      'credit',
+      'entrada',
+      'saida',
+      'saldo',
+      'balance',
+    };
+
+    int bestIndex = -1;
+    int highestScore = -1;
+
+    for (int i = 0; i < rows.length; i++) {
+      final List<String> row = rows[i];
+      final List<String> headers = row.map((String cell) => cell.trim().toLowerCase()).toList();
+
+      int score = 0;
+
+      // Count matches for each type
+      final int dateMatches = headers.where((String h) => dateKeywords.any((String k) => h.contains(k))).length;
+      final int descMatches = headers.where((String h) => descriptionKeywords.any((String k) => h.contains(k))).length;
+      final int amountMatches = headers.where((String h) => amountKeywords.any((String k) => h.contains(k))).length;
+
+      // Score based on having matches for different types
+      score += dateMatches * 10;
+      score += descMatches * 8;
+      score += amountMatches * 9;
+
+      // Bonus for having a good combination (date + description + amount/value)
+      if (dateMatches > 0 && descMatches > 0 && amountMatches > 0) {
+        score += 15; // Significant bonus for having all three types
+      } else if (dateMatches > 0 && (descMatches > 0 || amountMatches > 0)) {
+        score += 8; // Medium bonus for date plus at least one other type
+      }
+
+      // Prefer rows with 3-5 columns (typical for financial data)
+      final int columnCount = row.length;
+      if (columnCount >= 3 && columnCount <= 5) {
+        score += 5;
+      }
+
+      // Update best index if this row has higher score
+      if (score > highestScore) {
+        highestScore = score;
+        bestIndex = i;
+      }
+    }
+
+    return bestIndex;
   }
 }
 

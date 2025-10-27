@@ -26,7 +26,7 @@ class MiniTimelineDaily extends StatelessWidget {
   /// the graph on the left side of Zero
   final int offsetStartingDay;
 
-  // [int = Days from millisecondFromEpoch], [double = amount]
+  /// [int = Days from millisecondFromEpoch], [double = amount]
   final List<Pair<int, double>> values;
 
   final int yearEnd;
