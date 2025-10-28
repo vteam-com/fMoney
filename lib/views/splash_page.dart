@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
           height: 300,
           child: Column(
             children: <Widget>[
-              const TextTitle('MyMoney'),
+              const TextTitle('fMoney'),
               gapHuge(),
               const CircularProgressIndicator(),
             ],

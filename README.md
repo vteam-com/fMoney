@@ -1,4 +1,4 @@
-# myMoney - Flutter edition
+# fMoney - Flutter edition
 
 From the MoneyTools vTeam, we bring you the flutter edition of the MyMoney.net app
 
@@ -42,7 +42,7 @@ This is the Flutter app, you will need to install the Flutter/Dart frameWork and
 
 ## AI Assistant Feature
 
-The myMoney app now includes a powerful AI assistant powered by Ollama, providing intelligent insights into your financial data.
+The fMoney app now includes a powerful AI assistant powered by Ollama, providing intelligent insights into your financial data.
 
 ### Getting Started with AI
 

@@ -13,7 +13,7 @@ void main() {
     // await tester.pumpAndSettle();
 
     // Assert: Verify the title text is displayed.
-    expect(find.text('MyMoney'), findsOneWidget);
+    expect(find.text('fMoney'), findsOneWidget);
 
     // Assert: Verify the CircularProgressIndicator is displayed.
     expect(find.byType(CircularProgressIndicator), findsOneWidget);

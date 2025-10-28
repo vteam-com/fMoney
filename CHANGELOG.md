@@ -1,5 +1,10 @@
 # Change Log
 
+## [version 1.14.00] 2025-10-28
+
+### Update
+- Rebrand "MyMoney" to "fMoney" to communicated flutter/free open source 
+
 ## [version 1.13.04] 2025-10-16
 
 ### Add

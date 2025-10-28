@@ -172,7 +172,7 @@ Future<void> showInstruction(
   SnackBarService.display(
     message: text,
     autoDismiss: true,
-    title: 'MyMoney flutter integration test',
+    title: 'fMoney flutter integration test',
     duration: 5,
   );
   await tester.pumpAndSettle();

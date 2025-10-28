@@ -117,7 +117,7 @@ class MyWindowManager extends WindowListener {
         center: true,
         skipTaskbar: false,
         titleBarStyle: TitleBarStyle.normal,
-        title: 'MyMoney by vTeam',
+        title: 'fMoney by vTeam',
       );
       windowManager.waitUntilReadyToShow(windowOptions, () async {
         await windowManager.show();

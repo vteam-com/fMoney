@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
               theme: themeController.themeDataLight,
               darkTheme: themeController.themeDataDark,
               themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
-              title: 'MyMoney by VTeam',
+              title: 'fMoney by VTeam',
               initialBinding: ApplicationBindings(),
               initialRoute: '/',
               getPages: <GetPage<dynamic>>[

@@ -50,7 +50,7 @@ class AppTitle extends StatelessWidget {
     return RevealContent(
       textForClipboard: netWorth.toString(),
       widgets: <Widget>[
-        _buildRevealContentOption(context, 'MyMoney', true),
+        _buildRevealContentOption(context, 'fMoney', true),
         _buildRevealContentOption(context, netWorth.toShortHand(), false),
         _buildRevealContentOption(context, netWorth.toString(), false),
       ],
