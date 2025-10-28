@@ -37,148 +37,6 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     _autoDetectColumns();
   }
 
-  void _initializeUniqueHeaderMappings() {
-    _uniqueIdToHeaderName = <String, String>{};
-    final Map<String, int> headerCounts = <String, int>{};
-
-    for (int i = 0; i < widget.headers.length; i++) {
-      final String header = widget.headers[i];
-      final String uniqueId;
-
-      if (headerCounts.containsKey(header)) {
-        // Duplicate header, add index to make it unique
-        final int count = headerCounts[header]! + 1;
-        headerCounts[header] = count;
-        uniqueId = '$header ($count)';
-      } else {
-        headerCounts[header] = 1;
-        uniqueId = header;
-      }
-
-      _uniqueIdToHeaderName[uniqueId] = header;
-    }
-
-    _uniqueIds = _uniqueIdToHeaderName.keys.toList();
-  }
-
-  void _autoDetectColumns() {
-    if (widget.headers.isEmpty) {
-      return;
-    }
-
-    // Find best matches for each required column type
-    _selectedDateColumn = _findBestMatchUniqueId(_getDateColumnPatterns());
-    _selectedDescriptionColumn = _findBestMatchUniqueId(_getDescriptionColumnPatterns());
-    _selectedAmountColumn = _findBestMatchUniqueId(_getAmountColumnPatterns());
-  }
-
-  String? _findBestMatch(List<String> patterns) {
-    if (patterns.isEmpty) {
-      return null;
-    }
-
-    int bestScore = 0;
-    String? bestMatch;
-
-    for (final String header in widget.headers) {
-      final String headerLower = header.toLowerCase().trim();
-
-      for (final String pattern in patterns) {
-        final String patternLower = pattern.toLowerCase();
-
-        // Exact match gets highest score
-        if (headerLower == patternLower) {
-          return header; // Perfect match, return immediately
-        }
-
-        // Contains pattern gets points
-        if (headerLower.contains(patternLower)) {
-          final int score = patternLower.length; // Longer patterns get more points
-          if (score > bestScore) {
-            bestScore = score;
-            bestMatch = header;
-          }
-        }
-      }
-    }
-
-    return bestMatch;
-  }
-
-  String? _findBestMatchUniqueId(List<String> patterns) {
-    final String? bestHeader = _findBestMatch(patterns);
-    if (bestHeader == null) {
-      return null;
-    }
-
-    // Find the corresponding unique ID
-    return _uniqueIdToHeaderName.keys.firstWhere(
-      (String uniqueId) => _uniqueIdToHeaderName[uniqueId] == bestHeader,
-      orElse: () => bestHeader, // Fallback to just the header if not found (though this shouldn't happen)
-    );
-  }
-
-  List<String> _getDateColumnPatterns() {
-    return <String>[
-      'date',
-      'transaction date',
-      'posting date',
-      'value date',
-      'check date',
-      'deposit date',
-      'withdrawal date',
-      'transfer date',
-      'settlement date',
-      'effective date',
-      'processed date',
-      'timestamp',
-      'time',
-    ];
-  }
-
-  List<String> _getDescriptionColumnPatterns() {
-    return <String>[
-      'description',
-      'transaction description',
-      'details',
-      'memo',
-      'reference',
-      'payee',
-      'vendor',
-      'transaction',
-      'narration',
-      'remarks',
-      'note',
-      'comment',
-      'merchant',
-      'recipient',
-      'supplier',
-      'store',
-    ];
-  }
-
-  List<String> _getAmountColumnPatterns() {
-    return <String>[
-      'amount',
-      'transaction amount',
-      'value',
-      'debit',
-      'credit',
-      'withdrawn',
-      'withdrawal',
-      'deposited',
-      'deposit',
-      'payment',
-      'transfer amount',
-      'balance',
-      'charge',
-      'fee',
-      'cost',
-      'price',
-      'total',
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     if (widget.headers.isEmpty) {
@@ -244,6 +102,17 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
+  void _autoDetectColumns() {
+    if (widget.headers.isEmpty) {
+      return;
+    }
+
+    // Find best matches for each required column type
+    _selectedDateColumn = _findBestMatchUniqueId(_getDateColumnPatterns());
+    _selectedDescriptionColumn = _findBestMatchUniqueId(_getDescriptionColumnPatterns());
+    _selectedAmountColumn = _findBestMatchUniqueId(_getAmountColumnPatterns());
+  }
+
   Widget _buildDropdown(String label, String? currentValue, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -295,19 +164,109 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
       return const Text('No data rows to preview.');
     }
 
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    // Use theme-aware colors that work in both light and dark modes
+    final Color dateColumnColor = colorScheme.primary.withValues(alpha: 0.5);
+    final Color dateCellColor = colorScheme.primary.withValues(alpha: 0.2);
+    final Color descriptionColumnColor = colorScheme.secondary.withValues(alpha: 0.5);
+    final Color descriptionCellColor = colorScheme.secondary.withValues(alpha: 0.2);
+    final Color amountColumnColor = colorScheme.tertiary.withValues(alpha: 0.5);
+    final Color amountCellColor = colorScheme.tertiary.withValues(alpha: 0.2);
+
+    // Create inverse map to find which header indices correspond to selected unique IDs
+    final Map<String, int> uniqueIdToIndexMap = <String, int>{};
+
+    // Build the complete mapping from unique IDs to indices using header positions
+    // Since headers may have duplicates, we need to find the correct position for each unique ID
+    final Map<String, int> headerNameUsageCount = <String, int>{};
+
+    for (int headerIndex = 0; headerIndex < widget.headers.length; headerIndex++) {
+      final String headerName = widget.headers[headerIndex];
+      final int usageCount = headerNameUsageCount[headerName] ?? 0;
+
+      // Find the matching unique ID based on usage count
+      final String uniqueId;
+      if (usageCount == 0) {
+        uniqueId = headerName;
+      } else {
+        uniqueId = '$headerName (${usageCount + 1})';
+      }
+
+      // Verify this uniqueId exists in our mapping
+      if (_uniqueIdToHeaderName.containsKey(uniqueId) && _uniqueIdToHeaderName[uniqueId] == headerName) {
+        uniqueIdToIndexMap[uniqueId] = headerIndex;
+      }
+
+      headerNameUsageCount[headerName] = usageCount + 1;
+    }
+
+    // Find which columns are selected for highlighting using unique IDs
+    final int? dateColumnIndex = _selectedDateColumn != null ? uniqueIdToIndexMap[_selectedDateColumn!] : null;
+    final int? descriptionColumnIndex = _selectedDescriptionColumn != null
+        ? uniqueIdToIndexMap[_selectedDescriptionColumn!]
+        : null;
+    final int? amountColumnIndex = _selectedAmountColumn != null ? uniqueIdToIndexMap[_selectedAmountColumn!] : null;
+
     return SingleChildScrollView(
       // Added SingleChildScrollView
       scrollDirection: Axis.horizontal, // Set to horizontal scroll
       child: DataTable(
-        columns: widget.headers.map((String header) => DataColumn(label: Text(header))).toList(),
+        columns: List<DataColumn>.generate(widget.headers.length, (int headerIndex) {
+          final String header = widget.headers[headerIndex];
+          Color? columnColor;
+
+          if (headerIndex == dateColumnIndex) {
+            columnColor = dateColumnColor;
+          } else if (headerIndex == descriptionColumnIndex) {
+            columnColor = descriptionColumnColor;
+          } else if (headerIndex == amountColumnIndex) {
+            columnColor = amountColumnColor;
+          }
+
+          return DataColumn(
+            label: Container(
+              color: columnColor,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Text(header),
+            ),
+          );
+        }),
         rows: widget.dataRows.sublist(0, previewRowCount).map((List<String> row) {
           final int numExpectedColumns = widget.headers.length;
           final List<DataCell> cells = <DataCell>[];
           for (int i = 0; i < numExpectedColumns; i++) {
+            Color? cellColor;
+
+            // Highlight the cells in selected columns
+            if (i == dateColumnIndex) {
+              cellColor = dateCellColor;
+            } else if (i == descriptionColumnIndex) {
+              cellColor = descriptionCellColor;
+            } else if (i == amountColumnIndex) {
+              cellColor = amountCellColor;
+            }
+
             if (i < row.length) {
-              cells.add(DataCell(Text(row[i]))); // Cell exists
+              cells.add(
+                DataCell(
+                  Container(
+                    color: cellColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Text(row[i]),
+                  ),
+                ),
+              );
             } else {
-              cells.add(const DataCell(Text(''))); // Pad with empty cell
+              cells.add(
+                DataCell(
+                  Container(
+                    color: cellColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: const Text(''),
+                  ),
+                ),
+              );
             }
           }
           // If row.length > numExpectedColumns, extra cells in 'row' are implicitly truncated
@@ -316,6 +275,137 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
         }).toList(),
       ), // End DataTable
     ); // End SingleChildScrollView
+  }
+
+  String? _findBestMatch(List<String> patterns) {
+    if (patterns.isEmpty) {
+      return null;
+    }
+
+    int bestScore = 0;
+    String? bestMatch;
+
+    for (final String header in widget.headers) {
+      final String headerLower = header.toLowerCase().trim();
+
+      for (final String pattern in patterns) {
+        final String patternLower = pattern.toLowerCase();
+
+        // Exact match gets highest score
+        if (headerLower == patternLower) {
+          return header; // Perfect match, return immediately
+        }
+
+        // Contains pattern gets points
+        if (headerLower.contains(patternLower)) {
+          final int score = patternLower.length; // Longer patterns get more points
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = header;
+          }
+        }
+      }
+    }
+
+    return bestMatch;
+  }
+
+  String? _findBestMatchUniqueId(List<String> patterns) {
+    final String? bestHeader = _findBestMatch(patterns);
+    if (bestHeader == null) {
+      return null;
+    }
+
+    // Find the corresponding unique ID
+    return _uniqueIdToHeaderName.keys.firstWhere(
+      (String uniqueId) => _uniqueIdToHeaderName[uniqueId] == bestHeader,
+      orElse: () => bestHeader, // Fallback to just the header if not found (though this shouldn't happen)
+    );
+  }
+
+  List<String> _getAmountColumnPatterns() {
+    return <String>[
+      'amount',
+      'transaction amount',
+      'value',
+      'debit',
+      'credit',
+      'withdrawn',
+      'withdrawal',
+      'deposited',
+      'deposit',
+      'payment',
+      'transfer amount',
+      'balance',
+      'charge',
+      'fee',
+      'cost',
+      'price',
+      'total',
+    ];
+  }
+
+  List<String> _getDateColumnPatterns() {
+    return <String>[
+      'date',
+      'transaction date',
+      'posting date',
+      'value date',
+      'check date',
+      'deposit date',
+      'withdrawal date',
+      'transfer date',
+      'settlement date',
+      'effective date',
+      'processed date',
+      'timestamp',
+      'time',
+    ];
+  }
+
+  List<String> _getDescriptionColumnPatterns() {
+    return <String>[
+      'description',
+      'transaction description',
+      'details',
+      'memo',
+      'reference',
+      'payee',
+      'vendor',
+      'transaction',
+      'narration',
+      'remarks',
+      'note',
+      'comment',
+      'merchant',
+      'recipient',
+      'supplier',
+      'store',
+    ];
+  }
+
+  void _initializeUniqueHeaderMappings() {
+    _uniqueIdToHeaderName = <String, String>{};
+    final Map<String, int> headerCounts = <String, int>{};
+
+    for (int i = 0; i < widget.headers.length; i++) {
+      final String header = widget.headers[i];
+      final String uniqueId;
+
+      if (headerCounts.containsKey(header)) {
+        // Duplicate header, add index to make it unique
+        final int count = headerCounts[header]! + 1;
+        headerCounts[header] = count;
+        uniqueId = '$header ($count)';
+      } else {
+        headerCounts[header] = 1;
+        uniqueId = header;
+      }
+
+      _uniqueIdToHeaderName[uniqueId] = header;
+    }
+
+    _uniqueIds = _uniqueIdToHeaderName.keys.toList();
   }
 }
 
