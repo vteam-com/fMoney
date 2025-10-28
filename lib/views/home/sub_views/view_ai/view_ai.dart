@@ -32,10 +32,14 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 ///
 /// Example usage:
 /// ```dart
-/// ViewAI()
+/// ViewAI() // Uses default service implementation
+/// ViewAI(ollamaService: customService) // Uses custom service for testing
 /// ```
 class ViewAI extends ViewWidget {
-  const ViewAI({super.key});
+  const ViewAI({super.key, this.ollamaService});
+
+  /// Optional Ollama service to inject (mainly for testing)
+  final OllamaServiceInterface? ollamaService;
 
   @override
   State<ViewWidget> createState() => ViewAIState();
@@ -61,9 +65,80 @@ class ViewAI extends ViewWidget {
 /// This class manages complex async operations while maintaining UI responsiveness.
 /// All financial data interactions prioritize user privacy through anonymization.
 // ignore: always_specify_types
-class ViewAIState extends ViewWidgetState {
-  /// Creates the ViewAIState with initial empty state.
-  ViewAIState();
+/// Interface for Ollama service to enable testing with dependency injection
+abstract class OllamaServiceInterface {
+  List<Map<String, dynamic>> get availableModels;
+  String get selectedModel;
+  set selectedModel(String value);
+  Future<bool> checkIfOllamaInstalled();
+  Future<bool> checkIfOllamaRunning();
+  Future<void> installOllama();
+  Future<void> startOllama();
+  Future<List<Map<String, dynamic>>> loadAvailableModels();
+  Future<void> getLastUserSelectedModel();
+  Future<void> saveSelectedModel(String model);
+  Future<List<int>?> loadConversationContext();
+  Future<void> saveConversationContext(List<int>? context);
+  Future<List<ChatMessage>> loadChatHistory();
+  Future<void> saveChatHistory(List<ChatMessage> chatHistory);
+  Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload);
+  Future<OllamaStatus> checkOllamaStatus();
+}
+
+/// Implements the Ollama service interface by delegating to static methods
+class OllamaServiceImpl implements OllamaServiceInterface {
+  @override
+  List<Map<String, dynamic>> get availableModels => OllamaService.availableModels;
+
+  @override
+  String get selectedModel => OllamaService.selectedModel;
+
+  @override
+  set selectedModel(String value) => OllamaService.selectedModel = value;
+
+  @override
+  Future<bool> checkIfOllamaInstalled() => OllamaService.checkIfOllamaInstalled();
+
+  @override
+  Future<bool> checkIfOllamaRunning() => OllamaService.checkIfOllamaRunning();
+
+  @override
+  Future<void> installOllama() => OllamaService.installOllama();
+
+  @override
+  Future<void> startOllama() => OllamaService.startOllama();
+
+  @override
+  Future<List<Map<String, dynamic>>> loadAvailableModels() => OllamaService.loadAvailableModels();
+
+  @override
+  Future<void> getLastUserSelectedModel() => OllamaService.getLastUserSelectedModel();
+
+  @override
+  Future<void> saveSelectedModel(String model) => OllamaService.saveSelectedModel(model);
+
+  @override
+  Future<List<int>?> loadConversationContext() => OllamaService.loadConversationContext();
+
+  @override
+  Future<void> saveConversationContext(List<int>? context) => OllamaService.saveConversationContext(context);
+
+  @override
+  Future<List<ChatMessage>> loadChatHistory() => OllamaService.loadChatHistory();
+
+  @override
+  Future<void> saveChatHistory(List<ChatMessage> chatHistory) => OllamaService.saveChatHistory(chatHistory);
+
+  @override
+  Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) => OllamaService.sendPayload(payload);
+
+  @override
+  Future<OllamaStatus> checkOllamaStatus() => OllamaService.checkOllamaStatus();
+}
+
+class ViewAIState extends ViewWidgetState<ViewAI> {
+  /// Service instance to use (defaults to static implementation but can be injected for testing)
+  late OllamaServiceInterface _ollamaService;
 
   /// Whether Ollama AI service is installed on the system.
   bool _isOllamaInstalled = false;
@@ -101,12 +176,20 @@ class ViewAIState extends ViewWidgetState {
   @override
   void initState() {
     super.initState();
+    _ollamaService = widget.ollamaService ?? OllamaServiceImpl();
 
     // Load the selected model from preferences first
-    OllamaService.getLastUserSelectedModel().then((final _) async {
-      // Load conversation context and chat history for the selected model
-      _conversationContext = await OllamaService.loadConversationContext();
-      _chatHistory = await OllamaService.loadChatHistory();
+    _ollamaService.getLastUserSelectedModel().then((final _) async {
+      try {
+        // Load conversation context and chat history for the selected model
+        _conversationContext = await _ollamaService.loadConversationContext();
+        _chatHistory = await _ollamaService.loadChatHistory();
+      } catch (e) {
+        // Handle errors gracefully by using empty/default values
+        _conversationContext = null;
+        _chatHistory = <ChatMessage>[];
+        debugPrint('Error loading chat history: $e');
+      }
       _checkOllamaStatus();
     });
   }
@@ -135,15 +218,15 @@ class ViewAIState extends ViewWidgetState {
     final int contextTokensCount = _conversationContext?.length ?? 0;
 
     return ViewAiHeader(
-      availableModels: OllamaService.availableModels,
-      selectedModel: OllamaService.selectedModel,
+      availableModels: _ollamaService.availableModels,
+      selectedModel: _ollamaService.selectedModel,
       onModelSelected: (final String selectedModel) async {
         setState(() {}); // Refresh to update the selected model display
-        OllamaService.selectedModel = selectedModel;
-        await OllamaService.saveSelectedModel(selectedModel);
+        _ollamaService.selectedModel = selectedModel;
+        await _ollamaService.saveSelectedModel(selectedModel);
         // Load context and chat history for the new model
-        _conversationContext = await OllamaService.loadConversationContext();
-        _chatHistory = await OllamaService.loadChatHistory();
+        _conversationContext = await _ollamaService.loadConversationContext();
+        _chatHistory = await _ollamaService.loadChatHistory();
       },
       onClearChat: () async {
         setState(() {
@@ -151,8 +234,8 @@ class ViewAIState extends ViewWidgetState {
           _conversationContext = null;
         });
         // Save the cleared context and chat history
-        await OllamaService.saveConversationContext(null);
-        await OllamaService.saveChatHistory(<ChatMessage>[]);
+        await _ollamaService.saveConversationContext(null);
+        await _ollamaService.saveChatHistory(<ChatMessage>[]);
       },
       questionCount: questionCount,
       contextTokensCount: contextTokensCount,
@@ -185,7 +268,7 @@ class ViewAIState extends ViewWidgetState {
       return ViewAIInstructions(
         isOllamaInstalled: _isOllamaInstalled,
         isOllamaRunning: _isOllamaRunning,
-        onInstall: () => OllamaService.installOllama(),
+        onInstall: () => _ollamaService.installOllama(),
         onCheckStatus: _checkOllamaStatus,
       );
     }
@@ -205,7 +288,7 @@ class ViewAIState extends ViewWidgetState {
             onCancel: () async {
               _cancelled = true;
               _appendChatHistory('Request was cancelled.', ChatFrom.ai);
-              await OllamaService.saveChatHistory(_chatHistory);
+              await _ollamaService.saveChatHistory(_chatHistory);
               setState(() {
                 _isProcessingPrompt = false;
               });
@@ -249,7 +332,7 @@ Guidelines:
 Answer the question:''';
 
     final Map<String, dynamic> payload = <String, dynamic>{
-      'model': OllamaService.selectedModel,
+      'model': _ollamaService.selectedModel,
       'messages': <Map<String, String>>[
         <String, String>{
           'role': 'user',
@@ -266,7 +349,7 @@ Answer the question:''';
 
     // Add user message to chat history
     _appendChatHistory(fullPrompt, ChatFrom.user, payload);
-    await OllamaService.saveChatHistory(_chatHistory);
+    await _ollamaService.saveChatHistory(_chatHistory);
     setState(() {
       _isProcessingPrompt = true;
     });
@@ -276,7 +359,7 @@ Answer the question:''';
         return;
       }
 
-      final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
+      final Map<String, dynamic> jsonResponse = await _ollamaService.sendPayload(payload);
 
       if (_cancelled) {
         return;
@@ -289,7 +372,7 @@ Answer the question:''';
         if (jsonResponse.containsKey('context')) {
           _conversationContext = (jsonResponse['context'] as List<dynamic>).cast<int>();
           // Save updated context to persistent storage
-          await OllamaService.saveConversationContext(_conversationContext);
+          await _ollamaService.saveConversationContext(_conversationContext);
         }
 
         if (!_cancelled) {
@@ -298,12 +381,12 @@ Answer the question:''';
             _isProcessingPrompt = false;
           });
           // Save updated chat history
-          await OllamaService.saveChatHistory(_chatHistory);
+          await _ollamaService.saveChatHistory(_chatHistory);
         }
       } else {
         if (!_cancelled) {
           _appendChatHistory('Error: Invalid response from Ollama', ChatFrom.ai);
-          await OllamaService.saveChatHistory(_chatHistory);
+          await _ollamaService.saveChatHistory(_chatHistory);
           setState(() {
             _isProcessingPrompt = false;
           });
@@ -312,7 +395,7 @@ Answer the question:''';
     } catch (e) {
       if (!_cancelled) {
         _appendChatHistory('Error: $e', ChatFrom.ai);
-        await OllamaService.saveChatHistory(_chatHistory);
+        await _ollamaService.saveChatHistory(_chatHistory);
         setState(() {
           _isProcessingPrompt = false;
         });
@@ -342,7 +425,7 @@ Answer the question:''';
     setState(() => _isChecking = true);
 
     try {
-      final OllamaStatus status = await OllamaService.checkOllamaStatus();
+      final OllamaStatus status = await _ollamaService.checkOllamaStatus();
       _isOllamaInstalled = status.isInstalled;
       _isOllamaRunning = status.isRunning;
     } catch (e) {
@@ -433,7 +516,7 @@ TRANSACTIONS:${transactionsData.join(';')}
 ---''';
 
       final Map<String, dynamic> payload = <String, dynamic>{
-        'model': OllamaService.selectedModel,
+        'model': _ollamaService.selectedModel,
         'messages': <Map<String, String>>[
           <String, String>{
             'role': 'user',
@@ -453,7 +536,7 @@ TRANSACTIONS:${transactionsData.join(';')}
 
         _appendChatHistory(teachingMessage, ChatFrom.user, payload);
 
-        final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
+        final Map<String, dynamic> response = await _ollamaService.sendPayload(payload);
 
         if (response.containsKey('context')) {
           _conversationContext = (response['context'] as List<dynamic>).cast<int>();
@@ -468,14 +551,14 @@ TRANSACTIONS:${transactionsData.join(';')}
     }
 
     // Save the final context
-    await OllamaService.saveConversationContext(_conversationContext);
+    await _ollamaService.saveConversationContext(_conversationContext);
 
     if (failed || _cancelled) {
       _appendChatHistory(
         _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
         ChatFrom.ai,
       );
-      await OllamaService.saveChatHistory(_chatHistory);
+      await _ollamaService.saveChatHistory(_chatHistory);
     } else {
       debugPrint(
         '📚 Taught AI about all ${accounts.length} accounts (context saved: ${_conversationContext?.length ?? 0} tokens)',
@@ -485,7 +568,7 @@ TRANSACTIONS:${transactionsData.join(';')}
         'AI has learned about ${accounts.length} accounts and their transactions.',
         ChatFrom.ai,
       );
-      await OllamaService.saveChatHistory(_chatHistory);
+      await _ollamaService.saveChatHistory(_chatHistory);
     }
 
     // Final setState to update UI
