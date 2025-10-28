@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:money/core/helpers/list_helper.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -185,6 +186,27 @@ class OllamaService {
       return contextList.cast<int>();
     }
     return null;
+  }
+
+  static Future<void> saveChatHistory(final List<ChatMessage> chatHistory) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (chatHistory.isNotEmpty) {
+      final List<Map<String, dynamic>> serializedHistory = chatHistory.map((ChatMessage msg) => msg.toJson()).toList();
+      await prefs.setString('ollama_chat_history_$selectedModel', jsonEncode(serializedHistory));
+    } else {
+      await prefs.remove('ollama_chat_history_$selectedModel');
+    }
+  }
+
+  static Future<List<ChatMessage>> loadChatHistory() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? historyString = prefs.getString('ollama_chat_history_$selectedModel');
+    if (historyString != null) {
+      final List<dynamic> historyList = jsonDecode(historyString) as List<dynamic>;
+      final List<Map<String, dynamic>> historyMaps = historyList.cast<Map<String, dynamic>>();
+      return historyMaps.map(ChatMessage.fromJson).toList();
+    }
+    return <ChatMessage>[];
   }
 
   static Future<Map<String, dynamic>> sendPayload(final Map<String, dynamic> payload) async {

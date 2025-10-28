@@ -84,7 +84,7 @@ class ViewAIState extends ViewWidgetState {
   final TextEditingController _textController = TextEditingController();
 
   /// History of all chat messages in the conversation.
-  final List<ChatMessage> _chatHistory = <ChatMessage>[];
+  List<ChatMessage> _chatHistory = <ChatMessage>[];
 
   /// Controller for the chat list scroll view to enable auto-scrolling.
   final ScrollController _scrollController = ScrollController();
@@ -104,8 +104,9 @@ class ViewAIState extends ViewWidgetState {
 
     // Load the selected model from preferences first
     OllamaService.getLastUserSelectedModel().then((final _) async {
-      // Load conversation context for the selected model
+      // Load conversation context and chat history for the selected model
       _conversationContext = await OllamaService.loadConversationContext();
+      _chatHistory = await OllamaService.loadChatHistory();
       _checkOllamaStatus();
     });
   }
@@ -140,16 +141,18 @@ class ViewAIState extends ViewWidgetState {
         setState(() {}); // Refresh to update the selected model display
         OllamaService.selectedModel = selectedModel;
         await OllamaService.saveSelectedModel(selectedModel);
-        // Load context for the new model
+        // Load context and chat history for the new model
         _conversationContext = await OllamaService.loadConversationContext();
+        _chatHistory = await OllamaService.loadChatHistory();
       },
-      onClearChat: () {
+      onClearChat: () async {
         setState(() {
           _chatHistory.clear();
           _conversationContext = null;
         });
-        // Save the cleared context
-        OllamaService.saveConversationContext(null);
+        // Save the cleared context and chat history
+        await OllamaService.saveConversationContext(null);
+        await OllamaService.saveChatHistory(<ChatMessage>[]);
       },
       questionCount: questionCount,
       contextTokensCount: contextTokensCount,
@@ -199,11 +202,12 @@ class ViewAIState extends ViewWidgetState {
             onSendPrompt: _submitPrompt,
             onTeachAI: () async => await teachAIAboutAccounts(),
             isProcessing: _isProcessingPrompt,
-            onCancel: () {
+            onCancel: () async {
+              _cancelled = true;
+              _appendChatHistory('Request was cancelled.', ChatFrom.ai);
+              await OllamaService.saveChatHistory(_chatHistory);
               setState(() {
-                _cancelled = true;
                 _isProcessingPrompt = false;
-                _appendChatHistory('Request was cancelled.', ChatFrom.ai);
               });
             },
             inputController: _textController,
@@ -261,8 +265,9 @@ Answer the question:''';
     }
 
     // Add user message to chat history
+    _appendChatHistory(fullPrompt, ChatFrom.user, payload);
+    await OllamaService.saveChatHistory(_chatHistory);
     setState(() {
-      _appendChatHistory(fullPrompt, ChatFrom.user, payload);
       _isProcessingPrompt = true;
     });
 
@@ -288,27 +293,28 @@ Answer the question:''';
         }
 
         if (!_cancelled) {
+          _appendChatHistory(aiResponse.trim(), ChatFrom.ai, payload);
           setState(() {
             _isProcessingPrompt = false;
-            _appendChatHistory(aiResponse.trim(), ChatFrom.ai, payload);
           });
+          // Save updated chat history
+          await OllamaService.saveChatHistory(_chatHistory);
         }
       } else {
         if (!_cancelled) {
+          _appendChatHistory('Error: Invalid response from Ollama', ChatFrom.ai);
+          await OllamaService.saveChatHistory(_chatHistory);
           setState(() {
             _isProcessingPrompt = false;
-            _appendChatHistory(
-              'Error: Invalid response from Ollama',
-              ChatFrom.ai,
-            );
           });
         }
       }
     } catch (e) {
       if (!_cancelled) {
+        _appendChatHistory('Error: $e', ChatFrom.ai);
+        await OllamaService.saveChatHistory(_chatHistory);
         setState(() {
           _isProcessingPrompt = false;
-          _appendChatHistory('Error: $e', ChatFrom.ai);
         });
       }
     }
@@ -469,6 +475,7 @@ TRANSACTIONS:${transactionsData.join(';')}
         _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
         ChatFrom.ai,
       );
+      await OllamaService.saveChatHistory(_chatHistory);
     } else {
       debugPrint(
         '📚 Taught AI about all ${accounts.length} accounts (context saved: ${_conversationContext?.length ?? 0} tokens)',
@@ -478,6 +485,14 @@ TRANSACTIONS:${transactionsData.join(';')}
         'AI has learned about ${accounts.length} accounts and their transactions.',
         ChatFrom.ai,
       );
+      await OllamaService.saveChatHistory(_chatHistory);
+    }
+
+    // Final setState to update UI
+    if (mounted) {
+      setState(() {
+        _isProcessingPrompt = false;
+      });
     }
   }
 }
