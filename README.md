@@ -40,6 +40,70 @@ This is the Flutter app, you will need to install the Flutter/Dart frameWork and
 
 ![overview.svg](documentation%2Foverview.svg)
 
+## AI Assistant Feature
+
+The myMoney app now includes a powerful AI assistant powered by Ollama, providing intelligent insights into your financial data.
+
+### Getting Started with AI
+
+1. **Install Ollama**: Follow the instructions in the app to install Ollama on your system
+2. **Download Models**: The AI assistant uses various language models (LLaMA, etc.) for analysis
+3. **Start Using**: Access the AI assistant from the main navigation
+
+### AI Features
+
+#### 💬 **Chat Interface**
+- Interactive conversation with the AI about your finances
+- Message history with timestamps and read more/less functionality
+- Copy messages to clipboard
+- Expandable messages for better readability
+
+#### 🤖 **AI Models**
+- Switch between different AI models (LLaMA 3.2, etc.)
+- Automatic model detection and installation
+- Model size information and management
+
+#### 📊 **Preset Financial Queries**
+Quick access preset buttons for common financial analyses:
+- **Account Names**: List all your account names
+- **Largest Transactions**: Identify the biggest transactions per account
+- **Analyze Spending**: Get insights into spending patterns
+- **Expense Predictions**: Forecast future expenses
+
+#### 🎯 **Intelligent Features**
+- Teach AI about your accounts using the "BankAccounts" button
+- Real-time processing status with cancel functionality
+- Context-aware responses based on your financial data
+- Formatted display of token counts and conversation statistics
+
+### Technical Architecture
+
+#### Core Components
+- **ViewAIInstructions**: Setup and installation guidance
+- **ViewAiHeader**: Model selection, chat statistics, and controls
+- **ChatMessageFooter**: Message actions (copy, expand, details)
+- **ChatInputArea**: Text input with preset buttons and processing states
+
+#### AI Integration
+- **Ollama Service**: Handles AI model communication and responses
+- **Chat Messages**: Persistent message history with metadata
+- **Real-time Processing**: Streaming responses with cancellation support
+
+### Prerequisites
+
+**Ollama Installation**: The app will guide you through installing Ollama, but you can also visit [ollama.com/download](https://ollama.com/download) for manual installation.
+
+**Supported Platforms**: The AI assistant works across all Flutter-supported platforms where Ollama can run.
+
+### Testing
+
+Comprehensive unit test coverage for all AI components:
+- `view_ai_header_test.dart`: Header functionality and model selection
+- `view_ai_instructions_test.dart`: Setup and installation UI
+- `view_ai_chat_message_footer_test.dart`: Message actions and display
+- `view_ai_input_test.dart`: Input handling and preset queries
+- `view_ai_chat_message_test.dart`: Message serialization and deserialization
+
 ## Data
 
 ### SQLite Tables
