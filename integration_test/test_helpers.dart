@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/core/controller/theme_controller.dart';
 import 'package:money/core/widgets/side_panel/side_panel.dart';
-import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item.dart';
 
 Future<void> tapOnText(
@@ -150,33 +149,16 @@ extension WidgetTesterExtension on WidgetTester {
 Future<void> switchToSmall(final WidgetTester tester) async {
   ThemeController.to.setAppSizeToSmall();
   await tester.pumpAndSettle();
-  await showInstruction(tester, 'Small Screen - Phone');
 }
 
 Future<void> switchToMedium(final WidgetTester tester) async {
   ThemeController.to.setAppSizeToMedium();
   await tester.pumpAndSettle();
-  await showInstruction(tester, 'Medium Screen - iPad');
 }
 
 Future<void> switchToLarge(final WidgetTester tester) async {
   ThemeController.to.setAppSizeToLarge();
   await tester.pumpAndSettle();
-  await showInstruction(tester, 'Medium Screen - Desktop');
-}
-
-Future<void> showInstruction(
-  final WidgetTester tester,
-  final String text,
-) async {
-  SnackBarService.display(
-    message: text,
-    autoDismiss: true,
-    title: 'fMoney flutter integration test',
-    duration: 5,
-  );
-  await tester.pumpAndSettle();
-  await tapOnKeyString(tester, 'key_snackbar_close_button');
 }
 
 // Select first element of the Side-Panel-Transaction-List

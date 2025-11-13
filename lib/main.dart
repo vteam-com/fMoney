@@ -112,32 +112,35 @@ class MyApp extends StatelessWidget {
           actions: _actions,
           child: Focus(
             autofocus: true,
-            child: GetMaterialApp(
-              key: Key(k),
-              debugShowCheckedModeBanner: false,
-              theme: themeController.themeDataLight,
-              darkTheme: themeController.themeDataDark,
-              themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
-              title: 'fMoney by VTeam',
-              initialBinding: ApplicationBindings(),
-              initialRoute: '/',
-              getPages: <GetPage<dynamic>>[
-                GetPage<dynamic>(
-                  name: '/',
-                  page: () {
-                    final PreferenceController preferenceController = Get.find();
-                    if (preferenceController.isReady.value) {
-                      return const WelcomePage();
-                    }
-                    return const SplashScreen();
-                  },
-                ),
-                ...HomeRoutes.routes,
-                ...WelcomeRoutes.routes,
-                ...SettingsRoutes.routes,
-                ...PlatformsRoutes.routes,
-                ...PolicyRoutes.routes,
-              ],
+            child: ScaffoldMessenger(
+              key: SnackBarService.scaffoldKey,
+              child: GetMaterialApp(
+                key: Key(k),
+                debugShowCheckedModeBanner: false,
+                theme: themeController.themeDataLight,
+                darkTheme: themeController.themeDataDark,
+                themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
+                title: 'fMoney by VTeam',
+                initialBinding: ApplicationBindings(),
+                initialRoute: '/',
+                getPages: <GetPage<dynamic>>[
+                  GetPage<dynamic>(
+                    name: '/',
+                    page: () {
+                      final PreferenceController preferenceController = Get.find();
+                      if (preferenceController.isReady.value) {
+                        return const WelcomePage();
+                      }
+                      return const SplashScreen();
+                    },
+                  ),
+                  ...HomeRoutes.routes,
+                  ...WelcomeRoutes.routes,
+                  ...SettingsRoutes.routes,
+                  ...PlatformsRoutes.routes,
+                  ...PolicyRoutes.routes,
+                ],
+              ),
             ),
           ),
         ),

@@ -2,9 +2,11 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:money/core/controller/data_controller.dart';
 import 'package:money/core/controller/preferences_controller.dart';
 import 'package:money/core/widgets/side_panel/side_panel_header.dart';
+import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/import/import_qfx.dart';
 import 'package:money/main.dart' as app;
@@ -19,6 +21,12 @@ void main() {
     testWidgets('Full app test', (WidgetTester tester) async {
       // Use an empty SharedPreferences to get the same results each time
       SharedPreferences.setMockInitialValues(<String, Object>{});
+
+      // // Enable GetX test mode to allow contextless navigation in tests
+      Get.testMode = true;
+
+      // Enable snackbar testing mode to skip showing snackbars in integration tests
+      SnackBarService.enableTestingMode();
 
       app.main();
       await tester.pumpAndSettle();
@@ -484,9 +492,6 @@ Future<void> testImportWizadRecordTransfer(WidgetTester tester) async {
   // Close ImportDialog
   await tapOnText(tester, 'Record Transfer');
 
-  // Dismiss the warning message
-  await tapOnKeyString(tester, 'key_snackbar_close_button');
-  await tester.pumpAndSettle();
   await tapOnText(tester, 'Cancel');
   await tester.myPump();
 }
