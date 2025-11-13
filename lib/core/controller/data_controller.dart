@@ -49,7 +49,7 @@ class DataController extends GetxController {
 
   Future<String> generateNextFolderToSaveTo() async {
     if (currentLoadedFileName.value.isNotEmpty) {
-      if (p.extension(currentLoadedFileName.value) == 'mmcsv' || p.extension(currentLoadedFileName.value) == 'mmdb') {
+      if (p.extension(currentLoadedFileName.value) == '.mmcsv' || p.extension(currentLoadedFileName.value) == '.mmdb') {
         return p.dirname(currentLoadedFileName.value);
       }
     }

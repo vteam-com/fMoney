@@ -9,7 +9,7 @@ class MyDatabaseImplementation {
   late final Database _db;
 
   void dispose() {
-    _db.dispose();
+    _db.close();
   }
 
   void execute(final String command) {
