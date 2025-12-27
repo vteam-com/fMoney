@@ -6,12 +6,7 @@ echo "Generate Graph dependencies"
 rm graph.dot
 rm graph.svg
 
-## with folders
-lakos -o graph.dot --metrics .
+lakos ./lib/. --no-tree -o graph.dot
+npx --yes github:jpdup/glad graph.dot -o graph.svg --exclude "**/test/*"
 
-# remove the folders
-#lakos -o graph.dot --no-tree --metrics --ignore=test/** .
-
-
-dot -Tsvg graph.dot -Grankdir=TB -Gcolor=lightgray -Ecolor="#aabbaa88" -o graph.svg
-#fdp -Tsvg graph.dot -Gcolor=lightgray -Ecolor="#aabbaa99" -o graph.svg
+rm graph.dot

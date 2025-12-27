@@ -1,5 +1,17 @@
 # Change Log
 
+## [version 1.15.00] 2025-12-27
+
+### Update
+- Flutter and Dart version updates to latest (3.38.0)
+- Update to sqlite3 ^3.0.0
+- Remove GetX snackbar dependency
+- Update builds.yml for CI/CD improvements
+
+### Add
+- Add test for ViewAI with 80% code coverage
+- Use GLAD to generate Graph.svg
+
 ## [version 1.14.00] 2025-10-28
 
 ### Update

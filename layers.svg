@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="no"?>
-<svg width="6000" height="450" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<svg width="5800" height="550" viewBox="0 0 5800 550" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
   <style>
     .layerRectangle {
       stroke: black;
@@ -21,6 +21,11 @@
       opacity: 0.9;
       stroke: gray;
     }
+    .nodeFileOrphan {
+      fill: #ff6b6b !important;
+      opacity: 0.9;
+      stroke: gray;
+    }
     .folderName {
       font-size: 180%;
       fill : white;
@@ -39,11 +44,32 @@
     }
     .line {
       fill : none;
+      stroke: #377E22;
       stroke-width: 3;
       opacity: 0.5;
     }
     .line:hover {
       stroke-width: 6;
+      opacity: 1;
+    }
+    .lineOrange {
+      fill : none;
+      stroke: #F09235;
+      stroke-width: 8;
+      opacity: 0.5;
+    }
+    .lineOrange:hover {
+      stroke-width: 13;
+      opacity: 1;
+    }
+    .lineRed {
+      fill : none;
+      stroke: #EB4132;
+      stroke-width: 8;
+      opacity: 0.5;
+    }
+    .lineRed:hover {
+      stroke-width: 13;
       opacity: 1;
     }
 </style>
@@ -88,333 +114,244 @@
     </marker>
   </defs>
   <rect width="100%" height="100%" fill="white"/>
-  <rect width="100%" height="100%" fill="white"/>
-  <g id='Node_archive'>
-    <rect x="1504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_path'>
-    <rect x="4" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_file_picker'>
-    <rect x="4" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_flutter_markdown'>
-    <rect x="2704" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_markdown'>
-    <rect x="1204" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_flutter_svg'>
-    <rect x="2104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_http'>
-    <rect x="604" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_intl'>
-    <rect x="3004" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_money'>
-    <rect x="4" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_clipboard'>
-    <rect x="1504" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_collection'>
-    <rect x="304" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_csv'>
-    <rect x="5404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_desktop_drop'>
-    <rect x="1804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_dotted_border'>
-    <rect x="1804" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_fl_chart'>
-    <rect x="3604" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_get'>
-    <rect x="4504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_js'>
-    <rect x="2104" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_logger'>
-    <rect x="4804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_multi_split_view'>
-    <rect x="5104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_pasteboard'>
-    <rect x="2404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_path_provider'>
-    <rect x="1204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_provider'>
-    <rect x="3904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_shared_preferences'>
-    <rect x="604" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_sqlite3'>
-    <rect x="904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_sqlite3_flutter_libs'>
-    <rect x="2404" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_textify'>
-    <rect x="5704" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_universal_io'>
-    <rect x="3304" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_url_launcher'>
-    <rect x="304" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_uuid'>
-    <rect x="904" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Node_window_manager'>
-    <rect x="4204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-  </g>
-  <g id='Edges'>
-    <path class="line" d="M1780 245 C 1790 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>archive
-⬇
-path</title>
-    </path>
-    <path class="line" d="M280 245 C 290 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>file_picker
-⬇
-path</title>
-    </path>
-    <path class="line" d="M2980 245 C 2990 300,1210 300, 1220 355" fill="none" stroke="#377E22">
-      <title>flutter_markdown
-⬇
-markdown</title>
-    </path>
-    <path class="line" d="M2980 245 C 2990 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>flutter_markdown
-⬇
-path</title>
-    </path>
-    <path class="line" d="M2380 245 C 2390 300,610 300, 620 355" fill="none" stroke="#377E22">
-      <title>flutter_svg
-⬇
-http</title>
-    </path>
-    <path class="line" d="M3280 245 C 3290 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>intl
-⬇
-path</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,1510 150, 1520 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-archive</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,1510 225, 1520 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-clipboard</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,310 225, 320 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-collection</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,5410 150, 5420 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-csv</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,1810 150, 1820 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-desktop_drop</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,1810 225, 1820 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-dotted_border</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,10 150, 20 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-file_picker</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,3610 150, 3620 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-fl_chart</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,2710 150, 2720 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-flutter_markdown</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,2110 150, 2120 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-flutter_svg</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,4510 150, 4520 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-get</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,610 225, 620 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-http</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,3010 150, 3020 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-intl</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,2110 225, 2120 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-js</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,4810 150, 4820 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-logger</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,1210 225, 1220 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-markdown</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,5110 150, 5120 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-multi_split_view</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,2410 150, 2420 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-pasteboard</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,10 225, 20 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-path</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,1210 150, 1220 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-path_provider</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,3910 150, 3920 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-provider</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,610 150, 620 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-shared_preferences</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,910 150, 920 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-sqlite3</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,2410 225, 2420 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-sqlite3_flutter_libs</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,5710 150, 5720 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-textify</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,3310 150, 3320 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-universal_io</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,310 150, 320 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-url_launcher</title>
-    </path>
-    <path class="line" d="M280 95 C 290 225,910 225, 920 355" fill="none" stroke="#377E22">
-      <title>money
-⬇
-uuid</title>
-    </path>
-    <path class="line" d="M280 95 C 290 150,4210 150, 4220 205" fill="none" stroke="#377E22">
-      <title>money
-⬇
-window_manager</title>
-    </path>
-    <path class="line" d="M2680 245 C 2690 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>pasteboard
-⬇
-path</title>
-    </path>
-    <path class="line" d="M2680 245 C 2690 300,910 300, 920 355" fill="none" stroke="#377E22">
-      <title>pasteboard
-⬇
-uuid</title>
-    </path>
-    <path class="line" d="M4180 245 C 4190 300,310 300, 320 355" fill="none" stroke="#377E22">
-      <title>provider
-⬇
-collection</title>
-    </path>
-    <path class="line" d="M1180 245 C 1190 300,310 300, 320 355" fill="none" stroke="#377E22">
-      <title>sqlite3
-⬇
-collection</title>
-    </path>
-    <path class="line" d="M1180 245 C 1190 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>sqlite3
-⬇
-path</title>
-    </path>
-    <path class="line" d="M3580 245 C 3590 300,310 300, 320 355" fill="none" stroke="#377E22">
-      <title>universal_io
-⬇
-collection</title>
-    </path>
-    <path class="line" d="M4480 245 C 4490 300,10 300, 20 355" fill="none" stroke="#377E22">
-      <title>window_manager
-⬇
-path</title>
-    </path>
-  </g>
-  <g id='Counters_archive'>
+  <g transform="translate(50, 50)">
+    <rect width="100%" height="100%" fill="white"/>
+    <g id='Node_archive'>
+      <rect x="1504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_path'>
+      <rect x="4" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_file_picker'>
+      <rect x="304" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_flutter_markdown'>
+      <rect x="2704" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_markdown'>
+      <rect x="1204" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_flutter_svg'>
+      <rect x="2104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_http'>
+      <rect x="604" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_intl'>
+      <rect x="3004" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_money'>
+      <rect x="4" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_clipboard'>
+      <rect x="4504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_collection'>
+      <rect x="304" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_csv'>
+      <rect x="1504" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_desktop_drop'>
+      <rect x="1804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_dotted_border'>
+      <rect x="1804" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_fl_chart'>
+      <rect x="3604" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_get'>
+      <rect x="4804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_js'>
+      <rect x="2104" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_logger'>
+      <rect x="5104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_multi_split_view'>
+      <rect x="5404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_pasteboard'>
+      <rect x="2404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_path_provider'>
+      <rect x="1204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_provider'>
+      <rect x="3904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_shared_preferences'>
+      <rect x="904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_sqlite3'>
+      <rect x="4" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_textify'>
+      <rect x="2404" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_universal_io'>
+      <rect x="3304" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_url_launcher'>
+      <rect x="604" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_uuid'>
+      <rect x="904" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Node_window_manager'>
+      <rect x="4204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
+    <g id='Edges'>
+      <g>
+      <path  class="line" d="M1780,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+    </g>
     <g>
-      <circle cx="1780" cy="245" r="10" fill="green"/>
-      <text x="1780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-      <title>archive
+    <path  class="line" d="M580,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+  </g>
+  <g>
+  <path  class="line" d="M2980,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H1247.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M2980,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M2380,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H647.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M3280,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H1492.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4492.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V215 a10,10 0 0 0 10 10 H310 a10,10 0 0 1 10 10 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H1455 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H1792.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H1755 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V140 a10,10 0 0 0 10 10 H310 a10,10 0 0 1 10 10 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H3592.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2692.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2092.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4792.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H555 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2992.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H2055 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H5092.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H1155 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H5392.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2392.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 1 -65 65 H85 a65,65 0 0 0 -65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H1192.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H3892.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H892.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H2355 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H3292.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H592.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H855 a65,65 0 0 1 65 65 V355" />
+</g>
+<g>
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4192.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+</g>
+<g>
+<path  class="line" d="M2680,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M2680,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H947.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M4180,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H347.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M280,245 V290 a10,10 0 0 0 10 10 H310 a10,10 0 0 1 10 10 V355" />
+</g>
+<g>
+<path  class="line" d="M280,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M3580,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H347.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+<g>
+<path  class="line" d="M4480,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+</g>
+</g>
+<g id='Counters_archive'>
+  <g>
+    <circle cx="1780" cy="245" r="10" fill="green"/>
+    <text x="1780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>archive
 ⬇
 1 /direct/path
 2 /transitive/crypto
 3 /transitive/posix</title>
-    </g>
-    <g>
-      <circle cx="1520" cy="205" r="10" fill="blue"/>
-      <text x="1520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="1520" cy="205" r="10" fill="blue"/>
+    <text x="1520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>1 /root/money
 2 /transitive/image
 ⬇
 archive</title>
-    </g>
   </g>
-  <g id='Counters_path'>
-    <g>
-      <circle cx="20" cy="355" r="10" fill="blue"/>
-      <text x="20" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
-      <title>1 /dev/analyzer
+</g>
+<g id='Counters_path'>
+  <g>
+    <circle cx="20" cy="355" r="10" fill="blue"/>
+    <text x="20" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
+    <title>1 /dev/analyzer
 2 /dev/flutter_launcher_icons
 3 /dev/flutter_test
 4 /dev/integration_test
@@ -450,13 +387,13 @@ archive</title>
 34 /transitive/xdg_directories
 ⬇
 path</title>
-    </g>
   </g>
-  <g id='Counters_file_picker'>
-    <g>
-      <circle cx="280" cy="245" r="10" fill="green"/>
-      <text x="280" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
-      <title>file_picker
+</g>
+<g id='Counters_file_picker'>
+  <g>
+    <circle cx="580" cy="245" r="10" fill="green"/>
+    <text x="580" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
+    <title>file_picker
 ⬇
 1 /direct/path
 2 /transitive/cross_file
@@ -467,114 +404,114 @@ path</title>
 7 /transitive/plugin_platform_interface
 8 /transitive/web
 9 /transitive/win32</title>
-    </g>
-    <g>
-      <circle cx="20" cy="205" r="10" fill="blue"/>
-      <text x="20" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="320" cy="205" r="10" fill="blue"/>
+    <text x="320" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 file_picker</title>
-    </g>
   </g>
-  <g id='Counters_flutter_markdown'>
-    <g>
-      <circle cx="2980" cy="245" r="10" fill="green"/>
-      <text x="2980" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-      <title>flutter_markdown
+</g>
+<g id='Counters_flutter_markdown'>
+  <g>
+    <circle cx="2980" cy="245" r="10" fill="green"/>
+    <text x="2980" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>flutter_markdown
 ⬇
 1 /direct/markdown
 2 /direct/path
 3 /transitive/meta</title>
-    </g>
-    <g>
-      <circle cx="2720" cy="205" r="10" fill="blue"/>
-      <text x="2720" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="2720" cy="205" r="10" fill="blue"/>
+    <text x="2720" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 flutter_markdown</title>
-    </g>
   </g>
-  <g id='Counters_markdown'>
-    <g>
-      <circle cx="1480" cy="395" r="10" fill="green"/>
-      <text x="1480" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>markdown
+</g>
+<g id='Counters_markdown'>
+  <g>
+    <circle cx="1480" cy="395" r="10" fill="green"/>
+    <text x="1480" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>markdown
 ⬇
 1 /transitive/args
 2 /transitive/meta</title>
-    </g>
-    <g>
-      <circle cx="1220" cy="355" r="10" fill="blue"/>
-      <text x="1220" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>1 /direct/flutter_markdown
+  </g>
+  <g>
+    <circle cx="1220" cy="355" r="10" fill="blue"/>
+    <text x="1220" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>1 /direct/flutter_markdown
 2 /root/money
 ⬇
 markdown</title>
-    </g>
   </g>
-  <g id='Counters_flutter_svg'>
-    <g>
-      <circle cx="2380" cy="245" r="10" fill="green"/>
-      <text x="2380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
-      <title>flutter_svg
+</g>
+<g id='Counters_flutter_svg'>
+  <g>
+    <circle cx="2380" cy="245" r="10" fill="green"/>
+    <text x="2380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+    <title>flutter_svg
 ⬇
 1 /direct/http
 2 /transitive/vector_graphics
 3 /transitive/vector_graphics_codec
 4 /transitive/vector_graphics_compiler</title>
-    </g>
-    <g>
-      <circle cx="2120" cy="205" r="10" fill="blue"/>
-      <text x="2120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="2120" cy="205" r="10" fill="blue"/>
+    <text x="2120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 flutter_svg</title>
-    </g>
   </g>
-  <g id='Counters_http'>
-    <g>
-      <circle cx="880" cy="395" r="10" fill="green"/>
-      <text x="880" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
-      <title>http
+</g>
+<g id='Counters_http'>
+  <g>
+    <circle cx="880" cy="395" r="10" fill="green"/>
+    <text x="880" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+    <title>http
 ⬇
 1 /transitive/async
 2 /transitive/http_parser
 3 /transitive/meta
 4 /transitive/web</title>
-    </g>
-    <g>
-      <circle cx="620" cy="355" r="10" fill="blue"/>
-      <text x="620" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-      <title>1 /direct/flutter_svg
+  </g>
+  <g>
+    <circle cx="620" cy="355" r="10" fill="blue"/>
+    <text x="620" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>1 /direct/flutter_svg
 2 /root/money
 3 /transitive/vector_graphics
 ⬇
 http</title>
-    </g>
   </g>
-  <g id='Counters_intl'>
-    <g>
-      <circle cx="3280" cy="245" r="10" fill="green"/>
-      <text x="3280" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-      <title>intl
+</g>
+<g id='Counters_intl'>
+  <g>
+    <circle cx="3280" cy="245" r="10" fill="green"/>
+    <text x="3280" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>intl
 ⬇
 1 /direct/path
 2 /transitive/clock
 3 /transitive/meta</title>
-    </g>
-    <g>
-      <circle cx="3020" cy="205" r="10" fill="blue"/>
-      <text x="3020" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="3020" cy="205" r="10" fill="blue"/>
+    <text x="3020" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 intl</title>
-    </g>
   </g>
-  <g id='Counters_money'>
-    <g>
-      <circle cx="280" cy="95" r="10" fill="green"/>
-      <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
-      <title>money
+</g>
+<g id='Counters_money'>
+  <g>
+    <circle cx="280" cy="95" r="10" fill="green"/>
+    <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
+    <title>money
 ⬇
 1 /dev/analyzer
 2 /dev/flutter_launcher_icons
@@ -605,28 +542,34 @@ intl</title>
 27 /direct/provider
 28 /direct/shared_preferences
 29 /direct/sqlite3
-30 /direct/sqlite3_flutter_libs
-31 /direct/textify
-32 /direct/universal_io
-33 /direct/url_launcher
-34 /direct/uuid
-35 /direct/window_manager</title>
-    </g>
+30 /direct/textify
+31 /direct/universal_io
+32 /direct/url_launcher
+33 /direct/uuid
+34 /direct/window_manager</title>
   </g>
-  <g id='Counters_clipboard'>
-    <g>
-      <circle cx="1520" cy="355" r="10" fill="blue"/>
-      <text x="1520" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+</g>
+<g id='Counters_clipboard'>
+  <g>
+    <circle cx="4780" cy="245" r="10" fill="green"/>
+    <text x="4780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>clipboard
+⬇
+1 /transitive/web</title>
+  </g>
+  <g>
+    <circle cx="4520" cy="205" r="10" fill="blue"/>
+    <text x="4520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 clipboard</title>
-    </g>
   </g>
-  <g id='Counters_collection'>
-    <g>
-      <circle cx="320" cy="355" r="10" fill="blue"/>
-      <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
-      <title>1 /dev/analyzer
+</g>
+<g id='Counters_collection'>
+  <g>
+    <circle cx="320" cy="355" r="10" fill="blue"/>
+    <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">26</text>
+    <title>1 /dev/analyzer
 2 /dev/flutter_test
 3 /dev/mockito
 4 /direct/provider
@@ -635,197 +578,199 @@ clipboard</title>
 7 /root/money
 8 /transitive/async
 9 /transitive/built_value
-10 /transitive/code_builder
-11 /transitive/dart_style
-12 /transitive/equatable
-13 /transitive/fake_async
-14 /transitive/glob
-15 /transitive/http_parser
-16 /transitive/leak_tracker
-17 /transitive/material_color_utilities
-18 /transitive/petitparser
-19 /transitive/pub_semver
-20 /transitive/source_span
-21 /transitive/test_api
-22 /transitive/typed_data
-23 /transitive/xml
-24 /transitive/yaml
+10 /transitive/code_assets
+11 /transitive/code_builder
+12 /transitive/dart_style
+13 /transitive/equatable
+14 /transitive/fake_async
+15 /transitive/glob
+16 /transitive/hooks
+17 /transitive/http_parser
+18 /transitive/leak_tracker
+19 /transitive/material_color_utilities
+20 /transitive/petitparser
+21 /transitive/pub_semver
+22 /transitive/source_span
+23 /transitive/test_api
+24 /transitive/typed_data
+25 /transitive/xml
+26 /transitive/yaml
 ⬇
 collection</title>
-    </g>
   </g>
-  <g id='Counters_csv'>
-    <g>
-      <circle cx="5420" cy="205" r="10" fill="blue"/>
-      <text x="5420" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+</g>
+<g id='Counters_csv'>
+  <g>
+    <circle cx="1520" cy="355" r="10" fill="blue"/>
+    <text x="1520" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 csv</title>
-    </g>
   </g>
-  <g id='Counters_desktop_drop'>
-    <g>
-      <circle cx="2080" cy="245" r="10" fill="green"/>
-      <text x="2080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
-      <title>desktop_drop
+</g>
+<g id='Counters_desktop_drop'>
+  <g>
+    <circle cx="2080" cy="245" r="10" fill="green"/>
+    <text x="2080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+    <title>desktop_drop
 ⬇
 1 /transitive/cross_file
 2 /transitive/flutter_web_plugins
 3 /transitive/universal_platform
 4 /transitive/web</title>
-    </g>
-    <g>
-      <circle cx="1820" cy="205" r="10" fill="blue"/>
-      <text x="1820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="1820" cy="205" r="10" fill="blue"/>
+    <text x="1820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 desktop_drop</title>
-    </g>
   </g>
-  <g id='Counters_dotted_border'>
-    <g>
-      <circle cx="1820" cy="355" r="10" fill="blue"/>
-      <text x="1820" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+</g>
+<g id='Counters_dotted_border'>
+  <g>
+    <circle cx="1820" cy="355" r="10" fill="blue"/>
+    <text x="1820" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 dotted_border</title>
-    </g>
   </g>
-  <g id='Counters_fl_chart'>
-    <g>
-      <circle cx="3880" cy="245" r="10" fill="green"/>
-      <text x="3880" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>fl_chart
+</g>
+<g id='Counters_fl_chart'>
+  <g>
+    <circle cx="3880" cy="245" r="10" fill="green"/>
+    <text x="3880" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>fl_chart
 ⬇
 1 /transitive/equatable
 2 /transitive/vector_math</title>
-    </g>
-    <g>
-      <circle cx="3620" cy="205" r="10" fill="blue"/>
-      <text x="3620" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="3620" cy="205" r="10" fill="blue"/>
+    <text x="3620" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 fl_chart</title>
-    </g>
   </g>
-  <g id='Counters_get'>
-    <g>
-      <circle cx="4780" cy="245" r="10" fill="green"/>
-      <text x="4780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>get
+</g>
+<g id='Counters_get'>
+  <g>
+    <circle cx="5080" cy="245" r="10" fill="green"/>
+    <text x="5080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>get
 ⬇
 1 /transitive/web</title>
-    </g>
-    <g>
-      <circle cx="4520" cy="205" r="10" fill="blue"/>
-      <text x="4520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="4820" cy="205" r="10" fill="blue"/>
+    <text x="4820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 get</title>
-    </g>
   </g>
-  <g id='Counters_js'>
-    <g>
-      <circle cx="2120" cy="355" r="10" fill="blue"/>
-      <text x="2120" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+</g>
+<g id='Counters_js'>
+  <g>
+    <circle cx="2120" cy="355" r="10" fill="blue"/>
+    <text x="2120" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 js</title>
-    </g>
   </g>
-  <g id='Counters_logger'>
-    <g>
-      <circle cx="5080" cy="245" r="10" fill="green"/>
-      <text x="5080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>logger
+</g>
+<g id='Counters_logger'>
+  <g>
+    <circle cx="5380" cy="245" r="10" fill="green"/>
+    <text x="5380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>logger
 ⬇
 1 /transitive/meta</title>
-    </g>
-    <g>
-      <circle cx="4820" cy="205" r="10" fill="blue"/>
-      <text x="4820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="5120" cy="205" r="10" fill="blue"/>
+    <text x="5120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 logger</title>
-    </g>
   </g>
-  <g id='Counters_multi_split_view'>
-    <g>
-      <circle cx="5380" cy="245" r="10" fill="green"/>
-      <text x="5380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>multi_split_view
+</g>
+<g id='Counters_multi_split_view'>
+  <g>
+    <circle cx="5680" cy="245" r="10" fill="green"/>
+    <text x="5680" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>multi_split_view
 ⬇
 1 /transitive/meta</title>
-    </g>
-    <g>
-      <circle cx="5120" cy="205" r="10" fill="blue"/>
-      <text x="5120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="5420" cy="205" r="10" fill="blue"/>
+    <text x="5420" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 multi_split_view</title>
-    </g>
   </g>
-  <g id='Counters_pasteboard'>
-    <g>
-      <circle cx="2680" cy="245" r="10" fill="green"/>
-      <text x="2680" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
-      <title>pasteboard
+</g>
+<g id='Counters_pasteboard'>
+  <g>
+    <circle cx="2680" cy="245" r="10" fill="green"/>
+    <text x="2680" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+    <title>pasteboard
 ⬇
 1 /direct/path
 2 /direct/uuid
 3 /transitive/flutter_web_plugins
 4 /transitive/web</title>
-    </g>
-    <g>
-      <circle cx="2420" cy="205" r="10" fill="blue"/>
-      <text x="2420" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="2420" cy="205" r="10" fill="blue"/>
+    <text x="2420" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 pasteboard</title>
-    </g>
   </g>
-  <g id='Counters_path_provider'>
-    <g>
-      <circle cx="1480" cy="245" r="10" fill="green"/>
-      <text x="1480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
-      <title>path_provider
+</g>
+<g id='Counters_path_provider'>
+  <g>
+    <circle cx="1480" cy="245" r="10" fill="green"/>
+    <text x="1480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+    <title>path_provider
 ⬇
 1 /transitive/path_provider_android
 2 /transitive/path_provider_foundation
 3 /transitive/path_provider_linux
 4 /transitive/path_provider_platform_interface
 5 /transitive/path_provider_windows</title>
-    </g>
-    <g>
-      <circle cx="1220" cy="205" r="10" fill="blue"/>
-      <text x="1220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="1220" cy="205" r="10" fill="blue"/>
+    <text x="1220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 path_provider</title>
-    </g>
   </g>
-  <g id='Counters_provider'>
-    <g>
-      <circle cx="4180" cy="245" r="10" fill="green"/>
-      <text x="4180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>provider
+</g>
+<g id='Counters_provider'>
+  <g>
+    <circle cx="4180" cy="245" r="10" fill="green"/>
+    <text x="4180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>provider
 ⬇
 1 /direct/collection
 2 /transitive/nested</title>
-    </g>
-    <g>
-      <circle cx="3920" cy="205" r="10" fill="blue"/>
-      <text x="3920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="3920" cy="205" r="10" fill="blue"/>
+    <text x="3920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 provider</title>
-    </g>
   </g>
-  <g id='Counters_shared_preferences'>
-    <g>
-      <circle cx="880" cy="245" r="10" fill="green"/>
-      <text x="880" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
-      <title>shared_preferences
+</g>
+<g id='Counters_shared_preferences'>
+  <g>
+    <circle cx="1180" cy="245" r="10" fill="green"/>
+    <text x="1180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
+    <title>shared_preferences
 ⬇
 1 /transitive/shared_preferences_android
 2 /transitive/shared_preferences_foundation
@@ -833,77 +778,72 @@ provider</title>
 4 /transitive/shared_preferences_platform_interface
 5 /transitive/shared_preferences_web
 6 /transitive/shared_preferences_windows</title>
-    </g>
-    <g>
-      <circle cx="620" cy="205" r="10" fill="blue"/>
-      <text x="620" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="920" cy="205" r="10" fill="blue"/>
+    <text x="920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 shared_preferences</title>
-    </g>
   </g>
-  <g id='Counters_sqlite3'>
-    <g>
-      <circle cx="1180" cy="245" r="10" fill="green"/>
-      <text x="1180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
-      <title>sqlite3
+</g>
+<g id='Counters_sqlite3'>
+  <g>
+    <circle cx="280" cy="245" r="10" fill="green"/>
+    <text x="280" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">10</text>
+    <title>sqlite3
 ⬇
 1 /direct/collection
 2 /direct/path
-3 /transitive/ffi
-4 /transitive/meta
-5 /transitive/typed_data
-6 /transitive/web</title>
-    </g>
-    <g>
-      <circle cx="920" cy="205" r="10" fill="blue"/>
-      <text x="920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+3 /transitive/code_assets
+4 /transitive/crypto
+5 /transitive/ffi
+6 /transitive/hooks
+7 /transitive/meta
+8 /transitive/native_toolchain_c
+9 /transitive/typed_data
+10 /transitive/web</title>
+  </g>
+  <g>
+    <circle cx="20" cy="205" r="10" fill="blue"/>
+    <text x="20" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 sqlite3</title>
-    </g>
   </g>
-  <g id='Counters_sqlite3_flutter_libs'>
-    <g>
-      <circle cx="2420" cy="355" r="10" fill="blue"/>
-      <text x="2420" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
-⬇
-sqlite3_flutter_libs</title>
-    </g>
-  </g>
-  <g id='Counters_textify'>
-    <g>
-      <circle cx="5720" cy="205" r="10" fill="blue"/>
-      <text x="5720" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+</g>
+<g id='Counters_textify'>
+  <g>
+    <circle cx="2420" cy="355" r="10" fill="blue"/>
+    <text x="2420" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 textify</title>
-    </g>
   </g>
-  <g id='Counters_universal_io'>
-    <g>
-      <circle cx="3580" cy="245" r="10" fill="green"/>
-      <text x="3580" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-      <title>universal_io
+</g>
+<g id='Counters_universal_io'>
+  <g>
+    <circle cx="3580" cy="245" r="10" fill="green"/>
+    <text x="3580" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>universal_io
 ⬇
 1 /direct/collection
 2 /transitive/meta
 3 /transitive/typed_data</title>
-    </g>
-    <g>
-      <circle cx="3320" cy="205" r="10" fill="blue"/>
-      <text x="3320" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="3320" cy="205" r="10" fill="blue"/>
+    <text x="3320" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 universal_io</title>
-    </g>
   </g>
-  <g id='Counters_url_launcher'>
-    <g>
-      <circle cx="580" cy="245" r="10" fill="green"/>
-      <text x="580" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
-      <title>url_launcher
+</g>
+<g id='Counters_url_launcher'>
+  <g>
+    <circle cx="880" cy="245" r="10" fill="green"/>
+    <text x="880" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
+    <title>url_launcher
 ⬇
 1 /transitive/url_launcher_android
 2 /transitive/url_launcher_ios
@@ -912,170 +852,166 @@ universal_io</title>
 5 /transitive/url_launcher_platform_interface
 6 /transitive/url_launcher_web
 7 /transitive/url_launcher_windows</title>
-    </g>
-    <g>
-      <circle cx="320" cy="205" r="10" fill="blue"/>
-      <text x="320" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="620" cy="205" r="10" fill="blue"/>
+    <text x="620" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 url_launcher</title>
-    </g>
   </g>
-  <g id='Counters_uuid'>
-    <g>
-      <circle cx="1180" cy="395" r="10" fill="green"/>
-      <text x="1180" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
-      <title>uuid
+</g>
+<g id='Counters_uuid'>
+  <g>
+    <circle cx="1180" cy="395" r="10" fill="green"/>
+    <text x="1180" y="395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+    <title>uuid
 ⬇
 1 /transitive/crypto
 2 /transitive/fixnum
-3 /transitive/meta
-4 /transitive/sprintf</title>
-    </g>
-    <g>
-      <circle cx="920" cy="355" r="10" fill="blue"/>
-      <text x="920" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>1 /direct/pasteboard
+3 /transitive/meta</title>
+  </g>
+  <g>
+    <circle cx="920" cy="355" r="10" fill="blue"/>
+    <text x="920" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>1 /direct/pasteboard
 2 /root/money
 ⬇
 uuid</title>
-    </g>
   </g>
-  <g id='Counters_window_manager'>
-    <g>
-      <circle cx="4480" cy="245" r="10" fill="green"/>
-      <text x="4480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-      <title>window_manager
+</g>
+<g id='Counters_window_manager'>
+  <g>
+    <circle cx="4480" cy="245" r="10" fill="green"/>
+    <text x="4480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <title>window_manager
 ⬇
 1 /direct/path
 2 /transitive/screen_retriever</title>
-    </g>
-    <g>
-      <circle cx="4220" cy="205" r="10" fill="blue"/>
-      <text x="4220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-      <title>1 /root/money
+  </g>
+  <g>
+    <circle cx="4220" cy="205" r="10" fill="blue"/>
+    <text x="4220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <title>1 /root/money
 ⬇
 window_manager</title>
-    </g>
   </g>
-  <g id='Labels_archive'>
-    <text class="nodeName" x="1650" y="225" font-size="120%">archive</text>
-    <text class="nodeName" x="1650" y="245" font-size="80%">4.0.7</text>
-  </g>
-  <g id='Labels_path'>
-    <text class="nodeName" x="150" y="375" font-size="120%">path</text>
-    <text class="nodeName" x="150" y="395" font-size="80%">1.9.1</text>
-  </g>
-  <g id='Labels_file_picker'>
-    <text class="nodeName" x="150" y="225" font-size="120%">file_picker</text>
-    <text class="nodeName" x="150" y="245" font-size="80%">10.3.3</text>
-  </g>
-  <g id='Labels_flutter_markdown'>
-    <text class="nodeName" x="2850" y="225" font-size="120%">flutter_markdown</text>
-    <text class="nodeName" x="2850" y="245" font-size="80%">0.7.7+1</text>
-  </g>
-  <g id='Labels_markdown'>
-    <text class="nodeName" x="1350" y="375" font-size="120%">markdown</text>
-    <text class="nodeName" x="1350" y="395" font-size="80%">7.3.0</text>
-  </g>
-  <g id='Labels_flutter_svg'>
-    <text class="nodeName" x="2250" y="225" font-size="120%">flutter_svg</text>
-    <text class="nodeName" x="2250" y="245" font-size="80%">2.2.1</text>
-  </g>
-  <g id='Labels_http'>
-    <text class="nodeName" x="750" y="375" font-size="120%">http</text>
-    <text class="nodeName" x="750" y="395" font-size="80%">1.5.0</text>
-  </g>
-  <g id='Labels_intl'>
-    <text class="nodeName" x="3150" y="225" font-size="120%">intl</text>
-    <text class="nodeName" x="3150" y="245" font-size="80%">0.20.2</text>
-  </g>
-  <g id='Labels_money'>
-    <text class="nodeName" x="150" y="75" font-size="120%">money</text>
-    <text class="nodeName" x="150" y="95" font-size="80%">1.13.04</text>
-  </g>
-  <g id='Labels_clipboard'>
-    <text class="nodeName" x="1650" y="375" font-size="120%">clipboard</text>
-    <text class="nodeName" x="1650" y="395" font-size="80%">2.0.2</text>
-  </g>
-  <g id='Labels_collection'>
-    <text class="nodeName" x="450" y="375" font-size="120%">collection</text>
-    <text class="nodeName" x="450" y="395" font-size="80%">1.19.1</text>
-  </g>
-  <g id='Labels_csv'>
-    <text class="nodeName" x="5550" y="225" font-size="120%">csv</text>
-    <text class="nodeName" x="5550" y="245" font-size="80%">6.0.0</text>
-  </g>
-  <g id='Labels_desktop_drop'>
-    <text class="nodeName" x="1950" y="225" font-size="120%">desktop_drop</text>
-    <text class="nodeName" x="1950" y="245" font-size="80%">0.7.0</text>
-  </g>
-  <g id='Labels_dotted_border'>
-    <text class="nodeName" x="1950" y="375" font-size="120%">dotted_border</text>
-    <text class="nodeName" x="1950" y="395" font-size="80%">3.1.0</text>
-  </g>
-  <g id='Labels_fl_chart'>
-    <text class="nodeName" x="3750" y="225" font-size="120%">fl_chart</text>
-    <text class="nodeName" x="3750" y="245" font-size="80%">1.1.1</text>
-  </g>
-  <g id='Labels_get'>
-    <text class="nodeName" x="4650" y="225" font-size="120%">get</text>
-    <text class="nodeName" x="4650" y="245" font-size="80%">4.7.2</text>
-  </g>
-  <g id='Labels_js'>
-    <text class="nodeName" x="2250" y="375" font-size="120%">js</text>
-    <text class="nodeName" x="2250" y="395" font-size="80%">0.7.2</text>
-  </g>
-  <g id='Labels_logger'>
-    <text class="nodeName" x="4950" y="225" font-size="120%">logger</text>
-    <text class="nodeName" x="4950" y="245" font-size="80%">2.6.2</text>
-  </g>
-  <g id='Labels_multi_split_view'>
-    <text class="nodeName" x="5250" y="225" font-size="120%">multi_split_view</text>
-    <text class="nodeName" x="5250" y="245" font-size="80%">3.6.1</text>
-  </g>
-  <g id='Labels_pasteboard'>
-    <text class="nodeName" x="2550" y="225" font-size="120%">pasteboard</text>
-    <text class="nodeName" x="2550" y="245" font-size="80%">0.4.0</text>
-  </g>
-  <g id='Labels_path_provider'>
-    <text class="nodeName" x="1350" y="225" font-size="120%">path_provider</text>
-    <text class="nodeName" x="1350" y="245" font-size="80%">2.1.5</text>
-  </g>
-  <g id='Labels_provider'>
-    <text class="nodeName" x="4050" y="225" font-size="120%">provider</text>
-    <text class="nodeName" x="4050" y="245" font-size="80%">6.1.5+1</text>
-  </g>
-  <g id='Labels_shared_preferences'>
-    <text class="nodeName" x="750" y="225" font-size="120%">shared_preferences</text>
-    <text class="nodeName" x="750" y="245" font-size="80%">2.5.3</text>
-  </g>
-  <g id='Labels_sqlite3'>
-    <text class="nodeName" x="1050" y="225" font-size="120%">sqlite3</text>
-    <text class="nodeName" x="1050" y="245" font-size="80%">2.9.3</text>
-  </g>
-  <g id='Labels_sqlite3_flutter_libs'>
-    <text class="nodeName" x="2550" y="375" font-size="120%">sqlite3_flutter_libs</text>
-    <text class="nodeName" x="2550" y="395" font-size="80%">0.5.40</text>
-  </g>
-  <g id='Labels_textify'>
-    <text class="nodeName" x="5850" y="225" font-size="120%">textify</text>
-    <text class="nodeName" x="5850" y="245" font-size="80%">0.4.7</text>
-  </g>
-  <g id='Labels_universal_io'>
-    <text class="nodeName" x="3450" y="225" font-size="120%">universal_io</text>
-    <text class="nodeName" x="3450" y="245" font-size="80%">2.2.2</text>
-  </g>
-  <g id='Labels_url_launcher'>
-    <text class="nodeName" x="450" y="225" font-size="120%">url_launcher</text>
-    <text class="nodeName" x="450" y="245" font-size="80%">6.3.2</text>
-  </g>
-  <g id='Labels_uuid'>
-    <text class="nodeName" x="1050" y="375" font-size="120%">uuid</text>
-    <text class="nodeName" x="1050" y="395" font-size="80%">4.5.1</text>
-  </g>
-  <g id='Labels_window_manager'>
-    <text class="nodeName" x="4350" y="225" font-size="120%">window_manager</text>
-    <text class="nodeName" x="4350" y="245" font-size="80%">0.5.1</text>
-  </g>
+</g>
+<g id='Labels_archive'>
+  <text class="nodeName" x="1650" y="225" font-size="120%">archive</text>
+  <text class="nodeName" x="1650" y="245" font-size="80%">4.0.7</text>
+</g>
+<g id='Labels_path'>
+  <text class="nodeName" x="150" y="375" font-size="120%">path</text>
+  <text class="nodeName" x="150" y="395" font-size="80%">1.9.1</text>
+</g>
+<g id='Labels_file_picker'>
+  <text class="nodeName" x="450" y="225" font-size="120%">file_picker</text>
+  <text class="nodeName" x="450" y="245" font-size="80%">10.3.8</text>
+</g>
+<g id='Labels_flutter_markdown'>
+  <text class="nodeName" x="2850" y="225" font-size="120%">flutter_markdown</text>
+  <text class="nodeName" x="2850" y="245" font-size="80%">0.7.7+1</text>
+</g>
+<g id='Labels_markdown'>
+  <text class="nodeName" x="1350" y="375" font-size="120%">markdown</text>
+  <text class="nodeName" x="1350" y="395" font-size="80%">7.3.0</text>
+</g>
+<g id='Labels_flutter_svg'>
+  <text class="nodeName" x="2250" y="225" font-size="120%">flutter_svg</text>
+  <text class="nodeName" x="2250" y="245" font-size="80%">2.2.3</text>
+</g>
+<g id='Labels_http'>
+  <text class="nodeName" x="750" y="375" font-size="120%">http</text>
+  <text class="nodeName" x="750" y="395" font-size="80%">1.6.0</text>
+</g>
+<g id='Labels_intl'>
+  <text class="nodeName" x="3150" y="225" font-size="120%">intl</text>
+  <text class="nodeName" x="3150" y="245" font-size="80%">0.20.2</text>
+</g>
+<g id='Labels_money'>
+  <text class="nodeName" x="150" y="75" font-size="120%">money</text>
+  <text class="nodeName" x="150" y="95" font-size="80%">1.15.00</text>
+</g>
+<g id='Labels_clipboard'>
+  <text class="nodeName" x="4650" y="225" font-size="120%">clipboard</text>
+  <text class="nodeName" x="4650" y="245" font-size="80%">3.0.8</text>
+</g>
+<g id='Labels_collection'>
+  <text class="nodeName" x="450" y="375" font-size="120%">collection</text>
+  <text class="nodeName" x="450" y="395" font-size="80%">1.19.1</text>
+</g>
+<g id='Labels_csv'>
+  <text class="nodeName" x="1650" y="375" font-size="120%">csv</text>
+  <text class="nodeName" x="1650" y="395" font-size="80%">6.0.0</text>
+</g>
+<g id='Labels_desktop_drop'>
+  <text class="nodeName" x="1950" y="225" font-size="120%">desktop_drop</text>
+  <text class="nodeName" x="1950" y="245" font-size="80%">0.7.0</text>
+</g>
+<g id='Labels_dotted_border'>
+  <text class="nodeName" x="1950" y="375" font-size="120%">dotted_border</text>
+  <text class="nodeName" x="1950" y="395" font-size="80%">3.1.0</text>
+</g>
+<g id='Labels_fl_chart'>
+  <text class="nodeName" x="3750" y="225" font-size="120%">fl_chart</text>
+  <text class="nodeName" x="3750" y="245" font-size="80%">1.1.1</text>
+</g>
+<g id='Labels_get'>
+  <text class="nodeName" x="4950" y="225" font-size="120%">get</text>
+  <text class="nodeName" x="4950" y="245" font-size="80%">4.7.3</text>
+</g>
+<g id='Labels_js'>
+  <text class="nodeName" x="2250" y="375" font-size="120%">js</text>
+  <text class="nodeName" x="2250" y="395" font-size="80%">0.7.2</text>
+</g>
+<g id='Labels_logger'>
+  <text class="nodeName" x="5250" y="225" font-size="120%">logger</text>
+  <text class="nodeName" x="5250" y="245" font-size="80%">2.6.2</text>
+</g>
+<g id='Labels_multi_split_view'>
+  <text class="nodeName" x="5550" y="225" font-size="120%">multi_split_view</text>
+  <text class="nodeName" x="5550" y="245" font-size="80%">3.6.1</text>
+</g>
+<g id='Labels_pasteboard'>
+  <text class="nodeName" x="2550" y="225" font-size="120%">pasteboard</text>
+  <text class="nodeName" x="2550" y="245" font-size="80%">0.4.0</text>
+</g>
+<g id='Labels_path_provider'>
+  <text class="nodeName" x="1350" y="225" font-size="120%">path_provider</text>
+  <text class="nodeName" x="1350" y="245" font-size="80%">2.1.5</text>
+</g>
+<g id='Labels_provider'>
+  <text class="nodeName" x="4050" y="225" font-size="120%">provider</text>
+  <text class="nodeName" x="4050" y="245" font-size="80%">6.1.5+1</text>
+</g>
+<g id='Labels_shared_preferences'>
+  <text class="nodeName" x="1050" y="225" font-size="120%">shared_preferences</text>
+  <text class="nodeName" x="1050" y="245" font-size="80%">2.5.4</text>
+</g>
+<g id='Labels_sqlite3'>
+  <text class="nodeName" x="150" y="225" font-size="120%">sqlite3</text>
+  <text class="nodeName" x="150" y="245" font-size="80%">3.1.1</text>
+</g>
+<g id='Labels_textify'>
+  <text class="nodeName" x="2550" y="375" font-size="120%">textify</text>
+  <text class="nodeName" x="2550" y="395" font-size="80%">0.5.0</text>
+</g>
+<g id='Labels_universal_io'>
+  <text class="nodeName" x="3450" y="225" font-size="120%">universal_io</text>
+  <text class="nodeName" x="3450" y="245" font-size="80%">2.3.1</text>
+</g>
+<g id='Labels_url_launcher'>
+  <text class="nodeName" x="750" y="225" font-size="120%">url_launcher</text>
+  <text class="nodeName" x="750" y="245" font-size="80%">6.3.2</text>
+</g>
+<g id='Labels_uuid'>
+  <text class="nodeName" x="1050" y="375" font-size="120%">uuid</text>
+  <text class="nodeName" x="1050" y="395" font-size="80%">4.5.2</text>
+</g>
+<g id='Labels_window_manager'>
+  <text class="nodeName" x="4350" y="225" font-size="120%">window_manager</text>
+  <text class="nodeName" x="4350" y="245" font-size="80%">0.5.1</text>
+</g>
+</g>
 </svg>

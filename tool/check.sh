@@ -1,27 +1,32 @@
 #!/bin/sh
-echo --- Pub Get
+echo --------------- Pub Get
 flutter pub get > /dev/null || { echo "Pub get failed"; exit 1; }
-echo --- Pub Upgrade
+
+echo --------------- Pub Upgrade
 flutter pub upgrade > /dev/null
-echo --- Pub Outdated
+
+echo --------------- Pub Outdated
 flutter pub outdated
 
-# echo --- Generate Loc
+# echo --------------- Generate Loc
 # python3 tool/loc.py
 
-echo --- Sort code
+echo --------------- Sort code
 dart run tool/sort_source.dart
 
-echo --- Format sources
+echo --------------- Format sources
 dart format . | sed 's/^/    /'
 dart fix --apply | sed 's/^/    /'
 
-echo --- Analyze
+echo --------------- Analyze
 flutter analyze lib test --no-pub | sed 's/^/    /'
 
-echo --- Test
+echo --------------- Test
 echo "    Running tests..."
 flutter test --reporter=compact --no-pub
 
-echo --- Graph Dependencies
-tool/graph.sh | sed 's/^/    /'
+echo --------------- Graph Dependencies
+tool/graph.sh
+
+echo --------------- Import Dependencies
+tool/layers.sh
