@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
+import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

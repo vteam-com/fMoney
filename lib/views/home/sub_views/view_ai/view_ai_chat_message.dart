@@ -7,47 +7,7 @@ import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/working.dart';
 import 'package:money/data/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.dart';
-
-enum ChatFrom { user, ai }
-
-class ChatMessage {
-  ChatMessage({
-    required this.message,
-    required this.type,
-    required this.timestamp,
-    required this.payloadSentToOllama,
-    this.isExpanded = false,
-  });
-
-  final String message;
-  final ChatFrom type;
-  final DateTime timestamp;
-  final Map<String, dynamic> payloadSentToOllama;
-  bool isExpanded;
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'message': message,
-      'type': type.name, // Convert enum to string
-      'timestamp': timestamp.toIso8601String(), // Convert DateTime to ISO string
-      'payloadSentToOllama': payloadSentToOllama,
-      'isExpanded': isExpanded,
-    };
-  }
-
-  static ChatMessage fromJson(Map<String, dynamic> json) {
-    return ChatMessage(
-      message: json['message'] as String,
-      type: ChatFrom.values.firstWhere(
-        (ChatFrom e) => e.name == json['type'],
-        orElse: () => ChatFrom.ai, // fallback
-      ),
-      timestamp: DateTime.parse(json['timestamp'] as String),
-      payloadSentToOllama: (json['payloadSentToOllama'] as Map<String, dynamic>?) ?? <String, dynamic>{},
-      isExpanded: (json['isExpanded'] as bool?) ?? false,
-    );
-  }
-}
+import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
