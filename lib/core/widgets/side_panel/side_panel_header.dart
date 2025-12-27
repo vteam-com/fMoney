@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/core/controller/theme_controller.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/my_segment.dart';
-import 'package:money/core/widgets/side_panel/side_panel.dart';
+import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/core/widgets/side_panel/side_panel_views_enum.dart';
 import 'package:money/data/models/constants.dart';
 import 'package:money/data/models/money_objects/currencies/currency.dart';

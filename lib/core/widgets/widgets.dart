@@ -13,7 +13,6 @@ export 'package:money/core/widgets/center_message.dart';
 export 'package:money/core/widgets/chart.dart';
 export 'package:money/core/widgets/circle.dart';
 export 'package:money/core/widgets/confirmation_dialog.dart';
-export 'package:money/core/widgets/dialog/dialog.dart';
 export 'package:money/core/widgets/filter_input.dart';
 export 'package:money/core/widgets/money_widget.dart';
 export 'package:money/core/widgets/three_part_label.dart';

@@ -4,7 +4,7 @@ import 'package:money/core/controller/selection_controller.dart';
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/widgets/charts/my_line_chart.dart';
 import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/side_panel/side_panel.dart';
+import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/data/models/money_objects/investments/investments.dart';
 import 'package:money/data/models/money_objects/securities/security.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';

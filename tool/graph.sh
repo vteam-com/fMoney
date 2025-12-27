@@ -7,6 +7,6 @@ rm graph.dot
 rm graph.svg
 
 lakos ./lib/. --no-tree -o graph.dot
-npx --yes github:jpdup/glad graph.dot -o graph.svg --exclude "**/test/*" --lines elbow
+npx --yes github:jpdup/glad graph.dot -o graph.svg --exclude "**/test/*" --view grid
 
 rm graph.dot

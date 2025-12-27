@@ -6,7 +6,7 @@ import 'package:money/core/widgets/dialog/dialog_button.dart';
 import 'package:money/core/widgets/dialog/dialog_mutate_money_object.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/label_and_amount.dart';
-import 'package:money/core/widgets/side_panel/side_panel.dart';
+import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/core/widgets/side_panel/side_panel_views_enum.dart';
 import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/core/widgets/text_title.dart';

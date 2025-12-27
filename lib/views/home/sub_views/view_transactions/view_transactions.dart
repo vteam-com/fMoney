@@ -1,7 +1,7 @@
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/side_panel/side_panel.dart';
+import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/data/models/money_objects/categories/category.dart';
 import 'package:money/data/models/money_objects/investments/investment.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
