@@ -1,8 +1,8 @@
 import 'package:money/core/widgets/confirmation_dialog.dart';
 import 'package:money/core/widgets/dialog/dialog_button.dart';
 import 'package:money/core/widgets/dialog/dialog_full_screen.dart';
+import 'package:money/data/models/money_objects/splits/money_split.dart';
 import 'package:money/data/storage/data/data.dart';
-import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transaction_splits.dart';
 
 Future<dynamic> showSplitAndActions({
   required final BuildContext context,
