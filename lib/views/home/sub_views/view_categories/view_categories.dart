@@ -8,13 +8,12 @@ import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/data/models/fields/field_filters.dart';
 import 'package:money/data/models/money_objects/categories/category.dart';
 import 'package:money/data/models/money_objects/currencies/currency.dart';
+import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/models/money_objects/transactions/transactions.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/transaction_timeline_chart.dart';
 import 'package:money/views/home/sub_views/view_categories/merge_categories.dart';
-
-part 'view_categories_side_panel.dart';
 
 class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});
@@ -308,5 +307,66 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
       );
     }
     return <Transaction>[];
+  }
+
+  /// Details panels Chart panel for Categories
+  Widget _getSubViewContentForChart({
+    required final List<int> selectedIds,
+    required final bool showAsNativeCurrency,
+  }) {
+    if (selectedIds.isEmpty) {
+      final Map<String, num> map = <String, num>{};
+
+      for (final Category item in getList()) {
+        if (item.fieldName.value != 'Split' && item.fieldName.value != 'Xfer to Deleted Account') {
+          final Category topCategory = Data().categories.getTopAncestor(item);
+          if (map[topCategory.fieldName.value] == null) {
+            map[topCategory.fieldName.value] = 0;
+          }
+          map[topCategory.fieldName.value] = map[topCategory.fieldName.value]! + item.fieldSum.value.asDouble();
+        }
+      }
+      final List<PairXYY> listChart = <PairXYY>[];
+      map.forEach((final String key, final num value) {
+        listChart.add(PairXYY(key, value));
+      });
+
+      listChart.sort((final PairXYY a, final PairXYY b) {
+        return (b.yValue1.abs() - a.yValue1.abs()).toInt();
+      });
+
+      return Chart(
+        key: Key(selectedIds.toString()),
+        list: listChart.take(10).toList(),
+      );
+    } else {
+      return TransactionTimelineChart(
+        transactions: _getTransactionsFromSelectedIds(selectedIds),
+      );
+    }
+  }
+
+  // Details Panel for Transactions Categories
+  Widget _getSubViewContentForTransactions({
+    required final List<int> selectedIds,
+    required bool showAsNativeCurrency,
+  }) {
+    final SelectionController selectionController = Get.put(
+      SelectionController(),
+    );
+
+    return ListViewTransactions(
+      listController: Get.find<ListControllerSidePanel>(),
+      columnsToInclude: <Field<dynamic>>[
+        Transaction.fields.getFieldByName(columnIdDate),
+        Transaction.fields.getFieldByName(columnIdAccount),
+        Transaction.fields.getFieldByName(columnIdPayee),
+        Transaction.fields.getFieldByName(columnIdCategory),
+        Transaction.fields.getFieldByName(columnIdMemo),
+        Transaction.fields.getFieldByName(columnIdAmount),
+      ],
+      getList: () => _getTransactionsFromSelectedIds(selectedIds),
+      selectionController: selectionController,
+    );
   }
 }

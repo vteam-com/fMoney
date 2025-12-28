@@ -395,13 +395,13 @@ path</title>
     <text x="580" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
     <title>file_picker
 ⬇
-1 /direct/path
-2 /transitive/cross_file
-3 /transitive/dbus
-4 /transitive/ffi
-5 /transitive/flutter_plugin_android_lifecycle
-6 /transitive/flutter_web_plugins
-7 /transitive/plugin_platform_interface
+1 /dev/plugin_platform_interface
+2 /direct/path
+3 /transitive/cross_file
+4 /transitive/dbus
+5 /transitive/ffi
+6 /transitive/flutter_plugin_android_lifecycle
+7 /transitive/flutter_web_plugins
 8 /transitive/web
 9 /transitive/win32</title>
   </g>
@@ -510,7 +510,7 @@ intl</title>
 <g id='Counters_money'>
   <g>
     <circle cx="280" cy="95" r="10" fill="green"/>
-    <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
+    <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
     <title>money
 ⬇
 1 /dev/analyzer
@@ -519,34 +519,35 @@ intl</title>
 4 /dev/flutter_test
 5 /dev/integration_test
 6 /dev/mockito
-7 /direct/archive
-8 /direct/clipboard
-9 /direct/collection
-10 /direct/csv
-11 /direct/desktop_drop
-12 /direct/dotted_border
-13 /direct/file_picker
-14 /direct/fl_chart
-15 /direct/flutter_markdown
-16 /direct/flutter_svg
-17 /direct/get
-18 /direct/http
-19 /direct/intl
-20 /direct/js
-21 /direct/logger
-22 /direct/markdown
-23 /direct/multi_split_view
-24 /direct/pasteboard
-25 /direct/path
-26 /direct/path_provider
-27 /direct/provider
-28 /direct/shared_preferences
-29 /direct/sqlite3
-30 /direct/textify
-31 /direct/universal_io
-32 /direct/url_launcher
-33 /direct/uuid
-34 /direct/window_manager</title>
+7 /dev/plugin_platform_interface
+8 /direct/archive
+9 /direct/clipboard
+10 /direct/collection
+11 /direct/csv
+12 /direct/desktop_drop
+13 /direct/dotted_border
+14 /direct/file_picker
+15 /direct/fl_chart
+16 /direct/flutter_markdown
+17 /direct/flutter_svg
+18 /direct/get
+19 /direct/http
+20 /direct/intl
+21 /direct/js
+22 /direct/logger
+23 /direct/markdown
+24 /direct/multi_split_view
+25 /direct/pasteboard
+26 /direct/path
+27 /direct/path_provider
+28 /direct/provider
+29 /direct/shared_preferences
+30 /direct/sqlite3
+31 /direct/textify
+32 /direct/universal_io
+33 /direct/url_launcher
+34 /direct/uuid
+35 /direct/window_manager</title>
   </g>
 </g>
 <g id='Counters_clipboard'>

@@ -14,8 +14,6 @@ import 'package:money/data/storage/data/data.dart';
 
 export 'package:money/data/models/money_objects/transactions/transaction.dart';
 
-part 'transactions_csv.dart';
-
 class Transactions extends MoneyObjects<Transaction> {
   Transactions() {
     collectionName = 'Transactions';

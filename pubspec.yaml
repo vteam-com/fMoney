@@ -74,6 +74,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mockito: ^5.4.6
+  plugin_platform_interface: any
 
 # https://pub.dev/packages/flutter_launcher_icons
 # after updating the main icon run this command from the root of the project
