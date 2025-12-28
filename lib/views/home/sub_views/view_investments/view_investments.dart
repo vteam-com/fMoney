@@ -10,6 +10,7 @@ import 'package:money/data/models/money_objects/securities/security.dart';
 import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
+import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 
 class ViewInvestments extends ViewForMoneyObjects {
   const ViewInvestments({super.key});

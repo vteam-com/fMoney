@@ -30,7 +30,6 @@ export 'package:flutter/material.dart';
 export 'package:get/get.dart';
 export 'package:money/core/controller/preferences_controller.dart';
 export 'package:money/core/widgets/widgets.dart';
-export 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 
 class ViewForMoneyObjects extends StatefulWidget {
   const ViewForMoneyObjects({super.key, this.includeClosedAccount = false});
