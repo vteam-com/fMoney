@@ -870,7 +870,7 @@
       <rect x="2704" y="1239" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_data_controller.dart'>
-      <rect x="4954" y="6189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="4954" y="6339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_field.dart'>
       <rect x="4954" y="6039" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -878,66 +878,61 @@
     <g id='Node_investment.dart'>
       <rect x="4954" y="1539" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
+    <g id='Node_account.dart'>
+      <rect x="4954" y="6489" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+    </g>
     <g id='Node_accounts.dart'>
       <rect x="4954" y="639" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_transactions.dart'>
       <rect x="4204" y="3639" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
-    <g id='Node_account.dart'>
-      <rect x="4954" y="6339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-    </g>
     <g id='Node_transaction.dart'>
-      <rect x="4954" y="6489" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="4954" y="6189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_data.dart'>
       <rect x="4954" y="6639" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Edges'>
-      <path d="M5230 6395 C 5436 3300,3564 3300, 3770 205" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5441 3375,3559 3375, 3770 205" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 account_types.dart</title>
       </path>
-      <path d="M5230 6395 C 5261 5925,4639 5925, 4670 5455" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5266 6000,4634 6000, 4670 5455" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 currency.dart</title>
       </path>
-      <path d="M5230 6395 C 5240 6525,4960 6525, 4970 6655" fill="none" class="lineRed">
+      <path d="M5230 6545 C 5240 6600,4960 6600, 4970 6655" fill="none" class="lineRed">
         <title>account.dart
 ⬇
 data.dart</title>
       </path>
-      <path d="M5230 6395 C 5281 5625,4769 5625, 4820 4855" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5286 5700,4764 5700, 4820 4855" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 list_helper.dart</title>
       </path>
-      <path d="M5230 6395 C 5311 5175,4889 5175, 4970 3955" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5316 5250,4884 5250, 4970 3955" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 list_item_card.dart</title>
       </path>
-      <path d="M5230 6395 C 5441 3225,5659 3225, 5870 55" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5446 3300,5654 3300, 5870 55" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 picker_account_type.dart</title>
       </path>
-      <path d="M5230 6395 C 5241 6225,4659 6225, 4670 6055" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5246 6300,4654 6300, 4670 6055" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 preferences_controller.dart</title>
       </path>
-      <path d="M5230 6395 C 5311 5175,5189 5175, 5270 3955" fill="none" class="lineOrange">
+      <path d="M5230 6545 C 5316 5250,5184 5250, 5270 3955" fill="none" class="lineOrange">
         <title>account.dart
 ⬇
 token_text.dart</title>
-      </path>
-      <path d="M5230 6395 C 5240 6450,4960 6450, 4970 6505" fill="none" class="lineRed">
-        <title>account.dart
-⬇
-transaction.dart</title>
       </path>
       <path d="M5230 695 C 5428 3675,4772 3675, 4970 6655" fill="none" class="lineRed">
         <title>accounts.dart
@@ -979,27 +974,27 @@ color_helper.dart</title>
 ⬇
 list_helper.dart</title>
       </path>
-      <path d="M5230 6245 C 5436 3150,1464 3150, 1670 55" fill="none" class="lineOrange">
+      <path d="M5230 6395 C 5441 3225,1459 3225, 1670 55" fill="none" class="lineOrange">
         <title>data_controller.dart
 ⬇
 data_simulator.dart</title>
       </path>
-      <path d="M5230 6245 C 5243 6450,4957 6450, 4970 6655" fill="none" class="lineRed">
+      <path d="M5230 6395 C 5240 6525,4960 6525, 4970 6655" fill="none" class="lineRed">
         <title>data_controller.dart
 ⬇
 data.dart</title>
       </path>
-      <path d="M5230 6245 C 5240 6150,4660 6150, 4670 6055" fill="none" class="lineRed">
+      <path d="M5230 6395 C 5241 6225,4659 6225, 4670 6055" fill="none" class="lineRed">
         <title>data_controller.dart
 ⬇
 preferences_controller.dart</title>
       </path>
-      <path d="M5230 6245 C 5271 5625,5229 5625, 5270 5005" fill="none" class="lineOrange">
+      <path d="M5230 6395 C 5276 5700,5224 5700, 5270 5005" fill="none" class="lineOrange">
         <title>data_controller.dart
 ⬇
 snack_bar.dart</title>
       </path>
-      <path d="M5230 6245 C 5246 6000,4654 6000, 4670 5755" fill="none" class="lineOrange">
+      <path d="M5230 6395 C 5251 6075,4649 6075, 4670 5755" fill="none" class="lineOrange">
         <title>data_controller.dart
 ⬇
 string_helper.dart</title>
@@ -1009,7 +1004,7 @@ string_helper.dart</title>
 ⬇
 account_aliases.dart</title>
       </path>
-      <path d="M5230 6695 C 5241 6525,4959 6525, 4970 6355" fill="none" class="lineRed">
+      <path d="M5230 6695 C 5240 6600,4960 6600, 4970 6505" fill="none" class="lineRed">
         <title>data.dart
 ⬇
 account.dart</title>
@@ -1034,7 +1029,7 @@ categories.dart</title>
 ⬇
 currencies.dart</title>
       </path>
-      <path d="M5230 6695 C 5246 6450,4954 6450, 4970 6205" fill="none" class="lineRed">
+      <path d="M5230 6695 C 5241 6525,4959 6525, 4970 6355" fill="none" class="lineRed">
         <title>data.dart
 ⬇
 data_controller.dart</title>
@@ -1234,7 +1229,7 @@ picker_investment_trade_type.dart</title>
 ⬇
 picker_investment_type.dart</title>
       </path>
-      <path d="M5230 1595 C 5393 4050,4807 4050, 4970 6505" fill="none" class="lineRed">
+      <path d="M5230 1595 C 5383 3900,4817 3900, 4970 6205" fill="none" class="lineRed">
         <title>investment.dart
 ⬇
 transaction.dart</title>
@@ -1244,7 +1239,7 @@ transaction.dart</title>
 ⬇
 data.dart</title>
       </path>
-      <path d="M2980 1295 C 3153 3900,4797 3900, 4970 6505" fill="none" class="lineRed">
+      <path d="M2980 1295 C 3143 3750,4807 3750, 4970 6205" fill="none" class="lineRed">
         <title>investments.dart
 ⬇
 transaction.dart</title>
@@ -1339,12 +1334,12 @@ picker_panel.dart</title>
 ⬇
 token_text.dart</title>
       </path>
-      <path d="M2830 95 C 3043 3300,4757 3300, 4970 6505" fill="none" class="lineRed">
+      <path d="M2830 95 C 3033 3150,4767 3150, 4970 6205" fill="none" class="lineRed">
         <title>popup_transaction_splits.dart
 ⬇
 transaction.dart</title>
       </path>
-      <path d="M4930 6095 C 4940 6150,4960 6150, 4970 6205" fill="none" class="lineRed">
+      <path d="M4930 6095 C 4940 6225,4960 6225, 4970 6355" fill="none" class="lineRed">
         <title>preferences_controller.dart
 ⬇
 data_controller.dart</title>
@@ -1394,102 +1389,92 @@ color_helper.dart</title>
 ⬇
 data.dart</title>
       </path>
-      <path d="M4480 1145 C 4658 3825,4792 3825, 4970 6505" fill="none" class="lineRed">
+      <path d="M4480 1145 C 4648 3675,4802 3675, 4970 6205" fill="none" class="lineRed">
         <title>splits.dart
 ⬇
 transaction.dart</title>
       </path>
-      <path d="M5230 6545 C 5240 6450,4960 6450, 4970 6355" fill="none" class="lineRed">
-        <title>transaction.dart
-⬇
-account.dart</title>
-      </path>
-      <path d="M5230 6545 C 5266 6000,4634 6000, 4670 5455" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5256 5850,4644 5850, 4670 5455" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 currency.dart</title>
       </path>
-      <path d="M5230 6545 C 5241 6375,4959 6375, 4970 6205" fill="none" class="lineOrange">
-        <title>transaction.dart
-⬇
-data_controller.dart</title>
-      </path>
-      <path d="M5230 6545 C 5326 5100,4724 5100, 4820 3655" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5316 4950,4734 4950, 4820 3655" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 fields.dart</title>
       </path>
-      <path d="M5230 6545 C 5396 4050,4804 4050, 4970 1555" fill="none" class="lineRed">
+      <path d="M5230 6245 C 5386 3900,4814 3900, 4970 1555" fill="none" class="lineRed">
         <title>transaction.dart
 ⬇
 investment.dart</title>
       </path>
-      <path d="M5230 6545 C 5406 3900,2544 3900, 2720 1255" fill="none" class="lineRed">
+      <path d="M5230 6245 C 5396 3750,2554 3750, 2720 1255" fill="none" class="lineRed">
         <title>transaction.dart
 ⬇
 investments.dart</title>
       </path>
-      <path d="M5230 6545 C 5286 5700,4764 5700, 4820 4855" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5276 5550,4774 5550, 4820 4855" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 list_helper.dart</title>
       </path>
-      <path d="M5230 6545 C 5316 5250,4884 5250, 4970 3955" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5306 5100,4894 5100, 4970 3955" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 list_item_card.dart</title>
       </path>
-      <path d="M5230 6545 C 5406 3900,2844 3900, 3020 1255" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5396 3750,2854 3750, 3020 1255" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 payee.dart</title>
       </path>
-      <path d="M5230 6545 C 5401 3975,4199 3975, 4370 1405" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5391 3825,4209 3825, 4370 1405" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 picker_category.dart</title>
       </path>
-      <path d="M5230 6545 C 5401 3975,4799 3975, 4970 1405" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5391 3825,4809 3825, 4970 1405" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 picker_edit_box_date.dart</title>
       </path>
-      <path d="M5230 6545 C 5306 5400,4894 5400, 4970 4255" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5296 5250,4904 5250, 4970 4255" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 picker_panel.dart</title>
       </path>
-      <path d="M5230 6545 C 5446 3300,2054 3300, 2270 55" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5436 3150,2064 3150, 2270 55" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 picker_payee_or_transfer.dart</title>
       </path>
-      <path d="M5230 6545 C 5446 3300,2354 3300, 2570 55" fill="none" class="lineRed">
+      <path d="M5230 6245 C 5436 3150,2364 3150, 2570 55" fill="none" class="lineRed">
         <title>transaction.dart
 ⬇
 popup_transaction_splits.dart</title>
       </path>
-      <path d="M5230 6545 C 5331 5025,4269 5025, 4370 3505" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5321 4875,4279 4875, 4370 3505" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 selection_controller.dart</title>
       </path>
-      <path d="M5230 6545 C 5281 5775,5219 5775, 5270 5005" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5271 5625,5229 5625, 5270 5005" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 snack_bar.dart</title>
       </path>
-      <path d="M5230 6545 C 5411 3825,4039 3825, 4220 1105" fill="none" class="lineRed">
+      <path d="M5230 6245 C 5401 3675,4049 3675, 4220 1105" fill="none" class="lineRed">
         <title>transaction.dart
 ⬇
 splits.dart</title>
       </path>
-      <path d="M5230 6545 C 5401 3975,5399 3975, 5570 1405" fill="none" class="lineOrange">
+      <path d="M5230 6245 C 5391 3825,5409 3825, 5570 1405" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 suggestion_approval.dart</title>
       </path>
-      <path d="M5230 6545 C 5416 3750,4784 3750, 4970 955" fill="none" class="lineRed">
+      <path d="M5230 6245 C 5406 3600,4794 3600, 4970 955" fill="none" class="lineRed">
         <title>transaction.dart
 ⬇
 transfer.dart</title>
@@ -1524,7 +1509,7 @@ money_split.dart</title>
 ⬇
 transfer.dart</title>
       </path>
-      <path d="M5230 995 C 5413 3750,4787 3750, 4970 6505" fill="none" class="lineRed">
+      <path d="M5230 995 C 5403 3600,4797 3600, 4970 6205" fill="none" class="lineRed">
         <title>transfer.dart
 ⬇
 transaction.dart</title>
@@ -7079,8 +7064,8 @@ investments.dart</title>
     </g>
     <g id='Counters_data_controller.dart'>
       <g>
-        <circle cx="5230" cy="6245" r="10" fill="green"/>
-        <text x="5230" y="6245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+        <circle cx="5230" cy="6395" r="10" fill="green"/>
+        <text x="5230" y="6395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
         <title>data_controller.dart
 ⬇
 1 /core/controller/preferences_controller.dart
@@ -7093,8 +7078,8 @@ investments.dart</title>
 8 /data/storage/data/data_simulator.dart</title>
       </g>
       <g>
-        <circle cx="4970" cy="6205" r="10" fill="blue"/>
-        <text x="4970" y="6205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
+        <circle cx="4970" cy="6355" r="10" fill="blue"/>
+        <text x="4970" y="6355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
         <title>1 /core/controller/preferences_controller.dart
 2 /data/models/money_objects/transactions/transaction.dart
 3 /data/storage/data/data.dart
@@ -7170,6 +7155,56 @@ field.dart</title>
 investment.dart</title>
       </g>
     </g>
+    <g id='Counters_account.dart'>
+      <g>
+        <circle cx="5230" cy="6545" r="10" fill="green"/>
+        <text x="5230" y="6545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">11</text>
+        <title>account.dart
+⬇
+1 /core/controller/preferences_controller.dart
+2 /core/helpers/date_helper.dart
+3 /core/helpers/list_helper.dart
+4 /core/widgets/token_text.dart
+5 /data/models/money_objects/accounts/account_types.dart
+6 /data/models/money_objects/accounts/account_types.dart
+7 /data/models/money_objects/accounts/account_types_enum.dart
+8 /data/models/money_objects/accounts/picker_account_type.dart
+9 /data/models/money_objects/currencies/currency.dart
+10 /data/storage/data/data.dart
+11 /views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart</title>
+      </g>
+      <g>
+        <circle cx="4970" cy="6505" r="10" fill="blue"/>
+        <text x="4970" y="6505" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
+        <title>1 /core/controller/data_controller.dart
+2 /data/models/money_objects/accounts/accounts.dart
+3 /data/models/money_objects/investments/security_fifo_queue.dart
+4 /data/models/money_objects/investments/security_sales.dart
+5 /data/models/money_objects/loan_payments/loan_payment.dart
+6 /data/models/money_objects/loan_payments/loan_payments.dart
+7 /data/models/money_objects/rent_buildings/rent_building.dart
+8 /data/models/money_objects/transactions/transaction.dart
+9 /data/models/money_objects/transactions/transactions.dart
+10 /data/models/money_objects/transfers/transfer.dart
+11 /data/storage/data/data.dart
+12 /data/storage/data/data_simulator.dart
+13 /data/storage/import/import_data.dart
+14 /data/storage/import/import_investment_panel.dart
+15 /data/storage/import/import_qfx.dart
+16 /data/storage/import/import_transactions_from_text.dart
+17 /data/storage/import/import_transactions_panel.dart
+18 /data/storage/import/import_transfer_panel.dart
+19 /views/home/sub_views/adaptive_view/menu_entry.dart
+20 /views/home/sub_views/view_accounts/picker_account.dart
+21 /views/home/sub_views/view_accounts/view_accounts.dart
+22 /views/home/sub_views/view_ai/view_ai.dart
+23 /views/home/sub_views/view_cashflow/view_cashflow.dart
+24 /views/home/sub_views/view_payees/picker_payee_or_transfer.dart
+25 /views/home/sub_views/view_transfers/view_transfers.dart
+⬇
+account.dart</title>
+      </g>
+    </g>
     <g id='Counters_accounts.dart'>
       <g>
         <circle cx="5230" cy="695" r="10" fill="green"/>
@@ -7235,61 +7270,10 @@ accounts.dart</title>
 transactions.dart</title>
       </g>
     </g>
-    <g id='Counters_account.dart'>
-      <g>
-        <circle cx="5230" cy="6395" r="10" fill="green"/>
-        <text x="5230" y="6395" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">12</text>
-        <title>account.dart
-⬇
-1 /core/controller/preferences_controller.dart
-2 /core/helpers/date_helper.dart
-3 /core/helpers/list_helper.dart
-4 /core/widgets/token_text.dart
-5 /data/models/money_objects/accounts/account_types.dart
-6 /data/models/money_objects/accounts/account_types.dart
-7 /data/models/money_objects/accounts/account_types_enum.dart
-8 /data/models/money_objects/accounts/picker_account_type.dart
-9 /data/models/money_objects/currencies/currency.dart
-10 /data/models/money_objects/transactions/transaction.dart
-11 /data/storage/data/data.dart
-12 /views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart</title>
-      </g>
-      <g>
-        <circle cx="4970" cy="6355" r="10" fill="blue"/>
-        <text x="4970" y="6355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
-        <title>1 /core/controller/data_controller.dart
-2 /data/models/money_objects/accounts/accounts.dart
-3 /data/models/money_objects/investments/security_fifo_queue.dart
-4 /data/models/money_objects/investments/security_sales.dart
-5 /data/models/money_objects/loan_payments/loan_payment.dart
-6 /data/models/money_objects/loan_payments/loan_payments.dart
-7 /data/models/money_objects/rent_buildings/rent_building.dart
-8 /data/models/money_objects/transactions/transaction.dart
-9 /data/models/money_objects/transactions/transactions.dart
-10 /data/models/money_objects/transfers/transfer.dart
-11 /data/storage/data/data.dart
-12 /data/storage/data/data_simulator.dart
-13 /data/storage/import/import_data.dart
-14 /data/storage/import/import_investment_panel.dart
-15 /data/storage/import/import_qfx.dart
-16 /data/storage/import/import_transactions_from_text.dart
-17 /data/storage/import/import_transactions_panel.dart
-18 /data/storage/import/import_transfer_panel.dart
-19 /views/home/sub_views/adaptive_view/menu_entry.dart
-20 /views/home/sub_views/view_accounts/picker_account.dart
-21 /views/home/sub_views/view_accounts/view_accounts.dart
-22 /views/home/sub_views/view_ai/view_ai.dart
-23 /views/home/sub_views/view_cashflow/view_cashflow.dart
-24 /views/home/sub_views/view_payees/picker_payee_or_transfer.dart
-25 /views/home/sub_views/view_transfers/view_transfers.dart
-⬇
-account.dart</title>
-      </g>
-    </g>
     <g id='Counters_transaction.dart'>
       <g>
-        <circle cx="5230" cy="6545" r="10" fill="green"/>
-        <text x="5230" y="6545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
+        <circle cx="5230" cy="6245" r="10" fill="green"/>
+        <text x="5230" y="6245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
         <title>transaction.dart
 ⬇
 1 /core/controller/data_controller.dart
@@ -7319,45 +7303,44 @@ account.dart</title>
 25 /views/home/sub_views/view_payees/picker_payee_or_transfer.dart</title>
       </g>
       <g>
-        <circle cx="4970" cy="6505" r="10" fill="blue"/>
-        <text x="4970" y="6505" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">37</text>
+        <circle cx="4970" cy="6205" r="10" fill="blue"/>
+        <text x="4970" y="6205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">36</text>
         <title>1 /core/widgets/dialog/dialog_mutate_money_object.dart
 2 /data/models/budget.dart
-3 /data/models/money_objects/accounts/account.dart
-4 /data/models/money_objects/accounts/accounts.dart
-5 /data/models/money_objects/categories/categories.dart
-6 /data/models/money_objects/investments/investment.dart
-7 /data/models/money_objects/investments/investments.dart
-8 /data/models/money_objects/loan_payments/loan_payments.dart
-9 /data/models/money_objects/payees/payees.dart
-10 /data/models/money_objects/rent_buildings/rent_building.dart
-11 /data/models/money_objects/rent_buildings/rent_buildings.dart
-12 /data/models/money_objects/splits/money_split.dart
-13 /data/models/money_objects/splits/popup_transaction_splits.dart
-14 /data/models/money_objects/splits/splits.dart
+3 /data/models/money_objects/accounts/accounts.dart
+4 /data/models/money_objects/categories/categories.dart
+5 /data/models/money_objects/investments/investment.dart
+6 /data/models/money_objects/investments/investments.dart
+7 /data/models/money_objects/loan_payments/loan_payments.dart
+8 /data/models/money_objects/payees/payees.dart
+9 /data/models/money_objects/rent_buildings/rent_building.dart
+10 /data/models/money_objects/rent_buildings/rent_buildings.dart
+11 /data/models/money_objects/splits/money_split.dart
+12 /data/models/money_objects/splits/popup_transaction_splits.dart
+13 /data/models/money_objects/splits/splits.dart
+14 /data/models/money_objects/transactions/transactions.dart
 15 /data/models/money_objects/transactions/transactions.dart
-16 /data/models/money_objects/transactions/transactions.dart
-17 /data/models/money_objects/transfers/transfer.dart
-18 /data/storage/data/data_simulator.dart
-19 /data/storage/import/import_data.dart
-20 /data/storage/import/import_investment.dart
-21 /data/storage/import/import_transactions_from_text.dart
-22 /data/storage/import/import_trasnsfer.dart
-23 /views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transaction_splits.dart
-24 /views/home/sub_views/adaptive_view/view_money_objects.dart
-25 /views/home/sub_views/view_accounts/view_accounts.dart
-26 /views/home/sub_views/view_ai/view_ai.dart
-27 /views/home/sub_views/view_aliases/view_aliases.dart
-28 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
-29 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
-30 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
-31 /views/home/sub_views/view_cashflow/sankey_panel.dart
-32 /views/home/sub_views/view_categories/view_categories.dart
-33 /views/home/sub_views/view_investments/view_investments.dart
-34 /views/home/sub_views/view_rentals/view_rentals_side_panel.dart
-35 /views/home/sub_views/view_transactions/dialog_mutate_transaction.dart
-36 /views/home/sub_views/view_transactions/view_transactions.dart
-37 /views/home/sub_views/view_transfers/view_transfers.dart
+16 /data/models/money_objects/transfers/transfer.dart
+17 /data/storage/data/data_simulator.dart
+18 /data/storage/import/import_data.dart
+19 /data/storage/import/import_investment.dart
+20 /data/storage/import/import_transactions_from_text.dart
+21 /data/storage/import/import_trasnsfer.dart
+22 /views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transaction_splits.dart
+23 /views/home/sub_views/adaptive_view/view_money_objects.dart
+24 /views/home/sub_views/view_accounts/view_accounts.dart
+25 /views/home/sub_views/view_ai/view_ai.dart
+26 /views/home/sub_views/view_aliases/view_aliases.dart
+27 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
+28 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
+29 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
+30 /views/home/sub_views/view_cashflow/sankey_panel.dart
+31 /views/home/sub_views/view_categories/view_categories.dart
+32 /views/home/sub_views/view_investments/view_investments.dart
+33 /views/home/sub_views/view_rentals/view_rentals_side_panel.dart
+34 /views/home/sub_views/view_transactions/dialog_mutate_transaction.dart
+35 /views/home/sub_views/view_transactions/view_transactions.dart
+36 /views/home/sub_views/view_transfers/view_transfers.dart
 ⬇
 transaction.dart</title>
       </g>
@@ -8236,7 +8219,7 @@ data.dart</title>
       <text class="nodeName" x="2850" y="1275" font-size="120%">investments.dart</text>
     </g>
     <g id='Labels_data_controller.dart'>
-      <text class="nodeName" x="5100" y="6225" font-size="120%">data_controller.dart</text>
+      <text class="nodeName" x="5100" y="6375" font-size="120%">data_controller.dart</text>
     </g>
     <g id='Labels_field.dart'>
       <text class="nodeName" x="5100" y="6075" font-size="120%">field.dart</text>
@@ -8244,17 +8227,17 @@ data.dart</title>
     <g id='Labels_investment.dart'>
       <text class="nodeName" x="5100" y="1575" font-size="120%">investment.dart</text>
     </g>
+    <g id='Labels_account.dart'>
+      <text class="nodeName" x="5100" y="6525" font-size="120%">account.dart</text>
+    </g>
     <g id='Labels_accounts.dart'>
       <text class="nodeName" x="5100" y="675" font-size="120%">accounts.dart</text>
     </g>
     <g id='Labels_transactions.dart'>
       <text class="nodeName" x="4350" y="3675" font-size="120%">transactions.dart</text>
     </g>
-    <g id='Labels_account.dart'>
-      <text class="nodeName" x="5100" y="6375" font-size="120%">account.dart</text>
-    </g>
     <g id='Labels_transaction.dart'>
-      <text class="nodeName" x="5100" y="6525" font-size="120%">transaction.dart</text>
+      <text class="nodeName" x="5100" y="6225" font-size="120%">transaction.dart</text>
     </g>
     <g id='Labels_data.dart'>
       <text class="nodeName" x="5100" y="6675" font-size="120%">data.dart</text>

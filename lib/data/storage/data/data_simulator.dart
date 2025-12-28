@@ -1270,7 +1270,7 @@ class DataSimulator {
   void _generateTransfersToCreditCardPayment() {
     double rollingBalance = 0.00;
 
-    final List<Transaction> list = _accountCreditCardUSD.getTransaction();
+    final List<Transaction> list = Data().accounts.getTransactions(_accountCreditCardUSD).toList();
 
     list.sort(
       (Transaction a, Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value, true),

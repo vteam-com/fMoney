@@ -502,7 +502,7 @@ Answer the question:''';
       }
 
       final String accountName = account.fieldName.value;
-      final List<Transaction> transactions = account.getTransaction();
+      final List<Transaction> transactions = Data().accounts.getTransactions(account).toList();
       final List<String> transactionsData = transactions
           .where((final Transaction t) => t.dateTimeAsString.compareTo('2023-12-31') > -1)
           .map((final Transaction t) => '${t.dateTimeAsString},${t.amountAsString}')
