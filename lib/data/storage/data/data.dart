@@ -31,7 +31,6 @@ import 'package:money/data/models/money_objects/stock_splits/stock_splits.dart';
 import 'package:money/data/models/money_objects/transaction_extras/transaction_extras.dart';
 import 'package:money/data/models/money_objects/transactions/transactions.dart';
 import 'package:money/data/models/money_objects/transfers/transfer.dart';
-import 'package:money/data/storage/data/data_simulator.dart';
 import 'package:money/data/storage/database/database.dart';
 
 // Exports
@@ -861,12 +860,5 @@ class Data {
   ) {
     final List<int> bytes = utf8.encode(textContent);
     archive.addFile(ArchiveFile(filename, bytes.length, bytes));
-  }
-
-  // --- Demo Extension Methods ---
-
-  void loadFromDemoData() {
-    DataSimulator().generateData();
-    recalculateBalances();
   }
 }

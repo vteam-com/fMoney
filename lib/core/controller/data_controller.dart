@@ -11,6 +11,7 @@ import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/data/data_mutations.dart';
+import 'package:money/data/storage/data/data_simulator.dart';
 import 'package:path/path.dart' as p;
 
 /// Controller for managing data file operations.
@@ -62,7 +63,7 @@ class DataController extends GetxController {
 
   Future<void> loadDemoData() async {
     isLoading.value = true;
-    Data().loadFromDemoData();
+    loadFromDemoData();
     isLoading.value = false;
   }
 

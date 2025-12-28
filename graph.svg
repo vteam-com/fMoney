@@ -1527,11 +1527,6 @@ category.dart</title>
 ⬇
 currency.dart</title>
       </path>
-      <path d="M4602.5 5750 C 4612.5 5770,4482.5 5770, 4492.5 5790" fill="none" class="lineRed">
-        <title>data_simulator.dart
-⬇
-data.dart</title>
-      </path>
       <path d="M4602.5 5750 C 4763.5 3327,4031.5 3328, 4192.5 905" fill="none" class="lineOrange">
         <title>data_simulator.dart
 ⬇
@@ -1636,11 +1631,6 @@ currencies.dart</title>
         <title>data.dart
 ⬇
 data_controller.dart</title>
-      </path>
-      <path d="M4752.5 5830 C 4762.5 5770,4332.5 5770, 4342.5 5710" fill="none" class="lineRed">
-        <title>data.dart
-⬇
-data_simulator.dart</title>
       </path>
       <path d="M4752.5 5830 C 4811.5 4937,5201 4938, 5260 4045" fill="none" class="lineRed">
         <title>data.dart
@@ -6867,7 +6857,7 @@ get_stock_from_cache_or_backend.dart</title>
               <g>
                 <circle cx="4342.5" cy="5710" r="10" fill="blue"/>
                 <text x="4342.5" y="5710" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-                <title>1 /data/storage/data/data.dart
+                <title>1 /core/controller/data_controller.dart
 ⬇
 data_simulator.dart</title>
               </g>
@@ -6884,7 +6874,7 @@ data_mutations.dart</title>
             <g id='Counters_data.dart'>
               <g>
                 <circle cx="4752.5" cy="5830" r="10" fill="green"/>
-                <text x="4752.5" y="5830" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">30</text>
+                <text x="4752.5" y="5830" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">29</text>
                 <title>data.dart
 ⬇
 1 /core/controller/data_controller.dart
@@ -6915,8 +6905,7 @@ data_mutations.dart</title>
 26 /data/models/money_objects/transaction_extras/transaction_extras.dart
 27 /data/models/money_objects/transactions/transactions.dart
 28 /data/models/money_objects/transfers/transfer.dart
-29 /data/storage/data/data_simulator.dart
-30 /data/storage/database/database.dart</title>
+29 /data/storage/database/database.dart</title>
               </g>
               <g>
                 <circle cx="4492.5" cy="5790" r="10" fill="blue"/>
@@ -9117,7 +9106,7 @@ my_window_manager.dart</title>
           <g id='Counters_data_controller.dart'>
             <g>
               <circle cx="4752.5" cy="555" r="10" fill="green"/>
-              <text x="4752.5" y="555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
+              <text x="4752.5" y="555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
               <title>data_controller.dart
 ⬇
 1 /core/controller/preferences_controller.dart
@@ -9126,7 +9115,8 @@ my_window_manager.dart</title>
 4 /core/widgets/snack_bar.dart
 5 /data/models/money_objects/accounts/account.dart
 6 /data/storage/data/data.dart
-7 /data/storage/data/data_mutations.dart</title>
+7 /data/storage/data/data_mutations.dart
+8 /data/storage/data/data_simulator.dart</title>
             </g>
             <g>
               <circle cx="4492.5" cy="515" r="10" fill="blue"/>
