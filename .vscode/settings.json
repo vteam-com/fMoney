@@ -30,6 +30,7 @@
     "dart.analysisServerFolding": false,
     "dart.flutterTrackWidgetCreation": false,
     "dart.updateDevTools": false,
+    "java.configuration.updateBuildConfiguration": "automatic",
     // "files.exclude": {
     //     "android/": true,
     //     "ios/": true,

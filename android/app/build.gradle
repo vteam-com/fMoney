@@ -23,10 +23,13 @@ def keystoreProperties = new Properties()
 // Load your keystore.properties file into the keystoreProperties object.
 // keystore.properties file outside the source code
 def keystorePropertiesFile = rootProject.file("${System.getProperty('user.home')}/keystores/mymoneyflutter/keystore.properties")
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
-    // namespace = "com.vteam.money"
+    namespace = "com.vteam.money"
+
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -57,10 +60,12 @@ android {
 
     signingConfigs {
         config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
 
@@ -70,7 +75,9 @@ android {
             //signingConfig = signingConfigs.debug
 
             // TODO: Add your own signing config for the release build.
-            signingConfig = signingConfigs.config
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.config
+            }
         }
     }
 }

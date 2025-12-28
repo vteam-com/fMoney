@@ -1,0 +1,264 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/Users/jp/.gradle/wrapper/dists/gradle-8.11.1-all/2qik7nd48slq1ooc2496ixf4i/gradle-8.11.1/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Starting a Gradle Daemon, 2 stopped Daemons could not be reused, use --status for details
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+> Task :app:DebugMinSdkCheck
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:compileFlutterBuildDebug UP-TO-DATE
+> Task :app:packJniLibsflutterBuildDebug UP-TO-DATE
+> Task :desktop_drop:preBuild UP-TO-DATE
+> Task :desktop_drop:preDebugBuild UP-TO-DATE
+> Task :desktop_drop:writeDebugAarMetadata UP-TO-DATE
+> Task :file_picker:preBuild UP-TO-DATE
+> Task :file_picker:preDebugBuild UP-TO-DATE
+> Task :file_picker:writeDebugAarMetadata UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:preBuild UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:preDebugBuild UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:writeDebugAarMetadata UP-TO-DATE
+> Task :integration_test:preBuild UP-TO-DATE
+> Task :integration_test:preDebugBuild UP-TO-DATE
+> Task :integration_test:writeDebugAarMetadata UP-TO-DATE
+> Task :pasteboard:preBuild UP-TO-DATE
+> Task :pasteboard:preDebugBuild UP-TO-DATE
+> Task :pasteboard:writeDebugAarMetadata UP-TO-DATE
+> Task :path_provider_android:preBuild UP-TO-DATE
+> Task :path_provider_android:preDebugBuild UP-TO-DATE
+> Task :path_provider_android:writeDebugAarMetadata UP-TO-DATE
+> Task :shared_preferences_android:preBuild UP-TO-DATE
+> Task :shared_preferences_android:preDebugBuild UP-TO-DATE
+> Task :shared_preferences_android:writeDebugAarMetadata UP-TO-DATE
+> Task :url_launcher_android:preBuild UP-TO-DATE
+> Task :url_launcher_android:preDebugBuild UP-TO-DATE
+> Task :url_launcher_android:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:cleanMergeDebugAssets
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :desktop_drop:mergeDebugShaders UP-TO-DATE
+> Task :desktop_drop:compileDebugShaders NO-SOURCE
+> Task :desktop_drop:generateDebugAssets UP-TO-DATE
+> Task :desktop_drop:mergeDebugAssets UP-TO-DATE
+> Task :file_picker:mergeDebugShaders UP-TO-DATE
+> Task :file_picker:compileDebugShaders NO-SOURCE
+> Task :file_picker:generateDebugAssets UP-TO-DATE
+> Task :file_picker:mergeDebugAssets UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:mergeDebugShaders UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugShaders NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:generateDebugAssets UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:mergeDebugAssets UP-TO-DATE
+> Task :integration_test:mergeDebugShaders UP-TO-DATE
+> Task :integration_test:compileDebugShaders NO-SOURCE
+> Task :integration_test:generateDebugAssets UP-TO-DATE
+> Task :integration_test:mergeDebugAssets UP-TO-DATE
+> Task :pasteboard:mergeDebugShaders UP-TO-DATE
+> Task :pasteboard:compileDebugShaders NO-SOURCE
+> Task :pasteboard:generateDebugAssets UP-TO-DATE
+> Task :pasteboard:mergeDebugAssets UP-TO-DATE
+> Task :path_provider_android:mergeDebugShaders UP-TO-DATE
+> Task :path_provider_android:compileDebugShaders NO-SOURCE
+> Task :path_provider_android:generateDebugAssets UP-TO-DATE
+> Task :path_provider_android:mergeDebugAssets UP-TO-DATE
+> Task :shared_preferences_android:mergeDebugShaders UP-TO-DATE
+> Task :shared_preferences_android:compileDebugShaders NO-SOURCE
+> Task :shared_preferences_android:generateDebugAssets UP-TO-DATE
+> Task :shared_preferences_android:mergeDebugAssets UP-TO-DATE
+> Task :url_launcher_android:mergeDebugShaders UP-TO-DATE
+> Task :url_launcher_android:compileDebugShaders NO-SOURCE
+> Task :url_launcher_android:generateDebugAssets UP-TO-DATE
+> Task :url_launcher_android:mergeDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:copyFlutterAssetsDebug
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :desktop_drop:generateDebugResValues UP-TO-DATE
+> Task :desktop_drop:generateDebugResources UP-TO-DATE
+> Task :desktop_drop:packageDebugResources UP-TO-DATE
+> Task :file_picker:generateDebugResValues UP-TO-DATE
+> Task :file_picker:generateDebugResources UP-TO-DATE
+> Task :file_picker:packageDebugResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugResValues UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:packageDebugResources UP-TO-DATE
+> Task :integration_test:generateDebugResValues UP-TO-DATE
+> Task :integration_test:generateDebugResources UP-TO-DATE
+> Task :integration_test:packageDebugResources UP-TO-DATE
+> Task :pasteboard:generateDebugResValues UP-TO-DATE
+> Task :pasteboard:generateDebugResources UP-TO-DATE
+> Task :pasteboard:packageDebugResources UP-TO-DATE
+> Task :path_provider_android:generateDebugResValues UP-TO-DATE
+> Task :path_provider_android:generateDebugResources UP-TO-DATE
+> Task :path_provider_android:packageDebugResources UP-TO-DATE
+> Task :shared_preferences_android:generateDebugResValues UP-TO-DATE
+> Task :shared_preferences_android:generateDebugResources UP-TO-DATE
+> Task :shared_preferences_android:packageDebugResources UP-TO-DATE
+> Task :url_launcher_android:generateDebugResValues UP-TO-DATE
+> Task :url_launcher_android:generateDebugResources UP-TO-DATE
+> Task :url_launcher_android:packageDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :desktop_drop:extractDeepLinksDebug UP-TO-DATE
+> Task :desktop_drop:processDebugManifest UP-TO-DATE
+> Task :file_picker:extractDeepLinksDebug UP-TO-DATE
+> Task :file_picker:processDebugManifest UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:extractDeepLinksDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:processDebugManifest UP-TO-DATE
+> Task :integration_test:extractDeepLinksDebug UP-TO-DATE
+> Task :integration_test:processDebugManifest UP-TO-DATE
+> Task :pasteboard:extractDeepLinksDebug UP-TO-DATE
+> Task :pasteboard:processDebugManifest UP-TO-DATE
+> Task :path_provider_android:extractDeepLinksDebug UP-TO-DATE
+> Task :path_provider_android:processDebugManifest UP-TO-DATE
+> Task :shared_preferences_android:extractDeepLinksDebug UP-TO-DATE
+> Task :shared_preferences_android:processDebugManifest UP-TO-DATE
+> Task :url_launcher_android:extractDeepLinksDebug UP-TO-DATE
+> Task :url_launcher_android:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:outputDebugAppLinkSettings UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :desktop_drop:compileDebugLibraryResources UP-TO-DATE
+> Task :desktop_drop:parseDebugLocalResources UP-TO-DATE
+> Task :desktop_drop:generateDebugRFile UP-TO-DATE
+> Task :file_picker:compileDebugLibraryResources UP-TO-DATE
+> Task :file_picker:parseDebugLocalResources UP-TO-DATE
+> Task :file_picker:generateDebugRFile UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugLibraryResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:parseDebugLocalResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugRFile UP-TO-DATE
+> Task :integration_test:compileDebugLibraryResources UP-TO-DATE
+> Task :integration_test:parseDebugLocalResources UP-TO-DATE
+> Task :integration_test:generateDebugRFile UP-TO-DATE
+> Task :pasteboard:compileDebugLibraryResources UP-TO-DATE
+> Task :pasteboard:parseDebugLocalResources UP-TO-DATE
+> Task :pasteboard:generateDebugRFile UP-TO-DATE
+> Task :path_provider_android:compileDebugLibraryResources UP-TO-DATE
+> Task :path_provider_android:parseDebugLocalResources UP-TO-DATE
+> Task :path_provider_android:generateDebugRFile UP-TO-DATE
+> Task :shared_preferences_android:compileDebugLibraryResources UP-TO-DATE
+> Task :shared_preferences_android:parseDebugLocalResources UP-TO-DATE
+> Task :shared_preferences_android:generateDebugRFile UP-TO-DATE
+> Task :url_launcher_android:compileDebugLibraryResources UP-TO-DATE
+> Task :url_launcher_android:parseDebugLocalResources UP-TO-DATE
+> Task :url_launcher_android:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :desktop_drop:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :desktop_drop:compileDebugKotlin UP-TO-DATE
+> Task :desktop_drop:javaPreCompileDebug UP-TO-DATE
+> Task :desktop_drop:compileDebugJavaWithJavac NO-SOURCE
+> Task :desktop_drop:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :file_picker:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :flutter_plugin_android_lifecycle:javaPreCompileDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugJavaWithJavac UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :file_picker:compileDebugKotlin UP-TO-DATE
+> Task :file_picker:javaPreCompileDebug UP-TO-DATE
+> Task :file_picker:compileDebugJavaWithJavac NO-SOURCE
+> Task :file_picker:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :integration_test:javaPreCompileDebug UP-TO-DATE
+> Task :integration_test:compileDebugJavaWithJavac UP-TO-DATE
+> Task :integration_test:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :pasteboard:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :pasteboard:compileDebugKotlin UP-TO-DATE
+> Task :pasteboard:javaPreCompileDebug UP-TO-DATE
+> Task :pasteboard:compileDebugJavaWithJavac NO-SOURCE
+> Task :pasteboard:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :path_provider_android:javaPreCompileDebug UP-TO-DATE
+> Task :path_provider_android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :path_provider_android:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :shared_preferences_android:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared_preferences_android:compileDebugKotlin UP-TO-DATE
+> Task :shared_preferences_android:javaPreCompileDebug UP-TO-DATE
+> Task :shared_preferences_android:compileDebugJavaWithJavac
+> Task :url_launcher_android:generateDebugBuildConfig UP-TO-DATE
+> Task :url_launcher_android:javaPreCompileDebug UP-TO-DATE
+> Task :shared_preferences_android:bundleLibCompileToJarDebug
+> Task :url_launcher_android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :url_launcher_android:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :desktop_drop:processDebugJavaRes UP-TO-DATE
+> Task :file_picker:processDebugJavaRes UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:processDebugJavaRes NO-SOURCE
+> Task :integration_test:processDebugJavaRes NO-SOURCE
+> Task :pasteboard:processDebugJavaRes UP-TO-DATE
+> Task :path_provider_android:processDebugJavaRes NO-SOURCE
+> Task :shared_preferences_android:processDebugJavaRes
+> Task :url_launcher_android:processDebugJavaRes NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+> Task :flutter_plugin_android_lifecycle:bundleLibRuntimeToDirDebug
+> Task :desktop_drop:bundleLibRuntimeToDirDebug
+> Task :integration_test:bundleLibRuntimeToDirDebug
+> Task :pasteboard:bundleLibRuntimeToDirDebug
+> Task :app:desugarDebugFileDependencies
+> Task :path_provider_android:bundleLibRuntimeToDirDebug
+> Task :file_picker:bundleLibRuntimeToDirDebug
+> Task :url_launcher_android:bundleLibRuntimeToDirDebug
+> Task :shared_preferences_android:bundleLibRuntimeToDirDebug
+> Task :app:configureCMakeDebug[arm64-v8a]
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:mergeExtDexDebug
+> Task :app:mergeLibDexDebug
+> Task :app:dexBuilderDebug
+> Task :app:buildCMakeDebug[arm64-v8a]
+> Task :app:mergeProjectDexDebug
+> Task :app:configureCMakeDebug[armeabi-v7a]
+> Task :app:buildCMakeDebug[armeabi-v7a]
+> Task :app:configureCMakeDebug[x86_64]
+> Task :app:buildCMakeDebug[x86_64]
+> Task :app:mergeDebugJniLibFolders
+> Task :desktop_drop:mergeDebugJniLibFolders
+> Task :desktop_drop:mergeDebugNativeLibs NO-SOURCE
+> Task :desktop_drop:copyDebugJniLibsProjectOnly
+> Task :file_picker:mergeDebugJniLibFolders
+> Task :file_picker:mergeDebugNativeLibs NO-SOURCE
+> Task :file_picker:copyDebugJniLibsProjectOnly
+> Task :flutter_plugin_android_lifecycle:mergeDebugJniLibFolders
+> Task :flutter_plugin_android_lifecycle:mergeDebugNativeLibs NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:copyDebugJniLibsProjectOnly
+> Task :integration_test:mergeDebugJniLibFolders
+> Task :integration_test:mergeDebugNativeLibs NO-SOURCE
+> Task :integration_test:copyDebugJniLibsProjectOnly
+> Task :pasteboard:mergeDebugJniLibFolders
+> Task :pasteboard:mergeDebugNativeLibs NO-SOURCE
+> Task :pasteboard:copyDebugJniLibsProjectOnly
+> Task :path_provider_android:mergeDebugJniLibFolders
+> Task :path_provider_android:mergeDebugNativeLibs NO-SOURCE
+> Task :path_provider_android:copyDebugJniLibsProjectOnly
+> Task :shared_preferences_android:mergeDebugJniLibFolders
+> Task :shared_preferences_android:mergeDebugNativeLibs NO-SOURCE
+> Task :shared_preferences_android:copyDebugJniLibsProjectOnly
+> Task :url_launcher_android:mergeDebugJniLibFolders
+> Task :url_launcher_android:mergeDebugNativeLibs NO-SOURCE
+> Task :url_launcher_android:copyDebugJniLibsProjectOnly
+> Task :app:validateSigningDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeDebugNativeLibs
+> Task :app:stripDebugDebugSymbols
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 30s
+194 actionable tasks: 56 executed, 138 up-to-date
