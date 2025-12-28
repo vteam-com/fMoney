@@ -15,89 +15,89 @@ void main() {
     final Categories categories = Data().categories;
     expect(
       categories.interestEarned.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.salesTax.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.salesTax.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.savings.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.transferFromDeletedAccount.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
     expect(
       categories.transferToDeletedAccount.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
     expect(
       categories.unassignedSplit.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
     expect(
       categories.unknown.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
 
     // standard categories for investments
     expect(
       categories.investmentBonds.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentCredit.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.investmentDebit.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentDividends.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.investmentFees.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentInterest.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.investmentLongTermCapitalGainsDistribution.getTypeAsText(),
-      Category.getTextFromType(CategoryType.income),
+      CategoryType.income.asString(),
     );
     expect(
       categories.investmentMiscellaneous.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentOptions.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentOther.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentReinvest.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
     expect(
       categories.investmentStocks.getTypeAsText(),
-      Category.getTextFromType(CategoryType.expense),
+      CategoryType.expense.asString(),
     );
     expect(
       categories.investmentTransfer.getTypeAsText(),
-      Category.getTextFromType(CategoryType.none),
+      CategoryType.none.asString(),
     );
   });
 }

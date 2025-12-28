@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:money/core/helpers/ranges.dart';
+import 'package:money/core/widgets/money_widget.dart';
 import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/models/money_objects/currencies/currency.dart';
 import 'package:money/data/models/money_objects/rental_unit/rental_unit.dart';

@@ -6,6 +6,7 @@ import 'package:money/core/controller/theme_controller.dart';
 import 'package:money/core/helpers/date_helper.dart';
 import 'package:money/core/helpers/misc_helpers.dart';
 import 'package:money/core/helpers/string_helper.dart';
+import 'package:money/core/widgets/money_widget.dart';
 import 'package:money/core/widgets/quantity_widget.dart';
 import 'package:money/core/widgets/widgets.dart';
 import 'package:money/data/models/fields/field.dart';

@@ -5,6 +5,7 @@ import 'package:money/core/controller/preferences_controller.dart';
 import 'package:money/core/controller/theme_controller.dart';
 import 'package:money/core/widgets/color_palette.dart';
 import 'package:money/core/widgets/dialog/dialog_button.dart';
+import 'package:money/core/widgets/three_part_label.dart';
 import 'package:money/core/widgets/widgets.dart';
 import 'package:money/core/widgets/zoom.dart';
 import 'package:money/data/storage/import/import_transactions_from_text.dart';

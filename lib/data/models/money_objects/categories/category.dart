@@ -1,8 +1,10 @@
 // Imports
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/helpers/string_helper.dart';
+import 'package:money/core/widgets/circle.dart';
 import 'package:money/core/widgets/color_picker.dart';
 import 'package:money/core/widgets/gaps.dart';
+import 'package:money/core/widgets/money_widget.dart';
 import 'package:money/core/widgets/my_text_input.dart';
 import 'package:money/core/widgets/rectangle.dart';
 import 'package:money/core/widgets/token_text.dart';
@@ -47,7 +49,7 @@ class Category extends MoneyObject {
       name: row.getString('Name'),
       description: row.getString('Description'),
       color: row.getString('Color').trim(),
-      type: Category.getTypeFromInt(row.getInt('Type')),
+      type: CategoryTypeExtension.fromInt(row.getInt('Type')),
       budget: row.getDouble('Budget'),
       budgetBalance: row.getDouble('Balance'),
       frequency: row.getInt('Frequency'),
@@ -222,7 +224,7 @@ class Category extends MoneyObject {
     getValueForDisplay: (final MoneyObject instance) => (instance as Category).getTypeAsText(),
     getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldType.value.index,
     setValue: (final MoneyObject instance, final dynamic value) {
-      (instance as Category).fieldType.value = CategoryType.values[value as int];
+      (instance as Category).fieldType.value = CategoryTypeExtension.fromInt(value as int);
     },
     getEditWidget:
         (
@@ -335,41 +337,6 @@ class Category extends MoneyObject {
     }
   }
 
-  static CategoryType getCategoryTypeFromName(final String categoryTypeName) {
-    switch (categoryTypeName.toLowerCase()) {
-      case 'income':
-        return CategoryType.income;
-      case 'expense':
-        return CategoryType.expense;
-      case 'recurringexpense':
-      case 'expenserecurring':
-        return CategoryType.recurringExpense;
-      case 'saving':
-        return CategoryType.saving;
-      case 'reserved':
-        return CategoryType.reserved;
-      case 'transfer':
-        return CategoryType.transfer;
-      case 'investment':
-        return CategoryType.investment;
-      default:
-        return CategoryType.none;
-    }
-  }
-
-  static List<String> getCategoryTypes() {
-    return <String>[
-      getTextFromType(CategoryType.income),
-      getTextFromType(CategoryType.expense),
-      getTextFromType(CategoryType.recurringExpense),
-      getTextFromType(CategoryType.saving),
-      getTextFromType(CategoryType.reserved),
-      getTextFromType(CategoryType.transfer),
-      getTextFromType(CategoryType.investment),
-      getTextFromType(CategoryType.none),
-    ];
-  }
-
   Pair<Color, int> getColorAndLevel(int level) {
     if (this.fieldColor.value.isNotEmpty) {
       return Pair<Color, int>(getColorFromString(this.fieldColor.value), level);
@@ -439,36 +406,8 @@ class Category extends MoneyObject {
     );
   }
 
-  static String getTextFromType(final CategoryType type) {
-    switch (type) {
-      case CategoryType.income:
-        return 'Income';
-      case CategoryType.expense:
-        return 'Expense';
-      case CategoryType.recurringExpense:
-        return 'ExpenseRecurring';
-      case CategoryType.saving:
-        return 'Saving';
-      case CategoryType.reserved:
-        return 'Reserved';
-      case CategoryType.transfer:
-        return 'Transfer';
-      case CategoryType.investment:
-        return 'Investment';
-      case CategoryType.none:
-        return 'None';
-    }
-  }
-
   String getTypeAsText() {
-    return getTextFromType(fieldType.value);
-  }
-
-  static CategoryType getTypeFromInt(final int index) {
-    if (isBetween(index, -1, CategoryType.values.length)) {
-      return CategoryType.values[index];
-    }
-    return CategoryType.none;
+    return fieldType.value.asString();
   }
 
   bool get isExpense => fieldType.value == CategoryType.expense || fieldType.value == CategoryType.recurringExpense;

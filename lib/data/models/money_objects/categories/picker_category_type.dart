@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/core/widgets/picker_edit_box.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
+import 'package:money/data/models/money_objects/categories/category_types.dart';
 
 // Exports
 export 'package:flutter/material.dart';
@@ -11,10 +11,10 @@ Widget pickerCategoryType({
 }) {
   return PickerEditBox(
     title: 'Category',
-    items: Category.getCategoryTypes(),
-    initialValue: Category.getTextFromType(itemSelected),
+    items: CategoryTypeExtension.getNames(),
+    initialValue: itemSelected.asString(),
     onChanged: (String newSelection) {
-      onSelected(Category.getCategoryTypeFromName(newSelection));
+      onSelected(CategoryTypeExtension.fromName(newSelection));
     },
   );
 }

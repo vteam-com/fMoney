@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/box.dart';
-import 'package:money/core/widgets/columns/columns_input.dart';
 import 'package:money/core/widgets/ocr.dart';
 import 'package:money/core/widgets/widgets.dart';
 import 'package:money/data/models/constants.dart';
@@ -68,5 +67,25 @@ class InputValues extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+/// Text formatter that removes empty lines from input while preserving
+/// trailing newlines if present in the original input
+class TextInputFormatterRemoveEmptyLines extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String cleanedText = removeEmptyLines(newValue.text);
+    if (newValue.text.endsWith('\n')) {
+      cleanedText += '\n';
+    }
+
+    if (newValue.text != cleanedText) {
+      return newValue.copyWith(text: cleanedText);
+    }
+    return newValue;
   }
 }

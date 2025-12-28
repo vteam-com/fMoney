@@ -1,3 +1,4 @@
+import 'package:money/core/widgets/center_message.dart';
 import 'package:money/core/widgets/gaps.dart';
 import 'package:money/core/widgets/side_panel/side_panel_support.dart';
 import 'package:money/data/models/money_objects/rent_buildings/rent_building.dart';

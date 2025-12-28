@@ -1,6 +1,7 @@
 import 'package:money/core/helpers/date_helper.dart';
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/helpers/string_helper.dart';
+import 'package:money/core/widgets/money_widget.dart';
 import 'package:money/core/widgets/widgets.dart';
 import 'package:money/data/models/money_objects/currencies/currency.dart';
 import 'package:money/data/models/money_objects/money_object.dart';

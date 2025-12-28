@@ -1,5 +1,6 @@
 import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/helpers/string_helper.dart';
+import 'package:money/core/widgets/money_widget.dart';
 import 'package:money/data/models/money_objects/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
 
