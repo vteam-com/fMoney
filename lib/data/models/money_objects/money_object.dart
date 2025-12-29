@@ -1,19 +1,32 @@
+import 'package:money/core/helpers/color_helper.dart';
+import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/widgets/form_field_switch.dart';
 import 'package:money/core/widgets/form_field_widget.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/models/fields/fields.dart';
+import 'package:money/data/models/money_objects/mutation_types.dart';
 
 // Exports
 export 'package:money/core/helpers/color_helper.dart';
 export 'package:money/core/helpers/misc_helpers.dart';
 export 'package:money/data/models/fields/field.dart';
 export 'package:money/data/models/fields/fields.dart';
+export 'package:money/data/models/money_objects/mutation_types.dart';
 
 class MoneyObject {
-  MoneyObject();
-
   factory MoneyObject.fromJSon(final MyJson json, final double runningBalance) {
     return MoneyObject();
   }
+  MoneyObject();
+
+  static void Function({
+    required MutationType mutation,
+    required MoneyObject moneyObject,
+    bool recalculateBalances,
+  })?
+  onMutationChanged;
+
+  static String Function(int id) getCategoryName = (int id) => id.toString();
+  static double Function(String symbol) getCurrencyRatio = (String symbol) => 1.0;
 
   /// State of any and all object instances
   /// to indicated any alteration to the data set of the users
@@ -297,7 +310,7 @@ class MoneyObject {
     );
     if (field != null && field.setValue != null) {
       field.setValue!(this, newValue);
-      Data().notifyMutationChanged(
+      onMutationChanged?.call(
         mutation: MutationType.changed,
         moneyObject: this,
         recalculateBalances: rebalance,
@@ -390,34 +403,4 @@ class MoneyObject {
       ),
     );
   }
-}
-
-/// Represents the different types of mutations that can occur on a money object.
-///
-/// - `none`: No mutation has occurred.
-/// - `changed`: The money object has been changed.
-/// - `inserted`: A new money object has been inserted.
-/// - `deleted`: A money object has been deleted.
-/// - `reloaded`: The money object has been reloaded.
-/// - `rebalanced`: The money object has been rebalanced.
-/// - `childChanged`: A child of the money object has changed.
-/// - `transientChanged`: A transient property of the money object has changed.
-enum MutationType {
-  none,
-  changed,
-  inserted,
-  deleted,
-  reloaded,
-  rebalanced,
-  childChanged,
-  transientChanged,
-}
-
-/// Represents a group of mutations that have occurred on a money object.
-/// The `title` field provides a description of the group of mutations,
-/// and the `whatWasMutated` field contains a list of widgets that
-/// visually represent the specific mutations that occurred.
-class MutationGroup {
-  String title = '';
-  List<Widget> whatWasMutated = <Widget>[];
 }

@@ -1,12 +1,12 @@
-// Imports
 import 'package:money/core/controller/preferences_controller.dart';
 import 'package:money/core/helpers/date_helper.dart';
+import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/widgets/token_text.dart';
 import 'package:money/data/models/money_objects/accounts/account_types.dart';
 import 'package:money/data/models/money_objects/accounts/picker_account_type.dart';
 import 'package:money/data/models/money_objects/currencies/currency.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/models/money_objects/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
 import 'account_types_enum.dart';
 
@@ -98,7 +98,7 @@ class Account extends MoneyObject {
     type: FieldType.text,
     defaultValue: 0,
     useAsDetailPanels: (final MoneyObject instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final MoneyObject instance) => Data().categories.getNameFromId(
+    getValueForDisplay: (final MoneyObject instance) => MoneyObject.getCategoryName(
       (instance as Account).fieldCategoryIdForInterest.value,
     ),
     getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldCategoryIdForInterest.value,
@@ -112,7 +112,7 @@ class Account extends MoneyObject {
     type: FieldType.text,
     defaultValue: 0,
     useAsDetailPanels: (final MoneyObject instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final MoneyObject instance) => Data().categories.getNameFromId(
+    getValueForDisplay: (final MoneyObject instance) => MoneyObject.getCategoryName(
       (instance as Account).fieldCategoryIdForPrincipal.value,
     ),
     getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldCategoryIdForPrincipal.value,
@@ -184,7 +184,7 @@ class Account extends MoneyObject {
     getValueForDisplay: (final MoneyObject instance) => !(instance as Account).isClosed(),
     setValue: (final MoneyObject instance, dynamic value) {
       (instance as Account).isOpen = value as bool;
-      Data().notifyMutationChanged(
+      MoneyObject.onMutationChanged?.call(
         mutation: MutationType.changed,
         moneyObject: instance,
       );
@@ -450,7 +450,7 @@ class Account extends MoneyObject {
   }
 
   double getCurrencyRatio() {
-    return Data().currencies.getRatioFromSymbol(fieldCurrency.value);
+    return MoneyObject.getCurrencyRatio(fieldCurrency.value);
   }
 
   static String getName(final Account? instance) {

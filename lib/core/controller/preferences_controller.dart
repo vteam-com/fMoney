@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:money/core/controller/data_controller.dart';
 import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/widgets/side_panel/side_panel_views_enum.dart';
 import 'package:money/data/models/constants.dart';
 import 'package:money/data/models/fields/field_filters.dart';
+import 'package:money/data/storage/data/data_access.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Controller for managing application preferences and settings.
@@ -17,6 +17,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// - Font scaling
 /// Uses SharedPreferences for persistence.
 class PreferenceController extends GetxController {
+  PreferenceController() {
+    DataAccess.getMRU = () => mru;
+    DataAccess.addToMRU = addToMRU;
+    DataAccess.jumpToView = jumpToView;
+  }
   final RxBool isReady = false.obs;
   final RxBool useYahooStock = true.obs;
 
@@ -115,8 +120,7 @@ class PreferenceController extends GetxController {
     super.onInit();
     await init();
     if (mru.isNotEmpty) {
-      final DataController dataController = Get.find();
-      dataController.loadLastFileSaved();
+      DataAccess.loadLastFileSaved();
     } else {
       // queue changing screen after app loaded
       Future<Null>.delayed(const Duration(milliseconds: 100), () {

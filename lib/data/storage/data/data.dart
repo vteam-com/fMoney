@@ -5,8 +5,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:money/core/controller/data_controller.dart';
-import 'package:money/core/controller/preferences_controller.dart';
 import 'package:money/core/helpers/file_systems.dart';
 import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/helpers/ranges.dart';
@@ -31,6 +29,8 @@ import 'package:money/data/models/money_objects/stock_splits/stock_splits.dart';
 import 'package:money/data/models/money_objects/transaction_extras/transaction_extras.dart';
 import 'package:money/data/models/money_objects/transactions/transactions.dart';
 import 'package:money/data/models/money_objects/transfers/transfer.dart';
+import 'package:money/data/storage/data/data_access.dart';
+import 'package:money/data/storage/data/data_source.dart';
 import 'package:money/data/storage/database/database.dart';
 
 // Exports
@@ -71,6 +71,12 @@ class Data {
       rentUnits, // 11
       events,
     ];
+
+    DataAccess.notifyMutationChanged = notifyMutationChanged;
+    DataAccess.getCategoryName = categories.getNameFromId;
+    MoneyObject.onMutationChanged = notifyMutationChanged;
+    MoneyObject.getCategoryName = categories.getNameFromId;
+    MoneyObject.getCurrencyRatio = currencies.getRatioFromSymbol;
   }
 
   late final List<MoneyObjects<dynamic>> tables;
@@ -144,7 +150,7 @@ class Data {
   }
 
   void clear() {
-    DataController.to.trackMutations.reset();
+    DataAccess.trackMutations.reset();
     clearExistingData();
   }
 
@@ -187,8 +193,8 @@ class Data {
   void close() {
     clearExistingData();
 
-    DataController.to.dataFileIsClosed();
-    DataController.to.trackMutations.reset();
+    DataAccess.onFileClosed();
+    DataAccess.trackMutations.reset();
   }
 
   void deleteItems(final List<MoneyObject> itemsToDelete) {
@@ -330,12 +336,12 @@ class Data {
             filePath: dateSource.filePath,
             fileBytes: dateSource.fileBytes,
           )) {
-            PreferenceController.to.addToMRU(dateSource.filePath);
+            DataAccess.addToMRU(dateSource.filePath);
           }
         case '.mmcsv':
           // Zip CSV files
           await loadFromZippedCsv(dateSource.filePath, dateSource.fileBytes);
-          PreferenceController.to.addToMRU(dateSource.filePath);
+          DataAccess.addToMRU(dateSource.filePath);
 
         default:
           SnackBarService.displayWarning(
@@ -457,22 +463,22 @@ class Data {
     switch (mutation) {
       case MutationType.inserted:
         moneyObject.mutation = MutationType.inserted;
-        DataController.to.trackMutations.increaseNumber(increaseAdded: 1);
+        DataAccess.trackMutations.increaseNumber(increaseAdded: 1);
       case MutationType.changed:
         // ensure that we only count editing once and discard if this was edited on a new inserted items
         if (moneyObject.mutation == MutationType.none) {
           moneyObject.mutation = MutationType.changed;
-          DataController.to.trackMutations.increaseNumber(increaseChanged: 1);
+          DataAccess.trackMutations.increaseNumber(increaseChanged: 1);
         } else {
-          DataController.to.trackMutations.setLastEditToNow();
+          DataAccess.trackMutations.setLastEditToNow();
         }
       case MutationType.deleted:
         if (moneyObject.mutation == MutationType.inserted) {
           // in case the delete item was a recently added item, we need to deduct it from the sum
-          DataController.to.trackMutations.increaseNumber(increaseAdded: -1);
+          DataAccess.trackMutations.increaseNumber(increaseAdded: -1);
         }
         moneyObject.mutation = MutationType.deleted;
-        DataController.to.trackMutations.increaseNumber(increaseDeleted: 1);
+        DataAccess.trackMutations.increaseNumber(increaseDeleted: 1);
       default:
         break;
     }
@@ -558,7 +564,7 @@ class Data {
   /// and Rebuild the UI
   void updateAll() {
     recalculateBalances();
-    DataController.to.update();
+    DataAccess.onDataChanged();
   }
 
   Future<String?> validateDataBasePathIsValidAndExist(
@@ -799,7 +805,7 @@ class Data {
   }
 
   Future<String> saveToCsv() async {
-    final String destinationFolder = await DataController.to.generateNextFolderToSaveTo();
+    final String destinationFolder = await DataAccess.generateNextFolderToSaveTo();
     if (destinationFolder.isEmpty) {
       throw Exception('No container folder give for saving');
     }

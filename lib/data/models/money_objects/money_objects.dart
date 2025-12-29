@@ -1,10 +1,10 @@
-// Imports
 import 'dart:math';
-
+import 'package:collection/collection.dart';
+import 'package:money/core/helpers/json_helper.dart';
 import 'package:money/core/helpers/list_helper.dart';
 import 'package:money/core/widgets/diff.dart';
 import 'package:money/core/widgets/gaps.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/models/money_objects/money_object.dart';
 import 'package:money/data/storage/database/database.dart';
 
 // Exports
@@ -40,7 +40,7 @@ class MoneyObjects<T> {
 
     appendMoneyObject(moneyObject);
 
-    Data().notifyMutationChanged(
+    MoneyObject.onMutationChanged?.call(
       mutation: MutationType.inserted,
       moneyObject: moneyObject,
       recalculateBalances: fireNotification,
@@ -58,7 +58,7 @@ class MoneyObjects<T> {
 
   /// Remove/tag a Transaction instance from the list in memory
   void deleteItem(final MoneyObject itemToDelete) {
-    Data().notifyMutationChanged(
+    MoneyObject.onMutationChanged?.call(
       mutation: MutationType.deleted,
       moneyObject: itemToDelete,
       recalculateBalances: false,
@@ -183,7 +183,7 @@ class MoneyObjects<T> {
   }
 
   void mutationUpdateItem(final MoneyObject item) {
-    Data().notifyMutationChanged(
+    MoneyObject.onMutationChanged?.call(
       mutation: MutationType.changed,
       moneyObject: item,
     );

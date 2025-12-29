@@ -4,14 +4,14 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:money/core/controller/preferences_controller.dart';
 import 'package:money/core/helpers/file_systems.dart';
-import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/core/widgets/snack_bar.dart';
 import 'package:money/data/models/money_objects/accounts/account.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/storage/data/data_access.dart';
 import 'package:money/data/storage/data/data_mutations.dart';
 import 'package:money/data/storage/data/data_simulator.dart';
+import 'package:money/data/storage/data/data_source.dart';
 import 'package:path/path.dart' as p;
 
 /// Controller for managing data file operations.
@@ -22,6 +22,13 @@ import 'package:path/path.dart' as p;
 /// - File format conversions
 /// - File location management
 class DataController extends GetxController {
+  DataController() {
+    DataAccess.trackMutations = trackMutations;
+    DataAccess.onDataChanged = update;
+    DataAccess.onFileClosed = dataFileIsClosed;
+    DataAccess.generateNextFolderToSaveTo = generateNextFolderToSaveTo;
+    DataAccess.loadLastFileSaved = loadLastFileSaved;
+  }
   Rxn<DateTime> currentLoadedFileDateTime = Rxn<DateTime>();
   RxString currentLoadedFileName = Constants.untitledFileName.obs;
   RxList<String> data = <String>[].obs;
@@ -45,16 +52,17 @@ class DataController extends GetxController {
   }
 
   Future<String> defaultFolderToSaveTo(final String defaultFileName) async {
-    return MyFileSystems.append(await getDocumentDirectory(), defaultFileName);
+    return MyFileSystems.append('.', defaultFileName);
   }
 
   Future<String> generateNextFolderToSaveTo() async {
-    if (currentLoadedFileName.value.isNotEmpty) {
-      if (p.extension(currentLoadedFileName.value) == '.mmcsv' || p.extension(currentLoadedFileName.value) == '.mmdb') {
+    if (currentLoadedFileName.value.isNotEmpty && currentLoadedFileName.value != Constants.untitledFileName) {
+      final String extension = p.extension(currentLoadedFileName.value);
+      if (extension == '.mmcsv' || extension == '.mmdb') {
         return p.dirname(currentLoadedFileName.value);
       }
     }
-    return await getDocumentDirectory();
+    return '.';
   }
 
   bool get isUntitled => currentLoadedFileName.value == Constants.untitledFileName;
@@ -94,8 +102,8 @@ class DataController extends GetxController {
     try {
       isLoading.value = true;
 
-      if (PreferenceController.to.mru.isNotEmpty) {
-        await loadFile(DataSource(filePath: PreferenceController.to.mru.first));
+      if (DataAccess.getMRU().isNotEmpty) {
+        await loadFile(DataSource(filePath: DataAccess.getMRU().first));
         return;
       } else {
         // Once the file is loaded, navigate to the main screen
@@ -117,7 +125,7 @@ class DataController extends GetxController {
     final Account newAccount = Data().accounts.addNewAccount(
       'New Bank Account',
     );
-    PreferenceController.to.jumpToView(
+    DataAccess.jumpToView(
       viewId: ViewId.viewAccounts,
       selectedId: newAccount.uniqueId,
       textFilter: '',
@@ -192,7 +200,7 @@ class DataController extends GetxController {
   void onSaveToCsv() async {
     final String fullPathToFileName = await Data().saveToCsv();
 
-    PreferenceController.to.addToMRU(fullPathToFileName);
+    setCurrentFileName(fullPathToFileName);
 
     trackMutations.reset();
   }
@@ -216,7 +224,7 @@ class DataController extends GetxController {
       },
     );
 
-    PreferenceController.to.addToMRU(fileNameAndPath);
+    DataAccess.addToMRU(fileNameAndPath);
     return result;
   }
 
@@ -227,24 +235,8 @@ class DataController extends GetxController {
 
   void setCurrentFileName(final String filenameLoaded) {
     currentLoadedFileName.value = filenameLoaded;
-    final PreferenceController preferenceController = Get.find();
-    preferenceController.addToMRU(filenameLoaded);
+    DataAccess.addToMRU(filenameLoaded);
   }
 
   static DataController get to => Get.find();
-}
-
-/// Data source configuration for file loading operations.
-/// Supports:
-/// - Local file paths
-/// - In-memory byte data
-/// - File format validation
-class DataSource {
-  DataSource({this.filePath = '', Uint8List? fileBytes}) : _fileBytes = fileBytes ?? Uint8List(0);
-
-  final String filePath;
-
-  final Uint8List _fileBytes;
-
-  Uint8List get fileBytes => _fileBytes;
 }
