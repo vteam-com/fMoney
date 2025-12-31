@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';

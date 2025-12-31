@@ -1,5 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/fields/money_objects.dart';
+import 'package:money/models/money_objects.dart';
 
 /*
 

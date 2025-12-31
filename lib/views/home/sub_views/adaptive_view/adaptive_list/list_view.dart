@@ -5,12 +5,12 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item.dart';
-import 'package:money/widgets/fields/money_object.dart';
 
 // Exports
-export 'package:money/widgets/fields/fields.dart';
-export 'package:money/widgets/fields/money_object.dart';
+export 'package:money/models/fields/fields.dart';
+export 'package:money/models/money_object.dart';
 
 class MyListView<T> extends StatefulWidget {
   const MyListView({

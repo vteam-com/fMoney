@@ -1,16 +1,14 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/storage/data/data.dart';
+import 'package:flutter/material.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_objects/investments/investment_types.dart';
-import 'package:money/models/money_objects/investments/picker_investment_trade_type.dart';
-import 'package:money/models/money_objects/investments/picker_investment_type.dart';
 import 'package:money/models/money_objects/investments/stock_cumulative.dart';
 import 'package:money/models/money_objects/stock_splits/stock_split.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
 
 class Investment extends MoneyObject {
   Investment({
@@ -138,15 +136,7 @@ class Investment extends MoneyObject {
           final MoneyObject instance,
           void Function(bool wasModified) onEdited,
         ) {
-          return pickerInvestmentType(
-            itemSelected: getInvestmentTypeFromValue(
-              (instance as Investment).fieldInvestmentType.value,
-            ),
-            onSelected: (final InvestmentType newSelection) {
-              instance.fieldInvestmentType.value = newSelection.index;
-              onEdited(true); // notify container
-            },
-          );
+          return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
     setValue: (final MoneyObject instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
@@ -239,15 +229,7 @@ class Investment extends MoneyObject {
           final MoneyObject instance,
           void Function(bool wasModified) onEdited,
         ) {
-          return pickerInvestmentTradeType(
-            itemSelected: getInvestmentTradeTypeFromValue(
-              (instance as Investment).fieldTradeType.value,
-            ),
-            onSelected: (final InvestmentTradeType newSelection) {
-              instance.fieldTradeType.value = newSelection.index;
-              onEdited(true); // notify container
-            },
-          );
+          return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
     setValue: (final MoneyObject instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
@@ -327,12 +309,7 @@ class Investment extends MoneyObject {
 
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsWidget: fieldTransactionDate.getValueAsWidget(this),
-      leftBottomAsWidget: fieldTransactionAccountName.getValueAsWidget(this),
-      rightTopAsWidget: fieldSecuritySymbol.getValueAsWidget(this),
-      rightBottomAsWidget: fieldActivityAmount.getValueAsWidget(this),
-    );
+    return buildSmallScreenWidget?.call(this) ?? const Text('no UI');
   }
 
   // Fields for this instance
@@ -544,4 +521,9 @@ class Investment extends MoneyObject {
       : -1;
 
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
+
+  static Widget Function(Investment instance)? buildSmallScreenWidget;
+  static Widget Function(Investment instance, void Function(bool wasModified) onEdited)? pickerInvestmentTypeWidget;
+  static Widget Function(Investment instance, void Function(bool wasModified) onEdited)?
+  pickerInvestmentTradeTypeWidget;
 }

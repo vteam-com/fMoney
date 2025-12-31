@@ -1,7 +1,7 @@
 // Imports
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
@@ -10,11 +10,11 @@ import 'package:money/models/money_objects/investments/investment.dart';
 import 'package:money/models/money_objects/investments/investment_types.dart';
 import 'package:money/models/money_objects/investments/investments.dart';
 import 'package:money/models/money_objects/payees/payee.dart';
-import 'package:money/models/money_objects/splits/popup_transaction_splits.dart';
 import 'package:money/models/money_objects/splits/splits.dart';
 import 'package:money/models/money_objects/transactions/transaction_types.dart';
 import 'package:money/models/money_objects/transfers/transfer.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
+import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/popup_transaction_splits.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
 import 'package:money/views/home/sub_views/view_payees/picker_payee_or_transfer.dart';
 import 'package:money/widgets/icon_button.dart';
@@ -23,9 +23,9 @@ import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/suggestion_approval.dart';
 
-export 'package:money/models/money_objects/transactions/transaction_types.dart';
 // Exports
-export 'package:money/widgets/fields/fields.dart';
+export 'package:money/models/fields/fields.dart';
+export 'package:money/models/money_objects/transactions/transaction_types.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/string_helper.dart';
 
 void main() {

@@ -1,8 +1,8 @@
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/rent_buildings/rent_building.dart';
+import 'package:money/models/money_objects/rent_buildings/rental_pnl.dart';
 import 'package:money/models/money_objects/rental_unit/rental_unit.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/views/home/sub_views/view_rentals/rental_pnl.dart';
 
 class RentBuildings extends MoneyObjects<RentBuilding> {
   RentBuildings() {

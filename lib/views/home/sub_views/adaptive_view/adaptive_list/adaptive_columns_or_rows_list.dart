@@ -1,9 +1,9 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_footer.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_header.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_view.dart';
-import 'package:money/widgets/fields/field_filters.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/controller/list_controller.dart';

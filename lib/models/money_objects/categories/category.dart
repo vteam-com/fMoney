@@ -1,11 +1,11 @@
 // Imports
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_objects/categories/category_types.dart';
-import 'package:money/models/money_objects/categories/picker_category_type.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
+import 'package:money/views/home/sub_views/view_categories/picker_category_type.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/color_picker.dart';
 import 'package:money/widgets/gaps.dart';

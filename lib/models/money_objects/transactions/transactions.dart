@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_conditional_assignment
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';

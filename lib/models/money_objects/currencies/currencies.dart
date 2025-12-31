@@ -1,7 +1,7 @@
 // Imports
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/widgets/fields/money_objects.dart';
 
 // Exports
 export 'package:money/models/money_objects/currencies/currency.dart';

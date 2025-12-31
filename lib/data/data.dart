@@ -5,13 +5,14 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:money/data/storage/data/data_access.dart';
-import 'package:money/data/storage/data/data_source.dart';
-import 'package:money/data/storage/database/database.dart';
+import 'package:money/data/data_access.dart';
+import 'package:money/data/data_source.dart';
+import 'package:money/data/database.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/models/money_objects/account_aliases/account_aliases.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/accounts/accounts.dart';
@@ -31,13 +32,12 @@ import 'package:money/models/money_objects/stock_splits/stock_splits.dart';
 import 'package:money/models/money_objects/transaction_extras/transaction_extras.dart';
 import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/models/money_objects/transfers/transfer.dart';
-import 'package:money/widgets/fields/money_objects.dart';
 import 'package:money/widgets/snack_bar.dart';
 
 // Exports
 // The following lines export necessary classes and functions for other files.
 export 'package:money/helpers/json_helper.dart';
-export 'package:money/widgets/fields/money_objects.dart';
+export 'package:money/models/money_objects.dart';
 
 class Data {
   // private constructor

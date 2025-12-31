@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/widgets/box.dart';

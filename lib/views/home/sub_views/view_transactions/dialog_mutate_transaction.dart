@@ -1,4 +1,4 @@
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog/dialog_button.dart';

@@ -1,6 +1,6 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/payees/payee.dart';
 import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';

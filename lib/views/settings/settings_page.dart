@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/views/home/sub_views/app_scaffold.dart';

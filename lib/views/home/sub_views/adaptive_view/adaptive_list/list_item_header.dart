@@ -1,6 +1,6 @@
+import 'package:money/models/fields/field_filters.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
-import 'package:money/widgets/fields/field_filters.dart';
-import 'package:money/widgets/fields/money_objects.dart';
 
 // Exports
 export 'package:flutter/material.dart';

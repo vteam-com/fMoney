@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';

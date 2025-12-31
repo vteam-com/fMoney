@@ -6,7 +6,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/storage/import/import_data.dart';
+import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/xlsx_header_row_selector_dialog.dart';
 

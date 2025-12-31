@@ -1,5 +1,5 @@
+import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/columns/column_footer_button.dart';
-import 'package:money/widgets/fields/money_objects.dart';
 
 // Exports
 export 'package:flutter/material.dart';

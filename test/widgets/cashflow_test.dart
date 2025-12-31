@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/controller/theme_controller.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/views/home/sub_views/view_cashflow/view_cashflow.dart';
 
 class DummyHostingApp extends StatefulWidget {

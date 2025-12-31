@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/models/fields/field.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/widgets/fields/field.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/theme_custom.dart';
 

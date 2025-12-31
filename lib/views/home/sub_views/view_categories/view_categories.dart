@@ -1,6 +1,7 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
+import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
@@ -14,7 +15,6 @@ import 'package:money/widgets/chart.dart';
 import 'package:money/widgets/dialog/dialog.dart';
 import 'package:money/widgets/dialog/dialog_button.dart';
 import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
-import 'package:money/widgets/fields/field_filters.dart';
 import 'package:money/widgets/three_part_label.dart';
 
 class ViewCategories extends ViewForMoneyObjects {

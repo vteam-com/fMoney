@@ -1,6 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
 import 'package:flutter/material.dart';
-import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';

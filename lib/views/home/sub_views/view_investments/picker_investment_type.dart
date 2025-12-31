@@ -1,4 +1,5 @@
-import 'package:money/views/home/sub_views/view_stocks/picker_security_type.dart';
+import 'package:flutter/material.dart';
+import 'package:money/models/money_objects/investments/investment_types.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
 Widget pickerInvestmentType({
