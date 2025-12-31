@@ -1,6 +1,6 @@
-import 'package:money/core/helpers/color_helper.dart';
+import 'package:money/helpers/color_helper.dart';
 
-export 'package:money/core/widgets/widgets.dart';
+export 'package:money/widgets/widgets.dart';
 
 class MyListItemAsCard extends StatelessWidget {
   /// Constructor

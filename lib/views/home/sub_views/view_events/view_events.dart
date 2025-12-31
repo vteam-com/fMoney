@@ -1,17 +1,17 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/core/controller/list_controller.dart';
-import 'package:money/core/controller/selection_controller.dart';
-import 'package:money/core/widgets/charts/my_line_chart.dart';
-import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/dialog/dialog_mutate_money_object.dart';
-import 'package:money/core/widgets/side_panel/side_panel_support.dart';
-import 'package:money/data/models/chart_event.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
-import 'package:money/data/models/money_objects/events/event.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
+import 'package:money/controller/list_controller.dart';
+import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/models/chart_event.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/models/money_objects/events/event.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
+import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/widgets/charts/my_line_chart.dart';
+import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
 class ViewEvents extends ViewForMoneyObjects {

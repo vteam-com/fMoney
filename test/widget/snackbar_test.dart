@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:money/core/controller/theme_controller.dart';
-import 'package:money/core/widgets/snack_bar.dart';
+import 'package:money/controller/theme_controller.dart';
+import 'package:money/widgets/snack_bar.dart';
 
 class MockThemeController extends GetxController implements ThemeController {
   @override

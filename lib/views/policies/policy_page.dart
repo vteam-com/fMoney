@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:money/core/helpers/color_helper.dart';
-import 'package:money/core/widgets/text_title.dart';
+import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/policies/view_policy.dart';
+import 'package:money/widgets/text_title.dart';
 
 class PolicyPage extends GetView<GetxController> {
   const PolicyPage({super.key});

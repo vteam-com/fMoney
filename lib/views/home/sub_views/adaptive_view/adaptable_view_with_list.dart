@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:flutter/services.dart';
-import 'package:money/core/controller/theme_controller.dart';
-import 'package:money/core/widgets/widgets.dart';
-import 'package:money/data/models/fields/field_filters.dart';
-import 'package:money/data/models/money_objects/money_objects.dart';
+import 'package:money/controller/theme_controller.dart';
+import 'package:money/models/fields/field_filters.dart';
+import 'package:money/models/money_objects/money_objects.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/views/home/sub_views/app_scaffold.dart';
+import 'package:money/widgets/widgets.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
 export 'package:flutter/material.dart';
-export 'package:money/data/models/money_objects/money_objects.dart';
+export 'package:money/models/money_objects/money_objects.dart';
 
 class AdaptiveViewWithList extends StatefulWidget {
   const AdaptiveViewWithList({

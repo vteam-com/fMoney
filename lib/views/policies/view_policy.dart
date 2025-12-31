@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:money/data/models/constants.dart';
+import 'package:money/constants.dart';
 
 class PolicyScreen extends StatelessWidget {
   const PolicyScreen({super.key});

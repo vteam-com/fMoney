@@ -1,15 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/controller/theme_controller.dart';
-import 'package:money/core/helpers/date_helper.dart';
-import 'package:money/core/helpers/misc_helpers.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/money_widget.dart';
-import 'package:money/core/widgets/quantity_widget.dart';
-import 'package:money/core/widgets/widgets.dart';
-import 'package:money/data/models/fields/field.dart';
+import 'package:money/controller/preferences_controller.dart';
+import 'package:money/controller/theme_controller.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/string_helper.dart';
+import 'package:money/models/fields/field.dart';
+import 'package:money/widgets/money_widget.dart';
+import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/widgets.dart';
 
 class MockThemeController extends GetxController with Mock implements ThemeController {
   @override

@@ -1,15 +1,17 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/helpers/list_helper.dart';
-import 'package:money/core/widgets/charts/my_line_chart.dart';
-import 'package:money/data/models/chart_event.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
-import 'package:money/data/models/money_objects/events/event.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
+import 'package:flutter/material.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/models/chart_event.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/models/money_objects/events/event.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
+import 'package:money/widgets/charts/my_line_chart.dart';
 
 class NetWorthChart extends StatefulWidget {
   const NetWorthChart({

@@ -1,10 +1,10 @@
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/helpers/color_helper.dart';
-import 'package:money/core/widgets/widgets.dart';
-import 'package:money/data/models/constants.dart';
+import 'package:money/constants.dart';
+import 'package:money/controller/preferences_controller.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/widgets/widgets.dart';
 
 // Exports
-export 'package:money/core/widgets/widgets.dart';
+export 'package:money/widgets/widgets.dart';
 
 class MyNavigationItem {
   MyNavigationItem({

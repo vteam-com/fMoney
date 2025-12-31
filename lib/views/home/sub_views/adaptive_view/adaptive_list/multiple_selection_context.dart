@@ -1,7 +1,7 @@
-import 'package:money/core/widgets/widgets.dart';
+import 'package:money/widgets/widgets.dart';
 
 // Exports
-export 'package:money/core/widgets/widgets.dart';
+export 'package:money/widgets/widgets.dart';
 
 class ViewHeaderMultipleSelection {
   ViewHeaderMultipleSelection({

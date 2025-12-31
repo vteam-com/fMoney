@@ -3,8 +3,8 @@
 import 'dart:io'; // For File operations
 
 import 'package:flutter/material.dart'; // For BuildContext and other UI elements
-import 'package:money/core/widgets/csv_column_mapper_dialog.dart'; // Import the dialog
 import 'package:money/data/storage/import/import_data.dart';
+import 'package:money/widgets/csv_column_mapper_dialog.dart'; // Import the dialog
 // TODO: Replace print calls with a proper logging utility.
 
 Future<void> importCSV(BuildContext context, String filePath) async {

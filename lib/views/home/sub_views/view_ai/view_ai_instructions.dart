@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/box.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/my_svg.dart';
-import 'package:money/core/widgets/text_title.dart';
+import 'package:flutter/material.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
+import 'package:money/widgets/box.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/text_title.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

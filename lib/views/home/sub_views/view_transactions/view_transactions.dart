@@ -1,19 +1,20 @@
-import 'package:money/core/helpers/list_helper.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/core/widgets/chart.dart';
-import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/side_panel/side_panel_support.dart';
-import 'package:money/core/widgets/three_part_label.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
-import 'package:money/data/models/money_objects/investments/investment.dart';
-import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/string_helper.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/models/money_objects/investments/investment.dart';
+import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transaction_splits.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 import 'package:money/views/home/sub_views/view_transfers/transfer_sender_receiver.dart';
+import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/chart.dart';
+import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/three_part_label.dart';
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///

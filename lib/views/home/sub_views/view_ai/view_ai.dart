@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:money/core/widgets/my_svg.dart';
-import 'package:money/core/widgets/text_title.dart';
-import 'package:money/core/widgets/working.dart';
-import 'package:money/data/models/money_objects/accounts/account.dart';
-import 'package:money/data/models/money_objects/transactions/transaction.dart';
+
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/models/money_objects/accounts/account.dart';
+import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
@@ -12,6 +11,9 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_header.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
+import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/text_title.dart';
+import 'package:money/widgets/working.dart';
 
 /// ViewAI - AI-Powered Financial Assistant
 ///

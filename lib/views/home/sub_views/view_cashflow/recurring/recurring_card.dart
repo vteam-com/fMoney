@@ -1,16 +1,17 @@
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/helpers/list_helper.dart';
-import 'package:money/core/helpers/ranges.dart';
-import 'package:money/core/widgets/box.dart';
-import 'package:money/core/widgets/date_range_time_line.dart';
-import 'package:money/core/widgets/distribution_bar.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/mini_timeline_daily.dart';
-import 'package:money/core/widgets/mini_timeline_twelve_months.dart';
-import 'package:money/core/widgets/money_widget.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_payment.dart';
+import 'package:money/widgets/box.dart';
+import 'package:money/widgets/date_range_time_line.dart';
+import 'package:money/widgets/distribution_bar.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/mini_timeline_daily.dart';
+import 'package:money/widgets/mini_timeline_twelve_months.dart';
+import 'package:money/widgets/money_widget.dart';
 
 class RecurringCard extends StatelessWidget {
   const RecurringCard({

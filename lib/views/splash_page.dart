@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/text_title.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/text_title.dart';
 
 /// The `SplashScreen` widget is a stateless widget that displays a simple splash screen
 /// with the app title and a circular progress indicator. This screen is typically

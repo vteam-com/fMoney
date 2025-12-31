@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:money/core/helpers/list_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';

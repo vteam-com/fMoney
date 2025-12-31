@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/helpers/date_helper.dart';
-import 'package:money/core/widgets/snack_bar.dart';
-import 'package:money/data/models/money_objects/securities/security.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/models/money_objects/securities/security.dart';
+import 'package:money/widgets/snack_bar.dart';
 
 class StockDatePrice {
   /// Constructor

@@ -1,11 +1,11 @@
-import 'package:money/core/controller/data_controller.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/dialog/dialog.dart';
-import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/my_segment.dart';
-import 'package:money/core/widgets/working.dart';
+import 'package:money/controller/data_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/dialog/dialog.dart';
+import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/working.dart';
 
 /// Displays a dialog showing pending changes (added, modified, deleted items).
 ///

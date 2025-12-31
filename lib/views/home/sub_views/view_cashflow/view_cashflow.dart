@@ -1,20 +1,22 @@
 import 'package:get/get.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/helpers/ranges.dart';
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/core/widgets/my_segment.dart';
-import 'package:money/core/widgets/pick_number.dart';
-import 'package:money/core/widgets/years_range_selector.dart';
-import 'package:money/data/models/money_objects/accounts/account.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
-import 'package:money/data/models/money_objects/events/event.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_objects/accounts/account.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/models/money_objects/events/event.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_cashflow/net_worth_chart.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_budget.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_trend.dart';
 import 'package:money/views/home/sub_views/view_cashflow/sankey_panel.dart';
 import 'package:money/views/home/sub_views/view_header.dart';
+import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/pick_number.dart';
+import 'package:money/widgets/years_range_selector.dart';
 
 class ViewCashFlow extends ViewWidget {
   const ViewCashFlow({super.key});

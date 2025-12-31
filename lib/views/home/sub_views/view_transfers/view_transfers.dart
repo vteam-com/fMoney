@@ -1,12 +1,13 @@
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/core/widgets/side_panel/side_panel_support.dart';
-import 'package:money/data/models/money_objects/accounts/account.dart';
-import 'package:money/data/models/money_objects/transactions/transaction.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
-import 'package:money/data/models/money_objects/transfers/transfer.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/models/money_objects/accounts/account.dart';
+import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
+import 'package:money/models/money_objects/transfers/transfer.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/view_transfers/transfer_sender_receiver.dart';
+import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/widgets/center_message.dart';
 
 /// Widget for displaying transfers between accounts.
 class ViewTransfers extends ViewForMoneyObjects {

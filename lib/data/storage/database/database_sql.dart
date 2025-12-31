@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:money/core/helpers/json_helper.dart';
+import 'package:money/helpers/json_helper.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 /// local client SQLite access

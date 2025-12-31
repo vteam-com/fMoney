@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money/core/helpers/misc_helpers.dart';
-import 'package:money/core/widgets/box.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/label_and_amount.dart';
-import 'package:money/data/models/money_model.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/models/money_model.dart';
 import 'package:money/views/home/sub_views/view_rentals/rental_pnl.dart';
+import 'package:money/widgets/box.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/label_and_amount.dart';
 
 class RentalPnLCard extends StatelessWidget {
   const RentalPnLCard({required this.pnl, super.key, this.customTitle});

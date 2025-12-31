@@ -1,23 +1,26 @@
 // ignore_for_file: unnecessary_this
 import 'dart:ui' as ui;
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:money/core/controller/data_controller.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/core/widgets/charts/my_line_chart.dart';
-import 'package:money/core/widgets/dialog/dialog_single_text_input.dart';
-import 'package:money/core/widgets/snack_bar.dart';
-import 'package:money/core/widgets/widgets.dart';
-import 'package:money/core/widgets/working.dart';
-import 'package:money/data/models/chart_event.dart';
-import 'package:money/data/models/money_objects/currencies/currency.dart';
-import 'package:money/data/models/money_objects/investments/stock_cumulative.dart';
-import 'package:money/data/models/money_objects/securities/security.dart';
-import 'package:money/data/models/money_objects/stock_splits/stock_split.dart';
+import 'package:money/controller/data_controller.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/get_stock_from_cache_or_backend.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/models/chart_event.dart';
+import 'package:money/models/money_objects/currencies/currency.dart';
+import 'package:money/models/money_objects/investments/stock_cumulative.dart';
+import 'package:money/models/money_objects/securities/security.dart';
+import 'package:money/models/money_objects/stock_splits/stock_split.dart';
+import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/charts/my_line_chart.dart';
+import 'package:money/widgets/dialog/dialog_single_text_input.dart';
+import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/widgets.dart';
+import 'package:money/widgets/working.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({

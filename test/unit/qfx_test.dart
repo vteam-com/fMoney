@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/core/helpers/string_helper.dart';
 import 'package:money/data/storage/import/import_data.dart';
 import 'package:money/data/storage/import/import_qfx.dart';
+import 'package:money/helpers/string_helper.dart';
 
 void main() {
   group('QFX:', () {

@@ -1,9 +1,9 @@
-import 'package:money/core/widgets/columns/column_header_button.dart';
-import 'package:money/data/models/fields/field_filters.dart';
-import 'package:money/data/models/money_objects/money_objects.dart';
+import 'package:money/models/fields/field_filters.dart';
+import 'package:money/models/money_objects/money_objects.dart';
+import 'package:money/widgets/columns/column_header_button.dart';
 
 // Exports
-export 'package:money/core/widgets/widgets.dart';
+export 'package:money/widgets/widgets.dart';
 
 /// A Row for a Table view
 class MyListItemHeader<T> extends StatelessWidget {

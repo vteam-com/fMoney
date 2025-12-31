@@ -1,13 +1,14 @@
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:money/core/helpers/color_helper.dart';
-import 'package:money/core/helpers/date_helper.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/working.dart';
-import 'package:money/data/models/fields/field_filters.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/working.dart';
 
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({

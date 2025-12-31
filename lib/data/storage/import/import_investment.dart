@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
-import 'package:money/core/widgets/dialog/dialog.dart';
-import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/data/models/money_objects/investments/investment_types.dart';
-import 'package:money/data/models/money_objects/investments/investments.dart';
-import 'package:money/data/models/money_objects/investments/picker_investment_trade_type.dart';
-import 'package:money/data/models/money_objects/payees/payee.dart';
-import 'package:money/data/models/money_objects/securities/security.dart';
-import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/import/import_investment_panel.dart';
+import 'package:money/models/money_objects/investments/investment_types.dart';
+import 'package:money/models/money_objects/investments/investments.dart';
+import 'package:money/models/money_objects/investments/picker_investment_trade_type.dart';
+import 'package:money/models/money_objects/payees/payee.dart';
+import 'package:money/models/money_objects/securities/security.dart';
+import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/widgets/dialog/dialog.dart';
+import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/gaps.dart';
 
 void showImportInvestment({InvestmentImportFields? inputData}) {
   inputData ??= InvestmentImportFields(

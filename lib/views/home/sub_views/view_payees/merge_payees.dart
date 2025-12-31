@@ -1,15 +1,16 @@
-import 'package:money/core/helpers/accumulator.dart';
-import 'package:money/core/helpers/list_helper.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/box.dart';
-import 'package:money/core/widgets/dialog/dialog.dart';
-import 'package:money/core/widgets/dialog/dialog_button.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/data/models/money_objects/payees/payee.dart';
-import 'package:money/data/models/money_objects/payees/payees.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/string_helper.dart';
+import 'package:money/models/money_objects/payees/payee.dart';
+import 'package:money/models/money_objects/payees/payees.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_payees/picker_payee.dart';
+import 'package:money/widgets/box.dart';
+import 'package:money/widgets/dialog/dialog.dart';
+import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/gaps.dart';
 
 void showMergePayee(final BuildContext context, Payee payee) {
   final Iterable<Transaction> transactions = Data().transactions

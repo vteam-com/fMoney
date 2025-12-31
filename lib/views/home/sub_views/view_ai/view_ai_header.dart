@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money/core/helpers/string_helper.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/my_svg.dart';
-import 'package:money/core/widgets/text_title.dart';
+import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/text_title.dart';
 
 class ViewAiHeader extends StatelessWidget {
   const ViewAiHeader({

@@ -2,13 +2,13 @@
 
 import 'dart:math';
 
-import 'package:money/core/helpers/accumulator.dart';
-import 'package:money/core/helpers/list_helper.dart';
-import 'package:money/core/helpers/ranges.dart';
-import 'package:money/core/widgets/distribution_bar.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
-import 'package:money/data/models/money_objects/transactions/transaction.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/widgets/distribution_bar.dart';
 
 class RecurringPayment {
   RecurringPayment({

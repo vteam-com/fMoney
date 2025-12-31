@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/core/helpers/date_helper.dart';
-import 'package:money/core/helpers/json_helper.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/json_helper.dart';
 
 void main() {
   final MyJson myMap = <String, dynamic>{

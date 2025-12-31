@@ -1,10 +1,11 @@
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/widgets/dialog/dialog_mutate_money_object.dart';
-import 'package:money/core/widgets/snack_bar.dart';
-import 'package:money/data/models/fields/field_filters.dart';
-import 'package:money/data/models/money_objects/accounts/account.dart';
-import 'package:money/data/models/money_objects/categories/category.dart';
+import 'package:flutter/material.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/models/fields/field_filters.dart';
+import 'package:money/models/money_objects/accounts/account.dart';
+import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
+import 'package:money/widgets/snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuEntry {

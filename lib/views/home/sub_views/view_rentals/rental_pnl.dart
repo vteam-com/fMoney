@@ -1,4 +1,4 @@
-import 'package:money/data/models/money_objects/currencies/currency.dart';
+import 'package:money/models/money_objects/currencies/currency.dart';
 
 class RentalPnL {
   RentalPnL({

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/core/helpers/date_helper.dart';
+import 'package:money/helpers/date_helper.dart';
 
 void main() {
   test('getDateAndTimeAsText returns empty string for null DateTime', () {

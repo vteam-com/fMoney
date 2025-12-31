@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
-import 'package:money/core/controller/data_controller.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/data/models/chart_event.dart';
-import 'package:money/data/models/money_objects/investments/stock_cumulative.dart';
-import 'package:money/data/models/money_objects/securities/security.dart';
-import 'package:money/data/models/money_objects/stock_splits/stock_split.dart';
+import 'package:money/controller/data_controller.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/get_stock_from_cache_or_backend.dart';
+import 'package:money/models/chart_event.dart';
+import 'package:money/models/money_objects/investments/stock_cumulative.dart';
+import 'package:money/models/money_objects/securities/security.dart';
+import 'package:money/models/money_objects/stock_splits/stock_split.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
+import 'package:money/widgets/center_message.dart';
 
 // Mock the SharedPreference
 class MockPreferenceController extends GetxController with Mock implements PreferenceController {

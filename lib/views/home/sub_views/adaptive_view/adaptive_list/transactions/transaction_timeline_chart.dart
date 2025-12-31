@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
-import 'package:money/core/helpers/date_helper.dart';
-import 'package:money/core/widgets/chart.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/icon_button.dart';
-import 'package:money/data/models/money_objects/currencies/currency.dart';
-import 'package:money/data/models/money_objects/transactions/transactions.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/models/money_objects/currencies/currency.dart';
+import 'package:money/models/money_objects/transactions/transactions.dart';
+import 'package:money/widgets/chart.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/icon_button.dart';
 
 /// Widget to display a timeline chart of transactions.
 class TransactionTimelineChart extends StatefulWidget {

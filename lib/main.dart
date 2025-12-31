@@ -1,13 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:money/core/controller/data_controller.dart';
-import 'package:money/core/controller/list_controller.dart';
-import 'package:money/core/controller/my_window_manager.dart';
-import 'package:money/core/controller/preferences_controller.dart';
-import 'package:money/core/controller/theme_controller.dart';
-import 'package:money/core/intents/app_intents.dart';
-import 'package:money/core/widgets/snack_bar.dart';
-import 'package:money/core/widgets/widgets.dart';
+import 'package:money/app_intents.dart';
+import 'package:money/controller/data_controller.dart';
+import 'package:money/controller/list_controller.dart';
+import 'package:money/controller/my_window_manager.dart';
+import 'package:money/controller/preferences_controller.dart';
+import 'package:money/controller/theme_controller.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/data/storage/import/import_transactions_from_text.dart';
 import 'package:money/views/home/home_routes.dart';
@@ -17,8 +15,10 @@ import 'package:money/views/settings/settings_routes.dart';
 import 'package:money/views/splash_page.dart';
 import 'package:money/views/welcome/welcome_page.dart';
 import 'package:money/views/welcome/welcome_routes.dart';
+import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/widgets.dart';
 
-import 'core/bindings/application_bindings.dart';
+import 'application_bindings.dart';
 
 /// The main entry point for the MoneyFlutter application.
 /// Sets up the app structure, theming, and initial routes.

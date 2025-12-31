@@ -2,8 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart'; // Import GetX
-import 'package:money/core/widgets/wizard_choice.dart'; // Import WizardChoice
 import 'package:money/data/storage/import/import_wizard.dart';
+import 'package:money/widgets/wizard_choice.dart'; // Import WizardChoice
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 

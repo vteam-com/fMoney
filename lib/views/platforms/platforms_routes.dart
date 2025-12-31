@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/data/models/constants.dart';
+import 'package:money/constants.dart';
 import 'package:money/views/platforms/platforms_page.dart';
 
 /// Defines the routes for the settings page in the application.

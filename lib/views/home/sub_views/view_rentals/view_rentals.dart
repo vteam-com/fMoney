@@ -1,12 +1,13 @@
-import 'package:money/core/widgets/center_message.dart';
-import 'package:money/core/widgets/gaps.dart';
-import 'package:money/core/widgets/side_panel/side_panel_support.dart';
-import 'package:money/data/models/money_objects/rent_buildings/rent_building.dart';
-import 'package:money/data/models/money_objects/rental_unit/rental_unit.dart';
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/helpers/color_helper.dart';
+import 'package:money/models/money_objects/rent_buildings/rent_building.dart';
+import 'package:money/models/money_objects/rental_unit/rental_unit.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 import 'package:money/views/home/sub_views/view_rentals/view_rentals_side_panel.dart';
+import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/gaps.dart';
 
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});
