@@ -95,7 +95,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
       final Category? category = getFirstSelectedItem() as Category?;
       if (category != null) {
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toTransactions(
               transactionId: -1,
               filters: FieldFilters(<FieldFilter>[

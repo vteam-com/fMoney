@@ -1,6 +1,6 @@
 import 'package:money/constants.dart';
+import 'package:money/data/value_parser.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/value_parser.dart';
 import 'package:money/widgets/columns/input_values.dart';
 
 /// A widget that provides input functionality for financial data in either

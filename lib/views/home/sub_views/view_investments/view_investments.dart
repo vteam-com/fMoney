@@ -38,7 +38,7 @@ class ViewInvestmentsState extends ViewForMoneyObjectsState {
           selectedInvestment.uniqueId,
         );
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             // Jump to Account view
             MenuEntry.toAccounts(
               accountId: relatedTransaction!.fieldAccountId.value,

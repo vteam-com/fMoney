@@ -2,12 +2,13 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:money/constants.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 class Chart extends StatelessWidget {
   const Chart({
@@ -209,7 +210,8 @@ FlBorderData getBorders(final double min, final double max) => FlBorderData(
   ),
 );
 
-Color getHorizontalLineColorBasedOnValue(final double value) => colorBasedOnValue(value).withValues(alpha: 0.3);
+Color getHorizontalLineColorBasedOnValue(final double value) =>
+    Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: 0.3);
 
 Widget getWidgetChartAmount(final double value, final TitleMeta meta) {
   final Widget widget = Text(

@@ -992,7 +992,7 @@ window_manager</title>
 </g>
 <g id='Labels_sqlite3'>
   <text class="nodeName" x="150" y="225" font-size="120%">sqlite3</text>
-  <text class="nodeName" x="150" y="245" font-size="80%">3.1.1</text>
+  <text class="nodeName" x="150" y="245" font-size="80%">3.1.2</text>
 </g>
 <g id='Labels_textify'>
   <text class="nodeName" x="2550" y="375" font-size="120%">textify</text>

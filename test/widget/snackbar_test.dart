@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:money/controller/theme_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 class MockThemeController extends GetxController implements ThemeController {
   @override
@@ -88,6 +90,19 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           scaffoldMessengerKey: SnackBarService.scaffoldKey,
+          theme: ThemeData.light().copyWith(
+            extensions: <ThemeExtension<dynamic>>[
+              const MoneyThemeData(
+                success: Colors.green,
+                warning: Colors.amber,
+                error: Colors.red,
+                disabled: Colors.grey,
+                quantityPositive: Colors.blue,
+                quantityNegative: Colors.orange,
+                info: Colors.lightBlue,
+              ),
+            ],
+          ),
           home: Scaffold(
             body: Builder(
               builder: (final BuildContext context) => ElevatedButton(
@@ -115,6 +130,19 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           scaffoldMessengerKey: SnackBarService.scaffoldKey,
+          theme: ThemeData.light().copyWith(
+            extensions: <ThemeExtension<dynamic>>[
+              const MoneyThemeData(
+                success: Colors.green,
+                warning: Colors.amber,
+                error: Colors.red,
+                disabled: Colors.grey,
+                quantityPositive: Colors.blue,
+                quantityNegative: Colors.orange,
+                info: Colors.lightBlue,
+              ),
+            ],
+          ),
           home: Scaffold(
             body: Builder(
               builder: (final BuildContext context) => ElevatedButton(
@@ -179,6 +207,19 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           scaffoldMessengerKey: SnackBarService.scaffoldKey,
+          theme: ThemeData.light().copyWith(
+            extensions: <ThemeExtension<dynamic>>[
+              const MoneyThemeData(
+                success: Colors.green,
+                warning: Colors.amber,
+                error: Colors.red,
+                disabled: Colors.grey,
+                quantityPositive: Colors.blue,
+                quantityNegative: Colors.orange,
+                info: Colors.lightBlue,
+              ),
+            ],
+          ),
           home: Scaffold(
             body: Builder(
               builder: (final BuildContext context) => ElevatedButton(

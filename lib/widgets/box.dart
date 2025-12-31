@@ -1,5 +1,4 @@
 import 'package:money/constants.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/icon_button.dart';
 
@@ -122,7 +121,7 @@ Widget buildHeaderTitleAndCounter(
 ) {
   final Widget boxHeader = Badge(
     isLabelVisible: badgeText.isNotEmpty,
-    backgroundColor: ThemeController.to.primaryColor,
+    backgroundColor: Theme.of(context).colorScheme.primary,
     offset: const Offset(20.0, 0),
     label: getBadgeText(badgeText),
     child: Text(title),

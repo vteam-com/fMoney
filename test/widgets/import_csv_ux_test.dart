@@ -499,7 +499,7 @@ void main() {
 
     // 5. Scroll horizontally
     // We target the DataTable for the drag, as it's inside the SingleChildScrollView
-    await tester.drag(dataTableFinder, const Offset(-600, 0)); // Drag left to scroll content right
+    await tester.drag(horizontalScrollViewFinder, const Offset(-600, 0)); // Drag left to scroll content right
     await tester.pumpAndSettle();
 
     // 6. Assert the previously off-screen column is now visible

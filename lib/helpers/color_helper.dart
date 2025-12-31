@@ -11,86 +11,6 @@ export 'package:flutter/material.dart';
 /// - Theme-aware color selection
 /// - Color state management
 
-/// Adds a tint of red to a given color.
-///
-/// This function takes a `Color` object and an integer value representing the
-/// strength of the red tint to be added. It returns a new `Color` object with
-/// the red component adjusted by the specified tint strength.
-///
-/// The green and blue components of the original color remain unchanged. The
-/// alpha component (opacity) of the new color is set to the same value as the
-/// original color.
-///
-/// If the resulting red value exceeds the valid range (0 to 255), it is clamped
-/// to the nearest valid value (0 or 255).
-///
-/// Example usage:
-///
-/// ```dart
-/// Color originalColor = const Color(0xFF00FF00); // Green color
-/// Color tintedColor = addTintOfRed(originalColor, 50); // Adds a tint of 50 to the red component
-/// print(tintedColor.value.toRadixString(16)); // Output: 0xFF7FFF00 (Greenish-yellow color)
-/// ```
-///
-/// Parameters:
-///   originalColor (Color): The original color to which the red tint will be added.
-///   tintStrength (int): The strength of the red tint to be added (0 to 255).
-///
-/// Returns:
-///   A new `Color` object with the red component adjusted by the specified tint strength.
-Color addTintOfRed(Color originalColor, int tintStrength) {
-  // Add the tint strength to the red component
-  int red = (originalColor.r * 255).toInt() + tintStrength;
-
-  // Keep the green and blue components unchanged
-  final int green = (originalColor.g * 255).toInt();
-  final int blue = (originalColor.b * 255).toInt();
-
-  // Ensure red value stays within the valid range (0 to 255)
-  red = red.clamp(0, 255);
-
-  // Create a new Color object with the adjusted red component
-  return Color.fromARGB((originalColor.a * 255).toInt(), red, green, blue);
-}
-
-/// Adds a tint of blue to the original color.
-///
-/// The [originalColor] parameter represents the original color to which the tint of blue will be added.
-/// The [tintStrength] parameter determines the strength of the tint of blue to be added. It should be an integer value.
-///
-/// Returns a new [Color] object with the tint of blue added to the original color. The red and green values of the original color remain unchanged, while the blue value is increased by the [tintStrength] amount.
-/// If the resulting blue value exceeds 255, it will be clamped to 255 to ensure it stays within the valid range (0 to 255).
-///
-Color addTintOfBlue(Color originalColor, int tintStrength) {
-  final int red = (originalColor.r * 255).toInt();
-  final int green = (originalColor.g * 255).toInt();
-  int blue = (originalColor.b * 255).toInt() + tintStrength;
-
-  // Ensure blue value stays within the valid range (0 to 255)
-  blue = blue.clamp(0, 255);
-
-  return Color.fromARGB((originalColor.a * 255).toInt(), red, green, blue);
-}
-
-/// Adds a tint of green to the original color.
-///
-/// The [originalColor] parameter represents the original color to which the tint of green will be added.
-/// The [tintStrength] parameter determines the strength of the tint of blue to be added. It should be an integer value.
-///
-/// Returns a new [Color] object with the tint of green added to the original color. The red and blue values of the original color remain unchanged, while the blue value is increased by the [tintStrength] amount.
-/// If the resulting green value exceeds 255, it will be clamped to 255 to ensure it stays within the valid range (0 to 255).
-///
-Color addTintOfGreen(Color originalColor, int tintStrength) {
-  final int red = (originalColor.r * 255).toInt();
-  int green = (originalColor.g * 255).toInt() + tintStrength;
-  final int blue = (originalColor.b * 255).toInt();
-
-  // Ensure green value stays within the valid range (0 to 255)
-  green = green.clamp(0, 255);
-
-  return Color.fromARGB((originalColor.a * 255).toInt(), red, green, blue);
-}
-
 /// Adjusts the brightness of the input color to the specified value within the valid range (0.0 - 1.0).
 Color adjustBrightness(Color color, double brightness) {
   // Ensure brightness is within valid range
@@ -121,16 +41,6 @@ TextStyle adjustOpacityOfTextStyle(
   final double opacity = 0.7,
 ]) {
   return textStyle.copyWith(color: textStyle.color!.withValues(alpha: opacity));
-}
-
-Widget colorBox(Color color, Color colorText) {
-  return Container(
-    color: color,
-    width: 80,
-    height: 80,
-    margin: const EdgeInsets.all(10),
-    child: Text(color.toString(), style: TextStyle(color: colorText)),
-  );
 }
 
 /// Converts a given [Color] object to a hexadecimal string representation.
@@ -205,20 +115,6 @@ ColorScheme getColorTheme(final BuildContext context) {
   return getTheme(context).colorScheme;
 }
 
-/// Returns a Pair object containing the hue and brightness values of the given color.
-///
-/// The color is first converted to HSL using the HSLColor.fromColor() method.
-/// The hue value is extracted from the HSLColor object using the hue property.
-/// The brightness value is calculated by subtracting the lightness value from 1.
-///
-/// @param color The color to extract the hue and brightness values from.
-/// @return A ```Pair<double, double>``` object containing the hue and brightness values.
-///
-Pair<double, double> getHueAndBrightness(Color color) {
-  final HSLColor hslColor = HSLColor.fromColor(color);
-  return Pair<double, double>(hslColor.hue, 1 - hslColor.lightness);
-}
-
 /// Retrieves the hue and brightness values from the given Color object in the HSL color space.
 Pair<double, double> getHueAndBrightnessFromColor(Color color) {
   // Convert color to HSL
@@ -229,17 +125,6 @@ Pair<double, double> getHueAndBrightnessFromColor(Color color) {
   final double brightness = hslColor.lightness;
 
   return Pair<double, double>(hue, brightness);
-}
-
-/// Retrieves the hue value from the given Color object in the HSL color space.
-double getHueFromColor(Color color) {
-  // Convert color to HSL
-  final HSLColor hslColor = HSLColor.fromColor(color);
-
-  // Extract hue value
-  final double hue = hslColor.hue;
-
-  return hue;
 }
 
 TextTheme getTextTheme(final BuildContext context) {
@@ -253,30 +138,4 @@ ThemeData getTheme(final BuildContext context) {
 Color hsvToColor(double hue, double brightness) {
   final Color color = HSVColor.fromAHSV(1.0, hue, 1.0, 1.0).toColor();
   return adjustBrightness(color, brightness);
-}
-
-/// Returns the inverted color by subtracting each color channel from 255.
-///
-/// The [color] parameter represents the color to be inverted.
-/// The red, green, and blue values of the [color] are subtracted from 255 to calculate the inverted color.
-///
-/// Returns the inverted color as a [Color] object.
-/// The alpha value of the [color] is preserved in the inverted color.
-/// The inverted color is created using the [Color.fromRGBO] constructor.
-/// The [invertedRed], [invertedGreen], and [invertedBlue] values are used as the red, green, and blue channels of the inverted color, respectively.
-/// The alpha value of the inverted color is set to 1.0.
-///
-Color invertColor(final Color color) {
-  // Calculate inverted color by subtracting each color channel from 255
-  final double invertedRed = 1.0 - color.r;
-  final double invertedGreen = 1.0 - color.g;
-  final double invertedBlue = 1.0 - color.b;
-
-  // Return the inverted color
-  return Color.fromRGBO(
-    (invertedRed * 255).toInt(),
-    (invertedGreen * 255).toInt(),
-    (invertedBlue * 255).toInt(),
-    1.0,
-  );
 }

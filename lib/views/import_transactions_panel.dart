@@ -1,15 +1,15 @@
 import 'package:money/constants.dart';
-import 'package:money/controller/theme_controller.dart';
+import 'package:money/data/value_parser.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/value_parser.dart';
 import 'package:money/views/home/sub_views/view_accounts/picker_account.dart';
 import 'package:money/widgets/columns/columns_input.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/import_transactions_list_preview.dart';
 import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 /// use for free style text to transaction import
 class ImportTransactionsPanel extends StatefulWidget {
@@ -255,7 +255,9 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     if (choiceOfDateFormat.isEmpty) {
       return Text(
         'Bad Date Format',
-        style: TextStyle(color: getColorFromState(ColorState.error)),
+        style: TextStyle(
+          color: context.colorTheme.getColorForState(ColorState.error),
+        ),
       );
     }
 

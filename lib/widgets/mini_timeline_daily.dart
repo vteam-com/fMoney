@@ -1,9 +1,9 @@
 import 'dart:math';
-
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/vertical_line_with_tooltip.dart';
 
 class MiniTimelineDaily extends StatelessWidget {
@@ -60,7 +60,7 @@ class MiniTimelineDaily extends StatelessWidget {
               child: VerticalLineWithTooltip(
                 height: value.second.abs() * yRatio,
                 width: lineWidth,
-                color: colorBasedOnValue(value.second).withValues(alpha: 0.5),
+                color: context.colorTheme.colorBasedOnValue(value.second).withValues(alpha: 0.5),
                 tooltip:
                     '${dateToString(DateTime.fromMillisecondsSinceEpoch(oneDaySlot))}\n${doubleToCurrency(value.second)}',
               ),

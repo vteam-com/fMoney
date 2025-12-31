@@ -102,7 +102,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
       final Investment? selectedInvestment = getSidePanelLastSelectedItem<Investment>(Data().investments);
       if (selectedInvestment != null) {
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toAccounts(
               accountId: selectedInvestment.transactionInstance!.fieldAccountId.value,
             ),
@@ -117,7 +117,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
       // this can go last
       if (selectedSecurity != null) {
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             // Jump to Investment view
             MenuEntry.toInvestments(symbol: selectedSecurity.fieldSymbol.value),
           ]),

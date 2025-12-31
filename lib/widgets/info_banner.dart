@@ -1,4 +1,5 @@
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 class InfoBanner extends StatelessWidget {
   const InfoBanner({
@@ -38,7 +39,7 @@ class InfoBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = getColorFromState(type);
+    final Color color = context.colorTheme.getColorForState(type);
 
     return Container(
       decoration: BoxDecoration(

@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/chart.dart';
 import 'package:money/widgets/fields/field_filters.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 /// Widget that displays recurring cashflow trends over time as a bar chart.
 /// Shows income, expenses and profit/loss for each time period.
@@ -185,7 +186,7 @@ class _PanelTrendState extends State<PanelTrend> {
   }
 
   Color getHorizontalLineColorBasedOnValue(final double value) {
-    return colorBasedOnValue(value).withValues(alpha: 0.3);
+    return context.colorTheme.colorBasedOnValue(value).withValues(alpha: 0.3);
   }
 
   List<BarChartGroupData> _buildBarGroups() {
@@ -201,7 +202,7 @@ class _PanelTrendState extends State<PanelTrend> {
           BarChartRodData(
             fromY: 0,
             toY: yearData.sumIncome,
-            color: getTextColorToUse(yearData.sumIncome)!.withAlpha(120),
+            color: context.colorTheme.getTextColorToUse(yearData.sumIncome)!.withAlpha(120),
             width: 20,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
@@ -211,7 +212,7 @@ class _PanelTrendState extends State<PanelTrend> {
           BarChartRodData(
             fromY: 0,
             toY: yearData.sumExpense,
-            color: getTextColorToUse(yearData.sumExpense)!.withAlpha(120),
+            color: context.colorTheme.getTextColorToUse(yearData.sumExpense)!.withAlpha(120),
             width: 20,
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(8),

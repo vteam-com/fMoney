@@ -1,5 +1,6 @@
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
 class QuantityWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class QuantityWidget extends StatelessWidget {
   Widget build(final BuildContext context) {
     final TextStyle style = TextStyle(
       fontFamily: 'RobotoMono',
-      color: getTextColorToUseQuantity(quantity),
+      color: context.colorTheme.getTextColorToUseQuantity(quantity),
       fontWeight: FontWeight.w900,
     );
 

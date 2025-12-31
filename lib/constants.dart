@@ -1,25 +1,5 @@
 import 'package:flutter/material.dart';
 
-const List<Color> themeAsColors = <Color>[
-  Colors.deepPurple,
-  Colors.blue,
-  Colors.teal,
-  Colors.green,
-  Colors.yellow,
-  Colors.orange,
-  Colors.pink,
-];
-
-const List<String> themeColorNames = <String>[
-  'Purple',
-  'Blue',
-  'Teal',
-  'Green',
-  'Yellow',
-  'Orange',
-  'Pink',
-];
-
 const String settingKeyCashflowRecurringOccurrences = 'keyCashflowOccurrences';
 const String settingKeyCashflowView = 'keyCashflowView';
 const String settingKeyBudgetViewAsIncomes = 'keyBudgetViewAsIncomes';

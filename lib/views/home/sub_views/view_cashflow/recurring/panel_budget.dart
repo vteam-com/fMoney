@@ -562,7 +562,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   Widget _categoryContextMenu(final Category category) {
-    return buildMenuButton(<MenuEntry>[
+    return buildMenuButton(context, <MenuEntry>[
       // View - Transactions
       MenuEntry.toTransactions(
         transactionId: -1,

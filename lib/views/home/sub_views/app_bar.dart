@@ -26,12 +26,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       backgroundColor: getColorTheme(context).secondaryContainer,
-      leading: _buildPopupMenu(),
+      leading: _buildPopupMenu(context),
       title: AppTitle(),
       actions: <Widget>[
         if (!context.isWidthSmall) _buildToggleClosedAccountsButton(preferencesController),
         _buildToggleThemeButton(themeController),
-        _buildSettingsMenu(themeController, preferencesController),
+        _buildSettingsMenu(context, themeController, preferencesController),
       ],
     );
   }
@@ -73,7 +73,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildPopupMenu() {
+  Widget _buildPopupMenu(BuildContext context) {
     final List<PopupMenuItem<int>> menuItems = <PopupMenuItem<int>>[
       _buildMenuItem(Constants.commandFileNew, 'New', Icons.note_add_outlined, shortcut: 'Ctrl+N'),
       _buildMenuItem(
@@ -108,6 +108,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return myPopupMenuIconButton(
       key: const Key('key_menu_button'),
+      context: context,
       icon: Icons.menu,
       tooltip: 'File menu',
       list: menuItems,
@@ -116,6 +117,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _buildSettingsMenu(
+    BuildContext context,
     ThemeController themeController,
     PreferenceController preferencesController,
   ) {
@@ -163,6 +165,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return myPopupMenuIconButton(
       key: Constants.keySettingsButton,
+      context: context,
       icon: Icons.settings_outlined,
       tooltip: 'Settings',
       list: actionList,
@@ -194,9 +197,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   List<PopupMenuItem<int>> _buildThemeColorMenuItems(
     ThemeController themeController,
   ) {
-    return List<PopupMenuItem<int>>.generate(themeAsColors.length, (int index) {
+    return List<PopupMenuItem<int>>.generate(Themes.themeAsColors.length, (int index) {
       final bool isSelected = index == themeController.colorSelected.value;
-      final String themeColorName = themeColorNames[index];
+      final String themeColorName = Themes.themeColorNames[index];
 
       return PopupMenuItem<int>(
         value: index,
@@ -210,7 +213,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             key: Key('key_theme_$themeColorName'),
             icon: Icon(
               isSelected ? Icons.color_lens : Icons.color_lens_outlined,
-              color: themeAsColors[index],
+              color: Themes.themeAsColors[index],
             ),
             text1: themeColorName,
             small: true,

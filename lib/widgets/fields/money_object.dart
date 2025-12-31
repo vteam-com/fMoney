@@ -1,10 +1,11 @@
-import 'package:collection/collection.dart';
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects/mutation_types.dart';
 import 'package:money/widgets/fields/fields.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 export 'package:money/models/money_objects/mutation_types.dart';
 // Exports
@@ -245,11 +246,11 @@ class MoneyObject {
   Color getMutationColor() {
     switch (mutation) {
       case MutationType.inserted:
-        return getColorFromState(ColorState.success);
+        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success);
       case MutationType.changed:
-        return getColorFromState(ColorState.warning);
+        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning);
       case MutationType.deleted:
-        return getColorFromState(ColorState.error);
+        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error);
       default:
         return Colors.transparent;
     }

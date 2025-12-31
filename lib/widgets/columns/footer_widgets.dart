@@ -1,10 +1,12 @@
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/widgets/fields/field.dart';
 import 'package:money/widgets/misc_widgets.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
@@ -40,7 +42,7 @@ Widget getFooterForDateRange(final DateRange dateRange) {
 
 Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
   final TextStyle style = TextStyle(
-    color: colorBasedOnValue(amount),
+    color: Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
     fontFamily: 'RobotoMono',
   );
 
@@ -63,7 +65,7 @@ Widget getFooterForInt(
   final String prefix = '',
 }) {
   final TextStyle style = TextStyle(
-    color: applyColorBasedOnValue ? colorBasedOnValue(value) : null,
+    color: applyColorBasedOnValue ? Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value) : null,
     fontFamily: 'RobotoMono',
   );
 

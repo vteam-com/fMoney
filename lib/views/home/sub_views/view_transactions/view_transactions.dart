@@ -66,7 +66,7 @@ class ViewTransactionsState extends ViewForMoneyObjectsState {
 
       // this can go last
       list.add(
-        buildJumpToButton(<MenuEntry>[
+        buildJumpToButton(context, <MenuEntry>[
           // Account
           MenuEntry.toAccounts(
             accountId: transaction?.fieldAccountId.value ?? -1,

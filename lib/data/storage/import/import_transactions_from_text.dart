@@ -1,7 +1,7 @@
 import 'package:money/data/storage/data/data.dart';
+import 'package:money/data/value_parser.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/value_parser.dart';
 import 'package:money/views/import_transactions_panel.dart';
 import 'package:money/widgets/dialog/dialog.dart';
 import 'package:money/widgets/dialog/dialog_button.dart';

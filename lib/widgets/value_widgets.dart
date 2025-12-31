@@ -1,4 +1,5 @@
-import 'package:money/controller/theme_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
@@ -6,6 +7,7 @@ import 'package:money/widgets/fields/field.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 Widget buildFieldWidgetForAmount({
   final dynamic value = 0,
@@ -24,7 +26,9 @@ Widget buildFieldWidgetForAmount({
       textAlign: align,
       style: TextStyle(
         fontFamily: 'RobotoMono',
-        color: getTextColorToUse(value as num),
+        color: Get.context == null
+            ? null
+            : Theme.of(Get.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
       ),
     ),
     textAlignToAlignment(align),

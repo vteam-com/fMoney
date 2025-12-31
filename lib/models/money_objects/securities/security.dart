@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_this
 import 'package:money/data/storage/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';

@@ -44,7 +44,7 @@ class ViewPayeesState extends ViewForMoneyObjectsState {
       // this can go last
       if (getFirstSelectedItem() != null) {
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             MenuEntry(
               icon: ViewId.viewTransactions.getIconData(),
               title: 'Switch to Transactions',

@@ -77,7 +77,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
 
     if (forSidePanelTransactions) {
       list.add(
-        buildJumpToButton(<MenuEntry>[
+        buildJumpToButton(context, <MenuEntry>[
           MenuEntry(
             icon: ViewId.viewTransactions.getIconData(),
             title: 'Matching Transaction',
@@ -133,7 +133,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
       final Account? account = getFirstSelectedItem() as Account?;
       if (account != null) {
         list.add(
-          buildJumpToButton(<MenuEntry>[
+          buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toTransactions(
               transactionId: -1,
               // Prepare the Transaction view Filter to show only the selected account
@@ -494,7 +494,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
               Row(
                 children: <Widget>[
                   Expanded(child: TextTitle(summary.symbol)),
-                  buildMenuButton(<MenuEntry>[
+                  buildMenuButton(context, <MenuEntry>[
                     MenuEntry.toInvestments(
                       symbol: summary.symbol,
                       accountName: account.fieldName.value,

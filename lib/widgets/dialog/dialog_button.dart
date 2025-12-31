@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:money/constants.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/widgets/gaps.dart';
 
@@ -116,6 +116,7 @@ Widget buildCopyButton(
 }
 
 Widget buildMenuButton(
+  final BuildContext context,
   final List<MenuEntry> menuItems, {
   IconData icon = Icons.more_horiz,
   String tooltip = 'Switch view',
@@ -137,6 +138,7 @@ Widget buildMenuButton(
     );
   }
   return myPopupMenuIconButton(
+    context: context,
     icon: icon,
     tooltip: tooltip,
     list: list,
@@ -146,8 +148,12 @@ Widget buildMenuButton(
   );
 }
 
-Widget buildJumpToButton(final List<MenuEntry> listOfViewToJumpTo) {
+Widget buildJumpToButton(
+  final BuildContext context,
+  final List<MenuEntry> listOfViewToJumpTo,
+) {
   return buildMenuButton(
+    context,
     listOfViewToJumpTo,
     icon: Icons.open_in_new_outlined,
     tooltip: 'Switch view',
@@ -156,6 +162,7 @@ Widget buildJumpToButton(final List<MenuEntry> listOfViewToJumpTo) {
 
 PopupMenuButton<int> myPopupMenuIconButton({
   final Key? key,
+  required final BuildContext context,
   required final IconData icon,
   required final String tooltip,
   required final List<PopupMenuItem<int>> list,
@@ -168,7 +175,7 @@ PopupMenuButton<int> myPopupMenuIconButton({
     position: PopupMenuPosition.under,
     shape: RoundedRectangleBorder(
       side: BorderSide(
-        color: ThemeController.to.primaryColor,
+        color: Theme.of(context).colorScheme.primary,
         width: 2,
       ), // Set the border color and width
       borderRadius: BorderRadius.circular(8), // Set the border radius

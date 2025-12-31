@@ -1,5 +1,6 @@
-import 'package:money/controller/theme_controller.dart';
+import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/widgets/theme_custom.dart';
 
 /// Global snackbar service that works without BuildContext.
 /// Uses Flutter 3.38.0 Material snackbar improvements with custom overlay management.
@@ -137,7 +138,7 @@ class SnackBarService {
       title: title,
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: getColorFromState(ColorState.error),
+      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error),
     );
   }
 
@@ -151,7 +152,7 @@ class SnackBarService {
       title: title,
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: getColorFromState(ColorState.success),
+      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success),
     );
   }
 
@@ -165,7 +166,7 @@ class SnackBarService {
       title: title,
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: getColorFromState(ColorState.warning),
+      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning),
     );
   }
 
@@ -179,7 +180,7 @@ class SnackBarService {
       title: title,
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: getColorFromState(ColorState.info),
+      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.info),
     );
   }
 
