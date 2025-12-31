@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:money/constants.dart';
 import 'package:money/data/storage/data/data_access.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';
+import 'package:money/widgets/fields/field_filters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Controller for managing application preferences and settings.

@@ -18,8 +18,8 @@ import 'package:money/models/money_objects/stock_splits/stock_split.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialog/dialog_single_text_input.dart';
+import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/widgets.dart';
 import 'package:money/widgets/working.dart';
 
 class StockChartWidget extends StatefulWidget {

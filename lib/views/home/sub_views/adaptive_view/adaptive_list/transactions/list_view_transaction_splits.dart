@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/splits/money_split.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_header.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_view.dart';
 import 'package:money/views/home/sub_views/view_transactions/dialog_mutate_split.dart';
+import 'package:money/widgets/fields/field_filters.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/money_widget.dart';
 

@@ -17,8 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_helpers.dart';
 
-export 'package:money/widgets/widgets.dart';
-
 void main() {
   group('App Test', () {
     testWidgets('Full app test', (WidgetTester tester) async {

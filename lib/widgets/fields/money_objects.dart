@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:money/data/storage/database/database.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/models/money_objects/money_object.dart';
 import 'package:money/widgets/diff.dart';
+import 'package:money/widgets/fields/money_object.dart';
 import 'package:money/widgets/gaps.dart';
 
 // Exports
 export 'package:collection/collection.dart';
-export 'package:money/models/fields/fields.dart';
-export 'package:money/models/money_objects/money_object.dart';
+export 'package:money/widgets/fields/fields.dart';
+export 'package:money/widgets/fields/money_object.dart';
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {

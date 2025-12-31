@@ -1,5 +1,5 @@
 import 'package:money/views/home/sub_views/app_scaffold.dart';
-import 'package:money/widgets/widgets.dart';
+import 'package:money/widgets/misc_widgets.dart';
 
 ///
 class FullScreenDialog extends StatefulWidget {

@@ -9,8 +9,8 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/home/sub_views/app_title.dart';
 import 'package:money/widgets/color_palette.dart';
 import 'package:money/widgets/dialog/dialog_button.dart';
+import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets/widgets.dart';
 import 'package:money/widgets/zoom.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {

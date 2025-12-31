@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
+import 'package:money/widgets/fields/field_filters.dart';
 
 class ChatMessageFooter extends StatelessWidget {
   const ChatMessageFooter({

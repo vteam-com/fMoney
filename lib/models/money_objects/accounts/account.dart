@@ -5,8 +5,8 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/models/money_objects/accounts/account_types.dart';
 import 'package:money/models/money_objects/accounts/picker_account_type.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/models/money_objects/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/fields/money_object.dart';
 import 'package:money/widgets/token_text.dart';
 
 import 'account_types_enum.dart';

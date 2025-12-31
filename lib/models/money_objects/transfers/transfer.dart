@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/money_object.dart';
 import 'package:money/models/money_objects/splits/splits.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/widgets/fields/money_object.dart';
 
 class Transfer extends MoneyObject {
   Transfer({

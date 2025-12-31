@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/models/chart_event.dart';
-import 'package:money/widgets/widgets.dart';
 
 void main() {
   group('ChartEvent', () {

@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/models/money_objects/money_object.dart';
+import 'package:money/widgets/fields/money_object.dart';
 import 'package:money/widgets/money_widget.dart';
-import 'package:money/widgets/widgets.dart';
+import 'package:money/widgets/value_widgets.dart';
 
 export 'package:money/models/money_model.dart';
 

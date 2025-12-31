@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/fields/fields.dart';
 import 'package:money/models/money_objects/mutation_types.dart';
+import 'package:money/widgets/fields/fields.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
 
-// Exports
-export 'package:money/models/fields/field.dart';
-export 'package:money/models/fields/fields.dart';
 export 'package:money/models/money_objects/mutation_types.dart';
+// Exports
+export 'package:money/widgets/fields/field.dart';
+export 'package:money/widgets/fields/fields.dart';
 
 class MoneyObject {
   factory MoneyObject.fromJSon(final MyJson json, final double runningBalance) {

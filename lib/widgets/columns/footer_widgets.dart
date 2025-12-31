@@ -2,11 +2,13 @@ import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/models/fields/field.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/widgets/widgets.dart';
+import 'package:money/widgets/fields/field.dart';
+import 'package:money/widgets/misc_widgets.dart';
 
-export 'package:money/widgets/widgets.dart';
+export 'package:flutter/material.dart';
+export 'package:money/widgets/misc_widgets.dart';
+export 'package:money/widgets/value_widgets.dart';
 
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(

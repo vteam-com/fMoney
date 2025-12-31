@@ -23,9 +23,9 @@ import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/suggestion_approval.dart';
 
-// Exports
-export 'package:money/models/fields/fields.dart';
 export 'package:money/models/money_objects/transactions/transaction_types.dart';
+// Exports
+export 'package:money/widgets/fields/fields.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]

@@ -7,7 +7,6 @@ import 'package:money/data/storage/data/data.dart';
 import 'package:money/default_values.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptable_view_with_list.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/column_filter_panel.dart';
@@ -24,6 +23,7 @@ import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog/dialog.dart';
 import 'package:money/widgets/dialog/dialog_button.dart';
 import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
+import 'package:money/widgets/fields/field_filters.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/text_title.dart';
@@ -32,7 +32,8 @@ import 'package:money/widgets/working.dart';
 export 'package:flutter/material.dart';
 export 'package:get/get.dart';
 export 'package:money/controller/preferences_controller.dart';
-export 'package:money/widgets/widgets.dart';
+export 'package:money/widgets/misc_widgets.dart';
+export 'package:money/widgets/value_widgets.dart';
 
 class ViewForMoneyObjects extends StatefulWidget {
   const ViewForMoneyObjects({super.key, this.includeClosedAccount = false});

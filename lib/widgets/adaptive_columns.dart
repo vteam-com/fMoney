@@ -1,4 +1,5 @@
-import 'package:money/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:money/widgets/misc_widgets.dart';
 
 class AdaptiveColumns extends StatelessWidget {
   /// Constructor

@@ -1,8 +1,10 @@
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/widgets.dart';
+import 'package:money/widgets/misc_widgets.dart';
 
 // Exports
-export 'package:money/widgets/widgets.dart';
+export 'package:flutter/material.dart';
+export 'package:money/widgets/misc_widgets.dart';
+export 'package:money/widgets/value_widgets.dart';
 
 class CurrencyLabel extends StatelessWidget {
   const CurrencyLabel({
