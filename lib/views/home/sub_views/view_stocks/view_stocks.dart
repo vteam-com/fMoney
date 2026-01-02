@@ -9,6 +9,8 @@ import 'package:money/models/money_objects/investments/investments.dart';
 import 'package:money/models/money_objects/investments/stock_cumulative.dart';
 import 'package:money/models/money_objects/securities/security.dart';
 import 'package:money/models/money_objects/stock_splits/stock_split.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/dialog_mutate_money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
@@ -17,8 +19,6 @@ import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
-import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
 import 'package:money/widgets/three_part_label.dart';
 
 export 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';

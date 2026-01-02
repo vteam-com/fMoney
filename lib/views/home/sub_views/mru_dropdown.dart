@@ -6,7 +6,7 @@ import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data_source.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/file_systems.dart';
-import 'package:money/widgets/picker_panel.dart';
+import 'package:money/views/dialog/picker_panel.dart';
 import 'package:money/widgets/token_text.dart';
 
 class MruDropdown extends StatelessWidget {

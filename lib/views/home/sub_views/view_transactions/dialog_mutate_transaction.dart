@@ -1,8 +1,8 @@
 import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/widgets/confirmation_dialog.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
-import 'package:money/widgets/dialog/dialog_full_screen.dart';
+import 'package:money/views/dialog/confirmation_dialog.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/dialog_full_screen.dart';
 
 /// Shows a dialog that allows the user to mutate a transaction.
 ///

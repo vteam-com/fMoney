@@ -6,15 +6,15 @@ import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/models/money_objects/transactions/transactions.dart';
+import 'package:money/views/dialog/dialog.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/dialog_mutate_money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/transaction_timeline_chart.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_categories/merge_categories.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/chart.dart';
-import 'package:money/widgets/dialog/dialog.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
-import 'package:money/widgets/dialog/dialog_mutate_money_object.dart';
 import 'package:money/widgets/three_part_label.dart';
 
 class ViewCategories extends ViewForMoneyObjects {

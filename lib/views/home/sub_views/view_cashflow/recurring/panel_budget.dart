@@ -11,13 +11,13 @@ import 'package:money/models/budget.dart';
 import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_recurring.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/token_text.dart';
 

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/views/dialog/dialog.dart';
+import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transaction_splits.dart';
-import 'package:money/widgets/dialog/dialog.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 
 void showTransactionSplits(final Transaction transaction) {

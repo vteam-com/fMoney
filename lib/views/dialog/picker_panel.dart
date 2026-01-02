@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:money/constants.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/dialog/dialog.dart';
+import 'package:money/views/dialog/dialog.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_letter.dart';

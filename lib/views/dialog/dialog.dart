@@ -1,7 +1,7 @@
 import 'package:money/constants.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/dialog/dialog_button.dart';
-import 'package:money/widgets/dialog/dialog_full_screen.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/dialog_full_screen.dart';
 import 'package:money/widgets/misc_widgets.dart';
 
 class MyAlertDialog extends StatelessWidget {

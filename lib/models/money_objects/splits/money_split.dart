@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/views/dialog/picker_panel.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
-import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/suggestion_approval.dart';
 
 /*

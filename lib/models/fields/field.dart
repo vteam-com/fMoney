@@ -11,6 +11,7 @@ import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 export 'package:money/models/money_model.dart';
+export 'field_type.dart';
 
 dynamic defaultCallbackValue(final dynamic instance) => '';
 
@@ -461,21 +462,6 @@ class FieldString extends Field<String> {
           };
     }
   }
-}
-
-/// This enum defines the different types of fields supported
-enum FieldType {
-  text,
-  numeric,
-  numericShorthand,
-  quantity,
-  percentage,
-  amount,
-  amountShorthand,
-  date,
-  dateRange,
-  toggle, // On/Off
-  widget,
 }
 
 Widget buildFieldWidgetForAmount({
