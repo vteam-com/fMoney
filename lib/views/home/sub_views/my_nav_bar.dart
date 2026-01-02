@@ -6,7 +6,6 @@ import 'package:money/widgets/misc_widgets.dart';
 // Exports
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
-export 'package:money/widgets/value_widgets.dart';
 
 class MyNavigationItem {
   MyNavigationItem({

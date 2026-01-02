@@ -8,7 +8,6 @@ import 'package:money/widgets/ocr.dart';
 // Exports
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
-export 'package:money/widgets/value_widgets.dart';
 
 class InputValues extends StatelessWidget {
   const InputValues({

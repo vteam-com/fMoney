@@ -369,7 +369,7 @@ class Data {
     required final Account? relatedAccount,
   }) {
     if (relatedAccount == null) {
-      return; // notthing to check
+      return; // nothing to check
     }
     if (transaction.instanceOfTransfer != null) {
       // this was already a transfer, lets see if the destination account has changed

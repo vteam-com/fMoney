@@ -8,7 +8,6 @@ import 'package:money/widgets/three_part_label.dart';
 /// Exports
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
-export 'package:money/widgets/value_widgets.dart';
 
 /// A widget that displays a header for a view.
 ///

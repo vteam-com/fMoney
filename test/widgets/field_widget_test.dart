@@ -10,7 +10,6 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/fields/field.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/quantity_widget.dart';
-import 'package:money/widgets/value_widgets.dart';
 
 class MockThemeController extends GetxController with Mock implements ThemeController {
   @override

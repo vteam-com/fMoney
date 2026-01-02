@@ -10,7 +10,6 @@ import 'package:money/widgets/theme_custom.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
-export 'package:money/widgets/value_widgets.dart';
 
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(

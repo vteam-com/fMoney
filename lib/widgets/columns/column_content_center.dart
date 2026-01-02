@@ -3,7 +3,6 @@ import 'package:money/helpers/color_helper.dart';
 // Exports
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';
-export 'package:money/widgets/value_widgets.dart';
 
 class HeaderContentCenter extends StatelessWidget {
   const HeaderContentCenter({
