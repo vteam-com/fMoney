@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
-import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/data.dart';
+import 'package:money/money_objects/categories/category.dart';
 import 'package:money/views/dialog/picker_edit_box.dart';
 
-export 'package:money/models/money_objects/categories/category.dart';
+export 'package:money/money_objects/categories/category.dart';
 
 Widget pickerCategory({
   Key? key,

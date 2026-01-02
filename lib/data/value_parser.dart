@@ -1,9 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/money_model.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets_data/money_widget.dart';
 

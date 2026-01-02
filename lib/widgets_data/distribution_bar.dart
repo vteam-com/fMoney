@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/models/money_model.dart';
-import 'package:money/models/money_objects/categories/category.dart';
+import 'package:money/money_model.dart';
+import 'package:money/money_objects/categories/category.dart';
 import 'package:money/widgets/gaps.dart';
 
 class Distribution {

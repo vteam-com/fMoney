@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';
@@ -535,7 +535,7 @@ TRANSACTIONS:${transactionsData.join(';')}
       }
 
       try {
-        final String teachingMessage = 'Acocunt "$accountName" with ${transactionsData.length} transactions.';
+        final String teachingMessage = 'account "$accountName" with ${transactionsData.length} transactions.';
 
         _appendChatHistory(teachingMessage, ChatFrom.user, payload);
 

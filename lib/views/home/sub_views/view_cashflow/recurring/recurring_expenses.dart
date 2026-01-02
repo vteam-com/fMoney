@@ -1,8 +1,8 @@
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/models/money_objects/categories/category.dart';
-import 'package:money/models/money_objects/transactions/transaction.dart';
+import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
 
 class RecurringExpenses {
   RecurringExpenses({

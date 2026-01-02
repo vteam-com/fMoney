@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/constants.dart';
 import 'package:money/controller/theme_controller.dart';
-import 'package:money/models/money_objects/currencies/currency.dart';
+import 'package:money/currencies/currency.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';
 import 'package:money/widgets/gaps.dart';

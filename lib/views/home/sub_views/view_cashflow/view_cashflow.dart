@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
+import 'package:money/constants.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/categories/category.dart';
-import 'package:money/models/money_objects/events/event.dart';
+import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/events/event.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_cashflow/net_worth_chart.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_budget.dart';

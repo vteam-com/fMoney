@@ -1,9 +1,9 @@
 import 'package:money/constants.dart';
+import 'package:money/currencies/currency.dart';
 import 'package:money/data/value_parser.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/currencies/currency.dart';
+import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/views/home/sub_views/view_accounts/picker_account.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/models/money_objects/transactions/transactions.dart';
+import 'package:money/money_objects/mutation_types.dart';
+import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';

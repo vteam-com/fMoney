@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/payees/payee.dart';
+import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/views/home/sub_views/view_accounts/picker_account.dart';
 import 'package:money/views/home/sub_views/view_payees/merge_payees.dart';
 import 'package:money/views/home/sub_views/view_payees/picker_payee.dart';

@@ -1,11 +1,11 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/models/money_objects/rent_buildings/rent_building.dart';
-import 'package:money/models/money_objects/rent_buildings/rental_pnl.dart';
-import 'package:money/models/money_objects/splits/money_split.dart';
-import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
+import 'package:money/data.dart';
+import 'package:money/money_objects/rent_buildings/rent_building.dart';
+import 'package:money/money_objects/rent_buildings/rental_pnl.dart';
+import 'package:money/money_objects/splits/money_split.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/views/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets_data/charts/chart.dart';
 

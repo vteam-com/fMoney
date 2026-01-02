@@ -1,11 +1,11 @@
-import 'package:money/data/data.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/money_objects/payees/payee.dart';
-import 'package:money/models/money_objects/payees/payees.dart';
-import 'package:money/models/money_objects/transactions/transactions.dart';
+import 'package:money/money_objects/payees/payee.dart';
+import 'package:money/money_objects/payees/payees.dart';
+import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/views/dialog/dialog.dart';
 import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/view_payees/picker_payee.dart';

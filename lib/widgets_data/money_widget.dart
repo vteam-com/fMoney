@@ -1,7 +1,7 @@
+import 'package:money/currencies/currency.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/models/money_model.dart';
-import 'package:money/models/money_objects/currencies/currency.dart';
+import 'package:money/money_model.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag

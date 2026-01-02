@@ -1,9 +1,10 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/models/money_objects/aliases/alias.dart';
-import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transactions/list_view_transactions.dart';
+import 'package:money/data.dart';
+import 'package:money/fields/money_object.dart';
+import 'package:money/money_objects/aliases/alias.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/views/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 

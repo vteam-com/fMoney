@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/models/money_objects/investments/investment_types.dart';
+import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/views/dialog/picker_edit_box.dart';
 
 Widget pickerInvestmentTradeType({

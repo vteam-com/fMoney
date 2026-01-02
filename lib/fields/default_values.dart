@@ -1,4 +1,4 @@
-import 'package:money/models/money_model.dart';
+import 'package:money/money_model.dart';
 
 /// Returns the provided [value] if it's not null, otherwise returns the [defaultValueIfNull].
 ///

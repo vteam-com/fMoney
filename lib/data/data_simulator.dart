@@ -1,26 +1,26 @@
 import 'dart:math';
 
-import 'package:money/data/data.dart';
+import 'package:money/currencies/currency.dart';
+import 'package:money/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/money_objects/account_aliases/account_alias.dart';
-import 'package:money/models/money_objects/accounts/account.dart';
-import 'package:money/models/money_objects/accounts/account_types_enum.dart';
-import 'package:money/models/money_objects/aliases/alias.dart';
-import 'package:money/models/money_objects/categories/category.dart';
-import 'package:money/models/money_objects/currencies/currency.dart';
-import 'package:money/models/money_objects/investments/investment.dart';
-import 'package:money/models/money_objects/investments/investment_types.dart';
-import 'package:money/models/money_objects/loan_payments/loan_payment.dart';
-import 'package:money/models/money_objects/online_accounts/online_account.dart';
-import 'package:money/models/money_objects/payees/payee.dart';
-import 'package:money/models/money_objects/securities/security.dart';
-import 'package:money/models/money_objects/splits/money_split.dart';
-import 'package:money/models/money_objects/stock_splits/stock_split.dart';
-import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/models/money_objects/transfers/transfer.dart';
+import 'package:money/money_objects/account_aliases/account_alias.dart';
+import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/accounts/account_types_enum.dart';
+import 'package:money/money_objects/aliases/alias.dart';
+import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/investments/investment.dart';
+import 'package:money/money_objects/investments/investment_types.dart';
+import 'package:money/money_objects/loan_payments/loan_payment.dart';
+import 'package:money/money_objects/online_accounts/online_account.dart';
+import 'package:money/money_objects/payees/payee.dart';
+import 'package:money/money_objects/securities/security.dart';
+import 'package:money/money_objects/splits/money_split.dart';
+import 'package:money/money_objects/stock_splits/stock_split.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/money_objects/transfers/transfer.dart';
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {
