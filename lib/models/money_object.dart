@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/fields/fields.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/fields/fields.dart';
 import 'package:money/models/money_objects/mutation_types.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 // Exports
-export 'package:money/models/fields/field.dart';
-export 'package:money/models/fields/fields.dart';
+export 'package:money/fields/field.dart';
+export 'package:money/fields/fields.dart';
 export 'package:money/models/money_objects/mutation_types.dart';
 
 class MoneyObject {

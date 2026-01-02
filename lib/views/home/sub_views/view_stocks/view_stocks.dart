@@ -1,9 +1,9 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/data/data.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/models/chart_event.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/models/money_objects/investments/investments.dart';
 import 'package:money/models/money_objects/investments/stock_cumulative.dart';

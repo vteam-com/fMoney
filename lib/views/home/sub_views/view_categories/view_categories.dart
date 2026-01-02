@@ -1,7 +1,7 @@
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
-import 'package:money/models/fields/field_filters.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
@@ -14,8 +14,8 @@ import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transacti
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_categories/merge_categories.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
-import 'package:money/widgets/chart.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/widgets_data/charts/chart.dart';
 
 class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});

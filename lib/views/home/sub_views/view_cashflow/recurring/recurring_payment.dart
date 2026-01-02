@@ -8,7 +8,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/transactions/transaction.dart';
-import 'package:money/widgets/distribution_bar.dart';
+import 'package:money/widgets_data/distribution_bar.dart';
 
 class RecurringPayment {
   RecurringPayment({

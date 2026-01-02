@@ -1,12 +1,12 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
+import 'package:money/views/dialog/picker_edit_box_date.dart';
 import 'package:money/views/home/sub_views/view_accounts/picker_account.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
-import 'package:money/widgets/picker_edit_box_date.dart';
 
 class ImportFieldsForTransfer {
   ImportFieldsForTransfer({

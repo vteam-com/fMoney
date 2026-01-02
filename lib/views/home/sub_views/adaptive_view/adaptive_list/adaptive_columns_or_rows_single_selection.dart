@@ -1,5 +1,5 @@
-import 'package:money/models/fields/default_values.dart';
-import 'package:money/models/fields/field_filters.dart';
+import 'package:money/fields/default_values.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/models/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/footer_accumulators.dart';

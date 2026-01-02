@@ -11,7 +11,7 @@ import 'package:money/widgets/gaps.dart';
 
 // Exports
 export 'package:collection/collection.dart';
-export 'package:money/models/fields/fields.dart';
+export 'package:money/fields/fields.dart';
 export 'package:money/models/money_object.dart';
 
 /// Collection of MoneyObject as both List and Map

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
 import 'package:money/models/money_objects/categories/category.dart';
-import 'package:money/widgets/picker_edit_box.dart';
+import 'package:money/views/dialog/picker_edit_box.dart';
 
 export 'package:money/models/money_objects/categories/category.dart';
 

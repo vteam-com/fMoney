@@ -17,10 +17,10 @@ import 'package:money/models/money_objects/securities/security.dart';
 import 'package:money/models/money_objects/stock_splits/stock_split.dart';
 import 'package:money/views/dialog/dialog_single_text_input.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/working.dart';
+import 'package:money/widgets_data/charts/my_line_chart.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({

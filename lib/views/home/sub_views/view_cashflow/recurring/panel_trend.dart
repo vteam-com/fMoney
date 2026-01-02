@@ -4,11 +4,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data.dart';
-import 'package:money/models/fields/field_filters.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart';
-import 'package:money/widgets/chart.dart';
 import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets_data/charts/chart.dart';
 
 /// Widget that displays recurring cashflow trends over time as a bar chart.
 /// Shows income, expenses and profit/loss for each time period.

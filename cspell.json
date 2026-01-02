@@ -62,6 +62,7 @@
         "BECU",
         "CHECKNUM",
         "concat",
+        "Cumulator",
         "cupertino",
         "datetime",
         "Debouncer",

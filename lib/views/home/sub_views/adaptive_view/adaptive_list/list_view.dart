@@ -9,7 +9,7 @@ import 'package:money/models/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item.dart';
 
 // Exports
-export 'package:money/models/fields/fields.dart';
+export 'package:money/fields/fields.dart';
 export 'package:money/models/money_object.dart';
 
 class MyListView<T> extends StatefulWidget {

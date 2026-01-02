@@ -11,7 +11,7 @@ import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/transacti
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/charts/my_line_chart.dart';
+import 'package:money/widgets_data/charts/my_line_chart.dart';
 
 class ViewInvestments extends ViewForMoneyObjects {
   const ViewInvestments({super.key});

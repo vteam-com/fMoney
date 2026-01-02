@@ -1,4 +1,4 @@
-import 'package:money/models/fields/field_filters.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 

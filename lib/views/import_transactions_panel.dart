@@ -5,11 +5,11 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/currencies/currency.dart';
 import 'package:money/views/home/sub_views/view_accounts/picker_account.dart';
-import 'package:money/widgets/columns/columns_input.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/import_transactions_list_preview.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets_data/columns_input.dart';
+import 'package:money/widgets_data/import_transactions_list_preview.dart';
 
 /// use for free style text to transaction import
 class ImportTransactionsPanel extends StatefulWidget {

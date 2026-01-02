@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data.dart';
-import 'package:money/models/fields/field_filters.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/views/dialog/dialog_mutate_money_object.dart';

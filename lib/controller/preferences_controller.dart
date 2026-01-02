@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:money/constants.dart';
 import 'package:money/data/data_access.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -237,7 +237,7 @@ class PreferenceController extends GetxController {
   Future<void> loadDefaults() async {
     mru.value = _preferences!.getStringList(settingKeyMRU) ?? <String>[];
 
-    // Side Panel Expaned/Collapsed
+    // Side Panel Expanded/Collapsed
     _isSidePanelExpanded.value = getBool(settingKeySidePanelExpanded, false);
 
     // Side Panel Height

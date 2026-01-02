@@ -2,7 +2,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/money_widget.dart';
+import 'package:money/widgets_data/money_widget.dart';
 
 export 'package:money/models/money_object.dart';
 

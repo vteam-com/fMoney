@@ -1,5 +1,5 @@
+import 'package:money/fields/default_values.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/models/fields/default_values.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/my_text_input.dart';
 

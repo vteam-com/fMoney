@@ -7,9 +7,9 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/my_banner.dart';
 import 'package:money/widgets/semantic_text.dart';
+import 'package:money/widgets_data/money_widget.dart';
 
 class ImportTransactionsListPreview extends StatefulWidget {
   const ImportTransactionsListPreview({

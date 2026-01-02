@@ -2,9 +2,9 @@ import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/models/money_objects/accounts/account.dart';
 import 'package:money/models/money_objects/accounts/account_types_enum.dart';
 import 'package:money/models/money_objects/accounts/accounts.dart';
@@ -28,13 +28,13 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/chart.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/label_and_amount.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/widgets_data/charts/chart.dart';
+import 'package:money/widgets_data/label_and_amount.dart';
+import 'package:money/widgets_data/money_widget.dart';
 
 /// Main view for all Accounts
 class ViewAccounts extends ViewForMoneyObjects {

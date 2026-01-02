@@ -4,7 +4,7 @@ import 'package:money/models/money_model.dart';
 import 'package:money/models/money_objects/rent_buildings/rental_pnl.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/label_and_amount.dart';
+import 'package:money/widgets_data/label_and_amount.dart';
 
 class RentalPnLCard extends StatelessWidget {
   const RentalPnLCard({required this.pnl, super.key, this.customTitle});

@@ -11,7 +11,7 @@ import 'package:money/models/money_objects/categories/category.dart';
 import 'package:money/models/money_objects/events/event.dart';
 import 'package:money/models/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
-import 'package:money/widgets/charts/my_line_chart.dart';
+import 'package:money/widgets_data/charts/my_line_chart.dart';
 
 class NetWorthChart extends StatefulWidget {
   const NetWorthChart({

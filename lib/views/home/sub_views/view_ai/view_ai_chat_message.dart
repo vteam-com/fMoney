@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:money/fields/field_filters.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/models/fields/field_filters.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 import 'package:money/widgets/gaps.dart';
@@ -154,8 +154,8 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
     }
   }
 
-  void _showPromptPopup(final Map<String, dynamic> jsonAsTextpayloadSentToOllama) {
-    final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextpayloadSentToOllama);
+  void _showPromptPopup(final Map<String, dynamic> jsonAsTextPayloadSentToOllama) {
+    final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextPayloadSentToOllama);
 
     showDialog<void>(
       context: context,

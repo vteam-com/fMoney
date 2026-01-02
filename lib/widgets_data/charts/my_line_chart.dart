@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/chart_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/chart.dart';
+import 'package:money/widgets_data/charts/chart.dart';
 
 class MyLineChart extends StatelessWidget {
   const MyLineChart({

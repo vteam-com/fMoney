@@ -9,8 +9,8 @@ import 'package:money/models/money_objects/transactions/transaction.dart';
 import 'package:money/views/dialog/confirmation_dialog.dart';
 import 'package:money/views/dialog/picker_panel.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
-import 'package:money/widgets/import_transactions_list_preview.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets_data/import_transactions_list_preview.dart';
 
 class ImportData {
   List<ImportEntry> entries = <ImportEntry>[];

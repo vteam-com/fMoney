@@ -10,7 +10,7 @@ import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_payees/merge_payees.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/chart.dart';
+import 'package:money/widgets_data/charts/chart.dart';
 
 class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});
