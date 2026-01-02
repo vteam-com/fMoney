@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/misc_widgets.dart';
 
 Widget mySegmentSelector({
+  required BuildContext context,
   required List<ButtonSegment<int>> segments,
   required final int selectedId,
 
   /// returns the new selected segment ID
   required void Function(int) onSelectionChanged,
   final Axis direction = Axis.horizontal,
-  final bool? showSelectedIcon = true,
+  final bool? showSelectedIcon,
 }) {
+  final bool shouldShowSelectedIcon = showSelectedIcon ?? context.isWidthLarge;
+
   if (direction == Axis.horizontal) {
     return SegmentedButton<int>(
       style: const ButtonStyle(
@@ -18,7 +21,7 @@ Widget mySegmentSelector({
       ),
 
       // only show the checkMark for larger devices
-      showSelectedIcon: ThemeController.to.isDeviceWidthLarge.value,
+      showSelectedIcon: shouldShowSelectedIcon,
       segments: segments,
       selected: <int>{selectedId},
       onSelectionChanged: (final Set<int> newSelection) {
@@ -36,15 +39,15 @@ Widget mySegmentSelector({
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> states) {
               if (isSelected) {
-                return ThemeController.to.themeData.colorScheme.primaryContainer;
+                return Theme.of(context).colorScheme.primaryContainer;
               }
               return Colors.transparent;
             }),
             foregroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> states) {
               if (isSelected) {
-                return ThemeController.to.themeData.colorScheme.onPrimaryContainer;
+                return Theme.of(context).colorScheme.onPrimaryContainer;
               }
-              return ThemeController.to.themeData.colorScheme.onSurface;
+              return Theme.of(context).colorScheme.onSurface;
             }),
             visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             padding: const WidgetStatePropertyAll<EdgeInsetsGeometry?>(

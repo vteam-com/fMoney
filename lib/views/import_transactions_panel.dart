@@ -221,6 +221,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     }
 
     return mySegmentSelector(
+      context: context,
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: 0,
@@ -293,6 +294,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
   Widget _buildChoiceOfDebitVsCredit() {
     return mySegmentSelector(
+      context: context,
       segments: const <ButtonSegment<int>>[
         ButtonSegment<int>(value: 0, label: Text('Credit')),
         ButtonSegment<int>(value: 1, label: Text('Debit')),

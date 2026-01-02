@@ -54,6 +54,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
 
   Widget buildChoice() {
     return mySegmentSelector(
+      context: context,
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: TransactionFlavor.payee.index,

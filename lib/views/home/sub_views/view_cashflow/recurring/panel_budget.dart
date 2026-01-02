@@ -153,6 +153,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           child: headerText(context, widget.title, large: true),
         ),
         mySegmentSelector(
+          context: context,
           segments: <ButtonSegment<int>>[
             ButtonSegment<int>(
               value: BudgetViewAs.list.index,

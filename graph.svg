@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="no"?>
-<svg width="9240" height="8950" viewBox="0 0 9240 8950" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<svg width="9240" height="9030" viewBox="0 0 9240 9030" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
   <style>
     .layerRectangle {
       stroke: black;
@@ -116,7 +116,7 @@
   <rect width="100%" height="100%" fill="white"/>
   <g transform="translate(50, 50)">
     <g id='Node_'>
-      <rect x="4" y="4" width="9132" height="8842" rx="2" ry="2" class="nodeFolder"/>
+      <rect x="4" y="4" width="9132" height="8922" rx="2" ry="2" class="nodeFolder"/>
       <g id='Node_views'>
         <rect x="1664" y="2879" width="5812" height="3922" rx="2" ry="2" class="nodeFolder"/>
         <g id='Node_welcome'>
@@ -1039,46 +1039,46 @@
         </g>
       </g>
       <g id='Node_helpers'>
-        <rect x="3656.5" y="8429" width="1227" height="382" rx="2" ry="2" class="nodeFolder"/>
+        <rect x="3956.5" y="8429" width="1227" height="382" rx="2" ry="2" class="nodeFolder"/>
         <g id='Node_color_helper.dart'>
-          <rect x="3674" y="8464" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-        </g>
-        <g id='Node_json_helper.dart'>
           <rect x="3974" y="8464" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_accumulator.dart'>
+        <g id='Node_json_helper.dart'>
           <rect x="4274" y="8464" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_file_systems.dart'>
+        <g id='Node_accumulator.dart'>
           <rect x="4574" y="8464" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_list_helper.dart'>
-          <rect x="3974" y="8544" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <g id='Node_file_systems.dart'>
+          <rect x="4874" y="8464" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_ranges.dart'>
+        <g id='Node_list_helper.dart'>
           <rect x="4274" y="8544" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_string_helper.dart'>
-          <rect x="3974" y="8624" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <g id='Node_ranges.dart'>
+          <rect x="4574" y="8544" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_pairs.dart'>
+        <g id='Node_string_helper.dart'>
           <rect x="4274" y="8624" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_misc_helpers.dart'>
-          <rect x="3824" y="8704" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <g id='Node_pairs.dart'>
+          <rect x="4574" y="8624" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_date_helper.dart'>
+        <g id='Node_misc_helpers.dart'>
           <rect x="4124" y="8704" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_chart_helper.dart'>
+        <g id='Node_date_helper.dart'>
           <rect x="4424" y="8704" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        </g>
+        <g id='Node_chart_helper.dart'>
+          <rect x="4724" y="8704" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
       </g>
       <g id='Node_constants.dart'>
-        <rect x="4891.5" y="8429" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="4274" y="8819" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_application_bindings.dart'>
-        <rect x="5191.5" y="8429" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="4574" y="8819" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
     </g>
     <g id='Edges'>
@@ -1846,11 +1846,6 @@ preferences_controller.dart</title>
         <title>my_nav_bar.dart
 ⬇
 preferences_controller.dart</title>
-      </path>
-      <path d="M2485 7900 C 2658 5300,4267 5300, 4440 2700" fill="none" class="lineOrange">
-        <title>my_segment.dart
-⬇
-theme_controller.dart</title>
       </path>
       <path d="M2027.5 4095 C 2150.5 2247,3029.5 2248, 3152.5 400" fill="none" class="lineOrange">
         <title>net_worth_chart.dart
@@ -6714,7 +6709,7 @@ zoom.dart</title>
           </g>
           <g>
             <circle cx="4440" cy="2700" r="10" fill="blue"/>
-            <text x="4440" y="2700" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+            <text x="4440" y="2700" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
             <title>1 /controller/zoom.dart
 2 /main.dart
 3 /views/home/sub_views/adaptive_view/adaptable_view_with_list.dart
@@ -6722,7 +6717,6 @@ zoom.dart</title>
 5 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
 6 /views/home/sub_views/view_cashflow/sankey_panel.dart
 7 /views/side_panel/side_panel_header.dart
-8 /widgets/my_segment.dart
 ⬇
 theme_controller.dart</title>
           </g>
@@ -7610,8 +7604,8 @@ text_title.dart</title>
             <text x="2485" y="7900" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>my_segment.dart
 ⬇
-1 /controller/theme_controller.dart
-2 /widgets/gaps.dart</title>
+1 /widgets/gaps.dart
+2 /widgets/misc_widgets.dart</title>
           </g>
           <g>
             <circle cx="2225" cy="7860" r="10" fill="blue"/>
@@ -8048,7 +8042,7 @@ gaps.dart</title>
           </g>
           <g>
             <circle cx="4140" cy="8170" r="10" fill="blue"/>
-            <text x="4140" y="8170" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">26</text>
+            <text x="4140" y="8170" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">27</text>
             <title>1 /fields/field.dart
 2 /main.dart
 3 /views/dialog/dialog.dart
@@ -8073,8 +8067,9 @@ gaps.dart</title>
 22 /widgets/columns/input_values.dart
 23 /widgets/currency_label.dart
 24 /widgets/currency_label.dart
-25 /widgets_data/footer_widgets.dart
+25 /widgets/my_segment.dart
 26 /widgets_data/footer_widgets.dart
+27 /widgets_data/footer_widgets.dart
 ⬇
 misc_widgets.dart</title>
           </g>
@@ -8329,15 +8324,15 @@ xlsx_header_row_selector_dialog.dart</title>
       <g id='Counters_helpers'>
         <g id='Counters_color_helper.dart'>
           <g>
-            <circle cx="3950" cy="8520" r="10" fill="green"/>
-            <text x="3950" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4250" cy="8520" r="10" fill="green"/>
+            <text x="4250" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>color_helper.dart
 ⬇
 1 /helpers/list_helper.dart</title>
           </g>
           <g>
-            <circle cx="3690" cy="8480" r="10" fill="blue"/>
-            <text x="3690" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">51</text>
+            <circle cx="3990" cy="8480" r="10" fill="blue"/>
+            <text x="3990" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">51</text>
             <title>1 /models/money_objects/categories/category.dart
 2 /views/dialog/dialog.dart
 3 /views/dialog/picker_panel.dart
@@ -8395,16 +8390,16 @@ color_helper.dart</title>
         </g>
         <g id='Counters_json_helper.dart'>
           <g>
-            <circle cx="4250" cy="8520" r="10" fill="green"/>
-            <text x="4250" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4550" cy="8520" r="10" fill="green"/>
+            <text x="4550" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>json_helper.dart
 ⬇
 1 /helpers/misc_helpers.dart
 2 /helpers/string_helper.dart</title>
           </g>
           <g>
-            <circle cx="3990" cy="8480" r="10" fill="blue"/>
-            <text x="3990" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">21</text>
+            <circle cx="4290" cy="8480" r="10" fill="blue"/>
+            <text x="4290" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">21</text>
             <title>1 /controller/preferences_controller.dart
 2 /data/data.dart
 3 /data/data.dart
@@ -8432,16 +8427,16 @@ json_helper.dart</title>
         </g>
         <g id='Counters_accumulator.dart'>
           <g>
-            <circle cx="4550" cy="8520" r="10" fill="green"/>
-            <text x="4550" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4850" cy="8520" r="10" fill="green"/>
+            <text x="4850" y="8520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>accumulator.dart
 ⬇
 1 /helpers/misc_helpers.dart
 2 /helpers/ranges.dart</title>
           </g>
           <g>
-            <circle cx="4290" cy="8480" r="10" fill="blue"/>
-            <text x="4290" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+            <circle cx="4590" cy="8480" r="10" fill="blue"/>
+            <text x="4590" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
             <title>1 /models/money_objects/accounts/accounts.dart
 2 /models/money_objects/transactions/transactions.dart
 3 /views/home/sub_views/adaptive_view/adaptive_list/footer_accumulators.dart
@@ -8456,8 +8451,8 @@ accumulator.dart</title>
         </g>
         <g id='Counters_file_systems.dart'>
           <g>
-            <circle cx="4590" cy="8480" r="10" fill="blue"/>
-            <text x="4590" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <circle cx="4890" cy="8480" r="10" fill="blue"/>
+            <text x="4890" y="8480" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
             <title>1 /controller/data_controller.dart
 2 /data/data.dart
 3 /views/home/sub_views/mru_dropdown.dart
@@ -8467,8 +8462,8 @@ file_systems.dart</title>
         </g>
         <g id='Counters_list_helper.dart'>
           <g>
-            <circle cx="4250" cy="8600" r="10" fill="green"/>
-            <text x="4250" y="8600" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <circle cx="4550" cy="8600" r="10" fill="green"/>
+            <text x="4550" y="8600" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
             <title>list_helper.dart
 ⬇
 1 /helpers/pairs.dart
@@ -8476,8 +8471,8 @@ file_systems.dart</title>
 3 /helpers/string_helper.dart</title>
           </g>
           <g>
-            <circle cx="3990" cy="8560" r="10" fill="blue"/>
-            <text x="3990" y="8560" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">33</text>
+            <circle cx="4290" cy="8560" r="10" fill="blue"/>
+            <text x="4290" y="8560" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">33</text>
             <title>1 /controller/theme_controller.dart
 2 /data/data_simulator.dart
 3 /data/value_parser.dart
@@ -8517,8 +8512,8 @@ list_helper.dart</title>
         </g>
         <g id='Counters_ranges.dart'>
           <g>
-            <circle cx="4550" cy="8600" r="10" fill="green"/>
-            <text x="4550" y="8600" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <circle cx="4850" cy="8600" r="10" fill="green"/>
+            <text x="4850" y="8600" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
             <title>ranges.dart
 ⬇
 1 /helpers/date_helper.dart
@@ -8527,8 +8522,8 @@ list_helper.dart</title>
 4 /helpers/string_helper.dart</title>
           </g>
           <g>
-            <circle cx="4290" cy="8560" r="10" fill="blue"/>
-            <text x="4290" y="8560" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
+            <circle cx="4590" cy="8560" r="10" fill="blue"/>
+            <text x="4590" y="8560" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
             <title>1 /data/data.dart
 2 /data/value_parser.dart
 3 /fields/field_filter.dart
@@ -8557,15 +8552,15 @@ ranges.dart</title>
         </g>
         <g id='Counters_string_helper.dart'>
           <g>
-            <circle cx="4250" cy="8680" r="10" fill="green"/>
-            <text x="4250" y="8680" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4550" cy="8680" r="10" fill="green"/>
+            <text x="4550" y="8680" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>string_helper.dart
 ⬇
 1 /helpers/misc_helpers.dart</title>
           </g>
           <g>
-            <circle cx="3990" cy="8640" r="10" fill="blue"/>
-            <text x="3990" y="8640" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
+            <circle cx="4290" cy="8640" r="10" fill="blue"/>
+            <text x="4290" y="8640" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
             <title>1 /data/data_simulator.dart
 2 /fields/field.dart
 3 /helpers/json_helper.dart
@@ -8607,8 +8602,8 @@ string_helper.dart</title>
         </g>
         <g id='Counters_pairs.dart'>
           <g>
-            <circle cx="4290" cy="8640" r="10" fill="blue"/>
-            <text x="4290" y="8640" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4590" cy="8640" r="10" fill="blue"/>
+            <text x="4590" y="8640" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /helpers/list_helper.dart
 2 /helpers/list_helper.dart
 ⬇
@@ -8617,8 +8612,8 @@ pairs.dart</title>
         </g>
         <g id='Counters_misc_helpers.dart'>
           <g>
-            <circle cx="3840" cy="8720" r="10" fill="blue"/>
-            <text x="3840" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">38</text>
+            <circle cx="4140" cy="8720" r="10" fill="blue"/>
+            <text x="4140" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">38</text>
             <title>1 /controller/data_controller.dart
 2 /controller/theme_controller.dart
 3 /data/data.dart
@@ -8663,8 +8658,8 @@ misc_helpers.dart</title>
         </g>
         <g id='Counters_date_helper.dart'>
           <g>
-            <circle cx="4140" cy="8720" r="10" fill="blue"/>
-            <text x="4140" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
+            <circle cx="4440" cy="8720" r="10" fill="blue"/>
+            <text x="4440" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
             <title>1 /data/data_simulator.dart
 2 /data/get_stock_from_cache_or_backend.dart
 3 /fields/field.dart
@@ -8695,8 +8690,8 @@ date_helper.dart</title>
         </g>
         <g id='Counters_chart_helper.dart'>
           <g>
-            <circle cx="4440" cy="8720" r="10" fill="blue"/>
-            <text x="4440" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4740" cy="8720" r="10" fill="blue"/>
+            <text x="4740" y="8720" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /widgets_data/charts/my_line_chart.dart
 ⬇
 chart_helper.dart</title>
@@ -8705,8 +8700,8 @@ chart_helper.dart</title>
       </g>
       <g id='Counters_constants.dart'>
         <g>
-          <circle cx="4907.5" cy="8445" r="10" fill="blue"/>
-          <text x="4907.5" y="8445" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">32</text>
+          <circle cx="4290" cy="8835" r="10" fill="blue"/>
+          <text x="4290" y="8835" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">32</text>
           <title>1 /controller/preferences_controller.dart
 2 /controller/theme_controller.dart
 3 /controller/zoom.dart
@@ -8745,8 +8740,8 @@ constants.dart</title>
       </g>
       <g id='Counters_application_bindings.dart'>
         <g>
-          <circle cx="5207.5" cy="8445" r="10" fill="blue"/>
-          <text x="5207.5" y="8445" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="4590" cy="8835" r="10" fill="blue"/>
+          <text x="4590" y="8835" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>1 /main.dart
 ⬇
 application_bindings.dart</title>
@@ -9678,46 +9673,46 @@ application_bindings.dart</title>
         </g>
       </g>
       <g id='Labels_helpers'>
-        <text class="folderName" x="3662.5" y="8435">helpers</text>
+        <text class="folderName" x="3962.5" y="8435">helpers</text>
         <g id='Labels_color_helper.dart'>
-          <text class="nodeName" x="3820" y="8500" font-size="120%">color_helper.dart</text>
+          <text class="nodeName" x="4120" y="8500" font-size="120%">color_helper.dart</text>
         </g>
         <g id='Labels_json_helper.dart'>
-          <text class="nodeName" x="4120" y="8500" font-size="120%">json_helper.dart</text>
+          <text class="nodeName" x="4420" y="8500" font-size="120%">json_helper.dart</text>
         </g>
         <g id='Labels_accumulator.dart'>
-          <text class="nodeName" x="4420" y="8500" font-size="120%">accumulator.dart</text>
+          <text class="nodeName" x="4720" y="8500" font-size="120%">accumulator.dart</text>
         </g>
         <g id='Labels_file_systems.dart'>
-          <text class="nodeName" x="4720" y="8500" font-size="120%">file_systems.dart</text>
+          <text class="nodeName" x="5020" y="8500" font-size="120%">file_systems.dart</text>
         </g>
         <g id='Labels_list_helper.dart'>
-          <text class="nodeName" x="4120" y="8580" font-size="120%">list_helper.dart</text>
+          <text class="nodeName" x="4420" y="8580" font-size="120%">list_helper.dart</text>
         </g>
         <g id='Labels_ranges.dart'>
-          <text class="nodeName" x="4420" y="8580" font-size="120%">ranges.dart</text>
+          <text class="nodeName" x="4720" y="8580" font-size="120%">ranges.dart</text>
         </g>
         <g id='Labels_string_helper.dart'>
-          <text class="nodeName" x="4120" y="8660" font-size="120%">string_helper.dart</text>
+          <text class="nodeName" x="4420" y="8660" font-size="120%">string_helper.dart</text>
         </g>
         <g id='Labels_pairs.dart'>
-          <text class="nodeName" x="4420" y="8660" font-size="120%">pairs.dart</text>
+          <text class="nodeName" x="4720" y="8660" font-size="120%">pairs.dart</text>
         </g>
         <g id='Labels_misc_helpers.dart'>
-          <text class="nodeName" x="3970" y="8740" font-size="120%">misc_helpers.dart</text>
+          <text class="nodeName" x="4270" y="8740" font-size="120%">misc_helpers.dart</text>
         </g>
         <g id='Labels_date_helper.dart'>
-          <text class="nodeName" x="4270" y="8740" font-size="120%">date_helper.dart</text>
+          <text class="nodeName" x="4570" y="8740" font-size="120%">date_helper.dart</text>
         </g>
         <g id='Labels_chart_helper.dart'>
-          <text class="nodeName" x="4570" y="8740" font-size="120%">chart_helper.dart</text>
+          <text class="nodeName" x="4870" y="8740" font-size="120%">chart_helper.dart</text>
         </g>
       </g>
       <g id='Labels_constants.dart'>
-        <text class="nodeName" x="5037.5" y="8465" font-size="120%">constants.dart</text>
+        <text class="nodeName" x="4420" y="8855" font-size="120%">constants.dart</text>
       </g>
       <g id='Labels_application_bindings.dart'>
-        <text class="nodeName" x="5337.5" y="8465" font-size="120%">application_bindings.dart</text>
+        <text class="nodeName" x="4720" y="8855" font-size="120%">application_bindings.dart</text>
       </g>
     </g>
   </g>

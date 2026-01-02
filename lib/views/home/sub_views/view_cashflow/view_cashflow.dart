@@ -188,6 +188,7 @@ class ViewCashFlowState extends ViewWidgetState {
 
   Widget _buildSelectView() {
     return mySegmentSelector(
+      context: context,
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: CashflowViewAs.sankey.index,

@@ -109,6 +109,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
   Widget _buildColumnSelection() {
     return Center(
       child: mySegmentSelector(
+        context: context,
         segments: <ButtonSegment<int>>[
           _buildSegment(0, _data[0]),
           _buildSegment(1, _data[1]),

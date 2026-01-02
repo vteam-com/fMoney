@@ -54,11 +54,11 @@ class SidePanelHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 _buildExpando(),
-                _buildViewSelections(constraints),
+                _buildViewSelections(context, constraints),
                 const Spacer(),
                 IntrinsicWidth(child: Row(children: actionButtons(true))),
                 gapMedium(),
-                _buildCurrencySelections(constraints),
+                _buildCurrencySelections(context, constraints),
               ],
             ),
           ),
@@ -67,7 +67,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildCurrencySelections(final BoxConstraints constraints) {
+  Widget _buildCurrencySelections(final BuildContext context, final BoxConstraints constraints) {
     final bool smallDevice = constraints.maxWidth < 500;
 
     // this feature is only valid for SubView [Chart|Transaction]
@@ -80,6 +80,7 @@ class SidePanelHeader extends StatelessWidget {
     }
 
     return mySegmentSelector(
+      context: context,
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: 0,
@@ -108,7 +109,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildViewSelections(final BoxConstraints constraints) {
+  Widget _buildViewSelections(final BuildContext context, final BoxConstraints constraints) {
     if (sidePanelSupport.supportedSubViews.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -116,6 +117,7 @@ class SidePanelHeader extends StatelessWidget {
     final bool smallDevice = ThemeController.to.isDeviceWidthSmall.value;
 
     return mySegmentSelector(
+      context: context,
       segments: <ButtonSegment<int>>[
         if (sidePanelSupport.supportedSubViews.contains(
           SidePanelSubViewEnum.details,
