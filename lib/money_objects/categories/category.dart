@@ -3,6 +3,7 @@ import 'package:money/data.dart';
 import 'package:money/fields/money_object.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/categories/category_types.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';

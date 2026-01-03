@@ -730,7 +730,10 @@
         </g>
       </g>
       <g id='Node_main.dart'>
-        <rect x="4424" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="4274" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      </g>
+      <g id='Node_top_bars.dart'>
+        <rect x="4574" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_app_intents.dart'>
         <rect x="4424" y="119" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -832,36 +835,33 @@
         </g>
       </g>
       <g id='Node_widgets_data'>
-        <rect x="3339" y="6819" width="2462" height="372" rx="2" ry="2" class="nodeFolder"/>
+        <rect x="3489" y="6819" width="2162" height="372" rx="2" ry="2" class="nodeFolder"/>
         <g id='Node_charts'>
-          <rect x="3356.5" y="6854" width="627" height="222" rx="2" ry="2" class="nodeFolder"/>
+          <rect x="3506.5" y="6854" width="627" height="222" rx="2" ry="2" class="nodeFolder"/>
           <g id='Node_my_line_chart.dart'>
-            <rect x="3374" y="6889" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+            <rect x="3524" y="6889" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_chart_event.dart'>
-            <rect x="3674" y="6889" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+            <rect x="3824" y="6889" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_chart.dart'>
-            <rect x="3524" y="6969" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+            <rect x="3674" y="6969" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
         </g>
         <g id='Node_import_transactions_list_preview.dart'>
-          <rect x="3991.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="4141.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_footer_widgets.dart'>
-          <rect x="4291.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="4441.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_distribution_bar.dart'>
-          <rect x="4591.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="4741.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_label_and_amount.dart'>
-          <rect x="4891.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="5041.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_columns_input.dart'>
-          <rect x="5191.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-        </g>
-        <g id='Node_top_bars.dart'>
-          <rect x="5491.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="5341.5" y="6854" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_money_widget.dart'>
           <rect x="4424" y="7084" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -920,22 +920,22 @@
         <g id='Node_quantity_widget.dart'>
           <rect x="3409" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_currency_label.dart'>
+        <g id='Node_color_picker.dart'>
           <rect x="3709" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_message_box.dart'>
+        <g id='Node_currency_label.dart'>
           <rect x="4009" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_mini_timeline_twelve_months.dart'>
+        <g id='Node_message_box.dart'>
           <rect x="4309" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_circle.dart'>
+        <g id='Node_mini_timeline_twelve_months.dart'>
           <rect x="4609" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_color_palette.dart'>
+        <g id='Node_circle.dart'>
           <rect x="4909" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_color_picker.dart'>
+        <g id='Node_color_palette.dart'>
           <rect x="5209" y="7314" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_filter_input.dart'>
@@ -1033,49 +1033,49 @@
         <rect x="4424" y="7199" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_helpers'>
-        <rect x="3656.5" y="7899" width="1227" height="382" rx="2" ry="2" class="nodeFolder"/>
+        <rect x="3506.5" y="7899" width="1527" height="382" rx="2" ry="2" class="nodeFolder"/>
         <g id='Node_color_helper.dart'>
           <rect x="3674" y="7934" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_json_helper.dart'>
+        <g id='Node_list_helper.dart'>
           <rect x="3974" y="7934" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_accumulator.dart'>
+        <g id='Node_json_helper.dart'>
           <rect x="4274" y="7934" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_file_systems.dart'>
+        <g id='Node_accumulator.dart'>
           <rect x="4574" y="7934" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_list_helper.dart'>
-          <rect x="3974" y="8014" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-        </g>
         <g id='Node_ranges.dart'>
-          <rect x="4274" y="8014" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="4124" y="8014" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_string_helper.dart'>
-          <rect x="3974" y="8094" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-        </g>
-        <g id='Node_pairs.dart'>
-          <rect x="4274" y="8094" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="4124" y="8094" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_misc_helpers.dart'>
-          <rect x="3824" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="3524" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_date_helper.dart'>
+          <rect x="3824" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        </g>
+        <g id='Node_pairs.dart'>
           <rect x="4124" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_chart_helper.dart'>
+        <g id='Node_file_systems.dart'>
           <rect x="4424" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        </g>
+        <g id='Node_chart_helper.dart'>
+          <rect x="4724" y="8174" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
       </g>
       <g id='Node_money_model.dart'>
         <rect x="8826.5" y="7279" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_constants.dart'>
-        <rect x="4891.5" y="7899" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="5041.5" y="7899" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_application_bindings.dart'>
-        <rect x="5191.5" y="7899" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="5341.5" y="7899" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
     </g>
     <g id='Edges'>
@@ -1169,12 +1169,12 @@ category.dart</title>
 ⬇
 data.dart</title>
       </path>
-      <path d="M3800 7025 C 3830 6562,4410 6563, 4440 6100" fill="none" class="lineOrange">
+      <path d="M3950 7025 C 3980 6562,4410 6563, 4440 6100" fill="none" class="lineOrange">
         <title>chart.dart
 ⬇
 currency.dart</title>
       </path>
-      <path d="M5467.5 6910 C 5477.5 6775,3980 6775, 3990 6640" fill="none" class="lineOrange">
+      <path d="M5617.5 6910 C 5627.5 6775,3980 6775, 3990 6640" fill="none" class="lineOrange">
         <title>columns_input.dart
 ⬇
 value_parser.dart</title>
@@ -1424,7 +1424,7 @@ mutation_types.dart</title>
 ⬇
 transaction.dart</title>
       </path>
-      <path d="M4867.5 6910 C 5085.5 3637,2934.5 3638, 3152.5 365" fill="none" class="lineOrange">
+      <path d="M5017.5 6910 C 5235.5 3637,2934.5 3638, 3152.5 365" fill="none" class="lineOrange">
         <title>distribution_bar.dart
 ⬇
 category.dart</title>
@@ -1469,12 +1469,12 @@ field_filters.dart</title>
 ⬇
 money_objects.dart</title>
       </path>
-      <path d="M4567.5 6910 C 4594.5 6505,4413 6505, 4440 6100" fill="none" class="lineOrange">
+      <path d="M4717.5 6910 C 4744.5 6505,4413 6505, 4440 6100" fill="none" class="lineOrange">
         <title>footer_widgets.dart
 ⬇
 currency.dart</title>
       </path>
-      <path d="M4567.5 6910 C 4586.5 6620,4721 6620, 4740 6330" fill="none" class="lineOrange">
+      <path d="M4717.5 6910 C 4736.5 6620,4721 6620, 4740 6330" fill="none" class="lineOrange">
         <title>footer_widgets.dart
 ⬇
 field_type.dart</title>
@@ -1604,7 +1604,7 @@ import_transactions_panel.dart</title>
 ⬇
 transaction.dart</title>
       </path>
-      <path d="M4267.5 6910 C 4277.5 6775,3980 6775, 3990 6640" fill="none" class="lineOrange">
+      <path d="M4417.5 6910 C 4427.5 6775,3980 6775, 3990 6640" fill="none" class="lineOrange">
         <title>import_transactions_list_preview.dart
 ⬇
 value_parser.dart</title>
@@ -2118,11 +2118,6 @@ security.dart</title>
         <title>suggestion_approval.dart
 ⬇
 mutation_types.dart</title>
-      </path>
-      <path d="M5767.5 6910 C 5985.5 3637,2934.5 3638, 3152.5 365" fill="none" class="lineOrange">
-        <title>top_bars.dart
-⬇
-category.dart</title>
       </path>
       <path d="M3147.5 5050 C 3272.5 3162,3847.5 3163, 3972.5 1275" fill="none" class="lineOrange">
         <title>transaction_timeline_chart.dart
@@ -2922,7 +2917,7 @@ recurring_expenses.dart</title>
 1 /controller/preferences_controller.dart
 2 /data.dart
 3 /helpers/color_helper.dart
-4 /helpers/list_helper.dart
+4 /helpers/pairs.dart
 5 /helpers/ranges.dart
 6 /money_objects/transactions/transactions.dart
 7 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
@@ -2945,16 +2940,17 @@ recurring_card.dart</title>
                 <g id='Counters_recurring_payment.dart'>
                   <g>
                     <circle cx="1560" cy="3520" r="10" fill="green"/>
-                    <text x="1560" y="3520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
+                    <text x="1560" y="3520" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
                     <title>recurring_payment.dart
 ⬇
 1 /data.dart
 2 /helpers/accumulator.dart
 3 /helpers/list_helper.dart
-4 /helpers/ranges.dart
-5 /money_objects/categories/category.dart
-6 /money_objects/transactions/transaction.dart
-7 /widgets_data/distribution_bar.dart</title>
+4 /helpers/pairs.dart
+5 /helpers/ranges.dart
+6 /money_objects/categories/category.dart
+7 /money_objects/transactions/transaction.dart
+8 /widgets_data/distribution_bar.dart</title>
                   </g>
                   <g>
                     <circle cx="1300" cy="3480" r="10" fill="blue"/>
@@ -5176,47 +5172,48 @@ dialog_full_screen.dart</title>
           <g id='Counters_category.dart'>
             <g>
               <circle cx="3412.5" cy="405" r="10" fill="green"/>
-              <text x="3412.5" y="405" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">17</text>
+              <text x="3412.5" y="405" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">18</text>
               <title>category.dart
 ⬇
 1 /data.dart
 2 /fields/money_object.dart
 3 /helpers/color_helper.dart
 4 /helpers/list_helper.dart
-5 /helpers/string_helper.dart
-6 /money_objects/categories/category_types.dart
+5 /helpers/pairs.dart
+6 /helpers/string_helper.dart
 7 /money_objects/categories/category_types.dart
-8 /views/adaptive_list/list_item_card.dart
-9 /views/home/sub_views/view_categories/picker_category_type.dart
-10 /widgets/circle.dart
-11 /widgets/color_picker.dart
-12 /widgets/gaps.dart
-13 /widgets/my_text_input.dart
-14 /widgets/rectangle.dart
-15 /widgets/token_text.dart
-16 /widgets_data/money_widget.dart
-17 /widgets_data/money_widget.dart</title>
+8 /money_objects/categories/category_types.dart
+9 /views/adaptive_list/list_item_card.dart
+10 /views/home/sub_views/view_categories/picker_category_type.dart
+11 /widgets/circle.dart
+12 /widgets/color_picker.dart
+13 /widgets/gaps.dart
+14 /widgets/my_text_input.dart
+15 /widgets/rectangle.dart
+16 /widgets/token_text.dart
+17 /widgets_data/money_widget.dart
+18 /widgets_data/money_widget.dart</title>
             </g>
             <g>
               <circle cx="3152.5" cy="365" r="10" fill="blue"/>
               <text x="3152.5" y="365" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">17</text>
               <title>1 /data/data_simulator.dart
 2 /money_objects/categories/categories.dart
-3 /views/home/sub_views/adaptive_view/menu_entry.dart
-4 /views/home/sub_views/view_cashflow/net_worth_chart.dart
-5 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
-6 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
-7 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
-8 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
-9 /views/home/sub_views/view_cashflow/sankey_panel.dart
-10 /views/home/sub_views/view_cashflow/view_cashflow.dart
-11 /views/home/sub_views/view_categories/picker_category.dart
+3 /top_bars.dart
+4 /views/home/sub_views/adaptive_view/menu_entry.dart
+5 /views/home/sub_views/view_cashflow/net_worth_chart.dart
+6 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
+7 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
+8 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
+9 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
+10 /views/home/sub_views/view_cashflow/sankey_panel.dart
+11 /views/home/sub_views/view_cashflow/view_cashflow.dart
 12 /views/home/sub_views/view_categories/picker_category.dart
-13 /views/home/sub_views/view_categories/view_categories.dart
-14 /views/home/sub_views/view_events/view_events.dart
-15 /views/home/sub_views/view_transactions/view_transactions.dart
-16 /widgets_data/distribution_bar.dart
-17 /widgets_data/top_bars.dart
+13 /views/home/sub_views/view_categories/picker_category.dart
+14 /views/home/sub_views/view_categories/view_categories.dart
+15 /views/home/sub_views/view_events/view_events.dart
+16 /views/home/sub_views/view_transactions/view_transactions.dart
+17 /widgets_data/distribution_bar.dart
 ⬇
 category.dart</title>
             </g>
@@ -5681,8 +5678,8 @@ loan_payment.dart</title>
 1 /data.dart
 2 /fields/money_objects.dart
 3 /helpers/accumulator.dart
-4 /helpers/list_helper.dart
-5 /helpers/misc_helpers.dart
+4 /helpers/misc_helpers.dart
+5 /helpers/pairs.dart
 6 /helpers/ranges.dart
 7 /money_objects/accounts/account.dart
 8 /money_objects/events/event.dart
@@ -6294,8 +6291,8 @@ mutation_types.dart</title>
       </g>
       <g id='Counters_main.dart'>
         <g>
-          <circle cx="4700" cy="95" r="10" fill="green"/>
-          <text x="4700" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">18</text>
+          <circle cx="4550" cy="95" r="10" fill="green"/>
+          <text x="4550" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">18</text>
           <title>main.dart
 ⬇
 1 /app_intents.dart
@@ -6316,6 +6313,19 @@ mutation_types.dart</title>
 16 /views/welcome/welcome_routes.dart
 17 /widgets/misc_widgets.dart
 18 /widgets/snack_bar.dart</title>
+        </g>
+      </g>
+      <g id='Counters_top_bars.dart'>
+        <g>
+          <circle cx="4850" cy="95" r="10" fill="green"/>
+          <text x="4850" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+          <title>top_bars.dart
+⬇
+1 /data.dart
+2 /helpers/pairs.dart
+3 /money_model.dart
+4 /money_objects/categories/category.dart
+5 /widgets/circle.dart</title>
         </g>
       </g>
       <g id='Counters_app_intents.dart'>
@@ -7001,8 +7011,8 @@ database_sql.dart</title>
         <g id='Counters_charts'>
           <g id='Counters_my_line_chart.dart'>
             <g>
-              <circle cx="3650" cy="6945" r="10" fill="green"/>
-              <text x="3650" y="6945" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+              <circle cx="3800" cy="6945" r="10" fill="green"/>
+              <text x="3800" y="6945" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
               <title>my_line_chart.dart
 ⬇
 1 /helpers/chart_helper.dart
@@ -7011,8 +7021,8 @@ database_sql.dart</title>
 4 /widgets_data/charts/chart.dart</title>
             </g>
             <g>
-              <circle cx="3390" cy="6905" r="10" fill="blue"/>
-              <text x="3390" y="6905" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+              <circle cx="3540" cy="6905" r="10" fill="blue"/>
+              <text x="3540" y="6905" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
               <title>1 /views/home/sub_views/view_cashflow/net_worth_chart.dart
 2 /views/home/sub_views/view_events/view_events.dart
 3 /views/home/sub_views/view_investments/view_investments.dart
@@ -7023,16 +7033,16 @@ my_line_chart.dart</title>
           </g>
           <g id='Counters_chart_event.dart'>
             <g>
-              <circle cx="3950" cy="6945" r="10" fill="green"/>
-              <text x="3950" y="6945" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+              <circle cx="4100" cy="6945" r="10" fill="green"/>
+              <text x="4100" y="6945" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
               <title>chart_event.dart
 ⬇
 1 /helpers/ranges.dart
 2 /helpers/ranges.dart</title>
             </g>
             <g>
-              <circle cx="3690" cy="6905" r="10" fill="blue"/>
-              <text x="3690" y="6905" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+              <circle cx="3840" cy="6905" r="10" fill="blue"/>
+              <text x="3840" y="6905" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
               <title>1 /views/home/sub_views/view_cashflow/net_worth_chart.dart
 2 /views/home/sub_views/view_events/view_events.dart
 3 /views/home/sub_views/view_stocks/stock_chart.dart
@@ -7043,8 +7053,8 @@ chart_event.dart</title>
           </g>
           <g id='Counters_chart.dart'>
             <g>
-              <circle cx="3800" cy="7025" r="10" fill="green"/>
-              <text x="3800" y="7025" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
+              <circle cx="3950" cy="7025" r="10" fill="green"/>
+              <text x="3950" y="7025" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
               <title>chart.dart
 ⬇
 1 /constants.dart
@@ -7055,8 +7065,8 @@ chart_event.dart</title>
 6 /widgets/theme_custom.dart</title>
             </g>
             <g>
-              <circle cx="3540" cy="6985" r="10" fill="blue"/>
-              <text x="3540" y="6985" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
+              <circle cx="3690" cy="6985" r="10" fill="blue"/>
+              <text x="3690" y="6985" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
               <title>1 /money_objects/transactions/transactions.dart
 2 /views/adaptive_list/transactions/transaction_timeline_chart.dart
 3 /views/home/sub_views/view_accounts/view_accounts.dart
@@ -7073,15 +7083,15 @@ chart.dart</title>
         </g>
         <g id='Counters_import_transactions_list_preview.dart'>
           <g>
-            <circle cx="4267.5" cy="6910" r="10" fill="green"/>
-            <text x="4267.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
+            <circle cx="4417.5" cy="6910" r="10" fill="green"/>
+            <text x="4417.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
             <title>import_transactions_list_preview.dart
 ⬇
 1 /data.dart
 2 /data/value_parser.dart
 3 /helpers/color_helper.dart
-4 /helpers/list_helper.dart
-5 /helpers/misc_helpers.dart
+4 /helpers/misc_helpers.dart
+5 /helpers/pairs.dart
 6 /helpers/string_helper.dart
 7 /money_model.dart
 8 /widgets/box.dart
@@ -7092,8 +7102,8 @@ chart.dart</title>
 13 /widgets_data/money_widget.dart</title>
           </g>
           <g>
-            <circle cx="4007.5" cy="6870" r="10" fill="blue"/>
-            <text x="4007.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4157.5" cy="6870" r="10" fill="blue"/>
+            <text x="4157.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /views/import/import_data.dart
 2 /views/import_transactions_panel.dart
 ⬇
@@ -7102,8 +7112,8 @@ import_transactions_list_preview.dart</title>
         </g>
         <g id='Counters_footer_widgets.dart'>
           <g>
-            <circle cx="4567.5" cy="6910" r="10" fill="green"/>
-            <text x="4567.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+            <circle cx="4717.5" cy="6910" r="10" fill="green"/>
+            <text x="4717.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
             <title>footer_widgets.dart
 ⬇
 1 /currencies/currency.dart
@@ -7116,8 +7126,8 @@ import_transactions_list_preview.dart</title>
 8 /widgets/theme_custom.dart</title>
           </g>
           <g>
-            <circle cx="4307.5" cy="6870" r="10" fill="blue"/>
-            <text x="4307.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4457.5" cy="6870" r="10" fill="blue"/>
+            <text x="4457.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /views/adaptive_list/footer_accumulators.dart
 ⬇
 footer_widgets.dart</title>
@@ -7125,8 +7135,8 @@ footer_widgets.dart</title>
         </g>
         <g id='Counters_distribution_bar.dart'>
           <g>
-            <circle cx="4867.5" cy="6910" r="10" fill="green"/>
-            <text x="4867.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <circle cx="5017.5" cy="6910" r="10" fill="green"/>
+            <text x="5017.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
             <title>distribution_bar.dart
 ⬇
 1 /helpers/color_helper.dart
@@ -7135,8 +7145,8 @@ footer_widgets.dart</title>
 4 /widgets/gaps.dart</title>
           </g>
           <g>
-            <circle cx="4607.5" cy="6870" r="10" fill="blue"/>
-            <text x="4607.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4757.5" cy="6870" r="10" fill="blue"/>
+            <text x="4757.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
 2 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
 ⬇
@@ -7145,8 +7155,8 @@ distribution_bar.dart</title>
         </g>
         <g id='Counters_label_and_amount.dart'>
           <g>
-            <circle cx="5167.5" cy="6910" r="10" fill="green"/>
-            <text x="5167.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <circle cx="5317.5" cy="6910" r="10" fill="green"/>
+            <text x="5317.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
             <title>label_and_amount.dart
 ⬇
 1 /helpers/color_helper.dart
@@ -7155,8 +7165,8 @@ distribution_bar.dart</title>
 4 /widgets_data/money_widget.dart</title>
           </g>
           <g>
-            <circle cx="4907.5" cy="6870" r="10" fill="blue"/>
-            <text x="4907.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="5057.5" cy="6870" r="10" fill="blue"/>
+            <text x="5057.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /views/home/sub_views/view_accounts/view_accounts.dart
 2 /views/home/sub_views/view_rentals/rental_pnl_card.dart
 ⬇
@@ -7165,8 +7175,8 @@ label_and_amount.dart</title>
         </g>
         <g id='Counters_columns_input.dart'>
           <g>
-            <circle cx="5467.5" cy="6910" r="10" fill="green"/>
-            <text x="5467.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <circle cx="5617.5" cy="6910" r="10" fill="green"/>
+            <text x="5617.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
             <title>columns_input.dart
 ⬇
 1 /constants.dart
@@ -7175,24 +7185,11 @@ label_and_amount.dart</title>
 4 /widgets/columns/input_values.dart</title>
           </g>
           <g>
-            <circle cx="5207.5" cy="6870" r="10" fill="blue"/>
-            <text x="5207.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="5357.5" cy="6870" r="10" fill="blue"/>
+            <text x="5357.5" y="6870" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /views/import_transactions_panel.dart
 ⬇
 columns_input.dart</title>
-          </g>
-        </g>
-        <g id='Counters_top_bars.dart'>
-          <g>
-            <circle cx="5767.5" cy="6910" r="10" fill="green"/>
-            <text x="5767.5" y="6910" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
-            <title>top_bars.dart
-⬇
-1 /data.dart
-2 /helpers/list_helper.dart
-3 /money_model.dart
-4 /money_objects/categories/category.dart
-5 /widgets/circle.dart</title>
           </g>
         </g>
         <g id='Counters_money_widget.dart'>
@@ -7490,7 +7487,7 @@ token_text.dart</title>
             <title>mini_timeline_daily.dart
 ⬇
 1 /helpers/date_helper.dart
-2 /helpers/list_helper.dart
+2 /helpers/pairs.dart
 3 /helpers/string_helper.dart
 4 /widgets/theme_custom.dart
 5 /widgets/vertical_line_with_tooltip.dart</title>
@@ -7522,10 +7519,28 @@ mini_timeline_daily.dart</title>
 quantity_widget.dart</title>
           </g>
         </g>
-        <g id='Counters_currency_label.dart'>
+        <g id='Counters_color_picker.dart'>
           <g>
             <circle cx="3985" cy="7370" r="10" fill="green"/>
             <text x="3985" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <title>color_picker.dart
+⬇
+1 /helpers/color_helper.dart
+2 /helpers/list_helper.dart
+3 /helpers/pairs.dart</title>
+          </g>
+          <g>
+            <circle cx="3725" cy="7330" r="10" fill="blue"/>
+            <text x="3725" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <title>1 /money_objects/categories/category.dart
+⬇
+color_picker.dart</title>
+          </g>
+        </g>
+        <g id='Counters_currency_label.dart'>
+          <g>
+            <circle cx="4285" cy="7370" r="10" fill="green"/>
+            <text x="4285" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
             <title>currency_label.dart
 ⬇
 1 /widgets/gaps.dart
@@ -7533,8 +7548,8 @@ quantity_widget.dart</title>
 3 /widgets/misc_widgets.dart</title>
           </g>
           <g>
-            <circle cx="3725" cy="7330" r="10" fill="blue"/>
-            <text x="3725" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4025" cy="7330" r="10" fill="blue"/>
+            <text x="4025" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /currencies/currency.dart
 ⬇
 currency_label.dart</title>
@@ -7542,15 +7557,15 @@ currency_label.dart</title>
         </g>
         <g id='Counters_message_box.dart'>
           <g>
-            <circle cx="4285" cy="7370" r="10" fill="green"/>
-            <text x="4285" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4585" cy="7370" r="10" fill="green"/>
+            <text x="4585" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>message_box.dart
 ⬇
 1 /widgets/gaps.dart</title>
           </g>
           <g>
-            <circle cx="4025" cy="7330" r="10" fill="blue"/>
-            <text x="4025" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <circle cx="4325" cy="7330" r="10" fill="blue"/>
+            <text x="4325" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
             <title>1 /views/dialog/dialog_mutate_money_object.dart
 2 /views/home/sub_views/adaptive_view/view_money_objects.dart
 3 /views/import/import_transactions_from_text.dart
@@ -7560,17 +7575,17 @@ message_box.dart</title>
         </g>
         <g id='Counters_mini_timeline_twelve_months.dart'>
           <g>
-            <circle cx="4585" cy="7370" r="10" fill="green"/>
-            <text x="4585" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <circle cx="4885" cy="7370" r="10" fill="green"/>
+            <text x="4885" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
             <title>mini_timeline_twelve_months.dart
 ⬇
-1 /helpers/list_helper.dart
+1 /helpers/pairs.dart
 2 /helpers/string_helper.dart
 3 /widgets/vertical_line_with_tooltip.dart</title>
           </g>
           <g>
-            <circle cx="4325" cy="7330" r="10" fill="blue"/>
-            <text x="4325" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4625" cy="7330" r="10" fill="blue"/>
+            <text x="4625" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
 ⬇
 mini_timeline_twelve_months.dart</title>
@@ -7578,53 +7593,36 @@ mini_timeline_twelve_months.dart</title>
         </g>
         <g id='Counters_circle.dart'>
           <g>
-            <circle cx="4885" cy="7370" r="10" fill="green"/>
-            <text x="4885" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="5185" cy="7370" r="10" fill="green"/>
+            <text x="5185" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>circle.dart
 ⬇
 1 /widgets/rectangle.dart</title>
           </g>
           <g>
-            <circle cx="4625" cy="7330" r="10" fill="blue"/>
-            <text x="4625" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4925" cy="7330" r="10" fill="blue"/>
+            <text x="4925" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /money_objects/categories/category.dart
-2 /widgets_data/top_bars.dart
+2 /top_bars.dart
 ⬇
 circle.dart</title>
           </g>
         </g>
         <g id='Counters_color_palette.dart'>
           <g>
-            <circle cx="5185" cy="7370" r="10" fill="green"/>
-            <text x="5185" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="5485" cy="7370" r="10" fill="green"/>
+            <text x="5485" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>color_palette.dart
 ⬇
 1 /helpers/color_helper.dart
 2 /widgets/gaps.dart</title>
           </g>
           <g>
-            <circle cx="4925" cy="7330" r="10" fill="blue"/>
-            <text x="4925" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="5225" cy="7330" r="10" fill="blue"/>
+            <text x="5225" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /views/home/sub_views/app_bar.dart
 ⬇
 color_palette.dart</title>
-          </g>
-        </g>
-        <g id='Counters_color_picker.dart'>
-          <g>
-            <circle cx="5485" cy="7370" r="10" fill="green"/>
-            <text x="5485" y="7370" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-            <title>color_picker.dart
-⬇
-1 /helpers/color_helper.dart
-2 /helpers/list_helper.dart</title>
-          </g>
-          <g>
-            <circle cx="5225" cy="7330" r="10" fill="blue"/>
-            <text x="5225" y="7330" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-            <title>1 /money_objects/categories/category.dart
-⬇
-color_picker.dart</title>
           </g>
         </g>
         <g id='Counters_filter_input.dart'>
@@ -8189,53 +8187,53 @@ xlsx_header_row_selector_dialog.dart</title>
 24 /money_objects/stock_splits/stock_split.dart
 25 /money_objects/transactions/transaction.dart
 26 /money_objects/transactions/transactions.dart
-27 /views/adaptive_list/transactions/list_view_transactions.dart
-28 /views/adaptive_list/transactions/popup_transaction_splits.dart
-29 /views/dialog/dialog_mutate_money_object.dart
-30 /views/home/sub_views/adaptive_view/menu_entry.dart
-31 /views/home/sub_views/adaptive_view/view_money_objects.dart
-32 /views/home/sub_views/app_title.dart
+27 /top_bars.dart
+28 /views/adaptive_list/transactions/list_view_transactions.dart
+29 /views/adaptive_list/transactions/popup_transaction_splits.dart
+30 /views/dialog/dialog_mutate_money_object.dart
+31 /views/home/sub_views/adaptive_view/menu_entry.dart
+32 /views/home/sub_views/adaptive_view/view_money_objects.dart
 33 /views/home/sub_views/app_title.dart
-34 /views/home/sub_views/view_accounts/picker_account.dart
-35 /views/home/sub_views/view_accounts/view_accounts.dart
-36 /views/home/sub_views/view_ai/view_ai.dart
-37 /views/home/sub_views/view_ai/view_ai_instructions.dart
-38 /views/home/sub_views/view_aliases/view_aliases.dart
-39 /views/home/sub_views/view_cashflow/net_worth_chart.dart
-40 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
-41 /views/home/sub_views/view_cashflow/recurring/panel_recurring.dart
-42 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
-43 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
-44 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
-45 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
-46 /views/home/sub_views/view_cashflow/sankey_panel.dart
-47 /views/home/sub_views/view_cashflow/view_cashflow.dart
-48 /views/home/sub_views/view_categories/merge_categories.dart
-49 /views/home/sub_views/view_categories/picker_category.dart
-50 /views/home/sub_views/view_categories/view_categories.dart
-51 /views/home/sub_views/view_events/view_events.dart
-52 /views/home/sub_views/view_investments/view_investments.dart
-53 /views/home/sub_views/view_payees/merge_payees.dart
-54 /views/home/sub_views/view_payees/picker_payee.dart
-55 /views/home/sub_views/view_payees/view_payees.dart
-56 /views/home/sub_views/view_rentals/view_rentals.dart
-57 /views/home/sub_views/view_rentals/view_rentals_side_panel.dart
-58 /views/home/sub_views/view_stocks/stock_chart.dart
-59 /views/home/sub_views/view_stocks/view_stocks.dart
-60 /views/home/sub_views/view_transactions/dialog_mutate_split.dart
-61 /views/home/sub_views/view_transactions/dialog_mutate_transaction.dart
-62 /views/home/sub_views/view_transactions/suggestion_approval.dart
-63 /views/home/sub_views/view_transactions/view_transactions.dart
-64 /views/home/sub_views/view_transfers/view_transfers.dart
-65 /views/import/import_data.dart
-66 /views/import/import_investment.dart
-67 /views/import/import_qfx.dart
-68 /views/import/import_transactions_from_text.dart
-69 /views/import/import_trasnsfer.dart
-70 /views/pending_changes/pending_changes_dialog.dart
-71 /views/settings/settings_page.dart
-72 /widgets_data/import_transactions_list_preview.dart
-73 /widgets_data/top_bars.dart
+34 /views/home/sub_views/app_title.dart
+35 /views/home/sub_views/view_accounts/picker_account.dart
+36 /views/home/sub_views/view_accounts/view_accounts.dart
+37 /views/home/sub_views/view_ai/view_ai.dart
+38 /views/home/sub_views/view_ai/view_ai_instructions.dart
+39 /views/home/sub_views/view_aliases/view_aliases.dart
+40 /views/home/sub_views/view_cashflow/net_worth_chart.dart
+41 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
+42 /views/home/sub_views/view_cashflow/recurring/panel_recurring.dart
+43 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
+44 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
+45 /views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart
+46 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
+47 /views/home/sub_views/view_cashflow/sankey_panel.dart
+48 /views/home/sub_views/view_cashflow/view_cashflow.dart
+49 /views/home/sub_views/view_categories/merge_categories.dart
+50 /views/home/sub_views/view_categories/picker_category.dart
+51 /views/home/sub_views/view_categories/view_categories.dart
+52 /views/home/sub_views/view_events/view_events.dart
+53 /views/home/sub_views/view_investments/view_investments.dart
+54 /views/home/sub_views/view_payees/merge_payees.dart
+55 /views/home/sub_views/view_payees/picker_payee.dart
+56 /views/home/sub_views/view_payees/view_payees.dart
+57 /views/home/sub_views/view_rentals/view_rentals.dart
+58 /views/home/sub_views/view_rentals/view_rentals_side_panel.dart
+59 /views/home/sub_views/view_stocks/stock_chart.dart
+60 /views/home/sub_views/view_stocks/view_stocks.dart
+61 /views/home/sub_views/view_transactions/dialog_mutate_split.dart
+62 /views/home/sub_views/view_transactions/dialog_mutate_transaction.dart
+63 /views/home/sub_views/view_transactions/suggestion_approval.dart
+64 /views/home/sub_views/view_transactions/view_transactions.dart
+65 /views/home/sub_views/view_transfers/view_transfers.dart
+66 /views/import/import_data.dart
+67 /views/import/import_investment.dart
+68 /views/import/import_qfx.dart
+69 /views/import/import_transactions_from_text.dart
+70 /views/import/import_trasnsfer.dart
+71 /views/pending_changes/pending_changes_dialog.dart
+72 /views/settings/settings_page.dart
+73 /widgets_data/import_transactions_list_preview.dart
 ⬇
 data.dart</title>
         </g>
@@ -8247,7 +8245,7 @@ data.dart</title>
             <text x="3950" y="7990" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>color_helper.dart
 ⬇
-1 /helpers/list_helper.dart</title>
+1 /helpers/pairs.dart</title>
           </g>
           <g>
             <circle cx="3690" cy="7950" r="10" fill="blue"/>
@@ -8307,18 +8305,60 @@ data.dart</title>
 color_helper.dart</title>
           </g>
         </g>
-        <g id='Counters_json_helper.dart'>
+        <g id='Counters_list_helper.dart'>
           <g>
             <circle cx="4250" cy="7990" r="10" fill="green"/>
             <text x="4250" y="7990" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <title>list_helper.dart
+⬇
+1 /helpers/pairs.dart
+2 /helpers/string_helper.dart</title>
+          </g>
+          <g>
+            <circle cx="3990" cy="7950" r="10" fill="blue"/>
+            <text x="3990" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">26</text>
+            <title>1 /controller/theme_controller.dart
+2 /data/data_simulator.dart
+3 /data/value_parser.dart
+4 /fields/field.dart
+5 /fields/money_objects.dart
+6 /money_objects/accounts/account.dart
+7 /money_objects/accounts/accounts.dart
+8 /money_objects/categories/categories.dart
+9 /money_objects/categories/category.dart
+10 /money_objects/events/event.dart
+11 /money_objects/investments/investment.dart
+12 /money_objects/loan_payments/loan_payments.dart
+13 /money_objects/payees/payees.dart
+14 /money_objects/securities/security.dart
+15 /money_objects/transactions/transaction.dart
+16 /views/adaptive_list/list_view.dart
+17 /views/home/sub_views/view_ai/ollama_service.dart
+18 /views/home/sub_views/view_cashflow/net_worth_chart.dart
+19 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
+20 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
+21 /views/home/sub_views/view_investments/view_investments.dart
+22 /views/home/sub_views/view_payees/merge_payees.dart
+23 /views/home/sub_views/view_payees/picker_payee.dart
+24 /views/home/sub_views/view_stocks/picker_security_type.dart
+25 /views/home/sub_views/view_transactions/view_transactions.dart
+26 /widgets/color_picker.dart
+⬇
+list_helper.dart</title>
+          </g>
+        </g>
+        <g id='Counters_json_helper.dart'>
+          <g>
+            <circle cx="4550" cy="7990" r="10" fill="green"/>
+            <text x="4550" y="7990" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>json_helper.dart
 ⬇
 1 /helpers/misc_helpers.dart
 2 /helpers/string_helper.dart</title>
           </g>
           <g>
-            <circle cx="3990" cy="7950" r="10" fill="blue"/>
-            <text x="3990" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
+            <circle cx="4290" cy="7950" r="10" fill="blue"/>
+            <text x="4290" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
             <title>1 /controller/preferences_controller.dart
 2 /currencies/currencies.dart
 3 /currencies/currency.dart
@@ -8347,16 +8387,16 @@ json_helper.dart</title>
         </g>
         <g id='Counters_accumulator.dart'>
           <g>
-            <circle cx="4550" cy="7990" r="10" fill="green"/>
-            <text x="4550" y="7990" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+            <circle cx="4850" cy="7990" r="10" fill="green"/>
+            <text x="4850" y="7990" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>accumulator.dart
 ⬇
 1 /helpers/misc_helpers.dart
 2 /helpers/ranges.dart</title>
           </g>
           <g>
-            <circle cx="4290" cy="7950" r="10" fill="blue"/>
-            <text x="4290" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+            <circle cx="4590" cy="7950" r="10" fill="blue"/>
+            <text x="4590" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
             <title>1 /money_objects/accounts/accounts.dart
 2 /money_objects/transactions/transactions.dart
 3 /views/adaptive_list/footer_accumulators.dart
@@ -8369,71 +8409,10 @@ json_helper.dart</title>
 accumulator.dart</title>
           </g>
         </g>
-        <g id='Counters_file_systems.dart'>
-          <g>
-            <circle cx="4590" cy="7950" r="10" fill="blue"/>
-            <text x="4590" y="7950" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-            <title>1 /controller/data_controller.dart
-2 /data.dart
-3 /views/home/sub_views/mru_dropdown.dart
-⬇
-file_systems.dart</title>
-          </g>
-        </g>
-        <g id='Counters_list_helper.dart'>
-          <g>
-            <circle cx="4250" cy="8070" r="10" fill="green"/>
-            <text x="4250" y="8070" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-            <title>list_helper.dart
-⬇
-1 /helpers/pairs.dart
-2 /helpers/pairs.dart
-3 /helpers/string_helper.dart</title>
-          </g>
-          <g>
-            <circle cx="3990" cy="8030" r="10" fill="blue"/>
-            <text x="3990" y="8030" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">33</text>
-            <title>1 /controller/theme_controller.dart
-2 /data/data_simulator.dart
-3 /data/value_parser.dart
-4 /fields/field.dart
-5 /fields/money_objects.dart
-6 /helpers/color_helper.dart
-7 /money_objects/accounts/account.dart
-8 /money_objects/accounts/accounts.dart
-9 /money_objects/categories/categories.dart
-10 /money_objects/categories/category.dart
-11 /money_objects/events/event.dart
-12 /money_objects/investments/investment.dart
-13 /money_objects/loan_payments/loan_payments.dart
-14 /money_objects/payees/payees.dart
-15 /money_objects/securities/security.dart
-16 /money_objects/transactions/transaction.dart
-17 /money_objects/transactions/transactions.dart
-18 /views/adaptive_list/list_view.dart
-19 /views/home/sub_views/view_ai/ollama_service.dart
-20 /views/home/sub_views/view_cashflow/net_worth_chart.dart
-21 /views/home/sub_views/view_cashflow/recurring/panel_budget.dart
-22 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
-23 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
-24 /views/home/sub_views/view_investments/view_investments.dart
-25 /views/home/sub_views/view_payees/merge_payees.dart
-26 /views/home/sub_views/view_payees/picker_payee.dart
-27 /views/home/sub_views/view_stocks/picker_security_type.dart
-28 /views/home/sub_views/view_transactions/view_transactions.dart
-29 /widgets/color_picker.dart
-30 /widgets/mini_timeline_daily.dart
-31 /widgets/mini_timeline_twelve_months.dart
-32 /widgets_data/import_transactions_list_preview.dart
-33 /widgets_data/top_bars.dart
-⬇
-list_helper.dart</title>
-          </g>
-        </g>
         <g id='Counters_ranges.dart'>
           <g>
-            <circle cx="4550" cy="8070" r="10" fill="green"/>
-            <text x="4550" y="8070" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <circle cx="4400" cy="8070" r="10" fill="green"/>
+            <text x="4400" y="8070" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
             <title>ranges.dart
 ⬇
 1 /helpers/date_helper.dart
@@ -8442,8 +8421,8 @@ list_helper.dart</title>
 4 /helpers/string_helper.dart</title>
           </g>
           <g>
-            <circle cx="4290" cy="8030" r="10" fill="blue"/>
-            <text x="4290" y="8030" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
+            <circle cx="4140" cy="8030" r="10" fill="blue"/>
+            <text x="4140" y="8030" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
             <title>1 /data.dart
 2 /data/value_parser.dart
 3 /fields/field_filter.dart
@@ -8472,15 +8451,15 @@ ranges.dart</title>
         </g>
         <g id='Counters_string_helper.dart'>
           <g>
-            <circle cx="4250" cy="8150" r="10" fill="green"/>
-            <text x="4250" y="8150" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <circle cx="4400" cy="8150" r="10" fill="green"/>
+            <text x="4400" y="8150" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>string_helper.dart
 ⬇
 1 /helpers/misc_helpers.dart</title>
           </g>
           <g>
-            <circle cx="3990" cy="8110" r="10" fill="blue"/>
-            <text x="3990" y="8110" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
+            <circle cx="4140" cy="8110" r="10" fill="blue"/>
+            <text x="4140" y="8110" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
             <title>1 /currencies/currency.dart
 2 /data/data_simulator.dart
 3 /fields/field.dart
@@ -8520,20 +8499,10 @@ ranges.dart</title>
 string_helper.dart</title>
           </g>
         </g>
-        <g id='Counters_pairs.dart'>
-          <g>
-            <circle cx="4290" cy="8110" r="10" fill="blue"/>
-            <text x="4290" y="8110" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-            <title>1 /helpers/list_helper.dart
-2 /helpers/list_helper.dart
-⬇
-pairs.dart</title>
-          </g>
-        </g>
         <g id='Counters_misc_helpers.dart'>
           <g>
-            <circle cx="3840" cy="8190" r="10" fill="blue"/>
-            <text x="3840" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">38</text>
+            <circle cx="3540" cy="8190" r="10" fill="blue"/>
+            <text x="3540" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">38</text>
             <title>1 /controller/data_controller.dart
 2 /controller/theme_controller.dart
 3 /currencies/currency.dart
@@ -8578,8 +8547,8 @@ misc_helpers.dart</title>
         </g>
         <g id='Counters_date_helper.dart'>
           <g>
-            <circle cx="4140" cy="8190" r="10" fill="blue"/>
-            <text x="4140" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
+            <circle cx="3840" cy="8190" r="10" fill="blue"/>
+            <text x="3840" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
             <title>1 /data/data_simulator.dart
 2 /data/get_stock_from_cache_or_backend.dart
 3 /fields/field.dart
@@ -8608,10 +8577,40 @@ misc_helpers.dart</title>
 date_helper.dart</title>
           </g>
         </g>
-        <g id='Counters_chart_helper.dart'>
+        <g id='Counters_pairs.dart'>
+          <g>
+            <circle cx="4140" cy="8190" r="10" fill="blue"/>
+            <text x="4140" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">11</text>
+            <title>1 /helpers/color_helper.dart
+2 /helpers/list_helper.dart
+3 /money_objects/categories/category.dart
+4 /money_objects/transactions/transactions.dart
+5 /top_bars.dart
+6 /views/home/sub_views/view_cashflow/recurring/recurring_card.dart
+7 /views/home/sub_views/view_cashflow/recurring/recurring_payment.dart
+8 /widgets/color_picker.dart
+9 /widgets/mini_timeline_daily.dart
+10 /widgets/mini_timeline_twelve_months.dart
+11 /widgets_data/import_transactions_list_preview.dart
+⬇
+pairs.dart</title>
+          </g>
+        </g>
+        <g id='Counters_file_systems.dart'>
           <g>
             <circle cx="4440" cy="8190" r="10" fill="blue"/>
-            <text x="4440" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+            <text x="4440" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <title>1 /controller/data_controller.dart
+2 /data.dart
+3 /views/home/sub_views/mru_dropdown.dart
+⬇
+file_systems.dart</title>
+          </g>
+        </g>
+        <g id='Counters_chart_helper.dart'>
+          <g>
+            <circle cx="4740" cy="8190" r="10" fill="blue"/>
+            <text x="4740" y="8190" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>1 /widgets_data/charts/my_line_chart.dart
 ⬇
 chart_helper.dart</title>
@@ -8635,22 +8634,22 @@ chart_helper.dart</title>
           <title>1 /data/value_parser.dart
 2 /fields/default_values.dart
 3 /fields/field.dart
-4 /views/home/sub_views/app_title.dart
-5 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
-6 /views/home/sub_views/view_rentals/rental_pnl_card.dart
-7 /widgets_data/distribution_bar.dart
-8 /widgets_data/import_transactions_list_preview.dart
-9 /widgets_data/label_and_amount.dart
-10 /widgets_data/money_widget.dart
-11 /widgets_data/top_bars.dart
+4 /top_bars.dart
+5 /views/home/sub_views/app_title.dart
+6 /views/home/sub_views/view_cashflow/recurring/panel_trend.dart
+7 /views/home/sub_views/view_rentals/rental_pnl_card.dart
+8 /widgets_data/distribution_bar.dart
+9 /widgets_data/import_transactions_list_preview.dart
+10 /widgets_data/label_and_amount.dart
+11 /widgets_data/money_widget.dart
 ⬇
 money_model.dart</title>
         </g>
       </g>
       <g id='Counters_constants.dart'>
         <g>
-          <circle cx="4907.5" cy="7915" r="10" fill="blue"/>
-          <text x="4907.5" y="7915" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">41</text>
+          <circle cx="5057.5" cy="7915" r="10" fill="blue"/>
+          <text x="5057.5" y="7915" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">41</text>
           <title>1 /controller/data_controller.dart
 2 /controller/preferences_controller.dart
 3 /controller/theme_controller.dart
@@ -8698,8 +8697,8 @@ constants.dart</title>
       </g>
       <g id='Counters_application_bindings.dart'>
         <g>
-          <circle cx="5207.5" cy="7915" r="10" fill="blue"/>
-          <text x="5207.5" y="7915" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="5357.5" cy="7915" r="10" fill="blue"/>
+          <text x="5357.5" y="7915" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>1 /main.dart
 ⬇
 application_bindings.dart</title>
@@ -9322,7 +9321,10 @@ application_bindings.dart</title>
         </g>
       </g>
       <g id='Labels_main.dart'>
-        <text class="nodeName" x="4570" y="75" font-size="120%">main.dart</text>
+        <text class="nodeName" x="4420" y="75" font-size="120%">main.dart</text>
+      </g>
+      <g id='Labels_top_bars.dart'>
+        <text class="nodeName" x="4720" y="75" font-size="120%">top_bars.dart</text>
       </g>
       <g id='Labels_app_intents.dart'>
         <text class="nodeName" x="4570" y="155" font-size="120%">app_intents.dart</text>
@@ -9424,36 +9426,33 @@ application_bindings.dart</title>
         </g>
       </g>
       <g id='Labels_widgets_data'>
-        <text class="folderName" x="3345" y="6825">widgets_data</text>
+        <text class="folderName" x="3495" y="6825">widgets_data</text>
         <g id='Labels_charts'>
-          <text class="folderName" x="3362.5" y="6860">charts</text>
+          <text class="folderName" x="3512.5" y="6860">charts</text>
           <g id='Labels_my_line_chart.dart'>
-            <text class="nodeName" x="3520" y="6925" font-size="120%">my_line_chart.dart</text>
+            <text class="nodeName" x="3670" y="6925" font-size="120%">my_line_chart.dart</text>
           </g>
           <g id='Labels_chart_event.dart'>
-            <text class="nodeName" x="3820" y="6925" font-size="120%">chart_event.dart</text>
+            <text class="nodeName" x="3970" y="6925" font-size="120%">chart_event.dart</text>
           </g>
           <g id='Labels_chart.dart'>
-            <text class="nodeName" x="3670" y="7005" font-size="120%">chart.dart</text>
+            <text class="nodeName" x="3820" y="7005" font-size="120%">chart.dart</text>
           </g>
         </g>
         <g id='Labels_import_transactions_list_preview.dart'>
-          <text class="nodeName" x="4137.5" y="6890" font-size="90%">import_transactions_list_preview.dart</text>
+          <text class="nodeName" x="4287.5" y="6890" font-size="90%">import_transactions_list_preview.dart</text>
         </g>
         <g id='Labels_footer_widgets.dart'>
-          <text class="nodeName" x="4437.5" y="6890" font-size="120%">footer_widgets.dart</text>
+          <text class="nodeName" x="4587.5" y="6890" font-size="120%">footer_widgets.dart</text>
         </g>
         <g id='Labels_distribution_bar.dart'>
-          <text class="nodeName" x="4737.5" y="6890" font-size="120%">distribution_bar.dart</text>
+          <text class="nodeName" x="4887.5" y="6890" font-size="120%">distribution_bar.dart</text>
         </g>
         <g id='Labels_label_and_amount.dart'>
-          <text class="nodeName" x="5037.5" y="6890" font-size="120%">label_and_amount.dart</text>
+          <text class="nodeName" x="5187.5" y="6890" font-size="120%">label_and_amount.dart</text>
         </g>
         <g id='Labels_columns_input.dart'>
-          <text class="nodeName" x="5337.5" y="6890" font-size="120%">columns_input.dart</text>
-        </g>
-        <g id='Labels_top_bars.dart'>
-          <text class="nodeName" x="5637.5" y="6890" font-size="120%">top_bars.dart</text>
+          <text class="nodeName" x="5487.5" y="6890" font-size="120%">columns_input.dart</text>
         </g>
         <g id='Labels_money_widget.dart'>
           <text class="nodeName" x="4570" y="7120" font-size="120%">money_widget.dart</text>
@@ -9512,23 +9511,23 @@ application_bindings.dart</title>
         <g id='Labels_quantity_widget.dart'>
           <text class="nodeName" x="3555" y="7350" font-size="120%">quantity_widget.dart</text>
         </g>
+        <g id='Labels_color_picker.dart'>
+          <text class="nodeName" x="3855" y="7350" font-size="120%">color_picker.dart</text>
+        </g>
         <g id='Labels_currency_label.dart'>
-          <text class="nodeName" x="3855" y="7350" font-size="120%">currency_label.dart</text>
+          <text class="nodeName" x="4155" y="7350" font-size="120%">currency_label.dart</text>
         </g>
         <g id='Labels_message_box.dart'>
-          <text class="nodeName" x="4155" y="7350" font-size="120%">message_box.dart</text>
+          <text class="nodeName" x="4455" y="7350" font-size="120%">message_box.dart</text>
         </g>
         <g id='Labels_mini_timeline_twelve_months.dart'>
-          <text class="nodeName" x="4455" y="7350" font-size="90%">mini_timeline_twelve_months.dart</text>
+          <text class="nodeName" x="4755" y="7350" font-size="90%">mini_timeline_twelve_months.dart</text>
         </g>
         <g id='Labels_circle.dart'>
-          <text class="nodeName" x="4755" y="7350" font-size="120%">circle.dart</text>
+          <text class="nodeName" x="5055" y="7350" font-size="120%">circle.dart</text>
         </g>
         <g id='Labels_color_palette.dart'>
-          <text class="nodeName" x="5055" y="7350" font-size="120%">color_palette.dart</text>
-        </g>
-        <g id='Labels_color_picker.dart'>
-          <text class="nodeName" x="5355" y="7350" font-size="120%">color_picker.dart</text>
+          <text class="nodeName" x="5355" y="7350" font-size="120%">color_palette.dart</text>
         </g>
         <g id='Labels_filter_input.dart'>
           <text class="nodeName" x="5655" y="7350" font-size="120%">filter_input.dart</text>
@@ -9625,49 +9624,49 @@ application_bindings.dart</title>
         <text class="nodeName" x="4570" y="7235" font-size="120%">data.dart</text>
       </g>
       <g id='Labels_helpers'>
-        <text class="folderName" x="3662.5" y="7905">helpers</text>
+        <text class="folderName" x="3512.5" y="7905">helpers</text>
         <g id='Labels_color_helper.dart'>
           <text class="nodeName" x="3820" y="7970" font-size="120%">color_helper.dart</text>
         </g>
+        <g id='Labels_list_helper.dart'>
+          <text class="nodeName" x="4120" y="7970" font-size="120%">list_helper.dart</text>
+        </g>
         <g id='Labels_json_helper.dart'>
-          <text class="nodeName" x="4120" y="7970" font-size="120%">json_helper.dart</text>
+          <text class="nodeName" x="4420" y="7970" font-size="120%">json_helper.dart</text>
         </g>
         <g id='Labels_accumulator.dart'>
-          <text class="nodeName" x="4420" y="7970" font-size="120%">accumulator.dart</text>
-        </g>
-        <g id='Labels_file_systems.dart'>
-          <text class="nodeName" x="4720" y="7970" font-size="120%">file_systems.dart</text>
-        </g>
-        <g id='Labels_list_helper.dart'>
-          <text class="nodeName" x="4120" y="8050" font-size="120%">list_helper.dart</text>
+          <text class="nodeName" x="4720" y="7970" font-size="120%">accumulator.dart</text>
         </g>
         <g id='Labels_ranges.dart'>
-          <text class="nodeName" x="4420" y="8050" font-size="120%">ranges.dart</text>
+          <text class="nodeName" x="4270" y="8050" font-size="120%">ranges.dart</text>
         </g>
         <g id='Labels_string_helper.dart'>
-          <text class="nodeName" x="4120" y="8130" font-size="120%">string_helper.dart</text>
-        </g>
-        <g id='Labels_pairs.dart'>
-          <text class="nodeName" x="4420" y="8130" font-size="120%">pairs.dart</text>
+          <text class="nodeName" x="4270" y="8130" font-size="120%">string_helper.dart</text>
         </g>
         <g id='Labels_misc_helpers.dart'>
-          <text class="nodeName" x="3970" y="8210" font-size="120%">misc_helpers.dart</text>
+          <text class="nodeName" x="3670" y="8210" font-size="120%">misc_helpers.dart</text>
         </g>
         <g id='Labels_date_helper.dart'>
-          <text class="nodeName" x="4270" y="8210" font-size="120%">date_helper.dart</text>
+          <text class="nodeName" x="3970" y="8210" font-size="120%">date_helper.dart</text>
+        </g>
+        <g id='Labels_pairs.dart'>
+          <text class="nodeName" x="4270" y="8210" font-size="120%">pairs.dart</text>
+        </g>
+        <g id='Labels_file_systems.dart'>
+          <text class="nodeName" x="4570" y="8210" font-size="120%">file_systems.dart</text>
         </g>
         <g id='Labels_chart_helper.dart'>
-          <text class="nodeName" x="4570" y="8210" font-size="120%">chart_helper.dart</text>
+          <text class="nodeName" x="4870" y="8210" font-size="120%">chart_helper.dart</text>
         </g>
       </g>
       <g id='Labels_money_model.dart'>
         <text class="nodeName" x="8972.5" y="7315" font-size="120%">money_model.dart</text>
       </g>
       <g id='Labels_constants.dart'>
-        <text class="nodeName" x="5037.5" y="7935" font-size="120%">constants.dart</text>
+        <text class="nodeName" x="5187.5" y="7935" font-size="120%">constants.dart</text>
       </g>
       <g id='Labels_application_bindings.dart'>
-        <text class="nodeName" x="5337.5" y="7935" font-size="120%">application_bindings.dart</text>
+        <text class="nodeName" x="5487.5" y="7935" font-size="120%">application_bindings.dart</text>
       </g>
     </g>
   </g>
