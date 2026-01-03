@@ -11,6 +11,7 @@ import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/distribution_bar.dart';
+import 'package:money/widgets_data/money_object/money_model.dart';
 import 'package:money/widgets_data/money_object/money_widget.dart';
 
 class RecurringCard extends StatelessWidget {

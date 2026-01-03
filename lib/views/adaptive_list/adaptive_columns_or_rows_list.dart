@@ -4,6 +4,7 @@ import 'package:money/views/adaptive_list/list_item_footer.dart';
 import 'package:money/views/adaptive_list/list_item_header.dart';
 import 'package:money/views/adaptive_list/list_view.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/helpers/list_controller.dart';

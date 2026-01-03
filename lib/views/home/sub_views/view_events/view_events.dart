@@ -12,6 +12,7 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
 import 'package:money/widgets_data/data/data.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
 class ViewEvents extends ViewForMoneyObjects {

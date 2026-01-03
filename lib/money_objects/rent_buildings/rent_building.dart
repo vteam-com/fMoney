@@ -9,7 +9,7 @@ import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/currencies/currency.dart';
-import 'package:money/widgets_data/money_object/money_objects.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 import 'package:money/widgets_data/money_object/money_widget.dart';
 
 export 'package:money/helpers/ranges.dart';

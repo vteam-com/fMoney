@@ -8,7 +8,7 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/fields.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});

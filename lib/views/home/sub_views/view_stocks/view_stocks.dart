@@ -20,7 +20,6 @@ import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
-import 'package:money/widgets_data/money_object/fields.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 
 export 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';

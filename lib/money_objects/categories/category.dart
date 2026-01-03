@@ -13,7 +13,6 @@ import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/rectangle.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/fields.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';
 import 'package:money/widgets_data/money_object/money_widget.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/dialog/picker_category.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/widgets/box.dart';
