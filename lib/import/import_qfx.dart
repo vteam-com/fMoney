@@ -6,7 +6,7 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/import/import_data.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/accounts/account_types_enum.dart';
-import 'package:money/widgets_data/data/data.dart';
+import 'package:money/money_objects/data.dart';
 
 Future<bool> importQFX(
   final BuildContext context,

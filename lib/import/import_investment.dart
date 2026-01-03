@@ -2,13 +2,13 @@ import 'package:get/get.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/import/import_investment_panel.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 void showImportInvestment({InvestmentImportFields? inputData}) {
   inputData ??= InvestmentImportFields(

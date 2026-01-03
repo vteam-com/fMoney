@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/import/import_transfer_panel.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   inputData ??= ImportFieldsForTransfer(

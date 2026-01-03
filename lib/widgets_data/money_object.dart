@@ -8,16 +8,16 @@ import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/field_filters.dart';
-import 'package:money/widgets_data/money_object/field_type.dart';
-import 'package:money/widgets_data/money_object/money_model.dart';
-import 'package:money/widgets_data/money_object/money_widget.dart';
-import 'package:money/widgets_data/money_object/mutation_types.dart';
+import 'package:money/widgets_data/field_filters.dart';
+import 'package:money/widgets_data/field_type.dart';
+import 'package:money/widgets_data/money_model.dart';
+import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 // Exports
-export 'package:money/widgets_data/money_object/field_type.dart';
-export 'package:money/widgets_data/money_object/money_model.dart';
-export 'package:money/widgets_data/money_object/mutation_types.dart';
+export 'package:money/widgets_data/field_type.dart';
+export 'package:money/widgets_data/money_model.dart';
+export 'package:money/widgets_data/mutation_types.dart';
 
 dynamic defaultCallbackValue(final dynamic instance) => '';
 

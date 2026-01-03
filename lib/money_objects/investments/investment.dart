@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 class Investment extends MoneyObject {
   Investment({

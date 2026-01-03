@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_objects.dart';
+import 'package:money/widgets_data/money_objects.dart';
 
 // Exports
 export 'package:money/money_objects/securities/security.dart';

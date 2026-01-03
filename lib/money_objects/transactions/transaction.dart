@@ -8,6 +8,7 @@ import 'package:money/dialog/picker_payee_or_transfer.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/investments.dart';
@@ -19,8 +20,7 @@ import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/views/home/sub_views/view_transactions/suggestion_approval.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/currencies/currency.dart';
 
 // Exports
 export 'package:money/money_objects/transactions/transaction_types.dart';

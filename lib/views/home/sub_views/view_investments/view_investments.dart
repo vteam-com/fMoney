@@ -3,16 +3,16 @@ import 'package:money/controller/selection_controller.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/views/adaptive_list/transactions/list_view_transactions.dart';
+import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 class ViewInvestments extends ViewForMoneyObjects {
   const ViewInvestments({super.key});

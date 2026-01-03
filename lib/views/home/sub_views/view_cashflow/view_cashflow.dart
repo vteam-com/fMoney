@@ -6,6 +6,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_cashflow/net_worth_chart.dart';
@@ -17,7 +18,6 @@ import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/pick_number.dart';
 import 'package:money/widgets/years_range_selector.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 class ViewCashFlow extends ViewWidget {
   const ViewCashFlow({super.key});

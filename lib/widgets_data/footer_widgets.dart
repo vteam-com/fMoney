@@ -6,7 +6,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/field_type.dart';
+import 'package:money/widgets_data/field_type.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/widgets/misc_widgets.dart';

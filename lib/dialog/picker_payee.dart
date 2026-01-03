@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/dialog/picker_edit_box.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/payees/payee.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 Widget pickerPayee({
   required final Payee? itemSelected,

@@ -2,13 +2,13 @@ import 'package:money/dialog/picker_account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/import/import_transactions_list_preview.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets_data/columns_input.dart';
-import 'package:money/widgets_data/import_transactions_list_preview.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/currencies/currency.dart';
 import 'package:money/widgets_data/value_parser.dart';
 
 /// use for free style text to transaction import

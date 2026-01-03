@@ -2,6 +2,7 @@ import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_payment.dart';
 import 'package:money/widgets/box.dart';
@@ -9,10 +10,9 @@ import 'package:money/widgets/date_range_time_line.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
-import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/distribution_bar.dart';
-import 'package:money/widgets_data/money_object/money_model.dart';
-import 'package:money/widgets_data/money_object/money_widget.dart';
+import 'package:money/widgets_data/money_model.dart';
+import 'package:money/widgets_data/money_widget.dart';
 
 class RecurringCard extends StatelessWidget {
   const RecurringCard({

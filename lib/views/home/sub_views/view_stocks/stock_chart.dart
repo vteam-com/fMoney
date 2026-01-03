@@ -11,6 +11,8 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/money_objects/data.dart';
+import 'package:money/money_objects/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
@@ -20,8 +22,6 @@ import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/working.dart';
 import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/data/get_stock_from_cache_or_backend.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({

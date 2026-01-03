@@ -1,14 +1,14 @@
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/rent_buildings/rent_building.dart';
 import 'package:money/money_objects/rent_buildings/rental_pnl.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/views/adaptive_list/transactions/list_view_transactions.dart';
+import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets_data/charts/chart.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.
 class ViewRentalsSidePanel {

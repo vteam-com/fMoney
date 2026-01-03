@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/currency_label.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 export 'package:intl/intl.dart';
 

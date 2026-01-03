@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/import/import_data.dart';
 import 'package:money/import/import_qfx.dart';
-import 'package:money/widgets_data/data/data.dart';
+import 'package:money/money_objects/data.dart';
 
 // Mock classes for dependencies
 

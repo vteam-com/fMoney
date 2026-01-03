@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets_data/money_object/money_model.dart';
+import 'package:money/widgets_data/money_model.dart';
 
 class Distribution {
   Distribution({required this.category, required this.amount});

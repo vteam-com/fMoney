@@ -3,9 +3,9 @@
 // Imports
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/aliases/alias_types.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 // Exports
 export 'package:money/money_objects/aliases/alias_types.dart';

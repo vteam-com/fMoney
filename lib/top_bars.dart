@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:money/helpers/pairs.dart';
 import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/widgets/circle.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_model.dart';
+import 'package:money/widgets_data/money_model.dart';
 
 class BarChartWidget extends StatelessWidget {
   const BarChartWidget({

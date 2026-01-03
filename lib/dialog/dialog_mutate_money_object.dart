@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 void myShowDialogAndActionsForMoneyObject({
   required final String title,

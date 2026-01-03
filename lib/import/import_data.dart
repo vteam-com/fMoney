@@ -4,12 +4,12 @@ import 'package:money/dialog/picker_panel.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/import/import_transactions_from_text.dart';
+import 'package:money/import/import_transactions_list_preview.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/accounts/account_types_enum.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/import_transactions_list_preview.dart';
 import 'package:money/widgets_data/value_parser.dart';
 
 class ImportData {

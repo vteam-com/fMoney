@@ -1,7 +1,7 @@
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets_data/footer_widgets.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();

@@ -5,7 +5,7 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/currencies/currency.dart';
 
 class SidePanelHeader extends StatelessWidget {
   /// Constructor

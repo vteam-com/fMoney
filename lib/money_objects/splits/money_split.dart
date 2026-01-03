@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:money/dialog/picker_category.dart';
 import 'package:money/dialog/picker_panel.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/view_transactions/suggestion_approval.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object.dart';
 
 /*
   SQLite table definition

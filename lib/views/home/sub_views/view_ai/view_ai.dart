@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
@@ -13,7 +14,6 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_instructions.dart';
 import 'package:money/widgets/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 /// ViewAI - AI-Powered Financial Assistant
 ///

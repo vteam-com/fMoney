@@ -9,6 +9,7 @@ import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/accounts/account_types_enum.dart';
 import 'package:money/money_objects/aliases/alias.dart';
 import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/loan_payments/loan_payment.dart';
@@ -19,8 +20,7 @@ import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
-import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/currencies/currency.dart';
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {

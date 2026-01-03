@@ -8,6 +8,7 @@ import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/import/import_transactions_from_text.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/views/home/home_routes.dart';
 import 'package:money/views/platforms/platforms_routes.dart';
 import 'package:money/views/policies/policy_routes.dart';
@@ -16,7 +17,6 @@ import 'package:money/views/splash_page.dart';
 import 'package:money/views/welcome/welcome_page.dart';
 import 'package:money/views/welcome/welcome_routes.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets_data/data/data.dart';
 
 import 'helpers/application_bindings.dart';
 import 'widgets/misc_widgets.dart';
