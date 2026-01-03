@@ -3,10 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets_data/money_model.dart';
 import 'package:money/widgets_data/money_widget.dart';
+
+/// Callback function type for checking if a transaction already exists in the system.
+/// This allows the value_parser.dart to be decoupled from data.dart dependencies.
+typedef TransactionExistsCallback =
+    bool Function({
+      required int accountId,
+      required DateTime dateTime,
+      required double amount,
+    });
 
 class ValueQuality {
   const ValueQuality(
@@ -95,11 +103,15 @@ class ValuesQuality {
   @override
   String toString() => '$date; $description; $amount';
 
-  bool checkIfExistAlready({required final int accountId}) {
+  bool checkIfExistAlready({
+    required final int accountId,
+    required TransactionExistsCallback transactionExistsCallback,
+  }) {
     exist = isTransactionAlreadyInTheSystem(
       accountId: accountId,
       dateTime: date.asDate() ?? DateTime.now(),
       amount: amount.asAmount(),
+      transactionExistsCallback: transactionExistsCallback,
     );
     return exist;
   }
@@ -323,9 +335,13 @@ class ValuesParser {
   static void evaluateExistence({
     required final int accountId,
     required final List<ValuesQuality> values,
+    required TransactionExistsCallback transactionExistsCallback,
   }) {
     for (final ValuesQuality vq in values) {
-      vq.checkIfExistAlready(accountId: accountId);
+      vq.checkIfExistAlready(
+        accountId: accountId,
+        transactionExistsCallback: transactionExistsCallback,
+      );
     }
   }
 
@@ -375,10 +391,9 @@ bool isTransactionAlreadyInTheSystem({
   required final int accountId,
   required final DateTime dateTime,
   required final double amount,
-}) =>
-    null !=
-    Data().transactions.findExistingTransaction(
-      accountId: accountId,
-      dateRange: DateRange(min: dateTime.startOfDay, max: dateTime.endOfDay),
-      amount: amount,
-    );
+  required TransactionExistsCallback transactionExistsCallback,
+}) => transactionExistsCallback(
+  accountId: accountId,
+  dateTime: dateTime,
+  amount: amount,
+);

@@ -1,9 +1,10 @@
 import 'package:money/dialog/picker_account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/ranges.dart';
 import 'package:money/import/import_transactions_list_preview.dart';
 import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/data.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_custom.dart';
@@ -84,6 +85,18 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     ValuesParser.evaluateExistence(
       accountId: _account.uniqueId,
       values: _values,
+      transactionExistsCallback:
+          ({
+            required int accountId,
+            required DateTime dateTime,
+            required double amount,
+          }) =>
+              null !=
+              Data().transactions.findExistingTransaction(
+                accountId: accountId,
+                dateRange: DateRange(min: dateTime.startOfDay, max: dateTime.endOfDay),
+                amount: amount,
+              ),
     );
 
     return Focus(

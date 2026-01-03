@@ -14,9 +14,6 @@ import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/accounts/accounts.dart';
 import 'package:money/money_objects/aliases/aliases.dart';
 import 'package:money/money_objects/categories/categories.dart';
-import 'package:money/money_objects/data/data_access.dart';
-import 'package:money/money_objects/data/data_source.dart';
-import 'package:money/money_objects/data/database.dart';
 import 'package:money/money_objects/events/events.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/loan_payments/loan_payments.dart';
@@ -32,6 +29,9 @@ import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets_data/currencies/currencies.dart';
+import 'package:money/widgets_data/data_access.dart';
+import 'package:money/widgets_data/data_source.dart';
+import 'package:money/widgets_data/database.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
 // Exports

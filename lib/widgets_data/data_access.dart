@@ -1,4 +1,4 @@
-import 'package:money/money_objects/data/data_mutations.dart';
+import 'package:money/widgets_data/data_mutations.dart';
 import 'package:money/widgets_data/field_filters.dart';
 import 'package:money/widgets_data/money_object.dart';
 
