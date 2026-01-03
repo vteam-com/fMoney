@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'dart:math';
-
+import 'package:collection/collection.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/list_helper.dart';

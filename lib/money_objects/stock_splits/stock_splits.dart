@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/securities/security.dart';

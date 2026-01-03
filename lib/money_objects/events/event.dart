@@ -7,6 +7,7 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets_data/data/data.dart';
+import 'package:money/widgets_data/money_object/fields.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';
 
 class Event extends MoneyObject {

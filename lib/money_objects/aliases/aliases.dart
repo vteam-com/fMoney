@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:money/money_objects/aliases/alias.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/widgets_data/data/data.dart';

@@ -4,12 +4,11 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/fields.dart';
+import 'package:money/widgets_data/money_object/field.dart';
 import 'package:money/widgets_data/money_object/mutation_types.dart';
 
 // Exports
 export 'package:money/widgets_data/money_object/field.dart';
-export 'package:money/widgets_data/money_object/fields.dart';
 export 'package:money/widgets_data/money_object/mutation_types.dart';
 
 class MoneyObject {
@@ -46,11 +45,6 @@ class MoneyObject {
 
     return fieldsAsText.join('|');
   }
-
-  ///
-  /// Column 1 | Column 2 | Column 3
-  ///
-  Widget buildFieldsAsWidgetForLargeScreen(final FieldDefinitions fields) => Fields.getRowOfColumns(fields, this);
 
   ///
   /// Title       |

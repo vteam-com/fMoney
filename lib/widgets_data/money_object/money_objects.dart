@@ -10,8 +10,6 @@ import 'package:money/widgets_data/data/database.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';
 
 // Exports
-export 'package:collection/collection.dart';
-export 'package:money/widgets_data/money_object/fields.dart';
 export 'package:money/widgets_data/money_object/money_object.dart';
 
 /// Collection of MoneyObject as both List and Map

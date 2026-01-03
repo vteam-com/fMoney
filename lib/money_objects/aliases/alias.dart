@@ -6,6 +6,7 @@ import 'package:money/money_objects/aliases/alias_types.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/widgets_data/data/data.dart';
+import 'package:money/widgets_data/money_object/fields.dart';
 
 // Exports
 export 'package:money/money_objects/aliases/alias_types.dart';

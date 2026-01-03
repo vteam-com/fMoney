@@ -21,6 +21,7 @@ import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/fields.dart';
 
 export 'package:money/money_objects/transactions/transaction_types.dart';
 // Exports
