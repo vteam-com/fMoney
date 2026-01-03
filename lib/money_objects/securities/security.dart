@@ -1,4 +1,3 @@
-import 'package:money/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/investments/investment.dart';
@@ -7,6 +6,7 @@ import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/views/home/sub_views/view_stocks/picker_security_type.dart';
 import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';
 
 /*

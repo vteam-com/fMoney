@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:money/constants.dart';
+import 'package:money/helpers/constants.dart';
 
 /// If the space for rendering the widget is too small this will scale the widget to fit
 Widget scaleDown(

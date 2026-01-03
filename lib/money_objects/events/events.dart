@@ -1,5 +1,5 @@
-import 'package:money/data/data.dart';
 import 'package:money/money_objects/events/event.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 
 // Exports

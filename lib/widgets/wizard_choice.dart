@@ -1,5 +1,5 @@
-import 'package:money/constants.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 
 class WizardChoice extends StatelessWidget {
   const WizardChoice({

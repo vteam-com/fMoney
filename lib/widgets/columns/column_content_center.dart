@@ -1,9 +1,5 @@
 import 'package:money/helpers/color_helper.dart';
 
-// Exports
-export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
-
 class HeaderContentCenter extends StatelessWidget {
   const HeaderContentCenter({
     required this.text,

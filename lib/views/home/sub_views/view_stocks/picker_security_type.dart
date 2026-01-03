@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/dialog/picker_edit_box.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
-import 'package:money/views/dialog/picker_edit_box.dart';
 
 export 'package:flutter/material.dart';
 export 'package:money/money_objects/investments/investment_types.dart';

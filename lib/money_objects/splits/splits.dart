@@ -1,6 +1,6 @@
-import 'package:money/data/data.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 
 // Exports

@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -13,6 +12,7 @@ import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/loan_payments/loan_payments.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 
 class Accounts extends MoneyObjects<Account> {

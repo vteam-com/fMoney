@@ -1,4 +1,4 @@
-import 'package:money/constants.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/columns/input_values.dart';
 import 'package:money/widgets_data/value_parser.dart';

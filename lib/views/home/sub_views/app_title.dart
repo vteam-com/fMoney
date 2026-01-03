@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 import 'package:money/controller/data_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/home/sub_views/mru_dropdown.dart';
 import 'package:money/views/pending_changes/badge_pending_changes.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/reveal_content.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/money_model.dart';
 
 // Exports
-export 'package:money/data/data.dart';
+export 'package:money/widgets_data/data/data.dart';
 
 class AppTitle extends StatelessWidget {
   AppTitle({super.key}) {

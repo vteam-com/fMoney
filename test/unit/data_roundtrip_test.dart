@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/data/data.dart';
+import 'package:money/widgets_data/data/data.dart';
 
 void main() {
   // Mark todo as partially completed - basic round-trip test created

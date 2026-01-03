@@ -1,16 +1,16 @@
-import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data/data.dart';
+import 'package:money/dialog/dialog_button.dart';
+import 'package:money/helpers/list_controller.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/views/adaptive_list/transactions/list_view_transactions.dart';
 import 'package:money/views/adaptive_list/transactions/transaction_timeline_chart.dart';
-import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_payees/merge_payees.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets_data/charts/chart.dart';
+import 'package:money/widgets_data/data/data.dart';
 
 class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});

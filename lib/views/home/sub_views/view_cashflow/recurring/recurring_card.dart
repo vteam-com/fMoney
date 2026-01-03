@@ -1,5 +1,4 @@
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
@@ -10,6 +9,7 @@ import 'package:money/widgets/date_range_time_line.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/distribution_bar.dart';
 import 'package:money/widgets_data/money_object/money_widget.dart';
 

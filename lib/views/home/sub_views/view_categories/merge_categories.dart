@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
+import 'package:money/dialog/picker_category.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
-import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/money_object/mutation_types.dart';
 
 class MergeCategoriesTransactionsDialog extends StatefulWidget {

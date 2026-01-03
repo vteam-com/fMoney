@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/constants.dart';
+import 'package:money/helpers/constants.dart';
 
 import 'welcome_binding.dart';
 import 'welcome_page.dart';

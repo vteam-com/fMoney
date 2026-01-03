@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:money/constants.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/sankey/sankey_entry.dart';
 
 class ChannelPoint {

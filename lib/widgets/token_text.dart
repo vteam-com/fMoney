@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/constants.dart';
+import 'package:money/helpers/constants.dart';
 
 // ignore: must_be_immutable
 class TokenText extends StatelessWidget {

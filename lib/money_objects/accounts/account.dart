@@ -1,10 +1,10 @@
 import 'package:money/controller/preferences_controller.dart';
+import 'package:money/dialog/picker_account_type.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/accounts/account_types.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
-import 'package:money/views/home/sub_views/view_accounts/picker_account_type.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';

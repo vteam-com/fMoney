@@ -1,4 +1,3 @@
-import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/rent_buildings/rent_building.dart';
 import 'package:money/money_objects/rental_unit/rental_unit.dart';
@@ -8,6 +7,7 @@ import 'package:money/views/home/sub_views/view_rentals/view_rentals_side_panel.
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets_data/data/data.dart';
 
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});

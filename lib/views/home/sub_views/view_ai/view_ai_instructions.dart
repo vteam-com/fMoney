@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:money/constants.dart';
-import 'package:money/data/data.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
+import 'package:money/widgets_data/data/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
