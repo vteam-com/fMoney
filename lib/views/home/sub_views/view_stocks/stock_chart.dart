@@ -7,8 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:money/constants.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/currencies/currency.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -22,6 +21,7 @@ import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/working.dart';
 import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({

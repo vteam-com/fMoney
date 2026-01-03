@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/payees/payee.dart';

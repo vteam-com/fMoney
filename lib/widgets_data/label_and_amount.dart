@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/money_model.dart';
 import 'package:money/widgets/quantity_widget.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/money_model.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
 
 class LabelAndAmount extends StatelessWidget {
   const LabelAndAmount({

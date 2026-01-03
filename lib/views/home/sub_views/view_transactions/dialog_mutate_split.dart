@@ -1,10 +1,10 @@
 import 'package:money/constants.dart';
-import 'package:money/data.dart';
-import 'package:money/money_objects/mutation_types.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/views/dialog/confirmation_dialog.dart';
 import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/dialog/dialog_full_screen.dart';
+import 'package:money/widgets_data/money_object/mutation_types.dart';
 
 Future<dynamic> showSplitAndActions({
   required final BuildContext context,

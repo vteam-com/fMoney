@@ -1,8 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/currencies/currency.dart';
-import 'package:money/data.dart';
-import 'package:money/fields/money_objects.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/rent_buildings/rental_pnl.dart';
@@ -10,7 +8,9 @@ import 'package:money/money_objects/rental_unit/rental_unit.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/money_objects.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
 
 export 'package:money/helpers/ranges.dart';
 

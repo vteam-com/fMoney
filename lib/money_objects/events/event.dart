@@ -1,13 +1,13 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data.dart';
-import 'package:money/fields/money_object.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/views/dialog/picker_edit_box_date.dart';
 import 'package:money/views/home/sub_views/view_categories/picker_category.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 class Event extends MoneyObject {
   Event({

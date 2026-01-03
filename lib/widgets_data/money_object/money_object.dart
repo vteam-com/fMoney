@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/fields/fields.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/mutation_types.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets_data/money_object/fields.dart';
+import 'package:money/widgets_data/money_object/mutation_types.dart';
 
 // Exports
-export 'package:money/fields/field.dart';
-export 'package:money/fields/fields.dart';
-export 'package:money/money_objects/mutation_types.dart';
+export 'package:money/widgets_data/money_object/field.dart';
+export 'package:money/widgets_data/money_object/fields.dart';
+export 'package:money/widgets_data/money_object/mutation_types.dart';
 
 class MoneyObject {
   factory MoneyObject.fromJSon(final MyJson json, final double runningBalance) {

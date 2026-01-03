@@ -1,10 +1,7 @@
 // Imports
-import 'package:money/currencies/currency.dart';
-import 'package:money/fields/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
-
-// Exports
-export 'package:money/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/money_objects.dart';
 
 class Currencies extends MoneyObjects<Currency> {
   Currencies() {

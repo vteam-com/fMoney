@@ -1,8 +1,7 @@
 // Imports
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/currencies/currency.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
@@ -21,10 +20,11 @@ import 'package:money/views/home/sub_views/view_payees/picker_payee_or_transfer.
 import 'package:money/views/home/sub_views/view_transactions/suggestion_approval.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
-// Exports
-export 'package:money/fields/fields.dart';
 export 'package:money/money_objects/transactions/transaction_types.dart';
+// Exports
+export 'package:money/widgets_data/money_object/fields.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]

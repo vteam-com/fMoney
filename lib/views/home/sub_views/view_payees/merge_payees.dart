@@ -1,4 +1,4 @@
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';

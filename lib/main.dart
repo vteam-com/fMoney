@@ -7,7 +7,7 @@ import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/my_window_manager.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/controller/theme_controller.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/views/home/home_routes.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/platforms/platforms_routes.dart';

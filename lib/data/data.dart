@@ -5,11 +5,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:money/currencies/currencies.dart';
 import 'package:money/data/data_access.dart';
 import 'package:money/data/data_source.dart';
 import 'package:money/data/database.dart';
-import 'package:money/fields/money_objects.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -33,6 +31,8 @@ import 'package:money/money_objects/transaction_extras/transaction_extras.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets_data/money_object/currencies/currencies.dart';
+import 'package:money/widgets_data/money_object/money_objects.dart';
 
 // Exports
 // The following lines export necessary classes and functions for other files.

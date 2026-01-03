@@ -1,5 +1,4 @@
-import 'package:money/data.dart';
-import 'package:money/data/value_parser.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/dialog/dialog.dart';
@@ -8,6 +7,7 @@ import 'package:money/views/import_transactions_panel.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets_data/value_parser.dart';
 
 void showImportTransactionsFromTextInput(
   final BuildContext context, [

@@ -1,6 +1,6 @@
 import 'package:money/data/data_mutations.dart';
-import 'package:money/fields/field_filters.dart';
-import 'package:money/fields/money_object.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 typedef NotifyMutationChanged =
     void Function({

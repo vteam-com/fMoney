@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/transactions/transaction.dart';

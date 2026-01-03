@@ -1,9 +1,9 @@
 import 'package:intl/intl.dart';
-import 'package:money/fields/money_object.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/currency_label.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 export 'package:intl/intl.dart';
 

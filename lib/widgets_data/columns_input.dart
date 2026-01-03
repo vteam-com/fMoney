@@ -1,7 +1,7 @@
 import 'package:money/constants.dart';
-import 'package:money/data/value_parser.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/columns/input_values.dart';
+import 'package:money/widgets_data/value_parser.dart';
 
 /// A widget that provides input functionality for financial data in either
 /// three-column format (date, description, amount) or single-column freestyle format.

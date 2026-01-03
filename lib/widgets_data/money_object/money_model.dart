@@ -1,6 +1,6 @@
 import 'package:money/constants.dart';
-import 'package:money/currencies/currency.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 export 'package:money/constants.dart';
 

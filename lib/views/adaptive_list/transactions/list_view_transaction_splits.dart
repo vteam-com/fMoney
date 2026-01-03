@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
-import 'package:money/fields/field_filters.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/views/adaptive_list/list_item_header.dart';
 import 'package:money/views/adaptive_list/list_view.dart';
 import 'package:money/views/home/sub_views/view_transactions/dialog_mutate_split.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
 
 // Exports
 export 'package:money/money_objects/splits/splits.dart';

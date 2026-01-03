@@ -1,16 +1,16 @@
-import 'package:money/data.dart';
-import 'package:money/data/value_parser.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/money_model.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_banner.dart';
 import 'package:money/widgets/semantic_text.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/money_model.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
+import 'package:money/widgets_data/value_parser.dart';
 
 class ImportTransactionsListPreview extends StatefulWidget {
   const ImportTransactionsListPreview({

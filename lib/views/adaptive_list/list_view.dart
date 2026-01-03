@@ -1,16 +1,16 @@
 // Imports
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
-import 'package:money/fields/money_object.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/adaptive_list/list_item.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 // Exports
-export 'package:money/fields/fields.dart';
-export 'package:money/fields/money_object.dart';
+export 'package:money/widgets_data/money_object/fields.dart';
+export 'package:money/widgets_data/money_object/money_object.dart';
 
 class MyListView<T> extends StatefulWidget {
   const MyListView({

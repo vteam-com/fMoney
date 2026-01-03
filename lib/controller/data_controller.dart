@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/constants.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/data/data_access.dart';
 import 'package:money/data/data_mutations.dart';
 import 'package:money/data/data_simulator.dart';

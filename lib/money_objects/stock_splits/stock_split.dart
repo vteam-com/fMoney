@@ -1,6 +1,6 @@
-import 'package:money/data.dart';
-import 'package:money/fields/money_object.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 /*
   cid  name         type      notnull  dflt_value  pk

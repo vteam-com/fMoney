@@ -1,4 +1,4 @@
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/rent_buildings/rent_building.dart';
 import 'package:money/money_objects/rental_unit/rental_unit.dart';

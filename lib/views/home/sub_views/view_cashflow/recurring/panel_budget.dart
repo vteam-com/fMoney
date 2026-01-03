@@ -4,8 +4,7 @@ import 'package:money/budget.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/controller/theme_controller.dart';
-import 'package:money/data.dart';
-import 'package:money/fields/field_filters.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -20,6 +19,7 @@ import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
 
 class PanelBudget extends StatefulWidget {
   const PanelBudget({

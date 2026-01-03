@@ -1,8 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data.dart';
-import 'package:money/fields/money_object.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/securities/security.dart';
@@ -13,6 +12,7 @@ import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 class ViewInvestments extends ViewForMoneyObjects {
   const ViewInvestments({super.key});

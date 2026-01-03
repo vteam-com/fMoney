@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:money/controller/list_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/money_objects/transactions/transactions.dart';

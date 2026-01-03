@@ -1,5 +1,5 @@
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';

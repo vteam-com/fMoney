@@ -1,10 +1,10 @@
 // Imports
 import 'package:flutter/material.dart';
-import 'package:money/fields/field_filters.dart';
-import 'package:money/fields/money_objects.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
+import 'package:money/widgets_data/money_object/money_objects.dart';
 
 // Exports
-export 'package:money/fields/field.dart';
+export 'package:money/widgets_data/money_object/field.dart';
 
 /// Manages a collection of field definitions for a specific data type.
 ///

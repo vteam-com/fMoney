@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:money/data.dart';
-import 'package:money/money_objects/mutation_types.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/adaptive_list/transactions/list_view_transaction_splits.dart';
 import 'package:money/views/dialog/dialog.dart';
 import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets_data/money_object/mutation_types.dart';
 
 void showTransactionSplits(final Transaction transaction) {
   adaptiveScreenSizeDialog(

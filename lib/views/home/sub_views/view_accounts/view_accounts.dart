@@ -1,10 +1,7 @@
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/selection_controller.dart';
-import 'package:money/currencies/currency.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
-import 'package:money/fields/field_filters.dart';
-import 'package:money/fields/money_objects.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/accounts/account.dart';
@@ -35,7 +32,10 @@ import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets_data/charts/chart.dart';
 import 'package:money/widgets_data/label_and_amount.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
+import 'package:money/widgets_data/money_object/money_objects.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
 
 /// Main view for all Accounts
 class ViewAccounts extends ViewForMoneyObjects {

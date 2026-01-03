@@ -3,16 +3,16 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/database.dart';
-import 'package:money/fields/money_object.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/diff.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
 
 // Exports
 export 'package:collection/collection.dart';
-export 'package:money/fields/fields.dart';
-export 'package:money/fields/money_object.dart';
+export 'package:money/widgets_data/money_object/fields.dart';
+export 'package:money/widgets_data/money_object/money_object.dart';
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {

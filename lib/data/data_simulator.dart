@@ -1,7 +1,6 @@
 import 'dart:math';
 
-import 'package:money/currencies/currency.dart';
-import 'package:money/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -21,6 +20,7 @@ import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/currencies/currency.dart';
-import 'package:money/fields/money_object.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/widgets_data/money_object/money_object.dart';
+import 'package:money/widgets_data/money_object/money_widget.dart';
 
-export 'package:money/money_model.dart';
+export 'package:money/widgets_data/money_object/money_model.dart';
 
 export 'field_type.dart';
 

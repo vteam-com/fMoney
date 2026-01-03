@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:money/constants.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data.dart';
-import 'package:money/fields/field_filters.dart';
+import 'package:money/data/data.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/views/dialog/dialog_mutate_money_object.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets_data/money_object/field_filters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuEntry {
