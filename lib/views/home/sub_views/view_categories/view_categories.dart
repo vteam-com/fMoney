@@ -2,6 +2,7 @@ import 'package:money/controller/selection_controller.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/dialog/dialog_mutate_money_object.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
@@ -14,7 +15,6 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets_data/charts/chart.dart';
 import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
 import 'package:money/widgets_data/money_object/money_object.dart';
 
@@ -169,7 +169,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'None',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.none]),
         ),
       ),
@@ -180,7 +180,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'Expense',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[
             CategoryType.expense,
             CategoryType.recurringExpense,
@@ -194,7 +194,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'Income',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.income]),
         ),
       ),
@@ -205,7 +205,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'Saving',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.saving]),
         ),
       ),
@@ -216,7 +216,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'Investment',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.investment]),
         ),
       ),
@@ -227,7 +227,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         text1: 'All',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           _getTotalBalanceOfAccounts(<CategoryType>[]),
         ),
       ),

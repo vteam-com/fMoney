@@ -9,6 +9,7 @@ import 'package:money/controller/preferences_controller.dart';
 import 'package:money/dialog/dialog_single_text_input.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
@@ -21,7 +22,6 @@ import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/data/get_stock_from_cache_or_backend.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({
@@ -612,7 +612,7 @@ class PaintDividends extends CustomPainter {
       _paintLine(canvas, Colors.grey, left, chartHeight - 5, 45);
       _paintLabel(
         canvas,
-        Currency.getAmountAsStringUsingCurrency(item.amount),
+        getAmountAsStringUsingCurrency(item.amount),
         Colors.green,
         left + 2,
         chartHeight + 30,

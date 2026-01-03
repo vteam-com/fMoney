@@ -1,5 +1,6 @@
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/dialog/picker_account_type.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -355,7 +356,7 @@ class Account extends MoneyObject {
         child: Row(
           children: <Widget>[
             Text(
-              Currency.getAmountAsStringUsingCurrency(
+              getAmountAsStringUsingCurrency(
                 balance / ratioCurrency,
                 iso4217code: fieldCurrency.value,
               ),
@@ -370,7 +371,7 @@ class Account extends MoneyObject {
     return MyListItemAsCard(
       leftTopAsString: fieldName.value,
       leftBottomAsString: getTypeAsText(fieldType.value),
-      rightTopAsString: Currency.getAmountAsStringUsingCurrency(balance),
+      rightTopAsString: getAmountAsStringUsingCurrency(balance),
       rightBottomAsWidget: originalCurrencyAndValue,
     );
   }

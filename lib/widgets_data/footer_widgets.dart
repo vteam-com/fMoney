@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_type.dart';
 
 export 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
   if (isSmallValue(amount)) {
     return scaleDown(
       Text(
-        prefix + Currency.getAmountAsStringUsingCurrency(amount),
+        prefix + getAmountAsStringUsingCurrency(amount),
         style: style,
       ),
     );
@@ -149,9 +149,7 @@ String _formatValue(double value, FieldType fieldType) {
   }
   switch (fieldType) {
     case FieldType.amount:
-      return isSmallValue(value)
-          ? Currency.getAmountAsStringUsingCurrency(value)
-          : '\$${getAmountAsShorthandText(value)}';
+      return isSmallValue(value) ? getAmountAsStringUsingCurrency(value) : '\$${getAmountAsShorthandText(value)}';
     case FieldType.quantity:
       return formatDoubleUpToFiveZero(value);
     case FieldType.numeric:

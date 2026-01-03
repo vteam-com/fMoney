@@ -1,6 +1,7 @@
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/dialog/dialog_mutate_money_object.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/investments/investments.dart';
@@ -18,7 +19,6 @@ import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets_data/charts/chart_event.dart';
 import 'package:money/widgets_data/data/data.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 
@@ -71,7 +71,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
         text1: 'Closed',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(sumClosed),
+        text2: getAmountAsStringUsingCurrency(sumClosed),
       ),
     );
 
@@ -80,7 +80,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
         text1: 'Active',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(sumActive),
+        text2: getAmountAsStringUsingCurrency(sumActive),
       ),
     );
 
@@ -89,7 +89,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
         text1: 'All',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(sumAll),
+        text2: getAmountAsStringUsingCurrency(sumAll),
       ),
     );
     return super.buildHeader(_renderToggles());
@@ -253,7 +253,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(dividend.date.toString()),
-              Text(Currency.getAmountAsStringUsingCurrency(dividend.amount)),
+              Text(getAmountAsStringUsingCurrency(dividend.amount)),
             ],
           );
         },
@@ -262,7 +262,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
         ),
       ),
       footer: Box.buildFooter(
-        Currency.getAmountAsStringUsingCurrency(totalDividend),
+        getAmountAsStringUsingCurrency(totalDividend),
       ),
     );
   }

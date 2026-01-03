@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets_data/charts/chart.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 /// Widget to display a timeline chart of transactions.
 class TransactionTimelineChart extends StatefulWidget {
@@ -104,7 +104,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
   void _copyToClipboard(List<PairXYY> data) {
     final String clipboardData = data
         .map(
-          (PairXYY pair) => '${pair.xText} : ${Currency.getAmountAsStringUsingCurrency(pair.yValue1)}',
+          (PairXYY pair) => '${pair.xText} : ${getAmountAsStringUsingCurrency(pair.yValue1)}',
         )
         .join('\n');
     Clipboard.setData(ClipboardData(text: clipboardData));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/form_field_switch.dart';
@@ -7,7 +8,6 @@ import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
 import 'package:money/widgets_data/money_object/field_type.dart';
 import 'package:money/widgets_data/money_object/money_model.dart';
@@ -270,7 +270,7 @@ class Field<T> {
           return (value as MoneyModel).toString();
         }
         if (value is double) {
-          return Currency.getAmountAsStringUsingCurrency(value);
+          return getAmountAsStringUsingCurrency(value);
         }
         return value.toString();
       case FieldType.amountShorthand:
@@ -678,7 +678,7 @@ Widget buildFieldWidgetForAmount({
     Text(
       shorthand
           ? getAmountAsShorthandText(value as num)
-          : Currency.getAmountAsStringUsingCurrency(
+          : getAmountAsStringUsingCurrency(
               value,
               iso4217code: currency,
             ),

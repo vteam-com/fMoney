@@ -1,4 +1,5 @@
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets_data/money_object/currencies/currency.dart';
@@ -70,7 +71,7 @@ class MoneyWidget extends StatelessWidget {
       fontWeight: FontWeight.w900,
     );
 
-    final String valueAsString = Currency.getAmountAsStringUsingCurrency(
+    final String valueAsString = getAmountAsStringUsingCurrency(
       isConsideredZero(value) ? 0.00 : value,
       iso4217code: amountModel.iso4217,
     );
@@ -78,7 +79,7 @@ class MoneyWidget extends StatelessWidget {
     final int leftSideOfDecimalPoint = value.truncate();
     final String leftSideOfDecimalPointAsString = leftSideOfDecimalPoint.abs() == 0
         ? '' // No need to show leading zero
-        : Currency.getAmountAsStringUsingCurrency(
+        : getAmountAsStringUsingCurrency(
             leftSideOfDecimalPoint,
             iso4217code: amountModel.iso4217,
             decimalDigits: 0,

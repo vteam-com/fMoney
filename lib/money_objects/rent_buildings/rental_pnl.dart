@@ -1,4 +1,4 @@
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
+import 'package:money/helpers/currency_helper.dart';
 
 class RentalPnL {
   RentalPnL({
@@ -60,7 +60,7 @@ class RentalPnL {
 
   String textAmount(final String text, final double amount) {
     final String textPadded = '$text:'.padRight(15);
-    final String amountPadded = Currency.getAmountAsStringUsingCurrency(
+    final String amountPadded = getAmountAsStringUsingCurrency(
       amount,
       iso4217code: currency,
     ).padLeft(15);

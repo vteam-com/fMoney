@@ -4,6 +4,7 @@ import 'package:money/controller/selection_controller.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/dialog/dialog_mutate_money_object.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/import/import_investment.dart';
 import 'package:money/import/import_investment_panel.dart';
@@ -33,7 +34,6 @@ import 'package:money/widgets_data/charts/chart.dart';
 import 'package:money/widgets_data/data/data.dart';
 import 'package:money/widgets_data/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/widgets_data/label_and_amount.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 import 'package:money/widgets_data/money_object/field_filters.dart';
 import 'package:money/widgets_data/money_object/money_objects.dart';
 import 'package:money/widgets_data/money_object/money_widget.dart';
@@ -257,7 +257,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         text1: 'Banks',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(0)),
         ),
       ),
@@ -268,7 +268,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         text1: 'Investments',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(1)),
         ),
       ),
@@ -279,7 +279,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         text1: 'Credit',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(2)),
         ),
       ),
@@ -290,7 +290,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         text1: 'Assets',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(3)),
         ),
       ),
@@ -301,7 +301,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         text1: 'All',
         small: true,
         isVertical: true,
-        text2: Currency.getAmountAsStringUsingCurrency(
+        text2: getAmountAsStringUsingCurrency(
           getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(-1)),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 export 'package:money/helpers/constants.dart';
 
@@ -27,7 +27,7 @@ class MoneyModel {
   /// amount formatted with currency and separators
   @override
   String toString() {
-    return Currency.getAmountAsStringUsingCurrency(
+    return getAmountAsStringUsingCurrency(
       _amount,
       iso4217code: iso4217,
     );
@@ -69,7 +69,7 @@ class MoneyModel {
   double asDouble() => _amount;
 
   String toShortHand() {
-    return Currency.getAmountAsShortHandStringUsingCurrency(
+    return getAmountAsShortHandStringUsingCurrency(
       _amount,
       iso4217code: iso4217,
     );

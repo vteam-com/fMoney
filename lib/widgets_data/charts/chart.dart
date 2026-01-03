@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/theme_custom.dart';
-import 'package:money/widgets_data/money_object/currencies/currency.dart';
 
 class Chart extends StatelessWidget {
   const Chart({
@@ -179,7 +179,7 @@ class Chart extends StatelessWidget {
   );
 
   String getTooltipText(BarChartGroupData group, BarChartRodData rod) =>
-      '${list[group.x].xText}\n${Currency.getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
+      '${list[group.x].xText}\n${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
   Widget _buildLegendBottom(final double value, final TitleMeta meta) => Container(
     padding: const EdgeInsets.only(top: 8),
@@ -215,7 +215,7 @@ Color getHorizontalLineColorBasedOnValue(final double value) =>
 
 Widget getWidgetChartAmount(final double value, final TitleMeta meta) {
   final Widget widget = Text(
-    Currency.getAmountAsStringUsingCurrency(value, decimalDigits: 0),
+    getAmountAsStringUsingCurrency(value, decimalDigits: 0),
     textAlign: TextAlign.end,
     softWrap: false,
     style: const TextStyle(fontSize: 10),
