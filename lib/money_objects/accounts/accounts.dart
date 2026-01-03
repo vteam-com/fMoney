@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
@@ -95,7 +96,7 @@ class Accounts extends MoneyObjects<Account> {
     }
 
     // Increase the balance of any investment account with the current Stock value
-    final List<Account> investmentAccounts = Data().accounts
+    final List<Account> investmentAccounts = this
         .iterableList()
         .where(
           (Account account) =>
@@ -122,7 +123,7 @@ class Accounts extends MoneyObjects<Account> {
       final List<String> tokens = keyAccountAndSymbol.split('|');
       final String accountId = tokens[0];
       final String symbol = tokens[1];
-      final Account? account = Data().accounts.get(int.parse(accountId));
+      final Account? account = this.get(int.parse(accountId));
       if (account != null) {
         final Security? security = Data().securities.getBySymbol(symbol);
         if (security != null) {
@@ -137,7 +138,7 @@ class Accounts extends MoneyObjects<Account> {
     });
 
     // Loans
-    final List<Account> accountLoans = Data().accounts
+    final List<Account> accountLoans = this
         .iterableList()
         .where(
           (Account account) => account.fieldType.value == AccountType.loan,
@@ -200,7 +201,7 @@ class Accounts extends MoneyObjects<Account> {
     account.fieldName.value = nextAvailableName;
     account.isOpen = true;
 
-    Data().accounts.appendNewMoneyObject(account, fireNotification: false);
+    this.appendNewMoneyObject(account, fireNotification: false);
     return account;
   }
 

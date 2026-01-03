@@ -1,3 +1,4 @@
+import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';

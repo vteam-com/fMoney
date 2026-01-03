@@ -34,10 +34,6 @@ import 'package:money/widgets_data/data_source.dart';
 import 'package:money/widgets_data/database.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
-// Exports
-// The following lines export necessary classes and functions for other files.
-export 'package:money/helpers/json_helper.dart';
-
 class Data {
   // private constructor
 
@@ -199,13 +195,13 @@ class Data {
 
   void deleteItems(final List<MoneyObject> itemsToDelete) {
     for (final MoneyObject item in itemsToDelete) {
-      Data().notifyMutationChanged(
+      notifyMutationChanged(
         mutation: MutationType.deleted,
         moneyObject: item,
         recalculateBalances: false,
       );
     }
-    Data().updateAll();
+    updateAll();
   }
 
   Set<Transaction> getDanglingTransfers() {
@@ -377,7 +373,7 @@ class Data {
       } else {
         // use the new account destination
         final Transaction relatedTransaction = transaction.instanceOfTransfer!.relatedTransaction!;
-        transaction.instanceOfTransfer!.relatedTransaction!.instanceOfAccount = Data().accounts.get(
+        transaction.instanceOfTransfer!.relatedTransaction!.instanceOfAccount = accounts.get(
           relatedAccount.uniqueId,
         );
         relatedTransaction.mutateField(
@@ -427,7 +423,7 @@ class Data {
       // Keep track changes done
       relatedTransaction.stashValueBeforeEditing();
 
-      relatedTransaction.fieldPayee.value = Data().categories.transfer.uniqueId;
+      relatedTransaction.fieldPayee.value = this.categories.transfer.uniqueId;
       relatedTransaction.fieldTransfer.value = transactionSource.fieldId.value;
       relatedTransaction.instanceOfTransfer = transfer;
 
@@ -438,7 +434,7 @@ class Data {
           fireNotification: false,
         );
       } else {
-        Data().notifyMutationChanged(
+        this.notifyMutationChanged(
           mutation: MutationType.changed,
           moneyObject: relatedTransaction,
           recalculateBalances: false,
@@ -446,7 +442,7 @@ class Data {
       }
 
       // this needs to happen last since the ID for a new Relation Transaction will be establish in the above
-      transactionSource.fieldPayee.value = Data().categories.transfer.uniqueId;
+      transactionSource.fieldPayee.value = this.categories.transfer.uniqueId;
       transactionSource.fieldTransfer.value = relatedTransaction.uniqueId;
       transactionSource.instanceOfTransfer = transfer;
     }

@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 // Imports
+import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/aliases/alias_types.dart';
 import 'package:money/money_objects/data.dart';

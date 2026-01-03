@@ -8,7 +8,6 @@ rm graph.svg
 
 lakos ./lib/. --no-tree -o graph.dot
 # npx --yes github:jpdup/glad graph.dot -o graph.svg --exclude "**/test/*" --lines warnings --view layers
-glad graph.dot -o graph.svg --exclude "**/test/*"  --lines warnings  
-#--view layers 
-
-rm graph.dot
+glad graph.dot -o graph.svg --exclude "**/test/*" --lines warnings
+  #  --view layers 
+# rm graph.dot
