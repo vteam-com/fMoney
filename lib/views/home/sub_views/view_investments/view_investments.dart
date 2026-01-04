@@ -1,8 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:get/get.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/investments.dart';
 import 'package:money/dialog/dialog_button.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/investments/investment.dart';
@@ -10,9 +13,11 @@ import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
+import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets_data/charts/my_line_chart.dart';
+import 'package:money/widgets_data/field.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 class ViewInvestments extends ViewForMoneyObjects {

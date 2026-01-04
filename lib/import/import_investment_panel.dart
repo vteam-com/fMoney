@@ -5,6 +5,7 @@ import 'package:money/dialog/picker_investment_type.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';

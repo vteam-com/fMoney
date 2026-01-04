@@ -9,6 +9,9 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
+import 'package:money/widgets_data/field.dart';
+import 'package:money/widgets_data/field_type.dart';
+import 'package:money/widgets_data/money_model.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 class Investment extends MoneyObject {

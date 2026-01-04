@@ -8,6 +8,8 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets_data/field_type.dart';
+import 'package:money/widgets_data/money_model.dart';
 import 'package:money/widgets_data/money_object.dart';
 import 'package:money/widgets_data/money_widget.dart';
 

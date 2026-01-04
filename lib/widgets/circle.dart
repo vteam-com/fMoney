@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:money/widgets/rectangle.dart';
-export 'package:flutter/material.dart';
 
 class MyCircle extends StatelessWidget {
   const MyCircle({

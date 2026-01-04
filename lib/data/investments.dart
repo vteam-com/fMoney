@@ -5,10 +5,8 @@ import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/views/home/sub_views/view_stocks/picker_security_type.dart';
+import 'package:money/widgets_data/field.dart';
 import 'package:money/widgets_data/money_objects.dart';
-
-// Exports
-// export 'package:money/money_objects/investments/investment.dart';
 
 class Investments extends MoneyObjects<Investment> {
   Investments() {

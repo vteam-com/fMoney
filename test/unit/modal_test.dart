@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/data/categories.dart';
 import 'package:money/data/data.dart';
-import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/categories/category_types.dart';
 
 void main() {
   setUp(() {

@@ -4,6 +4,9 @@ import 'package:money/data/data.dart';
 import 'package:money/dialog/picker_category.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/money_objects/categories/category.dart';
+import 'package:money/widgets_data/field.dart';
+import 'package:money/widgets_data/field_type.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 /*

@@ -6,7 +6,7 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/money_objects.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 /// Displays a dialog showing pending changes (added, modified, deleted items).
 ///

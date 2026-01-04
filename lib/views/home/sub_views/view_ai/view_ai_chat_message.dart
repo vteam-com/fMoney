@@ -8,7 +8,6 @@ import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message_footer.d
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/field_filters.dart';
 
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({

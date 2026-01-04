@@ -7,6 +7,7 @@ import 'package:money/data/data.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';

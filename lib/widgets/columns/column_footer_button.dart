@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Exports
-export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
-
 Widget buildColumnFooterButton({
   required final BuildContext context,
   required final TextAlign textAlign,

@@ -11,6 +11,7 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 void showMergePayee(final BuildContext context, Payee payee) {
   final Iterable<Transaction> transactions = Data().transactions

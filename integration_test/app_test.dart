@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/import/import_qfx.dart';
 import 'package:money/main.dart' as app;
 import 'package:money/views/side_panel/side_panel_header.dart';

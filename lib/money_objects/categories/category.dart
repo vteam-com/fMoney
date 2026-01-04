@@ -14,12 +14,11 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/rectangle.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets_data/field.dart';
+import 'package:money/widgets_data/field_type.dart';
 import 'package:money/widgets_data/money_object.dart';
 import 'package:money/widgets_data/money_widget.dart';
-
-export 'package:money/money_objects/categories/category_types.dart';
-// Exports
-export 'package:money/widgets_data/money_widget.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 class Category extends MoneyObject {
   Category({

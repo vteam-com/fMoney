@@ -3,9 +3,6 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
-// Exports
-export 'package:money/money_objects/loan_payments/loan_payment.dart';
-
 class Events extends MoneyObjects<Event> {
   Events() {
     collectionName = 'LoanPayments';

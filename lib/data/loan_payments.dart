@@ -7,9 +7,6 @@ import 'package:money/money_objects/loan_payments/loan_payment.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
-// Exports
-export 'package:money/money_objects/loan_payments/loan_payment.dart';
-
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {
     collectionName = 'LoanPayments';

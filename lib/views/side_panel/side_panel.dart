@@ -1,6 +1,7 @@
+import 'package:get/get.dart';
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/side_panel/side_panel_header.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/views/side_panel/side_panel_views_enum.dart';

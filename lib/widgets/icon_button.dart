@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Exports
-export 'package:flutter/material.dart';
-
 class MyIconButton extends StatefulWidget {
   const MyIconButton({
     super.key,

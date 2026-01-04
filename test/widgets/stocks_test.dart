@@ -8,6 +8,8 @@ import 'package:mockito/mockito.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data.dart';
+import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/get_stock_from_cache_or_backend.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/ranges.dart';
 
-export 'package:money/helpers/ranges.dart';
-
 class ChartEvent {
   ChartEvent({
     required this.dates,

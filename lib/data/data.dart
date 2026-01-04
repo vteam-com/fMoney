@@ -24,6 +24,7 @@ import 'package:money/money_objects/account_aliases/account_aliases.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/online_accounts/online_accounts.dart';
 import 'package:money/money_objects/rental_unit/rental_units.dart';
+import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/stock_splits/stock_splits.dart';
 import 'package:money/money_objects/transaction_extras/transaction_extras.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
@@ -32,7 +33,10 @@ import 'package:money/widgets_data/currencies/currencies.dart';
 import 'package:money/widgets_data/data_access.dart';
 import 'package:money/widgets_data/data_source.dart';
 import 'package:money/widgets_data/database.dart';
+import 'package:money/widgets_data/money_model.dart';
+import 'package:money/widgets_data/money_object.dart';
 import 'package:money/widgets_data/money_objects.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 class Data {
   // private constructor

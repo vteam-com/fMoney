@@ -1,8 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets_data/field_filters.dart';
-
-/// Exports
-export 'package:money/widgets_data/field_filter.dart';
+import 'package:money/widgets_data/field_filter.dart';
 
 /// Group a lists of filters
 class FieldFilters {

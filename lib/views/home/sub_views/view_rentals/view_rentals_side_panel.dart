@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/helpers/list_controller.dart';
@@ -8,7 +10,7 @@ import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/home/sub_views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets_data/charts/chart.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets_data/field.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.
 class ViewRentalsSidePanel {

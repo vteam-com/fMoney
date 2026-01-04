@@ -1,5 +1,7 @@
+import 'package:money/controller/preferences_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/dialog/dialog_button.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -15,7 +17,7 @@ import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets_data/charts/chart.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets_data/field.dart';
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///

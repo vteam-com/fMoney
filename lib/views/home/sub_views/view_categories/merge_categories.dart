@@ -4,6 +4,7 @@ import 'package:money/data/transactions.dart';
 import 'package:money/dialog/picker_category.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/money_objects/categories/category.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';

@@ -1,5 +1,6 @@
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/box.dart';

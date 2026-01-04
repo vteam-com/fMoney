@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/diff.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets_data/database.dart';
+import 'package:money/widgets_data/field.dart';
 import 'package:money/widgets_data/money_object.dart';
-
-// Exports
-export 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets_data/mutation_types.dart';
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {

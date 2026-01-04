@@ -8,9 +8,6 @@ import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets_data/field_type.dart';
 
-export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
-
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(
     builder: (BuildContext context, BoxConstraints constraints) {

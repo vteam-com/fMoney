@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:get/get.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/selection_controller.dart';
 import 'package:money/controller/theme_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/dialog/dialog_button.dart';
@@ -9,8 +9,10 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/budget.dart';
 import 'package:money/money_objects/categories/category.dart';
+import 'package:money/money_objects/categories/category_types.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_recurring.dart';
@@ -20,7 +22,9 @@ import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets_data/field_filter.dart';
 import 'package:money/widgets_data/field_filters.dart';
+import 'package:money/widgets_data/money_widget.dart';
 
 class PanelBudget extends StatefulWidget {
   const PanelBudget({

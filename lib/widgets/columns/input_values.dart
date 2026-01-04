@@ -5,10 +5,6 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/ocr.dart';
 
-// Exports
-export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
-
 class InputValues extends StatelessWidget {
   const InputValues({
     super.key,

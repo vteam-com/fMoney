@@ -1,10 +1,9 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
+import 'package:money/widgets_data/field.dart';
 import 'package:money/widgets_data/money_object.dart';
 import 'package:money/widgets_data/money_widget.dart';
-
-export 'package:money/widgets_data/money_object.dart';
 
 /*
   SQLite table definition

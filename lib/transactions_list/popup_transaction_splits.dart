@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:money/data/data.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/dialog/dialog_button.dart';
+import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/transactions_list/list_view_transaction_splits.dart';
 import 'package:money/widgets/gaps.dart';

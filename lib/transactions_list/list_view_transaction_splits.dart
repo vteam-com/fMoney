@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/views/adaptive_list/list_item_header.dart';
 import 'package:money/views/adaptive_list/list_view.dart';
@@ -6,9 +7,6 @@ import 'package:money/views/home/sub_views/view_transactions/dialog_mutate_split
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets_data/field_filters.dart';
 import 'package:money/widgets_data/money_widget.dart';
-
-// Exports
-export 'package:money/data/splits.dart';
 
 class ListViewTransactionSplits extends StatefulWidget {
   const ListViewTransactionSplits({

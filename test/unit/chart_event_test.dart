@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets_data/charts/chart_event.dart';
 
 void main() {

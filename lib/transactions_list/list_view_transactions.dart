@@ -1,14 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/views/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/views/home/sub_views/view_transactions/dialog_mutate_transaction.dart';
+import 'package:money/widgets_data/field.dart';
 import 'package:money/widgets_data/field_filters.dart';
 import 'package:money/widgets_data/money_objects.dart';
-
-// Exports
-export 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 
 class ListViewTransactions extends StatefulWidget {
   const ListViewTransactions({

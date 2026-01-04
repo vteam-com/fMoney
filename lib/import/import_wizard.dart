@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/dialog/dialog.dart';
 import 'package:money/import/import_csv.dart'; // Added import
@@ -6,7 +7,7 @@ import 'package:money/import/import_investment.dart';
 import 'package:money/import/import_qfx.dart';
 import 'package:money/import/import_qif.dart';
 import 'package:money/import/import_transactions_from_text.dart';
-import 'package:money/import/import_trasnsfer.dart';
+import 'package:money/import/import_transfer.dart';
 import 'package:money/import/import_xlsx.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/wizard_choice.dart';

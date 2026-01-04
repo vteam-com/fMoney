@@ -1,11 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'dart:convert';
-
 import 'package:money/helpers/ranges.dart';
-
-// Exports
-export 'package:money/helpers/ranges.dart';
 
 /// Represents a filter associated with a specific field name.
 /// It contains a list of string values and an optional date range filter.

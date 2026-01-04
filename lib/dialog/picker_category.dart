@@ -3,8 +3,6 @@ import 'package:money/data/data.dart';
 import 'package:money/dialog/picker_edit_box.dart';
 import 'package:money/money_objects/categories/category.dart';
 
-export 'package:money/money_objects/categories/category.dart';
-
 Widget pickerCategory({
   Key? key,
   required final Category? itemSelected,
