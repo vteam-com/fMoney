@@ -9,6 +9,7 @@ import 'package:money/data/accounts.dart';
 import 'package:money/data/aliases.dart';
 import 'package:money/data/categories.dart';
 import 'package:money/data/events.dart';
+import 'package:money/data/investments.dart';
 import 'package:money/data/loan_payments.dart';
 import 'package:money/data/payees.dart';
 import 'package:money/data/rent_buildings.dart';
@@ -21,7 +22,6 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/account_aliases/account_aliases.dart';
 import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/online_accounts/online_accounts.dart';
 import 'package:money/money_objects/rental_unit/rental_units.dart';
 import 'package:money/money_objects/stock_splits/stock_splits.dart';
@@ -372,7 +372,7 @@ class Data {
         // same account do noting
       } else {
         // use the new account destination
-        final Transaction relatedTransaction = transaction.instanceOfTransfer!.relatedTransaction!;
+        final Transaction relatedTransaction = transaction.instanceOfTransfer!.relatedTransaction! as Transaction;
         transaction.instanceOfTransfer!.relatedTransaction!.instanceOfAccount = accounts.get(
           relatedAccount.uniqueId,
         );

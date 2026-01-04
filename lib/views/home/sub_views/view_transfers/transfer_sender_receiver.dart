@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 
@@ -29,13 +30,13 @@ class TransferSenderReceiver extends StatelessWidget {
             IntrinsicWidth(
               child: TransactionCard(
                 title: 'Sender',
-                transaction: transfer.senderTransaction,
+                transaction: transfer.senderTransaction as Transaction?,
               ),
             ),
             IntrinsicWidth(
               child: TransactionCard(
                 title: 'Receiver',
-                transaction: transfer.receiverTransaction,
+                transaction: transfer.receiverTransaction as Transaction?,
               ),
             ),
           ],

@@ -1,11 +1,12 @@
 import 'package:money/data/data.dart';
+import 'package:money/data/investments.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/dialog/dialog_mutate_money_object.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/money_objects/investments/investments.dart';
+import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
@@ -105,7 +106,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
         list.add(
           buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toAccounts(
-              accountId: selectedInvestment.transactionInstance!.fieldAccountId.value,
+              accountId: selectedInvestment.transactionInstance!.fieldAccountId.value as int,
             ),
             MenuEntry.toTransactions(
               transactionId: selectedInvestment.uniqueId,
@@ -336,7 +337,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
           events.add(
             ChartEvent(
               dates: DateRange(
-                min: activity.transactionInstance!.fieldDateTime.value!,
+                min: activity.transactionInstance!.fieldDateTime.value! as DateTime,
               ),
               amount: activity.unitPriceAdjusted,
               quantity: activity.effectiveUnitsAdjusted,

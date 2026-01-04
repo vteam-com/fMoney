@@ -2,7 +2,6 @@
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/selection_controller.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/splits.dart';
 import 'package:money/dialog/picker_category.dart';
 import 'package:money/dialog/picker_edit_box_date.dart';
 import 'package:money/dialog/picker_panel.dart';
@@ -13,8 +12,8 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
-import 'package:money/money_objects/investments/investments.dart';
 import 'package:money/money_objects/payees/payee.dart';
+import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction_types.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
@@ -697,7 +696,7 @@ class Transaction extends MoneyObject {
     }
 
     if (this.instanceOfTransfer != null) {
-      final Transaction other = this.instanceOfTransfer!.relatedTransaction!;
+      final Transaction other = this.instanceOfTransfer!.relatedTransaction as Transaction;
       if (other.isSplit) {
         //       int count = 0;
         //       Split splitXfer = null;
@@ -725,7 +724,8 @@ class Transaction extends MoneyObject {
         //         }
         //       }
       } else {
-        if (other.instanceOfTransfer == null || other.instanceOfTransfer?.relatedTransaction != this) {
+        if (other.instanceOfTransfer == null ||
+            (other.instanceOfTransfer?.relatedTransaction as Transaction?) != this) {
           dangling.add(this);
         } else {
           // one last check, the other side also needs to be correctly setup as a transfer
@@ -746,7 +746,7 @@ class Transaction extends MoneyObject {
       }
     }
     if (this.instanceOfTransfer != null &&
-        this.instanceOfTransfer?.relatedTransaction?.fieldAccountId.value == a.uniqueId) {
+        (this.instanceOfTransfer?.relatedTransaction as Transaction?)?.fieldAccountId.value == a.uniqueId) {
       return true;
     }
     return false;
@@ -1028,7 +1028,7 @@ class Transaction extends MoneyObject {
     // }
   }
 
-  Account? get relatedAccount => instanceOfTransfer?.relatedTransaction?.instanceOfAccount;
+  Account? get relatedAccount => instanceOfTransfer?.relatedTransaction?.instanceOfAccount as Account?;
 
   String relatedAccountName(Account? relatedAccount) {
     if (relatedAccount == null) {
@@ -1104,4 +1104,24 @@ class Transaction extends MoneyObject {
       },
     );
   }
+}
+
+/// Links two transactions as a transfer pair
+void linkTransfer(
+  Transaction transactionSource,
+  Transaction transactionRelated,
+) {
+  transactionSource.instanceOfTransfer = Transfer(
+    id: 0,
+    source: transactionSource,
+    relatedTransaction: transactionRelated,
+    isOrphan: false,
+  );
+
+  transactionRelated.instanceOfTransfer = Transfer(
+    id: 0,
+    source: transactionRelated,
+    relatedTransaction: transactionSource,
+    isOrphan: false,
+  );
 }

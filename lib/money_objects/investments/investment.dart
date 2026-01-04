@@ -9,7 +9,6 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 class Investment extends MoneyObject {
@@ -243,7 +242,11 @@ class Investment extends MoneyObject {
     name: 'Account',
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (final MoneyObject instance) {
-      return (instance as Investment).transactionInstance?.accountName ?? '<Account?>';
+      final dynamic transaction = (instance as Investment).transactionInstance;
+      if (transaction != null) {
+        return transaction.accountName;
+      }
+      return '<Account?>';
     },
   );
 
@@ -307,7 +310,7 @@ class Investment extends MoneyObject {
   double _splitRatio = 1;
 
   /// The actual transaction date.
-  Transaction? _transactionInstance;
+  dynamic _transactionInstance;
 
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
@@ -342,7 +345,11 @@ class Investment extends MoneyObject {
     // if (investmentType.value != InvestmentType.dividend.index &&
     //     investmentType.value != InvestmentType.add.index &&
     //     investmentType.value != InvestmentType.remove.index) {
-    return transactionInstance?.fieldAmount.value.asDouble() ?? 0.00;
+    final dynamic transaction = transactionInstance;
+    if (transaction != null) {
+      return transaction.fieldAmount.value.asDouble() as double;
+    }
+    return 0.00;
     // }
     // return 0.00;
   }
@@ -356,7 +363,13 @@ class Investment extends MoneyObject {
 
   double get costForShares => this.effectiveUnitsAdjusted * this.unitPriceAdjusted;
 
-  DateTime get date => this.transactionInstance?.fieldDateTime.value ?? DateTime.now();
+  DateTime get date {
+    final dynamic transaction = transactionInstance;
+    if (transaction != null) {
+      return (transaction.fieldDateTime.value ?? DateTime.now()) as DateTime;
+    }
+    return DateTime.now();
+  }
 
   double get effectiveUnits {
     if (this.fieldUnits.value == 0) {
@@ -442,12 +455,13 @@ class Investment extends MoneyObject {
     // looking for the original un-split cost basis at the date of this transaction.
     final double proceeds = this.fieldUnitPrice.value.asDouble() * this.fieldUnits.value;
 
-    if (this.transactionInstance!.fieldAmount.value.asDouble() != 0) {
+    final dynamic transaction = transactionInstance;
+    if (transaction != null && transaction.fieldAmount.value.asDouble() != 0) {
       // We may have paid more for the stock than "price" in a buy transaction because of brokerage fees and
       // this can be included in the cost basis.  We may have also received less than "price" in a sale
       // transaction, and that can also reduce our capital gain, so we use the transaction amount if we
       // have one.
-      return this.transactionInstance!.fieldAmount.value.asDouble().abs();
+      return (transaction.fieldAmount.value.asDouble().abs()) as double;
     }
 
     // But if the sale proceeds were not recorded for some reason, then we fall back on the proceeds.
@@ -487,13 +501,13 @@ class Investment extends MoneyObject {
   double get transactionHoldingValue => this.fieldHoldingShares.value * this.unitPriceAdjusted;
 
   /// The actual transaction date.
-  Transaction? get transactionInstance {
+  dynamic get transactionInstance {
     _transactionInstance ??= Data().transactions.get(this.uniqueId);
     return _transactionInstance;
   }
 
   /// The actual transaction date.
-  set transactionInstance(Transaction? value) {
+  set transactionInstance(dynamic value) {
     _transactionInstance = value;
   }
 
@@ -501,7 +515,10 @@ class Investment extends MoneyObject {
 
   double get activityDividend {
     if (fieldInvestmentType.value == InvestmentType.dividend.index) {
-      return transactionInstance?.fieldAmount.value.asDouble() ?? 0.00;
+      final dynamic transaction = transactionInstance;
+      if (transaction != null) {
+        return (transaction.fieldAmount.value.asDouble()) as double;
+      }
     }
     return 0.00;
   }

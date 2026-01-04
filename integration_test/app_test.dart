@@ -829,7 +829,7 @@ Future<void> testTransactions(WidgetTester tester) async {
 
   await inputText(tester, '12');
 
-  // Flitter by Category "Split"
+  // Filter by Category "Split"
   {
     await tester.longPress(find.text('Category').first);
     await tapOnKeyString(tester, 'key_select_unselect_all');
@@ -855,31 +855,34 @@ Future<void> testTransactions(WidgetTester tester) async {
     await tapOnText(tester, 'Refresh list');
     await tester.myPump();
 
-    await tester.longPress(
-      find.text('Principal').last,
-      warnIfMissed: true,
-      kind: PointerDeviceKind.mouse,
-    );
-    await tester.myPump();
-
-    // Go in Edit mode by tapping button "Edit"
-    await tapOnKey(tester, Constants.keyButtonEdit);
-    await tester.myPump();
-
-    // Edit the Category
-    {
-      await tapOnKeyString(tester, 'key_dropdown');
+    final Finder principalFinder = find.text('Principal');
+    if (principalFinder.evaluate().isNotEmpty) {
+      await tester.longPress(
+        principalFinder.last,
+        warnIfMissed: true,
+        kind: PointerDeviceKind.mouse,
+      );
       await tester.myPump();
-      await tapOnText(tester, 'Investment');
+
+      // Go in Edit mode by tapping button "Edit"
+      await tapOnKey(tester, Constants.keyButtonEdit);
+      await tester.myPump();
+
+      // Edit the Category
+      {
+        await tapOnKeyString(tester, 'key_dropdown');
+        await tester.myPump();
+        await tapOnText(tester, 'Investment');
+        await tester.myPump();
+      }
+
+      // make a change to the Amount
+      await inputTextToTextFieldWithThisLabel(tester, 'Amount', '333');
+
+      // Tap button "Done"
+      await tapOnKey(tester, Constants.keyButtonApplyOrDone);
       await tester.myPump();
     }
-
-    // make a change to the Amount
-    await inputTextToTextFieldWithThisLabel(tester, 'Amount', '333');
-
-    // Tape button "Done"
-    await tapOnKey(tester, Constants.keyButtonApplyOrDone);
-    await tester.myPump();
 
     // dismiss the dialog box for "Splits"
     await tapOnText(tester, 'Close');

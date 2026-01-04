@@ -11,7 +11,6 @@ import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/widgets_data/charts/chart.dart';
 import 'package:money/widgets_data/money_objects.dart';
 

@@ -20,7 +20,6 @@ import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/money_objects/transfers/transfer.dart';
 import 'package:money/widgets_data/currencies/currency.dart';
 
 /// Generates sample data for the MoneyFlutter app.

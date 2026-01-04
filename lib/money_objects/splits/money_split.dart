@@ -2,11 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
 import 'package:money/dialog/picker_category.dart';
-import 'package:money/dialog/picker_panel.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/views/home/sub_views/view_transactions/suggestion_approval.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 /*
@@ -104,41 +101,9 @@ class MoneySplit extends MoneyObject {
   FieldInt fieldCategoryId = FieldInt(
     name: 'Category',
     serializeName: 'Category',
-    type: FieldType.widget,
+    type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final MoneyObject instance) {
-      (instance as MoneySplit);
-      final Widget categoryWidget = Data().categories.getCategoryWidget(
-        instance.fieldCategoryId.value,
-      );
-
-      final Transaction transaction = Data().transactions.get(instance.fieldTransactionId.value)!;
-      return SuggestionApproval(
-        onApproved: null,
-        onChooseCategory: instance.fieldCategoryId.value == -1
-            ? (final BuildContext context) {
-                showPopupSelection(
-                  title: 'Category',
-                  context: context,
-                  items: Data().categories.getCategoriesAsStrings(),
-                  selectedItem: '',
-                  onSelected: (final String text) {
-                    final Category? selectedCategory = Data().categories.getByName(text);
-                    if (selectedCategory != null) {
-                      instance.fieldCategoryId.value = selectedCategory.uniqueId;
-                    }
-                  },
-                );
-              }
-            : null,
-        isSplit: transaction.isSplit,
-        transactionString: transaction.toString(),
-        splits: transaction.splits,
-        uniqueId: transaction.uniqueId,
-        totalAmount: transaction.fieldAmount.value.asDouble(),
-        child: Tooltip(message: instance.categoryName, child: categoryWidget),
-      );
-    },
+    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).categoryName,
     getValueForReading: (final MoneyObject instance) => (instance as MoneySplit).categoryName,
     getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldCategoryId.value,
     setValue: (final MoneyObject instance, dynamic newValue) =>
@@ -262,7 +227,7 @@ class MoneySplit extends MoneyObject {
     return _fields;
   }
 
-  Transaction? getTransferTransaction() {
+  dynamic getTransferTransaction() {
     return Data().transactions.get(this.fieldTransactionId.value);
   }
 }

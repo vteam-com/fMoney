@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/data/splits.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/money_objects/transactions/transaction_types.dart';
 import 'package:money/widgets_data/money_object.dart';
 
 class Transfer extends MoneyObject {
@@ -24,8 +24,8 @@ class Transfer extends MoneyObject {
   final num id; // used when the transfer is part of a split
   final bool isOrphan;
   final MoneySplit? relatedSplit; // the related split, if it is a transfer in a split.
-  final Transaction? relatedTransaction; // the related transaction
-  final Transaction? source; // the source of the transfer.
+  final dynamic relatedTransaction; // the related transaction
+  final dynamic source; // the source of the transfer.
   final MoneySplit? sourceSplit; // the source split, if it is a transfer in a split.
 
   /// Status
@@ -34,7 +34,7 @@ class Transfer extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     getValueForDisplay: (final MoneyObject instance) => transactionStatusToLetter(
-      (instance as Transfer).relatedTransaction!.fieldStatus.value,
+      (instance as Transfer).relatedTransaction!.fieldStatus.value as TransactionStatus,
     ),
   );
 
@@ -92,7 +92,7 @@ class Transfer extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     getValueForDisplay: (final MoneyObject instance) => transactionStatusToLetter(
-      (instance as Transfer).source!.fieldStatus.value,
+      (instance as Transfer).source!.fieldStatus.value as TransactionStatus,
     ),
   );
 
@@ -114,7 +114,7 @@ class Transfer extends MoneyObject {
   );
 
   @override
-  int get uniqueId => source!.uniqueId;
+  int get uniqueId => source!.uniqueId as int;
 
   int dateSpreadBetweenSendingAndReceiving() {
     final DateTime dateSent = geSenderTransactionDate() ?? DateTime.now();
@@ -142,19 +142,19 @@ class Transfer extends MoneyObject {
   //---------------------------------------------
   /// Dates
   DateTime? geSenderTransactionDate() {
-    return source!.fieldDateTime.value;
+    return source!.fieldDateTime.value as DateTime?;
   }
 
   String getMemoDestination() {
     String memos = source!.fieldTransferSplit.value == -1 ? '' : '[Split:${source!.fieldTransferSplit.value}] ';
     if (relatedTransaction != null) {
-      memos += relatedTransaction!.fieldMemo.value;
+      memos += relatedTransaction!.fieldMemo.value as String;
     }
     return memos;
   }
 
   String getMemoSource() {
-    return source!.fieldMemo.value;
+    return source!.fieldMemo.value as String;
   }
 
   DateTime getReceivedDateOrToday() {
@@ -177,15 +177,15 @@ class Transfer extends MoneyObject {
     return status;
   }
 
-  Account? get receiverAccount => relatedTransaction?.instanceOfAccount;
+  Account? get receiverAccount => relatedTransaction?.instanceOfAccount as Account?;
 
   String get receiverAccountName => receiverAccount?.fieldName.value ?? '<account not found>';
 
-  Transaction? get receiverTransaction => relatedTransaction;
+  dynamic get receiverTransaction => relatedTransaction;
 
   DateTime? get receiverTransactionDate {
     if (relatedTransaction != null) {
-      return relatedTransaction!.fieldDateTime.value;
+      return relatedTransaction!.fieldDateTime.value as DateTime?;
     }
     return null;
   }
@@ -195,7 +195,7 @@ class Transfer extends MoneyObject {
   //---------------------------------------------
   // Sender Account
   Account? get senderAccount {
-    return senderTransaction?.instanceOfAccount;
+    return senderTransaction?.instanceOfAccount as Account?;
   }
 
   //---------------------------------------------
@@ -206,7 +206,7 @@ class Transfer extends MoneyObject {
 
   //---------------------------------------------
   // Transactions
-  Transaction? get senderTransaction {
+  dynamic get senderTransaction {
     return source;
   }
 }
@@ -215,21 +215,3 @@ class Transfer extends MoneyObject {
 // although it would be possible, if you withdraw 500 cash from one account, then combine $100 of that with
 // a check for $200 in a single deposit, then the $100 is split on the source as a "transfer" to the
 // deposited account, and the $300 deposit is split between the cash and the check.  Like I said, pretty unlikely.
-void linkTransfer(
-  Transaction transactionSource,
-  Transaction transactionRelated,
-) {
-  transactionSource.instanceOfTransfer = Transfer(
-    id: 0,
-    source: transactionSource,
-    relatedTransaction: transactionRelated,
-    isOrphan: false,
-  );
-
-  transactionRelated.instanceOfTransfer = Transfer(
-    id: 0,
-    source: transactionRelated,
-    relatedTransaction: transactionSource,
-    isOrphan: false,
-  );
-}

@@ -1,7 +1,6 @@
 import 'package:money/data/data.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/splits/money_split.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
 // Exports
@@ -18,7 +17,7 @@ class Splits extends MoneyObjects<MoneySplit> {
 
     // Attach the split back to the their  container Transaction
     final MoneySplit splitAdded = moneyObject as MoneySplit;
-    final Transaction? containerTransaction = Data().transactions.get(
+    final dynamic containerTransaction = Data().transactions.get(
       splitAdded.fieldTransactionId.value,
     );
     if (containerTransaction != null) {
