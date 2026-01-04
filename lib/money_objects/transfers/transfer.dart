@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/splits.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/splits/splits.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/widgets_data/money_object.dart';
 

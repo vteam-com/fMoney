@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -10,7 +11,6 @@ import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/accounts/account_types_enum.dart';
 import 'package:money/money_objects/aliases/alias.dart';
 import 'package:money/money_objects/categories/category.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/investment_types.dart';
 import 'package:money/money_objects/loan_payments/loan_payment.dart';

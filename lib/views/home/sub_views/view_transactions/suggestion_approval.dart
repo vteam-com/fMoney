@@ -1,4 +1,4 @@
-import 'package:money/money_objects/data.dart';
+import 'package:money/data/data.dart';
 import 'package:money/transactions_list/list_view_transaction_splits.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';

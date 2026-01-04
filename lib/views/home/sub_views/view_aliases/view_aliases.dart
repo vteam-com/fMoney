@@ -1,7 +1,7 @@
 import 'package:money/controller/selection_controller.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/money_objects/aliases/alias.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/transactions_list/list_view_transactions.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';

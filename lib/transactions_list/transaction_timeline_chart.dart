@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
+import 'package:money/data/transactions.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/money_objects/transactions/transactions.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets_data/charts/chart.dart';

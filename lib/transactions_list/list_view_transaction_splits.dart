@@ -8,7 +8,7 @@ import 'package:money/widgets_data/field_filters.dart';
 import 'package:money/widgets_data/money_widget.dart';
 
 // Exports
-export 'package:money/money_objects/splits/splits.dart';
+export 'package:money/data/splits.dart';
 
 class ListViewTransactionSplits extends StatefulWidget {
   const ListViewTransactionSplits({

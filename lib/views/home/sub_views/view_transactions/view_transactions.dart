@@ -1,9 +1,9 @@
+import 'package:money/data/data.dart';
 import 'package:money/dialog/dialog_button.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/categories/category.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/transactions_list/list_view_transaction_splits.dart';

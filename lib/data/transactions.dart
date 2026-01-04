@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_conditional_assignment
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/events/event.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';

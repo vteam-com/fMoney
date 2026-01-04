@@ -1,7 +1,7 @@
+import 'package:money/data/data.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/aliases/alias.dart';
-import 'package:money/money_objects/data.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/widgets_data/money_objects.dart';
 
