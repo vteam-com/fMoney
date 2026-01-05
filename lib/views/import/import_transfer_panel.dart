@@ -1,9 +1,9 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/views/models/accounts/account.dart';
-import 'package:money/views/models/categories/category.dart';
-import 'package:money/views/models/picker_account.dart';
-import 'package:money/views/models/picker_category.dart';
+import 'package:money/views/data/category.dart';
+import 'package:money/views/data/picker_account.dart';
+import 'package:money/views/data/picker_category.dart';
+import 'package:money/views/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/money_widget.dart';

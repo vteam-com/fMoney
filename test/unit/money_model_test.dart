@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/models/data/data.dart';
+import 'package:money/views/data/data.dart';
 import 'package:money/widgets/money_model.dart';
 
 void main() {

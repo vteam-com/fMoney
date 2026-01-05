@@ -3,9 +3,9 @@ import 'package:money/app_bar.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/my_nav_bar.dart';
+import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/import/import_csv.dart'; // Added import for CSV
 import 'package:money/views/import/import_qfx.dart';
-import 'package:money/views/models/data/data_controller.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
 import 'package:money/views/view_accounts/view_accounts.dart';
 import 'package:money/views/view_ai/view_ai.dart';

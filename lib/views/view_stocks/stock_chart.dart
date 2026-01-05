@@ -11,12 +11,11 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/data/data_controller.dart';
-import 'package:money/views/models/get_stock_from_cache_or_backend.dart';
-import 'package:money/views/models/investments/stock_cumulative.dart';
-import 'package:money/views/models/securities/security.dart';
-import 'package:money/views/models/stock_splits/stock_split.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/data_controller.dart';
+import 'package:money/views/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/views/data/security.dart';
+import 'package:money/views/data/stock_split.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
@@ -24,6 +23,7 @@ import 'package:money/widgets/dialog_single_text_input.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/working.dart';
 
 class StockChartWidget extends StatefulWidget {

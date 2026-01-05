@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/data/list_view_transactions.dart';
-import 'package:money/views/models/rent_buildings/rent_building.dart';
-import 'package:money/views/models/rent_buildings/rental_pnl.dart';
-import 'package:money/views/models/splits/money_split.dart';
-import 'package:money/views/models/transactions/transaction.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/list_view_transactions.dart';
+import 'package:money/views/data/money_split.dart';
+import 'package:money/views/data/rent_building.dart';
+import 'package:money/views/data/transaction.dart';
 import 'package:money/views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/field.dart';
+import 'package:money/widgets/rental_pnl.dart';
 import 'package:money/widgets/selection_controller.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.

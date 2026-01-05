@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/import/import_data.dart';
 import 'package:money/views/import/import_qfx.dart';
-import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/data/data_controller.dart';
 
 // Mock classes for dependencies
 

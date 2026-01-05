@@ -1,10 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
-import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/data/money_object_card.dart';
-import 'package:money/views/models/rent_buildings/rent_building.dart';
-import 'package:money/views/models/rental_unit/rental_unit.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/money_object_card.dart';
+import 'package:money/views/data/rent_building.dart';
+import 'package:money/views/models/rental_unit.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
 import 'package:money/widgets/center_message.dart';
