@@ -1,8 +1,8 @@
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/data/category.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';
 
 class Distribution {
@@ -70,7 +70,7 @@ class _DistributionBarState extends State<DistributionBar> {
         gapSmall(),
         Expanded(flex: 2, child: category.getColorAndNameWidget()),
         Expanded(
-          child: MoneyWidget(amountModel: MoneyModel(amount: value)),
+          child: MoneyWidget(amountModel: AmountModel(amount: value)),
         ),
         Opacity(
           opacity: category.isExpense ? 1 : 0,

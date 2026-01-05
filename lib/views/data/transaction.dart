@@ -17,11 +17,11 @@ import 'package:money/views/data/suggestion_approval.dart';
 import 'package:money/views/data/transfer.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/icon_button.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
@@ -134,7 +134,7 @@ class Transaction extends MoneyObject {
   FieldMoney fieldAmount = FieldMoney(
     name: columnIdAmount,
     serializeName: 'Amount',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as Transaction).fieldAmount.value.asDouble(),
       iso4217: instance.currency,
     ),
@@ -157,7 +157,7 @@ class Transaction extends MoneyObject {
     name: columnIdAmountNormalized,
     columnWidth: ColumnWidth.small,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.fieldAmount.value.asDouble(),
       ),
@@ -176,7 +176,7 @@ class Transaction extends MoneyObject {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as Transaction).balance,
       iso4217: instance.currency,
     ),
@@ -188,7 +188,7 @@ class Transaction extends MoneyObject {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.balance,
       ),

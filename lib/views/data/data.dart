@@ -27,11 +27,11 @@ import 'package:money/views/models/account.dart';
 import 'package:money/views/models/account_aliases.dart';
 import 'package:money/views/models/online_accounts.dart';
 import 'package:money/views/models/rental_units.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/currencies/currencies.dart';
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/database.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/mutation_types.dart';
@@ -250,9 +250,9 @@ class Data {
     return allMutationGroups;
   }
 
-  MoneyModel getNetWorth() {
+  AmountModel getNetWorth() {
     final double sum = accounts.getSumOfAccountBalances();
-    return MoneyModel(amount: sum);
+    return AmountModel(amount: sum);
   }
 
   Transaction? getOrCreateRelatedTransaction({

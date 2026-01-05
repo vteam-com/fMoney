@@ -5,7 +5,7 @@ import 'package:money/widgets/gaps.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
+export 'package:money/widgets/scale_down.dart';
 
 class ColumnFilterPanel extends StatefulWidget {
   const ColumnFilterPanel({

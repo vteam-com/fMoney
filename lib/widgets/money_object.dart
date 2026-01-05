@@ -5,15 +5,15 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
-import 'package:money/widgets/misc_widgets.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 dynamic defaultCallbackValue(final dynamic instance) => '';
@@ -195,10 +195,10 @@ Widget buildWidgetFromTypeAndValue({
           fixedFont: true,
         );
       }
-      if (value is MoneyModel) {
+      if (value is AmountModel) {
         return MoneyWidget(amountModel: value);
       }
-      return MoneyWidget(amountModel: MoneyModel(amount: value as double));
+      return MoneyWidget(amountModel: AmountModel(amount: value as double));
 
     // Amount short hand
     case FieldType.amountShorthand:

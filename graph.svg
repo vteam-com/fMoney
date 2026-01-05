@@ -797,7 +797,7 @@
         <g id='Node_semantic_text.dart'>
           <rect x="6409" y="4994" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_money_model.dart'>
+        <g id='Node_amount_model.dart'>
           <rect x="5659" y="5074" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_dialog.dart'>
@@ -842,7 +842,7 @@
         <g id='Node_preferences_controller.dart'>
           <rect x="5809" y="5544" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
-        <g id='Node_misc_widgets.dart'>
+        <g id='Node_scale_down.dart'>
           <rect x="6109" y="5544" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_database.dart'>
@@ -1136,7 +1136,7 @@ event.dart</title>
       <path d="M6385 5520 C 6399 5305,5661 5305, 5675 5090" fill="none" class="lineOrange">
         <title>field.dart
 ⬇
-money_model.dart</title>
+amount_model.dart</title>
       </path>
       <path d="M6385 5520 C 6395 5620,6115 5620, 6125 5720" fill="none" class="lineRed">
         <title>field.dart
@@ -1168,20 +1168,15 @@ data.dart</title>
 ⬇
 domain_buttons.dart</title>
       </path>
+      <path d="M6385 5760 C 6407 5425,5653 5425, 5675 5090" fill="none" class="lineOrange">
+        <title>money_object.dart
+⬇
+amount_model.dart</title>
+      </path>
       <path d="M6385 5760 C 6395 5620,6115 5620, 6125 5480" fill="none" class="lineRed">
         <title>money_object.dart
 ⬇
 field.dart</title>
-      </path>
-      <path d="M6385 5760 C 6395 5660,6115 5660, 6125 5560" fill="none" class="lineOrange">
-        <title>money_object.dart
-⬇
-misc_widgets.dart</title>
-      </path>
-      <path d="M6385 5760 C 6407 5425,5653 5425, 5675 5090" fill="none" class="lineOrange">
-        <title>money_object.dart
-⬇
-money_model.dart</title>
       </path>
       <path d="M6385 5760 C 6410 5385,5800 5385, 5825 5010" fill="none" class="lineOrange">
         <title>money_object.dart
@@ -1192,6 +1187,11 @@ money_widget.dart</title>
         <title>money_object.dart
 ⬇
 quantity_widget.dart</title>
+      </path>
+      <path d="M6385 5760 C 6395 5660,6115 5660, 6125 5560" fill="none" class="lineOrange">
+        <title>money_object.dart
+⬇
+scale_down.dart</title>
       </path>
       <path d="M6385 5760 C 6404 5465,6273.5 5465, 6292.5 5170" fill="none" class="lineOrange">
         <title>money_object.dart
@@ -1373,10 +1373,10 @@ panel_budget.dart</title>
 3 /views/data/category.dart
 4 /views/data/data.dart
 5 /views/view_cashflow/recurring/recurring_expenses.dart
-6 /widgets/charts/chart.dart
-7 /widgets/field_filter.dart
-8 /widgets/field_filters.dart
-9 /widgets/money_model.dart
+6 /widgets/amount_model.dart
+7 /widgets/charts/chart.dart
+8 /widgets/field_filter.dart
+9 /widgets/field_filters.dart
 10 /widgets/money_widget.dart
 11 /widgets/preferences_controller.dart
 12 /widgets/theme_custom.dart</title>
@@ -1449,12 +1449,12 @@ recurring_expenses.dart</title>
 6 /views/data/distribution_bar.dart
 7 /views/data/transactions.dart
 8 /views/view_cashflow/recurring/recurring_payment.dart
-9 /widgets/box.dart
-10 /widgets/date_range_time_line.dart
-11 /widgets/gaps.dart
-12 /widgets/mini_timeline_daily.dart
-13 /widgets/mini_timeline_twelve_months.dart
-14 /widgets/money_model.dart
+9 /widgets/amount_model.dart
+10 /widgets/box.dart
+11 /widgets/date_range_time_line.dart
+12 /widgets/gaps.dart
+13 /widgets/mini_timeline_daily.dart
+14 /widgets/mini_timeline_twelve_months.dart
 15 /widgets/money_widget.dart
 16 /widgets/preferences_controller.dart</title>
               </g>
@@ -1527,8 +1527,8 @@ net_worth_chart.dart</title>
 2 /views/data/category.dart
 3 /views/data/data.dart
 4 /views/data/transaction.dart
-5 /widgets/misc_widgets.dart
-6 /widgets/sankey/sankey_painter.dart
+5 /widgets/sankey/sankey_painter.dart
+6 /widgets/scale_down.dart
 7 /widgets/theme_controller.dart</title>
             </g>
             <g>
@@ -1578,16 +1578,16 @@ sankey_panel.dart</title>
 29 /views/models/account.dart
 30 /views/panels/side_panel/side_panel_support.dart
 31 /widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart
-32 /widgets/box.dart
-33 /widgets/center_message.dart
-34 /widgets/charts/chart.dart
-35 /widgets/dialog_button.dart
-36 /widgets/field.dart
-37 /widgets/field_filter.dart
-38 /widgets/field_filters.dart
-39 /widgets/gaps.dart
-40 /widgets/label_and_amount.dart
-41 /widgets/money_model.dart
+32 /widgets/amount_model.dart
+33 /widgets/box.dart
+34 /widgets/center_message.dart
+35 /widgets/charts/chart.dart
+36 /widgets/dialog_button.dart
+37 /widgets/field.dart
+38 /widgets/field_filter.dart
+39 /widgets/field_filters.dart
+40 /widgets/gaps.dart
+41 /widgets/label_and_amount.dart
 42 /widgets/money_object.dart
 43 /widgets/money_objects.dart
 44 /widgets/money_widget.dart
@@ -2469,10 +2469,10 @@ import_transactions_panel.dart</title>
 4 /helpers/pairs.dart
 5 /helpers/ranges.dart
 6 /views/data/data.dart
-7 /widgets/box.dart
-8 /widgets/columns/column_header_button.dart
-9 /widgets/gaps.dart
-10 /widgets/money_model.dart
+7 /widgets/amount_model.dart
+8 /widgets/box.dart
+9 /widgets/columns/column_header_button.dart
+10 /widgets/gaps.dart
 11 /widgets/money_widget.dart
 12 /widgets/my_banner.dart
 13 /widgets/semantic_text.dart
@@ -2606,8 +2606,8 @@ view_stocks.dart</title>
 14 /widgets/charts/chart_event.dart
 15 /widgets/charts/my_line_chart.dart
 16 /widgets/dialog_single_text_input.dart
-17 /widgets/misc_widgets.dart
-18 /widgets/preferences_controller.dart
+17 /widgets/preferences_controller.dart
+18 /widgets/scale_down.dart
 19 /widgets/snack_bar.dart
 20 /widgets/stock_cumulative.dart
 21 /widgets/working.dart</title>
@@ -2697,10 +2697,10 @@ view_money_objects.dart</title>
 4 /widgets/app_scaffold.dart
 5 /widgets/field.dart
 6 /widgets/field_filters.dart
-7 /widgets/misc_widgets.dart
-8 /widgets/money_object.dart
-9 /widgets/money_objects.dart
-10 /widgets/preferences_controller.dart
+7 /widgets/money_object.dart
+8 /widgets/money_objects.dart
+9 /widgets/preferences_controller.dart
+10 /widgets/scale_down.dart
 11 /widgets/theme_controller.dart</title>
             </g>
             <g>
@@ -2936,7 +2936,7 @@ view_policy.dart</title>
 3 /widgets/adaptive_list/multiple_selection_toggle.dart
 4 /widgets/filter_input.dart
 5 /widgets/icon_button.dart
-6 /widgets/misc_widgets.dart
+6 /widgets/scale_down.dart
 7 /widgets/three_part_label.dart</title>
             </g>
             <g>
@@ -3037,7 +3037,7 @@ splash_page.dart</title>
 12 /views/data/security.dart
 13 /views/data/transaction.dart
 14 /views/models/account.dart
-15 /widgets/money_model.dart
+15 /widgets/amount_model.dart
 16 /widgets/money_objects.dart
 17 /widgets/preferences_controller.dart</title>
             </g>
@@ -3098,10 +3098,10 @@ event.dart</title>
 7 /views/models/account.dart
 8 /views/models/rental_unit.dart
 9 /widgets/adaptive_list/list_item_card.dart
-10 /widgets/currencies/currency.dart
-11 /widgets/field.dart
-12 /widgets/field_type.dart
-13 /widgets/money_model.dart
+10 /widgets/amount_model.dart
+11 /widgets/currencies/currency.dart
+12 /widgets/field.dart
+13 /widgets/field_type.dart
 14 /widgets/money_object.dart
 15 /widgets/money_widget.dart
 16 /widgets/rental_pnl.dart</title>
@@ -3335,8 +3335,8 @@ securities.dart</title>
 1 /helpers/category_types.dart
 2 /helpers/color_helper.dart
 3 /views/data/category.dart
-4 /widgets/gaps.dart
-5 /widgets/money_model.dart
+4 /widgets/amount_model.dart
+5 /widgets/gaps.dart
 6 /widgets/money_widget.dart</title>
             </g>
             <g>
@@ -3909,9 +3909,9 @@ merge_payees.dart</title>
 5 /views/data/investment.dart
 6 /views/data/stock_split.dart
 7 /widgets/adaptive_list/list_item_card.dart
-8 /widgets/field.dart
-9 /widgets/field_type.dart
-10 /widgets/money_model.dart
+8 /widgets/amount_model.dart
+9 /widgets/field.dart
+10 /widgets/field_type.dart
 11 /widgets/money_object.dart
 12 /widgets/picker_security_type.dart
 13 /widgets/quantity_widget.dart
@@ -4126,11 +4126,11 @@ picker_account.dart</title>
 16 /views/data/transfer.dart
 17 /views/models/account.dart
 18 /widgets/adaptive_list/list_item_card.dart
-19 /widgets/currencies/currency.dart
-20 /widgets/field.dart
-21 /widgets/field_type.dart
-22 /widgets/icon_button.dart
-23 /widgets/money_model.dart
+19 /widgets/amount_model.dart
+20 /widgets/currencies/currency.dart
+21 /widgets/field.dart
+22 /widgets/field_type.dart
+23 /widgets/icon_button.dart
 24 /widgets/money_object.dart
 25 /widgets/money_widget.dart
 26 /widgets/mutation_types.dart
@@ -4190,9 +4190,9 @@ transaction.dart</title>
 5 /helpers/string_helper.dart
 6 /views/data/data.dart
 7 /views/data/stock_split.dart
-8 /widgets/field.dart
-9 /widgets/field_type.dart
-10 /widgets/money_model.dart
+8 /widgets/amount_model.dart
+9 /widgets/field.dart
+10 /widgets/field_type.dart
 11 /widgets/money_object.dart
 12 /widgets/stock_cumulative.dart</title>
             </g>
@@ -4370,11 +4370,11 @@ payee.dart</title>
 20 /views/models/account_aliases.dart
 21 /views/models/online_accounts.dart
 22 /views/models/rental_units.dart
-23 /widgets/currencies/currencies.dart
-24 /widgets/data_access.dart
-25 /widgets/data_source.dart
-26 /widgets/database.dart
-27 /widgets/money_model.dart
+23 /widgets/amount_model.dart
+24 /widgets/currencies/currencies.dart
+25 /widgets/data_access.dart
+26 /widgets/data_source.dart
+27 /widgets/database.dart
 28 /widgets/money_object.dart
 29 /widgets/money_objects.dart
 30 /widgets/mutation_types.dart
@@ -4476,10 +4476,10 @@ data.dart</title>
 6 /helpers/json_helper.dart
 7 /helpers/list_helper.dart
 8 /widgets/adaptive_list/list_item_card.dart
-9 /widgets/currencies/currency.dart
-10 /widgets/field.dart
-11 /widgets/field_type.dart
-12 /widgets/money_model.dart
+9 /widgets/amount_model.dart
+10 /widgets/currencies/currency.dart
+11 /widgets/field.dart
+12 /widgets/field_type.dart
 13 /widgets/money_object.dart
 14 /widgets/mutation_types.dart
 15 /widgets/picker_account_type.dart
@@ -4662,8 +4662,8 @@ alias_types.dart</title>
 12 /views/panels/splash_page.dart
 13 /views/welcome/welcome_page.dart
 14 /views/welcome/welcome_routes.dart
-15 /widgets/misc_widgets.dart
-16 /widgets/preferences_controller.dart
+15 /widgets/preferences_controller.dart
+16 /widgets/scale_down.dart
 17 /widgets/snack_bar.dart
 18 /widgets/theme_controller.dart</title>
         </g>
@@ -4693,8 +4693,8 @@ alias_types.dart</title>
 1 /helpers/pairs.dart
 2 /views/data/category.dart
 3 /views/data/data.dart
-4 /widgets/circle.dart
-5 /widgets/money_model.dart
+4 /widgets/amount_model.dart
+5 /widgets/circle.dart
 6 /widgets/money_widget.dart</title>
         </g>
       </g>
@@ -4777,7 +4777,7 @@ multiple_selection_toggle.dart</title>
 ⬇
 1 /helpers/string_helper.dart
 2 /widgets/gaps.dart
-3 /widgets/misc_widgets.dart</title>
+3 /widgets/scale_down.dart</title>
             </g>
             <g>
               <circle cx="972.5" cy="4265" r="10" fill="blue"/>
@@ -4800,8 +4800,8 @@ column_filter_panel.dart</title>
 5 /widgets/adaptive_list/list_view.dart
 6 /widgets/field.dart
 7 /widgets/field_filters.dart
-8 /widgets/misc_widgets.dart
-9 /widgets/money_object.dart</title>
+8 /widgets/money_object.dart
+9 /widgets/scale_down.dart</title>
             </g>
             <g>
               <circle cx="222.5" cy="4345" r="10" fill="blue"/>
@@ -4839,7 +4839,7 @@ footer_accumulators.dart</title>
               <text x="1082.5" y="4385" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
               <title>multiple_selection_context.dart
 ⬇
-1 /widgets/misc_widgets.dart</title>
+1 /widgets/scale_down.dart</title>
             </g>
             <g>
               <circle cx="822.5" cy="4345" r="10" fill="blue"/>
@@ -4919,7 +4919,7 @@ list_item_footer.dart</title>
               <title>list_item.dart
 ⬇
 1 /helpers/color_helper.dart
-2 /widgets/misc_widgets.dart</title>
+2 /widgets/scale_down.dart</title>
             </g>
             <g>
               <circle cx="522.5" cy="4505" r="10" fill="blue"/>
@@ -5121,7 +5121,7 @@ text_title.dart</title>
             <title>my_segment.dart
 ⬇
 1 /widgets/gaps.dart
-2 /widgets/misc_widgets.dart</title>
+2 /widgets/scale_down.dart</title>
           </g>
           <g>
             <circle cx="3160" cy="4230" r="10" fill="blue"/>
@@ -5225,7 +5225,7 @@ confirmation_dialog.dart</title>
 ⬇
 1 /helpers/color_helper.dart
 2 /helpers/constants.dart
-3 /widgets/money_model.dart
+3 /widgets/amount_model.dart
 4 /widgets/money_widget.dart
 5 /widgets/quantity_widget.dart</title>
           </g>
@@ -5654,7 +5654,7 @@ reveal_content.dart</title>
             <text x="11855" y="4270" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>adaptive_columns.dart
 ⬇
-1 /widgets/misc_widgets.dart</title>
+1 /widgets/scale_down.dart</title>
           </g>
         </g>
         <g id='Counters_database_web.dart'>
@@ -5799,7 +5799,7 @@ theme_controller.dart</title>
 1 /helpers/constants.dart
 2 /helpers/list_helper.dart
 3 /helpers/ranges.dart
-4 /widgets/money_model.dart
+4 /widgets/amount_model.dart
 5 /widgets/money_widget.dart
 6 /widgets/semantic_text.dart</title>
           </g>
@@ -5850,7 +5850,7 @@ picker_edit_box.dart</title>
 3 /helpers/misc_helpers.dart
 4 /helpers/ranges.dart
 5 /widgets/field_type.dart
-6 /widgets/misc_widgets.dart
+6 /widgets/scale_down.dart
 7 /widgets/theme_custom.dart</title>
           </g>
           <g>
@@ -5886,7 +5886,7 @@ quantity_widget.dart</title>
             <text x="7135" y="4890" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
             <title>default_values.dart
 ⬇
-1 /widgets/money_model.dart</title>
+1 /widgets/amount_model.dart</title>
           </g>
           <g>
             <circle cx="6875" cy="4850" r="10" fill="blue"/>
@@ -5980,8 +5980,8 @@ picker_panel.dart</title>
 1 /helpers/color_helper.dart
 2 /helpers/currency_helper.dart
 3 /helpers/misc_helpers.dart
-4 /widgets/currencies/currency.dart
-5 /widgets/money_model.dart
+4 /widgets/amount_model.dart
+5 /widgets/currencies/currency.dart
 6 /widgets/theme_custom.dart</title>
           </g>
           <g>
@@ -6054,11 +6054,11 @@ snack_bar.dart</title>
 semantic_text.dart</title>
           </g>
         </g>
-        <g id='Counters_money_model.dart'>
+        <g id='Counters_amount_model.dart'>
           <g>
             <circle cx="5935" cy="5130" r="10" fill="green"/>
             <text x="5935" y="5130" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-            <title>money_model.dart
+            <title>amount_model.dart
 ⬇
 1 /helpers/constants.dart
 2 /helpers/currency_helper.dart
@@ -6088,7 +6088,7 @@ semantic_text.dart</title>
 19 /widgets/money_widget.dart
 20 /widgets/value_parser.dart
 ⬇
-money_model.dart</title>
+amount_model.dart</title>
           </g>
         </g>
         <g id='Counters_dialog.dart'>
@@ -6101,7 +6101,7 @@ money_model.dart</title>
 2 /helpers/constants.dart
 3 /widgets/dialog_button.dart
 4 /widgets/dialog_full_screen.dart
-5 /widgets/misc_widgets.dart</title>
+5 /widgets/scale_down.dart</title>
           </g>
           <g>
             <circle cx="5975" cy="5090" r="10" fill="blue"/>
@@ -6273,7 +6273,7 @@ theme_custom.dart</title>
             <title>dialog_full_screen.dart
 ⬇
 1 /widgets/app_scaffold.dart
-2 /widgets/misc_widgets.dart</title>
+2 /widgets/scale_down.dart</title>
           </g>
           <g>
             <circle cx="6592.5" cy="5170" r="10" fill="blue"/>
@@ -6358,7 +6358,7 @@ app_scaffold.dart</title>
             <title>currency_label.dart
 ⬇
 1 /widgets/gaps.dart
-2 /widgets/misc_widgets.dart</title>
+2 /widgets/scale_down.dart</title>
           </g>
           <g>
             <circle cx="6425" cy="5400" r="10" fill="blue"/>
@@ -6378,10 +6378,10 @@ currency_label.dart</title>
 2 /helpers/date_helper.dart
 3 /helpers/list_helper.dart
 4 /helpers/string_helper.dart
-5 /widgets/field_filter.dart
-6 /widgets/field_filters.dart
-7 /widgets/field_type.dart
-8 /widgets/money_model.dart
+5 /widgets/amount_model.dart
+6 /widgets/field_filter.dart
+7 /widgets/field_filters.dart
+8 /widgets/field_type.dart
 9 /widgets/money_object.dart
 10 /widgets/money_widget.dart</title>
           </g>
@@ -6482,11 +6482,11 @@ field.dart</title>
 preferences_controller.dart</title>
           </g>
         </g>
-        <g id='Counters_misc_widgets.dart'>
+        <g id='Counters_scale_down.dart'>
           <g>
             <circle cx="6385" cy="5600" r="10" fill="green"/>
             <text x="6385" y="5600" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-            <title>misc_widgets.dart
+            <title>scale_down.dart
 ⬇
 1 /helpers/constants.dart</title>
           </g>
@@ -6513,7 +6513,7 @@ preferences_controller.dart</title>
 18 /widgets/money_object.dart
 19 /widgets/my_segment.dart
 ⬇
-misc_widgets.dart</title>
+scale_down.dart</title>
           </g>
         </g>
         <g id='Counters_database.dart'>
@@ -6582,15 +6582,15 @@ database_sql.dart</title>
 3 /helpers/date_helper.dart
 4 /helpers/json_helper.dart
 5 /helpers/string_helper.dart
-6 /widgets/field.dart
-7 /widgets/field_type.dart
-8 /widgets/form_field_switch.dart
-9 /widgets/form_field_widget.dart
-10 /widgets/misc_widgets.dart
-11 /widgets/money_model.dart
-12 /widgets/money_widget.dart
-13 /widgets/mutation_types.dart
-14 /widgets/quantity_widget.dart
+6 /widgets/amount_model.dart
+7 /widgets/field.dart
+8 /widgets/field_type.dart
+9 /widgets/form_field_switch.dart
+10 /widgets/form_field_widget.dart
+11 /widgets/money_widget.dart
+12 /widgets/mutation_types.dart
+13 /widgets/quantity_widget.dart
+14 /widgets/scale_down.dart
 15 /widgets/theme_custom.dart</title>
           </g>
           <g>
@@ -7046,8 +7046,8 @@ home_binding.dart</title>
 6 /views/import/import_transactions_from_text.dart
 7 /views/import/import_wizard.dart
 8 /widgets/color_palette.dart
-9 /widgets/misc_widgets.dart
-10 /widgets/preferences_controller.dart
+9 /widgets/preferences_controller.dart
+10 /widgets/scale_down.dart
 11 /widgets/theme_controller.dart
 12 /widgets/three_part_label.dart
 13 /widgets/zoom.dart</title>
@@ -7068,9 +7068,9 @@ app_bar.dart</title>
 ⬇
 1 /helpers/color_helper.dart
 2 /helpers/constants.dart
-3 /widgets/misc_widgets.dart
-4 /widgets/misc_widgets.dart
-5 /widgets/preferences_controller.dart</title>
+3 /widgets/preferences_controller.dart
+4 /widgets/scale_down.dart
+5 /widgets/scale_down.dart</title>
         </g>
         <g>
           <circle cx="6275" cy="295" r="10" fill="blue"/>
@@ -7093,8 +7093,8 @@ my_nav_bar.dart</title>
 5 /views/data/data_controller.dart
 6 /views/data/mru_dropdown.dart
 7 /views/panels/pending_changes/badge_pending_changes.dart
-8 /widgets/gaps.dart
-9 /widgets/money_model.dart
+8 /widgets/amount_model.dart
+9 /widgets/gaps.dart
 10 /widgets/reveal_content.dart</title>
         </g>
         <g>
@@ -7300,10 +7300,10 @@ list_helper.dart</title>
 5 /views/view_categories/view_categories.dart
 6 /views/view_stocks/stock_chart.dart
 7 /views/view_stocks/view_stocks.dart
-8 /widgets/charts/chart.dart
-9 /widgets/field.dart
-10 /widgets/footer_widgets.dart
-11 /widgets/money_model.dart
+8 /widgets/amount_model.dart
+9 /widgets/charts/chart.dart
+10 /widgets/field.dart
+11 /widgets/footer_widgets.dart
 12 /widgets/money_object.dart
 13 /widgets/money_widget.dart
 14 /widgets/rental_pnl.dart
@@ -7580,23 +7580,23 @@ string_helper.dart</title>
 52 /views/welcome/welcome_routes.dart
 53 /widgets/adaptive_list/list_item_header.dart
 54 /widgets/adaptive_list/multiple_selection_toggle.dart
-55 /widgets/box.dart
-56 /widgets/center_message.dart
-57 /widgets/charts/chart.dart
-58 /widgets/columns/input_values.dart
-59 /widgets/columns_input.dart
-60 /widgets/currencies/currency.dart
-61 /widgets/data_access.dart
-62 /widgets/dialog.dart
-63 /widgets/label_and_amount.dart
-64 /widgets/misc_widgets.dart
-65 /widgets/money_model.dart
-66 /widgets/money_object.dart
-67 /widgets/money_objects.dart
-68 /widgets/picker_panel.dart
-69 /widgets/preferences_controller.dart
-70 /widgets/sankey/sankey_helper.dart
-71 /widgets/sankey/sankey_painter.dart
+55 /widgets/amount_model.dart
+56 /widgets/box.dart
+57 /widgets/center_message.dart
+58 /widgets/charts/chart.dart
+59 /widgets/columns/input_values.dart
+60 /widgets/columns_input.dart
+61 /widgets/currencies/currency.dart
+62 /widgets/data_access.dart
+63 /widgets/dialog.dart
+64 /widgets/label_and_amount.dart
+65 /widgets/money_object.dart
+66 /widgets/money_objects.dart
+67 /widgets/picker_panel.dart
+68 /widgets/preferences_controller.dart
+69 /widgets/sankey/sankey_helper.dart
+70 /widgets/sankey/sankey_painter.dart
+71 /widgets/scale_down.dart
 72 /widgets/theme_controller.dart
 73 /widgets/token_text.dart
 74 /widgets/value_parser.dart
@@ -7638,11 +7638,11 @@ constants.dart</title>
 26 /views/view_transactions/view_transactions.dart
 27 /views/view_transfers/view_transfers.dart
 28 /widgets/adaptive_list/list_view.dart
-29 /widgets/charts/chart.dart
-30 /widgets/columns_input.dart
-31 /widgets/filter_input.dart
-32 /widgets/footer_widgets.dart
-33 /widgets/money_model.dart
+29 /widgets/amount_model.dart
+30 /widgets/charts/chart.dart
+31 /widgets/columns_input.dart
+32 /widgets/filter_input.dart
+33 /widgets/footer_widgets.dart
 34 /widgets/money_widget.dart
 35 /widgets/ocr.dart
 36 /widgets/reveal_content.dart
@@ -8487,8 +8487,8 @@ view.dart</title>
         <g id='Labels_semantic_text.dart'>
           <text class="nodeName" x="6555" y="5030" font-size="120%">semantic_text.dart</text>
         </g>
-        <g id='Labels_money_model.dart'>
-          <text class="nodeName" x="5805" y="5110" font-size="120%">money_model.dart</text>
+        <g id='Labels_amount_model.dart'>
+          <text class="nodeName" x="5805" y="5110" font-size="120%">amount_model.dart</text>
         </g>
         <g id='Labels_dialog.dart'>
           <text class="nodeName" x="6105" y="5110" font-size="120%">dialog.dart</text>
@@ -8532,8 +8532,8 @@ view.dart</title>
         <g id='Labels_preferences_controller.dart'>
           <text class="nodeName" x="5955" y="5580" font-size="120%">preferences_controller.dart</text>
         </g>
-        <g id='Labels_misc_widgets.dart'>
-          <text class="nodeName" x="6255" y="5580" font-size="120%">misc_widgets.dart</text>
+        <g id='Labels_scale_down.dart'>
+          <text class="nodeName" x="6255" y="5580" font-size="120%">scale_down.dart</text>
         </g>
         <g id='Labels_database.dart'>
           <text class="nodeName" x="6555" y="5580" font-size="120%">database.dart</text>

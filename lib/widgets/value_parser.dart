@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/semantic_text.dart';
 
@@ -54,7 +54,7 @@ class ValueQuality {
       return buildWarning(context, valueAsString);
     }
 
-    final MoneyModel mm = MoneyModel(amount: asAmount(), iso4217: currency);
+    final AmountModel mm = AmountModel(amount: asAmount(), iso4217: currency);
     return MoneyWidget(amountModel: mm);
   }
 

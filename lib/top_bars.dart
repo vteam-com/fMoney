@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/circle.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';
 
 class BarChartWidget extends StatelessWidget {
@@ -87,7 +87,7 @@ class BarChartWidget extends StatelessWidget {
         colorWidget,
         Expanded(
           child: MoneyWidget(
-            amountModel: MoneyModel(amount: value * (asIncome ? 1 : -1)),
+            amountModel: AmountModel(amount: value * (asIncome ? 1 : -1)),
           ),
         ),
       ],

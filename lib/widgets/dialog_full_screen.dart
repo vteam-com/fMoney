@@ -1,5 +1,5 @@
 import 'package:money/widgets/app_scaffold.dart';
-import 'package:money/widgets/misc_widgets.dart';
+import 'package:money/widgets/scale_down.dart';
 
 ///
 class FullScreenDialog extends StatefulWidget {

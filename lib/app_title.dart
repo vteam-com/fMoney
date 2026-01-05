@@ -5,8 +5,8 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/data/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/reveal_content.dart';
 
 // Exports
@@ -17,7 +17,7 @@ class AppTitle extends StatelessWidget {
     netWorth = Data().getNetWorth();
   }
 
-  late final MoneyModel netWorth;
+  late final AmountModel netWorth;
 
   @override
   Widget build(BuildContext context) {

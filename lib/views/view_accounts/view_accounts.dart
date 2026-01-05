@@ -31,6 +31,7 @@ import 'package:money/views/import/import_wizard.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart.dart';
@@ -40,7 +41,6 @@ import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/label_and_amount.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/money_widget.dart';
@@ -326,7 +326,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
     Data().accounts
         .activeAccounts(types)
         .forEach(
-          (final Account x) => total += (x.fieldBalanceNormalized.getValueForDisplay(x) as MoneyModel).asDouble(),
+          (final Account x) => total += (x.fieldBalanceNormalized.getValueForDisplay(x) as AmountModel).asDouble(),
         );
     return total;
   }
@@ -596,7 +596,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
             children: <Widget>[
               const TextTitle('Cash'),
               MoneyWidget(
-                amountModel: MoneyModel(
+                amountModel: AmountModel(
                   amount: totalCash,
                   iso4217: account.getAccountCurrencyAsText(),
                   autoColor: true,
@@ -610,7 +610,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
             children: <Widget>[
               const TextTitle('Investments'),
               MoneyWidget(
-                amountModel: MoneyModel(
+                amountModel: AmountModel(
                   amount: totalInvestment,
                   iso4217: account.getAccountCurrencyAsText(),
                   autoColor: true,

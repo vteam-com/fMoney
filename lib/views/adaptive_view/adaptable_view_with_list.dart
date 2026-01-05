@@ -7,10 +7,10 @@ import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 

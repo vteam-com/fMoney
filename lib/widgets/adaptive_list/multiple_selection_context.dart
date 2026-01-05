@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/misc_widgets.dart';
+export 'package:money/widgets/scale_down.dart';
 
 class ViewHeaderMultipleSelection {
   ViewHeaderMultipleSelection({

@@ -5,9 +5,9 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investment.dart';
 import 'package:money/views/data/stock_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/quantity_widget.dart';
@@ -76,7 +76,7 @@ class Security extends MoneyObject {
 
   final FieldMoney fieldHoldingValue = FieldMoney(
     name: 'HoldingsValue',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(amount: (instance as Security).holdingValue),
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Security).holdingValue),
   );
 
   List<Dividend> dividends = <Dividend>[];
@@ -169,7 +169,7 @@ class Security extends MoneyObject {
       this.fieldActivityProfit.value.asDouble() + this.fieldActivityDividend.value.asDouble() + this.holdingValue;
   FieldMoney fieldProfit = FieldMoney(
     name: 'Profit',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(amount: (instance as Security).profit),
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Security).profit),
   );
 
   /* 

@@ -7,10 +7,10 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_expenses.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_custom.dart';
@@ -98,7 +98,7 @@ class _PanelTrendState extends State<PanelTrend> {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '\nRevenue\t${MoneyModel(amount: yearData.sumIncome).toShortHand()}',
+                        text: '\nRevenue\t${AmountModel(amount: yearData.sumIncome).toShortHand()}',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.normal,
@@ -106,7 +106,7 @@ class _PanelTrendState extends State<PanelTrend> {
                         ),
                       ),
                       TextSpan(
-                        text: '\nExpense\t${MoneyModel(amount: yearData.sumExpense).toShortHand()}',
+                        text: '\nExpense\t${AmountModel(amount: yearData.sumExpense).toShortHand()}',
                         style: TextStyle(
                           color: Colors.red.shade100,
                           fontWeight: FontWeight.normal,
@@ -114,7 +114,7 @@ class _PanelTrendState extends State<PanelTrend> {
                         ),
                       ),
                       TextSpan(
-                        text: '\n${profit > 0 ? 'Profit' : 'Loss'}\t${MoneyModel(amount: profit).toShortHand()}',
+                        text: '\n${profit > 0 ? 'Profit' : 'Loss'}\t${AmountModel(amount: profit).toShortHand()}',
                         style: TextStyle(
                           color: profit > 0 ? Colors.blue : Colors.orange,
                           fontWeight: FontWeight.normal,

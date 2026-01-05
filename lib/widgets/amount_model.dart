@@ -3,9 +3,9 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
-class MoneyModel {
+class AmountModel {
   /// Constructor
-  MoneyModel({
+  AmountModel({
     required double amount,
     this.iso4217 = Constants.defaultCurrency,
     this.showCurrency = false,
@@ -32,8 +32,8 @@ class MoneyModel {
   }
 
   /// Add operator
-  MoneyModel operator +(final dynamic value) {
-    if (value is MoneyModel) {
+  AmountModel operator +(final dynamic value) {
+    if (value is AmountModel) {
       _amount += value.asDouble();
     } else {
       _amount += value as double;
@@ -42,8 +42,8 @@ class MoneyModel {
   }
 
   /// Subtracting operator
-  MoneyModel operator -(final dynamic value) {
-    if (value is MoneyModel) {
+  AmountModel operator -(final dynamic value) {
+    if (value is AmountModel) {
       _amount -= value.asDouble();
     } else {
       _amount -= value as double;
@@ -74,7 +74,7 @@ class MoneyModel {
   }
 }
 
-int sortByAmount(final MoneyModel a, final MoneyModel b, final bool ascending) {
+int sortByAmount(final AmountModel a, final AmountModel b, final bool ascending) {
   if (ascending) {
     return a.asDouble().compareTo(b.asDouble());
   } else {

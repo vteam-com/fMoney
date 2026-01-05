@@ -4,10 +4,10 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_widget.dart';
 
@@ -70,7 +70,7 @@ class Field<T> {
         case FieldType.text:
           getValueForDisplay = (final MoneyObject objectInstance) => value.toString();
         case FieldType.amount:
-          getValueForDisplay = (final MoneyObject c) => MoneyWidget(amountModel: value as MoneyModel);
+          getValueForDisplay = (final MoneyObject c) => MoneyWidget(amountModel: value as AmountModel);
         case FieldType.date:
           getValueForDisplay = (final MoneyObject c) => dateToString(value as DateTime?);
         default:
@@ -113,8 +113,8 @@ class Field<T> {
                 final MoneyObject b,
                 final bool ascending,
               ) => sortByAmount(
-                getValueForDisplay(a) as MoneyModel,
-                getValueForDisplay(b) as MoneyModel,
+                getValueForDisplay(a) as AmountModel,
+                getValueForDisplay(b) as AmountModel,
                 ascending,
               );
         case FieldType.date:
@@ -200,8 +200,8 @@ class Field<T> {
       case FieldType.percentage:
         return formatDoubleUpToFiveZero(value as double);
       case FieldType.amount:
-        if (type is MoneyModel) {
-          return (value as MoneyModel).toString();
+        if (type is AmountModel) {
+          return (value as AmountModel).toString();
         }
         if (value is double) {
           return getAmountAsStringUsingCurrency(value);
@@ -335,7 +335,7 @@ class FieldInt extends Field<int> {
   });
 }
 
-class FieldMoney extends Field<MoneyModel> {
+class FieldMoney extends Field<AmountModel> {
   FieldMoney({
     super.name,
     super.serializeName,
@@ -347,7 +347,7 @@ class FieldMoney extends Field<MoneyModel> {
     super.useAsDetailPanels,
     super.sort,
   }) : super(
-         defaultValue: MoneyModel(amount: 0.00, autoColor: true),
+         defaultValue: AmountModel(amount: 0.00, autoColor: true),
          align: TextAlign.right,
          type: FieldType.amount,
        );

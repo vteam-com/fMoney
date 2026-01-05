@@ -6,10 +6,10 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_account_type.dart';
@@ -72,7 +72,7 @@ class Account extends MoneyObject {
     footer: FooterType.range,
     getValueForDisplay: (final MoneyObject instance) {
       final Account accountInstance = instance as Account;
-      return MoneyModel(
+      return AmountModel(
         amount: accountInstance.balance,
         iso4217: accountInstance.getAccountCurrencyAsText(),
       );
@@ -86,7 +86,7 @@ class Account extends MoneyObject {
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final MoneyObject instance) {
       final Account accountInstance = instance as Account;
-      return MoneyModel(
+      return AmountModel(
         amount: accountInstance.getCurrencyRatio() * accountInstance.balance,
         iso4217: Constants.defaultCurrency,
       );

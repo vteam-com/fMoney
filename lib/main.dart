@@ -19,7 +19,7 @@ import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 import 'helpers/application_bindings.dart';
-import 'widgets/misc_widgets.dart';
+import 'widgets/scale_down.dart';
 
 /// The main entry point for the MoneyFlutter application.
 /// Sets up the app structure, theming, and initial routes.

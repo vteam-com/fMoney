@@ -1,4 +1,4 @@
-import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/amount_model.dart';
 
 /// Returns the provided [value] if it's not null, otherwise returns the [defaultValueIfNull].
 ///
@@ -106,7 +106,7 @@ double smartToDouble(final dynamic value) {
     return value.toDouble();
   }
 
-  if (value is MoneyModel) {
+  if (value is AmountModel) {
     return value.asDouble();
   }
 

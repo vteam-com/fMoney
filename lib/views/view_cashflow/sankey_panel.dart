@@ -7,8 +7,8 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transaction.dart';
-import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/sankey/sankey_painter.dart';
+import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 // ignore: must_be_immutable

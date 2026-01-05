@@ -17,7 +17,7 @@ import 'package:money/views/data/loan_payments.dart';
 import 'package:money/views/data/security.dart';
 import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
-import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
@@ -305,7 +305,7 @@ class Accounts extends MoneyObjects<Account> {
 
     for (final Account account in iterableList()) {
       if (account.isMatchingUserChoiceIncludingClosedAccount) {
-        sum += (account.fieldBalanceNormalized.getValueForDisplay(account) as MoneyModel).asDouble();
+        sum += (account.fieldBalanceNormalized.getValueForDisplay(account) as AmountModel).asDouble();
       }
     }
     return sum;

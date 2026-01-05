@@ -8,9 +8,9 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/stock_split.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 
@@ -79,12 +79,12 @@ class Investment extends MoneyObject {
 
   FieldMoney fieldActivityDividend = FieldMoney(
     name: 'ActivityDividend',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(amount: (instance as Investment).activityDividend),
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).activityDividend),
   );
 
   FieldMoney fieldActivityAmount = FieldMoney(
     name: 'ActivityAmount',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(amount: (instance as Investment).activityAmount),
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).activityAmount),
   );
 
   /// 4    Commission      money   0                    0
@@ -113,7 +113,7 @@ class Investment extends MoneyObject {
     name: 'HoldingValue',
     footer: FooterType.average,
     getValueForDisplay: (final MoneyObject instance) {
-      return MoneyModel(
+      return AmountModel(
         amount: (instance as Investment).fieldHoldingShares.value * instance.unitPriceAdjusted,
       );
     },
@@ -168,7 +168,7 @@ class Investment extends MoneyObject {
     name: 'NetValue',
     footer: FooterType.average,
     getValueForDisplay: (final MoneyObject instance) {
-      return MoneyModel(amount: (instance as Investment).transactionNetValue);
+      return AmountModel(amount: (instance as Investment).transactionNetValue);
     },
   );
 
@@ -281,7 +281,7 @@ class Investment extends MoneyObject {
   FieldMoney fieldUnitPriceAdjusted = FieldMoney(
     name: 'Price A.S.',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(amount: (instance as Investment).unitPriceAdjusted),
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).unitPriceAdjusted),
   );
 
   /// 3    Units           money   0                    0

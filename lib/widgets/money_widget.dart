@@ -1,8 +1,8 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/currencies/currency.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
@@ -22,13 +22,13 @@ class MoneyWidget extends StatelessWidget {
     final MoneyWidgetSize size = MoneyWidgetSize.body,
   ]) {
     return MoneyWidget(
-      amountModel: MoneyModel(amount: amount),
+      amountModel: AmountModel(amount: amount),
       size: size,
     );
   }
 
   /// Amount to display
-  final MoneyModel amountModel;
+  final AmountModel amountModel;
 
   final MoneyWidgetSize size;
 

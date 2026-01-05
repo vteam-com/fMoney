@@ -2,11 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data/data.dart';
-import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/amount_model.dart';
 
 void main() {
   test('test_should_round_positive_decimal_value', () {
-    MoneyModel mm = MoneyModel(amount: 12345.67);
+    AmountModel mm = AmountModel(amount: 12345.67);
 
     // To String
     expect(mm.asDouble(), equals(12345.67));

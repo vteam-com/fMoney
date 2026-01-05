@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/quantity_widget.dart';
 
@@ -29,7 +29,7 @@ class LabelAndAmount extends StatelessWidget {
           ),
         ),
         MoneyWidget(
-          amountModel: MoneyModel(
+          amountModel: AmountModel(
             amount: amount,
             iso4217: currencyIso4217,
             showCurrency: false,

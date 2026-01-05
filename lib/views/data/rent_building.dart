@@ -9,10 +9,10 @@ import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/views/models/rental_unit.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/rental_pnl.dart';
@@ -233,7 +233,7 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldExpense = FieldMoney(
     name: 'Expenses',
     getValueForDisplay: (final MoneyObject instance) =>
-        MoneyModel(amount: (instance as RentBuilding).lifeTimePnL.expenses),
+        AmountModel(amount: (instance as RentBuilding).lifeTimePnL.expenses),
   );
 
   /// ID
@@ -257,7 +257,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Interest
   FieldMoney fieldLifeTimeExpenseInterest = FieldMoney(
     name: '  Expense-Interest',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseInterest,
     ),
   );
@@ -265,7 +265,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Maintenance
   FieldMoney fieldLifeTimeExpenseMaintenance = FieldMoney(
     name: '  Expense-Maintenance',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseMaintenance,
     ),
   );
@@ -273,7 +273,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Management
   FieldMoney fieldLifeTimeExpenseManagement = FieldMoney(
     name: '  Expense-Management',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseManagement,
     ),
   );
@@ -281,7 +281,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Repair
   FieldMoney fieldLifeTimeExpenseRepair = FieldMoney(
     name: '  Expense-Repair',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseRepairs,
     ),
   );
@@ -289,7 +289,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Taxes
   FieldMoney fieldLifeTimeExpenseTaxes = FieldMoney(
     name: '  Expense-Taxes',
-    getValueForDisplay: (final MoneyObject instance) => MoneyModel(
+    getValueForDisplay: (final MoneyObject instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseTaxes,
     ),
   );
@@ -345,7 +345,7 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldProfit = FieldMoney(
     name: 'Profit',
     getValueForDisplay: (final MoneyObject instance) =>
-        MoneyModel(amount: (instance as RentBuilding).lifeTimePnL.profit),
+        AmountModel(amount: (instance as RentBuilding).lifeTimePnL.profit),
   );
 
   /// PurchasedDate
@@ -375,7 +375,7 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldRevenue = FieldMoney(
     name: 'Revenue',
     getValueForDisplay: (final MoneyObject instance) =>
-        MoneyModel(amount: (instance as RentBuilding).lifeTimePnL.income),
+        AmountModel(amount: (instance as RentBuilding).lifeTimePnL.income),
   );
 
   FieldInt fieldTransactionsForExpenses = FieldInt(
@@ -411,7 +411,7 @@ class RentBuilding extends MoneyObject {
       leftTopAsString: fieldName.value,
       leftBottomAsString: fieldAddress.value,
       rightTopAsWidget: MoneyWidget(
-        amountModel: MoneyModel(amount: lifeTimePnL.profit),
+        amountModel: AmountModel(amount: lifeTimePnL.profit),
         size: MoneyWidgetSize.title,
       ),
     );

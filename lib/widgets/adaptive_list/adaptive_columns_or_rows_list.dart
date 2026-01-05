@@ -5,8 +5,8 @@ import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/scale_down.dart';
 
 class AdaptiveListColumnsOrRows extends StatelessWidget {
   const AdaptiveListColumnsOrRows({

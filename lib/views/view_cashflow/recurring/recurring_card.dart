@@ -6,12 +6,12 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/distribution_bar.dart';
 import 'package:money/views/data/transactions.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_payment.dart';
+import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/date_range_time_line.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
-import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
@@ -190,7 +190,7 @@ class RecurringCard extends StatelessWidget {
           ),
         ),
         gapLarge(),
-        MoneyWidget(amountModel: MoneyModel(amount: payment.total)),
+        MoneyWidget(amountModel: AmountModel(amount: payment.total)),
       ],
     );
   }
@@ -205,7 +205,7 @@ Widget _buildTextAmountRow(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
       Text(title, style: getTextTheme(context).labelMedium),
-      MoneyWidget(amountModel: MoneyModel(amount: amount)),
+      MoneyWidget(amountModel: AmountModel(amount: amount)),
     ],
   );
 }

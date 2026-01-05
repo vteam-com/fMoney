@@ -5,7 +5,7 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/misc_widgets.dart';
+import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 Widget getFooterForDateRange(final DateRange dateRange) {
