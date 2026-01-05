@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_input.dart';
+import 'package:money/sub_views/view_ai/view_ai_input.dart';
 
 class DummyHostingApp extends StatelessWidget {
   const DummyHostingApp({required this.child, super.key});

@@ -1,9 +1,9 @@
+import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/models/accounts/account_types.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
 import 'package:money/views/dialog/picker_account_type.dart';
 import 'package:money/widgets/currencies/currency.dart';
@@ -15,7 +15,7 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/token_text.dart';
 
-import 'account_types_enum.dart';
+import '../../helpers/account_types_enum.dart';
 
 /// Accounts like Banks
 class Account extends MoneyObject {

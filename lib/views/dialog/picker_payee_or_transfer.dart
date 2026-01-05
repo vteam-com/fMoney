@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/models/accounts/account.dart';
 import 'package:money/models/payees/payee.dart';
+import 'package:money/sub_views/view_payees/merge_payees.dart';
 import 'package:money/views/dialog/picker_account.dart';
 import 'package:money/views/dialog/picker_payee.dart';
-import 'package:money/views/home/sub_views/view_payees/merge_payees.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 

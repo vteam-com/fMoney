@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/home/sub_views/view_ai/view_ai_chat_types.dart';
+import 'package:money/sub_views/view_ai/view_ai_chat_types.dart';
 
 void main() {
   final DateTime testDateTime = DateTime(2023, 12, 15, 10, 30, 45);

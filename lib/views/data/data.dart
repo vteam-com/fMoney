@@ -9,6 +9,7 @@ import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/transaction_types.dart';
 import 'package:money/models/account_aliases/account_aliases.dart';
 import 'package:money/models/accounts/account.dart';
 import 'package:money/models/online_accounts/online_accounts.dart';

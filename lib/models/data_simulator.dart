@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/account_aliases/account_alias.dart';
 import 'package:money/models/accounts/account.dart';
-import 'package:money/models/accounts/account_types_enum.dart';
 import 'package:money/models/aliases/alias.dart';
 import 'package:money/models/aliases/alias_types.dart';
 import 'package:money/models/categories/category.dart';
