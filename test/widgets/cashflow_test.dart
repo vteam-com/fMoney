@@ -7,8 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:money/sub_views/view_cashflow/view_cashflow.dart';
 import 'package:money/views/data/data.dart';
+import 'package:money/views/view_cashflow/view_cashflow.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
 

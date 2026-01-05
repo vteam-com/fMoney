@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/investments/investment.dart';
-import 'package:money/models/investments/stock_cumulative.dart';
-import 'package:money/models/securities/security.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investments.dart';
+import 'package:money/views/models/investments/investment.dart';
+import 'package:money/views/models/investments/stock_cumulative.dart';
+import 'package:money/views/models/securities/security.dart';
 import 'package:money/widgets/money_objects.dart';
 
 // Exports
-export 'package:money/models/securities/security.dart';
+export 'package:money/views/models/securities/security.dart';
 
 class Securities extends MoneyObjects<Security> {
   Securities() {

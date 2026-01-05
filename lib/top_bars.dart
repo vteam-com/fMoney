@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:money/helpers/pairs.dart';
-import 'package:money/models/categories/category.dart';
 import 'package:money/views/data/data.dart';
+import 'package:money/views/models/categories/category.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_widget.dart';

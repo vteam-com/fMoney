@@ -1,10 +1,10 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/accounts/account.dart';
-import 'package:money/models/loan_payments/loan_payment.dart';
-import 'package:money/models/transactions/transaction.dart';
 import 'package:money/views/data/data.dart';
+import 'package:money/views/models/accounts/account.dart';
+import 'package:money/views/models/loan_payments/loan_payment.dart';
+import 'package:money/views/models/transactions/transaction.dart';
 import 'package:money/widgets/money_objects.dart';
 
 class LoanPayments extends MoneyObjects<LoanPayment> {
