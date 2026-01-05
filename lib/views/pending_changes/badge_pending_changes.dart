@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/pending_changes/pending_changes_dialog.dart';

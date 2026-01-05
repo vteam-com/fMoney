@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/controller/preferences_controller.dart';
+import 'package:money/preferences_controller.dart';
 
 // List the selected item IDs, optionally can be persisted and loaded in Preferences
 /// Controller for managing selected item IDs in lists.

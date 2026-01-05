@@ -1,8 +1,8 @@
-import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/preferences_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transactions.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_card.dart';

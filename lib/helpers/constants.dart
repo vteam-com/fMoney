@@ -164,6 +164,12 @@ enum ViewId {
   viewPolicy,
 }
 
+enum SidePanelSubViewEnum { details, chart, transactions, pnl }
+
+enum CashflowViewAs { sankey, netWorthOverTime, budget, trend }
+
+enum BudgetViewAs { list, chart, recurrences, suggestions }
+
 extension ViewExtension on ViewId {
   String getViewPreferenceId(final String suffix) {
     // ignore: unnecessary_this

@@ -1,18 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
-import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/theme_controller.dart';
-import 'package:money/controller/zoom.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/import/import_transactions_from_text.dart';
 import 'package:money/import/import_wizard.dart';
+import 'package:money/preferences_controller.dart';
+import 'package:money/theme_controller.dart';
 import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/app_title.dart';
 import 'package:money/widgets/color_palette.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/zoom.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});

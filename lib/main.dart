@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
-import 'package:money/controller/my_window_manager.dart';
-import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/theme_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/import/import_transactions_from_text.dart';
+import 'package:money/my_window_manager.dart';
+import 'package:money/preferences_controller.dart';
+import 'package:money/theme_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/home/home_routes.dart';
 import 'package:money/views/platforms/platforms_routes.dart';

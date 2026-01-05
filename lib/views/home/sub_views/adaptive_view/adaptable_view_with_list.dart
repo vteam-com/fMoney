@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/theme_controller.dart';
 import 'package:money/views/adaptive_list/adaptive_columns_or_rows_list.dart';
-import 'package:money/views/home/sub_views/app_scaffold.dart';
+import 'package:money/views/app_scaffold.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/misc_widgets.dart';

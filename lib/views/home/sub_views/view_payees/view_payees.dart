@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
-import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/selection_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/money_objects/payees/payee.dart';
+import 'package:money/preferences_controller.dart';
+import 'package:money/selection_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transactions.dart';
 import 'package:money/views/dialog/dialog_button.dart';
-import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
+import 'package:money/views/dialog/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/view_payees/merge_payees.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';

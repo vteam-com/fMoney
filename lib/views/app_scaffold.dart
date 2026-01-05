@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money/controller/preferences_controller.dart';
+import 'package:money/preferences_controller.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/controller/preferences_controller.dart';
+export 'package:money/preferences_controller.dart';
 
 Widget myScaffold(
   final BuildContext context,

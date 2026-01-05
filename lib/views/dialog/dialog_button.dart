@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
+import 'package:money/views/dialog/menu_entry.dart';
 import 'package:money/widgets/gaps.dart';
 
 export 'package:flutter/material.dart';

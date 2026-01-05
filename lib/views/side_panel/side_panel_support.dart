@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:money/views/side_panel/side_panel_views_enum.dart';
+import 'package:money/helpers/constants.dart';
 
 class SidePanelSupport {
   SidePanelSupport({

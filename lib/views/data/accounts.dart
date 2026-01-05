@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -15,6 +14,7 @@ import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/loan_payments/loan_payment.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/preferences_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investments.dart';
 import 'package:money/views/data/loan_payments.dart';

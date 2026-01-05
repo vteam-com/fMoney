@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/import/import_data.dart';
 import 'package:money/import/import_qfx.dart';
 import 'package:money/views/data/data.dart';

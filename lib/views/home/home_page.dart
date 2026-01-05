@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/import/import_csv.dart'; // Added import for CSV
 import 'package:money/import/import_qfx.dart';
+import 'package:money/views/app_scaffold.dart';
 import 'package:money/views/home/sub_views/app_bar.dart';
-import 'package:money/views/home/sub_views/app_scaffold.dart';
 import 'package:money/views/home/sub_views/my_nav_bar.dart';
 import 'package:money/views/home/sub_views/view_accounts/view_accounts.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai.dart';
@@ -24,7 +24,7 @@ import 'package:money/widgets/drop_zone.dart';
 import 'package:money/widgets/working.dart';
 import 'package:path/path.dart' as path; // Added import for path
 
-import '../../controller/home_controller.dart';
+import '../../home_controller.dart';
 
 RxInt subViewInt = 0.obs;
 

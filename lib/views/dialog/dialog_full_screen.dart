@@ -1,4 +1,4 @@
-import 'package:money/views/home/sub_views/app_scaffold.dart';
+import 'package:money/views/app_scaffold.dart';
 import 'package:money/widgets/misc_widgets.dart';
 
 ///

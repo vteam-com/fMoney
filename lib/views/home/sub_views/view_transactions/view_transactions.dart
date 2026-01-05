@@ -1,4 +1,3 @@
-import 'package:money/controller/preferences_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -6,9 +5,10 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/preferences_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/dialog_button.dart';
-import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
+import 'package:money/views/dialog/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 import 'package:money/views/home/sub_views/view_transfers/transfer_sender_receiver.dart';

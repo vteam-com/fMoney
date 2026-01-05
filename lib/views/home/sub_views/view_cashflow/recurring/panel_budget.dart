@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:money/controller/preferences_controller.dart';
-import 'package:money/controller/theme_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -12,9 +10,11 @@ import 'package:money/money_objects/budget.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/categories/category_types.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/preferences_controller.dart';
+import 'package:money/theme_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/dialog_button.dart';
-import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
+import 'package:money/views/dialog/menu_entry.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/panel_recurring.dart';
 import 'package:money/views/home/sub_views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/box.dart';

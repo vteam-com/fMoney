@@ -1,4 +1,4 @@
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/dialog.dart';

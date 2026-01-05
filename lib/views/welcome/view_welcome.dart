@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/home/sub_views/mru_dropdown.dart';
 import 'package:money/widgets/gaps.dart';

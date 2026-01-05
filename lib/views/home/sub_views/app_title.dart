@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/controller/data_controller.dart';
+import 'package:money/data_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data/data.dart';

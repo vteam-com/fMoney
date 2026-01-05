@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/controller/selection_controller.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/selection_controller.dart';
 import 'package:money/views/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transactions.dart';

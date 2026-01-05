@@ -1,11 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
-import 'package:money/controller/selection_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/events/event.dart';
+import 'package:money/selection_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transactions.dart';
 import 'package:money/views/dialog/dialog_button.dart';
