@@ -1,5 +1,4 @@
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/dialog/picker_account_type.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -7,13 +6,15 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/money_objects/accounts/account_types.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
+import 'package:money/views/dialog/picker_account_type.dart';
+import 'package:money/widgets/currencies/currency.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets_data/currencies/currency.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_model.dart';
-import 'package:money/widgets_data/money_object.dart';
-import 'package:money/widgets_data/mutation_types.dart';
+
 import 'account_types_enum.dart';
 
 /// Accounts like Banks

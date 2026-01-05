@@ -3,9 +3,9 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction_types.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_object.dart';
 
 class Transfer extends MoneyObject {
   Transfer({

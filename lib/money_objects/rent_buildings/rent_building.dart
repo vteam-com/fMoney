@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/ranges.dart';
@@ -10,12 +9,13 @@ import 'package:money/money_objects/rental_unit/rental_unit.dart';
 import 'package:money/money_objects/splits/money_split.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
-import 'package:money/widgets_data/currencies/currency.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_model.dart';
-import 'package:money/widgets_data/money_object.dart';
-import 'package:money/widgets_data/money_widget.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/widgets/currencies/currency.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_model.dart';
+import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/money_widget.dart';
 
 /*
     SQLite table definition

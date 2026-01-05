@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:money/data/data.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/views/data/data.dart';
 import 'package:money/views/home/sub_views/view.dart';
 import 'package:money/views/home/sub_views/view_ai/ollama_service.dart';
 import 'package:money/views/home/sub_views/view_ai/view_ai_chat_message.dart';

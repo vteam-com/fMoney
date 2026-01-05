@@ -1,14 +1,14 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/data.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/aliases/alias_types.dart';
 import 'package:money/money_objects/payees/payee.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_object.dart';
 
 class Alias extends MoneyObject {
   Alias({

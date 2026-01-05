@@ -1,9 +1,5 @@
 import 'package:get/get.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/data/investments.dart';
-import 'package:money/dialog/dialog_button.dart';
-import 'package:money/dialog/dialog_mutate_money_object.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -15,6 +11,10 @@ import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
 import 'package:money/views/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/investments.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/dialog_mutate_money_object.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
@@ -22,12 +22,12 @@ import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/charts/chart_event.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_filters.dart';
+import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets_data/charts/chart_event.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_filters.dart';
-import 'package:money/widgets_data/money_object.dart';
-import 'package:money/widgets_data/money_objects.dart';
 
 export 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
 

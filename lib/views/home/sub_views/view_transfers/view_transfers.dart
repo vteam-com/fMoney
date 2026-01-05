@@ -1,19 +1,19 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/money_objects/accounts/account.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
 import 'package:money/money_objects/transfers/transfer.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/transactions.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/view_transfers/transfer_sender_receiver.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/money_object.dart';
 
 /// Widget for displaying transfers between accounts.
 class ViewTransfers extends ViewForMoneyObjects {

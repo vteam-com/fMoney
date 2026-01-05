@@ -1,13 +1,13 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
-import 'package:money/dialog/picker_category.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/categories/category.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/picker_category.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_object.dart';
 
 /*
   SQLite table definition

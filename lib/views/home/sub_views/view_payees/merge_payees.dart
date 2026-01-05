@@ -1,17 +1,17 @@
-import 'package:money/data/data.dart';
-import 'package:money/data/payees.dart';
-import 'package:money/data/transactions.dart';
-import 'package:money/dialog/dialog.dart';
-import 'package:money/dialog/dialog_button.dart';
-import 'package:money/dialog/picker_payee.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/payees/payee.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/payees.dart';
+import 'package:money/views/data/transactions.dart';
+import 'package:money/views/dialog/dialog.dart';
+import 'package:money/views/dialog/dialog_button.dart';
+import 'package:money/views/dialog/picker_payee.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets_data/mutation_types.dart';
+import 'package:money/widgets/mutation_types.dart';
 
 void showMergePayee(final BuildContext context, Payee payee) {
   final Iterable<Transaction> transactions = Data().transactions

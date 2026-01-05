@@ -7,14 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/import/import_qfx.dart';
 import 'package:money/main.dart' as app;
+import 'package:money/views/data/data.dart';
 import 'package:money/views/side_panel/side_panel_header.dart';
+import 'package:money/widgets/data_source.dart';
+import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets_data/data_source.dart';
-import 'package:money/widgets_data/money_objects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_helpers.dart';

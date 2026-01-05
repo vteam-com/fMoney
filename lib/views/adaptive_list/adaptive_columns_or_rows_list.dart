@@ -3,10 +3,10 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/views/adaptive_list/list_item_footer.dart';
 import 'package:money/views/adaptive_list/list_item_header.dart';
 import 'package:money/views/adaptive_list/list_view.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/misc_widgets.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_filters.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/money_object.dart';
 
 class AdaptiveListColumnsOrRows extends StatelessWidget {
   const AdaptiveListColumnsOrRows({

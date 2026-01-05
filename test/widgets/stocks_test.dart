@@ -7,17 +7,17 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/get_stock_from_cache_or_backend.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
+import 'package:money/views/data/data.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets_data/charts/chart_event.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/charts/chart_event.dart';
+import 'package:money/widgets/money_object.dart';
 
 // Mock the SharedPreference
 class MockPreferenceController extends GetxController with Mock implements PreferenceController {

@@ -6,8 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:money/controller/data_controller.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/dialog/dialog_single_text_input.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -19,12 +17,14 @@ import 'package:money/money_objects/get_stock_from_cache_or_backend.dart';
 import 'package:money/money_objects/investments/stock_cumulative.dart';
 import 'package:money/money_objects/securities/security.dart';
 import 'package:money/money_objects/stock_splits/stock_split.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/dialog_single_text_input.dart';
 import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/charts/chart_event.dart';
+import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/charts/chart_event.dart';
-import 'package:money/widgets_data/charts/my_line_chart.dart';
 
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({

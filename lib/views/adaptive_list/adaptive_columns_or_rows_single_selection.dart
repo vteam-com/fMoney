@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/views/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/views/adaptive_list/footer_accumulators.dart';
-import 'package:money/widgets_data/default_values.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_filters.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/default_values.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_filters.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/money_object.dart';
 
 class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
   const AdaptiveListColumnsOrRowsSingleSelection({

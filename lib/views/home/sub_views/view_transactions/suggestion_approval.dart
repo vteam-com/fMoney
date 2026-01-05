@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
 import 'package:money/money_objects/splits/money_split.dart';
-import 'package:money/transactions_list/list_view_transaction_splits.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/transactions_list/list_view_transaction_splits.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';
+import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/mutation_types.dart';
 
 class SuggestionApproval extends StatefulWidget {
   const SuggestionApproval({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/footer_widgets.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
+import 'package:money/widgets/footer_widgets.dart';
 
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();

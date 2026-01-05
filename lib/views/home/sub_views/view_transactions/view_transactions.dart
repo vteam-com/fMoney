@@ -1,6 +1,4 @@
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/dialog/dialog_button.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -8,16 +6,18 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/investments/investment.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/transactions_list/list_view_transaction_splits.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/views/home/sub_views/adaptive_view/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';
 import 'package:money/views/home/sub_views/view_transfers/transfer_sender_receiver.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/views/transactions_list/list_view_transaction_splits.dart';
 import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/charts/chart.dart';
+import 'package:money/widgets/field.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets_data/charts/chart.dart';
-import 'package:money/widgets_data/field.dart';
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///

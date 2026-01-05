@@ -1,6 +1,4 @@
 // Imports
-import 'package:money/data/data.dart';
-import 'package:money/dialog/picker_category_type.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -8,17 +6,19 @@ import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/money_objects/categories/category_types.dart';
 import 'package:money/views/adaptive_list/list_item_card.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/picker_category_type.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/color_picker.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/money_widget.dart';
+import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/rectangle.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/field_type.dart';
-import 'package:money/widgets_data/money_object.dart';
-import 'package:money/widgets_data/money_widget.dart';
-import 'package:money/widgets_data/mutation_types.dart';
 
 class Category extends MoneyObject {
   Category({

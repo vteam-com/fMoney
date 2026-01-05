@@ -3,16 +3,16 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money/controller/preferences_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/events/event.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/data/transactions.dart';
 import 'package:money/views/home/sub_views/view_stocks/stock_chart.dart';
-import 'package:money/widgets_data/charts/chart_event.dart';
-import 'package:money/widgets_data/charts/my_line_chart.dart';
+import 'package:money/widgets/charts/chart_event.dart';
+import 'package:money/widgets/charts/my_line_chart.dart';
 
 class NetWorthChart extends StatefulWidget {
   const NetWorthChart({

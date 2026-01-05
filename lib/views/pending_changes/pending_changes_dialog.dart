@@ -1,12 +1,12 @@
 import 'package:money/controller/data_controller.dart';
-import 'package:money/data/data.dart';
-import 'package:money/dialog/dialog.dart';
-import 'package:money/dialog/dialog_button.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/dialog.dart';
+import 'package:money/views/dialog/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/working.dart';
-import 'package:money/widgets_data/mutation_types.dart';
 
 /// Displays a dialog showing pending changes (added, modified, deleted items).
 ///

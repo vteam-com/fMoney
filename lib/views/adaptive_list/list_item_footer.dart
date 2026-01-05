@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/widgets/columns/column_footer_button.dart';
-import 'package:money/widgets_data/field.dart';
+import 'package:money/widgets/field.dart';
 
 /// A Row for a Table view
 class MyListItemFooter<T> extends StatelessWidget {

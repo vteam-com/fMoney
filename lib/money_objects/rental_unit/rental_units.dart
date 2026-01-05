@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/money_objects/rental_unit/rental_unit.dart';
-import 'package:money/widgets_data/money_objects.dart';
+import 'package:money/widgets/money_objects.dart';
 
 class RentUnits extends MoneyObjects<RentUnit> {
   RentUnits() {

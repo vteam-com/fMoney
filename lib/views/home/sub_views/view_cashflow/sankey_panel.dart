@@ -4,10 +4,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/controller/theme_controller.dart';
-import 'package:money/data/data.dart';
 import 'package:money/money_objects/categories/category.dart';
 import 'package:money/money_objects/categories/category_types.dart';
 import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/views/data/data.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/sankey/sankey_painter.dart';
 

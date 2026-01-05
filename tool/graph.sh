@@ -6,8 +6,10 @@ echo "Generate Graph dependencies"
 rm graph.dot
 rm graph.svg
 
+dart fix --apply
+
 lakos ./lib/. --no-tree -o graph.dot
 # npx --yes github:jpdup/glad graph.dot -o graph.svg --exclude "**/test/*" --lines warnings --view layers
 glad graph.dot -o graph.svg --exclude "**/test/*" --lines warnings
-  #  --view layers 
+# --view layers   
 # rm graph.dot

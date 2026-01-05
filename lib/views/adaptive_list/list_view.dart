@@ -6,8 +6,8 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/adaptive_list/list_item.dart';
-import 'package:money/widgets_data/field.dart';
-import 'package:money/widgets_data/money_object.dart';
+import 'package:money/widgets/field.dart';
+import 'package:money/widgets/money_object.dart';
 
 class MyListView<T> extends StatefulWidget {
   const MyListView({
