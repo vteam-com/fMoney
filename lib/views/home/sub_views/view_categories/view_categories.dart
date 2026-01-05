@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
-import 'package:money/money_objects/categories/category.dart';
-import 'package:money/money_objects/categories/category_types.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/selection_controller.dart';
+import 'package:money/list_view_transactions.dart';
+import 'package:money/models/categories/category.dart';
+import 'package:money/models/transactions/transaction.dart';
+import 'package:money/transaction_timeline_chart.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transactions.dart';
 import 'package:money/views/dialog/dialog.dart';
@@ -15,13 +16,12 @@ import 'package:money/views/dialog/menu_entry.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/view_categories/merge_categories.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
-import 'package:money/views/transactions_list/list_view_transactions.dart';
-import 'package:money/views/transactions_list/transaction_timeline_chart.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 
 class ViewCategories extends ViewForMoneyObjects {

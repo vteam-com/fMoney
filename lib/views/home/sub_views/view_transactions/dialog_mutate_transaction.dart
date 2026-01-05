@@ -1,6 +1,6 @@
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/models/transactions/transaction.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/confirmation_dialog.dart';
 import 'package:money/views/dialog/dialog_button.dart';

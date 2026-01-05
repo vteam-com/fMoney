@@ -1,8 +1,8 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/investments/investment.dart';
-import 'package:money/money_objects/investments/stock_cumulative.dart';
-import 'package:money/money_objects/securities/security.dart';
-import 'package:money/money_objects/stock_splits/stock_split.dart';
+import 'package:money/models/investments/investment.dart';
+import 'package:money/models/investments/stock_cumulative.dart';
+import 'package:money/models/securities/security.dart';
+import 'package:money/models/stock_splits/stock_split.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/home/sub_views/view_stocks/picker_security_type.dart';
 import 'package:money/widgets/field.dart';

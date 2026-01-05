@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/money_objects/rent_buildings/rent_building.dart';
-import 'package:money/money_objects/rental_unit/rental_unit.dart';
+import 'package:money/models/rent_buildings/rent_building.dart';
+import 'package:money/models/rental_unit/rental_unit.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/home/sub_views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/home/sub_views/money_object_card.dart';

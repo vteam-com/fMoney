@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/import/import_data.dart';
-import 'package:money/money_objects/accounts/account_types_enum.dart';
+import 'package:money/models/accounts/account_types_enum.dart';
 import 'package:money/widgets/snack_bar.dart';
 
 ///

@@ -1,5 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/splits/money_split.dart';
+import 'package:money/models/splits/money_split.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_objects.dart';

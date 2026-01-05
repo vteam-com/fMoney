@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/money_objects/categories/category.dart';
+import 'package:money/models/categories/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/picker_edit_box.dart';
 

@@ -1,9 +1,9 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/loan_payments/loan_payment.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/models/accounts/account.dart';
+import 'package:money/models/loan_payments/loan_payment.dart';
+import 'package:money/models/transactions/transaction.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/widgets/money_objects.dart';
 

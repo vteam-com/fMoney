@@ -2,7 +2,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/import/import_transactions_list_preview.dart';
-import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/models/accounts/account.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/picker_account.dart';
 import 'package:money/widgets/columns_input.dart';

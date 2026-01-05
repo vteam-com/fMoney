@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/preferences_controller.dart';
 import 'package:money/views/side_panel/side_panel_header.dart';
 import 'package:money/views/side_panel/side_panel_support.dart';
+import 'package:money/widgets/preferences_controller.dart';
 
 class SidePanel extends StatefulWidget {
   /// Constructor

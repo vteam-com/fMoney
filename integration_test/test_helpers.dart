@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/theme_controller.dart';
 import 'package:money/views/adaptive_list/list_item.dart';
 import 'package:money/views/side_panel/side_panel.dart';
+import 'package:money/widgets/theme_controller.dart';
 
 Future<void> tapOnText(
   final WidgetTester tester,

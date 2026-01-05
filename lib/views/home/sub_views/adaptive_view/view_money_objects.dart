@@ -7,8 +7,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
-import 'package:money/preferences_controller.dart';
+import 'package:money/models/transactions/transaction.dart';
 import 'package:money/views/adaptive_list/column_filter_panel.dart';
 import 'package:money/views/adaptive_list/footer_accumulators.dart';
 import 'package:money/views/adaptive_list/multiple_selection_context.dart';
@@ -33,6 +32,7 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_objects.dart';
+import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/working.dart';
 

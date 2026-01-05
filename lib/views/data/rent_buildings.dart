@@ -1,8 +1,8 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/money_objects/rent_buildings/rent_building.dart';
-import 'package:money/money_objects/rent_buildings/rental_pnl.dart';
-import 'package:money/money_objects/rental_unit/rental_unit.dart';
-import 'package:money/money_objects/transactions/transaction.dart';
+import 'package:money/models/rent_buildings/rent_building.dart';
+import 'package:money/models/rent_buildings/rental_pnl.dart';
+import 'package:money/models/rental_unit/rental_unit.dart';
+import 'package:money/models/transactions/transaction.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/widgets/money_objects.dart';
 

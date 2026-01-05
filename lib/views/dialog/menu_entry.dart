@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/categories/category.dart';
-import 'package:money/preferences_controller.dart';
+import 'package:money/models/accounts/account.dart';
+import 'package:money/models/categories/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/dialog_mutate_money_object.dart';
 import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
+import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 

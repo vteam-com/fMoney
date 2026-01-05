@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/preferences_controller.dart';
 import 'package:money/widgets/misc_widgets.dart';
+import 'package:money/widgets/preferences_controller.dart';
 
 // Exports
 export 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/money_objects/accounts/account.dart';
-import 'package:money/money_objects/categories/category.dart';
+import 'package:money/models/accounts/account.dart';
+import 'package:money/models/categories/category.dart';
 import 'package:money/views/dialog/picker_account.dart';
 import 'package:money/views/dialog/picker_category.dart';
 import 'package:money/views/dialog/picker_edit_box_date.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/money_objects/accounts/account.dart';
+import 'package:money/models/accounts/account.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/dialog/picker_edit_box.dart';
 
