@@ -5,10 +5,10 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/views/models/accounts/account.dart';
+import 'package:money/views/models/confirmation_dialog.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/confirmation_dialog.dart';
-import 'package:money/views/models/dialog/picker_panel.dart';
 import 'package:money/views/models/transactions/transaction.dart';
+import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/value_parser.dart';
 

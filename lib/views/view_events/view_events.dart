@@ -5,17 +5,19 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
+
 import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/list_view_transactions.dart';
 import 'package:money/views/models/data/transactions.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
-import 'package:money/views/models/dialog/dialog_mutate_money_object.dart';
+import 'package:money/views/models/dialog_mutate_money_object.dart';
+import 'package:money/views/models/domain_buttons.dart';
 import 'package:money/views/models/events/event.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
+import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/selection_controller.dart';
 

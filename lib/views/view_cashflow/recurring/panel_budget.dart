@@ -7,10 +7,11 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+
 import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
-import 'package:money/views/models/dialog/menu_entry.dart';
+import 'package:money/views/models/domain_buttons.dart';
+import 'package:money/views/models/menu_entry.dart';
 import 'package:money/views/models/transactions/budget.dart';
 import 'package:money/views/models/transactions/transaction.dart';
 import 'package:money/views/view_cashflow/recurring/panel_recurring.dart';

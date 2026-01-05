@@ -1,12 +1,12 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/picker_security_type.dart';
 import 'package:money/views/models/investments/investment.dart';
 import 'package:money/views/models/investments/stock_cumulative.dart';
 import 'package:money/views/models/securities/security.dart';
 import 'package:money/views/models/stock_splits/stock_split.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/money_objects.dart';
+import 'package:money/widgets/picker_security_type.dart';
 
 class Investments extends MoneyObjects<Investment> {
   Investments() {

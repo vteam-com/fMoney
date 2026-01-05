@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'dart:math';
-import 'package:money/views/models/investments/investment_types.dart';
+import 'package:money/helpers/investment_types.dart';
 import 'package:money/views/models/investments/security_sales.dart';
 import 'package:money/views/models/securities/security.dart';
 

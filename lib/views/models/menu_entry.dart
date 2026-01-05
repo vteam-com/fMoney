@@ -3,7 +3,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/views/models/accounts/account.dart';
 import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/dialog_mutate_money_object.dart';
+import 'package:money/views/models/dialog_mutate_money_object.dart';
 import 'package:money/widgets/field_filter.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/preferences_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
-import 'package:money/views/models/dialog/picker_edit_box.dart';
+import 'package:money/widgets/picker_edit_box.dart';
 
 Widget pickerAccountType({
   required final AccountType itemSelected,

@@ -4,7 +4,6 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/views/models/dialog/picker_account_type.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/field.dart';
@@ -12,6 +11,7 @@ import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/money_model.dart';
 import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/picker_account_type.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/token_text.dart';
 

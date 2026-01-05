@@ -1,14 +1,14 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/investment_types.dart';
 import 'package:money/views/models/accounts/account.dart';
 import 'package:money/views/models/categories/category.dart';
-import 'package:money/views/models/dialog/picker_account.dart';
-import 'package:money/views/models/dialog/picker_category.dart';
-import 'package:money/views/models/dialog/picker_investment_type.dart';
-import 'package:money/views/models/investments/investment_types.dart';
+import 'package:money/views/models/picker_account.dart';
+import 'package:money/views/models/picker_category.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
+import 'package:money/widgets/picker_investment_type.dart';
 
 class InvestmentImportFields {
   InvestmentImportFields({

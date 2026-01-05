@@ -1,6 +1,7 @@
 // Imports
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
@@ -9,11 +10,9 @@ import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/data_controller.dart';
 import 'package:money/views/models/data/payees/payee.dart';
-import 'package:money/views/models/dialog/picker_category.dart';
-import 'package:money/views/models/dialog/picker_panel.dart';
-import 'package:money/views/models/dialog/picker_payee_or_transfer.dart';
 import 'package:money/views/models/investments/investment.dart';
-import 'package:money/views/models/investments/investment_types.dart';
+import 'package:money/views/models/picker_category.dart';
+import 'package:money/views/models/picker_payee_or_transfer.dart';
 import 'package:money/views/models/splits/money_split.dart';
 import 'package:money/views/models/suggestion_approval.dart';
 import 'package:money/views/models/transfers/transfer.dart';
@@ -27,6 +26,7 @@ import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
+import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
 

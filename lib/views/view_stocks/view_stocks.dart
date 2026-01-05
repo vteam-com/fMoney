@@ -6,14 +6,15 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
+
 import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/investments.dart';
 import 'package:money/views/models/data/money_object_card.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
-import 'package:money/views/models/dialog/dialog_mutate_money_object.dart';
-import 'package:money/views/models/dialog/menu_entry.dart';
+import 'package:money/views/models/dialog_mutate_money_object.dart';
+import 'package:money/views/models/domain_buttons.dart';
 import 'package:money/views/models/investments/investment.dart';
 import 'package:money/views/models/investments/stock_cumulative.dart';
+import 'package:money/views/models/menu_entry.dart';
 import 'package:money/views/models/securities/security.dart';
 import 'package:money/views/models/stock_splits/stock_split.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';

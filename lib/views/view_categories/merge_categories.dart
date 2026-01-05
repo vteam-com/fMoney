@@ -4,7 +4,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/transactions.dart';
-import 'package:money/views/models/dialog/picker_category.dart';
+import 'package:money/views/models/picker_category.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';

@@ -1,9 +1,9 @@
 import 'package:money/views/import/import_transactions_panel.dart';
 import 'package:money/views/models/accounts/account.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/dialog.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
 import 'package:money/views/models/transactions/transaction.dart';
+import 'package:money/widgets/dialog.dart';
+import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/snack_bar.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/category_types.dart';
-import 'package:money/views/models/dialog/picker_edit_box.dart';
+import 'package:money/widgets/picker_edit_box.dart';
 
 // Exports
 export 'package:flutter/material.dart';

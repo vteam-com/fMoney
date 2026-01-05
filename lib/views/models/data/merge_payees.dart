@@ -6,10 +6,11 @@ import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/payees/payee.dart';
 import 'package:money/views/models/data/payees/payees.dart';
 import 'package:money/views/models/data/transactions.dart';
-import 'package:money/views/models/dialog/dialog.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
-import 'package:money/views/models/dialog/picker_payee.dart';
+import 'package:money/views/models/domain_buttons.dart';
+import 'package:money/views/models/picker_payee.dart';
 import 'package:money/widgets/box.dart';
+import 'package:money/widgets/dialog.dart';
+import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
 

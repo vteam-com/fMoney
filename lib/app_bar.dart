@@ -6,7 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_wizard.dart';
 import 'package:money/views/models/data/data_controller.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
+import 'package:money/views/models/domain_buttons.dart';
 import 'package:money/widgets/color_palette.dart';
 import 'package:money/widgets/misc_widgets.dart';
 import 'package:money/widgets/preferences_controller.dart';

@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/dialog/dialog.dart';
-import 'package:money/views/models/dialog/dialog_button.dart';
+import 'package:money/views/models/domain_buttons.dart';
 import 'package:money/views/models/transactions/transaction.dart';
+import 'package:money/widgets/dialog.dart';
+import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/money_object.dart';
 
