@@ -1,6 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/data/data.dart';
+import 'package:money/views/models/data/data.dart';
 
 void main() {
   group('DataFromCsv', () {

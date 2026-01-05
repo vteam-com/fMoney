@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/views/data/money_object_card.dart';
+import 'package:money/views/models/data/money_object_card.dart';
 import 'package:money/views/models/transactions/transaction.dart';
 import 'package:money/views/models/transfers/transfer.dart';
 

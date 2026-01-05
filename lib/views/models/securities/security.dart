@@ -1,12 +1,12 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/picker_security_type.dart';
+import 'package:money/views/models/adaptive_list/list_item_card.dart';
+import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/investments/investment.dart';
 import 'package:money/views/models/investments/stock_cumulative.dart';
 import 'package:money/views/models/stock_splits/stock_split.dart';
-import 'package:money/views/panels/adaptive_list/list_item_card.dart';
-import 'package:money/views/view_stocks/picker_security_type.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/money_model.dart';

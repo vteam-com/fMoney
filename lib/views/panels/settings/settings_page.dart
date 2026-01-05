@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/panels/app_scaffold.dart';
+import 'package:money/views/app_scaffold.dart';
+import 'package:money/views/models/data/data.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/text_title.dart';
 
 /// The `SettingsPage` class is a `GetView` that extends `GetxController`. It represents the settings page of the application.

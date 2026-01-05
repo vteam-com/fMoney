@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/panels/adaptive_list/multiple_selection_toggle.dart';
+import 'package:money/views/models/adaptive_list/multiple_selection_toggle.dart';
 import 'package:money/widgets/filter_input.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/three_part_label.dart';

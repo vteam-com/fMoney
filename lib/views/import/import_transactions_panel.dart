@@ -1,10 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/data.dart';
+import 'package:money/views/dialog/picker_account.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/views/models/accounts/account.dart';
-import 'package:money/views/panels/dialog/picker_account.dart';
+import 'package:money/views/models/data/data.dart';
 import 'package:money/widgets/columns_input.dart';
 import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/gaps.dart';

@@ -2,10 +2,10 @@
 
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/data/data.dart';
+import 'package:money/views/models/adaptive_list/list_item_card.dart';
 import 'package:money/views/models/aliases/alias_types.dart';
+import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/payees/payee.dart';
-import 'package:money/views/panels/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/money_object.dart';

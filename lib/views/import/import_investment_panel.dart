@@ -1,12 +1,12 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/views/dialog/picker_account.dart';
+import 'package:money/views/dialog/picker_category.dart';
+import 'package:money/views/dialog/picker_edit_box_date.dart';
+import 'package:money/views/dialog/picker_investment_type.dart';
 import 'package:money/views/models/accounts/account.dart';
 import 'package:money/views/models/categories/category.dart';
 import 'package:money/views/models/investments/investment_types.dart';
-import 'package:money/views/panels/dialog/picker_account.dart';
-import 'package:money/views/panels/dialog/picker_category.dart';
-import 'package:money/views/panels/dialog/picker_edit_box_date.dart';
-import 'package:money/views/panels/dialog/picker_investment_type.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
 

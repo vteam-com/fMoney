@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/transactions.dart';
+import 'package:money/views/dialog/picker_category.dart';
 import 'package:money/views/models/categories/category.dart';
-import 'package:money/views/panels/dialog/picker_category.dart';
+import 'package:money/views/models/data/data.dart';
+import 'package:money/views/models/data/transactions.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';

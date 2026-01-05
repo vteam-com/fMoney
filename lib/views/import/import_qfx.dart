@@ -6,8 +6,8 @@ import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/data/data.dart';
 import 'package:money/views/import/import_data.dart';
+import 'package:money/views/models/data/data.dart';
 
 Future<bool> importQFX(
   final BuildContext context,

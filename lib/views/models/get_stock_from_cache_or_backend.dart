@@ -5,7 +5,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/views/data/data.dart';
+import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/securities/security.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/preferences_controller.dart';
