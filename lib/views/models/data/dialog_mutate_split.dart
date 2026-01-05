@@ -1,9 +1,9 @@
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/views/dialog/confirmation_dialog.dart';
-import 'package:money/views/dialog/dialog_button.dart';
-import 'package:money/views/dialog/dialog_full_screen.dart';
 import 'package:money/views/models/data/data.dart';
+import 'package:money/views/models/dialog/confirmation_dialog.dart';
+import 'package:money/views/models/dialog/dialog_button.dart';
+import 'package:money/views/models/dialog/dialog_full_screen.dart';
 import 'package:money/views/models/splits/money_split.dart';
 import 'package:money/widgets/mutation_types.dart';
 

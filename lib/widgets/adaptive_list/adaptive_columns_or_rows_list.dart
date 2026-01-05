@@ -1,8 +1,8 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_controller.dart';
-import 'package:money/views/models/adaptive_list/list_item_footer.dart';
-import 'package:money/views/models/adaptive_list/list_item_header.dart';
-import 'package:money/views/models/adaptive_list/list_view.dart';
+import 'package:money/widgets/adaptive_list/list_item_footer.dart';
+import 'package:money/widgets/adaptive_list/list_item_header.dart';
+import 'package:money/widgets/adaptive_list/list_view.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/misc_widgets.dart';

@@ -3,7 +3,6 @@ import 'package:money/app_bar.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/my_nav_bar.dart';
-import 'package:money/views/app_scaffold.dart';
 import 'package:money/views/import/import_csv.dart'; // Added import for CSV
 import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/models/data/data_controller.dart';
@@ -20,6 +19,7 @@ import 'package:money/views/view_rentals/view_rentals.dart';
 import 'package:money/views/view_stocks/view_stocks.dart';
 import 'package:money/views/view_transactions/view_transactions.dart';
 import 'package:money/views/view_transfers/view_transfers.dart';
+import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/drop_zone.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/working.dart';

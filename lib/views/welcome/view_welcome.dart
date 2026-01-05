@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/dialog/mru_dropdown.dart';
 import 'package:money/views/models/data/data_controller.dart';
+import 'package:money/views/models/dialog/mru_dropdown.dart';
 import 'package:money/widgets/gaps.dart';
 
 /// The `WelcomeScreen` is a `StatelessWidget` that represents the welcome screen of the application.

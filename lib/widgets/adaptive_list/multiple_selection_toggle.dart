@@ -1,10 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/models/adaptive_list/multiple_selection_context.dart';
+import 'package:money/widgets/adaptive_list/multiple_selection_context.dart';
 
 /// Exports
-export 'package:money/views/models/adaptive_list/multiple_selection_context.dart';
+export 'package:money/widgets/adaptive_list/multiple_selection_context.dart';
 
 class MultipleSelectionToggle extends StatelessWidget {
   const MultipleSelectionToggle({required this.multipleSelection, super.key});

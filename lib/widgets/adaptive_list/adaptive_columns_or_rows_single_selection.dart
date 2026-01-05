@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/list_controller.dart';
-import 'package:money/views/models/adaptive_list/adaptive_columns_or_rows_list.dart';
-import 'package:money/views/models/adaptive_list/footer_accumulators.dart';
+import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_list.dart';
+import 'package:money/widgets/adaptive_list/footer_accumulators.dart';
 import 'package:money/widgets/default_values.dart';
 import 'package:money/widgets/field.dart';
 import 'package:money/widgets/field_filters.dart';

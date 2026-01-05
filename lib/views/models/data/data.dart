@@ -18,7 +18,7 @@ import 'package:money/views/models/data/categories.dart';
 import 'package:money/views/models/data/events.dart';
 import 'package:money/views/models/data/investments.dart';
 import 'package:money/views/models/data/loan_payments.dart';
-import 'package:money/views/models/data/payees.dart';
+import 'package:money/views/models/data/payees/payees.dart';
 import 'package:money/views/models/data/rent_buildings.dart';
 import 'package:money/views/models/data/securities.dart';
 import 'package:money/views/models/data/splits.dart';

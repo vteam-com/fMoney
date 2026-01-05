@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:money/views/models/adaptive_list/list_item_header.dart';
-import 'package:money/views/models/adaptive_list/list_view.dart';
 import 'package:money/views/models/data/dialog_mutate_split.dart';
 import 'package:money/views/models/splits/money_split.dart';
+import 'package:money/widgets/adaptive_list/list_item_header.dart';
+import 'package:money/widgets/adaptive_list/list_view.dart';
 import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/money_widget.dart';

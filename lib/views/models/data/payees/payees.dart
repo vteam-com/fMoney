@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/views/models/data/data.dart';
-import 'package:money/views/models/payees/payee.dart';
+import 'package:money/views/models/data/payees/payee.dart';
 import 'package:money/views/models/transactions/transaction.dart';
 import 'package:money/widgets/money_objects.dart';
 

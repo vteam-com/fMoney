@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/dialog/mru_dropdown.dart';
 import 'package:money/views/models/data/data.dart';
 import 'package:money/views/models/data/data_controller.dart';
+import 'package:money/views/models/dialog/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/money_model.dart';

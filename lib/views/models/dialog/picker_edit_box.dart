@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/views/dialog/picker_panel.dart';
+import 'package:money/views/models/dialog/picker_panel.dart';
 import 'package:money/widgets/my_text_input.dart';
 
 class PickerEditBox extends StatefulWidget {
