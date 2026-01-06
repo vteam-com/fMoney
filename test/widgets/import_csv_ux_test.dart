@@ -82,7 +82,7 @@ void main() {
         expect(find.widgetWithText(DropdownMenuItem<String>, header).last, findsOneWidget);
       }
       // Close the dropdown by tapping one item
-      await tester.tap(find.widgetWithText(DropdownMenuItem<String>, initialHeaderToSelect).last);
+      await tester.tap(find.widgetWithText(DropdownMenuItem<String>, initialHeaderToSelect).last, warnIfMissed: false);
       await tester.pumpAndSettle();
     }
 
@@ -103,21 +103,21 @@ void main() {
     // Select 'Date' for Date Column
     await tester.tap(dateDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last, warnIfMissed: false);
     await tester.pumpAndSettle();
     expect(find.descendant(of: dateDropdownFinder, matching: find.text('Date')), findsOneWidget);
 
     // Select 'Description' for Description Column
     await tester.tap(descriptionDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Description').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Description').last, warnIfMissed: false);
     await tester.pumpAndSettle();
     expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Description')), findsOneWidget);
 
     // Select 'Amount' for Amount Column
     await tester.tap(amountDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Amount').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Amount').last, warnIfMissed: false);
     await tester.pumpAndSettle();
     expect(find.descendant(of: amountDropdownFinder, matching: find.text('Amount')), findsOneWidget);
   });
@@ -183,19 +183,19 @@ void main() {
     // Select 'Date' for Date Column
     await tester.tap(dateDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     // Select 'Description' for Description Column
     await tester.tap(descriptionDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Description').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Description').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     // Select 'Amount' for Amount Column
     await tester.tap(amountDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Amount').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Amount').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     // Tap Confirm button
@@ -415,7 +415,7 @@ void main() {
     // Override the selection
     await tester.tap(descriptionDropdownFinder);
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Transaction Date').last);
+    await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Transaction Date').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     // Verify override worked
