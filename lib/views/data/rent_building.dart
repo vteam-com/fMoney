@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/ranges.dart';
@@ -9,13 +10,11 @@ import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/views/models/rental_unit.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/currencies/currency.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/rental_pnl.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /*
     SQLite table definition
@@ -212,7 +211,7 @@ class RentBuilding extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     getValueForReading: (final MoneyObject instance) => (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
-    getValueForDisplay: (final MoneyObject instance) => Currency.buildCurrencyWidget(
+    getValueForDisplay: (final MoneyObject instance) => buildCurrencyWidget(
       (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
     ),
   );

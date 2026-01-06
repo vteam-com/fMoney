@@ -1,8 +1,8 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/money_split.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 class Splits extends MoneyObjects<MoneySplit> {
   Splits() {

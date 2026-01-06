@@ -9,9 +9,9 @@ import 'package:money/views/data/rent_building.dart';
 import 'package:money/views/data/transaction.dart';
 import 'package:money/views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets/charts/chart.dart';
-import 'package:money/widgets/field.dart';
 import 'package:money/widgets/rental_pnl.dart';
 import 'package:money/widgets/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.
 class ViewRentalsSidePanel {

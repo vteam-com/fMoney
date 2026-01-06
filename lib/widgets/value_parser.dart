@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/semantic_text.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// Callback function type for checking if a transaction already exists in the system.
 /// This allows the value_parser.dart to be decoupled from data.dart dependencies.

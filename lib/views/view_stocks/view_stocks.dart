@@ -15,19 +15,19 @@ import 'package:money/views/data/menu_entry.dart';
 import 'package:money/views/data/money_object_card.dart';
 import 'package:money/views/data/security.dart';
 import 'package:money/views/data/stock_split.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 export 'package:money/views/view_stocks/stock_chart.dart';
 

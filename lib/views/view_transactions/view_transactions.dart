@@ -16,9 +16,9 @@ import 'package:money/views/view_transfers/transfer_sender_receiver.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/field.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///

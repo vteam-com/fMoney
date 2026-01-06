@@ -13,6 +13,7 @@ import 'package:money/views/data/dialog_mutate_money_object.dart';
 import 'package:money/views/data/domain_buttons.dart';
 import 'package:money/views/data/money_object_card.dart';
 import 'package:money/views/data/transaction.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/views/panels/side_panel/side_panel.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/panels/view_header.dart';
@@ -25,16 +26,15 @@ import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/default_values.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/text_title.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/working.dart';
 
 class ViewForMoneyObjects extends StatefulWidget {
@@ -1057,4 +1057,19 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     saveLastUserChoicesOfView();
     list = getList();
   }
+}
+
+/// Return the first element of type T in a list given a list of possible index;
+T? getMoneyObjectFromFirstSelectedId<T>(
+  final List<int> selectedIds,
+  final List<dynamic> listOfItems,
+) {
+  if (selectedIds.isNotEmpty) {
+    final int id = selectedIds.first;
+    return listOfItems.firstWhereOrNull(
+          (final dynamic element) => (element as MoneyObject).uniqueId == id,
+        )
+        as T?;
+  }
+  return null;
 }

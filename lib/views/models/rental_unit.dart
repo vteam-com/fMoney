@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 /*
   SQLite table definition

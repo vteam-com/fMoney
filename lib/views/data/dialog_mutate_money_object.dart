@@ -8,7 +8,7 @@ import 'package:money/views/data/transaction.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 void myShowDialogAndActionsForMoneyObject({
   required final String title,

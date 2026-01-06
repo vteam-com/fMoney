@@ -4,10 +4,10 @@ import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/dialog_mutate_money_object.dart';
 import 'package:money/views/models/account.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuEntry {

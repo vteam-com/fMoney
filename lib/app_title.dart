@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/data/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
-import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/reveal_content.dart';
 

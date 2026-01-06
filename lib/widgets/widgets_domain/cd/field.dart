@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_widget.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// A generic class representing a field in a data model.
 ///
@@ -625,4 +625,19 @@ enum FooterType {
   sum,
   average,
   range,
+}
+
+Field<dynamic>? getFieldDefinitionByName(
+  final FieldDefinitions fields,
+  final String nameToFind,
+) {
+  for (final Field<dynamic> f in fields) {
+    if (f.name == nameToFind) {
+      return f;
+    }
+    if (f.serializeName == nameToFind) {
+      return f;
+    }
+  }
+  return null;
 }

@@ -1,4 +1,5 @@
 // Imports
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
@@ -17,18 +18,16 @@ import 'package:money/views/data/suggestion_approval.dart';
 import 'package:money/views/data/transfer.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/currencies/currency.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/icon_button.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]
@@ -322,7 +321,7 @@ class Transaction extends MoneyObject {
     footer: FooterType.count,
     getValueForReading: (final MoneyObject instance) => (instance as Transaction).currency,
     getValueForDisplay: (final MoneyObject instance) {
-      return Currency.buildCurrencyWidget((instance as Transaction).currency);
+      return buildCurrencyWidget((instance as Transaction).currency);
     },
   );
 

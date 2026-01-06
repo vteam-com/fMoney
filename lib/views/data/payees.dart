@@ -4,7 +4,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/payee.dart';
 import 'package:money/views/data/transaction.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 
 class Payees extends MoneyObjects<Payee> {
   Payees() {

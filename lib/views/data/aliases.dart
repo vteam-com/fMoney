@@ -3,7 +3,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data/alias.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/payee.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 
 class Aliases extends MoneyObjects<Alias> {
   Aliases() {

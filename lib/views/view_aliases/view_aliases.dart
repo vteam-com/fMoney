@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
+
 import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/data/alias.dart';
 import 'package:money/views/data/data.dart';
@@ -10,9 +11,8 @@ import 'package:money/views/data/list_view_transactions.dart';
 import 'package:money/views/data/transaction.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
 
 class ViewAliases extends ViewForMoneyObjects {
   const ViewAliases({super.key});

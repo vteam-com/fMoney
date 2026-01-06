@@ -6,7 +6,7 @@ import 'package:money/views/data/transactions.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 class MoneyObjectCard extends StatelessWidget {
   const MoneyObjectCard({

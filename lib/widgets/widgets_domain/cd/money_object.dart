@@ -1,41 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/form_field_switch.dart';
 import 'package:money/widgets/form_field_widget.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 dynamic defaultCallbackValue(final dynamic instance) => '';
 
 bool defaultCallbackValueTrue(final dynamic instance) => true;
 
 bool defaultCallbackValueFalse(final dynamic instance) => false;
-
-Field<dynamic>? getFieldDefinitionByName(
-  final FieldDefinitions fields,
-  final String nameToFind,
-) {
-  for (final Field<dynamic> f in fields) {
-    if (f.name == nameToFind) {
-      return f;
-    }
-    if (f.serializeName == nameToFind) {
-      return f;
-    }
-  }
-  return null;
-}
 
 Alignment textAlignToAlignment(final TextAlign textAlign) {
   switch (textAlign) {
@@ -623,19 +608,4 @@ class MoneyObject {
       ),
     );
   }
-}
-
-/// Return the first element of type T in a list given a list of possible index;
-T? getMoneyObjectFromFirstSelectedId<T>(
-  final List<int> selectedIds,
-  final List<dynamic> listOfItems,
-) {
-  if (selectedIds.isNotEmpty) {
-    final int id = selectedIds.first;
-    return listOfItems.firstWhereOrNull(
-          (final dynamic element) => (element as MoneyObject).uniqueId == id,
-        )
-        as T?;
-  }
-  return null;
 }

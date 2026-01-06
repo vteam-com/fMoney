@@ -18,13 +18,13 @@ import 'package:money/views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 class PanelBudget extends StatefulWidget {
   const PanelBudget({

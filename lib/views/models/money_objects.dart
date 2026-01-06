@@ -7,10 +7,10 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/database.dart';
 import 'package:money/widgets/diff.dart';
-import 'package:money/widgets/field.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {

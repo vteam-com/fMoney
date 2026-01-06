@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
-import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_controller.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 class SidePanelHeader extends StatelessWidget {
   /// Constructor
@@ -75,7 +75,7 @@ class SidePanelHeader extends StatelessWidget {
     }
 
     if (currencyChoices.length == 1) {
-      return Currency.buildCurrencyWidget(currencyChoices[0]);
+      return buildCurrencyWidget(currencyChoices[0]);
     }
 
     return mySegmentSelector(
@@ -83,11 +83,11 @@ class SidePanelHeader extends StatelessWidget {
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: 0,
-          label: smallDevice ? Text(currencyChoices[0]) : Currency.buildCurrencyWidget(currencyChoices[0]),
+          label: smallDevice ? Text(currencyChoices[0]) : buildCurrencyWidget(currencyChoices[0]),
         ),
         ButtonSegment<int>(
           value: 1,
-          label: smallDevice ? Text(currencyChoices[1]) : Currency.buildCurrencyWidget(currencyChoices[1]),
+          label: smallDevice ? Text(currencyChoices[1]) : buildCurrencyWidget(currencyChoices[1]),
         ),
       ],
       selectedId: currencySelected,

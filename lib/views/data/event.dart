@@ -8,12 +8,12 @@ import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/picker_category.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
 
 class Event extends MoneyObject {
   Event({

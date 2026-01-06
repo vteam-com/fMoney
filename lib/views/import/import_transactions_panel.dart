@@ -6,11 +6,11 @@ import 'package:money/views/data/picker_account.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/widgets/columns_input.dart';
-import 'package:money/widgets/currencies/currency.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/value_parser.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// use for free style text to transaction import
 class ImportTransactionsPanel extends StatefulWidget {
@@ -230,7 +230,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   Widget _buildChoiceOfAmountFormat() {
     if (_account.getAccountCurrencyAsText() == Constants.defaultCurrency) {
       // No need to offer switching currency input format
-      return Currency.buildCurrencyWidget(Constants.defaultCurrency);
+      return buildCurrencyWidget(Constants.defaultCurrency);
     }
 
     return mySegmentSelector(
@@ -242,7 +242,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         ),
         ButtonSegment<int>(
           value: 1,
-          label: Currency.buildCurrencyWidget(Constants.defaultCurrency),
+          label: buildCurrencyWidget(Constants.defaultCurrency),
         ),
       ],
       selectedId: _userChoiceNativeVsUSD,

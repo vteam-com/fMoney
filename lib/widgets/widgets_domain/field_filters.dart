@@ -1,5 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
 
 /// Group a lists of filters
 class FieldFilters {

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -25,18 +26,17 @@ import 'package:money/views/data/transactions.dart';
 import 'package:money/views/data/transfer.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/views/models/account_aliases.dart';
+import 'package:money/views/models/currencies.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/views/models/online_accounts.dart';
 import 'package:money/views/models/rental_units.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/currencies/currencies.dart';
+import 'package:money/views/models/transaction_extras/transaction_extras.dart';
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/database.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/transaction_extras/transaction_extras.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 class Data {
   // private constructor

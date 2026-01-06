@@ -3,10 +3,10 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investment.dart';
 import 'package:money/views/data/security.dart';
 import 'package:money/views/data/stock_split.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/stock_cumulative.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
 
 class Investments extends MoneyObjects<Investment> {
   Investments() {

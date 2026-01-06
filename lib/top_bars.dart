@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
-import 'package:money/widgets/amount_model.dart';
 import 'package:money/widgets/circle.dart';
-import 'package:money/widgets/money_widget.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 class BarChartWidget extends StatelessWidget {
   const BarChartWidget({

@@ -8,7 +8,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/views/data/category.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/transaction.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/widgets/mutation_types.dart';
 
 class Categories extends MoneyObjects<Category> {

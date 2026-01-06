@@ -9,16 +9,16 @@ import 'package:money/views/data/data.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/color_picker.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_object.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_category_type.dart';
 import 'package:money/widgets/rectangle.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 class Category extends MoneyObject {
   Category({

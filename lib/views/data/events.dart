@@ -1,7 +1,7 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/event.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 
 class Events extends MoneyObjects<Event> {
   Events() {

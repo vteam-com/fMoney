@@ -3,8 +3,8 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 
 import 'package:money/widgets/data_access.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Controller for managing application preferences and settings.

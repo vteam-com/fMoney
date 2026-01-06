@@ -1,20 +1,21 @@
 import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/locale.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/currencies/currency.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_account_type.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/token_text.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// Accounts like Banks
 class Account extends MoneyObject {
@@ -140,7 +141,7 @@ class Account extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
-    getValueForDisplay: (final MoneyObject instance) => Currency.buildCurrencyWidget(
+    getValueForDisplay: (final MoneyObject instance) => buildCurrencyWidget(
       (instance as Account).getAccountCurrencyAsText(),
     ),
     getValueForSerialization: (final MoneyObject instance) => (instance as Account).getAccountCurrencyAsText(),
@@ -347,7 +348,7 @@ class Account extends MoneyObject {
     Widget? originalCurrencyAndValue;
 
     if (fieldCurrency.value == Constants.defaultCurrency) {
-      originalCurrencyAndValue = Currency.buildCurrencyWidget(
+      originalCurrencyAndValue = buildCurrencyWidget(
         fieldCurrency.value,
       );
     } else {
@@ -363,7 +364,7 @@ class Account extends MoneyObject {
               ),
             ),
             const SizedBox(width: 4),
-            Currency.buildCurrencyWidget(fieldCurrency.value),
+            buildCurrencyWidget(fieldCurrency.value),
           ],
         ),
       );
@@ -445,11 +446,11 @@ class Account extends MoneyObject {
   }
 
   String getAccountCurrencyAsText() {
-    return Currency.getCurrencyAsString(fieldCurrency.value);
+    return getCurrencyAsString(fieldCurrency.value);
   }
 
   Widget getAccountCurrencyAsWidget() {
-    return Currency.buildCurrencyWidget(getAccountCurrencyAsText());
+    return buildCurrencyWidget(getAccountCurrencyAsText());
   }
 
   double getCurrencyRatio() {

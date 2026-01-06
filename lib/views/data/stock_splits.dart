@@ -3,7 +3,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data/security.dart';
 import 'package:money/views/data/stock_split.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 
 // Exports
 export 'package:money/views/data/stock_split.dart';

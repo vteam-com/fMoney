@@ -6,9 +6,9 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/payee.dart';
 import 'package:money/views/models/alias_types.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
 
 class Alias extends MoneyObject {
   Alias({

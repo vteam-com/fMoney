@@ -8,9 +8,9 @@ import 'package:money/views/models/rental_unit.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
 import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/field.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_object.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});

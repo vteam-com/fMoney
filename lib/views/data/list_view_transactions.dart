@@ -3,11 +3,11 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/views/data/data.dart';
 import 'package:money/views/data/dialog_mutate_transaction.dart';
 import 'package:money/views/data/transactions.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/money_objects.dart';
 import 'package:money/widgets/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 class ListViewTransactions extends StatefulWidget {
   const ListViewTransactions({

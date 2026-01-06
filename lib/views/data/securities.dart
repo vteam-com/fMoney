@@ -5,7 +5,7 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investment.dart';
 import 'package:money/views/data/investments.dart';
 import 'package:money/views/data/security.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 
 // Exports

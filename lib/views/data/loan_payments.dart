@@ -5,7 +5,7 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/loan_payment.dart';
 import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
-import 'package:money/widgets/money_objects.dart';
+import 'package:money/views/models/money_objects.dart';
 
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {

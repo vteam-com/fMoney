@@ -21,8 +21,8 @@ import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/views/models/account_alias.dart';
 import 'package:money/views/models/alias_types.dart';
+import 'package:money/views/models/currency.dart';
 import 'package:money/views/models/online_account.dart';
-import 'package:money/widgets/currencies/currency.dart';
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {

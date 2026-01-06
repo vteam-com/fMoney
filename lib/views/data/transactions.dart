@@ -11,8 +11,8 @@ import 'package:money/views/data/event.dart';
 import 'package:money/views/data/money_split.dart';
 import 'package:money/views/data/transaction.dart';
 import 'package:money/views/models/account.dart';
+import 'package:money/views/models/money_objects.dart';
 import 'package:money/widgets/charts/chart.dart';
-import 'package:money/widgets/money_objects.dart';
 
 export 'package:money/views/data/transaction.dart';
 

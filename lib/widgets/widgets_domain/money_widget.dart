@@ -1,8 +1,9 @@
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/locale.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/currencies/currency.dart';
+import 'package:money/widgets/currency_label.dart';
 import 'package:money/widgets/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
@@ -39,7 +40,7 @@ class MoneyWidget extends StatelessWidget {
         children: <Widget>[
           _amountAsText(context),
           const SizedBox(width: 10),
-          Currency.buildCurrencyWidget(amountModel.iso4217),
+          buildCurrencyWidget(amountModel.iso4217),
         ],
       );
     } else {
@@ -104,4 +105,13 @@ class MoneyWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildCurrencyWidget(String threeLetterCurrencySymbol) {
+  final String flagId = getCountryFromCurrencyIso4217(threeLetterCurrencySymbol);
+
+  return CurrencyLabel(
+    threeLetterCurrencySymbol: getCurrencyAsString(threeLetterCurrencySymbol),
+    flagId: flagId,
+  );
 }

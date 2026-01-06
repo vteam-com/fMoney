@@ -6,9 +6,9 @@ import 'package:money/views/data/picker_category.dart';
 import 'package:money/views/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/money_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
+import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 class ImportFieldsForTransfer {
   ImportFieldsForTransfer({

@@ -19,12 +19,12 @@ import 'package:money/views/view_categories/merge_categories.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_filter.dart';
-import 'package:money/widgets/field_filters.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});

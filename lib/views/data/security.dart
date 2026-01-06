@@ -1,3 +1,4 @@
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
@@ -5,13 +6,12 @@ import 'package:money/views/data/data.dart';
 import 'package:money/views/data/investment.dart';
 import 'package:money/views/data/stock_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/amount_model.dart';
-import 'package:money/widgets/field.dart';
-import 'package:money/widgets/field_type.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/stock_cumulative.dart';
+import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field_type.dart';
 
 /*
   cid  name          type          notnull  dflt_value  pk

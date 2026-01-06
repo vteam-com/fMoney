@@ -15,9 +15,9 @@ import 'package:money/views/data/stock_split.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
-import 'package:money/widgets/money_object.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/stock_cumulative.dart';
+import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 
 // Mock the SharedPreference
 class MockPreferenceController extends GetxController with Mock implements PreferenceController {
