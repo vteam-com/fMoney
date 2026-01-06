@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/money_split.dart';
+import 'package:money/data/rent_building.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/list_view_transactions.dart';
-import 'package:money/views/data/money_split.dart';
-import 'package:money/views/data/rent_building.dart';
-import 'package:money/views/data/transaction.dart';
+import 'package:money/views/list_view_transactions.dart';
 import 'package:money/views/view_rentals/rental_pnl_card.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/rental_pnl.dart';

@@ -5,12 +5,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/main.dart' as app;
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/views/import/import_qfx.dart';
-import 'package:money/views/models/money_objects.dart';
 import 'package:money/views/panels/side_panel/side_panel_header.dart';
 import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/preferences_controller.dart';
@@ -988,14 +988,14 @@ Future<void> testPendingChanges(WidgetTester tester) async {
   // Load from SQL
   {
     final DataSource dataSource = DataSource(filePath: testFilename);
-    final bool successLoading = await DataController.to.loadFileFromPath(
+    final bool successLoading = await DataFileController.to.loadFileFromPath(
       dataSource,
     );
     expect(successLoading, true);
   }
   // Save to SQL
   {
-    final bool result = await DataController.to.onSaveToSql();
+    final bool result = await DataFileController.to.onSaveToSql();
     expect(result, true);
   }
 }

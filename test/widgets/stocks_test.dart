@@ -5,13 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
+import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/data/security.dart';
+import 'package:money/data/stock_split.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/get_stock_from_cache_or_backend.dart';
-import 'package:money/views/data/security.dart';
-import 'package:money/views/data/stock_split.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
@@ -60,7 +60,7 @@ void main() {
     mockPreferenceController = MockPreferenceController();
     Get.put<PreferenceController>(mockPreferenceController);
     // ignore: unused_local_variable
-    final DataController dataController = Get.put(DataController());
+    final DataFileController dataController = Get.put(DataFileController());
   });
 
   tearDown(() {

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/list_view_transaction_splits.dart';
-import 'package:money/views/data/money_split.dart';
-import 'package:money/views/data/transaction.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/list_view_transaction_splits.dart';
+import 'package:money/data/money_split.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';

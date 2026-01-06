@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/event.dart';
+import 'package:money/data/transactions.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/event.dart';
-import 'package:money/views/data/transactions.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
@@ -44,7 +44,7 @@ class NetWorthChartState extends State<NetWorthChart> {
         .where((Transaction t) => t.isTransfer == false)
         .toList();
 
-    final List<FlSpot> tmpDataPointsWithNetWorth = Transactions.cumulateTransactionPerYearMonth(_transactions);
+    final List<FlSpot> tmpDataPointsWithNetWorth = Transactions.cumulateTransactionPerYearMonth(_transactions, Data());
 
     _yearMonthDataPoints.addAll(
       tmpDataPointsWithNetWorth.where(

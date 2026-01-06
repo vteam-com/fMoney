@@ -1,6 +1,6 @@
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
@@ -37,14 +37,14 @@ class PendingChangesDialog extends StatefulWidget {
         DialogActionButton(
           text: 'Save to SQL',
           onPressed: () {
-            DataController.to.onSaveToSql();
+            DataFileController.to.onSaveToSql();
             Navigator.of(context).pop(true);
           },
         ),
         DialogActionButton(
           text: 'Save to CSV',
           onPressed: () {
-            DataController.to.onSaveToCsv();
+            DataFileController.to.onSaveToCsv();
             Navigator.of(context).pop(true);
           },
         ),

@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:money/data/categories.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/category_types.dart';
-import 'package:money/views/data/categories.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
 
 void main() {
   setUp(() {
     // ignore: unused_local_variable
-    final DataController dataController = Get.put(DataController());
+    final DataFileController dataController = Get.put(DataFileController());
   });
 
   test('Category', () {

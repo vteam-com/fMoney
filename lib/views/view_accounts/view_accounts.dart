@@ -1,5 +1,19 @@
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
+import 'package:money/data/accounts.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
+import 'package:money/data/data_interface.dart';
+import 'package:money/data/dialog_mutate_money_object.dart';
+import 'package:money/data/domain_buttons.dart';
+import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/data/investment.dart';
+import 'package:money/data/investments.dart';
+import 'package:money/data/loan_payment.dart';
+import 'package:money/data/loan_payments.dart';
+import 'package:money/data/menu_entry.dart';
+import 'package:money/data/security.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -10,27 +24,14 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/models/account.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
-import 'package:money/views/data/accounts.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/dialog_mutate_money_object.dart';
-import 'package:money/views/data/domain_buttons.dart';
-import 'package:money/views/data/get_stock_from_cache_or_backend.dart';
-import 'package:money/views/data/investment.dart';
-import 'package:money/views/data/investments.dart';
-import 'package:money/views/data/list_view_transactions.dart';
-import 'package:money/views/data/loan_payment.dart';
-import 'package:money/views/data/loan_payments.dart';
-import 'package:money/views/data/menu_entry.dart';
-import 'package:money/views/data/money_object_card.dart';
-import 'package:money/views/data/security.dart';
-import 'package:money/views/data/transaction.dart';
 import 'package:money/views/import/import_investment.dart';
 import 'package:money/views/import/import_investment_panel.dart';
 import 'package:money/views/import/import_wizard.dart';
-import 'package:money/views/models/account.dart';
-import 'package:money/views/models/money_objects.dart';
+import 'package:money/views/list_view_transactions.dart';
+import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/box.dart';
@@ -451,7 +452,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
 
   List<Widget> _buildStockHoldingCards(final Account account) {
     final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
-    Accounts.groupAccountStockSymbols(account, groupBySymbol);
+    Accounts.groupAccountStockSymbols(account, groupBySymbol, Data());
 
     if (groupBySymbol.getKeys().isEmpty) {
       return <Widget>[];
@@ -694,6 +695,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         return _getSubViewContentForTransactionsForLoans(
           account: account,
           showAsNativeCurrency: showAsNativeCurrency,
+          data: Data(),
         );
       } else {
         return _getSubViewContentForTransactions(
@@ -739,7 +741,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
     return Obx(() {
       return ListViewTransactions(
         key: Key(
-          'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataController.to.lastUpdateAsString}',
+          'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
         ),
         columnsToInclude: columnsToDisplay,
         getList: () => getTransactionForLastSelectedAccount(account),
@@ -775,6 +777,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
   Widget _getSubViewContentForTransactionsForLoans({
     required final Account account,
     required final bool showAsNativeCurrency,
+    required final DataInterface data,
   }) {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
@@ -788,7 +791,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
     selectionController.load();
 
     return Obx(() {
-      final List<LoanPayment> aggregatedList = getAccountLoanPayments(account);
+      final List<LoanPayment> aggregatedList = getAccountLoanPayments(account, data);
 
       MoneyObjects.sortList(
         aggregatedList,
@@ -799,7 +802,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
 
       return AdaptiveListColumnsOrRowsSingleSelection(
         key: Key(
-          'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataController.to.lastUpdateAsString}',
+          'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
         ),
         list: aggregatedList,
         fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,

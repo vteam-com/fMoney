@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/views/data/money_object_card.dart';
-import 'package:money/views/data/transaction.dart';
-import 'package:money/views/data/transfer.dart';
+import 'package:money/data/transaction.dart';
+import 'package:money/data/transfer.dart';
+import 'package:money/views/money_object_card.dart';
 
 /// Displays a view that shows the sender and receiver information for a transfer.
 ///

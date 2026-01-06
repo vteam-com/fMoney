@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/panels/pending_changes/pending_changes_dialog.dart';
 
 ///
@@ -60,31 +60,31 @@ class BadgePendingChanges extends StatelessWidget {
     final TextStyle textStyle = Theme.of(
       context,
     ).textTheme.labelSmall!.copyWith(fontSize: 9, fontWeight: FontWeight.w900);
-    if (DataController.to.trackMutations.added.value > 0) {
+    if (DataFileController.to.trackMutations.added.value > 0) {
       widgets.add(
         buildCounter(
           '+',
-          DataController.to.trackMutations.added.value,
+          DataFileController.to.trackMutations.added.value,
           textStyle.copyWith(color: Colors.green),
         ),
       );
     }
 
-    if (DataController.to.trackMutations.changed.value > 0) {
+    if (DataFileController.to.trackMutations.changed.value > 0) {
       widgets.add(
         buildCounter(
           '=',
-          DataController.to.trackMutations.changed.value,
+          DataFileController.to.trackMutations.changed.value,
           textStyle.copyWith(color: Colors.orange),
         ),
       );
     }
 
-    if (DataController.to.trackMutations.deleted.value > 0) {
+    if (DataFileController.to.trackMutations.deleted.value > 0) {
       widgets.add(
         buildCounter(
           '-',
-          DataController.to.trackMutations.deleted.value,
+          DataFileController.to.trackMutations.deleted.value,
           textStyle.copyWith(color: Colors.red),
         ),
       );
@@ -96,8 +96,8 @@ class BadgePendingChanges extends StatelessWidget {
   /// Returns a tooltip text string that summarizes the pending changes, including the number of added, modified, and deleted items, as well as the last time the changes were edited.
   String getTooltipText() {
     final String lastChangedOn = getElapsedTime(
-      DataController.to.trackMutations.lastDateTimeChanged.value,
+      DataFileController.to.trackMutations.lastDateTimeChanged.value,
     );
-    return 'Added: ${DataController.to.trackMutations.added}\nModified: ${DataController.to.trackMutations.changed}\nDeleted: ${DataController.to.trackMutations.deleted}\n\nEdited $lastChangedOn';
+    return 'Added: ${DataFileController.to.trackMutations.added}\nModified: ${DataFileController.to.trackMutations.changed}\nDeleted: ${DataFileController.to.trackMutations.deleted}\n\nEdited $lastChangedOn';
   }
 }

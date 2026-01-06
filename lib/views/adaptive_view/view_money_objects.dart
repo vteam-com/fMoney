@@ -1,19 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
+import 'package:money/data/dialog_mutate_money_object.dart';
+import 'package:money/data/domain_buttons.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/views/adaptive_view/adaptable_view_with_list.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/dialog_mutate_money_object.dart';
-import 'package:money/views/data/domain_buttons.dart';
-import 'package:money/views/data/money_object_card.dart';
-import 'package:money/views/data/transaction.dart';
-import 'package:money/views/models/money_objects.dart';
+import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/panels/view_header.dart';
@@ -65,7 +65,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   int _sortByFieldIndex = 0;
 
-  final DataController dataController = Get.find();
+  final DataFileController dataController = Get.find();
 
   bool firstLoadCompleted = false;
 

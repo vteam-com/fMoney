@@ -1,9 +1,9 @@
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/transaction.dart';
 
 class RecurringExpenses {
   RecurringExpenses({

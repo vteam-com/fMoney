@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/data/alias.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/transaction.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
-
 import 'package:money/views/adaptive_view/view_money_objects.dart';
-import 'package:money/views/data/alias.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/list_view_transactions.dart';
-import 'package:money/views/data/transaction.dart';
+import 'package:money/views/list_view_transactions.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/selection_controller.dart';

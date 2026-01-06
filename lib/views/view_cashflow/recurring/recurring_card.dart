@@ -1,11 +1,11 @@
+import 'package:money/data/data.dart';
+import 'package:money/data/transactions.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/distribution_bar.dart';
-import 'package:money/views/data/transactions.dart';
+import 'package:money/views/distribution_bar.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_payment.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/date_range_time_line.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/mru_dropdown.dart';
+import 'package:money/views/mru_dropdown.dart';
 import 'package:money/widgets/gaps.dart';
 
 /// The `WelcomeScreen` is a `StatelessWidget` that represents the welcome screen of the application.
@@ -28,14 +28,14 @@ class WelcomeScreen extends StatelessWidget {
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {
-                  DataController.to.onFileNew();
+                  DataFileController.to.onFileNew();
                   Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
                 child: const Text('New File ...'),
               ),
               OutlinedButton(
                 onPressed: () async {
-                  final bool succeeded = await DataController.to.onFileOpen();
+                  final bool succeeded = await DataFileController.to.onFileOpen();
                   if (succeeded) {
                     Get.offAllNamed<dynamic>(Constants.routeHomePage);
                   }
@@ -44,8 +44,8 @@ class WelcomeScreen extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () async {
-                  DataController.to.closeFile();
-                  await DataController.to.loadDemoData();
+                  DataFileController.to.closeFile();
+                  await DataFileController.to.loadDemoData();
                   Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
                 child: const Text('Use Demo Data'),

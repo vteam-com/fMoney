@@ -1,21 +1,21 @@
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/dialog_mutate_money_object.dart';
+import 'package:money/data/domain_buttons.dart';
+import 'package:money/data/investment.dart';
+import 'package:money/data/investments.dart';
+import 'package:money/data/menu_entry.dart';
+import 'package:money/data/security.dart';
+import 'package:money/data/stock_split.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/dialog_mutate_money_object.dart';
-import 'package:money/views/data/domain_buttons.dart';
-import 'package:money/views/data/investment.dart';
-import 'package:money/views/data/investments.dart';
-import 'package:money/views/data/menu_entry.dart';
-import 'package:money/views/data/money_object_card.dart';
-import 'package:money/views/data/security.dart';
-import 'package:money/views/data/stock_split.dart';
-import 'package:money/views/models/money_objects.dart';
+import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
@@ -219,6 +219,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
   List<Investment> getListOfInvestment(Security security) {
     final List<Investment> list = Investments.getInvestmentsForThisSecurity(
       security.uniqueId,
+      Data(),
     );
     Investments.applyHoldingSharesAdjustedForSplits(list);
     return list;

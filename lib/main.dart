@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/home_routes.dart';
 import 'package:money/my_window_manager.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/panels/platforms/platforms_routes.dart';
 import 'package:money/views/panels/policies/policy_routes.dart';
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
     ...MyApp._dualShortcut(LogicalKeyboardKey.keyT, const NewTransactionIntent()),
   };
 
-  final DataController dataController = Get.put(DataController());
+  final DataFileController dataController = Get.put(DataFileController());
 
   final ListControllerMain listControllerMain = Get.put(ListControllerMain());
 

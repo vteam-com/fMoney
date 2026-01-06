@@ -1,10 +1,11 @@
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/picker_account.dart';
+import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/picker_account.dart';
-import 'package:money/views/data/picker_category.dart';
-import 'package:money/views/models/account.dart';
+import 'package:money/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
@@ -108,6 +109,7 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
                 myFormField(
                   title: 'To Account',
                   child: pickerAccount(
+                    accounts: Data().accounts,
                     selected: widget.inputFields.account,
                     onSelected: (Account? selectedAccount) {
                       if (selectedAccount != null) {

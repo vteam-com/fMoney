@@ -4,6 +4,11 @@ import 'dart:ui' as ui;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
+import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/data/security.dart';
+import 'package:money/data/stock_split.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -11,11 +16,6 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/get_stock_from_cache_or_backend.dart';
-import 'package:money/views/data/security.dart';
-import 'package:money/views/data/stock_split.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
@@ -282,7 +282,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
                   Data().stockSplits.setStockSplits(security!.uniqueId, splits);
 
                   // refresh all of the UI part since if needed
-                  if (DataController.to.trackMutations.isMutated()) {
+                  if (DataFileController.to.trackMutations.isMutated()) {
                     Data().updateAll();
                   }
                 });

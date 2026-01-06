@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/app_title.dart';
+import 'package:money/data/data_file_controller.dart';
+import 'package:money/data/domain_buttons.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/domain_buttons.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_wizard.dart';
 import 'package:money/widgets/color_palette.dart';
@@ -54,7 +54,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       default:
         ThemeController.to.setThemeColor(value);
     }
-    DataController.to.update();
+    DataFileController.to.update();
   }
 
   PopupMenuItem<int> _buildMenuItem(
@@ -252,15 +252,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     switch (index) {
       case Constants.commandFileNew:
         Get.offAllNamed<dynamic>(Constants.routeHomePage);
-        DataController.to.onFileNew();
+        DataFileController.to.onFileNew();
         break;
       case Constants.commandFileOpen:
-        DataController.to.onFileOpen().then((_) {
+        DataFileController.to.onFileOpen().then((_) {
           Get.offAllNamed<dynamic>(Constants.routeHomePage);
         });
         break;
       case Constants.commandFileLocation:
-        DataController.to.onShowFileLocation();
+        DataFileController.to.onShowFileLocation();
         break;
       case Constants.commandAddTransactions:
         showImportTransactionsWizard();
@@ -269,13 +269,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Data().recalculateBalances();
         break;
       case Constants.commandFileSaveCsv:
-        DataController.to.onSaveToCsv();
+        DataFileController.to.onSaveToCsv();
         break;
       case Constants.commandFileSaveSql:
-        DataController.to.onSaveToSql();
+        DataFileController.to.onSaveToSql();
         break;
       case Constants.commandFileClose:
-        DataController.to.closeFile();
+        DataFileController.to.closeFile();
         Get.offAllNamed<dynamic>(Constants.routeWelcomePage);
         break;
       default:

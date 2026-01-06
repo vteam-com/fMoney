@@ -1,9 +1,10 @@
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/picker_account.dart';
+import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/picker_account.dart';
-import 'package:money/views/data/picker_category.dart';
-import 'package:money/views/models/account.dart';
+import 'package:money/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
@@ -90,6 +91,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                 myFormField(
                   title: 'From Account',
                   child: pickerAccount(
+                    accounts: Data().accounts,
                     selected: widget.inputFields.accountFrom,
                     onSelected: (Account? selectedAccount) {
                       setState(() {
@@ -107,6 +109,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                 myFormField(
                   title: 'To Account',
                   child: pickerAccount(
+                    accounts: Data().accounts,
                     selected: widget.inputFields.accountTo,
                     onSelected: (Account? selectedAccount) {
                       setState(() {

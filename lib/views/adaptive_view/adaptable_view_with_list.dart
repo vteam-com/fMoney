@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
-import 'package:money/views/models/money_objects.dart';
+import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/preferences_controller.dart';

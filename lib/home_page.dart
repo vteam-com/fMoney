@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/app_bar.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/my_nav_bar.dart';
-import 'package:money/views/data/data_controller.dart';
 import 'package:money/views/import/import_csv.dart'; // Added import for CSV
 import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
@@ -34,7 +34,7 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final DataController dataController = Get.find();
+    final DataFileController dataController = Get.find();
     return myScaffold(
       context,
       const MyAppBar(),

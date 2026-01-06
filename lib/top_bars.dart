@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/pairs.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/data.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/widgets_domain/money_widget.dart';
 

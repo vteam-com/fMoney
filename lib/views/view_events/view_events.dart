@@ -1,17 +1,17 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
+import 'package:money/data/category.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/dialog_mutate_money_object.dart';
+import 'package:money/data/domain_buttons.dart';
+import 'package:money/data/event.dart';
+import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
-import 'package:money/views/data/category.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/dialog_mutate_money_object.dart';
-import 'package:money/views/data/domain_buttons.dart';
-import 'package:money/views/data/event.dart';
-import 'package:money/views/data/list_view_transactions.dart';
-import 'package:money/views/data/transactions.dart';
+import 'package:money/views/list_view_transactions.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event.dart';
@@ -142,6 +142,7 @@ class ViewEventsState extends ViewForMoneyObjectsState {
 
     final List<FlSpot> tmpDataPointsWithNetWorth = Transactions.cumulateTransactionPerYearMonth(
       transactionsWithoutTransfers,
+      Data(),
     );
 
     const double marginLeft = 80.0;

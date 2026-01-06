@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
+import 'package:money/data/data.dart';
+import 'package:money/data/data_file_controller.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/views/data/data.dart';
-import 'package:money/views/data/data_controller.dart';
-import 'package:money/views/data/mru_dropdown.dart';
+import 'package:money/views/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/reveal_content.dart';
 
 // Exports
-export 'package:money/views/data/data.dart';
+export 'package:money/data/data.dart';
 
 class AppTitle extends StatelessWidget {
   AppTitle({super.key}) {
@@ -21,7 +21,7 @@ class AppTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataController dataController = Get.find();
+    final DataFileController dataController = Get.find();
 
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints constraints) {
