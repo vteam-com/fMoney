@@ -3,11 +3,11 @@ import 'package:money/data/accounts.dart';
 import 'package:money/data/merge_payees.dart';
 import 'package:money/data/payees.dart';
 import 'package:money/data/picker_account.dart';
-import 'package:money/data/picker_payee.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/picker_edit_box.dart';
 
 enum TransactionFlavor { payee, transfer }
 
@@ -85,11 +85,17 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       return Row(
         children: <Widget>[
           Expanded(
-            child: pickerPayee(
-              payees: widget.payees,
-              itemSelected: widget.payee,
-              onSelected: (Payee? payee) {
+            child: PickerEditBox(
+              title: 'Payee',
+              items: widget.payees.getSortedPayeeNames(),
+              initialValue: widget.payee?.fieldName.value ?? '',
+              onChanged: (String? name) {
+                final Payee? payee = name != null ? widget.payees.getByName(name) : null;
                 widget.onSelected(_choice, payee, widget.account);
+              },
+              onAddNew: (String newPayeeText) {
+                final Payee found = widget.payees.getOrCreate(newPayeeText);
+                widget.onSelected(_choice, found, widget.account);
               },
             ),
           ),

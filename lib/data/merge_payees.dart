@@ -1,7 +1,7 @@
 import 'package:money/data/data.dart';
 import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/payees.dart';
-import 'package:money/data/picker_payee.dart';
+
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -13,6 +13,7 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/picker_edit_box.dart';
 
 void showMergePayee(final BuildContext context, Payee payee) {
   final Iterable<Transaction> transactions = Data().transactions
@@ -74,12 +75,21 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
               const SizedBox(width: 100, child: Text('To payee')),
               Expanded(
                 child: Box(
-                  child: pickerPayee(
-                    payees: Data().payees,
-                    itemSelected: widget.currentPayee,
-                    onSelected: (final Payee? selectedPayee) {
+                  child: PickerEditBox(
+                    title: 'Payee',
+                    items: Data().payees.getSortedPayeeNames(),
+                    initialValue: widget.currentPayee.fieldName.value,
+                    onChanged: (String? name) {
+                      final Payee? payee = name != null ? Data().payees.getByName(name) : null;
                       setState(() {
-                        _selectedPayee = selectedPayee;
+                        _selectedPayee = payee;
+                        getAssociatedCategories();
+                      });
+                    },
+                    onAddNew: (String newPayeeText) {
+                      final Payee found = Data().payees.getOrCreate(newPayeeText);
+                      setState(() {
+                        _selectedPayee = found;
                         getAssociatedCategories();
                       });
                     },

@@ -72,6 +72,10 @@ class Payees extends MoneyObjects<Payee> {
     return list;
   }
 
+  List<String> getSortedPayeeNames() {
+    return getListSorted().map((Payee p) => p.fieldName.value).toList();
+  }
+
   String getNameFromId(final int id) {
     if (id == -1) {
       return '';
