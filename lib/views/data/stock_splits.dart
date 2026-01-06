@@ -5,9 +5,6 @@ import 'package:money/views/data/security.dart';
 import 'package:money/views/data/stock_split.dart';
 import 'package:money/views/models/money_objects.dart';
 
-// Exports
-export 'package:money/views/data/stock_split.dart';
-
 class StockSplits extends MoneyObjects<StockSplit> {
   StockSplits() {
     collectionName = 'Stock Splits';

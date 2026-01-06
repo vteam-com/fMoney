@@ -427,13 +427,13 @@
           <g id='Node_rent_buildings.dart'>
             <rect x="6841.5" y="2519" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_stock_splits.dart'>
+          <g id='Node_aliases.dart'>
             <rect x="7141.5" y="2519" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_aliases.dart'>
+          <g id='Node_splits.dart'>
             <rect x="7441.5" y="2519" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_splits.dart'>
+          <g id='Node_stock_splits.dart'>
             <rect x="7741.5" y="2519" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_events.dart'>
@@ -1034,7 +1034,7 @@ investments.dart</title>
 ⬇
 loan_payments.dart</title>
       </path>
-      <path d="M7717.5 2575 C 7758.5 3195,6066.5 3195, 6107.5 3815" fill="none" class="lineRed">
+      <path d="M7417.5 2575 C 7458.5 3195,6066.5 3195, 6107.5 3815" fill="none" class="lineRed">
         <title>aliases.dart
 ⬇
 data.dart</title>
@@ -1064,7 +1064,7 @@ money_split.dart</title>
 ⬇
 accounts.dart</title>
       </path>
-      <path d="M6367.5 3855 C 6411.5 3195,7413.5 3195, 7457.5 2535" fill="none" class="lineRed">
+      <path d="M6367.5 3855 C 6411.5 3195,7113.5 3195, 7157.5 2535" fill="none" class="lineRed">
         <title>data.dart
 ⬇
 aliases.dart</title>
@@ -1104,12 +1104,12 @@ rent_buildings.dart</title>
 ⬇
 securities.dart</title>
       </path>
-      <path d="M6367.5 3855 C 6411.5 3195,7713.5 3195, 7757.5 2535" fill="none" class="lineRed">
+      <path d="M6367.5 3855 C 6411.5 3195,7413.5 3195, 7457.5 2535" fill="none" class="lineRed">
         <title>data.dart
 ⬇
 splits.dart</title>
       </path>
-      <path d="M6367.5 3855 C 6411.5 3195,7113.5 3195, 7157.5 2535" fill="none" class="lineOrange">
+      <path d="M6367.5 3855 C 6411.5 3195,7713.5 3195, 7757.5 2535" fill="none" class="lineOrange">
         <title>data.dart
 ⬇
 stock_splits.dart</title>
@@ -1204,7 +1204,7 @@ data.dart</title>
 ⬇
 investments.dart</title>
       </path>
-      <path d="M8017.5 2575 C 8058.5 3195,6066.5 3195, 6107.5 3815" fill="none" class="lineRed">
+      <path d="M7717.5 2575 C 7758.5 3195,6066.5 3195, 6107.5 3815" fill="none" class="lineRed">
         <title>splits.dart
 ⬇
 data.dart</title>
@@ -3339,31 +3339,10 @@ distribution_bar.dart</title>
 rent_buildings.dart</title>
             </g>
           </g>
-          <g id='Counters_stock_splits.dart'>
-            <g>
-              <circle cx="7417.5" cy="2575" r="10" fill="green"/>
-              <text x="7417.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
-              <title>stock_splits.dart
-⬇
-1 /helpers/date_helper.dart
-2 /helpers/json_helper.dart
-3 /views/data/security.dart
-4 /views/data/stock_split.dart
-5 /views/data/stock_split.dart
-6 /views/models/money_objects.dart</title>
-            </g>
-            <g>
-              <circle cx="7157.5" cy="2535" r="10" fill="blue"/>
-              <text x="7157.5" y="2535" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-              <title>1 /views/data/data.dart
-⬇
-stock_splits.dart</title>
-            </g>
-          </g>
           <g id='Counters_aliases.dart'>
             <g>
-              <circle cx="7717.5" cy="2575" r="10" fill="green"/>
-              <text x="7717.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+              <circle cx="7417.5" cy="2575" r="10" fill="green"/>
+              <text x="7417.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
               <title>aliases.dart
 ⬇
 1 /helpers/json_helper.dart
@@ -3373,8 +3352,8 @@ stock_splits.dart</title>
 5 /views/models/money_objects.dart</title>
             </g>
             <g>
-              <circle cx="7457.5" cy="2535" r="10" fill="blue"/>
-              <text x="7457.5" y="2535" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+              <circle cx="7157.5" cy="2535" r="10" fill="blue"/>
+              <text x="7157.5" y="2535" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
               <title>1 /views/data/data.dart
 ⬇
 aliases.dart</title>
@@ -3382,8 +3361,8 @@ aliases.dart</title>
           </g>
           <g id='Counters_splits.dart'>
             <g>
-              <circle cx="8017.5" cy="2575" r="10" fill="green"/>
-              <text x="8017.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+              <circle cx="7717.5" cy="2575" r="10" fill="green"/>
+              <text x="7717.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
               <title>splits.dart
 ⬇
 1 /helpers/json_helper.dart
@@ -3393,11 +3372,31 @@ aliases.dart</title>
 5 /widgets/widgets_domain/cd/money_object.dart</title>
             </g>
             <g>
+              <circle cx="7457.5" cy="2535" r="10" fill="blue"/>
+              <text x="7457.5" y="2535" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+              <title>1 /views/data/data.dart
+⬇
+splits.dart</title>
+            </g>
+          </g>
+          <g id='Counters_stock_splits.dart'>
+            <g>
+              <circle cx="8017.5" cy="2575" r="10" fill="green"/>
+              <text x="8017.5" y="2575" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+              <title>stock_splits.dart
+⬇
+1 /helpers/date_helper.dart
+2 /helpers/json_helper.dart
+3 /views/data/security.dart
+4 /views/data/stock_split.dart
+5 /views/models/money_objects.dart</title>
+            </g>
+            <g>
               <circle cx="7757.5" cy="2535" r="10" fill="blue"/>
               <text x="7757.5" y="2535" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
               <title>1 /views/data/data.dart
 ⬇
-splits.dart</title>
+stock_splits.dart</title>
             </g>
           </g>
           <g id='Counters_events.dart'>
@@ -4013,15 +4012,14 @@ dialog_mutate_money_object.dart</title>
             </g>
             <g>
               <circle cx="5957.5" cy="3415" r="10" fill="blue"/>
-              <text x="5957.5" y="3415" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+              <text x="5957.5" y="3415" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
               <title>1 /views/data/data_simulator.dart
 2 /views/data/investment.dart
 3 /views/data/investments.dart
 4 /views/data/security.dart
 5 /views/data/stock_splits.dart
-6 /views/data/stock_splits.dart
-7 /views/view_stocks/stock_chart.dart
-8 /views/view_stocks/view_stocks.dart
+6 /views/view_stocks/stock_chart.dart
+7 /views/view_stocks/view_stocks.dart
 ⬇
 stock_split.dart</title>
             </g>
@@ -8100,14 +8098,14 @@ view.dart</title>
           <g id='Labels_rent_buildings.dart'>
             <text class="nodeName" x="6987.5" y="2555" font-size="120%">rent_buildings.dart</text>
           </g>
-          <g id='Labels_stock_splits.dart'>
-            <text class="nodeName" x="7287.5" y="2555" font-size="120%">stock_splits.dart</text>
-          </g>
           <g id='Labels_aliases.dart'>
-            <text class="nodeName" x="7587.5" y="2555" font-size="120%">aliases.dart</text>
+            <text class="nodeName" x="7287.5" y="2555" font-size="120%">aliases.dart</text>
           </g>
           <g id='Labels_splits.dart'>
-            <text class="nodeName" x="7887.5" y="2555" font-size="120%">splits.dart</text>
+            <text class="nodeName" x="7587.5" y="2555" font-size="120%">splits.dart</text>
+          </g>
+          <g id='Labels_stock_splits.dart'>
+            <text class="nodeName" x="7887.5" y="2555" font-size="120%">stock_splits.dart</text>
           </g>
           <g id='Labels_events.dart'>
             <text class="nodeName" x="8187.5" y="2555" font-size="120%">events.dart</text>

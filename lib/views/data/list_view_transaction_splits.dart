@@ -130,9 +130,3 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     }
   }
 }
-
-typedef FilterFunction = bool Function(Split);
-
-bool defaultFilter(final Split element) {
-  return true; // filter nothing
-}
