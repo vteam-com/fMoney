@@ -1,13 +1,13 @@
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_account.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/picker_account.dart';
+import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_investment_type.dart';
 
@@ -109,9 +109,10 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
                 myFormField(
                   title: 'To Account',
                   child: pickerAccount(
-                    accounts: Data().accounts,
-                    selected: widget.inputFields.account,
-                    onSelected: (Account? selectedAccount) {
+                    accountNames: Data().accounts.getSortedAccountNames(),
+                    selectedName: widget.inputFields.account.fieldName.value,
+                    onSelected: (String? name) {
+                      final Account? selectedAccount = name != null ? Data().accounts.getByName(name) : null;
                       if (selectedAccount != null) {
                         widget.inputFields.account = selectedAccount;
                       }
@@ -147,8 +148,10 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
                 myFormField(
                   title: 'Category',
                   child: pickerCategory(
-                    itemSelected: widget.inputFields.category,
-                    onSelected: (final Category? newSelection) {
+                    categoryNames: Data().categories.getCategoriesAsStrings(),
+                    selectedName: widget.inputFields.category.fieldName.value,
+                    onSelected: (String? name) {
+                      final Category? newSelection = name != null ? Data().categories.getByName(name) : null;
                       if (newSelection != null) {
                         widget.inputFields.category = newSelection;
                       }

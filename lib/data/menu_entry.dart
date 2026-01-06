@@ -4,6 +4,8 @@ import 'package:money/data/data.dart';
 import 'package:money/data/dialog_mutate_money_object.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/models/account.dart';
+import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/popup_menu_icon_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
@@ -180,4 +182,49 @@ class MenuEntry {
   final IconData? icon;
   final void Function() onPressed;
   final String title;
+}
+
+Widget buildMenuButton(
+  final BuildContext context,
+  final List<MenuEntry> menuItems, {
+  IconData icon = Icons.more_horiz,
+  String tooltip = 'Switch view',
+}) {
+  final List<PopupMenuItem<int>> list = <PopupMenuItem<int>>[];
+  for (int i = 0; i < menuItems.length; i++) {
+    list.add(
+      PopupMenuItem<int>(
+        value: i,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Icon(menuItems[i].icon),
+            gapLarge(),
+            Expanded(child: Text(menuItems[i].title)),
+          ],
+        ),
+      ),
+    );
+  }
+  return myPopupMenuIconButton(
+    context: context,
+    icon: icon,
+    tooltip: tooltip,
+    list: list,
+    onSelected: (final int index) {
+      menuItems[index].onPressed();
+    },
+  );
+}
+
+Widget buildJumpToButton(
+  final BuildContext context,
+  final List<MenuEntry> listOfViewToJumpTo,
+) {
+  return buildMenuButton(
+    context,
+    listOfViewToJumpTo,
+    icon: Icons.open_in_new_outlined,
+    tooltip: 'Switch view',
+  );
 }

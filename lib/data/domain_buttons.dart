@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/menu_entry.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/gaps.dart';
 
 Widget dialogActionButtons(final List<Widget> actionsButtons) {
   return Wrap(
@@ -81,77 +79,5 @@ Widget buildCopyButton(
     },
     icon: const Icon(Icons.copy_all),
     tooltip: 'Copy list to clipboard',
-  );
-}
-
-Widget buildMenuButton(
-  final BuildContext context,
-  final List<MenuEntry> menuItems, {
-  IconData icon = Icons.more_horiz,
-  String tooltip = 'Switch view',
-}) {
-  final List<PopupMenuItem<int>> list = <PopupMenuItem<int>>[];
-  for (int i = 0; i < menuItems.length; i++) {
-    list.add(
-      PopupMenuItem<int>(
-        value: i,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Icon(menuItems[i].icon),
-            gapLarge(),
-            Expanded(child: Text(menuItems[i].title)),
-          ],
-        ),
-      ),
-    );
-  }
-  return myPopupMenuIconButton(
-    context: context,
-    icon: icon,
-    tooltip: tooltip,
-    list: list,
-    onSelected: (final int index) {
-      menuItems[index].onPressed();
-    },
-  );
-}
-
-Widget buildJumpToButton(
-  final BuildContext context,
-  final List<MenuEntry> listOfViewToJumpTo,
-) {
-  return buildMenuButton(
-    context,
-    listOfViewToJumpTo,
-    icon: Icons.open_in_new_outlined,
-    tooltip: 'Switch view',
-  );
-}
-
-PopupMenuButton<int> myPopupMenuIconButton({
-  final Key? key,
-  required final BuildContext context,
-  required final IconData icon,
-  required final String tooltip,
-  required final List<PopupMenuItem<int>> list,
-  required final void Function(int) onSelected,
-}) {
-  return PopupMenuButton<int>(
-    key: key,
-    icon: Icon(icon),
-    tooltip: tooltip,
-    position: PopupMenuPosition.under,
-    shape: RoundedRectangleBorder(
-      side: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-        width: 2,
-      ), // Set the border color and width
-      borderRadius: BorderRadius.circular(8), // Set the border radius
-    ),
-    itemBuilder: (final BuildContext context) {
-      return list;
-    },
-    onSelected: onSelected,
   );
 }

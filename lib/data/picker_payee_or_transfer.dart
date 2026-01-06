@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/accounts.dart';
+import 'package:money/data/data_interface.dart';
 import 'package:money/data/merge_payees.dart';
 import 'package:money/data/payees.dart';
-import 'package:money/data/picker_account.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
 enum TransactionFlavor { payee, transfer }
@@ -20,6 +21,7 @@ class PickPayeeOrTransfer extends StatefulWidget {
     required this.payees,
     required this.accounts,
     required this.onSelected,
+    required this.data,
     super.key,
   });
 
@@ -30,6 +32,7 @@ class PickPayeeOrTransfer extends StatefulWidget {
   final void Function(TransactionFlavor choice, Payee? payee, Account? account) onSelected;
   final Payee? payee;
   final Payees payees;
+  final dynamic data;
 
   @override
   State<PickPayeeOrTransfer> createState() => _PickPayeeOrTransferState();
@@ -106,6 +109,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
                 showMergePayee(
                   context,
                   widget.payee!,
+                  widget.data as DataInterface,
                 ); //transactions.toList());
               },
               icon: const Icon(Icons.merge_outlined),
@@ -116,9 +120,10 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       return presentInput(
         widget.amount > 0 ? 'From Account' : 'To Account',
         pickerAccount(
-          accounts: widget.accounts,
-          selected: widget.account,
-          onSelected: (Account? account) {
+          accountNames: widget.accounts.getSortedAccountNames(),
+          selectedName: widget.account?.fieldName.value,
+          onSelected: (String? name) {
+            final Account? account = name != null ? widget.accounts.getByName(name) : null;
             widget.onSelected(_choice, widget.payee, account);
           },
         ),

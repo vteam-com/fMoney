@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -9,6 +8,7 @@ import 'package:money/widgets/box.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/picker_category.dart';
 
 class MergeCategoriesTransactionsDialog extends StatefulWidget {
   const MergeCategoriesTransactionsDialog({
@@ -65,11 +65,15 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
             Expanded(
               child: Box(
                 child: pickerCategory(
-                  itemSelected: widget.categoryToMove,
-                  onSelected: (final Category? newSelection) {
-                    setState(() {
-                      _categoryPicked = newSelection!;
-                    });
+                  categoryNames: Data().categories.getCategoriesAsStrings(),
+                  selectedName: widget.categoryToMove.fieldName.value,
+                  onSelected: (String? name) {
+                    final Category? newSelection = name != null ? Data().categories.getByName(name) : null;
+                    if (newSelection != null) {
+                      setState(() {
+                        _categoryPicked = newSelection;
+                      });
+                    }
                   },
                 ),
               ),

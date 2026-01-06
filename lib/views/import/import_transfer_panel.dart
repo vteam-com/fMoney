@@ -1,13 +1,13 @@
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_account.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/picker_account.dart';
+import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/widgets_domain/money_widget.dart';
 
@@ -91,9 +91,10 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                 myFormField(
                   title: 'From Account',
                   child: pickerAccount(
-                    accounts: Data().accounts,
-                    selected: widget.inputFields.accountFrom,
-                    onSelected: (Account? selectedAccount) {
+                    accountNames: Data().accounts.getSortedAccountNames(),
+                    selectedName: widget.inputFields.accountFrom.fieldName.value,
+                    onSelected: (String? name) {
+                      final Account? selectedAccount = name != null ? Data().accounts.getByName(name) : null;
                       setState(() {
                         if (selectedAccount != null) {
                           widget.inputFields.accountFrom = selectedAccount;
@@ -109,9 +110,10 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                 myFormField(
                   title: 'To Account',
                   child: pickerAccount(
-                    accounts: Data().accounts,
-                    selected: widget.inputFields.accountTo,
-                    onSelected: (Account? selectedAccount) {
+                    accountNames: Data().accounts.getSortedAccountNames(),
+                    selectedName: widget.inputFields.accountTo.fieldName.value,
+                    onSelected: (String? name) {
+                      final Account? selectedAccount = name != null ? Data().accounts.getByName(name) : null;
                       setState(() {
                         if (selectedAccount != null) {
                           widget.inputFields.accountTo = selectedAccount;
@@ -149,8 +151,10 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                   myFormField(
                     title: 'Category',
                     child: pickerCategory(
-                      itemSelected: widget.inputFields.category,
-                      onSelected: (final Category? newSelection) {
+                      categoryNames: Data().categories.getCategoriesAsStrings(),
+                      selectedName: widget.inputFields.category?.fieldName.value,
+                      onSelected: (String? name) {
+                        final Category? newSelection = name != null ? Data().categories.getByName(name) : null;
                         if (newSelection != null) {
                           widget.inputFields.category = newSelection;
                         }

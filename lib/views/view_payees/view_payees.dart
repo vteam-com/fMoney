@@ -44,7 +44,7 @@ class ViewPayeesState extends ViewForMoneyObjectsState {
           buildMergeButton(() {
             // let the user pick another Payee and merge change the transaction of the current selected payee to the destination
             final Payee payee = moneyObject as Payee;
-            showMergePayee(context, payee);
+            showMergePayee(context, payee, Data());
           }),
         );
       }

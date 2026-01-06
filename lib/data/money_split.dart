@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/widgets_domain/cd/field.dart';
 import 'package:money/widgets/widgets_domain/cd/money_object.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
@@ -122,10 +122,10 @@ class MoneySplit extends MoneyObject {
               Expanded(
                 child: pickerCategory(
                   key: const Key('key_pick_category'),
-                  itemSelected: Data().categories.get(
-                    instance.fieldCategoryId.value,
-                  ),
-                  onSelected: (Category? newCategory) {
+                  categoryNames: Data().categories.getCategoriesAsStrings(),
+                  selectedName: Data().categories.getNameFromId(instance.fieldCategoryId.value),
+                  onSelected: (String? name) {
+                    final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
                     if (newCategory != null) {
                       instance.fieldCategoryId.value = newCategory.uniqueId;
                       // notify container

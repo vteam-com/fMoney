@@ -1,7 +1,6 @@
-import 'package:money/data/data.dart';
+import 'package:money/data/data_interface.dart';
 import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/payees.dart';
-
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -15,8 +14,8 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
-void showMergePayee(final BuildContext context, Payee payee) {
-  final Iterable<Transaction> transactions = Data().transactions
+void showMergePayee(final BuildContext context, Payee payee, DataInterface data) {
+  final Iterable<Transaction> transactions = (data.transactions as Transactions)
       .iterableList(includeDeleted: true)
       .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
 
@@ -27,6 +26,7 @@ void showMergePayee(final BuildContext context, Payee payee) {
     child: MergeTransactionsDialog(
       currentPayee: payee,
       transactions: transactions.toList(),
+      data: data,
     ),
   );
 }
@@ -35,11 +35,13 @@ class MergeTransactionsDialog extends StatefulWidget {
   const MergeTransactionsDialog({
     required this.currentPayee,
     required this.transactions,
+    required this.data,
     super.key,
   });
 
   final Payee currentPayee;
   final List<Transaction> transactions;
+  final DataInterface data;
 
   @override
   State<MergeTransactionsDialog> createState() => _MergeTransactionsDialogState();
@@ -77,17 +79,17 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
                 child: Box(
                   child: PickerEditBox(
                     title: 'Payee',
-                    items: Data().payees.getSortedPayeeNames(),
+                    items: (widget.data.payees as Payees).getSortedPayeeNames(),
                     initialValue: widget.currentPayee.fieldName.value,
                     onChanged: (String? name) {
-                      final Payee? payee = name != null ? Data().payees.getByName(name) : null;
+                      final Payee? payee = name != null ? (widget.data.payees as Payees).getByName(name) : null;
                       setState(() {
                         _selectedPayee = payee;
                         getAssociatedCategories();
                       });
                     },
                     onAddNew: (String newPayeeText) {
-                      final Payee found = Data().payees.getOrCreate(newPayeeText);
+                      final Payee found = (widget.data.payees as Payees).getOrCreate(newPayeeText);
                       setState(() {
                         _selectedPayee = found;
                         getAssociatedCategories();
@@ -114,6 +116,7 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
                     widget.transactions,
                     _selectedPayee!.uniqueId,
                     _estimatedCategory,
+                    widget.data,
                   );
                   Navigator.pop(context);
                 },
@@ -127,7 +130,7 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
   void getAssociatedCategories() {
     if (_selectedPayee != null) {
       categoryIdsFound.clear();
-      for (final Transaction t in Data().transactions.iterableList(
+      for (final Transaction t in (widget.data.transactions as Transactions).iterableList(
         includeDeleted: true,
       )) {
         if (t.fieldPayee.value == _selectedPayee!.uniqueId) {
@@ -152,7 +155,7 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
       final int categoryId = entry.key;
       final int categoryCounts = entry.value;
 
-      final String categoryName = Data().categories.getNameFromId(categoryId).trim();
+      final String categoryName = ((widget.data.categories as dynamic).getNameFromId(categoryId) as String).trim();
       if (categoryName.isNotEmpty) {
         radioButtonChoices.add(
           RadioListTile<int?>(
@@ -174,7 +177,7 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
                       label: Text(getIntAsText(categoryCounts)),
                       child: Box(
                         child: Text(
-                          Data().categories.getNameFromId(categoryId),
+                          (widget.data.categories as dynamic).getNameFromId(categoryId) as String,
                           maxLines: 1,
                           // overflow: TextOverflow.clip, // Clip the overflow text
                           softWrap: false,
@@ -223,6 +226,7 @@ void mutateTransactionsToPayee(
   final List<Transaction> transactions,
   final int toPayeeId,
   final int? categoryId,
+  final DataInterface data,
 ) {
   final Set<int> fromPayeeIds = <int>{};
 
@@ -238,12 +242,12 @@ void mutateTransactionsToPayee(
       t.fieldCategoryId.value = categoryId;
     }
 
-    Data().notifyMutationChanged(
+    data.notifyMutationChanged(
       mutation: MutationType.changed,
       moneyObject: t,
       recalculateBalances: false,
     );
   }
-  Payees.removePayeesThatHaveNoTransactions(fromPayeeIds.toList(), Data());
-  Data().updateAll();
+  Payees.removePayeesThatHaveNoTransactions(fromPayeeIds.toList(), data);
+  data.updateAll();
 }

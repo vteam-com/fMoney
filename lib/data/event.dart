@@ -2,13 +2,13 @@
 
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/cd/field.dart';
@@ -81,10 +81,10 @@ class Event extends MoneyObject {
         ) {
           return pickerCategory(
             key: const Key('key_pick_category'),
-            itemSelected: Data().categories.get(
-              (instance as Event).fieldCategoryId.value,
-            ),
-            onSelected: (Category? newCategory) {
+            categoryNames: Data().categories.getCategoriesAsStrings(),
+            selectedName: Data().categories.getNameFromId((instance as Event).fieldCategoryId.value),
+            onSelected: (String? name) {
+              final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
               if (newCategory != null) {
                 instance.fieldCategoryId.value = newCategory.uniqueId;
                 // notify container

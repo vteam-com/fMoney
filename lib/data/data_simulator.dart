@@ -1366,10 +1366,3 @@ class DataSimulator {
     }
   }
 }
-
-// --- Demo Extension Methods ---
-
-void loadFromDemoData() {
-  DataSimulator().generateData();
-  Data().recalculateBalances();
-}

@@ -73,7 +73,8 @@ class DataFileController extends GetxController {
 
   Future<void> loadDemoData() async {
     isLoading.value = true;
-    loadFromDemoData();
+    DataSimulator().generateData();
+    Data().recalculateBalances();
     isLoading.value = false;
   }
 

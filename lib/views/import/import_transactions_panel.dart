@@ -1,5 +1,4 @@
 import 'package:money/data/data.dart';
-import 'package:money/data/picker_account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
@@ -8,6 +7,7 @@ import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/widgets/columns_input.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
+import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/widgets_domain/money_widget.dart';
@@ -334,13 +334,16 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         gapLarge(),
         Expanded(
           child: pickerAccount(
-            accounts: Data().accounts,
-            selected: _account,
-            onSelected: (final Account? accountSelected) {
-              setState(() {
-                _account = accountSelected!;
-                widget.onAccountChanged(_account);
-              });
+            accountNames: Data().accounts.getSortedAccountNames(),
+            selectedName: _account.fieldName.value,
+            onSelected: (String? name) {
+              final Account? accountSelected = name != null ? Data().accounts.getByName(name) : null;
+              if (accountSelected != null) {
+                setState(() {
+                  _account = accountSelected;
+                  widget.onAccountChanged(_account);
+                });
+              }
             },
           ),
         ),

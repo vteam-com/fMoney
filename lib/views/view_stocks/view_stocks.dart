@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/dialog_mutate_money_object.dart';
-import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/investment.dart';
 import 'package:money/data/investments.dart';
 import 'package:money/data/menu_entry.dart';

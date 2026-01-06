@@ -266,6 +266,10 @@ class Accounts extends MoneyObjects<Account> {
     return list;
   }
 
+  List<String> getSortedAccountNames() {
+    return getListSorted().map((Account a) => a.fieldName.value).toList();
+  }
+
   Account getMostRecentlySelectedAccount() {
     final int lastSelectionId = PreferenceController.to.getInt(
       getViewPreferenceIdAccountLastSelected(),

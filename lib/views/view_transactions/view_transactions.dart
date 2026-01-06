@@ -1,6 +1,5 @@
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/investment.dart';
 import 'package:money/data/list_view_transaction_splits.dart';
 import 'package:money/data/menu_entry.dart';

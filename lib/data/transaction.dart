@@ -4,7 +4,6 @@ import 'package:money/data/data.dart';
 import 'package:money/data/data_file_controller.dart';
 import 'package:money/data/investment.dart';
 import 'package:money/data/money_split.dart';
-import 'package:money/data/picker_category.dart';
 import 'package:money/data/picker_payee_or_transfer.dart';
 import 'package:money/data/suggestion_approval.dart';
 import 'package:money/data/transfer.dart';
@@ -20,6 +19,7 @@ import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/selection_controller.dart';
@@ -288,10 +288,10 @@ class Transaction extends MoneyObject {
               Expanded(
                 child: pickerCategory(
                   key: const Key('key_pick_category'),
-                  itemSelected: Data().categories.get(
-                    instance.fieldCategoryId.value,
-                  ),
-                  onSelected: (Category? newCategory) {
+                  categoryNames: Data().categories.getCategoriesAsStrings(),
+                  selectedName: Data().categories.getNameFromId(instance.fieldCategoryId.value),
+                  onSelected: (String? name) {
+                    final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
                     if (newCategory != null) {
                       instance.fieldCategoryId.value = newCategory.uniqueId;
                       // notify container
@@ -484,6 +484,7 @@ class Transaction extends MoneyObject {
               amount: instance.fieldAmount.value.asDouble(),
               payees: Data().payees,
               accounts: Data().accounts,
+              data: Data(),
               onSelected:
                   (
                     TransactionFlavor choice,
