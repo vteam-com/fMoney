@@ -3,13 +3,13 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:money/data/collections/investments.dart';
+import 'package:money/data/collections/loan_payments.dart';
+import 'package:money/data/collections/securities.dart';
+import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/loan_payment.dart';
-import 'package:money/data/investments.dart';
-import 'package:money/data/loan_payments.dart';
-import 'package:money/data/securities.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';

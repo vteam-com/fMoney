@@ -1,5 +1,5 @@
 // Imports
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';

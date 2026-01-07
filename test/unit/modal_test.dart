@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:money/data/categories.dart';
-import 'package:money/data/data.dart';
-import 'package:money/data_file_controller.dart';
+import 'package:money/data/collections/categories.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/category_types.dart';
+import 'package:money/views/data_file_controller.dart';
 
 void main() {
   setUp(() {

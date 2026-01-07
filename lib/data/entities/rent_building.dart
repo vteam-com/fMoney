@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
-import 'package:money/data/categories.dart';
+import 'package:money/data/collections/categories.dart';
+import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/money_split.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';

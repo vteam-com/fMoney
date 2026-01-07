@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/models/account.dart';
-import 'package:money/view.dart';
+import 'package:money/views/view.dart';
 import 'package:money/views/view_ai/ollama_service.dart';
 import 'package:money/views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';

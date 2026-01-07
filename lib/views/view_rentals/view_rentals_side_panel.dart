@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/rent_building.dart';
 import 'package:money/data/entities/transaction.dart';

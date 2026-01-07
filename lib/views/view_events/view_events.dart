@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
+import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/event.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/ranges.dart';

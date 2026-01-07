@@ -1,7 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
 import 'package:flutter/material.dart';
+import 'package:money/data/collections/payees.dart';
 import 'package:money/data/entities/data_abstract.dart';
-import 'package:money/data/payees.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_category.dart';

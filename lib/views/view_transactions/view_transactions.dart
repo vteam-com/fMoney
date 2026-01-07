@@ -1,4 +1,4 @@
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/transaction.dart';
@@ -6,8 +6,8 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/list_view_transaction_splits.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
+import 'package:money/views/list_view_transaction_splits.dart';
 import 'package:money/views/menu_entry.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';

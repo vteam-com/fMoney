@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/category_suggestion_interface.dart';
 import 'package:money/data/entities/money_split.dart';
-import 'package:money/suggestion_approval.dart';
+import 'package:money/views/category_suggestion_interface.dart';
+import 'package:money/views/suggestion_approval.dart';
 
 /// Implementation of CategorySuggestionProvider using SuggestionApproval widget
 class SuggestionApprovalProvider implements CategorySuggestionProvider {

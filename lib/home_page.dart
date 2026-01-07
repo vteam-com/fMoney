@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/app_bar.dart';
-import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/my_nav_bar.dart';
+import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_csv.dart'; // Added import for CSV
 import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
@@ -25,7 +25,7 @@ import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/working.dart';
 import 'package:path/path.dart' as path; // Added import for path
 
-import 'home_controller.dart';
+import 'helpers/home_controller.dart';
 
 RxInt subViewInt = 0.obs;
 

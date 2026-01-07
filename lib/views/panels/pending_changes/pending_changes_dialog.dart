@@ -1,6 +1,6 @@
-import 'package:money/data/data.dart';
-import 'package:money/data_file_controller.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/views/data_file_controller.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';

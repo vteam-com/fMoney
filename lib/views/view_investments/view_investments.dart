@@ -1,10 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
+import 'package:money/data/collections/investments.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';
-import 'package:money/data/investments.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/list_helper.dart';

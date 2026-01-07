@@ -1,5 +1,5 @@
 // Imports
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/money_split.dart';
@@ -11,8 +11,8 @@ import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/mergeable_item.dart';
 import 'package:money/models/account.dart';
+import 'package:money/models/mergeable_item.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/data_access.dart';

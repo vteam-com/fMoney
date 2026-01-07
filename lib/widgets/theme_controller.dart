@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/my_window_manager.dart';
+import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_custom.dart';
 

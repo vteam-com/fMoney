@@ -1,4 +1,4 @@
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';

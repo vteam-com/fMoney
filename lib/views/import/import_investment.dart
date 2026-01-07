@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';

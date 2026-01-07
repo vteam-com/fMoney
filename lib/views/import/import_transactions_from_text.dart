@@ -1,4 +1,4 @@
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/models/account.dart';
 import 'package:money/views/import/import_transactions_panel.dart';

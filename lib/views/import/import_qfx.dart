@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/date_helper.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
+import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/box.dart';

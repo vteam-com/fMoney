@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:money/data/data.dart';
+import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/accumulator.dart';
