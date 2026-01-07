@@ -3,12 +3,12 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/loan_payment.dart';
 import 'package:money/data/investments.dart';
-import 'package:money/data/loan_payment.dart';
 import 'package:money/data/loan_payments.dart';
 import 'package:money/data/securities.dart';
-import 'package:money/data/stocks/investment.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
@@ -25,7 +25,7 @@ class Accounts extends MoneyObjects<Account> {
   Accounts() {
     collectionName = 'Accounts';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   Account instanceFromJson(final MyJson json) {
@@ -331,7 +331,7 @@ class Accounts extends MoneyObjects<Account> {
   static void groupAccountStockSymbols(
     Account account,
     AccumulatorList<String, Investment> groupBySymbol,
-    DataInterface data,
+    DataAbstract data,
   ) {
     final Iterable<Investment> investments = (data.investments as Investments).iterableList().where(
       (Investment i) => i.transactionInstance!.fieldAccountId.value == account.uniqueId,

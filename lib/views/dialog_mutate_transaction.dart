@@ -1,5 +1,5 @@
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/button_helpers.dart';

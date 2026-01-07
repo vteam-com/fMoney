@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/data/alias.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/alias.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';

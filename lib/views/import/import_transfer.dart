@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/views/import/import_transfer_panel.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';

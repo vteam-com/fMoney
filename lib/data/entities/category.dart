@@ -1,5 +1,6 @@
 // Imports
 import 'package:money/data/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -22,6 +23,21 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class Category extends DataObject {
+  factory Category.fromJson(final MyJson row, [final DataAbstract? data]) {
+    return Category(
+      id: row.getInt('Id', -1),
+      parentId: row.getInt('ParentId', -1),
+      name: row.getString('Name'),
+      description: row.getString('Description'),
+      color: row.getString('Color').trim(),
+      type: CategoryTypeExtension.fromInt(row.getInt('Type')),
+      budget: row.getDouble('Budget'),
+      budgetBalance: row.getDouble('Balance'),
+      frequency: row.getInt('Frequency'),
+      taxRefNum: row.getInt('TaxRefNum'),
+      data: data,
+    );
+  }
   Category({
     required final int id,
     required final String name,
@@ -33,6 +49,7 @@ class Category extends DataObject {
     final double budgetBalance = 0,
     final int frequency = 0,
     final int taxRefNum = 0,
+    this.data,
   }) {
     this.fieldId.value = id;
     this.fieldParentId.value = parentId;
@@ -46,20 +63,7 @@ class Category extends DataObject {
     this.fieldTaxRefNum.value = taxRefNum;
   }
 
-  factory Category.fromJson(final MyJson row) {
-    return Category(
-      id: row.getInt('Id', -1),
-      parentId: row.getInt('ParentId', -1),
-      name: row.getString('Name'),
-      description: row.getString('Description'),
-      color: row.getString('Color').trim(),
-      type: CategoryTypeExtension.fromInt(row.getInt('Type')),
-      budget: row.getDouble('Budget'),
-      budgetBalance: row.getDouble('Balance'),
-      frequency: row.getInt('Frequency'),
-      taxRefNum: row.getInt('TaxRefNum'),
-    );
-  }
+  final DataAbstract? data;
 
   /// Budget
   /// 6|Budget|money|0||0
@@ -384,9 +388,12 @@ class Category extends DataObject {
   }
 
   void getDescendants(List<Category> list) {
-    final Iterable<Category> allCategories = Data().categories.iterableList(
-      includeDeleted: true,
-    );
+    final Iterable<Category> allCategories =
+        (data?.categories.iterableList(
+              includeDeleted: true,
+            )
+            as Iterable<Category>?) ??
+        <Category>[];
     for (final Category category in allCategories) {
       if (category.fieldParentId.value == this.uniqueId) {
         list.add(category);
@@ -435,7 +442,8 @@ class Category extends DataObject {
   }
 
   Category? get parentCategory {
-    return Data().categories.get(this.fieldParentId.value);
+    return (data?.categories.get(this.fieldParentId.value) as Category?) ??
+        Data().categories.get(this.fieldParentId.value);
   }
 
   /// Updates the name based on the parent category by appending the leaf name of the category to its current name.

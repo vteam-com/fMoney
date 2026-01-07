@@ -1,5 +1,5 @@
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/money_split.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/money_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -8,7 +8,7 @@ class Splits extends MoneyObjects<MoneySplit> {
   Splits() {
     collectionName = 'Splits';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void appendMoneyObject(final DataObject moneyObject) {
@@ -48,6 +48,7 @@ class Splits extends MoneyObjects<MoneySplit> {
           flags: row.getInt('Flags'),
           // 8
           budgetBalanceDate: row.getDate('BudgetBalanceDate'),
+          data: data,
         ),
       );
     }

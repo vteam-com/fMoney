@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/stocks/stock_split.dart';
+import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';

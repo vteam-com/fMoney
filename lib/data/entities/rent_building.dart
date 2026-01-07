@@ -1,8 +1,9 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
-import 'package:money/data/data.dart';
-import 'package:money/data/money_split.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/categories.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/transactions.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -40,10 +41,11 @@ import 'package:money/widgets/widgets_domain/widget_from_data.dart';
     17|CategoryForManagement|INT|0||0
    */
 class RentBuilding extends DataObject {
-  RentBuilding();
-
-  factory RentBuilding.fromJson(final MyJson row) {
+  factory RentBuilding.fromJson(final MyJson row, [final DataAbstract? data]) {
     final RentBuilding instance = RentBuilding();
+    if (data != null) {
+      instance.data = data;
+    }
 
     instance.fieldId.value = row.getInt('Id', -1);
     instance.fieldName.value = row.getString('Name');
@@ -69,59 +71,76 @@ class RentBuilding extends DataObject {
     );
 
     instance.categoryForIncome.value = row.getInt('CategoryForIncome', -1);
-    instance.categoryForIncomeTreeIds = Data().categories.getTreeIds(
-      instance.categoryForIncome.value,
-    );
+    if (data != null) {
+      instance.categoryForIncomeTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForIncome.value,
+      );
+    }
 
     instance.categoryForTaxes.value = row.getInt('CategoryForTaxes', -1);
-    instance.categoryForTaxesTreeIds = Data().categories.getTreeIds(
-      instance.categoryForTaxes.value,
-    );
+    if (data != null) {
+      instance.categoryForTaxesTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForTaxes.value,
+      );
+    }
 
     instance.categoryForInterest.value = row.getInt('CategoryForInterest', -1);
-    instance.categoryForInterestTreeIds = Data().categories.getTreeIds(
-      instance.categoryForInterest.value,
-    );
+    if (data != null) {
+      instance.categoryForInterestTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForInterest.value,
+      );
+    }
 
     instance.categoryForRepairs.value = row.getInt('CategoryForRepairs', -1);
-    instance.categoryForRepairsTreeIds = Data().categories.getTreeIds(
-      instance.categoryForRepairs.value,
-    );
+    if (data != null) {
+      instance.categoryForRepairsTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForRepairs.value,
+      );
+    }
 
     instance.categoryForMaintenance.value = row.getInt(
       'CategoryForMaintenance',
       -1,
     );
-    instance.categoryForMaintenanceTreeIds = Data().categories.getTreeIds(
-      instance.categoryForMaintenance.value,
-    );
+    if (data != null) {
+      instance.categoryForMaintenanceTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForMaintenance.value,
+      );
+    }
 
     instance.categoryForManagement.value = row.getInt(
       'CategoryForManagement',
       -1,
     );
-    instance.categoryForManagementTreeIds = Data().categories.getTreeIds(
-      instance.categoryForManagement.value,
-    );
+    if (data != null) {
+      instance.categoryForManagementTreeIds = (data.categories as Categories).getTreeIds(
+        instance.categoryForManagement.value,
+      );
+    }
 
-    instance.listOfCategoryIdsExpenses.addAll(instance.categoryForTaxesTreeIds);
-    instance.listOfCategoryIdsExpenses.addAll(
-      instance.categoryForMaintenanceTreeIds,
-    );
-    instance.listOfCategoryIdsExpenses.addAll(
-      instance.categoryForManagementTreeIds,
-    );
-    instance.listOfCategoryIdsExpenses.addAll(
-      instance.categoryForRepairsTreeIds,
-    );
-    instance.listOfCategoryIdsExpenses.addAll(
-      instance.categoryForInterestTreeIds,
-    );
+    if (data != null) {
+      instance.listOfCategoryIdsExpenses.addAll(instance.categoryForTaxesTreeIds);
+      instance.listOfCategoryIdsExpenses.addAll(
+        instance.categoryForMaintenanceTreeIds,
+      );
+      instance.listOfCategoryIdsExpenses.addAll(
+        instance.categoryForManagementTreeIds,
+      );
+      instance.listOfCategoryIdsExpenses.addAll(
+        instance.categoryForRepairsTreeIds,
+      );
+      instance.listOfCategoryIdsExpenses.addAll(
+        instance.categoryForInterestTreeIds,
+      );
+    }
 
     instance.note.value = row.getString('Note');
 
     return instance;
   }
+  RentBuilding();
+
+  late DataAbstract data;
 
   /// CategoryForIncome
   // 13    CategoryForIncome          money
@@ -430,7 +449,7 @@ class RentBuilding extends DataObject {
   static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
 
   void associateAccountToBuilding() {
-    final Transaction? firstTransactionForThisBuilding = Data().transactions
+    final Transaction? firstTransactionForThisBuilding = (data.transactions as Transactions)
         .iterableList(includeDeleted: true)
         .firstWhereOrNull(
           (Transaction t) => this.categoryForIncomeTreeIds.contains(t.fieldCategoryId.value),
@@ -573,7 +592,7 @@ class RentBuilding extends DataObject {
   }
 
   String getCategoryName(final int id) {
-    return Data().categories.getNameFromId(id);
+    return (data.categories as Categories).getNameFromId(id);
   }
 
   String getCurrencyOfAssociatedAccount() {

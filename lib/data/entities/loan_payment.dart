@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -12,27 +12,8 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
 class LoanPayment extends DataObject {
-  LoanPayment({
-    required final int id,
-    required final int accountId,
-    required final DateTime? date,
-    required final String memo,
-    required final double principal,
-    required final double interest,
-    final String reference = '',
-  }) {
-    this.fieldId.value = id;
-    this.fieldAccountId.value = accountId;
-    accountInstance = Data().accounts.get(this.fieldAccountId.value);
-    this.fieldDate.value = date;
-    this.fieldMemo.value = memo;
-    this.fieldPrincipal.value.setAmount(principal);
-    this.fieldInterest.value.setAmount(interest);
-    this.fieldReference.value = reference;
-  }
-
   /// Constructor from a SQLite row
-  factory LoanPayment.fromJson(final MyJson row) {
+  factory LoanPayment.fromJson(final MyJson row, final DataAbstract data) {
     return LoanPayment(
       // 0
       id: row.getInt('Id', -1),
@@ -46,8 +27,33 @@ class LoanPayment extends DataObject {
       interest: row.getDouble('Interest'),
       // 3
       memo: row.getString('Memo'),
+      data: data,
     );
   }
+  LoanPayment({
+    required final int id,
+    required final int accountId,
+    required final DateTime? date,
+    required final String memo,
+    required final double principal,
+    required final double interest,
+    final String reference = '',
+    DataAbstract? data,
+  }) {
+    if (data != null) {
+      this.data = data;
+      accountInstance = data.accounts.get(this.fieldAccountId.value) as Account?;
+    }
+    this.fieldId.value = id;
+    this.fieldAccountId.value = accountId;
+    this.fieldDate.value = date;
+    this.fieldMemo.value = memo;
+    this.fieldPrincipal.value.setAmount(principal);
+    this.fieldInterest.value.setAmount(interest);
+    this.fieldReference.value = reference;
+  }
+
+  late DataAbstract data;
 
   // Not persisted
   Account? accountInstance;
@@ -163,7 +169,16 @@ class LoanPayment extends DataObject {
 
   static Fields<LoanPayment> get fields {
     if (_fields.isEmpty) {
-      final LoanPayment tmpInstance = LoanPayment.fromJson(<String, dynamic>{});
+      // Create a temporary instance for field definitions - no data relationships needed
+      final LoanPayment tmpInstance = LoanPayment(
+        id: -1,
+        accountId: -1,
+        date: null,
+        memo: '',
+        principal: 0.0,
+        interest: 0.0,
+        data: null, // Not used in static context
+      );
       _fields.setDefinitions(<Field<dynamic>>[
         tmpInstance.fieldId,
         tmpInstance.fieldDate,
@@ -181,7 +196,16 @@ class LoanPayment extends DataObject {
 
   static Fields<LoanPayment> get fieldsForColumnView {
     if (_fields.isEmpty) {
-      final LoanPayment tmpInstance = LoanPayment.fromJson(<String, dynamic>{});
+      // Create a temporary instance for field definitions - no data relationships needed
+      final LoanPayment tmpInstance = LoanPayment(
+        id: -1,
+        accountId: -1,
+        date: null,
+        memo: '',
+        principal: 0.0,
+        interest: 0.0,
+        data: null, // Not used in static context
+      );
       _fields.setDefinitions(<Field<dynamic>>[
         tmpInstance.fieldDate,
         tmpInstance.fieldAccountId,

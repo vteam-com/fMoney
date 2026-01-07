@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:money/data/budget.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';

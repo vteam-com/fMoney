@@ -1,5 +1,5 @@
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/event.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/event.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 
@@ -7,7 +7,7 @@ class Events extends MoneyObjects<Event> {
   Events() {
     collectionName = 'LoanPayments';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void loadFromJson(final List<MyJson> rows) {

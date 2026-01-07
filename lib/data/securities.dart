@@ -1,22 +1,22 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/investments.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/stocks/security.dart';
-import 'package:money/data/stocks/stock_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 
 // Exports
-export 'package:money/data/stocks/security.dart';
+export 'package:money/data/entities/security.dart';
 
 class Securities extends MoneyObjects<Security> {
   Securities() {
     collectionName = 'Securities';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   // Loads data from a list of JSON objects into the collection of Security objects.
   @override

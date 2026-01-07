@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
+import 'package:money/data/entities/category.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/widgets/circle.dart';

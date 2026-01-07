@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/merge_payee_interface.dart';
 import 'package:money/mergeable_item.dart';
 import 'package:money/models/payee.dart';
@@ -11,7 +11,7 @@ class DefaultMergePayeeProvider implements MergePayeeProvider {
     BuildContext context,
     Payee payee,
     Iterable<T> transactions,
-    DataInterface data,
+    DataAbstract data,
   ) {
     showMergePayee(
       context,

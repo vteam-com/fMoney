@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/widgets/sankey/sankey_painter.dart';
 import 'package:money/widgets/scale_down.dart';

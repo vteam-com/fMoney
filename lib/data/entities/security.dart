@@ -1,4 +1,4 @@
-import 'package:money/data/stocks/stock_split.dart';
+import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';

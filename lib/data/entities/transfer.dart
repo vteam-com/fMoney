@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/money_split.dart';
+import 'package:money/data/entities/money_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/models/account.dart';

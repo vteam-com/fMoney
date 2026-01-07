@@ -1,10 +1,10 @@
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
-abstract class DataInterface {
+abstract class DataAbstract {
   dynamic get accounts;
   dynamic get aliases;
   dynamic get categories;
@@ -32,6 +32,10 @@ abstract class DataInterface {
   Payee? getPayeeByName(String name);
   Payee getOrCreatePayee(String name);
   void removePayeesWithNoTransactions(List<int> payeeIds);
+
+  List<String> getCategoryNames();
+  String getCategoryNameFromId(int id);
+  dynamic getCategoryByName(String name);
 
   dynamic get mergePayeeProvider;
   set mergePayeeProvider(dynamic value);

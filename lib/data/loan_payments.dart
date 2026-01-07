@@ -1,6 +1,6 @@
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/loan_payment.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/loan_payment.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -11,13 +11,13 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {
     collectionName = 'LoanPayments';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
-      appendMoneyObject(LoanPayment.fromJson(row));
+      appendMoneyObject(LoanPayment.fromJson(row, data));
     }
   }
 
@@ -38,7 +38,7 @@ class PaymentRollup {
   String reference = '';
 }
 
-List<LoanPayment> getAccountLoanPayments(Account account, DataInterface data) {
+List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
   final List<int> categoriesToMatch = <int>[
     account.fieldCategoryIdForInterest.value,
     account.fieldCategoryIdForPrincipal.value,
@@ -114,6 +114,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataInterface data) {
         principal: pr.principal,
         memo: '',
         reference: pr.reference,
+        data: data,
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -16,7 +16,7 @@ void showMergePayee<T extends MergeableItem>(
   final BuildContext context,
   Payee payee,
   Iterable<T> transactions,
-  DataInterface data,
+  DataAbstract data,
 ) {
   adaptiveScreenSizeDialog(
     context: context,
@@ -40,7 +40,7 @@ class MergeTransactionsDialog<T extends MergeableItem> extends StatefulWidget {
 
   final Payee currentPayee;
   final List<T> transactions;
-  final DataInterface data;
+  final DataAbstract data;
 
   @override
   State<MergeTransactionsDialog<T>> createState() => _MergeTransactionsDialogState<T>();
@@ -223,7 +223,7 @@ void mutateMergeableItemsToPayee<T extends MergeableItem>(
   final List<T> items,
   final int toPayeeId,
   final int? categoryId,
-  final DataInterface data,
+  final DataAbstract data,
 ) {
   final Set<int> fromPayeeIds = <int>{};
 

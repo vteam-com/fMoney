@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/models/account.dart';
 import 'package:money/view.dart';

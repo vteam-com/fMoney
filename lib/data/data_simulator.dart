@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:money/data/alias.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/loan_payment.dart';
-import 'package:money/data/money_split.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/stocks/security.dart';
-import 'package:money/data/stocks/stock_split.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/alias.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/loan_payment.dart';
+import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/stock_split.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -468,11 +468,11 @@ class DataSimulator {
   /// Generates sample aliases.
   void _generateAliases() {
     Data().aliases.appendNewMoneyObject(
-      Alias(id: -1, payeeId: 2, pattern: 'ABC', flags: AliasType.none.index),
+      Alias(id: -1, payeeId: 2, pattern: 'ABC', flags: AliasType.none.index, data: Data()),
       fireNotification: false,
     );
     Data().aliases.appendNewMoneyObject(
-      Alias(id: -1, payeeId: 2, pattern: 'abc', flags: AliasType.none.index),
+      Alias(id: -1, payeeId: 2, pattern: 'abc', flags: AliasType.none.index, data: Data()),
       fireNotification: false,
     );
     Data().aliases.appendNewMoneyObject(
@@ -481,6 +481,7 @@ class DataSimulator {
         payeeId: 3,
         pattern: '.*starbucks.*',
         flags: AliasType.regex.index,
+        data: Data(),
       ),
       fireNotification: false,
     );
@@ -929,6 +930,7 @@ class DataSimulator {
           principal: -principalForThisMonday,
           interest: monthlyInterest,
           memo: '',
+          data: Data(),
         ),
       );
 
@@ -1347,6 +1349,7 @@ class DataSimulator {
           memo: '',
           flags: 0,
           budgetBalanceDate: null,
+          data: Data(),
         );
         Data().splits.appendNewMoneyObject(splitMortgagePaymentPrincipal);
 
@@ -1360,6 +1363,7 @@ class DataSimulator {
           memo: '',
           flags: 0,
           budgetBalanceDate: null,
+          data: Data(),
         );
         Data().splits.appendNewMoneyObject(splitMortgagePaymentInterest);
       }

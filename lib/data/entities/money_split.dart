@@ -1,7 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
 import 'package:flutter/material.dart';
-import 'package:money/data/category.dart';
-import 'package:money/data/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/payees.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_category.dart';
@@ -25,6 +25,52 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
  */
 
 class MoneySplit extends DataObject {
+  /// Private constructor for static fields only
+  MoneySplit._static({
+    required int id,
+    required int transactionId,
+    required int categoryId,
+    required int payeeId,
+    required double amount,
+    required int transferId,
+    required String memo,
+    required int flags,
+    required DateTime? budgetBalanceDate,
+  }) {
+    this.fieldId.value = id;
+    this.fieldTransactionId.value = transactionId;
+    this.fieldCategoryId.value = categoryId;
+    this.fieldPayeeId.value = payeeId;
+    this.fieldAmount.value.setAmount(amount);
+    this.fieldTransferId.value = transferId;
+    this.fieldMemo.value = memo;
+    this.fieldFlags.value = flags;
+    this.fieldBudgetBalanceDate.value = budgetBalanceDate;
+  }
+  factory MoneySplit.fromJson(final MyJson row, final DataAbstract data) {
+    return MoneySplit(
+      // 0
+      transactionId: row.getInt('Transaction', -1),
+      // 1
+      id: row.getInt('Id', -1),
+      // 2
+      categoryId: row.getInt('Category', -1),
+      // 3
+      payeeId: row.getInt('Payee', -1),
+      // 4
+      amount: row.getDouble('Amount'),
+      // 5
+      transferId: row.getInt('Transfer', -1),
+      // 6
+      memo: row.getString('Memo'),
+      // 7
+      flags: row.getInt('Flags'),
+      // 8
+      budgetBalanceDate: row.getDate('BudgetBalanceDate'),
+      data: data,
+    );
+  }
+
   /// Constructor
   MoneySplit({
     // 1
@@ -45,6 +91,7 @@ class MoneySplit extends DataObject {
     required int flags,
     // 8
     required DateTime? budgetBalanceDate,
+    required this.data,
   }) {
     this.fieldId.value = id;
     this.fieldTransactionId.value = transactionId;
@@ -57,28 +104,7 @@ class MoneySplit extends DataObject {
     this.fieldBudgetBalanceDate.value = budgetBalanceDate;
   }
 
-  factory MoneySplit.fromJson(final MyJson row) {
-    return MoneySplit(
-      // 0
-      transactionId: row.getInt('Transaction', -1),
-      // 1
-      id: row.getInt('Id', -1),
-      // 2
-      categoryId: row.getInt('Category', -1),
-      // 3
-      payeeId: row.getInt('Payee', -1),
-      // 4
-      amount: row.getDouble('Amount'),
-      // 5
-      transferId: row.getInt('Transfer', -1),
-      // 6
-      memo: row.getString('Memo'),
-      // 7
-      flags: row.getInt('Flags'),
-      // 8
-      budgetBalanceDate: row.getDate('BudgetBalanceDate'),
-    );
-  }
+  late DataAbstract data;
 
   // 4
   FieldMoney fieldAmount = FieldMoney(
@@ -123,12 +149,12 @@ class MoneySplit extends DataObject {
               Expanded(
                 child: pickerCategory(
                   key: const Key('key_pick_category'),
-                  categoryNames: Data().categories.getCategoriesAsStrings(),
-                  selectedName: Data().categories.getNameFromId(instance.fieldCategoryId.value),
+                  categoryNames: instance.data.getCategoryNames(),
+                  selectedName: instance.data.getCategoryNameFromId(instance.fieldCategoryId.value),
                   onSelected: (String? name) {
-                    final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
+                    final dynamic newCategory = name != null ? instance.data.getCategoryByName(name) : null;
                     if (newCategory != null) {
-                      instance.fieldCategoryId.value = newCategory.uniqueId;
+                      instance.fieldCategoryId.value = newCategory.uniqueId as int;
                       // notify container
                       onEdited(true);
                     }
@@ -170,9 +196,10 @@ class MoneySplit extends DataObject {
     serializeName: 'Payee',
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final DataInterface instance) => Data().payees.getNameFromId(
-      (instance as MoneySplit).fieldPayeeId.value,
-    ),
+    getValueForDisplay: (final DataInterface instance) =>
+        ((instance as MoneySplit).data.payees as Payees).getNameFromId(
+          instance.fieldPayeeId.value,
+        ),
     getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldPayeeId.value,
   );
 
@@ -212,11 +239,23 @@ class MoneySplit extends DataObject {
 
   static final Fields<MoneySplit> _fields = Fields<MoneySplit>();
 
-  String get categoryName => Data().categories.getNameFromId(fieldCategoryId.value);
+  String get categoryName => data.getCategoryNameFromId(fieldCategoryId.value);
 
   static Fields<MoneySplit> get fields {
     if (_fields.isEmpty) {
-      final MoneySplit tmp = MoneySplit.fromJson(<String, dynamic>{});
+      // For static fields, we create a dummy instance without data
+      // The fields are just for metadata and won't use data-dependent functionality
+      final MoneySplit tmp = MoneySplit._static(
+        id: -1,
+        transactionId: -1,
+        categoryId: -1,
+        payeeId: -1,
+        amount: 0.0,
+        transferId: -1,
+        memo: '',
+        flags: 0,
+        budgetBalanceDate: null,
+      );
       _fields.setDefinitions(<Field<dynamic>>[
         tmp.fieldId,
         tmp.fieldTransactionId,
@@ -233,6 +272,6 @@ class MoneySplit extends DataObject {
   }
 
   dynamic getTransferTransaction() {
-    return Data().transactions.get(this.fieldTransactionId.value);
+    return data.transactions.get(this.fieldTransactionId.value);
   }
 }

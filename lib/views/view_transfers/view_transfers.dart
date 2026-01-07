@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transfer.dart';
 import 'package:money/data/transactions.dart';
-import 'package:money/data/transfer.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/models/account.dart';

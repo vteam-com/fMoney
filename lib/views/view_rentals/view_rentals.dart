@@ -1,5 +1,5 @@
 import 'package:money/data/data.dart';
-import 'package:money/data/rent_building.dart';
+import 'package:money/data/entities/rent_building.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/models/rental_unit.dart';

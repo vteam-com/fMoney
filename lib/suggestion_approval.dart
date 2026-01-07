@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/money_split.dart';
+import 'package:money/data/entities/money_split.dart';
 import 'package:money/list_view_transaction_splits.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';
@@ -181,6 +181,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
                 memo: '',
                 flags: 0,
                 budgetBalanceDate: null,
+                data: Data(),
               );
               newSplit.mutation = MutationType.inserted;
               Data().splits.appendMoneyObject(newSplit);

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/money_split.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/list_view_transaction_splits.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
@@ -43,6 +43,7 @@ void showTransactionSplits(final Transaction transaction) {
             memo: '',
             flags: 0,
             budgetBalanceDate: null,
+            data: Data(),
           );
           newSplit.mutation = MutationType.inserted;
           Data().splits.appendMoneyObject(newSplit);

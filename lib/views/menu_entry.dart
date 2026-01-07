@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
+import 'package:money/data/entities/category.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/models/account.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';

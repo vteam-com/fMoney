@@ -1,7 +1,7 @@
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/stocks/security.dart';
-import 'package:money/data/stocks/stock_split.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/picker_security_type.dart';
@@ -12,7 +12,7 @@ class Investments extends MoneyObjects<Investment> {
   Investments() {
     collectionName = 'Investments';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void loadFromJson(final List<MyJson> rows) {
@@ -70,7 +70,7 @@ class Investments extends MoneyObjects<Investment> {
     return runningShares;
   }
 
-  static List<Investment> getInvestmentsForThisSecurity(final int securityId, DataInterface data) {
+  static List<Investment> getInvestmentsForThisSecurity(final int securityId, DataAbstract data) {
     return data.investments.iterableList().where((Investment item) => item.fieldSecurity.value == securityId).toList()
         as List<Investment>;
   }

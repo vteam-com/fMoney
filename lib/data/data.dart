@@ -8,7 +8,8 @@ import 'package:archive/archive.dart';
 import 'package:money/data/accounts.dart';
 import 'package:money/data/aliases.dart';
 import 'package:money/data/categories.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/transfer.dart';
 import 'package:money/data/events.dart';
 import 'package:money/data/investments.dart';
 import 'package:money/data/loan_payments.dart';
@@ -18,7 +19,6 @@ import 'package:money/data/securities.dart';
 import 'package:money/data/splits.dart';
 import 'package:money/data/stock_splits.dart';
 import 'package:money/data/transactions.dart';
-import 'package:money/data/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -40,7 +40,7 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
-class Data implements DataInterface {
+class Data implements DataAbstract {
   // private constructor
 
   /// singleton access
@@ -75,17 +75,17 @@ class Data implements DataInterface {
     ];
 
     // Inject data interface to managers
-    accounts.data = this as DataInterface;
-    aliases.data = this as DataInterface;
-    categories.data = this as DataInterface;
-    payees.data = this as DataInterface;
-    investments.data = this as DataInterface;
-    loanPayments.data = this as DataInterface;
-    securities.data = this as DataInterface;
-    rentBuildings.data = this as DataInterface;
-    splits.data = this as DataInterface;
-    events.data = this as DataInterface;
-    transactions.data = this as DataInterface;
+    accounts.data = this as DataAbstract;
+    aliases.data = this as DataAbstract;
+    categories.data = this as DataAbstract;
+    payees.data = this as DataAbstract;
+    investments.data = this as DataAbstract;
+    loanPayments.data = this as DataAbstract;
+    securities.data = this as DataAbstract;
+    rentBuildings.data = this as DataAbstract;
+    splits.data = this as DataAbstract;
+    events.data = this as DataAbstract;
+    transactions.data = this as DataAbstract;
 
     // Note: Some data managers use dependency injection (accounts, aliases, categories, payees, investments, loanPayments, securities, rentBuildings, splits, events, transactions)
     // while others use the global Data() singleton directly for cross-collection access
@@ -892,4 +892,13 @@ class Data implements DataInterface {
 
   @override
   void removePayeesWithNoTransactions(List<int> payeeIds) => Payees.removePayeesThatHaveNoTransactions(payeeIds, this);
+
+  @override
+  List<String> getCategoryNames() => categories.getCategoriesAsStrings();
+
+  @override
+  String getCategoryNameFromId(int id) => categories.getNameFromId(id);
+
+  @override
+  dynamic getCategoryByName(String name) => categories.getByName(name);
 }

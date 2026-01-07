@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/alias_types.dart';
@@ -12,11 +12,45 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
 class Alias extends DataObject {
+  /// Constructor for backwards compatibility with static methods
+  Alias._legacy({
+    required int id,
+    required String pattern,
+    required int flags,
+    required int payeeId,
+  }) : data = null {
+    this.fieldId.value = id;
+    this.fieldPattern.value = pattern;
+    this.fieldFlags.value = flags;
+    this.fieldPayeeId.value = payeeId;
+  }
+
+  /// Factory method for static fields
+  factory Alias._fromJsonStatic(final MyJson row) {
+    return Alias._legacy(
+      id: row.getInt('Id', -1),
+      pattern: row.getString('Pattern'),
+      flags: row.getInt('Flags'),
+      payeeId: row.getInt('Payee', -1),
+    );
+  }
+
+  /// Constructor from a SQLite row
+  factory Alias.fromJson(final MyJson row, final DataAbstract data) {
+    return Alias(
+      id: row.getInt('Id', -1),
+      pattern: row.getString('Pattern'),
+      flags: row.getInt('Flags'),
+      payeeId: row.getInt('Payee', -1),
+      data: data,
+    );
+  }
   Alias({
     required final int id,
     required final String pattern,
     required final int flags,
     required final int payeeId,
+    required this.data,
   }) {
     this.fieldId.value = id;
     this.fieldPattern.value = pattern;
@@ -24,15 +58,7 @@ class Alias extends DataObject {
     this.fieldPayeeId.value = payeeId;
   }
 
-  /// Constructor from a SQLite row
-  factory Alias.fromJson(final MyJson row) {
-    return Alias(
-      id: row.getInt('Id', -1),
-      pattern: row.getString('Pattern'),
-      flags: row.getInt('Flags'),
-      payeeId: row.getInt('Payee', -1),
-    );
-  }
+  final DataAbstract? data;
 
   /// SQL [2] 'Flags' INT
   FieldInt fieldFlags = FieldInt(
@@ -108,7 +134,7 @@ class Alias extends DataObject {
 
   static Fields<Alias> get fields {
     if (_fields.isEmpty) {
-      final Alias tmp = Alias.fromJson(<String, dynamic>{});
+      final Alias tmp = Alias._fromJsonStatic(<String, dynamic>{});
       _fields.setDefinitions(<Field<dynamic>>[
         tmp.fieldId,
         tmp.fieldPattern,
@@ -122,7 +148,7 @@ class Alias extends DataObject {
   static Fields<Alias> get fieldsForColumnView {
     if (_fieldsForColumns.isEmpty) {
       // used for the first time
-      final Alias tmp = Alias.fromJson(<String, dynamic>{});
+      final Alias tmp = Alias._fromJsonStatic(<String, dynamic>{});
       _fieldsForColumns.setDefinitions(<Field<dynamic>>[
         tmp.fieldPattern,
         tmp.fieldFlags,
@@ -152,8 +178,8 @@ class Alias extends DataObject {
 
   Payee? get payeeInstance {
     // cache the instance
-    if (_payeeInstance == null && fieldPayeeId.value != -1) {
-      _payeeInstance = Data().payees.get(fieldPayeeId.value);
+    if (_payeeInstance == null && fieldPayeeId.value != -1 && data != null) {
+      _payeeInstance = data!.payees.get(fieldPayeeId.value) as Payee?;
     }
     return _payeeInstance;
   }

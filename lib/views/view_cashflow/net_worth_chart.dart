@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/event.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/event.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';

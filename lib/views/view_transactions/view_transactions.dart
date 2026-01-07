@@ -1,7 +1,7 @@
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';

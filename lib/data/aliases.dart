@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/alias.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/alias.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/payees.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
@@ -10,11 +10,11 @@ class Aliases extends MoneyObjects<Alias> {
   Aliases() {
     collectionName = 'Aliases';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   Alias instanceFromJson(final MyJson json) {
-    return Alias.fromJson(json);
+    return Alias.fromJson(json, data);
   }
 
   @override

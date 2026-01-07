@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/transaction.dart';
 
 class BudgetRecommendation {
   BudgetRecommendation({

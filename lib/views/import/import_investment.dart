@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/stocks/security.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/views/import/import_investment_panel.dart';

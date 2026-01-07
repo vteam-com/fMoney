@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/category.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
@@ -15,13 +15,13 @@ class Categories extends MoneyObjects<Category> {
   Categories() {
     collectionName = 'Categories';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   Category? _split;
 
   @override
   Category instanceFromJson(final MyJson json) {
-    return Category.fromJson(json);
+    return Category.fromJson(json, data);
   }
 
   @override

@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_conditional_assignment
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/event.dart';
-import 'package:money/data/money_split.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/event.dart';
+import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -14,13 +14,13 @@ import 'package:money/models/account.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/charts/chart.dart';
 
-export 'package:money/data/transaction.dart';
+export 'package:money/data/entities/transaction.dart';
 
 class Transactions extends MoneyObjects<Transaction> {
   Transactions() {
     collectionName = 'Transactions';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   DateRange dateRangeActiveAccount = DateRange();
   DateRange dateRangeIncludingClosedAccount = DateRange();
@@ -161,7 +161,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
   static List<FlSpot> cumulateTransactionPerYearMonth(
     final List<Transaction> transactions,
-    DataInterface data,
+    DataAbstract data,
   ) {
     final AccumulatorSum<String, double> cumulateYearMonthBalance = AccumulatorSum<String, double>();
 

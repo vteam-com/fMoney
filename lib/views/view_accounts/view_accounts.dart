@@ -2,14 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:money/data/accounts.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/data_interface.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/loan_payment.dart';
+import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/investments.dart';
-import 'package:money/data/loan_payment.dart';
 import 'package:money/data/loan_payments.dart';
-import 'package:money/data/stocks/investment.dart';
-import 'package:money/data/stocks/security.dart';
-import 'package:money/data/transaction.dart';
 import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
@@ -777,7 +777,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
   Widget _getSubViewContentForTransactionsForLoans({
     required final Account account,
     required final bool showAsNativeCurrency,
-    required final DataInterface data,
+    required final DataAbstract data,
   }) {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();

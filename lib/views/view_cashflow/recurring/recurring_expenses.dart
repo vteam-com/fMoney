@@ -1,6 +1,6 @@
-import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';

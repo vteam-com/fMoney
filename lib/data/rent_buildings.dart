@@ -1,6 +1,6 @@
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/rent_building.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/rent_building.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/models/rental_unit.dart';
@@ -10,14 +10,14 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   RentBuildings() {
     collectionName = 'Rental Buildings';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void loadFromJson(final List<MyJson> rows) {
     clear();
 
     for (final MyJson row in rows) {
-      appendMoneyObject(RentBuilding.fromJson(row));
+      appendMoneyObject(RentBuilding.fromJson(row, data));
     }
   }
 

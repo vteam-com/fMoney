@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:money/data/stocks/security.dart';
+import 'package:money/data/entities/security.dart';
 import 'package:money/data/stocks/security_sales.dart';
 import 'package:money/helpers/investment_types.dart';
 

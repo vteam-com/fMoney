@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/money_split.dart';
+import 'package:money/data/entities/money_split.dart';
 import 'package:money/dialog_mutate_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';

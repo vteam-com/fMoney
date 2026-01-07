@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/money_split.dart';
-import 'package:money/data/rent_building.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/rent_building.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/list_view_transactions.dart';

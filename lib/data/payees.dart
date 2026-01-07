@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/transaction.dart';
+import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/models/money_objects.dart';
@@ -11,7 +11,7 @@ class Payees extends MoneyObjects<Payee> {
   Payees() {
     collectionName = 'Payees';
   }
-  late DataInterface data;
+  late DataAbstract data;
 
   @override
   void loadFromJson(final List<MyJson> rows) {
@@ -118,7 +118,7 @@ class Payees extends MoneyObjects<Payee> {
     return payee.uniqueId;
   }
 
-  static void removePayeesThatHaveNoTransactions(List<int> payeeIds, DataInterface data) {
+  static void removePayeesThatHaveNoTransactions(List<int> payeeIds, DataAbstract data) {
     for (final int payeeId in payeeIds) {
       final Payee? payeeToCheck = data.payees.get(payeeId) as Payee?;
       if (payeeToCheck != null) {
@@ -139,7 +139,7 @@ void mutateTransactionsToPayee(
   final List<Transaction> transactions,
   final int toPayeeId,
   final int? categoryId,
-  final DataInterface data,
+  final DataAbstract data,
 ) {
   final Set<int> fromPayeeIds = <int>{};
 
