@@ -39,8 +39,10 @@ class MergeTransactionsDialog<T extends MergeableItem> extends StatefulWidget {
   });
 
   final Payee currentPayee;
-  final List<T> transactions;
+
   final DataAbstract data;
+
+  final List<T> transactions;
 
   @override
   State<MergeTransactionsDialog<T>> createState() => _MergeTransactionsDialogState<T>();

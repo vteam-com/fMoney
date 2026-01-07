@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/investment_types.dart';
@@ -31,6 +31,7 @@ class Investment extends DataObject {
     final double load = 0, // 8
     final int taxExempt = 0, // 11
     final double withholding = 0, // 12
+    this.data,
   }) {
     this.fieldId.value = id;
     this.fieldSecurity.value = security;
@@ -48,7 +49,7 @@ class Investment extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Investment.fromJson(final MyJson row) {
+  factory Investment.fromJson(final MyJson row, [DataAbstract? data]) {
     return Investment(
       // 1
       id: row.getInt('Id', -1),
@@ -76,8 +77,10 @@ class Investment extends DataObject {
       taxExempt: row.getInt('TaxExempt'),
       // 12
       withholding: row.getDouble('Withholding'),
+      data: data,
     );
   }
+  final DataAbstract? data;
 
   FieldMoney fieldActivityDividend = FieldMoney(
     name: 'ActivityDividend',
@@ -506,13 +509,13 @@ class Investment extends DataObject {
     return result;
   }
 
-  String get symbol => Data().securities.getSymbolFromId(fieldSecurity.value);
+  String get symbol => data?.securities.getSymbolFromId(fieldSecurity.value) as String? ?? 'Unknown';
 
   double get transactionHoldingValue => this.fieldHoldingShares.value * this.unitPriceAdjusted;
 
   /// The actual transaction date.
   dynamic get transactionInstance {
-    _transactionInstance ??= Data().transactions.get(this.uniqueId);
+    _transactionInstance ??= data?.transactions.get(this.uniqueId);
     return _transactionInstance;
   }
 

@@ -520,10 +520,10 @@
           <g id='Node_security.dart'>
             <rect x="5791.5" y="3539" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_rent_building.dart'>
+          <g id='Node_event.dart'>
             <rect x="6091.5" y="3539" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_event.dart'>
+          <g id='Node_rent_building.dart'>
             <rect x="6391.5" y="3539" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_loan_payment.dart'>
@@ -1040,30 +1040,15 @@
       </g>
     </g>
     <g id='Edges'>
-      <path d="M6517.5 3755 C 6536.5 3460,6388.5 3460, 6407.5 3165" fill="none" class="lineOrange">
-        <title>category.dart
-⬇
-data.dart</title>
-      </path>
-      <path d="M6667.5 4075 C 6697.5 3620,6377.5 3620, 6407.5 3165" fill="none" class="lineOrange">
+      <path d="M6667.5 4075 C 6677.5 3975,6397.5 3975, 6407.5 3875" fill="none" class="lineOrange">
         <title>investment.dart
 ⬇
-data.dart</title>
+data_abstract.dart</title>
       </path>
       <path d="M6667.5 4075 C 6677.5 3935,6397.5 3935, 6407.5 3795" fill="none" class="lineOrange">
         <title>investment.dart
 ⬇
 stock_split.dart</title>
-      </path>
-      <path d="M6367.5 3595 C 6378.5 3420,5796.5 3420, 5807.5 3245" fill="none" class="lineOrange">
-        <title>rent_building.dart
-⬇
-categories.dart</title>
-      </path>
-      <path d="M6367.5 3595 C 6377.5 3460,5947.5 3460, 5957.5 3325" fill="none" class="lineOrange">
-        <title>rent_building.dart
-⬇
-transactions.dart</title>
       </path>
       <path d="M6667.5 3995 C 6677.5 3855,6247.5 3855, 6257.5 3715" fill="none" class="lineOrange">
         <title>transaction.dart
@@ -3472,59 +3457,57 @@ budget.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="3165" r="10" fill="blue"/>
-              <text x="6407.5" y="3165" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">52</text>
+              <text x="6407.5" y="3165" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">50</text>
               <title>1 /app_title.dart
 2 /app_title.dart
 3 /data/data_simulator.dart
-4 /data/entities/category.dart
-5 /data/entities/investment.dart
-6 /data/entities/transaction.dart
-7 /data/get_stock_from_cache_or_backend.dart
-8 /main.dart
-9 /popup_transaction_splits.dart
-10 /top_bars.dart
-11 /views/adaptive_view/view_money_objects.dart
-12 /views/data_file_controller.dart
-13 /views/dialog_mutate_money_object.dart
-14 /views/dialog_mutate_split.dart
-15 /views/dialog_mutate_transaction.dart
-16 /views/import/import_data.dart
-17 /views/import/import_investment.dart
-18 /views/import/import_investment_panel.dart
-19 /views/import/import_qfx.dart
-20 /views/import/import_transactions_from_text.dart
-21 /views/import/import_transactions_list_preview.dart
-22 /views/import/import_transactions_panel.dart
-23 /views/import/import_transfer.dart
-24 /views/import/import_transfer_panel.dart
-25 /views/list_view_transactions.dart
-26 /views/menu_entry.dart
-27 /views/panels/pending_changes/pending_changes_dialog.dart
-28 /views/panels/settings/settings_page.dart
-29 /views/suggestion_approval.dart
-30 /views/view_accounts/view_accounts.dart
-31 /views/view_ai/view_ai.dart
-32 /views/view_aliases/view_aliases.dart
-33 /views/view_cashflow/net_worth_chart.dart
-34 /views/view_cashflow/recurring/panel_budget.dart
-35 /views/view_cashflow/recurring/panel_recurring.dart
-36 /views/view_cashflow/recurring/panel_trend.dart
-37 /views/view_cashflow/recurring/recurring_card.dart
-38 /views/view_cashflow/recurring/recurring_expenses.dart
-39 /views/view_cashflow/recurring/recurring_payment.dart
-40 /views/view_cashflow/sankey_panel.dart
-41 /views/view_cashflow/view_cashflow.dart
-42 /views/view_categories/merge_categories.dart
-43 /views/view_categories/view_categories.dart
-44 /views/view_events/view_events.dart
-45 /views/view_investments/view_investments.dart
-46 /views/view_payees/view_payees.dart
-47 /views/view_rentals/view_rentals.dart
-48 /views/view_rentals/view_rentals_side_panel.dart
-49 /views/view_stocks/stock_chart.dart
-50 /views/view_stocks/view_stocks.dart
-51 /views/view_transactions/view_transactions.dart
-52 /views/view_transfers/view_transfers.dart
+4 /data/entities/transaction.dart
+5 /data/get_stock_from_cache_or_backend.dart
+6 /main.dart
+7 /popup_transaction_splits.dart
+8 /top_bars.dart
+9 /views/adaptive_view/view_money_objects.dart
+10 /views/data_file_controller.dart
+11 /views/dialog_mutate_money_object.dart
+12 /views/dialog_mutate_split.dart
+13 /views/dialog_mutate_transaction.dart
+14 /views/import/import_data.dart
+15 /views/import/import_investment.dart
+16 /views/import/import_investment_panel.dart
+17 /views/import/import_qfx.dart
+18 /views/import/import_transactions_from_text.dart
+19 /views/import/import_transactions_list_preview.dart
+20 /views/import/import_transactions_panel.dart
+21 /views/import/import_transfer.dart
+22 /views/import/import_transfer_panel.dart
+23 /views/list_view_transactions.dart
+24 /views/menu_entry.dart
+25 /views/panels/pending_changes/pending_changes_dialog.dart
+26 /views/panels/settings/settings_page.dart
+27 /views/suggestion_approval.dart
+28 /views/view_accounts/view_accounts.dart
+29 /views/view_ai/view_ai.dart
+30 /views/view_aliases/view_aliases.dart
+31 /views/view_cashflow/net_worth_chart.dart
+32 /views/view_cashflow/recurring/panel_budget.dart
+33 /views/view_cashflow/recurring/panel_recurring.dart
+34 /views/view_cashflow/recurring/panel_trend.dart
+35 /views/view_cashflow/recurring/recurring_card.dart
+36 /views/view_cashflow/recurring/recurring_expenses.dart
+37 /views/view_cashflow/recurring/recurring_payment.dart
+38 /views/view_cashflow/sankey_panel.dart
+39 /views/view_cashflow/view_cashflow.dart
+40 /views/view_categories/merge_categories.dart
+41 /views/view_categories/view_categories.dart
+42 /views/view_events/view_events.dart
+43 /views/view_investments/view_investments.dart
+44 /views/view_payees/view_payees.dart
+45 /views/view_rentals/view_rentals.dart
+46 /views/view_rentals/view_rentals_side_panel.dart
+47 /views/view_stocks/stock_chart.dart
+48 /views/view_stocks/view_stocks.dart
+49 /views/view_transactions/view_transactions.dart
+50 /views/view_transfers/view_transfers.dart
 ⬇
 data.dart</title>
             </g>
@@ -3580,9 +3563,8 @@ accounts.dart</title>
             </g>
             <g>
               <circle cx="5807.5" cy="3245" r="10" fill="blue"/>
-              <text x="5807.5" y="3245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+              <text x="5807.5" y="3245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
               <title>1 /data/collections/data.dart
-2 /data/entities/rent_building.dart
 ⬇
 categories.dart</title>
             </g>
@@ -3712,22 +3694,21 @@ events.dart</title>
             </g>
             <g>
               <circle cx="5957.5" cy="3325" r="10" fill="blue"/>
-              <text x="5957.5" y="3325" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">15</text>
+              <text x="5957.5" y="3325" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
               <title>1 /data/collections/accounts.dart
 2 /data/collections/categories.dart
 3 /data/collections/data.dart
-4 /data/entities/rent_building.dart
-5 /views/list_view_transactions.dart
-6 /views/money_object_card.dart
-7 /views/panels/transaction_timeline_chart.dart
-8 /views/view_cashflow/net_worth_chart.dart
-9 /views/view_cashflow/recurring/panel_recurring.dart
-10 /views/view_cashflow/recurring/recurring_card.dart
-11 /views/view_categories/merge_categories.dart
-12 /views/view_categories/view_categories.dart
-13 /views/view_events/view_events.dart
-14 /views/view_payees/view_payees.dart
-15 /views/view_transfers/view_transfers.dart
+4 /views/list_view_transactions.dart
+5 /views/money_object_card.dart
+6 /views/panels/transaction_timeline_chart.dart
+7 /views/view_cashflow/net_worth_chart.dart
+8 /views/view_cashflow/recurring/panel_recurring.dart
+9 /views/view_cashflow/recurring/recurring_card.dart
+10 /views/view_categories/merge_categories.dart
+11 /views/view_categories/view_categories.dart
+12 /views/view_events/view_events.dart
+13 /views/view_payees/view_payees.dart
+14 /views/view_transfers/view_transfers.dart
 ⬇
 transactions.dart</title>
             </g>
@@ -3878,44 +3859,10 @@ investments.dart</title>
 security.dart</title>
             </g>
           </g>
-          <g id='Counters_rent_building.dart'>
-            <g>
-              <circle cx="6367.5" cy="3595" r="10" fill="green"/>
-              <text x="6367.5" y="3595" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">17</text>
-              <title>rent_building.dart
-⬇
-1 /data/collections/categories.dart
-2 /data/collections/transactions.dart
-3 /data/entities/data_abstract.dart
-4 /data/entities/money_split.dart
-5 /helpers/amount_model.dart
-6 /helpers/constants.dart
-7 /helpers/json_helper.dart
-8 /helpers/ranges.dart
-9 /models/account.dart
-10 /models/rental_unit.dart
-11 /widgets/adaptive_list/list_item_card.dart
-12 /widgets/rental_pnl.dart
-13 /widgets/widgets_domain/data_interface.dart
-14 /widgets/widgets_domain/data_object.dart
-15 /widgets/widgets_domain/field.dart
-16 /widgets/widgets_domain/field_type.dart
-17 /widgets/widgets_domain/widget_from_data.dart</title>
-            </g>
-            <g>
-              <circle cx="6107.5" cy="3555" r="10" fill="blue"/>
-              <text x="6107.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
-              <title>1 /data/collections/rent_buildings.dart
-2 /views/view_rentals/view_rentals.dart
-3 /views/view_rentals/view_rentals_side_panel.dart
-⬇
-rent_building.dart</title>
-            </g>
-          </g>
           <g id='Counters_event.dart'>
             <g>
-              <circle cx="6667.5" cy="3595" r="10" fill="green"/>
-              <text x="6667.5" y="3595" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
+              <circle cx="6367.5" cy="3595" r="10" fill="green"/>
+              <text x="6367.5" y="3595" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
               <title>event.dart
 ⬇
 1 /data/entities/data_abstract.dart
@@ -3934,8 +3881,8 @@ rent_building.dart</title>
 14 /widgets/widgets_domain/field_type.dart</title>
             </g>
             <g>
-              <circle cx="6407.5" cy="3555" r="10" fill="blue"/>
-              <text x="6407.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
+              <circle cx="6107.5" cy="3555" r="10" fill="blue"/>
+              <text x="6107.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
               <title>1 /data/collections/events.dart
 2 /data/collections/transactions.dart
 3 /views/view_cashflow/net_worth_chart.dart
@@ -3943,6 +3890,39 @@ rent_building.dart</title>
 5 /views/view_events/view_events.dart
 ⬇
 event.dart</title>
+            </g>
+          </g>
+          <g id='Counters_rent_building.dart'>
+            <g>
+              <circle cx="6667.5" cy="3595" r="10" fill="green"/>
+              <text x="6667.5" y="3595" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">16</text>
+              <title>rent_building.dart
+⬇
+1 /data/entities/data_abstract.dart
+2 /data/entities/money_split.dart
+3 /data/entities/transaction.dart
+4 /helpers/amount_model.dart
+5 /helpers/constants.dart
+6 /helpers/json_helper.dart
+7 /helpers/ranges.dart
+8 /models/account.dart
+9 /models/rental_unit.dart
+10 /widgets/adaptive_list/list_item_card.dart
+11 /widgets/rental_pnl.dart
+12 /widgets/widgets_domain/data_interface.dart
+13 /widgets/widgets_domain/data_object.dart
+14 /widgets/widgets_domain/field.dart
+15 /widgets/widgets_domain/field_type.dart
+16 /widgets/widgets_domain/widget_from_data.dart</title>
+            </g>
+            <g>
+              <circle cx="6407.5" cy="3555" r="10" fill="blue"/>
+              <text x="6407.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+              <title>1 /data/collections/rent_buildings.dart
+2 /views/view_rentals/view_rentals.dart
+3 /views/view_rentals/view_rentals_side_panel.dart
+⬇
+rent_building.dart</title>
             </g>
           </g>
           <g id='Counters_loan_payment.dart'>
@@ -4029,31 +4009,30 @@ transfer.dart</title>
           <g id='Counters_category.dart'>
             <g>
               <circle cx="6517.5" cy="3755" r="10" fill="green"/>
-              <text x="6517.5" y="3755" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">22</text>
+              <text x="6517.5" y="3755" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">21</text>
               <title>category.dart
 ⬇
-1 /data/collections/data.dart
-2 /data/entities/data_abstract.dart
-3 /helpers/category_types.dart
-4 /helpers/color_helper.dart
-5 /helpers/json_helper.dart
-6 /helpers/list_helper.dart
-7 /helpers/pairs.dart
-8 /helpers/string_helper.dart
-9 /widgets/adaptive_list/list_item_card.dart
-10 /widgets/circle.dart
-11 /widgets/color_picker.dart
-12 /widgets/gaps.dart
-13 /widgets/mutation_types.dart
-14 /widgets/my_text_input.dart
-15 /widgets/picker_category_type.dart
-16 /widgets/rectangle.dart
-17 /widgets/token_text.dart
-18 /widgets/widgets_domain/data_interface.dart
-19 /widgets/widgets_domain/data_object.dart
-20 /widgets/widgets_domain/field.dart
-21 /widgets/widgets_domain/field_type.dart
-22 /widgets/widgets_domain/widget_from_data.dart</title>
+1 /data/entities/data_abstract.dart
+2 /helpers/category_types.dart
+3 /helpers/color_helper.dart
+4 /helpers/json_helper.dart
+5 /helpers/list_helper.dart
+6 /helpers/pairs.dart
+7 /helpers/string_helper.dart
+8 /widgets/adaptive_list/list_item_card.dart
+9 /widgets/circle.dart
+10 /widgets/color_picker.dart
+11 /widgets/gaps.dart
+12 /widgets/mutation_types.dart
+13 /widgets/my_text_input.dart
+14 /widgets/picker_category_type.dart
+15 /widgets/rectangle.dart
+16 /widgets/token_text.dart
+17 /widgets/widgets_domain/data_interface.dart
+18 /widgets/widgets_domain/data_object.dart
+19 /widgets/widgets_domain/field.dart
+20 /widgets/widgets_domain/field_type.dart
+21 /widgets/widgets_domain/widget_from_data.dart</title>
             </g>
             <g>
               <circle cx="6257.5" cy="3715" r="10" fill="blue"/>
@@ -4158,7 +4137,7 @@ stock_split.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="3875" r="10" fill="blue"/>
-              <text x="6407.5" y="3875" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">24</text>
+              <text x="6407.5" y="3875" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
               <title>1 /data/collections/accounts.dart
 2 /data/collections/aliases.dart
 3 /data/collections/categories.dart
@@ -4175,14 +4154,15 @@ stock_split.dart</title>
 14 /data/entities/alias.dart
 15 /data/entities/category.dart
 16 /data/entities/event.dart
-17 /data/entities/loan_payment.dart
-18 /data/entities/money_split.dart
-19 /data/entities/rent_building.dart
-20 /data/entities/stock_split.dart
-21 /views/merge_payee_interface.dart
-22 /views/merge_payee_provider.dart
-23 /views/merge_payees.dart
-24 /views/view_accounts/view_accounts.dart
+17 /data/entities/investment.dart
+18 /data/entities/loan_payment.dart
+19 /data/entities/money_split.dart
+20 /data/entities/rent_building.dart
+21 /data/entities/stock_split.dart
+22 /views/merge_payee_interface.dart
+23 /views/merge_payee_provider.dart
+24 /views/merge_payees.dart
+25 /views/view_accounts/view_accounts.dart
 ⬇
 data_abstract.dart</title>
             </g>
@@ -4226,7 +4206,7 @@ data_abstract.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="3955" r="10" fill="blue"/>
-              <text x="6407.5" y="3955" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">29</text>
+              <text x="6407.5" y="3955" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">30</text>
               <title>1 /data/budget.dart
 2 /data/collections/loan_payments.dart
 3 /data/collections/payees.dart
@@ -4235,27 +4215,28 @@ data_abstract.dart</title>
 6 /data/collections/transactions.dart
 7 /data/data_simulator.dart
 8 /data/entities/data_abstract.dart
-9 /popup_transaction_splits.dart
-10 /views/adaptive_view/view_money_objects.dart
-11 /views/dialog_mutate_money_object.dart
-12 /views/dialog_mutate_transaction.dart
-13 /views/import/import_data.dart
-14 /views/import/import_investment.dart
-15 /views/import/import_transactions_from_text.dart
-16 /views/import/import_transfer.dart
-17 /views/view_accounts/view_accounts.dart
-18 /views/view_ai/view_ai.dart
-19 /views/view_aliases/view_aliases.dart
-20 /views/view_cashflow/recurring/panel_budget.dart
-21 /views/view_cashflow/recurring/recurring_expenses.dart
-22 /views/view_cashflow/recurring/recurring_payment.dart
-23 /views/view_cashflow/sankey_panel.dart
-24 /views/view_categories/view_categories.dart
-25 /views/view_investments/view_investments.dart
-26 /views/view_rentals/view_rentals_side_panel.dart
-27 /views/view_transactions/view_transactions.dart
-28 /views/view_transfers/transfer_sender_receiver.dart
-29 /views/view_transfers/view_transfers.dart
+9 /data/entities/rent_building.dart
+10 /popup_transaction_splits.dart
+11 /views/adaptive_view/view_money_objects.dart
+12 /views/dialog_mutate_money_object.dart
+13 /views/dialog_mutate_transaction.dart
+14 /views/import/import_data.dart
+15 /views/import/import_investment.dart
+16 /views/import/import_transactions_from_text.dart
+17 /views/import/import_transfer.dart
+18 /views/view_accounts/view_accounts.dart
+19 /views/view_ai/view_ai.dart
+20 /views/view_aliases/view_aliases.dart
+21 /views/view_cashflow/recurring/panel_budget.dart
+22 /views/view_cashflow/recurring/recurring_expenses.dart
+23 /views/view_cashflow/recurring/recurring_payment.dart
+24 /views/view_cashflow/sankey_panel.dart
+25 /views/view_categories/view_categories.dart
+26 /views/view_investments/view_investments.dart
+27 /views/view_rentals/view_rentals_side_panel.dart
+28 /views/view_transactions/view_transactions.dart
+29 /views/view_transfers/transfer_sender_receiver.dart
+30 /views/view_transfers/view_transfers.dart
 ⬇
 transaction.dart</title>
             </g>
@@ -4266,7 +4247,7 @@ transaction.dart</title>
               <text x="6667.5" y="4075" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
               <title>investment.dart
 ⬇
-1 /data/collections/data.dart
+1 /data/entities/data_abstract.dart
 2 /data/entities/stock_split.dart
 3 /helpers/amount_model.dart
 4 /helpers/investment_types.dart
@@ -8152,11 +8133,11 @@ chart_helper.dart</title>
           <g id='Labels_security.dart'>
             <text class="nodeName" x="5937.5" y="3575" font-size="120%">security.dart</text>
           </g>
-          <g id='Labels_rent_building.dart'>
-            <text class="nodeName" x="6237.5" y="3575" font-size="120%">rent_building.dart</text>
-          </g>
           <g id='Labels_event.dart'>
-            <text class="nodeName" x="6537.5" y="3575" font-size="120%">event.dart</text>
+            <text class="nodeName" x="6237.5" y="3575" font-size="120%">event.dart</text>
+          </g>
+          <g id='Labels_rent_building.dart'>
+            <text class="nodeName" x="6537.5" y="3575" font-size="120%">rent_building.dart</text>
           </g>
           <g id='Labels_loan_payment.dart'>
             <text class="nodeName" x="6837.5" y="3575" font-size="120%">loan_payment.dart</text>

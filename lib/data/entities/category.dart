@@ -1,5 +1,4 @@
 // Imports
-import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -108,7 +107,7 @@ class Category extends DataObject {
             colorAsHex: (instance as Category).fieldColor.value,
             onEdited: (String newValue) {
               instance.fieldColor.value = newValue;
-              Data().notifyMutationChanged(
+              instance.data!.notifyMutationChanged(
                 mutation: MutationType.changed,
                 moneyObject: instance,
                 recalculateBalances: false,
@@ -442,8 +441,7 @@ class Category extends DataObject {
   }
 
   Category? get parentCategory {
-    return (data?.categories.get(this.fieldParentId.value) as Category?) ??
-        Data().categories.get(this.fieldParentId.value);
+    return data?.categories.get(this.fieldParentId.value) as Category?;
   }
 
   /// Updates the name based on the parent category by appending the leaf name of the category to its current name.
@@ -456,7 +454,7 @@ class Category extends DataObject {
       // rebuild the new full name parent full name + this leaf name
       stashValueBeforeEditing();
       fieldName.value = '${parentCategory!.fieldName.value}:$leafName';
-      Data().notifyMutationChanged(
+      data!.notifyMutationChanged(
         mutation: MutationType.changed,
         moneyObject: this,
         recalculateBalances: false,

@@ -1,9 +1,8 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
-import 'package:money/data/collections/categories.dart';
-import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -72,30 +71,38 @@ class RentBuilding extends DataObject {
 
     instance.categoryForIncome.value = row.getInt('CategoryForIncome', -1);
     if (data != null) {
-      instance.categoryForIncomeTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForIncome.value,
-      );
+      instance.categoryForIncomeTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForIncome.value,
+              )
+              as List<int>;
     }
 
     instance.categoryForTaxes.value = row.getInt('CategoryForTaxes', -1);
     if (data != null) {
-      instance.categoryForTaxesTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForTaxes.value,
-      );
+      instance.categoryForTaxesTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForTaxes.value,
+              )
+              as List<int>;
     }
 
     instance.categoryForInterest.value = row.getInt('CategoryForInterest', -1);
     if (data != null) {
-      instance.categoryForInterestTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForInterest.value,
-      );
+      instance.categoryForInterestTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForInterest.value,
+              )
+              as List<int>;
     }
 
     instance.categoryForRepairs.value = row.getInt('CategoryForRepairs', -1);
     if (data != null) {
-      instance.categoryForRepairsTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForRepairs.value,
-      );
+      instance.categoryForRepairsTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForRepairs.value,
+              )
+              as List<int>;
     }
 
     instance.categoryForMaintenance.value = row.getInt(
@@ -103,9 +110,11 @@ class RentBuilding extends DataObject {
       -1,
     );
     if (data != null) {
-      instance.categoryForMaintenanceTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForMaintenance.value,
-      );
+      instance.categoryForMaintenanceTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForMaintenance.value,
+              )
+              as List<int>;
     }
 
     instance.categoryForManagement.value = row.getInt(
@@ -113,9 +122,11 @@ class RentBuilding extends DataObject {
       -1,
     );
     if (data != null) {
-      instance.categoryForManagementTreeIds = (data.categories as Categories).getTreeIds(
-        instance.categoryForManagement.value,
-      );
+      instance.categoryForManagementTreeIds =
+          data.categories.getTreeIds(
+                instance.categoryForManagement.value,
+              )
+              as List<int>;
     }
 
     if (data != null) {
@@ -449,9 +460,8 @@ class RentBuilding extends DataObject {
   static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
 
   void associateAccountToBuilding() {
-    final Transaction? firstTransactionForThisBuilding = (data.transactions as Transactions)
-        .iterableList(includeDeleted: true)
-        .firstWhereOrNull(
+    final Transaction? firstTransactionForThisBuilding =
+        (data.transactions.iterableList(includeDeleted: true) as Iterable<Transaction>).firstWhereOrNull(
           (Transaction t) => this.categoryForIncomeTreeIds.contains(t.fieldCategoryId.value),
         );
     if (firstTransactionForThisBuilding != null) {
@@ -592,7 +602,7 @@ class RentBuilding extends DataObject {
   }
 
   String getCategoryName(final int id) {
-    return (data.categories as Categories).getNameFromId(id);
+    return data.getCategoryNameFromId(id);
   }
 
   String getCurrencyOfAssociatedAccount() {

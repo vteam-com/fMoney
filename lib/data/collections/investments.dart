@@ -18,7 +18,7 @@ class Investments extends MoneyObjects<Investment> {
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
-      appendMoneyObject(Investment.fromJson(row));
+      appendMoneyObject(Investment.fromJson(row, data));
     }
   }
 

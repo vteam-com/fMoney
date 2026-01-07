@@ -20,12 +20,19 @@ class PickPayeeOrTransfer extends StatefulWidget {
   });
 
   final List<String> accountNames;
+
   final double amount;
+
   final TransactionFlavor choice;
-  final void Function(TransactionFlavor choice, String? payeeName, String? accountName) onSelected;
+
   final void Function(String payeeName, BuildContext context)? onMergePayee;
+
+  final void Function(TransactionFlavor choice, String? payeeName, String? accountName) onSelected;
+
   final List<String> payeeNames;
+
   final String? selectedAccountName;
+
   final String? selectedPayeeName;
 
   @override
