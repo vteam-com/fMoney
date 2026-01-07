@@ -1,5 +1,3 @@
-import 'package:money/data/data.dart';
-import 'package:money/data/investment.dart';
 import 'package:money/data/stock_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -313,9 +311,6 @@ class Security extends MoneyObject {
       tmp.fieldProfit,
     ]);
   }
-
-  List<Investment> getAssociatedInvestments() =>
-      Data().investments.iterableList().where((Investment item) => item.fieldSecurity.value == this.uniqueId).toList();
 
   static String getSecurityTypeFromInt(final int index) {
     if (isIndexInRange(SecurityType.values, index)) {

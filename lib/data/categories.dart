@@ -182,6 +182,13 @@ class Categories extends MoneyObjects<Category> {
     );
   }
 
+  int? getIdByName(final String name) {
+    final Category? found = iterableList().firstWhereOrNull(
+      (final Category category) => category.fieldName.value == name,
+    );
+    return found?.uniqueId ?? -1;
+  }
+
   List<String> getCategoriesAsStrings() {
     return this.getListSorted().map((Category element) => element.fieldName.value).toList();
   }

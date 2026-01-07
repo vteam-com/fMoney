@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:money/data/category.dart';
+// import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -84,9 +84,9 @@ class Event extends MoneyObject {
             categoryNames: Data().categories.getCategoriesAsStrings(),
             selectedName: Data().categories.getNameFromId((instance as Event).fieldCategoryId.value),
             onSelected: (String? name) {
-              final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
-              if (newCategory != null) {
-                instance.fieldCategoryId.value = newCategory.uniqueId;
+              final int? newId = Data().categories.getIdByName(name!);
+              if (newId != null) {
+                instance.fieldCategoryId.value = newId;
                 // notify container
                 onEdited(true);
               }

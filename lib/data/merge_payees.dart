@@ -1,7 +1,6 @@
 import 'package:money/data/data_interface.dart';
 import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/payees.dart';
-import 'package:money/data/transactions.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -11,19 +10,27 @@ import 'package:money/widgets/box.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
-void showMergePayee(final BuildContext context, Payee payee, DataInterface data) {
-  final Iterable<Transaction> transactions = (data.transactions as Transactions)
-      .iterableList(includeDeleted: true)
-      .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+/// Interface for objects that can be merged (like transactions with payee and category IDs)
+abstract class MergeableItem {
+  int get payeeId;
+  set payeeId(int value);
+  int get categoryId;
+  set categoryId(int value);
+}
 
+void showMergePayee<T extends MergeableItem>(
+  final BuildContext context,
+  Payee payee,
+  Iterable<T> transactions,
+  DataInterface data,
+) {
   adaptiveScreenSizeDialog(
     context: context,
     title: 'Merge ${transactions.length} transactions',
     captionForClose: null, // this will hide the close button
-    child: MergeTransactionsDialog(
+    child: MergeTransactionsDialog<T>(
       currentPayee: payee,
       transactions: transactions.toList(),
       data: data,
@@ -31,7 +38,7 @@ void showMergePayee(final BuildContext context, Payee payee, DataInterface data)
   );
 }
 
-class MergeTransactionsDialog extends StatefulWidget {
+class MergeTransactionsDialog<T extends MergeableItem> extends StatefulWidget {
   const MergeTransactionsDialog({
     required this.currentPayee,
     required this.transactions,
@@ -40,14 +47,14 @@ class MergeTransactionsDialog extends StatefulWidget {
   });
 
   final Payee currentPayee;
-  final List<Transaction> transactions;
+  final List<T> transactions;
   final DataInterface data;
 
   @override
-  State<MergeTransactionsDialog> createState() => _MergeTransactionsDialogState();
+  State<MergeTransactionsDialog<T>> createState() => _MergeTransactionsDialogState<T>();
 }
 
-class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
+class _MergeTransactionsDialogState<T extends MergeableItem> extends State<MergeTransactionsDialog<T>> {
   int? _estimatedCategory;
 
   Payee? _selectedPayee;
@@ -112,7 +119,7 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
               DialogActionButton(
                 text: 'Merge',
                 onPressed: () {
-                  mutateTransactionsToPayee(
+                  mutateMergeableItemsToPayee<T>(
                     widget.transactions,
                     _selectedPayee!.uniqueId,
                     _estimatedCategory,
@@ -130,11 +137,9 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
   void getAssociatedCategories() {
     if (_selectedPayee != null) {
       categoryIdsFound.clear();
-      for (final Transaction t in (widget.data.transactions as Transactions).iterableList(
-        includeDeleted: true,
-      )) {
-        if (t.fieldPayee.value == _selectedPayee!.uniqueId) {
-          categoryIdsFound.cumulate(t.fieldCategoryId.value, 1);
+      for (final T t in widget.transactions) {
+        if (t.payeeId == _selectedPayee!.uniqueId) {
+          categoryIdsFound.cumulate(t.categoryId, 1);
         }
       }
     }
@@ -222,31 +227,22 @@ class _MergeTransactionsDialogState extends State<MergeTransactionsDialog> {
   }
 }
 
-void mutateTransactionsToPayee(
-  final List<Transaction> transactions,
+void mutateMergeableItemsToPayee<T extends MergeableItem>(
+  final List<T> items,
   final int toPayeeId,
   final int? categoryId,
   final DataInterface data,
 ) {
   final Set<int> fromPayeeIds = <int>{};
 
-  for (final Transaction t in transactions) {
+  for (final T item in items) {
     // keep track of the payeeIds that we remove transactions from
-    fromPayeeIds.add(t.fieldPayee.value);
+    fromPayeeIds.add(item.payeeId);
 
-    t.stashValueBeforeEditing();
-    t.stashOriginalPayee();
-
-    t.fieldPayee.value = toPayeeId;
+    item.payeeId = toPayeeId;
     if (categoryId != null) {
-      t.fieldCategoryId.value = categoryId;
+      item.categoryId = categoryId;
     }
-
-    data.notifyMutationChanged(
-      mutation: MutationType.changed,
-      moneyObject: t,
-      recalculateBalances: false,
-    );
   }
   Payees.removePayeesThatHaveNoTransactions(fromPayeeIds.toList(), data);
   data.updateAll();

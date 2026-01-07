@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/accounts.dart';
-import 'package:money/data/data_interface.dart';
-import 'package:money/data/merge_payees.dart';
-import 'package:money/data/payees.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/payee.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
@@ -15,24 +9,24 @@ enum TransactionFlavor { payee, transfer }
 class PickPayeeOrTransfer extends StatefulWidget {
   const PickPayeeOrTransfer({
     required this.choice,
-    required this.payee,
-    required this.account,
+    required this.selectedPayeeName,
+    required this.selectedAccountName,
     required this.amount,
-    required this.payees,
-    required this.accounts,
+    required this.payeeNames,
+    required this.accountNames,
     required this.onSelected,
-    required this.data,
+    this.onMergePayee,
     super.key,
   });
 
-  final Account? account;
-  final Accounts accounts;
+  final List<String> accountNames;
   final double amount;
   final TransactionFlavor choice;
-  final void Function(TransactionFlavor choice, Payee? payee, Account? account) onSelected;
-  final Payee? payee;
-  final Payees payees;
-  final dynamic data;
+  final void Function(TransactionFlavor choice, String? payeeName, String? accountName) onSelected;
+  final void Function(String payeeName, BuildContext context)? onMergePayee;
+  final List<String> payeeNames;
+  final String? selectedAccountName;
+  final String? selectedPayeeName;
 
   @override
   State<PickPayeeOrTransfer> createState() => _PickPayeeOrTransferState();
@@ -90,28 +84,16 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
           Expanded(
             child: PickerEditBox(
               title: 'Payee',
-              items: widget.payees.getSortedPayeeNames(),
-              initialValue: widget.payee?.fieldName.value ?? '',
+              items: widget.payeeNames,
+              initialValue: widget.selectedPayeeName ?? '',
               onChanged: (String? name) {
-                final Payee? payee = name != null ? widget.payees.getByName(name) : null;
-                widget.onSelected(_choice, payee, widget.account);
-              },
-              onAddNew: (String newPayeeText) {
-                final Payee found = widget.payees.getOrCreate(newPayeeText);
-                widget.onSelected(_choice, found, widget.account);
+                widget.onSelected(_choice, name, widget.selectedAccountName);
               },
             ),
           ),
-          if (widget.payee != null)
+          if (widget.selectedPayeeName != null && widget.onMergePayee != null)
             IconButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-                showMergePayee(
-                  context,
-                  widget.payee!,
-                  widget.data as DataInterface,
-                ); //transactions.toList());
-              },
+              onPressed: () => widget.onMergePayee!(widget.selectedPayeeName!, context),
               icon: const Icon(Icons.merge_outlined),
             ),
         ],
@@ -120,11 +102,10 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       return presentInput(
         widget.amount > 0 ? 'From Account' : 'To Account',
         pickerAccount(
-          accountNames: widget.accounts.getSortedAccountNames(),
-          selectedName: widget.account?.fieldName.value,
+          accountNames: widget.accountNames,
+          selectedName: widget.selectedAccountName,
           onSelected: (String? name) {
-            final Account? account = name != null ? widget.accounts.getByName(name) : null;
-            widget.onSelected(_choice, widget.payee, account);
+            widget.onSelected(_choice, widget.selectedPayeeName, name);
           },
         ),
       );

@@ -5,6 +5,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/models/payee.dart';
+import 'package:money/widgets/mutation_types.dart';
 
 class Payees extends MoneyObjects<Payee> {
   Payees() {
@@ -132,4 +133,34 @@ class Payees extends MoneyObjects<Payee> {
       }
     }
   }
+}
+
+void mutateTransactionsToPayee(
+  final List<Transaction> transactions,
+  final int toPayeeId,
+  final int? categoryId,
+  final DataInterface data,
+) {
+  final Set<int> fromPayeeIds = <int>{};
+
+  for (final Transaction t in transactions) {
+    // keep track of the payeeIds that we remove transactions from
+    fromPayeeIds.add(t.fieldPayee.value);
+
+    t.stashValueBeforeEditing();
+    t.stashOriginalPayee();
+
+    t.fieldPayee.value = toPayeeId;
+    if (categoryId != null) {
+      t.fieldCategoryId.value = categoryId;
+    }
+
+    data.notifyMutationChanged(
+      mutation: MutationType.changed,
+      moneyObject: t,
+      recalculateBalances: false,
+    );
+  }
+  Payees.removePayeesThatHaveNoTransactions(fromPayeeIds.toList(), data);
+  data.updateAll();
 }

@@ -3,8 +3,8 @@ import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/data_file_controller.dart';
 import 'package:money/data/investment.dart';
+import 'package:money/data/merge_payees.dart';
 import 'package:money/data/money_split.dart';
-import 'package:money/data/picker_payee_or_transfer.dart';
 import 'package:money/data/suggestion_approval.dart';
 import 'package:money/data/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -22,6 +22,7 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_panel.dart';
+import 'package:money/widgets/picker_payee_or_transfer.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/cd/field.dart';
@@ -31,7 +32,7 @@ import 'package:money/widgets/widgets_domain/money_widget.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]
-class Transaction extends MoneyObject {
+class Transaction extends MoneyObject implements MergeableItem {
   Transaction({
     final TransactionStatus status = TransactionStatus.none,
     final int accountId = -1,
@@ -108,6 +109,17 @@ class Transaction extends MoneyObject {
 
     return t;
   }
+  @override
+  int get categoryId => fieldCategoryId.value;
+
+  @override
+  set categoryId(int value) => fieldCategoryId.value = value;
+
+  @override
+  int get payeeId => fieldPayee.value;
+
+  @override
+  set payeeId(int value) => fieldPayee.value = value;
 
   /// Balance native
   double balance = 0;
@@ -479,31 +491,36 @@ class Transaction extends MoneyObject {
               choice: (instance as Transaction).fieldTransfer.value == -1
                   ? TransactionFlavor.payee
                   : TransactionFlavor.transfer,
-              payee: Data().payees.get(instance.fieldPayee.value),
-              account: instance.instanceOfTransfer?.receiverAccount,
+              selectedPayeeName: Data().payees.getNameFromId(instance.fieldPayee.value),
+              selectedAccountName: instance.instanceOfTransfer?.receiverAccount?.fieldName.value,
               amount: instance.fieldAmount.value.asDouble(),
-              payees: Data().payees,
-              accounts: Data().accounts,
-              data: Data(),
+              payeeNames: Data().payees.getSortedPayeeNames(),
+              accountNames: Data().accounts.getSortedAccountNames(),
               onSelected:
                   (
                     TransactionFlavor choice,
-                    Payee? selectedPayee,
-                    Account? transferAccount,
+                    String? selectedPayeeName,
+                    String? selectedAccountName,
                   ) {
                     bool wasModified = false;
 
                     switch (choice) {
                       case TransactionFlavor.payee:
-                        if (selectedPayee != null) {
-                          instance.fieldPayee.value = selectedPayee.uniqueId;
-                          instance.fieldTransfer.value = -1;
-                          instance.instanceOfTransfer = null;
-                          wasModified = true;
+                        if (selectedPayeeName != null) {
+                          final Payee? selectedPayee = Data().payees.getByName(selectedPayeeName);
+                          if (selectedPayee != null) {
+                            instance.fieldPayee.value = selectedPayee.uniqueId;
+                            instance.fieldTransfer.value = -1;
+                            instance.instanceOfTransfer = null;
+                            wasModified = true;
+                          }
                         }
                       case TransactionFlavor.transfer:
                         // this is used to let the dialog Apply code what account should be
                         // used when for transfer with.
+                        final Account? transferAccount = selectedAccountName != null
+                            ? Data().accounts.getByName(selectedAccountName)
+                            : null;
                         instance.editingTransferAccount = transferAccount;
                         instance.fieldTransfer.value = -1; // this will cause a reevaluation of the transfer
 
@@ -519,6 +536,21 @@ class Transaction extends MoneyObject {
                     }
                     onEdited(wasModified); // notify container
                   },
+              onMergePayee: (String payeeName, BuildContext context) {
+                final Payee? payee = Data().payees.getByName(payeeName);
+                if (payee != null) {
+                  final Iterable<Transaction> transactions = Data().transactions
+                      .iterableList(includeDeleted: true)
+                      .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+                  Navigator.of(context).pop(false);
+                  showMergePayee(
+                    context,
+                    payee,
+                    transactions,
+                    Data(),
+                  );
+                }
+              },
             ),
           );
         },

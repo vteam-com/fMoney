@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-
 import 'package:money/data/accounts.dart';
 import 'package:money/data/aliases.dart';
 import 'package:money/data/categories.dart';
@@ -20,7 +19,6 @@ import 'package:money/data/splits.dart';
 import 'package:money/data/stock_splits.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/data/transfer.dart';
-
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';

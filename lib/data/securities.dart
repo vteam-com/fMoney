@@ -41,7 +41,10 @@ class Securities extends MoneyObjects<Security> {
               as List<StockSplit>;
 
       // Retrieves associated investments and updates various fields.
-      final List<Investment> list = security.getAssociatedInvestments();
+      final List<Investment> list = (data.investments as Investments)
+          .iterableList()
+          .where((Investment item) => item.fieldSecurity.value == security.uniqueId)
+          .toList();
       security.fieldNumberOfTrades.value = list.length;
 
       // Calculates cumulative shares and profit, and updates relevant fields.

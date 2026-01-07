@@ -44,7 +44,10 @@ class ViewPayeesState extends ViewForMoneyObjectsState {
           buildMergeButton(() {
             // let the user pick another Payee and merge change the transaction of the current selected payee to the destination
             final Payee payee = moneyObject as Payee;
-            showMergePayee(context, payee, Data());
+            final Iterable<Transaction> transactions = Data().transactions
+                .iterableList(includeDeleted: true)
+                .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+            showMergePayee(context, payee, transactions, Data());
           }),
         );
       }
