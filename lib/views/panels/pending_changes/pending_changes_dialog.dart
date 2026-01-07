@@ -1,5 +1,5 @@
 import 'package:money/data/data.dart';
-import 'package:money/data/data_file_controller.dart';
+import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';

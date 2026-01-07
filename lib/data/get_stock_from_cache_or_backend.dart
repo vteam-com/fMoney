@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:money/data/data.dart';
-import 'package:money/data/security.dart';
+import 'package:money/data/stocks/security.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';

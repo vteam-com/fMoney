@@ -1,7 +1,7 @@
 import 'package:money/data/data_interface.dart';
-import 'package:money/data/investment.dart';
-import 'package:money/data/security.dart';
-import 'package:money/data/stock_split.dart';
+import 'package:money/data/stocks/investment.dart';
+import 'package:money/data/stocks/security.dart';
+import 'package:money/data/stocks/stock_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/picker_security_type.dart';

@@ -1,5 +1,4 @@
 import 'package:money/data/data_interface.dart';
-import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/payees.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -7,6 +6,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/box.dart';
+import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';

@@ -1,8 +1,8 @@
 import 'package:money/data/data.dart';
-import 'package:money/data/domain_buttons.dart';
 import 'package:money/data/money_split.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/dialog_full_screen.dart';

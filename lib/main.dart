@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/data_file_controller.dart';
+import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/home_routes.dart';

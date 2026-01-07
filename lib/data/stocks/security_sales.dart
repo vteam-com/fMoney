@@ -1,4 +1,4 @@
-import 'package:money/data/security.dart';
+import 'package:money/data/stocks/security.dart';
 import 'package:money/models/account.dart';
 
 /// This class is used to track the cost basis for a given sale.

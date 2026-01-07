@@ -2,8 +2,8 @@
 
 import 'dart:math';
 
-import 'package:money/data/security.dart';
-import 'package:money/data/security_sales.dart';
+import 'package:money/data/stocks/security.dart';
+import 'package:money/data/stocks/security_sales.dart';
 import 'package:money/helpers/investment_types.dart';
 
 /// This class is used to track the cost basis for a given purchase, sometimes this cost basis

@@ -4,11 +4,11 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:money/data/data_interface.dart';
-import 'package:money/data/investment.dart';
 import 'package:money/data/investments.dart';
 import 'package:money/data/loan_payment.dart';
 import 'package:money/data/loan_payments.dart';
 import 'package:money/data/securities.dart';
+import 'package:money/data/stocks/investment.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';

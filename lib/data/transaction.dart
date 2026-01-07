@@ -1,9 +1,9 @@
 // Imports
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/investment.dart';
 import 'package:money/data/merge_payees.dart';
 import 'package:money/data/money_split.dart';
+import 'package:money/data/stocks/investment.dart';
 import 'package:money/data/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/data_file_controller.dart';
+import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/main.dart' as app;
 import 'package:money/models/money_objects.dart';

@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/security.dart';
-import 'package:money/data/stock_split.dart';
+import 'package:money/data/stocks/security.dart';
+import 'package:money/data/stocks/stock_split.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';

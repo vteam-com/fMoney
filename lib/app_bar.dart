@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/app_title.dart';
-import 'package:money/data/data_file_controller.dart';
+import 'package:money/data_file_controller.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';

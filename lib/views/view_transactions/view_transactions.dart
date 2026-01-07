@@ -1,14 +1,14 @@
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/investment.dart';
-import 'package:money/data/list_view_transaction_splits.dart';
-import 'package:money/data/menu_entry.dart';
+import 'package:money/data/stocks/investment.dart';
 import 'package:money/data/transaction.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/list_view_transaction_splits.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
+import 'package:money/views/menu_entry.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_transfers/transfer_sender_receiver.dart';
