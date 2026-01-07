@@ -1,4 +1,5 @@
-import 'package:money/data/collections/data.dart';
+// import 'package:money/data/collections/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
@@ -16,12 +17,13 @@ import 'package:money/widgets/widgets_domain/field.dart';
  */
 
 class StockSplit extends DataObject {
-  StockSplit({
+  /// Private constructor for static fields only
+  StockSplit._static({
     required DateTime? date,
     required int security,
     required int numerator,
     required int denominator,
-  }) {
+  }) : data = null {
     this.fieldDate.value = date;
     this.fieldSecurity.value = security;
     this.fieldNumerator.value = numerator;
@@ -29,14 +31,29 @@ class StockSplit extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory StockSplit.fromJson(final MyJson row) {
+  factory StockSplit.fromJson(final MyJson row, final DataAbstract data) {
     return StockSplit(
       date: row.getDate('Date'),
       security: row.getInt('Security'),
       numerator: row.getInt('Numerator'),
       denominator: row.getInt('Denominator'),
+      data: data,
     )..fieldId.value = row.getInt('Id', -1);
   }
+  StockSplit({
+    required DateTime? date,
+    required int security,
+    required int numerator,
+    required int denominator,
+    required this.data,
+  }) {
+    this.fieldDate.value = date;
+    this.fieldSecurity.value = security;
+    this.fieldNumerator.value = numerator;
+    this.fieldDenominator.value = denominator;
+  }
+
+  final DataAbstract? data;
 
   FieldDate fieldDate = FieldDate(
     name: 'Date',
@@ -78,7 +95,7 @@ class StockSplit extends DataObject {
 
   @override
   String getRepresentation() {
-    return Data().securities.getSymbolFromId(fieldSecurity.value);
+    return data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
   }
 
   @override
@@ -96,7 +113,13 @@ class StockSplit extends DataObject {
 
   static Fields<StockSplit> get fields {
     if (_fields.isEmpty) {
-      final StockSplit tmp = StockSplit.fromJson(<String, dynamic>{});
+      // Create a temporary instance for field definitions - no data relationships needed
+      final StockSplit tmp = StockSplit._static(
+        date: null,
+        security: -1,
+        numerator: 1,
+        denominator: 1,
+      );
       _fields.setDefinitions(<Field<dynamic>>[
         tmp.fieldId,
         tmp.fieldDate,

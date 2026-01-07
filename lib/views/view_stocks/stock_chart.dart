@@ -325,6 +325,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
                 date: dateOfSplit,
                 numerator: dataSplit['from_factor'] as int,
                 denominator: dataSplit['to_factor'] as int,
+                data: Data(),
               );
               splitsFound.add(sp);
             }
@@ -393,6 +394,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
                         date: dateOSplit,
                         numerator: (splitJson['numerator'] as num).toInt(),
                         denominator: (splitJson['denominator'] as num).toInt(),
+                        data: Data(),
                       );
                       splitsFound.add(sp);
                     }

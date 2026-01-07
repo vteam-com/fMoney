@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
@@ -32,10 +33,17 @@ abstract class DataAbstract {
   Payee? getPayeeByName(String name);
   Payee getOrCreatePayee(String name);
   void removePayeesWithNoTransactions(List<int> payeeIds);
+  String getPayeeNameFromId(int id);
 
   List<String> getCategoryNames();
   String getCategoryNameFromId(int id);
   dynamic getCategoryByName(String name);
+
+  Widget getCategoryWidget(int id);
+  List<String> getCategoriesAsStrings();
+  int? getCategoryIdByName(String name);
+
+  String getSecuritySymbolFromId(int id);
 
   dynamic get mergePayeeProvider;
   set mergePayeeProvider(dynamic value);

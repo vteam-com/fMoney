@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:flutter/widgets.dart';
 import 'package:money/data/collections/accounts.dart';
 import 'package:money/data/collections/aliases.dart';
 import 'package:money/data/collections/categories.dart';
@@ -86,6 +87,7 @@ class Data implements DataAbstract {
     splits.data = this as DataAbstract;
     events.data = this as DataAbstract;
     transactions.data = this as DataAbstract;
+    stockSplits.data = this as DataAbstract;
 
     // Note: Some data managers use dependency injection (accounts, aliases, categories, payees, investments, loanPayments, securities, rentBuildings, splits, events, transactions)
     // while others use the global Data() singleton directly for cross-collection access
@@ -894,6 +896,9 @@ class Data implements DataAbstract {
   void removePayeesWithNoTransactions(List<int> payeeIds) => Payees.removePayeesThatHaveNoTransactions(payeeIds, this);
 
   @override
+  String getPayeeNameFromId(int id) => payees.getNameFromId(id);
+
+  @override
   List<String> getCategoryNames() => categories.getCategoriesAsStrings();
 
   @override
@@ -901,4 +906,16 @@ class Data implements DataAbstract {
 
   @override
   dynamic getCategoryByName(String name) => categories.getByName(name);
+
+  @override
+  String getSecuritySymbolFromId(int id) => securities.getSymbolFromId(id);
+
+  @override
+  Widget getCategoryWidget(int id) => categories.getCategoryWidget(id);
+
+  @override
+  List<String> getCategoriesAsStrings() => categories.getCategoriesAsStrings();
+
+  @override
+  int? getCategoryIdByName(String name) => categories.getIdByName(name);
 }

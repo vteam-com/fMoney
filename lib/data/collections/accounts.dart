@@ -34,7 +34,6 @@ class Accounts extends MoneyObjects<Account> {
 
   @override
   void onAllDataLoaded() {
-    // reset balances
     for (final Account account in iterableList()) {
       account.fieldCount.value = 0;
       account.balance = account.fieldOpeningBalance.value.asDouble();

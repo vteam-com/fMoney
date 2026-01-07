@@ -124,6 +124,7 @@ void main() {
           security: newFakeSecurity.uniqueId,
           numerator: 2,
           denominator: 1,
+          data: Data(),
         ),
       ];
 

@@ -13,7 +13,7 @@ class Events extends MoneyObjects<Event> {
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
-      appendMoneyObject(Event.fromJson(row));
+      appendMoneyObject(Event.fromJson(row, data));
     }
   }
 
@@ -34,6 +34,7 @@ class Events extends MoneyObjects<Event> {
       dateEnd: DateTime.now(),
       people: '',
       memo: '',
+      data: data,
     );
 
     data.events.appendNewMoneyObject(event);

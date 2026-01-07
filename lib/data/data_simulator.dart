@@ -1038,7 +1038,7 @@ class DataSimulator {
         'Security': idStockApple, // AAPL
         'Numerator': 2,
         'Denominator': 1,
-      }),
+      }, Data()),
     );
   }
 

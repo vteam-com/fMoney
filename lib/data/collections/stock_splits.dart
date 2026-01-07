@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -10,11 +11,18 @@ class StockSplits extends MoneyObjects<StockSplit> {
     collectionName = 'Stock Splits';
   }
 
+  late DataAbstract data;
+
+  @override
+  StockSplit instanceFromJson(final MyJson json) {
+    return StockSplit.fromJson(json, data);
+  }
+
   @override
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
-      appendMoneyObject(StockSplit.fromJson(row));
+      appendMoneyObject(instanceFromJson(row));
     }
   }
 

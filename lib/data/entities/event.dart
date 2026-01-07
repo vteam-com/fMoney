@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_this
-
-// import 'package:money/data/category.dart';
-import 'package:money/data/collections/data.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -17,6 +15,25 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
 class Event extends DataObject {
+  /// Private constructor for static fields only
+  Event._static({
+    required final int id,
+    required final String name,
+    final int categoryId = -1,
+    required final DateTime? dateBegin,
+    required final DateTime? dateEnd,
+    required final String people,
+    required final String memo,
+  }) : data = null {
+    this.fieldId.value = id;
+    this.fieldName.value = name;
+    this.fieldCategoryId.value = categoryId;
+    this.fieldDateBegin.value = dateBegin;
+    this.fieldDateEnd.value = dateEnd;
+    this.fieldPeople.value = people;
+    this.fieldMemo.value = memo;
+  }
+
   Event({
     required final int id,
     required final String name,
@@ -25,6 +42,7 @@ class Event extends DataObject {
     required final DateTime? dateEnd,
     required final String people,
     required final String memo,
+    required this.data,
   }) {
     this.fieldId.value = id;
     this.fieldName.value = name;
@@ -36,7 +54,7 @@ class Event extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Event.fromJson(final MyJson row) {
+  factory Event.fromJson(final MyJson row, final DataAbstract data) {
     return Event(
       id: row.getInt('Id', -1),
       name: row.getString('Name'),
@@ -45,6 +63,7 @@ class Event extends DataObject {
       dateEnd: row.getDate('End'),
       people: row.getString('People'),
       memo: row.getString('Memo'),
+      data: data,
     );
   }
 
@@ -58,11 +77,7 @@ class Event extends DataObject {
     defaultValue: -1,
     getValueForDisplay: (final DataInterface instance) {
       final Event event = instance as Event;
-      if (event.fieldCategoryId.value == -1) {
-        return Data().categories.getCategoryWidget(event.fieldCategoryId.value);
-      } else {
-        return Data().categories.getCategoryWidget(event.fieldCategoryId.value);
-      }
+      return event.data!.getCategoryWidget(event.fieldCategoryId.value);
     },
 
     sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
@@ -80,12 +95,13 @@ class Event extends DataObject {
           final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
+          final Event event = instance as Event;
           return pickerCategory(
             key: const Key('key_pick_category'),
-            categoryNames: Data().categories.getCategoriesAsStrings(),
-            selectedName: Data().categories.getNameFromId((instance as Event).fieldCategoryId.value),
+            categoryNames: event.data!.getCategoriesAsStrings(),
+            selectedName: event.data!.getCategoryNameFromId(event.fieldCategoryId.value),
             onSelected: (String? name) {
-              final int? newId = Data().categories.getIdByName(name!);
+              final int? newId = event.data!.getCategoryIdByName(name!);
               if (newId != null) {
                 instance.fieldCategoryId.value = newId;
                 // notify container
@@ -161,6 +177,8 @@ class Event extends DataObject {
 
   int possibleMatchingCategoryId = -1;
 
+  final DataAbstract? data;
+
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
     return const MyListItemAsCard(
@@ -188,7 +206,7 @@ class Event extends DataObject {
   static final Fields<Event> _fields = Fields<Event>();
   static final Fields<Event> _fieldsColumView = Fields<Event>();
 
-  String get categoryName => Data().categories.getNameFromId(this.fieldCategoryId.value);
+  String get categoryName => data!.getCategoryNameFromId(this.fieldCategoryId.value);
 
   static void changeCategory(Event item, final int categoryId) {
     // record the change
@@ -199,7 +217,7 @@ class Event extends DataObject {
     item.possibleMatchingCategoryId = -1;
 
     // inform of changes
-    Data().notifyMutationChanged(
+    item.data!.notifyMutationChanged(
       mutation: MutationType.changed,
       moneyObject: item,
       recalculateBalances: true,
@@ -219,7 +237,14 @@ class Event extends DataObject {
 
   static Fields<Event> get fields {
     if (_fields.isEmpty) {
-      final Event tmpInstance = Event.fromJson(<String, dynamic>{});
+      final Event tmpInstance = Event._static(
+        id: -1,
+        name: '',
+        dateBegin: null,
+        dateEnd: null,
+        people: '',
+        memo: '',
+      );
       _fields.setDefinitions(<Field<dynamic>>[
         tmpInstance.fieldId,
         tmpInstance.fieldName,
@@ -236,7 +261,14 @@ class Event extends DataObject {
 
   static Fields<Event> get fieldsForColumnView {
     if (_fieldsColumView.isEmpty) {
-      final Event tmpInstance = Event.fromJson(<String, dynamic>{});
+      final Event tmpInstance = Event._static(
+        id: -1,
+        name: '',
+        dateBegin: null,
+        dateEnd: null,
+        people: '',
+        memo: '',
+      );
       _fieldsColumView.setDefinitions(<Field<dynamic>>[
         tmpInstance.fieldName,
         tmpInstance.fieldCategoryId,

@@ -1,6 +1,5 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/payees.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -197,9 +196,7 @@ class MoneySplit extends DataObject {
     type: FieldType.text,
     align: TextAlign.left,
     getValueForDisplay: (final DataInterface instance) =>
-        ((instance as MoneySplit).data.payees as Payees).getNameFromId(
-          instance.fieldPayeeId.value,
-        ),
+        (instance as MoneySplit).data.getPayeeNameFromId(instance.fieldPayeeId.value),
     getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldPayeeId.value,
   );
 
