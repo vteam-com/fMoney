@@ -6,7 +6,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/stock_cumulative.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 class Investments extends MoneyObjects<Investment> {
   Investments() {

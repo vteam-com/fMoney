@@ -1,9 +1,10 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /*
   SQLite table definition
@@ -11,7 +12,7 @@ import 'package:money/widgets/widgets_domain/money_widget.dart';
   0|Id|INT|0||1
   1|Name|nvarchar(255)|1||0
  */
-class Payee extends MoneyObject {
+class Payee extends DataObject {
   Payee();
 
   factory Payee.fromJson(final MyJson row) {
@@ -21,41 +22,41 @@ class Payee extends MoneyObject {
   Set<String> categories = <String>{};
   FieldString fieldCategoriesAsText = FieldString(
     name: 'Categories',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Payee).getCategoriesAsString(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Payee).getCategoriesAsString(),
   );
 
   FieldInt fieldCount = FieldInt(
     name: 'Transactions',
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Payee).fieldCount.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldCount.value,
   );
 
   // 0 - ID
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Payee).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Payee).uniqueId,
   );
 
   // 1
   FieldString fieldName = FieldString(
     name: 'Name',
     serializeName: 'Name',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Payee).fieldName.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Payee).fieldName.value,
-    setValue: (final MoneyObject instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
+    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldName.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Payee).fieldName.value,
+    setValue: (final DataInterface instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
   );
 
   FieldMoney fieldSum = FieldMoney(
     name: 'Sum',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Payee).fieldSum.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldSum.value,
   );
 
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
     return MyListItemAsCard(
       leftTopAsString: fieldName.value,
-      rightTopAsWidget: MoneyWidget(
+      rightTopAsWidget: WidgetFromData(
         amountModel: fieldSum.value,
-        size: MoneyWidgetSize.title,
+        size: DataWidgetSize.title,
       ),
       rightBottomAsString: getAmountAsShorthandText(fieldCount.value),
     );

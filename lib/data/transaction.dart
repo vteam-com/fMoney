@@ -25,14 +25,15 @@ import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/picker_payee_or_transfer.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]
-class Transaction extends MoneyObject implements MergeableItem {
+class Transaction extends DataObject implements MergeableItem {
   Transaction({
     final TransactionStatus status = TransactionStatus.none,
     final int accountId = -1,
@@ -133,10 +134,10 @@ class Transaction extends MoneyObject implements MergeableItem {
     align: TextAlign.left,
     footer: FooterType.count,
     defaultValue: -1,
-    getValueForDisplay: (final MoneyObject instance) => Data().accounts.getNameFromId(
+    getValueForDisplay: (final DataInterface instance) => Data().accounts.getNameFromId(
       (instance as Transaction).fieldAccountId.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldAccountId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldAccountId.value,
     // setValue: (MoneyObject instance, dynamic newValue) => (instance as Transaction).fieldAccountId.value = newValue,
   );
 
@@ -145,14 +146,14 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldMoney fieldAmount = FieldMoney(
     name: columnIdAmount,
     serializeName: 'Amount',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as Transaction).fieldAmount.value.asDouble(),
       iso4217: instance.currency,
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldAmount.value.asDouble(),
-    setValue: (final MoneyObject instance, dynamic newValue) =>
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldAmount.value.asDouble(),
+    setValue: (final DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldAmount.value.setAmount(newValue),
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Transaction).fieldAmount.value.asDouble(),
       (b as Transaction).fieldAmount.value.asDouble(),
       ascending,
@@ -168,13 +169,13 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: columnIdAmountNormalized,
     columnWidth: ColumnWidth.small,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.fieldAmount.value.asDouble(),
       ),
       iso4217: Constants.defaultCurrency,
     ),
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Transaction).fieldAmount.value.asDouble(),
       (b as Transaction).fieldAmount.value.asDouble(),
       ascending,
@@ -187,7 +188,7 @@ class Transaction extends MoneyObject implements MergeableItem {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as Transaction).balance,
       iso4217: instance.currency,
     ),
@@ -199,13 +200,13 @@ class Transaction extends MoneyObject implements MergeableItem {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.balance,
       ),
       iso4217: Constants.defaultCurrency,
     ),
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Transaction).balance,
       (b as Transaction).balance,
       ascending,
@@ -217,10 +218,10 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldDate fieldBudgetBalanceDate = FieldDate(
     name: 'ReconciledDate',
     serializeName: 'ReconciledDate',
-    getValueForDisplay: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
   );
@@ -235,7 +236,7 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: 'Category',
     serializeName: 'Category',
     defaultValue: -1,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       final Transaction t = instance as Transaction;
 
       final int effectiveCategoryId = t.possibleMatchingCategoryId == -1
@@ -280,18 +281,18 @@ class Transaction extends MoneyObject implements MergeableItem {
         child: Tooltip(message: categoryName, child: categoryWidget),
       );
     },
-    getValueForReading: (final MoneyObject instance) => (instance as Transaction).categoryName,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldCategoryId.value,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    getValueForReading: (final DataInterface instance) => (instance as Transaction).categoryName,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Transaction).categoryName,
       (b as Transaction).categoryName,
       ascending,
     ),
-    setValue: (final MoneyObject instance, dynamic newValue) =>
+    setValue: (final DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           (instance as Transaction);
@@ -331,8 +332,8 @@ class Transaction extends MoneyObject implements MergeableItem {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.count,
-    getValueForReading: (final MoneyObject instance) => (instance as Transaction).currency,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForReading: (final DataInterface instance) => (instance as Transaction).currency,
+    getValueForDisplay: (final DataInterface instance) {
       return buildCurrencyWidget((instance as Transaction).currency);
     },
   );
@@ -342,12 +343,12 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldDate fieldDateTime = FieldDate(
     name: 'Date',
     serializeName: 'Date',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldDateTime.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldDateTime.value,
+    getValueForSerialization: (final DataInterface instance) =>
         dateToSqliteFormat((instance as Transaction).fieldDateTime.value),
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return PickerEditBoxDate(
@@ -363,9 +364,9 @@ class Transaction extends MoneyObject implements MergeableItem {
             },
           );
         },
-    setValue: (MoneyObject instance, dynamic newValue) =>
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldDateTime.value = attemptToGetDateFromText(newValue as String),
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) =>
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) =>
         sortByDateTime(a as Transaction, b as Transaction, ascending),
   );
 
@@ -374,8 +375,8 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldString fieldFitid = FieldString(
     name: 'FITID',
     serializeName: 'FITID',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldFitid.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldFitid.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
   );
 
   /// Flags
@@ -384,14 +385,14 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: 'Flags',
     serializeName: 'Flags',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldFlags.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldFlags.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
   );
 
   /// ID
   /// SQLite  0|Id|bigint|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).uniqueId,
   );
 
   /// Memo
@@ -399,9 +400,9 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldString fieldMemo = FieldString(
     name: 'Memo',
     serializeName: 'Memo',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldMemo.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldMemo.value,
-    setValue: (MoneyObject instance, dynamic newValue) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldMemo.value = newValue as String,
   );
 
@@ -411,7 +412,7 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: 'Merge Date',
     serializeName: 'MergeDate',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldMergeDate.value,
     ),
   );
@@ -422,8 +423,8 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: 'Ref',
     serializeName: 'Number',
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldNumber.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldNumber.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
   );
 
   /// OriginalPayee
@@ -432,8 +433,8 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldString fieldOriginalPayee = FieldString(
     name: 'Original Payee',
     serializeName: 'OriginalPayee',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldOriginalPayee.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldOriginalPayee.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
   );
 
   FieldString fieldPaidOn = FieldString(
@@ -442,7 +443,7 @@ class Transaction extends MoneyObject implements MergeableItem {
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       return (instance as Transaction).fieldPaidOn.value;
     },
   );
@@ -457,16 +458,16 @@ class Transaction extends MoneyObject implements MergeableItem {
     footer: FooterType.count,
     align: TextAlign.left,
     columnWidth: ColumnWidth.largest,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Transaction).payeeName,
       (b as Transaction).payeeName,
       ascending,
     ),
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       return (instance as Transaction).getPayeeOrTransferCaption();
     },
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldPayee.value,
-    setValue: (MoneyObject instance, dynamic newValue) {
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldPayee.value,
+    setValue: (DataInterface instance, dynamic newValue) {
       instance = instance as Transaction;
       instance.stashOriginalPayee();
       if (newValue == -1 || newValue == Data().categories.transfer.uniqueId) {
@@ -481,7 +482,7 @@ class Transaction extends MoneyObject implements MergeableItem {
     },
     getEditWidget:
         (
-          MoneyObject instance,
+          DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return SizedBox(
@@ -563,10 +564,10 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldDate fieldReconciledDate = FieldDate(
     name: 'ReconciledDate',
     serializeName: 'ReconciledDate',
-    getValueForDisplay: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
   );
@@ -576,9 +577,10 @@ class Transaction extends MoneyObject implements MergeableItem {
   FieldMoney fieldSalesTax = FieldMoney(
     name: 'Sales Tax',
     serializeName: 'SalesTax',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldSalesTax.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldSalesTax.value.asDouble(),
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldSalesTax.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as Transaction).fieldSalesTax.value.asDouble(),
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Transaction).fieldSalesTax.value.asDouble(),
       (b as Transaction).fieldSalesTax.value.asDouble(),
       ascending,
@@ -595,11 +597,11 @@ class Transaction extends MoneyObject implements MergeableItem {
     useAsDetailPanels: defaultCallbackValueFalse,
     name: columnIdStatus,
     serializeName: 'Status',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction)._buildStatusButtonToggle(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldStatus.value.index,
-    setValue: (MoneyObject instance, dynamic newValue) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction)._buildStatusButtonToggle(),
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldStatus.value.index,
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldStatus.value = newValue as TransactionStatus,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       transactionStatusToLetter((a as Transaction).fieldStatus.value),
       transactionStatusToLetter((b as Transaction).fieldStatus.value),
       ascending,
@@ -613,8 +615,8 @@ class Transaction extends MoneyObject implements MergeableItem {
     serializeName: 'Transfer',
     defaultValue: -1,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldTransfer.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldTransfer.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransfer.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldTransfer.value,
   );
 
   /// Transfer Split
@@ -623,8 +625,8 @@ class Transaction extends MoneyObject implements MergeableItem {
     name: 'TransferSplit',
     serializeName: 'TransferSplit',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transaction).fieldTransferSplit.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Transaction).fieldTransferSplit.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
   );
 
   /// cache instances of related MoneyObjects
@@ -644,9 +646,9 @@ class Transaction extends MoneyObject implements MergeableItem {
     return MyListItemAsCard(
       leftTopAsString: payeeName,
       leftBottomAsString: '${Data().categories.getNameFromId(fieldCategoryId.value)}\n${fieldMemo.value}',
-      rightTopAsWidget: MoneyWidget(
+      rightTopAsWidget: WidgetFromData(
         amountModel: fieldAmount.value,
-        size: MoneyWidgetSize.title,
+        size: DataWidgetSize.title,
       ),
       rightBottomAsString: '$dateTimeAsString\n${Account.getName(instanceOfAccount)}',
     );
@@ -662,7 +664,7 @@ class Transaction extends MoneyObject implements MergeableItem {
   }
 
   @override
-  MoneyObject rollup(List<MoneyObject> moneyObjectInstances) {
+  DataObject rollup(List<DataObject> moneyObjectInstances) {
     if (moneyObjectInstances.isEmpty) {
       return Transaction(date: DateTime.now());
     }
@@ -672,7 +674,7 @@ class Transaction extends MoneyObject implements MergeableItem {
 
     MyJson commonJson = moneyObjectInstances.first.getPersistableJSon();
 
-    for (MoneyObject t in moneyObjectInstances.skip(1)) {
+    for (DataObject t in moneyObjectInstances.skip(1)) {
       commonJson = compareAndGenerateCommonJson(
         commonJson,
         t.getPersistableJSon(),
@@ -1127,7 +1129,7 @@ class Transaction extends MoneyObject implements MergeableItem {
             this.fieldStatus.value = TransactionStatus.values[oldValue];
 
             // if this was the only change to this instance we can undo the mutation state
-            if (mutation == MutationType.changed && MoneyObject.isDataModified(this) == false) {
+            if (mutation == MutationType.changed && DataObject.isDataModified(this) == false) {
               mutation = MutationType.none;
               DataFileController.to.trackMutations.increaseNumber(
                 increaseChanged: -1,

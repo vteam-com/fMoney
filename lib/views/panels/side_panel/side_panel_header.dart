@@ -4,7 +4,7 @@ import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class SidePanelHeader extends StatelessWidget {
   /// Constructor

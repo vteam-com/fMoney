@@ -4,8 +4,8 @@ import 'package:money/widgets/adaptive_list/list_item_footer.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
 import 'package:money/widgets/scale_down.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 class AdaptiveListColumnsOrRows extends StatelessWidget {
@@ -42,7 +42,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
 
   final bool isMultiSelectionOn;
 
-  final List<MoneyObject> list;
+  final List<DataObject> list;
 
   final ListController listController;
 
@@ -70,7 +70,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
       children: <Widget>[
         // Header
         if (displayAsColumns)
-          MyListItemHeader<MoneyObject>(
+          MyListItemHeader<DataObject>(
             backgroundColor: backgroundColorForHeaderFooter ?? getColorTheme(context).surfaceContainerLow,
             columns: fieldDefinitions,
             filterOn: filters,
@@ -81,7 +81,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
                 ? (bool selectAllRequested) {
                     selectedItemsByUniqueId.value.clear();
                     if (selectAllRequested) {
-                      for (final MoneyObject item in list) {
+                      for (final DataObject item in list) {
                         selectedItemsByUniqueId.value.add(item.uniqueId);
                       }
                     }
@@ -95,7 +95,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
         // The actual List
         Expanded(
           flex: 1,
-          child: MyListView<MoneyObject>(
+          child: MyListView<DataObject>(
             fields: fieldDefinitions,
             list: list,
             selectedItemIds: selectedItemsByUniqueId,
@@ -110,7 +110,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
 
         // Footer
         if (displayAsColumns && getColumnFooterWidget != null)
-          MyListItemFooter<MoneyObject>(
+          MyListItemFooter<DataObject>(
             backgroundColor: backgroundColorForHeaderFooter ?? getColorTheme(context).surfaceContainerLow,
             columns: fieldDefinitions,
             multiSelectionOn: isMultiSelectionOn,

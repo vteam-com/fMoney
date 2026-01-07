@@ -6,7 +6,7 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 class MoneyObjectCard extends StatelessWidget {
   const MoneyObjectCard({
@@ -18,10 +18,10 @@ class MoneyObjectCard extends StatelessWidget {
     this.onDelete,
   });
 
-  final MoneyObject? moneyObject;
-  final void Function(BuildContext, List<MoneyObject>)? onDelete;
-  final void Function(BuildContext, List<MoneyObject>)? onEdit;
-  final void Function(BuildContext, MoneyObject?)? onMergeWith;
+  final DataObject? moneyObject;
+  final void Function(BuildContext, List<DataObject>)? onDelete;
+  final void Function(BuildContext, List<DataObject>)? onEdit;
+  final void Function(BuildContext, DataObject?)? onMergeWith;
   final String title;
 
   @override
@@ -74,14 +74,14 @@ class MoneyObjectCard extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  onEdit?.call(context, <MoneyObject>[moneyObject!]);
+                  onEdit?.call(context, <DataObject>[moneyObject!]);
                 },
               ),
             if (onDelete != null)
               IconButton(
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {
-                  onDelete?.call(context, <MoneyObject>[moneyObject!]);
+                  onDelete?.call(context, <DataObject>[moneyObject!]);
                 },
               ),
             IconButton(

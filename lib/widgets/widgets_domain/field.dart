@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
+
+dynamic defaultCallbackValue(final DataInterface instance) => '';
+
+bool defaultCallbackValueTrue(final DataInterface instance) => true;
+
+bool defaultCallbackValueFalse(final DataInterface instance) => false;
 
 /// A generic class representing a field in a data model.
 ///
@@ -65,14 +75,14 @@ class Field<T> {
       switch (this.type) {
         case FieldType.numeric:
         case FieldType.quantity:
-          getValueForDisplay = (final MoneyObject c) => value as num;
+          getValueForDisplay = (final DataInterface c) => value as num;
           getValueForSerialization = getValueForDisplay;
         case FieldType.text:
-          getValueForDisplay = (final MoneyObject objectInstance) => value.toString();
+          getValueForDisplay = (final DataInterface objectInstance) => value.toString();
         case FieldType.amount:
-          getValueForDisplay = (final MoneyObject c) => MoneyWidget(amountModel: value as AmountModel);
+          getValueForDisplay = (final DataInterface c) => WidgetFromData(amountModel: value as AmountModel);
         case FieldType.date:
-          getValueForDisplay = (final MoneyObject c) => dateToString(value as DateTime?);
+          getValueForDisplay = (final DataInterface c) => dateToString(value as DateTime?);
         default:
           //
           debugPrint('No match');
@@ -98,8 +108,8 @@ class Field<T> {
         case FieldType.amountShorthand:
           sort =
               (
-                final MoneyObject a,
-                final MoneyObject b,
+                final DataInterface a,
+                final DataInterface b,
                 final bool ascending,
               ) => sortByValue(
                 (getValueForDisplay(a) ?? 0) as num,
@@ -109,8 +119,8 @@ class Field<T> {
         case FieldType.amount:
           sort =
               (
-                final MoneyObject a,
-                final MoneyObject b,
+                final DataInterface a,
+                final DataInterface b,
                 final bool ascending,
               ) => sortByAmount(
                 getValueForDisplay(a) as AmountModel,
@@ -120,8 +130,8 @@ class Field<T> {
         case FieldType.date:
           sort =
               (
-                final MoneyObject a,
-                final MoneyObject b,
+                final DataInterface a,
+                final DataInterface b,
                 final bool ascending,
               ) => sortByDate(
                 getValueForDisplay(a) as DateTime?,
@@ -132,8 +142,8 @@ class Field<T> {
         default:
           sort =
               (
-                final MoneyObject a,
-                final MoneyObject b,
+                final DataInterface a,
+                final DataInterface b,
                 final bool ascending,
               ) => sortByString(
                 getValueForDisplay(a).toString(),
@@ -145,13 +155,13 @@ class Field<T> {
   }
 
   /// Customize/override the edit widget
-  Widget Function(MoneyObject, void Function(bool wasModified) onEdited)? getEditWidget;
+  Widget Function(DataInterface, void Function(bool wasModified) onEdited)? getEditWidget;
 
   /// override the value edited
-  dynamic Function(MoneyObject, dynamic)? setValue;
+  dynamic Function(DataInterface, dynamic)? setValue;
 
   /// Only need for FieldType.widget
-  dynamic Function(MoneyObject)? getValueForReading;
+  dynamic Function(DataInterface)? getValueForReading;
 
   TextAlign align;
   ColumnWidth columnWidth;
@@ -160,13 +170,13 @@ class Field<T> {
   FooterType footer;
 
   /// Get the value
-  dynamic Function(MoneyObject) getValue;
+  dynamic Function(DataInterface) getValue;
 
   /// Get the value of the instance
-  dynamic Function(MoneyObject) getValueForDisplay;
+  dynamic Function(DataInterface) getValueForDisplay;
 
   /// Get the value for storing the instance
-  dynamic Function(MoneyObject) getValueForSerialization;
+  dynamic Function(DataInterface) getValueForSerialization;
 
   // Static properties
   String name;
@@ -174,9 +184,9 @@ class Field<T> {
   String serializeName;
   FieldType type;
   // This properties are evaluated against the instance of the object
-  bool Function(MoneyObject) useAsDetailPanels;
+  bool Function(DataInterface) useAsDetailPanels;
 
-  int Function(MoneyObject, MoneyObject, bool)? sort;
+  int Function(DataInterface, DataInterface, bool)? sort;
 
   late T _value;
 
@@ -217,7 +227,7 @@ class Field<T> {
     }
   }
 
-  Widget getValueAsWidget(MoneyObject instance) {
+  Widget getValueAsWidget(DataInterface instance) {
     final dynamic value = this.getValueForDisplay(instance);
     if (value is Widget) {
       return value;
@@ -390,8 +400,8 @@ class FieldString extends Field<String> {
     if (sort == null) {
       super.sort =
           (
-            final MoneyObject a,
-            final MoneyObject b,
+            final DataInterface a,
+            final DataInterface b,
             final bool ascending,
           ) {
             return sortByString(
@@ -413,7 +423,7 @@ class Fields<T> {
   final FieldDefinitions definitions = <Field<dynamic>>[];
 
   bool applyFilters(
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
     final String filterBytFreeStyleLowerCaseText, // Optional empty string
     final FieldFilters filterByFieldsValue, // Optional empty array
   ) {
@@ -446,7 +456,7 @@ class Fields<T> {
   /// Used in table view
   static Widget getRowOfColumns(
     final FieldDefinitions definitions,
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
   ) {
     final List<Widget> cells = <Widget>[];
 
@@ -476,7 +486,7 @@ class Fields<T> {
   }
 
   String getStringValueUsingFieldName(
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
     final String fieldName,
   ) {
     final Field<dynamic>? fieldFound = definitions.firstWhereOrNull(
@@ -491,7 +501,7 @@ class Fields<T> {
   bool get isEmpty => definitions.isEmpty;
 
   bool isMatchingColumnFiltering(
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
     final FieldFilters filterByFieldsValue,
   ) {
     for (final FieldFilter filter in filterByFieldsValue.list) {
@@ -522,7 +532,7 @@ class Fields<T> {
 
   // check if the lowerCaseTextToFind matches any of the fields text value
   bool isMatchingFreeStyleText(
-    MoneyObject objectInstance,
+    DataInterface objectInstance,
     String filterBytFreeStyleLowerCaseText,
   ) {
     for (final Field<dynamic> fieldDefinition in definitions) {
@@ -546,7 +556,7 @@ class Fields<T> {
   }
 
   DateTime _getFieldValueAsDate(
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
     final Field<dynamic> fieldDefinition,
   ) {
     final dynamic fieldValue = fieldDefinition.getValueForDisplay(
@@ -566,7 +576,7 @@ class Fields<T> {
   /// @param fieldValue The value of the current field.
   /// @return The string representation of the field value, suitable for filtering.
   String _getFieldValueAsStringForFiltering(
-    final MoneyObject objectInstance,
+    final DataInterface objectInstance,
     final Field<dynamic> fieldDefinition,
   ) {
     switch (fieldDefinition.type) {
@@ -640,4 +650,204 @@ Field<dynamic>? getFieldDefinitionByName(
     }
   }
   return null;
+}
+
+Widget buildWidgetFromTypeAndValue({
+  required final dynamic value,
+  required final FieldType type,
+  required final TextAlign align,
+  required final bool fixedFont,
+  String currency = Constants.defaultCurrency,
+}) {
+  switch (type) {
+    // Numeric
+    case FieldType.numeric:
+      if (value is String) {
+        return buildFieldWidgetForText(
+          text: value,
+          align: align,
+          fixedFont: true,
+        );
+      }
+      return buildFieldWidgetForNumber(
+        value: value as num,
+        shorthand: false,
+        align: align,
+      );
+
+    // Numeric shorthand  12K
+    case FieldType.numericShorthand:
+      return buildFieldWidgetForNumber(
+        value: value as num,
+        shorthand: true,
+        align: align,
+      );
+
+    // Quantity
+    case FieldType.quantity:
+      return Row(
+        children: <Widget>[
+          Expanded(
+            child: (value is num)
+                ? QuantityWidget(quantity: value.toDouble(), align: align)
+                : Text(value.toString(), textAlign: align),
+          ),
+        ],
+      );
+
+    case FieldType.percentage:
+      return buildFieldWidgetForPercentage(value: value as double);
+
+    // Amount
+    case FieldType.amount:
+      if (value is String) {
+        return buildFieldWidgetForText(
+          text: value,
+          align: align,
+          fixedFont: true,
+        );
+      }
+      if (value is AmountModel) {
+        return WidgetFromData(amountModel: value);
+      }
+      return WidgetFromData(amountModel: AmountModel(amount: value as double));
+
+    // Amount short hand
+    case FieldType.amountShorthand:
+      return buildFieldWidgetForAmount(
+        value: value,
+        shorthand: true,
+        align: align,
+      );
+
+    // Widget
+    case FieldType.widget:
+      return value as Widget;
+
+    // Date
+    case FieldType.date:
+      if (value is String) {
+        return buildFieldWidgetForText(
+          text: value,
+          align: align,
+          fixedFont: true,
+        );
+      }
+      // Adapt to available space
+      return scaleDown(
+        buildFieldWidgetForDate(date: value as DateTime?, align: align),
+        Alignment.centerLeft,
+      );
+
+    case FieldType.text:
+    default:
+      return buildFieldWidgetForText(
+        text: value.toString(),
+        align: align,
+        fixedFont: fixedFont,
+      );
+  }
+}
+
+Widget buildFieldWidgetForAmount({
+  final dynamic value = 0,
+  final String currency = Constants.defaultCurrency,
+  final bool shorthand = false,
+  final TextAlign align = TextAlign.right,
+}) {
+  return scaleDown(
+    Text(
+      shorthand
+          ? getAmountAsShorthandText(value as num)
+          : getAmountAsStringUsingCurrency(
+              value,
+              iso4217code: currency,
+            ),
+      textAlign: align,
+      style: TextStyle(
+        fontFamily: 'RobotoMono',
+        color: Get.context == null
+            ? null
+            : Theme.of(Get.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
+      ),
+    ),
+    textAlignToAlignment(align),
+  );
+}
+
+Widget buildFieldWidgetForDate({
+  final DateTime? date,
+  final TextAlign align = TextAlign.left,
+}) {
+  return Text(
+    dateToString(date),
+    textAlign: align,
+    overflow: TextOverflow.ellipsis, // Clip with ellipsis
+    maxLines: 1, // Restrict to single line,
+    style: const TextStyle(fontFamily: 'RobotoMono'),
+  );
+}
+
+Widget buildFieldWidgetForNumber({
+  final num value = 0,
+  final bool shorthand = false,
+  final TextAlign align = TextAlign.right,
+}) {
+  return scaleDown(
+    Text(
+      shorthand
+          ? (value is double ? getAmountAsShorthandText(value) : getNumberShorthandText(value))
+          : value.toString(),
+      textAlign: align,
+      style: const TextStyle(fontFamily: 'RobotoMono'),
+    ),
+    textAlignToAlignment(align),
+  );
+}
+
+Widget buildFieldWidgetForPercentage({final double value = 0}) {
+  // 0.000 to 100.000%
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
+      Opacity(
+        opacity: value == 0 ? 0.4 : 1,
+        child: Text(
+          (value * 100).toStringAsFixed(3),
+          textAlign: TextAlign.right,
+          style: const TextStyle(fontFamily: 'RobotoMono'),
+        ),
+      ),
+      const Opacity(
+        opacity: 0.8,
+        child: Text(' %', style: TextStyle(fontSize: 9)),
+      ),
+    ],
+  );
+}
+
+Widget buildFieldWidgetForText({
+  final String text = '',
+  final TextAlign align = TextAlign.left,
+  final bool fixedFont = false,
+}) {
+  return Text(
+    text,
+    textAlign: align,
+    overflow: TextOverflow.ellipsis, // Clip with ellipsis
+    maxLines: 1, // Restrict to single line,
+    style: TextStyle(fontFamily: fixedFont ? 'RobotoMono' : 'RobotoFlex'),
+  );
+}
+
+Alignment textAlignToAlignment(final TextAlign textAlign) {
+  switch (textAlign) {
+    case TextAlign.left:
+      return Alignment.centerLeft;
+    case TextAlign.center:
+      return Alignment.center;
+    case TextAlign.right:
+    default:
+      return Alignment.centerRight;
+  }
 }

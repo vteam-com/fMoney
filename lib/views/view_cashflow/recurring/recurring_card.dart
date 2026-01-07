@@ -13,7 +13,7 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class RecurringCard extends StatelessWidget {
   const RecurringCard({
@@ -190,7 +190,7 @@ class RecurringCard extends StatelessWidget {
           ),
         ),
         gapLarge(),
-        MoneyWidget(amountModel: AmountModel(amount: payment.total)),
+        WidgetFromData(amountModel: AmountModel(amount: payment.total)),
       ],
     );
   }
@@ -205,7 +205,7 @@ Widget _buildTextAmountRow(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
       Text(title, style: getTextTheme(context).labelMedium),
-      MoneyWidget(amountModel: AmountModel(amount: amount)),
+      WidgetFromData(amountModel: AmountModel(amount: amount)),
     ],
   );
 }

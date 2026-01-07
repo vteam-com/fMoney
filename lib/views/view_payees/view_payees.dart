@@ -17,8 +17,8 @@ import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});
@@ -38,7 +38,7 @@ class ViewPayeesState extends ViewForMoneyObjectsState {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       /// Merge
-      final MoneyObject? moneyObject = getFirstSelectedItem();
+      final DataObject? moneyObject = getFirstSelectedItem();
       if (moneyObject != null) {
         list.add(
           buildMergeButton(() {
@@ -116,14 +116,14 @@ class ViewPayeesState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<MoneyObject> getSidePanelTransactions() {
+  List<DataObject> getSidePanelTransactions() {
     final Payee? payee = getFirstSelectedItem() as Payee?;
     if (payee != null && payee.fieldId.value > -1) {
       return getTransactions(
         filter: (final Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
       );
     }
-    return <MoneyObject>[];
+    return <DataObject>[];
   }
 
   /// Details panels Chart panel for Payees

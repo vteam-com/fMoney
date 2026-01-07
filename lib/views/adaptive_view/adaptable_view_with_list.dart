@@ -9,8 +9,8 @@ import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
@@ -52,7 +52,7 @@ class AdaptiveViewWithList extends StatefulWidget {
 
   final bool isMultiSelectionOn;
 
-  final List<MoneyObject> list;
+  final List<DataObject> list;
 
   final ListController listController;
 

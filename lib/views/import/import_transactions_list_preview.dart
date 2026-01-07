@@ -11,7 +11,7 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_banner.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/value_parser.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class ImportTransactionsListPreview extends StatefulWidget {
   const ImportTransactionsListPreview({
@@ -120,7 +120,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
                   style: TextStyle(fontSize: SizeForText.small),
                 ),
                 gapSmall(),
-                MoneyWidget(
+                WidgetFromData(
                   amountModel: AmountModel(
                     amount: sumOfValues(),
                     iso4217: widget.values.first.amount.currency,

@@ -10,7 +10,7 @@ import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/value_parser.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// use for free style text to transaction import
 class ImportTransactionsPanel extends StatefulWidget {

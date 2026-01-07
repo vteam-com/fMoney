@@ -1,6 +1,7 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /*
   cid  name         type          notnull  default  pk
@@ -12,7 +13,7 @@ import 'package:money/widgets/widgets_domain/cd/money_object.dart';
   4    LastRatio    money         0                 0 
   5    CultureCode  nvarchar(80)  0                 0 
  */
-class Currency extends MoneyObject {
+class Currency extends DataObject {
   Currency({
     required final int id, // 0
     required final String symbol, // 1
@@ -52,21 +53,21 @@ class Currency extends MoneyObject {
   FieldString fieldCultureCode = FieldString(
     name: 'Culture Code',
     serializeName: 'CultureCode',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Currency).fieldCultureCode.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Currency).fieldCultureCode.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Currency).fieldCultureCode.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Currency).fieldCultureCode.value,
   );
 
   // 0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => instance.uniqueId,
+    getValueForSerialization: (final DataInterface instance) => instance.uniqueId,
   );
 
   // 4
   FieldDouble fieldLastRatio = FieldDouble(
     name: 'LastRatio',
     serializeName: 'LastRatio',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Currency).fieldLastRatio.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Currency).fieldLastRatio.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Currency).fieldLastRatio.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Currency).fieldLastRatio.value,
   );
 
   /// 2
@@ -74,24 +75,24 @@ class Currency extends MoneyObject {
   FieldString fieldName = FieldString(
     name: 'Name',
     serializeName: 'Name',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Currency).fieldName.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Currency).fieldName.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Currency).fieldName.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Currency).fieldName.value,
   );
 
   /// 3    Ratio        money
   FieldDouble fieldRatio = FieldDouble(
     name: 'Ratio',
     serializeName: 'Ratio',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Currency).fieldRatio.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Currency).fieldRatio.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Currency).fieldRatio.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Currency).fieldRatio.value,
   );
 
   /// 1    Symbol       nchar(20)
   FieldString fieldSymbol = FieldString(
     name: 'Symbol',
     serializeName: 'Symbol',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Currency).fieldSymbol.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Currency).fieldSymbol.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Currency).fieldSymbol.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Currency).fieldSymbol.value,
   );
 
   // Fields for this instance

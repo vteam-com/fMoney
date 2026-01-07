@@ -24,8 +24,8 @@ import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 export 'package:money/views/view_stocks/stock_chart.dart';
@@ -182,7 +182,7 @@ class ViewStocksState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<MoneyObject> getSidePanelTransactions() {
+  List<DataObject> getSidePanelTransactions() {
     return getListOfInvestment(_lastSecuritySelected!);
   }
 

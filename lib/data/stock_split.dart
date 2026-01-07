@@ -1,8 +1,9 @@
 import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /*
   cid  name         type      notnull  dflt_value  pk
@@ -14,7 +15,7 @@ import 'package:money/widgets/widgets_domain/cd/money_object.dart';
   4    Denominator  money     1                    0
  */
 
-class StockSplit extends MoneyObject {
+class StockSplit extends DataObject {
   StockSplit({
     required DateTime? date,
     required int security,
@@ -40,35 +41,35 @@ class StockSplit extends MoneyObject {
   FieldDate fieldDate = FieldDate(
     name: 'Date',
     serializeName: 'Date',
-    getValueForDisplay: (final MoneyObject instance) => (instance as StockSplit).fieldDate.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDate.value,
+    getValueForSerialization: (final DataInterface instance) =>
         dateToSqliteFormat((instance as StockSplit).fieldDate.value),
   );
 
   FieldInt fieldDenominator = FieldInt(
     name: 'Denominator',
     serializeName: 'Denominator',
-    getValueForDisplay: (final MoneyObject instance) => (instance as StockSplit).fieldDenominator.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as StockSplit).fieldDenominator.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
   );
 
   FieldId fieldId = FieldId(
-    getValueForDisplay: (final MoneyObject instance) => (instance as StockSplit).uniqueId,
-    getValueForSerialization: (final MoneyObject instance) => instance.uniqueId,
+    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => instance.uniqueId,
   );
 
   FieldInt fieldNumerator = FieldInt(
     name: 'Numerator',
     serializeName: 'Numerator',
-    getValueForDisplay: (final MoneyObject instance) => (instance as StockSplit).fieldNumerator.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as StockSplit).fieldNumerator.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
   );
 
   FieldInt fieldSecurity = FieldInt(
     name: 'Security',
     serializeName: 'Security',
-    getValueForDisplay: (final MoneyObject instance) => (instance as StockSplit).fieldSecurity.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as StockSplit).fieldSecurity.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
   );
 
   // Fields for this instance

@@ -12,8 +12,8 @@ import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_transfers/transfer_sender_receiver.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /// Widget for displaying transfers between accounts.
 class ViewTransfers extends ViewForMoneyObjects {
@@ -153,7 +153,7 @@ class ViewTransfersState extends ViewForMoneyObjectsState {
   }) {
     if (selectedIds.isNotEmpty) {
       final int id = selectedIds.first;
-      final Transfer? transfer = list.firstWhereOrNull((MoneyObject element) => element.uniqueId == id) as Transfer?;
+      final Transfer? transfer = list.firstWhereOrNull((DataObject element) => element.uniqueId == id) as Transfer?;
       if (transfer != null) {
         return TransferSenderReceiver(transfer: transfer);
       }

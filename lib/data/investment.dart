@@ -11,11 +11,12 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 import 'package:money/widgets/stock_cumulative.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
-class Investment extends MoneyObject {
+class Investment extends DataObject {
   Investment({
     required final int id, // 1
     required final int security, // 1
@@ -80,40 +81,42 @@ class Investment extends MoneyObject {
 
   FieldMoney fieldActivityDividend = FieldMoney(
     name: 'ActivityDividend',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).activityDividend),
+    getValueForDisplay: (final DataInterface instance) =>
+        AmountModel(amount: (instance as Investment).activityDividend),
   );
 
   FieldMoney fieldActivityAmount = FieldMoney(
     name: 'ActivityAmount',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).activityAmount),
+    getValueForDisplay: (final DataInterface instance) => AmountModel(amount: (instance as Investment).activityAmount),
   );
 
   /// 4    Commission      money   0                    0
   FieldMoney fieldCommission = FieldMoney(
     name: 'Commission',
     serializeName: 'Commission',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldCommission.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldCommission.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldCommission.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as Investment).fieldCommission.value.asDouble(),
   );
 
   /// 7    Fees            money   0                    0
   FieldMoney fieldFees = FieldMoney(
     name: 'Fees',
     serializeName: 'Fees',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldFees.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldFees.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldFees.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
     name: 'Holding',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldHoldingShares.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldHoldingShares.value,
   );
 
   FieldMoney fieldHoldingSharesValue = FieldMoney(
     name: 'HoldingValue',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       return AmountModel(
         amount: (instance as Investment).fieldHoldingShares.value * instance.unitPriceAdjusted,
       );
@@ -123,7 +126,7 @@ class Investment extends MoneyObject {
   /// Id
   //// 0    Id              bigint  0                    1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).uniqueId,
   );
 
   /// 9    InvestmentType  INT     1                    0
@@ -134,16 +137,16 @@ class Investment extends MoneyObject {
     columnWidth: ColumnWidth.tiny,
     type: FieldType.text,
     footer: FooterType.count,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment)._investmentTypeAsString,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldInvestmentType.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment)._investmentTypeAsString,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldInvestmentType.value,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
-    setValue: (final MoneyObject instance, dynamic value) {
+    setValue: (final DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldInvestmentType.value = getInvestmentTypeFromValue(value as int).index;
     },
@@ -153,22 +156,23 @@ class Investment extends MoneyObject {
   FieldMoney fieldLoad = FieldMoney(
     name: 'Load',
     serializeName: 'Load',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldLoad.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldLoad.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldLoad.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
   );
 
   /// 5    MarkUpDown      money   0                    0
   FieldMoney fieldMarkUpDown = FieldMoney(
     name: 'MarkUpDown',
     serializeName: 'MarkUpDown',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as Investment).fieldMarkUpDown.value.asDouble(),
   );
 
   FieldMoney fieldNetValueOfEvent = FieldMoney(
     name: 'NetValue',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       return AmountModel(amount: (instance as Investment).transactionNetValue);
     },
   );
@@ -177,16 +181,16 @@ class Investment extends MoneyObject {
   FieldInt fieldSecurity = FieldInt(
     name: 'Security',
     serializeName: 'Security',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldSecurity.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldSecurity.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
   );
 
   FieldString fieldSecuritySymbol = FieldString(
     name: 'Symbol',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).symbol,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldSecuritySymbol.value,
-    setValue: (final MoneyObject instance, dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).symbol,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
+    setValue: (final DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldSecuritySymbol.value = value as String;
     },
@@ -197,7 +201,7 @@ class Investment extends MoneyObject {
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         'x ${formatDoubleTrimZeros((instance as Investment)._splitRatio)}',
   );
 
@@ -208,17 +212,17 @@ class Investment extends MoneyObject {
     columnWidth: ColumnWidth.nano,
     align: TextAlign.center,
     type: FieldType.text,
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as Investment).fieldTaxExempt.value == 1 ? 'No' : 'Yes',
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldTaxExempt.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value,
   );
 
   /// 6    Taxes           money   0                    0
   FieldMoney fieldTaxes = FieldMoney(
     name: 'Taxes',
     serializeName: 'Taxes',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldTaxes.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldTaxes.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldTaxes.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
   );
 
   /// 10   TradeType       INT     0                    0
@@ -226,17 +230,17 @@ class Investment extends MoneyObject {
     name: 'TradeType',
     serializeName: 'TradeType',
     type: FieldType.text,
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         InvestmentTradeType.values[(instance as Investment).fieldTradeType.value].name.toUpperCase(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldTradeType.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTradeType.value,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
-    setValue: (final MoneyObject instance, dynamic value) {
+    setValue: (final DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldTradeType.value = value as int;
     },
@@ -245,7 +249,7 @@ class Investment extends MoneyObject {
   FieldString fieldTransactionAccountName = FieldString(
     name: 'Account',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       final dynamic transaction = (instance as Investment).transactionInstance;
       if (transaction != null) {
         return transaction.accountName;
@@ -257,8 +261,8 @@ class Investment extends MoneyObject {
   FieldDate fieldTransactionDate = FieldDate(
     name: 'Date',
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).date,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByDateAndInvestmentType(
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).date,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByDateAndInvestmentType(
       a as Investment,
       b as Investment,
       ascending,
@@ -271,9 +275,10 @@ class Investment extends MoneyObject {
     name: 'Price',
     serializeName: 'UnitPrice',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldUnitPrice.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldUnitPrice.value.asDouble(),
-    setValue: (final MoneyObject instance, dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldUnitPrice.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as Investment).fieldUnitPrice.value.asDouble(),
+    setValue: (final DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldUnitPrice.value.setAmount(value);
     },
@@ -282,16 +287,17 @@ class Investment extends MoneyObject {
   FieldMoney fieldUnitPriceAdjusted = FieldMoney(
     name: 'Price A.S.',
     footer: FooterType.average,
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(amount: (instance as Investment).unitPriceAdjusted),
+    getValueForDisplay: (final DataInterface instance) =>
+        AmountModel(amount: (instance as Investment).unitPriceAdjusted),
   );
 
   /// 3    Units           money   0                    0
   FieldQuantity fieldUnits = FieldQuantity(
     name: 'Units',
     serializeName: 'Units',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).effectiveUnits,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Investment).fieldUnits.value,
-    setValue: (final MoneyObject instance, dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).effectiveUnits,
+    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldUnits.value,
+    setValue: (final DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldUnits.value = getDoubleFromDynamic(value);
     },
@@ -299,15 +305,15 @@ class Investment extends MoneyObject {
 
   FieldQuantity fieldUnitsAdjusted = FieldQuantity(
     name: 'Units A.S.',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).effectiveUnitsAdjusted,
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).effectiveUnitsAdjusted,
   );
 
   /// 12   Withholding     money   0                    0
   FieldMoney fieldWithholding = FieldMoney(
     name: 'Withholding',
     serializeName: 'Withholding',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Investment).fieldWithholding.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldWithholding.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as Investment).fieldWithholding.value.asDouble(),
   );
 

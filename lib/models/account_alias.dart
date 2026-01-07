@@ -1,6 +1,7 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /*
 
@@ -10,7 +11,7 @@ import 'package:money/widgets/widgets_domain/cd/money_object.dart';
   3    AccountId  nchar(20)      1                    0
 
  */
-class AccountAlias extends MoneyObject {
+class AccountAlias extends DataObject {
   /// Constructor
   AccountAlias() {
     // body
@@ -31,7 +32,7 @@ class AccountAlias extends MoneyObject {
   FieldInt fieldFlags = FieldInt(serializeName: 'Flags', defaultValue: 0);
 
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as AccountAlias).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as AccountAlias).uniqueId,
   );
 
   FieldString fieldPattern = FieldString(serializeName: 'Pattern');

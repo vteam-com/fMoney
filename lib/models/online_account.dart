@@ -1,6 +1,7 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /*
   0    Id                 INT             0                    1
@@ -26,7 +27,7 @@ import 'package:money/widgets/widgets_domain/cd/money_object.dart';
   20   UserKeyExpireDate  datetime        0                    0
  */
 
-class OnlineAccount extends MoneyObject {
+class OnlineAccount extends DataObject {
   OnlineAccount({
     required String name,
     required this.institution,
@@ -88,13 +89,13 @@ class OnlineAccount extends MoneyObject {
 
   // 0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as OnlineAccount).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as OnlineAccount).uniqueId,
   );
 
   // 1
   FieldString fieldName = FieldString(
     serializeName: 'Name',
-    getValueForSerialization: (final MoneyObject instance) => (instance as OnlineAccount).fieldName.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as OnlineAccount).fieldName.value,
   );
 
   // 2

@@ -6,11 +6,12 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/models/alias_types.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
-class Alias extends MoneyObject {
+class Alias extends DataObject {
   Alias({
     required final int id,
     required final String pattern,
@@ -41,14 +42,14 @@ class Alias extends MoneyObject {
     serializeName: 'Flags',
     defaultValue: 0,
     footer: FooterType.count,
-    getValueForDisplay: (final MoneyObject instance) => getAliasTypeAsString((instance as Alias).type),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Alias).fieldFlags.value,
+    getValueForDisplay: (final DataInterface instance) => getAliasTypeAsString((instance as Alias).type),
+    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldFlags.value,
   );
 
   /// ID
   /// 0    Id       INT            0                 1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Alias).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Alias).uniqueId,
   );
 
   /// Pattern
@@ -57,9 +58,9 @@ class Alias extends MoneyObject {
     type: FieldType.text,
     name: 'Pattern',
     serializeName: 'Pattern',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Alias).fieldPattern.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Alias).fieldPattern.value,
-    setValue: (final MoneyObject instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
+    getValueForDisplay: (final DataInterface instance) => (instance as Alias).fieldPattern.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPattern.value,
+    setValue: (final DataInterface instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
   );
 
   /// Payee
@@ -70,8 +71,8 @@ class Alias extends MoneyObject {
     name: 'Payee',
     serializeName: 'Payee',
     defaultValue: 0,
-    getValueForDisplay: (final MoneyObject instance) => Payee.getName((instance as Alias).payeeInstance),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Alias).fieldPayeeId.value,
+    getValueForDisplay: (final DataInterface instance) => Payee.getName((instance as Alias).payeeInstance),
+    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPayeeId.value,
   );
 
   RegExp? regex;

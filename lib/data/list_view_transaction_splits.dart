@@ -6,7 +6,7 @@ import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class ListViewTransactionSplits extends StatefulWidget {
   const ListViewTransactionSplits({
@@ -116,7 +116,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
         children: <Widget>[
           const Text('Amount is matching'),
           gapSmall(),
-          MoneyWidget.fromDouble(sumOfSplits),
+          WidgetFromData.fromDouble(sumOfSplits),
         ],
       );
     } else {
@@ -124,7 +124,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
         children: <Widget>[
           const Text('Amount is off by'),
           gapSmall(),
-          MoneyWidget.fromDouble(amountDelta),
+          WidgetFromData.fromDouble(amountDelta),
         ],
       );
     }

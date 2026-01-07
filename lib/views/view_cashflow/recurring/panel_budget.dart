@@ -23,7 +23,7 @@ import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class PanelBudget extends StatefulWidget {
   const PanelBudget({
@@ -245,15 +245,15 @@ class _PanelBudgetState extends State<PanelBudget> {
           Text(widget.title, style: context.textTheme.headlineLarge),
           const SizedBox(height: 20),
           Text('Monthly Budgeted', style: context.textTheme.bodyLarge),
-          MoneyWidget.fromDouble(
+          WidgetFromData.fromDouble(
             sumForAllCategoriesBudget,
-            MoneyWidgetSize.header,
+            DataWidgetSize.header,
           ),
           const SizedBox(height: 10),
           Text('Monthly Actual', style: context.textTheme.bodyLarge),
-          MoneyWidget.fromDouble(
+          WidgetFromData.fromDouble(
             sumForAllCategoriesActual,
-            MoneyWidgetSize.header,
+            DataWidgetSize.header,
           ),
           const SizedBox(height: 20),
           Text(
@@ -403,15 +403,15 @@ class _PanelBudgetState extends State<PanelBudget> {
                         children: <Widget>[
                           // Budgeted per month
                           Expanded(
-                            child: MoneyWidget.fromDouble(
+                            child: WidgetFromData.fromDouble(
                               item.category.fieldBudget.value.asDouble() * adjustValue,
-                              MoneyWidgetSize.title,
+                              DataWidgetSize.title,
                             ),
                           ),
                           Expanded(
-                            child: MoneyWidget.fromDouble(
+                            child: WidgetFromData.fromDouble(
                               item.sumPerMonth,
-                              MoneyWidgetSize.title,
+                              DataWidgetSize.title,
                             ),
                           ),
                         ],
@@ -428,17 +428,17 @@ class _PanelBudgetState extends State<PanelBudget> {
                         children: <Widget>[
                           // Budget per year
                           Expanded(
-                            child: MoneyWidget.fromDouble(
+                            child: WidgetFromData.fromDouble(
                               item.category.fieldBudget.value.asDouble() * 12 * adjustValue,
-                              MoneyWidgetSize.title,
+                              DataWidgetSize.title,
                             ),
                           ),
 
                           // Sum per year
                           Expanded(
-                            child: MoneyWidget.fromDouble(
+                            child: WidgetFromData.fromDouble(
                               item.sumPerMonth * 12,
-                              MoneyWidgetSize.title,
+                              DataWidgetSize.title,
                             ),
                           ),
                         ],
@@ -464,9 +464,9 @@ class _PanelBudgetState extends State<PanelBudget> {
                             ),
                           ),
                           Expanded(
-                            child: MoneyWidget.fromDouble(
+                            child: WidgetFromData.fromDouble(
                               item.sumOfAllTransactions,
-                              MoneyWidgetSize.title,
+                              DataWidgetSize.title,
                             ),
                           ),
                         ],
@@ -486,36 +486,36 @@ class _PanelBudgetState extends State<PanelBudget> {
             const Expanded(flex: 3, child: Text('')),
             verticalLine(dividersColor),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 sumForAllCategoriesBudget,
-                MoneyWidgetSize.title,
+                DataWidgetSize.title,
               ),
             ),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 sumForAllCategoriesActual,
-                MoneyWidgetSize.title,
+                DataWidgetSize.title,
               ),
             ),
             verticalLine(dividersColor),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 sumForAllCategoriesBudget * 12,
-                MoneyWidgetSize.title,
+                DataWidgetSize.title,
               ),
             ),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 sumForAllCategories / widget.numberOfYears,
-                MoneyWidgetSize.title,
+                DataWidgetSize.title,
               ),
             ),
             verticalLine(dividersColor),
             const Expanded(child: Text('')),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 sumForAllCategories,
-                MoneyWidgetSize.title,
+                DataWidgetSize.title,
               ),
             ),
           ],
@@ -544,7 +544,7 @@ class _PanelBudgetState extends State<PanelBudget> {
             Expanded(flex: 2, child: TokenText(categoryBudget.key)),
             Expanded(child: Text(categoryBudget.value.frequency.name)),
             Expanded(
-              child: MoneyWidget.fromDouble(
+              child: WidgetFromData.fromDouble(
                 categoryBudget.value.monthlyAmount.round().toDouble(),
               ),
             ),

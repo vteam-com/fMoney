@@ -6,7 +6,7 @@ import 'package:money/data/data.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/widgets/circle.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class BarChartWidget extends StatelessWidget {
   const BarChartWidget({
@@ -86,7 +86,7 @@ class BarChartWidget extends StatelessWidget {
         ),
         colorWidget,
         Expanded(
-          child: MoneyWidget(
+          child: WidgetFromData(
             amountModel: AmountModel(amount: value * (asIncome ? 1 : -1)),
           ),
         ),

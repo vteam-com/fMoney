@@ -9,7 +9,7 @@ import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class ImportFieldsForTransfer {
   ImportFieldsForTransfer({
@@ -104,7 +104,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                   ),
                 ),
                 // Display balance of the account
-                MoneyWidget.fromDouble(widget.inputFields.accountFrom.balance),
+                WidgetFromData.fromDouble(widget.inputFields.accountFrom.balance),
                 gapMedium(),
                 // To Account
                 myFormField(
@@ -123,7 +123,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                   ),
                 ),
                 // Display balance of the account
-                MoneyWidget.fromDouble(widget.inputFields.accountTo.balance),
+                WidgetFromData.fromDouble(widget.inputFields.accountTo.balance),
                 gapMedium(),
 
                 if (!validAccounts)

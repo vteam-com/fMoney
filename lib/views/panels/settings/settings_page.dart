@@ -7,7 +7,7 @@ import 'package:money/widgets/box.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/text_title.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// The `SettingsPage` class is a `GetView` that extends `GetxController`. It represents the settings page of the application.
 /// This page allows the user to manage various settings, such as rental management, stock service API key, and currencies.

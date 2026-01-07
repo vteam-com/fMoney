@@ -3,8 +3,8 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/widgets/adaptive_list/footer_accumulators.dart';
 import 'package:money/widgets/default_values.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
@@ -39,7 +39,7 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 
   final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
 
-  final List<MoneyObject> list;
+  final List<DataObject> list;
 
   final ListController listController;
 
@@ -106,7 +106,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
   void footerAccumulators() {
     _footerAccumulators.clear();
 
-    for (final MoneyObject item in widget.list) {
+    for (final DataObject item in widget.list) {
       for (final Field<dynamic> field in widget.fieldDefinitions) {
         switch (field.type) {
           case FieldType.text:

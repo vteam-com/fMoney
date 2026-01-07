@@ -3,11 +3,12 @@ import 'package:money/data/money_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/models/account.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
-class Transfer extends MoneyObject {
+class Transfer extends DataObject {
   Transfer({
     required this.id,
     required this.source,
@@ -35,7 +36,7 @@ class Transfer extends MoneyObject {
     name: 'RS',
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final MoneyObject instance) => transactionStatusToLetter(
+    getValueForDisplay: (final DataInterface instance) => transactionStatusToLetter(
       (instance as Transfer).relatedTransaction!.fieldStatus.value as TransactionStatus,
     ),
   );
@@ -44,7 +45,7 @@ class Transfer extends MoneyObject {
   FieldString fieldMemoDestination = FieldString(
     name: 'Recipient memo',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).getMemoDestination(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getMemoDestination(),
   );
 
   /// Account
@@ -52,7 +53,7 @@ class Transfer extends MoneyObject {
     type: FieldType.text,
     name: 'Recipient account',
     defaultValue: -1,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).receiverAccountName,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).receiverAccountName,
   );
 
   //
@@ -62,7 +63,7 @@ class Transfer extends MoneyObject {
   /// Date received
   FieldDate fieldReceiverTransactionDate = FieldDate(
     name: 'Date Received',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).receiverTransactionDate,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).receiverTransactionDate,
   );
 
   /// Account
@@ -70,7 +71,7 @@ class Transfer extends MoneyObject {
     type: FieldType.text,
     name: 'Sender',
     defaultValue: -1,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).senderAccountName,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).senderAccountName,
   );
 
   //
@@ -78,14 +79,14 @@ class Transfer extends MoneyObject {
   //
   FieldDate fieldSenderTransactionDate = FieldDate(
     name: 'Sent on',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).geSenderTransactionDate(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).geSenderTransactionDate(),
   );
 
   /// memo
   FieldString fieldSenderTransactionMemo = FieldString(
     name: 'Sender memo',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).getMemoSource(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getMemoSource(),
   );
 
   /// Status
@@ -93,7 +94,7 @@ class Transfer extends MoneyObject {
     name: 'SS',
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final MoneyObject instance) => transactionStatusToLetter(
+    getValueForDisplay: (final DataInterface instance) => transactionStatusToLetter(
       (instance as Transfer).source!.fieldStatus.value as TransactionStatus,
     ),
   );
@@ -102,7 +103,7 @@ class Transfer extends MoneyObject {
   FieldMoney fieldTransactionAmount = FieldMoney(
     name: 'Amount',
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).source!.fieldAmount.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).source!.fieldAmount.value,
   );
 
   ///
@@ -112,7 +113,7 @@ class Transfer extends MoneyObject {
   /// Troubleshoot
   FieldString fieldTroubleshoot = FieldString(
     name: 'Troubleshoot',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Transfer).getTroubleshoot(),
+    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getTroubleshoot(),
   );
 
   @override

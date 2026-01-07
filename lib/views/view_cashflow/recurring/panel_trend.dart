@@ -13,7 +13,7 @@ import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Widget that displays recurring cashflow trends over time as a bar chart.
 /// Shows income, expenses and profit/loss for each time period.
@@ -244,7 +244,7 @@ class _PanelTrendState extends State<PanelTrend> {
           showTitles: true,
           reservedSize: 120,
           getTitlesWidget: (double value, TitleMeta meta) {
-            return MoneyWidget.fromDouble(value);
+            return WidgetFromData.fromDouble(value);
           },
         ),
       ),

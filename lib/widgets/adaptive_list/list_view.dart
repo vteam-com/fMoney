@@ -6,8 +6,8 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/adaptive_list/list_item.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 class MyListView<T> extends StatefulWidget {
   const MyListView({
@@ -72,7 +72,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
       itemCount: widget.list.length,
       itemExtent: textScaler.scale(_rowHeight),
       itemBuilder: (final BuildContext context, final int index) {
-        final MoneyObject itemInstance = getMoneyObjectFromIndex(index);
+        final DataObject itemInstance = getMoneyObjectFromIndex(index);
         final bool isLastItemOfTheList = (index == widget.list.length - 1);
         final bool isSelected = widget.selectedItemIds.value.contains(
           itemInstance.uniqueId,
@@ -145,15 +145,15 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// return -1 if not found
   int getListIndexFromUniqueId(final int uniqueId) {
     return widget.list.indexWhere(
-      (final T element) => (element as MoneyObject).uniqueId == uniqueId,
+      (final T element) => (element as DataObject).uniqueId == uniqueId,
     );
   }
 
   /// don't make it flush to the top, we do this in order to give some clue that there's other item above,
   double getListOffsetOfItemIndex(final int index) => index * _rowHeight;
 
-  MoneyObject getMoneyObjectFromIndex(int index) {
-    return widget.list[index] as MoneyObject;
+  DataObject getMoneyObjectFromIndex(int index) {
+    return widget.list[index] as DataObject;
   }
 
   int getUniqueIdFromIndex(int index) {
@@ -193,10 +193,10 @@ class MyListViewState<T> extends State<MyListView<T>> {
       final int newIndexToSelect = firstSelectedIndex + incrementBy; // go up
       if (isIndexInRange(widget.list, newIndexToSelect)) {
         final T itemFoundAtNewIndexPosition = widget.list[newIndexToSelect];
-        itemIdToSelect = (itemFoundAtNewIndexPosition as MoneyObject).uniqueId;
+        itemIdToSelect = (itemFoundAtNewIndexPosition as DataObject).uniqueId;
       }
     } else {
-      itemIdToSelect = (widget.list.first as MoneyObject).uniqueId;
+      itemIdToSelect = (widget.list.first as DataObject).uniqueId;
     }
 
     scrollToId(itemIdToSelect);
@@ -234,13 +234,13 @@ class MyListViewState<T> extends State<MyListView<T>> {
           return KeyEventResult.handled;
 
         case LogicalKeyboardKey.home:
-          final int idToSelect = (widget.list.first as MoneyObject).uniqueId;
+          final int idToSelect = (widget.list.first as DataObject).uniqueId;
           selectedItem(idToSelect);
           widget.scrollController.jumpTo(getListOffsetOfItemIndex(0));
           return KeyEventResult.handled;
 
         case LogicalKeyboardKey.end:
-          final int idToSelect = (widget.list.last as MoneyObject).uniqueId;
+          final int idToSelect = (widget.list.last as DataObject).uniqueId;
           selectedItem(idToSelect);
           widget.scrollController.jumpTo(
             getListOffsetOfItemIndex(widget.list.length - 1),
@@ -339,7 +339,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
 
   Widget _buildListItemContent(
     final bool isSelected,
-    final MoneyObject itemInstance,
+    final DataObject itemInstance,
     final bool isLastItemOfTheList,
   ) {
     return widget.displayAsColumn

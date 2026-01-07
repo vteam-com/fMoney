@@ -6,7 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/semantic_text.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Callback function type for checking if a transaction already exists in the system.
 /// This allows the value_parser.dart to be decoupled from data.dart dependencies.
@@ -55,7 +55,7 @@ class ValueQuality {
     }
 
     final AmountModel mm = AmountModel(amount: asAmount(), iso4217: currency);
-    return MoneyWidget(amountModel: mm);
+    return WidgetFromData(amountModel: mm);
   }
 
   Widget valueAsDateWidget(final BuildContext? context) {

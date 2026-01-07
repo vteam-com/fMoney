@@ -2,7 +2,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/quantity_widget.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class LabelAndAmount extends StatelessWidget {
   const LabelAndAmount({
@@ -28,7 +28,7 @@ class LabelAndAmount extends StatelessWidget {
             style: small ? getTextTheme(context).bodySmall : getTextTheme(context).bodyMedium,
           ),
         ),
-        MoneyWidget(
+        WidgetFromData(
           amountModel: AmountModel(
             amount: amount,
             iso4217: currencyIso4217,

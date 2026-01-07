@@ -2,7 +2,7 @@ import 'package:money/data/data_interface.dart';
 import 'package:money/data/money_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 class Splits extends MoneyObjects<MoneySplit> {
   Splits() {
@@ -11,7 +11,7 @@ class Splits extends MoneyObjects<MoneySplit> {
   late DataInterface data;
 
   @override
-  void appendMoneyObject(final MoneyObject moneyObject) {
+  void appendMoneyObject(final DataObject moneyObject) {
     super.appendMoneyObject(moneyObject);
 
     // Attach the split back to the their  container Transaction

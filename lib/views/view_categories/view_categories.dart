@@ -21,8 +21,8 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
@@ -83,7 +83,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
       );
 
       /// Merge
-      final MoneyObject? moneyObject = getFirstSelectedItem();
+      final DataObject? moneyObject = getFirstSelectedItem();
       if (moneyObject != null) {
         list.add(
           buildMergeButton(() {

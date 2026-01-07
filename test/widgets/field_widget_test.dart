@@ -9,9 +9,9 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class MockThemeController extends GetxController with Mock implements ThemeController {
   @override
@@ -241,7 +241,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(MoneyWidget), findsOneWidget);
+      expect(find.byType(WidgetFromData), findsOneWidget);
     });
 
     testWidgets('renders MoneyWidget for amount field with num value', (
@@ -261,7 +261,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(MoneyWidget), findsOneWidget);
+      expect(find.byType(WidgetFromData), findsOneWidget);
     });
 
     testWidgets('renders amount widget for amountShorthand field', (

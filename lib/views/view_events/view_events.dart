@@ -18,7 +18,7 @@ import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
 class ViewEvents extends ViewForMoneyObjects {

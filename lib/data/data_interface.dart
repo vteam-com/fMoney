@@ -1,7 +1,7 @@
 import 'package:money/data/transaction.dart';
 import 'package:money/models/account.dart';
 import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 abstract class DataInterface {
   dynamic get accounts;
@@ -19,7 +19,7 @@ abstract class DataInterface {
 
   void notifyMutationChanged({
     required MutationType mutation,
-    required MoneyObject moneyObject,
+    required DataObject moneyObject,
     bool recalculateBalances = true,
   });
 

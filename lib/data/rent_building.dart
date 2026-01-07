@@ -11,10 +11,11 @@ import 'package:money/models/account.dart';
 import 'package:money/models/rental_unit.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/rental_pnl.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /*
     SQLite table definition
@@ -38,7 +39,7 @@ import 'package:money/widgets/widgets_domain/money_widget.dart';
     16|CategoryForMaintenance|INT|0||0
     17|CategoryForManagement|INT|0||0
    */
-class RentBuilding extends MoneyObject {
+class RentBuilding extends DataObject {
   RentBuilding();
 
   factory RentBuilding.fromJson(final MyJson row) {
@@ -127,9 +128,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForIncome = FieldInt(
     name: 'CategoryForIncome',
     serializeName: 'CategoryForIncome',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForIncome.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForIncome.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForIncome.value,
   );
 
   List<int> categoryForIncomeTreeIds = <int>[];
@@ -139,9 +140,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForInterest = FieldInt(
     name: 'CategoryForInterest',
     serializeName: 'CategoryForInterest',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForInterest.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForInterest.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForInterest.value,
   );
 
   List<int> categoryForInterestTreeIds = <int>[];
@@ -151,9 +152,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForMaintenance = FieldInt(
     name: 'CategoryForMaintenance',
     serializeName: 'CategoryForMaintenance',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForMaintenance.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForMaintenance.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForMaintenance.value,
   );
 
   List<int> categoryForMaintenanceTreeIds = <int>[];
@@ -163,9 +164,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForManagement = FieldInt(
     name: 'CategoryForManagement',
     serializeName: 'CategoryForManagement',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForManagement.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForManagement.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForManagement.value,
   );
 
   List<int> categoryForManagementTreeIds = <int>[];
@@ -175,9 +176,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForRepairs = FieldInt(
     name: 'CategoryForRepairs',
     serializeName: 'CategoryForRepairs',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForRepairs.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForRepairs.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForRepairs.value,
   );
 
   List<int> categoryForRepairsTreeIds = <int>[];
@@ -187,9 +188,9 @@ class RentBuilding extends MoneyObject {
   FieldInt categoryForTaxes = FieldInt(
     name: 'CategoryForTaxes',
     serializeName: 'CategoryForTaxes',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForTaxes.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).categoryForTaxes.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).categoryForTaxes.value,
   );
 
   List<int> categoryForTaxesTreeIds = <int>[];
@@ -200,8 +201,8 @@ class RentBuilding extends MoneyObject {
   FieldString fieldAddress = FieldString(
     name: 'Address',
     serializeName: 'Address',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldAddress.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).fieldAddress.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldAddress.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).fieldAddress.value,
   );
 
   /// Currency
@@ -210,8 +211,8 @@ class RentBuilding extends MoneyObject {
     type: FieldType.widget,
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
-    getValueForReading: (final MoneyObject instance) => (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
-    getValueForDisplay: (final MoneyObject instance) => buildCurrencyWidget(
+    getValueForReading: (final DataInterface instance) => (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
+    getValueForDisplay: (final DataInterface instance) => buildCurrencyWidget(
       (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
     ),
   );
@@ -221,24 +222,24 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldEstimatedValue = FieldMoney(
     name: 'EstimatedValue',
     serializeName: 'EstimatedValue',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldEstimatedValue.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldEstimatedValue.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as RentBuilding).fieldEstimatedValue.value.asDouble(),
-    setValue: (final MoneyObject instance, final dynamic value) =>
+    setValue: (final DataInterface instance, final dynamic value) =>
         (instance as RentBuilding).fieldEstimatedValue.setAmount(value),
   );
 
   /// Expenses
   FieldMoney fieldExpense = FieldMoney(
     name: 'Expenses',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         AmountModel(amount: (instance as RentBuilding).lifeTimePnL.expenses),
   );
 
   /// ID
   // 0    Id                      INT            0                    1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).uniqueId,
   );
 
   /// LandValue
@@ -246,17 +247,17 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldLandValue = FieldMoney(
     name: 'LandValue',
     serializeName: 'LandValue',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldLandValue.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldLandValue.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as RentBuilding).fieldLandValue.value.asDouble(),
-    setValue: (final MoneyObject instance, final dynamic value) =>
+    setValue: (final DataInterface instance, final dynamic value) =>
         (instance as RentBuilding).fieldLandValue.setAmount(value),
   );
 
   /// Expenses-Interest
   FieldMoney fieldLifeTimeExpenseInterest = FieldMoney(
     name: '  Expense-Interest',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseInterest,
     ),
   );
@@ -264,7 +265,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Maintenance
   FieldMoney fieldLifeTimeExpenseMaintenance = FieldMoney(
     name: '  Expense-Maintenance',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseMaintenance,
     ),
   );
@@ -272,7 +273,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Management
   FieldMoney fieldLifeTimeExpenseManagement = FieldMoney(
     name: '  Expense-Management',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseManagement,
     ),
   );
@@ -280,7 +281,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Repair
   FieldMoney fieldLifeTimeExpenseRepair = FieldMoney(
     name: '  Expense-Repair',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseRepairs,
     ),
   );
@@ -288,7 +289,7 @@ class RentBuilding extends MoneyObject {
   /// Expenses-Taxes
   FieldMoney fieldLifeTimeExpenseTaxes = FieldMoney(
     name: '  Expense-Taxes',
-    getValueForDisplay: (final MoneyObject instance) => AmountModel(
+    getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as RentBuilding).lifeTimePnL.expenseTaxes,
     ),
   );
@@ -298,8 +299,8 @@ class RentBuilding extends MoneyObject {
   FieldString fieldName = FieldString(
     name: 'Name',
     serializeName: 'Name',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldName.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).fieldName.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldName.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).fieldName.value,
   );
 
   /// OwnershipName1
@@ -307,8 +308,8 @@ class RentBuilding extends MoneyObject {
   FieldString fieldOwnershipName1 = FieldString(
     name: 'OwnershipName1',
     serializeName: 'OwnershipName1',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipName1.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipName1.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipName1.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipName1.value,
   );
 
   /// OwnershipName2
@@ -316,8 +317,8 @@ class RentBuilding extends MoneyObject {
   FieldString fieldOwnershipName2 = FieldString(
     name: 'OwnershipName2',
     serializeName: 'OwnershipName2',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipName2.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipName2.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipName2.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipName2.value,
   );
 
   /// OwnershipPercentage1
@@ -325,8 +326,8 @@ class RentBuilding extends MoneyObject {
   FieldDouble fieldOwnershipPercentage1 = FieldDouble(
     name: 'OwnershipPercentage1',
     serializeName: 'OwnershipPercentage1',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipPercentage1.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage1.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as RentBuilding).fieldOwnershipPercentage1.value,
   );
 
@@ -335,15 +336,15 @@ class RentBuilding extends MoneyObject {
   FieldDouble fieldOwnershipPercentage2 = FieldDouble(
     name: 'OwnershipPercentage2',
     serializeName: 'OwnershipPercentage2',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldOwnershipPercentage2.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage2.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as RentBuilding).fieldOwnershipPercentage2.value,
   );
 
   /// Profit
   FieldMoney fieldProfit = FieldMoney(
     name: 'Profit',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         AmountModel(amount: (instance as RentBuilding).lifeTimePnL.profit),
   );
 
@@ -352,10 +353,10 @@ class RentBuilding extends MoneyObject {
   FieldDate fieldPurchasedDate = FieldDate(
     name: 'Purchased Date',
     serializeName: 'PurchasedDate',
-    getValueForDisplay: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as RentBuilding).fieldPurchasedDate.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as RentBuilding).fieldPurchasedDate.value,
     ),
   );
@@ -365,26 +366,26 @@ class RentBuilding extends MoneyObject {
   FieldMoney fieldPurchasedPrice = FieldMoney(
     name: 'Purchased Price',
     serializeName: 'PurchasedPrice',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldPurchasedPrice.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldPurchasedPrice.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as RentBuilding).fieldPurchasedPrice.value.asDouble(),
   );
 
   /// Revenue
   FieldMoney fieldRevenue = FieldMoney(
     name: 'Revenue',
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         AmountModel(amount: (instance as RentBuilding).lifeTimePnL.income),
   );
 
   FieldInt fieldTransactionsForExpenses = FieldInt(
     name: 'E#',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldTransactionsForExpenses.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldTransactionsForExpenses.value,
   );
 
   FieldInt fieldTransactionsForIncomes = FieldInt(
     name: 'I#',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).fieldTransactionsForIncomes.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).fieldTransactionsForIncomes.value,
   );
 
   late RentalPnL lifeTimePnL;
@@ -395,8 +396,8 @@ class RentBuilding extends MoneyObject {
   FieldString note = FieldString(
     name: 'Note',
     serializeName: 'Note',
-    getValueForDisplay: (final MoneyObject instance) => (instance as RentBuilding).note.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentBuilding).note.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as RentBuilding).note.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentBuilding).note.value,
   );
 
   Map<int, RentalPnL> pnlOverYears = <int, RentalPnL>{};
@@ -409,9 +410,9 @@ class RentBuilding extends MoneyObject {
     return MyListItemAsCard(
       leftTopAsString: fieldName.value,
       leftBottomAsString: fieldAddress.value,
-      rightTopAsWidget: MoneyWidget(
+      rightTopAsWidget: WidgetFromData(
         amountModel: AmountModel(amount: lifeTimePnL.profit),
-        size: MoneyWidgetSize.title,
+        size: DataWidgetSize.title,
       ),
     );
   }

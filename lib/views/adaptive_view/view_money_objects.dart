@@ -30,8 +30,9 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/text_title.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
@@ -47,7 +48,7 @@ class ViewForMoneyObjects extends StatefulWidget {
 }
 
 class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
-  Fields<MoneyObject> _fieldToDisplay = Fields<MoneyObject>();
+  Fields<DataObject> _fieldToDisplay = Fields<DataObject>();
 
   FieldFilters _filterByFieldsValue = FieldFilters();
 
@@ -71,7 +72,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   final ListControllerMain lc = ListControllerMain();
 
-  List<MoneyObject> list = <MoneyObject>[];
+  List<DataObject> list = <DataObject>[];
 
   List<String> listOfUniqueString = <String>[];
 
@@ -225,7 +226,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         if (_selectedItemsByUniqueId.value.isNotEmpty) {
           final int firstSelectedId = _selectedItemsByUniqueId.value.first;
           final int index = list.indexWhere(
-            (MoneyObject item) => item.uniqueId == firstSelectedId,
+            (DataObject item) => item.uniqueId == firstSelectedId,
           );
           if (index != -1) {
             lc.scrollToIndex(index, list.length);
@@ -295,7 +296,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   void footerAccumulators() {
     _footerAccumulators.clear();
 
-    for (final MoneyObject item in list) {
+    for (final DataObject item in list) {
       for (final Field<dynamic> field in _fieldToDisplay.definitions) {
         switch (field.type) {
           case FieldType.text:
@@ -487,50 +488,50 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Derived class will override to customize the fields to display in the Adaptive Table
-  Fields<MoneyObject> getFieldsForTable() {
-    return Fields<MoneyObject>();
+  Fields<DataObject> getFieldsForTable() {
+    return Fields<DataObject>();
   }
 
-  MoneyObject? getFirstSelectedItem() {
+  DataObject? getFirstSelectedItem() {
     if (_selectedItemsByUniqueId.value.isNotEmpty) {
       final int? firstId = _selectedItemsByUniqueId.value.firstOrNull;
       if (firstId != null) {
         return list.firstWhereOrNull(
-          (MoneyObject moneyObject) => moneyObject.uniqueId == firstId,
+          (DataObject moneyObject) => moneyObject.uniqueId == firstId,
         );
       }
     }
     return null;
   }
 
-  MoneyObject? getFirstSelectedItemFromSelectedList(
+  DataObject? getFirstSelectedItemFromSelectedList(
     final List<int> selectedList,
   ) {
-    return getMoneyObjectFromFirstSelectedId<MoneyObject>(selectedList, list);
+    return getMoneyObjectFromFirstSelectedId<DataObject>(selectedList, list);
   }
 
-  List<MoneyObject> getList({
+  List<DataObject> getList({
     bool includeDeleted = false,
     bool applyFilter = true,
   }) {
-    return <MoneyObject>[];
+    return <DataObject>[];
   }
 
   String getPreferenceKey(final String suffix) {
     return viewId.getViewPreferenceId(suffix);
   }
 
-  List<MoneyObject> getSelectedItemsFromSelectedList(
+  List<DataObject> getSelectedItemsFromSelectedList(
     final List<int> selectedList,
   ) {
     if (selectedList.isEmpty) {
-      return <MoneyObject>[];
+      return <DataObject>[];
     }
 
     final Set<int> selectedIds = selectedList.toSet();
     return list
         .where(
-          (MoneyObject moneyObject) => selectedIds.contains(moneyObject.uniqueId),
+          (DataObject moneyObject) => selectedIds.contains(moneyObject.uniqueId),
         )
         .toList();
   }
@@ -538,7 +539,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   Widget getSidePanelHeader(
     final BuildContext context,
     final num index,
-    final MoneyObject item,
+    final DataObject item,
   ) {
     return Center(child: Text('${getClassNameSingular()} #${index + 1}'));
   }
@@ -570,8 +571,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return SidePanelSupport(); // by default the base class does not show any content in the side panel
   }
 
-  List<MoneyObject> getSidePanelTransactions() {
-    return <MoneyObject>[];
+  List<DataObject> getSidePanelTransactions() {
+    return <DataObject>[];
   }
 
   Widget getSidePanelViewDetails({
@@ -584,7 +585,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       );
     }
 
-    final MoneyObject? moneyObject = findObjectById(
+    final DataObject? moneyObject = findObjectById(
       selectedIds.firstOrNull,
       list,
     );
@@ -613,8 +614,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final Field<dynamic> columnToCustomerFilterOn,
   ) {
     final Set<String> set = <String>{}; // This is a Set()
-    final List<MoneyObject> list = getList(applyFilter: false);
-    for (final MoneyObject moneyObject in list) {
+    final List<DataObject> list = getList(applyFilter: false);
+    for (final DataObject moneyObject in list) {
       final String fieldValue = columnToCustomerFilterOn.getValueForDisplay(moneyObject).toString();
       set.add(fieldValue);
     }
@@ -626,8 +627,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final Field<dynamic> columnToCustomerFilterOn,
   ) {
     final Set<String> set = <String>{}; // This is a Set()
-    final List<MoneyObject> list = getList(applyFilter: false);
-    for (final MoneyObject moneyObject in list) {
+    final List<DataObject> list = getList(applyFilter: false);
+    for (final DataObject moneyObject in list) {
       final String fieldValue = dateToString(
         columnToCustomerFilterOn.getValueForDisplay(moneyObject) as DateTime?,
       );
@@ -643,8 +644,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final Field<dynamic> columnToCustomerFilterOn,
   ) {
     final Set<String> set = <String>{}; // This is a Set()
-    final List<MoneyObject> list = getList(applyFilter: false);
-    for (final MoneyObject moneyObject in list) {
+    final List<DataObject> list = getList(applyFilter: false);
+    for (final DataObject moneyObject in list) {
       final String fieldValue = formatDoubleTrimZeros(
         columnToCustomerFilterOn.getValueForDisplay(moneyObject) as double,
       );
@@ -660,8 +661,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final Field<dynamic> columnToCustomerFilterOn,
   ) {
     final Set<String> set = <String>{}; // This is a Set()
-    final List<MoneyObject> list = getList(applyFilter: false);
-    for (final MoneyObject moneyObject in list) {
+    final List<DataObject> list = getList(applyFilter: false);
+    for (final DataObject moneyObject in list) {
       final String fieldValue = columnToCustomerFilterOn.getValueForReading?.call(moneyObject) as String? ?? '';
       set.add(fieldValue);
     }
@@ -670,7 +671,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return uniqueValues;
   }
 
-  bool isMatchingFilters(final MoneyObject instance) {
+  bool isMatchingFilters(final DataInterface instance) {
     if (areFiltersOn()) {
       // apply filtering
       return _fieldToDisplay.applyFilters(
@@ -690,7 +691,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   void onCopyListFromSidePanel() {
-    final List<MoneyObject> listToCopy = getSidePanelTransactions();
+    final List<DataObject> listToCopy = getSidePanelTransactions();
     copyToClipboardAndInformUser(
       context,
       MoneyObjects.getCsvFromList(listToCopy, forSerialization: false),
@@ -989,7 +990,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   void _onUserRequestToEdit(
     final BuildContext context,
-    final List<MoneyObject> moneyObjects,
+    final List<DataObject> moneyObjects,
   ) {
     myShowDialogAndActionsForMoneyObjects(
       title: getSingularPluralText(
@@ -1004,7 +1005,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   void _onUserRequestedToDelete(
     final BuildContext context,
-    final List<MoneyObject> moneyObjects,
+    final List<DataObject> moneyObjects,
   ) {
     if (moneyObjects.isEmpty) {
       messageBox(context, 'No items to delete');
@@ -1067,7 +1068,7 @@ T? getMoneyObjectFromFirstSelectedId<T>(
   if (selectedIds.isNotEmpty) {
     final int id = selectedIds.first;
     return listOfItems.firstWhereOrNull(
-          (final dynamic element) => (element as MoneyObject).uniqueId == id,
+          (final dynamic element) => (element as DataObject).uniqueId == id,
         )
         as T?;
   }

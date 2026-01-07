@@ -12,13 +12,14 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_account_type.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Accounts like Banks
-class Account extends MoneyObject {
+class Account extends DataObject {
   /// Constructor
   Account();
 
@@ -61,9 +62,9 @@ class Account extends MoneyObject {
   FieldString fieldAccountId = FieldString(
     name: 'Account ID',
     serializeName: 'AccountId',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldAccountId.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldAccountId.value,
-    setValue: (final MoneyObject instance, dynamic value) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldAccountId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldAccountId.value,
+    setValue: (final DataInterface instance, dynamic value) =>
         (instance as Account).fieldAccountId.value = value as String,
   );
 
@@ -71,7 +72,7 @@ class Account extends MoneyObject {
   FieldMoney fieldBalanceNative = FieldMoney(
     name: 'BalanceN',
     footer: FooterType.range,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       final Account accountInstance = instance as Account;
       return AmountModel(
         amount: accountInstance.balance,
@@ -85,7 +86,7 @@ class Account extends MoneyObject {
     name: 'Balance(USD)',
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       final Account accountInstance = instance as Account;
       return AmountModel(
         amount: accountInstance.getCurrencyRatio() * accountInstance.balance,
@@ -101,11 +102,11 @@ class Account extends MoneyObject {
     serializeName: 'CategoryIdForInterest',
     type: FieldType.text,
     defaultValue: 0,
-    useAsDetailPanels: (final MoneyObject instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final MoneyObject instance) => MoneyObject.getCategoryName(
+    useAsDetailPanels: (final DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
+    getValueForDisplay: (final DataInterface instance) => DataObject.getCategoryName(
       (instance as Account).fieldCategoryIdForInterest.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldCategoryIdForInterest.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldCategoryIdForInterest.value,
   );
 
   /// categoryIdForPrincipal
@@ -115,11 +116,11 @@ class Account extends MoneyObject {
     serializeName: 'CategoryIdForPrincipal',
     type: FieldType.text,
     defaultValue: 0,
-    useAsDetailPanels: (final MoneyObject instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final MoneyObject instance) => MoneyObject.getCategoryName(
+    useAsDetailPanels: (final DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
+    getValueForDisplay: (final DataInterface instance) => DataObject.getCategoryName(
       (instance as Account).fieldCategoryIdForPrincipal.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldCategoryIdForPrincipal.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldCategoryIdForPrincipal.value,
   );
 
   // ------------------------------------------------
@@ -130,7 +131,7 @@ class Account extends MoneyObject {
     name: 'Transactions',
     columnWidth: ColumnWidth.tiny,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldCount.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldCount.value,
   );
 
   /// Currency
@@ -141,13 +142,13 @@ class Account extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
-    getValueForDisplay: (final MoneyObject instance) => buildCurrencyWidget(
+    getValueForDisplay: (final DataInterface instance) => buildCurrencyWidget(
       (instance as Account).getAccountCurrencyAsText(),
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).getAccountCurrencyAsText(),
-    setValue: (final MoneyObject instance, dynamic value) =>
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
+    setValue: (final DataInterface instance, dynamic value) =>
         (instance as Account).fieldCurrency.value = value as String,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Account).getAccountCurrencyAsText(),
       (b as Account).getAccountCurrencyAsText(),
       ascending,
@@ -159,10 +160,10 @@ class Account extends MoneyObject {
   FieldString fieldDescription = FieldString(
     name: 'Description',
     serializeName: 'Description',
-    setValue: (final MoneyObject instance, dynamic value) =>
+    setValue: (final DataInterface instance, dynamic value) =>
         (instance as Account).fieldDescription.value = value as String,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldDescription.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldDescription.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldDescription.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldDescription.value,
   );
 
   /// Flags
@@ -170,14 +171,14 @@ class Account extends MoneyObject {
   FieldInt fieldFlags = FieldInt(
     serializeName: 'Flags',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldFlags.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldFlags.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldFlags.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldFlags.value,
   );
 
   // Id
   // 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).uniqueId,
   );
 
   Field<bool> fieldIsAccountOpen = Field<bool>(
@@ -185,10 +186,10 @@ class Account extends MoneyObject {
     defaultValue: false,
     useAsDetailPanels: defaultCallbackValueTrue,
     type: FieldType.toggle,
-    getValueForDisplay: (final MoneyObject instance) => !(instance as Account).isClosed(),
-    setValue: (final MoneyObject instance, dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => !(instance as Account).isClosed(),
+    setValue: (final DataInterface instance, dynamic value) {
       (instance as Account).isOpen = value as bool;
-      MoneyObject.onMutationChanged?.call(
+      DataObject.onMutationChanged?.call(
         mutation: MutationType.changed,
         moneyObject: instance,
       );
@@ -199,10 +200,10 @@ class Account extends MoneyObject {
   /// 14|LastBalance|datetime|0||0
   FieldDate fieldLastBalance = FieldDate(
     serializeName: 'LastBalance',
-    getValueForDisplay: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
   );
@@ -211,8 +212,8 @@ class Account extends MoneyObject {
   /// 11|LastSync|datetime|0||0
   FieldDate fieldLastSync = FieldDate(
     serializeName: 'LastSync',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldLastSync.value,
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldLastSync.value,
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastSync.value,
     ),
   );
@@ -224,10 +225,10 @@ class Account extends MoneyObject {
     serializeName: 'Name',
     columnWidth: ColumnWidth.large,
     type: FieldType.widget,
-    getValueForDisplay: (final MoneyObject instance) => TokenText((instance as Account).fieldName.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldName.value,
-    setValue: (final MoneyObject instance, dynamic value) => (instance as Account).fieldName.value = value as String,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Account).fieldName.value),
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldName.value,
+    setValue: (final DataInterface instance, dynamic value) => (instance as Account).fieldName.value = value as String,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Account).fieldName.value,
       (b as Account).fieldName.value,
       ascending,
@@ -239,9 +240,9 @@ class Account extends MoneyObject {
   FieldString fieldOfxAccountId = FieldString(
     name: 'OfxAccountId',
     serializeName: 'OfxAccountId',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldOfxAccountId.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldOfxAccountId.value,
-    setValue: (final MoneyObject instance, dynamic value) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
+    setValue: (final DataInterface instance, dynamic value) =>
         (instance as Account).fieldOfxAccountId.value = value as String,
   );
 
@@ -250,7 +251,7 @@ class Account extends MoneyObject {
   FieldInt fieldOnlineAccount = FieldInt(
     name: 'OnlineAccount',
     serializeName: 'OnlineAccount',
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldOnlineAccount.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldOnlineAccount.value,
   );
 
   // 6 Open Balance
@@ -258,8 +259,8 @@ class Account extends MoneyObject {
   FieldMoney fieldOpeningBalance = FieldMoney(
     name: 'Opening Balance',
     serializeName: 'OpeningBalance',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldOpeningBalance.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldOpeningBalance.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as Account).fieldOpeningBalance.value.asDouble(),
   );
 
@@ -268,12 +269,12 @@ class Account extends MoneyObject {
   FieldInt fieldReconcileWarning = FieldInt(
     serializeName: 'ReconcileWarning',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldReconcileWarning.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldReconcileWarning.value,
   );
 
   FieldMoney fieldStockHoldingEstimation = FieldMoney(
     name: 'StockValue',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldStockHoldingEstimation.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldStockHoldingEstimation.value,
   );
 
   /// SyncGuid
@@ -281,7 +282,7 @@ class Account extends MoneyObject {
   FieldString fieldSyncGuid = FieldString(
     serializeName: 'SyncGuid',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForSerialization: (final DataInterface instance) =>
         // this field can not be blank, it needs to be a valid GUID or Null
         (instance as Account).fieldSyncGuid.value.isEmpty ? null : instance.fieldSyncGuid.value.isEmpty,
   );
@@ -295,11 +296,11 @@ class Account extends MoneyObject {
     name: 'Type',
     serializeName: 'Type',
     defaultValue: AccountType.checking,
-    getValueForDisplay: (final MoneyObject instance) => getTypeAsText((instance as Account).fieldType.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldType.value.index,
+    getValueForDisplay: (final DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldType.value.index,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return pickerAccountType(
@@ -310,7 +311,7 @@ class Account extends MoneyObject {
             },
           );
         },
-    setValue: (final MoneyObject instance, dynamic value) {
+    setValue: (final DataInterface instance, dynamic value) {
       (instance as Account).fieldType.value = AccountType.values[value as int];
     },
   );
@@ -318,7 +319,7 @@ class Account extends MoneyObject {
   FieldDate fieldUpdatedOn = FieldDate(
     name: 'Updated',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       if ((instance as Account).fieldLastSync.value == null) {
         return instance.fieldUpdatedOn.value;
       }
@@ -334,8 +335,8 @@ class Account extends MoneyObject {
   FieldString fieldWebSite = FieldString(
     name: 'WebSite',
     serializeName: 'WebSite',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Account).fieldWebSite.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Account).fieldWebSite.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldWebSite.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldWebSite.value,
   );
 
   Map</*year */ int, /*balance*/ double> maxBalancePerYears = <int, double>{};
@@ -454,7 +455,7 @@ class Account extends MoneyObject {
   }
 
   double getCurrencyRatio() {
-    return MoneyObject.getCurrencyRatio(fieldCurrency.value);
+    return DataObject.getCurrencyRatio(fieldCurrency.value);
   }
 
   static String getName(final Account? instance) {

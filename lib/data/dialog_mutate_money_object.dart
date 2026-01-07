@@ -7,23 +7,23 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 void myShowDialogAndActionsForMoneyObject({
   required final String title,
-  required final MoneyObject moneyObject,
+  required final DataObject moneyObject,
   void Function()? onApplyChange,
 }) {
   myShowDialogAndActionsForMoneyObjects(
     title: title,
-    moneyObjects: <MoneyObject>[moneyObject],
+    moneyObjects: <DataObject>[moneyObject],
     onApplyChange: onApplyChange,
   );
 }
 
 void myShowDialogAndActionsForMoneyObjects({
   required final String title,
-  required final List<MoneyObject> moneyObjects,
+  required final List<DataObject> moneyObjects,
   void Function()? onApplyChange,
 }) {
   final BuildContext context = Get.context!;
@@ -34,11 +34,11 @@ void myShowDialogAndActionsForMoneyObjects({
   }
 
   // Before we edit lets stash the current values of each objects
-  for (final MoneyObject m in moneyObjects) {
+  for (final DataObject m in moneyObjects) {
     m.stashValueBeforeEditing();
   }
 
-  final MoneyObject rollup = moneyObjects[0].rollup(moneyObjects);
+  final DataObject rollup = moneyObjects[0].rollup(moneyObjects);
   final MyJson beforeEditing = rollup.getPersistableJSon();
 
   return adaptiveScreenSizeDialog(
@@ -47,7 +47,7 @@ void myShowDialogAndActionsForMoneyObjects({
     captionForClose: null, // this will hide the close button
     child: DialogMutateMoneyObject(
       moneyObject: rollup,
-      onApplyChange: (MoneyObject objectChanged) {
+      onApplyChange: (DataObject objectChanged) {
         final MyJson afterEditing = rollup.getPersistableJSon();
         final MyJson diff = myJsonDiff(
           before: beforeEditing,
@@ -55,7 +55,7 @@ void myShowDialogAndActionsForMoneyObjects({
         );
 
         if (diff.keys.isNotEmpty) {
-          for (final MoneyObject m in moneyObjects) {
+          for (final DataObject m in moneyObjects) {
             diff.forEach((String key, dynamic value) {
               // Very Special Edge case for Transaction that are editing the Payee to Transfer
               if (m is Transaction) {
@@ -86,15 +86,15 @@ class DialogMutateMoneyObject extends StatefulWidget {
     required this.onApplyChange,
   });
 
-  final MoneyObject moneyObject;
-  final void Function(MoneyObject) onApplyChange;
+  final DataObject moneyObject;
+  final void Function(DataObject) onApplyChange;
 
   @override
   State<DialogMutateMoneyObject> createState() => _DialogMutateMoneyObjectState();
 }
 
 class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
-  late MoneyObject _moneyObject;
+  late DataObject _moneyObject;
 
   bool dataWasModified = false;
 
@@ -116,7 +116,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
               children: _moneyObject.buildListOfNamesValuesWidgets(
                 onEdit: (bool wasModified) {
                   setState(() {
-                    dataWasModified = wasModified || MoneyObject.isDataModified(_moneyObject);
+                    dataWasModified = wasModified || DataObject.isDataModified(_moneyObject);
                   });
                 },
               ),
@@ -137,7 +137,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
 
   List<Widget> getActionButtons({
     required BuildContext context,
-    required MoneyObject moneyObject,
+    required DataObject moneyObject,
     required bool editMode,
     required bool dataWasModified,
   }) {

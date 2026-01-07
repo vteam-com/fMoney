@@ -5,8 +5,9 @@ import 'package:money/data/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_category.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
 /*
@@ -23,7 +24,7 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
   8|BudgetBalanceDate|datetime|0||0
  */
 
-class MoneySplit extends MoneyObject {
+class MoneySplit extends DataObject {
   /// Constructor
   MoneySplit({
     // 1
@@ -83,9 +84,9 @@ class MoneySplit extends MoneyObject {
   FieldMoney fieldAmount = FieldMoney(
     name: 'Amount',
     serializeName: 'Amount',
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldAmount.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldAmount.value.asDouble(),
-    setValue: (MoneyObject instance, dynamic newValue) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldAmount.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldAmount.value.asDouble(),
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as MoneySplit).fieldAmount.value.setAmount(newValue),
   );
 
@@ -94,8 +95,8 @@ class MoneySplit extends MoneyObject {
     name: 'Budgeted Date',
     serializeName: 'BudgetBalanceDate',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldBudgetBalanceDate.value,
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldBudgetBalanceDate.value,
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as MoneySplit).fieldBudgetBalanceDate.value,
     ),
   );
@@ -106,14 +107,14 @@ class MoneySplit extends MoneyObject {
     serializeName: 'Category',
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).categoryName,
-    getValueForReading: (final MoneyObject instance) => (instance as MoneySplit).categoryName,
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldCategoryId.value,
-    setValue: (final MoneyObject instance, dynamic newValue) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).categoryName,
+    getValueForReading: (final DataInterface instance) => (instance as MoneySplit).categoryName,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldCategoryId.value,
+    setValue: (final DataInterface instance, dynamic newValue) =>
         (instance as MoneySplit).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           (instance as MoneySplit);
@@ -145,21 +146,22 @@ class MoneySplit extends MoneyObject {
     serializeName: 'Flags',
     columnWidth: ColumnWidth.hidden,
     align: TextAlign.center,
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldFlags.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldFlags.value,
   );
 
   // 1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).uniqueId,
   );
 
   // 6
   FieldString fieldMemo = FieldString(
     name: 'Memo',
     serializeName: 'Memo',
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldMemo.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldMemo.value,
-    setValue: (MoneyObject instance, dynamic newValue) => (instance as MoneySplit).fieldMemo.value = newValue as String,
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldMemo.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldMemo.value,
+    setValue: (DataInterface instance, dynamic newValue) =>
+        (instance as MoneySplit).fieldMemo.value = newValue as String,
   );
 
   // 3
@@ -168,10 +170,10 @@ class MoneySplit extends MoneyObject {
     serializeName: 'Payee',
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final MoneyObject instance) => Data().payees.getNameFromId(
+    getValueForDisplay: (final DataInterface instance) => Data().payees.getNameFromId(
       (instance as MoneySplit).fieldPayeeId.value,
     ),
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldPayeeId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldPayeeId.value,
   );
 
   // 0
@@ -179,8 +181,8 @@ class MoneySplit extends MoneyObject {
     name: 'Transaction',
     serializeName: 'Transaction',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldTransactionId.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldTransactionId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldTransactionId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldTransactionId.value,
   );
 
   // 5
@@ -188,8 +190,8 @@ class MoneySplit extends MoneyObject {
     name: 'Transfer',
     serializeName: 'Transfer',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final MoneyObject instance) => (instance as MoneySplit).fieldTransferId.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as MoneySplit).fieldTransferId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldTransferId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldTransferId.value,
   );
 
   // Fields for this instance

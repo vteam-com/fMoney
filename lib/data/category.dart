@@ -15,12 +15,13 @@ import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_category_type.dart';
 import 'package:money/widgets/rectangle.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
-class Category extends MoneyObject {
+class Category extends DataObject {
   Category({
     required final int id,
     required final String name,
@@ -65,9 +66,9 @@ class Category extends MoneyObject {
   FieldMoney fieldBudget = FieldMoney(
     name: 'Budget',
     serializeName: 'Budget',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldBudget.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldBudget.value.asDouble(),
-    setValue: (final MoneyObject instance, final dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldBudget.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
+    setValue: (final DataInterface instance, final dynamic value) {
       (instance as Category).fieldBudget.value.setAmount(value);
     },
   );
@@ -76,8 +77,8 @@ class Category extends MoneyObject {
   /// 7|Balance|money|0||0
   FieldMoney fieldBudgetBalance = FieldMoney(
     name: 'BudgetBalance',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldBudgetBalance.value,
-    getValueForSerialization: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldBudgetBalance.value,
+    getValueForSerialization: (final DataInterface instance) =>
         (instance as Category).fieldBudgetBalance.value.asDouble(),
   );
 
@@ -89,14 +90,14 @@ class Category extends MoneyObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     defaultValue: '',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).getColorWidget(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldColor.value,
-    setValue: (final MoneyObject instance, final dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).getColorWidget(),
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldColor.value,
+    setValue: (final DataInterface instance, final dynamic value) {
       (instance as Category).fieldColor.value = value as String;
     },
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return MutateFieldColor(
@@ -112,7 +113,7 @@ class Category extends MoneyObject {
             },
           );
         },
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Category).getColorOrAncestorsColor().computeLuminance(),
       (b as Category).getColorOrAncestorsColor().computeLuminance(),
       ascending,
@@ -125,9 +126,9 @@ class Category extends MoneyObject {
     columnWidth: ColumnWidth.large,
     name: 'Description',
     serializeName: 'Description',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldDescription.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldDescription.value,
-    setValue: (final MoneyObject instance, dynamic value) =>
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldDescription.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldDescription.value,
+    setValue: (final DataInterface instance, dynamic value) =>
         (instance as Category).fieldDescription.value = value as String,
   );
 
@@ -135,13 +136,13 @@ class Category extends MoneyObject {
   FieldInt fieldFrequency = FieldInt(
     serializeName: 'Frequency',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldFrequency.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldFrequency.value,
   );
 
   /// Id
   /// 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).uniqueId,
   );
 
   //-----------------------------------
@@ -154,7 +155,7 @@ class Category extends MoneyObject {
     columnWidth: ColumnWidth.nano,
     type: FieldType.text,
     footer: FooterType.count,
-    getValueForDisplay: (final MoneyObject instance) =>
+    getValueForDisplay: (final DataInterface instance) =>
         (countOccurrences((instance as Category).fieldName.value, ':') + 1).toString(),
   );
 
@@ -165,10 +166,10 @@ class Category extends MoneyObject {
     name: 'Name',
     serializeName: 'Name',
     type: FieldType.widget,
-    getValueForDisplay: (final MoneyObject instance) => TokenText((instance as Category).fieldName.value),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldName.value,
-    setValue: (final MoneyObject instance, dynamic value) => (instance as Category).fieldName.value = value as String,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Category).fieldName.value),
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldName.value,
+    setValue: (final DataInterface instance, dynamic value) => (instance as Category).fieldName.value = value as String,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Category).fieldName.value,
       (b as Category).fieldName.value,
       ascending,
@@ -179,41 +180,41 @@ class Category extends MoneyObject {
   FieldInt fieldParentId = FieldInt(
     name: 'ParentId',
     serializeName: 'ParentId',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldParentId.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldParentId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldParentId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldParentId.value,
   );
 
   /// Running Balance
   FieldMoney fieldSum = FieldMoney(
     name: 'Sum',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldSum.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldSum.value,
   );
 
   /// Running Balance
   FieldMoney fieldSumRollup = FieldMoney(
     name: 'Sum~',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldSumRollup.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldSumRollup.value,
   );
 
   /// 9|TaxRefNum|INT|0||0
   FieldInt fieldTaxRefNum = FieldInt(
     serializeName: 'TaxRefNum',
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldTaxRefNum.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldTaxRefNum.value,
   );
 
   /// Count
   FieldInt fieldTransactionCount = FieldInt(
     name: '#T',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldTransactionCount.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldTransactionCount.value,
   );
 
   /// Count
   FieldInt fieldTransactionCountRollup = FieldInt(
     name: '#T~',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).fieldTransactionCountRollup.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldTransactionCountRollup.value,
   );
 
   /// Type
@@ -224,14 +225,14 @@ class Category extends MoneyObject {
     serializeName: 'Type',
     defaultValue: CategoryType.none,
     footer: FooterType.count,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Category).getTypeAsText(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Category).fieldType.value.index,
-    setValue: (final MoneyObject instance, final dynamic value) {
+    getValueForDisplay: (final DataInterface instance) => (instance as Category).getTypeAsText(),
+    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldType.value.index,
+    setValue: (final DataInterface instance, final dynamic value) {
       (instance as Category).fieldType.value = CategoryTypeExtension.fromInt(value as int);
     },
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           final Category i = instance as Category;
@@ -261,9 +262,9 @@ class Category extends MoneyObject {
     return MyListItemAsCard(
       leftTopAsString: top,
       leftBottomAsString: bottom,
-      rightTopAsWidget: MoneyWidget(
+      rightTopAsWidget: WidgetFromData(
         amountModel: fieldSum.value,
-        size: MoneyWidgetSize.title,
+        size: DataWidgetSize.title,
       ),
       rightBottomAsWidget: Row(
         children: <Widget>[

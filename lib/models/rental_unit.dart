@@ -1,6 +1,7 @@
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /*
   SQLite table definition
@@ -11,7 +12,7 @@ import 'package:money/widgets/widgets_domain/cd/money_object.dart';
   3|Renter|nvarchar(255)|0||0
   4|Note|nvarchar(255)|0||0
  */
-class RentUnit extends MoneyObject {
+class RentUnit extends DataObject {
   RentUnit();
 
   factory RentUnit.fromJson(final MyJson row) {
@@ -32,13 +33,13 @@ class RentUnit extends MoneyObject {
   FieldInt fieldBuilding = FieldInt(
     name: 'Building',
     serializeName: 'Building',
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentUnit).fieldBuilding.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldBuilding.value,
   );
 
   /// Id
   /// 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => instance.uniqueId,
+    getValueForSerialization: (final DataInterface instance) => instance.uniqueId,
   );
 
   /// 2
@@ -46,7 +47,7 @@ class RentUnit extends MoneyObject {
   FieldString fieldName = FieldString(
     name: 'Name',
     serializeName: 'Name',
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentUnit).fieldName.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldName.value,
   );
 
   /// 4
@@ -54,7 +55,7 @@ class RentUnit extends MoneyObject {
   FieldString fieldNote = FieldString(
     name: 'Note',
     serializeName: 'Note',
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentUnit).fieldNote.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldNote.value,
   );
 
   /// 3
@@ -62,7 +63,7 @@ class RentUnit extends MoneyObject {
   FieldString fieldRenter = FieldString(
     name: 'Renter',
     serializeName: 'Renter',
-    getValueForSerialization: (final MoneyObject instance) => (instance as RentUnit).fieldRenter.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldRenter.value,
   );
 
   // Fields for this instance

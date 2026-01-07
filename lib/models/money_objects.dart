@@ -9,8 +9,8 @@ import 'package:money/widgets/database.dart';
 import 'package:money/widgets/diff.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {
@@ -19,18 +19,18 @@ class MoneyObjects<T> {
 
   String collectionName = '';
 
-  final List<MoneyObject> _list = <MoneyObject>[];
-  final Map<num, MoneyObject> _map = <num, MoneyObject>{};
+  final List<DataObject> _list = <DataObject>[];
+  final Map<num, DataObject> _map = <num, DataObject>{};
 
-  void appendMoneyObject(final MoneyObject moneyObject) {
+  void appendMoneyObject(final DataObject moneyObject) {
     // assert(moneyObject.uniqueId != -1);
 
     _list.add(moneyObject);
     _map[moneyObject.uniqueId] = moneyObject;
   }
 
-  MoneyObject appendNewMoneyObject(
-    final MoneyObject moneyObject, {
+  DataObject appendNewMoneyObject(
+    final DataObject moneyObject, {
     bool fireNotification = true,
   }) {
     assert(moneyObject.uniqueId == -1);
@@ -40,7 +40,7 @@ class MoneyObjects<T> {
 
     appendMoneyObject(moneyObject);
 
-    MoneyObject.onMutationChanged?.call(
+    DataObject.onMutationChanged?.call(
       mutation: MutationType.inserted,
       moneyObject: moneyObject,
       recalculateBalances: fireNotification,
@@ -57,8 +57,8 @@ class MoneyObjects<T> {
   }
 
   /// Remove/tag a Transaction instance from the list in memory
-  void deleteItem(final MoneyObject itemToDelete) {
-    MoneyObject.onMutationChanged?.call(
+  void deleteItem(final DataObject itemToDelete) {
+    DataObject.onMutationChanged?.call(
       mutation: MutationType.deleted,
       moneyObject: itemToDelete,
       recalculateBalances: false,
@@ -81,7 +81,7 @@ class MoneyObjects<T> {
   }
 
   static String getCsvFromList(
-    final List<MoneyObject> moneyObjects, {
+    final List<DataObject> moneyObjects, {
     final String valueSeparator = ',',
     bool forSerialization = true,
   }) {
@@ -98,7 +98,7 @@ class MoneyObjects<T> {
       csv.writeln(getCsvHeader(declarations, forSerialization));
 
       // CSV Rows values
-      for (final MoneyObject item in moneyObjects) {
+      for (final DataObject item in moneyObjects) {
         csv.writeln(
           toStringAsSeparatedValues(
             declarations,
@@ -127,29 +127,29 @@ class MoneyObjects<T> {
     return headerList.join(',');
   }
 
-  List<MoneyObject> getListSortedById() {
-    _list.sort((final MoneyObject a, final MoneyObject b) {
+  List<DataObject> getListSortedById() {
+    _list.sort((final DataObject a, final DataObject b) {
       return sortByValue(a.uniqueId, b.uniqueId, true);
     });
     return _list;
   }
 
-  List<MoneyObject> getMutatedObjects(final MutationType typeOfMutation) {
-    return _list.where((final MoneyObject element) => element.mutation == typeOfMutation).toList();
+  List<DataObject> getMutatedObjects(final MutationType typeOfMutation) {
+    return _list.where((final DataObject element) => element.mutation == typeOfMutation).toList();
   }
 
   int getNextId() {
     int nextId = -1;
-    for (MoneyObject moneyObject in _list) {
+    for (DataObject moneyObject in _list) {
       nextId = max(nextId, moneyObject.uniqueId);
     }
     return nextId + 1;
   }
 
   /// Must be override by derived class
-  MoneyObject instanceFromJson(final MyJson json) {
+  DataObject instanceFromJson(final MyJson json) {
     assert(false, 'You must implement this in your derived class');
-    return MoneyObject();
+    return DataObject();
   }
 
   bool get isEmpty {
@@ -177,13 +177,13 @@ class MoneyObjects<T> {
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
-      final MoneyObject moneyObject = instanceFromJson(row);
+      final DataObject moneyObject = instanceFromJson(row);
       appendMoneyObject(moneyObject);
     }
   }
 
-  void mutationUpdateItem(final MoneyObject item) {
-    MoneyObject.onMutationChanged?.call(
+  void mutationUpdateItem(final DataObject item) {
+    DataObject.onMutationChanged?.call(
       mutation: MutationType.changed,
       moneyObject: item,
     );
@@ -195,7 +195,7 @@ class MoneyObjects<T> {
   }
 
   bool saveSql(final MyDatabase db, final String tableName) {
-    for (final MoneyObject item in _iterableListOfMoneyObject(true)) {
+    for (final DataObject item in _iterableListOfMoneyObject(true)) {
       switch (item.mutation) {
         case MutationType.none:
           break;
@@ -221,8 +221,8 @@ class MoneyObjects<T> {
   }
 
   /// If the field is found and has a sort function then use it, else default to sortByString
-  static List<MoneyObject> sortList(
-    List<MoneyObject> list,
+  static List<DataObject> sortList(
+    List<DataObject> list,
     final FieldDefinitions fieldDefinitions,
     final int sortBy,
     final bool sortAscending,
@@ -239,11 +239,11 @@ class MoneyObjects<T> {
   }
 
   static void sortListFallbackOnIdForTieBreaker(
-    List<MoneyObject> list,
-    int Function(MoneyObject, MoneyObject, bool) sortWith,
+    List<DataObject> list,
+    int Function(DataObject, DataObject, bool) sortWith,
     bool ascending,
   ) {
-    list.sort((final MoneyObject a, final MoneyObject b) {
+    list.sort((final DataObject a, final DataObject b) {
       int result = sortWith(a, b, ascending);
       if (result == 0) {
         result = a.uniqueId.compareTo(b.uniqueId);
@@ -258,7 +258,7 @@ class MoneyObjects<T> {
 
   static String toStringAsSeparatedValues(
     final FieldDefinitions fieldDefinitions,
-    final MoneyObject item, [
+    final DataObject item, [
     final String valueSeparator = ',',
     final bool forSerialization = true,
   ]) {
@@ -273,9 +273,9 @@ class MoneyObjects<T> {
         .join(valueSeparator);
   }
 
-  List<Widget> whatWasMutated(List<MoneyObject> objects) {
+  List<Widget> whatWasMutated(List<DataObject> objects) {
     final List<Widget> widgets = <Widget>[];
-    for (final MoneyObject moneyObject in objects) {
+    for (final DataObject moneyObject in objects) {
       final MyJson jsonDelta = moneyObject.getMutatedDiff<T>();
 
       final List<Widget> diffWidgets = <Widget>[];
@@ -363,7 +363,7 @@ class MoneyObjects<T> {
     return widgets;
   }
 
-  Iterable<MoneyObject> _iterableListOfMoneyObject([
+  Iterable<DataObject> _iterableListOfMoneyObject([
     bool includeDeleted = false,
   ]) {
     if (includeDeleted) {
@@ -371,19 +371,19 @@ class MoneyObjects<T> {
       return _list;
     }
     return _list.where(
-      (final MoneyObject item) => item.mutation != MutationType.deleted,
+      (final DataObject item) => item.mutation != MutationType.deleted,
     );
   }
 }
 
-MoneyObject? findObjectById(
+DataObject? findObjectById(
   final int? uniqueId,
-  final List<MoneyObject> listToSearch,
+  final List<DataObject> listToSearch,
 ) {
   if (uniqueId == null) {
     return null;
   }
   return listToSearch.firstWhereOrNull(
-    (MoneyObject element) => element.uniqueId == uniqueId,
+    (DataObject element) => element.uniqueId == uniqueId,
   );
 }

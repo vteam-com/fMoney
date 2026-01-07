@@ -11,11 +11,12 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
-class Event extends MoneyObject {
+class Event extends DataObject {
   Event({
     required final int id,
     required final String name,
@@ -55,7 +56,7 @@ class Event extends MoneyObject {
     name: 'Category',
     serializeName: 'Category',
     defaultValue: -1,
-    getValueForDisplay: (final MoneyObject instance) {
+    getValueForDisplay: (final DataInterface instance) {
       final Event event = instance as Event;
       if (event.fieldCategoryId.value == -1) {
         return Data().categories.getCategoryWidget(event.fieldCategoryId.value);
@@ -64,19 +65,19 @@ class Event extends MoneyObject {
       }
     },
 
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Event).categoryName,
       (b as Event).categoryName,
       ascending,
     ),
 
-    getValueForReading: (final MoneyObject instance) => (instance as Event).categoryName,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Event).fieldCategoryId.value,
-    setValue: (final MoneyObject instance, dynamic newValue) =>
+    getValueForReading: (final DataInterface instance) => (instance as Event).categoryName,
+    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldCategoryId.value,
+    setValue: (final DataInterface instance, dynamic newValue) =>
         (instance as Event).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final MoneyObject instance,
+          final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
           return pickerCategory(
@@ -113,8 +114,8 @@ class Event extends MoneyObject {
     name: 'Duration',
     align: TextAlign.center,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Event).durationAsString,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByValue(
+    getValueForDisplay: (final DataInterface instance) => (instance as Event).durationAsString,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
       (a as Event).durationInDays,
       (b as Event).durationInDays,
       ascending,
@@ -123,7 +124,7 @@ class Event extends MoneyObject {
 
   /// ID
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as Event).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as Event).uniqueId,
   );
 
   /// Memo
@@ -131,8 +132,8 @@ class Event extends MoneyObject {
     name: 'Memo',
     serializeName: 'Memo',
     columnWidth: ColumnWidth.large,
-    getValueForDisplay: (final MoneyObject instance) => (instance as Event).fieldMemo.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Event).fieldMemo.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldMemo.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldMemo.value,
   );
 
   /// Name
@@ -140,10 +141,10 @@ class Event extends MoneyObject {
     name: 'Name',
     serializeName: 'Name',
     type: FieldType.widget,
-    getValueForDisplay: (final MoneyObject instance) => TokenText((instance as Event).eventName),
-    getValueForSerialization: (final MoneyObject instance) => (instance as Event).fieldName.value,
-    setValue: (final MoneyObject instance, dynamic value) => (instance as Event).fieldName.value = value as String,
-    sort: (final MoneyObject a, final MoneyObject b, final bool ascending) => sortByString(
+    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Event).eventName),
+    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldName.value,
+    setValue: (final DataInterface instance, dynamic value) => (instance as Event).fieldName.value = value as String,
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
       (a as Event).fieldName.value,
       (b as Event).fieldName.value,
       ascending,
@@ -154,8 +155,8 @@ class Event extends MoneyObject {
   FieldString fieldPeople = FieldString(
     name: 'People',
     serializeName: 'People',
-    getValueForDisplay: (final MoneyObject instance) => (instance as Event).fieldPeople.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as Event).fieldPeople.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldPeople.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldPeople.value,
   );
 
   int possibleMatchingCategoryId = -1;
@@ -258,10 +259,10 @@ class Event extends MoneyObject {
       name: name,
       serializeName: serializeName,
       columnWidth: ColumnWidth.small,
-      getValueForDisplay: (final MoneyObject instance) => getField(instance as Event).value,
+      getValueForDisplay: (final DataInterface instance) => getField(instance as Event).value,
       getEditWidget:
           (
-            final MoneyObject instance,
+            final DataInterface instance,
             void Function(bool wasModified) onEdited,
           ) {
             return PickerEditBoxDate(
@@ -277,11 +278,11 @@ class Event extends MoneyObject {
               },
             );
           },
-      setValue: (MoneyObject instance, dynamic newValue) =>
+      setValue: (DataInterface instance, dynamic newValue) =>
           getField(instance as Event).value = attemptToGetDateFromText(
             newValue as String,
           ),
-      getValueForSerialization: (final MoneyObject instance) =>
+      getValueForSerialization: (final DataInterface instance) =>
           dateToIso8601OrDefaultString(getField(instance as Event).value),
     );
   }

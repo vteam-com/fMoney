@@ -37,7 +37,7 @@ import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/database.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 class Data implements DataInterface {
   // private constructor
@@ -91,9 +91,9 @@ class Data implements DataInterface {
 
     DataAccess.notifyMutationChanged = notifyMutationChanged;
     DataAccess.getCategoryName = categories.getNameFromId;
-    MoneyObject.onMutationChanged = notifyMutationChanged;
-    MoneyObject.getCategoryName = categories.getNameFromId;
-    MoneyObject.getCurrencyRatio = currencies.getRatioFromSymbol;
+    DataObject.onMutationChanged = notifyMutationChanged;
+    DataObject.getCategoryName = categories.getNameFromId;
+    DataObject.getCurrencyRatio = currencies.getRatioFromSymbol;
   }
 
   late final List<MoneyObjects<dynamic>> tables;
@@ -227,8 +227,8 @@ class Data implements DataInterface {
     DataAccess.trackMutations.reset();
   }
 
-  void deleteItems(final List<MoneyObject> itemsToDelete) {
-    for (final MoneyObject item in itemsToDelete) {
+  void deleteItems(final List<DataObject> itemsToDelete) {
+    for (final DataObject item in itemsToDelete) {
       notifyMutationChanged(
         mutation: MutationType.deleted,
         moneyObject: item,
@@ -253,8 +253,8 @@ class Data implements DataInterface {
     return file.lastModifiedSync();
   }
 
-  List<MoneyObject> getMutatedInstances(final MutationType typeOfMutation) {
-    final List<MoneyObject> mutated = <MoneyObject>[];
+  List<DataObject> getMutatedInstances(final MutationType typeOfMutation) {
+    final List<DataObject> mutated = <DataObject>[];
     for (final MoneyObjects<dynamic> listOfInstance in tables) {
       mutated.addAll(listOfInstance.getMutatedObjects(typeOfMutation));
     }
@@ -265,7 +265,7 @@ class Data implements DataInterface {
     final List<MutationGroup> allMutationGroups = <MutationGroup>[];
 
     for (final MoneyObjects<dynamic> moneyObjects in tables) {
-      final List<MoneyObject> mutatedInstances = moneyObjects.getMutatedObjects(
+      final List<DataObject> mutatedInstances = moneyObjects.getMutatedObjects(
         typeOfMutation,
       );
       if (mutatedInstances.isNotEmpty) {
@@ -488,7 +488,7 @@ class Data implements DataInterface {
   @override
   void notifyMutationChanged({
     required MutationType mutation,
-    required MoneyObject moneyObject,
+    required DataObject moneyObject,
     bool recalculateBalances = true,
   }) {
     switch (mutation) {

@@ -8,21 +8,21 @@ import 'package:money/widgets/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
 
-enum MoneyWidgetSize { body, title, header }
+enum DataWidgetSize { body, title, header }
 
-class MoneyWidget extends StatelessWidget {
+class WidgetFromData extends StatelessWidget {
   /// Constructor
-  const MoneyWidget({
+  const WidgetFromData({
     super.key,
     required this.amountModel,
-    this.size = MoneyWidgetSize.body,
+    this.size = DataWidgetSize.body,
   });
 
-  factory MoneyWidget.fromDouble(
+  factory WidgetFromData.fromDouble(
     final double amount, [
-    final MoneyWidgetSize size = MoneyWidgetSize.body,
+    final DataWidgetSize size = DataWidgetSize.body,
   ]) {
-    return MoneyWidget(
+    return WidgetFromData(
       amountModel: AmountModel(amount: amount),
       size: size,
     );
@@ -31,7 +31,7 @@ class MoneyWidget extends StatelessWidget {
   /// Amount to display
   final AmountModel amountModel;
 
-  final MoneyWidgetSize size;
+  final DataWidgetSize size;
 
   @override
   Widget build(final BuildContext context) {
@@ -57,11 +57,11 @@ class MoneyWidget extends StatelessWidget {
     double? fontSize;
 
     switch (size) {
-      case MoneyWidgetSize.body:
+      case DataWidgetSize.body:
         fontSize = getTextTheme(context).bodyMedium!.fontSize!;
-      case MoneyWidgetSize.title:
+      case DataWidgetSize.title:
         fontSize = getTextTheme(context).titleMedium!.fontSize!;
-      case MoneyWidgetSize.header:
+      case DataWidgetSize.header:
         fontSize = getTextTheme(context).headlineLarge!.fontSize!;
     }
 

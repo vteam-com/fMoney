@@ -6,11 +6,12 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/account.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_interface.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
-class LoanPayment extends MoneyObject {
+class LoanPayment extends DataObject {
   LoanPayment({
     required final int id,
     required final int accountId,
@@ -57,23 +58,23 @@ class LoanPayment extends MoneyObject {
     serializeName: 'AccountId',
     defaultValue: -1,
     type: FieldType.text,
-    getValueForDisplay: (final MoneyObject instance) => Account.getName((instance as LoanPayment).accountInstance),
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldAccountId.value,
+    getValueForDisplay: (final DataInterface instance) => Account.getName((instance as LoanPayment).accountInstance),
+    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldAccountId.value,
   );
 
   FieldMoney fieldBalance = FieldMoney(
     name: 'Balance',
     footer: FooterType.range,
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
+    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
   );
 
   /// Date
   /// 2|Date|datetime|1||0
   FieldDate fieldDate = FieldDate(
     serializeName: 'Date',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldDate.value,
-    getValueForSerialization: (final MoneyObject instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldDate.value,
+    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as LoanPayment).fieldDate.value,
     ),
   );
@@ -81,7 +82,7 @@ class LoanPayment extends MoneyObject {
   /// ID
   /// 0|Id|INT|1||0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).uniqueId,
   );
 
   /// Interest
@@ -89,8 +90,9 @@ class LoanPayment extends MoneyObject {
   FieldMoney fieldInterest = FieldMoney(
     name: 'Interest',
     serializeName: 'Interest',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldInterest.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldInterest.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldInterest.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as LoanPayment).fieldInterest.value.asDouble(),
   );
 
   // 5
@@ -100,8 +102,8 @@ class LoanPayment extends MoneyObject {
     name: 'Memo',
     serializeName: 'Memo',
     defaultValue: '',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldMemo.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldMemo.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
   );
 
   /// 3
@@ -109,24 +111,25 @@ class LoanPayment extends MoneyObject {
   FieldMoney fieldPrincipal = FieldMoney(
     name: 'Principal',
     serializeName: 'Principal',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldPrincipal.value,
-    getValueForSerialization: (final MoneyObject instance) => (instance as LoanPayment).fieldPrincipal.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as LoanPayment).fieldPrincipal.value.asDouble(),
   );
 
   FieldPercentage fieldRate = FieldPercentage(
     name: 'Rate %',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).getRate(),
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).getRate(),
   );
 
   FieldString fieldReference = FieldString(
     name: 'Reference',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment).fieldReference.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldReference.value,
   );
 
   FieldMoney payment = FieldMoney(
     name: 'Payment',
-    getValueForDisplay: (final MoneyObject instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
+    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
   );
 
   @override

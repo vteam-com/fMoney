@@ -9,8 +9,8 @@ import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});
@@ -67,10 +67,10 @@ class ViewRentalsState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<MoneyObject> getSidePanelTransactions() {
+  List<DataObject> getSidePanelTransactions() {
     final RentBuilding? item = getFirstSelectedItem() as RentBuilding?;
     if (item == null) {
-      return <MoneyObject>[];
+      return <DataObject>[];
     }
     return ViewRentalsSidePanel.getTransactionLastSelectedItem(item);
   }

@@ -45,11 +45,11 @@ import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets/widgets_domain/cd/field.dart';
-import 'package:money/widgets/widgets_domain/cd/money_object.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/money_widget.dart';
+import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Main view for all Accounts
 class ViewAccounts extends ViewForMoneyObjects {
@@ -248,12 +248,12 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<MoneyObject> getSidePanelTransactions() {
+  List<DataObject> getSidePanelTransactions() {
     final Account? account = getFirstSelectedItem() as Account?;
     if (account != null) {
       return getTransactionForLastSelectedAccount(account);
     }
-    return <MoneyObject>[];
+    return <DataObject>[];
   }
 
   @override
@@ -596,7 +596,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const TextTitle('Cash'),
-              MoneyWidget(
+              WidgetFromData(
                 amountModel: AmountModel(
                   amount: totalCash,
                   iso4217: account.getAccountCurrencyAsText(),
@@ -610,7 +610,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const TextTitle('Investments'),
-              MoneyWidget(
+              WidgetFromData(
                 amountModel: AmountModel(
                   amount: totalInvestment,
                   iso4217: account.getAccountCurrencyAsText(),
@@ -658,7 +658,7 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
         currency: showAsNativeCurrency ? account.fieldCurrency.value : Constants.defaultCurrency,
       );
     } else {
-      for (final MoneyObject item in getList()) {
+      for (final DataObject item in getList()) {
         final Account account = item as Account;
         if (account.isOpen) {
           listOfPairXY.add(
