@@ -9,6 +9,7 @@ import 'package:money/data/data_simulator.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/merge_payee_provider.dart';
 import 'package:money/models/account.dart';
 import 'package:money/suggestion_approval_provider.dart';
 import 'package:money/widgets/data_access.dart';
@@ -34,6 +35,9 @@ class DataFileController extends GetxController {
 
     // Bind the category suggestion provider
     Data().categorySuggestionProvider = SuggestionApprovalProvider();
+
+    // Bind the merge payee provider
+    Data().mergePayeeProvider = DefaultMergePayeeProvider();
   }
   Rxn<DateTime> currentLoadedFileDateTime = Rxn<DateTime>();
   RxString currentLoadedFileName = Constants.untitledFileName.obs;

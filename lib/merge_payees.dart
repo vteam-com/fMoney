@@ -1,9 +1,9 @@
 import 'package:money/data/data_interface.dart';
-import 'package:money/data/payees.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/mergeable_item.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/button_helpers.dart';
@@ -11,14 +11,6 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/picker_edit_box.dart';
-
-/// Interface for objects that can be merged (like transactions with payee and category IDs)
-abstract class MergeableItem {
-  int get payeeId;
-  set payeeId(int value);
-  int get categoryId;
-  set categoryId(int value);
-}
 
 void showMergePayee<T extends MergeableItem>(
   final BuildContext context,
@@ -86,17 +78,17 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
                 child: Box(
                   child: PickerEditBox(
                     title: 'Payee',
-                    items: (widget.data.payees as Payees).getSortedPayeeNames(),
+                    items: widget.data.getPayeeNames(),
                     initialValue: widget.currentPayee.fieldName.value,
                     onChanged: (String? name) {
-                      final Payee? payee = name != null ? (widget.data.payees as Payees).getByName(name) : null;
+                      final Payee? payee = name != null ? widget.data.getPayeeByName(name) : null;
                       setState(() {
                         _selectedPayee = payee;
                         getAssociatedCategories();
                       });
                     },
                     onAddNew: (String newPayeeText) {
-                      final Payee found = (widget.data.payees as Payees).getOrCreate(newPayeeText);
+                      final Payee found = widget.data.getOrCreatePayee(newPayeeText);
                       setState(() {
                         _selectedPayee = found;
                         getAssociatedCategories();
@@ -244,6 +236,6 @@ void mutateMergeableItemsToPayee<T extends MergeableItem>(
       item.categoryId = categoryId;
     }
   }
-  Payees.removePayeesThatHaveNoTransactions(fromPayeeIds.toList(), data);
+  data.removePayeesWithNoTransactions(fromPayeeIds.toList());
   data.updateAll();
 }

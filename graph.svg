@@ -436,7 +436,10 @@
         <rect x="6391.5" y="359" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_data_file_controller.dart'>
-        <rect x="6391.5" y="2369" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6241.5" y="2369" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      </g>
+      <g id='Node_merge_payees.dart'>
+        <rect x="6541.5" y="2369" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_data'>
         <rect x="5324" y="2769" width="2427" height="1492" rx="2" ry="2" class="nodeFolder"/>
@@ -468,10 +471,7 @@
           <rect x="6391.5" y="3124" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_money_split.dart'>
-          <rect x="6241.5" y="3204" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-        </g>
-        <g id='Node_merge_payees.dart'>
-          <rect x="6541.5" y="3204" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          <rect x="6391.5" y="3204" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
         <g id='Node_category.dart'>
           <rect x="6391.5" y="3284" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -876,14 +876,20 @@
           <rect x="8941.5" y="6414" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
       </g>
+      <g id='Node_merge_payee_provider.dart'>
+        <rect x="6241.5" y="2449" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      </g>
       <g id='Node_suggestion_approval_provider.dart'>
-        <rect x="6391.5" y="2449" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6541.5" y="2449" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_suggestion_approval.dart'>
-        <rect x="6241.5" y="2529" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6091.5" y="2529" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      </g>
+      <g id='Node_merge_payee_interface.dart'>
+        <rect x="6391.5" y="2529" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_category_suggestion_interface.dart'>
-        <rect x="6541.5" y="2529" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6691.5" y="2529" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_list_view_transaction_splits.dart'>
         <rect x="6391.5" y="2609" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -1014,14 +1020,17 @@
           <rect x="7591.5" y="6804" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
         </g>
       </g>
+      <g id='Node_mergeable_item.dart'>
+        <rect x="5941.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      </g>
       <g id='Node_home_controller.dart'>
-        <rect x="6091.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6241.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_my_window_manager.dart'>
-        <rect x="6391.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6541.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
       <g id='Node_view.dart'>
-        <rect x="6691.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+        <rect x="6841.5" y="6919" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
       </g>
     </g>
     <g id='Edges'>
@@ -1090,11 +1099,6 @@ data_interface.dart</title>
 ⬇
 loan_payment.dart</title>
       </path>
-      <path d="M6817.5 3260 C 6827.5 3200,6397.5 3200, 6407.5 3140" fill="none" class="lineOrange">
-        <title>merge_payees.dart
-⬇
-data_interface.dart</title>
-      </path>
       <path d="M6817.5 3580 C 6831.5 3360,6393.5 3360, 6407.5 3140" fill="none" class="lineOrange">
         <title>payees.dart
 ⬇
@@ -1120,7 +1124,7 @@ data_interface.dart</title>
 ⬇
 data_interface.dart</title>
       </path>
-      <path d="M7417.5 3580 C 7429.5 3400,6245.5 3400, 6257.5 3220" fill="none" class="lineOrange">
+      <path d="M7417.5 3580 C 7429.5 3400,6395.5 3400, 6407.5 3220" fill="none" class="lineOrange">
         <title>splits.dart
 ⬇
 money_split.dart</title>
@@ -1140,12 +1144,7 @@ category.dart</title>
 ⬇
 data.dart</title>
       </path>
-      <path d="M6667.5 3740 C 6684.5 3480,6540.5 3480, 6557.5 3220" fill="none" class="lineOrange">
-        <title>transaction.dart
-⬇
-merge_payees.dart</title>
-      </path>
-      <path d="M6667.5 3740 C 6684.5 3480,6240.5 3480, 6257.5 3220" fill="none" class="lineOrange">
+      <path d="M6667.5 3740 C 6684.5 3480,6390.5 3480, 6407.5 3220" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 money_split.dart</title>
@@ -1160,12 +1159,12 @@ transfer.dart</title>
 ⬇
 data_interface.dart</title>
       </path>
-      <path d="M6517.5 3660 C 6531.5 3440,6243.5 3440, 6257.5 3220" fill="none" class="lineOrange">
+      <path d="M6517.5 3660 C 6531.5 3440,6393.5 3440, 6407.5 3220" fill="none" class="lineOrange">
         <title>transactions.dart
 ⬇
 money_split.dart</title>
       </path>
-      <path d="M5917.5 3580 C 5929.5 3400,6245.5 3400, 6257.5 3220" fill="none" class="lineOrange">
+      <path d="M5917.5 3580 C 5929.5 3400,6395.5 3400, 6407.5 3220" fill="none" class="lineOrange">
         <title>transfer.dart
 ⬇
 money_split.dart</title>
@@ -1805,11 +1804,11 @@ rental_pnl_card.dart</title>
               <title>view_payees.dart
 ⬇
 1 /data/data.dart
-2 /data/merge_payees.dart
-3 /data/transactions.dart
-4 /helpers/constants.dart
-5 /helpers/list_controller.dart
-6 /helpers/transaction_types.dart
+2 /data/transactions.dart
+3 /helpers/constants.dart
+4 /helpers/list_controller.dart
+5 /helpers/transaction_types.dart
+6 /merge_payees.dart
 7 /models/payee.dart
 8 /views/adaptive_view/view_money_objects.dart
 9 /views/list_view_transactions.dart
@@ -3297,8 +3296,8 @@ app_title.dart</title>
       </g>
       <g id='Counters_data_file_controller.dart'>
         <g>
-          <circle cx="6667.5" cy="2425" r="10" fill="green"/>
-          <text x="6667.5" y="2425" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">11</text>
+          <circle cx="6517.5" cy="2425" r="10" fill="green"/>
+          <text x="6517.5" y="2425" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">12</text>
           <title>data_file_controller.dart
 ⬇
 1 /data/data.dart
@@ -3306,16 +3305,17 @@ app_title.dart</title>
 3 /helpers/constants.dart
 4 /helpers/file_systems.dart
 5 /helpers/misc_helpers.dart
-6 /models/account.dart
-7 /suggestion_approval_provider.dart
-8 /widgets/data_access.dart
-9 /widgets/data_mutations.dart
-10 /widgets/data_source.dart
-11 /widgets/snack_bar.dart</title>
+6 /merge_payee_provider.dart
+7 /models/account.dart
+8 /suggestion_approval_provider.dart
+9 /widgets/data_access.dart
+10 /widgets/data_mutations.dart
+11 /widgets/data_source.dart
+12 /widgets/snack_bar.dart</title>
         </g>
         <g>
-          <circle cx="6407.5" cy="2385" r="10" fill="blue"/>
-          <text x="6407.5" y="2385" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">11</text>
+          <circle cx="6257.5" cy="2385" r="10" fill="blue"/>
+          <text x="6257.5" y="2385" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">11</text>
           <title>1 /app_bar.dart
 2 /app_title.dart
 3 /home_page.dart
@@ -3329,6 +3329,34 @@ app_title.dart</title>
 11 /views/welcome/view_welcome.dart
 ⬇
 data_file_controller.dart</title>
+        </g>
+      </g>
+      <g id='Counters_merge_payees.dart'>
+        <g>
+          <circle cx="6817.5" cy="2425" r="10" fill="green"/>
+          <text x="6817.5" y="2425" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
+          <title>merge_payees.dart
+⬇
+1 /data/data_interface.dart
+2 /helpers/accumulator.dart
+3 /helpers/color_helper.dart
+4 /helpers/list_helper.dart
+5 /helpers/string_helper.dart
+6 /mergeable_item.dart
+7 /models/payee.dart
+8 /widgets/box.dart
+9 /widgets/button_helpers.dart
+10 /widgets/dialog.dart
+11 /widgets/dialog_button.dart
+12 /widgets/gaps.dart
+13 /widgets/picker_edit_box.dart</title>
+        </g>
+        <g>
+          <circle cx="6557.5" cy="2385" r="10" fill="blue"/>
+          <text x="6557.5" y="2385" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <title>1 /views/view_payees/view_payees.dart
+⬇
+merge_payees.dart</title>
         </g>
       </g>
       <g id='Counters_data'>
@@ -3555,17 +3583,18 @@ loan_payment.dart</title>
         <g id='Counters_data_interface.dart'>
           <g>
             <circle cx="6667.5" cy="3180" r="10" fill="green"/>
-            <text x="6667.5" y="3180" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+            <text x="6667.5" y="3180" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">5</text>
             <title>data_interface.dart
 ⬇
 1 /data/transaction.dart
 2 /models/account.dart
-3 /widgets/mutation_types.dart
-4 /widgets/widgets_domain/data_object.dart</title>
+3 /models/payee.dart
+4 /widgets/mutation_types.dart
+5 /widgets/widgets_domain/data_object.dart</title>
           </g>
           <g>
             <circle cx="6407.5" cy="3140" r="10" fill="blue"/>
-            <text x="6407.5" y="3140" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
+            <text x="6407.5" y="3140" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">16</text>
             <title>1 /data/accounts.dart
 2 /data/aliases.dart
 3 /data/categories.dart
@@ -3573,21 +3602,23 @@ loan_payment.dart</title>
 5 /data/events.dart
 6 /data/investments.dart
 7 /data/loan_payments.dart
-8 /data/merge_payees.dart
-9 /data/payees.dart
-10 /data/rent_buildings.dart
-11 /data/securities.dart
-12 /data/splits.dart
-13 /data/transactions.dart
-14 /views/view_accounts/view_accounts.dart
+8 /data/payees.dart
+9 /data/rent_buildings.dart
+10 /data/securities.dart
+11 /data/splits.dart
+12 /data/transactions.dart
+13 /merge_payee_interface.dart
+14 /merge_payee_provider.dart
+15 /merge_payees.dart
+16 /views/view_accounts/view_accounts.dart
 ⬇
 data_interface.dart</title>
           </g>
         </g>
         <g id='Counters_money_split.dart'>
           <g>
-            <circle cx="6517.5" cy="3260" r="10" fill="green"/>
-            <text x="6517.5" y="3260" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
+            <circle cx="6667.5" cy="3260" r="10" fill="green"/>
+            <text x="6667.5" y="3260" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
             <title>money_split.dart
 ⬇
 1 /data/category.dart
@@ -3601,8 +3632,8 @@ data_interface.dart</title>
 9 /widgets/widgets_domain/field_type.dart</title>
           </g>
           <g>
-            <circle cx="6257.5" cy="3220" r="10" fill="blue"/>
-            <text x="6257.5" y="3220" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
+            <circle cx="6407.5" cy="3220" r="10" fill="blue"/>
+            <text x="6407.5" y="3220" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
             <title>1 /category_suggestion_interface.dart
 2 /data/data_simulator.dart
 3 /data/rent_building.dart
@@ -3618,35 +3649,6 @@ data_interface.dart</title>
 13 /views/view_rentals/view_rentals_side_panel.dart
 ⬇
 money_split.dart</title>
-          </g>
-        </g>
-        <g id='Counters_merge_payees.dart'>
-          <g>
-            <circle cx="6817.5" cy="3260" r="10" fill="green"/>
-            <text x="6817.5" y="3260" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
-            <title>merge_payees.dart
-⬇
-1 /data/data_interface.dart
-2 /data/payees.dart
-3 /helpers/accumulator.dart
-4 /helpers/color_helper.dart
-5 /helpers/list_helper.dart
-6 /helpers/string_helper.dart
-7 /models/payee.dart
-8 /widgets/box.dart
-9 /widgets/button_helpers.dart
-10 /widgets/dialog.dart
-11 /widgets/dialog_button.dart
-12 /widgets/gaps.dart
-13 /widgets/picker_edit_box.dart</title>
-          </g>
-          <g>
-            <circle cx="6557.5" cy="3220" r="10" fill="blue"/>
-            <text x="6557.5" y="3220" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-            <title>1 /data/transaction.dart
-2 /views/view_payees/view_payees.dart
-⬇
-merge_payees.dart</title>
           </g>
         </g>
         <g id='Counters_category.dart'>
@@ -3707,7 +3709,7 @@ category.dart</title>
         <g id='Counters_data.dart'>
           <g>
             <circle cx="6667.5" cy="3420" r="10" fill="green"/>
-            <text x="6667.5" y="3420" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">33</text>
+            <text x="6667.5" y="3420" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
             <title>data.dart
 ⬇
 1 /data/accounts.dart
@@ -3735,14 +3737,15 @@ category.dart</title>
 23 /models/currencies.dart
 24 /models/money_objects.dart
 25 /models/online_accounts.dart
-26 /models/rental_units.dart
-27 /models/transaction_extras/transaction_extras.dart
-28 /widgets/data_access.dart
-29 /widgets/data_source.dart
-30 /widgets/database.dart
-31 /widgets/mutation_types.dart
-32 /widgets/snack_bar.dart
-33 /widgets/widgets_domain/data_object.dart</title>
+26 /models/payee.dart
+27 /models/rental_units.dart
+28 /models/transaction_extras/transaction_extras.dart
+29 /widgets/data_access.dart
+30 /widgets/data_source.dart
+31 /widgets/database.dart
+32 /widgets/mutation_types.dart
+33 /widgets/snack_bar.dart
+34 /widgets/widgets_domain/data_object.dart</title>
           </g>
           <g>
             <circle cx="6407.5" cy="3380" r="10" fill="blue"/>
@@ -3947,10 +3950,9 @@ categories.dart</title>
           </g>
           <g>
             <circle cx="6557.5" cy="3540" r="10" fill="blue"/>
-            <text x="6557.5" y="3540" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+            <text x="6557.5" y="3540" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
             <title>1 /data/aliases.dart
 2 /data/data.dart
-3 /data/merge_payees.dart
 ⬇
 payees.dart</title>
           </g>
@@ -4094,17 +4096,17 @@ investments.dart</title>
 ⬇
 1 /data/category.dart
 2 /data/data.dart
-3 /data/merge_payees.dart
-4 /data/money_split.dart
-5 /data/stocks/investment.dart
-6 /data/transfer.dart
-7 /helpers/amount_model.dart
-8 /helpers/constants.dart
-9 /helpers/date_helper.dart
-10 /helpers/investment_types.dart
-11 /helpers/json_helper.dart
-12 /helpers/list_helper.dart
-13 /helpers/transaction_types.dart
+3 /data/money_split.dart
+4 /data/stocks/investment.dart
+5 /data/transfer.dart
+6 /helpers/amount_model.dart
+7 /helpers/constants.dart
+8 /helpers/date_helper.dart
+9 /helpers/investment_types.dart
+10 /helpers/json_helper.dart
+11 /helpers/list_helper.dart
+12 /helpers/transaction_types.dart
+13 /mergeable_item.dart
 14 /models/account.dart
 15 /models/payee.dart
 16 /widgets/adaptive_list/list_item_card.dart
@@ -4730,8 +4732,8 @@ sankey_colors.dart</title>
           <g>
             <circle cx="2560" cy="4700" r="10" fill="blue"/>
             <text x="2560" y="4700" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
-            <title>1 /data/merge_payees.dart
-2 /dialog_mutate_split.dart
+            <title>1 /dialog_mutate_split.dart
+2 /merge_payees.dart
 3 /views/adaptive_view/view_money_objects.dart
 4 /views/dialog_mutate_money_object.dart
 5 /views/dialog_mutate_transaction.dart
@@ -5616,7 +5618,7 @@ ocr.dart</title>
           <g>
             <circle cx="6257.5" cy="5400" r="10" fill="blue"/>
             <text x="6257.5" y="5400" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
-            <title>1 /data/merge_payees.dart
+            <title>1 /merge_payees.dart
 2 /views/adaptive_view/view_money_objects.dart
 3 /views/import/import_transactions_list_preview.dart
 4 /views/money_object_card.dart
@@ -5646,8 +5648,8 @@ box.dart</title>
           <g>
             <circle cx="6557.5" cy="5400" r="10" fill="blue"/>
             <text x="6557.5" y="5400" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
-            <title>1 /data/merge_payees.dart
-2 /data/stocks/investment.dart
+            <title>1 /data/stocks/investment.dart
+2 /merge_payees.dart
 3 /widgets/picker_account.dart
 4 /widgets/picker_account_type.dart
 5 /widgets/picker_category.dart
@@ -5745,7 +5747,7 @@ semantic_text.dart</title>
           <g>
             <circle cx="6107.5" cy="5560" r="10" fill="blue"/>
             <text x="6107.5" y="5560" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">12</text>
-            <title>1 /data/merge_payees.dart
+            <title>1 /merge_payees.dart
 2 /popup_transaction_splits.dart
 3 /views/adaptive_view/view_money_objects.dart
 4 /views/dialog_mutate_money_object.dart
@@ -5809,8 +5811,8 @@ picker_letter.dart</title>
           <g>
             <circle cx="6257.5" cy="5640" r="10" fill="blue"/>
             <text x="6257.5" y="5640" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">18</text>
-            <title>1 /data/merge_payees.dart
-2 /dialog_mutate_split.dart
+            <title>1 /dialog_mutate_split.dart
+2 /merge_payees.dart
 3 /popup_transaction_splits.dart
 4 /views/adaptive_view/view_money_objects.dart
 5 /views/dialog_mutate_money_object.dart
@@ -6292,8 +6294,8 @@ currency_label.dart</title>
             <text x="3857.5" y="6430" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">42</text>
             <title>1 /app_title.dart
 2 /data/category.dart
-3 /data/merge_payees.dart
-4 /list_view_transaction_splits.dart
+3 /list_view_transaction_splits.dart
+4 /merge_payees.dart
 5 /models/money_objects.dart
 6 /popup_transaction_splits.dart
 7 /suggestion_approval.dart
@@ -6561,10 +6563,29 @@ xlsx_header_row_selector_dialog.dart</title>
           </g>
         </g>
       </g>
+      <g id='Counters_merge_payee_provider.dart'>
+        <g>
+          <circle cx="6517.5" cy="2505" r="10" fill="green"/>
+          <text x="6517.5" y="2505" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+          <title>merge_payee_provider.dart
+⬇
+1 /data/data_interface.dart
+2 /merge_payee_interface.dart
+3 /mergeable_item.dart
+4 /models/payee.dart</title>
+        </g>
+        <g>
+          <circle cx="6257.5" cy="2465" r="10" fill="blue"/>
+          <text x="6257.5" y="2465" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <title>1 /data_file_controller.dart
+⬇
+merge_payee_provider.dart</title>
+        </g>
+      </g>
       <g id='Counters_suggestion_approval_provider.dart'>
         <g>
-          <circle cx="6667.5" cy="2505" r="10" fill="green"/>
-          <text x="6667.5" y="2505" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+          <circle cx="6817.5" cy="2505" r="10" fill="green"/>
+          <text x="6817.5" y="2505" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
           <title>suggestion_approval_provider.dart
 ⬇
 1 /category_suggestion_interface.dart
@@ -6572,8 +6593,8 @@ xlsx_header_row_selector_dialog.dart</title>
 3 /suggestion_approval.dart</title>
         </g>
         <g>
-          <circle cx="6407.5" cy="2465" r="10" fill="blue"/>
-          <text x="6407.5" y="2465" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="6557.5" cy="2465" r="10" fill="blue"/>
+          <text x="6557.5" y="2465" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>1 /data_file_controller.dart
 ⬇
 suggestion_approval_provider.dart</title>
@@ -6581,8 +6602,8 @@ suggestion_approval_provider.dart</title>
       </g>
       <g id='Counters_suggestion_approval.dart'>
         <g>
-          <circle cx="6517.5" cy="2585" r="10" fill="green"/>
-          <text x="6517.5" y="2585" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
+          <circle cx="6367.5" cy="2585" r="10" fill="green"/>
+          <text x="6367.5" y="2585" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
           <title>suggestion_approval.dart
 ⬇
 1 /data/data.dart
@@ -6594,24 +6615,42 @@ suggestion_approval_provider.dart</title>
 7 /widgets/working.dart</title>
         </g>
         <g>
-          <circle cx="6257.5" cy="2545" r="10" fill="blue"/>
-          <text x="6257.5" y="2545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="6107.5" cy="2545" r="10" fill="blue"/>
+          <text x="6107.5" y="2545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>1 /suggestion_approval_provider.dart
 ⬇
 suggestion_approval.dart</title>
         </g>
       </g>
+      <g id='Counters_merge_payee_interface.dart'>
+        <g>
+          <circle cx="6667.5" cy="2585" r="10" fill="green"/>
+          <text x="6667.5" y="2585" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">3</text>
+          <title>merge_payee_interface.dart
+⬇
+1 /data/data_interface.dart
+2 /mergeable_item.dart
+3 /models/payee.dart</title>
+        </g>
+        <g>
+          <circle cx="6407.5" cy="2545" r="10" fill="blue"/>
+          <text x="6407.5" y="2545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <title>1 /merge_payee_provider.dart
+⬇
+merge_payee_interface.dart</title>
+        </g>
+      </g>
       <g id='Counters_category_suggestion_interface.dart'>
         <g>
-          <circle cx="6817.5" cy="2585" r="10" fill="green"/>
-          <text x="6817.5" y="2585" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="6967.5" cy="2585" r="10" fill="green"/>
+          <text x="6967.5" y="2585" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>category_suggestion_interface.dart
 ⬇
 1 /data/money_split.dart</title>
         </g>
         <g>
-          <circle cx="6557.5" cy="2545" r="10" fill="blue"/>
-          <text x="6557.5" y="2545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+          <circle cx="6707.5" cy="2545" r="10" fill="blue"/>
+          <text x="6707.5" y="2545" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
           <title>1 /suggestion_approval_provider.dart
 ⬇
 category_suggestion_interface.dart</title>
@@ -6738,15 +6777,19 @@ account.dart</title>
           </g>
           <g>
             <circle cx="5790" cy="4320" r="10" fill="blue"/>
-            <text x="5790" y="4320" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+            <text x="5790" y="4320" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">12</text>
             <title>1 /data/alias.dart
 2 /data/aliases.dart
-3 /data/data_simulator.dart
-4 /data/merge_payees.dart
-5 /data/payees.dart
-6 /data/transaction.dart
-7 /views/import/import_investment.dart
-8 /views/view_payees/view_payees.dart
+3 /data/data.dart
+4 /data/data_interface.dart
+5 /data/data_simulator.dart
+6 /data/payees.dart
+7 /data/transaction.dart
+8 /merge_payee_interface.dart
+9 /merge_payee_provider.dart
+10 /merge_payees.dart
+11 /views/import/import_investment.dart
+12 /views/view_payees/view_payees.dart
 ⬇
 payee.dart</title>
           </g>
@@ -7017,8 +7060,8 @@ alias_types.dart</title>
             <title>1 /app_bar.dart
 2 /app_title.dart
 3 /data/category.dart
-4 /data/merge_payees.dart
-5 /home_page.dart
+4 /home_page.dart
+5 /merge_payees.dart
 6 /my_nav_bar.dart
 7 /views/adaptive_view/view_money_objects.dart
 8 /views/distribution_bar.dart
@@ -7088,11 +7131,11 @@ color_helper.dart</title>
 4 /data/data_simulator.dart
 5 /data/event.dart
 6 /data/loan_payments.dart
-7 /data/merge_payees.dart
-8 /data/payees.dart
-9 /data/stocks/investment.dart
-10 /data/stocks/security.dart
-11 /data/transaction.dart
+7 /data/payees.dart
+8 /data/stocks/investment.dart
+9 /data/stocks/security.dart
+10 /data/transaction.dart
+11 /merge_payees.dart
 12 /models/account.dart
 13 /models/money_objects.dart
 14 /views/view_ai/ollama_service.dart
@@ -7207,8 +7250,8 @@ category_types.dart</title>
             <circle cx="6557.5" cy="6580" r="10" fill="blue"/>
             <text x="6557.5" y="6580" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
             <title>1 /data/accounts.dart
-2 /data/merge_payees.dart
-3 /data/transactions.dart
+2 /data/transactions.dart
+3 /merge_payees.dart
 4 /views/view_accounts/view_accounts.dart
 5 /views/view_cashflow/recurring/panel_recurring.dart
 6 /views/view_cashflow/recurring/recurring_payment.dart
@@ -7520,14 +7563,14 @@ constants.dart</title>
 3 /data/category.dart
 4 /data/data_simulator.dart
 5 /data/loan_payments.dart
-6 /data/merge_payees.dart
-7 /data/securities.dart
-8 /data/stocks/investment.dart
-9 /helpers/currency_helper.dart
-10 /helpers/json_helper.dart
-11 /helpers/list_helper.dart
+6 /data/securities.dart
+7 /data/stocks/investment.dart
+8 /helpers/currency_helper.dart
+9 /helpers/json_helper.dart
+10 /helpers/list_helper.dart
+11 /helpers/ranges.dart
 12 /helpers/ranges.dart
-13 /helpers/ranges.dart
+13 /merge_payees.dart
 14 /models/payee.dart
 15 /views/adaptive_view/view_money_objects.dart
 16 /views/dialog_mutate_money_object.dart
@@ -7736,10 +7779,22 @@ chart_helper.dart</title>
           </g>
         </g>
       </g>
+      <g id='Counters_mergeable_item.dart'>
+        <g>
+          <circle cx="5957.5" cy="6935" r="10" fill="blue"/>
+          <text x="5957.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+          <title>1 /data/transaction.dart
+2 /merge_payee_interface.dart
+3 /merge_payee_provider.dart
+4 /merge_payees.dart
+⬇
+mergeable_item.dart</title>
+        </g>
+      </g>
       <g id='Counters_home_controller.dart'>
         <g>
-          <circle cx="6107.5" cy="6935" r="10" fill="blue"/>
-          <text x="6107.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+          <circle cx="6257.5" cy="6935" r="10" fill="blue"/>
+          <text x="6257.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
           <title>1 /home_binding.dart
 2 /home_page.dart
 ⬇
@@ -7748,8 +7803,8 @@ home_controller.dart</title>
       </g>
       <g id='Counters_my_window_manager.dart'>
         <g>
-          <circle cx="6407.5" cy="6935" r="10" fill="blue"/>
-          <text x="6407.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+          <circle cx="6557.5" cy="6935" r="10" fill="blue"/>
+          <text x="6557.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
           <title>1 /main.dart
 2 /widgets/theme_controller.dart
 ⬇
@@ -7758,8 +7813,8 @@ my_window_manager.dart</title>
       </g>
       <g id='Counters_view.dart'>
         <g>
-          <circle cx="6707.5" cy="6935" r="10" fill="blue"/>
-          <text x="6707.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+          <circle cx="6857.5" cy="6935" r="10" fill="blue"/>
+          <text x="6857.5" y="6935" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
           <title>1 /views/view_ai/view_ai.dart
 2 /views/view_cashflow/view_cashflow.dart
 ⬇
@@ -8089,7 +8144,10 @@ view.dart</title>
         <text class="nodeName" x="6537.5" y="395" font-size="120%">app_title.dart</text>
       </g>
       <g id='Labels_data_file_controller.dart'>
-        <text class="nodeName" x="6537.5" y="2405" font-size="120%">data_file_controller.dart</text>
+        <text class="nodeName" x="6387.5" y="2405" font-size="120%">data_file_controller.dart</text>
+      </g>
+      <g id='Labels_merge_payees.dart'>
+        <text class="nodeName" x="6687.5" y="2405" font-size="120%">merge_payees.dart</text>
       </g>
       <g id='Labels_data'>
         <text class="folderName" x="5330" y="2775">data</text>
@@ -8121,10 +8179,7 @@ view.dart</title>
           <text class="nodeName" x="6537.5" y="3160" font-size="120%">data_interface.dart</text>
         </g>
         <g id='Labels_money_split.dart'>
-          <text class="nodeName" x="6387.5" y="3240" font-size="120%">money_split.dart</text>
-        </g>
-        <g id='Labels_merge_payees.dart'>
-          <text class="nodeName" x="6687.5" y="3240" font-size="120%">merge_payees.dart</text>
+          <text class="nodeName" x="6537.5" y="3240" font-size="120%">money_split.dart</text>
         </g>
         <g id='Labels_category.dart'>
           <text class="nodeName" x="6537.5" y="3320" font-size="120%">category.dart</text>
@@ -8529,14 +8584,20 @@ view.dart</title>
           <text class="nodeName" x="9087.5" y="6450" font-size="90%">xlsx_header_row_selector_dialog.dart</text>
         </g>
       </g>
+      <g id='Labels_merge_payee_provider.dart'>
+        <text class="nodeName" x="6387.5" y="2485" font-size="120%">merge_payee_provider.dart</text>
+      </g>
       <g id='Labels_suggestion_approval_provider.dart'>
-        <text class="nodeName" x="6537.5" y="2485" font-size="90%">suggestion_approval_provider.dart</text>
+        <text class="nodeName" x="6687.5" y="2485" font-size="90%">suggestion_approval_provider.dart</text>
       </g>
       <g id='Labels_suggestion_approval.dart'>
-        <text class="nodeName" x="6387.5" y="2565" font-size="120%">suggestion_approval.dart</text>
+        <text class="nodeName" x="6237.5" y="2565" font-size="120%">suggestion_approval.dart</text>
+      </g>
+      <g id='Labels_merge_payee_interface.dart'>
+        <text class="nodeName" x="6537.5" y="2565" font-size="120%">merge_payee_interface.dart</text>
       </g>
       <g id='Labels_category_suggestion_interface.dart'>
-        <text class="nodeName" x="6687.5" y="2565" font-size="90%">category_suggestion_interface.dart</text>
+        <text class="nodeName" x="6837.5" y="2565" font-size="90%">category_suggestion_interface.dart</text>
       </g>
       <g id='Labels_list_view_transaction_splits.dart'>
         <text class="nodeName" x="6537.5" y="2645" font-size="90%">list_view_transaction_splits.dart</text>
@@ -8667,14 +8728,17 @@ view.dart</title>
           <text class="nodeName" x="7737.5" y="6840" font-size="120%">chart_helper.dart</text>
         </g>
       </g>
+      <g id='Labels_mergeable_item.dart'>
+        <text class="nodeName" x="6087.5" y="6955" font-size="120%">mergeable_item.dart</text>
+      </g>
       <g id='Labels_home_controller.dart'>
-        <text class="nodeName" x="6237.5" y="6955" font-size="120%">home_controller.dart</text>
+        <text class="nodeName" x="6387.5" y="6955" font-size="120%">home_controller.dart</text>
       </g>
       <g id='Labels_my_window_manager.dart'>
-        <text class="nodeName" x="6537.5" y="6955" font-size="120%">my_window_manager.dart</text>
+        <text class="nodeName" x="6687.5" y="6955" font-size="120%">my_window_manager.dart</text>
       </g>
       <g id='Labels_view.dart'>
-        <text class="nodeName" x="6837.5" y="6955" font-size="120%">view.dart</text>
+        <text class="nodeName" x="6987.5" y="6955" font-size="120%">view.dart</text>
       </g>
     </g>
   </g>

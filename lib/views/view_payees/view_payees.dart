@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/merge_payees.dart';
 import 'package:money/data/transactions.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/merge_payees.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/list_view_transactions.dart';

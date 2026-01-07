@@ -30,6 +30,7 @@ import 'package:money/models/account_aliases.dart';
 import 'package:money/models/currencies.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/models/online_accounts.dart';
+import 'package:money/models/payee.dart';
 import 'package:money/models/rental_units.dart';
 import 'package:money/models/transaction_extras/transaction_extras.dart';
 import 'package:money/widgets/data_access.dart';
@@ -164,6 +165,16 @@ class Data implements DataInterface {
   /// Provider for category suggestion widgets
   /// Must be set by upper view layers (home view or main app) before use
   dynamic categorySuggestionProvider;
+
+  /// Provider for merge payee functionality
+  /// Must be set by upper view layers (home view or main app) before use
+  dynamic _mergePayeeProvider;
+
+  @override
+  dynamic get mergePayeeProvider => _mergePayeeProvider;
+
+  @override
+  set mergePayeeProvider(dynamic value) => _mergePayeeProvider = value;
 
   /// singleton
   static final Data _instance = Data._internal();
@@ -869,4 +880,16 @@ class Data implements DataInterface {
     final List<int> bytes = utf8.encode(textContent);
     archive.addFile(ArchiveFile(filename, bytes.length, bytes));
   }
+
+  @override
+  List<String> getPayeeNames() => payees.getSortedPayeeNames();
+
+  @override
+  Payee? getPayeeByName(String name) => payees.getByName(name);
+
+  @override
+  Payee getOrCreatePayee(String name) => payees.getOrCreate(name);
+
+  @override
+  void removePayeesWithNoTransactions(List<int> payeeIds) => Payees.removePayeesThatHaveNoTransactions(payeeIds, this);
 }

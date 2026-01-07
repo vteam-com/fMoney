@@ -1,7 +1,6 @@
 // Imports
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/merge_payees.dart';
 import 'package:money/data/money_split.dart';
 import 'package:money/data/stocks/investment.dart';
 import 'package:money/data/transfer.dart';
@@ -12,6 +11,7 @@ import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/mergeable_item.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
@@ -543,7 +543,7 @@ class Transaction extends DataObject implements MergeableItem {
                       .iterableList(includeDeleted: true)
                       .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
                   Navigator.of(context).pop(false);
-                  showMergePayee(
+                  Data().mergePayeeProvider.showMergePayee(
                     context,
                     payee,
                     transactions,

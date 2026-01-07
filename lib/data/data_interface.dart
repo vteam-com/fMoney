@@ -1,5 +1,6 @@
 import 'package:money/data/transaction.dart';
 import 'package:money/models/account.dart';
+import 'package:money/models/payee.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
@@ -26,4 +27,12 @@ abstract class DataInterface {
   bool removeTransaction(Transaction t);
   void clearTransferToAccount(Transaction t, Account a);
   void updateAll();
+
+  List<String> getPayeeNames();
+  Payee? getPayeeByName(String name);
+  Payee getOrCreatePayee(String name);
+  void removePayeesWithNoTransactions(List<int> payeeIds);
+
+  dynamic get mergePayeeProvider;
+  set mergePayeeProvider(dynamic value);
 }
