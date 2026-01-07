@@ -161,6 +161,10 @@ class Data implements DataInterface {
   @override
   Transactions transactions = Transactions();
 
+  /// Provider for category suggestion widgets
+  /// Must be set by upper view layers (home view or main app) before use
+  dynamic categorySuggestionProvider;
+
   /// singleton
   static final Data _instance = Data._internal();
 

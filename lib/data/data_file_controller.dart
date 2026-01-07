@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/data/data.dart';
 import 'package:money/data/data_simulator.dart';
+import 'package:money/data/suggestion_approval_provider.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -30,6 +31,9 @@ class DataFileController extends GetxController {
     DataAccess.onFileClosed = dataFileIsClosed;
     DataAccess.generateNextFolderToSaveTo = generateNextFolderToSaveTo;
     DataAccess.loadLastFileSaved = loadLastFileSaved;
+
+    // Bind the category suggestion provider
+    Data().categorySuggestionProvider = SuggestionApprovalProvider();
   }
   Rxn<DateTime> currentLoadedFileDateTime = Rxn<DateTime>();
   RxString currentLoadedFileName = Constants.untitledFileName.obs;

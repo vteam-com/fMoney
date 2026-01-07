@@ -1,11 +1,9 @@
 // Imports
 import 'package:money/data/category.dart';
 import 'package:money/data/data.dart';
-import 'package:money/data/data_file_controller.dart';
 import 'package:money/data/investment.dart';
 import 'package:money/data/merge_payees.dart';
 import 'package:money/data/money_split.dart';
-import 'package:money/data/suggestion_approval.dart';
 import 'package:money/data/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
@@ -17,6 +15,7 @@ import 'package:money/helpers/transaction_types.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
+import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
@@ -249,7 +248,7 @@ class Transaction extends DataObject implements MergeableItem {
         effectiveCategoryId,
       );
 
-      return SuggestionApproval(
+      return Data().categorySuggestionProvider.buildSuggestionWidget(
         onApproved: t.possibleMatchingCategoryId == -1
             ? null
             : () {
@@ -1131,11 +1130,11 @@ class Transaction extends DataObject implements MergeableItem {
             // if this was the only change to this instance we can undo the mutation state
             if (mutation == MutationType.changed && DataObject.isDataModified(this) == false) {
               mutation = MutationType.none;
-              DataFileController.to.trackMutations.increaseNumber(
+              DataAccess.trackMutations.increaseNumber(
                 increaseChanged: -1,
               );
             } else {
-              DataFileController.to.trackMutations.setLastEditToNow(); // still need to refresh the UI
+              DataAccess.trackMutations.setLastEditToNow(); // still need to refresh the UI
             }
           }
         } else {
