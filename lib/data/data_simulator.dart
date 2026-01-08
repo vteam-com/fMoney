@@ -5,10 +5,10 @@ import 'package:money/data/entities/alias.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/loan_payment.dart';
-import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -1339,7 +1339,7 @@ class DataSimulator {
           memo: 'Mortgage Payment #${++numberOfMortgagePayment}',
         );
 
-        final MoneySplit splitMortgagePaymentPrincipal = MoneySplit(
+        final TransactionSplit splitMortgagePaymentPrincipal = TransactionSplit(
           id: -1,
           amount: _monthlyHomeLoan - 200,
           transactionId: transaction.uniqueId,
@@ -1353,7 +1353,7 @@ class DataSimulator {
         );
         Data().splits.appendNewMoneyObject(splitMortgagePaymentPrincipal);
 
-        final MoneySplit splitMortgagePaymentInterest = MoneySplit(
+        final TransactionSplit splitMortgagePaymentInterest = TransactionSplit(
           id: -1,
           amount: 200,
           transactionId: transaction.uniqueId,

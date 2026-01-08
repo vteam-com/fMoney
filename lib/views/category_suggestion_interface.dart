@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 
 /// Abstract interface for providing category suggestion widgets
 /// This allows decoupling Transaction from specific widget implementations
@@ -10,7 +10,7 @@ abstract class CategorySuggestionProvider {
     required void Function(BuildContext)? onChooseCategory,
     required bool isSplit,
     required String transactionString,
-    required List<MoneySplit> splits,
+    required List<TransactionSplit> splits,
     required int uniqueId,
     required double totalAmount,
     required Widget child,

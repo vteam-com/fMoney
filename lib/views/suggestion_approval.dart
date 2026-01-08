@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/list_view_transaction_splits.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/icon_button.dart';
@@ -31,7 +31,7 @@ class SuggestionApproval extends StatefulWidget {
   /// Optional - Dropdown button
   final void Function(BuildContext)? onChooseCategory;
 
-  final List<MoneySplit> splits;
+  final List<TransactionSplit> splits;
 
   final double totalAmount;
 
@@ -171,7 +171,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
           ),
           TextButton(
             onPressed: () {
-              final MoneySplit newSplit = MoneySplit(
+              final TransactionSplit newSplit = TransactionSplit(
                 id: widget.splits.length,
                 transactionId: widget.uniqueId,
                 categoryId: -1,

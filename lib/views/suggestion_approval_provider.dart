@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/category_suggestion_interface.dart';
 import 'package:money/views/suggestion_approval.dart';
 
@@ -11,7 +11,7 @@ class SuggestionApprovalProvider implements CategorySuggestionProvider {
     required void Function(BuildContext)? onChooseCategory,
     required bool isSplit,
     required String transactionString,
-    required List<MoneySplit> splits,
+    required List<TransactionSplit> splits,
     required int uniqueId,
     required double totalAmount,
     required Widget child,

@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/dialog_mutate_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
@@ -17,7 +17,7 @@ class ListViewTransactionSplits extends StatefulWidget {
   });
 
   final int defaultSortingField;
-  final List<MoneySplit> splits;
+  final List<TransactionSplit> splits;
   final double totalAmount;
 
   @override
@@ -38,8 +38,8 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     return Column(
       children: <Widget>[
         // Table Header
-        MyListItemHeader<MoneySplit>(
-          columns: MoneySplit.fields.definitions,
+        MyListItemHeader<TransactionSplit>(
+          columns: TransactionSplit.fields.definitions,
           filterOn: FieldFilters(),
           sortByColumn: _sortBy,
           sortAscending: _sortAscending,
@@ -56,14 +56,14 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
         ),
         // Table list of rows
         Expanded(
-          child: MyListView<MoneySplit>(
-            fields: MoneySplit.fields.definitions,
+          child: MyListView<TransactionSplit>(
+            fields: TransactionSplit.fields.definitions,
             list: widget.splits,
             selectedItemIds: ValueNotifier<List<int>>(<int>[]),
             onSelectionChanged: (int _) {},
             onLongPress: (final BuildContext context2, final int uniqueId) {
-              final MoneySplit? instance = widget.splits.firstWhereOrNull(
-                (MoneySplit t) => t.uniqueId == uniqueId,
+              final TransactionSplit? instance = widget.splits.firstWhereOrNull(
+                (TransactionSplit t) => t.uniqueId == uniqueId,
               );
               if (instance != null) {
                 showSplitAndActions(context: context2, split: instance);
@@ -106,7 +106,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
   double get sumOfSplits {
     return widget.splits.fold(
       0.0,
-      (double sum, MoneySplit split) => sum + split.fieldAmount.value.asDouble(),
+      (double sum, TransactionSplit split) => sum + split.fieldAmount.value.asDouble(),
     );
   }
 

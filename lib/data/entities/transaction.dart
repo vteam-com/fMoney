@@ -2,7 +2,7 @@
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/investment.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/data/entities/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
@@ -632,7 +632,7 @@ class Transaction extends DataObject implements MergeableItem {
   Investment? instanceOfInvestment;
 
   int possibleMatchingCategoryId = -1;
-  List<MoneySplit> splits = <MoneySplit>[];
+  List<TransactionSplit> splits = <TransactionSplit>[];
 
   /// Instances of related MoneyObjects
   Account? _instanceOfAccount;
@@ -779,7 +779,7 @@ class Transaction extends DataObject implements MergeableItem {
 
   bool containsTransferTo(Account a) {
     if (this.isSplit) {
-      for (MoneySplit s in this.splits) {
+      for (TransactionSplit s in this.splits) {
         if (s.fieldTransferId.value != -1 && s.getTransferTransaction()?.fieldAccountId.value == a.uniqueId) {
           return true;
         }
@@ -955,7 +955,7 @@ class Transaction extends DataObject implements MergeableItem {
     }
 
     if (this.isSplit) {
-      for (final MoneySplit s in this.splits) {
+      for (final TransactionSplit s in this.splits) {
         if (categoriesToMatch.contains(s.fieldCategoryId.value)) {
           return true;
         }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/rent_building.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/list_view_transactions.dart';
@@ -25,7 +25,7 @@ class ViewRentalsSidePanel {
     final num categoryIdToMatch = t.fieldCategoryId.value;
 
     if (t.isSplit) {
-      for (final MoneySplit split in t.splits) {
+      for (final TransactionSplit split in t.splits) {
         if (isMatchingCategories(split.fieldCategoryId.value, rental)) {
           return true;
         }

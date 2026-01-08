@@ -1,5 +1,5 @@
 import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/button_helpers.dart';
@@ -10,7 +10,7 @@ import 'package:money/widgets/mutation_types.dart';
 
 Future<dynamic> showSplitAndActions({
   required final BuildContext context,
-  required final MoneySplit split,
+  required final TransactionSplit split,
 }) {
   return showDialog(
     context: context,
@@ -24,14 +24,14 @@ Future<dynamic> showSplitAndActions({
 class DialogMutateSplit extends StatefulWidget {
   const DialogMutateSplit({required this.split, super.key});
 
-  final MoneySplit split;
+  final TransactionSplit split;
 
   @override
   State<DialogMutateSplit> createState() => _DialogMutateSplitState();
 }
 
 class _DialogMutateSplitState extends State<DialogMutateSplit> {
-  late MoneySplit _split;
+  late TransactionSplit _split;
 
   bool dataWasModified = false;
 
@@ -80,7 +80,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
 
   List<Widget> getActionButtons({
     required final BuildContext context,
-    required final MoneySplit split,
+    required final TransactionSplit split,
     required final bool editMode,
     required final bool dataWasModified,
   }) {

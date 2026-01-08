@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/list_view_transaction_splits.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
@@ -33,7 +33,7 @@ void showTransactionSplits(final Transaction transaction) {
       DialogActionButton(
         text: 'Add',
         onPressed: () {
-          final MoneySplit newSplit = MoneySplit(
+          final TransactionSplit newSplit = TransactionSplit(
             id: transaction.splits.length,
             transactionId: transaction.uniqueId,
             categoryId: -1,

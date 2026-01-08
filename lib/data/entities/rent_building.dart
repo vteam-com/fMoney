@@ -1,8 +1,8 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
 import 'package:money/data/entities/data_abstract.dart';
-import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -496,7 +496,7 @@ class RentBuilding extends DataObject {
       }
 
       if (t.isSplit) {
-        for (final MoneySplit split in t.splits) {
+        for (final TransactionSplit split in t.splits) {
           cumulatePnLValues(
             pnl,
             split.fieldCategoryId.value,
@@ -641,7 +641,7 @@ class RentBuilding extends DataObject {
   bool isTransactionOrSplitAssociatedWithThisRental(Transaction t) {
     final int transactionCategoryId = t.fieldCategoryId.value;
     if (t.isSplit) {
-      for (final MoneySplit split in t.splits) {
+      for (final TransactionSplit split in t.splits) {
         if (isTransactionAssociatedWithThisRental(
           split.fieldCategoryId.value,
         )) {

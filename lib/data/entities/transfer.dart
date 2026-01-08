@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/money_split.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/models/account.dart';
@@ -26,10 +26,10 @@ class Transfer extends DataObject {
 
   final num id; // used when the transfer is part of a split
   final bool isOrphan;
-  final MoneySplit? relatedSplit; // the related split, if it is a transfer in a split.
+  final TransactionSplit? relatedSplit; // the related split, if it is a transfer in a split.
   final dynamic relatedTransaction; // the related transaction
   final dynamic source; // the source of the transfer.
-  final MoneySplit? sourceSplit; // the source split, if it is a transfer in a split.
+  final TransactionSplit? sourceSplit; // the source split, if it is a transfer in a split.
 
   /// Status
   FieldString fieldAccountStatusDestination = FieldString(

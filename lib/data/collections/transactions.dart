@@ -3,8 +3,8 @@ import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/event.dart';
-import 'package:money/data/entities/money_split.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -262,7 +262,7 @@ class Transactions extends MoneyObjects<Transaction> {
     final List<Transaction> flatList = <Transaction>[];
     for (final Transaction t in transactions) {
       if (t.isSplit) {
-        for (final MoneySplit s in t.splits) {
+        for (final TransactionSplit s in t.splits) {
           final Transaction fakeTransaction = Transaction(
             date: t.fieldDateTime.value,
             status: t.fieldStatus.value,
@@ -303,7 +303,7 @@ class Transactions extends MoneyObjects<Transaction> {
     for (final Transaction t in iterableList()) {
       if (whereClause == null || whereClause(t)) {
         if (t.fieldCategoryId.value == data.categories.splitCategoryId()) {
-          for (final MoneySplit s in t.splits) {
+          for (final TransactionSplit s in t.splits) {
             final Transaction fakeT =
                 Transaction(
                     date: t.fieldDateTime.value,

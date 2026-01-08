@@ -23,9 +23,9 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
   8|BudgetBalanceDate|datetime|0||0
  */
 
-class MoneySplit extends DataObject {
+class TransactionSplit extends DataObject {
   /// Private constructor for static fields only
-  MoneySplit._static({
+  TransactionSplit._static({
     required int id,
     required int transactionId,
     required int categoryId,
@@ -46,8 +46,8 @@ class MoneySplit extends DataObject {
     this.fieldFlags.value = flags;
     this.fieldBudgetBalanceDate.value = budgetBalanceDate;
   }
-  factory MoneySplit.fromJson(final MyJson row, final DataAbstract data) {
-    return MoneySplit(
+  factory TransactionSplit.fromJson(final MyJson row, final DataAbstract data) {
+    return TransactionSplit(
       // 0
       transactionId: row.getInt('Transaction', -1),
       // 1
@@ -71,7 +71,7 @@ class MoneySplit extends DataObject {
   }
 
   /// Constructor
-  MoneySplit({
+  TransactionSplit({
     // 1
     required int id,
     // 0
@@ -109,10 +109,11 @@ class MoneySplit extends DataObject {
   FieldMoney fieldAmount = FieldMoney(
     name: 'Amount',
     serializeName: 'Amount',
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldAmount.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldAmount.value.asDouble(),
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldAmount.value,
+    getValueForSerialization: (final DataInterface instance) =>
+        (instance as TransactionSplit).fieldAmount.value.asDouble(),
     setValue: (DataInterface instance, dynamic newValue) =>
-        (instance as MoneySplit).fieldAmount.value.setAmount(newValue),
+        (instance as TransactionSplit).fieldAmount.value.setAmount(newValue),
   );
 
   // 8
@@ -120,9 +121,9 @@ class MoneySplit extends DataObject {
     name: 'Budgeted Date',
     serializeName: 'BudgetBalanceDate',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldBudgetBalanceDate.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldBudgetBalanceDate.value,
     getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as MoneySplit).fieldBudgetBalanceDate.value,
+      (instance as TransactionSplit).fieldBudgetBalanceDate.value,
     ),
   );
 
@@ -132,17 +133,17 @@ class MoneySplit extends DataObject {
     serializeName: 'Category',
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).categoryName,
-    getValueForReading: (final DataInterface instance) => (instance as MoneySplit).categoryName,
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldCategoryId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).categoryName,
+    getValueForReading: (final DataInterface instance) => (instance as TransactionSplit).categoryName,
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldCategoryId.value,
     setValue: (final DataInterface instance, dynamic newValue) =>
-        (instance as MoneySplit).fieldCategoryId.value = newValue as int,
+        (instance as TransactionSplit).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
           final DataInterface instance,
           void Function(bool wasModified) onEdited,
         ) {
-          (instance as MoneySplit);
+          (instance as TransactionSplit);
           return Row(
             children: <Widget>[
               Expanded(
@@ -171,22 +172,22 @@ class MoneySplit extends DataObject {
     serializeName: 'Flags',
     columnWidth: ColumnWidth.hidden,
     align: TextAlign.center,
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldFlags.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldFlags.value,
   );
 
   // 1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).uniqueId,
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).uniqueId,
   );
 
   // 6
   FieldString fieldMemo = FieldString(
     name: 'Memo',
     serializeName: 'Memo',
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldMemo.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldMemo.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
-        (instance as MoneySplit).fieldMemo.value = newValue as String,
+        (instance as TransactionSplit).fieldMemo.value = newValue as String,
   );
 
   // 3
@@ -196,8 +197,8 @@ class MoneySplit extends DataObject {
     type: FieldType.text,
     align: TextAlign.left,
     getValueForDisplay: (final DataInterface instance) =>
-        (instance as MoneySplit).data.getPayeeNameFromId(instance.fieldPayeeId.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldPayeeId.value,
+        (instance as TransactionSplit).data.getPayeeNameFromId(instance.fieldPayeeId.value),
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldPayeeId.value,
   );
 
   // 0
@@ -205,8 +206,8 @@ class MoneySplit extends DataObject {
     name: 'Transaction',
     serializeName: 'Transaction',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldTransactionId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldTransactionId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
   );
 
   // 5
@@ -214,8 +215,8 @@ class MoneySplit extends DataObject {
     name: 'Transfer',
     serializeName: 'Transfer',
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as MoneySplit).fieldTransferId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as MoneySplit).fieldTransferId.value,
+    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
+    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
   );
 
   // Fields for this instance
@@ -234,15 +235,15 @@ class MoneySplit extends DataObject {
   @override
   set uniqueId(final int value) => fieldId.value = value;
 
-  static final Fields<MoneySplit> _fields = Fields<MoneySplit>();
+  static final Fields<TransactionSplit> _fields = Fields<TransactionSplit>();
 
   String get categoryName => data.getCategoryNameFromId(fieldCategoryId.value);
 
-  static Fields<MoneySplit> get fields {
+  static Fields<TransactionSplit> get fields {
     if (_fields.isEmpty) {
       // For static fields, we create a dummy instance without data
       // The fields are just for metadata and won't use data-dependent functionality
-      final MoneySplit tmp = MoneySplit._static(
+      final TransactionSplit tmp = TransactionSplit._static(
         id: -1,
         transactionId: -1,
         categoryId: -1,
