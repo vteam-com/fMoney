@@ -19,6 +19,7 @@ import 'package:money/data/collections/splits.dart';
 import 'package:money/data/collections/stock_splits.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/entities/transfer.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/file_systems.dart';
@@ -918,4 +919,22 @@ class Data implements DataAbstract {
 
   @override
   int? getCategoryIdByName(String name) => categories.getIdByName(name);
+
+  @override
+  double getSplitRatioForSecurityBeforeDate(int securityId, DateTime date) {
+    final Security? security = securities.get(securityId);
+    if (security == null || security.isDeleted) {
+      return 1.0;
+    }
+    final List<StockSplit> splits = stockSplits.getStockSplitsForSecurity(security);
+    double ratio = 1.0;
+    for (final StockSplit split in splits) {
+      if (date.isBefore(split.fieldDate.value!) &&
+          split.fieldDenominator.value != 0 &&
+          split.fieldNumerator.value != 0) {
+        ratio *= split.fieldNumerator.value / split.fieldDenominator.value;
+      }
+    }
+    return ratio;
+  }
 }

@@ -1,7 +1,5 @@
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
-import 'package:money/data/entities/security.dart';
-import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/picker_security_type.dart';
@@ -31,15 +29,7 @@ class Investments extends MoneyObjects<Investment> {
       );
       investment.transactionInstance = transactionFound;
 
-      final Security? security =
-          data.securities.get(
-                investment.fieldSecurity.value,
-              )
-              as Security?;
-      if (security != null) {
-        final List<StockSplit> splits = data.stockSplits.getStockSplitsForSecurity(security) as List<StockSplit>;
-        investment.applySplits(splits);
-      }
+      investment.applySplits();
     }
   }
 

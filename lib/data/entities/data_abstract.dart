@@ -47,4 +47,6 @@ abstract class DataAbstract {
 
   dynamic get mergePayeeProvider;
   set mergePayeeProvider(dynamic value);
+
+  double getSplitRatioForSecurityBeforeDate(int securityId, DateTime date);
 }

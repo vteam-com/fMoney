@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:money/data/entities/data_abstract.dart';
-import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -367,11 +366,8 @@ class Investment extends DataObject {
     // return 0.00;
   }
 
-  void applySplits(List<StockSplit> splits) {
-    _splitRatio = 1;
-    for (final StockSplit split in splits) {
-      this._applySplit(split);
-    }
+  void applySplits() {
+    _splitRatio = data?.getSplitRatioForSecurityBeforeDate(fieldSecurity.value, date) ?? 1.0;
   }
 
   double get costForShares => this.effectiveUnitsAdjusted * this.unitPriceAdjusted;
@@ -534,12 +530,6 @@ class Investment extends DataObject {
       }
     }
     return 0.00;
-  }
-
-  void _applySplit(final StockSplit s) {
-    if (this.date.isBefore(s.fieldDate.value!) && s.fieldDenominator.value != 0 && s.fieldNumerator.value != 0) {
-      _splitRatio *= s.fieldNumerator.value / s.fieldDenominator.value;
-    }
   }
 
   String get _investmentTypeAsString => getInvestmentTypeTextFromValue(this.fieldInvestmentType.value);

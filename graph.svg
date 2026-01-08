@@ -532,17 +532,17 @@
           <g id='Node_alias.dart'>
             <rect x="6991.5" y="3539" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
-          <g id='Node_transfer.dart'>
+          <g id='Node_stock_split.dart'>
             <rect x="6391.5" y="3619" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
+          <g id='Node_transfer.dart'>
+            <rect x="6391.5" y="3699" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+          </g>
           <g id='Node_category.dart'>
-            <rect x="6241.5" y="3699" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+            <rect x="6241.5" y="3779" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_money_split.dart'>
-            <rect x="6541.5" y="3699" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-          </g>
-          <g id='Node_stock_split.dart'>
-            <rect x="6391.5" y="3779" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+            <rect x="6541.5" y="3779" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
           </g>
           <g id='Node_data_abstract.dart'>
             <rect x="6391.5" y="3859" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -1045,12 +1045,7 @@
 ⬇
 data_abstract.dart</title>
       </path>
-      <path d="M6667.5 4075 C 6677.5 3935,6397.5 3935, 6407.5 3795" fill="none" class="lineOrange">
-        <title>investment.dart
-⬇
-stock_split.dart</title>
-      </path>
-      <path d="M6667.5 3995 C 6677.5 3855,6247.5 3855, 6257.5 3715" fill="none" class="lineOrange">
+      <path d="M6667.5 3995 C 6677.5 3895,6247.5 3895, 6257.5 3795" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 category.dart</title>
@@ -1060,12 +1055,12 @@ category.dart</title>
 ⬇
 data.dart</title>
       </path>
-      <path d="M6667.5 3995 C 6677.5 3855,6547.5 3855, 6557.5 3715" fill="none" class="lineOrange">
+      <path d="M6667.5 3995 C 6677.5 3895,6547.5 3895, 6557.5 3795" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 money_split.dart</title>
       </path>
-      <path d="M6667.5 3995 C 6679.5 3815,6395.5 3815, 6407.5 3635" fill="none" class="lineOrange">
+      <path d="M6667.5 3995 C 6677.5 3855,6397.5 3855, 6407.5 3715" fill="none" class="lineOrange">
         <title>transaction.dart
 ⬇
 transfer.dart</title>
@@ -3417,7 +3412,7 @@ budget.dart</title>
           <g id='Counters_data.dart'>
             <g>
               <circle cx="6667.5" cy="3205" r="10" fill="green"/>
-              <text x="6667.5" y="3205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
+              <text x="6667.5" y="3205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
               <title>data.dart
 ⬇
 1 /data/collections/accounts.dart
@@ -3433,27 +3428,28 @@ budget.dart</title>
 11 /data/collections/stock_splits.dart
 12 /data/collections/transactions.dart
 13 /data/entities/data_abstract.dart
-14 /data/entities/transfer.dart
-15 /helpers/amount_model.dart
-16 /helpers/file_systems.dart
-17 /helpers/json_helper.dart
-18 /helpers/misc_helpers.dart
-19 /helpers/ranges.dart
-20 /helpers/transaction_types.dart
-21 /models/account.dart
-22 /models/account_aliases.dart
-23 /models/currencies.dart
-24 /models/money_objects.dart
-25 /models/online_accounts.dart
-26 /models/payee.dart
-27 /models/rental_units.dart
-28 /models/transaction_extras/transaction_extras.dart
-29 /widgets/data_access.dart
-30 /widgets/data_source.dart
-31 /widgets/database.dart
-32 /widgets/mutation_types.dart
-33 /widgets/snack_bar.dart
-34 /widgets/widgets_domain/data_object.dart</title>
+14 /data/entities/stock_split.dart
+15 /data/entities/transfer.dart
+16 /helpers/amount_model.dart
+17 /helpers/file_systems.dart
+18 /helpers/json_helper.dart
+19 /helpers/misc_helpers.dart
+20 /helpers/ranges.dart
+21 /helpers/transaction_types.dart
+22 /models/account.dart
+23 /models/account_aliases.dart
+24 /models/currencies.dart
+25 /models/money_objects.dart
+26 /models/online_accounts.dart
+27 /models/payee.dart
+28 /models/rental_units.dart
+29 /models/transaction_extras/transaction_extras.dart
+30 /widgets/data_access.dart
+31 /widgets/data_source.dart
+32 /widgets/database.dart
+33 /widgets/mutation_types.dart
+34 /widgets/snack_bar.dart
+35 /widgets/widgets_domain/data_object.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="3165" r="10" fill="blue"/>
@@ -3790,18 +3786,16 @@ payees.dart</title>
           <g id='Counters_investments.dart'>
             <g>
               <circle cx="6667.5" cy="3445" r="10" fill="green"/>
-              <text x="6667.5" y="3445" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">9</text>
+              <text x="6667.5" y="3445" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
               <title>investments.dart
 ⬇
 1 /data/entities/data_abstract.dart
 2 /data/entities/investment.dart
-3 /data/entities/security.dart
-4 /data/entities/stock_split.dart
-5 /helpers/json_helper.dart
-6 /models/money_objects.dart
-7 /widgets/picker_security_type.dart
-8 /widgets/stock_cumulative.dart
-9 /widgets/widgets_domain/field.dart</title>
+3 /helpers/json_helper.dart
+4 /models/money_objects.dart
+5 /widgets/picker_security_type.dart
+6 /widgets/stock_cumulative.dart
+7 /widgets/widgets_domain/field.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="3405" r="10" fill="blue"/>
@@ -3840,21 +3834,20 @@ investments.dart</title>
             </g>
             <g>
               <circle cx="5807.5" cy="3555" r="10" fill="blue"/>
-              <text x="5807.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
-              <title>1 /data/collections/investments.dart
+              <text x="5807.5" y="3555" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
+              <title>1 /data/collections/securities.dart
 2 /data/collections/securities.dart
-3 /data/collections/securities.dart
-4 /data/collections/stock_splits.dart
-5 /data/data_simulator.dart
-6 /data/get_stock_from_cache_or_backend.dart
-7 /data/stocks/security_fifo_queue.dart
-8 /data/stocks/security_purchase.dart
-9 /data/stocks/security_sales.dart
-10 /views/import/import_investment.dart
-11 /views/view_accounts/view_accounts.dart
-12 /views/view_investments/view_investments.dart
-13 /views/view_stocks/stock_chart.dart
-14 /views/view_stocks/view_stocks.dart
+3 /data/collections/stock_splits.dart
+4 /data/data_simulator.dart
+5 /data/get_stock_from_cache_or_backend.dart
+6 /data/stocks/security_fifo_queue.dart
+7 /data/stocks/security_purchase.dart
+8 /data/stocks/security_sales.dart
+9 /views/import/import_investment.dart
+10 /views/view_accounts/view_accounts.dart
+11 /views/view_investments/view_investments.dart
+12 /views/view_stocks/stock_chart.dart
+13 /views/view_stocks/view_stocks.dart
 ⬇
 security.dart</title>
             </g>
@@ -3980,10 +3973,37 @@ loan_payment.dart</title>
 alias.dart</title>
             </g>
           </g>
-          <g id='Counters_transfer.dart'>
+          <g id='Counters_stock_split.dart'>
             <g>
               <circle cx="6667.5" cy="3675" r="10" fill="green"/>
-              <text x="6667.5" y="3675" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+              <text x="6667.5" y="3675" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
+              <title>stock_split.dart
+⬇
+1 /data/entities/data_abstract.dart
+2 /helpers/date_helper.dart
+3 /helpers/json_helper.dart
+4 /widgets/widgets_domain/data_interface.dart
+5 /widgets/widgets_domain/data_object.dart
+6 /widgets/widgets_domain/field.dart</title>
+            </g>
+            <g>
+              <circle cx="6407.5" cy="3635" r="10" fill="blue"/>
+              <text x="6407.5" y="3635" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">7</text>
+              <title>1 /data/collections/data.dart
+2 /data/collections/securities.dart
+3 /data/collections/stock_splits.dart
+4 /data/data_simulator.dart
+5 /data/entities/security.dart
+6 /views/view_stocks/stock_chart.dart
+7 /views/view_stocks/view_stocks.dart
+⬇
+stock_split.dart</title>
+            </g>
+          </g>
+          <g id='Counters_transfer.dart'>
+            <g>
+              <circle cx="6667.5" cy="3755" r="10" fill="green"/>
+              <text x="6667.5" y="3755" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
               <title>transfer.dart
 ⬇
 1 /data/entities/money_split.dart
@@ -3996,8 +4016,8 @@ alias.dart</title>
 8 /widgets/widgets_domain/field_type.dart</title>
             </g>
             <g>
-              <circle cx="6407.5" cy="3635" r="10" fill="blue"/>
-              <text x="6407.5" y="3635" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
+              <circle cx="6407.5" cy="3715" r="10" fill="blue"/>
+              <text x="6407.5" y="3715" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">4</text>
               <title>1 /data/collections/data.dart
 2 /data/entities/transaction.dart
 3 /views/view_transfers/transfer_sender_receiver.dart
@@ -4008,8 +4028,8 @@ transfer.dart</title>
           </g>
           <g id='Counters_category.dart'>
             <g>
-              <circle cx="6517.5" cy="3755" r="10" fill="green"/>
-              <text x="6517.5" y="3755" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">21</text>
+              <circle cx="6517.5" cy="3835" r="10" fill="green"/>
+              <text x="6517.5" y="3835" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">21</text>
               <title>category.dart
 ⬇
 1 /data/entities/data_abstract.dart
@@ -4035,8 +4055,8 @@ transfer.dart</title>
 21 /widgets/widgets_domain/widget_from_data.dart</title>
             </g>
             <g>
-              <circle cx="6257.5" cy="3715" r="10" fill="blue"/>
-              <text x="6257.5" y="3715" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">19</text>
+              <circle cx="6257.5" cy="3795" r="10" fill="blue"/>
+              <text x="6257.5" y="3795" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">19</text>
               <title>1 /data/collections/categories.dart
 2 /data/data_simulator.dart
 3 /data/entities/transaction.dart
@@ -4062,8 +4082,8 @@ category.dart</title>
           </g>
           <g id='Counters_money_split.dart'>
             <g>
-              <circle cx="6817.5" cy="3755" r="10" fill="green"/>
-              <text x="6817.5" y="3755" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
+              <circle cx="6817.5" cy="3835" r="10" fill="green"/>
+              <text x="6817.5" y="3835" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
               <title>money_split.dart
 ⬇
 1 /data/entities/data_abstract.dart
@@ -4076,8 +4096,8 @@ category.dart</title>
 8 /widgets/widgets_domain/field_type.dart</title>
             </g>
             <g>
-              <circle cx="6557.5" cy="3715" r="10" fill="blue"/>
-              <text x="6557.5" y="3715" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
+              <circle cx="6557.5" cy="3795" r="10" fill="blue"/>
+              <text x="6557.5" y="3795" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
               <title>1 /data/collections/splits.dart
 2 /data/collections/transactions.dart
 3 /data/data_simulator.dart
@@ -4093,34 +4113,6 @@ category.dart</title>
 13 /views/view_rentals/view_rentals_side_panel.dart
 ⬇
 money_split.dart</title>
-            </g>
-          </g>
-          <g id='Counters_stock_split.dart'>
-            <g>
-              <circle cx="6667.5" cy="3835" r="10" fill="green"/>
-              <text x="6667.5" y="3835" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">6</text>
-              <title>stock_split.dart
-⬇
-1 /data/entities/data_abstract.dart
-2 /helpers/date_helper.dart
-3 /helpers/json_helper.dart
-4 /widgets/widgets_domain/data_interface.dart
-5 /widgets/widgets_domain/data_object.dart
-6 /widgets/widgets_domain/field.dart</title>
-            </g>
-            <g>
-              <circle cx="6407.5" cy="3795" r="10" fill="blue"/>
-              <text x="6407.5" y="3795" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">8</text>
-              <title>1 /data/collections/investments.dart
-2 /data/collections/securities.dart
-3 /data/collections/stock_splits.dart
-4 /data/data_simulator.dart
-5 /data/entities/investment.dart
-6 /data/entities/security.dart
-7 /views/view_stocks/stock_chart.dart
-8 /views/view_stocks/view_stocks.dart
-⬇
-stock_split.dart</title>
             </g>
           </g>
           <g id='Counters_data_abstract.dart'>
@@ -4244,23 +4236,22 @@ transaction.dart</title>
           <g id='Counters_investment.dart'>
             <g>
               <circle cx="6667.5" cy="4075" r="10" fill="green"/>
-              <text x="6667.5" y="4075" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">14</text>
+              <text x="6667.5" y="4075" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">13</text>
               <title>investment.dart
 ⬇
 1 /data/entities/data_abstract.dart
-2 /data/entities/stock_split.dart
-3 /helpers/amount_model.dart
-4 /helpers/investment_types.dart
-5 /helpers/json_helper.dart
-6 /helpers/list_helper.dart
-7 /helpers/misc_helpers.dart
-8 /helpers/string_helper.dart
-9 /widgets/picker_edit_box.dart
-10 /widgets/stock_cumulative.dart
-11 /widgets/widgets_domain/data_interface.dart
-12 /widgets/widgets_domain/data_object.dart
-13 /widgets/widgets_domain/field.dart
-14 /widgets/widgets_domain/field_type.dart</title>
+2 /helpers/amount_model.dart
+3 /helpers/investment_types.dart
+4 /helpers/json_helper.dart
+5 /helpers/list_helper.dart
+6 /helpers/misc_helpers.dart
+7 /helpers/string_helper.dart
+8 /widgets/picker_edit_box.dart
+9 /widgets/stock_cumulative.dart
+10 /widgets/widgets_domain/data_interface.dart
+11 /widgets/widgets_domain/data_object.dart
+12 /widgets/widgets_domain/field.dart
+13 /widgets/widgets_domain/field_type.dart</title>
             </g>
             <g>
               <circle cx="6407.5" cy="4035" r="10" fill="blue"/>
@@ -8145,17 +8136,17 @@ chart_helper.dart</title>
           <g id='Labels_alias.dart'>
             <text class="nodeName" x="7137.5" y="3575" font-size="120%">alias.dart</text>
           </g>
+          <g id='Labels_stock_split.dart'>
+            <text class="nodeName" x="6537.5" y="3655" font-size="120%">stock_split.dart</text>
+          </g>
           <g id='Labels_transfer.dart'>
-            <text class="nodeName" x="6537.5" y="3655" font-size="120%">transfer.dart</text>
+            <text class="nodeName" x="6537.5" y="3735" font-size="120%">transfer.dart</text>
           </g>
           <g id='Labels_category.dart'>
-            <text class="nodeName" x="6387.5" y="3735" font-size="120%">category.dart</text>
+            <text class="nodeName" x="6387.5" y="3815" font-size="120%">category.dart</text>
           </g>
           <g id='Labels_money_split.dart'>
-            <text class="nodeName" x="6687.5" y="3735" font-size="120%">money_split.dart</text>
-          </g>
-          <g id='Labels_stock_split.dart'>
-            <text class="nodeName" x="6537.5" y="3815" font-size="120%">stock_split.dart</text>
+            <text class="nodeName" x="6687.5" y="3815" font-size="120%">money_split.dart</text>
           </g>
           <g id='Labels_data_abstract.dart'>
             <text class="nodeName" x="6537.5" y="3895" font-size="120%">data_abstract.dart</text>
