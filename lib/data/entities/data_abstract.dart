@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:money/data/entities/transaction.dart';
 import 'package:money/models/account.dart';
 import 'package:money/models/payee.dart';
 import 'package:money/widgets/mutation_types.dart';
@@ -25,8 +24,8 @@ abstract class DataAbstract {
     bool recalculateBalances = true,
   });
 
-  bool removeTransaction(Transaction t);
-  void clearTransferToAccount(Transaction t, Account a);
+  bool removeTransaction(int transactionId);
+  void clearTransferToAccount(int transactionId, Account a);
   void updateAll();
 
   List<String> getPayeeNames();

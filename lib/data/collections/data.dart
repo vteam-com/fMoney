@@ -208,7 +208,11 @@ class Data implements DataAbstract {
   }
 
   @override
-  void clearTransferToAccount(final Transaction t, final Account a) {
+  void clearTransferToAccount(int transactionId, Account a) {
+    final Transaction? t = transactions.get(transactionId);
+    if (t == null) {
+      return; // Transaction not found
+    }
     // TODO
     // if (t.isSplit) {
     //   for (MoneySplit s in t.splits) {
@@ -548,7 +552,11 @@ class Data implements DataAbstract {
   }
 
   @override
-  bool removeTransaction(Transaction t) {
+  bool removeTransaction(int transactionId) {
+    final Transaction? t = transactions.get(transactionId);
+    if (t == null) {
+      return false; // Transaction not found
+    }
     if (t.fieldStatus.value == TransactionStatus.reconciled && t.fieldAmount.value.asDouble() != 0) {
       throw Exception('Cannot removed reconciled transaction');
     }

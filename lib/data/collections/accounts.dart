@@ -358,14 +358,14 @@ class Accounts extends MoneyObjects<Account> {
     Iterable<Transaction> view = (this.data.transactions as Transactions).findTransfersToAccount(a);
     if (view.isNotEmpty) {
       for (Transaction u in view) {
-        this.data.clearTransferToAccount(u, a);
+        this.data.clearTransferToAccount(u.uniqueId, a);
       }
     }
 
     view = getTransactions(a);
 
     for (Transaction t in view) {
-      this.data.removeTransaction(t);
+      this.data.removeTransaction(t.uniqueId);
     }
     return true;
   }
