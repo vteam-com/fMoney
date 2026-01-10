@@ -1,6 +1,6 @@
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction.dart';
-import 'package:money/models/account.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/views/import/import_transactions_panel.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';

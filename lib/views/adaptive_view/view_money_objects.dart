@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/views/adaptive_view/adaptable_view_with_list.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';

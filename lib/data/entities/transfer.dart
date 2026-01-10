@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/entities/transaction_split.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/models/account.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';

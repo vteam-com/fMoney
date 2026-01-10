@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/data/collections/data.dart';
+import 'package:money/io/money_data_io.dart';
 
 void main() {
   // Mark todo as partially completed - basic round-trip test created
@@ -12,25 +13,25 @@ void main() {
       final Data originalData = Data();
 
       // Test that we can create ZIP CSV data
-      final List<int> csvZipBytes = originalData.getCsvZipAchieveListOfInt();
+      final List<int> csvZipBytes = MoneyDataIO().getCsvZipAchieveListOfInt(originalData);
       expect(csvZipBytes.isNotEmpty, isTrue);
 
       // Test that we can load from the ZIP CSV data
       final Data loadedData = Data();
       final Uint8List csvZipUint8List = Uint8List.fromList(csvZipBytes);
-      await loadedData.loadFromZippedCsv('', csvZipUint8List);
+      await MoneyDataIO().loadFromZippedCsv(loadedData, '', csvZipUint8List);
 
       // Basic verification - both data instances exist and are valid
       expect(loadedData, isNotNull);
 
-      // Test that SQLite methods are available (even if we don't call them)
-      expect(originalData.saveToSql, isNotNull);
-      expect(originalData.loadFromSql, isNotNull);
+      // Test that SQLite methods are available
+      expect(MoneyDataIO().saveToSql, isNotNull);
+      expect(MoneyDataIO().loadFromSql, isNotNull);
     });
 
     test('CSV archive contains expected structure', () async {
       final Data data = Data();
-      final List<int> csvZipBytes = data.getCsvZipAchieveListOfInt();
+      final List<int> csvZipBytes = MoneyDataIO().getCsvZipAchieveListOfInt(data);
 
       // Decode the archive
       final Archive archive = ZipDecoder().decodeBytes(csvZipBytes);
@@ -50,12 +51,12 @@ void main() {
       originalData.clearExistingData();
 
       // Export to CSV
-      final List<int> csvZipBytes = originalData.getCsvZipAchieveListOfInt();
+      final List<int> csvZipBytes = MoneyDataIO().getCsvZipAchieveListOfInt(originalData);
 
       // Import from CSV
       final Data loadedData = Data();
       final Uint8List csvZipUint8List = Uint8List.fromList(csvZipBytes);
-      await loadedData.loadFromZippedCsv('', csvZipUint8List);
+      await MoneyDataIO().loadFromZippedCsv(loadedData, '', csvZipUint8List);
 
       // Verify empty state is preserved
       expect(originalData.accounts.isEmpty, isTrue);
@@ -70,7 +71,7 @@ void main() {
       final Data data = Data();
       data.clearExistingData();
 
-      final List<int> csvZipBytes = data.getCsvZipAchieveListOfInt();
+      final List<int> csvZipBytes = MoneyDataIO().getCsvZipAchieveListOfInt(data);
       final Archive archive = ZipDecoder().decodeBytes(csvZipBytes);
 
       expect(csvZipBytes.isNotEmpty, isTrue); // ZIP data should not be empty
@@ -106,17 +107,17 @@ void main() {
       originalData.clearExistingData();
 
       // Multiple CSV conversions
-      final List<int> csvBytes1 = originalData.getCsvZipAchieveListOfInt();
+      final List<int> csvBytes1 = MoneyDataIO().getCsvZipAchieveListOfInt(originalData);
       final Data data1 = Data();
-      await data1.loadFromZippedCsv('', Uint8List.fromList(csvBytes1));
+      await MoneyDataIO().loadFromZippedCsv(data1, '', Uint8List.fromList(csvBytes1));
 
-      final List<int> csvBytes2 = data1.getCsvZipAchieveListOfInt();
+      final List<int> csvBytes2 = MoneyDataIO().getCsvZipAchieveListOfInt(data1);
       final Data data2 = Data();
-      await data2.loadFromZippedCsv('', Uint8List.fromList(csvBytes2));
+      await MoneyDataIO().loadFromZippedCsv(data2, '', Uint8List.fromList(csvBytes2));
 
-      final List<int> csvBytes3 = data2.getCsvZipAchieveListOfInt();
+      final List<int> csvBytes3 = MoneyDataIO().getCsvZipAchieveListOfInt(data2);
       final Data data3 = Data();
-      await data3.loadFromZippedCsv('', Uint8List.fromList(csvBytes3));
+      await MoneyDataIO().loadFromZippedCsv(data3, '', Uint8List.fromList(csvBytes3));
 
       // All should maintain empty state
       expect(data1.accounts.isEmpty, isTrue);

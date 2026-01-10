@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:money/data/abstract/database_interface.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/widgets/database.dart';
 import 'package:money/widgets/diff.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
@@ -194,7 +194,7 @@ class MoneyObjects<T> {
     // implement in the override derived classes
   }
 
-  bool saveSql(final MyDatabase db, final String tableName) {
+  bool saveSql(final DatabaseInterface db, final String tableName) {
     for (final DataObject item in _iterableListOfMoneyObject(true)) {
       switch (item.mutation) {
         case MutationType.none:

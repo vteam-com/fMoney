@@ -1,10 +1,9 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/models/alias_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/alias_types.dart';
-import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -97,18 +96,17 @@ class Alias extends DataObject {
     name: 'Payee',
     serializeName: 'Payee',
     defaultValue: 0,
-    getValueForDisplay: (final DataInterface instance) => Payee.getName((instance as Alias).payeeInstance),
+    getValueForDisplay: (final DataInterface instance) =>
+        (instance as Alias).data!.getPayeeNameFromId(instance.fieldPayeeId.value),
     getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPayeeId.value,
   );
 
   RegExp? regex;
 
-  Payee? _payeeInstance;
-
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
     return MyListItemAsCard(
-      leftTopAsString: Payee.getName(payeeInstance),
+      leftTopAsString: this.data!.getPayeeNameFromId(this.fieldPayeeId.value),
       leftBottomAsString: fieldPattern.value,
       rightBottomAsString: '${getAliasTypeAsString(type)}\n',
     );
@@ -174,14 +172,6 @@ class Alias extends DataObject {
       }
     }
     return false;
-  }
-
-  Payee? get payeeInstance {
-    // cache the instance
-    if (_payeeInstance == null && fieldPayeeId.value != -1 && data != null) {
-      _payeeInstance = data!.payees.get(fieldPayeeId.value) as Payee?;
-    }
-    return _payeeInstance;
   }
 
   AliasType get type {

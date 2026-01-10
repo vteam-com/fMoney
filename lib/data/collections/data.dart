@@ -2,10 +2,9 @@
 // The following lines import necessary libraries and packages for the file.
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:archive/archive.dart';
 import 'package:flutter/widgets.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/accounts.dart';
 import 'package:money/data/collections/aliases.dart';
 import 'package:money/data/collections/categories.dart';
@@ -19,25 +18,21 @@ import 'package:money/data/collections/splits.dart';
 import 'package:money/data/collections/stock_splits.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/entities/event.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/entities/transfer.dart';
+import 'package:money/data/models/account.dart';
+import 'package:money/data/models/account_aliases.dart';
+import 'package:money/data/models/currencies.dart';
+import 'package:money/data/models/online_accounts.dart';
+import 'package:money/data/models/payee.dart';
+import 'package:money/data/models/rental_units.dart';
+import 'package:money/data/models/transaction_extras/transaction_extras.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/file_systems.dart';
-import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/account_aliases.dart';
-import 'package:money/models/currencies.dart';
-import 'package:money/models/money_objects.dart';
-import 'package:money/models/online_accounts.dart';
-import 'package:money/models/payee.dart';
-import 'package:money/models/rental_units.dart';
-import 'package:money/models/transaction_extras/transaction_extras.dart';
 import 'package:money/widgets/data_access.dart';
-import 'package:money/widgets/data_source.dart';
-import 'package:money/widgets/database.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -110,7 +105,6 @@ class Data implements DataAbstract {
   Accounts accounts = Accounts();
 
   /// 3 Aliases of Payees
-  @override
   Aliases aliases = Aliases();
 
   /// 4 Categories of Transactions
@@ -121,7 +115,6 @@ class Data implements DataAbstract {
   Currencies currencies = Currencies();
 
   /// 16 Events
-  @override
   Events events = Events();
 
   /// 6 Investment transactions
@@ -374,47 +367,6 @@ class Data implements DataAbstract {
     return relatedTransaction;
   }
 
-  /// Automated detection of what type of storage to load the data from
-  Future<bool> loadFromPath(final DataSource dateSource) async {
-    try {
-      final String fileExtension = MyFileSystems.getFileExtension(
-        dateSource.filePath,
-      );
-      switch (fileExtension.toLowerCase()) {
-        // Sqlite
-        case '.mmdb':
-          // Load from SQLite
-          if (await loadFromSql(
-            filePath: dateSource.filePath,
-            fileBytes: dateSource.fileBytes,
-          )) {
-            DataAccess.addToMRU(dateSource.filePath);
-          }
-        case '.mmcsv':
-          // Zip CSV files
-          await loadFromZippedCsv(dateSource.filePath, dateSource.fileBytes);
-          DataAccess.addToMRU(dateSource.filePath);
-
-        default:
-          SnackBarService.displayWarning(
-            autoDismiss: false,
-            message: 'Unsupported file type $fileExtension',
-          );
-          return false;
-      }
-    } catch (e) {
-      logger.e(e.toString());
-      SnackBarService.displayError(autoDismiss: false, message: e.toString());
-      return false;
-    }
-
-    // All individual table were loaded, now let the cross reference money object create linked to other tables
-    recalculateBalances();
-
-    // Notify that loading is completed
-    return true;
-  }
-
   void verifyApplyTransfer({
     required final Transaction transaction,
     required final Account? relatedAccount,
@@ -591,307 +543,6 @@ class Data implements DataAbstract {
     DataAccess.onDataChanged();
   }
 
-  Future<String?> validateDataBasePathIsValidAndExist(
-    final String? filePath,
-    final Uint8List fileBytes,
-  ) async {
-    try {
-      if (filePath != null) {
-        if (fileBytes.isNotEmpty) {
-          return filePath;
-        }
-        if (File(filePath).existsSync()) {
-          return filePath;
-        }
-      }
-    } catch (e) {
-      // next line will handle things
-    }
-    return null;
-  }
-
-  // --- SQL Extension Methods ---
-
-  Future<bool> loadFromSql({
-    required final String filePath,
-    required final Uint8List fileBytes,
-  }) async {
-    // Load from SQLite
-    final String? pathToDatabaseFile = await validateDataBasePathIsValidAndExist(filePath, fileBytes);
-
-    if (pathToDatabaseFile != null || fileBytes.isNotEmpty) {
-      // Open or create the database
-      final MyDatabase db = MyDatabase();
-
-      await db.load(filePath, fileBytes);
-      // Load
-      accountAliases.loadFromJson(
-        await db.select('SELECT * FROM AccountAliases'),
-      );
-      accounts.loadFromJson(await db.select('SELECT * FROM Accounts'));
-      aliases.loadFromJson(await db.select('SELECT * FROM Aliases'));
-      categories.loadFromJson(await db.select('SELECT * FROM Categories'));
-      currencies.loadFromJson(await db.select('SELECT * FROM Currencies'));
-      investments.loadFromJson(await db.select('SELECT * FROM Investments'));
-      loanPayments.loadFromJson(await db.select('SELECT * FROM LoanPayments'));
-      onlineAccounts.loadFromJson(
-        await db.select('SELECT * FROM OnlineAccounts'),
-      );
-      payees.loadFromJson(await db.select('SELECT * FROM Payees'));
-      rentBuildings.loadFromJson(
-        await db.select('SELECT * FROM RentBuildings'),
-      );
-      rentUnits.loadFromJson(await db.select('SELECT * FROM RentUnits'));
-      securities.loadFromJson(await db.select('SELECT * FROM Securities'));
-      stockSplits.loadFromJson(await db.select('SELECT * FROM StockSplits'));
-
-      // Check if the Events table exists before loading it
-      if (await db.tableExists('Events')) {
-        events.loadFromJson(await db.select('SELECT * FROM Events'));
-      }
-
-      transactions.loadFromJson(await db.select('SELECT * FROM Transactions'));
-      transactionExtras.loadFromJson(
-        await db.select('SELECT * FROM TransactionExtras'),
-      );
-      // Must come after Transactions are loaded
-      splits.loadFromJson(await db.select('SELECT * FROM Splits'));
-
-      // Close the database when done
-      db.dispose();
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> saveToSql({
-    required final String filePath,
-    required final void Function(bool success, String errorMessage) onSaveCompleted,
-  }) async {
-    try {
-      final MyDatabase db = MyDatabase();
-      db.load(filePath, Uint8List(0));
-
-      // Save transaction first
-      accountAliases.saveSql(db, 'AccountAliases');
-      accounts.saveSql(db, 'Accounts');
-      aliases.saveSql(db, 'Aliases');
-      categories.saveSql(db, 'Categories');
-      currencies.saveSql(db, 'Currencies');
-      investments.saveSql(db, 'Investments');
-      loanPayments.saveSql(db, 'LoanPayments');
-      onlineAccounts.saveSql(db, 'OnlineAccounts');
-      payees.saveSql(db, 'Payees');
-      rentBuildings.saveSql(db, 'RentBuildings');
-      rentUnits.saveSql(db, 'RentUnits');
-      securities.saveSql(db, 'Securities');
-      stockSplits.saveSql(db, 'StockSplits');
-
-      if (!await db.tableExists('Events')) {
-        // Create the Events table if it doesn't exist
-        db.execute('''
-          CREATE TABLE [Events] (
-            [Id] int PRIMARY KEY,
-            [Name] nvarchar(255) NOT NULL,
-            [Category] int,
-            [Begin] datetime NOT NULL,
-            [End] datetime NOT NULL,
-            [People] nvarchar(255) NOT NULL,
-            [Memo] nvarchar(255) NOT NULL
-          );''');
-      }
-      events.saveSql(db, 'Events');
-
-      transactions.saveSql(db, 'Transactions');
-      transactionExtras.saveSql(db, 'TransactionExtras');
-      splits.saveSql(db, 'Splits');
-
-      db.dispose();
-    } catch (e) {
-      onSaveCompleted(false, e.toString());
-      return false;
-    }
-
-    onSaveCompleted(true, '');
-    return true;
-  }
-
-  // --- CSV Extension Methods ---
-
-  static const String mainFileName = 'mymoney.mmcsv';
-  static const String subFolderName = 'mymoney_csv_files';
-
-  Future<void> loadFromZippedCsv(
-    String filePathToLoad,
-    final Uint8List fileBytes,
-  ) async {
-    // Decode the ZIP file
-    late Archive archive;
-    if (fileBytes.isNotEmpty) {
-      archive = ZipDecoder().decodeBytes(fileBytes);
-    } else {
-      final File file = File(filePathToLoad);
-      final List<int> bytes = await file.readAsBytes();
-      archive = ZipDecoder().decodeBytes(bytes);
-    }
-    loadFromArchive(archive);
-  }
-
-  void loadFromArchive(final Archive archive) {
-    // Extract the files and read the content
-    for (ArchiveFile file in archive) {
-      if (file.isFile) {
-        final String fileContent = getZipSingleFileContent(file);
-
-        final String fileNameInLowercase = MyFileSystems.getFileName(file.name).toLowerCase();
-
-        switch (fileNameInLowercase) {
-          case 'account_aliases.csv':
-            accountAliases.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'accounts.csv':
-            accounts.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'aliases.csv':
-            aliases.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'categories.csv':
-            categories.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'investments.csv':
-            investments.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'loan_payments.csv':
-            loanPayments.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'online_accounts.csv':
-            onlineAccounts.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'payees.csv':
-            payees.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'rent_buildings.csv':
-            rentBuildings.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'rent_units.csv':
-            rentUnits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'securities.csv':
-            securities.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'splits.csv':
-            splits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'stock_splits.csv':
-            stockSplits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'transactions.csv':
-            transactions.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'transaction_extras.csv':
-            transactionExtras.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'events.csv':
-            events.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-        }
-      }
-    }
-  }
-
-  String getZipSingleFileContent(ArchiveFile file) {
-    try {
-      final List<int> fileBytes = file.content as List<int>;
-      String fileContent = utf8.decode(fileBytes, allowMalformed: true);
-      // Remove UTF-8 BOM if present
-      fileContent = removeUtf8Bom(fileContent);
-      return fileContent;
-    } catch (e) {
-      logger.e(e.toString());
-      return '';
-    }
-  }
-
-  Future<String> saveToCsv() async {
-    final String destinationFolder = await DataAccess.generateNextFolderToSaveTo();
-    if (destinationFolder.isEmpty) {
-      throw Exception('No container folder give for saving');
-    }
-
-    // Define the path to the ZIP file
-    final String zipFileName = MyFileSystems.append(
-      destinationFolder,
-      mainFileName,
-    );
-    final File zipFile = File(zipFileName);
-
-    // Create the ZIP archive
-    final List<int> zipBytes = getCsvZipAchieveListOfInt();
-    // Write the ZIP file
-    await zipFile.writeAsBytes(zipBytes);
-    return zipFileName;
-  }
-
-  List<int> getCsvZipAchieveListOfInt() {
-    // Create the ZIP archive
-    final Archive archive = Archive();
-
-    // Add files to the archive
-    writeEachFiles(archive);
-    // Encode the archive to a byte array
-    final List<int> zipBytes = ZipEncoder().encode(archive);
-    return zipBytes;
-  }
-
-  void writeEachFiles(Archive archive) {
-    addCsvToArchive(archive, 'account_aliases.csv', accountAliases.toCSV());
-    addCsvToArchive(archive, 'accounts.csv', accounts.toCSV());
-    addCsvToArchive(archive, 'aliases.csv', aliases.toCSV());
-    addCsvToArchive(archive, 'categories.csv', categories.toCSV());
-    addCsvToArchive(archive, 'currencies.csv', currencies.toCSV());
-    addCsvToArchive(archive, 'investments.csv', investments.toCSV());
-    addCsvToArchive(archive, 'loan_payments.csv', loanPayments.toCSV());
-    addCsvToArchive(archive, 'online_accounts.csv', onlineAccounts.toCSV());
-    addCsvToArchive(archive, 'payees.csv', payees.toCSV());
-    addCsvToArchive(archive, 'securities.csv', securities.toCSV());
-    addCsvToArchive(archive, 'splits.csv', splits.toCSV());
-    addCsvToArchive(archive, 'stock_splits.csv', stockSplits.toCSV());
-    addCsvToArchive(archive, 'rent_units.csv', rentUnits.toCSV());
-    addCsvToArchive(archive, 'rent_buildings.csv', rentBuildings.toCSV());
-    addCsvToArchive(archive, 'events.csv', events.toCSV());
-    addCsvToArchive(
-      archive,
-      'transaction_extras.csv',
-      transactionExtras.toCSV(),
-    );
-    addCsvToArchive(archive, 'transactions.csv', transactions.toCSV());
-  }
-
-  void addCsvToArchive(
-    final Archive archive,
-    final String filename,
-    final String textContent,
-  ) {
-    final List<int> bytes = utf8.encode(textContent);
-    archive.addFile(ArchiveFile(filename, bytes.length, bytes));
-  }
-
   @override
   List<String> getPayeeNames() => payees.getSortedPayeeNames();
 
@@ -944,5 +595,10 @@ class Data implements DataAbstract {
       }
     }
     return ratio;
+  }
+
+  @override
+  Iterable<DateTime> getEventDates() {
+    return events.iterableList().map((Event event) => event.fieldDateBegin.value!);
   }
 }

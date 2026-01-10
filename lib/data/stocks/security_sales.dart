@@ -1,5 +1,5 @@
 import 'package:money/data/entities/security.dart';
-import 'package:money/models/account.dart';
+import 'package:money/data/models/account.dart';
 
 /// This class is used to track the cost basis for a given sale.
 

@@ -1,14 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/payee.dart';
+import 'package:money/data/models/account.dart';
+import 'package:money/data/models/payee.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 abstract class DataAbstract {
   dynamic get accounts;
-  dynamic get aliases;
   dynamic get categories;
-  dynamic get events;
   dynamic get investments;
   dynamic get loanPayments;
   dynamic get payees;
@@ -48,4 +46,6 @@ abstract class DataAbstract {
   set mergePayeeProvider(dynamic value);
 
   double getSplitRatioForSecurityBeforeDate(int securityId, DateTime date);
+
+  Iterable<DateTime> getEventDates();
 }

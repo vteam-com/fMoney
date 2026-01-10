@@ -1,7 +1,7 @@
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/event.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/money_objects.dart';
 
 class Events extends MoneyObjects<Event> {
   Events() {
@@ -37,7 +37,7 @@ class Events extends MoneyObjects<Event> {
       data: data,
     );
 
-    data.events.appendNewMoneyObject(event);
+    appendNewMoneyObject(event);
     return event;
   }
 }

@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/payees.dart';
 import 'package:money/data/entities/alias.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/money_objects.dart';
-import 'package:money/models/payee.dart';
 
 class Aliases extends MoneyObjects<Alias> {
   Aliases() {
@@ -26,7 +26,10 @@ class Aliases extends MoneyObjects<Alias> {
     final Alias? aliasFound = iterableList().firstWhereOrNull(
       (final Alias item) => item.isMatch(text),
     );
-    return aliasFound?.payeeInstance;
+    if (aliasFound == null) {
+      return null;
+    }
+    return (this.data.payees as Payees).get(aliasFound.fieldPayeeId.value);
   }
 
   Payee? findOrCreateNewPayee(

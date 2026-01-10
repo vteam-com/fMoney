@@ -1,9 +1,12 @@
 // Imports
+import 'package:money/data/abstract/mergeable_item.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/data/entities/transfer.dart';
+import 'package:money/data/models/account.dart';
+import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -11,9 +14,6 @@ import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/mergeable_item.dart';
-import 'package:money/models/payee.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/icon_button.dart';

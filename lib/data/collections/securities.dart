@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
@@ -6,7 +7,6 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/stock_cumulative.dart';
 
 // Exports

@@ -5,11 +5,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/data/collections/data.dart';
-import 'package:money/data/data_simulator.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/models/account.dart';
+import 'package:money/io/data_simulator.dart';
+import 'package:money/io/money_data_io.dart';
 import 'package:money/views/merge_payee_provider.dart';
 import 'package:money/views/suggestion_approval_provider.dart';
 import 'package:money/widgets/data_access.dart';
@@ -89,7 +90,7 @@ class DataFileController extends GetxController {
   Future<bool> loadFile(final DataSource dataSource) async {
     this.closeFile(false); // ensure that we closed current file and state
 
-    final bool success = await Data().loadFromPath(dataSource);
+    final bool success = await MoneyDataIO().loadFromPath(Data(), dataSource);
 
     if (success) {
       setCurrentFileName(dataSource.filePath);
@@ -209,7 +210,7 @@ class DataFileController extends GetxController {
   }
 
   void onSaveToCsv() async {
-    final String fullPathToFileName = await Data().saveToCsv();
+    final String fullPathToFileName = await MoneyDataIO().saveToCsv(Data());
 
     setCurrentFileName(fullPathToFileName);
 
@@ -224,7 +225,8 @@ class DataFileController extends GetxController {
       fileNameAndPath = await defaultFolderToSaveTo('mymoney.mmdb');
     }
 
-    final bool result = await Data().saveToSql(
+    final bool result = await MoneyDataIO().saveToSql(
+      Data(),
       filePath: fileNameAndPath,
       onSaveCompleted: (final bool success, final String message) {
         if (success) {

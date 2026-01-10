@@ -1,9 +1,9 @@
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
-import 'package:money/models/account.dart';
 import 'package:money/widgets/form_field_widget.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_account.dart';

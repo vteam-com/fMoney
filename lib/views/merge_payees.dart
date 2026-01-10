@@ -1,10 +1,10 @@
+import 'package:money/data/abstract/mergeable_item.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/mergeable_item.dart';
-import 'package:money/models/payee.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/dialog.dart';

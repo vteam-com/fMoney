@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/account.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';

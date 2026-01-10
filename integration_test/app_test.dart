@@ -5,10 +5,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/io/money_data_io.dart';
 import 'package:money/main.dart' as app;
-import 'package:money/models/money_objects.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/panels/side_panel/side_panel_header.dart';
@@ -977,7 +978,9 @@ Future<void> testPendingChanges(WidgetTester tester) async {
   }
 
   // Save SQL
-  await Data().saveToSql(
+  // Save SQL
+  await MoneyDataIO().saveToSql(
+    Data(),
     filePath: testFilename,
     onSaveCompleted: (bool success, String errorMessage) {
       // save completed

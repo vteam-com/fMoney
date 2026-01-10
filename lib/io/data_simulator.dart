@@ -9,6 +9,12 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/entities/transaction_split.dart';
+import 'package:money/data/models/account.dart';
+import 'package:money/data/models/account_alias.dart';
+import 'package:money/data/models/alias_types.dart';
+import 'package:money/data/models/currency.dart';
+import 'package:money/data/models/online_account.dart';
+import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -17,12 +23,6 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/account_alias.dart';
-import 'package:money/models/alias_types.dart';
-import 'package:money/models/currency.dart';
-import 'package:money/models/online_account.dart';
-import 'package:money/models/payee.dart';
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {

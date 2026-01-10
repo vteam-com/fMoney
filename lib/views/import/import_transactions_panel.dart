@@ -1,8 +1,8 @@
 import 'package:money/data/collections/data.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/models/account.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/widgets/columns_input.dart';
 import 'package:money/widgets/gaps.dart';

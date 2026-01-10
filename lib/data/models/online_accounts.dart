@@ -1,6 +1,6 @@
+import 'package:money/data/abstract/money_objects.dart';
+import 'package:money/data/models/online_account.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/money_objects.dart';
-import 'package:money/models/online_account.dart';
 
 class OnlineAccounts extends MoneyObjects<OnlineAccount> {
   OnlineAccounts() {

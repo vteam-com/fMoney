@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:money/data/entities/security.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/data/stocks/security_purchase.dart';
 import 'package:money/data/stocks/security_sales.dart';
-import 'package:money/models/account.dart';
 
 /// We implement a first-in first-out FIFO queue for securities, the assumption is that when
 /// securities are sold you will first sell the security you have been holding the longest

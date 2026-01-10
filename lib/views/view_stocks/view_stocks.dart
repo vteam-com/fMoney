@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/entities/investment.dart';
@@ -10,7 +11,6 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';
 import 'package:money/views/menu_entry.dart';

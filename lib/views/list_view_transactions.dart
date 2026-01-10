@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/helpers/list_controller.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/views/dialog_mutate_transaction.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/selection_controller.dart';

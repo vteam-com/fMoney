@@ -1,11 +1,11 @@
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/loan_payment.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/money_objects.dart';
 
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {

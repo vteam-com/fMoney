@@ -1,6 +1,6 @@
+import 'package:money/data/abstract/money_objects.dart';
+import 'package:money/data/models/account_alias.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/models/account_alias.dart';
-import 'package:money/models/money_objects.dart';
 
 class AccountAliases extends MoneyObjects<AccountAlias> {
   AccountAliases() {

@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/collections/loan_payments.dart';
 import 'package:money/data/collections/securities.dart';
@@ -10,6 +11,7 @@ import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/loan_payment.dart';
+import 'package:money/data/models/account.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -17,8 +19,6 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/models/account.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
 class Accounts extends MoneyObjects<Account> {

@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/data_abstract.dart';
@@ -8,7 +9,6 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/models/money_objects.dart';
 import 'package:money/widgets/mutation_types.dart';
 
 class Categories extends MoneyObjects<Category> {
