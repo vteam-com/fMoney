@@ -135,7 +135,9 @@ class BudgetAnalyzer {
     // Group transactions by category
     final Map<String, List<Transaction>> categoryTransactions = <String, List<Transaction>>{};
     for (final Transaction transaction in expenses) {
-      categoryTransactions.putIfAbsent(transaction.category!.name, () => <Transaction>[]).add(transaction);
+      categoryTransactions
+          .putIfAbsent((transaction.category as dynamic).name as String, () => <Transaction>[])
+          .add(transaction);
     }
 
     // Analyze each category

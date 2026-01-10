@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -36,7 +36,7 @@ class Categories extends MoneyObjects<Category> {
     }
 
     // first tally the direct category transactions
-    for (final Transaction t in (this.data.transactions as Transactions).iterableList()) {
+    for (final Transaction t in data.getTransactions().cast<Transaction>()) {
       final Category? item = get(t.fieldCategoryId.value);
       if (item != null) {
         item.fieldTransactionCount.value++;
@@ -81,7 +81,7 @@ class Categories extends MoneyObjects<Category> {
       'Supply a parent ID or hierarchy names but not both',
     );
 
-    final Category? parent = (this.data.categories as Categories).get(parentId);
+    final dynamic parent = data.getCategory(parentId);
 
     if (parent == null && name.contains(':')) {
       return ensureAncestorExist(name: name, overrideTypeOfParent: type);
@@ -101,7 +101,7 @@ class Categories extends MoneyObjects<Category> {
     CategoryType typeToUse = type ?? CategoryType.none;
 
     if (type == null && parent != null) {
-      typeToUse = parent.fieldType.value;
+      typeToUse = (parent as dynamic).fieldType.value as CategoryType;
     }
 
     // add a new Category
@@ -114,7 +114,7 @@ class Categories extends MoneyObjects<Category> {
       description: description,
     );
 
-    (this.data.categories as Categories).appendNewMoneyObject(category);
+    data.appendNewCategory(category);
 
     return category;
   }
@@ -393,6 +393,10 @@ class Categories extends MoneyObjects<Category> {
 
   Category get transfer {
     return getOrCreate('Transfer', CategoryType.none);
+  }
+
+  int transferCategoryId() {
+    return transfer.uniqueId;
   }
 
   Category get transferFromDeletedAccount {

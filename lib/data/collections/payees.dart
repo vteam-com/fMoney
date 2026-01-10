@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/models/payee.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/mutation_types.dart';
@@ -36,15 +36,15 @@ class Payees extends MoneyObjects<Payee> {
       payee.fieldSum.value.setAmount(0);
     }
 
-    for (Transaction t in data.transactions.iterableList() as Iterable<Transaction>) {
+    for (final Transaction t in data.getTransactions().cast<Transaction>()) {
       final Payee? item = get(t.fieldPayee.value);
       if (item != null) {
         item.fieldCount.value++;
         item.fieldSum.value += t.fieldAmount.value;
-        final String categoryName = (data.categories.getNameFromId(t.fieldCategoryId.value) as String).trim();
+        final String categoryName = data.getCategoryNameFromId(t.fieldCategoryId.value).trim();
         if (categoryName.isNotEmpty) {
           item.categories.add(
-            data.categories.getNameFromId(t.fieldCategoryId.value) as String,
+            data.getCategoryNameFromId(t.fieldCategoryId.value),
           );
         }
       }
@@ -101,7 +101,7 @@ class Payees extends MoneyObjects<Payee> {
       payee = Payee();
       payee.fieldId.value = -1;
       payee.fieldName.value = name;
-      data.payees.appendNewMoneyObject(
+      this.appendNewMoneyObject(
         payee,
         fireNotification: fireNotification,
       );
@@ -120,15 +120,15 @@ class Payees extends MoneyObjects<Payee> {
 
   static void removePayeesThatHaveNoTransactions(List<int> payeeIds, DataAbstract data) {
     for (final int payeeId in payeeIds) {
-      final Payee? payeeToCheck = data.payees.get(payeeId) as Payee?;
+      final Payee? payeeToCheck = data.getPayee(payeeId) as Payee?;
       if (payeeToCheck != null) {
-        final Iterable<Transaction> transactions = data.transactions.iterableList() as Iterable<Transaction>;
-        if (transactions.firstWhereOrNull(
-              (Transaction element) => element.fieldPayee.value == payeeToCheck.uniqueId,
-            ) ==
-            null) {
+        final Iterable<Transaction> transactions = data.getTransactions().cast<Transaction>();
+        final Transaction? matchingTransaction = transactions.firstWhereOrNull(
+          (Transaction element) => element.fieldPayee.value == payeeToCheck.uniqueId,
+        );
+        if (matchingTransaction == null) {
           // No transactions for this payee, we can delete it
-          data.payees.deleteItem(payeeToCheck);
+          data.deletePayee(payeeToCheck);
         }
       }
     }

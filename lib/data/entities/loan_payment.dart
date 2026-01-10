@@ -42,7 +42,7 @@ class LoanPayment extends DataObject {
   }) {
     if (data != null) {
       this.data = data;
-      accountInstance = data.accounts.get(this.fieldAccountId.value) as Account?;
+      accountInstance = data.getAccount(this.fieldAccountId.value) as Account?;
     }
     this.fieldId.value = id;
     this.fieldAccountId.value = accountId;

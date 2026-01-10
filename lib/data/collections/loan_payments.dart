@@ -1,8 +1,8 @@
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/loan_payment.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -45,19 +45,18 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
   ];
 
   // include the manual entries done in the LoanPayments table
-  final List<LoanPayment> aggregatedList =
-      data.loanPayments
-              .iterableList(includeDeleted: false)
-              .where((LoanPayment a) => a.fieldAccountId.value == account.uniqueId)
-              .toList()
-          as List<LoanPayment>;
+  final List<LoanPayment> aggregatedList = data
+      .getLoanPayments()
+      .cast<LoanPayment>()
+      .where((LoanPayment a) => a.fieldAccountId.value == account.uniqueId)
+      .toList();
 
   // include the bank transactions matching the Account Categories for Principal and Interest
-  final List<Transaction> listOfTransactions =
-      data.transactions.getListFlattenSplits(
-            whereClause: (Transaction t) => t.isMatchingAnyOfTheseCategories(categoriesToMatch),
-          )
-          as List<Transaction>;
+  final List<Transaction> listOfTransactions = data
+      .getTransactionsFlattenSplits(
+        whereClause: (dynamic t) => (t as Transaction).isMatchingAnyOfTheseCategories(categoriesToMatch),
+      )
+      .cast<Transaction>();
 
   // Rollup into a single Payment based on Date to match Principal and Interest payment
   final Map<String, PaymentRollup> payments = <String, PaymentRollup>{};

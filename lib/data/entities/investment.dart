@@ -505,13 +505,13 @@ class Investment extends DataObject {
     return result;
   }
 
-  String get symbol => data?.securities.getSymbolFromId(fieldSecurity.value) as String? ?? 'Unknown';
+  String get symbol => data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
 
   double get transactionHoldingValue => this.fieldHoldingShares.value * this.unitPriceAdjusted;
 
   /// The actual transaction date.
   dynamic get transactionInstance {
-    _transactionInstance ??= data?.transactions.get(this.uniqueId);
+    _transactionInstance ??= data?.getTransaction(this.uniqueId);
     return _transactionInstance;
   }
 

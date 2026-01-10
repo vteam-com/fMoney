@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/collections/loan_payments.dart';
 import 'package:money/data/collections/securities.dart';
@@ -12,6 +11,7 @@ import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/loan_payment.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -57,9 +57,13 @@ class Accounts extends MoneyObjects<Account> {
     }
 
     // Cumulate
-    final List<Transaction> transactionsSortedByDate = (this.data.transactions as Transactions).iterableList().sorted(
-      (Transaction a, Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value),
-    );
+    final List<Transaction> transactionsSortedByDate = this.data
+        .getTransactions()
+        .cast<Transaction>()
+        .sorted(
+          (Transaction a, Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value),
+        )
+        .toList();
 
     for (final Transaction t in transactionsSortedByDate) {
       final Account? account = get(t.fieldAccountId.value);
@@ -129,7 +133,7 @@ class Accounts extends MoneyObjects<Account> {
       final String symbol = tokens[1];
       final Account? account = this.get(int.parse(accountId));
       if (account != null) {
-        final Security? security = (this.data.securities as Securities).getBySymbol(symbol);
+        final Security? security = this.data.getSecurityBySymbol(symbol) as Security?;
         if (security != null) {
           account.fieldStockHoldingEstimation.value.setAmount(
             totalAdjustedShareForThisStockInThisAccount * security.fieldLastPrice.value.asDouble(),
@@ -316,7 +320,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   Iterable<Transaction> getTransactions(final Account account) {
-    return (this.data.transactions as Transactions).iterableList().where(
+    return this.data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
   }
@@ -332,14 +336,16 @@ class Accounts extends MoneyObjects<Account> {
     AccumulatorList<String, Investment> groupBySymbol,
     DataAbstract data,
   ) {
-    final Iterable<Investment> investments = (data.investments as Investments).iterableList().where(
+    final Iterable<Investment> investments = data.getInvestments().cast<Investment>().where(
       (Investment i) => i.transactionInstance!.fieldAccountId.value == account.uniqueId,
     );
 
     for (final Investment investment in investments) {
-      final Security? security = (data.securities as Securities).get(
-        investment.fieldSecurity.value,
-      );
+      final Security? security =
+          data.getSecurity(
+                investment.fieldSecurity.value,
+              )
+              as Security?;
       if (security != null) {
         final String stockSymbol = security.fieldSymbol.value;
         groupBySymbol.cumulate('${account.uniqueId}|$stockSymbol', investment);
@@ -355,7 +361,7 @@ class Accounts extends MoneyObjects<Account> {
     }
 
     // Fix up any transfers that are pointing to this account.
-    Iterable<Transaction> view = (this.data.transactions as Transactions).findTransfersToAccount(a);
+    Iterable<Transaction> view = this.data.findTransfersToAccount(a).cast<Transaction>();
     if (view.isNotEmpty) {
       for (Transaction u in view) {
         this.data.clearTransferToAccount(u.uniqueId, a);
@@ -378,8 +384,9 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   void _updateCreditCardPaidOn(final Account account) {
-    final List<Transaction> transactionForAccountSortedByDateAscending = (this.data.transactions as Transactions)
-        .iterableList()
+    final List<Transaction> transactionForAccountSortedByDateAscending = this.data
+        .getTransactions()
+        .cast<Transaction>()
         .where(
           (Transaction t) => t.fieldAccountId.value == account.uniqueId,
         )

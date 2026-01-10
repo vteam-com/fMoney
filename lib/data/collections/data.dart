@@ -4,30 +4,33 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
-import 'package:money/data/abstract/money_objects.dart';
+import 'package:money/data/collections/account_aliases.dart';
 import 'package:money/data/collections/accounts.dart';
 import 'package:money/data/collections/aliases.dart';
 import 'package:money/data/collections/categories.dart';
+import 'package:money/data/collections/currencies.dart';
 import 'package:money/data/collections/events.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/collections/loan_payments.dart';
+import 'package:money/data/collections/online_accounts.dart';
 import 'package:money/data/collections/payees.dart';
 import 'package:money/data/collections/rent_buildings.dart';
+import 'package:money/data/collections/rental_units.dart';
 import 'package:money/data/collections/securities.dart';
 import 'package:money/data/collections/splits.dart';
 import 'package:money/data/collections/stock_splits.dart';
+import 'package:money/data/collections/transaction_extras.dart';
 import 'package:money/data/collections/transactions.dart';
+import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/event.dart';
+import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/loan_payment.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/entities/transfer.dart';
 import 'package:money/data/models/account.dart';
-import 'package:money/data/models/account_aliases.dart';
-import 'package:money/data/models/currencies.dart';
-import 'package:money/data/models/online_accounts.dart';
 import 'package:money/data/models/payee.dart';
-import 'package:money/data/models/rental_units.dart';
-import 'package:money/data/models/transaction_extras/transaction_extras.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
@@ -47,6 +50,7 @@ class Data implements DataAbstract {
 
   /// private constructor
   Data._internal() {
+    DataAbstract.instance = this;
     tables = <MoneyObjects<dynamic>>[
       accountAliases, // 1
       aliases, // 3
@@ -101,14 +105,12 @@ class Data implements DataAbstract {
   AccountAliases accountAliases = AccountAliases();
 
   /// 2 Accounts
-  @override
   Accounts accounts = Accounts();
 
   /// 3 Aliases of Payees
   Aliases aliases = Aliases();
 
   /// 4 Categories of Transactions
-  @override
   Categories categories = Categories();
 
   /// 5 Currencies definitions used in the money files
@@ -118,48 +120,41 @@ class Data implements DataAbstract {
   Events events = Events();
 
   /// 6 Investment transactions
-  @override
   Investments investments = Investments();
 
   /// 7
-  @override
   LoanPayments loanPayments = LoanPayments();
 
   /// 8
   OnlineAccounts onlineAccounts = OnlineAccounts();
 
   /// 9
-  @override
   Payees payees = Payees();
 
   /// 10
-  @override
   RentBuildings rentBuildings = RentBuildings();
 
   /// 11
   RentUnits rentUnits = RentUnits();
 
   /// 12
-  @override
   Securities securities = Securities();
 
   /// 13
-  @override
   Splits splits = Splits();
 
   /// 14
-  @override
   StockSplits stockSplits = StockSplits();
 
   /// 15
   TransactionExtras transactionExtras = TransactionExtras();
 
   /// 16 All Transactions in the Money file
-  @override
   Transactions transactions = Transactions();
 
   /// Provider for category suggestion widgets
   /// Must be set by upper view layers (home view or main app) before use
+  @override
   dynamic categorySuggestionProvider;
 
   /// Provider for merge payee functionality
@@ -190,7 +185,6 @@ class Data implements DataAbstract {
   }
 
   void clear() {
-    DataAccess.trackMutations.reset();
     clearExistingData();
   }
 
@@ -198,10 +192,16 @@ class Data implements DataAbstract {
     for (final MoneyObjects<dynamic> moneyObjects in tables) {
       moneyObjects.clear();
     }
+
+    try {
+      DataAccess.trackMutations.reset();
+    } catch (_) {
+      // not initialized in unit tests
+    }
   }
 
   @override
-  void clearTransferToAccount(int transactionId, Account a) {
+  void clearTransferToAccount(int transactionId, dynamic a) {
     final Transaction? t = transactions.get(transactionId);
     if (t == null) {
       return; // Transaction not found
@@ -238,8 +238,12 @@ class Data implements DataAbstract {
   void close() {
     clearExistingData();
 
-    DataAccess.onFileClosed();
-    DataAccess.trackMutations.reset();
+    try {
+      DataAccess.onFileClosed();
+      DataAccess.trackMutations.reset();
+    } catch (_) {
+      // not initialized in unit tests
+    }
   }
 
   void deleteItems(final List<DataObject> itemsToDelete) {
@@ -465,27 +469,31 @@ class Data implements DataAbstract {
     required DataObject moneyObject,
     bool recalculateBalances = true,
   }) {
-    switch (mutation) {
-      case MutationType.inserted:
-        moneyObject.mutation = MutationType.inserted;
-        DataAccess.trackMutations.increaseNumber(increaseAdded: 1);
-      case MutationType.changed:
-        // ensure that we only count editing once and discard if this was edited on a new inserted items
-        if (moneyObject.mutation == MutationType.none) {
-          moneyObject.mutation = MutationType.changed;
-          DataAccess.trackMutations.increaseNumber(increaseChanged: 1);
-        } else {
-          DataAccess.trackMutations.setLastEditToNow();
-        }
-      case MutationType.deleted:
-        if (moneyObject.mutation == MutationType.inserted) {
-          // in case the delete item was a recently added item, we need to deduct it from the sum
-          DataAccess.trackMutations.increaseNumber(increaseAdded: -1);
-        }
-        moneyObject.mutation = MutationType.deleted;
-        DataAccess.trackMutations.increaseNumber(increaseDeleted: 1);
-      default:
-        break;
+    try {
+      switch (mutation) {
+        case MutationType.inserted:
+          moneyObject.mutation = MutationType.inserted;
+          DataAccess.trackMutations.increaseNumber(increaseAdded: 1);
+        case MutationType.changed:
+          // ensure that we only count editing once and discard if this was edited on a new inserted items
+          if (moneyObject.mutation == MutationType.none) {
+            moneyObject.mutation = MutationType.changed;
+            DataAccess.trackMutations.increaseNumber(increaseChanged: 1);
+          } else {
+            DataAccess.trackMutations.setLastEditToNow();
+          }
+        case MutationType.deleted:
+          if (moneyObject.mutation == MutationType.inserted) {
+            // in case the delete item was a recently added item, we need to deduct it from the sum
+            DataAccess.trackMutations.increaseNumber(increaseAdded: -1);
+          }
+          moneyObject.mutation = MutationType.deleted;
+          DataAccess.trackMutations.increaseNumber(increaseDeleted: 1);
+        default:
+          break;
+      }
+    } catch (_) {
+      // not initialized in unit tests
     }
 
     if (recalculateBalances) {
@@ -547,16 +555,65 @@ class Data implements DataAbstract {
   List<String> getPayeeNames() => payees.getSortedPayeeNames();
 
   @override
+  Payee? getPayee(int id) => payees.get(id);
+
+  @override
   Payee? getPayeeByName(String name) => payees.getByName(name);
 
   @override
-  Payee getOrCreatePayee(String name) => payees.getOrCreate(name);
+  Payee getOrCreatePayee(String name, {bool fireNotification = true}) =>
+      payees.getOrCreate(name, fireNotification: fireNotification);
 
   @override
   void removePayeesWithNoTransactions(List<int> payeeIds) => Payees.removePayeesThatHaveNoTransactions(payeeIds, this);
 
   @override
-  String getPayeeNameFromId(int id) => payees.getNameFromId(id);
+  List<Payee> getPayees() => payees.iterableList().toList();
+
+  @override
+  String getPayeeName(int id) => payees.getNameFromId(id);
+
+  @override
+  List<String> getPayeeNamesSorted() => payees.getSortedPayeeNames();
+
+  @override
+  void deletePayee(dynamic payee) => payees.deleteItem(payee as Payee);
+
+  // Accounts
+  @override
+  Account? getAccount(int id) => accounts.get(id);
+
+  @override
+  String getAccountName(int id) => accounts.getNameFromId(id);
+
+  @override
+  Account? getAccountByName(String name) => accounts.getByName(name);
+
+  @override
+  List<String> getAccountNamesSorted() => accounts.getSortedAccountNames();
+
+  @override
+  String getAccountCurrency(int id) {
+    final Account? a = accounts.get(id);
+    if (a != null) {
+      return a.fieldCurrency.value;
+    }
+    return '';
+  }
+
+  @override
+  bool isAccountAsset(int id) {
+    final Account? a = accounts.get(id);
+    if (a != null) {
+      return a.isAssetAccount;
+    }
+    return false;
+  }
+
+  // Aliases
+  @override
+  Payee? findOrCreateNewPayee(String name, {bool fireNotification = true}) =>
+      aliases.findOrCreateNewPayee(name, fireNotification: fireNotification);
 
   @override
   List<String> getCategoryNames() => categories.getCategoriesAsStrings();
@@ -565,10 +622,34 @@ class Data implements DataAbstract {
   String getCategoryNameFromId(int id) => categories.getNameFromId(id);
 
   @override
-  dynamic getCategoryByName(String name) => categories.getByName(name);
+  Category? getCategory(int id) => categories.get(id);
+
+  @override
+  bool isCategoryExpense(int id) {
+    final Category? c = categories.get(id);
+    return c?.isExpense ?? false;
+  }
+
+  @override
+  bool isCategoryIncome(int id) {
+    final Category? c = categories.get(id);
+    return c?.isIncome ?? false;
+  }
 
   @override
   String getSecuritySymbolFromId(int id) => securities.getSymbolFromId(id);
+
+  @override
+  Security? getSecurity(int id) => securities.get(id);
+
+  @override
+  Security? getSecurityBySymbol(String symbol) => securities.getBySymbol(symbol);
+
+  @override
+  List<Security> getSecurities() => securities.iterableList().toList();
+
+  @override
+  int? getCategoryIdFromName(String name) => categories.getIdByName(name);
 
   @override
   Widget getCategoryWidget(int id) => categories.getCategoryWidget(id);
@@ -577,7 +658,87 @@ class Data implements DataAbstract {
   List<String> getCategoriesAsStrings() => categories.getCategoriesAsStrings();
 
   @override
-  int? getCategoryIdByName(String name) => categories.getIdByName(name);
+  int getSplitCategoryId() => categories.splitCategoryId();
+
+  @override
+  int getTransferCategoryId() => categories.transferCategoryId();
+
+  @override
+  Category getTransferCategory() => categories.transfer;
+
+  @override
+  Category getSplitCategory() => categories.split;
+
+  @override
+  List<int> getCategoryTreeIds(int categoryId) => categories.getTreeIds(categoryId);
+
+  @override
+  void appendNewCategory(dynamic category) => categories.appendNewMoneyObject(category as Category);
+
+  @override
+  void deleteCategory(dynamic category) => categories.deleteItem(category as Category);
+
+  @override
+  List<Category> getCategories({bool includeDeleted = false}) =>
+      categories.iterableList(includeDeleted: includeDeleted).toList();
+
+  @override
+  List<StockSplit> getStockSplitsForSecurity(dynamic security) =>
+      stockSplits.getStockSplitsForSecurity(security as Security);
+
+  @override
+  List<StockSplit> getStockSplitsForSecurityId(int securityId) {
+    final Security? security = securities.get(securityId);
+    if (security != null) {
+      return stockSplits.getStockSplitsForSecurity(security);
+    }
+    return <StockSplit>[];
+  }
+
+  @override
+  LoanPayment? getLoanPayment(int id) => loanPayments.get(id);
+
+  @override
+  List<LoanPayment> getLoanPayments() => loanPayments.iterableList().toList();
+
+  @override
+  Investment? getInvestment(int id) => investments.get(id);
+
+  @override
+  List<Investment> getInvestments() => investments.iterableList().toList();
+
+  @override
+  Transaction? getTransaction(int id) => transactions.get(id);
+
+  @override
+  Iterable<Transaction> getTransactions({bool includeDeleted = false}) =>
+      transactions.iterableList(includeDeleted: includeDeleted);
+
+  @override
+  void appendTransaction(dynamic t) => transactions.appendMoneyObject(t as Transaction);
+
+  @override
+  void appendNewTransaction(dynamic t, {bool fireNotification = true}) =>
+      transactions.appendNewMoneyObject(t as Transaction, fireNotification: fireNotification);
+
+  @override
+  List<Transaction> getTransactionsFlattenSplits({bool Function(dynamic)? whereClause}) =>
+      transactions.getListFlattenSplits(whereClause: (Transaction t) => whereClause == null || whereClause(t));
+
+  @override
+  Iterable<Transaction> findTransfersToAccount(dynamic account) =>
+      transactions.findTransfersToAccount(account as Account);
+
+  @override
+  void changeCategory(dynamic t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);
+
+  @override
+  void changeCategoryFromCategoryName(dynamic t, String categoryName) {
+    final int categoryId = getCategoryIdFromName(categoryName) ?? -1;
+    if (categoryId != -1) {
+      Transaction.changeCategory(t as Transaction, categoryId);
+    }
+  }
 
   @override
   double getSplitRatioForSecurityBeforeDate(int securityId, DateTime date) {
@@ -596,6 +757,9 @@ class Data implements DataAbstract {
     }
     return ratio;
   }
+
+  @override
+  dynamic getRentUnits() => rentUnits;
 
   @override
   Iterable<DateTime> getEventDates() {

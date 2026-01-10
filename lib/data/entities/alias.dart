@@ -97,7 +97,7 @@ class Alias extends DataObject {
     serializeName: 'Payee',
     defaultValue: 0,
     getValueForDisplay: (final DataInterface instance) =>
-        (instance as Alias).data!.getPayeeNameFromId(instance.fieldPayeeId.value),
+        (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
     getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPayeeId.value,
   );
 
@@ -106,7 +106,7 @@ class Alias extends DataObject {
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
     return MyListItemAsCard(
-      leftTopAsString: this.data!.getPayeeNameFromId(this.fieldPayeeId.value),
+      leftTopAsString: this.data!.getPayeeName(this.fieldPayeeId.value),
       leftBottomAsString: fieldPattern.value,
       rightBottomAsString: '${getAliasTypeAsString(type)}\n',
     );

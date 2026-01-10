@@ -1,8 +1,8 @@
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/rent_building.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/models/rental_unit.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/rental_pnl.dart';
 
@@ -27,7 +27,7 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
       rental.associateAccountToBuilding();
       cumulateTransactions(rental);
 
-      for (final RentUnit unit in (data as dynamic).rentUnits.iterableList() as Iterable<RentUnit>) {
+      for (final RentUnit unit in (data.getRentUnits() as MoneyObjects<RentUnit>).iterableList()) {
         if (unit.fieldBuilding.value == rental.fieldId.value) {
           rental.units.add(unit);
         }
@@ -49,7 +49,7 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
     rental.pnlOverYears = <int, RentalPnL>{};
 
     // Iterate through all transactions in the data store.
-    for (Transaction t in data.transactions.iterableList() as Iterable<Transaction>) {
+    for (Transaction t in data.getTransactions().cast<Transaction>()) {
       // Accumulate P&L for the rental based on the current transaction.
       rental.cumulatePnL(t);
     }

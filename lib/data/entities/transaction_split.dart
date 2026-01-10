@@ -152,9 +152,9 @@ class TransactionSplit extends DataObject {
                   categoryNames: instance.data.getCategoryNames(),
                   selectedName: instance.data.getCategoryNameFromId(instance.fieldCategoryId.value),
                   onSelected: (String? name) {
-                    final dynamic newCategory = name != null ? instance.data.getCategoryByName(name) : null;
-                    if (newCategory != null) {
-                      instance.fieldCategoryId.value = newCategory.uniqueId as int;
+                    final int? id = name != null ? instance.data.getCategoryIdFromName(name) : null;
+                    if (id != null) {
+                      instance.fieldCategoryId.value = id;
                       // notify container
                       onEdited(true);
                     }
@@ -197,7 +197,7 @@ class TransactionSplit extends DataObject {
     type: FieldType.text,
     align: TextAlign.left,
     getValueForDisplay: (final DataInterface instance) =>
-        (instance as TransactionSplit).data.getPayeeNameFromId(instance.fieldPayeeId.value),
+        (instance as TransactionSplit).data.getPayeeName(instance.fieldPayeeId.value),
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldPayeeId.value,
   );
 
@@ -270,6 +270,6 @@ class TransactionSplit extends DataObject {
   }
 
   dynamic getTransferTransaction() {
-    return data.transactions.get(this.fieldTransactionId.value);
+    return data.getTransaction(this.fieldTransactionId.value);
   }
 }

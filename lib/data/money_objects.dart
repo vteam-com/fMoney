@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/abstract/database_interface.dart';
+import 'package:money/data/database_interface.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -50,6 +50,7 @@ class MoneyObjects<T> {
 
   void clear() {
     _list.clear();
+    _map.clear();
   }
 
   bool containsKey(final int id) {

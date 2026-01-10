@@ -73,7 +73,10 @@ class ViewRentalsSidePanel {
       //
       // SELECTED: Show cumulated profit over time for the selected rental(s)
       //
-      final RentBuilding rental = Data().rentBuildings.get(selectedIds.first) as RentBuilding;
+      final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
+      if (rental == null) {
+        return const Center(child: Text('Rental property not found'));
+      }
 
       final List<PairXYY> dataPoints = <PairXYY>[];
 
@@ -101,7 +104,10 @@ class ViewRentalsSidePanel {
     }
 
     // Single Rental property selected
-    final RentBuilding rental = Data().rentBuildings.get(selectedIds.first) as RentBuilding;
+    final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
+    if (rental == null) {
+      return const Center(child: Text('Rental property not found'));
+    }
 
     // Show PnL for the selected rental property, per year
     final List<Widget> pnlCards = <Widget>[];
@@ -131,7 +137,10 @@ class ViewRentalsSidePanel {
     required final List<int> selectedIds,
     required bool showAsNativeCurrency, // Currently unused
   }) {
-    final RentBuilding rental = Data().rentBuildings.get(selectedIds.first) as RentBuilding;
+    final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
+    if (rental == null) {
+      return const Center(child: Text('Rental property not found'));
+    }
     final SelectionController selectionController = Get.put(
       SelectionController(),
     );

@@ -1,9 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/abstract/money_objects.dart';
-import 'package:money/data/collections/payees.dart';
 import 'package:money/data/entities/alias.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/models/payee.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 
 class Aliases extends MoneyObjects<Alias> {
@@ -29,7 +28,7 @@ class Aliases extends MoneyObjects<Alias> {
     if (aliasFound == null) {
       return null;
     }
-    return (this.data.payees as Payees).get(aliasFound.fieldPayeeId.value);
+    return data.getPayee(aliasFound.fieldPayeeId.value) as Payee?;
   }
 
   Payee? findOrCreateNewPayee(
@@ -37,10 +36,12 @@ class Aliases extends MoneyObjects<Alias> {
     bool fireNotification = true,
   }) {
     Payee? payee = findByMatch(text);
-    payee ??= (this.data.payees as Payees).getOrCreate(
-      text,
-      fireNotification: fireNotification,
-    );
+    payee ??=
+        data.getOrCreatePayee(
+              text,
+              fireNotification: fireNotification,
+            )
+            as Payee?;
     return payee;
   }
 }

@@ -71,38 +71,30 @@ class RentBuilding extends DataObject {
 
     instance.categoryForIncome.value = row.getInt('CategoryForIncome', -1);
     if (data != null) {
-      instance.categoryForIncomeTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForIncome.value,
-              )
-              as List<int>;
+      instance.categoryForIncomeTreeIds = data.getCategoryTreeIds(
+        instance.categoryForIncome.value,
+      );
     }
 
     instance.categoryForTaxes.value = row.getInt('CategoryForTaxes', -1);
     if (data != null) {
-      instance.categoryForTaxesTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForTaxes.value,
-              )
-              as List<int>;
+      instance.categoryForTaxesTreeIds = data.getCategoryTreeIds(
+        instance.categoryForTaxes.value,
+      );
     }
 
     instance.categoryForInterest.value = row.getInt('CategoryForInterest', -1);
     if (data != null) {
-      instance.categoryForInterestTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForInterest.value,
-              )
-              as List<int>;
+      instance.categoryForInterestTreeIds = data.getCategoryTreeIds(
+        instance.categoryForInterest.value,
+      );
     }
 
     instance.categoryForRepairs.value = row.getInt('CategoryForRepairs', -1);
     if (data != null) {
-      instance.categoryForRepairsTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForRepairs.value,
-              )
-              as List<int>;
+      instance.categoryForRepairsTreeIds = data.getCategoryTreeIds(
+        instance.categoryForRepairs.value,
+      );
     }
 
     instance.categoryForMaintenance.value = row.getInt(
@@ -110,11 +102,9 @@ class RentBuilding extends DataObject {
       -1,
     );
     if (data != null) {
-      instance.categoryForMaintenanceTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForMaintenance.value,
-              )
-              as List<int>;
+      instance.categoryForMaintenanceTreeIds = data.getCategoryTreeIds(
+        instance.categoryForMaintenance.value,
+      );
     }
 
     instance.categoryForManagement.value = row.getInt(
@@ -122,11 +112,9 @@ class RentBuilding extends DataObject {
       -1,
     );
     if (data != null) {
-      instance.categoryForManagementTreeIds =
-          data.categories.getTreeIds(
-                instance.categoryForManagement.value,
-              )
-              as List<int>;
+      instance.categoryForManagementTreeIds = data.getCategoryTreeIds(
+        instance.categoryForManagement.value,
+      );
     }
 
     if (data != null) {
@@ -460,12 +448,13 @@ class RentBuilding extends DataObject {
   static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
 
   void associateAccountToBuilding() {
-    final Transaction? firstTransactionForThisBuilding =
-        (data.transactions.iterableList(includeDeleted: true) as Iterable<Transaction>).firstWhereOrNull(
-          (Transaction t) => this.categoryForIncomeTreeIds.contains(t.fieldCategoryId.value),
+    final dynamic firstTransactionForThisBuilding = data
+        .getTransactions(includeDeleted: true)
+        .firstWhereOrNull(
+          (dynamic t) => this.categoryForIncomeTreeIds.contains((t as Transaction).fieldCategoryId.value),
         );
     if (firstTransactionForThisBuilding != null) {
-      this.account = firstTransactionForThisBuilding.instanceOfAccount;
+      this.account = (firstTransactionForThisBuilding as Transaction).instanceOfAccount;
     }
   }
 

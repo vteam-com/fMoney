@@ -115,13 +115,13 @@ class RecurringExpenses {
             sumOfAllTransactions: 0,
           );
         }
-        yearMap[year]!.sumBudget += t.category!.fieldBudget.value.asDouble() * multiplier;
+        yearMap[year]!.sumBudget += (t.category!).fieldBudget.value.asDouble() * multiplier;
 
         final double amount = t.fieldAmount.value.asDouble();
-        if (t.category!.isExpense) {
+        if ((t.category!).isExpense) {
           yearMap[year]!.sumExpense += amount;
         }
-        if (t.category!.isIncome) {
+        if ((t.category!).isIncome) {
           yearMap[year]!.sumIncome += amount;
         }
       }

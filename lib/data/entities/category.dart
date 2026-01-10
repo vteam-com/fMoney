@@ -387,12 +387,7 @@ class Category extends DataObject {
   }
 
   void getDescendants(List<Category> list) {
-    final Iterable<Category> allCategories =
-        (data?.categories.iterableList(
-              includeDeleted: true,
-            )
-            as Iterable<Category>?) ??
-        <Category>[];
+    final Iterable<Category> allCategories = data?.getCategories(includeDeleted: true).cast<Category>() ?? <Category>[];
     for (final Category category in allCategories) {
       if (category.fieldParentId.value == this.uniqueId) {
         list.add(category);
@@ -441,7 +436,7 @@ class Category extends DataObject {
   }
 
   Category? get parentCategory {
-    return data?.categories.get(this.fieldParentId.value) as Category?;
+    return data?.getCategory(this.fieldParentId.value) as Category?;
   }
 
   /// Updates the name based on the parent category by appending the leaf name of the category to its current name.

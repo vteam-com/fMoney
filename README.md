@@ -392,11 +392,11 @@ Windows
 ./check.cmd
 ```
 
-## Layer Dependency Diagram
+## Libraries Dependencies
 
 ![layers.svg](layers.svg)
 
-## Graph Call
+## Layer Dependencies
 
 install
 

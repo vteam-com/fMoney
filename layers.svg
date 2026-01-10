@@ -559,7 +559,7 @@ clipboard</title>
 <g id='Counters_collection'>
   <g>
     <circle cx="320" cy="355" r="10" fill="blue"/>
-    <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
+    <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">26</text>
     <title>1 /dev/analyzer
 2 /dev/flutter_test
 3 /dev/mockito
@@ -578,13 +578,14 @@ clipboard</title>
 16 /transitive/http_parser
 17 /transitive/leak_tracker
 18 /transitive/material_color_utilities
-19 /transitive/petitparser
-20 /transitive/pub_semver
-21 /transitive/source_span
-22 /transitive/test_api
-23 /transitive/typed_data
-24 /transitive/xml
-25 /transitive/yaml
+19 /transitive/objective_c
+20 /transitive/petitparser
+21 /transitive/pub_semver
+22 /transitive/source_span
+23 /transitive/test_api
+24 /transitive/typed_data
+25 /transitive/xml
+26 /transitive/yaml
 ⬇
 collection</title>
   </g>
@@ -880,7 +881,7 @@ window_manager</title>
 </g>
 <g id='Labels_file_picker'>
   <text class="nodeName" x="450" y="225" font-size="120%">file_picker</text>
-  <text class="nodeName" x="450" y="245" font-size="80%">10.3.8</text>
+  <text class="nodeName" x="450" y="245" font-size="80%">10.3.9</text>
 </g>
 <g id='Labels_flutter_markdown'>
   <text class="nodeName" x="2850" y="225" font-size="120%">flutter_markdown</text>
@@ -960,7 +961,7 @@ window_manager</title>
 </g>
 <g id='Labels_sqlite3'>
   <text class="nodeName" x="150" y="225" font-size="120%">sqlite3</text>
-  <text class="nodeName" x="150" y="245" font-size="80%">3.1.2</text>
+  <text class="nodeName" x="150" y="245" font-size="80%">3.1.4</text>
 </g>
 <g id='Labels_textify'>
   <text class="nodeName" x="2550" y="375" font-size="120%">textify</text>

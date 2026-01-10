@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/accounts.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/collections/investments.dart';
@@ -12,6 +11,7 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';

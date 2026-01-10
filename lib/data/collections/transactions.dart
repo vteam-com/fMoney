@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_conditional_assignment
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -300,7 +300,7 @@ class Transactions extends MoneyObjects<Transaction> {
     final List<Transaction> flattenList = <Transaction>[];
     for (final Transaction t in iterableList()) {
       if (whereClause == null || whereClause(t)) {
-        if (t.fieldCategoryId.value == data.categories.splitCategoryId()) {
+        if (t.fieldCategoryId.value == data.getSplitCategoryId()) {
           for (final TransactionSplit s in t.splits) {
             final Transaction fakeT =
                 Transaction(

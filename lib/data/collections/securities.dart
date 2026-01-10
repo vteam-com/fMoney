@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/collections/investments.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/stock_cumulative.dart';
@@ -33,16 +33,16 @@ class Securities extends MoneyObjects<Security> {
   @override
   void onAllDataLoaded() {
     for (final Security security in iterableList()) {
-      // Sets the splits history for each Security.
-      security.splitsHistory =
-          data.stockSplits.getStockSplitsForSecurity(
-                security,
-              )
-              as List<StockSplit>;
+      security.splitsHistory = data
+          .getStockSplitsForSecurity(
+            security,
+          )
+          .cast<StockSplit>();
 
       // Retrieves associated investments and updates various fields.
-      final List<Investment> list = (data.investments as Investments)
-          .iterableList()
+      final List<Investment> list = data
+          .getInvestments()
+          .cast<Investment>()
           .where((Investment item) => item.fieldSecurity.value == security.uniqueId)
           .toList();
       security.fieldNumberOfTrades.value = list.length;

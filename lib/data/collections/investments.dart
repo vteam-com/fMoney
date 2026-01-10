@@ -1,6 +1,7 @@
-import 'package:money/data/abstract/money_objects.dart';
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
+import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/stock_cumulative.dart';
@@ -24,10 +25,10 @@ class Investments extends MoneyObjects<Investment> {
   void onAllDataLoaded() {
     for (final Investment investment in iterableList()) {
       // hydrate the transaction instance associated to the investments
-      final dynamic transactionFound = data.transactions.get(
+      final dynamic transactionFound = data.getTransaction(
         investment.uniqueId,
       );
-      investment.transactionInstance = transactionFound;
+      investment.transactionInstance = transactionFound as Transaction?;
 
       investment.applySplits();
     }
@@ -61,8 +62,11 @@ class Investments extends MoneyObjects<Investment> {
   }
 
   static List<Investment> getInvestmentsForThisSecurity(final int securityId, DataAbstract data) {
-    return data.investments.iterableList().where((Investment item) => item.fieldSecurity.value == securityId).toList()
-        as List<Investment>;
+    return data
+        .getInvestments()
+        .cast<Investment>()
+        .where((Investment item) => item.fieldSecurity.value == securityId)
+        .toList();
   }
 
   static StockCumulative getSharesAndProfit(List<Investment> investments) {

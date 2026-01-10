@@ -1,12 +1,10 @@
-// Imports
-import 'package:money/data/abstract/mergeable_item.dart';
-import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
+import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/data/entities/transfer.dart';
+import 'package:money/data/mergeable_item.dart';
 import 'package:money/data/models/account.dart';
-import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -46,20 +44,20 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   factory Transaction.fromDateDescriptionAmount(
-    final Account account,
+    final dynamic account,
     final DateTime date,
     final String description,
     final double amount,
   ) {
-    final Payee? payee = Data().aliases.findOrCreateNewPayee(
+    final dynamic payee = DataAbstract.instance.findOrCreateNewPayee(
       description,
       fireNotification: false,
     );
 
     final Transaction t = Transaction(date: date);
     t.fieldId.value = -1;
-    t.fieldAccountId.value = account.fieldId.value;
-    t.fieldPayee.value = payee == null ? -1 : payee.fieldId.value;
+    t.fieldAccountId.value = account is int ? account : ((account as dynamic).uniqueId as num).toInt();
+    t.fieldPayee.value = payee == null ? -1 : ((payee as dynamic).uniqueId as num).toInt();
     t.fieldMemo.value = description;
     t.fieldAmount.value.setAmount(amount);
     return t;
@@ -71,7 +69,7 @@ class Transaction extends DataObject implements MergeableItem {
     t.fieldId.value = json.getInt('Id', -1);
     // 1 Account ID
     t.fieldAccountId.value = json.getInt('Account', -1);
-    t.instanceOfAccount = Data().accounts.get(t.fieldAccountId.value);
+    t.instanceOfAccount = DataAbstract.instance.getAccount(t.fieldAccountId.value) as Account?;
     // 3 Status
     t.fieldStatus.value = TransactionStatus.values[json.getInt('Status')];
     // 4 Payee ID
@@ -133,7 +131,7 @@ class Transaction extends DataObject implements MergeableItem {
     align: TextAlign.left,
     footer: FooterType.count,
     defaultValue: -1,
-    getValueForDisplay: (final DataInterface instance) => Data().accounts.getNameFromId(
+    getValueForDisplay: (final DataInterface instance) => DataAbstract.instance.getAccountName(
       (instance as Transaction).fieldAccountId.value,
     ),
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldAccountId.value,
@@ -241,14 +239,14 @@ class Transaction extends DataObject implements MergeableItem {
       final int effectiveCategoryId = t.possibleMatchingCategoryId == -1
           ? t.fieldCategoryId.value
           : t.possibleMatchingCategoryId;
-      final String categoryName = Data().categories.getNameFromId(
+      final String categoryName = DataAbstract.instance.getCategoryNameFromId(
         effectiveCategoryId,
       );
-      final Widget categoryWidget = Data().categories.getCategoryWidget(
+      final Widget categoryWidget = DataAbstract.instance.getCategoryWidget(
         effectiveCategoryId,
       );
 
-      return Data().categorySuggestionProvider.buildSuggestionWidget(
+      return DataAbstract.instance.categorySuggestionProvider.buildSuggestionWidget(
         onApproved: t.possibleMatchingCategoryId == -1
             ? null
             : () {
@@ -261,13 +259,10 @@ class Transaction extends DataObject implements MergeableItem {
                 showPopupSelection(
                   title: 'Category',
                   context: context,
-                  items: Data().categories.getCategoriesAsStrings(),
+                  items: DataAbstract.instance.getCategoriesAsStrings(),
                   selectedItem: '',
                   onSelected: (final String text) {
-                    final Category? selectedCategory = Data().categories.getByName(text);
-                    if (selectedCategory != null) {
-                      changeCategory(t, selectedCategory.uniqueId);
-                    }
+                    DataAbstract.instance.changeCategoryFromCategoryName(t, text);
                   },
                 );
               }
@@ -300,19 +295,17 @@ class Transaction extends DataObject implements MergeableItem {
               Expanded(
                 child: pickerCategory(
                   key: const Key('key_pick_category'),
-                  categoryNames: Data().categories.getCategoriesAsStrings(),
-                  selectedName: Data().categories.getNameFromId(instance.fieldCategoryId.value),
+                  categoryNames: DataAbstract.instance.getCategoriesAsStrings(),
+                  selectedName: DataAbstract.instance.getCategoryNameFromId(instance.fieldCategoryId.value),
                   onSelected: (String? name) {
-                    final Category? newCategory = name != null ? Data().categories.getByName(name) : null;
-                    if (newCategory != null) {
-                      instance.fieldCategoryId.value = newCategory.uniqueId;
-                      // notify container
+                    if (name != null) {
+                      DataAbstract.instance.changeCategoryFromCategoryName(instance, name);
                       onEdited(true);
                     }
                   },
                 ),
               ),
-              if (instance.fieldCategoryId.value == Data().categories.splitCategoryId())
+              if (instance.fieldCategoryId.value == DataAbstract.instance.getSplitCategoryId())
                 MyIconButton(
                   icon: Icons.arrow_forward_ios,
                   onPressed: () {
@@ -469,7 +462,7 @@ class Transaction extends DataObject implements MergeableItem {
     setValue: (DataInterface instance, dynamic newValue) {
       instance = instance as Transaction;
       instance.stashOriginalPayee();
-      if (newValue == -1 || newValue == Data().categories.transfer.uniqueId) {
+      if (newValue == -1 || newValue == DataAbstract.instance.getTransferCategoryId()) {
         // -1 means no payee, this is a Transfer?
         // TODO - implement was solution given that the call back here only has one value use for the Payee ID
       } else {
@@ -491,11 +484,11 @@ class Transaction extends DataObject implements MergeableItem {
               choice: (instance as Transaction).fieldTransfer.value == -1
                   ? TransactionFlavor.payee
                   : TransactionFlavor.transfer,
-              selectedPayeeName: Data().payees.getNameFromId(instance.fieldPayee.value),
+              selectedPayeeName: DataAbstract.instance.getPayeeName(instance.fieldPayee.value),
               selectedAccountName: instance.instanceOfTransfer?.receiverAccount?.fieldName.value,
               amount: instance.fieldAmount.value.asDouble(),
-              payeeNames: Data().payees.getSortedPayeeNames(),
-              accountNames: Data().accounts.getSortedAccountNames(),
+              payeeNames: DataAbstract.instance.getPayeeNamesSorted(),
+              accountNames: DataAbstract.instance.getAccountNamesSorted(),
               onSelected:
                   (
                     TransactionFlavor choice,
@@ -507,9 +500,9 @@ class Transaction extends DataObject implements MergeableItem {
                     switch (choice) {
                       case TransactionFlavor.payee:
                         if (selectedPayeeName != null) {
-                          final Payee? selectedPayee = Data().payees.getByName(selectedPayeeName);
+                          final dynamic selectedPayee = DataAbstract.instance.getPayeeByName(selectedPayeeName);
                           if (selectedPayee != null) {
-                            instance.fieldPayee.value = selectedPayee.uniqueId;
+                            instance.fieldPayee.value = (selectedPayee as dynamic).uniqueId as int;
                             instance.fieldTransfer.value = -1;
                             instance.instanceOfTransfer = null;
                             wasModified = true;
@@ -518,10 +511,10 @@ class Transaction extends DataObject implements MergeableItem {
                       case TransactionFlavor.transfer:
                         // this is used to let the dialog Apply code what account should be
                         // used when for transfer with.
-                        final Account? transferAccount = selectedAccountName != null
-                            ? Data().accounts.getByName(selectedAccountName)
+                        final dynamic transferAccount = selectedAccountName != null
+                            ? DataAbstract.instance.getAccountByName(selectedAccountName)
                             : null;
-                        instance.editingTransferAccount = transferAccount;
+                        instance.editingTransferAccount = transferAccount as Account?;
                         instance.fieldTransfer.value = -1; // this will cause a reevaluation of the transfer
 
                         if (transferAccount == null) {
@@ -530,24 +523,26 @@ class Transaction extends DataObject implements MergeableItem {
                           instance.fieldPayee.value = -1;
                         } else {
                           // mark as Transfer
-                          instance.fieldPayee.value = Data().categories.transfer.uniqueId;
+                          instance.fieldPayee.value = DataAbstract.instance.getTransferCategoryId();
                         }
                         wasModified = true;
                     }
                     onEdited(wasModified); // notify container
                   },
               onMergePayee: (String payeeName, BuildContext context) {
-                final Payee? payee = Data().payees.getByName(payeeName);
+                final dynamic payee = DataAbstract.instance.getPayeeByName(payeeName);
                 if (payee != null) {
-                  final Iterable<Transaction> transactions = Data().transactions
-                      .iterableList(includeDeleted: true)
-                      .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+                  final Iterable<dynamic> transactions = DataAbstract.instance
+                      .getTransactions(
+                        includeDeleted: true,
+                      )
+                      .where((dynamic t) => (t as Transaction).fieldPayee.value == (payee as dynamic).uniqueId);
                   Navigator.of(context).pop(false);
-                  Data().mergePayeeProvider.showMergePayee(
+                  DataAbstract.instance.mergePayeeProvider.showMergePayee(
                     context,
                     payee,
                     transactions,
-                    Data(),
+                    DataAbstract.instance,
                   );
                 }
               },
@@ -635,7 +630,7 @@ class Transaction extends DataObject implements MergeableItem {
   List<TransactionSplit> splits = <TransactionSplit>[];
 
   /// Instances of related MoneyObjects
-  Account? _instanceOfAccount;
+  dynamic _instanceOfAccount;
 
   // Instance of Transfer
   Transfer? _instanceOfTransfer;
@@ -644,12 +639,12 @@ class Transaction extends DataObject implements MergeableItem {
   Widget buildFieldsAsWidgetForSmallScreen() {
     return MyListItemAsCard(
       leftTopAsString: payeeName,
-      leftBottomAsString: '${Data().categories.getNameFromId(fieldCategoryId.value)}\n${fieldMemo.value}',
+      leftBottomAsString: '${DataAbstract.instance.getCategoryNameFromId(fieldCategoryId.value)}\n${fieldMemo.value}',
       rightTopAsWidget: WidgetFromData(
         amountModel: fieldAmount.value,
         size: DataWidgetSize.title,
       ),
-      rightBottomAsString: '$dateTimeAsString\n${Account.getName(instanceOfAccount)}',
+      rightBottomAsString: '$dateTimeAsString\n${DataAbstract.instance.getAccountName(fieldAccountId.value)}',
     );
   }
 
@@ -699,20 +694,20 @@ class Transaction extends DataObject implements MergeableItem {
 
   String get amountAsString => fieldAmount.value.toString();
 
-  Category? get category => Data().categories.get(this.fieldCategoryId.value);
+  Category? get category => DataAbstract.instance.getCategory(this.fieldCategoryId.value) as Category?;
 
-  String get categoryName => Data().categories.getNameFromId(this.fieldCategoryId.value);
+  String get categoryName => DataAbstract.instance.getCategoryNameFromId(this.fieldCategoryId.value);
 
-  static void changeCategory(Transaction t, final int categoryId) {
+  static void changeCategory(dynamic t, final int categoryId) {
     // record the change
-    t.stashValueBeforeEditing();
+    (t as Transaction).stashValueBeforeEditing();
 
     // Make change
     t.fieldCategoryId.value = categoryId;
     t.possibleMatchingCategoryId = -1;
 
     // inform of changes
-    Data().notifyMutationChanged(
+    DataAbstract.instance.notifyMutationChanged(
       mutation: MutationType.changed,
       moneyObject: t,
       recalculateBalances: true,
@@ -722,13 +717,13 @@ class Transaction extends DataObject implements MergeableItem {
   /// TODO - clean this up,
   void checkTransfers(
     Set<Transaction> dangling,
-    List<Account> deletedAccounts,
+    List<dynamic> deletedAccounts,
   ) {
     if (fieldTransfer.value != -1 && this.instanceOfTransfer == null) {
       // transferInstance?.getReceiverAccount();
       // if (IsDeletedAccount(this.to, money, deletedAccounts)) {
       //   this.Category =
-      //       this.Amount < 0 ? Data().categories.TransferToDeletedAccount : money.Categories.TransferFromDeletedAccount;
+      //       this.Amount < 0 ? DataAbstract.instance.categories.TransferToDeletedAccount : money.Categories.TransferFromDeletedAccount;
       //   this.to = null;
       // } else {
       dangling.add(this);
@@ -777,7 +772,7 @@ class Transaction extends DataObject implements MergeableItem {
     }
   }
 
-  bool containsTransferTo(Account a) {
+  bool containsTransferTo(dynamic a) {
     if (this.isSplit) {
       for (TransactionSplit s in this.splits) {
         if (s.fieldTransferId.value != -1 && s.getTransferTransaction()?.fieldAccountId.value == a.uniqueId) {
@@ -786,18 +781,18 @@ class Transaction extends DataObject implements MergeableItem {
       }
     }
     if (this.instanceOfTransfer != null &&
-        (this.instanceOfTransfer?.relatedTransaction as Transaction?)?.fieldAccountId.value == a.uniqueId) {
+        (this.instanceOfTransfer?.relatedTransaction as dynamic)?.fieldAccountId.value == (a as dynamic).uniqueId) {
       return true;
     }
     return false;
   }
 
   String get currency {
-    if (this.instanceOfAccount == null || this.instanceOfAccount!.fieldCurrency.value.isEmpty) {
+    if (this.instanceOfAccount == null || (this.instanceOfAccount as dynamic).fieldCurrency.value.isEmpty == true) {
       return Constants.defaultCurrency;
     }
 
-    return this.instanceOfAccount!.fieldCurrency.value;
+    return (this.instanceOfAccount as dynamic).fieldCurrency.value.toString();
   }
 
   String get dateTimeAsString => dateToString(fieldDateTime.value);
@@ -851,30 +846,34 @@ class Transaction extends DataObject implements MergeableItem {
     ]);
   }
 
-  static String getDefaultCurrency(final Account? account) {
+  static String getDefaultCurrency(final dynamic account) {
     // Convert the value to USD
-    if (account == null || account.getCurrencyRatio() == 0) {
+    if (account == null || (account as dynamic).getCurrencyRatio() == 0) {
       return Constants.defaultCurrency;
     }
-    return account.fieldCurrency.value;
+    return (account as dynamic).fieldCurrency.value.toString();
   }
 
   double getNormalizedAmount(double nativeValue) {
     // Convert the value to USD
-    if (instanceOfAccount == null || instanceOfAccount?.getCurrencyRatio() == 0) {
+    if (instanceOfAccount == null || (instanceOfAccount as dynamic).getCurrencyRatio() as num == 0) {
       return nativeValue;
     }
     return nativeValue * instanceOfAccount!.getCurrencyRatio();
   }
 
-  Investment? getOrCreateInvestment() {
-    if (this.instanceOfInvestment == null) {
-      this.instanceOfInvestment = Data().investments.get(this.uniqueId);
-      if (this.instanceOfInvestment != null) {
-        this.instanceOfInvestment!.transactionInstance = this;
-      }
-    }
-    return this.instanceOfInvestment;
+  Investment getOrCreateInvestment() {
+    instanceOfInvestment ??=
+        DataAbstract.instance.getInvestment(this.uniqueId) as Investment? ??
+        Investment(
+          id: this.uniqueId,
+          security: -1,
+          unitPrice: 0.0,
+          units: 0.0,
+          investmentType: 0,
+          tradeType: 0,
+        );
+    return instanceOfInvestment!;
   }
 
   String getPayeeOrTransferCaption({final bool showAccount = false}) {
@@ -898,13 +897,13 @@ class Transaction extends DataObject implements MergeableItem {
         showAccount: showAccount,
       );
     } else {
-      displayName = Data().payees.getNameFromId(fieldPayee.value);
+      displayName = DataAbstract.instance.getPayeeName(fieldPayee.value);
     }
     return displayName.isEmpty ? '<Payee???>' : displayName;
   }
 
   String getTransferCaption(
-    final Account? relatedAccount,
+    final dynamic relatedAccount,
     final bool isFrom, {
     final bool showAccount = false,
   }) {
@@ -917,8 +916,8 @@ class Transaction extends DataObject implements MergeableItem {
 
   Account? get instanceOfAccount {
     /// cache instances of related MoneyObjects
-    _instanceOfAccount ??= Data().accounts.get(this.fieldAccountId.value);
-    return _instanceOfAccount;
+    _instanceOfAccount ??= DataAbstract.instance.getAccount(this.fieldAccountId.value) as Account?;
+    return _instanceOfAccount as Account?;
   }
 
   set instanceOfAccount(Account? value) {
@@ -927,9 +926,11 @@ class Transaction extends DataObject implements MergeableItem {
 
   Transfer? get instanceOfTransfer {
     if (_instanceOfTransfer == null && isTransfer) {
-      final Transaction? relatedTransaction = Data().transactions.get(
-        this.fieldTransfer.value,
-      );
+      final Transaction? relatedTransaction =
+          DataAbstract.instance.getTransaction(
+                this.fieldTransfer.value,
+              )
+              as Transaction?;
       if (relatedTransaction != null) {
         linkTransfer(this, relatedTransaction);
       }
@@ -941,13 +942,13 @@ class Transaction extends DataObject implements MergeableItem {
     _instanceOfTransfer = value;
   }
 
-  bool get isAssetAccount => instanceOfAccount?.isAssetAccount ?? false;
+  bool get isAssetAccount => DataAbstract.instance.isAccountAsset(fieldAccountId.value);
 
   bool get isCandidateForBudget => this.fieldCategoryId.value != -1 && (this.isExpense || this.isIncome);
 
-  bool get isExpense => category?.isExpense == true;
+  bool get isExpense => DataAbstract.instance.isCategoryExpense(fieldCategoryId.value);
 
-  bool get isIncome => category?.isIncome == true;
+  bool get isIncome => DataAbstract.instance.isCategoryIncome(fieldCategoryId.value);
 
   bool isMatchingAnyOfTheseCategories(List<int> categoriesToMatch) {
     if (categoriesToMatch.contains(fieldCategoryId.value)) {
@@ -978,7 +979,7 @@ class Transaction extends DataObject implements MergeableItem {
     return description;
   }
 
-  String get payeeName => Data().payees.getNameFromId(fieldPayee.value);
+  String get payeeName => DataAbstract.instance.getPayeeName(fieldPayee.value);
 
   /// Find all the objects referenced by this Transaction and wire them back up
 
@@ -1058,8 +1059,8 @@ class Transaction extends DataObject implements MergeableItem {
     //     this.Investment.Security = money.Securities.FindSecurity(this.Investment.SecurityName, true);
     //   }
     // }
-    // if (this.categoryId == Data().categories.splitCategoryId()) {
-    //   Data().this.Splits.Transaction = this;
+    // if (this.categoryId == DataAbstract.instance.categories.splitCategoryId()) {
+    //   DataAbstract.instance.this.Splits.Transaction = this;
     //   this.Splits.Parent = this;
     //   foreach (Split s in this.Splits.Items)
     //   {
@@ -1068,28 +1069,28 @@ class Transaction extends DataObject implements MergeableItem {
     // }
   }
 
-  Account? get relatedAccount => instanceOfTransfer?.relatedTransaction?.instanceOfAccount as Account?;
+  dynamic get relatedAccount => (instanceOfTransfer?.relatedTransaction as dynamic)?.instanceOfAccount;
 
-  String relatedAccountName(Account? relatedAccount) {
+  String relatedAccountName(dynamic relatedAccount) {
     if (relatedAccount == null) {
       return '<Account???>';
     }
     String name = '';
 
-    if (relatedAccount.isClosed()) {
+    if ((relatedAccount as Account).isClosed()) {
       name += 'Closed-Account: ';
     }
     return name + relatedAccount.fieldName.value;
   }
 
   static int sortByDateTime(
-    final Transaction a,
-    final Transaction b,
+    final dynamic a,
+    final dynamic b,
     final bool ascending,
   ) {
     int result = sortByDate(
-      a.fieldDateTime.value,
-      b.fieldDateTime.value!,
+      (a as Transaction).fieldDateTime.value,
+      (b as Transaction).fieldDateTime.value!,
       ascending,
     );
     // To ensure a predictable sort order, always include a tie-breaker
@@ -1148,17 +1149,17 @@ class Transaction extends DataObject implements MergeableItem {
 
 /// Links two transactions as a transfer pair
 void linkTransfer(
-  Transaction transactionSource,
-  Transaction transactionRelated,
+  dynamic transactionSource,
+  dynamic transactionRelated,
 ) {
-  transactionSource.instanceOfTransfer = Transfer(
+  (transactionSource as Transaction).instanceOfTransfer = Transfer(
     id: 0,
     source: transactionSource,
     relatedTransaction: transactionRelated,
     isOrphan: false,
   );
 
-  transactionRelated.instanceOfTransfer = Transfer(
+  (transactionRelated as Transaction).instanceOfTransfer = Transfer(
     id: 0,
     source: transactionRelated,
     relatedTransaction: transactionSource,

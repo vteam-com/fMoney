@@ -101,7 +101,7 @@ class Event extends DataObject {
             categoryNames: event.data!.getCategoriesAsStrings(),
             selectedName: event.data!.getCategoryNameFromId(event.fieldCategoryId.value),
             onSelected: (String? name) {
-              final int? newId = event.data!.getCategoryIdByName(name!);
+              final int? newId = event.data!.getCategoryIdFromName(name!);
               if (newId != null) {
                 instance.fieldCategoryId.value = newId;
                 // notify container

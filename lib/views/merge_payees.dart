@@ -1,5 +1,5 @@
-import 'package:money/data/abstract/mergeable_item.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/mergeable_item.dart';
 import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -83,14 +83,14 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
                     items: widget.data.getPayeeNames(),
                     initialValue: widget.currentPayee.fieldName.value,
                     onChanged: (String? name) {
-                      final Payee? payee = name != null ? widget.data.getPayeeByName(name) : null;
+                      final Payee? payee = name != null ? widget.data.getPayeeByName(name) as Payee? : null;
                       setState(() {
                         _selectedPayee = payee;
                         getAssociatedCategories();
                       });
                     },
                     onAddNew: (String newPayeeText) {
-                      final Payee found = widget.data.getOrCreatePayee(newPayeeText);
+                      final Payee found = widget.data.getOrCreatePayee(newPayeeText) as Payee;
                       setState(() {
                         _selectedPayee = found;
                         getAssociatedCategories();
@@ -154,7 +154,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
       final int categoryId = entry.key;
       final int categoryCounts = entry.value;
 
-      final String categoryName = ((widget.data.categories as dynamic).getNameFromId(categoryId) as String).trim();
+      final String categoryName = widget.data.getCategoryNameFromId(categoryId).trim();
       if (categoryName.isNotEmpty) {
         radioButtonChoices.add(
           RadioListTile<int?>(
@@ -176,7 +176,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
                       label: Text(getIntAsText(categoryCounts)),
                       child: Box(
                         child: Text(
-                          (widget.data.categories as dynamic).getNameFromId(categoryId) as String,
+                          widget.data.getCategoryNameFromId(categoryId),
                           maxLines: 1,
                           // overflow: TextOverflow.clip, // Clip the overflow text
                           softWrap: false,
