@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="no"?>
-<svg width="5800" height="550" viewBox="0 0 5800 550" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<svg width="5500" height="550" viewBox="0 0 5500 550" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
   <style>
     .layerRectangle {
       stroke: black;
@@ -144,7 +144,7 @@
       <rect x="4" y="39" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_clipboard'>
-      <rect x="4504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="4204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_collection'>
       <rect x="304" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -162,25 +162,22 @@
       <rect x="3604" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_get'>
-      <rect x="4804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="4504" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_js'>
       <rect x="2104" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_logger'>
-      <rect x="5104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="4804" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_multi_split_view'>
-      <rect x="5404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="5104" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_pasteboard'>
       <rect x="2404" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_path_provider'>
       <rect x="1204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
-    </g>
-    <g id='Node_provider'>
-      <rect x="3904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_shared_preferences'>
       <rect x="904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
@@ -201,7 +198,7 @@
       <rect x="904" y="339" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Node_window_manager'>
-      <rect x="4204" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
+      <rect x="3904" y="189" width="292" height="72" rx="8" ry="8" class="nodeFile"/>
     </g>
     <g id='Edges'>
       <g>
@@ -226,7 +223,7 @@
 <path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H1492.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4492.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4192.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M280,95 V215 a10,10 0 0 0 10 10 H310 a10,10 0 0 1 10 10 V355" />
@@ -253,7 +250,7 @@
 <path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2092.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4792.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4492.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H555 a65,65 0 0 1 65 65 V355" />
@@ -265,13 +262,13 @@
 <path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H2055 a65,65 0 0 1 65 65 V355" />
 </g>
 <g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H5092.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4792.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H1155 a65,65 0 0 1 65 65 V355" />
 </g>
 <g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H5392.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H5092.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H2392.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
@@ -281,9 +278,6 @@
 </g>
 <g>
 <path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H1192.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
-</g>
-<g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H3892.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H892.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
@@ -304,16 +298,13 @@
 <path  class="line" d="M280,95 V160 a65,65 0 0 0 65 65 H855 a65,65 0 0 1 65 65 V355" />
 </g>
 <g>
-<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H4192.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
+<path  class="line" d="M280,95 V122.5 a27.5,27.5 0 0 0 27.5 27.5 H3892.5 a27.5,27.5 0 0 1 27.5 27.5 V205" />
 </g>
 <g>
 <path  class="line" d="M2680,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
 </g>
 <g>
 <path  class="line" d="M2680,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H947.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
-</g>
-<g>
-<path  class="line" d="M4180,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H347.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
 </g>
 <g>
 <path  class="line" d="M280,245 V290 a10,10 0 0 0 10 10 H310 a10,10 0 0 1 10 10 V355" />
@@ -325,7 +316,7 @@
 <path  class="line" d="M3580,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H347.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
 </g>
 <g>
-<path  class="line" d="M4480,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
+<path  class="line" d="M4180,245 V272.5 a27.5,27.5 0 0 1 -27.5 27.5 H47.5 a27.5,27.5 0 0 0 -27.5 27.5 V355" />
 </g>
 </g>
 <g id='Counters_archive'>
@@ -510,7 +501,7 @@ intl</title>
 <g id='Counters_money'>
   <g>
     <circle cx="280" cy="95" r="10" fill="green"/>
-    <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">35</text>
+    <text x="280" y="95" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">34</text>
     <title>money
 ⬇
 1 /dev/analyzer
@@ -540,27 +531,26 @@ intl</title>
 25 /direct/pasteboard
 26 /direct/path
 27 /direct/path_provider
-28 /direct/provider
-29 /direct/shared_preferences
-30 /direct/sqlite3
-31 /direct/textify
-32 /direct/universal_io
-33 /direct/url_launcher
-34 /direct/uuid
-35 /direct/window_manager</title>
+28 /direct/shared_preferences
+29 /direct/sqlite3
+30 /direct/textify
+31 /direct/universal_io
+32 /direct/url_launcher
+33 /direct/uuid
+34 /direct/window_manager</title>
   </g>
 </g>
 <g id='Counters_clipboard'>
   <g>
-    <circle cx="4780" cy="245" r="10" fill="green"/>
-    <text x="4780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="4480" cy="245" r="10" fill="green"/>
+    <text x="4480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>clipboard
 ⬇
 1 /transitive/web</title>
   </g>
   <g>
-    <circle cx="4520" cy="205" r="10" fill="blue"/>
-    <text x="4520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="4220" cy="205" r="10" fill="blue"/>
+    <text x="4220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>1 /root/money
 ⬇
 clipboard</title>
@@ -569,33 +559,32 @@ clipboard</title>
 <g id='Counters_collection'>
   <g>
     <circle cx="320" cy="355" r="10" fill="blue"/>
-    <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">26</text>
+    <text x="320" y="355" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">25</text>
     <title>1 /dev/analyzer
 2 /dev/flutter_test
 3 /dev/mockito
-4 /direct/provider
-5 /direct/sqlite3
-6 /direct/universal_io
-7 /root/money
-8 /transitive/async
-9 /transitive/built_value
-10 /transitive/code_assets
-11 /transitive/code_builder
-12 /transitive/dart_style
-13 /transitive/equatable
-14 /transitive/fake_async
-15 /transitive/glob
-16 /transitive/hooks
-17 /transitive/http_parser
-18 /transitive/leak_tracker
-19 /transitive/material_color_utilities
-20 /transitive/petitparser
-21 /transitive/pub_semver
-22 /transitive/source_span
-23 /transitive/test_api
-24 /transitive/typed_data
-25 /transitive/xml
-26 /transitive/yaml
+4 /direct/sqlite3
+5 /direct/universal_io
+6 /root/money
+7 /transitive/async
+8 /transitive/built_value
+9 /transitive/code_assets
+10 /transitive/code_builder
+11 /transitive/dart_style
+12 /transitive/equatable
+13 /transitive/fake_async
+14 /transitive/glob
+15 /transitive/hooks
+16 /transitive/http_parser
+17 /transitive/leak_tracker
+18 /transitive/material_color_utilities
+19 /transitive/petitparser
+20 /transitive/pub_semver
+21 /transitive/source_span
+22 /transitive/test_api
+23 /transitive/typed_data
+24 /transitive/xml
+25 /transitive/yaml
 ⬇
 collection</title>
   </g>
@@ -656,15 +645,15 @@ fl_chart</title>
 </g>
 <g id='Counters_get'>
   <g>
-    <circle cx="5080" cy="245" r="10" fill="green"/>
-    <text x="5080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="4780" cy="245" r="10" fill="green"/>
+    <text x="4780" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>get
 ⬇
 1 /transitive/web</title>
   </g>
   <g>
-    <circle cx="4820" cy="205" r="10" fill="blue"/>
-    <text x="4820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="4520" cy="205" r="10" fill="blue"/>
+    <text x="4520" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>1 /root/money
 ⬇
 get</title>
@@ -681,15 +670,15 @@ js</title>
 </g>
 <g id='Counters_logger'>
   <g>
-    <circle cx="5380" cy="245" r="10" fill="green"/>
-    <text x="5380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="5080" cy="245" r="10" fill="green"/>
+    <text x="5080" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>logger
 ⬇
 1 /transitive/meta</title>
   </g>
   <g>
-    <circle cx="5120" cy="205" r="10" fill="blue"/>
-    <text x="5120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="4820" cy="205" r="10" fill="blue"/>
+    <text x="4820" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>1 /root/money
 ⬇
 logger</title>
@@ -697,15 +686,15 @@ logger</title>
 </g>
 <g id='Counters_multi_split_view'>
   <g>
-    <circle cx="5680" cy="245" r="10" fill="green"/>
-    <text x="5680" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="5380" cy="245" r="10" fill="green"/>
+    <text x="5380" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>multi_split_view
 ⬇
 1 /transitive/meta</title>
   </g>
   <g>
-    <circle cx="5420" cy="205" r="10" fill="blue"/>
-    <text x="5420" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="5120" cy="205" r="10" fill="blue"/>
+    <text x="5120" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>1 /root/money
 ⬇
 multi_split_view</title>
@@ -748,23 +737,6 @@ pasteboard</title>
     <title>1 /root/money
 ⬇
 path_provider</title>
-  </g>
-</g>
-<g id='Counters_provider'>
-  <g>
-    <circle cx="4180" cy="245" r="10" fill="green"/>
-    <text x="4180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
-    <title>provider
-⬇
-1 /direct/collection
-2 /transitive/nested</title>
-  </g>
-  <g>
-    <circle cx="3920" cy="205" r="10" fill="blue"/>
-    <text x="3920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
-    <title>1 /root/money
-⬇
-provider</title>
   </g>
 </g>
 <g id='Counters_shared_preferences'>
@@ -883,16 +855,16 @@ uuid</title>
 </g>
 <g id='Counters_window_manager'>
   <g>
-    <circle cx="4480" cy="245" r="10" fill="green"/>
-    <text x="4480" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
+    <circle cx="4180" cy="245" r="10" fill="green"/>
+    <text x="4180" y="245" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">2</text>
     <title>window_manager
 ⬇
 1 /direct/path
 2 /transitive/screen_retriever</title>
   </g>
   <g>
-    <circle cx="4220" cy="205" r="10" fill="blue"/>
-    <text x="4220" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
+    <circle cx="3920" cy="205" r="10" fill="blue"/>
+    <text x="3920" y="205" fill="white" font-size="10" text-anchor="middle" dominant-baseline="central">1</text>
     <title>1 /root/money
 ⬇
 window_manager</title>
@@ -935,8 +907,8 @@ window_manager</title>
   <text class="nodeName" x="150" y="95" font-size="80%">1.15.00</text>
 </g>
 <g id='Labels_clipboard'>
-  <text class="nodeName" x="4650" y="225" font-size="120%">clipboard</text>
-  <text class="nodeName" x="4650" y="245" font-size="80%">3.0.13</text>
+  <text class="nodeName" x="4350" y="225" font-size="120%">clipboard</text>
+  <text class="nodeName" x="4350" y="245" font-size="80%">3.0.14</text>
 </g>
 <g id='Labels_collection'>
   <text class="nodeName" x="450" y="375" font-size="120%">collection</text>
@@ -959,20 +931,20 @@ window_manager</title>
   <text class="nodeName" x="3750" y="245" font-size="80%">1.1.1</text>
 </g>
 <g id='Labels_get'>
-  <text class="nodeName" x="4950" y="225" font-size="120%">get</text>
-  <text class="nodeName" x="4950" y="245" font-size="80%">4.7.3</text>
+  <text class="nodeName" x="4650" y="225" font-size="120%">get</text>
+  <text class="nodeName" x="4650" y="245" font-size="80%">4.7.3</text>
 </g>
 <g id='Labels_js'>
   <text class="nodeName" x="2250" y="375" font-size="120%">js</text>
   <text class="nodeName" x="2250" y="395" font-size="80%">0.7.2</text>
 </g>
 <g id='Labels_logger'>
-  <text class="nodeName" x="5250" y="225" font-size="120%">logger</text>
-  <text class="nodeName" x="5250" y="245" font-size="80%">2.6.2</text>
+  <text class="nodeName" x="4950" y="225" font-size="120%">logger</text>
+  <text class="nodeName" x="4950" y="245" font-size="80%">2.6.2</text>
 </g>
 <g id='Labels_multi_split_view'>
-  <text class="nodeName" x="5550" y="225" font-size="120%">multi_split_view</text>
-  <text class="nodeName" x="5550" y="245" font-size="80%">3.6.1</text>
+  <text class="nodeName" x="5250" y="225" font-size="120%">multi_split_view</text>
+  <text class="nodeName" x="5250" y="245" font-size="80%">3.6.1</text>
 </g>
 <g id='Labels_pasteboard'>
   <text class="nodeName" x="2550" y="225" font-size="120%">pasteboard</text>
@@ -981,10 +953,6 @@ window_manager</title>
 <g id='Labels_path_provider'>
   <text class="nodeName" x="1350" y="225" font-size="120%">path_provider</text>
   <text class="nodeName" x="1350" y="245" font-size="80%">2.1.5</text>
-</g>
-<g id='Labels_provider'>
-  <text class="nodeName" x="4050" y="225" font-size="120%">provider</text>
-  <text class="nodeName" x="4050" y="245" font-size="80%">6.1.5+1</text>
 </g>
 <g id='Labels_shared_preferences'>
   <text class="nodeName" x="1050" y="225" font-size="120%">shared_preferences</text>
@@ -1011,8 +979,8 @@ window_manager</title>
   <text class="nodeName" x="1050" y="395" font-size="80%">4.5.2</text>
 </g>
 <g id='Labels_window_manager'>
-  <text class="nodeName" x="4350" y="225" font-size="120%">window_manager</text>
-  <text class="nodeName" x="4350" y="245" font-size="80%">0.5.1</text>
+  <text class="nodeName" x="4050" y="225" font-size="120%">window_manager</text>
+  <text class="nodeName" x="4050" y="245" font-size="80%">0.5.1</text>
 </g>
 </g>
 </svg>
