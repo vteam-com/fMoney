@@ -223,7 +223,7 @@ class OllamaManager {
         // Sort models by name
         _availableModels.sort(
           (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
-              stringCompareIgnoreCasing2(a['name'] as String, b['name'] as String),
+              stringCompareIgnoreCasing(a['name'] as String, b['name'] as String),
         );
         OllamaService.selectedModel = models.isNotEmpty ? models.first['name'] as String : OllamaService.selectedModel;
       }

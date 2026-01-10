@@ -169,7 +169,7 @@ class Alias extends DataObject {
         return true;
       }
     } else {
-      if (stringCompareIgnoreCasing2(fieldPattern.value, text) == 0) {
+      if (stringCompareIgnoreCasing(fieldPattern.value, text) == 0) {
         return true;
       }
     }

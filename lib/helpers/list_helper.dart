@@ -196,9 +196,9 @@ int sortByDate(
 
 int sortByString(final dynamic a, final dynamic b, final bool ascending) {
   if (ascending) {
-    return stringCompareIgnoreCasing2(a.toString(), b.toString());
+    return stringCompareIgnoreCasing(a.toString(), b.toString());
   } else {
-    return stringCompareIgnoreCasing2(b.toString(), a.toString());
+    return stringCompareIgnoreCasing(b.toString(), a.toString());
   }
 }
 

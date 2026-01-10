@@ -248,7 +248,7 @@ class Accounts extends MoneyObjects<Account> {
 
   Account? getByName(final String name) {
     return iterableList().firstWhereOrNull((final Account item) {
-      return stringCompareIgnoreCasing2(item.fieldName.value, name) == 0;
+      return stringCompareIgnoreCasing(item.fieldName.value, name) == 0;
     });
   }
 

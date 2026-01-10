@@ -68,7 +68,7 @@ class FieldFilter {
       return false;
     }
     return strings.any(
-      (String text) => stringCompareIgnoreCasing2(text, value) == 0,
+      (String text) => stringCompareIgnoreCasing(text, value) == 0,
     );
   }
 }

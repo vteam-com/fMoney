@@ -70,7 +70,7 @@ class Securities extends MoneyObjects<Security> {
   // Retrieves a Security object by its symbol, ignoring case.
   Security? getBySymbol(final String symbolToFind) {
     return iterableList().firstWhereOrNull(
-      (Security item) => stringCompareIgnoreCasing2(item.fieldSymbol.value, symbolToFind) == 0,
+      (Security item) => stringCompareIgnoreCasing(item.fieldSymbol.value, symbolToFind) == 0,
     );
   }
 
