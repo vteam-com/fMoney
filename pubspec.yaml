@@ -39,7 +39,7 @@ dependencies:
   csv: ^6.0.0
   desktop_drop: ^0.7.0
   dotted_border: ^3.1.0
-  file_picker: ^10.2.0
+  file_picker: ^10.3.9
   fl_chart: ^1.0.0
   flutter:
     sdk: flutter
@@ -74,7 +74,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mockito: ^5.4.6
-  plugin_platform_interface: any
+  plugin_platform_interface: ^2.1.8
 
 # https://pub.dev/packages/flutter_launcher_icons
 # after updating the main icon run this command from the root of the project

@@ -6248,11 +6248,11 @@ DA:204,5
 DA:205,7
 DA:207,5
 DA:208,5
-DA:212,1
-DA:213,1
-DA:215,2
+DA:212,0
+DA:213,0
+DA:215,0
 DA:216,0
-DA:221,2
+DA:221,0
 DA:222,0
 DA:223,0
 DA:230,1
@@ -6263,7 +6263,7 @@ DA:238,0
 DA:239,0
 DA:241,0
 LF:80
-LH:71
+LH:67
 end_of_record
 TN:
 SF:lib/views/adaptive_view/view_money_objects.dart
@@ -7936,7 +7936,7 @@ DA:56,1
 DA:57,2
 DA:58,1
 DA:67,1
-DA:68,2
+DA:68,1
 DA:72,1
 DA:73,4
 DA:74,1
@@ -16681,7 +16681,7 @@ TN:
 SF:lib/widgets/working.dart
 FNF:0
 FNH:0
-DA:4,5
+DA:4,3
 DA:8,0
 DA:12,0
 DA:13,0

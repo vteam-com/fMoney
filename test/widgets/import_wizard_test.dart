@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/src/platform/file_picker_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart'; // Import GetX
@@ -7,10 +10,7 @@ import 'package:money/widgets/wizard_choice.dart'; // Import WizardChoice
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-// --- Corrected MockFilePicker ---
-abstract class FilePickerPlatformInterface extends MockPlatformInterfaceMixin implements FilePicker {}
-
-class TestMockFilePicker extends FilePickerPlatformInterface {
+class TestMockFilePicker extends FilePickerPlatform with MockPlatformInterfaceMixin {
   FilePickerResult? _pickerResult;
 
   void setPickerResult(FilePickerResult? result) {
@@ -23,15 +23,13 @@ class TestMockFilePicker extends FilePickerPlatformInterface {
     String? initialDirectory,
     FileType type = FileType.any,
     List<String>? allowedExtensions,
-    // ignore: inference_failure_on_function_return_type
-    Function(FilePickerStatus)? onFileLoading,
-    bool? allowCompression = true, // Default from actual FilePicker
-    bool? allowMultiple = false,
-    bool? withData = false,
-    bool? withReadStream = false,
-    bool? lockParentWindow = false,
-    bool? readSequential = false,
-    int? compressionQuality, // Added missing parameter
+    void Function(FilePickerStatus)? onFileLoading,
+    int compressionQuality = 0,
+    bool allowMultiple = false,
+    bool withData = false,
+    bool withReadStream = false,
+    bool lockParentWindow = false,
+    bool readSequential = false,
   }) async {
     return _pickerResult;
   }
@@ -39,7 +37,7 @@ class TestMockFilePicker extends FilePickerPlatformInterface {
   @override
   Future<String?> getDirectoryPath({
     String? dialogTitle,
-    bool? lockParentWindow = false,
+    bool lockParentWindow = false,
     String? initialDirectory,
   }) async {
     return null;
@@ -52,13 +50,11 @@ class TestMockFilePicker extends FilePickerPlatformInterface {
 
   @override
   Future<List<String>?> pickFileAndDirectoryPaths({
-    String? dialogTitle,
     String? initialDirectory,
-    bool? lockParentWindow = false,
+    FileType type = FileType.any,
     List<String>? allowedExtensions,
-    FileType type = FileType.any, // Added missing parameter 'type'
   }) async {
-    return null; // Added missing implementation
+    return null;
   }
 
   @override
@@ -68,33 +64,29 @@ class TestMockFilePicker extends FilePickerPlatformInterface {
     String? initialDirectory,
     FileType type = FileType.any,
     List<String>? allowedExtensions,
-    bool? lockParentWindow = false,
-    String? suggestedExtension, // Added missing
-    List<int>? bytes, // Added missing
-    String? webSaveAsElementId, // Added missing
+    Uint8List? bytes,
+    bool lockParentWindow = false,
   }) async {
-    return null; // Added missing implementation
+    return null;
   }
 }
 
-// Helper to allow setting the FilePicker.platform instance
-void setMockFilePicker(FilePicker mock) {
-  // Parameter type is base FilePicker
-  FilePicker.platform = mock;
+void setMockFilePicker(FilePickerPlatform mock) {
+  FilePickerPlatform.instance = mock;
 }
 
 void main() {
-  late TestMockFilePicker mockFilePicker; // Use the corrected mock class
+  late TestMockFilePicker mockFilePicker;
+  late FilePickerPlatform originalFilePickerPlatform;
 
   setUp(() {
+    originalFilePickerPlatform = FilePickerPlatform.instance;
     mockFilePicker = TestMockFilePicker();
-    setMockFilePicker(mockFilePicker); // Pass the instance
+    setMockFilePicker(mockFilePicker);
   });
 
   tearDown(() {
-    // Resetting to a new instance of a default/clean mock is often sufficient
-    // if the original platform instance cannot be easily restored.
-    FilePicker.platform = TestMockFilePicker(); // Or a more minimal default mock if preferred
+    FilePickerPlatform.instance = originalFilePickerPlatform;
   });
 
   testWidgets('Wizard Dialog displays correctly with title and CSV option', (WidgetTester tester) async {

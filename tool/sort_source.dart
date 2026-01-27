@@ -49,8 +49,9 @@ void main(List<String> args) {
       final MemberSorter sorter = MemberSorter(content, classNode);
       final String sortedBody = sorter.getSortedBody();
 
-      final int classBodyStart = classNode.leftBracket.offset + 1;
-      final int classBodyEnd = classNode.rightBracket.offset;
+      final BlockClassBody body = classNode.body as BlockClassBody;
+      final int classBodyStart = body.leftBracket.offset + 1;
+      final int classBodyEnd = body.rightBracket.offset;
       final String originalBody = content.substring(
         classBodyStart,
         classBodyEnd,
@@ -100,7 +101,8 @@ class MemberSorter {
   final ClassDeclaration _classNode;
 
   String getSortedBody() {
-    final NodeList<ClassMember> members = _classNode.members;
+    final BlockClassBody body = _classNode.body as BlockClassBody;
+    final NodeList<ClassMember> members = body.members;
     if (members.isEmpty) {
       return '';
     }
