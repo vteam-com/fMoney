@@ -67,6 +67,7 @@ dependencies:
 
 dev_dependencies:
   analyzer:
+  fcheck: ^0.5.0
   flutter_launcher_icons:
   flutter_lints: ^6.0.0
   flutter_test:

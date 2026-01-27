@@ -25,8 +25,5 @@ echo --------------- Test
 echo "    Running tests..."
 flutter test --reporter=compact --no-pub
 
-echo --------------- Graph Dependencies
-tool/graph.sh
-
-echo --------------- Import Dependencies
-tool/layers.sh
+echo --------------- Layers
+fcheck --svg --svgfolder --fix .

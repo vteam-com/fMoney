@@ -34,6 +34,10 @@
     "workbench.editor.closeOnFileDelete": true,
     "window.closeWhenEmpty": false,
     "workbench.editor.closeEmptyGroups": false,
+    "cSpell.words": [
+        "fcheck",
+        "svgfolder"
+    ],
     // "files.exclude": {
     //     "android/": true,
     //     "ios/": true,
