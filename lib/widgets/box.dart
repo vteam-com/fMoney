@@ -129,37 +129,6 @@ Widget buildHeaderTitleAndCounter(
   return boxHeader;
 }
 
-Widget getBadgeText(final String text) => Padding(
-  padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.small),
-  child: Text(text, style: const TextStyle(fontSize: SizeForText.small)),
-);
-
-class BoxWithScrollingContent extends StatelessWidget {
-  const BoxWithScrollingContent({
-    super.key,
-    required this.children,
-    this.height,
-  });
-
-  final List<Widget> children;
-  final double? height;
-
-  @override
-  Widget build(final BuildContext context) => Box(
-    color: getColorTheme(context).surface,
-    width: 300,
-    height: height,
-    // height: 300,
-    margin: 10,
-    child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: children,
-      ),
-    ),
-  );
-}
-
 Widget headerText(
   final BuildContext context,
   final String title, {
@@ -168,4 +137,9 @@ Widget headerText(
   title,
   style: large ? getTextTheme(context).titleLarge : getTextTheme(context).titleSmall,
   textAlign: TextAlign.center,
+);
+
+Widget getBadgeText(final String text) => Padding(
+  padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.small),
+  child: Text(text, style: const TextStyle(fontSize: SizeForText.small)),
 );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/box.dart';
+import 'package:money/widgets/box_with_scrolling_content.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/label_and_amount.dart';
 import 'package:money/widgets/rental_pnl.dart';

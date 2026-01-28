@@ -4,8 +4,8 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
+import 'package:money/widgets/dialog_auto_size.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/dialog_full_screen.dart';
 import 'package:money/widgets/mutation_types.dart';
 
 /// Shows a dialog that allows the user to mutate a transaction.
@@ -60,7 +60,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
 
   @override
   Widget build(final BuildContext context) {
-    return AutoSizeDialog(
+    return DialogAutoSize(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

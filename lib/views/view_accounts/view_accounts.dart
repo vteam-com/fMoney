@@ -11,6 +11,7 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/models/stock_summary.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
@@ -33,7 +34,7 @@ import 'package:money/views/menu_entry.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
-import 'package:money/widgets/box.dart';
+import 'package:money/widgets/box_with_scrolling_content.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart.dart';
@@ -852,20 +853,4 @@ class ViewAccountsState extends ViewForMoneyObjectsState {
       },
     );
   }
-}
-
-class StockSummary {
-  StockSummary({
-    required this.symbol,
-    required this.shares,
-    required this.sharePrice,
-    required this.averageCost,
-  });
-
-  final double averageCost;
-  final double sharePrice;
-  final double shares;
-  final String symbol;
-
-  double get holdingValue => shares * sharePrice;
 }

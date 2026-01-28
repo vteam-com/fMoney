@@ -174,6 +174,8 @@
 <rect x="1650.0" y="1350.0" width="220" height="50" class="nodeRect"/>
 <rect x="1650.0" y="1420.0" width="220" height="50" class="nodeRect"/>
 <rect x="1650.0" y="1490.0" width="220" height="50" class="nodeRect"/>
+<rect x="1650.0" y="1560.0" width="220" height="50" class="nodeRect"/>
+<rect x="1650.0" y="1630.0" width="220" height="50" class="nodeRect"/>
 <rect x="1970.0" y="90.0" width="220" height="50" class="nodeRect"/>
 <rect x="1970.0" y="160.0" width="220" height="50" class="nodeRect"/>
 <rect x="1970.0" y="230.0" width="220" height="50" class="nodeRect"/>
@@ -225,6 +227,7 @@
 <rect x="2290.0" y="1490.0" width="220" height="50" class="nodeRect"/>
 <rect x="2290.0" y="1560.0" width="220" height="50" class="nodeRect"/>
 <rect x="2290.0" y="1630.0" width="220" height="50" class="nodeRect"/>
+<rect x="2290.0" y="1700.0" width="220" height="50" class="nodeRect"/>
 <rect x="2610.0" y="90.0" width="220" height="50" class="nodeRect"/>
 <rect x="2610.0" y="160.0" width="220" height="50" class="nodeRect"/>
 <rect x="2610.0" y="230.0" width="220" height="50" class="nodeRect"/>
@@ -276,6 +279,7 @@
 <rect x="4210.0" y="230.0" width="220" height="50" class="nodeRect"/>
 <rect x="4210.0" y="300.0" width="220" height="50" class="nodeRect"/>
 <rect x="4210.0" y="370.0" width="220" height="50" class="nodeRect"/>
+<rect x="4210.0" y="440.0" width="220" height="50" class="nodeRect"/>
 <rect x="4530.0" y="90.0" width="220" height="50" class="nodeRect"/>
 <rect x="4530.0" y="160.0" width="220" height="50" class="nodeRect"/>
 <rect x="4530.0" y="230.0" width="220" height="50" class="nodeRect"/>
@@ -463,7 +467,7 @@
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 2572.0 312.0, 2622.0 312.0" class="edge"/>
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 1612.0 172.0, 1662.0 172.0" class="edge"/>
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 1612.0 1292.0, 1662.0 1292.0" class="edge"/>
-<path d="M 1538.0 1038.0 C 1588.0 1038.0, 2252.0 942.0, 2302.0 942.0" class="edge"/>
+<path d="M 1538.0 1038.0 C 1588.0 1038.0, 2252.0 1012.0, 2302.0 1012.0" class="edge"/>
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
 <path d="M 1538.0 1038.0 C 1588.0 1038.0, 2572.0 242.0, 2622.0 242.0" class="edge"/>
@@ -487,6 +491,7 @@
 <path d="M 578.0 128.0 C 628.0 128.0, 2572.0 242.0, 2622.0 242.0" class="edge"/>
 <path d="M 578.0 128.0 C 628.0 128.0, 652.0 662.0, 702.0 662.0" class="edge"/>
 <path d="M 578.0 128.0 C 628.0 128.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
+<path d="M 1538.0 1248.0 C 1588.0 1248.0, 1612.0 1572.0, 1662.0 1572.0" class="edge"/>
 <path d="M 1538.0 1248.0 C 1588.0 1248.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 1538.0 1248.0 C 1588.0 1248.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 1538.0 1248.0 C 1588.0 1248.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
@@ -900,7 +905,7 @@
 <path d="M 2178.0 268.0 C 2228.0 268.0, 4812.0 102.0, 4862.0 102.0" class="edge"/>
 <path d="M 2178.0 268.0 C 2228.0 268.0, 5452.0 172.0, 5502.0 172.0" class="edge"/>
 <path d="M 2178.0 268.0 C 2228.0 268.0, 2892.0 102.0, 2942.0 102.0" class="edge"/>
-<path d="M 2178.0 268.0 C 2228.0 268.0, 2252.0 1292.0, 2302.0 1292.0" class="edge"/>
+<path d="M 2178.0 268.0 C 2228.0 268.0, 2252.0 1362.0, 2302.0 1362.0" class="edge"/>
 <path d="M 2178.0 268.0 C 2228.0 268.0, 2252.0 522.0, 2302.0 522.0" class="edge"/>
 <path d="M 2178.0 268.0 C 2228.0 268.0, 5772.0 382.0, 5822.0 382.0" class="edge"/>
 <path d="M 2178.0 268.0 C 2228.0 268.0, 9292.0 102.0, 9342.0 102.0" class="edge"/>
@@ -916,6 +921,7 @@
 <path d="M 1538.0 338.0 C 1588.0 338.0, 5452.0 102.0, 5502.0 102.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 2252.0 662.0, 2302.0 662.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 6092.0 102.0, 6142.0 102.0" class="edge"/>
+<path d="M 1538.0 338.0 C 1588.0 338.0, 1612.0 1642.0, 1662.0 1642.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 5452.0 172.0, 5502.0 172.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 7052.0 102.0, 7102.0 102.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 5132.0 242.0, 5182.0 242.0" class="edge"/>
@@ -938,7 +944,7 @@
 <path d="M 1538.0 338.0 C 1588.0 338.0, 1932.0 312.0, 1982.0 312.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 2572.0 102.0, 2622.0 102.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 2252.0 522.0, 2302.0 522.0" class="edge"/>
-<path d="M 1538.0 338.0 C 1588.0 338.0, 5772.0 242.0, 5822.0 242.0" class="edge"/>
+<path d="M 1538.0 338.0 C 1588.0 338.0, 2252.0 872.0, 2302.0 872.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 4172.0 172.0, 4222.0 172.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 5452.0 242.0, 5502.0 242.0" class="edge"/>
 <path d="M 1538.0 338.0 C 1588.0 338.0, 5132.0 172.0, 5182.0 172.0" class="edge"/>
@@ -961,7 +967,7 @@
 <path d="M 2178.0 198.0 C 2228.0 198.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 2178.0 198.0 C 2228.0 198.0, 2252.0 102.0, 2302.0 102.0" class="edge"/>
 <path d="M 2178.0 198.0 C 2228.0 198.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
-<path d="M 2178.0 198.0 C 2228.0 198.0, 2252.0 942.0, 2302.0 942.0" class="edge"/>
+<path d="M 2178.0 198.0 C 2228.0 198.0, 2252.0 1012.0, 2302.0 1012.0" class="edge"/>
 <path d="M 2178.0 198.0 C 2228.0 198.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
 <path d="M 2178.0 198.0 C 2228.0 198.0, 5772.0 172.0, 5822.0 172.0" class="edge"/>
 <path d="M 2178.0 198.0 C 2228.0 198.0, 9932.0 382.0, 9982.0 382.0" class="edge"/>
@@ -1017,7 +1023,7 @@
 <path d="M 2178.0 408.0 C 2228.0 408.0, 5452.0 242.0, 5502.0 242.0" class="edge"/>
 <path d="M 2178.0 408.0 C 2228.0 408.0, 2252.0 382.0, 2302.0 382.0" class="edge"/>
 <path d="M 2178.0 408.0 C 2228.0 408.0, 2252.0 312.0, 2302.0 312.0" class="edge"/>
-<path d="M 2178.0 408.0 C 2228.0 408.0, 2252.0 1502.0, 2302.0 1502.0" class="edge"/>
+<path d="M 2178.0 408.0 C 2228.0 408.0, 2252.0 1572.0, 2302.0 1572.0" class="edge"/>
 <path d="M 2178.0 408.0 C 2228.0 408.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
 <path d="M 2178.0 408.0 C 2228.0 408.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
 <path d="M 2178.0 408.0 C 2228.0 408.0, 5772.0 172.0, 5822.0 172.0" class="edge"/>
@@ -1144,24 +1150,24 @@
 <path d="M 898.0 408.0 C 948.0 408.0, 972.0 312.0, 1022.0 312.0" class="edge"/>
 <path d="M 2178.0 758.0 C 2228.0 758.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 2178.0 758.0 C 2228.0 758.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
-<path d="M 2178.0 758.0 C 2228.0 758.0, 2252.0 1432.0, 2302.0 1432.0" class="edge"/>
-<path d="M 2178.0 758.0 C 2228.0 758.0, 2252.0 1572.0, 2302.0 1572.0" class="edge"/>
+<path d="M 2178.0 758.0 C 2228.0 758.0, 2252.0 1502.0, 2302.0 1502.0" class="edge"/>
+<path d="M 2178.0 758.0 C 2228.0 758.0, 2252.0 1642.0, 2302.0 1642.0" class="edge"/>
 <path d="M 2178.0 758.0 C 2228.0 758.0, 6092.0 522.0, 6142.0 522.0" class="edge"/>
 <path d="M 2178.0 758.0 C 2228.0 758.0, 2252.0 172.0, 2302.0 172.0" class="edge"/>
 <path d="M 2178.0 758.0 C 2228.0 758.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 2572.0 172.0, 2622.0 172.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 7372.0 102.0, 7422.0 102.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 9292.0 172.0, 9342.0 172.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 6092.0 382.0, 6142.0 382.0" class="edge"/>
-<path d="M 2498.0 1388.0 C 2548.0 1388.0, 3532.0 102.0, 3582.0 102.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 2572.0 172.0, 2622.0 172.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 7372.0 102.0, 7422.0 102.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 9292.0 172.0, 9342.0 172.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 6092.0 382.0, 6142.0 382.0" class="edge"/>
+<path d="M 2498.0 1458.0 C 2548.0 1458.0, 3532.0 102.0, 3582.0 102.0" class="edge"/>
 <path d="M 2178.0 1528.0 C 2228.0 1528.0, 10572.0 242.0, 10622.0 242.0" class="edge"/>
 <path d="M 2178.0 1528.0 C 2228.0 1528.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
 <path d="M 2178.0 1528.0 C 2228.0 1528.0, 2572.0 172.0, 2622.0 172.0" class="edge"/>
-<path d="M 2178.0 1528.0 C 2228.0 1528.0, 2252.0 1362.0, 2302.0 1362.0" class="edge"/>
+<path d="M 2178.0 1528.0 C 2228.0 1528.0, 2252.0 1432.0, 2302.0 1432.0" class="edge"/>
 <path d="M 2178.0 898.0 C 2228.0 898.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 2178.0 898.0 C 2228.0 898.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 2178.0 898.0 C 2228.0 898.0, 2252.0 732.0, 2302.0 732.0" class="edge"/>
@@ -1188,8 +1194,8 @@
 <path d="M 4098.0 338.0 C 4148.0 338.0, 9932.0 172.0, 9982.0 172.0" class="edge"/>
 <path d="M 4098.0 338.0 C 4148.0 338.0, 4172.0 172.0, 4222.0 172.0" class="edge"/>
 <path d="M 4098.0 338.0 C 4148.0 338.0, 4172.0 242.0, 4222.0 242.0" class="edge"/>
+<path d="M 4098.0 338.0 C 4148.0 338.0, 4172.0 452.0, 4222.0 452.0" class="edge"/>
 <path d="M 4098.0 338.0 C 4148.0 338.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
-<path d="M 4098.0 338.0 C 4148.0 338.0, 7692.0 172.0, 7742.0 172.0" class="edge"/>
 <path d="M 4098.0 338.0 C 4148.0 338.0, 9292.0 172.0, 9342.0 172.0" class="edge"/>
 <path d="M 1538.0 688.0 C 1588.0 688.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
 <path d="M 1538.0 688.0 C 1588.0 688.0, 4812.0 102.0, 4862.0 102.0" class="edge"/>
@@ -1268,15 +1274,15 @@
 <path d="M 1538.0 758.0 C 1588.0 758.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
 <path d="M 1538.0 758.0 C 1588.0 758.0, 5772.0 382.0, 5822.0 382.0" class="edge"/>
 <path d="M 1538.0 758.0 C 1588.0 758.0, 9292.0 102.0, 9342.0 102.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 5452.0 102.0, 5502.0 102.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 9932.0 172.0, 9982.0 172.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 4172.0 172.0, 4222.0 172.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 4172.0 242.0, 4222.0 242.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 7692.0 172.0, 7742.0 172.0" class="edge"/>
-<path d="M 2498.0 1318.0 C 2548.0 1318.0, 9292.0 172.0, 9342.0 172.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 5452.0 102.0, 5502.0 102.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 9932.0 172.0, 9982.0 172.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 4172.0 172.0, 4222.0 172.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 4172.0 242.0, 4222.0 242.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 4172.0 452.0, 4222.0 452.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
+<path d="M 2498.0 1388.0 C 2548.0 1388.0, 9292.0 172.0, 9342.0 172.0" class="edge"/>
 <path d="M 3138.0 828.0 C 3188.0 828.0, 6092.0 172.0, 6142.0 172.0" class="edge"/>
 <path d="M 3138.0 828.0 C 3188.0 828.0, 3212.0 592.0, 3262.0 592.0" class="edge"/>
 <path d="M 3138.0 828.0 C 3188.0 828.0, 3212.0 312.0, 3262.0 312.0" class="edge"/>
@@ -1500,16 +1506,16 @@
 <path d="M 3458.0 268.0 C 3508.0 268.0, 9612.0 242.0, 9662.0 242.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 5452.0 102.0, 5502.0 102.0" class="edge"/>
-<path d="M 2178.0 1318.0 C 2228.0 1318.0, 2252.0 1222.0, 2302.0 1222.0" class="edge"/>
+<path d="M 2178.0 1318.0 C 2228.0 1318.0, 2252.0 1292.0, 2302.0 1292.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 7372.0 102.0, 7422.0 102.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
 <path d="M 2178.0 1318.0 C 2228.0 1318.0, 5772.0 172.0, 5822.0 172.0" class="edge"/>
 <path d="M 2178.0 968.0 C 2228.0 968.0, 2252.0 242.0, 2302.0 242.0" class="edge"/>
-<path d="M 2178.0 968.0 C 2228.0 968.0, 2252.0 1012.0, 2302.0 1012.0" class="edge"/>
+<path d="M 2178.0 968.0 C 2228.0 968.0, 2252.0 1082.0, 2302.0 1082.0" class="edge"/>
 <path d="M 2178.0 1668.0 C 2228.0 1668.0, 2252.0 242.0, 2302.0 242.0" class="edge"/>
-<path d="M 2178.0 1668.0 C 2228.0 1668.0, 2252.0 1012.0, 2302.0 1012.0" class="edge"/>
-<path d="M 2178.0 1668.0 C 2228.0 1668.0, 2252.0 1642.0, 2302.0 1642.0" class="edge"/>
+<path d="M 2178.0 1668.0 C 2228.0 1668.0, 2252.0 1082.0, 2302.0 1082.0" class="edge"/>
+<path d="M 2178.0 1668.0 C 2228.0 1668.0, 2252.0 1712.0, 2302.0 1712.0" class="edge"/>
 <path d="M 2178.0 478.0 C 2228.0 478.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
 <path d="M 2178.0 478.0 C 2228.0 478.0, 6732.0 172.0, 6782.0 172.0" class="edge"/>
 <path d="M 2178.0 478.0 C 2228.0 478.0, 7052.0 102.0, 7102.0 102.0" class="edge"/>
@@ -1517,18 +1523,18 @@
 <path d="M 2178.0 478.0 C 2228.0 478.0, 9932.0 172.0, 9982.0 172.0" class="edge"/>
 <path d="M 2178.0 478.0 C 2228.0 478.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
 <path d="M 2178.0 478.0 C 2228.0 478.0, 2252.0 242.0, 2302.0 242.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 5772.0 102.0, 5822.0 102.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 6092.0 102.0, 6142.0 102.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10572.0 242.0, 10622.0 242.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9292.0 242.0, 9342.0 242.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 6092.0 592.0, 6142.0 592.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 6412.0 312.0, 6462.0 312.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 5772.0 522.0, 5822.0 522.0" class="edge"/>
-<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9612.0 242.0, 9662.0 242.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 5772.0 102.0, 5822.0 102.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 6092.0 102.0, 6142.0 102.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 10572.0 242.0, 10622.0 242.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 9292.0 242.0, 9342.0 242.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 6092.0 592.0, 6142.0 592.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 6412.0 312.0, 6462.0 312.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 5772.0 522.0, 5822.0 522.0" class="edge"/>
+<path d="M 2498.0 1318.0 C 2548.0 1318.0, 9612.0 242.0, 9662.0 242.0" class="edge"/>
 <path d="M 1538.0 618.0 C 1588.0 618.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
 <path d="M 1538.0 618.0 C 1588.0 618.0, 5772.0 102.0, 5822.0 102.0" class="edge"/>
 <path d="M 1538.0 618.0 C 1588.0 618.0, 4812.0 242.0, 4862.0 242.0" class="edge"/>
@@ -1567,22 +1573,22 @@
 <path d="M 1858.0 1038.0 C 1908.0 1038.0, 1932.0 1222.0, 1982.0 1222.0" class="edge"/>
 <path d="M 1858.0 1038.0 C 1908.0 1038.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
 <path d="M 1858.0 1038.0 C 1908.0 1038.0, 2572.0 242.0, 2622.0 242.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 4812.0 102.0, 4862.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 9932.0 242.0, 9982.0 242.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 10252.0 382.0, 10302.0 382.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 10252.0 172.0, 10302.0 172.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 2892.0 312.0, 2942.0 312.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 2572.0 592.0, 2622.0 592.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 5772.0 242.0, 5822.0 242.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 2572.0 942.0, 2622.0 942.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 2572.0 732.0, 2622.0 732.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 2572.0 802.0, 2622.0 802.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
-<path d="M 2498.0 1178.0 C 2548.0 1178.0, 9612.0 242.0, 9662.0 242.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 4812.0 102.0, 4862.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9932.0 242.0, 9982.0 242.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10252.0 382.0, 10302.0 382.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10252.0 172.0, 10302.0 172.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 2892.0 312.0, 2942.0 312.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 2572.0 592.0, 2622.0 592.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 5772.0 242.0, 5822.0 242.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 2572.0 942.0, 2622.0 942.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 2572.0 732.0, 2622.0 732.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 2572.0 802.0, 2622.0 802.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
+<path d="M 2498.0 1248.0 C 2548.0 1248.0, 9612.0 242.0, 9662.0 242.0" class="edge"/>
 <path d="M 1858.0 618.0 C 1908.0 618.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
 <path d="M 1858.0 618.0 C 1908.0 618.0, 5772.0 102.0, 5822.0 102.0" class="edge"/>
 <path d="M 1858.0 618.0 C 1908.0 618.0, 9932.0 242.0, 9982.0 242.0" class="edge"/>
@@ -1624,7 +1630,7 @@
 <path d="M 2178.0 1178.0 C 2228.0 1178.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 2178.0 1178.0 C 2228.0 1178.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
 <path d="M 2178.0 1178.0 C 2228.0 1178.0, 10252.0 172.0, 10302.0 172.0" class="edge"/>
-<path d="M 2178.0 1178.0 C 2228.0 1178.0, 2252.0 1152.0, 2302.0 1152.0" class="edge"/>
+<path d="M 2178.0 1178.0 C 2228.0 1178.0, 2252.0 1222.0, 2302.0 1222.0" class="edge"/>
 <path d="M 2178.0 1178.0 C 2228.0 1178.0, 2572.0 592.0, 2622.0 592.0" class="edge"/>
 <path d="M 2178.0 1178.0 C 2228.0 1178.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
 <path d="M 2818.0 618.0 C 2868.0 618.0, 4172.0 102.0, 4222.0 102.0" class="edge"/>
@@ -1656,7 +1662,7 @@
 <path d="M 1538.0 1108.0 C 1588.0 1108.0, 9292.0 102.0, 9342.0 102.0" class="edge"/>
 <path d="M 2178.0 1388.0 C 2228.0 1388.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 2178.0 1388.0 C 2228.0 1388.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
-<path d="M 2178.0 1388.0 C 2228.0 1388.0, 5772.0 242.0, 5822.0 242.0" class="edge"/>
+<path d="M 2178.0 1388.0 C 2228.0 1388.0, 2252.0 872.0, 2302.0 872.0" class="edge"/>
 <path d="M 2178.0 1388.0 C 2228.0 1388.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
 <path d="M 2178.0 1388.0 C 2228.0 1388.0, 2252.0 802.0, 2302.0 802.0" class="edge"/>
 <path d="M 2178.0 1388.0 C 2228.0 1388.0, 5132.0 522.0, 5182.0 522.0" class="edge"/>
@@ -1714,17 +1720,20 @@
 <path d="M 6018.0 408.0 C 6068.0 408.0, 8332.0 102.0, 8382.0 102.0" class="edge"/>
 <path d="M 10498.0 268.0 C 10548.0 268.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 10178.0 338.0 C 10228.0 338.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
+<path d="M 4418.0 478.0 C 4468.0 478.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
 <path d="M 258.0 408.0 C 308.0 408.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
+<path d="M 2498.0 898.0 C 2548.0 898.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
+<path d="M 2498.0 898.0 C 2548.0 898.0, 5772.0 242.0, 5822.0 242.0" class="edge"/>
 <path d="M 2178.0 1248.0 C 2228.0 1248.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 2178.0 1248.0 C 2228.0 1248.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
-<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 1082.0, 2302.0 1082.0" class="edge"/>
+<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 1152.0, 2302.0 1152.0" class="edge"/>
 <path d="M 2178.0 1248.0 C 2228.0 1248.0, 2572.0 452.0, 2622.0 452.0" class="edge"/>
-<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 872.0, 2302.0 872.0" class="edge"/>
-<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 1082.0, 2302.0 1082.0" class="edge"/>
+<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 942.0, 2302.0 942.0" class="edge"/>
+<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 1152.0, 2302.0 1152.0" class="edge"/>
 <path d="M 2178.0 1248.0 C 2228.0 1248.0, 2572.0 452.0, 2622.0 452.0" class="edge"/>
-<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 872.0, 2302.0 872.0" class="edge"/>
-<path d="M 2498.0 898.0 C 2548.0 898.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
-<path d="M 2498.0 898.0 C 2548.0 898.0, 2572.0 452.0, 2622.0 452.0" class="edge"/>
+<path d="M 2178.0 1248.0 C 2228.0 1248.0, 2252.0 942.0, 2302.0 942.0" class="edge"/>
+<path d="M 2498.0 968.0 C 2548.0 968.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
+<path d="M 2498.0 968.0 C 2548.0 968.0, 2572.0 452.0, 2622.0 452.0" class="edge"/>
 <path d="M 2178.0 2018.0 C 2228.0 2018.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
 <path d="M 6018.0 548.0 C 6068.0 548.0, 10572.0 242.0, 10622.0 242.0" class="edge"/>
 <path d="M 6018.0 548.0 C 6068.0 548.0, 6092.0 662.0, 6142.0 662.0" class="edge"/>
@@ -1823,13 +1832,13 @@
 <path d="M 2818.0 688.0 C 2868.0 688.0, 2892.0 662.0, 2942.0 662.0" class="edge"/>
 <path d="M 2818.0 688.0 C 2868.0 688.0, 9292.0 102.0, 9342.0 102.0" class="edge"/>
 <path d="M 2818.0 688.0 C 2868.0 688.0, 9612.0 312.0, 9662.0 312.0" class="edge"/>
-<path d="M 2498.0 1458.0 C 2548.0 1458.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
-<path d="M 2498.0 1458.0 C 2548.0 1458.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
-<path d="M 2498.0 1458.0 C 2548.0 1458.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
-<path d="M 2498.0 1458.0 C 2548.0 1458.0, 2572.0 382.0, 2622.0 382.0" class="edge"/>
-<path d="M 2498.0 1458.0 C 2548.0 1458.0, 2572.0 382.0, 2622.0 382.0" class="edge"/>
-<path d="M 2498.0 1528.0 C 2548.0 1528.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
-<path d="M 2498.0 1528.0 C 2548.0 1528.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
+<path d="M 2498.0 1528.0 C 2548.0 1528.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
+<path d="M 2498.0 1528.0 C 2548.0 1528.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
+<path d="M 2498.0 1528.0 C 2548.0 1528.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
+<path d="M 2498.0 1528.0 C 2548.0 1528.0, 2572.0 382.0, 2622.0 382.0" class="edge"/>
+<path d="M 2498.0 1528.0 C 2548.0 1528.0, 2572.0 382.0, 2622.0 382.0" class="edge"/>
+<path d="M 2498.0 1598.0 C 2548.0 1598.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
+<path d="M 2498.0 1598.0 C 2548.0 1598.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
 <path d="M 7618.0 128.0 C 7668.0 128.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 7618.0 128.0 C 7668.0 128.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 7618.0 128.0 C 7668.0 128.0, 7692.0 102.0, 7742.0 102.0" class="edge"/>
@@ -1862,7 +1871,7 @@
 <path d="M 2178.0 1808.0 C 2228.0 1808.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 2178.0 1808.0 C 2228.0 1808.0, 10572.0 102.0, 10622.0 102.0" class="edge"/>
 <path d="M 2178.0 1948.0 C 2228.0 1948.0, 9932.0 312.0, 9982.0 312.0" class="edge"/>
-<path d="M 2498.0 968.0 C 2548.0 968.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
+<path d="M 2498.0 1038.0 C 2548.0 1038.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 7938.0 128.0 C 7988.0 128.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
 <path d="M 9858.0 478.0 C 9908.0 478.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
 <path d="M 9858.0 478.0 C 9908.0 478.0, 9932.0 312.0, 9982.0 312.0" class="edge"/>
@@ -1905,8 +1914,8 @@
 <path d="M 2818.0 828.0 C 2868.0 828.0, 10252.0 382.0, 10302.0 382.0" class="edge"/>
 <path d="M 2818.0 828.0 C 2868.0 828.0, 10572.0 172.0, 10622.0 172.0" class="edge"/>
 <path d="M 2818.0 828.0 C 2868.0 828.0, 2892.0 452.0, 2942.0 452.0" class="edge"/>
-<path d="M 2498.0 1598.0 C 2548.0 1598.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
-<path d="M 2498.0 1598.0 C 2548.0 1598.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
+<path d="M 2498.0 1668.0 C 2548.0 1668.0, 10892.0 102.0, 10942.0 102.0" class="edge"/>
+<path d="M 2498.0 1668.0 C 2548.0 1668.0, 7372.0 172.0, 7422.0 172.0" class="edge"/>
 <path d="M 2498.0 198.0 C 2548.0 198.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 6338.0 828.0 C 6388.0 828.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 6338.0 828.0 C 6388.0 828.0, 9612.0 102.0, 9662.0 102.0" class="edge"/>
@@ -1927,7 +1936,6 @@
 <path d="M 6018.0 758.0 C 6068.0 758.0, 6092.0 592.0, 6142.0 592.0" class="edge"/>
 <path d="M 6018.0 758.0 C 6068.0 758.0, 6732.0 102.0, 6782.0 102.0" class="edge"/>
 <path d="M 7938.0 198.0 C 7988.0 198.0, 8012.0 102.0, 8062.0 102.0" class="edge"/>
-<path d="M 7938.0 198.0 C 7988.0 198.0, 10252.0 242.0, 10302.0 242.0" class="edge"/>
 <path d="M 1858.0 1318.0 C 1908.0 1318.0, 9932.0 102.0, 9982.0 102.0" class="edge"/>
 <path d="M 1858.0 1318.0 C 1908.0 1318.0, 10252.0 102.0, 10302.0 102.0" class="edge"/>
 <path d="M 4418.0 268.0 C 4468.0 268.0, 7372.0 102.0, 7422.0 102.0" class="edge"/>
@@ -2307,14 +2315,14 @@ welcome_page.dart</title>
 </g>
 <g>
 <circle cx="1538.0" cy="338.0" r="9" fill="#28a745"/>
-<text x="1538.0" y="339.0" class="badge">50</text>
+<text x="1538.0" y="339.0" class="badge">51</text>
 <title>account.dart
 account_types_enum.dart
 accounts.dart
 accumulator.dart
 adaptive_columns_or_rows_single_selection.dart
 amount_model.dart
-box.dart
+box_with_scrolling_content.dart
 button_helpers.dart
 center_message.dart
 chart.dart
@@ -2352,6 +2360,7 @@ security.dart
 selection_controller.dart
 side_panel_support.dart
 snack_bar.dart
+stock_summary.dart
 text_title.dart
 three_part_label.dart
 transaction.dart
@@ -2707,9 +2716,10 @@ view_money_objects.dart</title>
 </g>
 <g>
 <circle cx="1538.0" cy="1248.0" r="9" fill="#28a745"/>
-<text x="1538.0" y="1249.0" class="badge">5</text>
+<text x="1538.0" y="1249.0" class="badge">6</text>
 <title>color_helper.dart
 constants.dart
+my_navigation_item.dart
 preferences_controller.dart
 scale_down.dart
 scale_down.dart</title>
@@ -3136,6 +3146,18 @@ ranges.dart</title>
 </g>
 <text x="1760.0" y="1515.0" class="nodeText">view_ai_input.dart</text>
 <g>
+<circle cx="1662.0" cy="1572.0" r="9" fill="#007bff"/>
+<text x="1662.0" y="1573.0" class="badge">1</text>
+<title>my_nav_bar.dart</title>
+</g>
+<text x="1760.0" y="1585.0" class="nodeText">my_navigation_item.dart</text>
+<g>
+<circle cx="1662.0" cy="1642.0" r="9" fill="#007bff"/>
+<text x="1662.0" y="1643.0" class="badge">1</text>
+<title>view_accounts.dart</title>
+</g>
+<text x="1760.0" y="1655.0" class="nodeText">stock_summary.dart</text>
+<g>
 <circle cx="1982.0" cy="102.0" r="9" fill="#007bff"/>
 <text x="1982.0" y="103.0" class="badge">9</text>
 <title>policy_page.dart
@@ -3491,7 +3513,7 @@ transaction.dart</title>
 <g>
 <circle cx="2178.0" cy="1388.0" r="9" fill="#28a745"/>
 <text x="2178.0" y="1389.0" class="badge">6</text>
-<title>box.dart
+<title>box_with_scrolling_content.dart
 constants.dart
 gaps.dart
 label_and_amount.dart
@@ -3816,50 +3838,63 @@ widget_from_data.dart</title>
 <g>
 <circle cx="2302.0" cy="872.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="873.0" class="badge">2</text>
-<title>sankey_painter.dart
-sankey_painter.dart</title>
+<title>rental_pnl_card.dart
+view_accounts.dart</title>
 </g>
 <g>
 <circle cx="2498.0" cy="898.0" r="9" fill="#28a745"/>
 <text x="2498.0" y="899.0" class="badge">2</text>
-<title>constants.dart
-sankey_entry.dart</title>
+<title>box.dart
+color_helper.dart</title>
 </g>
-<text x="2400.0" y="885.0" class="nodeText">sankey_helper.dart</text>
+<text x="2400.0" y="885.0" class="nodeText">box_with_scrolling_con...</text>
 <g>
 <circle cx="2302.0" cy="942.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="943.0" class="badge">2</text>
+<title>sankey_painter.dart
+sankey_painter.dart</title>
+</g>
+<g>
+<circle cx="2498.0" cy="968.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="969.0" class="badge">2</text>
+<title>constants.dart
+sankey_entry.dart</title>
+</g>
+<text x="2400.0" y="955.0" class="nodeText">sankey_helper.dart</text>
+<g>
+<circle cx="2302.0" cy="1012.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1013.0" class="badge">2</text>
 <title>app_bar.dart
 menu_entry.dart</title>
 </g>
 <g>
-<circle cx="2498.0" cy="968.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="969.0" class="badge">1</text>
+<circle cx="2498.0" cy="1038.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1039.0" class="badge">1</text>
 <title>color_helper.dart</title>
 </g>
-<text x="2400.0" y="955.0" class="nodeText">popup_menu_icon_button...</text>
-<g>
-<circle cx="2302.0" cy="1012.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1013.0" class="badge">2</text>
-<title>import_csv.dart
-import_xlsx.dart</title>
-</g>
-<text x="2400.0" y="1025.0" class="nodeText">csv_column_mapper_dial...</text>
+<text x="2400.0" y="1025.0" class="nodeText">popup_menu_icon_button...</text>
 <g>
 <circle cx="2302.0" cy="1082.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="1083.0" class="badge">2</text>
+<title>import_csv.dart
+import_xlsx.dart</title>
+</g>
+<text x="2400.0" y="1095.0" class="nodeText">csv_column_mapper_dial...</text>
+<g>
+<circle cx="2302.0" cy="1152.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1153.0" class="badge">2</text>
 <title>sankey_painter.dart
 sankey_painter.dart</title>
 </g>
-<text x="2400.0" y="1095.0" class="nodeText">sankey_colors.dart</text>
+<text x="2400.0" y="1165.0" class="nodeText">sankey_colors.dart</text>
 <g>
-<circle cx="2302.0" cy="1152.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1153.0" class="badge">1</text>
+<circle cx="2302.0" cy="1222.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1223.0" class="badge">1</text>
 <title>panel_recurring.dart</title>
 </g>
 <g>
-<circle cx="2498.0" cy="1178.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="1179.0" class="badge">16</text>
+<circle cx="2498.0" cy="1248.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1249.0" class="badge">16</text>
 <title>amount_model.dart
 box.dart
 color_helper.dart
@@ -3877,15 +3912,15 @@ recurring_payment.dart
 transactions.dart
 widget_from_data.dart</title>
 </g>
-<text x="2400.0" y="1165.0" class="nodeText">recurring_card.dart</text>
+<text x="2400.0" y="1235.0" class="nodeText">recurring_card.dart</text>
 <g>
-<circle cx="2302.0" cy="1222.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1223.0" class="badge">1</text>
+<circle cx="2302.0" cy="1292.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1293.0" class="badge">1</text>
 <title>import_transfer.dart</title>
 </g>
 <g>
-<circle cx="2498.0" cy="1248.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="1249.0" class="badge">12</text>
+<circle cx="2498.0" cy="1318.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1319.0" class="badge">12</text>
 <title>account.dart
 category.dart
 color_helper.dart
@@ -3899,34 +3934,34 @@ picker_category.dart
 picker_edit_box_date.dart
 widget_from_data.dart</title>
 </g>
-<text x="2400.0" y="1235.0" class="nodeText">import_transfer_panel....</text>
-<g>
-<circle cx="2302.0" cy="1292.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1293.0" class="badge">1</text>
-<title>list_view_transactions.dart</title>
-</g>
-<g>
-<circle cx="2498.0" cy="1318.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="1319.0" class="badge">9</text>
-<title>button_helpers.dart
-confirmation_dialog.dart
-constants.dart
-data.dart
-dialog_button.dart
-dialog_full_screen.dart
-json_helper.dart
-mutation_types.dart
-transaction.dart</title>
-</g>
-<text x="2400.0" y="1305.0" class="nodeText">dialog_mutate_transact...</text>
+<text x="2400.0" y="1305.0" class="nodeText">import_transfer_panel....</text>
 <g>
 <circle cx="2302.0" cy="1362.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="1363.0" class="badge">1</text>
-<title>badge_pending_changes.dart</title>
+<title>list_view_transactions.dart</title>
 </g>
 <g>
 <circle cx="2498.0" cy="1388.0" r="9" fill="#28a745"/>
 <text x="2498.0" y="1389.0" class="badge">9</text>
+<title>button_helpers.dart
+confirmation_dialog.dart
+constants.dart
+data.dart
+dialog_auto_size.dart
+dialog_button.dart
+json_helper.dart
+mutation_types.dart
+transaction.dart</title>
+</g>
+<text x="2400.0" y="1375.0" class="nodeText">dialog_mutate_transact...</text>
+<g>
+<circle cx="2302.0" cy="1432.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1433.0" class="badge">1</text>
+<title>badge_pending_changes.dart</title>
+</g>
+<g>
+<circle cx="2498.0" cy="1458.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1459.0" class="badge">9</text>
 <title>data.dart
 data_file_controller.dart
 dialog.dart
@@ -3937,52 +3972,52 @@ my_segment.dart
 string_helper.dart
 working.dart</title>
 </g>
-<text x="2400.0" y="1375.0" class="nodeText">pending_changes_dialog...</text>
+<text x="2400.0" y="1445.0" class="nodeText">pending_changes_dialog...</text>
 <g>
-<circle cx="2302.0" cy="1432.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1433.0" class="badge">1</text>
+<circle cx="2302.0" cy="1502.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1503.0" class="badge">1</text>
 <title>view_header.dart</title>
 </g>
 <g>
-<circle cx="2498.0" cy="1458.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="1459.0" class="badge">5</text>
+<circle cx="2498.0" cy="1528.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1529.0" class="badge">5</text>
 <title>color_helper.dart
 constants.dart
 multiple_selection_context.dart
 multiple_selection_context.dart
 string_helper.dart</title>
 </g>
-<text x="2400.0" y="1445.0" class="nodeText">multiple_selection_tog...</text>
-<g>
-<circle cx="2302.0" cy="1502.0" r="9" fill="#007bff"/>
-<text x="2302.0" y="1503.0" class="badge">1</text>
-<title>stock_chart.dart</title>
-</g>
-<g>
-<circle cx="2498.0" cy="1528.0" r="9" fill="#28a745"/>
-<text x="2498.0" y="1529.0" class="badge">2</text>
-<title>gaps.dart
-my_text_input.dart</title>
-</g>
-<text x="2400.0" y="1515.0" class="nodeText">dialog_single_text_inp...</text>
+<text x="2400.0" y="1515.0" class="nodeText">multiple_selection_tog...</text>
 <g>
 <circle cx="2302.0" cy="1572.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="1573.0" class="badge">1</text>
-<title>view_header.dart</title>
+<title>stock_chart.dart</title>
 </g>
 <g>
 <circle cx="2498.0" cy="1598.0" r="9" fill="#28a745"/>
 <text x="2498.0" y="1599.0" class="badge">2</text>
-<title>misc_helpers.dart
+<title>gaps.dart
 my_text_input.dart</title>
 </g>
-<text x="2400.0" y="1585.0" class="nodeText">filter_input.dart</text>
+<text x="2400.0" y="1585.0" class="nodeText">dialog_single_text_inp...</text>
 <g>
 <circle cx="2302.0" cy="1642.0" r="9" fill="#007bff"/>
 <text x="2302.0" y="1643.0" class="badge">1</text>
+<title>view_header.dart</title>
+</g>
+<g>
+<circle cx="2498.0" cy="1668.0" r="9" fill="#28a745"/>
+<text x="2498.0" y="1669.0" class="badge">2</text>
+<title>misc_helpers.dart
+my_text_input.dart</title>
+</g>
+<text x="2400.0" y="1655.0" class="nodeText">filter_input.dart</text>
+<g>
+<circle cx="2302.0" cy="1712.0" r="9" fill="#007bff"/>
+<text x="2302.0" y="1713.0" class="badge">1</text>
 <title>import_xlsx.dart</title>
 </g>
-<text x="2400.0" y="1655.0" class="nodeText">xlsx_header_row_select...</text>
+<text x="2400.0" y="1725.0" class="nodeText">xlsx_header_row_select...</text>
 <g>
 <circle cx="2622.0" cy="102.0" r="9" fill="#007bff"/>
 <text x="2622.0" y="103.0" class="badge">13</text>
@@ -4668,8 +4703,8 @@ value_parser.dart</title>
 confirmation_dialog.dart
 constants.dart
 data.dart
+dialog_auto_size.dart
 dialog_button.dart
-dialog_full_screen.dart
 json_helper.dart
 mutation_types.dart
 transaction_split.dart</title>
@@ -4844,6 +4879,18 @@ test_helpers.dart</title>
 scale_down.dart</title>
 </g>
 <text x="4320.0" y="395.0" class="nodeText">list_item.dart</text>
+<g>
+<circle cx="4222.0" cy="452.0" r="9" fill="#007bff"/>
+<text x="4222.0" y="453.0" class="badge">2</text>
+<title>dialog_mutate_split.dart
+dialog_mutate_transaction.dart</title>
+</g>
+<g>
+<circle cx="4418.0" cy="478.0" r="9" fill="#28a745"/>
+<text x="4418.0" y="479.0" class="badge">1</text>
+<title>scale_down.dart</title>
+</g>
+<text x="4320.0" y="465.0" class="nodeText">dialog_auto_size.dart</text>
 <g>
 <circle cx="4542.0" cy="102.0" r="9" fill="#007bff"/>
 <text x="4542.0" y="103.0" class="badge">2</text>
@@ -5714,8 +5761,9 @@ theme_custom.dart</title>
 <text x="5920.0" y="185.0" class="nodeText">snack_bar.dart</text>
 <g>
 <circle cx="5822.0" cy="242.0" r="9" fill="#007bff"/>
-<text x="5822.0" y="243.0" class="badge">14</text>
-<title>center_message.dart
+<text x="5822.0" y="243.0" class="badge">13</text>
+<title>box_with_scrolling_content.dart
+center_message.dart
 import_transactions_list_preview.dart
 input_values.dart
 merge_categories.dart
@@ -5723,9 +5771,7 @@ merge_payees.dart
 money_object_card.dart
 panel_budget.dart
 recurring_card.dart
-rental_pnl_card.dart
 settings_page.dart
-view_accounts.dart
 view_ai_instructions.dart
 view_money_objects.dart
 view_stocks.dart</title>
@@ -6364,16 +6410,13 @@ view_transactions.dart</title>
 <text x="7840.0" y="115.0" class="nodeText">dialog_button.dart</text>
 <g>
 <circle cx="7742.0" cy="172.0" r="9" fill="#007bff"/>
-<text x="7742.0" y="173.0" class="badge">3</text>
-<title>dialog.dart
-dialog_mutate_split.dart
-dialog_mutate_transaction.dart</title>
+<text x="7742.0" y="173.0" class="badge">1</text>
+<title>dialog.dart</title>
 </g>
 <g>
 <circle cx="7938.0" cy="198.0" r="9" fill="#28a745"/>
-<text x="7938.0" y="199.0" class="badge">2</text>
-<title>app_scaffold.dart
-scale_down.dart</title>
+<text x="7938.0" y="199.0" class="badge">1</text>
+<title>app_scaffold.dart</title>
 </g>
 <text x="7840.0" y="185.0" class="nodeText">dialog_full_screen.dart</text>
 <g>
@@ -6781,11 +6824,12 @@ theme_custom.dart</title>
 <text x="9760.0" y="465.0" class="nodeText">quantity_widget.dart</text>
 <g>
 <circle cx="9982.0" cy="102.0" r="9" fill="#007bff"/>
-<text x="9982.0" y="103.0" class="badge">52</text>
+<text x="9982.0" y="103.0" class="badge">53</text>
 <title>adaptive_columns_or_rows_list.dart
 app_bar.dart
 app_title.dart
 box.dart
+box_with_scrolling_content.dart
 category.dart
 chart.dart
 color_palette.dart
@@ -7097,7 +7141,7 @@ app_bar.dart
 column_filter_panel.dart
 currency_label.dart
 dialog.dart
-dialog_full_screen.dart
+dialog_auto_size.dart
 field.dart
 footer_widgets.dart
 list_item.dart

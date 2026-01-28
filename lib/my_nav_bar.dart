@@ -1,3 +1,4 @@
+import 'package:money/data/models/my_navigation_item.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/preferences_controller.dart';
@@ -6,20 +7,6 @@ import 'package:money/widgets/scale_down.dart';
 // Exports
 export 'package:flutter/material.dart';
 export 'package:money/widgets/scale_down.dart';
-
-class MyNavigationItem {
-  MyNavigationItem({
-    required this.label,
-    required this.icon,
-    required this.tooltip,
-  });
-
-  Icon icon;
-  String label;
-  String tooltip;
-
-  Key get key => Key('key_menu_${label.toLowerCase()}');
-}
 
 class MyNavigationBar extends StatelessWidget {
   const MyNavigationBar({
