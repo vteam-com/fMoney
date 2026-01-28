@@ -25,36 +25,27 @@ void main() {
   });
 
   test('attempt to parse date formats', () {
-    // ISO
+    void expectParsedDate(final DateTime? parsed, final int y, final int m, final int d) {
+      expect(parsed, isNotNull);
+      expect(parsed!.year, y);
+      expect(parsed.month, m);
+      expect(parsed.day, d);
+    }
 
-    DateTime? parsedDate = attemptToGetDateFromText('2019-12-31');
-    expect(parsedDate!.year, 2019);
-    expect(parsedDate.month, 12);
-    expect(parsedDate.day, 31);
+    // ISO
+    expectParsedDate(attemptToGetDateFromText('2019-12-31'), 2019, 12, 31);
 
     // USA MM/dd/yyyy
-    parsedDate = attemptToGetDateFromText('2/27/2024');
-    expect(parsedDate!.year, 2024);
-    expect(parsedDate.month, 2);
-    expect(parsedDate.day, 27);
+    expectParsedDate(attemptToGetDateFromText('2/27/2024'), 2024, 2, 27);
 
     // USA MM/dd/yy
-    parsedDate = attemptToGetDateFromText('2/3/20');
-    expect(parsedDate!.year, 2020);
-    expect(parsedDate.month, 2);
-    expect(parsedDate.day, 3);
+    expectParsedDate(attemptToGetDateFromText('2/3/20'), 2020, 2, 3);
 
     // Europe dd/MM/yyyy
-    parsedDate = attemptToGetDateFromText('2/3/2000');
-    expect(parsedDate!.year, 2000);
-    expect(parsedDate.month, 2);
-    expect(parsedDate.day, 3);
+    expectParsedDate(attemptToGetDateFromText('2/3/2000'), 2000, 2, 3);
 
     // Europe dd/MM/yyyy
-    parsedDate = DateFormat('dd/MM/yyyy').tryParse('27/01/2024');
-    expect(parsedDate!.year, 2024);
-    expect(parsedDate.month, 1);
-    expect(parsedDate.day, 27);
+    expectParsedDate(DateFormat('dd/MM/yyyy').tryParse('27/01/2024'), 2024, 1, 27);
   });
 
   group('getPossibleDateFormats', () {

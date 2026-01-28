@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:file_picker/src/platform/file_picker_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart'; // Import GetX
@@ -10,7 +9,7 @@ import 'package:money/widgets/wizard_choice.dart'; // Import WizardChoice
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class TestMockFilePicker extends FilePickerPlatform with MockPlatformInterfaceMixin {
+class TestMockFilePicker with MockPlatformInterfaceMixin implements FilePicker {
   FilePickerResult? _pickerResult;
 
   void setPickerResult(FilePickerResult? result) {
@@ -24,6 +23,8 @@ class TestMockFilePicker extends FilePickerPlatform with MockPlatformInterfaceMi
     FileType type = FileType.any,
     List<String>? allowedExtensions,
     void Function(FilePickerStatus)? onFileLoading,
+    // ignore: deprecated_member_use
+    bool allowCompression = false,
     int compressionQuality = 0,
     bool allowMultiple = false,
     bool withData = false,
@@ -71,22 +72,26 @@ class TestMockFilePicker extends FilePickerPlatform with MockPlatformInterfaceMi
   }
 }
 
-void setMockFilePicker(FilePickerPlatform mock) {
-  FilePickerPlatform.instance = mock;
+void setMockFilePicker(FilePicker mock) {
+  FilePicker.platform = mock;
 }
 
 void main() {
   late TestMockFilePicker mockFilePicker;
-  late FilePickerPlatform originalFilePickerPlatform;
+
+  setUpAll(() {
+    // Initialize platform with a default mock to avoid LateInitializationError before first setUp runs
+    FilePicker.platform = TestMockFilePicker();
+  });
 
   setUp(() {
-    originalFilePickerPlatform = FilePickerPlatform.instance;
     mockFilePicker = TestMockFilePicker();
     setMockFilePicker(mockFilePicker);
   });
 
   tearDown(() {
-    FilePickerPlatform.instance = originalFilePickerPlatform;
+    // Ensure a clean platform instance for the next test
+    FilePicker.platform = TestMockFilePicker();
   });
 
   testWidgets('Wizard Dialog displays correctly with title and CSV option', (WidgetTester tester) async {

@@ -26,4 +26,4 @@ echo "    Running tests..."
 flutter test --reporter=compact --no-pub
 
 echo --------------- Layers
-fcheck --svg --svgfolder --fix .
+dart run fcheck --svg --svgfolder --fix .

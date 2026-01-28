@@ -1,3 +1,5 @@
+// fcheck: ignore-one-class-per-file
+
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 
