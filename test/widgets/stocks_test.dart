@@ -9,6 +9,7 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/data_file_controller.dart';
@@ -16,7 +17,6 @@ import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 // Mock the SharedPreference

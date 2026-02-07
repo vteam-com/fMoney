@@ -31,11 +31,11 @@ class ViewEvents extends ViewForMoneyObjects {
   /// Creates and returns a new instance of the State class associated with this view.
   ///
   /// @return A new instance of the State class.
-  State<ViewForMoneyObjects> createState() => ViewEventsState();
+  State<ViewForMoneyObjects> createState() => _ViewEventsState();
 }
 
-class ViewEventsState extends ViewForMoneyObjectsState {
-  ViewEventsState() {
+class _ViewEventsState extends ViewForMoneyObjectsState {
+  _ViewEventsState() {
     viewId = ViewId.viewAliases;
   }
 

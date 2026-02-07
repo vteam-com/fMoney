@@ -1,7 +1,6 @@
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/quantity_widget.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class LabelAndAmount extends StatelessWidget {
@@ -36,34 +35,6 @@ class LabelAndAmount extends StatelessWidget {
             autoColor: true,
           ),
         ),
-      ],
-    );
-  }
-}
-
-class LabelAndQuantity extends StatelessWidget {
-  const LabelAndQuantity({
-    super.key,
-    required this.caption,
-    required this.quantity,
-    this.small = false,
-  });
-
-  final String caption;
-  final double quantity;
-  final bool small;
-
-  @override
-  Widget build(final BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Text(
-            caption,
-            style: small ? getTextTheme(context).bodySmall : getTextTheme(context).bodyMedium,
-          ),
-        ),
-        QuantityWidget(quantity: quantity, align: TextAlign.right),
       ],
     );
   }

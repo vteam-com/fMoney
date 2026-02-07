@@ -4,6 +4,7 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/rent_building.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/entities/transaction_split.dart';
+import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/list_view_transactions.dart';

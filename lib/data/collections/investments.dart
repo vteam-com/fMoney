@@ -1,10 +1,10 @@
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_security_type.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
 class Investments extends MoneyObjects<Investment> {

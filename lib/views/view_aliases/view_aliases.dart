@@ -17,11 +17,11 @@ class ViewAliases extends ViewForMoneyObjects {
   const ViewAliases({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewAliasesState();
+  State<ViewForMoneyObjects> createState() => _ViewAliasesState();
 }
 
-class ViewAliasesState extends ViewForMoneyObjectsState {
-  ViewAliasesState() {
+class _ViewAliasesState extends ViewForMoneyObjectsState {
+  _ViewAliasesState() {
     viewId = ViewId.viewAliases;
   }
 

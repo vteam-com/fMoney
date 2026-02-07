@@ -8,6 +8,7 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/value_parser.dart';
+import 'package:money/widgets/value_quality.dart';
 
 void showImportTransactionsFromTextInput(
   final BuildContext context, [

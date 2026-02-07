@@ -10,7 +10,7 @@ import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/value_parser.dart';
+import 'package:money/widgets/value_quality.dart';
 
 class ImportData {
   List<ImportEntry> entries = <ImportEntry>[];

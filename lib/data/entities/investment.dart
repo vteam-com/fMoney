@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:money/data/entities/data_abstract.dart';
+import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -9,7 +10,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/picker_edit_box.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';

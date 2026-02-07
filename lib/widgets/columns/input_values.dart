@@ -50,7 +50,7 @@ class InputValues extends StatelessWidget {
               overflow: TextOverflow.fade,
             ),
             inputFormatters: <TextInputFormatter>[
-              TextInputFormatterRemoveEmptyLines(), // remove empty line
+              _TextInputFormatterRemoveEmptyLines(), // remove empty line
             ],
           ),
         ),
@@ -69,7 +69,7 @@ class InputValues extends StatelessWidget {
 
 /// Text formatter that removes empty lines from input while preserving
 /// trailing newlines if present in the original input
-class TextInputFormatterRemoveEmptyLines extends TextInputFormatter {
+class _TextInputFormatterRemoveEmptyLines extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,

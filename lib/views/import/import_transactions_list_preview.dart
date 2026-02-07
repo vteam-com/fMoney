@@ -11,6 +11,7 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_banner.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/value_parser.dart';
+import 'package:money/widgets/value_quality.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 class ImportTransactionsListPreview extends StatefulWidget {

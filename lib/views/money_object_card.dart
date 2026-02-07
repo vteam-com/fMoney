@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';

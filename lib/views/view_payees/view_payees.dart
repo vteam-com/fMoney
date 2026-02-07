@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/collections/transactions.dart';
+import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/data/models/payee.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
@@ -24,11 +25,11 @@ class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewPayeesState();
+  State<ViewForMoneyObjects> createState() => _ViewPayeesState();
 }
 
-class ViewPayeesState extends ViewForMoneyObjectsState {
-  ViewPayeesState() {
+class _ViewPayeesState extends ViewForMoneyObjectsState {
+  _ViewPayeesState() {
     viewId = ViewId.viewPayees;
   }
 

@@ -4,10 +4,10 @@ import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
+import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 
 // Exports
 export 'package:money/data/entities/security.dart';

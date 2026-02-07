@@ -25,5 +25,15 @@ echo --------------- Test
 echo "    Running tests..."
 flutter test --reporter=compact --no-pub
 
-echo --------------- Layers
-dart run fcheck --svg --svgfolder --fix .
+
+echo --------------- fCheck
+# Use an ephemeral private directory for this session's fcheck installation
+# (avoid contaminating the user's global pub cache and avoid version conflicts)
+mkdir -p "$PWD/.dart_tool/fcheck_pub_cache"
+export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
+
+# Install the pinned version into the isolated cache, then run it.
+# Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
+dart pub global activate fcheck 0.8.5 > /dev/null
+
+dart pub global run fcheck --fix --svg --svgfolder --exclude .

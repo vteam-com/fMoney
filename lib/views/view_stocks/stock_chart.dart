@@ -8,6 +8,7 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
+import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -23,7 +24,6 @@ import 'package:money/widgets/dialog_single_text_input.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/working.dart';
 
 class StockChartWidget extends StatefulWidget {

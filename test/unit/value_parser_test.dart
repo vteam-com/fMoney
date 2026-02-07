@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/value_parser.dart';
+import 'package:money/widgets/value_quality.dart';
 
 void main() {
   group('ValueQuality', () {

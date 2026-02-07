@@ -1,4 +1,5 @@
 import 'package:money/data/entities/stock_split.dart';
+import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -6,7 +7,6 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/quantity_widget.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';

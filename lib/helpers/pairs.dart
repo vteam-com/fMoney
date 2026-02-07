@@ -1,4 +1,4 @@
-// fcheck: ignore-one-class-per-file
+// ignore: fcheck_one_class_per_file
 
 class PairDynamicDynamic {
   PairDynamicDynamic({required this.key, required this.value});

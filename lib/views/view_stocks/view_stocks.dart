@@ -4,6 +4,7 @@ import 'package:money/data/collections/investments.dart';
 import 'package:money/data/entities/investment.dart';
 import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/stock_split.dart';
+import 'package:money/data/models/dividend.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -22,7 +23,6 @@ import 'package:money/widgets/box.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/stock_cumulative.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -34,11 +34,11 @@ class ViewStocks extends ViewForMoneyObjects {
   const ViewStocks({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewStocksState();
+  State<ViewForMoneyObjects> createState() => _ViewStocksState();
 }
 
-class ViewStocksState extends ViewForMoneyObjectsState {
-  ViewStocksState() {
+class _ViewStocksState extends ViewForMoneyObjectsState {
+  _ViewStocksState() {
     viewId = ViewId.viewStocks;
   }
 

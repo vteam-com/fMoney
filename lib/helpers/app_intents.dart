@@ -1,3 +1,5 @@
+// ignore: fcheck_one_class_per_file
+
 import 'package:flutter/widgets.dart';
 
 /// Intent for rebalancing accounts

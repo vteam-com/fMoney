@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -191,15 +192,6 @@ class Chart extends StatelessWidget {
       style: const TextStyle(fontSize: 10),
     ),
   );
-}
-
-class PairXYY {
-  PairXYY(this.xText, this.yValue1, [this.yValue2]);
-
-  String xText = '';
-  num yValue1 = 0.0;
-
-  num? yValue2;
 }
 
 FlBorderData getBorders(final double min, final double max) => FlBorderData(

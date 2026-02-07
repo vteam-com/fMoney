@@ -59,7 +59,7 @@ class _ColorPickerState extends State<ColorPicker> {
             SizedBox(
               height: 30,
               child: CustomPaint(
-                painter: HueGradientPainter(),
+                painter: _HueGradientPainter(),
                 child: Slider(
                   value: hue,
                   min: 0,
@@ -81,7 +81,7 @@ class _ColorPickerState extends State<ColorPicker> {
             SizedBox(
               height: 30,
               child: CustomPaint(
-                painter: BrightnessGradientPainter(hue: hue),
+                painter: _BrightnessGradientPainter(hue: hue),
                 child: Slider(
                   value: brightness,
                   min: 0,
@@ -112,7 +112,7 @@ class _ColorPickerState extends State<ColorPicker> {
   }
 }
 
-class HueGradientPainter extends CustomPainter {
+class _HueGradientPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const List<Color> colors = <Color>[
@@ -143,8 +143,8 @@ class HueGradientPainter extends CustomPainter {
   }
 }
 
-class BrightnessGradientPainter extends CustomPainter {
-  BrightnessGradientPainter({required this.hue});
+class _BrightnessGradientPainter extends CustomPainter {
+  _BrightnessGradientPainter({required this.hue});
 
   final double hue;
 

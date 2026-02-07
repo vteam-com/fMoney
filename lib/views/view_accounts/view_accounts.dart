@@ -11,6 +11,7 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/data/models/stock_summary.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/account_types_enum.dart';
@@ -41,6 +42,7 @@ import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/label_and_amount.dart';
+import 'package:money/widgets/label_and_quantity.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
@@ -57,11 +59,11 @@ class ViewAccounts extends ViewForMoneyObjects {
   const ViewAccounts({super.key, super.includeClosedAccount});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewAccountsState();
+  State<ViewForMoneyObjects> createState() => _ViewAccountsState();
 }
 
-class ViewAccountsState extends ViewForMoneyObjectsState {
-  ViewAccountsState() {
+class _ViewAccountsState extends ViewForMoneyObjectsState {
+  _ViewAccountsState() {
     viewId = ViewId.viewAccounts;
   }
 

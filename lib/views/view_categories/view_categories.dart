@@ -3,6 +3,7 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/transaction.dart';
+import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
