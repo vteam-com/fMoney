@@ -9,6 +9,22 @@ import 'package:money/views/view_ai/view_ai_chat_types.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/working.dart';
 
+const int _maxLinesBeforeTruncate = 100;
+const int _truncatePreviewLines = 50;
+const double _bubbleMaxWidthFactor = 0.50;
+const double _processingMaxWidthFactor = 0.70;
+const double _detailsWidthFactor = 0.8;
+const double _detailsHeightFactor = 0.6;
+const double _bubbleVerticalMargin = 4.0;
+const double _bubblePadding = 12.0;
+const double _bubbleRadius = 16.0;
+const double _bubbleTailRadius = 3.0;
+const double _processingTailRadius = 4.0;
+const int _dividerAlpha = 60;
+const double _footerOpacity = 0.7;
+const double _monospaceFontSize = 12.0;
+const double _processingIndicatorSize = 20.0;
+
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
     super.key,
@@ -30,30 +46,30 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
     final bool isUser = message.type == ChatFrom.user;
 
     // Only apply truncation to AI messages, not user messages
-    final bool shouldTruncate = message.message.trim().split('\n').length > 100;
+    final bool shouldTruncate = message.message.trim().split('\n').length > _maxLinesBeforeTruncate;
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.50,
+          maxWidth: MediaQuery.of(context).size.width * _bubbleMaxWidthFactor,
         ),
         child: Column(
           crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
             // Message bubble
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 4),
-              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(vertical: _bubbleVerticalMargin),
+              padding: const EdgeInsets.all(_bubblePadding),
               decoration: BoxDecoration(
                 color: isUser
                     ? getColorTheme(context).primaryContainer
                     : getColorTheme(context).surfaceContainerHighest,
                 borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(16),
-                  topRight: const Radius.circular(16),
-                  bottomLeft: isUser ? const Radius.circular(16) : const Radius.circular(3),
-                  bottomRight: isUser ? const Radius.circular(3) : const Radius.circular(16),
+                  topLeft: const Radius.circular(_bubbleRadius),
+                  topRight: const Radius.circular(_bubbleRadius),
+                  bottomLeft: isUser ? const Radius.circular(_bubbleRadius) : const Radius.circular(_bubbleTailRadius),
+                  bottomRight: isUser ? const Radius.circular(_bubbleTailRadius) : const Radius.circular(_bubbleRadius),
                 ),
               ),
               child: Column(
@@ -62,7 +78,7 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                 children: <Widget>[
                   MarkdownBody(
                     data: shouldTruncate && !message.isExpanded
-                        ? '${message.message.trim().split('\n').take(50).join('\n')}\n...'
+                        ? '${message.message.trim().split('\n').take(_truncatePreviewLines).join('\n')}\n...'
                         : message.message.trim(),
                     styleSheet: MarkdownStyleSheet(
                       p: TextStyle(
@@ -71,9 +87,9 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
                     ),
                     selectable: true,
                   ),
-                  Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(60)),
+                  Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha)),
                   Opacity(
-                    opacity: 0.7,
+                    opacity: _footerOpacity,
                     child: ChatMessageFooter(
                       message: message,
                       onToggleExpanded: widget.onToggleExpanded,
@@ -106,8 +122,8 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
           return AlertDialog(
             title: const Text('Message Details'),
             content: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.6,
+              width: MediaQuery.of(context).size.width * _detailsWidthFactor,
+              height: MediaQuery.of(context).size.height * _detailsHeightFactor,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,12 +178,12 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
         return AlertDialog(
           title: const Text('Full Prompt Sent to AI'),
           content: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * _detailsWidthFactor,
+            height: MediaQuery.of(context).size.height * _detailsHeightFactor,
             child: SingleChildScrollView(
               child: SelectableText(
                 jsonAsText,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: _monospaceFontSize),
               ),
             ),
           ),
@@ -199,18 +215,18 @@ class ProcessingIndicator extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(vertical: _bubbleVerticalMargin),
+        padding: const EdgeInsets.all(_bubblePadding),
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.7,
+          maxWidth: MediaQuery.of(context).size.width * _processingMaxWidthFactor,
         ),
         decoration: BoxDecoration(
           color: getColorTheme(context).surfaceContainerHighest,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-            bottomLeft: Radius.circular(4),
-            bottomRight: Radius.circular(16),
+            topLeft: Radius.circular(_bubbleRadius),
+            topRight: Radius.circular(_bubbleRadius),
+            bottomLeft: Radius.circular(_processingTailRadius),
+            bottomRight: Radius.circular(_bubbleRadius),
           ),
         ),
         child: Row(
@@ -224,7 +240,7 @@ class ProcessingIndicator extends StatelessWidget {
               ),
             ),
             gapLarge(),
-            const WorkingIndicator(size: 20),
+            const WorkingIndicator(size: _processingIndicatorSize),
           ],
         ),
       ),

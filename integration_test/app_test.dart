@@ -20,6 +20,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_helpers.dart';
 
+const int _zeroIndex = 0;
+const double _zeroDouble = 0.0;
+const int _oneSecond = 1;
+const int _minFinds = 1;
+const int _attemptsY = 10;
+const int _attemptsX = 40;
+const int _scanDivisor = 3;
+const double _scanStartX = 400.0;
+const int _waitMsShort = 500;
+const int _waitMsLong = 900;
+const double _splitterDragOffsetY = -340.0;
+
 void main() {
   group('App Test', () {
     testWidgets('Full app test', (WidgetTester tester) async {
@@ -234,7 +246,7 @@ Future<void> testImportBulkManualTextInput(WidgetTester tester) async {
 
   await tapOnKeyString(tester, 'key_import_tab_free_style');
   await tester.pumpAndSettle();
-  final Finder textFieldInput = find.byKey(const Key('key_input_text_field_value')).at(0); // top most element found
+  final Finder textFieldInput = find.byKey(const Key('key_input_text_field_value')).at(_zeroIndex);
   await tester.pumpAndSettle(Durations.extralong4);
   await inputTextToElement(
     tester,
@@ -294,7 +306,7 @@ Future<void> testSettingsFontsAndRental(WidgetTester tester) async {
     // Toggle the switch to "On"
     await tester.tap(switchTileFinder);
     await tester.myPump(); // Wait for the state to update
-    await Future<dynamic>.delayed(const Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: _oneSecond));
   }
   await tapBackButton(tester);
 }
@@ -337,8 +349,8 @@ Future<void> testCashFlow(WidgetTester tester) async {
   expect(barChartFinder, findsOneWidget);
 
   // Define scan parameters
-  final int attemptsY = 10; // Number of attempts (scan points)
-  final int attemptsX = 40; // Number of attempts (scan points)
+  final int attemptsY = _attemptsY; // Number of attempts (scan points)
+  final int attemptsX = _attemptsX; // Number of attempts (scan points)
   // ignore: deprecated_member_use
   final Size appSize = tester.binding.window.physicalSize;
   final double scanSpacingWidth = appSize.width / attemptsX; // Horizontal scan step
@@ -350,12 +362,12 @@ Future<void> testCashFlow(WidgetTester tester) async {
 
   // Attempt to tap across the chart diagonal top left to bottom right
   bool tooltipFound = false;
-  final double startingHeight = appSize.height / 3; // 1/3 from he top
-  for (int y = 0; y < (attemptsY / 3); y++) {
+  final double startingHeight = appSize.height / _scanDivisor; // 1/3 from he top
+  for (int y = 0; y < (attemptsY / _scanDivisor); y++) {
     for (int x = 0; x < attemptsX; x++) {
       // Calculate the tap position
       final Offset tapPosition = Offset(
-        400 + (x * scanSpacingWidth),
+        _scanStartX + (x * scanSpacingWidth),
         startingHeight + (y * scanSpacingHeight),
       );
 
@@ -637,25 +649,25 @@ Future<void> testEvents(WidgetTester tester) async {
         'Food',
       );
       await tester.pumpAndSettle(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: _waitMsShort),
       ); // fix some odd timing issues
 
       // Find the widget that displays the text 'Grocery'.
-      final Finder groceryFinder = find.text('Grocery').at(0); // top most element found
+      final Finder groceryFinder = find.text('Grocery').at(_zeroIndex);
       await tester.pumpAndSettle(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: _waitMsShort),
       ); // fix some odd timing issues
 
       // Ensure the widget is visible before tapping
       await tester.ensureVisible(groceryFinder);
       await tester.pumpAndSettle(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: _waitMsShort),
       ); // fix some odd timing issues
 
       // Tap on the widget.
       await tester.tap(groceryFinder);
       await tester.pumpAndSettle(
-        const Duration(milliseconds: 900),
+        const Duration(milliseconds: _waitMsLong),
       ); // fix some odd timing issues
     }
 
@@ -847,7 +859,7 @@ Future<void> testTransactions(WidgetTester tester) async {
   // Do some CRUD with Splits
   {
     final Finder splitCategory = find.text('Split');
-    expect(splitCategory, findsAtLeast(1));
+    expect(splitCategory, findsAtLeast(_minFinds));
     await tester.tap(splitCategory.first);
     await tester.myPump();
 
@@ -929,7 +941,7 @@ Future<void> sidePanelTabs(
 
     // final Offset initialPosition = tester.getCenter(splitterHandle.first);
     // Drag the handle to the 340 from the bottom
-    await tester.drag(splitterHandle, const Offset(0, -340));
+    await tester.drag(splitterHandle, const Offset(_zeroDouble, _splitterDragOffsetY));
     await tester.pumpAndSettle();
   }
 

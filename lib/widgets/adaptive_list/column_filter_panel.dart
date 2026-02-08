@@ -7,6 +7,8 @@ import 'package:money/widgets/gaps.dart';
 export 'package:flutter/material.dart';
 export 'package:money/widgets/scale_down.dart';
 
+const double _columnFilterPanelWidth = 300;
+
 class ColumnFilterPanel extends StatefulWidget {
   const ColumnFilterPanel({
     required this.listOfUniqueInstances,
@@ -75,7 +77,7 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
         ),
         Expanded(
           child: SizedBox(
-            width: 300,
+            width: _columnFilterPanelWidth,
             child: ListView.builder(
               itemCount: list.length,
               itemBuilder: (final BuildContext context, final int index) {

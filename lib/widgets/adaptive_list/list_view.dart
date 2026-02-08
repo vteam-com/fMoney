@@ -9,6 +9,10 @@ import 'package:money/widgets/adaptive_list/list_item.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const double _rowHeightColumn = 30;
+const double _rowHeightCard = 85;
+const double _rowHorizontalPadding = 8;
+
 class MyListView<T> extends StatefulWidget {
   const MyListView({
     required this.fields,
@@ -49,7 +53,7 @@ class MyListView<T> extends StatefulWidget {
 }
 
 class MyListViewState<T> extends State<MyListView<T>> {
-  double _rowHeight = 30;
+  double _rowHeight = _rowHeightColumn;
 
   double padding = 0;
 
@@ -58,10 +62,10 @@ class MyListViewState<T> extends State<MyListView<T>> {
     final TextScaler textScaler = MediaQuery.textScalerOf(context);
 
     if (widget.displayAsColumn) {
-      _rowHeight = 30;
-      padding = 8.0;
+      _rowHeight = _rowHeightColumn;
+      padding = _rowHorizontalPadding;
     } else {
-      _rowHeight = 85;
+      _rowHeight = _rowHeightCard;
       padding = 0;
     }
 
@@ -345,7 +349,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return widget.displayAsColumn
         ? Fields.getRowOfColumns(widget.fields, itemInstance)
         : Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(_rowHorizontalPadding),
             decoration: BoxDecoration(
               color: isSelected ? getColorTheme(context).primaryContainer : getColorTheme(context).surface,
               border: Border(

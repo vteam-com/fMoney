@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/scale_down.dart';
 
+const double _flagHeight = 10;
+
 class CurrencyLabel extends StatelessWidget {
   const CurrencyLabel({
     required this.threeLetterCurrencySymbol,
@@ -23,7 +25,7 @@ class CurrencyLabel extends StatelessWidget {
           children: <Widget>[
             Text(threeLetterCurrencySymbol),
             gapSmall(),
-            if (flagId.isNotEmpty) Image.asset('assets/flags/$flagId.png', height: 10),
+            if (flagId.isNotEmpty) Image.asset('assets/flags/$flagId.png', height: _flagHeight),
           ],
         ),
       ),

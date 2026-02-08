@@ -12,6 +12,9 @@ import 'package:money/widgets/reveal_content.dart';
 // Exports
 export 'package:money/data/collections/data.dart';
 
+const double _revealIconOpacity = 0.8;
+const double _revealIconSize = 16;
+
 class AppTitle extends StatelessWidget {
   AppTitle({super.key}) {
     netWorth = Data().getNetWorth();
@@ -78,10 +81,10 @@ Widget _buildRevealContentOption(
       Text(text, style: textStyle),
       gapSmall(),
       Opacity(
-        opacity: 0.8,
+        opacity: _revealIconOpacity,
         child: Icon(
           hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-          size: 16,
+          size: _revealIconSize,
           color: color,
         ),
       ),

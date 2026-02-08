@@ -11,6 +11,9 @@ import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const double _panelSpacing = 24.0;
+const double _zeroDouble = 0.0;
+
 class ImportFieldsForTransfer {
   ImportFieldsForTransfer({
     required this.accountFrom,
@@ -79,7 +82,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: 24,
+              spacing: _panelSpacing,
               children: <Widget>[
                 // Title
                 Text(
@@ -192,7 +195,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
   }
 
   void _updateInputFields() {
-    widget.inputFields.amount = double.tryParse(_controllerAmount.text) ?? 0.0;
+    widget.inputFields.amount = double.tryParse(_controllerAmount.text) ?? _zeroDouble;
     widget.inputFields.memo = _controllerDescription.text;
   }
 }

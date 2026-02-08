@@ -7,6 +7,15 @@ import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/working.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const double _zeroDouble = 0.0;
+const double _oneDouble = 1.0;
+const int _approvalFadeDurationMs = 400;
+const int _approvalDelayMs = 10;
+const double _splitDialogHeight = 300.0;
+const double _splitDialogWidth = 800.0;
+
 class SuggestionApproval extends StatefulWidget {
   const SuggestionApproval({
     super.key,
@@ -55,13 +64,13 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: _approvalFadeDurationMs),
     );
 
-    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+    _opacityAnimation = Tween<double>(begin: _oneDouble, end: _zeroDouble).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 1.0, curve: Curves.ease),
+        curve: const Interval(_zeroDouble, _oneDouble, curve: Curves.ease),
       ),
     );
   }
@@ -135,7 +144,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
       });
       if (widget.onApproved != null) {
         Future<void>.delayed(
-          const Duration(milliseconds: 10),
+          const Duration(milliseconds: _approvalDelayMs),
           () => widget.onApproved!(),
         );
       }
@@ -154,8 +163,8 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
               Text(widget.transactionString),
               gapLarge(),
               SizedBox(
-                height: 300,
-                width: 800,
+                height: _splitDialogHeight,
+                width: _splitDialogWidth,
                 child: ListViewTransactionSplits(
                   splits: widget.splits,
                   totalAmount: widget.totalAmount,
@@ -174,12 +183,12 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
               final TransactionSplit newSplit = TransactionSplit(
                 id: widget.splits.length,
                 transactionId: widget.uniqueId,
-                categoryId: -1,
-                payeeId: -1,
-                amount: 0.00,
-                transferId: -1,
+                categoryId: _unsetId,
+                payeeId: _unsetId,
+                amount: _zeroDouble,
+                transferId: _unsetId,
                 memo: '',
-                flags: 0,
+                flags: _zeroInt,
                 budgetBalanceDate: null,
                 data: Data(),
               );

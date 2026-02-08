@@ -27,6 +27,20 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
+const int _zeroIndex = 0;
+const int _pivotIndexNone = 0;
+const int _pivotIndexExpense = 1;
+const int _pivotIndexIncome = 2;
+const int _pivotIndexSaving = 3;
+const int _pivotIndexInvestment = 4;
+const int _unsetId = -1;
+const double _zeroDouble = 0.0;
+const double _toggleMinHeight = 40.0;
+const double _toggleMinWidth = 100.0;
+const double _headerPadding = 5.0;
+const double _toggleRadius = 8.0;
+const int _chartMaxItems = 10;
+
 class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});
 
@@ -61,12 +75,12 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
     if (!forSidePanelTransactions) {
       // Add a new Category, place this at the top of the list
       list.insert(
-        0,
+        _zeroIndex,
         buildAddItemButton(() {
           // add a new Category
           final Category? currentSelectedCategory = getFirstSelectedItem() as Category?;
           final Category newItem = Data().categories.addNewCategory(
-            parentId: currentSelectedCategory?.uniqueId ?? -1,
+            parentId: currentSelectedCategory?.uniqueId ?? _unsetId,
           );
           updateListAndSelect(newItem.uniqueId);
 
@@ -107,7 +121,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         list.add(
           buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toTransactions(
-              transactionId: -1,
+              transactionId: _unsetId,
               filters: FieldFilters(<FieldFilter>[
                 FieldFilter(
                   fieldName: Constants.viewTransactionFieldNameCategory,
@@ -246,7 +260,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
   Widget _buildToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+      padding: const EdgeInsets.only(bottom: _headerPadding),
       child: ToggleButtons(
         direction: Axis.horizontal,
         onPressed: (final int index) {
@@ -258,8 +272,8 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
             clearSelection();
           });
         },
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        constraints: const BoxConstraints(minHeight: 40.0, minWidth: 100.0),
+        borderRadius: const BorderRadius.all(Radius.circular(_toggleRadius)),
+        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
         isSelected: _selectedPivot,
         children: _pivots,
       ),
@@ -267,22 +281,22 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
   }
 
   List<CategoryType> _getSelectedCategoryType() {
-    if (_selectedPivot[0]) {
+    if (_selectedPivot[_pivotIndexNone]) {
       return <CategoryType>[CategoryType.none];
     }
-    if (_selectedPivot[1]) {
+    if (_selectedPivot[_pivotIndexExpense]) {
       return <CategoryType>[
         CategoryType.expense,
         CategoryType.recurringExpense,
       ];
     }
-    if (_selectedPivot[2]) {
+    if (_selectedPivot[_pivotIndexIncome]) {
       return <CategoryType>[CategoryType.income];
     }
-    if (_selectedPivot[3]) {
+    if (_selectedPivot[_pivotIndexSaving]) {
       return <CategoryType>[CategoryType.saving];
     }
-    if (_selectedPivot[4]) {
+    if (_selectedPivot[_pivotIndexInvestment]) {
       return <CategoryType>[CategoryType.investment];
     }
 
@@ -290,7 +304,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
   }
 
   double _getTotalBalanceOfAccounts(final List<CategoryType> types) {
-    double total = 0.0;
+    double total = _zeroDouble;
     getList().forEach((final Category category) {
       if (types.isEmpty || category.fieldType.value == types.first) {
         total += category.fieldSum.value.asDouble();
@@ -333,7 +347,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
         if (item.fieldName.value != 'Split' && item.fieldName.value != 'Xfer to Deleted Account') {
           final Category topCategory = Data().categories.getTopAncestor(item);
           if (map[topCategory.fieldName.value] == null) {
-            map[topCategory.fieldName.value] = 0;
+            map[topCategory.fieldName.value] = _zeroDouble;
           }
           map[topCategory.fieldName.value] = map[topCategory.fieldName.value]! + item.fieldSum.value.asDouble();
         }
@@ -349,7 +363,7 @@ class ViewCategoriesState extends ViewForMoneyObjectsState {
 
       return Chart(
         key: Key(selectedIds.toString()),
-        list: listChart.take(10).toList(),
+        list: listChart.take(_chartMaxItems).toList(),
       );
     } else {
       return TransactionTimelineChart(

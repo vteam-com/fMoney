@@ -21,6 +21,18 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const int _unsetId = -1;
+const double _zeroDouble = 0.0;
+const double _negativeMultiplier = -1.0;
+const int _decimalBase = 10;
+const int _defaultPrecision = 2;
+const int _accountTokenIndex = 0;
+const int _symbolTokenIndex = 1;
+const int _intBitCount = 32;
+const int _creditCardLookbackDays = 60;
+
 class Accounts extends MoneyObjects<Account> {
   Accounts() {
     collectionName = 'Accounts';
@@ -35,7 +47,7 @@ class Accounts extends MoneyObjects<Account> {
   @override
   void onAllDataLoaded() {
     for (final Account account in iterableList()) {
-      account.fieldCount.value = 0;
+      account.fieldCount.value = _zeroInt;
       account.balance = account.fieldOpeningBalance.value.asDouble();
       account.minBalancePerYears.clear();
       account.maxBalancePerYears.clear();
@@ -79,7 +91,7 @@ class Accounts extends MoneyObjects<Account> {
 
         // Min Balance of the year
         final double currentMinBalanceValue =
-            account.minBalancePerYears[yearOfTheTransaction] ?? IntValues.maxSigned(32).toDouble();
+            account.minBalancePerYears[yearOfTheTransaction] ?? IntValues.maxSigned(_intBitCount).toDouble();
         account.minBalancePerYears[yearOfTheTransaction] = min(
           currentMinBalanceValue,
           account.balance,
@@ -87,7 +99,7 @@ class Accounts extends MoneyObjects<Account> {
 
         // Max Balance of the year
         final double currentMaxBalanceValue =
-            account.maxBalancePerYears[yearOfTheTransaction] ?? IntValues.minSigned(32).toDouble();
+            account.maxBalancePerYears[yearOfTheTransaction] ?? IntValues.minSigned(_intBitCount).toDouble();
         account.maxBalancePerYears[yearOfTheTransaction] = max(
           currentMaxBalanceValue,
           account.balance,
@@ -96,7 +108,7 @@ class Accounts extends MoneyObjects<Account> {
         // keep track of the most recent record transaction for the account
         if (t.fieldDateTime.value != null) {
           if (account.fieldUpdatedOn.value == null ||
-              account.fieldUpdatedOn.value!.compareTo(t.fieldDateTime.value!) < 0) {
+              account.fieldUpdatedOn.value!.compareTo(t.fieldDateTime.value!) < _zeroInt) {
             account.fieldUpdatedOn.value = t.fieldDateTime.value;
           }
         }
@@ -129,8 +141,8 @@ class Accounts extends MoneyObjects<Account> {
         valuesInvestments.toList(),
       );
       final List<String> tokens = keyAccountAndSymbol.split('|');
-      final String accountId = tokens[0];
-      final String symbol = tokens[1];
+      final String accountId = tokens[_accountTokenIndex];
+      final String symbol = tokens[_symbolTokenIndex];
       final Account? account = this.get(int.parse(accountId));
       if (account != null) {
         final Security? security = this.data.getSecurityBySymbol(symbol) as Security?;
@@ -138,7 +150,7 @@ class Accounts extends MoneyObjects<Account> {
           account.fieldStockHoldingEstimation.value.setAmount(
             totalAdjustedShareForThisStockInThisAccount * security.fieldLastPrice.value.asDouble(),
           );
-          if (account.fieldStockHoldingEstimation.value.asDouble() != 0) {
+          if (account.fieldStockHoldingEstimation.value.asDouble() != _zeroDouble) {
             account.balance += account.fieldStockHoldingEstimation.value.asDouble();
           }
         }
@@ -156,7 +168,7 @@ class Accounts extends MoneyObjects<Account> {
       final LoanPayment? latestPayment = getAccountLoanPayments(account, this.data).lastOrNull;
       if (latestPayment != null) {
         account.fieldUpdatedOn.value = latestPayment.fieldDate.value;
-        account.balance = latestPayment.fieldBalance.value.asDouble() * -1;
+        account.balance = latestPayment.fieldBalance.value.asDouble() * _negativeMultiplier;
       }
     }
 
@@ -196,7 +208,7 @@ class Accounts extends MoneyObjects<Account> {
   Account addNewAccount(final String accountName) {
     // find next available name
     String nextAvailableName = accountName;
-    int next = 1;
+    int next = _oneInt;
     while (getByName(nextAvailableName) != null) {
       // already taken
       nextAvailableName = '$accountName $next';
@@ -214,7 +226,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   bool compareDoubles(double a, double b, int precision) {
-    final num threshold = pow(10, -precision);
+    final num threshold = pow(_decimalBase, -precision);
     return (a - b).abs() < threshold;
   }
 
@@ -225,14 +237,14 @@ class Accounts extends MoneyObjects<Account> {
     final DateTime validDateInThePast,
     final double amountToMatch,
   ) {
-    for (int i = indexStartingFrom; i >= 0; i--) {
+    for (int i = indexStartingFrom; i >= _zeroInt; i--) {
       final Transaction t = transactionForAccountSortedByDateAscending[i];
 
       if (t.fieldDateTime.value!.isBefore(validDateInThePast)) {
         return null; // out of range break early
       }
 
-      if (compareDoubles(t.balance, amountToMatch, 2)) {
+      if (compareDoubles(t.balance, amountToMatch, _defaultPrecision)) {
         return t;
       }
     }
@@ -252,7 +264,7 @@ class Accounts extends MoneyObjects<Account> {
 
   Account? getByName(final String name) {
     return iterableList().firstWhereOrNull((final Account item) {
-      return stringCompareIgnoreCasing(item.fieldName.value, name) == 0;
+      return stringCompareIgnoreCasing(item.fieldName.value, name) == _zeroInt;
     });
   }
 
@@ -276,9 +288,9 @@ class Accounts extends MoneyObjects<Account> {
   Account getMostRecentlySelectedAccount() {
     final int lastSelectionId = PreferenceController.to.getInt(
       getViewPreferenceIdAccountLastSelected(),
-      -1,
+      _unsetId,
     );
-    if (lastSelectionId != -1) {
+    if (lastSelectionId != _unsetId) {
       final Account? accountExist = get(lastSelectionId);
       if (accountExist != null) {
         return accountExist;
@@ -309,7 +321,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   double getSumOfAccountBalances() {
-    double sum = 0.00;
+    double sum = _zeroDouble;
 
     for (final Account account in iterableList()) {
       if (account.isMatchingUserChoiceIncludingClosedAccount) {
@@ -396,7 +408,7 @@ class Accounts extends MoneyObjects<Account> {
       (Transaction a, Transaction b) => Transaction.sortByDateTime(a, b, true),
     );
 
-    double runningBalanceForThisAccount = 0;
+    double runningBalanceForThisAccount = _zeroDouble;
 
     for (final Transaction t in transactionForAccountSortedByDateAscending) {
       runningBalanceForThisAccount += t.fieldAmount.value.asDouble();
@@ -404,21 +416,21 @@ class Accounts extends MoneyObjects<Account> {
       t.fieldPaidOn.value = '';
     }
 
-    final int length = transactionForAccountSortedByDateAscending.length - 1;
+    final int length = transactionForAccountSortedByDateAscending.length - _oneInt;
 
-    for (int i = length; i >= 0; i--) {
+    for (int i = length; i >= _zeroInt; i--) {
       final Transaction t = transactionForAccountSortedByDateAscending[i];
-      if (t.fieldAmount.value.asDouble() > 0) {
+      if (t.fieldAmount.value.asDouble() > _zeroDouble) {
         // a payment or reimbursement was made
 
         final DateTime maxDateToLookAt = t.fieldDateTime.value!.subtract(
-          const Duration(days: 60),
+          const Duration(days: _creditCardLookbackDays),
         );
         final Transaction? transactionWithMatchingBalance = findBackwardInTimeForTransactionBalanceThatMatchThisAmount(
           transactionForAccountSortedByDateAscending,
-          i - 1,
+          i - _oneInt,
           maxDateToLookAt,
-          -t.fieldAmount.value.asDouble(),
+          t.fieldAmount.value.asDouble() * _negativeMultiplier,
         );
 
         if (transactionWithMatchingBalance == null) {

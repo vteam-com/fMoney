@@ -6,10 +6,20 @@ Use named constants in `lib/helpers/constants.dart` or a dedicated size/const cl
 
 ## One class per file
 Prefer one primary class per file. 
-allows special case: 
+
+### Class for stateful Widget should use a private _ prefix
+  - MyWidget
+  - _MyWidgetState
+
+### allows special case: 
+
   - Co-locate small helper/value classes only
   - Tightly coupled (constants, field types, small UI helpers).
   - use `// ignore: fcheck_one_class_per_file` to sielence `fcheck`
+
+### Private class
+  - Class A calls Class _B
+  - Class _B
 
 ## No secret data in the code
 Never commit API keys, tokens, or customer data.

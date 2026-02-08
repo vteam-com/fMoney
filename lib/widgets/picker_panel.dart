@@ -8,6 +8,13 @@ import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_letter.dart';
 import 'package:money/widgets/token_text.dart';
 
+const double _defaultPickerWidth = 200;
+const double _defaultItemHeight = 40;
+const double _panelHeight = 500;
+const double _itemDividerAlpha = 0.2;
+const double _itemDividerWidth = 1;
+const int _scrollOffsetItems = 2;
+
 void showPopupSelection({
   required BuildContext context,
   required String title,
@@ -20,7 +27,7 @@ void showPopupSelection({
     separatorPaddingRight: SizeForPadding.nano,
   ),
   bool rightAligned = false,
-  double? width = 200,
+  double? width = _defaultPickerWidth,
 }) {
   adaptiveScreenSizeDialog(
     context: context,
@@ -44,8 +51,8 @@ class PickerPanel extends StatefulWidget {
     required this.selectedItem,
     required this.onSelected,
     super.key,
-    this.width = 200,
-    this.itemHeight = 40,
+    this.width = _defaultPickerWidth,
+    this.itemHeight = _defaultItemHeight,
     this.showLetterPicker = true,
     this.tokenTextStyle = const TokenTextStyle(),
     this.rightAligned = false,
@@ -89,7 +96,7 @@ class PickerPanelState extends State<PickerPanel> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      height: 500,
+      height: _panelHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -194,8 +201,8 @@ class PickerPanelState extends State<PickerPanel> {
                   bottom: BorderSide(
                     color: getColorTheme(
                       context,
-                    ).onSurfaceVariant.withValues(alpha: 0.2),
-                    width: 1,
+                    ).onSurfaceVariant.withValues(alpha: _itemDividerAlpha),
+                    width: _itemDividerWidth,
                   ),
                 ),
         ),
@@ -230,7 +237,7 @@ class PickerPanelState extends State<PickerPanel> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         indexToScrollTo = widget.options.indexOf(widget.selectedItem);
         if (indexToScrollTo != -1) {
-          indexToScrollTo = max(0, indexToScrollTo - 2);
+          indexToScrollTo = max(0, indexToScrollTo - _scrollOffsetItems);
           _scrollController.jumpTo(indexToScrollTo * widget.itemHeight);
         }
       });

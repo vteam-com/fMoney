@@ -7,6 +7,9 @@ import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const int _defaultCashflowRecurringOccurrences = 12;
+const int _defaultNetWorthEventThreshold = 5;
+
 /// Controller for managing application preferences and settings.
 /// Handles:
 /// - MRU (Most Recently Used) files
@@ -28,7 +31,7 @@ class PreferenceController extends GetxController {
 
   Rx<BudgetViewAs> budgetViewAsForExpenses = BudgetViewAs.list.obs;
   Rx<BudgetViewAs> budgetViewAsForIncomes = BudgetViewAs.list.obs;
-  RxInt cashflowRecurringOccurrences = 12.obs;
+  RxInt cashflowRecurringOccurrences = _defaultCashflowRecurringOccurrences.obs;
   Rx<CashflowViewAs> cashflowViewAs = CashflowViewAs.sankey.obs;
 
   ///---------------------------------
@@ -36,7 +39,7 @@ class PreferenceController extends GetxController {
   Rx<ViewId> currentView = ViewId.viewCashFlow.obs;
 
   RxList<String> mru = <String>[].obs;
-  RxInt netWorthEventThreshold = 5.obs;
+  RxInt netWorthEventThreshold = _defaultNetWorthEventThreshold.obs;
   Rx<bool> trendIncludeAssetAccounts = false.obs;
 
   final RxString _apiKeyForStocks = ''.obs;
@@ -67,7 +70,7 @@ class PreferenceController extends GetxController {
   /// SidePanel Height
   ///
   /// Expand/Collapse
-  final RxInt _sidePanelHeight = 380.obs;
+  final RxInt _sidePanelHeight = Constants.sidePanelHeightWhenExpanded.obs;
 
   /// GET
   int get sidePanelHeight => _sidePanelHeight.value;
@@ -271,7 +274,7 @@ class PreferenceController extends GetxController {
         )];
     cashflowRecurringOccurrences.value = getInt(
       settingKeyCashflowRecurringOccurrences,
-      12,
+      _defaultCashflowRecurringOccurrences,
     );
   }
 

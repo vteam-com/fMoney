@@ -15,6 +15,24 @@ import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _unsetId = -1;
+const int _oneInt = 1;
+const double _zeroDouble = 0.0;
+const double _tooltipPadding = 8.0;
+const double _tooltipMargin = 16.0;
+const double _tooltipMaxWidth = 300.0;
+const double _tooltipTitleFontSize = 20.0;
+const double _tooltipBodyFontSize = 16.0;
+const double _profitScale = 1.1;
+const double _axisLabelFontSize = 10.0;
+const double _axisReservedWidth = 120.0;
+const double _axisReservedBottom = 30.0;
+const double _barWidthWide = 20.0;
+const double _barWidthNarrow = 10.0;
+const double _barRadius = 8.0;
+const int _barAlpha = 120;
+const double _lineAlpha = 0.3;
+
 /// Widget that displays recurring cashflow trends over time as a bar chart.
 /// Shows income, expenses and profit/loss for each time period.
 class PanelTrend extends StatefulWidget {
@@ -40,9 +58,9 @@ class PanelTrend extends StatefulWidget {
 /// State management for the PanelTrend widget.
 /// Handles data preparation and chart rendering.
 class _PanelTrendState extends State<PanelTrend> {
-  double maxY = 0;
+  double maxY = _zeroDouble;
 
-  double minY = 0;
+  double minY = _zeroDouble;
 
   Map<int, RecurringExpenses> yearCategoryIncomeExpenseSums = <int, RecurringExpenses>{};
 
@@ -72,11 +90,11 @@ class _PanelTrendState extends State<PanelTrend> {
       BarChartData(
         barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
-            tooltipPadding: const EdgeInsets.all(8),
-            tooltipMargin: 16, // Increased margin to prevent clipping
+            tooltipPadding: const EdgeInsets.all(_tooltipPadding),
+            tooltipMargin: _tooltipMargin, // Increased margin to prevent clipping
             fitInsideHorizontally: true,
             fitInsideVertically: true,
-            maxContentWidth: 300,
+            maxContentWidth: _tooltipMaxWidth,
             getTooltipColor: (BarChartGroupData group) => Colors.black,
             getTooltipItem:
                 (
@@ -94,7 +112,7 @@ class _PanelTrendState extends State<PanelTrend> {
                     const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: _tooltipTitleFontSize,
                     ),
                     children: <TextSpan>[
                       TextSpan(
@@ -102,7 +120,7 @@ class _PanelTrendState extends State<PanelTrend> {
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: _tooltipBodyFontSize,
                         ),
                       ),
                       TextSpan(
@@ -110,15 +128,16 @@ class _PanelTrendState extends State<PanelTrend> {
                         style: TextStyle(
                           color: Colors.red.shade100,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: _tooltipBodyFontSize,
                         ),
                       ),
                       TextSpan(
-                        text: '\n${profit > 0 ? 'Profit' : 'Loss'}\t${AmountModel(amount: profit).toShortHand()}',
+                        text:
+                            '\n${profit > _zeroDouble ? 'Profit' : 'Loss'}\t${AmountModel(amount: profit).toShortHand()}',
                         style: TextStyle(
-                          color: profit > 0 ? Colors.blue : Colors.orange,
+                          color: profit > _zeroDouble ? Colors.blue : Colors.orange,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: _tooltipBodyFontSize,
                         ),
                       ),
                     ],
@@ -157,7 +176,7 @@ class _PanelTrendState extends State<PanelTrend> {
 
               PreferenceController.to.jumpToView(
                 viewId: ViewId.viewTransactions,
-                selectedId: -1,
+                selectedId: _unsetId,
                 columnFilters: FieldFilters(<FieldFilter>[
                   fieldFilterToUseForYear,
                   fieldFilterToUseForCategories,
@@ -170,8 +189,8 @@ class _PanelTrendState extends State<PanelTrend> {
         ),
         barGroups: _buildBarGroups(),
         alignment: BarChartAlignment.spaceEvenly,
-        maxY: maxY * 1.1, // add 10%
-        minY: minY * 1.1, // add 10%
+        maxY: maxY * _profitScale, // add 10%
+        minY: minY * _profitScale, // add 10%
         backgroundColor: Colors.transparent,
         borderData: getBorders(minY, maxY),
         titlesData: _buildTitlesData(),
@@ -191,7 +210,7 @@ class _PanelTrendState extends State<PanelTrend> {
   }
 
   Color getHorizontalLineColorBasedOnValue(final double value) {
-    return context.colorTheme.colorBasedOnValue(value).withValues(alpha: 0.3);
+    return context.colorTheme.colorBasedOnValue(value).withValues(alpha: _lineAlpha);
   }
 
   List<BarChartGroupData> _buildBarGroups() {
@@ -205,34 +224,34 @@ class _PanelTrendState extends State<PanelTrend> {
         barRods: <BarChartRodData>[
           // Negative Bar
           BarChartRodData(
-            fromY: 0,
+            fromY: _zeroDouble,
             toY: yearData.sumIncome,
-            color: context.colorTheme.getTextColorToUse(yearData.sumIncome)!.withAlpha(120),
-            width: 20,
+            color: context.colorTheme.getTextColorToUse(yearData.sumIncome)!.withAlpha(_barAlpha),
+            width: _barWidthWide,
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
+              topLeft: Radius.circular(_barRadius),
+              topRight: Radius.circular(_barRadius),
             ),
           ),
           BarChartRodData(
-            fromY: 0,
+            fromY: _zeroDouble,
             toY: yearData.sumExpense,
-            color: context.colorTheme.getTextColorToUse(yearData.sumExpense)!.withAlpha(120),
-            width: 20,
+            color: context.colorTheme.getTextColorToUse(yearData.sumExpense)!.withAlpha(_barAlpha),
+            width: _barWidthWide,
             borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(8),
+              bottomLeft: Radius.circular(_barRadius),
+              bottomRight: Radius.circular(_barRadius),
             ),
           ),
           BarChartRodData(
-            fromY: 0,
+            fromY: _zeroDouble,
             toY: profit,
-            color: profit > 0 ? Colors.blue : Colors.orange,
-            width: 10,
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(0)),
+            color: profit > _zeroDouble ? Colors.blue : Colors.orange,
+            width: _barWidthNarrow,
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(_zeroDouble)),
           ),
         ],
-        barsSpace: 0,
+        barsSpace: _zeroDouble,
       );
     });
   }
@@ -242,7 +261,7 @@ class _PanelTrendState extends State<PanelTrend> {
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          reservedSize: 120,
+          reservedSize: _axisReservedWidth,
           getTitlesWidget: (double value, TitleMeta meta) {
             return WidgetFromData.fromDouble(value);
           },
@@ -251,7 +270,7 @@ class _PanelTrendState extends State<PanelTrend> {
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          reservedSize: 30,
+          reservedSize: _axisReservedBottom,
           getTitlesWidget: (final double value, final TitleMeta meta) {
             final List<int> years = yearCategoryIncomeExpenseSums.keys.toList()..sort();
             if (value.toInt() >= years.length) {
@@ -259,10 +278,10 @@ class _PanelTrendState extends State<PanelTrend> {
             }
             return Text(
               years[value.toInt()].toString(),
-              style: const TextStyle(fontSize: 10),
+              style: const TextStyle(fontSize: _axisLabelFontSize),
             );
           },
-          interval: 1,
+          interval: _oneInt.toDouble(),
         ),
       ),
       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -275,12 +294,12 @@ class _PanelTrendState extends State<PanelTrend> {
       widget.minYear,
       widget.maxYear,
       widget.includeAssetAccounts,
-      1,
+      _oneInt.toDouble(),
     );
     years = yearCategoryIncomeExpenseSums.keys.toList()..sort();
 
-    maxY = 0;
-    minY = 0;
+    maxY = _zeroDouble;
+    minY = _zeroDouble;
 
     for (final RecurringExpenses yearData in yearCategoryIncomeExpenseSums.values) {
       maxY = max(max(maxY, yearData.sumExpense), yearData.sumIncome);

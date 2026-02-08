@@ -2,6 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const double _inactiveOpacity = 0.3;
+const double _activeOpacity = 1;
+const double _bannerRotationDegrees = -5;
+const double _degreesToRadians = pi / 180;
+const double _bannerFontSize = 10;
+
 class MyBanner extends StatelessWidget {
   const MyBanner({required this.child, required this.on, super.key});
 
@@ -13,15 +19,18 @@ class MyBanner extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        Opacity(opacity: on ? 0.3 : 1, child: child),
+        Opacity(
+          opacity: on ? _inactiveOpacity : _activeOpacity,
+          child: child,
+        ),
         if (on)
           Transform.rotate(
-            angle: -5 * pi / 180, // Convert degrees to radians
+            angle: _bannerRotationDegrees * _degreesToRadians, // Convert degrees to radians
             child: Container(
               color: Colors.grey,
               child: const Text(
                 ' Skipping Duplicate ',
-                style: TextStyle(color: Colors.black, fontSize: 10),
+                style: TextStyle(color: Colors.black, fontSize: _bannerFontSize),
               ),
             ),
           ),

@@ -2,6 +2,7 @@
 import 'package:money/data/entities/data_abstract.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
@@ -21,11 +22,18 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const int _levelStep = 1;
+const double _zeroDouble = 0.0;
+const double _colorSwatchSizeSmall = 12.0;
+const double _colorSwatchSizeLarge = 40.0;
+
 class Category extends DataObject {
   factory Category.fromJson(final MyJson row, [final DataAbstract? data]) {
     return Category(
-      id: row.getInt('Id', -1),
-      parentId: row.getInt('ParentId', -1),
+      id: row.getInt('Id', _unsetId),
+      parentId: row.getInt('ParentId', _unsetId),
       name: row.getString('Name'),
       description: row.getString('Description'),
       color: row.getString('Color').trim(),
@@ -41,13 +49,13 @@ class Category extends DataObject {
     required final int id,
     required final String name,
     required final CategoryType type,
-    final int parentId = -1,
+    final int parentId = _unsetId,
     final String description = '',
     final String color = '',
-    final double budget = 0,
-    final double budgetBalance = 0,
-    final int frequency = 0,
-    final int taxRefNum = 0,
+    final double budget = _zeroDouble,
+    final double budgetBalance = _zeroDouble,
+    final int frequency = _zeroInt,
+    final int taxRefNum = _zeroInt,
     this.data,
   }) {
     this.fieldId.value = id;
@@ -159,7 +167,7 @@ class Category extends DataObject {
     type: FieldType.text,
     footer: FooterType.count,
     getValueForDisplay: (final DataInterface instance) =>
-        (countOccurrences((instance as Category).fieldName.value, ':') + 1).toString(),
+        (countOccurrences((instance as Category).fieldName.value, ':') + _levelStep).toString(),
   );
 
   /// Name
@@ -254,7 +262,7 @@ class Category extends DataObject {
     String top = '';
     String bottom = '';
 
-    if (this.fieldParentId.value == -1) {
+    if (this.fieldParentId.value == _unsetId) {
       top = this.fieldName.value;
       bottom = '';
     } else {
@@ -350,11 +358,11 @@ class Category extends DataObject {
     }
 
     if (parentCategory != null) {
-      return parentCategory!.getColorAndLevel(level + 1);
+      return parentCategory!.getColorAndLevel(level + _levelStep);
     }
 
     // reach the top
-    return Pair<Color, int>(Colors.transparent, 0);
+    return Pair<Color, int>(Colors.transparent, _zeroInt);
   }
 
   Widget getColorAndNameWidget() {
@@ -368,20 +376,23 @@ class Category extends DataObject {
   }
 
   Color getColorOrAncestorsColor() {
-    final Pair<Color, int> pair = getColorAndLevel(0);
+    final Pair<Color, int> pair = getColorAndLevel(_zeroInt);
     return pair.first;
   }
 
   Widget getColorWidget() {
     final Color fillColor = getColorOrAncestorsColor();
-    final Color textColor = fillColor.a == 0 ? Colors.grey : contrastColor(fillColor);
+    final Color textColor = fillColor.a == _zeroInt ? Colors.grey : contrastColor(fillColor);
 
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        MyCircle(colorFill: fillColor, size: 12),
+        MyCircle(colorFill: fillColor, size: _colorSwatchSizeSmall),
         if (this.fieldColor.value.isNotEmpty && this.fieldLevel.getValueForDisplay(this) != '1')
-          Text('#', style: TextStyle(fontSize: 10, color: textColor)),
+          Text(
+            '#',
+            style: TextStyle(fontSize: SizeForText.small, color: textColor),
+          ),
       ],
     );
   }
@@ -407,7 +418,7 @@ class Category extends DataObject {
   Widget getRectangleWidget() {
     return MyRectangle(
       colorFill: getColorFromString(this.fieldColor.value),
-      size: 12,
+      size: _colorSwatchSizeSmall,
     );
   }
 
@@ -495,7 +506,7 @@ class _MutateFieldColorState extends State<MutateFieldColor> {
           ),
         ),
         gapLarge(),
-        MyCircle(colorFill: color, colorBorder: Colors.grey, size: 40),
+        MyCircle(colorFill: color, colorBorder: Colors.grey, size: _colorSwatchSizeLarge),
         gapLarge(),
         Expanded(
           child: ColorPicker(

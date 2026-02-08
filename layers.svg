@@ -246,7 +246,6 @@
 <rect x="50.0" y="300.0" width="220" height="50" class="fileNode"/>
 <rect x="50.0" y="370.0" width="220" height="50" class="fileNode"/>
 <rect x="50.0" y="440.0" width="220" height="50" class="fileNode"/>
-<rect x="50.0" y="510.0" width="220" height="50" class="fileNode"/>
 <rect x="370.0" y="90.0" width="220" height="50" class="fileNode"/>
 <rect x="370.0" y="160.0" width="220" height="50" class="fileNode"/>
 <rect x="370.0" y="230.0" width="220" height="50" class="fileNode"/>
@@ -404,6 +403,7 @@
 <rect x="3570.0" y="300.0" width="220" height="50" class="fileNode"/>
 <rect x="3570.0" y="370.0" width="220" height="50" class="fileNode"/>
 <rect x="3570.0" y="440.0" width="220" height="50" class="fileNode"/>
+<rect x="3570.0" y="510.0" width="220" height="50" class="fileNode"/>
 <rect x="3890.0" y="90.0" width="220" height="50" class="fileNode"/>
 <rect x="3890.0" y="160.0" width="220" height="50" class="fileNode"/>
 <rect x="3890.0" y="230.0" width="220" height="50" class="fileNode"/>
@@ -673,12 +673,16 @@
   <title>./lib/home_binding.dart ▶ ./lib/helpers/home_controller.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 548.0 C 3520.0 548.0, 5766.0 592.0, 5816.0 592.0" class="edge"/>
+  <path d="M 3470.0 478.0 C 3520.0 478.0, 5766.0 592.0, 5816.0 592.0" class="edge"/>
   <title>./lib/io/database.dart ▶ ./lib/data/database_interface.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 548.0 C 3520.0 548.0, 3526.0 382.0, 3576.0 382.0" class="edge"/>
+  <path d="M 3470.0 478.0 C 3520.0 478.0, 3526.0 382.0, 3576.0 382.0" class="edge"/>
   <title>./lib/io/database.dart ▶ ./lib/io/database_sql.dart</title>
+</g>
+<g>
+  <path d="M 3470.0 478.0 C 3520.0 478.0, 3526.0 452.0, 3576.0 452.0" class="edge"/>
+  <title>./lib/io/database.dart ▶ ./lib/io/database_web.dart</title>
 </g>
 <g>
   <path d="M 3150.0 618.0 C 3200.0 618.0, 4166.0 102.0, 4216.0 102.0" class="edge"/>
@@ -773,7 +777,7 @@
   <title>./lib/io/data_simulator.dart ▶ ./lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 270.0 478.0 C 320.0 478.0, 9926.0 172.0, 9976.0 172.0" class="edge"/>
+  <path d="M 3790.0 478.0 C 3840.0 478.0, 9926.0 172.0, 9976.0 172.0" class="edge"/>
   <title>./lib/io/database_web.dart ▶ ./lib/helpers/json_helper.dart</title>
 </g>
 <g>
@@ -797,7 +801,7 @@
   <title>./lib/io/money_data_io.dart ▶ ./lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 3150.0 338.0 C 3200.0 338.0, 3206.0 522.0, 3256.0 522.0" class="edge"/>
+  <path d="M 3150.0 338.0 C 3200.0 338.0, 3206.0 452.0, 3256.0 452.0" class="edge"/>
   <title>./lib/io/money_data_io.dart ▶ ./lib/io/database.dart</title>
 </g>
 <g>
@@ -2161,6 +2165,10 @@
   <title>./lib/data/entities/category.dart ▶ ./lib/helpers/color_helper.dart</title>
 </g>
 <g>
+  <path d="M 6030.0 128.0 C 6080.0 128.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
+  <title>./lib/data/entities/category.dart ▶ ./lib/helpers/constants.dart</title>
+</g>
+<g>
   <path d="M 6030.0 128.0 C 6080.0 128.0, 9926.0 172.0, 9976.0 172.0" class="edge"/>
   <title>./lib/data/entities/category.dart ▶ ./lib/helpers/json_helper.dart</title>
 </g>
@@ -3285,7 +3293,7 @@
   <title>./lib/views/merge_payee_provider.dart ▶ ./lib/data/models/payee.dart</title>
 </g>
 <g>
-  <path d="M 3150.0 828.0 C 3200.0 828.0, 3206.0 452.0, 3256.0 452.0" class="edge"/>
+  <path d="M 3150.0 828.0 C 3200.0 828.0, 3206.0 522.0, 3256.0 522.0" class="edge"/>
   <title>./lib/views/merge_payee_provider.dart ▶ ./lib/views/merge_payee_interface.dart</title>
 </g>
 <g>
@@ -4009,15 +4017,15 @@
   <title>./lib/views/merge_payees.dart ▶ ./lib/widgets/picker_edit_box.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 478.0 C 3520.0 478.0, 6406.0 102.0, 6456.0 102.0" class="edge"/>
+  <path d="M 3470.0 548.0 C 3520.0 548.0, 6406.0 102.0, 6456.0 102.0" class="edge"/>
   <title>./lib/views/merge_payee_interface.dart ▶ ./lib/data/entities/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 478.0 C 3520.0 478.0, 5766.0 522.0, 5816.0 522.0" class="edge"/>
+  <path d="M 3470.0 548.0 C 3520.0 548.0, 5766.0 522.0, 5816.0 522.0" class="edge"/>
   <title>./lib/views/merge_payee_interface.dart ▶ ./lib/data/mergeable_item.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 478.0 C 3520.0 478.0, 4806.0 172.0, 4856.0 172.0" class="edge"/>
+  <path d="M 3470.0 548.0 C 3520.0 548.0, 4806.0 172.0, 4856.0 172.0" class="edge"/>
   <title>./lib/views/merge_payee_interface.dart ▶ ./lib/data/models/payee.dart</title>
 </g>
 <g>
@@ -5017,7 +5025,7 @@
   <title>./lib/views/import/import_transactions_list_preview.dart ▶ ./lib/widgets/gaps.dart</title>
 </g>
 <g>
-  <path d="M 3470.0 268.0 C 3520.0 268.0, 3526.0 452.0, 3576.0 452.0" class="edge"/>
+  <path d="M 3470.0 268.0 C 3520.0 268.0, 3526.0 522.0, 3576.0 522.0" class="edge"/>
   <title>./lib/views/import/import_transactions_list_preview.dart ▶ ./lib/widgets/my_banner.dart</title>
 </g>
 <g>
@@ -6909,10 +6917,7 @@
 <g class="outgoingBadge">
   <path d="M 276.0,408.0 L 264.0,401.0 Q 261.0,401.0 261.0,404.0 L 261.0,412.0 Q 261.0,415.0 264.0,415.0 Z" fill="#10b981"/>
   <text x="265.0" y="411.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. scale_down.dart</title></g><text x="160.0" y="395.0" class="nodeText">adaptive_columns.dart</text>
-<g class="outgoingBadge">
-  <path d="M 276.0,478.0 L 264.0,471.0 Q 261.0,471.0 261.0,474.0 L 261.0,482.0 Q 261.0,485.0 264.0,485.0 Z" fill="#10b981"/>
-  <text x="265.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. json_helper.dart</title></g><text x="160.0" y="465.0" class="nodeText">database_web.dart</text>
-<text x="160.0" y="535.0" class="nodeText">app_test_test.dart</text>
+<text x="160.0" y="465.0" class="nodeText">app_test_test.dart</text>
 <g class="incomingBadge">
   <path d="M 382.0,102.0 L 370.0,95.0 Q 367.0,95.0 367.0,98.0 L 367.0,106.0 Q 367.0,109.0 370.0,109.0 Z" fill="#3b82f6"/>
   <text x="371.0" y="105.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. app_test.dart</title></g><g class="outgoingBadge">
@@ -8656,17 +8661,18 @@
 4. value_parser.dart</title></g><text x="3360.0" y="395.0" class="nodeText">columns_input.dart</text>
 <g class="incomingBadge">
   <path d="M 3262.0,452.0 L 3250.0,445.0 Q 3247.0,445.0 3247.0,448.0 L 3247.0,456.0 Q 3247.0,459.0 3250.0,459.0 Z" fill="#3b82f6"/>
-  <text x="3251.0" y="455.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. merge_payee_provider.dart</title></g><g class="outgoingBadge">
+  <text x="3251.0" y="455.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. money_data_io.dart</title></g><g class="outgoingBadge">
   <path d="M 3476.0,478.0 L 3464.0,471.0 Q 3461.0,471.0 3461.0,474.0 L 3461.0,482.0 Q 3461.0,485.0 3464.0,485.0 Z" fill="#10b981"/>
-  <text x="3465.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. data_abstract.dart
-2. mergeable_item.dart
-3. payee.dart</title></g><text x="3360.0" y="465.0" class="nodeText">merge_payee_interface....</text>
+  <text x="3465.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. database_interface.dart
+2. database_sql.dart
+3. database_web.dart</title></g><text x="3360.0" y="465.0" class="nodeText">database.dart</text>
 <g class="incomingBadge">
   <path d="M 3262.0,522.0 L 3250.0,515.0 Q 3247.0,515.0 3247.0,518.0 L 3247.0,526.0 Q 3247.0,529.0 3250.0,529.0 Z" fill="#3b82f6"/>
-  <text x="3251.0" y="525.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. money_data_io.dart</title></g><g class="outgoingBadge">
+  <text x="3251.0" y="525.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. merge_payee_provider.dart</title></g><g class="outgoingBadge">
   <path d="M 3476.0,548.0 L 3464.0,541.0 Q 3461.0,541.0 3461.0,544.0 L 3461.0,552.0 Q 3461.0,555.0 3464.0,555.0 Z" fill="#10b981"/>
-  <text x="3465.0" y="551.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. database_interface.dart
-2. database_sql.dart</title></g><text x="3360.0" y="535.0" class="nodeText">database.dart</text>
+  <text x="3465.0" y="551.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. data_abstract.dart
+2. mergeable_item.dart
+3. payee.dart</title></g><text x="3360.0" y="535.0" class="nodeText">merge_payee_interface....</text>
 <g class="incomingBadge">
   <path d="M 3262.0,592.0 L 3250.0,585.0 Q 3247.0,585.0 3247.0,588.0 L 3247.0,596.0 Q 3247.0,599.0 3250.0,599.0 Z" fill="#3b82f6"/>
   <text x="3251.0" y="595.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. suggestion_approval_provider.dart</title></g><g class="outgoingBadge">
@@ -8723,7 +8729,12 @@
   <text x="3785.0" y="411.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. json_helper.dart</title></g><text x="3680.0" y="395.0" class="nodeText">database_sql.dart</text>
 <g class="incomingBadge">
   <path d="M 3582.0,452.0 L 3570.0,445.0 Q 3567.0,445.0 3567.0,448.0 L 3567.0,456.0 Q 3567.0,459.0 3570.0,459.0 Z" fill="#3b82f6"/>
-  <text x="3571.0" y="455.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_transactions_list_preview.dart</title></g><text x="3680.0" y="465.0" class="nodeText">my_banner.dart</text>
+  <text x="3571.0" y="455.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. database.dart</title></g><g class="outgoingBadge">
+  <path d="M 3796.0,478.0 L 3784.0,471.0 Q 3781.0,471.0 3781.0,474.0 L 3781.0,482.0 Q 3781.0,485.0 3784.0,485.0 Z" fill="#10b981"/>
+  <text x="3785.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. json_helper.dart</title></g><text x="3680.0" y="465.0" class="nodeText">database_web.dart</text>
+<g class="incomingBadge">
+  <path d="M 3582.0,522.0 L 3570.0,515.0 Q 3567.0,515.0 3567.0,518.0 L 3567.0,526.0 Q 3567.0,529.0 3570.0,529.0 Z" fill="#3b82f6"/>
+  <text x="3571.0" y="525.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_transactions_list_preview.dart</title></g><text x="3680.0" y="535.0" class="nodeText">my_banner.dart</text>
 <g class="incomingBadge">
   <path d="M 3902.0,102.0 L 3890.0,95.0 Q 3887.0,95.0 3887.0,98.0 L 3887.0,106.0 Q 3887.0,109.0 3890.0,109.0 Z" fill="#3b82f6"/>
   <text x="3891.0" y="105.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">13</text><title>1. box_with_scrolling_content.dart
@@ -9495,27 +9506,28 @@
 19. view_events.dart
 20. view_transactions.dart</title></g><g class="outgoingBadge">
   <path d="M 6036.0,128.0 L 6024.0,121.0 Q 6021.0,121.0 6021.0,124.0 L 6021.0,132.0 Q 6021.0,135.0 6024.0,135.0 Z" fill="#10b981"/>
-  <text x="6025.0" y="131.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">21</text><title>1. category_types.dart
+  <text x="6025.0" y="131.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">22</text><title>1. category_types.dart
 2. circle.dart
 3. color_helper.dart
 4. color_picker.dart
-5. data_abstract.dart
-6. data_interface.dart
-7. data_object.dart
-8. field.dart
-9. field_type.dart
-10. gaps.dart
-11. json_helper.dart
-12. list_helper.dart
-13. list_item_card.dart
-14. mutation_types.dart
-15. my_text_input.dart
-16. pairs.dart
-17. picker_category_type.dart
-18. rectangle.dart
-19. string_helper.dart
-20. token_text.dart
-21. widget_from_data.dart</title></g><text x="5920.0" y="115.0" class="nodeText">category.dart</text>
+5. constants.dart
+6. data_abstract.dart
+7. data_interface.dart
+8. data_object.dart
+9. field.dart
+10. field_type.dart
+11. gaps.dart
+12. json_helper.dart
+13. list_helper.dart
+14. list_item_card.dart
+15. mutation_types.dart
+16. my_text_input.dart
+17. pairs.dart
+18. picker_category_type.dart
+19. rectangle.dart
+20. string_helper.dart
+21. token_text.dart
+22. widget_from_data.dart</title></g><text x="5920.0" y="115.0" class="nodeText">category.dart</text>
 <g class="incomingBadge">
   <path d="M 5822.0,172.0 L 5810.0,165.0 Q 5807.0,165.0 5807.0,168.0 L 5807.0,176.0 Q 5807.0,179.0 5810.0,179.0 Z" fill="#3b82f6"/>
   <text x="5811.0" y="175.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">15</text><title>1. app_test.dart
@@ -10628,7 +10640,7 @@
 11. transactions.dart</title></g><text x="10400.0" y="395.0" class="nodeText">pairs.dart</text>
 <g class="incomingBadge">
   <path d="M 10622.0,102.0 L 10610.0,95.0 Q 10607.0,95.0 10607.0,98.0 L 10607.0,106.0 Q 10607.0,109.0 10610.0,109.0 Z" fill="#3b82f6"/>
-  <text x="10611.0" y="105.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">78</text><title>1. account.dart
+  <text x="10611.0" y="105.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">79</text><title>1. account.dart
 2. accounts.dart
 3. adaptable_view_with_list.dart
 4. amount_model.dart
@@ -10638,74 +10650,75 @@
 8. box.dart
 9. button_helpers.dart
 10. categories.dart
-11. center_message.dart
-12. chart.dart
-13. columns_input.dart
-14. currency_helper.dart
-15. data_access.dart
-16. data_file_controller.dart
-17. data_object.dart
-18. dialog.dart
-19. dialog_mutate_split.dart
-20. dialog_mutate_transaction.dart
-21. event.dart
-22. field.dart
-23. get_stock_from_cache_or_backend.dart
-24. home_page.dart
-25. home_routes.dart
-26. import_transactions_list_preview.dart
-27. import_transactions_panel.dart
-28. input_values.dart
-29. label_and_amount.dart
-30. list_item_header.dart
-31. locale.dart
-32. menu_entry.dart
-33. merge_categories.dart
-34. money_object_card.dart
-35. money_objects.dart
-36. mru_dropdown.dart
-37. multiple_selection_toggle.dart
-38. my_nav_bar.dart
-39. panel_budget.dart
-40. panel_trend.dart
-41. picker_account.dart
-42. picker_panel.dart
-43. platforms_routes.dart
-44. policy_routes.dart
-45. preferences_controller.dart
-46. recurring_card.dart
-47. rent_building.dart
-48. rental_pnl_card.dart
-49. sankey_helper.dart
-50. sankey_painter.dart
-51. scale_down.dart
-52. settings_routes.dart
-53. side_panel.dart
-54. side_panel_header.dart
-55. side_panel_support.dart
-56. stock_chart.dart
-57. theme_controller.dart
-58. token_text.dart
-59. transaction.dart
-60. value_quality.dart
-61. view_accounts.dart
-62. view_ai_instructions.dart
-63. view_aliases.dart
-64. view_cashflow.dart
-65. view_categories.dart
-66. view_events.dart
-67. view_investments.dart
-68. view_money_objects.dart
-69. view_payees.dart
-70. view_policy.dart
-71. view_rentals.dart
-72. view_stocks.dart
-73. view_transactions.dart
-74. view_transfers.dart
-75. view_welcome.dart
-76. welcome_routes.dart
-77. wizard_choice.dart
-78. zoom.dart</title></g><text x="10720.0" y="115.0" class="nodeText">constants.dart</text>
+11. category.dart
+12. center_message.dart
+13. chart.dart
+14. columns_input.dart
+15. currency_helper.dart
+16. data_access.dart
+17. data_file_controller.dart
+18. data_object.dart
+19. dialog.dart
+20. dialog_mutate_split.dart
+21. dialog_mutate_transaction.dart
+22. event.dart
+23. field.dart
+24. get_stock_from_cache_or_backend.dart
+25. home_page.dart
+26. home_routes.dart
+27. import_transactions_list_preview.dart
+28. import_transactions_panel.dart
+29. input_values.dart
+30. label_and_amount.dart
+31. list_item_header.dart
+32. locale.dart
+33. menu_entry.dart
+34. merge_categories.dart
+35. money_object_card.dart
+36. money_objects.dart
+37. mru_dropdown.dart
+38. multiple_selection_toggle.dart
+39. my_nav_bar.dart
+40. panel_budget.dart
+41. panel_trend.dart
+42. picker_account.dart
+43. picker_panel.dart
+44. platforms_routes.dart
+45. policy_routes.dart
+46. preferences_controller.dart
+47. recurring_card.dart
+48. rent_building.dart
+49. rental_pnl_card.dart
+50. sankey_helper.dart
+51. sankey_painter.dart
+52. scale_down.dart
+53. settings_routes.dart
+54. side_panel.dart
+55. side_panel_header.dart
+56. side_panel_support.dart
+57. stock_chart.dart
+58. theme_controller.dart
+59. token_text.dart
+60. transaction.dart
+61. value_quality.dart
+62. view_accounts.dart
+63. view_ai_instructions.dart
+64. view_aliases.dart
+65. view_cashflow.dart
+66. view_categories.dart
+67. view_events.dart
+68. view_investments.dart
+69. view_money_objects.dart
+70. view_payees.dart
+71. view_policy.dart
+72. view_rentals.dart
+73. view_stocks.dart
+74. view_transactions.dart
+75. view_transfers.dart
+76. view_welcome.dart
+77. welcome_routes.dart
+78. wizard_choice.dart
+79. zoom.dart</title></g><text x="10720.0" y="115.0" class="nodeText">constants.dart</text>
 <g class="incomingBadge">
   <path d="M 10622.0,172.0 L 10610.0,165.0 Q 10607.0,165.0 10607.0,168.0 L 10607.0,176.0 Q 10607.0,179.0 10610.0,179.0 Z" fill="#3b82f6"/>
   <text x="10611.0" y="175.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">37</text><title>1. accounts.dart

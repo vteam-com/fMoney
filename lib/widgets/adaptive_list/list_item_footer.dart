@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:money/widgets/columns/column_footer_button.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const double _hiddenCheckboxOpacity = 0;
+const double _footerPaddingHorizontal = 8;
+const int _footerBorderAlpha = 100;
+const double _footerBorderWidth = 1;
+
 /// A Row for a Table view
 class MyListItemFooter<T> extends StatelessWidget {
   const MyListItemFooter({
@@ -33,7 +38,7 @@ class MyListItemFooter<T> extends StatelessWidget {
     if (multiSelectionOn) {
       footerWidgets.add(
         Opacity(
-          opacity: 0, // We only want to use the same width as the Header Checkbox
+          opacity: _hiddenCheckboxOpacity, // We only want to use the same width as the Header Checkbox
           child: Checkbox(value: false, onChanged: (bool? _) {}),
         ),
       );
@@ -60,11 +65,14 @@ class MyListItemFooter<T> extends StatelessWidget {
       }
     }
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: _footerPaddingHorizontal),
       decoration: BoxDecoration(
         color: backgroundColor,
         border: Border(
-          top: BorderSide(color: Colors.grey.withAlpha(100), width: 1),
+          top: BorderSide(
+            color: Colors.grey.withAlpha(_footerBorderAlpha),
+            width: _footerBorderWidth,
+          ),
         ), // Outer border
       ),
       child: Row(children: footerWidgets),

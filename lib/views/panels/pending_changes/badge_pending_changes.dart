@@ -4,6 +4,12 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/panels/pending_changes/pending_changes_dialog.dart';
 
+const int _zeroInt = 0;
+const double _badgePadding = 0.0;
+const double _badgeRadius = 4.0;
+const double _counterPadding = 3.0;
+const double _counterFontSize = 9.0;
+
 ///
 class BadgePendingChanges extends StatelessWidget {
   /// Constructor
@@ -20,7 +26,7 @@ class BadgePendingChanges extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    if (itemsAdded == 0 && itemsChanged == 0 && itemsDeleted == 0) {
+    if (itemsAdded == _zeroInt && itemsChanged == _zeroInt && itemsDeleted == _zeroInt) {
       // not change to report
       return const SizedBox();
     }
@@ -29,10 +35,10 @@ class BadgePendingChanges extends StatelessWidget {
       message: getTooltipText(),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(_badgePadding),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4), // Adjust border radius
+            borderRadius: BorderRadius.circular(_badgeRadius),
           ),
           backgroundColor: Colors.white,
         ),
@@ -50,7 +56,7 @@ class BadgePendingChanges extends StatelessWidget {
     final TextStyle textStyle,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3),
+      padding: const EdgeInsets.symmetric(horizontal: _counterPadding),
       child: Text(prefix + getIntAsText(value), style: textStyle),
     );
   }
@@ -59,8 +65,8 @@ class BadgePendingChanges extends StatelessWidget {
     final List<Widget> widgets = <Widget>[];
     final TextStyle textStyle = Theme.of(
       context,
-    ).textTheme.labelSmall!.copyWith(fontSize: 9, fontWeight: FontWeight.w900);
-    if (DataFileController.to.trackMutations.added.value > 0) {
+    ).textTheme.labelSmall!.copyWith(fontSize: _counterFontSize, fontWeight: FontWeight.w900);
+    if (DataFileController.to.trackMutations.added.value > _zeroInt) {
       widgets.add(
         buildCounter(
           '+',
@@ -70,7 +76,7 @@ class BadgePendingChanges extends StatelessWidget {
       );
     }
 
-    if (DataFileController.to.trackMutations.changed.value > 0) {
+    if (DataFileController.to.trackMutations.changed.value > _zeroInt) {
       widgets.add(
         buildCounter(
           '=',
@@ -80,7 +86,7 @@ class BadgePendingChanges extends StatelessWidget {
       );
     }
 
-    if (DataFileController.to.trackMutations.deleted.value > 0) {
+    if (DataFileController.to.trackMutations.deleted.value > _zeroInt) {
       widgets.add(
         buildCounter(
           '-',

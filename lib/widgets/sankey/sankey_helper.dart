@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/sankey/sankey_entry.dart';
 
+const double _defaultFontSize = 12;
+const double _defaultRotation = 0;
+const double _centerFraction = 0.5;
+const double _channelHeight = 100;
+
 class ChannelPoint {
   ChannelPoint(this.x, this.top, this.bottom) {
     //
@@ -116,8 +121,8 @@ void drawTextInRect(
   final Rect rect, {
   final TextAlign textAlign = TextAlign.left,
   final Color color = Colors.black,
-  final double fontSize = 12.0,
-  final double angleRotationInRadians = 0.0,
+  final double fontSize = _defaultFontSize,
+  final double angleRotationInRadians = _defaultRotation,
 }) {
   context.save();
   context.translate(rect.left, rect.top);
@@ -143,8 +148,8 @@ void drawTextInRect(
     context,
     Offset(
       // Do calculations here:
-      (rect.width - textPainter.width) * 0.5,
-      (rect.height - textPainter.height) * 0.5,
+      (rect.width - textPainter.width) * _centerFraction,
+      (rect.height - textPainter.height) * _centerFraction,
     ),
   );
   context.restore();
@@ -162,7 +167,7 @@ void drawChanel({
 
   final ui.Size size = Size(
     (channelPointEnd.x - channelPointLeft.x).abs(),
-    100.0,
+    _channelHeight,
   );
   final double halfWidth = size.width / 2;
 

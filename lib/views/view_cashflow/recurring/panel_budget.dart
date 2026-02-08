@@ -25,6 +25,35 @@ import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _minYears = 1;
+const int _defaultSortColumnIndex = 1;
+const double _positiveMultiplier = 1.0;
+const double _negativeMultiplier = -1.0;
+const int _suggestionSegmentValue = 3;
+const int _unsetId = -1;
+const int _monthsPerYear = 12;
+const double _percentageMultiplier = 100.0;
+const int _percentageDecimalPlaces = 2;
+const double _zeroDouble = 0.0;
+const double _panelMargin = 8.0;
+const double _headerPadding = 8.0;
+const double _smallScreenMaxWidth = 400.0;
+const double _suggestionsMaxWidth = 800.0;
+const double _suggestionsHeight = 400.0;
+const double _spacingLarge = 20.0;
+const double _spacingMedium = 10.0;
+const double _verticalDividerHeight = 38.0;
+const double _zeroHeight = 0.0;
+const int _dividerAlpha = 100;
+const int _columnFlexCategory = 3;
+const int _columnFlexDouble = 2;
+const int _columnFlexSingle = 1;
+const int _sortColumnCategory = 0;
+const int _sortColumnAllTime = 1;
+const int _sortColumnActualYear = 2;
+const int _sortColumnActualMonth = 3;
+const int _sortColumnBudget = 4;
+
 class PanelBudget extends StatefulWidget {
   const PanelBudget({
     super.key,
@@ -44,7 +73,7 @@ class PanelBudget extends StatefulWidget {
   @override
   State<PanelBudget> createState() => _PanelBudgetState();
 
-  int get numberOfYears => max(1, maxYear - minYear);
+  int get numberOfYears => max(_minYears, maxYear - minYear);
 }
 
 class _PanelBudgetState extends State<PanelBudget> {
@@ -52,7 +81,7 @@ class _PanelBudgetState extends State<PanelBudget> {
 
   bool _sortAscending = false;
 
-  int _sortColumnIndex = 1;
+  int _sortColumnIndex = _defaultSortColumnIndex;
 
   List<RecurringExpenses> items = <RecurringExpenses>[];
 
@@ -60,9 +89,9 @@ class _PanelBudgetState extends State<PanelBudget> {
       ? PreferenceController.to.budgetViewAsForIncomes.value
       : PreferenceController.to.budgetViewAsForExpenses.value;
 
-  double sumForAllCategories = 0.00;
+  double sumForAllCategories = _zeroDouble;
 
-  double sumForAllCategoriesBudget = 0.00;
+  double sumForAllCategoriesBudget = _zeroDouble;
 
   @override
   void initState() {
@@ -74,7 +103,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   @override
   Widget build(final BuildContext context) {
     return Box(
-      margin: 8,
+      margin: _panelMargin,
       width: double.infinity,
       height: double.infinity,
       child: Center(
@@ -84,24 +113,24 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   String calculateBudgetAccuracy(double budgeted, double actual) {
-    if (budgeted == 0 && actual == 0) {
+    if (budgeted == _zeroDouble && actual == _zeroDouble) {
       return 'Both budgeted and actual amounts are zero. Accuracy is undefined.';
     }
 
-    if (actual == 0) {
+    if (actual == _zeroDouble) {
       return 'Actual amount is zero. Cannot calculate percentages.';
     }
 
-    final double accuracyPercentage = (budgeted / actual) * 100;
-    final double variancePercentage = ((actual - budgeted) / budgeted) * 100;
+    final double accuracyPercentage = (budgeted / actual) * _percentageMultiplier;
+    final double variancePercentage = ((actual - budgeted) / budgeted) * _percentageMultiplier;
 
-    String result = 'Accuracy:    ${accuracyPercentage.toStringAsFixed(2)}%\n';
+    String result = 'Accuracy:    ${accuracyPercentage.toStringAsFixed(_percentageDecimalPlaces)}%\n';
 
     // Check for cases where variance calculation is invalid
-    if (budgeted == 0) {
+    if (budgeted == _zeroDouble) {
       result += 'Budgeted amount is zero. Variance is undefined.';
     } else {
-      result += 'Variance:    ${variancePercentage.toStringAsFixed(2)}%';
+      result += 'Variance:    ${variancePercentage.toStringAsFixed(_percentageDecimalPlaces)}%';
     }
 
     return result;
@@ -127,13 +156,13 @@ class _PanelBudgetState extends State<PanelBudget> {
       widget.maxYear,
       true,
       widget.categoryTypes,
-      isForIncome ? 1 : -1,
+      isForIncome ? _positiveMultiplier : _negativeMultiplier,
     );
 
-    sumForAllCategories = 0.00;
-    sumForAllCategoriesBudget = 0.00;
+    sumForAllCategories = _zeroDouble;
+    sumForAllCategoriesBudget = _zeroDouble;
 
-    final int adjustValue = isForIncome ? 1 : -1;
+    final double adjustValue = isForIncome ? _positiveMultiplier : _negativeMultiplier;
 
     items.forEach((RecurringExpenses item) {
       sumForAllCategories += item.sumOfAllTransactions;
@@ -153,7 +182,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     return Row(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(_headerPadding),
           child: headerText(context, widget.title, large: true),
         ),
         mySegmentSelector(
@@ -171,7 +200,7 @@ class _PanelBudgetState extends State<PanelBudget> {
               value: BudgetViewAs.recurrences.index,
               label: const Text('Recurring'),
             ),
-            const ButtonSegment<int>(value: 3, label: Text('Suggestion')),
+            const ButtonSegment<int>(value: _suggestionSegmentValue, label: Text('Suggestion')),
           ],
           selectedId: panelType.index,
           onSelectionChanged: (final int newSelection) {
@@ -189,10 +218,13 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
-  double get sumForAllCategoriesActual => (sumForAllCategories / widget.numberOfYears) / 12;
+  double get sumForAllCategoriesActual => (sumForAllCategories / widget.numberOfYears) / _monthsPerYear;
 
   Widget verticalLine(Color color) {
-    return SizedBox(height: 38, child: VerticalDivider(color: color));
+    return SizedBox(
+      height: _verticalDividerHeight,
+      child: VerticalDivider(color: color),
+    );
   }
 
   Widget _buildContent() {
@@ -237,25 +269,25 @@ class _PanelBudgetState extends State<PanelBudget> {
 
   Widget _buildContentForSmallScreen() {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 400),
+      constraints: const BoxConstraints(maxWidth: _smallScreenMaxWidth),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(widget.title, style: context.textTheme.headlineLarge),
-          const SizedBox(height: 20),
+          const SizedBox(height: _spacingLarge),
           Text('Monthly Budgeted', style: context.textTheme.bodyLarge),
           WidgetFromData.fromDouble(
             sumForAllCategoriesBudget,
             DataWidgetSize.header,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: _spacingMedium),
           Text('Monthly Actual', style: context.textTheme.bodyLarge),
           WidgetFromData.fromDouble(
             sumForAllCategoriesActual,
             DataWidgetSize.header,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: _spacingLarge),
           Text(
             calculateBudgetAccuracy(
               sumForAllCategoriesBudget,
@@ -270,14 +302,14 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   Widget _buildList() {
-    final Color dividersColor = Theme.of(context).dividerColor.withAlpha(100);
-    final int adjustValue = isForIncome ? 1 : -1;
+    final Color dividersColor = Theme.of(context).dividerColor.withAlpha(_dividerAlpha);
+    final double adjustValue = isForIncome ? _positiveMultiplier : _negativeMultiplier;
 
     return Column(
       children: <Widget>[
         Container(
           color: getColorTheme(context).surfaceContainer,
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(_headerPadding),
           child: Column(
             children: <Widget>[
               //
@@ -289,82 +321,82 @@ class _PanelBudgetState extends State<PanelBudget> {
                     context: context,
                     text: 'Category',
                     textAlign: TextAlign.start,
-                    flex: 3,
+                    flex: _columnFlexCategory,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      0,
+                      _sortColumnCategory,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(0),
+                    onPressed: () => _onColumnSort(_sortColumnCategory),
                   ),
                   verticalLine(dividersColor),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'Budgeted/M',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      4,
+                      _sortColumnBudget,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(4),
+                    onPressed: () => _onColumnSort(_sortColumnBudget),
                   ),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'Actual/M',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      3,
+                      _sortColumnActualMonth,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(3),
+                    onPressed: () => _onColumnSort(_sortColumnActualMonth),
                   ),
                   verticalLine(dividersColor),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'Budgeted/Y',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      4,
+                      _sortColumnBudget,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(4),
+                    onPressed: () => _onColumnSort(_sortColumnBudget),
                   ),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'Actual/Y',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      2,
+                      _sortColumnActualYear,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(2),
+                    onPressed: () => _onColumnSort(_sortColumnActualYear),
                   ),
                   verticalLine(dividersColor),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'Range',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                   ),
                   buildColumnHeaderButton(
                     context: context,
                     text: 'All time',
                     textAlign: TextAlign.end,
-                    flex: 1,
+                    flex: _columnFlexSingle,
                     sortIndicator: getSortIndicator(
                       _sortColumnIndex,
-                      1,
+                      _sortColumnAllTime,
                       _sortAscending,
                     ),
-                    onPressed: () => _onColumnSort(1),
+                    onPressed: () => _onColumnSort(_sortColumnAllTime),
                   ),
                 ],
               ),
@@ -375,10 +407,10 @@ class _PanelBudgetState extends State<PanelBudget> {
         // Column details
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(_headerPadding),
             child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => Divider(height: 0, color: dividersColor),
-              padding: const EdgeInsets.all(0),
+              separatorBuilder: (BuildContext context, int index) => Divider(height: _zeroHeight, color: dividersColor),
+              padding: const EdgeInsets.all(_zeroHeight),
               itemCount: items.length,
               itemBuilder: (final BuildContext context, final int index) {
                 // build the Card UI
@@ -387,7 +419,7 @@ class _PanelBudgetState extends State<PanelBudget> {
                   children: <Widget>[
                     // Category Long Name
                     Expanded(
-                      flex: 3,
+                      flex: _columnFlexCategory,
                       child: Row(
                         children: <Widget>[
                           _categoryContextMenu(item.category),
@@ -398,7 +430,7 @@ class _PanelBudgetState extends State<PanelBudget> {
                     verticalLine(dividersColor),
                     // Budgeted and actual sum per month
                     Expanded(
-                      flex: 2,
+                      flex: _columnFlexDouble,
                       child: Row(
                         children: <Widget>[
                           // Budgeted per month
@@ -423,13 +455,13 @@ class _PanelBudgetState extends State<PanelBudget> {
 
                     // Budgeted & actual per Year
                     Expanded(
-                      flex: 2,
+                      flex: _columnFlexDouble,
                       child: Row(
                         children: <Widget>[
                           // Budget per year
                           Expanded(
                             child: WidgetFromData.fromDouble(
-                              item.category.fieldBudget.value.asDouble() * 12 * adjustValue,
+                              item.category.fieldBudget.value.asDouble() * _monthsPerYear * adjustValue,
                               DataWidgetSize.title,
                             ),
                           ),
@@ -437,7 +469,7 @@ class _PanelBudgetState extends State<PanelBudget> {
                           // Sum per year
                           Expanded(
                             child: WidgetFromData.fromDouble(
-                              item.sumPerMonth * 12,
+                              item.sumPerMonth * _monthsPerYear,
                               DataWidgetSize.title,
                             ),
                           ),
@@ -450,7 +482,7 @@ class _PanelBudgetState extends State<PanelBudget> {
 
                     // Date and range and total sum for all date
                     Expanded(
-                      flex: 2,
+                      flex: _columnFlexDouble,
                       child: Row(
                         children: <Widget>[
                           Expanded(
@@ -483,7 +515,7 @@ class _PanelBudgetState extends State<PanelBudget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            const Expanded(flex: 3, child: Text('')),
+            const Expanded(flex: _columnFlexCategory, child: Text('')),
             verticalLine(dividersColor),
             Expanded(
               child: WidgetFromData.fromDouble(
@@ -500,7 +532,7 @@ class _PanelBudgetState extends State<PanelBudget> {
             verticalLine(dividersColor),
             Expanded(
               child: WidgetFromData.fromDouble(
-                sumForAllCategoriesBudget * 12,
+                sumForAllCategoriesBudget * _monthsPerYear,
                 DataWidgetSize.title,
               ),
             ),
@@ -541,7 +573,7 @@ class _PanelBudgetState extends State<PanelBudget> {
             _categoryContextMenu(
               Data().categories.getByName(categoryBudget.key)!,
             ),
-            Expanded(flex: 2, child: TokenText(categoryBudget.key)),
+            Expanded(flex: _columnFlexDouble, child: TokenText(categoryBudget.key)),
             Expanded(child: Text(categoryBudget.value.frequency.name)),
             Expanded(
               child: WidgetFromData.fromDouble(
@@ -554,8 +586,8 @@ class _PanelBudgetState extends State<PanelBudget> {
     }
     return Center(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 800),
-        height: 400,
+        constraints: const BoxConstraints(maxWidth: _suggestionsMaxWidth),
+        height: _suggestionsHeight,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -570,7 +602,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     return buildMenuButton(context, <MenuEntry>[
       // View - Transactions
       MenuEntry.toTransactions(
-        transactionId: -1,
+        transactionId: _unsetId,
         filters: FieldFilters(<FieldFilter>[
           FieldFilter(
             fieldName: Constants.viewTransactionFieldNameCategory,
@@ -615,27 +647,27 @@ class _PanelBudgetState extends State<PanelBudget> {
   void _sort() {
     items.sort((RecurringExpenses a, RecurringExpenses b) {
       switch (_sortColumnIndex) {
-        case 0:
+        case _sortColumnCategory:
           return sortByString(a.category.name, b.category.name, _sortAscending);
-        case 1:
+        case _sortColumnAllTime:
           return sortByValue(
             a.sumOfAllTransactions,
             b.sumOfAllTransactions,
             _sortAscending,
           );
-        case 2:
+        case _sortColumnActualYear:
           return sortByValue(
             a.sumOfAllTransactions,
             b.sumOfAllTransactions,
             _sortAscending,
           );
-        case 3:
+        case _sortColumnActualMonth:
           return sortByValue(
             a.sumOfAllTransactions,
             b.sumOfAllTransactions,
             _sortAscending,
           );
-        case 4:
+        case _sortColumnBudget:
           return sortByValue(
             a.category.fieldBudget.value.asDouble(),
             b.category.fieldBudget.value.asDouble(),

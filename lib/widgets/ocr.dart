@@ -7,6 +7,8 @@ import 'package:money/widgets/snack_bar.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:textify/textify.dart';
 
+const double _ocrButtonScale = 0.6;
+
 class PasteImageOcr extends StatefulWidget {
   const PasteImageOcr({
     super.key,
@@ -27,7 +29,7 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: 0.6, // Adjust scale factor as needed (0.0 to 1.0)
+      scale: _ocrButtonScale, // Adjust scale factor as needed (0.0 to 1.0)
       alignment: Alignment.bottomCenter, // Optional: Position the scaled button
       child: ElevatedButton.icon(
         onPressed: _recognizeTextFromClipboard,

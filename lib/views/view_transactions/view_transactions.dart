@@ -21,6 +21,11 @@ import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const int _pivotIndexIncome = 0;
+const int _pivotIndexExpense = 1;
+const int _pivotIndexAll = 2;
+const double _zeroDouble = 0.0;
+
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///
 /// This widget extends [ViewForMoneyObjects] and is responsible for rendering
@@ -38,7 +43,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
 /// for the transaction list.
 
 class ViewTransactions extends ViewForMoneyObjects {
-  const ViewTransactions({super.key, this.startingBalance = 0.00});
+  const ViewTransactions({super.key, this.startingBalance = _zeroDouble});
 
   final double startingBalance;
 
@@ -234,17 +239,17 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   }
 
   bool isMatchingIncomeExpense(final Transaction transaction) {
-    if (_selectedPivot[2]) {
+    if (_selectedPivot[_pivotIndexAll]) {
       return true;
     }
 
     // Expenses
-    if (_selectedPivot[1]) {
+    if (_selectedPivot[_pivotIndexExpense]) {
       return transaction.fieldAmount.value.asDouble() < 0;
     }
 
     // Incomes
-    if (_selectedPivot[0]) {
+    if (_selectedPivot[_pivotIndexIncome]) {
       return transaction.fieldAmount.value.asDouble() > 0;
     }
     return false;

@@ -13,6 +13,12 @@ import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const double _panelWidth = 800.0;
+const int _listPreviewFlex = 2;
+const int _unsetId = -1;
+const int _currencyFormatNative = 0;
+const int _currencyFormatUsd = 1;
+
 /// use for free style text to transaction import
 class ImportTransactionsPanel extends StatefulWidget {
   const ImportTransactionsPanel({
@@ -105,7 +111,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       child: KeyboardListener(
         focusNode: _focusNode,
         child: SizedBox(
-          width: 800,
+          width: _panelWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -153,7 +159,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
               // Results
               Expanded(
-                flex: 2,
+                flex: _listPreviewFlex,
                 child: Center(
                   child: ImportTransactionsListPreview(
                     accountId: _account.uniqueId,
@@ -171,14 +177,16 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   void convertAndNotify(BuildContext context, String inputText) {
     // Detect currency format from input text if any amounts exist
     final int detectedFormat = detectCurrencyFormat(inputText);
-    if (detectedFormat != -1) {
+    if (detectedFormat != _unsetId) {
       _userChoiceNativeVsUSD = detectedFormat;
     }
 
     final ValuesParser parser = ValuesParser(
       dateFormat: userChoiceOfDateFormat,
-      currency: _userChoiceNativeVsUSD == 0 ? _account.getAccountCurrencyAsText() : Constants.defaultCurrency,
-      reverseAmountValue: _userChoiceDebitVsCredit == 1,
+      currency: _userChoiceNativeVsUSD == _currencyFormatNative
+          ? _account.getAccountCurrencyAsText()
+          : Constants.defaultCurrency,
+      reverseAmountValue: _userChoiceDebitVsCredit == _currencyFormatUsd,
     );
     parser.convertInputTextToTransactionList(context, inputText);
     _values = parser.lines;
@@ -189,7 +197,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   /// Returns: 0 for native currency format, 1 for USD format, -1 if no amounts found
   int detectCurrencyFormat(String input) {
     if (input.isEmpty) {
-      return -1;
+      return _unsetId;
     }
 
     // Split input into lines
@@ -197,10 +205,10 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     for (String line in lines) {
       // Look for number patterns with currency symbols
       if (line.contains(RegExp(r'[€£¥]'))) {
-        return 0; // Native currency detected
+        return _currencyFormatNative; // Native currency detected
       }
       if (line.contains('\$')) {
-        return 1; // USD detected
+        return _currencyFormatUsd; // USD detected
       }
     }
 
@@ -208,15 +216,15 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     for (final String line in lines) {
       // US format (1,234.56)
       if (line.contains(RegExp(r'\d{1,3}(?:,\d{3})*\.\d{2}'))) {
-        return 1;
+        return _currencyFormatUsd;
       }
       // European format (1.234,56 or 1,234.56)
       if (line.contains(RegExp(r'\d{1,3}(?:\.\d{3})*,\d{2}'))) {
-        return 0;
+        return _currencyFormatNative;
       }
     }
 
-    return -1; // No clear format detected
+    return _unsetId; // No clear format detected
   }
 
   void removeFocus() {

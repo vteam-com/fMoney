@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:money/widgets/theme_custom.dart';
 
+const double _bannerBorderRadius = 4;
+const double _bannerHorizontalPadding = 16;
+const double _bannerVerticalPadding = 8;
+const double _bannerIconSpacing = 8;
+
 class InfoBanner extends StatelessWidget {
   const InfoBanner({
     required this.type,
@@ -44,13 +49,16 @@ class InfoBanner extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: color),
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(_bannerBorderRadius),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: _bannerHorizontalPadding,
+        vertical: _bannerVerticalPadding,
+      ),
       child: Row(
         children: <Widget>[
           Icon(icon, color: color),
-          const SizedBox(width: 8.0),
+          const SizedBox(width: _bannerIconSpacing),
           Expanded(
             child: Text(message, style: TextStyle(color: color)),
           ),

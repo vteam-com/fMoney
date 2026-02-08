@@ -10,6 +10,28 @@ import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/xlsx_header_row_selector_dialog.dart';
 
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const int _twoInt = 2;
+const int _threeInt = 3;
+const int _unsetIndex = -1;
+const double _zeroDouble = 0.0;
+const int _sharedStringsPreviewCount = 10;
+const int _worksheetPreviewCount = 5;
+const int _headerPreviewCount = 10;
+const int _previewRowLimit = 5;
+const int _datePadWidth = 2;
+const String _datePadChar = '0';
+const int _excelDateMin = 20000;
+const int _excelDateMax = 60000;
+const int _excelBaseYear = 1899;
+const int _excelBaseMonth = 12;
+const int _excelBaseDay = 30;
+const int _twoDigitYearMax = 100;
+const int _twoDigitYearPivot = 50;
+const int _yearBaseRecent = 2000;
+const int _yearBasePast = 1900;
+
 // Simple, dependency-free XLSX parser (only one sheet, static values)
 Future<void> importXLSX(BuildContext context, String filePath) async {
   try {
@@ -35,23 +57,28 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       final RegExp sharedStringRegex = RegExp(r'<(?:\w+:)?t[^>]*>(.*?)</(?:\w+:)?t>', dotAll: true);
 
       // Extract text from all <t> tags, flattening nested ones
-      sharedStrings = sharedStringRegex.allMatches(xml).map((RegExpMatch m) => m.group(1)).whereType<String>().map((
-        String text,
-      ) {
-        text = text
-            .replaceAll('\r', '')
-            .replaceAll('\n', '')
-            .replaceAll('&amp;', '&')
-            .replaceAll('&lt;', '<')
-            .replaceAll('&gt;', '>')
-            .replaceAll('&quot;', '"')
-            .replaceAll('&#39;', "'");
-        return text.trim();
-      }).toList();
+      sharedStrings = sharedStringRegex
+          .allMatches(xml)
+          .map((RegExpMatch m) => m.group(_oneInt))
+          .whereType<String>()
+          .map((
+            String text,
+          ) {
+            text = text
+                .replaceAll('\r', '')
+                .replaceAll('\n', '')
+                .replaceAll('&amp;', '&')
+                .replaceAll('&lt;', '<')
+                .replaceAll('&gt;', '>')
+                .replaceAll('&quot;', '"')
+                .replaceAll('&#39;', "'");
+            return text.trim();
+          })
+          .toList();
 
       debugPrint('Shared strings loaded: ${sharedStrings.length}');
       if (sharedStrings.isNotEmpty) {
-        debugPrint('Example shared strings:\n${sharedStrings.take(10).join('\n')}');
+        debugPrint('Example shared strings:\n${sharedStrings.take(_sharedStringsPreviewCount).join('\n')}');
       }
     } else {
       debugPrint('Shared strings file not found');
@@ -60,7 +87,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     // Extract first sheet*.xml
     final ArchiveFile sheetFile = archive.files.firstWhere(
       (ArchiveFile file) => RegExp(r'^xl/worksheets/sheet.*\.xml$').hasMatch(file.name),
-      orElse: () => ArchiveFile('', 0, <int>[]),
+      orElse: () => ArchiveFile('', _zeroInt, <int>[]),
     );
 
     if (sheetFile.name.isEmpty) {
@@ -80,23 +107,23 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     debugPrint('Parsing worksheet XML...');
     final List<List<String>> worksheetData = <List<String>>[];
     for (final RegExpMatch rowMatch in rowRegex.allMatches(sheetXml)) {
-      final String rowXml = rowMatch.group(1) ?? '';
+      final String rowXml = rowMatch.group(_oneInt) ?? '';
       final List<String> rowData = <String>[];
 
       // Parse each cell in this row
       for (final RegExpMatch cellMatch in cellRegex.allMatches(rowXml)) {
         final String? cellType = cellMatch.namedGroup('t');
-        final String cellXml = cellMatch.group(2) ?? '';
+        final String cellXml = cellMatch.group(_twoInt) ?? '';
         String value = '';
 
         // Extract value from <v> tag
         final RegExpMatch? vMatch = valueRegex.firstMatch(cellXml);
         if (vMatch != null) {
-          value = vMatch.group(1)?.trim() ?? '';
+          value = vMatch.group(_oneInt)?.trim() ?? '';
 
           // Try resolving shared string even when type is null but looks like an index
           final int? idx = int.tryParse(value);
-          if (cellType == 's' || (idx != null && idx >= 0 && idx < sharedStrings.length)) {
+          if (cellType == 's' || (idx != null && idx >= _zeroInt && idx < sharedStrings.length)) {
             value = sharedStrings[idx!];
             debugPrint('Resolved shared string index $idx → "$value"');
           } else {
@@ -109,7 +136,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
             dotAll: true,
           ).firstMatch(cellXml);
           if (inlineMatch != null) {
-            value = inlineMatch.group(1)?.trim() ?? '';
+            value = inlineMatch.group(_oneInt)?.trim() ?? '';
             debugPrint('Found inline string: $value');
           } else {
             debugPrint('No value or inline string found');
@@ -132,12 +159,12 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
         // Convert Excel serial date to readable date if value looks like one
         final double? excelDate = double.tryParse(value);
-        if (excelDate != null && excelDate > 20000 && excelDate < 60000) {
+        if (excelDate != null && excelDate > _excelDateMin && excelDate < _excelDateMax) {
           // Excel’s day 1 = 1900-01-01 (Excel bug means 1900-02-29 exists)
-          final DateTime baseDate = DateTime(1899, 12, 30);
+          final DateTime baseDate = DateTime(_excelBaseYear, _excelBaseMonth, _excelBaseDay);
           final DateTime convertedDate = baseDate.add(Duration(days: excelDate.floor()));
           value =
-              '${convertedDate.year}-${convertedDate.month.toString().padLeft(2, '0')}-${convertedDate.day.toString().padLeft(2, '0')}';
+              '${convertedDate.year}-${convertedDate.month.toString().padLeft(_datePadWidth, _datePadChar)}-${convertedDate.day.toString().padLeft(_datePadWidth, _datePadChar)}';
           debugPrint('Converted Excel date $excelDate → $value');
         }
         rowData.add(value);
@@ -150,7 +177,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     debugPrint('Before filtering: ${worksheetData.length} rows');
     if (worksheetData.isNotEmpty) {
       debugPrint('First few raw rows:');
-      for (int i = 0; i < worksheetData.length && i < 5; i++) {
+      for (int i = _zeroInt; i < worksheetData.length && i < _worksheetPreviewCount; i++) {
         debugPrint('  Row $i: ${worksheetData[i]}');
       }
     }
@@ -186,14 +213,16 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
     debugPrint('Final worksheet data: ${worksheetData.length} rows');
     debugPrint('Preview of data:');
-    for (int i = 0; i < worksheetData.length && i < 5; i++) {
+    for (int i = _zeroInt; i < worksheetData.length && i < _worksheetPreviewCount; i++) {
       debugPrint('  Row $i: ${worksheetData[i]}');
     }
 
     // Prompt user to select the header row
     final int? headerRowIndex = await showXlsxHeaderRowSelectorDialog(
       context: context,
-      rows: worksheetData.length > 10 ? worksheetData.sublist(0, 10) : worksheetData,
+      rows: worksheetData.length > _headerPreviewCount
+          ? worksheetData.sublist(_zeroInt, _headerPreviewCount)
+          : worksheetData,
     );
     if (headerRowIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -206,19 +235,19 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     List<String> headers = worksheetData[headerRowIndex];
     final List<String> meaningfulHeaders = <String>[];
 
-    for (int i = 0; i < headers.length; i++) {
+    for (int i = _zeroInt; i < headers.length; i++) {
       final String header = headers[i].trim();
 
       // If header is empty, numeric, or looks like data (date or number), create a generic name
       if (header.isEmpty || DateTime.tryParse(header) != null || double.tryParse(header.replaceAll(',', '')) != null) {
-        meaningfulHeaders.add('Column ${i + 1}');
+        meaningfulHeaders.add('Column ${i + _oneInt}');
       } else {
         meaningfulHeaders.add(header);
       }
     }
 
     headers = meaningfulHeaders;
-    final List<List<String>> dataRows = worksheetData.skip(headerRowIndex + 1).toList();
+    final List<List<String>> dataRows = worksheetData.skip(headerRowIndex + _oneInt).toList();
 
     if (dataRows.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -227,7 +256,9 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       return;
     }
 
-    final List<List<String>> previewRows = dataRows.length > 5 ? dataRows.sublist(0, 5) : dataRows;
+    final List<List<String>> previewRows = dataRows.length > _previewRowLimit
+        ? dataRows.sublist(_zeroInt, _previewRowLimit)
+        : dataRows;
 
     final Map<String, String>? columnMapping = await showCsvColumnMapperDialog(
       context: context,
@@ -279,22 +310,24 @@ ImportData loadXLSX(
 
   debugPrint('Column indices: date=$dateIndex, description=$descriptionIndex, amount=$amountIndex');
 
-  if (dateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
+  if (dateIndex == _unsetIndex || descriptionIndex == _unsetIndex || amountIndex == _unsetIndex) {
     debugPrint('ERROR: Column mapping failed - could not find required columns');
     return importData;
   }
 
-  int processedRows = 0;
-  int skippedRows = 0;
-  int validRows = 0;
+  int processedRows = _zeroInt;
+  int skippedRows = _zeroInt;
+  int validRows = _zeroInt;
 
-  for (int i = 0; i < dataRows.length; i++) {
+  for (int i = _zeroInt; i < dataRows.length; i++) {
     processedRows++;
     final List<String> row = dataRows[i];
 
     final int maxIndex = <int>[dateIndex, descriptionIndex, amountIndex].reduce((int a, int b) => a > b ? a : b);
     if (row.length <= maxIndex) {
-      debugPrint('Row ${i + 1}: Skipped - insufficient columns (${row.length} vs required ${maxIndex + 1})');
+      debugPrint(
+        'Row ${i + _oneInt}: Skipped - insufficient columns (${row.length} vs required ${maxIndex + _oneInt})',
+      );
       skippedRows++;
       continue;
     }
@@ -304,7 +337,7 @@ ImportData loadXLSX(
     final String rawDescription = row[descriptionIndex].trim();
     final String rawAmount = row[amountIndex].trim();
 
-    debugPrint('Row ${i + 1}: Date="$rawDate", Desc="$rawDescription", Amount="$rawAmount"');
+    debugPrint('Row ${i + _oneInt}: Date="$rawDate", Desc="$rawDescription", Amount="$rawAmount"');
 
     DateTime? date;
     try {
@@ -313,13 +346,13 @@ ImportData loadXLSX(
         throw const FormatException('Could not parse date');
       }
     } catch (e) {
-      debugPrint('Row ${i + 1}: Skipped - invalid date format: "$rawDate"');
+      debugPrint('Row ${i + _oneInt}: Skipped - invalid date format: "$rawDate"');
       skippedRows++;
       continue;
     }
 
     if (rawDescription.isEmpty) {
-      debugPrint('Row ${i + 1}: Skipped - empty description');
+      debugPrint('Row ${i + _oneInt}: Skipped - empty description');
       skippedRows++;
       continue;
     }
@@ -329,17 +362,17 @@ ImportData loadXLSX(
       final String amountStr = rawAmount.replaceAll(',', ''); // Handle common number formats
       amount = double.tryParse(amountStr);
       if (amount == null) {
-        debugPrint('Row ${i + 1}: Skipped - invalid amount: "$rawAmount"');
+        debugPrint('Row ${i + _oneInt}: Skipped - invalid amount: "$rawAmount"');
         skippedRows++;
         continue;
       }
     } catch (e) {
-      debugPrint('Row ${i + 1}: Skipped - amount parsing error: "$rawAmount"');
+      debugPrint('Row ${i + _oneInt}: Skipped - amount parsing error: "$rawAmount"');
       skippedRows++;
       continue;
     }
 
-    debugPrint('Row ${i + 1}: Successfully added entry - Date: ${date.toIso8601String()}, Amount: $amount');
+    debugPrint('Row ${i + _oneInt}: Successfully added entry - Date: ${date.toIso8601String()}, Amount: $amount');
     validRows++;
 
     importData.entries.add(
@@ -348,14 +381,14 @@ ImportData loadXLSX(
         name: rawDescription,
         amount: amount,
         type: 'XLSXImport',
-        fitid: 'xlsx_row_${i + 1}_${date.millisecondsSinceEpoch}',
+        fitid: 'xlsx_row_${i + _oneInt}_${date.millisecondsSinceEpoch}',
         memo: '',
         number: '',
         stockAction: '',
         stockSymbol: '',
-        stockQuantity: 0.0,
-        stockPrice: 0.0,
-        stockCommission: 0.0,
+        stockQuantity: _zeroDouble,
+        stockPrice: _zeroDouble,
+        stockCommission: _zeroDouble,
       ),
     );
   }
@@ -388,12 +421,14 @@ DateTime? _parseFlexibleDate(String dateStr) {
   final RegExp euroFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
   final RegExpMatch? euroMatch = euroFormat.firstMatch(dateStr);
   if (euroMatch != null) {
-    final int day = int.parse(euroMatch.group(1)!);
-    final int month = int.parse(euroMatch.group(2)!);
-    final int yearStr = int.parse(euroMatch.group(3)!);
+    final int day = int.parse(euroMatch.group(_oneInt)!);
+    final int month = int.parse(euroMatch.group(_twoInt)!);
+    final int yearStr = int.parse(euroMatch.group(_threeInt)!);
 
     // Handle 2-digit years
-    final int year = yearStr < 100 ? (yearStr < 50 ? 2000 + yearStr : 1900 + yearStr) : yearStr;
+    final int year = yearStr < _twoDigitYearMax
+        ? (yearStr < _twoDigitYearPivot ? _yearBaseRecent + yearStr : _yearBasePast + yearStr)
+        : yearStr;
 
     try {
       return DateTime(year, month, day);
@@ -407,12 +442,14 @@ DateTime? _parseFlexibleDate(String dateStr) {
   final RegExp usFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
   final RegExpMatch? usMatch = usFormat.firstMatch(dateStr);
   if (usMatch != null) {
-    final int month = int.parse(usMatch.group(1)!);
-    final int day = int.parse(usMatch.group(2)!);
-    final int yearStr = int.parse(usMatch.group(3)!);
+    final int month = int.parse(usMatch.group(_oneInt)!);
+    final int day = int.parse(usMatch.group(_twoInt)!);
+    final int yearStr = int.parse(usMatch.group(_threeInt)!);
 
     // Handle 2-digit years
-    final int year = yearStr < 100 ? (yearStr < 50 ? 2000 + yearStr : 1900 + yearStr) : yearStr;
+    final int year = yearStr < _twoDigitYearMax
+        ? (yearStr < _twoDigitYearPivot ? _yearBaseRecent + yearStr : _yearBasePast + yearStr)
+        : yearStr;
 
     try {
       return DateTime(year, month, day);
@@ -426,9 +463,9 @@ DateTime? _parseFlexibleDate(String dateStr) {
   final RegExp ymdFormat = RegExp(r'^(\d{4})/(\d{1,2})/(\d{1,2})$');
   final RegExpMatch? ymdMatch = ymdFormat.firstMatch(dateStr);
   if (ymdMatch != null) {
-    final int year = int.parse(ymdMatch.group(1)!);
-    final int month = int.parse(ymdMatch.group(2)!);
-    final int day = int.parse(ymdMatch.group(3)!);
+    final int year = int.parse(ymdMatch.group(_oneInt)!);
+    final int month = int.parse(ymdMatch.group(_twoInt)!);
+    final int day = int.parse(ymdMatch.group(_threeInt)!);
 
     try {
       return DateTime(year, month, day);

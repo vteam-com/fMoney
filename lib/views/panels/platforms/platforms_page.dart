@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+const double _platformsPageWidth = 400.0;
+const double _sectionSpacing = 40.0;
+const int _platformButtonElevation = 9;
+const double _platformButtonPadding = 20.0;
+const double _platformRowSpacing = 20.0;
+const double _platformNameFontSize = 20.0;
+const double _platformDescriptionOpacity = 0.8;
+
 class PlatformsPage extends StatelessWidget {
   const PlatformsPage({super.key});
 
@@ -9,7 +17,7 @@ class PlatformsPage extends StatelessWidget {
     appBar: AppBar(title: const Text('Available on')),
     body: Center(
       child: SizedBox(
-        width: 400,
+        width: _platformsPageWidth,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -31,7 +39,7 @@ class PlatformsPage extends StatelessWidget {
                 'Desktop Software.',
                 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: _sectionSpacing),
               paltformItem(
                 'iOS',
                 'assets/images/platforms/platformMobileIOS.png',
@@ -44,7 +52,7 @@ class PlatformsPage extends StatelessWidget {
                 'Mobile app.',
                 'https://play.google.com/store/apps/details?id=com.vteam.cookingtimerflutter',
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: _sectionSpacing),
               paltformItem(
                 'Web Browser',
                 'assets/images/platforms/platformWeb.png',
@@ -65,20 +73,24 @@ class PlatformsPage extends StatelessWidget {
     final String url,
   ) => MaterialButton(
     key: ValueKey<String>(name),
-    elevation: 9,
-    padding: const EdgeInsets.all(20),
+    elevation: _platformButtonElevation.toDouble(),
+    padding: const EdgeInsets.all(_platformButtonPadding),
     onPressed: () {
       launchUrl(Uri.parse(url));
     },
     child: Row(
-      spacing: 20,
+      spacing: _platformRowSpacing,
       children: <Widget>[
         CircleAvatar(
           backgroundColor: Colors.white,
           foregroundImage: AssetImage(image),
         ),
-        Expanded(child: Text(name, style: const TextStyle(fontSize: 20))),
-        Expanded(child: Opacity(opacity: 0.8, child: Text(description))),
+        Expanded(
+          child: Text(name, style: const TextStyle(fontSize: _platformNameFontSize)),
+        ),
+        Expanded(
+          child: Opacity(opacity: _platformDescriptionOpacity, child: Text(description)),
+        ),
       ],
     ),
   );

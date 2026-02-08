@@ -6,6 +6,9 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/currency_label.dart';
 import 'package:money/widgets/theme_custom.dart';
 
+const double _currencySpacing = 10;
+const double _decimalFontScale = 0.8;
+
 /// Formatted text using the supplied currency code and optional the currency/country flag
 
 enum DataWidgetSize { body, title, header }
@@ -39,7 +42,7 @@ class WidgetFromData extends StatelessWidget {
       return Row(
         children: <Widget>[
           _amountAsText(context),
-          const SizedBox(width: 10),
+          const SizedBox(width: _currencySpacing),
           buildCurrencyWidget(amountModel.iso4217),
         ],
       );
@@ -99,7 +102,7 @@ class WidgetFromData extends StatelessWidget {
           TextSpan(text: leftSideOfDecimalPointAsString),
           TextSpan(
             text: rightOfDecimalPoint,
-            style: TextStyle(fontSize: fontSize * 0.8),
+            style: TextStyle(fontSize: fontSize * _decimalFontScale),
           ),
         ],
       ),

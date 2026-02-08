@@ -10,6 +10,12 @@ import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const double _readOnlyOpacity = 0.5;
+const double _editableOpacity = 1.0;
+const double _dividerAlpha = 0.5;
+const int _valueFlex = 2;
+const double _labelPaddingRight = 10;
+
 class DataObject extends DataInterface {
   factory DataObject.fromJSon(final MyJson json, final double runningBalance) {
     return DataObject();
@@ -91,7 +97,7 @@ class DataObject extends DataInterface {
       Padding(
         padding: const EdgeInsets.all(SizeForPadding.medium),
         child: Opacity(
-          opacity: 0.5,
+          opacity: _readOnlyOpacity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -175,7 +181,7 @@ class DataObject extends DataInterface {
       case FieldType.widget:
         final String valueAsString = fieldDefinition.getValueForSerialization(objectInstance).toString();
         return Opacity(
-          opacity: isReadOnly ? 0.5 : 1.0,
+          opacity: isReadOnly ? _readOnlyOpacity : _editableOpacity,
           child: MyFormFieldForWidget(
             title: fieldDefinition.name,
             valueAsText: valueAsString,
@@ -197,7 +203,7 @@ class DataObject extends DataInterface {
           children: <Widget>[
             Expanded(
               child: Opacity(
-                opacity: isReadOnly ? 0.5 : 1.0,
+                opacity: isReadOnly ? _readOnlyOpacity : _editableOpacity,
                 child: TextFormField(
                   initialValue: value,
                   decoration: decoration,
@@ -374,7 +380,9 @@ class DataObject extends DataInterface {
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey.withValues(alpha: 0.5)),
+          bottom: BorderSide(
+            color: Colors.grey.withValues(alpha: _dividerAlpha),
+          ),
         ),
       ),
       child: Row(
@@ -383,12 +391,17 @@ class DataObject extends DataInterface {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(
+                0,
+                0,
+                _labelPaddingRight,
+                0,
+              ),
               child: Text(fieldDefinition.name),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: _valueFlex,
             child: Align(
               alignment: Alignment.centerRight,
               child: fieldDefinition.getValueWidgetForDetailView(fieldValue),

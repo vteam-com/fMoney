@@ -15,6 +15,17 @@ import 'package:money/widgets/mini_timeline_twelve_months.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const double _cardMarginBottom = 21.0;
+const double _cardElevation = 4.0;
+const double _cardWidth = 400.0;
+const double _cardPadding = 13.0;
+const double _cardSpacing = 21.0;
+const double _averagesChartHeight = 55.0;
+const double _timelineHeight = 50.0;
+const double _dividerHeight = 1.0;
+const double _dateRangePadding = 100.0;
+const double _indexOpacity = 0.5;
+
 class RecurringCard extends StatelessWidget {
   const RecurringCard({
     required this.index,
@@ -35,11 +46,11 @@ class RecurringCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: getColorTheme(context).surface,
-      margin: const EdgeInsets.only(bottom: 21),
-      elevation: 4,
+      margin: const EdgeInsets.only(bottom: _cardMarginBottom),
+      elevation: _cardElevation,
       child: Container(
-        width: 400,
-        padding: const EdgeInsets.all(13.0),
+        width: _cardWidth,
+        padding: const EdgeInsets.all(_cardPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -48,8 +59,8 @@ class RecurringCard extends StatelessWidget {
 
             Wrap(
               alignment: WrapAlignment.center,
-              spacing: 21,
-              runSpacing: 21,
+              spacing: _cardSpacing,
+              runSpacing: _cardSpacing,
               children: <Widget>[
                 // Time line
                 _buildBoxTimelinePerDayOverYears(context),
@@ -70,12 +81,12 @@ class RecurringCard extends StatelessWidget {
   Widget _buildBoxAverages(final BuildContext context) {
     return Box(
       title: 'Averages',
-      padding: 21,
+      padding: _cardSpacing,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            height: 55,
+            height: _averagesChartHeight,
             margin: const EdgeInsets.symmetric(vertical: SizeForPadding.medium),
             child: MiniTimelineTwelveMonths(
               values: payment.averagePerMonths,
@@ -109,7 +120,7 @@ class RecurringCard extends StatelessWidget {
   Widget _buildBoxDistribution(final BuildContext context) {
     return Box(
       title: 'Categories',
-      padding: 21,
+      padding: _cardSpacing,
       child: DistributionBar(segments: payment.categoryDistribution),
     );
   }
@@ -121,12 +132,12 @@ class RecurringCard extends StatelessWidget {
 
     return Box(
       title: 'Timeline',
-      padding: 21,
+      padding: _cardSpacing,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           SizedBox(
-            height: 50,
+            height: _timelineHeight,
             child: MiniTimelineDaily(
               values: sumByDays,
               yearStart: dateRangeSearch.min!.year,
@@ -135,8 +146,8 @@ class RecurringCard extends StatelessWidget {
               color: getColorTheme(context).primary,
             ),
           ),
-          const Divider(height: 1, thickness: 1),
-          _buildDateRangeRow(payment.dateRangeFound, 100, 100, false),
+          const Divider(height: _dividerHeight, thickness: _dividerHeight),
+          _buildDateRangeRow(payment.dateRangeFound, _dateRangePadding, _dateRangePadding, false),
           gapLarge(),
           _buildTextAmountRow(
             context,
@@ -171,7 +182,7 @@ class RecurringCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Opacity(opacity: 0.5, child: Text('#$index ')),
+        Opacity(opacity: _indexOpacity, child: Text('#$index ')),
         Expanded(
           child: Row(
             children: <Widget>[

@@ -5,6 +5,9 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/box.dart';
 import 'package:money/widgets/ocr.dart';
 
+const double _inputBoxHeight = 200;
+const double _inputBoxWidth = 800;
+
 class InputValues extends StatelessWidget {
   const InputValues({
     super.key,
@@ -30,8 +33,8 @@ class InputValues extends StatelessWidget {
       fit: StackFit.expand,
       children: <Widget>[
         Box(
-          height: 200,
-          width: 800,
+          height: _inputBoxHeight,
+          width: _inputBoxWidth,
           header: buildHeaderTitleAndCounter(
             context,
             title,

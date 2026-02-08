@@ -8,6 +8,8 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
+const double _minColumnLayoutWidth = 1500;
+
 class AdaptiveListColumnsOrRows extends StatelessWidget {
   const AdaptiveListColumnsOrRows({
     super.key,
@@ -124,7 +126,7 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
     if (displayAsColumns && !context.isWidthLarge) {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: SizedBox(width: 1500, child: theContent),
+        child: SizedBox(width: _minColumnLayoutWidth, child: theContent),
       );
     } else {
       return theContent;

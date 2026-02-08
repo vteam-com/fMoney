@@ -6,6 +6,11 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/vertical_line_with_tooltip.dart';
 
+const double _defaultLineWidth = 2;
+const double _daysPerYear = 365.25;
+const double _barAlpha = 0.5;
+const int _inclusiveYearOffset = 1;
+
 class MiniTimelineDaily extends StatelessWidget {
   const MiniTimelineDaily({
     required this.yearStart,
@@ -14,7 +19,7 @@ class MiniTimelineDaily extends StatelessWidget {
     required this.offsetStartingDay,
     super.key,
     this.color,
-    this.lineWidth = 2,
+    this.lineWidth = _defaultLineWidth,
   });
 
   final Color? color;
@@ -37,10 +42,10 @@ class MiniTimelineDaily extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints constraints) {
-        final int numberOfYears = yearEnd - yearStart + 1;
+        final int numberOfYears = yearEnd - yearStart + _inclusiveYearOffset;
 
         // X Ratio
-        final double numberOfDays = numberOfYears * 365.25;
+        final double numberOfDays = numberOfYears * _daysPerYear;
         final double xRatio = constraints.maxWidth / numberOfDays;
 
         // Y Ratio
@@ -60,7 +65,7 @@ class MiniTimelineDaily extends StatelessWidget {
               child: VerticalLineWithTooltip(
                 height: value.second.abs() * yRatio,
                 width: lineWidth,
-                color: context.colorTheme.colorBasedOnValue(value.second).withValues(alpha: 0.5),
+                color: context.colorTheme.colorBasedOnValue(value.second).withValues(alpha: _barAlpha),
                 tooltip:
                     '${dateToString(DateTime.fromMillisecondsSinceEpoch(oneDaySlot))}\n${doubleToCurrency(value.second)}',
               ),

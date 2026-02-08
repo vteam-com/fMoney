@@ -3,6 +3,8 @@ import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/entities/transfer.dart';
 import 'package:money/views/money_object_card.dart';
 
+const double _panelSpacing = 30.0;
+
 /// Displays a view that shows the sender and receiver information for a transfer.
 ///
 /// This widget is a part of the `view_transfers` sub-view in the home screen of the app.
@@ -24,8 +26,8 @@ class TransferSenderReceiver extends StatelessWidget {
       child: Center(
         child: Wrap(
           alignment: WrapAlignment.center,
-          runSpacing: 30,
-          spacing: 30,
+          runSpacing: _panelSpacing,
+          spacing: _panelSpacing,
           children: <Widget>[
             IntrinsicWidth(
               child: TransactionCard(

@@ -11,13 +11,21 @@ import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/distribution_bar.dart';
 
+const int _monthsPerYear = 12;
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const int _twoInt = 2;
+const int _monthOffset = 1;
+const int _topDistributionsDefault = 4;
+const double _zeroDouble = 0.0;
+
 class RecurringPayment {
   RecurringPayment({
     required this.payeeId,
     required this.forIncomeTransaction,
     required this.transactions,
   }) {
-    total = 0.00;
+    total = _zeroDouble;
     dateRangeFound = DateRange();
     categoryIdsAndSums = <Pair<int, double>>[];
     frequency = transactions.length;
@@ -26,8 +34,8 @@ class RecurringPayment {
     final Map<int, AccumulatorSum<int, double>> payeeIdCategoryIdsAndSums = <int, AccumulatorSum<int, double>>{};
 
     averagePerMonths = List<Pair<int, double>>.generate(
-      12,
-      (int index) => Pair<int, double>(0, 0),
+      _monthsPerYear,
+      (int index) => Pair<int, double>(_zeroInt, _zeroDouble),
     );
 
     for (final Transaction transaction in transactions) {
@@ -42,17 +50,17 @@ class RecurringPayment {
       );
 
       /// Rolling average per Month
-      final int transactionMonth = transaction.fieldDateTime.value!.month - 1;
+      final int transactionMonth = transaction.fieldDateTime.value!.month - _monthOffset;
       final Pair<int, double> pair = averagePerMonths[transactionMonth];
-      if (pair.first == 0) {
+      if (pair.first == _zeroInt) {
         // first time
         averagePerMonths[transactionMonth] = Pair<int, double>(
-          1,
+          _oneInt,
           transaction.fieldAmount.value.asDouble(),
         );
       } else {
         averagePerMonths[transactionMonth] = Pair<int, double>(
-          pair.first + 1,
+          pair.first + _oneInt,
           averageTwoNumbers(
             pair.second,
             transaction.fieldAmount.value.asDouble(),
@@ -70,10 +78,10 @@ class RecurringPayment {
     }
 
     // sum per month
-    sumPerMonths = List<double>.generate(12, (int index) => 0);
+    sumPerMonths = List<double>.generate(_monthsPerYear, (int index) => _zeroDouble);
     final AccumulatorSum<int, double> monthSums2 = payeeIdMonthAndSums.getLevel1(payeeId)!;
     monthSums2.values.forEach((int month, double sum) {
-      sumPerMonths[month - 1] = sum.abs();
+      sumPerMonths[month - _monthOffset] = sum.abs();
     });
 
     categoryIdsAndSums = convertMapToListOfPair<int, double>(
@@ -83,7 +91,7 @@ class RecurringPayment {
     categoryDistribution = getTopDistributions(
       payment: this,
       asIncome: forIncomeTransaction,
-      topN: 4,
+      topN: _topDistributionsDefault,
     );
   }
 
@@ -102,11 +110,11 @@ class RecurringPayment {
   double averageTwoNumbers(final double a, final double b) {
     // (-10 - -20) = -30 / 2 = -15
     if (a < 0 && b < 0) {
-      return (a.abs() + b.abs()) / -2;
+      return (a.abs() + b.abs()) / -_twoInt;
     }
 
     // (+10 + 20) = +30 / 2 = +15
-    return (a + b) / 2;
+    return (a + b) / _twoInt;
   }
 
   List<Pair<int, double>> getListOfCategoryIdAndSum() {

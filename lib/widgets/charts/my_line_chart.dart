@@ -5,13 +5,17 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/charts/chart.dart';
 
+const double _defaultMarginLeft = 80;
+const double _defaultMarginBottom = 50;
+const double _axisLabelFontSize = 10;
+
 class MyLineChart extends StatelessWidget {
   const MyLineChart({
     super.key,
     required this.dataPoints,
     required this.showDots,
-    this.marginLeft = 80,
-    this.marginBottom = 50,
+    this.marginLeft = _defaultMarginLeft,
+    this.marginBottom = _defaultMarginBottom,
   });
 
   final List<FlSpot> dataPoints;
@@ -54,7 +58,7 @@ class MyLineChart extends StatelessWidget {
                 return Text(
                   formatDate(date),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 10),
+                  style: const TextStyle(fontSize: _axisLabelFontSize),
                 ); // Format as HH:MM
               },
             ),

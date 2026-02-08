@@ -20,6 +20,17 @@ class StockDatePrice {
 }
 
 const String flagAsInvalidSymbol = 'invalid-symbol';
+const int _csvHeaderRowIndex = 0;
+const int _csvColumnCount = 2;
+const int _csvDateIndex = 0;
+const int _csvPriceIndex = 1;
+const int _historyYears = 40;
+const int _daysPerYear = 365;
+const int _httpOk = 200;
+const int _httpUnauthorized = 401;
+const int _httpForbidden = 403;
+const int _httpNotFound = 404;
+const int _httpConflict = 409;
 
 class StockPriceHistoryCache {
   StockPriceHistoryCache(this.symbol, this.status, [this.lastDateTime]);
@@ -104,15 +115,15 @@ Future<StockPriceHistoryCache> _loadFromCache(final String symbol) async {
   if (csvContent != null) {
     final List<String> csvLines = csvContent.split('\n');
 
-    for (int row = 0; row < csvLines.length; row++) {
-      if (row == 0) {
+    for (int row = _csvHeaderRowIndex; row < csvLines.length; row++) {
+      if (row == _csvHeaderRowIndex) {
         // skip header
       } else {
         final List<String> twoColumns = csvLines[row].split(',');
-        if (twoColumns.length == 2) {
+        if (twoColumns.length == _csvColumnCount) {
           final StockDatePrice sp = StockDatePrice(
-            date: DateTime.parse(twoColumns[0]),
-            price: double.parse(twoColumns[1]),
+            date: DateTime.parse(twoColumns[_csvDateIndex]),
+            price: double.parse(twoColumns[_csvPriceIndex]),
           );
           stockPriceHistoryCache.prices.add(sp);
         }
@@ -135,7 +146,7 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
   }
 
   final DateTime numberOfDaysInThePast = DateTime.now().subtract(
-    const Duration(days: 365 * 40),
+    const Duration(days: _daysPerYear * _historyYears),
   );
 
   final String url =
@@ -150,22 +161,22 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
 
   final http.Response response = await http.get(uri);
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == _httpOk) {
     try {
       final MyJson data = json.decode(response.body) as MyJson;
-      if (data['code'] == 401) {
+      if (data['code'] == _httpUnauthorized) {
         //data['message'];
         result.status = StockLookupStatus.invalidApiKey;
         return result;
       }
 
-      if (data['code'] == 403 || data['code'] == 404) {
+      if (data['code'] == _httpForbidden || data['code'] == _httpNotFound) {
         // SYMBOL NOT FOUND
         result.status = StockLookupStatus.invalidSymbol;
         return result;
       }
 
-      if (data['code'] == 409) {
+      if (data['code'] == _httpConflict) {
         // API error
         // You have run out of API credits for the current minute. 9 API credits were used, with the current limit being 8. Wait for the new...
         result.status = StockLookupStatus.invalidApiKey;

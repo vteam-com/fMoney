@@ -12,6 +12,8 @@ import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/value_quality.dart';
 
+const double _previewHeight = 400.0;
+
 class ImportData {
   List<ImportEntry> entries = <ImportEntry>[];
   String fileType = '';
@@ -140,7 +142,7 @@ void _showAndConfirmTransactionToImport(
       '${list.length} transactions found in $fileType file, to be imported into "${account.fieldName.value}"';
 
   final Widget questionContent = SizedBox(
-    height: 400,
+    height: _previewHeight,
     child: Center(
       child: ImportTransactionsListPreview(
         accountId: account.uniqueId,

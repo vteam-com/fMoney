@@ -9,6 +9,13 @@ import 'package:money/widgets/three_part_label.dart';
 export 'package:flutter/material.dart';
 export 'package:money/widgets/scale_down.dart';
 
+const int _zeroInt = 0;
+const int _autoSubmitDisabled = -1;
+const double _actionRowHeight = 40.0;
+const double _filterWidth = 200.0;
+const double _headerPadding = 8.0;
+const double _headerSpacing = 10.0;
+
 /// A widget that displays a header for a view.
 ///
 /// This widget can display a title, description, item count, filter input,
@@ -91,7 +98,7 @@ class ViewHeader extends StatelessWidget {
   /// Builds the container for the view header.
   static Widget buildViewHeaderContainer(BuildContext context, Widget child) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(_headerPadding),
       decoration: BoxDecoration(color: getColorTheme(context).surfaceContainer),
       child: child,
     );
@@ -150,7 +157,7 @@ class ViewHeader extends StatelessWidget {
       // Multiple-Selection
       if (multipleSelection != null) {
         listOfActionButtons.insert(
-          0,
+          _zeroInt,
           MultipleSelectionToggle(multipleSelection: multipleSelection),
         );
       }
@@ -158,7 +165,7 @@ class ViewHeader extends StatelessWidget {
       widgets.add(
         IntrinsicWidth(
           child: SizedBox(
-            height: 40,
+            height: _actionRowHeight,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: listOfActionButtons,
@@ -175,11 +182,11 @@ class ViewHeader extends StatelessWidget {
     if (onTextFilterChanged != null) {
       widgets.add(
         SizedBox(
-          width: 200,
+          width: _filterWidth,
           child: FilterInput(
             hintText: 'Filter',
             initialValue: textFilter,
-            autoSubmitAfterSeconds: -1, // -1 do not auto submit, user has to press Enter
+            autoSubmitAfterSeconds: _autoSubmitDisabled,
             onChanged: (final String text) {
               onTextFilterChanged!(text);
             },
@@ -202,8 +209,8 @@ class ViewHeader extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Wrap(
-            spacing: 10.0, // Adjust spacing between child elements
-            runSpacing: 10.0,
+            spacing: _headerSpacing,
+            runSpacing: _headerSpacing,
             alignment: WrapAlignment.spaceBetween,
             children: widgets,
           ),

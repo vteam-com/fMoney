@@ -4,6 +4,11 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/columns/input_values.dart';
 import 'package:money/widgets/value_parser.dart';
 
+const int _tabCount = 2;
+const int _threeColumnsTabIndex = 0;
+const int _freeStyleTabIndex = 1;
+const int _descriptionColumnFlex = 2;
+
 /// A widget that provides input functionality for financial data in either
 /// three-column format (date, description, amount) or single-column freestyle format.
 class InputByColumnsOrFreeStyle extends StatefulWidget {
@@ -72,8 +77,8 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
-      initialIndex: _freeStyleInput ? 1 : 0,
+      length: _tabCount,
+      initialIndex: _freeStyleInput ? _freeStyleTabIndex : _threeColumnsTabIndex,
       child: Column(
         children: <Widget>[
           TabBar(
@@ -88,7 +93,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
               ),
             ],
             onTap: (int index) {
-              _freeStyleInput = index == 1;
+              _freeStyleInput = index == _freeStyleTabIndex;
               if (_freeStyleInput) {
                 _fromThreeToOneColumn();
               } else {
@@ -146,7 +151,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: _descriptionColumnFlex,
           child: InputValues(
             title: 'Description',
             controller: _controllerColumn2,

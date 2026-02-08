@@ -1,6 +1,9 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/box.dart';
 
+const double _boxWidth = 300;
+const double _boxMargin = 10;
+
 class BoxWithScrollingContent extends StatelessWidget {
   const BoxWithScrollingContent({
     super.key,
@@ -14,10 +17,10 @@ class BoxWithScrollingContent extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Box(
     color: getColorTheme(context).surface,
-    width: 300,
+    width: _boxWidth,
     height: height,
     // height: 300,
-    margin: 10,
+    margin: _boxMargin,
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

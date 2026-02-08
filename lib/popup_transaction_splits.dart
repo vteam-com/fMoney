@@ -8,6 +8,12 @@ import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mutation_types.dart';
 
+const double _splitListHeight = 300;
+const double _splitListWidth = 800;
+const int _unsetId = -1;
+const double _zeroAmount = 0.0;
+const int _defaultFlags = 0;
+
 void showTransactionSplits(final Transaction transaction) {
   adaptiveScreenSizeDialog(
     context: Get.context!,
@@ -19,8 +25,8 @@ void showTransactionSplits(final Transaction transaction) {
           Text(transaction.toString()),
           gapLarge(),
           SizedBox(
-            height: 300,
-            width: 800,
+            height: _splitListHeight,
+            width: _splitListWidth,
             child: ListViewTransactionSplits(
               splits: transaction.splits,
               totalAmount: transaction.fieldAmount.value.asDouble(),
@@ -36,12 +42,12 @@ void showTransactionSplits(final Transaction transaction) {
           final TransactionSplit newSplit = TransactionSplit(
             id: transaction.splits.length,
             transactionId: transaction.uniqueId,
-            categoryId: -1,
-            payeeId: -1,
-            amount: 0.00,
-            transferId: -1,
+            categoryId: _unsetId,
+            payeeId: _unsetId,
+            amount: _zeroAmount,
+            transferId: _unsetId,
             memo: '',
-            flags: 0,
+            flags: _defaultFlags,
             budgetBalanceDate: null,
             data: Data(),
           );

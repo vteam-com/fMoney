@@ -3,6 +3,34 @@ import 'package:intl/intl.dart';
 // Exports
 export 'package:intl/intl.dart';
 
+const int _zeroInt = 0;
+const int _singularCount = 1;
+const int _minValidYear = 1900;
+const int _maxValidYear = 2099;
+const int _minValidMonth = 1;
+const int _maxValidMonth = 12;
+const int _minValidDay = 1;
+const int _maxValidDay = 31;
+const int _daysPerYear = 365;
+const int _daysPerMonthApprox = 30;
+const int _qfxYearStart = 0;
+const int _qfxYearEnd = 4;
+const int _qfxMonthStart = 4;
+const int _qfxMonthEnd = 6;
+const int _qfxDayStart = 6;
+const int _qfxDayEnd = 8;
+const int _qfxHourStart = 8;
+const int _qfxHourEnd = 10;
+const int _qfxMinuteStart = 10;
+const int _qfxMinuteEnd = 12;
+const int _qfxSecondStart = 12;
+const int _qfxSecondEnd = 14;
+const int _endOfDayHour = 23;
+const int _endOfDayMinute = 59;
+const int _endOfDaySecond = 59;
+const int _endOfDayMillisecond = 999;
+const int _endOfDayMicrosecond = 999;
+
 List<String> generateAllDateFormats() {
   final List<String> separators = <String>['-', '/'];
   final List<String> yearFormats = <String>['yyyy', 'yy'];
@@ -112,12 +140,12 @@ DateTime? attemptToGetDateFromText(final String text) {
   for (String format in dateFormats) {
     parsedDate = DateFormat(format).tryParse(text);
     if (parsedDate != null &&
-        parsedDate.year >= 1900 &&
-        parsedDate.year <= 2099 &&
-        parsedDate.month >= 1 &&
-        parsedDate.month <= 12 &&
-        parsedDate.day >= 1 &&
-        parsedDate.day <= 31) {
+        parsedDate.year >= _minValidYear &&
+        parsedDate.year <= _maxValidYear &&
+        parsedDate.month >= _minValidMonth &&
+        parsedDate.month <= _maxValidMonth &&
+        parsedDate.day >= _minValidDay &&
+        parsedDate.day <= _maxValidDay) {
       break; // Stop parsing if a valid date is found
     }
   }
@@ -247,12 +275,12 @@ DateTime? parseQfxDataFormat(final String qfxDate) {
   // Extract date components
   try {
     // Extract date and time components
-    final int year = int.parse(qfxDate.substring(0, 4));
-    final int month = int.parse(qfxDate.substring(4, 6));
-    final int day = int.parse(qfxDate.substring(6, 8));
-    final int hour = int.parse(qfxDate.substring(8, 10));
-    final int minute = int.parse(qfxDate.substring(10, 12));
-    final int second = int.parse(qfxDate.substring(12, 14));
+    final int year = int.parse(qfxDate.substring(_qfxYearStart, _qfxYearEnd));
+    final int month = int.parse(qfxDate.substring(_qfxMonthStart, _qfxMonthEnd));
+    final int day = int.parse(qfxDate.substring(_qfxDayStart, _qfxDayEnd));
+    final int hour = int.parse(qfxDate.substring(_qfxHourStart, _qfxHourEnd));
+    final int minute = int.parse(qfxDate.substring(_qfxMinuteStart, _qfxMinuteEnd));
+    final int second = int.parse(qfxDate.substring(_qfxSecondStart, _qfxSecondEnd));
 
     // Create DateTime object
     final DateTime dateTime = DateTime(year, month, day, hour, minute, second);
@@ -280,33 +308,37 @@ String getElapsedTime(DateTime? dateTime, {DateTime? relativeTo}) {
   final DateTime now = relativeTo ?? DateTime.now();
   final Duration difference = now.difference(dateTime);
 
-  if (difference.inDays >= 365) {
-    final int years = difference.inDays ~/ 365;
-    final int remainingDays = difference.inDays % 365;
-    final int months = remainingDays ~/ 30;
-    final int days = remainingDays % 30;
+  if (difference.inDays >= _daysPerYear) {
+    final int years = difference.inDays ~/ _daysPerYear;
+    final int remainingDays = difference.inDays % _daysPerYear;
+    final int months = remainingDays ~/ _daysPerMonthApprox;
+    final int days = remainingDays % _daysPerMonthApprox;
 
-    if (months == 0 && days == 0) {
-      return '$years year${years > 1 ? 's' : ''} ago';
-    } else if (days == 0) {
-      return '$years year${years > 1 ? 's' : ''}, $months month${months > 1 ? 's' : ''} ago';
+    if (months == _zeroInt && days == _zeroInt) {
+      return '$years year${years > _singularCount ? 's' : ''} ago';
+    } else if (days == _zeroInt) {
+      return '$years year${years > _singularCount ? 's' : ''}, '
+          '$months month${months > _singularCount ? 's' : ''} ago';
     } else {
-      return '$years year${years > 1 ? 's' : ''}, $months month${months > 1 ? 's' : ''}, $days day${days > 1 ? 's' : ''} ago';
+      return '$years year${years > _singularCount ? 's' : ''}, '
+          '$months month${months > _singularCount ? 's' : ''}, '
+          '$days day${days > _singularCount ? 's' : ''} ago';
     }
-  } else if (difference.inDays >= 30) {
-    final int months = difference.inDays ~/ 30;
-    final int remainingDays = difference.inDays % 30;
-    if (remainingDays == 0) {
-      return '$months month${months > 1 ? 's' : ''} ago';
+  } else if (difference.inDays >= _daysPerMonthApprox) {
+    final int months = difference.inDays ~/ _daysPerMonthApprox;
+    final int remainingDays = difference.inDays % _daysPerMonthApprox;
+    if (remainingDays == _zeroInt) {
+      return '$months month${months > _singularCount ? 's' : ''} ago';
     } else {
-      return '$months month${months > 1 ? 's' : ''}, $remainingDays day${remainingDays > 1 ? 's' : ''} ago';
+      return '$months month${months > _singularCount ? 's' : ''}, '
+          '$remainingDays day${remainingDays > _singularCount ? 's' : ''} ago';
     }
-  } else if (difference.inDays >= 1) {
-    return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
-  } else if (difference.inHours >= 1) {
-    return '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
-  } else if (difference.inMinutes >= 1) {
-    return '${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago';
+  } else if (difference.inDays >= _singularCount) {
+    return '${difference.inDays} day${difference.inDays > _singularCount ? 's' : ''} ago';
+  } else if (difference.inHours >= _singularCount) {
+    return '${difference.inHours} hour${difference.inHours > _singularCount ? 's' : ''} ago';
+  } else if (difference.inMinutes >= _singularCount) {
+    return '${difference.inMinutes} minute${difference.inMinutes > _singularCount ? 's' : ''} ago';
   } else {
     return 'Just now';
   }
@@ -324,7 +356,16 @@ extension DateTimeExtension on DateTime {
   /// Returns end of a day.
   /// DateTime.now() -> 2019-09-30 17:15:20.294
   /// DateTime.now().endOfDay -> 2019-09-30 23:59:59.999
-  DateTime get endOfDay => DateTime(year, month, day, 23, 59, 59, 999, 999);
+  DateTime get endOfDay => DateTime(
+    year,
+    month,
+    day,
+    _endOfDayHour,
+    _endOfDayMinute,
+    _endOfDaySecond,
+    _endOfDayMillisecond,
+    _endOfDayMicrosecond,
+  );
 }
 
 bool isSameDateWithoutTime(final DateTime? a, final DateTime? b) {

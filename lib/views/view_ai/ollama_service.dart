@@ -7,6 +7,10 @@ import 'package:money/views/view_ai/view_ai_chat_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+const int _exitCodeSuccess = 0;
+const int _httpOkStatus = 200;
+const int _startupDelaySeconds = 5;
+
 class OllamaStatus {
   OllamaStatus({
     required this.isInstalled,
@@ -23,7 +27,7 @@ class OllamaService {
   static Future<bool> checkIfOllamaInstalled() async {
     try {
       final ProcessResult installResult = await Process.run('which', <String>['ollama']);
-      return installResult.exitCode == 0;
+      return installResult.exitCode == _exitCodeSuccess;
     } catch (e) {
       debugPrint('Ollama check error: $e');
       return false;
@@ -38,7 +42,7 @@ class OllamaService {
           .getUrl(ollamaUrl)
           .then((HttpClientRequest request) => request.close());
 
-      return (response.statusCode == 200);
+      return (response.statusCode == _httpOkStatus);
     } catch (e) {
       debugPrint(e.toString());
       return false;
@@ -60,7 +64,7 @@ class OllamaService {
       try {
         final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
         final HttpClientResponse response = await request.close();
-        if (response.statusCode == 200) {
+        if (response.statusCode == _httpOkStatus) {
           debugPrint('Ollama is already running.');
           return;
         }
@@ -97,13 +101,13 @@ class OllamaService {
         throw UnsupportedError('Unsupported platform');
       }
 
-      await Future<dynamic>.delayed(const Duration(seconds: 5));
+      await Future<dynamic>.delayed(const Duration(seconds: _startupDelaySeconds));
 
       final HttpClient verifyClient = HttpClient();
       final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
       final HttpClientResponse verifyResponse = await verifyRequest.close();
 
-      if (verifyResponse.statusCode == 200) {
+      if (verifyResponse.statusCode == _httpOkStatus) {
         if (kDebugMode) {
           debugPrint('✅ Ollama started and responding.');
         }
@@ -124,7 +128,7 @@ class OllamaService {
       final HttpClient client = HttpClient();
       final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
       final HttpClientResponse response = await request.close();
-      if (response.statusCode == 200) {
+      if (response.statusCode == _httpOkStatus) {
         final String responseBody = await response.transform(utf8.decoder).join();
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
@@ -254,7 +258,7 @@ class OllamaService {
 
     final HttpClientResponse response = await request.close();
     final String responseBody = await response.transform(utf8.decoder).join();
-    if (response.statusCode == 200) {
+    if (response.statusCode == _httpOkStatus) {
       client.close();
       return jsonDecode(responseBody) as Map<String, dynamic>;
     } else {

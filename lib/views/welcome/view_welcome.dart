@@ -5,6 +5,10 @@ import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/mru_dropdown.dart';
 import 'package:money/widgets/gaps.dart';
 
+const double _welcomeTextFontSize = 16.0;
+const double _welcomeButtonSpacing = 10.0;
+const double _footerOpacity = 0.5;
+
 /// The `WelcomeScreen` is a `StatelessWidget` that represents the welcome screen of the application.
 /// It provides the user with options to create a new file, open an existing file, or use demo data.
 class WelcomeScreen extends StatelessWidget {
@@ -18,13 +22,16 @@ class WelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Spacer(),
-          const Text('Choose an option to get started:', style: TextStyle(fontSize: 16)),
+          const Text(
+            'Choose an option to get started:',
+            style: TextStyle(fontSize: _welcomeTextFontSize),
+          ),
           gapLarge(),
           Wrap(
             alignment: WrapAlignment.center,
             runAlignment: WrapAlignment.center,
-            spacing: 10,
-            runSpacing: 10,
+            spacing: _welcomeButtonSpacing,
+            runSpacing: _welcomeButtonSpacing,
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {
@@ -57,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
           const Spacer(),
           IntrinsicWidth(
             child: Opacity(
-              opacity: 0.5,
+              opacity: _footerOpacity,
               child: Row(
                 children: <Widget>[
                   TextButton(

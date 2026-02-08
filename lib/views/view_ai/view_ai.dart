@@ -16,6 +16,9 @@ import 'package:money/widgets/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/working.dart';
 
+const double _checkingSpacing = 32.0;
+const double _checkingIconSize = 64.0;
+
 /// ViewAI - AI-Powered Financial Assistant
 ///
 /// This widget provides an AI chat interface for financial data analysis.
@@ -252,16 +255,16 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          spacing: 32,
+          spacing: _checkingSpacing,
           children: <Widget>[
             MySvg(
               assetName: 'ollama.svg',
-              size: 64,
+              size: _checkingIconSize,
               color: getColorTheme(context).primary,
             ),
             const Text('Checking Ollama status...'),
             const WorkingIndicator(
-              size: 64,
+              size: _checkingIconSize,
             ),
           ],
         ),

@@ -6,6 +6,9 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _singleCategoryCount = 1;
+const int _doubleCategoryCount = 2;
+
 /*
   SQLite table definition
 
@@ -119,10 +122,10 @@ class Payee extends DataObject {
       return '';
     }
 
-    if (categories.length == 1) {
+    if (categories.length == _singleCategoryCount) {
       return categories.first;
     }
-    if (categories.length == 2) {
+    if (categories.length == _doubleCategoryCount) {
       return categories.join('; ');
     }
     return '${getIntAsText(categories.length)} categories';

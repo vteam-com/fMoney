@@ -15,6 +15,14 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const double _zeroDouble = 0.0;
+const double _oneDouble = 1.0;
+const int _positiveMultiplier = 1;
+const int _negativeMultiplier = -1;
+
 class Investment extends DataObject {
   Investment({
     required final int id, // 1
@@ -23,13 +31,13 @@ class Investment extends DataObject {
     required final double units, // 3
     required final int investmentType, // 9
     required final int tradeType, // 10
-    final double commission = 0, // 4
-    final double markUpDown = 0, // 5
-    final double taxes = 0, // 6
-    final double fees = 0, // 7
-    final double load = 0, // 8
-    final int taxExempt = 0, // 11
-    final double withholding = 0, // 12
+    final double commission = _zeroDouble, // 4
+    final double markUpDown = _zeroDouble, // 5
+    final double taxes = _zeroDouble, // 6
+    final double fees = _zeroDouble, // 7
+    final double load = _zeroDouble, // 8
+    final int taxExempt = _zeroInt, // 11
+    final double withholding = _zeroDouble, // 12
     this.data,
   }) {
     this.fieldId.value = id;
@@ -51,7 +59,7 @@ class Investment extends DataObject {
   factory Investment.fromJson(final MyJson row, [DataAbstract? data]) {
     return Investment(
       // 1
-      id: row.getInt('Id', -1),
+      id: row.getInt('Id', _unsetId),
       // 1
       security: row.getInt('Security'),
       // 2
@@ -215,7 +223,7 @@ class Investment extends DataObject {
     align: TextAlign.center,
     type: FieldType.text,
     getValueForDisplay: (final DataInterface instance) =>
-        (instance as Investment).fieldTaxExempt.value == 1 ? 'No' : 'Yes',
+        (instance as Investment).fieldTaxExempt.value == _oneInt ? 'No' : 'Yes',
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value,
   );
 
@@ -319,7 +327,7 @@ class Investment extends DataObject {
         (instance as Investment).fieldWithholding.value.asDouble(),
   );
 
-  double _splitRatio = 1;
+  double _splitRatio = _oneDouble;
 
   /// The actual transaction date.
   dynamic _transactionInstance;
@@ -361,13 +369,13 @@ class Investment extends DataObject {
     if (transaction != null) {
       return transaction.fieldAmount.value.asDouble() as double;
     }
-    return 0.00;
+    return _zeroDouble;
     // }
     // return 0.00;
   }
 
   void applySplits() {
-    _splitRatio = data?.getSplitRatioForSecurityBeforeDate(fieldSecurity.value, date) ?? 1.0;
+    _splitRatio = data?.getSplitRatioForSecurityBeforeDate(fieldSecurity.value, date) ?? _oneDouble;
   }
 
   double get costForShares => this.effectiveUnitsAdjusted * this.unitPriceAdjusted;
@@ -381,8 +389,8 @@ class Investment extends DataObject {
   }
 
   double get effectiveUnits {
-    if (this.fieldUnits.value == 0) {
-      return 0;
+    if (this.fieldUnits.value == _zeroDouble) {
+      return _zeroDouble;
     }
 
     return this.fieldUnits.value * _signBasedOnActivity;
@@ -391,8 +399,8 @@ class Investment extends DataObject {
   // Buy is a positive value
   // Sell is negative value
   double get effectiveUnitsAdjusted {
-    if (this.fieldUnits.value == 0) {
-      return 0;
+    if (this.fieldUnits.value == _zeroDouble) {
+      return _zeroDouble;
     }
 
     return this.fieldUnits.value * this._splitRatio * _signBasedOnActivity;
@@ -455,7 +463,7 @@ class Investment extends DataObject {
 
   StockCumulative get finalAmount {
     final StockCumulative cumulative = StockCumulative();
-    cumulative.quantity = -1 * effectiveUnits * this.fieldUnitPrice.value.asDouble();
+    cumulative.quantity = _negativeMultiplier * effectiveUnits * this.fieldUnitPrice.value.asDouble();
     cumulative.amount += this.fieldCommission.value.asDouble();
     return cumulative;
   }
@@ -465,7 +473,7 @@ class Investment extends DataObject {
     final double proceeds = this.fieldUnitPrice.value.asDouble() * this.fieldUnits.value;
 
     final dynamic transaction = transactionInstance;
-    if (transaction != null && transaction.fieldAmount.value.asDouble() != 0) {
+    if (transaction != null && transaction.fieldAmount.value.asDouble() != _zeroDouble) {
       // We may have paid more for the stock than "price" in a buy transaction because of brokerage fees and
       // this can be included in the cost basis.  We may have also received less than "price" in a sale
       // transaction, and that can also reduce our capital gain, so we use the transaction amount if we
@@ -485,7 +493,7 @@ class Investment extends DataObject {
   ) {
     int result = sortByDate(a.date, b.date, ascending);
 
-    if (result == 0) {
+    if (result == _zeroInt) {
       // If on the same date sort so that "Buy" is before "Sell"
       result = sortByValue(
         a.fieldInvestmentType.value,
@@ -494,7 +502,7 @@ class Investment extends DataObject {
       );
     }
 
-    // if (result == 0) {
+    // if (result == _zeroInt) {
     //   // then if needed sort by amount
     //   result = sortByValue(
     //     a.finalAmount.amount.abs(),
@@ -529,7 +537,7 @@ class Investment extends DataObject {
         return (transaction.fieldAmount.value.asDouble()) as double;
       }
     }
-    return 0.00;
+    return _zeroDouble;
   }
 
   String get _investmentTypeAsString => getInvestmentTypeTextFromValue(this.fieldInvestmentType.value);
@@ -539,8 +547,8 @@ class Investment extends DataObject {
         InvestmentType.buy,
         InvestmentType.add,
       ].contains(getInvestmentTypeFromValue(this.fieldInvestmentType.value))
-      ? 1
-      : -1;
+      ? _positiveMultiplier
+      : _negativeMultiplier;
 
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
 

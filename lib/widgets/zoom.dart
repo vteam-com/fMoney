@@ -4,6 +4,9 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
 
+const double _defaultTextScale = 1.0;
+const int _percentScale = 100;
+
 /// ( - )  100% ( + )
 class ZoomIncreaseDecrease extends StatefulWidget {
   const ZoomIncreaseDecrease({
@@ -54,7 +57,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
           child: TextButton(
             onPressed: () {
               setState(() {
-                ThemeController.to.setFontScaleTo(1.0);
+                ThemeController.to.setFontScaleTo(_defaultTextScale);
                 updateZoomTextFromValue();
               });
             },
@@ -77,6 +80,6 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
   }
 
   void updateZoomTextFromValue() {
-    zoomValueAsText = '${(preferenceController.textScale * 100).toInt()}%';
+    zoomValueAsText = '${(preferenceController.textScale * _percentScale).toInt()}%';
   }
 }

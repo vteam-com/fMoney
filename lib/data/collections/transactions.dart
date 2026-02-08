@@ -15,6 +15,13 @@ import 'package:money/helpers/ranges.dart';
 
 export 'package:money/data/entities/transaction.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const double _zeroDouble = 0.0;
+const int _yearTokenIndex = 0;
+const int _monthTokenIndex = 1;
+const int _dayTokenIndex = 2;
+
 class Transactions extends MoneyObjects<Transaction> {
   Transactions() {
     collectionName = 'Transactions';
@@ -23,13 +30,13 @@ class Transactions extends MoneyObjects<Transaction> {
 
   DateRange dateRangeActiveAccount = DateRange();
   DateRange dateRangeIncludingClosedAccount = DateRange();
-  double runningBalance = 0.00;
+  double runningBalance = _zeroDouble;
 
   @override
   void loadFromJson(final List<MyJson> rows) {
     clear();
 
-    runningBalance = 0.00;
+    runningBalance = _zeroDouble;
 
     for (final MyJson row in rows) {
       final Transaction t = Transaction.fromJSon(row, runningBalance);
@@ -47,7 +54,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
     final List<Transaction> transactionsWithCategories = getListFlattenSplits();
     for (final Transaction t in transactionsWithCategories) {
-      if (t.fieldCategoryId.value != -1) {
+      if (t.fieldCategoryId.value != _unsetId) {
         accountsToPayeeNameToCategories.cumulate(
           t.fieldAccountId.value,
           t.getPayeeOrTransferCaption(),
@@ -65,14 +72,14 @@ class Transactions extends MoneyObjects<Transaction> {
 
     for (final Transaction transactionSource in iterableList()) {
       // Pre computer possible category matching for Transaction that have no associated categories
-      if (transactionSource.fieldCategoryId.value == -1) {
+      if (transactionSource.fieldCategoryId.value == _unsetId) {
         // watchFind.start();
         final Set<int> setOfPossibleCategoryId = accountsToPayeeNameToCategories.find(
           transactionSource.fieldAccountId.value,
           transactionSource.getPayeeOrTransferCaption(),
         );
         transactionSource.possibleMatchingCategoryId = setOfPossibleCategoryId.isEmpty
-            ? -1
+            ? _unsetId
             : setOfPossibleCategoryId.first;
         // watchFind.stop();
       }
@@ -89,7 +96,7 @@ class Transactions extends MoneyObjects<Transaction> {
       final int transferId = transactionSource.fieldTransfer.value;
       transactionSource.instanceOfTransfer = null;
 
-      if (transactionSource.fieldTransferSplit.value > 0) {
+      if (transactionSource.fieldTransferSplit.value > _zeroInt) {
         // deal with transfer of split
         // Split transfer
         // if (transactionSource.transferSplit.value != -1) {
@@ -110,7 +117,7 @@ class Transactions extends MoneyObjects<Transaction> {
       }
 
       // Simple Transfer
-      if (transferId == -1) {
+      if (transferId == _unsetId) {
         if (transactionSource.instanceOfTransfer == null) {
           // this is correct
         } else {
@@ -131,7 +138,7 @@ class Transactions extends MoneyObjects<Transaction> {
         }
 
         // hydrate the Transfer
-        if (transactionSource.fieldTransferSplit.value == -1) {
+        if (transactionSource.fieldTransferSplit.value == _unsetId) {
           // Normal direct transfer
           linkTransfer(transactionSource, transactionRelated);
           continue;
@@ -175,7 +182,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
     // Add events to the accumulator with zero amount
     for (final DateTime eventDate in data.getEventDates()) {
-      cumulateYearMonthBalance.cumulate(dateToString(eventDate), 0.0);
+      cumulateYearMonthBalance.cumulate(dateToString(eventDate), _zeroDouble);
     }
 
     final List<FlSpot> tmpDataPoints = <FlSpot>[];
@@ -184,9 +191,9 @@ class Transactions extends MoneyObjects<Transaction> {
     ) {
       final List<String> tokens = entry.key.split('-');
       final DateTime dateForYearMonth = DateTime(
-        int.parse(tokens[0]),
-        int.parse(tokens[1]),
-        int.parse(tokens[2]),
+        int.parse(tokens[_yearTokenIndex]),
+        int.parse(tokens[_monthTokenIndex]),
+        int.parse(tokens[_dayTokenIndex]),
       );
       tmpDataPoints.add(
         FlSpot(dateForYearMonth.millisecondsSinceEpoch.toDouble(), entry.value),
@@ -195,7 +202,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
     tmpDataPoints.sort((FlSpot a, FlSpot b) => a.x.compareTo(b.x));
 
-    double netWorth = 0;
+    double netWorth = _zeroDouble;
     final List<FlSpot> tmpDataPointsWithNetWorth = <FlSpot>[];
     for (final FlSpot dp in tmpDataPoints) {
       netWorth += dp.y;
@@ -214,7 +221,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return iterableList(includeDeleted: true).firstWhereOrNull((
       Transaction transaction,
     ) {
-      if ((accountId == -1 || transaction.fieldAccountId.value == accountId) &&
+      if ((accountId == _unsetId || transaction.fieldAccountId.value == accountId) &&
           transaction.fieldAmount.value.asDouble() == amount &&
           dateRange.isBetweenEqual(transaction.fieldDateTime.value)) {
         return true;
@@ -236,7 +243,7 @@ class Transactions extends MoneyObjects<Transaction> {
     if (transactionMatchingAccountPayeeAndHasCategory != null) {
       return transactionMatchingAccountPayeeAndHasCategory.fieldCategoryId.value;
     }
-    return -1;
+    return _unsetId;
   }
 
   Iterable<Transaction> findTransfersToAccount(final Account a) {
@@ -308,7 +315,7 @@ class Transactions extends MoneyObjects<Transaction> {
                     status: t.fieldStatus.value,
                   )
                   ..fieldAccountId.value = t.fieldAccountId.value
-                  ..fieldPayee.value = s.fieldPayeeId.value == -1 ? t.fieldPayee.value : s.fieldPayeeId.value
+                  ..fieldPayee.value = s.fieldPayeeId.value == _unsetId ? t.fieldPayee.value : s.fieldPayeeId.value
                   ..fieldCategoryId.value = s.fieldCategoryId.value
                   ..fieldMemo.value = s.fieldMemo.value
                   ..fieldAmount.value = s.fieldAmount.value;
@@ -336,8 +343,8 @@ class Transactions extends MoneyObjects<Transaction> {
             maxYear,
           ) &&
           (incomesOrExpenses == null ||
-              (incomesOrExpenses == true && element.fieldAmount.value.asDouble() > 0) ||
-              (incomesOrExpenses == false && element.fieldAmount.value.asDouble() < 0)),
+              (incomesOrExpenses == true && element.fieldAmount.value.asDouble() > _zeroDouble) ||
+              (incomesOrExpenses == false && element.fieldAmount.value.asDouble() < _zeroDouble)),
     );
   }
 
@@ -370,7 +377,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
     for (final Transaction t in transactions) {
       final String key = keyGenerator(t.fieldDateTime.value!);
-      sums[key] = (sums[key] ?? 0) + t.fieldAmount.value.asDouble();
+      sums[key] = (sums[key] ?? _zeroDouble) + t.fieldAmount.value.asDouble();
     }
 
     final List<PairXYY> result = sums.entries.map((MapEntry<String, double> e) => PairXYY(e.key, e.value)).toList();

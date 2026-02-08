@@ -1,6 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+const double _defaultBorderSize = 2;
+const List<double> _transparentDashPattern = <double>[4.0, 2.0];
+const List<double> _solidDashPattern = <double>[100.0, 0.0];
+
 class MyRectangle extends StatelessWidget {
   const MyRectangle({
     required this.size,
@@ -9,7 +13,7 @@ class MyRectangle extends StatelessWidget {
     this.colorBorder = Colors.grey,
     this.shape = BoxShape.rectangle,
     this.showBorder = false,
-    this.borderSize = 2,
+    this.borderSize = _defaultBorderSize,
   });
 
   final double borderSize;
@@ -24,7 +28,7 @@ class MyRectangle extends StatelessWidget {
     return DottedBorder(
       options: CircularDottedBorderOptions(
         padding: EdgeInsets.zero,
-        dashPattern: colorFill == Colors.transparent ? const <double>[4.0, 2.0] : const <double>[100.0, 0.0],
+        dashPattern: colorFill == Colors.transparent ? _transparentDashPattern : _solidDashPattern,
         color: colorBorder,
         strokeWidth: borderSize,
       ),

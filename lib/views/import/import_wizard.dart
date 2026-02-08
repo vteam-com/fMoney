@@ -12,6 +12,8 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/wizard_choice.dart';
 
+const double _wizardSpacing = 40.0;
+
 void showImportTransactionsWizard() {
   final BuildContext originalContext = Get.context!; // Store the original context
 
@@ -22,7 +24,7 @@ void showImportTransactionsWizard() {
     child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 40,
+        spacing: _wizardSpacing,
         children: <Widget>[
           gapMedium(),
           WizardChoice(

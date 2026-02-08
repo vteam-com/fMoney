@@ -2,6 +2,15 @@ import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/theme_custom.dart';
 
+const int _defaultDurationSeconds = 5;
+const int _persistDurationDays = 1;
+const double _titleFontSize = 14;
+const double _messageFontSize = 13;
+const double _contentSpacing = 4;
+const double _snackBarMargin = 8;
+const double _snackBarBorderRadius = 8;
+const double _snackBarElevation = 6;
+
 /// Global snackbar service that works without BuildContext.
 /// Uses Flutter 3.38.0 Material snackbar improvements with custom overlay management.
 /// Supports multiple concurrent snackbars, better accessibility, and testability.
@@ -43,7 +52,7 @@ class SnackBarService {
     required String message,
     bool autoDismiss = true,
     Color? backgroundColor,
-    int duration = 5,
+    int duration = _defaultDurationSeconds,
     SnackBarAction? action,
   }) {
     // Skip showing snackbars in testing mode
@@ -65,18 +74,18 @@ class SnackBarService {
             style: TextStyle(
               color: textColor,
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: _titleFontSize,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: _contentSpacing),
           SelectableText(
             message,
-            style: TextStyle(color: textColor, fontSize: 13),
+            style: TextStyle(color: textColor, fontSize: _messageFontSize),
           ),
         ],
       ),
       backgroundColor: bgColor,
-      duration: autoDismiss ? Duration(seconds: duration) : const Duration(days: 1),
+      duration: autoDismiss ? Duration(seconds: duration) : const Duration(days: _persistDurationDays),
       action:
           action ??
           SnackBarAction(
@@ -92,11 +101,11 @@ class SnackBarService {
             },
           ),
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(_snackBarMargin),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(_snackBarBorderRadius),
       ),
-      elevation: 6,
+      elevation: _snackBarElevation,
       dismissDirection: DismissDirection.horizontal,
     );
 

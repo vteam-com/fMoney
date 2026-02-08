@@ -1,5 +1,8 @@
 import 'package:money/helpers/color_helper.dart';
 
+const double _popupMenuBorderWidth = 2;
+const double _popupMenuBorderRadius = 8;
+
 PopupMenuButton<int> myPopupMenuIconButton({
   final Key? key,
   required final BuildContext context,
@@ -16,9 +19,11 @@ PopupMenuButton<int> myPopupMenuIconButton({
     shape: RoundedRectangleBorder(
       side: BorderSide(
         color: Theme.of(context).colorScheme.primary,
-        width: 2,
+        width: _popupMenuBorderWidth,
       ), // Set the border color and width
-      borderRadius: BorderRadius.circular(8), // Set the border radius
+      borderRadius: BorderRadius.circular(
+        _popupMenuBorderRadius,
+      ), // Set the border radius
     ),
     itemBuilder: (final BuildContext context) {
       return list;

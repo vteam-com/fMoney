@@ -1,5 +1,12 @@
 import 'package:money/helpers/color_helper.dart';
 
+const double _inputPadding = 16.0;
+const double _inputSpacing = 8.0;
+const int _outlineAlpha = 100;
+const double _inputRadius = 24.0;
+const double _inputHorizontalPadding = 16.0;
+const double _inputVerticalPadding = 12.0;
+
 class ChatInputArea extends StatefulWidget {
   const ChatInputArea({
     super.key,
@@ -31,20 +38,20 @@ class _ChatInputAreaState extends State<ChatInputArea> {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(_inputPadding),
       decoration: BoxDecoration(
         color: getColorTheme(context).surfaceContainer,
         border: Border(
-          top: BorderSide(color: getColorTheme(context).outline.withAlpha(100)),
+          top: BorderSide(color: getColorTheme(context).outline.withAlpha(_outlineAlpha)),
         ),
       ),
       child: Column(
-        spacing: 8,
+        spacing: _inputSpacing,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            spacing: _inputSpacing,
+            runSpacing: _inputSpacing,
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
@@ -69,7 +76,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
             ],
           ),
           Row(
-            spacing: 8,
+            spacing: _inputSpacing,
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {
@@ -83,9 +90,12 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                   decoration: InputDecoration(
                     hintText: 'Ask the AI assistant...',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(_inputRadius),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: _inputHorizontalPadding,
+                      vertical: _inputVerticalPadding,
+                    ),
                     filled: true,
                     fillColor: getColorTheme(context).surface,
                   ),

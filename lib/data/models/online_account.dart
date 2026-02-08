@@ -3,6 +3,8 @@ import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const int _unsetId = -1;
+
 /*
   0    Id                 INT             0                    1
   1    Name               nvarchar(80)    1                    0
@@ -72,7 +74,7 @@ class OnlineAccount extends DataObject {
       bankId: row.getString('BankId'),
       // 12
       branchId: row.getString('BranchId'),
-    )..fieldId.value = row.getInt('Id', -1);
+    )..fieldId.value = row.getInt('Id', _unsetId);
   }
 
   // 10

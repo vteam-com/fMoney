@@ -3,6 +3,13 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';
 
+const double _footerSpacing = 12.0;
+const double _footerOpacity = 0.7;
+const double _footerIconSpacing = 8.0;
+const double _footerFontSize = 12.0;
+const double _footerIconSize = 18.0;
+const double _footerIconPadding = 4.0;
+
 class ChatMessageFooter extends StatelessWidget {
   const ChatMessageFooter({
     super.key,
@@ -27,7 +34,7 @@ class ChatMessageFooter extends StatelessWidget {
         // Left side: read more/read less and elapsed time
         Row(
           mainAxisSize: MainAxisSize.min,
-          spacing: 12,
+          spacing: _footerSpacing,
           children: <Widget>[
             if (shouldTruncate)
               TextButton(
@@ -41,16 +48,16 @@ class ChatMessageFooter extends StatelessWidget {
                   message.isExpanded ? 'Read Less' : 'Read More',
                   style: TextStyle(
                     color: getColorTheme(context).primary,
-                    fontSize: 12,
+                    fontSize: _footerFontSize,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
             Opacity(
-              opacity: 0.7,
+              opacity: _footerOpacity,
               child: Text(
                 getElapsedTime(message.timestamp),
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: _footerFontSize),
               ),
             ),
           ],
@@ -59,14 +66,14 @@ class ChatMessageFooter extends StatelessWidget {
         // Right side: copy and view details
         Row(
           mainAxisSize: MainAxisSize.min,
-          spacing: 8,
+          spacing: _footerIconSpacing,
           children: <Widget>[
             IconButton(
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: message.message));
               },
-              icon: const Icon(Icons.copy, size: 18),
-              padding: const EdgeInsets.all(4),
+              icon: const Icon(Icons.copy, size: _footerIconSize),
+              padding: const EdgeInsets.all(_footerIconPadding),
               constraints: const BoxConstraints(),
               tooltip: 'Copy message to clipboard',
             ),
@@ -74,9 +81,9 @@ class ChatMessageFooter extends StatelessWidget {
               onPressed: onViewDetails,
               icon: Icon(
                 isUser ? Icons.comment : Icons.info,
-                size: 18,
+                size: _footerIconSize,
               ),
-              padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.all(_footerIconPadding),
               constraints: const BoxConstraints(),
               tooltip: isUser ? 'View prompt details' : 'View message details',
             ),

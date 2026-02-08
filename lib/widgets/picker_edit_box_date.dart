@@ -4,6 +4,8 @@ import 'package:money/widgets/default_values.dart';
 import 'package:money/widgets/icon_button.dart';
 import 'package:money/widgets/my_text_input.dart';
 
+const int _minDateYear = 1950;
+
 class PickerEditBoxDate extends StatefulWidget {
   const PickerEditBoxDate({
     required this.onChanged,
@@ -52,7 +54,7 @@ class PickerEditBoxDateState extends State<PickerEditBoxDate> {
             final DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: dateSelected,
-              firstDate: DateTime(1950),
+              firstDate: DateTime(_minDateYear),
               lastDate: DateTime.now(),
             );
             if (pickedDate != null) {

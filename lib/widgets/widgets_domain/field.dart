@@ -1,3 +1,5 @@
+// ignore: fcheck_one_class_per_file
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -14,6 +16,13 @@ import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
+
+const double _percentZeroOpacity = 0.4;
+const double _percentNonZeroOpacity = 1.0;
+const double _percentSymbolOpacity = 0.8;
+const int _percentValueScale = 100;
+const int _percentDecimalPlaces = 3;
+const double _percentSymbolFontSize = 9;
 
 dynamic defaultCallbackValue(final DataInterface instance) => '';
 
@@ -811,16 +820,16 @@ Widget buildFieldWidgetForPercentage({final double value = 0}) {
     mainAxisAlignment: MainAxisAlignment.end,
     children: <Widget>[
       Opacity(
-        opacity: value == 0 ? 0.4 : 1,
+        opacity: value == 0 ? _percentZeroOpacity : _percentNonZeroOpacity,
         child: Text(
-          (value * 100).toStringAsFixed(3),
+          (value * _percentValueScale).toStringAsFixed(_percentDecimalPlaces),
           textAlign: TextAlign.right,
           style: const TextStyle(fontFamily: 'RobotoMono'),
         ),
       ),
       const Opacity(
-        opacity: 0.8,
-        child: Text(' %', style: TextStyle(fontSize: 9)),
+        opacity: _percentSymbolOpacity,
+        child: Text(' %', style: TextStyle(fontSize: _percentSymbolFontSize)),
       ),
     ],
   );

@@ -4,6 +4,9 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_text_input.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+const double _dialogWidth = 400;
+const double _dialogHeight = 200;
+
 Future<void> showTextInputDialog({
   required BuildContext context,
   required void Function(String) onContinue,
@@ -20,8 +23,8 @@ Future<void> showTextInputDialog({
       return AlertDialog(
         title: Text(title),
         content: SizedBox(
-          width: 400,
-          height: 200,
+          width: _dialogWidth,
+          height: _dialogHeight,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

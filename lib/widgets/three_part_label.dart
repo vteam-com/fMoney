@@ -1,5 +1,8 @@
 import 'package:money/helpers/color_helper.dart';
 
+const double _iconSlotWidth = 40;
+const double _textSpacing = 20;
+
 class ThreePartLabel extends StatelessWidget {
   const ThreePartLabel({
     super.key,
@@ -24,10 +27,10 @@ class ThreePartLabel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // Icon
-              SizedBox(width: icon == null ? null : 40, child: icon),
+              SizedBox(width: icon == null ? null : _iconSlotWidth, child: icon),
               // Text1 <space> Text2
               renderText1(context),
-              const SizedBox(width: 20),
+              const SizedBox(width: _textSpacing),
               renderText2(context),
             ],
           );

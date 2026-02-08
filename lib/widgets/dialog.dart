@@ -4,6 +4,14 @@ import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/dialog_full_screen.dart';
 import 'package:money/widgets/scale_down.dart';
 
+const double _dialogBorderRadius = 8;
+const double _dialogBorderAlpha = 0.3;
+const double _dialogBorderWidth = 1;
+const double _dialogMinSize = 500;
+const double _dialogMaxSize = 1000;
+const double _fullScreenPadding = 8;
+const int _actionButtonInsertIndex = 0;
+
 class MyAlertDialog extends StatelessWidget {
   const MyAlertDialog({
     super.key,
@@ -26,18 +34,22 @@ class MyAlertDialog extends StatelessWidget {
       title: title.isEmpty ? null : Text(title),
       icon: icon == null ? null : Icon(icon!),
       shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(_dialogBorderRadius),
+        ),
         side: BorderSide(
-          color: getColorTheme(context).primary.withValues(alpha: 0.3),
-          width: 1,
+          color: getColorTheme(
+            context,
+          ).primary.withValues(alpha: _dialogBorderAlpha),
+          width: _dialogBorderWidth,
         ),
       ),
       content: Container(
         constraints: const BoxConstraints(
-          minHeight: 500,
-          maxHeight: 1000,
-          minWidth: 500,
-          maxWidth: 1000,
+          minHeight: _dialogMinSize,
+          maxHeight: _dialogMaxSize,
+          minWidth: _dialogMinSize,
+          maxWidth: _dialogMaxSize,
         ),
         child: child,
       ),
@@ -60,7 +72,7 @@ void adaptiveScreenSizeDialog({
     // Cancel and close are inserted on the left side of other buttons
     // so place it first on the list
     actionButtons.insert(
-      0,
+      _actionButtonInsertIndex,
       DialogActionButton(
         key: Constants.keyButtonCancel,
         text: captionForClose,
@@ -78,7 +90,10 @@ void adaptiveScreenSizeDialog({
       builder: (BuildContext context) {
         return FullScreenDialog(
           title: title,
-          content: Padding(padding: const EdgeInsets.all(8.0), child: child),
+          content: Padding(
+            padding: const EdgeInsets.all(_fullScreenPadding),
+            child: child,
+          ),
           actionButtons: actionButtons ?? <Widget>[],
         );
       },

@@ -11,6 +11,11 @@ import 'package:money/widgets/sankey/sankey_painter.dart';
 import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 
+const double _zeroDouble = 0.0;
+const double _panelPadding = 10.0;
+const double _containerPadding = 8.0;
+const double _minHeight = 1000.0;
+
 // ignore: must_be_immutable
 class SankeyPanel extends StatelessWidget {
   SankeyPanel({required this.minYear, required this.maxYear, super.key});
@@ -23,23 +28,23 @@ class SankeyPanel extends StatelessWidget {
 
   final int minYear;
 
-  late double padding = 10.0;
+  late double padding = _panelPadding;
 
   late List<SanKeyEntry> sanKeyListOfExpenses = <SanKeyEntry>[];
 
   late List<SanKeyEntry> sanKeyListOfIncomes = <SanKeyEntry>[];
 
-  late double totalExpenses = 0.00;
+  late double totalExpenses = _zeroDouble;
 
-  late double totalHeight = 0.0;
+  late double totalHeight = _zeroDouble;
 
-  late double totalIncomes = 0.00;
+  late double totalIncomes = _zeroDouble;
 
-  late double totalInvestments = 0.00;
+  late double totalInvestments = _zeroDouble;
 
-  late double totalNones = 0.00;
+  late double totalNones = _zeroDouble;
 
-  late double totalSavings = 0.00;
+  late double totalSavings = _zeroDouble;
 
   @override
   Widget build(final BuildContext context) {
@@ -51,8 +56,8 @@ class SankeyPanel extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Container(
             width: constraints.maxWidth,
-            height: max(constraints.maxHeight, 1000),
-            padding: const EdgeInsets.all(8),
+            height: max(constraints.maxHeight, _minHeight),
+            padding: const EdgeInsets.all(_containerPadding),
             child: SankeyWidget(
               leftEntries: sanKeyListOfIncomes,
               rightEntries: sanKeyListOfExpenses,
@@ -89,7 +94,7 @@ class SankeyPanel extends StatelessWidget {
               category,
             );
             double? mapValue = mapOfIncomes[topCategory];
-            mapValue ??= 0;
+            mapValue ??= _zeroDouble;
             mapOfIncomes[topCategory] = mapValue + element.fieldAmount.value.asDouble();
             break;
           case CategoryType.expense:
@@ -99,7 +104,7 @@ class SankeyPanel extends StatelessWidget {
               category,
             );
             double? mapValue = mapOfExpenses[topCategory];
-            mapValue ??= 0;
+            mapValue ??= _zeroDouble;
             mapOfExpenses[topCategory] = mapValue + element.fieldAmount.value.asDouble();
             break;
           default:
@@ -110,7 +115,7 @@ class SankeyPanel extends StatelessWidget {
     }
 
     // Clean up the Incomes, drop 0.00
-    mapOfIncomes.removeWhere((final Category k, final double v) => v <= 0.00);
+    mapOfIncomes.removeWhere((final Category k, final double v) => v <= _zeroDouble);
     // Sort Descending
     mapOfIncomes = Map<Category, double>.fromEntries(
       mapOfIncomes.entries.toList()..sort(
@@ -130,7 +135,7 @@ class SankeyPanel extends StatelessWidget {
     });
 
     // Clean up the Expenses, drop 0.00
-    mapOfExpenses.removeWhere((final Category k, final double v) => v == 0.00);
+    mapOfExpenses.removeWhere((final Category k, final double v) => v == _zeroDouble);
 
     // Sort Ascending, in the case of expenses that means the largest negative number to the least negative number
     mapOfExpenses = Map<Category, double>.fromEntries(

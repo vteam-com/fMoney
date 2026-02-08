@@ -16,6 +16,9 @@ import 'package:multi_split_view/multi_split_view.dart';
 
 export 'package:flutter/material.dart';
 
+const double _zeroDouble = 0.0;
+const double _sidePanelExpandedMinExtra = 100.0;
+
 class AdaptiveViewWithList extends StatefulWidget {
   const AdaptiveViewWithList({
     super.key,
@@ -201,10 +204,10 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
 
   void _configureSplitPanelAreas() {
     if (PreferenceController.to.isSidePanelExpanded) {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 100.0;
+      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + _sidePanelExpandedMinExtra;
       _splitController.areas[1].size = PreferenceController.to.sidePanelHeight.toDouble();
     } else {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + 0.0;
+      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + _zeroDouble;
       _splitController.areas[1].size = Constants.sidePanelHeightWhenCollapsed.toDouble();
     }
   }

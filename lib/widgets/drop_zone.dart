@@ -1,6 +1,9 @@
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 
+const double _dropOverlayAlpha = 0.2;
+const double _dropOverlayFontSize = 24;
+
 class DropZone extends StatefulWidget {
   const DropZone({
     super.key,
@@ -44,11 +47,14 @@ class DropZoneState extends State<DropZone> {
           widget.child,
           if (_dragging)
             Container(
-              color: Colors.blue.withValues(alpha: 0.2),
+              color: Colors.blue.withValues(alpha: _dropOverlayAlpha),
               child: const Center(
                 child: Text(
                   'Drop files here',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: _dropOverlayFontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

@@ -2,6 +2,25 @@ import 'dart:math';
 
 import 'package:money/data/entities/transaction.dart';
 
+const double _zeroDouble = 0.0;
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const int _twoInt = 2;
+const int _monthsPerYear = 12;
+const int _quarterMonths = 3;
+const int _biannualMonths = 6;
+const double _minimumExpenseMultiplier = 0.9;
+const double _maximumExpenseMultiplier = 1.2;
+const double _trendNeutralMultiplier = 1.0;
+const double _irregularStdDevThreshold = 0.5;
+const int _monthlyMaxIntervalDays = 45;
+const int _annualMinIntervalDays = 300;
+const int _annualMaxIntervalDays = 430;
+const int _biannualMinIntervalDays = 150;
+const int _biannualMaxIntervalDays = 210;
+const int _quarterlyMinIntervalDays = 75;
+const int _quarterlyMaxIntervalDays = 105;
+
 class BudgetRecommendation {
   BudgetRecommendation({
     required this.recommendedExpense,
@@ -61,7 +80,7 @@ class BudgetAnalyzer {
     List<double> values,
   ) {
     if (values.isEmpty) {
-      return (average: 0.0, stdDev: 0.0, trend: 0.0);
+      return (average: _zeroDouble, stdDev: _zeroDouble, trend: _zeroDouble);
     }
 
     final double average = values.reduce((double a, double b) => a + b) / values.length;
@@ -72,11 +91,11 @@ class BudgetAnalyzer {
     final double variance = squaredDiffs.reduce((double a, double b) => a + b) / values.length;
     final double stdDev = sqrt(variance);
 
-    double trend = 0.0;
-    if (values.length > 1) {
-      final double firstAvg = values.take(2).reduce((double a, double b) => a + b) / 2;
-      final double lastAvg = values.skip(values.length - 2).reduce((double a, double b) => a + b) / 2;
-      trend = firstAvg != 0 ? (lastAvg - firstAvg) / firstAvg : 0;
+    double trend = _zeroDouble;
+    if (values.length > _oneInt) {
+      final double firstAvg = values.take(_twoInt).reduce((double a, double b) => a + b) / _twoInt;
+      final double lastAvg = values.skip(values.length - _twoInt).reduce((double a, double b) => a + b) / _twoInt;
+      trend = firstAvg != _zeroDouble ? (lastAvg - firstAvg) / firstAvg : _zeroDouble;
     }
 
     return (average: average, stdDev: stdDev, trend: trend);
@@ -108,10 +127,10 @@ class BudgetAnalyzer {
     );
 
     return BudgetRecommendation(
-      recommendedExpense: expenseStats.average * (1 + expenseStats.trend),
-      minimumExpense: expenseStats.average * 0.9,
-      maximumExpense: expenseStats.average * 1.2,
-      projectedIncome: incomeStats.average * (1 + incomeStats.trend),
+      recommendedExpense: expenseStats.average * (_trendNeutralMultiplier + expenseStats.trend),
+      minimumExpense: expenseStats.average * _minimumExpenseMultiplier,
+      maximumExpense: expenseStats.average * _maximumExpenseMultiplier,
+      projectedIncome: incomeStats.average * (_trendNeutralMultiplier + incomeStats.trend),
       categoryBudgetsIncomes: categoryBudgetsIncomes,
       categoryBudgetsExpenses: categoryBudgetsExpenses,
       savingsRate: savingsRate,
@@ -120,10 +139,10 @@ class BudgetAnalyzer {
 
   double _calculateAverageOriginalAmount(List<Transaction> transactions) {
     if (transactions.isEmpty) {
-      return 0.0;
+      return _zeroDouble;
     }
     final double totalAmount = transactions.fold(
-      0.0,
+      _zeroDouble,
       (double sum, Transaction t) => sum + t.fieldAmount.value.asDouble(),
     );
     return totalAmount / transactions.length;
@@ -170,12 +189,12 @@ class BudgetAnalyzer {
     ExpenseFrequency frequency,
   ) {
     if (transactions.isEmpty) {
-      return 0.0;
+      return _zeroDouble;
     }
 
     // Calculate total amount over the period
     final double totalAmount = transactions.fold(
-      0.0,
+      _zeroDouble,
       (double sum, Transaction t) => sum + t.fieldAmount.value.asDouble(),
     );
 
@@ -195,13 +214,13 @@ class BudgetAnalyzer {
         monthlyAmount = totalAmount / monthsSpan;
         break;
       case ExpenseFrequency.quarterly:
-        monthlyAmount = (totalAmount / (monthsSpan / 3)) / 3;
+        monthlyAmount = (totalAmount / (monthsSpan / _quarterMonths)) / _quarterMonths;
         break;
       case ExpenseFrequency.biannual:
-        monthlyAmount = (totalAmount / (monthsSpan / 6)) / 6;
+        monthlyAmount = (totalAmount / (monthsSpan / _biannualMonths)) / _biannualMonths;
         break;
       case ExpenseFrequency.annual:
-        monthlyAmount = (totalAmount / (monthsSpan / 12)) / 12;
+        monthlyAmount = (totalAmount / (monthsSpan / _monthsPerYear)) / _monthsPerYear;
         break;
       case ExpenseFrequency.irregular:
         // For irregular expenses, use a conservative approach
@@ -219,17 +238,17 @@ class BudgetAnalyzer {
       final DateTime monthStart = DateTime(
         transaction.fieldDateTime.value!.year,
         transaction.fieldDateTime.value!.month,
-        1,
+        _oneInt,
       );
 
-      monthlyTotals[monthStart] = (monthlyTotals[monthStart] ?? 0.0) + transaction.fieldAmount.value.asDouble();
+      monthlyTotals[monthStart] = (monthlyTotals[monthStart] ?? _zeroDouble) + transaction.fieldAmount.value.asDouble();
     }
 
     return monthlyTotals;
   }
 
   int _calculateMonthsBetween(DateTime start, DateTime end) {
-    return (end.year - start.year) * 12 + end.month - start.month + 1;
+    return (end.year - start.year) * _monthsPerYear + end.month - start.month + _oneInt;
   }
 
   double _calculateSavingsRate(
@@ -241,23 +260,23 @@ class BudgetAnalyzer {
     ).intersection(Set<DateTime>.from(monthlyExpenses.keys));
 
     if (months.isEmpty) {
-      return 0.0;
+      return _zeroDouble;
     }
 
-    double totalSavingsRate = 0.0;
-    int monthCount = 0;
+    double totalSavingsRate = _zeroDouble;
+    int monthCount = _zeroInt;
 
     for (final DateTime month in months) {
-      final double income = monthlyIncome[month] ?? 0.0;
-      final double expenses = monthlyExpenses[month] ?? 0.0;
+      final double income = monthlyIncome[month] ?? _zeroDouble;
+      final double expenses = monthlyExpenses[month] ?? _zeroDouble;
 
-      if (income > 0) {
+      if (income > _zeroDouble) {
         totalSavingsRate += (income - expenses) / income;
         monthCount++;
       }
     }
 
-    return monthCount > 0 ? totalSavingsRate / monthCount : 0.0;
+    return monthCount > _zeroInt ? totalSavingsRate / monthCount : _zeroDouble;
   }
 
   ExpenseFrequency _detectExpenseFrequency(List<Transaction> transactions) {
@@ -272,7 +291,7 @@ class BudgetAnalyzer {
 
     // Calculate intervals between transactions
     final List<int> intervals = <int>[];
-    for (int i = 1; i < transactions.length; i++) {
+    for (int i = _oneInt; i < transactions.length; i++) {
       final int difference = transactions[i].fieldDateTime.value!
           .difference(transactions[i - 1].fieldDateTime.value!)
           .inDays;
@@ -289,30 +308,30 @@ class BudgetAnalyzer {
     // Calculate variance to detect regularity
     final double variance =
         intervals.fold(
-          0.0,
-          (double sum, int interval) => sum + pow(interval - avgInterval, 2),
+          _zeroDouble,
+          (double sum, int interval) => sum + pow(interval - avgInterval, _twoInt),
         ) /
         intervals.length;
     final double stdDev = sqrt(variance);
 
     // If standard deviation is too high relative to average, consider it irregular
-    if (stdDev > avgInterval * 0.5) {
+    if (stdDev > avgInterval * _irregularStdDevThreshold) {
       return ExpenseFrequency.irregular;
     }
 
     // More precise thresholds based on monthly intervals
-    if (avgInterval <= 45) {
+    if (avgInterval <= _monthlyMaxIntervalDays) {
       return ExpenseFrequency.monthly;
     }
-    if (avgInterval >= 300 && avgInterval <= 430) {
+    if (avgInterval >= _annualMinIntervalDays && avgInterval <= _annualMaxIntervalDays) {
       // Around 365 days
       return ExpenseFrequency.annual;
     }
-    if (avgInterval >= 150 && avgInterval <= 210) {
+    if (avgInterval >= _biannualMinIntervalDays && avgInterval <= _biannualMaxIntervalDays) {
       // Around 180 days
       return ExpenseFrequency.biannual;
     }
-    if (avgInterval >= 75 && avgInterval <= 105) {
+    if (avgInterval >= _quarterlyMinIntervalDays && avgInterval <= _quarterlyMaxIntervalDays) {
       // Around 90 days
       return ExpenseFrequency.quarterly;
     }

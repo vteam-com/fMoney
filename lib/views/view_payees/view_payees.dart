@@ -21,6 +21,9 @@ import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const int _unsetId = -1;
+const int _chartMaxItems = 10;
+
 class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});
 
@@ -119,7 +122,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
   @override
   List<DataObject> getSidePanelTransactions() {
     final Payee? payee = getFirstSelectedItem() as Payee?;
-    if (payee != null && payee.fieldId.value > -1) {
+    if (payee != null && payee.fieldId.value > _unsetId) {
       return getTransactions(
         filter: (final Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
       );
@@ -146,7 +149,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
       return Chart(
         key: Key(selectedIds.toString()),
-        list: listChart.take(10).toList(),
+        list: listChart.take(_chartMaxItems).toList(),
       );
     }
 
@@ -168,7 +171,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
       selectedIds,
       list,
     );
-    if (payee != null && payee.fieldId.value > -1) {
+    if (payee != null && payee.fieldId.value > _unsetId) {
       final SelectionController selectionController = Get.put(
         SelectionController(),
       );

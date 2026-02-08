@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const double _readOnlyHorizontalPadding = 12;
+const double _readOnlyOpacity = 0.5;
+const double _editableOpacity = 1.0;
+
 Widget myFormField({
   required final String title,
   required final Widget child,
@@ -17,7 +21,7 @@ InputDecoration myFormFieldDecoration({
 }) {
   return InputDecoration(
     labelText: fieldName,
-    contentPadding: isReadOnly ? const EdgeInsets.symmetric(horizontal: 12) : null,
+    contentPadding: isReadOnly ? const EdgeInsets.symmetric(horizontal: _readOnlyHorizontalPadding) : null,
     // some padding to match the Editable fields that have a border and padding
     border: const OutlineInputBorder(),
   );
@@ -55,7 +59,7 @@ class MyFormFieldForWidgetState extends State<MyFormFieldForWidget> {
   @override
   Widget build(final BuildContext context) {
     return Opacity(
-      opacity: widget.isReadOnly ? 0.5 : 1.0,
+      opacity: widget.isReadOnly ? _readOnlyOpacity : _editableOpacity,
       child: TextFormField(
         controller: controller,
         decoration: myFormFieldDecoration(

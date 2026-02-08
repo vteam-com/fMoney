@@ -5,6 +5,17 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _zeroInt = 0;
+const int _percentageScale = 100;
+const double _zeroDouble = 0.0;
+const double _fullOpacity = 1.0;
+const double _emptyOpacity = 0.0;
+const double _barRadius = 3.0;
+const double _barHeight = 20.0;
+const double _segmentGap = 1.0;
+const double _segmentFontSize = 9.0;
+const int _detailFlex = 2;
+
 class Distribution {
   Distribution({required this.category, required this.amount});
 
@@ -33,10 +44,10 @@ class _DistributionBarState extends State<DistributionBar> {
     segmentWidgets.clear();
 
     final double sum = widget.segments.fold(
-      0,
+      _zeroDouble,
       (double previousValue, Distribution element) => previousValue + element.amount.abs(),
     );
-    if (sum > 0) {
+    if (sum > _zeroDouble) {
       for (final Distribution segment in widget.segments) {
         segment.percentage = segment.amount.abs() / sum;
       }
@@ -68,12 +79,12 @@ class _DistributionBarState extends State<DistributionBar> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         gapSmall(),
-        Expanded(flex: 2, child: category.getColorAndNameWidget()),
+        Expanded(flex: _detailFlex, child: category.getColorAndNameWidget()),
         Expanded(
           child: WidgetFromData(amountModel: AmountModel(amount: value)),
         ),
         Opacity(
-          opacity: category.isExpense ? 1 : 0,
+          opacity: category.isExpense ? _fullOpacity : _emptyOpacity,
           child: Checkbox(
             value: category.isRecurring,
             onChanged: (bool? value) {
@@ -95,8 +106,11 @@ class _DistributionBarState extends State<DistributionBar> {
 
   Widget _buildHorizontalBar() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(3), // Radius for rounded ends
-      child: SizedBox(height: 20, child: Row(children: segmentWidgets)),
+      borderRadius: BorderRadius.circular(_barRadius), // Radius for rounded ends
+      child: SizedBox(
+        height: _barHeight,
+        child: Row(children: segmentWidgets),
+      ),
     );
   }
 
@@ -120,14 +134,14 @@ class _DistributionBarState extends State<DistributionBar> {
       segmentWidgets.add(
         Expanded(
           // use the percentage to determine the relative width
-          flex: (segment.percentage * 100).toInt().abs(),
+          flex: (segment.percentage * _percentageScale).toInt().abs(),
           child: Tooltip(
             message: segment.category.fieldName.value,
             child: Container(
               alignment: Alignment.center,
               color: backgroundColorOfSegment,
               margin: EdgeInsets.only(
-                right: segment == widget.segments.last ? 0.0 : 1.0,
+                right: segment == widget.segments.last ? _zeroDouble : _segmentGap,
               ),
               child: _builtSegmentOverlayText(
                 segment.percentage,
@@ -145,15 +159,15 @@ class _DistributionBarState extends State<DistributionBar> {
   }
 
   Widget _builtSegmentOverlayText(final double percentage, final Color color) {
-    final int value = (percentage * 100).toInt();
-    if (value <= 0) {
+    final int value = (percentage * _percentageScale).toInt();
+    if (value <= _zeroInt) {
       return const SizedBox();
     }
     return Text(
       '$value%',
       softWrap: false,
       overflow: TextOverflow.clip,
-      style: TextStyle(color: color, fontSize: 9),
+      style: TextStyle(color: color, fontSize: _segmentFontSize),
     );
   }
 }

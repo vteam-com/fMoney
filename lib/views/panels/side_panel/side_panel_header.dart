@@ -6,6 +6,15 @@ import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const double _headerHorizontalPadding = 4.0;
+const double _smallDeviceMaxWidth = 500.0;
+const int _currencyIndexPrimary = 0;
+const int _currencyIndexSecondary = 1;
+const int _subViewIndexDetails = 0;
+const int _subViewIndexChart = 1;
+const int _subViewIndexTransactions = 2;
+const int _subViewIndexPnl = 3;
+
 class SidePanelHeader extends StatelessWidget {
   /// Constructor
   const SidePanelHeader({
@@ -48,7 +57,7 @@ class SidePanelHeader extends StatelessWidget {
             onExpanded(!isExpanded);
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(horizontal: _headerHorizontalPadding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -67,7 +76,7 @@ class SidePanelHeader extends StatelessWidget {
   }
 
   Widget _buildCurrencySelections(final BuildContext context, final BoxConstraints constraints) {
-    final bool smallDevice = constraints.maxWidth < 500;
+    final bool smallDevice = constraints.maxWidth < _smallDeviceMaxWidth;
 
     // this feature is only valid for SubView [Chart|Transaction]
     if (currencyChoices.isEmpty) {
@@ -82,12 +91,16 @@ class SidePanelHeader extends StatelessWidget {
       context: context,
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
-          value: 0,
-          label: smallDevice ? Text(currencyChoices[0]) : buildCurrencyWidget(currencyChoices[0]),
+          value: _currencyIndexPrimary,
+          label: smallDevice
+              ? Text(currencyChoices[_currencyIndexPrimary])
+              : buildCurrencyWidget(currencyChoices[_currencyIndexPrimary]),
         ),
         ButtonSegment<int>(
-          value: 1,
-          label: smallDevice ? Text(currencyChoices[1]) : buildCurrencyWidget(currencyChoices[1]),
+          value: _currencyIndexSecondary,
+          label: smallDevice
+              ? Text(currencyChoices[_currencyIndexSecondary])
+              : buildCurrencyWidget(currencyChoices[_currencyIndexSecondary]),
         ),
       ],
       selectedId: currencySelected,
@@ -122,7 +135,7 @@ class SidePanelHeader extends StatelessWidget {
           SidePanelSubViewEnum.details,
         ))
           ButtonSegment<int>(
-            value: 0,
+            value: _subViewIndexDetails,
             label: smallDevice ? null : const Text('Details'),
             icon: const Icon(Icons.info_outline),
           ),
@@ -130,7 +143,7 @@ class SidePanelHeader extends StatelessWidget {
           SidePanelSubViewEnum.chart,
         ))
           ButtonSegment<int>(
-            value: 1,
+            value: _subViewIndexChart,
             label: smallDevice ? null : const Text('Chart'),
             icon: const Icon(Icons.bar_chart),
           ),
@@ -138,7 +151,7 @@ class SidePanelHeader extends StatelessWidget {
           SidePanelSubViewEnum.transactions,
         ))
           ButtonSegment<int>(
-            value: 2,
+            value: _subViewIndexTransactions,
             label: smallDevice ? null : const Text('Transactions'),
             icon: const Icon(Icons.calendar_view_day),
           ),
@@ -146,7 +159,7 @@ class SidePanelHeader extends StatelessWidget {
           SidePanelSubViewEnum.pnl,
         ))
           ButtonSegment<int>(
-            value: 3,
+            value: _subViewIndexPnl,
             label: smallDevice ? null : const Text('PnL'),
             icon: const Icon(Icons.calendar_view_day),
           ),

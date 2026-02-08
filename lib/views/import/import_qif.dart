@@ -8,6 +8,8 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/snack_bar.dart';
 
+const int _minFieldLength = 2;
+
 ///
 /// schema https://www.w3.org/2000/10/swap/pim/qif-doc/QIF-doc.htm
 ///
@@ -43,7 +45,7 @@ ImportData loadQIF(final List<String> lines) {
       currentEntry = ImportEntry.blank();
       continue;
     }
-    if (line.length >= 2) {
+    if (line.length >= _minFieldLength) {
       final String fieldLetter = line[0];
       final String fieldData = line.substring(1);
       switch (fieldLetter) {

@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 
 const String settingKeyCashflowRecurringOccurrences = 'keyCashflowOccurrences';
@@ -39,8 +40,10 @@ class Constants {
   static const int commandInstallPlatforms = 1300;
   static const int commandTextZoom = 1000;
 
-  static int sidePanelHeightWhenCollapsed = 44;
-  static int sidePanelHeightWhenExpanded = 380;
+  static const int sidePanelHeightCollapsedDefault = 44;
+  static const int sidePanelHeightExpandedDefault = 380;
+  static int sidePanelHeightWhenCollapsed = sidePanelHeightCollapsedDefault;
+  static int sidePanelHeightWhenExpanded = sidePanelHeightExpandedDefault;
 
   static const String defaultCurrency = 'USD';
   static String fakeStockApiKey = 'fakeStockApiKey';
@@ -126,24 +129,27 @@ class SizeForIcon {
 }
 
 class IntValues {
+  static const int minBitCount = 1;
+  static const int maxBitCount = 64;
+
   static int maxSigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, 1, 64);
+    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (1 << (bitCount - 1)) - 1;
   }
 
   // ...
   static int maxUnsigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, 1, 64);
+    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (1 << bitCount) - 1;
   }
 
   static int minSigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, 1, 64);
+    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (-1 << (bitCount - 1)) - 1;
   }
 
   static int minUnsigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, 1, 64);
+    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return -1 << (bitCount - 1);
   }
 }

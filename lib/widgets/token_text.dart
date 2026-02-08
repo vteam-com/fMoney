@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 
+const double _tokenTextOpacity = 0.8;
+const double _separatorOpacity = 0.6;
+
 // ignore: must_be_immutable
 class TokenText extends StatelessWidget {
   TokenText(this.text, {super.key, this.style = const TokenTextStyle()}) {
@@ -41,9 +44,12 @@ class TokenText extends StatelessWidget {
         );
       } else {
         widgets.add(
-          Opacity(opacity: 0.8, child: Text(token, style: ancestors)),
+          Opacity(
+            opacity: _tokenTextOpacity,
+            child: Text(token, style: ancestors),
+          ),
         );
-        widgets.add(Opacity(opacity: 0.6, child: separator));
+        widgets.add(Opacity(opacity: _separatorOpacity, child: separator));
       }
     }
 

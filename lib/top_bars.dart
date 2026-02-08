@@ -8,6 +8,15 @@ import 'package:money/helpers/pairs.dart';
 import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _topCategoriesLimit = 3;
+const int _zeroInt = 0;
+const double _zeroDouble = 0.0;
+const double _otherCircleSize = 10.0;
+const int _labelFlex = 2;
+const double _labelFontSize = 9.0;
+const double _positiveMultiplier = 1.0;
+const double _negativeMultiplier = -1.0;
+
 class BarChartWidget extends StatelessWidget {
   const BarChartWidget({
     required this.listCategoryNameToAmount,
@@ -27,18 +36,18 @@ class BarChartWidget extends StatelessWidget {
     );
 
     // Extract top 3 values and calculate total value of others
-    final int topCategoryToShow = min(3, listCategoryNameToAmount.length);
+    final int topCategoryToShow = min(_topCategoriesLimit, listCategoryNameToAmount.length);
 
     final double otherSumValues = listCategoryNameToAmount
         .skip(topCategoryToShow)
         .fold(
-          0.0,
+          _zeroDouble,
           (double prev, PairIntDouble current) => prev + current.value,
         );
 
     final List<Widget> bars = <Widget>[];
 
-    for (int top = 0; top < topCategoryToShow; top++) {
+    for (int top = _zeroInt; top < topCategoryToShow; top++) {
       final Category? category = Data().categories.get(
         listCategoryNameToAmount[top].key,
       );
@@ -53,11 +62,11 @@ class BarChartWidget extends StatelessWidget {
       }
     }
 
-    if (otherSumValues > 0) {
+    if (otherSumValues > _zeroDouble) {
       bars.add(
         _buildBar(
           'Others',
-          const MyCircle(colorFill: Colors.grey, size: 10),
+          const MyCircle(colorFill: Colors.grey, size: _otherCircleSize),
           otherSumValues,
         ),
       );
@@ -75,10 +84,10 @@ class BarChartWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Expanded(
-          flex: 2,
+          flex: _labelFlex,
           child: Text(
             label,
-            style: const TextStyle(fontSize: 9),
+            style: const TextStyle(fontSize: _labelFontSize),
             textAlign: TextAlign.justify,
             textWidthBasis: TextWidthBasis.longestLine,
             softWrap: false,
@@ -87,7 +96,7 @@ class BarChartWidget extends StatelessWidget {
         colorWidget,
         Expanded(
           child: WidgetFromData(
-            amountModel: AmountModel(amount: value * (asIncome ? 1 : -1)),
+            amountModel: AmountModel(amount: value * (asIncome ? _positiveMultiplier : _negativeMultiplier)),
           ),
         ),
       ],

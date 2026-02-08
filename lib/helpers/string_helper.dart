@@ -5,18 +5,36 @@ import 'package:intl/intl.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:path_provider/path_provider.dart';
 
+const int _singleCharLength = 1;
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const double _zeroDouble = 0.0;
+const int _defaultDecimalDigits = 0;
+const int _defaultMaxLength = 5;
+const int _minWordsForInitials = 2;
+const int _notFoundIndex = -1;
+const int _singularCount = 1;
+const double _negativeSign = -1.0;
+const double _positiveSign = 1.0;
+const int _regexGroupMain = 1;
+const int _regexGroupDecimal = 2;
+const int _bytesPerKilobyte = 1024;
+const int _bytesPerMegabyte = _bytesPerKilobyte * _bytesPerKilobyte;
+const int _bytesPerGigabyte = _bytesPerMegabyte * _bytesPerKilobyte;
+const int _byteSizePrecision = 1;
+
 /// Returns the count of occurrences of a single character in a given string.
 ///
 /// @param input The input string to search for the character.
 /// @param char The single character to count occurrences of.
 /// @returns The number of times the character appears in the input string.
 int countOccurrences(String input, String char) {
-  if (char.length != 1) {
+  if (char.length != _singleCharLength) {
     throw ArgumentError('The character to count must be a single character.');
   }
 
-  int count = 0;
-  for (int i = 0; i < input.length; i++) {
+  int count = _zeroInt;
+  for (int i = _zeroInt; i < input.length; i++) {
     if (input[i] == char) {
       count++;
     }
@@ -38,7 +56,7 @@ String doubleToCurrency(
 }
 
 String getPlusSignIfPositive(final num value) {
-  if (value > 0) {
+  if (value > _zeroInt) {
     return '+';
   }
   return '';
@@ -58,7 +76,7 @@ String formatDoubleTrimZeros(double value) {
 
 String getAmountAsShorthandText(
   final num value, {
-  final int decimalDigits = 0,
+  final int decimalDigits = _defaultDecimalDigits,
   final String symbol = '',
 }) => NumberFormat.compactCurrency(
   decimalDigits: decimalDigits,
@@ -89,7 +107,7 @@ Future<String> getDocumentDirectory() async {
   return directory.path;
 }
 
-String getInitials(String fullName) => fullName.split(' ').map((String word) => word[0].toUpperCase()).join('');
+String getInitials(String fullName) => fullName.split(' ').map((String word) => word[_zeroInt].toUpperCase()).join('');
 
 String getIntAsText(final int value, {final bool showPlusSign = false}) =>
     getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + NumberFormat.decimalPattern().format(value);
@@ -117,10 +135,10 @@ List<List<String>> getLinesFromRawTextWithSeparator(
   StringBuffer currentField = StringBuffer();
   bool inQuotes = false;
 
-  for (int i = 0; i < content.length; i++) {
+  for (int i = _zeroInt; i < content.length; i++) {
     final String char = content[i];
 
-    if (char == '"' && (i + 1 < content.length && content[i + 1] == '"')) {
+    if (char == '"' && (i + _oneInt < content.length && content[i + _oneInt] == '"')) {
       // Handle escaped quotes
       currentField.write('"');
       i++; // Skip the next quote
@@ -169,7 +187,7 @@ String getSingularPluralText(
   final int quantity,
   final String singular,
   final String plural,
-) => '$title ${quantity == 1 ? singular : plural}';
+) => '$title ${quantity == _singularCount ? singular : plural}';
 
 String getStringContentBetweenTwoTokens(
   final String input,
@@ -177,9 +195,9 @@ String getStringContentBetweenTwoTokens(
   final String end,
 ) {
   final int indexStart = input.indexOf(start);
-  if (indexStart != -1) {
+  if (indexStart != _notFoundIndex) {
     final int indexEnd = input.indexOf(end);
-    if (indexEnd != -1) {
+    if (indexEnd != _notFoundIndex) {
       return input.substring(indexStart + start.length, indexEnd);
     }
   }
@@ -197,7 +215,7 @@ String getStringDelimitedStartEndTokens(
 
 int getLineCount(final String text) {
   if (text.trim().isEmpty) {
-    return 0;
+    return _zeroInt;
   }
   return text.trim().split('\n').length;
 }
@@ -228,18 +246,18 @@ String removeEmptyLines(String text) {
   return result;
 }
 
-String shortenLongText(String fullName, [int maxLength = 5]) {
-  assert(maxLength >= 0);
+String shortenLongText(String fullName, [int maxLength = _defaultMaxLength]) {
+  assert(maxLength >= _zeroInt);
   if (fullName.length <= maxLength) {
     // No need to shorten
     return fullName;
   }
 
   final List<String> words = fullName.split(' ');
-  if (words.length >= 2) {
-    return words.map((String word) => word[0].toUpperCase()).join('.');
+  if (words.length >= _minWordsForInitials) {
+    return words.map((String word) => word[_zeroInt].toUpperCase()).join('.');
   }
-  return fullName.substring(0, maxLength);
+  return fullName.substring(_zeroInt, maxLength);
 }
 
 /// Compares two strings ignoring case sensitivity.
@@ -251,7 +269,7 @@ String shortenLongText(String fullName, [int maxLength = 5]) {
 /// **optimization**: avoiding memory allocation for new String objects from `toUpperCase()`.
 int stringCompareIgnoreCasing(final String textA, final String textB) {
   if (textA == textB) {
-    return 0;
+    return _zeroInt;
   }
 
   // 1: Optimize for identical references - already handled by ==
@@ -262,7 +280,7 @@ int stringCompareIgnoreCasing(final String textA, final String textB) {
   final int lengthB = textB.length;
   final int minLength = lengthA < lengthB ? lengthA : lengthB;
 
-  for (int i = 0; i < minLength; i++) {
+  for (int i = _zeroInt; i < minLength; i++) {
     // Compare character by character
     // Optimization: codeUnitAt is faster than []
     // But toLowerCase() on a char string is simplest for robustness without heavy lookup tables
@@ -282,7 +300,7 @@ int stringCompareIgnoreCasing(final String textA, final String textB) {
 
       // Let's do the exact previous implementation for "Current" validity first.
       final int result = textA[i].toLowerCase().compareTo(textB[i].toLowerCase());
-      if (result != 0) {
+      if (result != _zeroInt) {
         return result;
       }
     }
@@ -299,8 +317,8 @@ int compareStringsAsNumbers(final String a, final String b) {
 }
 
 int compareStringsAsAmount(final String a, final String b) {
-  final double valueA = attemptToGetDoubleFromText(a) ?? 0.00;
-  final double valueB = attemptToGetDoubleFromText(b) ?? 0.00;
+  final double valueA = attemptToGetDoubleFromText(a) ?? _zeroDouble;
+  final double valueB = attemptToGetDoubleFromText(b) ?? _zeroDouble;
 
   return valueA.compareTo(valueB);
 }
@@ -329,7 +347,7 @@ String concat(
 String removeUtf8Bom(String text) {
   const String bom = '\u{FEFF}';
   if (text.startsWith(bom)) {
-    return text.substring(1);
+    return text.substring(_oneInt);
   }
   return text;
 }
@@ -343,9 +361,9 @@ double? parseUSDAmount(String input) {
   final RegExpMatch? match = usdPattern.firstMatch(input);
 
   if (match != null) {
-    final String? numericPart = match.group(1)?.replaceAll(',', '');
+    final String? numericPart = match.group(_regexGroupMain)?.replaceAll(',', '');
     if (numericPart != null) {
-      final double sign = input.startsWith('-') ? -1.0 : 1.0;
+      final double sign = input.startsWith('-') ? _negativeSign : _positiveSign;
       return double.parse(numericPart) * sign;
     }
   }
@@ -360,8 +378,8 @@ double? parseEuroAmount(String input) {
   final RegExpMatch? match = euroPattern.firstMatch(input);
 
   if (match != null) {
-    final String? integerPart = match.group(1)?.replaceAll('.', '');
-    final String? decimalPart = match.group(2)?.replaceAll(',', '.');
+    final String? integerPart = match.group(_regexGroupMain)?.replaceAll('.', '');
+    final String? decimalPart = match.group(_regexGroupDecimal)?.replaceAll(',', '.');
 
     if (integerPart != null) {
       final String numericPart = integerPart + (decimalPart ?? '');
@@ -398,22 +416,23 @@ double? parseAmount(String amountAsText, final String currency) {
 String cleanString(String inputStr, String allowedChars) =>
     inputStr.split('').where((String char) => allowedChars.contains(char)).join();
 
-String validIntToCurrency(final num value) => getIntAsText(isNumber(value) ? value.toInt() : 0, showPlusSign: true);
+String validIntToCurrency(final num value) =>
+    getIntAsText(isNumber(value) ? value.toInt() : _zeroInt, showPlusSign: true);
 
 String validDoubleToCurrency(final num value) => doubleToCurrency(
-  isNumber(value) ? value.toDouble() : 0.0,
+  isNumber(value) ? value.toDouble() : _zeroDouble,
   showPlusSign: true,
 );
 
 bool isNumber(num value) => value.isFinite && !value.isNaN;
 
 String formatByteSize(final int bytes) {
-  if (bytes >= 1024 * 1024 * 1024) {
-    return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
-  } else if (bytes >= 1024 * 1024) {
-    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
-  } else if (bytes >= 1024) {
-    return '${(bytes / 1024).toStringAsFixed(1)} KB';
+  if (bytes >= _bytesPerGigabyte) {
+    return '${(bytes / _bytesPerGigabyte).toStringAsFixed(_byteSizePrecision)} GB';
+  } else if (bytes >= _bytesPerMegabyte) {
+    return '${(bytes / _bytesPerMegabyte).toStringAsFixed(_byteSizePrecision)} MB';
+  } else if (bytes >= _bytesPerKilobyte) {
+    return '${(bytes / _bytesPerKilobyte).toStringAsFixed(_byteSizePrecision)} KB';
   } else {
     return '$bytes B';
   }

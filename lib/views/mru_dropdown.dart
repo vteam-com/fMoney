@@ -9,6 +9,10 @@ import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/token_text.dart';
 
+const double _mruDropdownWidth = 600.0;
+const double _timestampOpacity = 0.5;
+const double _timestampFontSize = 12.0;
+
 class MruDropdown extends StatelessWidget {
   const MruDropdown({super.key});
 
@@ -38,7 +42,7 @@ class MruDropdown extends StatelessWidget {
                   showLetterPicker: false,
                   tokenTextStyle: tokenStyle,
                   rightAligned: true,
-                  width: 600,
+                  width: _mruDropdownWidth,
                   items: preferenceController.mru,
                   selectedItem: '',
                   onSelected:
@@ -79,12 +83,12 @@ class MruDropdown extends StatelessWidget {
       return Tooltip(
         message: dateToDateTimeString(dataSourceTimeStamp),
         child: Opacity(
-          opacity: 0.5,
+          opacity: _timestampOpacity,
           child: Text(
             getElapsedTime(dataSourceTimeStamp),
             textAlign: TextAlign.left,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: _timestampFontSize, fontWeight: FontWeight.bold),
           ),
         ),
       );

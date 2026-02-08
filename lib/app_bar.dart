@@ -14,6 +14,14 @@ import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/zoom.dart';
 
+const double _opacityEnabled = 1.0;
+const double _opacityDisabled = 0.5;
+const double _colorPaletteHeight = 300.0;
+const double _themeItemVerticalPadding = 4.0;
+const double _themeItemRadius = 4.0;
+const double _inventoryIconSize = 18.0;
+const int _debugMenuValue = -1;
+
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
@@ -127,7 +135,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Constants.commandIncludeClosedAccount,
         preferencesController.includeClosedAccounts ? 'Hide "Closed Accounts"' : 'Show "Closed Account"',
         Icons.inventory,
-        opacity: preferencesController.includeClosedAccounts ? 1.0 : 0.5,
+        opacity: preferencesController.includeClosedAccounts ? _opacityEnabled : _opacityDisabled,
       ),
       _buildSettingsMenuItem(
         Constants.commandSettings,
@@ -155,9 +163,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (kDebugMode) {
       actionList.add(
         const PopupMenuItem<int>(
-          value: -1,
+          value: _debugMenuValue,
           child: SizedBox(
-            height: 300,
+            height: _colorPaletteHeight,
             child: SingleChildScrollView(child: ColorPalette()),
           ),
         ),
@@ -179,7 +187,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     String text,
     IconData iconData, {
     Key? key,
-    double opacity = 1.0,
+    double opacity = _opacityEnabled,
   }) {
     return PopupMenuItem<int>(
       value: value,
@@ -205,10 +213,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       return PopupMenuItem<int>(
         value: index,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.symmetric(vertical: _themeItemVerticalPadding),
           decoration: BoxDecoration(
             color: isSelected ? getColorTheme(Get.context!).secondaryContainer : null,
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(_themeItemRadius)),
           ),
           child: ThreePartLabel(
             key: Key('key_theme_$themeColorName'),
@@ -229,8 +237,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   ) {
     return IconButton(
       icon: Opacity(
-        opacity: preferencesController.includeClosedAccounts ? 1.0 : 0.5,
-        child: const Icon(Icons.inventory, size: 18),
+        opacity: preferencesController.includeClosedAccounts ? _opacityEnabled : _opacityDisabled,
+        child: const Icon(Icons.inventory, size: _inventoryIconSize),
       ),
       onPressed: () => preferencesController.includeClosedAccounts = !preferencesController.includeClosedAccounts,
       tooltip: preferencesController.includeClosedAccounts ? 'Hide closed accounts' : 'View closed accounts',

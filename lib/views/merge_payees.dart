@@ -12,6 +12,11 @@ import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
+const int _zeroIndex = 0;
+const int _countIncrement = 1;
+const double _payeeLabelWidth = 100.0;
+const double _categoryChoicesHeight = 400.0;
+
 void showMergePayee<T extends MergeableItem>(
   final BuildContext context,
   Payee payee,
@@ -65,7 +70,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
           const Spacer(),
           Row(
             children: <Widget>[
-              const SizedBox(width: 100, child: Text('From payee')),
+              const SizedBox(width: _payeeLabelWidth, child: Text('From payee')),
               Expanded(
                 child: Box(child: Text(widget.currentPayee.fieldName.value)),
               ),
@@ -75,7 +80,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(width: 100, child: Text('To payee')),
+              const SizedBox(width: _payeeLabelWidth, child: Text('To payee')),
               Expanded(
                 child: Box(
                   child: PickerEditBox(
@@ -133,7 +138,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
       categoryIdsFound.clear();
       for (final T t in widget.transactions) {
         if (t.payeeId == _selectedPayee!.uniqueId) {
-          categoryIdsFound.cumulate(t.categoryId, 1);
+          categoryIdsFound.cumulate(t.categoryId, _countIncrement);
         }
       }
     }
@@ -194,7 +199,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
 
     if (radioButtonChoices.isNotEmpty) {
       radioButtonChoices.insert(
-        0,
+        _zeroIndex,
         const RadioListTile<int?>(
           value: null,
           title: Text(
@@ -205,7 +210,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
     }
 
     return SizedBox(
-      height: 400,
+      height: _categoryChoicesHeight,
       child: SingleChildScrollView(
         child: RadioGroup<int?>(
           groupValue: _estimatedCategory,

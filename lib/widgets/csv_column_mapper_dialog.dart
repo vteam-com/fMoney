@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+const int _previewRowLimit = 5;
+const double _columnHighlightAlpha = 0.5;
+const double _cellHighlightAlpha = 0.2;
+const double _previewSpacing = 20;
+const double _cellHorizontalPadding = 8;
+const double _cellVerticalPadding = 4;
+
 class CsvColumnMapperDialog extends StatefulWidget {
   const CsvColumnMapperDialog({
     super.key,
@@ -62,7 +69,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               _buildMappingDropdowns(),
-              const SizedBox(height: 20),
+              const SizedBox(height: _previewSpacing),
               const Text('Data Preview (First 5 rows):', style: TextStyle(fontWeight: FontWeight.bold)),
               _buildPreviewTable(),
             ],
@@ -159,7 +166,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
 
   Widget _buildPreviewTable() {
     // Displaying only up to the first 5 data rows for preview
-    final int previewRowCount = widget.dataRows.length > 5 ? 5 : widget.dataRows.length;
+    final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
     if (previewRowCount == 0) {
       return const Text('No data rows to preview.');
     }
@@ -167,12 +174,12 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     // Use theme-aware colors that work in both light and dark modes
-    final Color dateColumnColor = colorScheme.primary.withValues(alpha: 0.5);
-    final Color dateCellColor = colorScheme.primary.withValues(alpha: 0.2);
-    final Color descriptionColumnColor = colorScheme.secondary.withValues(alpha: 0.5);
-    final Color descriptionCellColor = colorScheme.secondary.withValues(alpha: 0.2);
-    final Color amountColumnColor = colorScheme.tertiary.withValues(alpha: 0.5);
-    final Color amountCellColor = colorScheme.tertiary.withValues(alpha: 0.2);
+    final Color dateColumnColor = colorScheme.primary.withValues(alpha: _columnHighlightAlpha);
+    final Color dateCellColor = colorScheme.primary.withValues(alpha: _cellHighlightAlpha);
+    final Color descriptionColumnColor = colorScheme.secondary.withValues(alpha: _columnHighlightAlpha);
+    final Color descriptionCellColor = colorScheme.secondary.withValues(alpha: _cellHighlightAlpha);
+    final Color amountColumnColor = colorScheme.tertiary.withValues(alpha: _columnHighlightAlpha);
+    final Color amountCellColor = colorScheme.tertiary.withValues(alpha: _cellHighlightAlpha);
 
     // Create inverse map to find which header indices correspond to selected unique IDs
     final Map<String, int> uniqueIdToIndexMap = <String, int>{};
@@ -227,7 +234,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
           return DataColumn(
             label: Container(
               color: columnColor,
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: _cellHorizontalPadding,
+                vertical: _cellVerticalPadding,
+              ),
               child: Text(header),
             ),
           );
@@ -252,7 +262,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
                 DataCell(
                   Container(
                     color: cellColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: _cellHorizontalPadding,
+                      vertical: _cellVerticalPadding,
+                    ),
                     child: Text(row[i]),
                   ),
                 ),
@@ -262,7 +275,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
                 DataCell(
                   Container(
                     color: cellColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: _cellHorizontalPadding,
+                      vertical: _cellVerticalPadding,
+                    ),
                     child: const Text(''),
                   ),
                 ),

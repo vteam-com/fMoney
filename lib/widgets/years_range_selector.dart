@@ -4,6 +4,14 @@ import 'dart:math';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/ranges.dart';
 
+const double _sliderHeight = 58;
+const double _sliderEdgePadding = 20;
+const double _dragLabelFontSize = 12;
+const double _dragHandleOpacity = 0.5;
+const double _dragHandleHiddenOpacity = 0;
+const double _dragThresholdDivisor = 4;
+const double _minimumDragButtonWidth = 162;
+
 /// A widget that allows users to select a range of years using a slider.
 class YearRangeSlider extends StatefulWidget {
   /// Creates a [YearRangeSlider].
@@ -44,7 +52,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     max: widget.initialRange.max,
   );
 
-  final double sliderEdgePadding = 20;
+  final double sliderEdgePadding = _sliderEdgePadding;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +70,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
         _updateLeftMarginOfBottomText(visualWidthOfSlider, eachYearInPixel);
 
         return SizedBox(
-          height: 58,
+          height: _sliderHeight,
           child: Stack(
             alignment: AlignmentDirectional.bottomStart,
             children: <Widget>[
@@ -130,20 +138,23 @@ class YearRangeSliderState extends State<YearRangeSlider> {
         children: <Widget>[
           Text(
             _selectedYearRange.min.toString(),
-            style: TextStyle(fontSize: 12, color: textColor),
+            style: TextStyle(fontSize: _dragLabelFontSize, color: textColor),
           ),
           Opacity(
-            opacity: canBeDragged ? 0.5 : 0,
+            opacity: canBeDragged ? _dragHandleOpacity : _dragHandleHiddenOpacity,
             child: Icon(Icons.drag_indicator_outlined, color: textColor),
           ),
-          Text(spanAsText, style: TextStyle(fontSize: 12, color: textColor)),
+          Text(
+            spanAsText,
+            style: TextStyle(fontSize: _dragLabelFontSize, color: textColor),
+          ),
           Opacity(
-            opacity: canBeDragged ? 0.5 : 0,
+            opacity: canBeDragged ? _dragHandleOpacity : _dragHandleHiddenOpacity,
             child: Icon(Icons.drag_indicator_outlined, color: textColor),
           ),
           Text(
             _selectedYearRange.max.toString(),
-            style: TextStyle(fontSize: 12, color: textColor),
+            style: TextStyle(fontSize: _dragLabelFontSize, color: textColor),
           ),
         ],
       ),
@@ -152,7 +163,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
 
   void _handleDragUpdate(DragUpdateDetails details, double maxWidth) {
     _dragGesturePosition += details.primaryDelta!;
-    final double thresholdForMovingToNextPosition = maxWidth / widget.yearRange.span / 4;
+    final double thresholdForMovingToNextPosition = maxWidth / widget.yearRange.span / _dragThresholdDivisor;
 
     if (_dragGesturePosition >= thresholdForMovingToNextPosition) {
       _dragGesturePosition = 0;
@@ -164,10 +175,9 @@ class YearRangeSliderState extends State<YearRangeSlider> {
   }
 
   void _updateDragBottomWidth(double eachYearInPixel) {
-    const double minimumWidthToFitAllElements = 162.0;
     _dragBottomWidth = max(
       _selectedYearRange.span * eachYearInPixel,
-      minimumWidthToFitAllElements,
+      _minimumDragButtonWidth,
     );
   }
 

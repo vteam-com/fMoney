@@ -8,6 +8,9 @@ import 'package:money/widgets/scale_down.dart';
 export 'package:flutter/material.dart';
 export 'package:money/widgets/scale_down.dart';
 
+const double _navRailMinWidth = 50.0;
+const double _navBarHeight = 52.0;
+
 class MyNavigationBar extends StatelessWidget {
   const MyNavigationBar({
     super.key,
@@ -29,7 +32,7 @@ class MyNavigationBar extends StatelessWidget {
         child: SingleChildScrollView(
           child: IntrinsicHeight(
             child: NavigationRail(
-              minWidth: 50,
+              minWidth: _navRailMinWidth,
               destinations: destinations,
               selectedIndex: selectedIndex,
               useIndicator: true,
@@ -50,7 +53,7 @@ class MyNavigationBar extends StatelessWidget {
         onSelected(index);
       },
       destinations: geMenuItemsFortNavBar(),
-      height: 52,
+      height: _navBarHeight,
       indicatorColor: getColorTheme(context).onSecondary,
       backgroundColor: getColorTheme(context).secondaryContainer,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,

@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'package:money/helpers/ranges.dart';
 
+const int _minimumDateRangeTokens = 2;
+
 /// Represents a filter associated with a specific field name.
 /// It contains a list of string values and an optional date range filter.
 class FieldFilter {
@@ -54,7 +56,7 @@ class FieldFilter {
   ///
   /// Ensures that there are at least two string values before calling `DateRange.fromText`.
   DateRange? get asDateRange {
-    if (byDateRange && strings.length >= 2) {
+    if (byDateRange && strings.length >= _minimumDateRangeTokens) {
       return DateRange.fromText(strings.first, strings.last);
     }
     return null;

@@ -11,6 +11,21 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/theme_custom.dart';
 
+const double _barBorderRadius = 2;
+const double _leftTitlesReservedSize = 80;
+const double _bottomTitlesReservedSize = 50;
+const double _bottomTitlesInterval = 1;
+const double _barWidthMargin = 80;
+const double _barWidthMargins = _barWidthMargin * 2;
+const double _barWidthDivisor = 2;
+const double _maxBarWidth = 30;
+const double _minBarWidth = 5;
+const double _gridLineWidth = 1;
+const double _legendPaddingTop = 8;
+const double _legendMaxWidth = 60;
+const double _legendFontSize = 10;
+const double _horizontalLineAlpha = 0.3;
+
 class Chart extends StatelessWidget {
   const Chart({
     super.key,
@@ -35,7 +50,7 @@ class Chart extends StatelessWidget {
 
         // 1. Calculate available width:
         double barWidth = getBarWidth(constraints, list.length);
-        barWidth /= 2;
+        barWidth /= _barWidthDivisor;
 
         for (int index = 0; index < list.length; index++) {
           final PairXYY entry = list[index];
@@ -50,14 +65,14 @@ class Chart extends StatelessWidget {
             barRods: <BarChartRodData>[
               BarChartRodData(
                 toY: entry.yValue1.toDouble(),
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(_barBorderRadius),
                 color: entry.yValue1 < 0 ? Colors.red : Colors.green,
                 width: barWidth, // Dynamically set the bar width
               ),
               if (entry.yValue2 != null)
                 BarChartRodData(
                   toY: entry.yValue2!.toDouble(),
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(_barBorderRadius),
                   color: Colors.blue,
                   width: barWidth, // Dynamically set the bar width
                 ),
@@ -83,16 +98,16 @@ class Chart extends StatelessWidget {
               leftTitles: const AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 80,
+                  reservedSize: _leftTitlesReservedSize,
                   getTitlesWidget: getWidgetChartAmount,
                 ),
               ),
               bottomTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 50,
+                  reservedSize: _bottomTitlesReservedSize,
                   getTitlesWidget: _buildLegendBottom,
-                  interval: 1,
+                  interval: _bottomTitlesInterval,
                 ),
               ),
             ),
@@ -153,20 +168,20 @@ class Chart extends StatelessWidget {
     final int numberOfBars,
   ) {
     // 1. Calculate available width:
-    final double margins = 80 * 2;
+    const double margins = _barWidthMargins;
     final double availableWidth = constraints.maxWidth - margins;
 
     // 2. Calculate bar width (adjust as needed):
     double barWidth = availableWidth / numberOfBars;
 
-    if (barWidth > 30) {
+    if (barWidth > _maxBarWidth) {
       // Set max bar width to 30
-      barWidth = 30;
+      barWidth = _maxBarWidth;
     }
 
-    if (barWidth < 5) {
+    if (barWidth < _minBarWidth) {
       // Set min bar width to 5
-      barWidth = 5;
+      barWidth = _minBarWidth;
     }
     return barWidth;
   }
@@ -175,7 +190,7 @@ class Chart extends StatelessWidget {
     drawVerticalLine: false,
     getDrawingHorizontalLine: (final double value) => FlLine(
       color: getHorizontalLineColorBasedOnValue(value),
-      strokeWidth: 1, // Set the thickness of the grid lines
+      strokeWidth: _gridLineWidth, // Set the thickness of the grid lines
     ),
   );
 
@@ -183,13 +198,13 @@ class Chart extends StatelessWidget {
       '${list[group.x].xText}\n${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
   Widget _buildLegendBottom(final double value, final TitleMeta meta) => Container(
-    padding: const EdgeInsets.only(top: 8),
-    constraints: const BoxConstraints(maxWidth: 60),
+    padding: const EdgeInsets.only(top: _legendPaddingTop),
+    constraints: const BoxConstraints(maxWidth: _legendMaxWidth),
     child: Text(
       list[value.toInt()].xText,
       softWrap: true,
       textAlign: TextAlign.center,
-      style: const TextStyle(fontSize: 10),
+      style: const TextStyle(fontSize: _legendFontSize),
     ),
   );
 }
@@ -202,15 +217,16 @@ FlBorderData getBorders(final double min, final double max) => FlBorderData(
   ),
 );
 
-Color getHorizontalLineColorBasedOnValue(final double value) =>
-    Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: 0.3);
+Color getHorizontalLineColorBasedOnValue(final double value) => Theme.of(
+  Get.context!,
+).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
 Widget getWidgetChartAmount(final double value, final TitleMeta meta) {
   final Widget widget = Text(
     getAmountAsStringUsingCurrency(value, decimalDigits: 0),
     textAlign: TextAlign.end,
     softWrap: false,
-    style: const TextStyle(fontSize: 10),
+    style: const TextStyle(fontSize: _legendFontSize),
   );
 
   return SideTitleWidget(meta: meta, child: widget);

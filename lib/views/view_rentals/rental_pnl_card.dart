@@ -6,6 +6,9 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/label_and_amount.dart';
 import 'package:money/widgets/rental_pnl.dart';
 
+const double _headerPadding = 30.0;
+const double _percentageScale = 100.0;
+
 class RentalPnLCard extends StatelessWidget {
   const RentalPnLCard({required this.pnl, super.key, this.customTitle});
 
@@ -18,7 +21,7 @@ class RentalPnLCard extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            gap(30),
+            gap(_headerPadding),
             Expanded(
               child: Text(
                 customTitle == null ? pnl.date.year.toString() : customTitle!,
@@ -97,7 +100,7 @@ class RentalPnLCard extends StatelessWidget {
         widgets.add(
           LabelAndAmount(
             caption: '  $name',
-            amount: pnl.profit * (percentage / 100),
+            amount: pnl.profit * (percentage / _percentageScale),
             currencyIso4217: pnl.currency,
             small: true,
           ),

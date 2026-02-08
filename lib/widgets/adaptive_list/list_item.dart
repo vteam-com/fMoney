@@ -5,6 +5,11 @@ import 'package:money/helpers/color_helper.dart';
 export 'package:flutter/material.dart';
 export 'package:money/widgets/scale_down.dart';
 
+const double _hoveredBackgroundAlpha = 0.3;
+const double _rowDividerWidth = 0.5;
+const double _rowDividerAlpha = 0.3;
+const double _adornmentWidth = 2;
+
 /// A Row for a Table view
 class MyListItem extends StatefulWidget {
   const MyListItem({
@@ -54,7 +59,9 @@ class MyListItemState extends State<MyListItem> {
     final Color backgroundColor = isSelected
         ? getColorTheme(context).primaryContainer
         : _hovering
-        ? getColorTheme(context).inversePrimary.withValues(alpha: 0.3)
+        ? getColorTheme(context).inversePrimary.withValues(
+            alpha: _hoveredBackgroundAlpha,
+          )
         : Colors.transparent;
 
     return Focus(
@@ -81,13 +88,20 @@ class MyListItemState extends State<MyListItem> {
               color: backgroundColor,
               border: Border(
                 top: BorderSide(
-                  width: 0.5,
-                  color: getColorTheme(context).outline.withValues(alpha: 0.3),
+                  width: _rowDividerWidth,
+                  color: getColorTheme(
+                    context,
+                  ).outline.withValues(alpha: _rowDividerAlpha),
                 ),
-                left: BorderSide(width: 2, color: widget.adornmentColor),
+                left: BorderSide(
+                  width: _adornmentWidth,
+                  color: widget.adornmentColor,
+                ),
                 bottom: BorderSide(
-                  width: 0.5,
-                  color: getColorTheme(context).outline.withValues(alpha: 0.3),
+                  width: _rowDividerWidth,
+                  color: getColorTheme(
+                    context,
+                  ).outline.withValues(alpha: _rowDividerAlpha),
                 ),
               ),
             ),

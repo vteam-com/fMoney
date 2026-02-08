@@ -7,6 +7,8 @@ import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/csv_column_mapper_dialog.dart'; // Import the dialog
 // TODO: Replace print calls with a proper logging utility.
 
+const int _previewRowLimit = 5;
+
 Future<void> importCSV(BuildContext context, String filePath) async {
   // print('importCSV called with filePath: $filePath'); // Removed
   try {
@@ -25,7 +27,9 @@ Future<void> importCSV(BuildContext context, String filePath) async {
 
     final List<String> headers = lines.first.split(',');
     final List<List<String>> dataRows = lines.skip(1).map((String line) => line.split(',')).toList();
-    final List<List<String>> previewRows = dataRows.length > 5 ? dataRows.sublist(0, 5) : dataRows;
+    final List<List<String>> previewRows = dataRows.length > _previewRowLimit
+        ? dataRows.sublist(0, _previewRowLimit)
+        : dataRows;
 
     if (!context.mounted) {
       // print("Context is not mounted, cannot show dialog."); // Removed

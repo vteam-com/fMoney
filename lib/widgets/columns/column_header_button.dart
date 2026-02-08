@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/columns/column_content_center.dart';
+
+const double _headerHorizontalPadding = 3;
+const double _sortIconSize = 20;
 
 Widget buildColumnHeaderButton({
   required BuildContext context,
@@ -24,7 +29,7 @@ Widget buildColumnHeaderButton({
           ),
           padding: WidgetStateProperty.all(
             const EdgeInsets.symmetric(
-              horizontal: 3.0, // Left and right padding
+              horizontal: _headerHorizontalPadding, // Left and right padding
             ),
           ),
         ),
@@ -110,16 +115,14 @@ Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
     case SortIndicator.sortAscending:
       return Transform(
         alignment: Alignment.center,
-        transform: Matrix4.rotationX(
-          3.14159,
-        ), // Rotate 180 degrees on both X and Y axes
+        transform: Matrix4.rotationX(pi), // Rotate 180 degrees on both X and Y axes
         child: const Icon(
           Icons.sort,
-          size: 20.0,
+          size: _sortIconSize,
         ), // Rotate 180 degrees for descending
       );
     case SortIndicator.sortDescending:
-      return const Icon(Icons.sort, size: 20.0);
+      return const Icon(Icons.sort, size: _sortIconSize);
     case SortIndicator.none:
       return const SizedBox();
   }
@@ -127,7 +130,7 @@ Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
 
 Widget _buildAdornerFoFilter(final bool filterOn) {
   if (filterOn) {
-    return const Icon(Icons.filter_alt_outlined, size: 20.0);
+    return const Icon(Icons.filter_alt_outlined, size: _sortIconSize);
   }
   return const SizedBox();
 }

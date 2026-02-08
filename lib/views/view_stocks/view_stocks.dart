@@ -30,6 +30,17 @@ import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 export 'package:money/views/view_stocks/stock_chart.dart';
 
+const int _zeroInt = 0;
+const int _pivotIndexClosed = 0;
+const int _pivotIndexActive = 1;
+const int _pivotIndexAll = 2;
+const int _defaultSortIndex = 0;
+const double _zeroDouble = 0.0;
+const double _pivotSpacing = 30.0;
+const int _dividerAlpha = 100;
+const double _toggleMinHeight = 40.0;
+const double _toggleMinWidth = 100.0;
+
 class ViewStocks extends ViewForMoneyObjects {
   const ViewStocks({super.key});
 
@@ -56,9 +67,9 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       applyFilter: false,
     );
 
-    double sumActive = 0.00;
-    double sumClosed = 0.00;
-    double sumAll = 0.00;
+    double sumActive = _zeroDouble;
+    double sumClosed = _zeroDouble;
+    double sumAll = _zeroDouble;
 
     for (final Security security in list) {
       final double profit = security.profit;
@@ -200,8 +211,8 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       child: Center(
         child: Wrap(
           alignment: WrapAlignment.center,
-          runSpacing: 30,
-          spacing: 30,
+          runSpacing: _pivotSpacing,
+          spacing: _pivotSpacing,
           children: <Widget>[
             MoneyObjectCard(
               title: getClassNameSingular(),
@@ -225,15 +236,15 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   }
 
   bool isMatchingPivot(final Security instance) {
-    if (_selectedPivot[0]) {
+    if (_selectedPivot[_pivotIndexClosed]) {
       // No holding of stock
       return isConsideredZero(instance.fieldHoldingShares.value);
     }
-    if (_selectedPivot[1]) {
+    if (_selectedPivot[_pivotIndexActive]) {
       // Still have holding
       return !isConsideredZero(instance.fieldHoldingShares.value);
     }
-    if (_selectedPivot[2]) {
+    if (_selectedPivot[_pivotIndexAll]) {
       // All, no filter needed
     }
     return true;
@@ -244,7 +255,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     final Security security,
   ) {
     final double totalDividend = security.dividends.fold(
-      0.0,
+      _zeroDouble,
       (double sum, Dividend dividend) => sum + dividend.amount,
     );
 
@@ -265,7 +276,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(
-          color: getColorTheme(context).onPrimaryContainer.withAlpha(100),
+          color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),
       footer: Box.buildFooter(
@@ -299,7 +310,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(
-          color: getColorTheme(context).onPrimaryContainer.withAlpha(100),
+          color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),
     );
@@ -339,7 +350,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
       final List<ChartEvent> events = <ChartEvent>[];
       for (final Investment activity in list) {
-        if (activity.effectiveUnits != 0) {
+        if (activity.effectiveUnits != _zeroDouble) {
           events.add(
             ChartEvent(
               dates: DateRange(
@@ -383,7 +394,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
     int sortByFieldIndex = PreferenceController.to.getInt(
       getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-      0,
+      _defaultSortIndex,
     );
     bool sortAscending = PreferenceController.to.getBool(
       getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
@@ -458,21 +469,21 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   Widget _renderToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+      padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
       child: ToggleButtons(
         direction: Axis.horizontal,
         onPressed: (final int index) {
           // ignore: invalid_use_of_protected_member
           setState(() {
-            for (int i = 0; i < _selectedPivot.length; i++) {
+            for (int i = _zeroInt; i < _selectedPivot.length; i++) {
               _selectedPivot[i] = i == index;
             }
             list = getList();
             clearSelection();
           });
         },
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        constraints: const BoxConstraints(minHeight: 40.0, minWidth: 100.0),
+        borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
+        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
         isSelected: _selectedPivot,
         children: _pivots,
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const double _defaultIconSize = 18;
+
 class MyIconButton extends StatefulWidget {
   const MyIconButton({
     super.key,
@@ -7,7 +9,7 @@ class MyIconButton extends StatefulWidget {
     required this.onPressed,
     this.hoverColor,
     this.tooltip = '',
-    this.size = 18,
+    this.size = _defaultIconSize,
   });
 
   final Color? hoverColor;

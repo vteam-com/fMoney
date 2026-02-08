@@ -1,6 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+const int _trendSampleSize = 2;
+const double _lineWidth = 1.0;
+const int _gradientTopAlpha = 100;
+const int _gradientBottomAlpha = 10;
+
 /// Helper functions for creating line charts.
 /// Features:
 /// - Data point sorting
@@ -23,7 +28,7 @@ LineChartBarData getLineChartBarData(
   Color color = Colors.grey;
   if (dataPoints.last.y.isNegative) {
     color = Colors.orange;
-  } else if (dataPoints.length >= 2) {
+  } else if (dataPoints.length >= _trendSampleSize) {
     color = dataPoints.last.y >= dataPoints.first.y ? Colors.green : Colors.red;
   }
 
@@ -31,13 +36,13 @@ LineChartBarData getLineChartBarData(
     spots: dataPoints,
     isCurved: false,
     color: color,
-    barWidth: 1,
+    barWidth: _lineWidth,
     belowBarData: BarAreaData(
       show: true,
       gradient: LinearGradient(
         colors: <Color>[
-          color.withAlpha(100), // top
-          color.withAlpha(10), // bottom
+          color.withAlpha(_gradientTopAlpha), // top
+          color.withAlpha(_gradientBottomAlpha), // bottom
         ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,

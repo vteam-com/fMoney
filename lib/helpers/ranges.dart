@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 
@@ -5,12 +6,24 @@ import 'package:money/helpers/string_helper.dart';
 export 'package:money/helpers/date_helper.dart';
 export 'package:money/helpers/string_helper.dart';
 
+const int _firstMonth = DateTime.january;
+const int _firstDayOfMonth = 1;
+const int _oneYearOffset = 1;
+const int _microsecondPadding = 1;
+const int _zeroInt = 0;
+const int _minDurationDays = 1;
+const int _daysPerMonthApprox = 30;
+const int _daysPerYear = 365;
+const int _compareLess = -1;
+const int _compareGreater = 1;
+const int _rangeStep = 1;
+
 class DateRange {
   DateRange({this.min, this.max});
 
   factory DateRange.fromStarEndYears(final int yearStart, final int yearEnd) => DateRange(
-    min: DateTime(yearStart, 1, 1),
-    max: DateTime(yearEnd + 1).subtract(const Duration(microseconds: 1)),
+    min: DateTime(yearStart, _firstMonth, _firstDayOfMonth),
+    max: DateTime(yearEnd + _oneYearOffset).subtract(const Duration(microseconds: _microsecondPadding)),
   );
 
   factory DateRange.fromText(
@@ -74,15 +87,15 @@ class DateRange {
 
   int get durationInDays {
     if (max == null || min == null) {
-      return 0;
+      return _zeroInt;
     }
 
     // Calculate the difference between the two dates
     final Duration difference = max!.difference(min!);
 
     // minimum 1 day
-    if (difference.inDays < 1) {
-      return 1;
+    if (difference.inDays < _minDurationDays) {
+      return _minDurationDays;
     }
 
     // Get the number of days from the difference
@@ -97,15 +110,15 @@ class DateRange {
   );
 
   int get durationInMonths {
-    return durationInDays ~/ 30; // Close enough
+    return durationInDays ~/ _daysPerMonthApprox; // Close enough
   }
 
   int get durationInYears {
     if (hasNullDates) {
-      return 0;
+      return _zeroInt;
     }
 
-    return (_valueOrZeroIfNull(max!.year) - _valueOrZeroIfNull(min!.year)) + 1;
+    return (_valueOrZeroIfNull(max!.year) - _valueOrZeroIfNull(min!.year)) + _rangeStep;
   }
 
   String get durationInYearsText => getSingularPluralText(
@@ -131,11 +144,11 @@ class DateRange {
       min ??= dateTime;
       max ??= dateTime;
 
-      if (dateTime.compareTo(min!) == -1) {
+      if (dateTime.compareTo(min!) == _compareLess) {
         min = dateTime;
       }
 
-      if (dateTime.compareTo(max!) == 1) {
+      if (dateTime.compareTo(max!) == _compareGreater) {
         max = dateTime;
       }
     }
@@ -156,7 +169,7 @@ class DateRange {
   String toStringDays() => '${dateToString(min)} ($durationInDaysText) ${dateToString(max)}';
 
   String toStringDuration() {
-    if (durationInDays >= 365) {
+    if (durationInDays >= _daysPerYear) {
       return durationInYearsText;
     }
     return durationInDaysText;
@@ -166,7 +179,7 @@ class DateRange {
 
   int _valueOrZeroIfNull(final int? value) {
     if (value == null) {
-      return 0;
+      return _zeroInt;
     }
     return value;
   }
@@ -174,7 +187,7 @@ class DateRange {
 
 /// Helper class to encapsulate a range of integers.
 class NumRange {
-  NumRange({this.min = 0, this.max = 0});
+  NumRange({this.min = _zeroInt, this.max = _zeroInt});
 
   num max;
   num min;
@@ -184,7 +197,7 @@ class NumRange {
 
   /// Decrements the range by one, if possible.
   void decrement(int minLimit) {
-    if (min - 1 >= minLimit) {
+    if (min - _rangeStep >= minLimit) {
       min--;
       max--;
     }
@@ -196,7 +209,7 @@ class NumRange {
 
   /// Increments the range by one, if possible.
   void increment(int maxLimit) {
-    if (max + 1 <= maxLimit) {
+    if (max + _rangeStep <= maxLimit) {
       min++;
       max++;
     }
@@ -212,10 +225,10 @@ class NumRange {
   }
 
   /// Checks if the range is valid.
-  bool isValid() => min > 0 && max > 0 && span > 0;
+  bool isValid() => min > _zeroInt && max > _zeroInt && span > _zeroInt;
 
   /// Returns the span of the range, calculated as the difference between [max] and [min] plus one.
-  num get span => max - min + 1;
+  num get span => max - min + _rangeStep;
 
   /// Updates the range with new values.
   void update(int newMin, int newMax) {
@@ -224,4 +237,14 @@ class NumRange {
   }
 
   String _getDescription(final String min, final String max) => '$min min, $max max';
+}
+
+extension Range on num {
+  bool isBetween(final num from, final num to) {
+    return from < this && this < to;
+  }
+
+  bool isBetweenOrEqual(final num from, final num to) {
+    return from < this && this < to;
+  }
 }

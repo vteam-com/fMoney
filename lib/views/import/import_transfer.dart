@@ -7,6 +7,9 @@ import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/snack_bar.dart';
 
+const double _transferAmountSign = -1.0;
+const int _snackDurationSeconds = 5;
+
 void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   inputData ??= ImportFieldsForTransfer(
     accountFrom: Data().accounts.getMostRecentlySelectedAccount(),
@@ -46,7 +49,7 @@ List<Widget> getActionButtons(
             message: 'Select valid accounts.',
             autoDismiss: true,
             title: 'Transfer',
-            duration: 5,
+            duration: _snackDurationSeconds,
           );
         } else {
           // Add the main Transaction of the transfer
@@ -59,7 +62,7 @@ List<Widget> getActionButtons(
             newTransactionFromAccount.fieldCategoryId.value = inputData.category!.uniqueId;
           }
           newTransactionFromAccount.fieldAmount.value.setAmount(
-            inputData.amount.abs() * -1,
+            inputData.amount.abs() * _transferAmountSign,
           ); // From account must be negative
 
           Data().transactions.appendNewMoneyObject(

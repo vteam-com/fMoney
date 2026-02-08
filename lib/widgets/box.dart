@@ -2,6 +2,16 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/icon_button.dart';
 
+const double _defaultPadding = 8;
+const double _defaultBoxWidth = 500;
+const double _boxBorderRadius = 8;
+const double _boxBorderAlpha = 0.5;
+const double _copyButtonTopOffset = -10;
+const double _footerBottomOffset = -5;
+const double _footerRightOffset = 10;
+const double _badgeOffsetX = 20;
+const double _badgeOffsetY = 0;
+
 class Box extends StatelessWidget {
   Box({
     super.key,
@@ -12,7 +22,7 @@ class Box extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
-    this.padding = 8,
+    this.padding = _defaultPadding,
     this.copyToClipboard,
     required this.child,
   }) {
@@ -56,23 +66,33 @@ class Box extends StatelessWidget {
           margin: adjustedMargin,
           padding: EdgeInsets.all(padding),
           constraints: BoxConstraints(
-            minWidth: width ?? 500,
-            maxWidth: width ?? 500,
+            minWidth: width ?? _defaultBoxWidth,
+            maxWidth: width ?? _defaultBoxWidth,
           ),
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8.0), // Bor
+            borderRadius: BorderRadius.circular(_boxBorderRadius), // Bor
             border: Border.all(
               width: 1,
-              color: Colors.grey.withValues(alpha: 0.5),
+              color: Colors.grey.withValues(alpha: _boxBorderAlpha),
             ),
           ),
           child: child,
         ),
         if (title.isNotEmpty || header != null) _buildBoxHeader(context),
-        if (copyToClipboard != null) Positioned(top: -10, right: 0, child: _buildCopyToClipboardButton()),
-        if (footer != null) Positioned(bottom: -5, right: 10, child: footer!),
+        if (copyToClipboard != null)
+          Positioned(
+            top: _copyButtonTopOffset,
+            right: 0,
+            child: _buildCopyToClipboardButton(),
+          ),
+        if (footer != null)
+          Positioned(
+            bottom: _footerBottomOffset,
+            right: _footerRightOffset,
+            child: footer!,
+          ),
       ],
     );
   }
@@ -122,7 +142,7 @@ Widget buildHeaderTitleAndCounter(
   final Widget boxHeader = Badge(
     isLabelVisible: badgeText.isNotEmpty,
     backgroundColor: Theme.of(context).colorScheme.primary,
-    offset: const Offset(20.0, 0),
+    offset: const Offset(_badgeOffsetX, _badgeOffsetY),
     label: getBadgeText(badgeText),
     child: Text(title),
   );

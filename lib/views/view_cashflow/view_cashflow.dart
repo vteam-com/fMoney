@@ -20,6 +20,12 @@ import 'package:money/widgets/pick_number.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/years_range_selector.dart';
 
+const double _headerPadding = 8.0;
+const double _zeroDouble = 0.0;
+const double _defaultPadding = 10.0;
+const int _eventToleranceMin = 0;
+const int _eventToleranceMax = 12;
+
 class ViewCashFlow extends ViewWidget {
   const ViewCashFlow({super.key});
 
@@ -44,15 +50,15 @@ class ViewCashFlowState extends ViewWidgetState {
   late DateRange dateRangeTransactions;
   Map<Category, double> mapOfExpenses = <Category, double>{};
   Map<Category, double> mapOfIncomes = <Category, double>{};
-  double padding = 10.0;
+  double padding = _defaultPadding;
   late int selectedYearEnd;
   late int selectedYearStart;
-  double totalExpenses = 0.00;
-  double totalHeight = 0.0;
-  double totalIncomes = 0.00;
-  double totalInvestments = 0.00;
-  double totalNones = 0.00;
-  double totalSavings = 0.00;
+  double totalExpenses = _zeroDouble;
+  double totalHeight = _zeroDouble;
+  double totalIncomes = _zeroDouble;
+  double totalInvestments = _zeroDouble;
+  double totalNones = _zeroDouble;
+  double totalSavings = _zeroDouble;
 
   final Debouncer _debouncer = Debouncer();
 
@@ -133,8 +139,8 @@ class ViewCashFlowState extends ViewWidgetState {
             if (CashflowViewAs.netWorthOverTime == PreferenceController.to.cashflowViewAs.value)
               NumberPicker(
                 title: 'Event Tolerances',
-                minValue: 0,
-                maxValue: 12,
+                minValue: _eventToleranceMin,
+                maxValue: _eventToleranceMax,
                 selectedNumber: PreferenceController.to.netWorthEventThreshold.value,
                 onChanged: (int value) {
                   PreferenceController.to.netWorthEventThreshold.value = value;
@@ -162,7 +168,7 @@ class ViewCashFlowState extends ViewWidgetState {
         ),
         if (Data().transactions.isNotEmpty)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: _headerPadding),
             child: YearRangeSlider(
               yearRange: NumRange(
                 min: dateRangeTransactions.min!.year,

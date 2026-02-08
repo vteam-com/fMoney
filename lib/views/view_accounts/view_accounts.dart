@@ -54,6 +54,26 @@ import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const double _zeroDouble = 0.0;
+const double _oneDouble = 1.0;
+const double _negativeMultiplier = -1.0;
+const int _accountTypeIndexBank = 0;
+const int _accountTypeIndexInvestment = 1;
+const int _accountTypeIndexCredit = 2;
+const int _accountTypeIndexAssets = 3;
+const int _accountTypeIndexAll = -1;
+const int _approxDateOffsetDays = 1;
+const double _toggleMinHeight = 40.0;
+const double _toggleMinWidth = 100.0;
+const double _pivotSpacing = 10.0;
+const double _stockPanelHeight = 180.0;
+const double _summaryPanelHeight = 150.0;
+const int _chartMaxPointsLarge = 100;
+const int _chartMaxPointsSmall = 10;
+const int _symbolTokenIndex = 1;
+
 /// Main view for all Accounts
 class ViewAccounts extends ViewForMoneyObjects {
   const ViewAccounts({super.key, super.includeClosedAccount});
@@ -105,14 +125,18 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               if (selectedInfoTransaction != null) {
                 // Look for transaction matching -1 to +1 date from this transaction
                 final DateRange approximationDates = DateRange(
-                  min: selectedInfoTransaction.fieldDateTime.value!.add(const Duration(days: -1)).startOfDay,
-                  max: selectedInfoTransaction.fieldDateTime.value!.add(const Duration(days: 1)).endOfDay,
+                  min: selectedInfoTransaction.fieldDateTime.value!
+                      .add(const Duration(days: -_approxDateOffsetDays))
+                      .startOfDay,
+                  max: selectedInfoTransaction.fieldDateTime.value!
+                      .add(const Duration(days: _approxDateOffsetDays))
+                      .endOfDay,
                 );
                 // we are looking for the reverse transaction
-                final double amountToFind = selectedInfoTransaction.fieldAmount.value.asDouble() * -1;
+                final double amountToFind = selectedInfoTransaction.fieldAmount.value.asDouble() * _negativeMultiplier;
 
                 final Transaction? matchingTransaction = Data().transactions.findExistingTransaction(
-                  accountId: -1,
+                  accountId: _accountTypeIndexAll,
                   dateRange: approximationDates,
                   amount: amountToFind,
                 );
@@ -137,7 +161,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     } else {
       // Place this in front off all the other actions button
       list.insert(
-        0,
+        _zeroInt,
         buildAddItemButton(() {
           // add a new Account
           final Account newItem = Data().accounts.addNewAccount(
@@ -153,7 +177,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         list.add(
           buildJumpToButton(context, <MenuEntry>[
             MenuEntry.toTransactions(
-              transactionId: -1,
+              transactionId: _accountTypeIndexAll,
               // Prepare the Transaction view Filter to show only the selected account
               filters: FieldFilters(<FieldFilter>[
                 FieldFilter(
@@ -274,7 +298,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(0)),
+          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexBank)),
         ),
       ),
     );
@@ -285,7 +309,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(1)),
+          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexInvestment)),
         ),
       ),
     );
@@ -296,7 +320,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(2)),
+          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexCredit)),
         ),
       ),
     );
@@ -307,7 +331,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(3)),
+          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexAssets)),
         ),
       ),
     );
@@ -318,7 +342,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(-1)),
+          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexAll)),
         ),
       ),
     );
@@ -326,7 +350,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Calculates the total balance of the specified account types.
   double getTotalBalanceOfAccounts(final List<AccountType> types) {
-    double total = 0.0;
+    double total = _zeroDouble;
     Data().accounts
         .activeAccounts(types)
         .forEach(
@@ -341,38 +365,38 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   List<AccountType> getSelectedAccountType() {
-    if (_selectedPivot[0]) {
-      return getSelectedAccountTypesByIndex(0);
+    if (_selectedPivot[_accountTypeIndexBank]) {
+      return getSelectedAccountTypesByIndex(_accountTypeIndexBank);
     }
 
-    if (_selectedPivot[1]) {
-      return getSelectedAccountTypesByIndex(1);
+    if (_selectedPivot[_accountTypeIndexInvestment]) {
+      return getSelectedAccountTypesByIndex(_accountTypeIndexInvestment);
     }
 
-    if (_selectedPivot[2]) {
-      return getSelectedAccountTypesByIndex(2);
+    if (_selectedPivot[_accountTypeIndexCredit]) {
+      return getSelectedAccountTypesByIndex(_accountTypeIndexCredit);
     }
 
-    if (_selectedPivot[3]) {
-      return getSelectedAccountTypesByIndex(3);
+    if (_selectedPivot[_accountTypeIndexAssets]) {
+      return getSelectedAccountTypesByIndex(_accountTypeIndexAssets);
     }
 
-    return getSelectedAccountTypesByIndex(-1);
+    return getSelectedAccountTypesByIndex(_accountTypeIndexAll);
   }
 
   /// Returns a list of [AccountType] based on the provided [index].
   List<AccountType> getSelectedAccountTypesByIndex(final int index) {
     switch (index) {
-      case 0:
+      case _accountTypeIndexBank:
         return <AccountType>[AccountType.checking, AccountType.savings];
 
-      case 1:
+      case _accountTypeIndexInvestment:
         return <AccountType>[AccountType.investment, AccountType.retirement];
 
-      case 2:
+      case _accountTypeIndexCredit:
         return <AccountType>[AccountType.credit, AccountType.creditLine];
 
-      case 3:
+      case _accountTypeIndexAssets:
         return <AccountType>[
           AccountType.asset,
           AccountType.cash,
@@ -387,22 +411,22 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   Widget _renderToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+      padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
       child: ToggleButtons(
         key: const Key('view_accounts_pivots'),
         direction: Axis.horizontal,
         onPressed: (final int index) {
           // ignore: invalid_use_of_protected_member
           setState(() {
-            for (int i = 0; i < _selectedPivot.length; i++) {
+            for (int i = _zeroInt; i < _selectedPivot.length; i++) {
               _selectedPivot[i] = i == index;
             }
             list = getList();
             clearSelection();
           });
         },
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        constraints: const BoxConstraints(minHeight: 40.0, minWidth: 100.0),
+        borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
+        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
         isSelected: _selectedPivot,
         children: _pivots,
       ),
@@ -433,8 +457,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
             Expanded(
               child: Wrap(
                 alignment: WrapAlignment.center,
-                runSpacing: 10,
-                spacing: 10,
+                runSpacing: _pivotSpacing,
+                spacing: _pivotSpacing,
                 children: _buildStockHoldingCards(selectedAccount),
               ),
             ),
@@ -474,15 +498,15 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       if (isConsideredZero(sharesForThisStock) == false) {
         //  "123|MSFT" >> "MSFT"
         // tally the cost of the stock
-        double totalCost = 0.0;
+        double totalCost = _zeroDouble;
         for (final Investment investment in listOfInvestmentsForAccount.toList()) {
           totalCost += investment.costForShares;
         }
 
-        final String symbol = key.split('|')[1];
+        final String symbol = key.split('|')[_symbolTokenIndex];
 
         final Security? stock = Data().securities.getBySymbol(symbol);
-        double stockPrice = 1.00;
+        double stockPrice = _oneDouble;
 
         if (stock != null) {
           stockPrice = stock.fieldPrice.value.asDouble();
@@ -507,7 +531,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     final List<Widget> stockPanels = stockSummaries
         .map(
           (StockSummary summary) => BoxWithScrollingContent(
-            height: 180,
+            height: _stockPanelHeight,
             children: <Widget>[
               Row(
                 children: <Widget>[
@@ -581,7 +605,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         .toList();
 
     // also add Summary Cash and Stock
-    double totalInvestment = 0.0;
+    double totalInvestment = _zeroDouble;
     for (StockSummary element in stockSummaries) {
       totalInvestment += element.holdingValue;
     }
@@ -589,9 +613,9 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     final double totalCash = account.balance - totalInvestment;
 
     stockPanels.insert(
-      0,
+      _zeroInt,
       BoxWithScrollingContent(
-        height: 150,
+        height: _summaryPanelHeight,
         children: <Widget>[
           gapMedium(),
           // Cash
@@ -639,7 +663,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }) {
     final List<PairXYY> listOfPairXY = <PairXYY>[];
 
-    if (selectedIds.length == 1) {
+    if (selectedIds.length == _oneInt) {
       final Account? account = getFirstSelectedItemFromSelectedList(selectedIds) as Account?;
       if (account == null) {
         // this should not happen
@@ -657,7 +681,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
       return Chart(
         key: Key('$selectedIds $showAsNativeCurrency'),
-        list: listOfPairXY.take(100).toList(),
+        list: listOfPairXY.take(_chartMaxPointsLarge).toList(),
         currency: showAsNativeCurrency ? account.fieldCurrency.value : Constants.defaultCurrency,
       );
     } else {
@@ -681,7 +705,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
       return Chart(
         key: Key(selectedIds.toString()),
-        list: listOfPairXY.take(10).toList(),
+        list: listOfPairXY.take(_chartMaxPointsSmall).toList(),
       );
     }
   }

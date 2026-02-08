@@ -26,6 +26,31 @@ import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/working.dart';
 
+const int _httpOkStatus = 200;
+const int _httpUnauthorized = 401;
+const int _httpForbidden = 403;
+const int _httpNotFound = 404;
+const int _httpConflict = 409;
+const List<int> _apiErrorCodes = <int>[_httpUnauthorized, _httpForbidden, _httpNotFound, _httpConflict];
+const int _epochMillisPerSecond = 1000;
+const int _zeroInt = 0;
+const int _oneInt = 1;
+const double _zeroDouble = 0.0;
+const double _chartMarginLeft = 80.0;
+const double _chartMarginBottom = 50.0;
+const double _lineRectWidth = 0.5;
+const double _labelLineHeight = 0.7;
+const double _labelMaxWidth = 400.0;
+const double _gridLineOffsetY = 5.0;
+const double _gridLineHeight = 45.0;
+const double _labelOffsetX = 2.0;
+const double _labelOffsetY = 30.0;
+const double _labelStepX = 20.0;
+const int _lineAlpha = 150;
+const int _boxAlpha = 100;
+const double _activityBoxHeight = 20.0;
+const double _activityLineOpacity = 0.8;
+
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({
     super.key,
@@ -41,10 +66,11 @@ class StockChartWidget extends StatefulWidget {
   final String symbol;
 
   @override
-  StockChartWidgetState createState() => StockChartWidgetState();
+  // ignore: library_private_types_in_public_api
+  State<StockChartWidget> createState() => _StockChartWidgetState();
 }
 
-class StockChartWidgetState extends State<StockChartWidget> {
+class _StockChartWidgetState extends State<StockChartWidget> {
   bool _refreshing = false;
 
   List<FlSpot> dataPoints = <FlSpot>[];
@@ -131,7 +157,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
     for (final ChartEvent activity in widget.holdingsActivities.reversed) {
       if (dataPoints.isEmpty || activity.dates.min!.millisecondsSinceEpoch < dataPoints.first.x) {
         dataPoints.insert(
-          0,
+          _zeroInt,
           FlSpot(
             activity.dates.min!.millisecondsSinceEpoch.toDouble(),
             activity.amount,
@@ -142,9 +168,6 @@ class StockChartWidgetState extends State<StockChartWidget> {
   }
 
   Widget _buildChart() {
-    const double marginLeft = 80;
-    const double marginBottom = 50;
-
     // Date ascending
     dataPoints.sort((FlSpot a, FlSpot b) => a.x.compareTo(b.x));
 
@@ -166,8 +189,8 @@ class StockChartWidgetState extends State<StockChartWidget> {
         // Splits
         Padding(
           padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
+            left: _chartMarginLeft,
+            bottom: _chartMarginBottom,
           ),
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
@@ -182,8 +205,8 @@ class StockChartWidgetState extends State<StockChartWidget> {
         // Activities Buy & Sell
         Padding(
           padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
+            left: _chartMarginLeft,
+            bottom: _chartMarginBottom,
           ),
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
@@ -198,8 +221,8 @@ class StockChartWidgetState extends State<StockChartWidget> {
         // Dividends
         Padding(
           padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
+            left: _chartMarginLeft,
+            bottom: _chartMarginBottom,
           ),
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
@@ -215,8 +238,8 @@ class StockChartWidgetState extends State<StockChartWidget> {
         /// Price and Refresh button
         Padding(
           padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
+            left: _chartMarginLeft,
+            bottom: _chartMarginBottom,
           ),
           child: _buildPriceRefreshButton(),
         ),
@@ -304,12 +327,12 @@ class StockChartWidgetState extends State<StockChartWidget> {
 
       final http.Response response = await http.get(uri);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == _httpOkStatus) {
         try {
           final MyJson data = json.decode(response.body) as MyJson;
 
           final int? subStatusCode = data['code'] as int?;
-          if (<int>[401, 403, 404, 409].contains(subStatusCode)) {
+          if (_apiErrorCodes.contains(subStatusCode)) {
             logger.e(data.toString());
             SnackBarService.displayError(message: data['message'] as String);
           } else {
@@ -361,7 +384,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
     final http.Response response = await http.get(uri);
 
     // Check if the request was successful
-    if (response.statusCode == 200) {
+    if (response.statusCode == _httpOkStatus) {
       // Parse the response body as JSON
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       final Security? security = Data().securities.getBySymbol(symbol);
@@ -387,7 +410,7 @@ class StockChartWidgetState extends State<StockChartWidget> {
                     for (var splitJson in splits.values) {
                       final int dateInMilliseconds = splitJson['date'] as int;
                       final DateTime dateOSplit = DateTime.fromMillisecondsSinceEpoch(
-                        dateInMilliseconds * 1000,
+                        dateInMilliseconds * _epochMillisPerSecond,
                       );
                       final StockSplit sp = StockSplit(
                         security: security.uniqueId,
@@ -430,7 +453,7 @@ void _paintLine(
   double top,
   double chartHeight,
 ) {
-  final ui.Rect rect = Rect.fromLTWH(left, top, 0.5, chartHeight);
+  final ui.Rect rect = Rect.fromLTWH(left, top, _lineRectWidth, chartHeight);
   _paint.color = color;
 
   canvas.drawRect(rect, _paint);
@@ -449,15 +472,15 @@ void _paintLabel(
       text: text,
       style: TextStyle(
         color: color,
-        fontSize: 10,
-        height: 0.7, // Tight lines spacing
+        fontSize: SizeForText.small,
+        height: _labelLineHeight, // Tight lines spacing
         fontWeight: FontWeight.bold,
       ),
     ),
     textDirection: ui.TextDirection.ltr,
   );
 
-  textPainter.layout(minWidth: 0, maxWidth: 400);
+  textPainter.layout(minWidth: _zeroDouble, maxWidth: _labelMaxWidth);
 
   textPainter.paint(canvas, Offset(x, y));
 }
@@ -477,19 +500,19 @@ class PaintSplits extends CustomPainter {
     // lines are drawn lef to right sorted by time
     // the label are drawn bottom to top sorted by ascending amount
     for (final StockSplit split in splits) {
-      double left = 0;
+      double left = _zeroDouble;
       if (split.fieldDate.value!.millisecondsSinceEpoch > minX) {
         left = ((split.fieldDate.value!.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
       }
-      _paintLine(canvas, Colors.grey, left, chartHeight - 5, 45);
+      _paintLine(canvas, Colors.grey, left, chartHeight - _gridLineOffsetY, _gridLineHeight);
       _paintLabel(
         canvas,
         '${split.fieldNumerator.value} for ${split.fieldDenominator.value}',
         Colors.blue,
-        left + 2,
-        chartHeight + 30,
+        left + _labelOffsetX,
+        chartHeight + _labelOffsetY,
       );
-      left += 20;
+      left += _labelStepX;
     }
   }
 
@@ -521,8 +544,8 @@ class PaintActivities extends CustomPainter {
     double nextVerticalLabelPosition = chartHeight - labelVerticalDistribution;
 
     for (final ChartEvent activity in activities) {
-      double left = 0;
-      double right = 0;
+      double left = _zeroDouble;
+      double right = _zeroDouble;
       if (activity.dates.min!.millisecondsSinceEpoch > minX) {
         left = ((activity.dates.min!.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
       }
@@ -531,26 +554,26 @@ class PaintActivities extends CustomPainter {
       }
       _paintLine(
         canvas,
-        lineColor?.withAlpha(150) ?? activity.colorToUse.withValues(alpha: 0.8),
+        lineColor?.withAlpha(_lineAlpha) ?? activity.colorToUse.withValues(alpha: _activityLineOpacity),
         left,
-        0,
+        _zeroDouble,
         chartHeight,
       );
 
       String text = '';
       // show the quantity if not 1
-      if (activity.quantity.toInt().abs() != 1) {
+      if (activity.quantity.toInt().abs() != _oneInt) {
         text = '${getIntAsText(activity.quantity.toInt().abs())} ';
       }
       // show the value is not zero
-      if (activity.amount != 0) {
+      if (activity.amount != _zeroDouble) {
         text += doubleToCurrency(activity.amount, showPlusSign: true);
       }
       // add description
       if (activity.description.isNotEmpty) {
         text += '\n${activity.description}';
       }
-      final Color boxColor = (lineColor ?? activity.colorToUse).withAlpha(100);
+      final Color boxColor = (lineColor ?? activity.colorToUse).withAlpha(_boxAlpha);
       Color textColor = boxColor;
       if (activity.dates.max != null) {
         _paintBox(
@@ -558,12 +581,12 @@ class PaintActivities extends CustomPainter {
           left,
           nextVerticalLabelPosition,
           right - left,
-          20,
+          _activityBoxHeight,
           boxColor,
         );
         textColor = contrastColor(boxColor);
       }
-      _paintLabel(canvas, text, textColor, left + 2, nextVerticalLabelPosition);
+      _paintLabel(canvas, text, textColor, left + _labelOffsetX, nextVerticalLabelPosition);
 
       nextVerticalLabelPosition -= labelVerticalDistribution;
     }
@@ -610,19 +633,19 @@ class PaintDividends extends CustomPainter {
     // lines are drawn lef to right sorted by time
     // the label are drawn at bottom
     for (final Dividend item in list) {
-      double left = 0;
+      double left = _zeroDouble;
       if (item.date.millisecondsSinceEpoch > minX) {
         left = ((item.date.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
       }
-      _paintLine(canvas, Colors.grey, left, chartHeight - 5, 45);
+      _paintLine(canvas, Colors.grey, left, chartHeight - _gridLineOffsetY, _gridLineHeight);
       _paintLabel(
         canvas,
         getAmountAsStringUsingCurrency(item.amount),
         Colors.green,
-        left + 2,
-        chartHeight + 30,
+        left + _labelOffsetX,
+        chartHeight + _labelOffsetY,
       );
-      left += 20;
+      left += _labelStepX;
     }
   }
 

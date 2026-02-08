@@ -12,6 +12,11 @@ import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const int _nextIdIncrement = 1;
+const double _diffIdOpacity = 0.5;
+
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {
   /// Constructor
@@ -33,7 +38,7 @@ class MoneyObjects<T> {
     final DataObject moneyObject, {
     bool fireNotification = true,
   }) {
-    assert(moneyObject.uniqueId == -1);
+    assert(moneyObject.uniqueId == _unsetId);
 
     // assign the next available unique ID
     moneyObject.uniqueId = getNextId();
@@ -140,11 +145,11 @@ class MoneyObjects<T> {
   }
 
   int getNextId() {
-    int nextId = -1;
+    int nextId = _unsetId;
     for (DataObject moneyObject in _list) {
       nextId = max(nextId, moneyObject.uniqueId);
     }
-    return nextId + 1;
+    return nextId + _nextIdIncrement;
   }
 
   /// Must be override by derived class
@@ -246,7 +251,7 @@ class MoneyObjects<T> {
   ) {
     list.sort((final DataObject a, final DataObject b) {
       int result = sortWith(a, b, ascending);
-      if (result == 0) {
+      if (result == _zeroInt) {
         result = a.uniqueId.compareTo(b.uniqueId);
       }
       return result;
@@ -285,7 +290,7 @@ class MoneyObjects<T> {
         // Field Name
         final Widget instanceName = Text(
           key,
-          style: const TextStyle(fontSize: 10),
+          style: const TextStyle(fontSize: SizeForText.small),
         );
 
         switch (moneyObject.mutation) {
@@ -340,17 +345,17 @@ class MoneyObjects<T> {
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
                 Opacity(
-                  opacity: 0.5,
+                  opacity: _diffIdOpacity,
                   child: SelectableText(
                     moneyObject.uniqueId.toString(),
-                    style: const TextStyle(fontSize: 8),
+                    style: const TextStyle(fontSize: SizeForText.nano),
                   ),
                 ),
               ],
             ),
             gapSmall(),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: SizeForPadding.normal),
               child: Wrap(
                 spacing: SizeForPadding.large,
                 runSpacing: SizeForPadding.large,

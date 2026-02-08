@@ -4,6 +4,9 @@ import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
+const double _choiceWidth = 250;
+const double _captionWidth = 100;
+
 enum TransactionFlavor { payee, transfer }
 
 class PickPayeeOrTransfer extends StatefulWidget {
@@ -55,7 +58,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         gapMedium(),
-        SizedBox(width: 250, child: buildChoice()),
+        SizedBox(width: _choiceWidth, child: buildChoice()),
         gapSmall(),
         Expanded(child: buildIInput()),
       ],
@@ -123,7 +126,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        if (caption.isNotEmpty) SizedBox(width: 100, child: Text(caption)),
+        if (caption.isNotEmpty) SizedBox(width: _captionWidth, child: Text(caption)),
         gapMedium(),
         Expanded(child: widget),
       ],

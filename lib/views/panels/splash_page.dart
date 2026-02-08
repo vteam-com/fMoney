@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/text_title.dart';
 
+const double _splashHeight = 300.0;
+
 /// The `SplashScreen` widget is a stateless widget that displays a simple splash screen
 /// with the app title and a circular progress indicator. This screen is typically
 /// shown when the app is first launched, while the app is initializing or loading
@@ -17,7 +19,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: 300,
+          height: _splashHeight,
           child: Column(
             children: <Widget>[
               const TextTitle('fMoney'),

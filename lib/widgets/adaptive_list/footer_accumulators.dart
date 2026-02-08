@@ -5,6 +5,8 @@ import 'package:money/widgets/footer_widgets.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const int _sampleLimit = 10;
+
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();
   final AccumulatorRange<Field<dynamic>> accumulatorNumericRange = AccumulatorRange<Field<dynamic>>();
@@ -45,8 +47,8 @@ class FooterAccumulators {
         final int count = list.length;
         if (count > 0) {
           String samples = '';
-          if (count > 10) {
-            samples = '${list.take(10).join('\n')}\n...';
+          if (count > _sampleLimit) {
+            samples = '${list.take(_sampleLimit).join('\n')}\n...';
           } else {
             samples = list.join('\n');
           }

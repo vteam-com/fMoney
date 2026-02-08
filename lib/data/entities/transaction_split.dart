@@ -9,6 +9,10 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const int _unsetId = -1;
+const int _zeroInt = 0;
+const double _zeroDouble = 0.0;
+
 /*
   SQLite table definition
 
@@ -49,17 +53,17 @@ class TransactionSplit extends DataObject {
   factory TransactionSplit.fromJson(final MyJson row, final DataAbstract data) {
     return TransactionSplit(
       // 0
-      transactionId: row.getInt('Transaction', -1),
+      transactionId: row.getInt('Transaction', _unsetId),
       // 1
-      id: row.getInt('Id', -1),
+      id: row.getInt('Id', _unsetId),
       // 2
-      categoryId: row.getInt('Category', -1),
+      categoryId: row.getInt('Category', _unsetId),
       // 3
-      payeeId: row.getInt('Payee', -1),
+      payeeId: row.getInt('Payee', _unsetId),
       // 4
       amount: row.getDouble('Amount'),
       // 5
-      transferId: row.getInt('Transfer', -1),
+      transferId: row.getInt('Transfer', _unsetId),
       // 6
       memo: row.getString('Memo'),
       // 7
@@ -244,14 +248,14 @@ class TransactionSplit extends DataObject {
       // For static fields, we create a dummy instance without data
       // The fields are just for metadata and won't use data-dependent functionality
       final TransactionSplit tmp = TransactionSplit._static(
-        id: -1,
-        transactionId: -1,
-        categoryId: -1,
-        payeeId: -1,
-        amount: 0.0,
-        transferId: -1,
+        id: _unsetId,
+        transactionId: _unsetId,
+        categoryId: _unsetId,
+        payeeId: _unsetId,
+        amount: _zeroDouble,
+        transferId: _unsetId,
         memo: '',
-        flags: 0,
+        flags: _zeroInt,
         budgetBalanceDate: null,
       );
       _fields.setDefinitions(<Field<dynamic>>[

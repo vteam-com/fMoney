@@ -10,6 +10,10 @@ import 'package:money/widgets/info_banner.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
 
+const double _categoryLabelWidth = 100.0;
+const double _actionPadding = 8.0;
+const double _actionOfferingWidth = 250.0;
+
 class MergeCategoriesTransactionsDialog extends StatefulWidget {
   const MergeCategoriesTransactionsDialog({
     required this.categoryToMove,
@@ -50,7 +54,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(width: 100, child: Text('From category')),
+            const SizedBox(width: _categoryLabelWidth, child: Text('From category')),
             Expanded(
               child: Box(child: Text(widget.categoryToMove.fieldName.value)),
             ),
@@ -61,7 +65,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(width: 100, child: Text('To category')),
+            const SizedBox(width: _categoryLabelWidth, child: Text('To category')),
             Expanded(
               child: Box(
                 child: pickerCategory(
@@ -81,7 +85,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
           ],
         ),
         const Spacer(),
-        Padding(padding: const EdgeInsets.all(8.0), child: _buildActionPanel()),
+        Padding(padding: const EdgeInsets.all(_actionPadding), child: _buildActionPanel()),
         const Spacer(),
       ],
     );
@@ -89,11 +93,11 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
 
   Widget _buildActionOffering(final String text, Widget action) {
     return SizedBox(
-      width: 250,
+      width: _actionOfferingWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(padding: const EdgeInsets.all(8), child: action),
+          Padding(padding: const EdgeInsets.all(_actionPadding), child: action),
           gapMedium(),
           Text(text),
           gapMedium(),

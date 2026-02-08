@@ -8,6 +8,9 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const int _unsetId = -1;
+const int _dateSpreadThresholdDays = 2;
+
 class Transfer extends DataObject {
   Transfer({
     required this.id,
@@ -21,7 +24,7 @@ class Transfer extends DataObject {
   }
 
   factory Transfer.fromJson(final MyJson row) {
-    return Transfer(id: -1, source: null, isOrphan: true);
+    return Transfer(id: _unsetId, source: null, isOrphan: true);
   }
 
   final num id; // used when the transfer is part of a split
@@ -52,7 +55,7 @@ class Transfer extends DataObject {
   Field<int> fieldReceiverAccountId = Field<int>(
     type: FieldType.text,
     name: 'Recipient account',
-    defaultValue: -1,
+    defaultValue: _unsetId,
     getValueForDisplay: (final DataInterface instance) => (instance as Transfer).receiverAccountName,
   );
 
@@ -70,7 +73,7 @@ class Transfer extends DataObject {
   Field<int> fieldSenderAccountId = Field<int>(
     type: FieldType.text,
     name: 'Sender',
-    defaultValue: -1,
+    defaultValue: _unsetId,
     getValueForDisplay: (final DataInterface instance) => (instance as Transfer).senderAccountName,
   );
 
@@ -149,7 +152,7 @@ class Transfer extends DataObject {
   }
 
   String getMemoDestination() {
-    String memos = source!.fieldTransferSplit.value == -1 ? '' : '[Split:${source!.fieldTransferSplit.value}] ';
+    String memos = source!.fieldTransferSplit.value == _unsetId ? '' : '[Split:${source!.fieldTransferSplit.value}] ';
     if (relatedTransaction != null) {
       memos += relatedTransaction!.fieldMemo.value as String;
     }
@@ -171,7 +174,7 @@ class Transfer extends DataObject {
     }
     final int dateSpread = dateSpreadBetweenSendingAndReceiving().abs();
 
-    if (dateSpread > 2) {
+    if (dateSpread > _dateSpreadThresholdDays) {
       if (status.isNotEmpty) {
         status += ', ';
       }

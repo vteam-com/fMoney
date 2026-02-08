@@ -4,6 +4,20 @@ import 'package:money/helpers/pairs.dart';
 // Exports
 export 'package:flutter/material.dart';
 
+const double _minUnit = 0.0;
+const double _maxUnit = 1.0;
+const double _defaultTextOpacity = 0.7;
+const double _colorMaxChannel = 255.0;
+const int _hexRadix = 16;
+const int _hexPadWidth = 2;
+const int _hexLengthRgb = 6;
+const int _hexLengthRgba = 8;
+const String _opaqueAlphaHex = 'FF';
+const double _luminanceRedWeight = 0.299;
+const double _luminanceGreenWeight = 0.587;
+const double _luminanceBlueWeight = 0.114;
+const double _luminanceThreshold = 0.5;
+
 /// Collection of color utility functions for:
 /// - Color manipulation (tinting, brightness, opacity)
 /// - Format conversion (hex, HSL, RGB)
@@ -14,7 +28,7 @@ export 'package:flutter/material.dart';
 /// Adjusts the brightness of the input color to the specified value within the valid range (0.0 - 1.0).
 Color adjustBrightness(Color color, double brightness) {
   // Ensure brightness is within valid range
-  brightness = brightness.clamp(0.0, 1.0);
+  brightness = brightness.clamp(_minUnit, _maxUnit);
 
   // Convert color to HSL
   HSLColor hslColor = HSLColor.fromColor(color);
@@ -38,7 +52,7 @@ Color adjustBrightness(Color color, double brightness) {
 ///
 TextStyle adjustOpacityOfTextStyle(
   final TextStyle textStyle, [
-  final double opacity = 0.7,
+  final double opacity = _defaultTextOpacity,
 ]) {
   return textStyle.copyWith(color: textStyle.color!.withValues(alpha: opacity));
 }
@@ -59,10 +73,10 @@ String colorToHexString(
   bool alphaFirst = false,
   bool includeAlpha = true,
 }) {
-  final String red = (color.r * 255).toInt().toRadixString(16).padLeft(2, '0');
-  final String green = (color.g * 255).toInt().toRadixString(16).padLeft(2, '0');
-  final String blue = (color.b * 255).toInt().toRadixString(16).padLeft(2, '0');
-  final String alpha = (color.a * 255).toInt().toRadixString(16).padLeft(2, '0');
+  final String red = (color.r * _colorMaxChannel).toInt().toRadixString(_hexRadix).padLeft(_hexPadWidth, '0');
+  final String green = (color.g * _colorMaxChannel).toInt().toRadixString(_hexRadix).padLeft(_hexPadWidth, '0');
+  final String blue = (color.b * _colorMaxChannel).toInt().toRadixString(_hexRadix).padLeft(_hexPadWidth, '0');
+  final String alpha = (color.a * _colorMaxChannel).toInt().toRadixString(_hexRadix).padLeft(_hexPadWidth, '0');
   if (includeAlpha == false) {
     return '#$red$green$blue';
   }
@@ -82,10 +96,14 @@ String colorToHexString(
 ///
 Color contrastColor(Color color) {
   // Calculate the luminance of the color
-  final double luminance = (0.299 * (color.r * 255) + 0.587 * (color.g * 255) + 0.114 * (color.b * 255)) / 255;
+  final double luminance =
+      (_luminanceRedWeight * (color.r * _colorMaxChannel) +
+          _luminanceGreenWeight * (color.g * _colorMaxChannel) +
+          _luminanceBlueWeight * (color.b * _colorMaxChannel)) /
+      _colorMaxChannel;
 
   // Determine whether to make the contrast color black or white based on the luminance
-  final Color contrastColor = luminance > 0.5 ? Colors.black : Colors.white;
+  final Color contrastColor = luminance > _luminanceThreshold ? Colors.black : Colors.white;
 
   return contrastColor;
 }
@@ -102,10 +120,10 @@ Color contrastColor(Color color) {
 ///
 Color getColorFromString(final String hexColor) {
   String newHexColor = hexColor.trim().replaceAll('#', '');
-  if (newHexColor.length == 6) {
-    newHexColor = 'FF$newHexColor';
+  if (newHexColor.length == _hexLengthRgb) {
+    newHexColor = '$_opaqueAlphaHex$newHexColor';
   }
-  if (newHexColor.length == 8) {
+  if (newHexColor.length == _hexLengthRgba) {
     return Color(int.parse('0x$newHexColor'));
   }
   return Colors.transparent;
@@ -136,6 +154,6 @@ ThemeData getTheme(final BuildContext context) {
 }
 
 Color hsvToColor(double hue, double brightness) {
-  final Color color = HSVColor.fromAHSV(1.0, hue, 1.0, 1.0).toColor();
+  final Color color = HSVColor.fromAHSV(_maxUnit, hue, _maxUnit, _maxUnit).toColor();
   return adjustBrightness(color, brightness);
 }

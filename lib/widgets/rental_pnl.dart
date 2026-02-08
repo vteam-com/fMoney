@@ -1,5 +1,8 @@
 import 'package:money/helpers/currency_helper.dart';
 
+const double _percentScale = 100;
+const int _textPaddingWidth = 15;
+
 class RentalPnL {
   RentalPnL({
     required this.date,
@@ -48,7 +51,7 @@ class RentalPnL {
 
     distributions.forEach((String name, double percentage) {
       if (name.isNotEmpty) {
-        text += textAmount(name, profit * (percentage / 100));
+        text += textAmount(name, profit * (percentage / _percentScale));
       }
     });
     return text;
@@ -59,11 +62,11 @@ class RentalPnL {
   double get profit => income + expenses; // since Expense is stored as a negative value we use a [+]
 
   String textAmount(final String text, final double amount) {
-    final String textPadded = '$text:'.padRight(15);
+    final String textPadded = '$text:'.padRight(_textPaddingWidth);
     final String amountPadded = getAmountAsStringUsingCurrency(
       amount,
       iso4217code: currency,
-    ).padLeft(15);
+    ).padLeft(_textPaddingWidth);
     return '$textPadded\t$amountPadded\n';
   }
 }

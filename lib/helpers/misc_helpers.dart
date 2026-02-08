@@ -13,6 +13,26 @@ final Logger logger = Logger(
   output: null, // Use the default LogOutput (-> send everything to console)
 );
 
+const double _zeroDouble = 0.0;
+const double _defaultEpsilon = 0.009;
+const double _baseTen = 10.0;
+const int _baseTenInt = 10;
+const int _zeroInt = 0;
+const int _notFoundIndex = -1;
+const int _minDecimalPlaces = 0;
+const int _snackBarDurationSeconds = 1;
+const int _defaultDebounceSeconds = 1;
+const double _fiveDecimalMultiplier = 100000.0;
+const List<int> _naturalFitDivisors = <int>[
+  1000000,
+  100000,
+  10000,
+  1000,
+  100,
+  50,
+  10,
+];
+
 double getDoubleFromDynamic(final dynamic value) {
   if (value is double) {
     return value;
@@ -21,9 +41,9 @@ double getDoubleFromDynamic(final dynamic value) {
     return value.toDouble();
   }
   if (value is String) {
-    return attemptToGetDoubleFromText(value) ?? 0.00;
+    return attemptToGetDoubleFromText(value) ?? _zeroDouble;
   }
-  return 0.00;
+  return _zeroDouble;
 }
 
 /// Remove non-numeric characters from the currency text
@@ -45,8 +65,8 @@ double? attemptToGetDoubleFromText(String text) {
 
   // If there are multiple periods, keep only the last one
   final int lastIndex = cleanedText.lastIndexOf('.');
-  if (lastIndex != -1) {
-    String beforeDecimal = cleanedText.substring(0, lastIndex);
+  if (lastIndex != _notFoundIndex) {
+    String beforeDecimal = cleanedText.substring(_zeroInt, lastIndex);
     beforeDecimal = beforeDecimal.replaceAll('.', '');
     cleanedText = beforeDecimal + cleanedText.substring(lastIndex);
   }
@@ -93,7 +113,7 @@ bool isPlatformMobile() {
 }
 
 double roundDouble(final double value, final int places) {
-  final num mod = pow(10.0, places);
+  final num mod = pow(_baseTen, places);
   return (value * mod).round().toDouble() / mod;
 }
 
@@ -105,16 +125,16 @@ double roundDouble(final double value, final int places) {
 /// @throws ArgumentError If the number of decimal places is negative.
 ///
 double roundToDecimalPlaces(double value, int places) {
-  if (places < 0) {
+  if (places < _minDecimalPlaces) {
     throw ArgumentError('Decimal places must be non-negative');
   }
-  final int factor = pow(10, places).toInt();
+  final int factor = pow(_baseTenInt, places).toInt();
   return (value * factor).round() / factor;
 }
 
 /// Round up to next divisor level
 int roundToNextNaturalFit(final int number, final int divisor) {
-  if (number % divisor == 0) {
+  if (number % divisor == _zeroInt) {
     // already at the nature next fit
     return number;
   }
@@ -130,53 +150,34 @@ int roundToNextNaturalFit(final int number, final int divisor) {
 /// 34 > 100
 /// 5 > 10
 int roundToTheNextNaturalFit(final int value) {
-  if (value > 1000000) {
-    return roundToNextNaturalFit(value, 1000000);
+  for (final int divisor in _naturalFitDivisors) {
+    if (value > divisor) {
+      return roundToNextNaturalFit(value, divisor);
+    }
   }
-
-  if (value > 100000) {
-    return roundToNextNaturalFit(value, 100000);
-  }
-
-  if (value > 10000) {
-    return roundToNextNaturalFit(value, 10000);
-  }
-
-  if (value > 1000) {
-    return roundToNextNaturalFit(value, 1000);
-  }
-
-  if (value > 100) {
-    return roundToNextNaturalFit(value, 100);
-  }
-
-  if (value > 50) {
-    return roundToNextNaturalFit(value, 50);
-  }
-
-  if (value > 10) {
-    return roundToNextNaturalFit(value, 10);
-  }
-  return 10;
+  return _naturalFitDivisors.last;
 }
 
 void showSnackBar(final BuildContext context, final String message) {
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(message), duration: const Duration(seconds: 1)),
+    SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: _snackBarDurationSeconds),
+    ),
   );
 }
 
 double trimToFiveDecimalPlaces(double value) {
   // Multiply the value by 100,000 to move the decimal point 5 places to the right
-  final double multipliedValue = value * 100000;
+  final double multipliedValue = value * _fiveDecimalMultiplier;
   // Round the result to the nearest integer
   final double roundedValue = multipliedValue.roundToDouble();
   // Divide the rounded value by 100,000 to move the decimal point back to its original position
-  return roundedValue / 100000;
+  return roundedValue / _fiveDecimalMultiplier;
 }
 
 class Debouncer {
-  Debouncer([this.duration = const Duration(seconds: 1)]);
+  Debouncer([this.duration = const Duration(seconds: _defaultDebounceSeconds)]);
 
   final Duration duration;
 
@@ -201,17 +202,7 @@ class TimeLapse {
   }
 }
 
-extension Range on num {
-  bool isBetween(final num from, final num to) {
-    return from < this && this < to;
-  }
-
-  bool isBetweenOrEqual(final num from, final num to) {
-    return from < this && this < to;
-  }
-}
-
-bool isConsideredZero(num value, [double epsilon = 0.009]) {
+bool isConsideredZero(num value, [double epsilon = _defaultEpsilon]) {
   return value.abs() <= epsilon;
 }
 

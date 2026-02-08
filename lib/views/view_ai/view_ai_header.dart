@@ -4,6 +4,20 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
 
+const double _headerPadding = 8.0;
+const double _headerSpacing = 16.0;
+const double _modelMenuMinWidth = 400.0;
+const double _modelItemPadding = 8.0;
+const int _modelSelectedAlpha = 100;
+const double _modelSelectedRadius = 4.0;
+const double _modelItemSpacing = 4.0;
+const double _modelSelectedIconSize = 16.0;
+const double _modelSizeFont = 10.0;
+const int _modelSizeAlpha = 200;
+const double _modelIconSize = 20.0;
+const double _dropdownIconSize = 16.0;
+const double _footerFontSize = 12.0;
+
 class ViewAiHeader extends StatelessWidget {
   const ViewAiHeader({
     required this.availableModels,
@@ -30,88 +44,89 @@ class ViewAiHeader extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(_headerPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: 16,
+            spacing: _headerSpacing,
             children: <Widget>[
               const TextTitle('AI Assistant'),
               if (availableModels.isNotEmpty)
                 PopupMenuButton<String>(
-                  constraints: const BoxConstraints(minWidth: 400),
+                  constraints: const BoxConstraints(minWidth: _modelMenuMinWidth),
                   onSelected: onModelSelected,
-                  itemBuilder: (final BuildContext context) =>
-                      availableModels.map<PopupMenuEntry<String>>((final Map<String, dynamic> model) {
-                        final String modelName = model['name'] as String;
-                        final String size = formatByteSize(model['size'] as int);
+                  itemBuilder: (final BuildContext context) => availableModels.map<PopupMenuEntry<String>>((
+                    final Map<String, dynamic> model,
+                  ) {
+                    final String modelName = model['name'] as String;
+                    final String size = formatByteSize(model['size'] as int);
 
-                        final bool isSelected = modelName == selectedModel;
-                        return PopupMenuItem<String>(
-                          value: modelName,
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: isSelected
-                                ? BoxDecoration(
-                                    color: Theme.of(context).colorScheme.primaryContainer.withAlpha(100),
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  )
-                                : null,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              spacing: 4,
-                              children: <Widget>[
-                                Expanded(
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      modelName,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                        color: isSelected
-                                            ? Theme.of(context).colorScheme.primary
-                                            : Theme.of(context).colorScheme.onSurface,
-                                      ),
-                                    ),
+                    final bool isSelected = modelName == selectedModel;
+                    return PopupMenuItem<String>(
+                      value: modelName,
+                      child: Container(
+                        padding: const EdgeInsets.all(_modelItemPadding),
+                        decoration: isSelected
+                            ? BoxDecoration(
+                                color: Theme.of(context).colorScheme.primaryContainer.withAlpha(_modelSelectedAlpha),
+                                borderRadius: BorderRadius.circular(_modelSelectedRadius),
+                              )
+                            : null,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          spacing: _modelItemSpacing,
+                          children: <Widget>[
+                            Expanded(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  modelName,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    color: isSelected
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context).colorScheme.onSurface,
                                   ),
                                 ),
-                                if (isSelected)
-                                  Icon(
-                                    Icons.check,
-                                    size: 16,
-                                    color: Theme.of(context).colorScheme.primary,
-                                  ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Chip(
-                                    padding: const EdgeInsets.all(0),
-                                    backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
-                                    label: Text(
-                                      size,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(200),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
+                            if (isSelected)
+                              Icon(
+                                Icons.check,
+                                size: _modelSelectedIconSize,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: _modelItemPadding),
+                              child: Chip(
+                                padding: const EdgeInsets.all(0),
+                                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                                label: Text(
+                                  size,
+                                  style: TextStyle(
+                                    fontSize: _modelSizeFont,
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(_modelSizeAlpha),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       MySvg(
                         assetName: 'ollama.svg',
-                        size: 20,
+                        size: _modelIconSize,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       gapSmall(),
@@ -124,7 +139,7 @@ class ViewAiHeader extends StatelessWidget {
                       Icon(
                         Icons.arrow_drop_down,
                         color: Theme.of(context).colorScheme.primary,
-                        size: 16,
+                        size: _dropdownIconSize,
                       ),
                     ],
                   ),
@@ -142,7 +157,7 @@ class ViewAiHeader extends StatelessWidget {
                 Text(
                   'Questions: $questionCount | Tokens: ${formatByteSize(contextTokensCount)}',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: _footerFontSize,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),

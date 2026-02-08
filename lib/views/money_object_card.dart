@@ -9,6 +9,8 @@ import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
+const double _adaptiveBoxHeight = 300.0;
+
 class MoneyObjectCard extends StatelessWidget {
   const MoneyObjectCard({
     required this.title,
@@ -121,7 +123,7 @@ Widget buildAdaptiveBox({
   final Widget? footer,
 }) {
   return Box(
-    height: 300,
+    height: _adaptiveBoxHeight,
     color: getColorTheme(context).primaryContainer,
     header: buildHeaderTitleAndCounter(
       context,

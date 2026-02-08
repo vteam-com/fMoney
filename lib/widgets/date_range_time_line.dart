@@ -1,5 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
 
+const int _inclusiveYearCount = 1;
+const double _tickWidth = 1;
+const double _tickHeight = 5;
+const double _tickAlpha = 0.5;
+
 class DateRangeTimeline extends StatelessWidget {
   const DateRangeTimeline({
     required this.startDate,
@@ -15,7 +20,7 @@ class DateRangeTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Calculate the number of years between the start and end dates
-    final int numYears = (endDate.year - startDate.year) + 1;
+    final int numYears = (endDate.year - startDate.year) + _inclusiveYearCount;
     final TextStyle style = getTextTheme(context).labelSmall!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,11 +54,11 @@ List<Widget> ticks(final int numberOfTicks) {
   for (int tick = 0; tick < numberOfTicks; tick++) {
     widgets.add(
       Container(
-        width: 1,
-        height: 5,
+        width: _tickWidth,
+        height: _tickHeight,
         decoration: BoxDecoration(
           // shape: BoxShape.circle,
-          color: Colors.grey.withValues(alpha: 0.5),
+          color: Colors.grey.withValues(alpha: _tickAlpha),
         ),
       ),
     );

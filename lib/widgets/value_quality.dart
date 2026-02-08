@@ -6,6 +6,10 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _sortByDate = 0;
+const int _sortByDescription = 1;
+const int _sortByAmount = 2;
+
 /// Callback function type for checking if a transaction already exists in the system.
 /// This allows the value_parser.dart to be decoupled from data.dart dependencies.
 typedef TransactionExistsCallback =
@@ -130,15 +134,15 @@ class ValuesQuality {
   ) {
     list.sort((ValuesQuality a, ValuesQuality b) {
       switch (sortBy) {
-        case 0:
+        case _sortByDate:
           return sortByDate(a.date.asDate(), b.date.asDate(), ascending);
-        case 1:
+        case _sortByDescription:
           return sortByString(
             a.description.asString(),
             b.description.asString(),
             ascending,
           );
-        case 2:
+        case _sortByAmount:
           return sortByValue(
             a.amount.asAmount(),
             b.amount.asAmount(),

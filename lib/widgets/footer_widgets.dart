@@ -8,13 +8,22 @@ import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+const double _dateFooterMinWidth = 80;
+const double _dateFooterFontSize = 10;
+const int _dateDurationPadWidth = 10;
+const int _dateDurationMaxLines = 2;
+const double _numericFooterMinWidth = 60;
+const double _numericFooterFontSize = 9;
+const int _numericFooterMaxLines = 1;
+const num _smallValueThreshold = 10000;
+
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(
     builder: (BuildContext context, BoxConstraints constraints) {
-      final bool showDates = constraints.maxWidth > 80;
+      final bool showDates = constraints.maxWidth > _dateFooterMinWidth;
       return DefaultTextStyle(
         style: const TextStyle(
-          fontSize: 10,
+          fontSize: _dateFooterFontSize,
           color: Colors.grey,
           fontFamily: 'RobotoMono',
         ),
@@ -25,9 +34,9 @@ Widget getFooterForDateRange(final DateRange dateRange) {
             if (showDates) Text(dateToString(dateRange.min)),
             if (showDates) Text(dateToString(dateRange.max)),
             Text(
-              dateRange.toStringDuration().padLeft(10),
+              dateRange.toStringDuration().padLeft(_dateDurationPadWidth),
               softWrap: true,
-              maxLines: 2,
+              maxLines: _dateDurationMaxLines,
             ),
           ],
         ),
@@ -74,14 +83,14 @@ Widget getFooterForInt(
 Widget getFooterForNumericRange(final RunningAverage range, final FieldType fieldType) {
   return LayoutBuilder(
     builder: (BuildContext context, BoxConstraints constraints) {
-      final bool showLabels = constraints.maxWidth > 60;
+      final bool showLabels = constraints.maxWidth > _numericFooterMinWidth;
       final double min = range.range.min.toDouble();
       final double max = range.range.max.toDouble();
       final double avg = range.getAverage();
 
       return DefaultTextStyle(
         style: const TextStyle(
-          fontSize: 9,
+          fontSize: _numericFooterFontSize,
           color: Colors.grey,
           fontFamily: 'RobotoMono',
         ),
@@ -119,17 +128,17 @@ Widget getFooterForNumericRange(final RunningAverage range, final FieldType fiel
             else ...<Widget>[
               Text(
                 _formatValue(min, fieldType),
-                maxLines: 1,
+                maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 _formatValue(avg, fieldType),
-                maxLines: 1,
+                maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 _formatValue(max, fieldType),
-                maxLines: 1,
+                maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -156,5 +165,5 @@ String _formatValue(double value, FieldType fieldType) {
 }
 
 bool isSmallValue(final num value) {
-  return isBetween(value, -10000, 10000);
+  return isBetween(value, -_smallValueThreshold, _smallValueThreshold);
 }

@@ -12,6 +12,9 @@ import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+const double _panelSpacing = 30.0;
+const int _dividerAlpha = 100;
+
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});
 
@@ -89,8 +92,8 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       child: Center(
         child: Wrap(
           alignment: WrapAlignment.center,
-          runSpacing: 30,
-          spacing: 30,
+          runSpacing: _panelSpacing,
+          spacing: _panelSpacing,
           children: <Widget>[
             MoneyObjectCard(
               title: getClassNameSingular(),
@@ -130,7 +133,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(
-          color: getColorTheme(context).onPrimaryContainer.withAlpha(100),
+          color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),
       count: rentersInThisBuilding.length,

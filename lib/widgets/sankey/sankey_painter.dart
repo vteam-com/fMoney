@@ -14,6 +14,13 @@ export 'package:money/widgets/sankey/sankey_colors.dart';
 export 'package:money/widgets/sankey/sankey_entry.dart';
 export 'package:money/widgets/sankey/sankey_helper.dart';
 
+const double _columnWidthDivisor = 5;
+const double _topCenterGapMultiplier = 2;
+const double _stackGapMultiplier = 5;
+const double _channelNudge = 1;
+const double _incomeBlockHeightCompact = 200;
+const double _incomeBlockHeightRegular = 300;
+
 class SankeyWidget extends StatelessWidget {
   /// Constructor
   const SankeyWidget({
@@ -58,11 +65,11 @@ class SankeyPainter extends CustomPainter {
   SankeyColors colors;
   double columnWidth = 0;
   double gap = Constants.gapBetweenChannels;
-  double topOfCenters = Constants.gapBetweenChannels * 2;
+  double topOfCenters = Constants.gapBetweenChannels * _topCenterGapMultiplier;
 
   @override
   void paint(final Canvas canvas, final Size size) {
-    columnWidth = size.width / 5;
+    columnWidth = size.width / _columnWidthDivisor;
 
     final double maxWidth = size.width;
     final double horizontalCenter = maxWidth / 2;
@@ -80,7 +87,7 @@ class SankeyPainter extends CustomPainter {
         )
         .abs();
 
-    final double bestHeightForIncomeBlock = compactView ? 200 : 300;
+    final double bestHeightForIncomeBlock = compactView ? _incomeBlockHeightCompact : _incomeBlockHeightRegular;
 
     final double ratioIncomeToExpense = bestHeightForIncomeBlock / (totalIncome + totalExpense);
 
@@ -132,7 +139,7 @@ class SankeyPainter extends CustomPainter {
       colors.textColor,
     );
 
-    stackVerticalPosition += gap * 5;
+    stackVerticalPosition += gap * _stackGapMultiplier;
 
     // Right Side - "Source of Expenses"
     stackVerticalPosition += renderSourcesToTarget(
@@ -158,7 +165,7 @@ class SankeyPainter extends CustomPainter {
       ),
       // Left side of the Expenses box
       end: ChannelPoint(
-        targetExpenses.rect.left + 1,
+        targetExpenses.rect.left + _channelNudge,
         targetExpenses.rect.top,
         targetExpenses.rect.bottom,
       ),
@@ -281,7 +288,7 @@ class SankeyPainter extends CustomPainter {
         targetRevenues.rect.bottom,
       );
       netEnd = ChannelPoint(
-        targetNet.rect.left + 1,
+        targetNet.rect.left + _channelNudge,
         targetNet.rect.top,
         targetNet.rect.bottom,
       );

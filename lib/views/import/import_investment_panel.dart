@@ -11,6 +11,8 @@ import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_investment_type.dart';
 
+const double _panelSpacing = 24.0;
+
 class InvestmentImportFields {
   InvestmentImportFields({
     required this.account,
@@ -97,7 +99,7 @@ class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: 24,
+              spacing: _panelSpacing,
               children: <Widget>[
                 // Title
                 Text(

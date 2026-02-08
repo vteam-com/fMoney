@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/box.dart';
 
+const double _messageBoxWidth = 400;
+const double _messageBoxHeight = 60;
+
 /// a basic text that is centered in the parent container
 class CenterMessage extends StatelessWidget {
   /// constructor
@@ -17,8 +20,8 @@ class CenterMessage extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Center(
     child: Box(
-      width: 400,
-      height: 60,
+      width: _messageBoxWidth,
+      height: _messageBoxHeight,
       child: Center(
         child: IntrinsicWidth(
           child: Row(

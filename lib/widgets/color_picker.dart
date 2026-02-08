@@ -2,6 +2,20 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
 
+const double _maxHue = 359.7;
+const double _hueMin = 0;
+const double _colorPickerRadius = 8;
+const double _colorPickerInnerRadius = 7;
+const double _borderAlpha = 0.5;
+const double _borderWidth = 1;
+const double _sliderHeight = 30;
+const int _hueDivisions = 360 * 2;
+const double _brightnessMin = 0;
+const double _brightnessMax = 1;
+const double _brightnessDefault = 0.5;
+const int _brightnessDivisions = 100;
+const int _brightnessPercentScale = 100;
+
 class ColorPicker extends StatefulWidget {
   const ColorPicker({
     required this.color,
@@ -37,40 +51,40 @@ class _ColorPickerState extends State<ColorPicker> {
 
   @override
   Widget build(BuildContext context) {
-    const double maxHue = 359.7;
-
-    if (hue > maxHue) {
-      hue = maxHue;
+    if (hue > _maxHue) {
+      hue = _maxHue;
     }
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(_colorPickerRadius),
         border: Border.all(
-          color: getColorTheme(context).onSurface.withValues(alpha: 0.5),
-          width: 1,
+          color: getColorTheme(context).onSurface.withValues(alpha: _borderAlpha),
+          width: _borderWidth,
         ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(7), // Same radius as container
+        borderRadius: BorderRadius.circular(
+          _colorPickerInnerRadius,
+        ), // Same radius as container
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: _sliderHeight,
               child: CustomPaint(
                 painter: _HueGradientPainter(),
                 child: Slider(
                   value: hue,
-                  min: 0,
-                  max: maxHue,
-                  divisions: 360 * 2,
+                  min: _hueMin,
+                  max: _maxHue,
+                  divisions: _hueDivisions,
                   label: hue.floor().toString(),
                   onChanged: (double value) {
                     setState(() {
                       hue = value;
-                      if (brightness == 0 || brightness == 1) {
-                        brightness = 0.5;
+                      if (brightness == _brightnessMin || brightness == _brightnessMax) {
+                        brightness = _brightnessDefault;
                       }
                       widget.onColorChanged(hsvToColor(hue, brightness));
                     });
@@ -79,15 +93,15 @@ class _ColorPickerState extends State<ColorPicker> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: _sliderHeight,
               child: CustomPaint(
                 painter: _BrightnessGradientPainter(hue: hue),
                 child: Slider(
                   value: brightness,
-                  min: 0,
-                  max: 1,
-                  divisions: 100,
-                  label: (brightness * 100).round().toString(),
+                  min: _brightnessMin,
+                  max: _brightnessMax,
+                  divisions: _brightnessDivisions,
+                  label: (brightness * _brightnessPercentScale).round().toString(),
                   onChanged: (double value) {
                     setState(() {
                       brightness = value;
@@ -154,7 +168,7 @@ class _BrightnessGradientPainter extends CustomPainter {
     final Gradient gradient = LinearGradient(
       colors: <Color>[
         HSLColor.fromAHSL(1.0, hue, 1.0, 0.0).toColor(), // Black
-        HSLColor.fromAHSL(1.0, hue, 1.0, 0.5).toColor(), // Middle lightness
+        HSLColor.fromAHSL(1.0, hue, 1.0, _brightnessDefault).toColor(), // Middle lightness
         HSLColor.fromAHSL(1.0, hue, 1.0, 1.0).toColor(), // White
       ],
     );

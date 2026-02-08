@@ -29,6 +29,14 @@ class Themes {
   ];
 }
 
+const int _defaultThemeIndex = 0;
+const double _fontScaleStep = 0.10;
+const int _fontScalePercentFactor = 100;
+const double _fontScalePercentDivisor = 100.0;
+const int _fontScaleMinPercent = 40;
+const int _fontScaleMaxPercent = 400;
+const double _appWindowHeight = 900.0;
+
 /// Controller for managing app theme settings including:
 /// - Light/dark mode switching
 /// - Primary color scheme selection
@@ -37,7 +45,7 @@ class Themes {
 /// - Window size management
 /// - Theme persistence
 class ThemeController extends GetxController {
-  RxInt colorSelected = 0.obs;
+  RxInt colorSelected = _defaultThemeIndex.obs;
   RxBool isDarkTheme = false.obs;
   RxBool isDeviceWidthLarge = false.obs;
   RxBool isDeviceWidthMedium = true.obs;
@@ -58,8 +66,8 @@ class ThemeController extends GetxController {
     setFontScaleTo(newScale);
   }
 
-  void fontScaleIncrease() => adjustFontScale(0.10);
-  void fontScaleDecrease() => adjustFontScale(-0.10);
+  void fontScaleIncrease() => adjustFontScale(_fontScaleStep);
+  void fontScaleDecrease() => adjustFontScale(-_fontScaleStep);
 
   void loadThemeFromPreferences() async {
     if (!PreferenceController.to.isReady.value) {
@@ -69,7 +77,7 @@ class ThemeController extends GetxController {
       settingKeyDarkMode,
       false,
     );
-    colorSelected.value = PreferenceController.to.getInt(settingKeyTheme, 0);
+    colorSelected.value = PreferenceController.to.getInt(settingKeyTheme, _defaultThemeIndex);
     updateTheme();
   }
 
@@ -78,14 +86,14 @@ class ThemeController extends GetxController {
     PreferenceController.to.setInt(settingKeyTheme, colorSelected.value);
   }
 
-  void setAppSizeToSmall() => MyWindowManager.setAppWindowSize(Constants.screenWidthSmall, 900);
-  void setAppSizeToMedium() => MyWindowManager.setAppWindowSize(Constants.screenWidthMedium, 900);
-  void setAppSizeToLarge() => MyWindowManager.setAppWindowSize(Constants.screenWidthLarge, 900);
+  void setAppSizeToSmall() => MyWindowManager.setAppWindowSize(Constants.screenWidthSmall, _appWindowHeight);
+  void setAppSizeToMedium() => MyWindowManager.setAppWindowSize(Constants.screenWidthMedium, _appWindowHeight);
+  void setAppSizeToLarge() => MyWindowManager.setAppWindowSize(Constants.screenWidthLarge, _appWindowHeight);
 
   bool setFontScaleTo(final double newScale) {
-    final int cleanValue = (newScale * 100).round();
-    if (isBetweenOrEqual(cleanValue, 40, 400)) {
-      PreferenceController.to.textScale = cleanValue / 100.0;
+    final int cleanValue = (newScale * _fontScalePercentFactor).round();
+    if (isBetweenOrEqual(cleanValue, _fontScaleMinPercent, _fontScaleMaxPercent)) {
+      PreferenceController.to.textScale = cleanValue / _fontScalePercentDivisor;
 
       return true;
     }
@@ -104,7 +112,7 @@ class ThemeController extends GetxController {
   ThemeData get themeDataDark {
     // Validate color range
     if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
-      colorSelected = 0.obs;
+      colorSelected = _defaultThemeIndex.obs;
     }
 
     final ThemeData themeData = ThemeData(
@@ -128,7 +136,7 @@ class ThemeController extends GetxController {
   ThemeData get themeDataLight {
     // Validate color range
     if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
-      colorSelected = 0.obs;
+      colorSelected = _defaultThemeIndex.obs;
     }
     final ThemeData themeData = ThemeData(
       colorSchemeSeed: Themes.themeAsColors[colorSelected.value],

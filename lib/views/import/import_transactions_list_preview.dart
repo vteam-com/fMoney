@@ -14,6 +14,11 @@ import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+const int _columnFlexDate = 1;
+const int _columnFlexDescription = 2;
+const int _columnFlexAmount = 1;
+const int _defaultSortColumnIndex = 0;
+
 class ImportTransactionsListPreview extends StatefulWidget {
   const ImportTransactionsListPreview({
     super.key,
@@ -30,15 +35,15 @@ class ImportTransactionsListPreview extends StatefulWidget {
 
 class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPreview> {
   late final List<Triple<String, TextAlign, int>> _columnNames = <Triple<String, TextAlign, int>>[
-    Triple<String, TextAlign, int>('Date', TextAlign.left, 1),
-    Triple<String, TextAlign, int>('Description/Payee', TextAlign.left, 2),
-    Triple<String, TextAlign, int>('Amount', TextAlign.right, 1),
+    Triple<String, TextAlign, int>('Date', TextAlign.left, _columnFlexDate),
+    Triple<String, TextAlign, int>('Description/Payee', TextAlign.left, _columnFlexDescription),
+    Triple<String, TextAlign, int>('Amount', TextAlign.right, _columnFlexAmount),
   ];
 
   bool _sortAscending = true;
 
   /// 0=Date, 1=Memo, 2=Amount
-  int _sortColumnIndex = 0;
+  int _sortColumnIndex = _defaultSortColumnIndex;
 
   @override
   void initState() {
@@ -212,9 +217,9 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Expanded(flex: 1, child: dateAsWidget),
-          Expanded(flex: 2, child: payeeAsWidget),
-          Expanded(flex: 1, child: amountAsWidget),
+          Expanded(flex: _columnFlexDate, child: dateAsWidget),
+          Expanded(flex: _columnFlexDescription, child: payeeAsWidget),
+          Expanded(flex: _columnFlexAmount, child: amountAsWidget),
         ],
       ),
     );

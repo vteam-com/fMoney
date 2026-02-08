@@ -1,6 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 
+const double _choiceBorderRadius = 8;
+const double _choiceMaxWidth = 400;
+const double _choiceTitleFontSize = 20;
+
 class WizardChoice extends StatelessWidget {
   const WizardChoice({
     super.key,
@@ -19,7 +23,7 @@ class WizardChoice extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            8.0,
+            _choiceBorderRadius,
           ), // Adjust the value to change the radius
         ),
       ),
@@ -27,11 +31,11 @@ class WizardChoice extends StatelessWidget {
         onPressed();
       },
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400),
+        constraints: const BoxConstraints(maxWidth: _choiceMaxWidth),
         child: ListTile(
           title: Text(title),
           titleTextStyle: TextStyle(
-            fontSize: 20,
+            fontSize: _choiceTitleFontSize,
             color: getColorTheme(context).onSurface,
           ),
           subtitle: Padding(

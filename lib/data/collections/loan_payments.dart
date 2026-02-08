@@ -7,6 +7,10 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 
+const int _unsetId = -1;
+const int _fakeIdStart = 10000000;
+const double _zeroDouble = 0.0;
+
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {
     collectionName = 'LoanPayments';
@@ -31,10 +35,10 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
 }
 
 class PaymentRollup {
-  int accountId = -1;
+  int accountId = _unsetId;
   late DateTime date;
-  double interest = 0;
-  double principal = 0;
+  double interest = _zeroDouble;
+  double principal = _zeroDouble;
   String reference = '';
 }
 
@@ -101,7 +105,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
     }
   }
 
-  int fakeId = 10000000;
+  int fakeId = _fakeIdStart;
 
   for (final PaymentRollup pr in payments.values) {
     aggregatedList.add(
@@ -122,7 +126,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
     (LoanPayment a, LoanPayment b) => sortByDate(a.fieldDate.value, b.fieldDate.value, true),
   );
 
-  double runningBalance = 0.00;
+  double runningBalance = _zeroDouble;
 
   for (final LoanPayment p in aggregatedList) {
     runningBalance += p.fieldPrincipal.value.asDouble();

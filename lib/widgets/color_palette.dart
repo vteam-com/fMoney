@@ -2,6 +2,15 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/gaps.dart';
 
+const double _colorBarMargin = 2;
+const double _colorBarRadius = 3;
+const double _colorBarBorderAlpha = 0.5;
+const double _colorBarWidth = 300;
+const double _colorBarHeight = 70;
+const double _colorBarInnerMargin = 4;
+const double _colorBarPadding = 8;
+const double _colorBarSampleHeight = 10;
+
 /*
     Color? primary,
     Color? onPrimary,
@@ -118,21 +127,21 @@ class ColorPalette extends StatelessWidget {
     final String colorNameBackground,
   ) {
     return Container(
-      margin: const EdgeInsets.all(2),
+      margin: const EdgeInsets.all(_colorBarMargin),
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
-          radius: const Radius.circular(3),
-          color: Colors.grey.withValues(alpha: 0.5),
+          radius: const Radius.circular(_colorBarRadius),
+          color: Colors.grey.withValues(alpha: _colorBarBorderAlpha),
         ),
 
         child: SizedBox(
-          width: 300,
-          height: 70,
+          width: _colorBarWidth,
+          height: _colorBarHeight,
           child: Container(
-            margin: const EdgeInsets.all(4),
+            margin: const EdgeInsets.all(_colorBarInnerMargin),
             color: background,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(_colorBarPadding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -140,7 +149,12 @@ class ColorPalette extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Expanded(child: Container(height: 10, color: foreground)),
+                      Expanded(
+                        child: Container(
+                          height: _colorBarSampleHeight,
+                          color: foreground,
+                        ),
+                      ),
                       gapSmall(),
                       Text(
                         colorNameForeground,

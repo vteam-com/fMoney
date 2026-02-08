@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 
+const int _minHeaderColumnCount = 3;
+const int _maxPreviewRows = 10;
+const int _rowPreviewMaxLength = 100;
+const int _rowNumberOffset = 1;
+const double _previewSpacing = 10;
+const double _footerTopPadding = 8;
+const double _subtitleFontSize = 12;
+const int _dateScoreWeight = 10;
+const int _descriptionScoreWeight = 8;
+const int _amountScoreWeight = 9;
+const int _bonusAllTypes = 15;
+const int _bonusDatePlusOne = 8;
+const int _preferredColumnCountMin = 3;
+const int _preferredColumnCountMax = 5;
+const int _preferredColumnBonus = 5;
+
 class XlsxHeaderRowSelectorDialog extends StatefulWidget {
   const XlsxHeaderRowSelectorDialog({
     super.key,
@@ -27,7 +43,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
     _filteredRows = <List<String>>[];
     _originalIndices = <int>[];
     for (int i = 0; i < widget.rows.length; i++) {
-      if (widget.rows[i].length >= 3) {
+      if (widget.rows[i].length >= _minHeaderColumnCount) {
         _filteredRows.add(widget.rows[i]);
         _originalIndices.add(i);
       }
@@ -44,7 +60,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
 
   @override
   Widget build(BuildContext context) {
-    final int maxRowsToShow = _originalIndices.length > 10 ? 10 : _originalIndices.length;
+    final int maxRowsToShow = _originalIndices.length > _maxPreviewRows ? _maxPreviewRows : _originalIndices.length;
 
     return AlertDialog(
       title: const Text('Select Header Row'),
@@ -56,7 +72,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
               'Select the row that contains the column headers (automatically selected based on content):',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: _previewSpacing),
             if (_originalIndices.isEmpty)
               const Text('No rows found with 3 or more columns.', style: TextStyle(fontStyle: FontStyle.italic))
             else
@@ -72,14 +88,17 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
                 child: Column(
                   children: List<Widget>.generate(maxRowsToShow, (int index) {
                     final int originalIndex = _originalIndices[index];
-                    final String rowPreview = widget.rows[originalIndex].join(' | ').length > 100
-                        ? '${widget.rows[originalIndex].join(' | ').substring(0, 100)}...'
+                    final String rowPreview = widget.rows[originalIndex].join(' | ').length > _rowPreviewMaxLength
+                        ? '${widget.rows[originalIndex].join(' | ').substring(0, _rowPreviewMaxLength)}...'
                         : widget.rows[originalIndex].join(' | ');
                     return RadioListTile<int>(
-                      title: Text('Row ${originalIndex + 1}', style: const TextStyle(fontWeight: FontWeight.w500)),
+                      title: Text(
+                        'Row ${originalIndex + _rowNumberOffset}',
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       subtitle: Text(
                         rowPreview,
-                        style: const TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: _subtitleFontSize),
                         overflow: TextOverflow.ellipsis,
                       ),
                       value: originalIndex,
@@ -87,20 +106,26 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
                   }),
                 ),
               ),
-            if (_originalIndices.length > 10)
+            if (_originalIndices.length > _maxPreviewRows)
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: _footerTopPadding),
                 child: Text(
-                  'Showing first 10 of ${_originalIndices.length} eligible rows',
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  'Showing first $_maxPreviewRows of ${_originalIndices.length} eligible rows',
+                  style: const TextStyle(
+                    fontSize: _subtitleFontSize,
+                    color: Colors.grey,
+                  ),
                 ),
               )
             else if (_originalIndices.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: _footerTopPadding),
                 child: Text(
                   'Showing ${_originalIndices.length} eligible rows (excluded rows with < 3 columns)',
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: const TextStyle(
+                    fontSize: _subtitleFontSize,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
           ],
@@ -155,21 +180,21 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
       final int amountMatches = headers.where((String h) => amountKeywords.any((String k) => h.contains(k))).length;
 
       // Score based on having matches for different types
-      score += dateMatches * 10;
-      score += descMatches * 8;
-      score += amountMatches * 9;
+      score += dateMatches * _dateScoreWeight;
+      score += descMatches * _descriptionScoreWeight;
+      score += amountMatches * _amountScoreWeight;
 
       // Bonus for having a good combination (date + description + amount/value)
       if (dateMatches > 0 && descMatches > 0 && amountMatches > 0) {
-        score += 15; // Significant bonus for having all three types
+        score += _bonusAllTypes; // Significant bonus for having all three types
       } else if (dateMatches > 0 && (descMatches > 0 || amountMatches > 0)) {
-        score += 8; // Medium bonus for date plus at least one other type
+        score += _bonusDatePlusOne; // Medium bonus for date plus at least one other type
       }
 
       // Prefer rows with 3-5 columns (typical for financial data)
       final int columnCount = row.length;
-      if (columnCount >= 3 && columnCount <= 5) {
-        score += 5;
+      if (columnCount >= _preferredColumnCountMin && columnCount <= _preferredColumnCountMax) {
+        score += _preferredColumnBonus;
       }
 
       // Update best index if this row has higher score

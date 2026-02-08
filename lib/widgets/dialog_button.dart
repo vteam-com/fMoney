@@ -3,6 +3,8 @@ import 'package:money/widgets/gaps.dart';
 
 export 'package:flutter/material.dart';
 
+const double _iconOpacity = 0.5;
+
 class DialogActionButton extends StatelessWidget {
   const DialogActionButton({
     super.key,
@@ -22,7 +24,7 @@ class DialogActionButton extends StatelessWidget {
         : IntrinsicWidth(
             child: Row(
               children: <Widget>[
-                Opacity(opacity: 0.5, child: Icon(icon)),
+                Opacity(opacity: _iconOpacity, child: Icon(icon)),
                 gapSmall(),
                 Text(text),
               ],

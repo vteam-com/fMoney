@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:money/widgets/gaps.dart';
 
+const int _defaultMinValue = 1;
+const int _defaultMaxValue = 10;
+const int _inclusiveRangeOffset = 1;
+const double _pickerHeight = 40;
+
 class NumberPicker extends StatelessWidget {
   NumberPicker({
     super.key,
     required this.title,
     required int selectedNumber,
     required this.onChanged,
-    this.minValue = 1,
-    this.maxValue = 10,
+    this.minValue = _defaultMinValue,
+    this.maxValue = _defaultMaxValue,
   }) : selectedNumber = selectedNumber.clamp(minValue, maxValue);
 
   final int maxValue;
@@ -20,7 +25,7 @@ class NumberPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: _pickerHeight,
       child: IntrinsicWidth(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -31,7 +36,7 @@ class NumberPicker extends StatelessWidget {
               child: DropdownButton<int>(
                 value: selectedNumber,
                 items: List<DropdownMenuItem<int>>.generate(
-                  maxValue - minValue + 1,
+                  maxValue - minValue + _inclusiveRangeOffset,
                   (int index) => DropdownMenuItem<int>(
                     value: index + minValue,
                     child: Text('${index + minValue}'),

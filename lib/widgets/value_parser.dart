@@ -6,6 +6,13 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/value_quality.dart';
 
+const int _threeColumnSeparatorCount = 2;
+const int _twoValueCount = 2;
+const int _expectedTripleCount = 3;
+const double _dateColumnWidth = 100;
+const double _descriptionColumnWidth = 300;
+const double _amountColumnWidth = 100;
+
 /// The `ValuesParser` class is responsible for parsing input data and extracting
 /// relevant values from it. It provides methods for parsing, transforming, and
 /// validating the extracted values.
@@ -77,12 +84,12 @@ class ValuesParser {
         dateAsText = threeValues.first;
 
       // Only two values
-      case 2:
+      case _twoValueCount:
         dateAsText = threeValues.first;
         descriptionAsText = threeValues[1];
 
       // Perfect
-      case 3:
+      case _expectedTripleCount:
       default: // 4 or more
         dateAsText = threeValues.first;
         descriptionAsText = threeValues.sublist(1, threeValues.length - 1).join(' ');
@@ -114,15 +121,18 @@ class ValuesParser {
         rows.add(
           Row(
             children: <Widget>[
-              SizedBox(width: 100, child: line.date.valueAsDateWidget(context)),
+              SizedBox(
+                width: _dateColumnWidth,
+                child: line.date.valueAsDateWidget(context),
+              ),
               // Date
               SizedBox(
-                width: 300,
+                width: _descriptionColumnWidth,
                 child: line.description.valueAsTextWidget(context),
               ),
               // Description
               SizedBox(
-                width: 100,
+                width: _amountColumnWidth,
                 child: line.amount.valueAsAmountWidget(context),
               ),
               // Amount
@@ -156,7 +166,7 @@ class ValuesParser {
     }
 
     // are we dealing with friendly 3 column values separated by ';'
-    if (countOccurrences(lines.first, ';') >= 2) {
+    if (countOccurrences(lines.first, ';') >= _threeColumnSeparatorCount) {
       //
       // Date ; Description ; Amount
       //
