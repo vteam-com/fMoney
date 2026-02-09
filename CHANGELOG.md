@@ -1,5 +1,12 @@
 # Change Log
 
+## [version 1.15.01] 2026-02-09
+
+### Update
+- Maintenance release focused on dead-code cleanup.
+- Remove unused-variable warnings while keeping callback/interface parameter intent explicit.
+- Improve code quality checks by aligning analyzer and fcheck outcomes.
+
 ## [version 1.15.00] 2025-12-27
 
 ### Update
