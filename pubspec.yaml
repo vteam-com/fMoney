@@ -22,9 +22,9 @@ version: 1.15.01
 
 environment:
   # This is the dart constraint
-  sdk: ">=3.10.4"
+  sdk: ">=3.10.8"
   # This is the Flutter SDK
-  flutter: ">=3.38.5"
+  flutter: ">=3.38.9"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
