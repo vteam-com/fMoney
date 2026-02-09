@@ -121,7 +121,7 @@ class MoneyDataIO {
           return filePath;
         }
       }
-    } catch (e) {
+    } catch (_) {
       // next line will handle things
     }
     return null;
@@ -130,7 +130,11 @@ class MoneyDataIO {
   Future<bool> saveToSql(
     final Data data, {
     required final String filePath,
-    required final void Function(bool success, String errorMessage) onSaveCompleted,
+    required final void Function(
+      bool _, // success
+      String _, //errorMessage
+    )
+    onSaveCompleted,
   }) async {
     try {
       final MyDatabase db = MyDatabase();
@@ -286,7 +290,7 @@ class MoneyDataIO {
       // Remove UTF-8 BOM if present
       fileContent = removeUtf8Bom(fileContent);
       return fileContent;
-    } catch (e) {
+    } catch (_) {
       // logger.e(e.toString());
       return '';
     }

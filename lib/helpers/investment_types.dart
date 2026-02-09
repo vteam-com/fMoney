@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 enum SecurityType {
   none,
   bond, // Bonds
@@ -52,10 +53,6 @@ enum InvestmentTradeType {
 
 String getInvestmentTradeTypeText(final InvestmentTradeType type) {
   return type.name.toUpperCase();
-}
-
-String getInvestmentTradeTypeTextFromValue(final int value) {
-  return getInvestmentTradeTypeText(getInvestmentTradeTypeFromValue(value));
 }
 
 InvestmentTradeType getInvestmentTradeTypeFromValue(final int value) {

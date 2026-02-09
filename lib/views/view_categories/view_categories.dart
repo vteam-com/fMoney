@@ -45,11 +45,11 @@ class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewCategoriesState();
+  State<ViewForMoneyObjects> createState() => _ViewCategoriesState();
 }
 
-class ViewCategoriesState extends ViewForMoneyObjectsState {
-  ViewCategoriesState() {
+class _ViewCategoriesState extends ViewForMoneyObjectsState {
+  _ViewCategoriesState() {
     viewId = ViewId.viewCategories;
   }
 

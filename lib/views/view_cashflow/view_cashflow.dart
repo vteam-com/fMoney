@@ -30,7 +30,7 @@ class ViewCashFlow extends ViewWidget {
   const ViewCashFlow({super.key});
 
   @override
-  State<ViewWidget> createState() => ViewCashFlowState();
+  State<ViewWidget> createState() => _ViewCashFlowState();
 
   @override
   String getClassNamePlural() => '';
@@ -43,8 +43,8 @@ class ViewCashFlow extends ViewWidget {
 }
 
 // ignore: always_specify_types
-class ViewCashFlowState extends ViewWidgetState {
-  ViewCashFlowState();
+class _ViewCashFlowState extends ViewWidgetState {
+  _ViewCashFlowState();
 
   List<Account> accountsOpened = Data().accounts.getOpenAccounts();
   late DateRange dateRangeTransactions;

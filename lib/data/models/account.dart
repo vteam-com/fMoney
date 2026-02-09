@@ -301,7 +301,7 @@ class Account extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerAccountType(
             itemSelected: (instance as Account).fieldType.value,

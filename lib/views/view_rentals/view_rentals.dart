@@ -79,10 +79,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
   }
 
   @override
-  Widget getSidePanelViewDetails({
-    required final List<int> selectedIds,
-    required final bool isReadOnly,
-  }) {
+  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
     final RentBuilding? selectedItem = getFirstSelectedItem() as RentBuilding?;
     if (selectedItem == null) {
       return const CenterMessage(message: 'No item selected.');

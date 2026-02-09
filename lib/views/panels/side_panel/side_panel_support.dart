@@ -20,7 +20,7 @@ class SidePanelSupport {
   int selectedCurrency = 0;
 
   /// Details
-  Widget Function({required List<int> selectedIds, required bool isReadOnly})? onDetails;
+  Widget Function({required List<int> selectedIds})? onDetails;
 
   /// Chart
   Widget Function({
@@ -52,7 +52,7 @@ class SidePanelSupport {
     switch (subViewId) {
       /// Details
       case SidePanelSubViewEnum.details:
-        return onDetails!(selectedIds: selectedIds, isReadOnly: false);
+        return onDetails!(selectedIds: selectedIds);
 
       /// Chart
       case SidePanelSubViewEnum.chart:

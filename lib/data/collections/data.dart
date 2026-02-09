@@ -325,7 +325,7 @@ class Data implements DataAbstract {
         ),
         amount: destinationAmount,
       );
-    } catch (error) {
+    } catch (_) {
       // something went wrong, assume no match found
     }
 

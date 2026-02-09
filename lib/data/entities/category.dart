@@ -109,7 +109,7 @@ class Category extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return MutateFieldColor(
             colorAsHex: (instance as Category).fieldColor.value,
@@ -244,7 +244,7 @@ class Category extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           final Category i = instance as Category;
           return pickerCategoryType(

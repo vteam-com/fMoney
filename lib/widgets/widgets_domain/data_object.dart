@@ -63,7 +63,7 @@ class DataObject extends DataInterface {
   /// Name: Bob
   /// Date: 2020-12-31
   List<Widget> buildListOfNamesValuesWidgets({
-    void Function(bool wasModified)? onEdit,
+    void Function(bool /* wasModified */)? onEdit,
     bool compact = false,
   }) {
     if (fieldDefinitions.isEmpty) {

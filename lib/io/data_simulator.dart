@@ -272,7 +272,7 @@ class DataSimulator {
     ); // Adjust for leap years if needed
 
     final Random random = Random();
-    final List<DateTime> dates = List<DateTime>.generate(count, (int index) {
+    final List<DateTime> dates = List<DateTime>.generate(count, (final int _ /* index */) {
       final int randomDaysSinceTenYearsAgo = random.nextInt(
         _daysPerYear * _numberOFYearInThePast,
       );

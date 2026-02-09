@@ -24,11 +24,11 @@ class ViewInvestments extends ViewForMoneyObjects {
   const ViewInvestments({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewInvestmentsState();
+  State<ViewForMoneyObjects> createState() => _ViewInvestmentsState();
 }
 
-class ViewInvestmentsState extends ViewForMoneyObjectsState {
-  ViewInvestmentsState() {
+class _ViewInvestmentsState extends ViewForMoneyObjectsState {
+  _ViewInvestmentsState() {
     viewId = ViewId.viewInvestments;
   }
 

@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 import 'package:money/helpers/color_helper.dart';
 
 Widget buildTitle(BuildContext context, String text) {

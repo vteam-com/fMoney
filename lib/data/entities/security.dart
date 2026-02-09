@@ -198,7 +198,7 @@ class Security extends DataObject {
     getEditWidget:
         (
           DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           instance = instance as Security;
           return pickerSecurityType(

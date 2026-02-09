@@ -27,7 +27,7 @@ class AppTitle extends StatelessWidget {
     final DataFileController dataController = Get.find();
 
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (final BuildContext context, final BoxConstraints _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

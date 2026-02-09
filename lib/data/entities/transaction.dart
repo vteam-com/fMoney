@@ -294,7 +294,7 @@ class Transaction extends DataObject implements MergeableItem {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           (instance as Transaction);
           return Row(
@@ -348,7 +348,7 @@ class Transaction extends DataObject implements MergeableItem {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return PickerEditBoxDate(
             key: Constants.keyDatePicker,
@@ -482,7 +482,7 @@ class Transaction extends DataObject implements MergeableItem {
     getEditWidget:
         (
           DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return SizedBox(
             width: _transferPickerWidth,

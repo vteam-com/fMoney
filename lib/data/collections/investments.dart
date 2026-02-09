@@ -72,7 +72,7 @@ class Investments extends MoneyObjects<Investment> {
   static StockCumulative getSharesAndProfit(List<Investment> investments) {
     // StockCumulative sort by date, TradeType, Amount
     investments.sort(
-      (Investment a, Investment b) => Investment.sortByDateAndInvestmentType(a, b, true, true),
+      (Investment a, Investment b) => Investment.sortByDateAndInvestmentType(a, b, true),
     );
 
     final StockCumulative cumulative = StockCumulative();

@@ -1,6 +1,7 @@
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/models/investment_import_fields.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
@@ -13,30 +14,6 @@ import 'package:money/widgets/picker_investment_type.dart';
 
 const double _panelSpacing = 24.0;
 
-class InvestmentImportFields {
-  InvestmentImportFields({
-    required this.account,
-    required this.date,
-    required this.investmentType,
-    required this.category,
-    required this.symbol,
-    required this.units,
-    required this.amountPerUnit,
-    required this.transactionAmount,
-    required this.description,
-  });
-
-  Account account;
-  double amountPerUnit;
-  Category category;
-  DateTime date;
-  String description;
-  InvestmentType investmentType;
-  String symbol;
-  double transactionAmount;
-  double units;
-}
-
 /// use for free style text to transaction import
 class ImportInvestmentPanel extends StatefulWidget {
   const ImportInvestmentPanel({super.key, required this.inputFields});
@@ -44,10 +21,10 @@ class ImportInvestmentPanel extends StatefulWidget {
   final InvestmentImportFields inputFields;
 
   @override
-  ImportInvestmentPanelState createState() => ImportInvestmentPanelState();
+  State<ImportInvestmentPanel> createState() => _ImportInvestmentPanelState();
 }
 
-class ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
+class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
   late final TextEditingController _controllerAmount = TextEditingController(
     text: widget.inputFields.amountPerUnit.toString(),
   );

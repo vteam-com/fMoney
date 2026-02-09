@@ -153,7 +153,7 @@ class MoneyObjects<T> {
   }
 
   /// Must be override by derived class
-  DataObject instanceFromJson(final MyJson json) {
+  DataObject instanceFromJson(final MyJson _ /* json */) {
     assert(false, 'You must implement this in your derived class');
     return DataObject();
   }

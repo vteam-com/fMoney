@@ -34,7 +34,7 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
   }
 }
 
-class PaymentRollup {
+class _PaymentRollup {
   int accountId = _unsetId;
   late DateTime date;
   double interest = _zeroDouble;
@@ -63,16 +63,16 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
       .cast<Transaction>();
 
   // Rollup into a single Payment based on Date to match Principal and Interest payment
-  final Map<String, PaymentRollup> payments = <String, PaymentRollup>{};
+  final Map<String, _PaymentRollup> payments = <String, _PaymentRollup>{};
 
   for (final Transaction t in listOfTransactions) {
     // Key is based on date + transaction ID
     final String key = t.dateTimeAsString;
 
     bool isFromSplit = false;
-    PaymentRollup? pr = payments[key];
+    _PaymentRollup? pr = payments[key];
     if (pr == null) {
-      pr = PaymentRollup();
+      pr = _PaymentRollup();
       pr.accountId = t.fieldAccountId.value;
       payments[key] = pr;
     } else {
@@ -107,7 +107,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
 
   int fakeId = _fakeIdStart;
 
-  for (final PaymentRollup pr in payments.values) {
+  for (final _PaymentRollup pr in payments.values) {
     aggregatedList.add(
       LoanPayment(
         id: fakeId++,

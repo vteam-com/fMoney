@@ -575,10 +575,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return <DataObject>[];
   }
 
-  Widget getSidePanelViewDetails({
-    required final List<int> selectedIds,
-    required final bool isReadOnly,
-  }) {
+  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
     if (selectedIds.length > 1) {
       return CenterMessage(
         message: 'Multiple selection.(${selectedIds.length})',
@@ -980,10 +977,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         context: context,
         title: '${getClassNameSingular()} #${uniqueId + 1}',
         actionButtons: <Widget>[],
-        child: getSidePanelViewDetails(
-          selectedIds: <int>[uniqueId],
-          isReadOnly: true,
-        ),
+        child: getSidePanelViewDetails(selectedIds: <int>[uniqueId]),
       );
     }
   }

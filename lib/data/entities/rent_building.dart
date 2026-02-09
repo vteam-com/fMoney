@@ -604,7 +604,7 @@ class RentBuilding extends DataObject {
 
   RentalPnL getLifeTimePnL() {
     final RentalPnL lifeTimePnL = RentalPnL(date: DateTime.now());
-    pnlOverYears.forEach((int year, RentalPnL pnl) {
+    pnlOverYears.forEach((int _ /* year */, RentalPnL pnl) {
       dateRangeOfOperation.inflate(pnl.date);
       lifeTimePnL.income += pnl.income;
       lifeTimePnL.expenseInterest += pnl.expenseInterest;

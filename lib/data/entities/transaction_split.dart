@@ -145,7 +145,7 @@ class TransactionSplit extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           (instance as TransactionSplit);
           return Row(

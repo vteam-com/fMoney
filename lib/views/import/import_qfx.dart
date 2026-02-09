@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -67,6 +68,7 @@ class OfxBankInfo {
   }
 }
 
+// ignore: fcheck_dead_code
 int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
   int categoryId = -1;
   switch (ofxTransaction.type) {

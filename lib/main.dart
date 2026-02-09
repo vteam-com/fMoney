@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 
   final Map<Type, Action<Intent>> _actions = <Type, Action<Intent>>{
     RebalanceIntent: CallbackAction<RebalanceIntent>(
-      onInvoke: (RebalanceIntent intent) {
+      onInvoke: (RebalanceIntent _) {
         Data().recalculateBalances();
         SnackBarService.displayInfo(
           message: 'Balances recalculated',
@@ -47,26 +47,26 @@ class MyApp extends StatelessWidget {
       },
     ),
     ZoomInIntent: CallbackAction<ZoomInIntent>(
-      onInvoke: (ZoomInIntent intent) {
+      onInvoke: (ZoomInIntent _) {
         ThemeController.to.fontScaleIncrease();
         return null;
       },
     ),
     ZoomOutIntent: CallbackAction<ZoomOutIntent>(
-      onInvoke: (ZoomOutIntent intent) {
+      onInvoke: (ZoomOutIntent _) {
         ThemeController.to.fontScaleDecrease();
         return null;
       },
     ),
     ZoomResetIntent: CallbackAction<ZoomResetIntent>(
-      onInvoke: (ZoomResetIntent intent) {
+      onInvoke: (ZoomResetIntent _) {
         ThemeController.to.setFontScaleTo(1);
         return null;
       },
     ),
 
     NewTransactionIntent: CallbackAction<NewTransactionIntent>(
-      onInvoke: (NewTransactionIntent intent) {
+      onInvoke: (NewTransactionIntent _) {
         showImportTransactionsFromTextInput(Get.context!);
         return null;
       },

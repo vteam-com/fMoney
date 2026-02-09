@@ -23,7 +23,7 @@ class Transfer extends DataObject {
     // body of constructor
   }
 
-  factory Transfer.fromJson(final MyJson row) {
+  factory Transfer.fromJson(final MyJson _ /* json */) {
     return Transfer(id: _unsetId, source: null, isOrphan: true);
   }
 

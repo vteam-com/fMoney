@@ -7,23 +7,19 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/views/view_ai/view_ai_chat_message_footer.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';
 import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/working.dart';
 
 const int _maxLinesBeforeTruncate = 100;
 const int _truncatePreviewLines = 50;
 const double _bubbleMaxWidthFactor = 0.50;
-const double _processingMaxWidthFactor = 0.70;
 const double _detailsWidthFactor = 0.8;
 const double _detailsHeightFactor = 0.6;
 const double _bubbleVerticalMargin = 4.0;
 const double _bubblePadding = 12.0;
 const double _bubbleRadius = 16.0;
 const double _bubbleTailRadius = 3.0;
-const double _processingTailRadius = 4.0;
 const int _dividerAlpha = 60;
 const double _footerOpacity = 0.7;
 const double _monospaceFontSize = 12.0;
-const double _processingIndicatorSize = 20.0;
 
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
@@ -36,10 +32,10 @@ class ChatMessageWidget extends StatefulWidget {
   final VoidCallback onToggleExpanded;
 
   @override
-  State<ChatMessageWidget> createState() => ChatMessageWidgetState();
+  State<ChatMessageWidget> createState() => _ChatMessageWidgetState();
 }
 
-class ChatMessageWidgetState extends State<ChatMessageWidget> {
+class _ChatMessageWidgetState extends State<ChatMessageWidget> {
   @override
   Widget build(final BuildContext context) {
     final ChatMessage message = widget.message;
@@ -203,47 +199,6 @@ class ChatMessageWidgetState extends State<ChatMessageWidget> {
           ],
         );
       },
-    );
-  }
-}
-
-class ProcessingIndicator extends StatelessWidget {
-  const ProcessingIndicator({super.key});
-
-  @override
-  Widget build(final BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: _bubbleVerticalMargin),
-        padding: const EdgeInsets.all(_bubblePadding),
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * _processingMaxWidthFactor,
-        ),
-        decoration: BoxDecoration(
-          color: getColorTheme(context).surfaceContainerHighest,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(_bubbleRadius),
-            topRight: Radius.circular(_bubbleRadius),
-            bottomLeft: Radius.circular(_processingTailRadius),
-            bottomRight: Radius.circular(_bubbleRadius),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'Thinking...',
-              style: TextStyle(
-                color: getColorTheme(context).onSurfaceVariant,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            gapLarge(),
-            const WorkingIndicator(size: _processingIndicatorSize),
-          ],
-        ),
-      ),
     );
   }
 }

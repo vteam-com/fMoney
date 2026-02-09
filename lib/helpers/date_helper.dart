@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 import 'package:intl/intl.dart';
 
 // Exports

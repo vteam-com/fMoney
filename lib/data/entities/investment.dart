@@ -9,7 +9,6 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/picker_edit_box.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -152,7 +151,7 @@ class Investment extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
@@ -246,7 +245,7 @@ class Investment extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
         },
@@ -272,12 +271,8 @@ class Investment extends DataObject {
     name: 'Date',
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).date,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByDateAndInvestmentType(
-      a as Investment,
-      b as Investment,
-      ascending,
-      false,
-    ),
+    sort: (final DataInterface a, final DataInterface b, final bool ascending) =>
+        sortByDateAndInvestmentType(a as Investment, b as Investment, ascending),
   );
 
   /// 2    UnitPrice       money   1
@@ -485,12 +480,7 @@ class Investment extends DataObject {
     return proceeds;
   }
 
-  static int sortByDateAndInvestmentType(
-    final Investment a,
-    final Investment b,
-    final bool ascending,
-    bool ta,
-  ) {
+  static int sortByDateAndInvestmentType(final Investment a, final Investment b, final bool ascending) {
     int result = sortByDate(a.date, b.date, ascending);
 
     if (result == _zeroInt) {
@@ -553,23 +543,8 @@ class Investment extends DataObject {
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
 
   static Widget Function(Investment instance)? buildSmallScreenWidget;
-  static Widget Function(Investment instance, void Function(bool wasModified) onEdited)? pickerInvestmentTypeWidget;
-  static Widget Function(Investment instance, void Function(bool wasModified) onEdited)?
+  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
+  pickerInvestmentTypeWidget;
+  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
   pickerInvestmentTradeTypeWidget;
-}
-
-Widget pickerInvestmentTradeType({
-  required final InvestmentTradeType itemSelected,
-  required final void Function(InvestmentTradeType) onSelected,
-}) {
-  final String selectedName = getInvestmentTradeTypeText(itemSelected);
-
-  return PickerEditBox(
-    title: 'Investment Trade Type',
-    items: getInvestmentTradeTypeNames(),
-    initialValue: selectedName,
-    onChanged: (String newSelection) {
-      onSelected(getInvestmentTradeTypeFromText(newSelection));
-    },
-  );
 }

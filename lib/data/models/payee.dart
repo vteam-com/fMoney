@@ -18,7 +18,7 @@ const int _doubleCategoryCount = 2;
 class Payee extends DataObject {
   Payee();
 
-  factory Payee.fromJson(final MyJson row) {
+  factory Payee.fromJson(final MyJson _ /* json */) {
     return Payee();
   }
 

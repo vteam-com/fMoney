@@ -93,7 +93,7 @@ class Event extends DataObject {
     getEditWidget:
         (
           final DataInterface instance,
-          void Function(bool wasModified) onEdited,
+          void Function(bool /* wasModified */) onEdited,
         ) {
           final Event event = instance as Event;
           return pickerCategory(
@@ -295,7 +295,7 @@ class Event extends DataObject {
       getEditWidget:
           (
             final DataInterface instance,
-            void Function(bool wasModified) onEdited,
+            void Function(bool /* wasModified */) onEdited,
           ) {
             return PickerEditBoxDate(
               key: Constants.keyDatePicker,

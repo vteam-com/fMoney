@@ -11,6 +11,7 @@ import 'package:money/data/entities/security.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/models/account.dart';
+import 'package:money/data/models/investment_import_fields.dart';
 import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/data/models/stock_summary.dart';
 import 'package:money/data/money_objects.dart';
@@ -28,7 +29,6 @@ import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';
 import 'package:money/views/import/import_investment.dart';
-import 'package:money/views/import/import_investment_panel.dart';
 import 'package:money/views/import/import_wizard.dart';
 import 'package:money/views/list_view_transactions.dart';
 import 'package:money/views/menu_entry.dart';
@@ -435,7 +435,6 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   Widget _getSidePanelViewDetails({
     required final List<int> selectedIds,
-    required final bool isReadOnly,
   }) {
     final Account? selectedAccount = getFirstSelectedItem() as Account?;
     if (selectedAccount == null) {
@@ -857,7 +856,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
             PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
           });
         },
-        onItemLongPress: (BuildContext context2, int itemId) {
+        onItemLongPress: (BuildContext _, int itemId) {
           final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
           myShowDialogAndActionsForMoneyObject(
             title: 'Loan Payment',

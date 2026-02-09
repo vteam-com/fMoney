@@ -7,6 +7,7 @@ import 'package:money/data/models/account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/view.dart';
 import 'package:money/views/view_ai/ollama_service.dart';
+import 'package:money/views/view_ai/processing_indicator.dart';
 import 'package:money/views/view_ai/view_ai_chat_message.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';
 import 'package:money/views/view_ai/view_ai_header.dart';

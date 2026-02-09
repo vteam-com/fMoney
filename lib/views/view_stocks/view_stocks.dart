@@ -198,10 +198,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   }
 
   @override
-  Widget getSidePanelViewDetails({
-    required final List<int> selectedIds,
-    required final bool isReadOnly,
-  }) {
+  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
     final Security? selectedSecurity = getFirstSelectedItem() as Security?;
     if (selectedSecurity == null) {
       return const CenterMessage(message: 'No item selected.');
@@ -297,7 +294,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       count: splits.length,
       content: ListView.separated(
         itemCount: splits.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext _, int index) {
           final StockSplit split = splits[index];
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -309,7 +306,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
             ],
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (BuildContext context, int _ /* index */) => Divider(
           color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),

@@ -96,7 +96,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  Widget _buildContentForSmallSurface(final BuildContext context) {
+  Widget _buildContentForSmallSurface(final BuildContext _) {
     return Column(
       children: <Widget>[
         Expanded(child: _getSubView()),

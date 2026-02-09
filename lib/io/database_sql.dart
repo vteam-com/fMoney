@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS [Currencies] (
     );
   }
 
-  Future<void> load(final String fileToOpen, final Uint8List fileBytes) async {
+  Future<void> load(final String fileToOpen, final Uint8List _ /* fileBytes */) async {
     if (File(fileToOpen).existsSync()) {
       _db = sqlite3.open(fileToOpen);
     } else {

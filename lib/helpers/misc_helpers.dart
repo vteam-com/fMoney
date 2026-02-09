@@ -1,3 +1,5 @@
+// ignore: fcheck_dead_code
+// ignore: fcheck_one_class_per_file
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';

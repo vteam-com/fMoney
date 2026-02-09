@@ -21,13 +21,13 @@ class ViewTransfers extends ViewForMoneyObjects {
   const ViewTransfers({super.key});
 
   @override
-  State<ViewForMoneyObjects> createState() => ViewTransfersState();
+  State<ViewForMoneyObjects> createState() => _ViewTransfersState();
 }
 
 /// State class for [ViewTransfers].
-class ViewTransfersState extends ViewForMoneyObjectsState {
-  /// Creates a new instance of [ViewTransfersState].
-  ViewTransfersState() {
+class _ViewTransfersState extends ViewForMoneyObjectsState {
+  /// Creates a new instance of [_ViewTransfersState].
+  _ViewTransfersState() {
     viewId = ViewId.viewTransfers;
   }
 
@@ -149,7 +149,6 @@ class ViewTransfersState extends ViewForMoneyObjectsState {
   /// Returns the side panel view details for a selected transfer.
   Widget _getSidePanelViewDetails({
     required final List<int> selectedIds,
-    required final bool isReadOnly,
   }) {
     if (selectedIds.isNotEmpty) {
       final int id = selectedIds.first;

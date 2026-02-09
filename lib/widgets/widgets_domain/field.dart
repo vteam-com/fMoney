@@ -164,7 +164,7 @@ class Field<T> {
   }
 
   /// Customize/override the edit widget
-  Widget Function(DataInterface, void Function(bool wasModified) onEdited)? getEditWidget;
+  Widget Function(DataInterface, void Function(bool /* wasModified */) onEdited)? getEditWidget;
 
   /// override the value edited
   dynamic Function(DataInterface, dynamic)? setValue;
