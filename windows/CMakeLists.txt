@@ -56,6 +56,15 @@ add_subdirectory("runner")
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# Some third-party Windows plugins emit warning C4189
+# ("initialized but not referenced") under /W4; suppress it for plugin targets
+# so plugin warnings do not break the app build with /WX.
+foreach(plugin ${FLUTTER_PLUGIN_LIST})
+  if(TARGET ${plugin}_plugin)
+    target_compile_options(${plugin}_plugin PRIVATE /wd"4189")
+  endif()
+endforeach(plugin)
+
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can
