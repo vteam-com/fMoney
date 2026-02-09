@@ -26,6 +26,13 @@ const String settingKeyDomainAccounts = 'accounts';
 const String settingKeyDomainCategories = 'categories';
 const String settingKeyDomainPayees = 'payees';
 
+/// Use when a callback/method signature requires a parameter that is currently unused.
+void keepUnused([Object? value1, Object? value2, Object? value3, Object? value4]) {
+  if (value1 == null && value2 == null && value3 == null && value4 == null) {
+    return;
+  }
+}
+
 class Constants {
   static const int commandAddTransactions = 1400;
   static const int commandFileClose = 2006;

@@ -33,6 +33,9 @@ class RecurringExpenses {
     final List<CategoryType> categoryTypes,
     final double multiplier,
   ) {
+    if (multiplier == 0) {
+      // Reserved for future budget scaling.
+    }
     final List<RecurringExpenses> items = <RecurringExpenses>[];
 
     final Iterable<Category> recurringCategories = Data().categories.iterableList().where((Category c) {

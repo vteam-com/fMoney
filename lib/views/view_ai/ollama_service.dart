@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';

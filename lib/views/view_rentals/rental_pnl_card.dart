@@ -87,12 +87,12 @@ class RentalPnLCard extends StatelessWidget {
           currencyIso4217: pnl.currency,
         ),
         gapMedium(),
-        distribution(context: context),
+        distribution(),
       ],
     );
   }
 
-  Widget distribution({required final BuildContext context}) {
+  Widget distribution() {
     final List<Widget> widgets = <Widget>[];
 
     pnl.distributions.forEach((String name, double percentage) {

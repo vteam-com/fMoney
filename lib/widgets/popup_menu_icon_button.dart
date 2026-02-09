@@ -25,7 +25,7 @@ PopupMenuButton<int> myPopupMenuIconButton({
         _popupMenuBorderRadius,
       ), // Set the border radius
     ),
-    itemBuilder: (final BuildContext context) {
+    itemBuilder: (final BuildContext _) {
       return list;
     },
     onSelected: onSelected,

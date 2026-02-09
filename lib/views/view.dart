@@ -20,7 +20,7 @@ abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
   @override
   Widget build(final BuildContext context) {
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (final BuildContext _, final BoxConstraints _) {
         return Column(
           children: <Widget>[
             buildHeader(),

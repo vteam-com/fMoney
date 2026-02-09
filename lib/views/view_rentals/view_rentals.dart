@@ -116,7 +116,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       title: 'Renters',
       content: ListView.separated(
         itemCount: rentersInThisBuilding.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext _, int index) {
           final RentUnit renter = rentersInThisBuilding[index];
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -129,7 +129,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
             ],
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (BuildContext context, int _) => Divider(
           color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),

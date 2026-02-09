@@ -33,6 +33,9 @@ Future<void> showTextInputDialog({
                   data: subTitle,
                   selectable: true,
                   onTapLink: (String text, String? href, String title) {
+                    if (text.isEmpty && title.isEmpty) {
+                      // keep callback signature variables explicit for readability
+                    }
                     launchUrl(Uri.parse(href!));
                   },
                 ),

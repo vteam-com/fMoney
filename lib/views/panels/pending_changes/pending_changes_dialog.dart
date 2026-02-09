@@ -145,10 +145,10 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
 
     return ListView.separated(
       itemCount: g.whatWasMutated.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (BuildContext _, int index) {
         return g.whatWasMutated[index];
       },
-      separatorBuilder: (BuildContext context, int index) {
+      separatorBuilder: (BuildContext _, int _) {
         return const Divider();
       },
     );
@@ -183,7 +183,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
           child: InputChip(
             label: Text(group.title),
             selected: i == mutations.selectedGroup,
-            onSelected: (bool value) {
+            onSelected: (bool _) {
               setState(() {
                 mutations.selectedGroup = i;
               });

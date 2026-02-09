@@ -134,6 +134,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     // get net worth over time
     final List<Transaction> transactionsWithoutTransfers = Data().transactions
         .iterableList(includeDeleted: true)
@@ -210,6 +211,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     final SelectionController selectionController = Get.put(
       SelectionController(
         getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),

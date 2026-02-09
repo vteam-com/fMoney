@@ -122,7 +122,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     _configureSplitPanelAreas();
 
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (final BuildContext context, final BoxConstraints _) {
         final bool displayAsColumns = context.isWidthSmall == false;
 
         return Focus(
@@ -133,15 +133,16 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
             valueListenable: widget.selectedItemsByUniqueId,
             builder:
                 (
-                  final BuildContext context,
+                  final BuildContext _,
                   final List<int> selectedItems,
                   final _,
                 ) {
+                  keepUnused(selectedItems);
                   return MultiSplitView(
                     controller: _splitController,
                     axis: Axis.vertical,
                     dividerBuilder: _buildSplitDivider,
-                    builder: (BuildContext context, Area area) {
+                    builder: (BuildContext _, Area area) {
                       return area.index == 0 ? topSection(displayAsColumns) : widget.bottom;
                     },
                   );
@@ -196,6 +197,8 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     bool highlighted,
     MultiSplitViewThemeData themeData,
   ) {
+    keepUnused(axis, index, resizable, dragging);
+    keepUnused(themeData);
     return ColoredBox(
       key: const Key('SidePanelSplitter'),
       color: highlighted ? ThemeController.to.primaryColor : Colors.transparent,
@@ -212,7 +215,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     }
   }
 
-  KeyEventResult _handleKeyboardShortcuts(FocusNode node, KeyEvent event) {
+  KeyEventResult _handleKeyboardShortcuts(FocusNode _, KeyEvent event) {
     if (event is KeyDownEvent) {
       // F9 shortcut
       if (event.logicalKey == LogicalKeyboardKey.f9) {

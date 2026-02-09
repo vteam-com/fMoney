@@ -67,6 +67,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     final SelectionController selectionController = Get.put(
       SelectionController(
         getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),

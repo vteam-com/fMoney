@@ -18,6 +18,7 @@ const double _labelPaddingRight = 10;
 
 class DataObject extends DataInterface {
   factory DataObject.fromJSon(final MyJson json, final double runningBalance) {
+    keepUnused(json, runningBalance);
     return DataObject();
   }
   DataObject();
@@ -30,7 +31,7 @@ class DataObject extends DataInterface {
   onMutationChanged;
 
   static String Function(int id) getCategoryName = (int id) => id.toString();
-  static double Function(String symbol) getCurrencyRatio = (String symbol) => 1.0;
+  static double Function(String symbol) getCurrencyRatio = (String _) => 1.0;
 
   /// State of any and all object instances
   /// to indicated any alteration to the data set of the users
@@ -120,6 +121,7 @@ class DataObject extends DataInterface {
     final bool isFirstItem = false,
     final bool isLastItem = false,
   }) {
+    keepUnused(isFirstItem, isLastItem);
     final dynamic fieldValue = fieldDefinition.getValueForDisplay(
       objectInstance,
     );
@@ -155,7 +157,7 @@ class DataObject extends DataInterface {
             title: fieldDefinition.name,
             valueAsText: fieldDefinition.getValueForDisplay(objectInstance).toString(),
             isReadOnly: true,
-            onChanged: (final String value) {},
+            onChanged: (final String _) {},
           );
         }
         return InputDecorator(
@@ -167,7 +169,7 @@ class DataObject extends DataInterface {
             title: fieldDefinition.name,
             initialValue: fieldDefinition.getValueForDisplay(objectInstance) as bool,
             isReadOnly: isReadOnly,
-            validator: (bool? value) {
+            validator: (bool? _) {
               /// Todo
               return null;
             },
@@ -210,7 +212,7 @@ class DataObject extends DataInterface {
                   // allow mutation of the value
                   readOnly: isReadOnly,
 
-                  onFieldSubmitted: (String value) {
+                  onFieldSubmitted: (String _) {
                     onEdited?.call(false);
                   },
                   onEditingComplete: () {

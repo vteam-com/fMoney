@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'dart:async';
 import 'dart:convert';
 
@@ -451,7 +452,7 @@ Answer the question:''';
       padding: const EdgeInsets.all(16),
       reverse: false,
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (BuildContext _, int index) {
         if (_chatHistory.isEmpty && !_isProcessingPrompt) {
           return const Center(
             child: TextTitle('Welcome to your AI Accountant'),

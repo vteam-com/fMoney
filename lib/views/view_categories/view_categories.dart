@@ -340,6 +340,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
       final Map<String, num> map = <String, num>{};
 
@@ -377,6 +378,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     final SelectionController selectionController = Get.put(
       SelectionController(),
     );

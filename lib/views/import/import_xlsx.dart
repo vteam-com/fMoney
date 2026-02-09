@@ -345,7 +345,7 @@ ImportData loadXLSX(
       if (date == null) {
         throw const FormatException('Could not parse date');
       }
-    } catch (e) {
+    } catch (_) {
       debugPrint('Row ${i + _oneInt}: Skipped - invalid date format: "$rawDate"');
       skippedRows++;
       continue;
@@ -366,7 +366,7 @@ ImportData loadXLSX(
         skippedRows++;
         continue;
       }
-    } catch (e) {
+    } catch (_) {
       debugPrint('Row ${i + _oneInt}: Skipped - amount parsing error: "$rawAmount"');
       skippedRows++;
       continue;

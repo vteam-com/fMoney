@@ -25,8 +25,8 @@ Widget diffTextNewValue(final String text) {
 Widget diffText(
   final String text,
   final Color backgroundColor,
-  final Color textColor,
-  final bool lineTrough,
+  final Color _, // textColor,
+  final bool _, // lineTrough,
 ) {
   return Container(
     padding: const EdgeInsets.all(_diffPadding),

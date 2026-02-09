@@ -86,7 +86,7 @@ class ViewHeader extends StatelessWidget {
       builder:
           (
             final BuildContext context,
-            final List<int> listOfSelectedItemIndex,
+            final List<int> _,
             final _,
             /*widget*/
           ) {

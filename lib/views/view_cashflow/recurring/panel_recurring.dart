@@ -42,7 +42,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
       child: ListView.builder(
         padding: const EdgeInsets.all(21),
         itemCount: recurringPayments.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext _, int index) {
           // build the Card UI
           final RecurringPayment payment = recurringPayments[index];
           return RecurringCard(

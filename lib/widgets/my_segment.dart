@@ -37,13 +37,13 @@ Widget mySegmentSelector({
         return TextButton(
           onPressed: () => onSelectionChanged(segment.value),
           style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> states) {
+            backgroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> _) {
               if (isSelected) {
                 return Theme.of(context).colorScheme.primaryContainer;
               }
               return Colors.transparent;
             }),
-            foregroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> states) {
+            foregroundColor: WidgetStateProperty.resolveWith<Color>((final Set<WidgetState> _) {
               if (isSelected) {
                 return Theme.of(context).colorScheme.onPrimaryContainer;
               }

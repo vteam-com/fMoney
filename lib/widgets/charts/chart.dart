@@ -121,13 +121,13 @@ class Chart extends StatelessWidget {
 
   static BarTouchData getBarTouchedData(
     final BuildContext context,
-    final String Function(BarChartGroupData group, BarChartRodData rod) renderTooltip,
+    final String Function(BarChartGroupData, BarChartRodData) renderTooltip,
   ) => BarTouchData(
     enabled: true,
     touchTooltipData: BarTouchTooltipData(
       fitInsideHorizontally: true,
       fitInsideVertically: true,
-      getTooltipColor: (BarChartGroupData group) => getColorTheme(context).secondaryContainer,
+      getTooltipColor: (BarChartGroupData _) => getColorTheme(context).secondaryContainer,
 
       getTooltipItem:
           (
@@ -135,11 +135,14 @@ class Chart extends StatelessWidget {
             final int groupIndex,
             final BarChartRodData rod,
             final int rodIndex,
-          ) => BarTooltipItem(
-            renderTooltip(group, rod),
-            TextStyle(color: getColorTheme(context).primary),
-            textAlign: TextAlign.start,
-          ),
+          ) {
+            keepUnused(groupIndex, rodIndex);
+            return BarTooltipItem(
+              renderTooltip(group, rod),
+              TextStyle(color: getColorTheme(context).primary),
+              textAlign: TextAlign.start,
+            );
+          },
     ),
     touchCallback:
         (
@@ -197,7 +200,7 @@ class Chart extends StatelessWidget {
   String getTooltipText(BarChartGroupData group, BarChartRodData rod) =>
       '${list[group.x].xText}\n${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
-  Widget _buildLegendBottom(final double value, final TitleMeta meta) => Container(
+  Widget _buildLegendBottom(final double value, final TitleMeta _) => Container(
     padding: const EdgeInsets.only(top: _legendPaddingTop),
     constraints: const BoxConstraints(maxWidth: _legendMaxWidth),
     child: Text(

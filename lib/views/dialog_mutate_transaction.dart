@@ -24,7 +24,7 @@ Future<dynamic> showTransactionAndActions({
 }) {
   return showDialog(
     context: context,
-    builder: (final BuildContext context) {
+    builder: (final BuildContext _) {
       return DialogMutateTransaction(transaction: transaction);
     },
   );

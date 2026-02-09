@@ -121,7 +121,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildViewSelections(final BuildContext context, final BoxConstraints constraints) {
+  Widget _buildViewSelections(final BuildContext context, final BoxConstraints _) {
     if (sidePanelSupport.supportedSubViews.isEmpty) {
       return const SizedBox.shrink();
     }

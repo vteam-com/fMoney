@@ -214,7 +214,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   KeyEventResult onListViewKeyEvent(
-    final FocusNode node,
+    final FocusNode _,
     final KeyEvent event,
   ) {
     if (event is KeyDownEvent || event is KeyRepeatEvent) {

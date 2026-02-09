@@ -35,7 +35,7 @@ class RecurringPayment {
 
     averagePerMonths = List<Pair<int, double>>.generate(
       _monthsPerYear,
-      (int index) => Pair<int, double>(_zeroInt, _zeroDouble),
+      (int _) => Pair<int, double>(_zeroInt, _zeroDouble),
     );
 
     for (final Transaction transaction in transactions) {
@@ -78,7 +78,7 @@ class RecurringPayment {
     }
 
     // sum per month
-    sumPerMonths = List<double>.generate(_monthsPerYear, (int index) => _zeroDouble);
+    sumPerMonths = List<double>.generate(_monthsPerYear, (int _) => _zeroDouble);
     final AccumulatorSum<int, double> monthSums2 = payeeIdMonthAndSums.getLevel1(payeeId)!;
     monthSums2.values.forEach((int month, double sum) {
       sumPerMonths[month - _monthOffset] = sum.abs();

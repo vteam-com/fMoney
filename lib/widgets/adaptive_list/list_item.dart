@@ -71,8 +71,8 @@ class MyListItemState extends State<MyListItem> {
       },
       onKeyEvent: widget.onListViewKeyEvent,
       child: MouseRegion(
-        onHover: (PointerHoverEvent event) => setState(() => _hovering = true),
-        onExit: (PointerExitEvent event) => setState(() => _hovering = false),
+        onHover: (PointerHoverEvent _) => setState(() => _hovering = true),
+        onExit: (PointerExitEvent _) => setState(() => _hovering = false),
         child: GestureDetector(
           onTap: () {
             setState(() {

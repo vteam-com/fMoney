@@ -216,7 +216,7 @@ Future<int?> showXlsxHeaderRowSelectorDialog({
   return showDialog<int>(
     context: context,
     barrierDismissible: false,
-    builder: (BuildContext context) {
+    builder: (BuildContext _) {
       return XlsxHeaderRowSelectorDialog(rows: rows);
     },
   );

@@ -409,10 +409,10 @@ class _PanelBudgetState extends State<PanelBudget> {
           child: Padding(
             padding: const EdgeInsets.all(_headerPadding),
             child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => Divider(height: _zeroHeight, color: dividersColor),
+              separatorBuilder: (BuildContext _, int _) => Divider(height: _zeroHeight, color: dividersColor),
               padding: const EdgeInsets.all(_zeroHeight),
               itemCount: items.length,
-              itemBuilder: (final BuildContext context, final int index) {
+              itemBuilder: (final BuildContext _, final int index) {
                 // build the Card UI
                 final RecurringExpenses item = items[index];
                 return Row(

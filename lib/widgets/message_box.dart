@@ -5,7 +5,7 @@ import 'package:money/widgets/gaps.dart';
 void messageBox(final BuildContext context, final String message) {
   showDialog<dynamic>(
     context: context,
-    builder: (BuildContext context) {
+    builder: (BuildContext _) {
       return SimpleDialog(
         children: <Widget>[
           gapLarge(),

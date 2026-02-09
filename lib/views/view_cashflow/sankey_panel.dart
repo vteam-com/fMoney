@@ -7,7 +7,7 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
-import 'package:money/widgets/sankey/sankey_painter.dart';
+import 'package:money/widgets/sankey/__sankey_painter.dart';
 import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 
@@ -115,7 +115,7 @@ class SankeyPanel extends StatelessWidget {
     }
 
     // Clean up the Incomes, drop 0.00
-    mapOfIncomes.removeWhere((final Category k, final double v) => v <= _zeroDouble);
+    mapOfIncomes.removeWhere((final Category _, final double v) => v <= _zeroDouble);
     // Sort Descending
     mapOfIncomes = Map<Category, double>.fromEntries(
       mapOfIncomes.entries.toList()..sort(
@@ -135,7 +135,7 @@ class SankeyPanel extends StatelessWidget {
     });
 
     // Clean up the Expenses, drop 0.00
-    mapOfExpenses.removeWhere((final Category k, final double v) => v == _zeroDouble);
+    mapOfExpenses.removeWhere((final Category _, final double v) => v == _zeroDouble);
 
     // Sort Ascending, in the case of expenses that means the largest negative number to the least negative number
     mapOfExpenses = Map<Category, double>.fromEntries(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/stock_data_price.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -10,14 +11,6 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/snack_bar.dart';
-
-class StockDatePrice {
-  /// Constructor
-  const StockDatePrice({required this.date, required this.price});
-
-  final DateTime date;
-  final double price;
-}
 
 const String flagAsInvalidSymbol = 'invalid-symbol';
 const int _csvHeaderRowIndex = 0;

@@ -24,11 +24,11 @@ const int _percentValueScale = 100;
 const int _percentDecimalPlaces = 3;
 const double _percentSymbolFontSize = 9;
 
-dynamic defaultCallbackValue(final DataInterface instance) => '';
+dynamic defaultCallbackValue(final DataInterface _) => '';
 
-bool defaultCallbackValueTrue(final DataInterface instance) => true;
+bool defaultCallbackValueTrue(final DataInterface _) => true;
 
-bool defaultCallbackValueFalse(final DataInterface instance) => false;
+bool defaultCallbackValueFalse(final DataInterface _) => false;
 
 /// A generic class representing a field in a data model.
 ///
@@ -84,14 +84,14 @@ class Field<T> {
       switch (this.type) {
         case FieldType.numeric:
         case FieldType.quantity:
-          getValueForDisplay = (final DataInterface c) => value as num;
+          getValueForDisplay = (final DataInterface _) => value as num;
           getValueForSerialization = getValueForDisplay;
         case FieldType.text:
-          getValueForDisplay = (final DataInterface objectInstance) => value.toString();
+          getValueForDisplay = (final DataInterface _) => value.toString();
         case FieldType.amount:
-          getValueForDisplay = (final DataInterface c) => WidgetFromData(amountModel: value as AmountModel);
+          getValueForDisplay = (final DataInterface _) => WidgetFromData(amountModel: value as AmountModel);
         case FieldType.date:
-          getValueForDisplay = (final DataInterface c) => dateToString(value as DateTime?);
+          getValueForDisplay = (final DataInterface _) => dateToString(value as DateTime?);
         default:
           //
           debugPrint('No match');
@@ -668,6 +668,7 @@ Widget buildWidgetFromTypeAndValue({
   required final bool fixedFont,
   String currency = Constants.defaultCurrency,
 }) {
+  keepUnused(currency);
   switch (type) {
     // Numeric
     case FieldType.numeric:

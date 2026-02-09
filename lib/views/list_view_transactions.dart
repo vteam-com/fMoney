@@ -116,7 +116,7 @@ List<Transaction> getTransactions({
   bool Function(Transaction)? filter,
   bool flattenSplits = false,
 }) {
-  filter ??= (Transaction transaction) => true;
+  filter ??= (Transaction _) => true;
 
   List<Transaction> list = <Transaction>[];
 

@@ -117,8 +117,8 @@ class AdaptiveListColumnsOrRows extends StatelessWidget {
             columns: fieldDefinitions,
             multiSelectionOn: isMultiSelectionOn,
             getColumnFooterWidget: getColumnFooterWidget!,
-            onTap: (int index) => () {},
-            onLongPress: (Field<dynamic> field) => () {},
+            onTap: (int _) => () {},
+            onLongPress: (Field<dynamic> _) => () {},
           ),
       ],
     );

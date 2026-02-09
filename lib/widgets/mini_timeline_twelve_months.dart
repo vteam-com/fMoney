@@ -15,9 +15,9 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
   final List<Pair<int, double>> values;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (final BuildContext _, final BoxConstraints constraints) {
         final List<Widget> bars = <Widget>[];
 
         if (values.isNotEmpty) {

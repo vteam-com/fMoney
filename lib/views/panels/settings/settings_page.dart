@@ -31,7 +31,7 @@ class SettingsPage extends GetView<GetxController> {
                     'Manage the expenses and rental income of properties.',
                   ),
                   value: PreferenceController.to.includeRentalManagement,
-                  onChanged: (bool value) {
+                  onChanged: (bool _) {
                     PreferenceController.to.includeRentalManagement = !PreferenceController.to.includeRentalManagement;
                   },
                 ),

@@ -100,9 +100,9 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
           //
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => const Divider(),
+              separatorBuilder: (BuildContext _, int _) => const Divider(),
               itemCount: widget.values.length,
-              itemBuilder: (BuildContext context, int index) => _buildTransactionRow(widget.values[index]),
+              itemBuilder: (BuildContext _, int index) => _buildTransactionRow(widget.values[index]),
             ),
           ),
 

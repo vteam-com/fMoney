@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_this
+// ignore: fcheck_one_class_per_file
 import 'dart:ui' as ui;
 
 import 'package:fl_chart/fl_chart.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/security.dart';
+import 'package:money/data/entities/stock_data_price.dart';
 import 'package:money/data/entities/stock_split.dart';
 import 'package:money/data/get_stock_from_cache_or_backend.dart';
 import 'package:money/data/models/dividend.dart';
@@ -194,7 +196,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
           ),
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
-            painter: PaintSplits(
+            painter: _PaintSplits(
               splits: widget.splits,
               minX: dataPoints.first.x,
               maxX: dataPoints.last.x,
@@ -226,7 +228,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
           ),
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
-            painter: PaintDividends(
+            painter: _PaintDividends(
               list: widget.dividends,
               minX: dataPoints.first.x,
               maxX: dataPoints.last.x,
@@ -485,8 +487,8 @@ void _paintLabel(
   textPainter.paint(canvas, Offset(x, y));
 }
 
-class PaintSplits extends CustomPainter {
-  PaintSplits({required this.splits, required this.minX, required this.maxX});
+class _PaintSplits extends CustomPainter {
+  _PaintSplits({required this.splits, required this.minX, required this.maxX});
 
   final double maxX;
   final double minX;
@@ -618,8 +620,8 @@ class PaintActivities extends CustomPainter {
   }
 }
 
-class PaintDividends extends CustomPainter {
-  PaintDividends({required this.list, required this.minX, required this.maxX});
+class _PaintDividends extends CustomPainter {
+  _PaintDividends({required this.list, required this.minX, required this.maxX});
 
   final List<Dividend> list;
   final double maxX;

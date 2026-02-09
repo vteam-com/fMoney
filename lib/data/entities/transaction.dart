@@ -726,6 +726,7 @@ class Transaction extends DataObject implements MergeableItem {
     Set<Transaction> dangling,
     List<dynamic> deletedAccounts,
   ) {
+    keepUnused(deletedAccounts);
     if (fieldTransfer.value != _unsetId && this.instanceOfTransfer == null) {
       // transferInstance?.getReceiverAccount();
       // if (IsDeletedAccount(this.to, money, deletedAccounts)) {
@@ -996,6 +997,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// <param name="duplicateTransfers">How to handle transfers.  In a cut/paste situation you want
   /// to create new transfer transactions (true), but in a XmlStore.Load situation we do not (false)</param>
   void postDeserializeFixup(bool duplicateTransfers) {
+    keepUnused(duplicateTransfers);
     // if (this.CategoryName != null)
     // {
     //   this.Category = money.Categories.GetOrCreateCategory(this.CategoryName, CategoryType.None);

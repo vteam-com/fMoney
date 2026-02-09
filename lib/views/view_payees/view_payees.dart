@@ -135,6 +135,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
       final List<PairXYY> listChart = <PairXYY>[];
       for (final Payee item in getList()) {
@@ -167,6 +168,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     final Payee? payee = getMoneyObjectFromFirstSelectedId<Payee>(
       selectedIds,
       list,

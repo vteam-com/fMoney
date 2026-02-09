@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction.dart';

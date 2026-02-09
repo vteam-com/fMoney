@@ -19,7 +19,7 @@ const num _smallValueThreshold = 10000;
 
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(
-    builder: (BuildContext context, BoxConstraints constraints) {
+    builder: (BuildContext _, BoxConstraints constraints) {
       final bool showDates = constraints.maxWidth > _dateFooterMinWidth;
       return DefaultTextStyle(
         style: const TextStyle(
@@ -82,7 +82,7 @@ Widget getFooterForInt(
 
 Widget getFooterForNumericRange(final RunningAverage range, final FieldType fieldType) {
   return LayoutBuilder(
-    builder: (BuildContext context, BoxConstraints constraints) {
+    builder: (BuildContext _, BoxConstraints constraints) {
       final bool showLabels = constraints.maxWidth > _numericFooterMinWidth;
       final double min = range.range.min.toDouble();
       final double max = range.range.max.toDouble();

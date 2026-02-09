@@ -117,7 +117,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBoxDistribution(final BuildContext context) {
+  Widget _buildBoxDistribution(final BuildContext _) {
     return Box(
       title: 'Categories',
       padding: _cardSpacing,

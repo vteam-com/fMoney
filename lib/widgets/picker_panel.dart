@@ -20,7 +20,7 @@ void showPopupSelection({
   required String title,
   required List<String> items,
   required String selectedItem,
-  required void Function(String text) onSelected,
+  required void Function(String _ /* text */) onSelected,
   bool showLetterPicker = true,
   TokenTextStyle tokenTextStyle = const TokenTextStyle(
     separatorPaddingLeft: SizeForPadding.nano,
@@ -135,7 +135,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
-  Widget _buildFilteredList(BuildContext context) {
+  Widget _buildFilteredList(BuildContext _) {
     return ListView.builder(
       itemCount: filteredList.length,
       controller: _scrollController,

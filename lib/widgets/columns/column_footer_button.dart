@@ -31,7 +31,7 @@ Widget buildColumnFooterButton({
   );
 }
 
-Widget _alignChild(BuildContext context, TextAlign align, Widget content) {
+Widget _alignChild(BuildContext _, TextAlign align, Widget content) {
   Alignment alignment = Alignment.center;
 
   switch (align) {

@@ -114,7 +114,7 @@ ImportData loadCSV(
     DateTime? date;
     try {
       date = DateTime.parse(row[dateIndex].trim());
-    } catch (e) {
+    } catch (_) {
       // print('Skipping row ${i + 1}: Invalid date format for "${row[dateIndex].trim()}". Error: $e. Row: "${row.join(",")}"'); // Removed
       // TODO: Log skipped row with error
       continue;
@@ -135,7 +135,7 @@ ImportData loadCSV(
         // TODO: Log skipped row
         continue;
       }
-    } catch (e) {
+    } catch (_) {
       // print('Skipping row ${i + 1}: Error parsing amount for "${row[amountIndex].trim()}". Error: $e. Row: "${row.join(",")}"'); // Removed
       // TODO: Log skipped row with error
       continue;

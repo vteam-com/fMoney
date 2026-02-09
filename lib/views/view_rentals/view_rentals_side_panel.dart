@@ -5,6 +5,7 @@ import 'package:money/data/entities/rent_building.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/data/models/pair_xyz.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/list_view_transactions.dart';
@@ -61,6 +62,7 @@ class ViewRentalsSidePanel {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency, // Currently unused
   }) {
+    keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
       //
       // UNSELECTED: Chart for all rentals' lifetime P&L
@@ -100,6 +102,7 @@ class ViewRentalsSidePanel {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency, // Currently unused
   }) {
+    keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
       return const Text('Select a Rental property to see its P&L');
     }
@@ -138,6 +141,7 @@ class ViewRentalsSidePanel {
     required final List<int> selectedIds,
     required bool showAsNativeCurrency, // Currently unused
   }) {
+    keepUnused(showAsNativeCurrency);
     final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
     if (rental == null) {
       return const Center(child: Text('Rental property not found'));

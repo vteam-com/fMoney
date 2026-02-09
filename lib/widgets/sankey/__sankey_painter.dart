@@ -39,7 +39,7 @@ class SankeyWidget extends StatelessWidget {
   @override
   Widget build(Object context) {
     return CustomPaint(
-      painter: SankeyPainter(
+      painter: _SankeyPainter(
         leftEntries: leftEntries,
         rightEntries: rightEntries,
         compactView: compactView,
@@ -49,9 +49,9 @@ class SankeyWidget extends StatelessWidget {
   }
 }
 
-class SankeyPainter extends CustomPainter {
+class _SankeyPainter extends CustomPainter {
   /// Constructor
-  SankeyPainter({
+  _SankeyPainter({
     required this.leftEntries,
     required this.rightEntries,
     required this.colors,
@@ -188,10 +188,10 @@ class SankeyPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRebuildSemantics(final SankeyPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(final _SankeyPainter oldDelegate) => false;
 
   @override
-  bool shouldRepaint(final SankeyPainter oldDelegate) => true;
+  bool shouldRepaint(final _SankeyPainter oldDelegate) => true;
 
   // Box for "Net Profit/Lost"
   // The box may show on both side

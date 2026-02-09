@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/models/account.dart';
@@ -75,7 +76,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
     final bool validAccounts = widget.inputFields.validAccounts;
 
     return Focus(
-      onFocusChange: (final bool hasFocus) {},
+      onFocusChange: (final bool _) {},
       child: KeyboardListener(
         focusNode: _focusNode,
         child: Center(

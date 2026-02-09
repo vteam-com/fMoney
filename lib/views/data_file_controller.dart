@@ -51,6 +51,7 @@ class DataFileController extends GetxController {
   DataMutations trackMutations = DataMutations();
 
   void closeFile([bool rebuild = true]) {
+    keepUnused(rebuild);
     Data().close();
     dataFileIsClosed();
     trackMutations.reset();

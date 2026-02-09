@@ -47,7 +47,7 @@ void myShowDialogAndActionsForMoneyObjects({
     captionForClose: null, // this will hide the close button
     child: DialogMutateMoneyObject(
       moneyObject: rollup,
-      onApplyChange: (DataObject objectChanged) {
+      onApplyChange: (DataObject _) {
         final MyJson afterEditing = rollup.getPersistableJSon();
         final MyJson diff = myJsonDiff(
           before: beforeEditing,
@@ -151,7 +151,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
       ),
 
       // Apply
-      if (dataWasModified)
+      if (editMode && dataWasModified)
         DialogActionButton(
           text: 'Apply',
           onPressed: () {

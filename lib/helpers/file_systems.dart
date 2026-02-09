@@ -59,7 +59,7 @@ class MyFileSystems {
         return fileStat.modified;
       }
       return null;
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }

@@ -148,7 +148,7 @@ class ValuesParser {
   }
 
   void convertInputTextToTransactionList(
-    final BuildContext? context,
+    final BuildContext? _,
     String inputString,
   ) {
     // start by fresh

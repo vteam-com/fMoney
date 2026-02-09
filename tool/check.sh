@@ -34,5 +34,5 @@ export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
 
 # Install the pinned version into the isolated cache, then run it.
 # Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
-dart pub global activate fcheck 0.9.2 > /dev/null
-dart pub global run fcheck --fix --svg --svgfolder .
+dart pub global activate fcheck 0.9.5 > /dev/null
+dart pub global run fcheck --fix --list full --svg --svgfolder .

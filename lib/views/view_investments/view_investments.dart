@@ -140,6 +140,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     double balance = 0.00;
 
     final List<Investment> investments = getList();
@@ -191,6 +192,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
+    keepUnused(showAsNativeCurrency);
     final Investment? instance = getMoneyObjectFromFirstSelectedId<Investment>(
       selectedIds,
       list,

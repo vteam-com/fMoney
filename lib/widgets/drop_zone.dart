@@ -32,16 +32,19 @@ class DropZoneState extends State<DropZone> {
           _dragging = false;
         });
       },
-      onDragEntered: (DropEventDetails detail) {
+      onDragEntered: (DropEventDetails _) {
         setState(() {
           _dragging = true;
         });
       },
-      onDragExited: (DropEventDetails detail) {
-        setState(() {
-          _dragging = false;
-        });
-      },
+      onDragExited:
+          (
+            DropEventDetails _, //detail
+          ) {
+            setState(() {
+              _dragging = false;
+            });
+          },
       child: Stack(
         children: <Widget>[
           widget.child,

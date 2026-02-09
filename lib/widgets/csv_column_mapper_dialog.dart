@@ -434,7 +434,7 @@ Future<Map<String, String>?> showCsvColumnMapperDialog({
   return showDialog<Map<String, String>?>(
     context: context,
     barrierDismissible: false, // User must make a choice
-    builder: (BuildContext context) {
+    builder: (BuildContext _) {
       return CsvColumnMapperDialog(headers: headers, dataRows: dataRows);
     },
   );

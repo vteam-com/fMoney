@@ -80,7 +80,7 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
             width: _columnFilterPanelWidth,
             child: ListView.builder(
               itemCount: list.length,
-              itemBuilder: (final BuildContext context, final int index) {
+              itemBuilder: (final BuildContext _, final int index) {
                 return CheckboxListTile(
                   title: Text(list[index].name, textAlign: widget.textAlign),
                   value: list[index].isSelected,

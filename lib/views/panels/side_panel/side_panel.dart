@@ -67,7 +67,7 @@ class _SidePanelState extends State<SidePanel> {
         valueListenable: widget.selectedItems,
         builder:
             (
-              final BuildContext context,
+              final BuildContext _,
               final List<int> listOfSelectedItemIndex,
               final _,
             ) {

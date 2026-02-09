@@ -262,7 +262,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       count: security.dividends.length,
       content: ListView.separated(
         itemCount: security.dividends.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext _, int index) {
           final Dividend dividend = security.dividends[index];
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,7 +272,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
             ],
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (BuildContext context, int _ /* index */) => Divider(
           color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
         ),
       ),
@@ -340,6 +340,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     final Security? security = getFirstSelectedItem() as Security?;
     if (security != null) {
       final String symbol = security.fieldSymbol.value;
@@ -379,6 +380,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     _lastSecuritySelected = getFirstSelectedItem() as Security?;
 
     if (_lastSecuritySelected == null) {
@@ -451,7 +453,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
           );
         });
       },
-      onItemLongPress: (BuildContext context2, int itemId) {
+      onItemLongPress: (BuildContext _, int itemId) {
         final Investment? instance = Data().investments.get(itemId);
         if (instance != null) {
           myShowDialogAndActionsForMoneyObject(

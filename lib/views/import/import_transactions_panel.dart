@@ -107,7 +107,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     );
 
     return Focus(
-      onFocusChange: (bool hasFocus) {},
+      onFocusChange: (bool _) {},
       child: KeyboardListener(
         focusNode: _focusNode,
         child: SizedBox(

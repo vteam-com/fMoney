@@ -87,7 +87,7 @@ void adaptiveScreenSizeDialog({
     // Full screen also comes with a Close (X) button
     showDialog<dynamic>(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext _) {
         return FullScreenDialog(
           title: title,
           content: Padding(
@@ -105,7 +105,7 @@ void adaptiveScreenSizeDialog({
   showDialog<dynamic>(
     context: context,
     barrierDismissible: false,
-    builder: (final BuildContext context) {
+    builder: (final BuildContext _) {
       return MyAlertDialog(
         title: title,
         scrollable: true,

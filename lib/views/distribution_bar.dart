@@ -70,7 +70,7 @@ class _DistributionBarState extends State<DistributionBar> {
   }
 
   Widget _buildDetailRow(
-    final BuildContext context,
+    final BuildContext _,
     final Category category,
     final double value,
   ) {

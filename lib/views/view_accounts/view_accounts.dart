@@ -436,6 +436,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   Widget _getSidePanelViewDetails({
     required final List<int> selectedIds,
   }) {
+    keepUnused(selectedIds);
     final Account? selectedAccount = getFirstSelectedItem() as Account?;
     if (selectedAccount == null) {
       return const CenterMessage(message: 'No item selected.');
@@ -713,6 +714,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds);
     final Account? account = getFirstSelectedItem() as Account?;
     if (account == null) {
       return const CenterMessage(message: 'No account selected.');

@@ -281,6 +281,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     final Map<String, num> tallyPerCategory = <String, num>{};
 
     getList().forEach((final Transaction transaction) {
@@ -316,6 +317,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
   }) {
+    keepUnused(selectedIds, showAsNativeCurrency);
     final Transaction? transaction = getFirstSelectedItem() as Transaction?;
 
     //

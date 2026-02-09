@@ -473,6 +473,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final SidePanelSubViewEnum subViewId,
     final List<int> selectedItems,
   ) {
+    keepUnused(selectedItems);
     switch (subViewId) {
       case SidePanelSubViewEnum.details:
       case SidePanelSubViewEnum.chart:
@@ -514,6 +515,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     bool includeDeleted = false,
     bool applyFilter = true,
   }) {
+    keepUnused(includeDeleted, applyFilter);
     return <DataObject>[];
   }
 
@@ -537,10 +539,11 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   Widget getSidePanelHeader(
-    final BuildContext context,
+    final BuildContext _,
     final num index,
     final DataObject item,
   ) {
+    keepUnused(item);
     return Center(child: Text('${getClassNameSingular()} #${index + 1}'));
   }
 
@@ -983,7 +986,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   void _onUserRequestToEdit(
-    final BuildContext context,
+    final BuildContext _,
     final List<DataObject> moneyObjects,
   ) {
     myShowDialogAndActionsForMoneyObjects(

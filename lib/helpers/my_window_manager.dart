@@ -25,7 +25,7 @@ class MyWindowManager extends WindowListener {
         PlatformDispatcher.instance.onError =
             (
               final Object error,
-              final StackTrace stack,
+              final StackTrace _,
             ) {
               // Log any Impeller-related errors
               if (kDebugMode) {

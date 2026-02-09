@@ -95,14 +95,15 @@ class _PanelTrendState extends State<PanelTrend> {
             fitInsideHorizontally: true,
             fitInsideVertically: true,
             maxContentWidth: _tooltipMaxWidth,
-            getTooltipColor: (BarChartGroupData group) => Colors.black,
+            getTooltipColor: (BarChartGroupData _) => Colors.black,
             getTooltipItem:
                 (
-                  BarChartGroupData group,
+                  BarChartGroupData _,
                   int groupIndex,
-                  BarChartRodData rod,
+                  BarChartRodData _,
                   int rodIndex,
                 ) {
+                  keepUnused(rodIndex);
                   final int year = years[groupIndex];
                   final RecurringExpenses yearData = yearCategoryIncomeExpenseSums[year]!;
                   final double profit = yearData.sumIncome + yearData.sumExpense;
@@ -262,7 +263,7 @@ class _PanelTrendState extends State<PanelTrend> {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: _axisReservedWidth,
-          getTitlesWidget: (double value, TitleMeta meta) {
+          getTitlesWidget: (double value, TitleMeta _) {
             return WidgetFromData.fromDouble(value);
           },
         ),
@@ -271,7 +272,7 @@ class _PanelTrendState extends State<PanelTrend> {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: _axisReservedBottom,
-          getTitlesWidget: (final double value, final TitleMeta meta) {
+          getTitlesWidget: (final double value, final TitleMeta _) {
             final List<int> years = yearCategoryIncomeExpenseSums.keys.toList()..sort();
             if (value.toInt() >= years.length) {
               return const Text('');
