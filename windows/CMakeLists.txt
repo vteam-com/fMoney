@@ -57,6 +57,14 @@ add_subdirectory("runner")
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# Third-party plugin code can emit warnings on newer MSVC toolchains.
+# Keep /WX for app code, but don't fail builds on plugin warnings.
+foreach(plugin ${FLUTTER_PLUGIN_LIST})
+  if(TARGET ${plugin}_plugin)
+    target_compile_options(${plugin}_plugin PRIVATE /WX- /wd"4189")
+  endif()
+endforeach(plugin)
+
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can
