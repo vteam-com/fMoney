@@ -5717,6 +5717,10 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/locale.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
 <g>
+  <path d="M 9870.0 478.0 C 9920.0 478.0, 9926.0 312.0, 9976.0 312.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/locale.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/currency_helper.dart</title>
+</g>
+<g>
   <path d="M 6670.0 198.0 C 6720.0 198.0, 6726.0 102.0, 6776.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/account_types.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/account_types_enum.dart</title>
 </g>
@@ -10300,7 +10304,8 @@
   <text x="9651.0" y="455.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. account.dart
 2. widget_from_data.dart</title></g><g class="outgoingBadge">
   <path d="M 9876.0,478.0 L 9864.0,471.0 Q 9861.0,471.0 9861.0,474.0 L 9861.0,482.0 Q 9861.0,485.0 9864.0,485.0 Z" fill="#10b981"/>
-  <text x="9865.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. constants.dart</title></g><text x="9760.0" y="465.0" class="textNormal">locale.dart</text>
+  <text x="9865.0" y="481.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. constants.dart
+2. currency_helper.dart</title></g><text x="9760.0" y="465.0" class="textNormal">locale.dart</text>
 <g class="incomingBadge">
   <path d="M 9662.0,522.0 L 9650.0,515.0 Q 9647.0,515.0 9647.0,518.0 L 9647.0,526.0 Q 9647.0,529.0 9650.0,529.0 Z" fill="#3b82f6"/>
   <text x="9651.0" y="525.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. widget_from_data.dart</title></g><g class="outgoingBadge">
@@ -10407,19 +10412,20 @@
   <text x="10185.0" y="271.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. constants.dart</title></g><text x="10080.0" y="255.0" class="textNormal">scale_down.dart</text>
 <g class="incomingBadge">
   <path d="M 9982.0,312.0 L 9970.0,305.0 Q 9967.0,305.0 9967.0,308.0 L 9967.0,316.0 Q 9967.0,319.0 9970.0,319.0 Z" fill="#3b82f6"/>
-  <text x="9971.0" y="315.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">13</text><title>1. account.dart
+  <text x="9971.0" y="315.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">14</text><title>1. account.dart
 2. amount_model.dart
 3. chart.dart
 4. field.dart
 5. footer_widgets.dart
 6. loan_payment.dart
-7. rental_pnl.dart
-8. stock_chart.dart
-9. transaction_timeline_chart.dart
-10. view_accounts.dart
-11. view_categories.dart
-12. view_stocks.dart
-13. widget_from_data.dart</title></g><g class="outgoingBadge">
+7. locale.dart
+8. rental_pnl.dart
+9. stock_chart.dart
+10. transaction_timeline_chart.dart
+11. view_accounts.dart
+12. view_categories.dart
+13. view_stocks.dart
+14. widget_from_data.dart</title></g><g class="outgoingBadge">
   <path d="M 10196.0,338.0 L 10184.0,331.0 Q 10181.0,331.0 10181.0,334.0 L 10181.0,342.0 Q 10181.0,345.0 10184.0,345.0 Z" fill="#10b981"/>
   <text x="10185.0" y="341.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. constants.dart
 2. misc_helpers.dart
