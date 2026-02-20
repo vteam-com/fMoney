@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 // Exports
 export 'package:flutter/widgets.dart';
 
+/// Base class for all view widgets in the application.
 abstract class ViewWidget extends StatefulWidget {
   const ViewWidget({super.key});
 
@@ -16,6 +17,7 @@ abstract class ViewWidget extends StatefulWidget {
   String getDescription();
 }
 
+/// Base state class for [ViewWidget] providing common layout structure.
 abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
   @override
   Widget build(final BuildContext context) {

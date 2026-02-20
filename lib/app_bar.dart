@@ -46,6 +46,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Handles app bar actions such as add transactions, settings, and theme changes.
   void onAppBarAction(int value) {
     switch (value) {
       case Constants.commandAddTransactions:

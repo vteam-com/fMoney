@@ -187,6 +187,7 @@ class Accounts extends MoneyObjects<Account> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Returns active accounts filtered by [types] and optional [isActive] status.
   List<Account> activeAccounts(
     final List<AccountType> types, {
     final bool? isActive = true,
@@ -202,6 +203,7 @@ class Accounts extends MoneyObjects<Account> {
     }).toList();
   }
 
+  /// Creates and adds a new account with a unique name derived from [accountName].
   Account addNewAccount(final String accountName) {
     // find next available name
     String nextAvailableName = accountName;
@@ -222,6 +224,7 @@ class Accounts extends MoneyObjects<Account> {
     return account;
   }
 
+  /// Compares two doubles [a] and [b] within a given [precision].
   bool compareDoubles(double a, double b, int precision) {
     final num threshold = pow(_decimalBase, -precision);
     return (a - b).abs() < threshold;
@@ -249,6 +252,7 @@ class Accounts extends MoneyObjects<Account> {
     return null;
   }
 
+  /// Finds an account by ID and optional account type.
   Account? findByIdAndType(
     final String accountId,
     final AccountType? accountType,

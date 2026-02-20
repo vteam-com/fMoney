@@ -105,6 +105,7 @@ class BudgetAnalyzer {
     return (average: average, stdDev: stdDev, trend: trend);
   }
 
+  /// Calculates a monthly budget recommendation based on transaction history.
   BudgetRecommendation calculateMonthlyBudget() {
     final List<Transaction> incomeTransactions = transactions.where((Transaction t) => t.isIncome).toList();
     final List<Transaction> expenseTransactions = transactions.where((Transaction t) => t.isExpense).toList();
