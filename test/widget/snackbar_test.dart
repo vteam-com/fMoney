@@ -81,9 +81,13 @@ void main() {
   setUp(() {
     // Register mock ThemeController for tests
     Get.put<ThemeController>(MockThemeController());
+    SnackBarService.clearQueue();
+    SnackBarService.disableTestingMode();
   });
 
   tearDown(() {
+    SnackBarService.clearQueue();
+    SnackBarService.disableTestingMode();
     Get.reset();
   });
   group('SnackBarService', () {
@@ -248,6 +252,34 @@ void main() {
 
       await tester.tap(find.text('Undo'));
       expect(actionPressed, isTrue);
+    });
+
+    testWidgets('queues snackbar until scaffold is mounted', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          scaffoldMessengerKey: SnackBarService.scaffoldKey,
+          home: const SizedBox.shrink(),
+        ),
+      );
+
+      SnackBarService.display(title: 'Deferred', message: 'Wait for scaffold');
+      await tester.pump();
+
+      expect(find.text('Deferred'), findsNothing);
+      expect(SnackBarService.queueLength, 1);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          scaffoldMessengerKey: SnackBarService.scaffoldKey,
+          home: const Scaffold(body: SizedBox.shrink()),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 120));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Deferred'), findsOneWidget);
+      expect(SnackBarService.queueLength, 0);
     });
   });
 }

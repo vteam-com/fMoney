@@ -91,19 +91,25 @@ class DataFileController extends GetxController {
   Future<bool> loadFile(final DataSource dataSource) async {
     this.closeFile(false); // ensure that we closed current file and state
 
-    final bool success = await MoneyDataIO().loadFromPath(Data(), dataSource);
+    try {
+      final bool success = await MoneyDataIO().loadFromPath(Data(), dataSource);
 
-    if (success) {
-      setCurrentFileName(dataSource.filePath);
-      currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(
-        dataSource.filePath,
-      );
-      Future<Null>.delayed(Duration.zero, () {
-        Get.offNamed<dynamic>(Constants.routeHomePage);
-      });
+      if (success) {
+        setCurrentFileName(dataSource.filePath);
+        currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(
+          dataSource.filePath,
+        );
+        Future<Null>.delayed(Duration.zero, () {
+          Get.offNamed<dynamic>(Constants.routeHomePage);
+        });
+      }
+      return success;
+    } catch (e, stackTrace) {
+      logger.e('Failed to load file: ${dataSource.filePath}', error: e, stackTrace: stackTrace);
+      return false;
+    } finally {
+      isLoading.value = false;
     }
-    isLoading.value = false;
-    return success;
   }
 
   Future<bool> loadFileFromPath(final DataSource dataSource) async {
@@ -116,7 +122,12 @@ class DataFileController extends GetxController {
       isLoading.value = true;
 
       if (DataAccess.getMRU().isNotEmpty) {
-        await loadFile(DataSource(filePath: DataAccess.getMRU().first));
+        final bool loaded = await loadFile(DataSource(filePath: DataAccess.getMRU().first));
+        if (!loaded) {
+          Future<Null>.delayed(Duration.zero, () {
+            Get.offNamed<dynamic>(Constants.routeWelcomePage);
+          });
+        }
         return;
       } else {
         // Once the file is loaded, navigate to the main screen
@@ -126,9 +137,13 @@ class DataFileController extends GetxController {
           Get.offNamed<dynamic>(Constants.routeWelcomePage);
         });
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       // Handle error
-      logger.e('Error fetching data: $e');
+      logger.e('Error fetching data', error: e, stackTrace: stackTrace);
+      isLoading.value = false;
+      Future<Null>.delayed(Duration.zero, () {
+        Get.offNamed<dynamic>(Constants.routeWelcomePage);
+      });
     }
   }
 

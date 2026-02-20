@@ -5,21 +5,17 @@ import 'package:money/helpers/constants.dart';
 const double _tokenTextOpacity = 0.8;
 const double _separatorOpacity = 0.6;
 
-// ignore: must_be_immutable
 /// A stateless widget for token text.
 class TokenText extends StatelessWidget {
-  TokenText(this.text, {super.key, this.style = const TokenTextStyle()}) {
-    tokens = text.split(style.separator);
-  }
+  const TokenText(this.text, {super.key, this.style = const TokenTextStyle()});
 
-  late final TokenTextStyle style;
+  final TokenTextStyle style;
 
   final String text;
 
-  List<String> tokens = <String>[];
-
   @override
   Widget build(BuildContext context) {
+    final List<String> tokens = text.split(style.separator);
     const TextStyle ancestors = TextStyle(fontSize: SizeForText.small);
 
     final Widget separator = Padding(

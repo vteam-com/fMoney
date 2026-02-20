@@ -12,44 +12,20 @@ import 'package:money/widgets/sankey/__sankey_painter.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 const double _zeroDouble = 0.0;
-const double _panelPadding = 10.0;
 const double _containerPadding = 8.0;
 const double _minHeight = 1000.0;
 
-// ignore: must_be_immutable
 /// A stateless widget for sankey panel.
 class SankeyPanel extends StatelessWidget {
-  SankeyPanel({required this.minYear, required this.maxYear, super.key});
-
-  late Map<Category, double> mapOfExpenses = <Category, double>{};
-
-  late Map<Category, double> mapOfIncomes = <Category, double>{};
+  const SankeyPanel({required this.minYear, required this.maxYear, super.key});
 
   final int maxYear;
 
   final int minYear;
 
-  late double padding = _panelPadding;
-
-  late List<SanKeyEntry> sanKeyListOfExpenses = <SanKeyEntry>[];
-
-  late List<SanKeyEntry> sanKeyListOfIncomes = <SanKeyEntry>[];
-
-  late double totalExpenses = _zeroDouble;
-
-  late double totalHeight = _zeroDouble;
-
-  late double totalIncomes = _zeroDouble;
-
-  late double totalInvestments = _zeroDouble;
-
-  late double totalNones = _zeroDouble;
-
-  late double totalSavings = _zeroDouble;
-
   @override
   Widget build(final BuildContext context) {
-    transformData();
+    final ({List<SanKeyEntry> incomes, List<SanKeyEntry> expenses}) sankeyData = _transformData();
     final ThemeController themeController = Get.find();
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints constraints) {
@@ -60,8 +36,8 @@ class SankeyPanel extends StatelessWidget {
             height: max(constraints.maxHeight, _minHeight),
             padding: const EdgeInsets.all(_containerPadding),
             child: SankeyWidget(
-              leftEntries: sanKeyListOfIncomes,
-              rightEntries: sanKeyListOfExpenses,
+              leftEntries: sankeyData.incomes,
+              rightEntries: sankeyData.expenses,
               compactView: context.isWidthSmall,
               colors: SankeyColors(
                 darkTheme: themeController.isDarkTheme.value,
@@ -73,14 +49,19 @@ class SankeyPanel extends StatelessWidget {
     );
   }
 
-  void transformData() {
+  ({List<SanKeyEntry> incomes, List<SanKeyEntry> expenses}) _transformData() {
+    final Map<Category, double> mapOfExpenses = <Category, double>{};
+    final Map<Category, double> mapOfIncomes = <Category, double>{};
+    final List<SanKeyEntry> sanKeyListOfExpenses = <SanKeyEntry>[];
+    final List<SanKeyEntry> sanKeyListOfIncomes = <SanKeyEntry>[];
+
     final Iterable<Transaction> transactions = Data().transactions.transactionInYearRange(
       minYear: minYear,
       maxYear: maxYear,
       incomesOrExpenses: null,
     );
 
-    for (Transaction element in transactions) {
+    for (final Transaction element in transactions) {
       final Category? category = Data().categories.get(
         element.fieldCategoryId.value,
       );
@@ -89,8 +70,6 @@ class SankeyPanel extends StatelessWidget {
           case CategoryType.income:
           case CategoryType.saving:
           case CategoryType.investment:
-            totalIncomes += element.fieldAmount.value.asDouble();
-
             final Category topCategory = Data().categories.getTopAncestor(
               category,
             );
@@ -100,7 +79,6 @@ class SankeyPanel extends StatelessWidget {
             break;
           case CategoryType.expense:
           case CategoryType.recurringExpense:
-            totalExpenses += element.fieldAmount.value.asDouble();
             final Category topCategory = Data().categories.getTopAncestor(
               category,
             );
@@ -109,7 +87,6 @@ class SankeyPanel extends StatelessWidget {
             mapOfExpenses[topCategory] = mapValue + element.fieldAmount.value.asDouble();
             break;
           default:
-            totalNones += element.fieldAmount.value.asDouble();
             break;
         }
       }
@@ -118,7 +95,7 @@ class SankeyPanel extends StatelessWidget {
     // Clean up the Incomes, drop 0.00
     mapOfIncomes.removeWhere((final Category _, final double v) => v <= _zeroDouble);
     // Sort Descending
-    mapOfIncomes = Map<Category, double>.fromEntries(
+    final Map<Category, double> sortedIncomes = Map<Category, double>.fromEntries(
       mapOfIncomes.entries.toList()..sort(
         (
           final MapEntry<Category, double> e1,
@@ -127,7 +104,7 @@ class SankeyPanel extends StatelessWidget {
       ),
     );
 
-    mapOfIncomes.forEach((final Category key, final double value) {
+    sortedIncomes.forEach((final Category key, final double value) {
       sanKeyListOfIncomes.add(
         SanKeyEntry()
           ..name = key.fieldName.value
@@ -139,7 +116,7 @@ class SankeyPanel extends StatelessWidget {
     mapOfExpenses.removeWhere((final Category _, final double v) => v == _zeroDouble);
 
     // Sort Ascending, in the case of expenses that means the largest negative number to the least negative number
-    mapOfExpenses = Map<Category, double>.fromEntries(
+    final Map<Category, double> sortedExpenses = Map<Category, double>.fromEntries(
       mapOfExpenses.entries.toList()..sort(
         (
           final MapEntry<Category, double> e1,
@@ -148,7 +125,7 @@ class SankeyPanel extends StatelessWidget {
       ),
     );
 
-    mapOfExpenses.forEach((final Category key, final double value) {
+    sortedExpenses.forEach((final Category key, final double value) {
       sanKeyListOfExpenses.add(
         SanKeyEntry()
           ..name = key.fieldName.value
@@ -156,15 +133,6 @@ class SankeyPanel extends StatelessWidget {
       );
     });
 
-    final double heightNeededToRenderIncomes = getHeightNeededToRender(
-      sanKeyListOfIncomes,
-    );
-    final double heightNeededToRenderExpenses = getHeightNeededToRender(
-      sanKeyListOfExpenses,
-    );
-    totalHeight = max(
-      heightNeededToRenderIncomes,
-      heightNeededToRenderExpenses,
-    );
+    return (incomes: sanKeyListOfIncomes, expenses: sanKeyListOfExpenses);
   }
 }

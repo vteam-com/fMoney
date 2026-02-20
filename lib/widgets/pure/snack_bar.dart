@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
@@ -10,6 +11,7 @@ const double _contentSpacing = 4;
 const double _snackBarMargin = 8;
 const double _snackBarBorderRadius = 8;
 const double _snackBarElevation = 6;
+const int _retryDelayMs = 100;
 
 /// Global snackbar service that works without BuildContext.
 /// Uses Flutter 3.38.0 Material snackbar improvements with custom overlay management.
@@ -25,6 +27,7 @@ class SnackBarService {
 
   // Queue to manage multiple snackbars
   static final List<_QueuedSnackBar> _queue = <_QueuedSnackBar>[];
+  static bool _flushScheduled = false;
 
   // /// Set test scaffold messenger state for testing purposes
   // static void setTestScaffoldMessengerState(ScaffoldMessengerState? scaffoldMessengerState) {
@@ -120,11 +123,19 @@ class SnackBarService {
     if (state == null) {
       // Queue the snackbar if no scaffold messenger is available
       _queue.add(_QueuedSnackBar(snackBar));
+      _scheduleQueueFlush();
       return;
     }
 
-    // Show immediately if available
-    state.showSnackBar(snackBar);
+    try {
+      // Show immediately if available
+      state.showSnackBar(snackBar);
+    } on AssertionError catch (_) {
+      // Happens during app startup when no Scaffold descendants exist yet.
+      _queue.add(_QueuedSnackBar(snackBar));
+      _scheduleQueueFlush();
+      return;
+    }
 
     // Process queue after current snackbar
     if (_queue.isNotEmpty) {
@@ -135,6 +146,24 @@ class SnackBarService {
         }
       });
     }
+  }
+
+  static void _scheduleQueueFlush() {
+    if (_flushScheduled || _queue.isEmpty) {
+      return;
+    }
+
+    _flushScheduled = true;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Future<void>.delayed(const Duration(milliseconds: _retryDelayMs), () {
+        _flushScheduled = false;
+        if (_queue.isEmpty) {
+          return;
+        }
+        final _QueuedSnackBar next = _queue.removeAt(0);
+        _showSnackBar(next.snackBar);
+      });
+    });
   }
 
   /// Display error snackbar
@@ -202,6 +231,7 @@ class SnackBarService {
   /// Clear all queued snackbars
   static void clearQueue() {
     _queue.clear();
+    _flushScheduled = false;
   }
 
   /// Get current queue length (useful for testing)
