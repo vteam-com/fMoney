@@ -4,8 +4,8 @@ import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/scale_down.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/scale_down.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
 const double _dateFooterMinWidth = 80;

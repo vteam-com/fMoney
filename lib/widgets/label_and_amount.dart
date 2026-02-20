@@ -3,6 +3,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+/// A stateless widget for label and amount.
 class LabelAndAmount extends StatelessWidget {
   const LabelAndAmount({
     super.key,

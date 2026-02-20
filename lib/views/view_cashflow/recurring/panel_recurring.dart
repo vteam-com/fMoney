@@ -8,6 +8,7 @@ import 'package:money/views/view_cashflow/recurring/recurring_card.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_payment.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
+/// A stateful widget for panel recurring.
 class PanelRecurring extends StatefulWidget {
   const PanelRecurring({
     super.key,

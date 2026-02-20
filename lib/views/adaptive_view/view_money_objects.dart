@@ -17,18 +17,18 @@ import 'package:money/views/panels/side_panel/side_panel.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/panels/view_header.dart';
 import 'package:money/widgets/adaptive_list/column_filter_panel.dart';
-import 'package:money/widgets/adaptive_list/footer_accumulators.dart';
 import 'package:money/widgets/adaptive_list/multiple_selection_context.dart';
-import 'package:money/widgets/box.dart';
 import 'package:money/widgets/button_helpers.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/default_values.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/working.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -36,8 +36,9 @@ import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/widgets_domain/footer_accumulators.dart';
 
+/// A stateful widget for view for money objects.
 class ViewForMoneyObjects extends StatefulWidget {
   const ViewForMoneyObjects({super.key, this.includeClosedAccount = false});
 
@@ -47,6 +48,7 @@ class ViewForMoneyObjects extends StatefulWidget {
   State<ViewForMoneyObjects> createState() => ViewForMoneyObjectsState();
 }
 
+/// State for view for money objects.
 class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   Fields<DataObject> _fieldToDisplay = Fields<DataObject>();
 

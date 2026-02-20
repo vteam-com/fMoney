@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/box.dart';
+import 'package:money/widgets/pure/box.dart';
 
 const double _messageBoxWidth = 400;
 const double _messageBoxHeight = 60;

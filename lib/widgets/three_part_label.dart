@@ -3,6 +3,7 @@ import 'package:money/helpers/color_helper.dart';
 const double _iconSlotWidth = 40;
 const double _textSpacing = 20;
 
+/// A stateless widget for three part label.
 class ThreePartLabel extends StatelessWidget {
   const ThreePartLabel({
     super.key,

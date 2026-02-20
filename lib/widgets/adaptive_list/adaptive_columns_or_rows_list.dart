@@ -3,13 +3,14 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/adaptive_list/list_item_footer.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 const double _minColumnLayoutWidth = 1500;
 
+/// A stateless widget for adaptive list columns or rows.
 class AdaptiveListColumnsOrRows extends StatelessWidget {
   const AdaptiveListColumnsOrRows({
     super.key,

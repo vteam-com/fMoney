@@ -6,6 +6,7 @@ import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 
+/// Represents stock splits.
 class StockSplits extends MoneyObjects<StockSplit> {
   StockSplits() {
     collectionName = 'Stock Splits';

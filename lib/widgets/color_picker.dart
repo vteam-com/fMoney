@@ -16,6 +16,7 @@ const double _brightnessDefault = 0.5;
 const int _brightnessDivisions = 100;
 const int _brightnessPercentScale = 100;
 
+/// A stateful widget for color picker.
 class ColorPicker extends StatefulWidget {
   const ColorPicker({
     required this.color,

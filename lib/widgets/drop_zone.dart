@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const double _dropOverlayAlpha = 0.2;
 const double _dropOverlayFontSize = 24;
 
+/// A stateful widget for drop zone.
 class DropZone extends StatefulWidget {
   const DropZone({
     super.key,
@@ -18,6 +19,7 @@ class DropZone extends StatefulWidget {
   DropZoneState createState() => DropZoneState();
 }
 
+/// State for drop zone.
 class DropZoneState extends State<DropZone> {
   bool _dragging = false;
 

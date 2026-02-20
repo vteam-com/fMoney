@@ -2,6 +2,7 @@ import 'package:money/data/entities/category.dart';
 import 'package:money/data/models/account.dart';
 import 'package:money/helpers/investment_types.dart';
 
+/// Represents investment import fields.
 class InvestmentImportFields {
   InvestmentImportFields({
     required this.account,

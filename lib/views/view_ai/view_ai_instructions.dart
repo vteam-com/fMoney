@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
 
 const double _ollamaLogoSize = 64.0;
 
+/// A stateless widget for view ai instructions.
 class ViewAIInstructions extends StatelessWidget {
   const ViewAIInstructions({
     super.key,

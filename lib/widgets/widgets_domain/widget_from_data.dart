@@ -3,8 +3,8 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/locale.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/currency_label.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/currency_label.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
 const double _currencySpacing = 10;
 const double _decimalFontScale = 0.8;
@@ -13,6 +13,7 @@ const double _decimalFontScale = 0.8;
 
 enum DataWidgetSize { body, title, header }
 
+/// A stateless widget for widget from data.
 class WidgetFromData extends StatelessWidget {
   /// Constructor
   const WidgetFromData({

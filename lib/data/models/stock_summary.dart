@@ -1,3 +1,4 @@
+/// Represents stock summary.
 class StockSummary {
   StockSummary({
     required this.symbol,

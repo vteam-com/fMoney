@@ -16,7 +16,7 @@ import 'package:money/views/suggestion_approval_provider.dart';
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/data_mutations.dart';
 import 'package:money/widgets/data_source.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:path/path.dart' as p;
 
 /// Controller for managing data file operations.

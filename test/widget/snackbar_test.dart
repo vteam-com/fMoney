@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/theme_controller.dart';
-import 'package:money/widgets/theme_custom.dart';
 
+/// A mock used in tests for mock theme controller.
 class MockThemeController extends GetxController implements ThemeController {
   @override
   RxInt colorSelected = 0.obs;

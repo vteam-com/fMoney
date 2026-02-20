@@ -22,6 +22,7 @@ const double _oneDouble = 1.0;
 const int _positiveMultiplier = 1;
 const int _negativeMultiplier = -1;
 
+/// Represents investment.
 class Investment extends DataObject {
   Investment({
     required final int id, // 1
@@ -456,6 +457,7 @@ class Investment extends DataObject {
     ]);
   }
 
+  /// ignore: fcheck_dead_code
   StockCumulative get finalAmount {
     final StockCumulative cumulative = StockCumulative();
     cumulative.quantity = _negativeMultiplier * effectiveUnits * this.fieldUnitPrice.value.asDouble();

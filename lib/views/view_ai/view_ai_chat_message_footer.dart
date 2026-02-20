@@ -10,6 +10,7 @@ const double _footerFontSize = 12.0;
 const double _footerIconSize = 18.0;
 const double _footerIconPadding = 4.0;
 
+/// A stateless widget for chat message footer.
 class ChatMessageFooter extends StatelessWidget {
   const ChatMessageFooter({
     super.key,

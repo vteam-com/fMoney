@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 /// Display a message to the user
 void messageBox(final BuildContext context, final String message) {
@@ -17,6 +17,7 @@ void messageBox(final BuildContext context, final String message) {
   );
 }
 
+/// Represents dialog service.
 class DialogService {
   factory DialogService() => _instance;
 

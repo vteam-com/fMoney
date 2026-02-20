@@ -8,9 +8,9 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/quantity_widget.dart';
-import 'package:money/widgets/scale_down.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/quantity_widget.dart';
+import 'package:money/widgets/pure/scale_down.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
@@ -278,6 +278,7 @@ class Field<T> {
   }
 }
 
+/// Represents field date.
 class FieldDate extends Field<DateTime?> {
   FieldDate({
     super.name,
@@ -297,6 +298,7 @@ class FieldDate extends Field<DateTime?> {
        );
 }
 
+/// Represents field double.
 class FieldDouble extends Field<double> {
   FieldDouble({
     super.name,
@@ -309,6 +311,7 @@ class FieldDouble extends Field<double> {
   }) : super(align: TextAlign.right, type: FieldType.numeric);
 }
 
+/// Represents field percentage.
 class FieldPercentage extends Field<double> {
   FieldPercentage({
     super.name,
@@ -325,6 +328,7 @@ class FieldPercentage extends Field<double> {
        );
 }
 
+/// Represents field id.
 class FieldId extends Field<int> {
   FieldId({super.getValueForDisplay, super.getValueForSerialization})
     : super(
@@ -335,6 +339,7 @@ class FieldId extends Field<int> {
       );
 }
 
+/// Represents field int.
 class FieldInt extends Field<int> {
   FieldInt({
     super.name,
@@ -354,6 +359,7 @@ class FieldInt extends Field<int> {
   });
 }
 
+/// Represents field money.
 class FieldMoney extends Field<AmountModel> {
   FieldMoney({
     super.name,
@@ -372,6 +378,7 @@ class FieldMoney extends Field<AmountModel> {
        );
 }
 
+/// Represents field quantity.
 class FieldQuantity extends Field<double> {
   FieldQuantity({
     super.name,
@@ -389,6 +396,7 @@ class FieldQuantity extends Field<double> {
   });
 }
 
+/// Represents field string.
 class FieldString extends Field<String> {
   FieldString({
     super.name,
@@ -423,6 +431,7 @@ class FieldString extends Field<String> {
   }
 }
 
+/// Represents fields.
 class Fields<T> {
   /// Constructor
   Fields() {

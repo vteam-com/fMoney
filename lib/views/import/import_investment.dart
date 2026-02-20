@@ -9,7 +9,7 @@ import 'package:money/helpers/investment_types.dart';
 import 'package:money/views/import/import_investment_panel.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 void showImportInvestment({InvestmentImportFields? inputData}) {
   inputData ??= InvestmentImportFields(

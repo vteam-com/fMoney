@@ -7,17 +7,19 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+/// A mock used in tests for mock theme controller.
 class MockThemeController extends GetxController with Mock implements ThemeController {
   @override
   RxBool get isDarkTheme => false.obs;
 }
 
+/// A mock used in tests for mock preference controller.
 class MockPreferenceController extends GetxController with Mock implements PreferenceController {
   @override
   String getString(String key, [String defaultValueIfNotFound = '']) => '';

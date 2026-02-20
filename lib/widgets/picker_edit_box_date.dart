@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/widgets/default_values.dart';
-import 'package:money/widgets/icon_button.dart';
-import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/pure/icon_button.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 
 const int _minDateYear = 1950;
 
+/// A stateful widget for picker edit box date.
 class PickerEditBoxDate extends StatefulWidget {
   const PickerEditBoxDate({
     required this.onChanged,
@@ -20,6 +21,7 @@ class PickerEditBoxDate extends StatefulWidget {
   PickerEditBoxDateState createState() => PickerEditBoxDateState();
 }
 
+/// State for picker edit box date.
 class PickerEditBoxDateState extends State<PickerEditBoxDate> {
   final TextEditingController _textController = TextEditingController();
 

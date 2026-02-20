@@ -1,14 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/scale_down.dart';
+export 'package:money/widgets/pure/scale_down.dart';
 
 const double _columnFilterPanelWidth = 300;
 
+/// A stateful widget for column filter panel.
 class ColumnFilterPanel extends StatefulWidget {
   const ColumnFilterPanel({
     required this.listOfUniqueInstances,
@@ -121,6 +122,7 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
   }
 }
 
+/// Represents value selection.
 class ValueSelection {
   ValueSelection({required this.name, required this.isSelected});
 

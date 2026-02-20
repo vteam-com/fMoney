@@ -6,7 +6,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_security_type.dart';
-import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -26,6 +26,7 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
   8    PriceDate     datetime      0                    0
  */
 
+/// Represents security.
 class Security extends DataObject {
   Security({
     required int id,

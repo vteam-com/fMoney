@@ -265,22 +265,6 @@ class DataSimulator {
     return dates;
   }
 
-  // ignore: unused_element
-  List<DateTime> generateRandomDates(int count) {
-    final DateTime tenYearsAgo = _today.subtract(
-      Duration(days: _daysPerYear * _numberOFYearInThePast),
-    ); // Adjust for leap years if needed
-
-    final Random random = Random();
-    final List<DateTime> dates = List<DateTime>.generate(count, (final int _ /* index */) {
-      final int randomDaysSinceTenYearsAgo = random.nextInt(
-        _daysPerYear * _numberOFYearInThePast,
-      );
-      return tenYearsAgo.add(Duration(days: randomDaysSinceTenYearsAgo));
-    });
-    return dates;
-  }
-
   /// Generates monthly expenses for a given account, payee, category, and amount.
   void generateTransactionsMonthlyExpenses({
     required Account account,

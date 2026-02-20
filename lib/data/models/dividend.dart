@@ -1,3 +1,4 @@
+/// Represents dividend.
 class Dividend {
   Dividend(this.date, this.amount);
 

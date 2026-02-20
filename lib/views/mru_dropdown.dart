@@ -13,6 +13,7 @@ const double _mruDropdownWidth = 600.0;
 const double _timestampOpacity = 0.5;
 const double _timestampFontSize = 12.0;
 
+/// A stateless widget for mru dropdown.
 class MruDropdown extends StatelessWidget {
   const MruDropdown({super.key});
 

@@ -4,6 +4,7 @@ import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/vertical_line_with_tooltip.dart';
 
+/// A stateless widget for mini timeline twelve months.
 class MiniTimelineTwelveMonths extends StatelessWidget {
   const MiniTimelineTwelveMonths({
     required this.values,

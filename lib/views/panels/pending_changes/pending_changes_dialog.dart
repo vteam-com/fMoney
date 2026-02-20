@@ -3,10 +3,10 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/my_segment.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/working.dart';
 
 const double _dialogWidth = 600.0;
 const double _dialogHeight = 900.0;

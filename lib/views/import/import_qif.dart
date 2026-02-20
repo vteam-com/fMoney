@@ -6,7 +6,7 @@ import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/import/import_data.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 
 const int _minFieldLength = 2;
 

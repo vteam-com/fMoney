@@ -19,14 +19,14 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data_file_controller.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialog_single_text_input.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/scale_down.dart';
-import 'package:money/widgets/snack_bar.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/scale_down.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
+import 'package:money/widgets/pure/working.dart';
 
 const int _httpOkStatus = 200;
 const int _httpUnauthorized = 401;
@@ -53,6 +53,7 @@ const int _boxAlpha = 100;
 const double _activityBoxHeight = 20.0;
 const double _activityLineOpacity = 0.8;
 
+/// A stateful widget for stock chart widget.
 class StockChartWidget extends StatefulWidget {
   const StockChartWidget({
     super.key,
@@ -524,6 +525,7 @@ class _PaintSplits extends CustomPainter {
   }
 }
 
+/// Represents paint activities.
 class PaintActivities extends CustomPainter {
   PaintActivities({
     required this.activities,

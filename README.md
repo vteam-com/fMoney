@@ -53,24 +53,29 @@ The fMoney app now includes a powerful AI assistant powered by Ollama, providing
 ### AI Features
 
 #### 💬 **Chat Interface**
+
 - Interactive conversation with the AI about your finances
 - Message history with timestamps and read more/less functionality
 - Copy messages to clipboard
 - Expandable messages for better readability
 
 #### 🤖 **AI Models**
+
 - Switch between different AI models (LLaMA 3.2, etc.)
 - Automatic model detection and installation
 - Model size information and management
 
 #### 📊 **Preset Financial Queries**
+
 Quick access preset buttons for common financial analyses:
+
 - **Account Names**: List all your account names
 - **Largest Transactions**: Identify the biggest transactions per account
 - **Analyze Spending**: Get insights into spending patterns
 - **Expense Predictions**: Forecast future expenses
 
 #### 🎯 **Intelligent Features**
+
 - Teach AI about your accounts using the "BankAccounts" button
 - Real-time processing status with cancel functionality
 - Context-aware responses based on your financial data
@@ -79,12 +84,14 @@ Quick access preset buttons for common financial analyses:
 ### Technical Architecture
 
 #### Core Components
+
 - **ViewAIInstructions**: Setup and installation guidance
 - **ViewAiHeader**: Model selection, chat statistics, and controls
 - **ChatMessageFooter**: Message actions (copy, expand, details)
 - **ChatInputArea**: Text input with preset buttons and processing states
 
 #### AI Integration
+
 - **Ollama Service**: Handles AI model communication and responses
 - **Chat Messages**: Persistent message history with metadata
 - **Real-time Processing**: Streaming responses with cancellation support
@@ -98,6 +105,7 @@ Quick access preset buttons for common financial analyses:
 ### Testing
 
 Comprehensive unit test coverage for all AI components:
+
 - `view_ai_header_test.dart`: Header functionality and model selection
 - `view_ai_instructions_test.dart`: Setup and installation UI
 - `view_ai_chat_message_footer_test.dart`: Message actions and display

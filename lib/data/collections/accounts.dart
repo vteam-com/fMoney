@@ -33,6 +33,7 @@ const int _symbolTokenIndex = 1;
 const int _intBitCount = 32;
 const int _creditCardLookbackDays = 60;
 
+/// Represents accounts.
 class Accounts extends MoneyObjects<Account> {
   Accounts() {
     collectionName = 'Accounts';
@@ -199,10 +200,6 @@ class Accounts extends MoneyObjects<Account> {
       }
       return item.isOpen == isActive;
     }).toList();
-  }
-
-  bool activeBankAccounts(final Account account) {
-    return account.isActiveBankAccount();
   }
 
   Account addNewAccount(final String accountName) {

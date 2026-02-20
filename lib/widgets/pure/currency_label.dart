@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 
 const double _flagHeight = 10;
 
+/// A stateless widget for currency label.
 class CurrencyLabel extends StatelessWidget {
   const CurrencyLabel({
     required this.threeLetterCurrencySymbol,

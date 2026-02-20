@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/vertical_line_with_tooltip.dart';
 
 const double _defaultLineWidth = 2;
@@ -11,6 +11,7 @@ const double _daysPerYear = 365.25;
 const double _barAlpha = 0.5;
 const int _inclusiveYearOffset = 1;
 
+/// A stateless widget for mini timeline daily.
 class MiniTimelineDaily extends StatelessWidget {
   const MiniTimelineDaily({
     required this.yearStart,

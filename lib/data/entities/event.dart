@@ -5,15 +5,16 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+/// Represents event.
 class Event extends DataObject {
   /// Private constructor for static fields only
   Event._static({

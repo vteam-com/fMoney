@@ -5,6 +5,7 @@ import 'package:money/data/models/payee.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 
+/// Represents aliases.
 class Aliases extends MoneyObjects<Alias> {
   Aliases() {
     collectionName = 'Aliases';

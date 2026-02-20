@@ -1,6 +1,6 @@
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/data_mutations.dart';
-import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
@@ -14,6 +14,7 @@ typedef NotifyMutationChanged =
 typedef GetCategoryName = String Function(int id);
 typedef GetCurrencyRatio = double Function(String symbol);
 
+/// Represents data access.
 class DataAccess {
   static late NotifyMutationChanged notifyMutationChanged;
   static late GetCategoryName getCategoryName;

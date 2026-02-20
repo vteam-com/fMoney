@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+/// A stateless widget for my svg.
 class MySvg extends StatelessWidget {
   const MySvg({
     required this.assetName,

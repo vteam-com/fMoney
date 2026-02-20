@@ -7,8 +7,8 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/sankey/__sankey_painter.dart';
-import 'package:money/widgets/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 const double _zeroDouble = 0.0;
@@ -17,6 +17,7 @@ const double _containerPadding = 8.0;
 const double _minHeight = 1000.0;
 
 // ignore: must_be_immutable
+/// A stateless widget for sankey panel.
 class SankeyPanel extends StatelessWidget {
   SankeyPanel({required this.minYear, required this.maxYear, super.key});
 

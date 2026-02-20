@@ -21,6 +21,7 @@ const double _channelNudge = 1;
 const double _incomeBlockHeightCompact = 200;
 const double _incomeBlockHeightRegular = 300;
 
+/// A stateless widget for sankey widget.
 class SankeyWidget extends StatelessWidget {
   /// Constructor
   const SankeyWidget({

@@ -2,6 +2,7 @@ import 'package:money/data/models/online_account.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 
+/// Represents online accounts.
 class OnlineAccounts extends MoneyObjects<OnlineAccount> {
   OnlineAccounts() {
     collectionName = 'Online Accounts';

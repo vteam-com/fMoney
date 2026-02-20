@@ -6,9 +6,9 @@ import 'package:money/data/database_interface.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/widgets/diff.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/pure/diff.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
@@ -186,13 +186,6 @@ class MoneyObjects<T> {
       final DataObject moneyObject = instanceFromJson(row);
       appendMoneyObject(moneyObject);
     }
-  }
-
-  void mutationUpdateItem(final DataObject item) {
-    DataObject.onMutationChanged?.call(
-      mutation: MutationType.changed,
-      moneyObject: item,
-    );
   }
 
   /// Override in derived classes

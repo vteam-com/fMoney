@@ -15,6 +15,7 @@ Future<void> showLocalFolder(final String folderPath) async {
 const String initialAssetFile = 'assets/initial.json';
 const String localFilename = 'myMoney.json';
 
+/// Represents my file systems.
 class MyFileSystems {
   static String append(final String folderPath, final String toAppend) {
     return '$folderPath${p.separator}$toAppend';

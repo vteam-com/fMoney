@@ -27,6 +27,7 @@ const double _zeroDouble = 0.0;
   8|BudgetBalanceDate|datetime|0||0
  */
 
+/// Represents transaction split.
 class TransactionSplit extends DataObject {
   /// Private constructor for static fields only
   TransactionSplit._static({

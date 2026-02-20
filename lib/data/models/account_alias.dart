@@ -11,6 +11,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
   3    AccountId  nchar(20)      1                    0
 
  */
+/// Represents account alias.
 class AccountAlias extends DataObject {
   /// Constructor
   AccountAlias() {

@@ -11,6 +11,7 @@ const double _defaultRotation = 0;
 const double _centerFraction = 0.5;
 const double _channelHeight = 100;
 
+/// Represents channel point.
 class ChannelPoint {
   ChannelPoint(this.x, this.top, this.bottom) {
     //
@@ -21,6 +22,7 @@ class ChannelPoint {
   double x = 0.0;
 }
 
+/// Represents block.
 class Block {
   /// Constructor
   Block(

@@ -1,3 +1,4 @@
+/// Represents stock date price.
 class StockDatePrice {
   /// Constructor
   const StockDatePrice({required this.date, required this.price});

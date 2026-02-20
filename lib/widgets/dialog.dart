@@ -2,7 +2,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/dialog_full_screen.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 
 const double _dialogBorderRadius = 8;
 const double _dialogBorderAlpha = 0.3;
@@ -12,6 +12,7 @@ const double _dialogMaxSize = 1000;
 const double _fullScreenPadding = 8;
 const int _actionButtonInsertIndex = 0;
 
+/// A stateless widget for my alert dialog.
 class MyAlertDialog extends StatelessWidget {
   const MyAlertDialog({
     super.key,

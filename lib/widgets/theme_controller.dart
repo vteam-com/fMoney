@@ -6,8 +6,9 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
+/// Represents themes.
 class Themes {
   static final List<Color> themeAsColors = <Color>[
     Colors.deepPurple,

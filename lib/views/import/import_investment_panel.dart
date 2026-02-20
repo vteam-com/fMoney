@@ -5,12 +5,12 @@ import 'package:money/data/models/investment_import_fields.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
-import 'package:money/widgets/form_field_widget.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_investment_type.dart';
+import 'package:money/widgets/pure/form_field_widget.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 
 const double _panelSpacing = 24.0;
 

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 // import 'package:money/app/core/helpers/misc_helpers.dart';
 
+/// Represents home controller.
 class HomeController extends GetxController {
   // @override
   // void onClose() {

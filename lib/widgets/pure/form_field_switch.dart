@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Represents switch form field.
 class SwitchFormField extends FormField<bool> {
   SwitchFormField({
     required String title,

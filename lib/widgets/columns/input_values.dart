@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/ocr.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/ocr.dart';
 
 const double _inputBoxHeight = 200;
 const double _inputBoxWidth = 800;
 
+/// A stateless widget for input values.
 class InputValues extends StatelessWidget {
   const InputValues({
     super.key,

@@ -3,9 +3,9 @@ import 'package:money/data/collections/data.dart';
 import 'package:money/data/models/currency.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/app_scaffold.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 

@@ -22,13 +22,14 @@ import 'package:money/views/view_transfers/view_transfers.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/drop_zone.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/pure/working.dart';
 import 'package:path/path.dart' as path; // Added import for path
 
 import 'helpers/home_controller.dart';
 
 RxInt subViewInt = 0.obs;
 
+/// Represents home page.
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 

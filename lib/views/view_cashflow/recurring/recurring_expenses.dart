@@ -5,6 +5,7 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 
+/// Represents recurring expenses.
 class RecurringExpenses {
   RecurringExpenses({
     required this.category,

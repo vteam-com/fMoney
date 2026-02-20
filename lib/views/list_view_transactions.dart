@@ -9,6 +9,7 @@ import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
+/// A stateful widget for list view transactions.
 class ListViewTransactions extends StatefulWidget {
   const ListViewTransactions({
     super.key,

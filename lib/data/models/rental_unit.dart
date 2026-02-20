@@ -12,6 +12,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
   3|Renter|nvarchar(255)|0||0
   4|Note|nvarchar(255)|0||0
  */
+/// Represents rent unit.
 class RentUnit extends DataObject {
   RentUnit();
 

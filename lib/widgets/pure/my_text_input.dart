@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A stateless widget for my text input.
 class MyTextInput extends StatelessWidget {
   MyTextInput({
     super.key,

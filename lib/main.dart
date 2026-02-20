@@ -15,11 +15,11 @@ import 'package:money/views/panels/splash_page.dart';
 import 'package:money/views/welcome/welcome_page.dart';
 import 'package:money/views/welcome/welcome_routes.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 import 'helpers/application_bindings.dart';
-import 'widgets/scale_down.dart';
+import 'widgets/pure/scale_down.dart';
 
 /// The main entry point for the MoneyFlutter application.
 /// Sets up the app structure, theming, and initial routes.

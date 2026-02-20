@@ -1,5 +1,6 @@
 enum ChatFrom { user, ai }
 
+/// Represents chat message.
 class ChatMessage {
   ChatMessage({
     required this.message,

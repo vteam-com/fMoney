@@ -18,6 +18,7 @@ const int _compareLess = -1;
 const int _compareGreater = 1;
 const int _rangeStep = 1;
 
+/// Represents date range.
 class DateRange {
   DateRange({this.min, this.max});
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/text_title.dart';
 
 const double _splashHeight = 300.0;

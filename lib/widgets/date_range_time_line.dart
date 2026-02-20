@@ -5,6 +5,7 @@ const double _tickWidth = 1;
 const double _tickHeight = 5;
 const double _tickAlpha = 0.5;
 
+/// A stateless widget for date range timeline.
 class DateRangeTimeline extends StatelessWidget {
   const DateRangeTimeline({
     required this.startDate,

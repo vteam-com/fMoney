@@ -7,6 +7,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+/// Represents investments.
 class Investments extends MoneyObjects<Investment> {
   Investments() {
     collectionName = 'Investments';

@@ -4,13 +4,14 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 const double _adaptiveBoxHeight = 300.0;
 
+/// A stateless widget for money object card.
 class MoneyObjectCard extends StatelessWidget {
   const MoneyObjectCard({
     required this.title,
@@ -103,6 +104,7 @@ class MoneyObjectCard extends StatelessWidget {
   }
 }
 
+/// A stateless widget for transaction card.
 class TransactionCard extends StatelessWidget {
   const TransactionCard({required this.title, super.key, this.transaction});
 

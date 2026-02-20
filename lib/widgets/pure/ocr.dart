@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:textify/textify.dart';
 
 const double _ocrButtonScale = 0.6;
 
+/// A stateful widget for paste image ocr.
 class PasteImageOcr extends StatefulWidget {
   const PasteImageOcr({
     super.key,

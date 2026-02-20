@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 export 'package:flutter/material.dart';
 
 const double _iconOpacity = 0.5;
 
+/// A stateless widget for dialog action button.
 class DialogActionButton extends StatelessWidget {
   const DialogActionButton({
     super.key,

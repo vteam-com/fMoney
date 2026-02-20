@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/widgets/form_field_switch.dart';
-import 'package:money/widgets/form_field_widget.dart';
-import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/form_field_switch.dart';
+import 'package:money/widgets/pure/form_field_widget.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
@@ -16,6 +16,7 @@ const double _dividerAlpha = 0.5;
 const int _valueFlex = 2;
 const double _labelPaddingRight = 10;
 
+/// Represents data object.
 class DataObject extends DataInterface {
   factory DataObject.fromJSon(final MyJson json, final double runningBalance) {
     keepUnused(json, runningBalance);

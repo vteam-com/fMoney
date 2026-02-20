@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/mru_dropdown.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 const double _welcomeTextFontSize = 16.0;
 const double _welcomeButtonSpacing = 10.0;

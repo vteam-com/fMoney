@@ -40,6 +40,7 @@ void importQfxFromString(final BuildContext? context, final String text) {
   }
 }
 
+/// Represents ofx bank info.
 class OfxBankInfo {
   String accountId = '';
   String accountType = '';

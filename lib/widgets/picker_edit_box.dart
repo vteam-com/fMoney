@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_panel.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 
+/// A stateful widget for picker edit box.
 class PickerEditBox extends StatefulWidget {
   const PickerEditBox({
     required this.title,
@@ -26,6 +27,7 @@ class PickerEditBox extends StatefulWidget {
   PickerEditBoxState createState() => PickerEditBoxState();
 }
 
+/// State for picker edit box.
 class PickerEditBoxState extends State<PickerEditBox> {
   final TextEditingController _textController = TextEditingController();
 

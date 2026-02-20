@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/footer_widgets.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
+import 'package:money/widgets/widgets_domain/footer_widgets.dart';
 
 const int _sampleLimit = 10;
 
+/// Represents footer accumulators.
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();
   final AccumulatorRange<Field<dynamic>> accumulatorNumericRange = AccumulatorRange<Field<dynamic>>();

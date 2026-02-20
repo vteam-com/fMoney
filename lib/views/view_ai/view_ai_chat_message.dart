@@ -6,7 +6,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/views/view_ai/view_ai_chat_message_footer.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 const int _maxLinesBeforeTruncate = 100;
 const int _truncatePreviewLines = 50;
@@ -21,6 +21,7 @@ const int _dividerAlpha = 60;
 const double _footerOpacity = 0.7;
 const double _monospaceFontSize = 12.0;
 
+/// A stateful widget for chat message widget.
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
     super.key,

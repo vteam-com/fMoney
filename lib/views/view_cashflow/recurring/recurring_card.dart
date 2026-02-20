@@ -7,12 +7,12 @@ import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/distribution_bar.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_payment.dart';
-import 'package:money/widgets/box.dart';
 import 'package:money/widgets/date_range_time_line.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/mini_timeline_daily.dart';
 import 'package:money/widgets/mini_timeline_twelve_months.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _cardMarginBottom = 21.0;
@@ -26,6 +26,7 @@ const double _dividerHeight = 1.0;
 const double _dateRangePadding = 100.0;
 const double _indexOpacity = 0.5;
 
+/// A stateless widget for recurring card.
 class RecurringCard extends StatelessWidget {
   const RecurringCard({
     required this.index,

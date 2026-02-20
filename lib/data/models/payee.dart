@@ -15,6 +15,7 @@ const int _doubleCategoryCount = 2;
   0|Id|INT|0||1
   1|Name|nvarchar(255)|1||0
  */
+/// Represents payee.
 class Payee extends DataObject {
   Payee();
 

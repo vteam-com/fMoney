@@ -9,7 +9,7 @@ import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_transfer.dart';
 import 'package:money/views/import/import_xlsx.dart';
 import 'package:money/widgets/dialog.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/wizard_choice.dart';
 
 const double _wizardSpacing = 40.0;

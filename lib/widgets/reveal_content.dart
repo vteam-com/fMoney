@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/misc_helpers.dart';
 
+/// A stateful widget for reveal content.
 class RevealContent extends StatefulWidget {
   const RevealContent({
     required this.widgets,
@@ -15,6 +16,7 @@ class RevealContent extends StatefulWidget {
   RevealContentState createState() => RevealContentState();
 }
 
+/// State for reveal content.
 class RevealContentState extends State<RevealContent> {
   int _showItem = 0;
 

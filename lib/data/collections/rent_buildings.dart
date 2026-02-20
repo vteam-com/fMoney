@@ -6,6 +6,7 @@ import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/rental_pnl.dart';
 
+/// Represents rent buildings.
 class RentBuildings extends MoneyObjects<RentBuilding> {
   RentBuildings() {
     collectionName = 'Rental Buildings';

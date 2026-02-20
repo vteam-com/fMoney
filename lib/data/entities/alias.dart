@@ -10,6 +10,7 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+/// Represents alias.
 class Alias extends DataObject {
   /// Constructor for backwards compatibility with static methods
   Alias._legacy({

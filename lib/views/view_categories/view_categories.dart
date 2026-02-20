@@ -41,6 +41,7 @@ const double _headerPadding = 5.0;
 const double _toggleRadius = 8.0;
 const int _chartMaxItems = 10;
 
+/// Represents view categories.
 class ViewCategories extends ViewForMoneyObjects {
   const ViewCategories({super.key});
 

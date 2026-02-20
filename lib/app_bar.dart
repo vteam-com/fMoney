@@ -9,7 +9,7 @@ import 'package:money/views/import/import_wizard.dart';
 import 'package:money/widgets/color_palette.dart';
 import 'package:money/widgets/popup_menu_icon_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/zoom.dart';
@@ -22,6 +22,7 @@ const double _themeItemRadius = 4.0;
 const double _inventoryIconSize = 18.0;
 const int _debugMenuValue = -1;
 
+/// A stateless widget for my app bar.
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 

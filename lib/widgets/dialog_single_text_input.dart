@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const double _dialogWidth = 400;

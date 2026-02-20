@@ -8,13 +8,12 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/circle.dart';
 import 'package:money/widgets/color_picker.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_category_type.dart';
-import 'package:money/widgets/rectangle.dart';
+import 'package:money/widgets/pure/circle.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -29,6 +28,7 @@ const double _zeroDouble = 0.0;
 const double _colorSwatchSizeSmall = 12.0;
 const double _colorSwatchSizeLarge = 40.0;
 
+/// Represents category.
 class Category extends DataObject {
   factory Category.fromJson(final MyJson row, [final DataAbstract? data]) {
     return Category(
@@ -415,13 +415,6 @@ class Category extends DataObject {
     return TokenText(this.fieldName.value);
   }
 
-  Widget getRectangleWidget() {
-    return MyRectangle(
-      colorFill: getColorFromString(this.fieldColor.value),
-      size: _colorSwatchSizeSmall,
-    );
-  }
-
   String getTypeAsText() {
     return fieldType.value.asString();
   }
@@ -469,6 +462,7 @@ class Category extends DataObject {
   }
 }
 
+/// A stateful widget for mutate field color.
 class MutateFieldColor extends StatefulWidget {
   const MutateFieldColor({
     required this.colorAsHex,

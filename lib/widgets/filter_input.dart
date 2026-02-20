@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/my_text_input.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 
+/// A stateless widget for filter input.
 class FilterInput extends StatelessWidget {
   FilterInput({
     super.key,

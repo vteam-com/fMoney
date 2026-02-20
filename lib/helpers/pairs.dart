@@ -1,5 +1,6 @@
 // ignore: fcheck_one_class_per_file
 
+/// Represents pair dynamic dynamic.
 class PairDynamicDynamic {
   PairDynamicDynamic({required this.key, required this.value});
 
@@ -28,6 +29,7 @@ class PairDynamicDynamic {
   }
 }
 
+/// Represents pair string double.
 class PairStringDouble {
   PairStringDouble({required this.key, required this.value});
 
@@ -56,6 +58,7 @@ class PairStringDouble {
   }
 }
 
+/// Represents pair int double.
 class PairIntDouble {
   PairIntDouble({required this.key, required this.value});
 
@@ -84,6 +87,7 @@ class PairIntDouble {
   }
 }
 
+/// Represents pair.
 class Pair<F, S> {
   Pair(this.first, this.second);
 
@@ -105,6 +109,7 @@ class Pair<F, S> {
   String toString() => '($first, $second)';
 }
 
+/// Represents triple.
 class Triple<F, S, T> {
   Triple(this.first, this.second, this.third);
 

@@ -14,14 +14,14 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/data_access.dart';
-import 'package:money/widgets/icon_button.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/picker_payee_or_transfer.dart';
+import 'package:money/widgets/pure/icon_button.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/selection_controller.dart';
-import 'package:money/widgets/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -852,14 +852,6 @@ class Transaction extends DataObject implements MergeableItem {
       tmp.fieldAmountAsTextNormalized,
       tmp.fieldBalanceNormalized,
     ]);
-  }
-
-  static String getDefaultCurrency(final dynamic account) {
-    // Convert the value to USD
-    if (account == null || (account as dynamic).getCurrencyRatio() == _zeroDouble) {
-      return Constants.defaultCurrency;
-    }
-    return (account as dynamic).fieldCurrency.value.toString();
   }
 
   double getNormalizedAmount(double nativeValue) {

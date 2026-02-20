@@ -10,7 +10,7 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';

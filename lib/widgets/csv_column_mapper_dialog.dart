@@ -7,6 +7,7 @@ const double _previewSpacing = 20;
 const double _cellHorizontalPadding = 8;
 const double _cellVerticalPadding = 4;
 
+/// A stateful widget for csv column mapper dialog.
 class CsvColumnMapperDialog extends StatefulWidget {
   const CsvColumnMapperDialog({
     super.key,

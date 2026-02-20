@@ -4,8 +4,8 @@ import 'package:money/data/entities/transaction.dart';
 import 'package:money/views/import/import_transfer_panel.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 
 const double _transferAmountSign = -1.0;
 const int _snackDurationSeconds = 5;

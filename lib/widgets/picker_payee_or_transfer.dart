@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_edit_box.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 const double _choiceWidth = 250;
 const double _captionWidth = 100;
 
 enum TransactionFlavor { payee, transfer }
 
+/// A stateful widget for pick payee or transfer.
 class PickPayeeOrTransfer extends StatefulWidget {
   const PickPayeeOrTransfer({
     required this.choice,

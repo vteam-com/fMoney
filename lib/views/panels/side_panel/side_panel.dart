@@ -5,6 +5,7 @@ import 'package:money/views/panels/side_panel/side_panel_header.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
+/// A stateful widget for side panel.
 class SidePanel extends StatefulWidget {
   /// Constructor
   const SidePanel({

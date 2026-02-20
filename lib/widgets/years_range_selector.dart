@@ -39,6 +39,7 @@ class YearRangeSlider extends StatefulWidget {
   YearRangeSliderState createState() => YearRangeSliderState();
 }
 
+/// State for year range slider.
 class YearRangeSliderState extends State<YearRangeSlider> {
   double _dragBottomWidth = 0;
 

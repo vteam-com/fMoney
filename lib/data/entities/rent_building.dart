@@ -39,6 +39,7 @@ import 'package:money/widgets/widgets_domain/widget_from_data.dart';
     16|CategoryForMaintenance|INT|0||0
     17|CategoryForManagement|INT|0||0
    */
+/// Represents rent building.
 class RentBuilding extends DataObject {
   factory RentBuilding.fromJson(final MyJson row, [final DataAbstract? data]) {
     final RentBuilding instance = RentBuilding();

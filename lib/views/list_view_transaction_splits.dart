@@ -4,10 +4,11 @@ import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/dialog_mutate_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
 import 'package:money/widgets/adaptive_list/list_view.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
+/// A stateful widget for list view transaction splits.
 class ListViewTransactionSplits extends StatefulWidget {
   const ListViewTransactionSplits({
     super.key,

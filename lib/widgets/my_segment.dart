@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 
 Widget mySegmentSelector({
   required BuildContext context,

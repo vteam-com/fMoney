@@ -178,6 +178,7 @@ double trimToFiveDecimalPlaces(double value) {
   return roundedValue / _fiveDecimalMultiplier;
 }
 
+/// Represents debouncer.
 class Debouncer {
   Debouncer([this.duration = const Duration(seconds: _defaultDebounceSeconds)]);
 
@@ -191,6 +192,7 @@ class Debouncer {
   }
 }
 
+/// Represents time lapse.
 class TimeLapse {
   TimeLapse() {
     stopwatch = Stopwatch()..start();

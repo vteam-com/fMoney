@@ -9,10 +9,11 @@ import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/list_view_transactions.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
-import 'package:money/widgets/center_message.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
+/// Represents view aliases.
 class ViewAliases extends ViewForMoneyObjects {
   const ViewAliases({super.key});
 

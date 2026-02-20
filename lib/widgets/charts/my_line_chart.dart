@@ -9,6 +9,7 @@ const double _defaultMarginLeft = 80;
 const double _defaultMarginBottom = 50;
 const double _axisLabelFontSize = 10;
 
+/// A stateless widget for my line chart.
 class MyLineChart extends StatelessWidget {
   const MyLineChart({
     super.key,

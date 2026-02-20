@@ -12,6 +12,7 @@ import 'package:money/views/view_cashflow/view_cashflow.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
 
+/// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatefulWidget {
   const DummyHostingApp({super.key});
 
@@ -19,6 +20,7 @@ class DummyHostingApp extends StatefulWidget {
   DummyHostingAppState createState() => DummyHostingAppState();
 }
 
+/// State used by dummy hosting app in tests.
 class DummyHostingAppState extends State<DummyHostingApp> {
   final PreferenceController preferenceController = Get.put(
     PreferenceController(),

@@ -6,7 +6,7 @@ import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_auto_size.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 
 Future<dynamic> showSplitAndActions({
   required final BuildContext context,

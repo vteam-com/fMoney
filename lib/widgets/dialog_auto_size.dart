@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 
 const double _dialogBorderRadius = 8;
 const double _dialogBorderWidth = 2;
@@ -9,6 +9,7 @@ const double _dialogElevation = 0;
 const double _dialogMaxWidth = 800;
 const double _dialogPadding = 16;
 
+/// A stateless widget for dialog auto size.
 class DialogAutoSize extends StatelessWidget {
   const DialogAutoSize({super.key, required this.child});
 

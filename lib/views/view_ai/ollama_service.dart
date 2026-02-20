@@ -12,6 +12,7 @@ const int _exitCodeSuccess = 0;
 const int _httpOkStatus = 200;
 const int _startupDelaySeconds = 5;
 
+/// Represents ollama status.
 class OllamaStatus {
   OllamaStatus({
     required this.isInstalled,
@@ -22,6 +23,7 @@ class OllamaStatus {
   final bool isRunning;
 }
 
+/// Represents ollama service.
 class OllamaService {
   static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
   static String selectedModel = '';

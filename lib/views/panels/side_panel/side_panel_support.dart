@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:money/helpers/constants.dart';
 
+/// Represents side panel support.
 class SidePanelSupport {
   SidePanelSupport({
     this.onDetails,

@@ -33,6 +33,7 @@ void keepUnused([Object? value1, Object? value2, Object? value3, Object? value4]
   }
 }
 
+/// Represents constants.
 class Constants {
   static const int commandAddTransactions = 1400;
   static const int commandFileClose = 2006;
@@ -110,6 +111,7 @@ class Constants {
   static String viewTransactionFieldNamePayee = 'Payee/Transfer';
 }
 
+/// Represents size for padding.
 class SizeForPadding {
   static const double huge = 21;
   static const double large = 13;
@@ -119,6 +121,7 @@ class SizeForPadding {
   static const double small = 3;
 }
 
+/// Represents size for text.
 class SizeForText {
   static const double huge = 34;
   static const double large = 21;
@@ -128,6 +131,7 @@ class SizeForText {
   static const double small = 10;
 }
 
+/// Represents size for icon.
 class SizeForIcon {
   static const double huge = 55;
   static const double large = 34;
@@ -135,6 +139,7 @@ class SizeForIcon {
   static const double small = 13;
 }
 
+/// Represents int values.
 class IntValues {
   static const int minBitCount = 1;
   static const int maxBitCount = 64;
@@ -225,6 +230,7 @@ extension ViewExtension on ViewId {
   }
 }
 
+/// Represents my keys.
 class MyKeys {
   static const Key keyHeaderFilterTextInput = Key('key_header_filter_input');
 }

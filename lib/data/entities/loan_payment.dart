@@ -11,6 +11,7 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/field_type.dart';
 
+/// Represents loan payment.
 class LoanPayment extends DataObject {
   /// Constructor from a SQLite row
   factory LoanPayment.fromJson(final MyJson row, final DataAbstract data) {

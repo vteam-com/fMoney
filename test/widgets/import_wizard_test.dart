@@ -9,6 +9,7 @@ import 'package:money/widgets/wizard_choice.dart'; // Import WizardChoice
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+/// A mock used in tests for test mock file picker.
 class TestMockFilePicker with MockPlatformInterfaceMixin implements FilePicker {
   FilePickerResult? _pickerResult;
 
@@ -214,6 +215,7 @@ void main() {
 }
 
 // MockNavigatorObserver to track navigation events.
+/// A mock used in tests for mock navigator observer.
 class MockNavigatorObserver implements NavigatorObserver {
   // Removed 'extends Mock'
   @override

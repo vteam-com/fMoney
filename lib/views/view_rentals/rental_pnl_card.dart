@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/box_with_scrolling_content.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/label_and_amount.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/rental_pnl.dart';
 
 const double _headerPadding = 30.0;
 const double _percentageScale = 100.0;
 
+/// A stateless widget for rental pn l card.
 class RentalPnLCard extends StatelessWidget {
   const RentalPnLCard({required this.pnl, super.key, this.customTitle});
 

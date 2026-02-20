@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
 const int _defaultDurationSeconds = 5;
 const int _persistDurationDays = 1;

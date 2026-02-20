@@ -7,6 +7,7 @@ const double _inputRadius = 24.0;
 const double _inputHorizontalPadding = 16.0;
 const double _inputVerticalPadding = 12.0;
 
+/// A stateful widget for chat input area.
 class ChatInputArea extends StatefulWidget {
   const ChatInputArea({
     super.key,

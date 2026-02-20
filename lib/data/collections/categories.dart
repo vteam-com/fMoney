@@ -9,8 +9,9 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/widgets/mutation_types.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 
+/// Represents categories.
 class Categories extends MoneyObjects<Category> {
   Categories() {
     collectionName = 'Categories';
@@ -349,8 +350,10 @@ class Categories extends MoneyObjects<Category> {
     return getOrCreate('Investments:Transfer', CategoryType.none);
   }
 
+  /// ignore: fcheck_dead_code
   bool isCategoryAnExpense(final int categoryId) => get(categoryId)?.isExpense ?? false;
 
+  /// ignore: fcheck_dead_code
   bool isCategoryAnIncome(final int categoryId) => get(categoryId)?.isIncome ?? false;
 
   void reparentCategory(

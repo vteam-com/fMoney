@@ -5,10 +5,10 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
 import 'package:money/widgets/columns_input.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
@@ -38,6 +38,7 @@ class ImportTransactionsPanel extends StatefulWidget {
   ImportTransactionsPanelState createState() => ImportTransactionsPanelState();
 }
 
+/// State for import transactions panel.
 class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   late Account _account;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/rectangle.dart';
+import 'package:money/widgets/pure/rectangle.dart';
 
+/// A stateless widget for my circle.
 class MyCircle extends StatelessWidget {
   const MyCircle({
     required this.colorFill,

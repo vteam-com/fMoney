@@ -14,6 +14,7 @@ import 'package:window_manager/window_manager.dart';
 
 */
 
+/// Represents my window manager.
 class MyWindowManager extends WindowListener {
   static void setupMainWindow() async {
     if (!kIsWeb) {

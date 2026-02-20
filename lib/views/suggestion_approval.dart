@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:money/data/collections/data.dart';
 import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/views/list_view_transaction_splits.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/icon_button.dart';
-import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/icon_button.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/working.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
@@ -16,6 +16,7 @@ const int _approvalDelayMs = 10;
 const double _splitDialogHeight = 300.0;
 const double _splitDialogWidth = 800.0;
 
+/// A stateful widget for suggestion approval.
 class SuggestionApproval extends StatefulWidget {
   const SuggestionApproval({
     super.key,
@@ -52,6 +53,7 @@ class SuggestionApproval extends StatefulWidget {
   SuggestionApprovalState createState() => SuggestionApprovalState();
 }
 
+/// State for suggestion approval.
 class SuggestionApprovalState extends State<SuggestionApproval> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 

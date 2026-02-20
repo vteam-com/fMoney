@@ -1,7 +1,6 @@
 // Imports
 // The following lines import necessary libraries and packages for the file.
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:money/data/collections/account_aliases.dart';
@@ -36,10 +35,11 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/widgets/data_access.dart';
-import 'package:money/widgets/mutation_types.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
+/// Represents data.
 class Data implements DataAbstract {
   // private constructor
 
@@ -265,11 +265,6 @@ class Data implements DataAbstract {
       accounts.removeAccount(a);
     }
     return dangling;
-  }
-
-  DateTime? getLastDateTimeModified(final String fullPathToFile) {
-    final File file = File(fullPathToFile);
-    return file.lastModifiedSync();
   }
 
   List<DataObject> getMutatedInstances(final MutationType typeOfMutation) {

@@ -11,6 +11,7 @@ const int _unsetId = -1;
 const int _fakeIdStart = 10000000;
 const double _zeroDouble = 0.0;
 
+/// Represents loan payments.
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {
     collectionName = 'LoanPayments';

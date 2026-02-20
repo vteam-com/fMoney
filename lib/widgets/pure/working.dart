@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 const double _defaultIndicatorSize = 40;
 const double _radiusScale = 0.5;
 
+/// A stateless widget for working indicator.
 class WorkingIndicator extends StatelessWidget {
   const WorkingIndicator({super.key, this.size = _defaultIndicatorSize});
 

@@ -1,3 +1,4 @@
+/// Represents pair xyy.
 class PairXYY {
   PairXYY(this.xText, this.yValue1, [this.yValue2]);
 

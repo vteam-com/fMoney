@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const double _defaultIconSize = 18;
 
+/// A stateful widget for my icon button.
 class MyIconButton extends StatefulWidget {
   const MyIconButton({
     super.key,
@@ -22,6 +23,7 @@ class MyIconButton extends StatefulWidget {
   MyIconButtonState createState() => MyIconButtonState();
 }
 
+/// State for my icon button.
 class MyIconButtonState extends State<MyIconButton> {
   bool _isHovered = false;
 

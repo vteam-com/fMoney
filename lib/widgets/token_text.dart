@@ -6,6 +6,7 @@ const double _tokenTextOpacity = 0.8;
 const double _separatorOpacity = 0.6;
 
 // ignore: must_be_immutable
+/// A stateless widget for token text.
 class TokenText extends StatelessWidget {
   TokenText(this.text, {super.key, this.style = const TokenTextStyle()}) {
     tokens = text.split(style.separator);
@@ -64,6 +65,7 @@ class TokenText extends StatelessWidget {
   }
 }
 
+/// Represents token text style.
 class TokenTextStyle {
   const TokenTextStyle({
     this.separator = ':',

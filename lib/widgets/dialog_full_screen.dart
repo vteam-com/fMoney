@@ -20,6 +20,7 @@ class FullScreenDialog extends StatefulWidget {
   FullScreenDialogState createState() => FullScreenDialogState();
 }
 
+/// State for full screen dialog.
 class FullScreenDialogState extends State<FullScreenDialog> {
   @override
   Widget build(BuildContext context) {

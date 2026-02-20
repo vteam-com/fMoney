@@ -4,6 +4,7 @@ import 'package:money/data/models/currency.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 
+/// Represents currencies.
 class Currencies extends MoneyObjects<Currency> {
   Currencies() {
     collectionName = 'Currencies';
@@ -17,17 +18,6 @@ class Currencies extends MoneyObjects<Currency> {
   @override
   String toCSV() {
     return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
-  /// Converts a currency symbol to the corresponding country's alpha-2 code.
-  ///
-  /// If no matching currency is found, returns 'US' as the default value.
-  String fromSymbolToCountryAlpha2(final String symbol) {
-    final Currency? currency = getCurrencyFromSymbol(symbol);
-    if (currency == null) {
-      return 'US';
-    }
-    return currency.fieldCultureCode.getValueForSerialization(currency) as String;
   }
 
   Currency? getCurrencyFromSymbol(final String symbolToMatch) {

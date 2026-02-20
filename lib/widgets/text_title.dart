@@ -1,5 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 
+/// A stateless widget for text title.
 class TextTitle extends StatelessWidget {
   const TextTitle(this.title, {super.key});
 

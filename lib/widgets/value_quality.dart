@@ -21,6 +21,7 @@ typedef TransactionExistsCallback =
       required double amount,
     });
 
+/// Represents value quality.
 class ValueQuality {
   const ValueQuality(
     this.valueAsString, {
@@ -84,6 +85,7 @@ class ValueQuality {
   }
 }
 
+/// Represents values quality.
 class ValuesQuality {
   ValuesQuality({
     required this.date,

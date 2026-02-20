@@ -4,9 +4,9 @@ import 'package:money/data/models/account.dart';
 import 'package:money/views/import/import_transactions_panel.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
 

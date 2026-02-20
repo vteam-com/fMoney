@@ -14,6 +14,7 @@ import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
+/// A stateful widget for net worth chart.
 class NetWorthChart extends StatefulWidget {
   const NetWorthChart({
     super.key,
@@ -28,6 +29,7 @@ class NetWorthChart extends StatefulWidget {
   NetWorthChartState createState() => NetWorthChartState();
 }
 
+/// State for net worth chart.
 class NetWorthChartState extends State<NetWorthChart> {
   List<ChartEvent> _milestoneTransactions = <ChartEvent>[];
 

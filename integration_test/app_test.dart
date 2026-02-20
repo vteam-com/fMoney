@@ -15,7 +15,7 @@ import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/panels/side_panel/side_panel_header.dart';
 import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_helpers.dart';

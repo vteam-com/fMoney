@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/working.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/working.dart';
 
 const double _processingMaxWidthFactor = 0.70;
 const double _bubbleVerticalMargin = 4.0;
@@ -9,6 +9,7 @@ const double _bubbleRadius = 16.0;
 const double _processingTailRadius = 4.0;
 const double _processingIndicatorSize = 20.0;
 
+/// A stateless widget for processing indicator.
 class ProcessingIndicator extends StatelessWidget {
   const ProcessingIndicator({super.key});
 

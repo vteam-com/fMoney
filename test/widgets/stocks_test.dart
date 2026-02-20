@@ -14,12 +14,13 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 // Mock the SharedPreference
+/// A mock used in tests for mock preference controller.
 class MockPreferenceController extends GetxController with Mock implements PreferenceController {
   @override
   String getString(String key, [String defaultValueIfNotFound = '']) {
@@ -46,6 +47,7 @@ class MockPreferenceController extends GetxController with Mock implements Prefe
 
 // Generate a MockClient class
 // @GenerateMocks([http.Client])
+/// A mock used in tests for mock http client.
 class MockHttpClient extends Mock implements http.Client {
   @override
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) => Future<http.Response>.value(

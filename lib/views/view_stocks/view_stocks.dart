@@ -19,10 +19,10 @@ import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -41,6 +41,7 @@ const int _dividerAlpha = 100;
 const double _toggleMinHeight = 40.0;
 const double _toggleMinWidth = 100.0;
 
+/// Represents view stocks.
 class ViewStocks extends ViewForMoneyObjects {
   const ViewStocks({super.key});
 

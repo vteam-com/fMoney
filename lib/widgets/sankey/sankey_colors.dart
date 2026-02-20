@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+/// Represents sankey colors.
 class SankeyColors {
   SankeyColors({required bool darkTheme}) {
     if (darkTheme) {

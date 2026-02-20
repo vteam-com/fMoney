@@ -6,6 +6,7 @@ import 'package:money/widgets/adaptive_list/multiple_selection_context.dart';
 /// Exports
 export 'package:money/widgets/adaptive_list/multiple_selection_context.dart';
 
+/// A stateless widget for multiple selection toggle.
 class MultipleSelectionToggle extends StatelessWidget {
   const MultipleSelectionToggle({required this.multipleSelection, super.key});
 

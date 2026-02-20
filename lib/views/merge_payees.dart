@@ -5,12 +5,12 @@ import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/box.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/picker_edit_box.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 const int _zeroIndex = 0;
 const int _countIncrement = 1;
@@ -35,6 +35,7 @@ void showMergePayee<T extends MergeableItem>(
   );
 }
 
+/// A stateful widget for merge transactions dialog.
 class MergeTransactionsDialog<T extends MergeableItem> extends StatefulWidget {
   const MergeTransactionsDialog({
     required this.currentPayee,

@@ -9,6 +9,7 @@ const double _platformRowSpacing = 20.0;
 const double _platformNameFontSize = 20.0;
 const double _platformDescriptionOpacity = 0.8;
 
+/// A stateless widget for platforms page.
 class PlatformsPage extends StatelessWidget {
   const PlatformsPage({super.key});
 

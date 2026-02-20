@@ -12,6 +12,7 @@ import 'package:money/helpers/string_helper.dart';
 // Exports
 export 'package:money/data/entities/security.dart';
 
+/// Represents securities.
 class Securities extends MoneyObjects<Security> {
   Securities() {
     collectionName = 'Securities';

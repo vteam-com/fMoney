@@ -29,6 +29,7 @@ const int _unsetId = -1;
   20   UserKeyExpireDate  datetime        0                    0
  */
 
+/// Represents online account.
 class OnlineAccount extends DataObject {
   OnlineAccount({
     required String name,

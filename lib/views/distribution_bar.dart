@@ -2,7 +2,7 @@ import 'package:money/data/entities/category.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _zeroInt = 0;
@@ -16,6 +16,7 @@ const double _segmentGap = 1.0;
 const double _segmentFontSize = 9.0;
 const int _detailFlex = 2;
 
+/// Represents distribution.
 class Distribution {
   Distribution({required this.category, required this.amount});
 
@@ -25,6 +26,7 @@ class Distribution {
   double percentage = 0;
 }
 
+/// A stateful widget for distribution bar.
 class DistributionBar extends StatefulWidget {
   const DistributionBar({required this.segments, super.key});
 

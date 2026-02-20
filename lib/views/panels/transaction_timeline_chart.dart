@@ -5,8 +5,8 @@ import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/widgets/charts/chart.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/icon_button.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/icon_button.dart';
 
 /// Widget to display a timeline chart of transactions.
 class TransactionTimelineChart extends StatefulWidget {

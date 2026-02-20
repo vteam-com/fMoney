@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/my_svg.dart';
 import 'package:money/widgets/text_title.dart';
 
 const double _headerPadding = 8.0;
@@ -18,6 +18,7 @@ const double _modelIconSize = 20.0;
 const double _dropdownIconSize = 16.0;
 const double _footerFontSize = 12.0;
 
+/// A stateless widget for view ai header.
 class ViewAiHeader extends StatelessWidget {
   const ViewAiHeader({
     required this.availableModels,

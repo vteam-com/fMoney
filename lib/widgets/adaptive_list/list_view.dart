@@ -13,6 +13,7 @@ const double _rowHeightColumn = 30;
 const double _rowHeightCard = 85;
 const double _rowHorizontalPadding = 8;
 
+/// A stateful widget for my list view.
 class MyListView<T> extends StatefulWidget {
   const MyListView({
     required this.fields,
@@ -52,6 +53,7 @@ class MyListView<T> extends StatefulWidget {
   State<MyListView<T>> createState() => MyListViewState<T>();
 }
 
+/// State for my list view.
 class MyListViewState<T> extends State<MyListView<T>> {
   double _rowHeight = _rowHeightColumn;
 

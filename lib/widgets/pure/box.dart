@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/icon_button.dart';
+import 'package:money/widgets/pure/icon_button.dart';
 
 const double _defaultPadding = 8;
 const double _defaultBoxWidth = 500;
@@ -12,6 +12,7 @@ const double _footerRightOffset = 10;
 const double _badgeOffsetX = 20;
 const double _badgeOffsetY = 0;
 
+/// A stateless widget for box.
 class Box extends StatelessWidget {
   Box({
     super.key,

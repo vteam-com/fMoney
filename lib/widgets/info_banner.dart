@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
 const double _bannerBorderRadius = 4;
 const double _bannerHorizontalPadding = 16;
 const double _bannerVerticalPadding = 8;
 const double _bannerIconSpacing = 8;
 
+/// A stateless widget for info banner.
 class InfoBanner extends StatelessWidget {
   const InfoBanner({
     required this.type,

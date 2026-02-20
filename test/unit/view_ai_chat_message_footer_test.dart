@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:money/views/view_ai/view_ai_chat_message_footer.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';
 
+/// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatelessWidget {
   const DummyHostingApp({required this.child, super.key});
 

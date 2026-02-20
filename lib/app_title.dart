@@ -6,7 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/reveal_content.dart';
 
 // Exports
@@ -15,6 +15,7 @@ export 'package:money/data/collections/data.dart';
 const double _revealIconOpacity = 0.8;
 const double _revealIconSize = 16;
 
+/// A stateless widget for app title.
 class AppTitle extends StatelessWidget {
   AppTitle({super.key}) {
     netWorth = Data().getNetWorth();

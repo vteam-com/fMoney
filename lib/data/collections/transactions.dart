@@ -22,6 +22,7 @@ const int _yearTokenIndex = 0;
 const int _monthTokenIndex = 1;
 const int _dayTokenIndex = 2;
 
+/// Represents transactions.
 class Transactions extends MoneyObjects<Transaction> {
   Transactions() {
     collectionName = 'Transactions';

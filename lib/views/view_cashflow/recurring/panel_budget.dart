@@ -14,11 +14,11 @@ import 'package:money/helpers/ranges.dart';
 import 'package:money/views/menu_entry.dart';
 import 'package:money/views/view_cashflow/recurring/panel_recurring.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_expenses.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
@@ -54,6 +54,7 @@ const int _sortColumnActualYear = 2;
 const int _sortColumnActualMonth = 3;
 const int _sortColumnBudget = 4;
 
+/// A stateful widget for panel budget.
 class PanelBudget extends StatefulWidget {
   const PanelBudget({
     super.key,

@@ -8,8 +8,8 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
 const double _barBorderRadius = 2;
 const double _leftTitlesReservedSize = 80;
@@ -26,6 +26,7 @@ const double _legendMaxWidth = 60;
 const double _legendFontSize = 10;
 const double _horizontalLineAlpha = 0.3;
 
+/// A stateless widget for chart.
 class Chart extends StatelessWidget {
   const Chart({
     super.key,

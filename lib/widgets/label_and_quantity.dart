@@ -1,6 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/quantity_widget.dart';
+import 'package:money/widgets/pure/quantity_widget.dart';
 
+/// A stateless widget for label and quantity.
 class LabelAndQuantity extends StatelessWidget {
   const LabelAndQuantity({
     super.key,

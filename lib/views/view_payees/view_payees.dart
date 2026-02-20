@@ -13,10 +13,10 @@ import 'package:money/views/merge_payees.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/panels/transaction_timeline_chart.dart';
 import 'package:money/widgets/button_helpers.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -24,6 +24,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
 const int _unsetId = -1;
 const int _chartMaxItems = 10;
 
+/// Represents view payees.
 class ViewPayees extends ViewForMoneyObjects {
   const ViewPayees({super.key});
 

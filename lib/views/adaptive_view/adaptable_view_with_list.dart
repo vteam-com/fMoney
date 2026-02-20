@@ -7,7 +7,7 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_list.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -19,6 +19,7 @@ export 'package:flutter/material.dart';
 const double _zeroDouble = 0.0;
 const double _sidePanelExpandedMinExtra = 100.0;
 
+/// A stateful widget for adaptive view with list.
 class AdaptiveViewWithList extends StatefulWidget {
   const AdaptiveViewWithList({
     super.key,

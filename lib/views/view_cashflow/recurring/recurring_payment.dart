@@ -19,6 +19,7 @@ const int _monthOffset = 1;
 const int _topDistributionsDefault = 4;
 const double _zeroDouble = 0.0;
 
+/// Represents recurring payment.
 class RecurringPayment {
   RecurringPayment({
     required this.payeeId,

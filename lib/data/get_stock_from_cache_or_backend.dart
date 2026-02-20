@@ -8,9 +8,9 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 
 const String flagAsInvalidSymbol = 'invalid-symbol';
 const int _csvHeaderRowIndex = 0;
@@ -25,6 +25,7 @@ const int _httpForbidden = 403;
 const int _httpNotFound = 404;
 const int _httpConflict = 409;
 
+/// Represents stock price history cache.
 class StockPriceHistoryCache {
   StockPriceHistoryCache(this.symbol, this.status, [this.lastDateTime]);
 

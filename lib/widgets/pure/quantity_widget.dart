@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom.dart';
 
 /// Formatted text using the supplied currency code and optional the currency/country flag
 class QuantityWidget extends StatelessWidget {

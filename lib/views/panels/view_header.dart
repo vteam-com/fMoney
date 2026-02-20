@@ -2,12 +2,12 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/adaptive_list/multiple_selection_toggle.dart';
 import 'package:money/widgets/filter_input.dart';
-import 'package:money/widgets/icon_button.dart';
+import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/three_part_label.dart';
 
 /// Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/scale_down.dart';
+export 'package:money/widgets/pure/scale_down.dart';
 
 const int _zeroInt = 0;
 const int _autoSubmitDisabled = -1;

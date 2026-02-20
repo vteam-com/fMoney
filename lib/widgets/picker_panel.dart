@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/dialog.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_letter.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:money/widgets/token_text.dart';
 
 const double _defaultPickerWidth = 200;
@@ -45,6 +45,7 @@ void showPopupSelection({
   );
 }
 
+/// A stateful widget for picker panel.
 class PickerPanel extends StatefulWidget {
   const PickerPanel({
     required this.options,
@@ -71,6 +72,7 @@ class PickerPanel extends StatefulWidget {
   PickerPanelState createState() => PickerPanelState();
 }
 
+/// State for picker panel.
 class PickerPanelState extends State<PickerPanel> {
   String _filterByTextAnywhere = '';
 

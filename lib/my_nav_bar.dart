@@ -2,15 +2,16 @@ import 'package:money/data/models/my_navigation_item.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/scale_down.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/scale_down.dart';
+export 'package:money/widgets/pure/scale_down.dart';
 
 const double _navRailMinWidth = 50.0;
 const double _navBarHeight = 52.0;
 
+/// A stateless widget for my navigation bar.
 class MyNavigationBar extends StatelessWidget {
   const MyNavigationBar({
     super.key,

@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/gaps.dart';
 
 const double _colorBarMargin = 2;
 const double _colorBarRadius = 3;
@@ -41,6 +41,7 @@ const double _colorBarSampleHeight = 10;
     Color? inversePrimary,
     Color? surfaceTint,
  */
+/// A stateless widget for color palette.
 class ColorPalette extends StatelessWidget {
   const ColorPalette({super.key});
 

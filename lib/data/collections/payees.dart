@@ -6,6 +6,7 @@ import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 
+/// Represents payees.
 class Payees extends MoneyObjects<Payee> {
   Payees() {
     collectionName = 'Payees';
@@ -108,6 +109,7 @@ class Payees extends MoneyObjects<Payee> {
     return payee;
   }
 
+  /// ignore: fcheck_dead_code
   /// if not found returns -1
   int getPayeeIdFromName(final String name) {
     final Payee? payee = getByName(name);

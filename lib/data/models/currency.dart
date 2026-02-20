@@ -13,6 +13,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
   4    LastRatio    money         0                 0 
   5    CultureCode  nvarchar(80)  0                 0 
  */
+/// Represents currency.
 class Currency extends DataObject {
   Currency({
     required final int id, // 0

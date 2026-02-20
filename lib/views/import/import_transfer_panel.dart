@@ -4,17 +4,18 @@ import 'package:money/data/entities/category.dart';
 import 'package:money/data/models/account.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/widgets/form_field_widget.dart';
-import 'package:money/widgets/gaps.dart';
-import 'package:money/widgets/my_text_input.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
+import 'package:money/widgets/pure/form_field_widget.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _panelSpacing = 24.0;
 const double _zeroDouble = 0.0;
 
+/// Represents import fields for transfer.
 class ImportFieldsForTransfer {
   ImportFieldsForTransfer({
     required this.accountFrom,
@@ -46,6 +47,7 @@ class ImportFieldsForTransferPanel extends StatefulWidget {
   ImportFieldsForTransferPanelState createState() => ImportFieldsForTransferPanelState();
 }
 
+/// State for import fields for transfer panel.
 class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPanel> {
   late final TextEditingController _controllerAmount = TextEditingController(
     text: widget.inputFields.amount.toString(),

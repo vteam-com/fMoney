@@ -1,9 +1,10 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/widgets/box.dart';
+import 'package:money/widgets/pure/box.dart';
 
 const double _boxWidth = 300;
 const double _boxMargin = 10;
 
+/// A stateless widget for box with scrolling content.
 class BoxWithScrollingContent extends StatelessWidget {
   const BoxWithScrollingContent({
     super.key,

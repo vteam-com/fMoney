@@ -11,6 +11,7 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
 const int _unsetId = -1;
 const int _dateSpreadThresholdDays = 2;
 
+/// Represents transfer.
 class Transfer extends DataObject {
   Transfer({
     required this.id,

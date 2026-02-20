@@ -46,6 +46,7 @@ class MyFormFieldForWidget extends StatefulWidget {
   MyFormFieldForWidgetState createState() => MyFormFieldForWidgetState();
 }
 
+/// State for my form field for widget.
 class MyFormFieldForWidgetState extends State<MyFormFieldForWidget> {
   TextEditingController controller = TextEditingController();
   late Color selectedColor;

@@ -3,6 +3,7 @@ import 'package:money/helpers/currency_helper.dart';
 const double _percentScale = 100;
 const int _textPaddingWidth = 15;
 
+/// Represents rental pn l.
 class RentalPnL {
   RentalPnL({
     required this.date,

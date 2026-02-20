@@ -1,5 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 
+/// A stateful widget for picker letters.
 class PickerLetters extends StatefulWidget {
   const PickerLetters({
     required this.options,

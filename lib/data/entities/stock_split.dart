@@ -16,6 +16,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
   4    Denominator  money     1                    0
  */
 
+/// Represents stock split.
 class StockSplit extends DataObject {
   /// Private constructor for static fields only
   StockSplit._static({

@@ -11,6 +11,7 @@ enum ColorState {
   info,
 }
 
+/// Represents money theme data.
 class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
   const MoneyThemeData({
     required this.success,

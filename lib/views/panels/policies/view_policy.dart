@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:money/helpers/constants.dart';
 
+/// A stateless widget for policy screen.
 class PolicyScreen extends StatelessWidget {
   const PolicyScreen({super.key});
 

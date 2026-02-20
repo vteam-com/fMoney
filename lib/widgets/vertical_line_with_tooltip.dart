@@ -7,6 +7,7 @@ const double _tooltipHeightFallback = 5;
 const double _minLineHeight = 1;
 const double _lineBorderRadius = 2;
 
+/// A stateless widget for vertical line with tooltip.
 class VerticalLineWithTooltip extends StatelessWidget {
   const VerticalLineWithTooltip({
     required this.height,

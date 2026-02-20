@@ -3,6 +3,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
 import 'package:money/widgets/text_title.dart';
 
+/// Represents policy page.
 class PolicyPage extends GetView<GetxController> {
   const PolicyPage({super.key});
 

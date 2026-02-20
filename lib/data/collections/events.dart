@@ -3,6 +3,7 @@ import 'package:money/data/entities/event.dart';
 import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 
+/// Represents events.
 class Events extends MoneyObjects<Event> {
   Events() {
     collectionName = 'LoanPayments';

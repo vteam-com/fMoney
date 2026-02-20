@@ -3,6 +3,7 @@ import 'package:money/helpers/constants.dart';
 import 'home_binding.dart';
 import 'home_page.dart';
 
+/// Represents home routes.
 class HomeRoutes {
   HomeRoutes._();
 

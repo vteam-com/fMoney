@@ -7,14 +7,15 @@ import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
-import 'package:money/widgets/center_message.dart';
-import 'package:money/widgets/gaps.dart';
+import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 
 const double _panelSpacing = 30.0;
 const int _dividerAlpha = 100;
 
+/// Represents view rentals.
 class ViewRentals extends ViewForMoneyObjects {
   const ViewRentals({super.key});
 

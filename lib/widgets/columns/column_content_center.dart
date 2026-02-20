@@ -1,5 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 
+/// A stateless widget for header content center.
 class HeaderContentCenter extends StatelessWidget {
   const HeaderContentCenter({
     required this.text,

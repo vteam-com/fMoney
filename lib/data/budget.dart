@@ -22,6 +22,7 @@ const int _biannualMaxIntervalDays = 210;
 const int _quarterlyMinIntervalDays = 75;
 const int _quarterlyMaxIntervalDays = 105;
 
+/// Represents budget recommendation.
 class BudgetRecommendation {
   BudgetRecommendation({
     required this.recommendedExpense,
@@ -42,6 +43,7 @@ class BudgetRecommendation {
   final double savingsRate;
 }
 
+/// Represents budget cumulator.
 class BudgetCumulator {
   BudgetCumulator({
     required this.monthlyAmount,
@@ -62,6 +64,7 @@ enum ExpenseFrequency {
   irregular, // Irregular pattern
 }
 
+/// Represents budget analyzer.
 class BudgetAnalyzer {
   BudgetAnalyzer(this.transactions);
 

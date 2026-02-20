@@ -5,6 +5,7 @@ const double _choiceBorderRadius = 8;
 const double _choiceMaxWidth = 400;
 const double _choiceTitleFontSize = 20;
 
+/// A stateless widget for wizard choice.
 class WizardChoice extends StatelessWidget {
   const WizardChoice({
     super.key,

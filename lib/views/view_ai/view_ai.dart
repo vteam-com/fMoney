@@ -14,9 +14,9 @@ import 'package:money/views/view_ai/view_ai_chat_types.dart';
 import 'package:money/views/view_ai/view_ai_header.dart';
 import 'package:money/views/view_ai/view_ai_input.dart';
 import 'package:money/views/view_ai/view_ai_instructions.dart';
-import 'package:money/widgets/my_svg.dart';
+import 'package:money/widgets/pure/my_svg.dart';
+import 'package:money/widgets/pure/working.dart';
 import 'package:money/widgets/text_title.dart';
-import 'package:money/widgets/working.dart';
 
 const double _checkingSpacing = 32.0;
 const double _checkingIconSize = 64.0;
@@ -145,6 +145,7 @@ class OllamaServiceImpl implements OllamaServiceInterface {
   Future<OllamaStatus> checkOllamaStatus() => OllamaService.checkOllamaStatus();
 }
 
+/// State for view ai.
 class ViewAIState extends ViewWidgetState<ViewAI> {
   /// Service instance to use (defaults to static implementation but can be injected for testing)
   late OllamaServiceInterface _ollamaService;

@@ -11,8 +11,9 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/io/database.dart';
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/data_source.dart';
-import 'package:money/widgets/snack_bar.dart';
+import 'package:money/widgets/pure/snack_bar.dart';
 
+/// Represents money data io.
 class MoneyDataIO {
   Future<bool> loadFromPath(final Data data, final DataSource dateSource) async {
     try {

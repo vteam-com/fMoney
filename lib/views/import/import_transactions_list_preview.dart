@@ -5,10 +5,10 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/box.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/my_banner.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
@@ -19,6 +19,7 @@ const int _columnFlexDescription = 2;
 const int _columnFlexAmount = 1;
 const int _defaultSortColumnIndex = 0;
 
+/// A stateful widget for import transactions list preview.
 class ImportTransactionsListPreview extends StatefulWidget {
   const ImportTransactionsListPreview({
     super.key,

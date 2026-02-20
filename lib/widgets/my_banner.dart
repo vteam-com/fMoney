@@ -8,6 +8,7 @@ const double _bannerRotationDegrees = -5;
 const double _degreesToRadians = pi / 180;
 const double _bannerFontSize = 10;
 
+/// A stateless widget for my banner.
 class MyBanner extends StatelessWidget {
   const MyBanner({required this.child, required this.on, super.key});
 

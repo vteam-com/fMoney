@@ -4,16 +4,17 @@ import 'package:money/data/collections/transactions.dart';
 import 'package:money/data/entities/category.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/box.dart';
-import 'package:money/widgets/gaps.dart';
 import 'package:money/widgets/info_banner.dart';
-import 'package:money/widgets/mutation_types.dart';
 import 'package:money/widgets/picker_category.dart';
+import 'package:money/widgets/pure/box.dart';
+import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
 
 const double _categoryLabelWidth = 100.0;
 const double _actionPadding = 8.0;
 const double _actionOfferingWidth = 250.0;
 
+/// A stateful widget for merge categories transactions dialog.
 class MergeCategoriesTransactionsDialog extends StatefulWidget {
   const MergeCategoriesTransactionsDialog({
     required this.categoryToMove,

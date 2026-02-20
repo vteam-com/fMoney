@@ -14,10 +14,10 @@ import 'package:money/views/view_cashflow/net_worth_chart.dart';
 import 'package:money/views/view_cashflow/recurring/panel_budget.dart';
 import 'package:money/views/view_cashflow/recurring/panel_trend.dart';
 import 'package:money/views/view_cashflow/sankey_panel.dart';
-import 'package:money/widgets/center_message.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/pick_number.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/years_range_selector.dart';
 
 const double _headerPadding = 8.0;
@@ -26,6 +26,7 @@ const double _defaultPadding = 10.0;
 const int _eventToleranceMin = 0;
 const int _eventToleranceMax = 12;
 
+/// Represents view cash flow.
 class ViewCashFlow extends ViewWidget {
   const ViewCashFlow({super.key});
 

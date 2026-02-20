@@ -16,6 +16,7 @@ const int _preferredColumnCountMin = 3;
 const int _preferredColumnCountMax = 5;
 const int _preferredColumnBonus = 5;
 
+/// A stateful widget for xlsx header row selector dialog.
 class XlsxHeaderRowSelectorDialog extends StatefulWidget {
   const XlsxHeaderRowSelectorDialog({
     super.key,

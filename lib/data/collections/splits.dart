@@ -5,6 +5,7 @@ import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
+/// Represents splits.
 class Splits extends MoneyObjects<TransactionSplit> {
   Splits() {
     collectionName = 'Splits';

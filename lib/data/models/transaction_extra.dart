@@ -11,6 +11,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
   3    TaxDate      datetime  0                    0
  */
 
+/// Represents transaction extra.
 class TransactionExtra extends DataObject {
   /// Constructor
   TransactionExtra({
