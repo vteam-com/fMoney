@@ -142,3 +142,5 @@ web/downloads/mymoney-app-macos.zip
 web/downloads/mymoney-app-windows.zip
 mymoney.mmcsv
 coverage/lcov.info
+lib/layers_folders.svg
+lib/layers.svg

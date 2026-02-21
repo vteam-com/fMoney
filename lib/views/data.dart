@@ -12,6 +12,7 @@ import 'package:money/views/accounts.dart';
 import 'package:money/views/aliases.dart';
 import 'package:money/views/categories.dart';
 import 'package:money/views/currencies.dart';
+import 'package:money/views/data_collections.dart';
 import 'package:money/views/events.dart';
 import 'package:money/views/investments.dart';
 import 'package:money/views/loan_payments.dart';
@@ -40,58 +41,26 @@ import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Represents data.
+///
+/// This file used to have a single monolithic `Data` class that mixed:
+/// 1) collection/table wiring & dependency injection, and
+/// 2) domain operations (mutations, transfers, recalculation, queries).
+///
+/// It is now split into two responsibilities:
+/// - [DataCollections]: owns all MoneyObjects managers + table ordering + DI wiring.
+/// - [Data]: the operational facade (implements [DataAbstract]) that delegates to the collections.
 class Data implements DataAbstract {
-  // private constructor
-
   /// singleton access
-  factory Data() {
-    return _instance;
-  }
+  factory Data() => _instance;
 
   /// private constructor
   Data._internal() {
     DataAbstract.instance = this;
-    tables = <MoneyObjects<dynamic>>[
-      accountAliases, // 1
-      aliases, // 3
-      categories, // 4
-      currencies, // 5
-      loanPayments, // 7
-      onlineAccounts, // 8
-      payees, // 9
-      transactionExtras, // 15
-      transactions, // 16
-      // Keep in this order - must come after Transactions
-      splits, // 13
-      // Keep in this order
-      stockSplits, // 14
-      investments, // 6 Must be locate after [stockSplits]
-      securities, // 12 Must be locate after [investments]
 
-      accounts, // 2
-      // Can be last
-      rentBuildings, // 10
-      rentUnits, // 11
-      events,
-    ];
+    // Collection/table wiring and DI live in DataCollections.
+    collections = DataCollections(data: this);
 
-    // Inject data interface to managers
-    accounts.data = this as DataAbstract;
-    aliases.data = this as DataAbstract;
-    categories.data = this as DataAbstract;
-    payees.data = this as DataAbstract;
-    investments.data = this as DataAbstract;
-    loanPayments.data = this as DataAbstract;
-    securities.data = this as DataAbstract;
-    rentBuildings.data = this as DataAbstract;
-    splits.data = this as DataAbstract;
-    events.data = this as DataAbstract;
-    transactions.data = this as DataAbstract;
-    stockSplits.data = this as DataAbstract;
-
-    // Note: Some data managers use dependency injection (accounts, aliases, categories, payees, investments, loanPayments, securities, rentBuildings, splits, events, transactions)
-    // while others use the global Data() singleton directly for cross-collection access
-
+    // Wire global callbacks.
     DataAccess.notifyMutationChanged = notifyMutationChanged;
     DataAccess.getCategoryName = categories.getNameFromId;
     DataObject.onMutationChanged = notifyMutationChanged;
@@ -99,58 +68,65 @@ class Data implements DataAbstract {
     DataObject.getCurrencyRatio = currencies.getRatioFromSymbol;
   }
 
-  late final List<MoneyObjects<dynamic>> tables;
+  /// singleton
+  static final Data _instance = Data._internal();
+
+  /// Collection registry + dependency injection.
+  late final DataCollections collections;
+
+  /// Tables in the required load/recalc order.
+  List<MoneyObjects<dynamic>> get tables => collections.tables;
 
   /// 1 Account Aliases
-  AccountAliases accountAliases = AccountAliases();
+  AccountAliases get accountAliases => collections.accountAliases;
 
   /// 2 Accounts
-  Accounts accounts = Accounts();
+  Accounts get accounts => collections.accounts;
 
   /// 3 Aliases of Payees
-  Aliases aliases = Aliases();
+  Aliases get aliases => collections.aliases;
 
   /// 4 Categories of Transactions
-  Categories categories = Categories();
+  Categories get categories => collections.categories;
 
   /// 5 Currencies definitions used in the money files
-  Currencies currencies = Currencies();
+  Currencies get currencies => collections.currencies;
 
   /// 16 Events
-  Events events = Events();
+  Events get events => collections.events;
 
   /// 6 Investment transactions
-  Investments investments = Investments();
+  Investments get investments => collections.investments;
 
   /// 7
-  LoanPayments loanPayments = LoanPayments();
+  LoanPayments get loanPayments => collections.loanPayments;
 
   /// 8
-  OnlineAccounts onlineAccounts = OnlineAccounts();
+  OnlineAccounts get onlineAccounts => collections.onlineAccounts;
 
   /// 9
-  Payees payees = Payees();
+  Payees get payees => collections.payees;
 
   /// 10
-  RentBuildings rentBuildings = RentBuildings();
+  RentBuildings get rentBuildings => collections.rentBuildings;
 
   /// 11
-  RentUnits rentUnits = RentUnits();
+  RentUnits get rentUnits => collections.rentUnits;
 
   /// 12
-  Securities securities = Securities();
+  Securities get securities => collections.securities;
 
   /// 13
-  Splits splits = Splits();
+  Splits get splits => collections.splits;
 
   /// 14
-  StockSplits stockSplits = StockSplits();
+  StockSplits get stockSplits => collections.stockSplits;
 
   /// 15
-  TransactionExtras transactionExtras = TransactionExtras();
+  TransactionExtras get transactionExtras => collections.transactionExtras;
 
   /// 16 All Transactions in the Money file
-  Transactions transactions = Transactions();
+  Transactions get transactions => collections.transactions;
 
   /// Provider for category suggestion widgets
   /// Must be set by upper view layers (home view or main app) before use
@@ -166,9 +142,6 @@ class Data implements DataAbstract {
 
   @override
   set mergePayeeProvider(dynamic value) => _mergePayeeProvider = value;
-
-  /// singleton
-  static final Data _instance = Data._internal();
 
   /// Checks for dangling transfers and shows a warning if any are found.
   void checkTransfers() {
