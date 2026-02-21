@@ -120,6 +120,7 @@ class Chart extends StatelessWidget {
     );
   }
 
+  /// Returns BarTouchData with tooltip rendering for bar charts.
   static BarTouchData getBarTouchedData(
     final BuildContext context,
     final String Function(BarChartGroupData, BarChartRodData) renderTooltip,
@@ -167,6 +168,7 @@ class Chart extends StatelessWidget {
         },
   );
 
+  /// Calculates the bar width based on constraints and number of bars.
   static double getBarWidth(
     BoxConstraints constraints,
     final int numberOfBars,
@@ -190,6 +192,7 @@ class Chart extends StatelessWidget {
     return barWidth;
   }
 
+  /// Returns FlGridData with optional horizontal grid lines.
   static FlGridData getChartGridData() => FlGridData(
     drawVerticalLine: false,
     getDrawingHorizontalLine: (final double value) => FlLine(
@@ -198,6 +201,7 @@ class Chart extends StatelessWidget {
     ),
   );
 
+  /// Formats tooltip text for a bar chart group and rod.
   String getTooltipText(BarChartGroupData group, BarChartRodData rod) =>
       '${list[group.x].xText}\n${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
@@ -213,6 +217,7 @@ class Chart extends StatelessWidget {
   );
 }
 
+/// Returns FlBorderData with themed top/bottom borders for the given range.
 FlBorderData getBorders(final double min, final double max) => FlBorderData(
   show: true,
   border: Border(
@@ -221,10 +226,12 @@ FlBorderData getBorders(final double min, final double max) => FlBorderData(
   ),
 );
 
+/// Returns a themed horizontal line color based on the numeric value.
 Color getHorizontalLineColorBasedOnValue(final double value) => Theme.of(
   Get.context!,
 ).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
+/// Builds a currency-formatted widget for chart axis labels.
 Widget getWidgetChartAmount(final double value, final TitleMeta meta) {
   final Widget widget = Text(
     getAmountAsStringUsingCurrency(value, decimalDigits: 0),

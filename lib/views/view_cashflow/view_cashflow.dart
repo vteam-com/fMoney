@@ -114,6 +114,7 @@ class _ViewCashFlowState extends ViewWidgetState {
     });
   }
 
+  /// Builds the cashflow view header including view selector and year range controls.
   Widget _buildHeaderContent() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -195,6 +196,7 @@ class _ViewCashFlowState extends ViewWidgetState {
     );
   }
 
+  /// Builds the segmented selector used to choose the cashflow visualization.
   Widget _buildSelectView() {
     return mySegmentSelector(
       context: context,
@@ -223,6 +225,7 @@ class _ViewCashFlowState extends ViewWidgetState {
     );
   }
 
+  /// Builds the selected cashflow view for the current year range.
   Widget _buildView() {
     if (Data().transactions.isEmpty) {
       return CenterMessage.noTransaction();

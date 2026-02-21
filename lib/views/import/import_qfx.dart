@@ -10,6 +10,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/import/import_data.dart';
 
+/// Imports QFX file and processes transactions from file path.
 Future<bool> importQFX(
   final BuildContext context,
   final String filePath,
@@ -21,6 +22,7 @@ Future<bool> importQFX(
   return true;
 }
 
+/// Processes QFX data from string content and imports transactions.
 void importQfxFromString(final BuildContext? context, final String text) {
   final String ofx = getStringDelimitedStartEndTokens(text, '<OFX>', '</OFX>');
 
@@ -46,6 +48,7 @@ class OfxBankInfo {
   String accountType = '';
   String id = '';
 
+  /// Parses OFX bank information from OFX string content.
   static OfxBankInfo fromOfx(final String ofx) {
     // start with this
     // <BANKACCTFROM><BANKID>123456<ACCTID>00001 99-55555<ACCTTYPE>SAVINGS</BANKACCTFROM>
@@ -70,6 +73,7 @@ class OfxBankInfo {
 }
 
 // ignore: fcheck_dead_code
+/// Returns investment category ID based on OFX transaction type.
 int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
   int categoryId = -1;
   switch (ofxTransaction.type) {
@@ -112,6 +116,7 @@ int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
   return categoryId;
 }
 
+/// Parses OFX string content and returns list of transaction entries.
 List<ImportEntry> getTransactionFromOFX(final String rawOfx) {
   if (rawOfx.isNotEmpty) {
     // Remove all LN/CR
@@ -136,6 +141,7 @@ List<ImportEntry> getTransactionFromOFX(final String rawOfx) {
   return <ImportEntry>[];
 }
 
+/// Parses QFX transaction lines into ImportEntry objects.
 List<ImportEntry> parseQFXTransactions(final List<String> lines) {
   final List<ImportEntry> transactions = <ImportEntry>[];
 
@@ -171,6 +177,7 @@ List<ImportEntry> parseQFXTransactions(final List<String> lines) {
   return transactions;
 }
 
+/// Finds and returns value between token and closing tag, or default if not found.
 String findAndGetValueOf(
   final String line,
   final String tokenTextToFind,
@@ -184,6 +191,7 @@ String findAndGetValueOf(
   return valueIfNotFound;
 }
 
+/// Extracts value portion from line starting after '>' character.
 String getValuePortion(final String line) {
   final int startIndexOfValue = line.indexOf('>') + 1;
   String lineContent = line.substring(startIndexOfValue);

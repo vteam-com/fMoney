@@ -263,12 +263,14 @@ class Accounts extends MoneyObjects<Account> {
     });
   }
 
+  /// Finds an account by name (case-insensitive).
   Account? getByName(final String name) {
     return iterableList().firstWhereOrNull((final Account item) {
       return stringCompareIgnoreCasing(item.fieldName.value, name) == _zeroInt;
     });
   }
 
+  /// Returns a sorted list of accounts matching user choice (excluding category funds).
   List<Account> getListSorted() {
     final List<Account> list = iterableList()
         .where(
@@ -282,10 +284,12 @@ class Accounts extends MoneyObjects<Account> {
     return list;
   }
 
+  /// Returns sorted account names for display.
   List<String> getSortedAccountNames() {
     return getListSorted().map((Account a) => a.fieldName.value).toList();
   }
 
+  /// Returns the most recently selected account, or the first account if none selected.
   Account getMostRecentlySelectedAccount() {
     final int lastSelectionId = PreferenceController.to.getInt(
       getViewPreferenceIdAccountLastSelected(),
@@ -301,6 +305,7 @@ class Accounts extends MoneyObjects<Account> {
     return firstItem()!;
   }
 
+  /// Gets the account name for the given [id]; returns the ID as string if not found.
   String getNameFromId(final int id) {
     final Account? account = get(id);
     if (account == null) {
@@ -309,10 +314,12 @@ class Accounts extends MoneyObjects<Account> {
     return account.fieldName.value;
   }
 
+  /// Returns all open accounts.
   List<Account> getOpenAccounts() {
     return iterableList().where((final Account account) => account.isOpen).toList();
   }
 
+  /// Returns open, non-fake (real) accounts only.
   List<Account> getOpenRealAccounts() {
     return iterableList()
         .where(
@@ -321,6 +328,7 @@ class Accounts extends MoneyObjects<Account> {
         .toList();
   }
 
+  /// Computes the sum of balances for accounts matching user choice.
   double getSumOfAccountBalances() {
     double sum = _zeroDouble;
 
@@ -332,18 +340,21 @@ class Accounts extends MoneyObjects<Account> {
     return sum;
   }
 
+  /// Returns all transactions associated with the given [account].
   Iterable<Transaction> getTransactions(final Account account) {
     return this.data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
   }
 
+  /// Preference key for the last selected account in the accounts view.
   String getViewPreferenceIdAccountLastSelected() {
     return ViewId.viewAccounts.getViewPreferenceId(
       settingKeySelectedListItemId,
     );
   }
 
+  /// Groups investments by stock symbol for the given [account].
   static void groupAccountStockSymbols(
     Account account,
     AccumulatorList<String, Investment> groupBySymbol,
@@ -366,6 +377,7 @@ class Accounts extends MoneyObjects<Account> {
     }
   }
 
+  /// Removes an account and cleans up related transfers and transactions.
   bool removeAccount(Account a, [bool forceRemoveAfterSave = false]) {
     if (a.isInserted || forceRemoveAfterSave) {
       if (this.containsKey(a.uniqueId)) {
@@ -389,6 +401,7 @@ class Accounts extends MoneyObjects<Account> {
     return true;
   }
 
+  /// Sets the most recently used account preference.
   void setMostRecentUsedAccount(Account account) {
     PreferenceController.to.setInt(
       getViewPreferenceIdAccountLastSelected(),
@@ -396,6 +409,7 @@ class Accounts extends MoneyObjects<Account> {
     );
   }
 
+  /// Updates the `paidOn` markers for credit card transactions based on matching statement payments.
   void _updateCreditCardPaidOn(final Account account) {
     final List<Transaction> transactionForAccountSortedByDateAscending = this.data
         .getTransactions()

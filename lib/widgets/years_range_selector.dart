@@ -162,6 +162,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     );
   }
 
+  /// Updates the selected range when the drag gesture exceeds a movement threshold.
   void _handleDragUpdate(DragUpdateDetails details, double maxWidth) {
     _dragGesturePosition += details.primaryDelta!;
     final double thresholdForMovingToNextPosition = maxWidth / widget.yearRange.span / _dragThresholdDivisor;
@@ -182,6 +183,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     );
   }
 
+  /// Updates the left margin so the drag label stays within the visible slider width.
   void _updateLeftMarginOfBottomText(
     double visualWidthOfSlider,
     double eachYearInPixel,

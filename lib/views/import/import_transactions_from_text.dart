@@ -10,6 +10,7 @@ import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/value_parser.dart';
 import 'package:money/widgets/value_quality.dart';
 
+/// Shows dialog for importing transactions from text input.
 void showImportTransactionsFromTextInput(
   final BuildContext context, [
   String? initialText,

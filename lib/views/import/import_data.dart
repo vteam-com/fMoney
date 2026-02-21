@@ -78,6 +78,7 @@ class ImportEntry {
   }
 }
 
+/// Shows confirmation dialog for importing transactions from ImportData.
 void showAndConfirmTransactionToImport(
   final BuildContext context,
   final ImportData importData,
@@ -122,6 +123,7 @@ void showAndConfirmTransactionToImport(
   }
 }
 
+/// Shows a preview dialog for imported entries and adds new transactions on confirmation.
 void _showAndConfirmTransactionToImport(
   final BuildContext context,
   final String fileType,

@@ -1,10 +1,12 @@
 // ignore: fcheck_dead_code
 import 'package:money/helpers/color_helper.dart';
 
+/// Builds a title-styled Text widget.
 Widget buildTitle(BuildContext context, String text) {
   return Text(text, style: getTextTheme(context).headlineSmall);
 }
 
+/// Builds an orange warning-styled Text widget.
 Widget buildWarning(final BuildContext? context, final String text) {
   return Text(
     text,

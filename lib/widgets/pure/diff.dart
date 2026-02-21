@@ -4,6 +4,7 @@ const double _diffBackgroundAlpha = 0.3;
 const double _diffPadding = 2;
 const double _diffFontSize = 10;
 
+/// Wraps text in a red background to indicate an old value.
 Widget diffTextOldValue(final String text) {
   return diffText(
     text,
@@ -13,6 +14,7 @@ Widget diffTextOldValue(final String text) {
   );
 }
 
+/// Wraps text in a green background to indicate a new value.
 Widget diffTextNewValue(final String text) {
   return diffText(
     text,
@@ -22,6 +24,7 @@ Widget diffTextNewValue(final String text) {
   );
 }
 
+/// Wraps text in a colored background for diff display.
 Widget diffText(
   final String text,
   final Color backgroundColor,

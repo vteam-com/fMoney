@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 
+/// Wraps action buttons in a row with end alignment.
 Widget dialogActionButtons(final List<Widget> actionsButtons) {
   return Wrap(
     alignment: WrapAlignment.end,
@@ -10,6 +11,7 @@ Widget dialogActionButtons(final List<Widget> actionsButtons) {
   );
 }
 
+/// Builds an IconButton for merging items with a key and tooltip.
 Widget buildMergeButton(final void Function() callback) {
   return IconButton(
     key: Constants.keyMergeButton,
@@ -21,6 +23,7 @@ Widget buildMergeButton(final void Function() callback) {
   );
 }
 
+/// Builds an IconButton for adding a new item with a key and tooltip.
 Widget buildAddItemButton(
   final void Function() callback,
   final String tooltip,
@@ -35,6 +38,7 @@ Widget buildAddItemButton(
   );
 }
 
+/// Builds an IconButton for adding new transactions with a key and tooltip.
 Widget buildAddTransactionsButton(final void Function() callback) {
   return IconButton(
     key: Constants.keyButtonAddTransactions,
@@ -46,6 +50,7 @@ Widget buildAddTransactionsButton(final void Function() callback) {
   );
 }
 
+/// Builds an IconButton for editing selected items with a key and tooltip.
 Widget buildEditButton(final void Function() callback) {
   return IconButton(
     key: Constants.keyEditSelectedItems,
@@ -57,6 +62,7 @@ Widget buildEditButton(final void Function() callback) {
   );
 }
 
+/// Builds an IconButton for deleting selected items with a key and tooltip.
 Widget buildDeleteButton(final void Function() callback) {
   return IconButton(
     key: Constants.keyDeleteSelectedItems,
@@ -68,6 +74,7 @@ Widget buildDeleteButton(final void Function() callback) {
   );
 }
 
+/// Builds an IconButton for copying selected items to clipboard with a key.
 Widget buildCopyButton(
   final void Function() callback, [
   final Key key = Constants.keyCopyListToClipboardHeaderMain,

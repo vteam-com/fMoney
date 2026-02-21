@@ -56,6 +56,7 @@ class Payees extends MoneyObjects<Payee> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Finds a payee by exact name.
   Payee? getByName(final String name) {
     if (name.isEmpty) {
       return null;
@@ -65,6 +66,7 @@ class Payees extends MoneyObjects<Payee> {
     );
   }
 
+  /// Returns a sorted list of all payees by name.
   List<Payee> getListSorted() {
     final List<Payee> list = iterableList().toList();
     list.sort(
@@ -73,10 +75,12 @@ class Payees extends MoneyObjects<Payee> {
     return list;
   }
 
+  /// Returns sorted payee names as strings.
   List<String> getSortedPayeeNames() {
     return getListSorted().map((Payee p) => p.fieldName.value).toList();
   }
 
+  /// Gets the payee name for the given [id]; returns placeholder if not found.
   String getNameFromId(final int id) {
     if (id == -1) {
       return '';
@@ -119,6 +123,7 @@ class Payees extends MoneyObjects<Payee> {
     return payee.uniqueId;
   }
 
+  /// Removes payees that have no associated transactions.
   static void removePayeesThatHaveNoTransactions(List<int> payeeIds, DataAbstract data) {
     for (final int payeeId in payeeIds) {
       final Payee? payeeToCheck = data.getPayee(payeeId) as Payee?;

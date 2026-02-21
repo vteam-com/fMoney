@@ -37,6 +37,7 @@ class ChartEvent {
   @override
   int get hashCode => Object.hash(dates, amount, quantity, description);
 
+  /// Returns the display color based on buy/sell or amount sign.
   Color get colorToUse {
     if (this.color == null) {
       return colorBasedOnQuantity
@@ -46,7 +47,9 @@ class ChartEvent {
     return this.color!;
   }
 
+  /// True if this event represents a buy (positive quantity).
   bool get isBuy => quantity > 0;
 
+  /// True if this event represents a sell (negative quantity).
   bool get isSell => quantity < 0;
 }

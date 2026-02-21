@@ -118,6 +118,7 @@ class _ColorPickerState extends State<ColorPicker> {
     );
   }
 
+  /// Updates hue and brightness from the current selected color.
   void fromInputColorToHueAndBrightness() {
     final Pair<double, double> bothValues = getHueAndBrightnessFromColor(
       widget.color,

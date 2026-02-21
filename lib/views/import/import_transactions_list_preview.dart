@@ -141,6 +141,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     );
   }
 
+  /// Builds tally string showing items to import vs total items.
   String buildTallyOfItemsToImportOrSkip() {
     final int totalItems = widget.values.length;
     final int itemsToImport = widget.values.where((ValuesQuality item) => !item.exist).length;
@@ -151,6 +152,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     return '$text entries';
   }
 
+  /// Returns sum of all values in the list.
   double sumOfValues() {
     double sum = 0;
     for (final ValuesQuality value in widget.values) {
@@ -159,6 +161,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     return sum;
   }
 
+  /// Builds the header row for the preview table, including sort indicator.
   Widget _buildColumnHeaders(BuildContext context) {
     return Container(
       color: getColorTheme(context).surfaceContainerLow,
@@ -185,6 +188,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     );
   }
 
+  /// Builds the description/payee cell and shows a badge if it matches an existing payee.
   Widget _buildDescriptionOrPayee(
     BuildContext context,
     ValueQuality valueQuality,
@@ -205,6 +209,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     );
   }
 
+  /// Builds a single preview row for an imported transaction.
   Widget _buildTransactionRow(ValuesQuality value) {
     final Widget dateAsWidget = value.date.valueAsDateWidget(context);
     final Widget payeeAsWidget = _buildDescriptionOrPayee(
@@ -230,6 +235,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     ValuesQuality.sort(widget.values, _sortColumnIndex, _sortAscending);
   }
 
+  /// Updates the sort selection and re-sorts the preview list.
   void _updateSortChoice(int columnIndex) {
     setState(() {
       if (columnIndex == _sortColumnIndex) {

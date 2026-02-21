@@ -27,6 +27,8 @@ class OllamaStatus {
 class OllamaService {
   static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
   static String selectedModel = '';
+
+  /// Returns true if the `ollama` executable is available on the system.
   static Future<bool> checkIfOllamaInstalled() async {
     try {
       final ProcessResult installResult = await Process.run('which', <String>['ollama']);
@@ -37,6 +39,7 @@ class OllamaService {
     }
   }
 
+  /// Returns true if the local Ollama HTTP API is responding.
   static Future<bool> checkIfOllamaRunning() async {
     try {
       final Uri ollamaUrl = Uri.parse('http://localhost:11434/api/tags');
@@ -52,6 +55,7 @@ class OllamaService {
     }
   }
 
+  /// Opens the Ollama download page in the browser.
   static Future<void> installOllama() async {
     // Open Ollama download page
     final Uri url = Uri.parse('https://ollama.com/download');
@@ -61,6 +65,7 @@ class OllamaService {
     }
   }
 
+  /// Starts the Ollama service in the background if it is not already running.
   static Future<void> startOllama() async {
     try {
       final HttpClient client = HttpClient();
@@ -126,6 +131,7 @@ class OllamaService {
     }
   }
 
+  /// Loads the list of available models from the local Ollama API.
   static Future<List<Map<String, dynamic>>> loadAvailableModels() async {
     try {
       final HttpClient client = HttpClient();
@@ -165,17 +171,20 @@ class OllamaService {
     return <Map<String, dynamic>>[];
   }
 
+  /// Loads the last user-selected model from preferences.
   static Future<void> getLastUserSelectedModel() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String loadedModel = prefs.getString('selected_ollama_model') ?? selectedModel;
     selectedModel = loadedModel;
   }
 
+  /// Persists the selected model to preferences.
   static Future<void> saveSelectedModel(final String model) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selected_ollama_model', model);
   }
 
+  /// Persists the conversation context token list for the current model.
   static Future<void> saveConversationContext(final List<int>? context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (context != null) {
@@ -185,6 +194,7 @@ class OllamaService {
     }
   }
 
+  /// Loads the conversation context token list for the current model.
   static Future<List<int>?> loadConversationContext() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? contextString = prefs.getString('ollama_context_$selectedModel');
@@ -195,6 +205,7 @@ class OllamaService {
     return null;
   }
 
+  /// Persists chat history for the current model.
   static Future<void> saveChatHistory(final List<ChatMessage> chatHistory) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (chatHistory.isNotEmpty) {
@@ -205,6 +216,7 @@ class OllamaService {
     }
   }
 
+  /// Loads chat history for the current model.
   static Future<List<ChatMessage>> loadChatHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? historyString = prefs.getString('ollama_chat_history_$selectedModel');
@@ -216,6 +228,7 @@ class OllamaService {
     return <ChatMessage>[];
   }
 
+  /// Sends a payload to the local Ollama API and returns the decoded JSON response.
   static Future<Map<String, dynamic>> sendPayload(final Map<String, dynamic> payload) async {
     const String endpoint = 'generate'; // Use /api/generate for context support instead of /api/chat
     final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
@@ -270,6 +283,7 @@ class OllamaService {
     }
   }
 
+  /// Checks if Ollama is installed/running and loads models if available.
   static Future<OllamaStatus> checkOllamaStatus() async {
     final bool isInstalled = await checkIfOllamaInstalled();
     bool isRunning = false;

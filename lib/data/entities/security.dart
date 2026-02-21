@@ -165,6 +165,7 @@ class Security extends DataObject {
     },
   );
 
+  /// Returns total profit including activity profit, dividends, and holding value.
   double get profit =>
       this.fieldActivityProfit.value.asDouble() + this.fieldActivityDividend.value.asDouble() + this.holdingValue;
   FieldMoney fieldProfit = FieldMoney(
@@ -273,6 +274,7 @@ class Security extends DataObject {
 
   static final Fields<Security> _fields = Fields<Security>();
 
+  /// Returns the field definitions for Security entities.
   static Fields<Security> get fields {
     if (_fields.isEmpty) {
       final Security tmp = Security.fromJson(<String, dynamic>{});
@@ -296,6 +298,7 @@ class Security extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for Security column view.
   static Fields<Security> get fieldsForColumnView {
     final Security tmp = Security.fromJson(<String, dynamic>{});
     return Fields<Security>()..setDefinitions(<Field<dynamic>>[
@@ -314,6 +317,7 @@ class Security extends DataObject {
     ]);
   }
 
+  /// Returns a display string for the security type index.
   static String getSecurityTypeFromInt(final int index) {
     if (isIndexInRange(SecurityType.values, index)) {
       return SecurityType.values[index].name;
@@ -321,5 +325,6 @@ class Security extends DataObject {
     return '';
   }
 
+  /// Returns the holding value based on shares and latest price.
   double get holdingValue => this.fieldHoldingShares.value * this.fieldPrice.value.asDouble();
 }

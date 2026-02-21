@@ -19,23 +19,31 @@ class ChatInputArea extends StatefulWidget {
     required this.onTeachAI,
   });
 
+  /// Controls the text input for the prompt.
   final TextEditingController inputController;
 
+  /// Whether the AI is currently processing a request.
   final bool isProcessing;
 
+  /// Called to cancel the current request.
   final VoidCallback onCancel;
 
+  /// Called when the user sends a prompt.
   final ValueChanged<String> onSendPrompt;
 
+  /// Called when the user triggers the teach/seed action.
   final VoidCallback onTeachAI;
 
+  /// Creates state for the chat input area.
   @override
   State<ChatInputArea> createState() => _ChatInputAreaState();
 }
 
+/// Special keyword to indicate transaction-related prompts.
 const String chatKeywordTransaction = '#transaction';
 
 class _ChatInputAreaState extends State<ChatInputArea> {
+  /// Builds the input area with quick prompts and send/cancel actions.
   @override
   Widget build(final BuildContext context) {
     return Container(

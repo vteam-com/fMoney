@@ -109,6 +109,7 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
         null;
   }
 
+  /// Returns a formatted string showing item counts vs total.
   String getItemCounts() {
     if (list.length == widget.listOfUniqueInstances.length) {
       return getIntAsText(list.length);
@@ -117,6 +118,7 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
     }
   }
 
+  /// Returns the count of selected items in the list.
   int getSelectedCount() {
     return widget.listOfUniqueInstances.where((ValueSelection item) => item.isSelected).length;
   }

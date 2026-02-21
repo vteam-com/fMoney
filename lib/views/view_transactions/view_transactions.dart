@@ -238,6 +238,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Returns true if the transaction matches the current income/expense pivot.
   bool isMatchingIncomeExpense(final Transaction transaction) {
     if (_selectedPivot[_pivotIndexAll]) {
       return true;
@@ -255,28 +256,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     return false;
   }
 
-  Widget renderToggles() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-      child: ToggleButtons(
-        direction: Axis.horizontal,
-        onPressed: (final int index) {
-          setState(() {
-            for (int i = 0; i < _selectedPivot.length; i++) {
-              _selectedPivot[i] = i == index;
-            }
-            list = getList();
-          });
-        },
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        constraints: const BoxConstraints(minHeight: 40.0, minWidth: 100.0),
-        isSelected: _selectedPivot,
-        children: pivots,
-      ),
-    );
-  }
-
+  /// Builds the side panel chart subview showing totals per top-level category.
   Widget _getSidePanelViewChart({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
@@ -313,6 +293,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     return Chart(list: list);
   }
 
+  /// Builds the side panel transactions subview showing related details for the selection.
   Widget _getSidePanelViewTransactions({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,

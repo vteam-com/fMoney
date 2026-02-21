@@ -93,6 +93,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
     );
   }
 
+  /// Builds action buttons for the transaction dialog.
   List<Widget> getActionButtons({
     required final BuildContext context,
     required final Transaction transaction,
@@ -185,6 +186,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
     ];
   }
 
+  /// Returns true if transaction data has been modified from original state.
   bool isDataModified() {
     final MyJson afterEditing = _transaction.getPersistableJSon();
     final MyJson diff = myJsonDiff(

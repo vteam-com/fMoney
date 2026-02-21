@@ -12,5 +12,6 @@ class MyNavigationItem {
   String label;
   String tooltip;
 
+  /// Returns a stable key derived from the navigation label.
   Key get key => Key('key_menu_${label.toLowerCase()}');
 }

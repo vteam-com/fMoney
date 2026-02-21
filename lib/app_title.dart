@@ -23,6 +23,7 @@ class AppTitle extends StatelessWidget {
 
   late final AmountModel netWorth;
 
+  /// Builds the app title widget including net worth reveal and MRU dropdown.
   @override
   Widget build(BuildContext context) {
     final DataFileController dataController = Get.find();
@@ -53,6 +54,7 @@ class AppTitle extends StatelessWidget {
     );
   }
 
+  /// Builds the net worth reveal/toggle widget.
   Widget _buildNetWorthToggle(final BuildContext context) {
     return RevealContent(
       textForClipboard: netWorth.toString(),
@@ -65,6 +67,7 @@ class AppTitle extends StatelessWidget {
   }
 }
 
+/// Builds a single reveal option row for [RevealContent].
 Widget _buildRevealContentOption(
   final BuildContext context,
   String text,

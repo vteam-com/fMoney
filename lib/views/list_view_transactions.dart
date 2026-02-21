@@ -113,6 +113,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
   }
 }
 
+/// Returns a list of transactions with optional filtering and flattening.
 List<Transaction> getTransactions({
   bool Function(Transaction)? filter,
   bool flattenSplits = false,

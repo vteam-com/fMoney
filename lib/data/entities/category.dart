@@ -304,6 +304,7 @@ class Category extends DataObject {
 
   static final Fields<Category> _fields = Fields<Category>();
 
+  /// Returns the field definitions for Category entities.
   static Fields<Category> get fields {
     if (_fields.isEmpty) {
       final Category tmp = Category.fromJson(<String, dynamic>{});
@@ -328,6 +329,7 @@ class Category extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for Category column view.
   static Fields<Category> get fieldsForColumnView {
     final Category tmp = Category.fromJson(<String, dynamic>{});
     return Fields<Category>()..setDefinitions(<Field<dynamic>>[
@@ -345,6 +347,7 @@ class Category extends DataObject {
     ]);
   }
 
+  /// Populates [list] with all ancestor categories recursively.
   void getAncestors(List<Category> list) {
     if (parentCategory != null) {
       list.add(parentCategory!);
@@ -352,6 +355,7 @@ class Category extends DataObject {
     }
   }
 
+  /// Returns the category color and hierarchy level.
   Pair<Color, int> getColorAndLevel(int level) {
     if (this.fieldColor.value.isNotEmpty) {
       return Pair<Color, int>(getColorFromString(this.fieldColor.value), level);
@@ -365,6 +369,7 @@ class Category extends DataObject {
     return Pair<Color, int>(Colors.transparent, _zeroInt);
   }
 
+  /// Returns a widget showing color swatch and category name.
   Widget getColorAndNameWidget() {
     return Row(
       children: <Widget>[
@@ -375,11 +380,13 @@ class Category extends DataObject {
     );
   }
 
+  /// Returns this category's color or inherits from ancestors.
   Color getColorOrAncestorsColor() {
     final Pair<Color, int> pair = getColorAndLevel(_zeroInt);
     return pair.first;
   }
 
+  /// Returns a color swatch widget with optional level indicator.
   Widget getColorWidget() {
     final Color fillColor = getColorOrAncestorsColor();
     final Color textColor = fillColor.a == _zeroInt ? Colors.grey : contrastColor(fillColor);
@@ -397,6 +404,7 @@ class Category extends DataObject {
     );
   }
 
+  /// Populates [list] with all descendant categories recursively.
   void getDescendants(List<Category> list) {
     final Iterable<Category> allCategories = data?.getCategories(includeDeleted: true).cast<Category>() ?? <Category>[];
     for (final Category category in allCategories) {
@@ -407,22 +415,28 @@ class Category extends DataObject {
     }
   }
 
+  /// Returns the category name; empty string if null.
   static String getName(final Category? instance) {
     return instance == null ? '' : instance.fieldName.value;
   }
 
+  /// Returns the category name as a widget.
   Widget getNameAsWidget() {
     return TokenText(this.fieldName.value);
   }
 
+  /// Returns the category type as a display string.
   String getTypeAsText() {
     return fieldType.value.asString();
   }
 
+  /// True if this category is an expense type.
   bool get isExpense => fieldType.value == CategoryType.expense || fieldType.value == CategoryType.recurringExpense;
 
+  /// True if this category is an income type.
   bool get isIncome => fieldType.value == CategoryType.income || fieldType.value == CategoryType.investment;
 
+  /// True if this category is a recurring expense.
   bool get isRecurring => fieldType.value == CategoryType.recurringExpense;
 
   ///
@@ -439,6 +453,7 @@ class Category extends DataObject {
     return fieldName.value;
   }
 
+  /// Returns the parent category, if any.
   Category? get parentCategory {
     return data?.getCategory(this.fieldParentId.value) as Category?;
   }

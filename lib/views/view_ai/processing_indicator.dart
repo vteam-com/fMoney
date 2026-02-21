@@ -13,6 +13,7 @@ const double _processingIndicatorSize = 20.0;
 class ProcessingIndicator extends StatelessWidget {
   const ProcessingIndicator({super.key});
 
+  /// Builds the processing indicator bubble.
   @override
   Widget build(final BuildContext context) {
     return Align(

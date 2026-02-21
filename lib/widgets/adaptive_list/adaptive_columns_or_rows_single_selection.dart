@@ -104,6 +104,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
     );
   }
 
+  /// Updates footer accumulators with counts from the filtered list.
   void footerAccumulators() {
     _footerAccumulators.clear();
 

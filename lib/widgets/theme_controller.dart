@@ -63,14 +63,19 @@ class ThemeController extends GetxController {
   //--------------------------------------------------------
   // Font scaling
 
+  /// Adjusts the global font scale by [delta] and persists it.
   void adjustFontScale(double delta) {
     final double newScale = PreferenceController.to.textScale + delta;
     setFontScaleTo(newScale);
   }
 
+  /// Increases the global font scale by one step.
   void fontScaleIncrease() => adjustFontScale(_fontScaleStep);
+
+  /// Decreases the global font scale by one step.
   void fontScaleDecrease() => adjustFontScale(-_fontScaleStep);
 
+  /// Loads theme mode and color index from persisted preferences.
   void loadThemeFromPreferences() async {
     if (!PreferenceController.to.isReady.value) {
       await PreferenceController.to.init();
@@ -83,15 +88,22 @@ class ThemeController extends GetxController {
     updateTheme();
   }
 
+  /// Persists theme mode and color index to preferences.
   void saveThemeToPreferences() async {
     PreferenceController.to.setBool(settingKeyDarkMode, isDarkTheme.value);
     PreferenceController.to.setInt(settingKeyTheme, colorSelected.value);
   }
 
+  /// Sets the app window size to the predefined small width.
   void setAppSizeToSmall() => MyWindowManager.setAppWindowSize(Constants.screenWidthSmall, _appWindowHeight);
+
+  /// Sets the app window size to the predefined medium width.
   void setAppSizeToMedium() => MyWindowManager.setAppWindowSize(Constants.screenWidthMedium, _appWindowHeight);
+
+  /// Sets the app window size to the predefined large width.
   void setAppSizeToLarge() => MyWindowManager.setAppWindowSize(Constants.screenWidthLarge, _appWindowHeight);
 
+  /// Attempts to set the global font scale to [newScale] and persists it.
   bool setFontScaleTo(final double newScale) {
     final int cleanValue = (newScale * _fontScalePercentFactor).round();
     if (isBetweenOrEqual(cleanValue, _fontScaleMinPercent, _fontScaleMaxPercent)) {
@@ -102,6 +114,7 @@ class ThemeController extends GetxController {
     return false;
   }
 
+  /// Sets the active theme color by [index] and persists the choice.
   void setThemeColor(final int index) {
     colorSelected.value = index;
     primaryColor = themeData.colorScheme.primary;
@@ -109,8 +122,10 @@ class ThemeController extends GetxController {
     updateTheme();
   }
 
+  /// Returns the current theme data (light or dark) based on the mode.
   ThemeData get themeData => isDarkTheme.value ? themeDataDark : themeDataLight;
 
+  /// Builds and returns the dark theme data for the selected color seed.
   ThemeData get themeDataDark {
     // Validate color range
     if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
@@ -135,6 +150,7 @@ class ThemeController extends GetxController {
     return themeData;
   }
 
+  /// Builds and returns the light theme data for the selected color seed.
   ThemeData get themeDataLight {
     // Validate color range
     if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
@@ -158,8 +174,10 @@ class ThemeController extends GetxController {
     return themeData;
   }
 
+  /// Singleton accessor for the registered ThemeController instance.
   static ThemeController get to => Get.find();
 
+  /// Toggles between light and dark theme modes and persists the change.
   void toggleThemeMode() {
     isDarkTheme.value = !isDarkTheme.value;
     primaryColor = themeData.colorScheme.primary;

@@ -175,6 +175,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     );
   }
 
+  /// Converts input text and notifies about detected currency format.
   void convertAndNotify(BuildContext context, String inputText) {
     // Detect currency format from input text if any amounts exist
     final int detectedFormat = detectCurrencyFormat(inputText);
@@ -228,10 +229,12 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     return _unsetId; // No clear format detected
   }
 
+  /// Removes focus from the text input field.
   void removeFocus() {
     _focusNode.unfocus();
   }
 
+  /// Requests focus for the text input field.
   void requestFocus() {
     FocusScope.of(context).requestFocus(_focusNode);
   }
@@ -265,6 +268,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     );
   }
 
+  /// Builds a dropdown to choose the date format used to parse imported transactions.
   Widget _buildChoiceOfDateFormat() {
     if (_values.isEmpty) {
       return const SizedBox();
@@ -315,6 +319,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     );
   }
 
+  /// Builds a selector to interpret amounts as debit vs credit.
   Widget _buildChoiceOfDebitVsCredit() {
     return mySegmentSelector(
       context: context,
@@ -332,6 +337,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     );
   }
 
+  /// Builds the header row showing import target account selection.
   Widget _buildHeaderAndAccountPicker() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

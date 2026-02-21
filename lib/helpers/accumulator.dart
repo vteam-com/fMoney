@@ -11,14 +11,17 @@ import 'package:money/helpers/ranges.dart';
 class AccumulatorList<K, V> {
   final Map<K, Set<V>> values = <K, Set<V>>{};
 
+  /// Clears all accumulated values.
   void clear() {
     values.clear();
   }
 
+  /// Returns true if the accumulator contains the specified key.
   bool containsKey(K key) {
     return values.containsKey(key);
   }
 
+  /// Returns true if the accumulator contains the specified key-value pair.
   bool containsKeyValue(K key, V value) {
     final Set<V>? setFound = values[key];
     if (setFound == null) {
@@ -57,6 +60,7 @@ class AccumulatorList<K, V> {
     return values[key]?.toList() ?? <V>[];
   }
 
+  /// Returns the set of values for the specified key, or null if not found.
   Set<V>? getValue(K key) {
     return values[key];
   }
@@ -70,14 +74,17 @@ class AccumulatorList<K, V> {
 class AccumulatorSum<K, V> {
   final Map<K, V> values = <K, V>{};
 
+  /// Clears all accumulated sum values.
   void clear() {
     values.clear();
   }
 
+  /// Returns true if the accumulator contains the specified key.
   bool containsKey(K key) {
     return values.containsKey(key);
   }
 
+  /// Accumulates the value for the specified key, adding to existing sum.
   void cumulate(K key, V value) {
     if (values.containsKey(key)) {
       // Use dynamic type for accumulated value as specific behavior depends on T
@@ -88,8 +95,15 @@ class AccumulatorSum<K, V> {
     }
   }
 
+  /// Returns a list of all key-value entries in the accumulator.
+  ///
+  /// Each entry in the list is a [MapEntry] containing a key of type [K] and a value of type [V].
   List<MapEntry<K, V>> getEntries() => values.entries.toList();
 
+  /// Returns the key with the largest accumulated sum value.
+  ///
+  /// If multiple keys have the same maximum sum, any of them may be returned.
+  /// If the accumulator is empty, returns null.
   K? getKeyWithLargestSum() {
     K? keyFound;
     V? maxFound;
@@ -108,6 +122,7 @@ class AccumulatorSum<K, V> {
     return keyFound;
   }
 
+  /// Returns the accumulated value for the specified key, or 0 if not found.
   dynamic getValue(final K key) => values[key] ?? 0;
 
   // Replace this function with your specific logic for accumulating values of type T
@@ -122,12 +137,15 @@ class AccumulatorSum<K, V> {
 class AccumulatorDateRange<K> {
   final Map<K, DateRange> values = <K, DateRange>{};
 
+  /// Clears all accumulated date ranges.
   void clear() {
     values.clear();
   }
 
+  /// Returns true if the accumulator contains the specified key.
   bool containsKey(final K key) => values.containsKey(key);
 
+  /// Accumulates the date value for the specified key, expanding the date range.
   void cumulate(final K key, final DateTime value) {
     if (values.containsKey(key)) {
       values[key]!.inflate(value);
@@ -136,8 +154,10 @@ class AccumulatorDateRange<K> {
     }
   }
 
+  /// Returns list of all key-date range entries in the accumulator.
   List<MapEntry<K, DateRange>> getEntries() => values.entries.toList();
 
+  /// Returns the date range for the specified key, or null if not found.
   DateRange? getValue(final K key) => values[key];
 }
 
@@ -149,17 +169,21 @@ class AccumulatorDateRange<K> {
 class AccumulatorAverage<K> {
   final Map<K, RunningAverage> values = <K, RunningAverage>{};
 
+  /// Clears all accumulated average values.
   void clear() {
     values.clear();
   }
 
+  /// Returns true if the accumulator contains the specified key.
   bool containsKey(final K key) => values.containsKey(key);
 
+  /// Accumulates the value for the specified key, updating the running average.
   void cumulate(final K key, final num value) {
     final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
     average.addValue(value);
   }
 
+  /// Returns the running average for the specified key, or null if not found.
   RunningAverage? getValue(final K key) => values[key];
 }
 
@@ -174,14 +198,17 @@ class AccumulatorRange<K> {
   final Map<K, num> highWatermark = <K, num>{};
   final Map<K, num> lowWatermark = <K, num>{};
 
+  /// Clears all accumulated range values and watermarks.
   void clear() {
     values.clear();
     highWatermark.clear();
     lowWatermark.clear();
   }
 
+  /// Returns true if the accumulator contains the specified key.
   bool containsKey(final K key) => values.containsKey(key);
 
+  /// Accumulates the value for the specified key, updating range and watermarks.
   void cumulate(final K key, final num value) {
     final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
     average.addValue(value);
@@ -195,10 +222,13 @@ class AccumulatorRange<K> {
     }
   }
 
+  /// Returns the running average for the specified key, or null if not found.
   RunningAverage? getValue(final K key) => values[key];
 
+  /// Returns the high watermark value for the specified key, or null if not found.
   num? getHighWatermark(final K key) => highWatermark[key];
 
+  /// Returns the low watermark value for the specified key, or null if not found.
   num? getLowWatermark(final K key) => lowWatermark[key];
 }
 
@@ -210,6 +240,7 @@ class AccumulatorRange<K> {
 class MapAccumulatorSum<K, I, V> {
   Map<K, AccumulatorSum<I, V>> map = <K, AccumulatorSum<I, V>>{};
 
+  /// Accumulates the value for the nested key structure.
   void cumulate(K k, I i, V v) {
     if (!map.containsKey(k)) {
       map[k] = AccumulatorSum<I, V>();
@@ -217,6 +248,7 @@ class MapAccumulatorSum<K, I, V> {
     map[k]!.cumulate(i, v);
   }
 
+  /// Returns the level-1 accumulator for the specified key, or null if not found.
   AccumulatorSum<I, V>? getLevel1(K key) => map[key];
 }
 
@@ -228,6 +260,7 @@ class MapAccumulatorSum<K, I, V> {
 class MapAccumulatorSet<K, I, V> {
   Map<K, AccumulatorList<I, V>> map = <K, AccumulatorList<I, V>>{};
 
+  /// Accumulates the value for the nested key structure using set storage.
   void cumulate(K k, I i, V v) {
     if (!map.containsKey(k)) {
       map[k] = AccumulatorList<I, V>();
@@ -242,6 +275,7 @@ class MapAccumulatorSet<K, I, V> {
     return foundInLevel1?.getValue(key2) ?? <V>{};
   }
 
+  /// Returns the level-1 accumulator for the specified key, or null if not found.
   AccumulatorList<I, V>? getLevel1(final K key1) => map[key1];
 }
 
@@ -258,6 +292,7 @@ class RunningAverage {
   int _countZeros = 0;
   num _sum = 0.0;
 
+  /// Adds a new value to the running average calculation.
   void addValue(num newValue) {
     if (isConsideredZero(newValue)) {
       _countZeros++;
@@ -268,10 +303,13 @@ class RunningAverage {
     }
   }
 
+  /// Returns formatted description with average as integer and count.
   String get descriptionAsInt => 'Average\n${range.descriptionAsInt}\n$descriptionCount';
 
+  /// Returns formatted description with average as money and count.
   String get descriptionAsMoney => 'Average\n${range.descriptionAsMoney}\n$descriptionCount';
 
+  /// Returns formatted count description including zero values.
   String get descriptionCount {
     if (_countZeros == 0) {
       return '$_count entries.';
@@ -279,6 +317,7 @@ class RunningAverage {
     return '$_count of ${_count + _countZeros} non zero entries.';
   }
 
+  /// Returns the calculated average, optionally including zero values.
   double getAverage({final bool includingZeros = false}) {
     if (_count == 0) {
       return 0.0; // Handle case where no values have been added yet

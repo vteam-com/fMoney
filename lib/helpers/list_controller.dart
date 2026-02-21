@@ -27,11 +27,13 @@ class ListController extends GetxController {
     super.onInit();
   }
 
+  /// Returns scroll offset for the specified index.
   double getOffsetOfIndex(final int index, final int numberOfItems) {
     final double itemHeight = scrollController.position.maxScrollExtent / numberOfItems;
     return itemHeight * index;
   }
 
+  /// Scrolls to the bookmarked position.
   void scrollToBookmark() {
     if (bookmark != -1) {
       scrollController.animateTo(
@@ -42,6 +44,7 @@ class ListController extends GetxController {
     }
   }
 
+  /// Scrolls to the bottom of the list.
   void scrollToBottom() {
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
@@ -50,10 +53,12 @@ class ListController extends GetxController {
     );
   }
 
+  /// Scrolls to the specified index.
   void scrollToIndex(final int index, final int numberOfItems) {
     scrollToOffSet(getOffsetOfIndex(index, numberOfItems));
   }
 
+  /// Scrolls to the specified offset.
   void scrollToOffSet(final double offset) {
     scrollController.animateTo(
       offset,
@@ -62,6 +67,7 @@ class ListController extends GetxController {
     );
   }
 
+  /// Scrolls to the top of the list.
   void scrollToTop() {
     scrollController.animateTo(
       0.0,

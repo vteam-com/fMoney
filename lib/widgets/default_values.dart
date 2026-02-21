@@ -98,6 +98,7 @@ String valueOrDefaultString(
   return value ?? defaultValueIfNull;
 }
 
+/// Safely converts dynamic input to double with fallback.
 double smartToDouble(final dynamic value) {
   if (value is double) {
     return value;

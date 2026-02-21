@@ -17,6 +17,7 @@ class WelcomePage extends GetView<WelcomeController> {
   /// Constructs a [WelcomePage] widget with the provided [key].
   const WelcomePage({super.key});
 
+  /// Builds the welcome page scaffold.
   @override
   Widget build(BuildContext context) {
     return myScaffold(

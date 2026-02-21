@@ -22,6 +22,7 @@ class Aliases extends MoneyObjects<Alias> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Finds a payee by matching the given [text] via aliases.
   Payee? findByMatch(final String text) {
     final Alias? aliasFound = iterableList().firstWhereOrNull(
       (final Alias item) => item.isMatch(text),
@@ -32,6 +33,7 @@ class Aliases extends MoneyObjects<Alias> {
     return data.getPayee(aliasFound.fieldPayeeId.value) as Payee?;
   }
 
+  /// Finds an existing payee by alias match or creates a new one for [text].
   Payee? findOrCreateNewPayee(
     final String text, {
     bool fireNotification = true,

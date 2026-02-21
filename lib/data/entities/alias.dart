@@ -131,6 +131,7 @@ class Alias extends DataObject {
   static final Fields<Alias> _fields = Fields<Alias>();
   static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
 
+  /// Returns the field definitions for Alias entities.
   static Fields<Alias> get fields {
     if (_fields.isEmpty) {
       final Alias tmp = Alias._fromJsonStatic(<String, dynamic>{});
@@ -144,6 +145,7 @@ class Alias extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for Alias column view.
   static Fields<Alias> get fieldsForColumnView {
     if (_fieldsForColumns.isEmpty) {
       // used for the first time
@@ -159,6 +161,7 @@ class Alias extends DataObject {
     return _fieldsForColumns;
   }
 
+  /// Checks if the given [text] matches this alias (regex or exact).
   bool isMatch(final String text) {
     if (type == AliasType.regex) {
       // just in time creation of RegEx property
@@ -175,6 +178,7 @@ class Alias extends DataObject {
     return false;
   }
 
+  /// Returns the alias type based on flags.
   AliasType get type {
     return fieldFlags.value == 0 ? AliasType.none : AliasType.regex;
   }

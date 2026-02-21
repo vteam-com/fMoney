@@ -176,6 +176,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Returns true if any filters (text or column) are currently active.
   bool areFiltersOn() {
     if (_filterByText.isEmpty && _filterByFieldsValue.isEmpty) {
       return false;
@@ -247,11 +248,13 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return Container(color: getColorTheme(context).surface, child: child);
   }
 
+  /// Clears all selected items and updates view state.
   void clearSelection() {
     _selectedItemsByUniqueId.value = <int>[];
     saveLastUserChoicesOfView();
   }
 
+  /// Performs initial load and restores user preferences.
   void firstLoad() async {
     _fieldToDisplay = getFieldsForTable();
 
@@ -295,6 +298,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     firstLoadCompleted = true;
   }
 
+  /// Calculates footer accumulators for the current list data.
   void footerAccumulators() {
     _footerAccumulators.clear();
 
@@ -465,11 +469,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return _footerAccumulators.buildWidget(field);
   }
 
-  String getCurrency() {
-    // default currency for this view
-    return Constants.defaultCurrency;
-  }
-
   /// Override in your view
   List<String> getCurrencyChoices(
     final SidePanelSubViewEnum subViewId,
@@ -495,6 +494,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return Fields<DataObject>();
   }
 
+  /// Returns the first selected item from the selected items list.
   DataObject? getFirstSelectedItem() {
     if (_selectedItemsByUniqueId.value.isNotEmpty) {
       final int? firstId = _selectedItemsByUniqueId.value.firstOrNull;
@@ -507,12 +507,14 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return null;
   }
 
+  /// Returns the first selected item from a specific selected list.
   DataObject? getFirstSelectedItemFromSelectedList(
     final List<int> selectedList,
   ) {
     return getMoneyObjectFromFirstSelectedId<DataObject>(selectedList, list);
   }
 
+  /// Returns the list of data objects with optional filtering.
   List<DataObject> getList({
     bool includeDeleted = false,
     bool applyFilter = true,
@@ -521,10 +523,12 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return <DataObject>[];
   }
 
+  /// Returns preference key for the current view with given suffix.
   String getPreferenceKey(final String suffix) {
     return viewId.getViewPreferenceId(suffix);
   }
 
+  /// Returns list of selected data objects from selected list IDs.
   List<DataObject> getSelectedItemsFromSelectedList(
     final List<int> selectedList,
   ) {
@@ -540,6 +544,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         .toList();
   }
 
+  /// Builds side panel header widget for the given item.
   Widget getSidePanelHeader(
     final BuildContext _,
     final num index,
@@ -549,6 +554,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return Center(child: Text('${getClassNameSingular()} #${index + 1}'));
   }
 
+  /// Returns the last selected item from the side panel list.
   T? getSidePanelLastSelectedItem<T>(final MoneyObjects<T> list) {
     final int selectedItemId = getSidePanelLastSelectedItemId();
     if (selectedItemId == -1) {
@@ -557,6 +563,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return list.get(selectedItemId);
   }
 
+  /// Returns the last selected item ID from the side panel.
   int getSidePanelLastSelectedItemId() {
     return PreferenceController.to.getInt(
       getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
@@ -564,6 +571,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Returns the last selected transaction from the side panel.
   Transaction? getSidePanelLastSelectedTransaction() {
     final int selectedItemId = getSidePanelLastSelectedItemId();
     if (selectedItemId == -1) {
@@ -572,14 +580,17 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return Data().transactions.get(selectedItemId);
   }
 
+  /// Returns side panel support configuration for the view.
   SidePanelSupport getSidePanelSupport() {
     return SidePanelSupport(); // by default the base class does not show any content in the side panel
   }
 
+  /// Returns list of transactions for the side panel.
   List<DataObject> getSidePanelTransactions() {
     return <DataObject>[];
   }
 
+  /// Builds side panel view details for the selected items.
   Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
     if (selectedIds.length > 1) {
       return CenterMessage(
@@ -607,6 +618,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Returns the unique ID of the first selected item.
   int? getUniqueIdOfFirstSelectedItem() {
     return _selectedItemsByUniqueId.value.firstOrNull;
   }
@@ -673,6 +685,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return uniqueValues;
   }
 
+  /// Returns true if the data instance matches current filters.
   bool isMatchingFilters(final DataInterface instance) {
     if (areFiltersOn()) {
       // apply filtering
@@ -685,6 +698,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return true;
   }
 
+  /// Copies the main view list to clipboard as CSV.
   void onCopyListFromMainView() {
     copyToClipboardAndInformUser(
       context,
@@ -692,6 +706,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Copies the side panel list to clipboard as CSV.
   void onCopyListFromSidePanel() {
     final List<DataObject> listToCopy = getSidePanelTransactions();
     copyToClipboardAndInformUser(
@@ -700,6 +715,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Opens column customization dialog for the specified field.
   void onCustomizeColumn(final Field<dynamic> fieldDefinition) {
     Widget content;
     listOfValueSelected.clear();
@@ -820,6 +836,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Saves the current user choices and preferences for the view.
   void saveLastUserChoicesOfView() {
     // Persist users choice
     preferenceController.setInt(
@@ -844,6 +861,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Sets the selected item by unique ID and updates UI state.
   void setSelectedItem(final int uniqueId) {
     // This will cause a UI update and the bottom details will get rendered if its expanded
     setState(() {
@@ -866,6 +884,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     });
   }
 
+  /// Updates the list data and selects the specified item.
   void updateListAndSelect(final int uniqueId) {
     setState(() {
       clearSelection();
@@ -879,6 +898,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return CenterMessage(key: key, message: 'No ${getClassNamePlural()}');
   }
 
+  /// Builds a message explaining that filters resulted in an empty list.
   Widget _buildCenterMessageForEmptyListDueToFilters(final Key key) {
     final List<String> activeFilterValues = <String>[];
     if (_filterByText.isNotEmpty) {
@@ -932,6 +952,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Builds the empty-state UI for this view.
   Widget _buildInformUserOfEmptyList(Key key) {
     return Column(
       children: <Widget>[
@@ -945,6 +966,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Builds the loading state UI for this view.
   Widget _buildLoadingScreen() {
     return Column(
       children: <Widget>[
@@ -954,6 +976,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Changes sort order based on the tapped column and persists the choice.
   void _changeListSortOrder(final int columnNumber) {
     setState(() {
       if (columnNumber == _sortByFieldIndex) {
@@ -968,6 +991,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     });
   }
 
+  /// Updates the free-text filter and refreshes the list.
   void _onFilterTextChanged(final String text) {
     setState(() {
       _filterByText = text.toLowerCase();
@@ -976,6 +1000,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     });
   }
 
+  /// Handles taps on list items on mobile by showing a details dialog.
   void _onItemTap(final BuildContext context, final int uniqueId) {
     if (isPlatformMobile()) {
       adaptiveScreenSizeDialog(
@@ -987,6 +1012,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     }
   }
 
+  /// Handles the user's request to edit the selected objects.
   void _onUserRequestToEdit(
     final BuildContext _,
     final List<DataObject> moneyObjects,
@@ -1002,6 +1028,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Handles the user's request to delete the selected objects.
   void _onUserRequestedToDelete(
     final BuildContext context,
     final List<DataObject> moneyObjects,
@@ -1050,6 +1077,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
+  /// Clears active filters, persists choices, and refreshes the list.
   void _resetFiltersAndGetList() {
     _filterByText = '';
     _filterByFieldsValue.clear();

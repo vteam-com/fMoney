@@ -26,9 +26,11 @@ const int _debugMenuValue = -1;
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
+  /// The size this widget would prefer if it were otherwise unconstrained.
   @override
   final Size preferredSize = const Size.fromHeight(kToolbarHeight);
 
+  /// Builds the application app bar.
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find<ThemeController>();
@@ -67,6 +69,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     DataFileController.to.update();
   }
 
+  /// Builds a popup menu item for the app bar menu.
   PopupMenuItem<int> _buildMenuItem(
     int value,
     String caption,
@@ -84,6 +87,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Builds the main file/actions popup menu for the app bar.
   Widget _buildPopupMenu(BuildContext context) {
     final List<PopupMenuItem<int>> menuItems = <PopupMenuItem<int>>[
       _buildMenuItem(Constants.commandFileNew, 'New', Icons.note_add_outlined, shortcut: 'Ctrl+N'),
@@ -127,6 +131,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Builds the settings popup menu, including theme and platform actions.
   Widget _buildSettingsMenu(
     BuildContext context,
     ThemeController themeController,
@@ -184,6 +189,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Builds a single settings menu item with optional opacity and key.
   PopupMenuItem<int> _buildSettingsMenuItem(
     int value,
     String text,
@@ -205,6 +211,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Builds menu items for selecting the current theme color.
   List<PopupMenuItem<int>> _buildThemeColorMenuItems(
     ThemeController themeController,
   ) {
@@ -234,6 +241,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     });
   }
 
+  /// Builds an icon button that toggles inclusion of closed accounts.
   Widget _buildToggleClosedAccountsButton(
     PreferenceController preferencesController,
   ) {
@@ -247,6 +255,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Builds an icon button that toggles light/dark theme mode.
   Widget _buildToggleThemeButton(ThemeController themeController) {
     return IconButton(
       key: const Key('key_toggle_mode'),
@@ -258,6 +267,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Handles selections from the main file/actions popup menu.
   void _handleMenuSelection(int index) {
     switch (index) {
       case Constants.commandFileNew:

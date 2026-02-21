@@ -12,6 +12,7 @@ enum CategoryType {
 }
 
 extension CategoryTypeExtension on CategoryType {
+  /// Returns CategoryType from integer index, with bounds checking.
   static CategoryType fromInt(final int index) {
     if (isBetween(index, -1, CategoryType.values.length)) {
       return CategoryType.values[index];
@@ -19,6 +20,7 @@ extension CategoryTypeExtension on CategoryType {
     return CategoryType.none;
   }
 
+  /// Returns CategoryType from string name, case-insensitive.
   static CategoryType fromName(final String categoryTypeName) {
     switch (categoryTypeName.toLowerCase()) {
       case 'income':
@@ -41,6 +43,7 @@ extension CategoryTypeExtension on CategoryType {
     }
   }
 
+  /// Returns list of all category type names as strings.
   static List<String> getNames() {
     return <String>[
       CategoryType.income.asString(),
@@ -54,6 +57,7 @@ extension CategoryTypeExtension on CategoryType {
     ];
   }
 
+  /// Returns the category type as a formatted string.
   String asString() {
     switch (this) {
       case CategoryType.income:

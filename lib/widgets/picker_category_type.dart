@@ -5,6 +5,7 @@ import 'package:money/widgets/picker_edit_box.dart';
 // Exports
 export 'package:flutter/material.dart';
 
+/// Shows a picker for selecting a category type.
 Widget pickerCategoryType({
   required final CategoryType itemSelected,
   required final void Function(CategoryType) onSelected,

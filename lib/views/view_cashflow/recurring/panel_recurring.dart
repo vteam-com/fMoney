@@ -61,6 +61,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
     );
   }
 
+  /// Finds and groups monthly recurring payments from transactions.
   void findMonthlyRecurringPayments(
     List<Transaction> transactions,
     bool isIncomeTransaction,
@@ -104,6 +105,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
     }
   }
 
+  /// Initializes recurring transactions filtered by income/expense type.
   void initRecurringTransactions({required final bool forIncome}) {
     // get all transactions meeting the request of date and type
     bool whereClause(Transaction t) {
@@ -122,6 +124,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
     findMonthlyRecurringPayments(flatTransactions, forIncome);
   }
 
+  /// Returns true if the months list represents a monthly recurrence pattern.
   bool isMonthlyRecurrence(List<int> months) {
     if (widget.minYear == widget.maxYear) {
       return true;

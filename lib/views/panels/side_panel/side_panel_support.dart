@@ -46,6 +46,7 @@ class SidePanelSupport {
 
   Function? onCopyToClipboard;
 
+  /// Returns the side panel content widget for the given sub-view.
   Widget getSidePanelContent(
     final SidePanelSubViewEnum subViewId,
     final List<int> selectedIds,

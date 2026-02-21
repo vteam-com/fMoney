@@ -223,6 +223,7 @@ class DataSimulator {
     _generateTransactionExtra();
   }
 
+  /// Generates list of dates for specified years and frequency.
   List<DateTime> generateListOfDates({
     required int yearInThePast,
     DateTime? stopDate,
@@ -244,6 +245,7 @@ class DataSimulator {
     return dates;
   }
 
+  /// Generates random list of dates for specified year and frequency.
   List<DateTime> generateListOfDatesRandom({
     required int year,
     required int howManyPerMonths,
@@ -296,6 +298,7 @@ class DataSimulator {
     return roundDouble(amount, _currencyRoundingDecimals);
   }
 
+  /// Returns DateTime shifted by specified number of years.
   DateTime getDateShiftedByYears(int yearsToShift, int month, int day) {
     final int yearShifted = getShiftedYearFromNow(yearsToShift);
     return DateTime(yearShifted, month, day);
@@ -316,11 +319,13 @@ class DataSimulator {
     ).endOfDay;
   }
 
+  /// Generates random amount up to specified maximum value.
   double getRandomAmount(final int maxValue) {
     final double amount = Random().nextDouble() * maxValue;
     return roundDouble(amount, _currencyRoundingDecimals);
   }
 
+  /// Returns year shifted from today by specified number of years.
   int getShiftedYearFromNow(int numberOfYearFromToday) {
     final DateTime today = DateTime.now();
     return DateTime(
@@ -396,6 +401,7 @@ class DataSimulator {
     return account;
   }
 
+  /// Creates and appends a transaction for the given account/date with optional payee/category and amount.
   Transaction _addTransactionAccountDatePayeeCategory({
     required Account account,
     required DateTime date,
@@ -464,6 +470,7 @@ class DataSimulator {
     );
   }
 
+  /// Creates a transfer between two accounts by creating a source transaction and linking the related transaction.
   Transaction _createTransferTransaction({
     required final Account accountSource,
     required final Account accountDestination,
@@ -638,8 +645,10 @@ class DataSimulator {
     Data().categories.investmentDividends;
     Data().categories.investmentFees;
     Data().categories.investmentInterest;
+    Data().categories.investmentShortTermCapitalGainsDistribution;
     Data().categories.investmentLongTermCapitalGainsDistribution;
     Data().categories.investmentMiscellaneous;
+    Data().categories.investmentMutualFunds;
     Data().categories.investmentOptions;
     Data().categories.investmentOther;
     Data().categories.investmentReinvest;
@@ -885,6 +894,7 @@ class DataSimulator {
     }
   }
 
+  /// Populates the events collection with a fixed set of demo events.
   void _generateEvents() {
     final Category categoryIdForProperties = Data().categories.getByName('Properties')!;
 
@@ -1093,6 +1103,7 @@ class DataSimulator {
     );
   }
 
+  /// Populates the payees collection with a fixed set of demo payees.
   void _generatePayees() {
     Data().payees.loadFromJson(<MyJson>[
       <String, dynamic>{'Id': _payeeIdBurgerKing, 'Name': 'Job At BurgerKing'},
@@ -1338,6 +1349,7 @@ class DataSimulator {
     }
   }
 
+  /// Generates salary and bonus transactions across multiple years with a mid-point job change.
   void _generateTransactionsSalary() {
     final List<DateTime> dates = generateListOfDates(
       yearInThePast: _numberOFYearInThePast,

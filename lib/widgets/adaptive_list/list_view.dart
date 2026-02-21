@@ -158,15 +158,18 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// don't make it flush to the top, we do this in order to give some clue that there's other item above,
   double getListOffsetOfItemIndex(final int index) => index * _rowHeight;
 
+  /// Returns the DataObject at the specified [index].
   DataObject getMoneyObjectFromIndex(int index) {
     return widget.list[index] as DataObject;
   }
 
+  /// Returns the uniqueId of the DataObject at the specified [index].
   int getUniqueIdFromIndex(int index) {
     return getMoneyObjectFromIndex(index).uniqueId;
   }
 
   /// use this if total item count is known
+  /// Returns the range of item indices currently visible in the viewport.
   NumRange indexOfItemsInView() {
     final int itemCount = widget.list.length;
     final double scrollOffset = widget.scrollController.position.pixels;
@@ -180,6 +183,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return NumRange(min: firstVisibleItemIndex, max: lastVisibleItemIndex);
   }
 
+  /// Returns true if the item at [index] is currently visible.
   bool isIndexInView(final int index) {
     if (index != -1) {
       final NumRange viewingIndexRange = indexOfItemsInView();
@@ -190,6 +194,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return false;
   }
 
+  /// Moves the current selection by [incrementBy] and updates selection state.
   int moveCurrentSelection(final int incrementBy) {
     int itemIdToSelect = -1;
     final int firstSelectedIndex = getListIndexFromUniqueId(
@@ -209,12 +214,14 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return itemIdToSelect;
   }
 
+  /// Returns the number of items that fit within the current viewport height.
   int numberOfItemOnViewPort() {
     final double viewportHeight = widget.scrollController.position.viewportDimension;
     final int numberOfItemDisplayed = (viewportHeight / _rowHeight).floor();
     return numberOfItemDisplayed;
   }
 
+  /// Handles key events for list navigation and selection.
   KeyEventResult onListViewKeyEvent(
     final FocusNode _,
     final KeyEvent event,
@@ -263,6 +270,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return KeyEventResult.ignored;
   }
 
+  /// Scrolls the first selected item into view.
   void scrollFirstItemIntoView() {
     if (widget.selectedItemIds.value.isNotEmpty) {
       scrollToId(widget.selectedItemIds.value.first);
@@ -273,6 +281,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// if the index of this ID is valid
   /// if the item is not in view
   /// then and only then we scroll the item into view
+  /// Scrolls to the item with the given [uniqueId] if valid.
   void scrollToId(final int uniqueId) {
     if (-1 != uniqueId) {
       final int index = getListIndexFromUniqueId(uniqueId);
@@ -280,6 +289,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     }
   }
 
+  /// Scrolls to the item at the specified [index] if in range.
   void scrollToIndex(final int index) {
     if (!widget.scrollController.hasClients) {
       // not yet attached to a list
@@ -321,6 +331,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     }
   }
 
+  /// Selects the item with the given [uniqueId] and updates callbacks.
   void selectedItem(final int uniqueId) {
     if (widget.isMultiSelectionOn == false) {
       // single selection so remove any other selection before selecting an item
@@ -334,6 +345,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     }
   }
 
+  /// Returns the offset of the selected item within the list.
   void selectedItemOffset(final int delta) {
     int newPosition = 0;
     if (widget.selectedItemIds.value.isNotEmpty) {
@@ -343,6 +355,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     selectedItem(newPosition);
   }
 
+  /// Builds the list row content for either column view or compact small-screen view.
   Widget _buildListItemContent(
     final bool isSelected,
     final DataObject itemInstance,

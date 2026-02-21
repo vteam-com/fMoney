@@ -4,6 +4,7 @@ import 'package:money/widgets/preferences_controller.dart';
 // Exports
 export 'package:flutter/material.dart';
 
+/// Builds the app scaffold with global text scaling applied.
 Widget myScaffold(
   final BuildContext context,
   final PreferredSizeWidget? appBar,

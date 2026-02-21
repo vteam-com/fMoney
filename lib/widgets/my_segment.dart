@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 
+/// Builds a segmented control with customizable direction and icons.
 Widget mySegmentSelector({
   required BuildContext context,
   required List<ButtonSegment<int>> segments,

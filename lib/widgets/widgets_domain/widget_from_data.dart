@@ -52,6 +52,7 @@ class WidgetFromData extends StatelessWidget {
     }
   }
 
+  /// Builds the formatted amount text using monospaced font and scaled decimals.
   Widget _amountAsText(final BuildContext context) {
     double value = amountModel.asDouble();
     if (!value.isFinite) {
@@ -111,6 +112,7 @@ class WidgetFromData extends StatelessWidget {
   }
 }
 
+/// Builds a currency label widget for a three-letter ISO4217 currency symbol.
 Widget buildCurrencyWidget(String threeLetterCurrencySymbol) {
   final String flagId = getCountryFromCurrencyIso4217(threeLetterCurrencySymbol);
 

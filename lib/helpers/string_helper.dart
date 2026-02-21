@@ -43,6 +43,7 @@ int countOccurrences(String input, String char) {
   return count;
 }
 
+/// Converts double value to formatted currency string.
 String doubleToCurrency(
   final double value, {
   final String symbol = '\$',
@@ -56,6 +57,10 @@ String doubleToCurrency(
   return (showPlusSign ? getPlusSignIfPositive(value) : '') + currencyFormatter.format(value);
 }
 
+/// Returns plus sign if value is positive, empty string otherwise.
+///
+/// @param value The value to check.
+/// @returns '+' if value is positive, otherwise an empty string.
 String getPlusSignIfPositive(final num value) {
   if (value > _zeroInt) {
     return '+';
@@ -63,18 +68,29 @@ String getPlusSignIfPositive(final num value) {
   return '';
 }
 
+/// Escapes single quotes in string for SQL safety.
+///
+/// @param input The input string to escape.
+/// @returns The input string with single quotes escaped.
 String escapeString(String input) => input.replaceAll("'", "''");
 
+/// Formats double with up to 5 decimal places.
+///
+/// @param value The double value to format.
+/// @param showPlusSign Whether to show a plus sign for positive values. Defaults to false.
+/// @returns The formatted double string.
 String formatDoubleUpToFiveZero(double value, {bool showPlusSign = false}) {
   final NumberFormat formatter = NumberFormat('#,##0.#####', 'en_US');
   return getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + formatter.format(value);
 }
 
+/// Formats double with trimmed trailing zeros.
 String formatDoubleTrimZeros(double value) {
   final NumberFormat formatter = NumberFormat('#,##0.##', 'en_US');
   return formatter.format(value);
 }
 
+/// Converts amount to shorthand text (K, M, B suffixes).
 String getAmountAsShorthandText(
   final num value, {
   final int decimalDigits = _defaultDecimalDigits,
@@ -84,6 +100,7 @@ String getAmountAsShorthandText(
   symbol: symbol, // if you want to add currency symbol then pass that in this else leave it empty.
 ).format(value);
 
+/// Parses CSV line into list of columns, handling quoted fields.
 List<String> getColumnInCsvLine(final String csvLine) {
   List<String> items = csvLine.split(RegExp(r',|;(?=(?:[^"]*"[^"]*")*[^"]*$)'));
   // remove quotes around elements
@@ -100,6 +117,7 @@ String getCountryFromLocale(final String locale) {
   return tokens.last;
 }
 
+/// Returns the application document directory path.
 Future<String> getDocumentDirectory() async {
   if (kIsWeb) {
     return '';
@@ -108,11 +126,14 @@ Future<String> getDocumentDirectory() async {
   return directory.path;
 }
 
+/// Returns initials from full name (first letter of each word).
 String getInitials(String fullName) => fullName.split(' ').map((String word) => word[_zeroInt].toUpperCase()).join('');
 
+/// Converts integer to formatted string with optional plus sign.
 String getIntAsText(final int value, {final bool showPlusSign = false}) =>
     getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + NumberFormat.decimalPattern().format(value);
 
+/// Returns plus sign prefix if needed for positive values.
 String getPrefixPlusSignIfNeeded(
   final num value, {
   final bool showPlusSign = false,
@@ -181,8 +202,10 @@ String getNormalizedValue(final String? s) {
   return s.replaceAll('\r\n', ' ').replaceAll('\r', ' ').replaceAll('\n', ' ').trim();
 }
 
+/// Converts number to shorthand text (K, M, B suffixes).
 String getNumberShorthandText(final num value) => NumberFormat.compact().format(value);
 
+/// Returns singular or plural text based on quantity.
 String getSingularPluralText(
   final String title,
   final int quantity,
@@ -190,6 +213,7 @@ String getSingularPluralText(
   final String plural,
 ) => '$title ${quantity == _singularCount ? singular : plural}';
 
+/// Extracts content between two tokens from string.
 String getStringContentBetweenTwoTokens(
   final String input,
   final String start,
@@ -205,6 +229,7 @@ String getStringContentBetweenTwoTokens(
   return '';
 }
 
+/// Returns string delimited by start and end tokens.
 String getStringDelimitedStartEndTokens(
   final String input,
   final String start,
@@ -214,6 +239,7 @@ String getStringDelimitedStartEndTokens(
   return start + content + end;
 }
 
+/// Returns the number of lines in the text.
 int getLineCount(final String text) {
   if (text.trim().isEmpty) {
     return _zeroInt;
@@ -234,6 +260,7 @@ List<String> getLinesOfText(
   return lines;
 }
 
+/// Removes empty lines from text.
 String removeEmptyLines(String text) {
   // Filter out the empty lines
   final List<String> nonEmptyLines = getLinesOfText(
@@ -247,6 +274,7 @@ String removeEmptyLines(String text) {
   return result;
 }
 
+/// Shortens long text to specified maximum length with ellipsis.
 String shortenLongText(String fullName, [int maxLength = _defaultMaxLength]) {
   assert(maxLength >= _zeroInt);
   if (fullName.length <= maxLength) {
@@ -310,6 +338,7 @@ int stringCompareIgnoreCasing(final String textA, final String textB) {
   return lengthA.compareTo(lengthB);
 }
 
+/// Compares two strings as numbers (by length first, then lexicographically).
 int compareStringsAsNumbers(final String a, final String b) {
   if (a.length == b.length) {
     return a.compareTo(b);
@@ -317,6 +346,7 @@ int compareStringsAsNumbers(final String a, final String b) {
   return a.length.compareTo(b.length);
 }
 
+/// Compares two strings as monetary amounts.
 int compareStringsAsAmount(final String a, final String b) {
   final double valueA = attemptToGetDoubleFromText(a) ?? _zeroDouble;
   final double valueB = attemptToGetDoubleFromText(b) ?? _zeroDouble;
@@ -324,6 +354,7 @@ int compareStringsAsAmount(final String a, final String b) {
   return valueA.compareTo(valueB);
 }
 
+/// Concatenates two strings with optional separator and deduplication.
 String concat(
   final String existingValue,
   final String valueToConcat, [
@@ -345,6 +376,7 @@ String concat(
   }
 }
 
+/// Removes UTF-8 BOM (Byte Order Mark) from string if present.
 String removeUtf8Bom(String text) {
   const String bom = '\u{FEFF}';
   if (text.startsWith(bom)) {
@@ -353,6 +385,7 @@ String removeUtf8Bom(String text) {
   return text;
 }
 
+/// Parses USD amount string and returns double value.
 double? parseUSDAmount(String input) {
   input = input.replaceAll('\$', '');
   input = input.replaceAll('USD', '');
@@ -372,6 +405,7 @@ double? parseUSDAmount(String input) {
   return null;
 }
 
+/// Parses Euro amount string and returns double value.
 double? parseEuroAmount(String input) {
   final RegExp euroPattern = RegExp(
     r'^([+-]?(?:\d+(?:\.\d{3})*|\d+))(,\d+)?\s*€?$',
@@ -391,6 +425,7 @@ double? parseEuroAmount(String input) {
   return null;
 }
 
+/// Converts parentheses notation to negative string (e.g., (100) -> -100).
 String convertParenthesesToNegativeString(String amountText) {
   amountText = amountText.trim();
   if (amountText.contains('(') && amountText.contains(')')) {
@@ -401,6 +436,7 @@ String convertParenthesesToNegativeString(String amountText) {
   return amountText;
 }
 
+/// Parses amount string based on currency type.
 double? parseAmount(String amountAsText, final String currency) {
   amountAsText = convertParenthesesToNegativeString(amountAsText);
   switch (currency.toLowerCase()) {
@@ -417,16 +453,20 @@ double? parseAmount(String amountAsText, final String currency) {
 String cleanString(String inputStr, String allowedChars) =>
     inputStr.split('').where((String char) => allowedChars.contains(char)).join();
 
+/// Converts valid number to currency string with plus sign.
 String validIntToCurrency(final num value) =>
     getIntAsText(isNumber(value) ? value.toInt() : _zeroInt, showPlusSign: true);
 
+/// Converts valid double to currency string with plus sign.
 String validDoubleToCurrency(final num value) => doubleToCurrency(
   isNumber(value) ? value.toDouble() : _zeroDouble,
   showPlusSign: true,
 );
 
+/// Returns true if value is a finite number (not NaN or infinite).
 bool isNumber(num value) => value.isFinite && !value.isNaN;
 
+/// Formats byte size into human readable string (B, KB, MB, GB).
 String formatByteSize(final int bytes) {
   if (bytes >= _bytesPerGigabyte) {
     return '${(bytes / _bytesPerGigabyte).toStringAsFixed(_byteSizePrecision)} GB';

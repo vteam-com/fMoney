@@ -66,6 +66,7 @@ class PickerEditBoxState extends State<PickerEditBox> {
     );
   }
 
+  /// Builds an add button when the current text is not yet in the item list.
   Widget _buildAddNew() {
     // Only show the Add New button if there's text not in the existing list of items
     if (widget.onAddNew == null || _textController.text.trim().isEmpty || widget.items.contains(_textController.text)) {
@@ -80,6 +81,7 @@ class PickerEditBoxState extends State<PickerEditBox> {
     );
   }
 
+  /// Builds the dropdown button that opens the picker popup.
   Widget _buildDropDownButton() {
     return IconButton(
       key: const Key('key_dropdown'),

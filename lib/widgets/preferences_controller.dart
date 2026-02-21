@@ -98,16 +98,22 @@ class PreferenceController extends GetxController {
   }
 
   // Side panel helper methods to reduce duplication
+  /// Returns the side panel sort field preference key.
   int getSidePanelSortBy() => getInt('$settingKeySidePanel$settingKeySortBy', 0);
 
+  /// Sets the side panel sort field preference value.
   void setSidePanelSortBy(int value) => setInt('$settingKeySidePanel$settingKeySortBy', value);
 
+  /// Returns the side panel sort ascending preference.
   bool getSidePanelSortAscending() => getBool('$settingKeySidePanel$settingKeySortAscending', true);
 
+  /// Sets the side panel sort ascending preference.
   void setSidePanelSortAscending(bool value) => setBool('$settingKeySidePanel$settingKeySortAscending', value);
 
+  /// Returns the side panel selected item ID preference.
   int getSidePanelSelectedItemId() => getInt('$settingKeySidePanel$settingKeySelectedListItemId', -1);
 
+  /// Sets the side panel selected item ID preference.
   void setSidePanelSelectedItemId(int value) => setInt('$settingKeySidePanel$settingKeySelectedListItemId', value);
 
   //////////////////////////////////////////////////////
@@ -133,7 +139,8 @@ class PreferenceController extends GetxController {
     }
   }
 
-  void addToMRU(String filePathAndName) {
+  /// Adds an item to the MRU (most recently used) list.
+  void addToMRU(final String filePathAndName) {
     if (filePathAndName.isNotEmpty) {
       // load and place on top
       mru.remove(filePathAndName);
@@ -157,36 +164,45 @@ class PreferenceController extends GetxController {
   }
 
   // Clear all values from preferences
+  /// Clears all stored preference values.
   Future<void> clear() async {
     await _preferences?.clear();
   }
 
   // Retrieve a boolean value from preferences
+  /// Returns a boolean value from preferences with optional default.
   bool getBool(String key, [bool defaultValueIfNotFound = false]) =>
       _preferences?.getBool(key) ?? defaultValueIfNotFound;
 
   // Retrieve a double value from preferences
+  /// Returns a double value from preferences with optional default.
   double getDouble(String key, [double defaultValueIfNotFound = 0.0]) =>
       _preferences?.getDouble(key) ?? defaultValueIfNotFound;
 
   // Retrieve an integer value from preferences
+  /// Returns an integer value from preferences with optional default.
   int getInt(String key, [int defaultValueIfNotFound = 0]) => _preferences?.getInt(key) ?? defaultValueIfNotFound;
 
   // Retrieve a string value from preferences
+  /// Returns a string value from preferences with optional default.
   String getString(String key, [String defaultValueIfNotFound = '']) =>
       _preferences?.getString(key) ?? defaultValueIfNotFound;
 
   // Retrieve a list of strings from preferences
+  /// Returns a string list from preferences with optional default.
   Future<List<String>> getStringList(String key) async => _preferences?.getStringList(key) ?? <String>[];
 
+  /// Returns a unique state string combining key preference values.
   String get getUniqueState =>
       'isReady:${isReady.value} Rental:$includeRentalManagement IncludeClosedAccounts:$includeClosedAccounts TextScale:$textScale';
 
   ///---------------------------------
   /// Show or Hide Account that are marked as Closed
   /// Hide/Show Closed Accounts
+  /// Returns whether closed accounts should be included in views.
   bool get includeClosedAccounts => _includeClosedAccounts.value;
 
+  /// Sets whether closed accounts should be included in views.
   set includeClosedAccounts(bool value) {
     _includeClosedAccounts.value = value;
     setBool(settingKeyIncludeClosedAccounts, value);
@@ -194,19 +210,23 @@ class PreferenceController extends GetxController {
 
   ///--------------------------------
   /// Rental
+  /// Returns whether rental management should be included in views.
   bool get includeRentalManagement => _includeRentalManagement.value;
 
+  /// Sets whether rental management should be included in views.
   set includeRentalManagement(final bool value) {
     _includeRentalManagement.value = value;
     setBool(settingKeyRentalsSupport, value);
   }
 
+  /// Initializes preferences and loads stored values.
   Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
     await loadDefaults();
     isReady.value = true;
   }
 
+  /// Navigates to specified view with selected item ID.
   void jumpToView({
     required final ViewId viewId,
     required final int selectedId,
@@ -238,6 +258,7 @@ class PreferenceController extends GetxController {
     setView(viewId);
   }
 
+  /// Loads default preference values when none are set.
   Future<void> loadDefaults() async {
     mru.value = _preferences!.getStringList(settingKeyMRU) ?? <String>[];
 
@@ -279,37 +300,41 @@ class PreferenceController extends GetxController {
   }
 
   // Remove a value from preferences
+  /// Removes a preference value by key.
   Future<void> remove(String key) async {
     await _preferences?.remove(key);
   }
 
   // Set a boolean value to preferences
+  /// Sets a boolean preference value by key.
   Future<void> setBool(String key, bool value) async {
     await _preferences?.setBool(key, value);
   }
 
   // Set a double value to preferences
+  /// Sets a double preference value by key.
   Future<void> setDouble(String key, double value) async {
     await _preferences?.setDouble(key, value);
   }
 
   // Set an integer value to preferences
+  /// Sets an integer preference value by key.
   Future<void> setInt(String key, int value) async {
     await _preferences?.setInt(key, value);
   }
 
-  Future<void> setMapOfMyJson(
-    final String key,
-    final Map<String, MyJson> mapOfJson,
-  ) async {
-    _preferences?.setString(key, json.encode(mapOfJson));
+  /// Sets a raw JSON string preference value by key.
+  Future<void> setMyJson(String key, String value) async {
+    await _preferences?.setString(key, value);
   }
 
-  Future<void> setMyJson(final String key, final MyJson myJson) async {
-    _preferences?.setString(key, json.encode(myJson));
+  /// Sets a JSON map preference value by key.
+  Future<void> setMapOfMyJson(String key, Map<String, dynamic> value) async {
+    await _preferences?.setString(key, json.encode(value));
   }
 
   // Set a string value to preferences
+  /// Sets a string preference value by key.
   Future<void> setString(
     String key,
     String value, [
@@ -323,6 +348,7 @@ class PreferenceController extends GetxController {
   }
 
   // Set a list of strings to preferences
+  /// Sets a string list preference value by key.
   Future<void> setStringList(String key, List<String> value) async {
     if (value.isEmpty) {
       remove(key);
@@ -332,17 +358,21 @@ class PreferenceController extends GetxController {
   }
 
   // Methods to update the current view
+  /// Updates the current view to the specified ViewId.
   void setView(ViewId view) {
     currentView.value = view;
   }
 
+  /// Returns the current text scale factor.
   double get textScale => _textScale.value;
 
+  /// Sets the text scale factor and saves to preferences.
   set textScale(double value) {
     _textScale.value = value;
     setDouble(settingKeyTextScale, textScale);
   }
 
+  /// Returns the singleton PreferenceController instance.
   static PreferenceController get to => Get.find();
 }
 

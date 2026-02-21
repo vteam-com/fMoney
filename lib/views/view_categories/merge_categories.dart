@@ -92,6 +92,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
     );
   }
 
+  /// Builds a single action offering with its button and explanatory text.
   Widget _buildActionOffering(final String text, Widget action) {
     return SizedBox(
       width: _actionOfferingWidth,
@@ -107,6 +108,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
     );
   }
 
+  /// Builds the action panel that offers append or merge operations.
   Widget _buildActionPanel() {
     final String from = widget.categoryToMove.fieldName.value;
     final String to = _categoryPicked.fieldName.value;
@@ -181,6 +183,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
   }
 }
 
+/// Moves a list of transactions to the specified category, updating data.
 void moveTransactionsToCategory(
   final List<Transaction> transactions,
   final Category moveToCategory,

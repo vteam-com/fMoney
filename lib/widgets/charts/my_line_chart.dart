@@ -88,4 +88,5 @@ class MyLineChart extends StatelessWidget {
   }
 }
 
+/// Formats a DateTime as 'yyyy\nMMM'.
 String formatDate(DateTime date) => DateFormat('yyyy\nMMM').format(date);

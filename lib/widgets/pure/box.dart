@@ -98,6 +98,7 @@ class Box extends StatelessWidget {
     );
   }
 
+  /// Builds a footer Card with selectable text.
   static Widget buildFooter(final String text) => Card(
     elevation: 1,
     shadowColor: Colors.transparent,
@@ -135,6 +136,7 @@ class Box extends StatelessWidget {
   );
 }
 
+/// Builds a header widget with title and optional badge counter.
 Widget buildHeaderTitleAndCounter(
   final BuildContext context,
   final String title,
@@ -150,6 +152,7 @@ Widget buildHeaderTitleAndCounter(
   return boxHeader;
 }
 
+/// Builds a selectable title text with optional large size.
 Widget headerText(
   final BuildContext context,
   final String title, {
@@ -160,6 +163,7 @@ Widget headerText(
   textAlign: TextAlign.center,
 );
 
+/// Builds a padded Text widget for badge content.
 Widget getBadgeText(final String text) => Padding(
   padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.small),
   child: Text(text, style: const TextStyle(fontSize: SizeForText.small)),

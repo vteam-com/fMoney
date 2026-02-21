@@ -1,5 +1,6 @@
 enum TransactionStatus { none, electronic, cleared, reconciled, voided }
 
+/// Converts transaction status enum to single letter representation.
 String transactionStatusToLetter(final TransactionStatus status) {
   switch (status) {
     case TransactionStatus.none:

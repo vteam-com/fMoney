@@ -12,5 +12,6 @@ class DataSource {
 
   final Uint8List _fileBytes;
 
+  /// Returns the raw file bytes for the data source.
   Uint8List get fileBytes => _fileBytes;
 }

@@ -11,6 +11,7 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/gaps.dart';
 
+/// Shows dialog for importing investment transactions.
 void showImportInvestment({InvestmentImportFields? inputData}) {
   inputData ??= InvestmentImportFields(
     account: Data().accounts.getMostRecentlySelectedAccount(),
@@ -39,6 +40,7 @@ void showImportInvestment({InvestmentImportFields? inputData}) {
   );
 }
 
+/// Builds action buttons for investment import dialog.
 List<Widget> getActionButtons(
   InvestmentImportFields inputData,
   BuildContext context,

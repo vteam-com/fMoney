@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
   /// Constructs a new instance of the `WelcomeScreen` widget.
   const WelcomeScreen({super.key});
 
+  /// Builds the welcome screen UI and entry actions.
   @override
   Widget build(final BuildContext context) {
     return Center(

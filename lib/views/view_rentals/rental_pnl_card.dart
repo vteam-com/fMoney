@@ -93,6 +93,7 @@ class RentalPnLCard extends StatelessWidget {
     );
   }
 
+  /// Builds a distribution list widget showing percentage allocations.
   Widget distribution() {
     final List<Widget> widgets = <Widget>[];
 

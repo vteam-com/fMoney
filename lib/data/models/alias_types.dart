@@ -3,6 +3,7 @@ enum AliasType {
   regex, // 1
 }
 
+/// Returns a short display string for the given alias [type].
 String getAliasTypeAsString(final AliasType type) {
   switch (type) {
     case AliasType.none:

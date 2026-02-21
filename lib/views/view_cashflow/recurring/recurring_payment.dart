@@ -108,6 +108,7 @@ class RecurringPayment {
   late List<double> sumPerMonths;
   late double total;
 
+  /// Returns the average of two numbers with special handling for negative values.
   double averageTwoNumbers(final double a, final double b) {
     // (-10 - -20) = -30 / 2 = -15
     if (a < 0 && b < 0) {
@@ -118,10 +119,12 @@ class RecurringPayment {
     return (a + b) / _twoInt;
   }
 
+  /// Returns a list of category ID and sum pairs for the payment.
   List<Pair<int, double>> getListOfCategoryIdAndSum() {
     return categoryIdsAndSums;
   }
 
+  /// Returns the top N category distributions by summed amount.
   List<Distribution> getTopDistributions({
     required RecurringPayment payment,
     required bool asIncome,

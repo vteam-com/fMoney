@@ -40,6 +40,7 @@ class Investments extends MoneyObjects<Investment> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Applies holding shares adjusted for stock splits across investments.
   static double applyHoldingSharesAdjustedForSplits(
     List<Investment> investments,
   ) {
@@ -62,6 +63,7 @@ class Investments extends MoneyObjects<Investment> {
     return runningShares;
   }
 
+  /// Returns all investments for a given security ID.
   static List<Investment> getInvestmentsForThisSecurity(final int securityId, DataAbstract data) {
     return data
         .getInvestments()
@@ -70,6 +72,7 @@ class Investments extends MoneyObjects<Investment> {
         .toList();
   }
 
+  /// Computes cumulative shares, profit, and dividends for investments.
   static StockCumulative getSharesAndProfit(List<Investment> investments) {
     // StockCumulative sort by date, TradeType, Amount
     investments.sort(

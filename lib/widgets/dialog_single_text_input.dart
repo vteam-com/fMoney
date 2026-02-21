@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 const double _dialogWidth = 400;
 const double _dialogHeight = 200;
 
+/// Shows a modal dialog with a single text input field.
 Future<void> showTextInputDialog({
   required BuildContext context,
   required void Function(String) onContinue,

@@ -8,6 +8,7 @@ import 'package:money/widgets/dialog_auto_size.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 
+/// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
   required final BuildContext context,
   required final TransactionSplit split,
@@ -78,6 +79,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
     );
   }
 
+  /// Builds action buttons for the split dialog.
   List<Widget> getActionButtons({
     required final BuildContext context,
     required final TransactionSplit split,
@@ -147,6 +149,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
     ];
   }
 
+  /// Returns true if split data has been modified from original state.
   bool isDataModified() {
     final MyJson afterEditing = _split.getPersistableJSon();
     final MyJson diff = myJsonDiff(

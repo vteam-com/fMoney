@@ -68,14 +68,14 @@ class Securities extends MoneyObjects<Security> {
     );
   }
 
-  // Retrieves a Security object by its symbol, ignoring case.
+  /// Retrieves a security by its symbol (case-insensitive).
   Security? getBySymbol(final String symbolToFind) {
     return iterableList().firstWhereOrNull(
       (Security item) => stringCompareIgnoreCasing(item.fieldSymbol.value, symbolToFind) == 0,
     );
   }
 
-  // Retrieves a Security object by its symbol or creates a new one if it doesn't exist.
+  /// Retrieves a security by symbol or creates a new one if missing.
   Security getOrCreate(final String symbolToFind) {
     Security? security = getBySymbol(symbolToFind);
     if (security == null) {
@@ -91,6 +91,7 @@ class Securities extends MoneyObjects<Security> {
   }
 
   // Retrieves the symbol of a Security object by its ID.
+  /// Retrieves the symbol for a security by its ID; returns '(?)' if not found.
   String getSymbolFromId(final int securityId) {
     final Security? security = get(securityId);
     if (security == null) {

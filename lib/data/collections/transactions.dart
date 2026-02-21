@@ -157,6 +157,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Checks all transactions for dangling transfers and populates collections.
   void checkTransfers(
     Set<Transaction> dangling,
     List<Account> deletedAccounts,
@@ -166,6 +167,7 @@ class Transactions extends MoneyObjects<Transaction> {
     }
   }
 
+  /// Cumulates transactions per year/month for charting.
   static List<FlSpot> cumulateTransactionPerYearMonth(
     final List<Transaction> transactions,
     DataAbstract data,
@@ -232,21 +234,7 @@ class Transactions extends MoneyObjects<Transaction> {
     });
   }
 
-  int findPossibleMatchingCategoryId(
-    final Transaction t,
-    List<Transaction> transactionWithCategories,
-  ) {
-    final Transaction? transactionMatchingAccountPayeeAndHasCategory = transactionWithCategories.firstWhereOrNull(
-      (Transaction item) =>
-          item.fieldAccountId.value == t.fieldAccountId.value &&
-          item.getPayeeOrTransferCaption() == t.getPayeeOrTransferCaption(),
-    );
-    if (transactionMatchingAccountPayeeAndHasCategory != null) {
-      return transactionMatchingAccountPayeeAndHasCategory.fieldCategoryId.value;
-    }
-    return _unsetId;
-  }
-
+  /// Returns transfers that point to the given account.
   Iterable<Transaction> findTransfersToAccount(final Account a) {
     final List<Transaction> view = <Transaction>[];
     for (Transaction t in iterableList()) {
@@ -262,6 +250,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return view;
   }
 
+  /// Flattens split transactions into individual entries.
   static List<Transaction> flatTransactions(
     final Iterable<Transaction> transactions,
   ) {
@@ -287,6 +276,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return flatList;
   }
 
+  /// Returns all unique transaction dates for a given year.
   List<DateTime> getAllTransactionDatesForYear(final int year) {
     final Iterable<Transaction> transactions = transactionInYearRange(
       minYear: year,
@@ -302,6 +292,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return dates;
   }
 
+  /// Returns transactions with splits flattened; optional filter.
   List<Transaction> getListFlattenSplits({
     final bool Function(Transaction)? whereClause,
   }) {
@@ -331,6 +322,7 @@ class Transactions extends MoneyObjects<Transaction> {
     return flattenList;
   }
 
+  /// Filters transactions within a year range and optional income/expense.
   Iterable<Transaction> transactionInYearRange({
     required final int minYear,
     required final int maxYear,

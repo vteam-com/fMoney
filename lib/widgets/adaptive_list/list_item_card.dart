@@ -95,6 +95,7 @@ class MyListItemAsCard extends StatelessWidget {
     );
   }
 
+  /// Returns widget [a] if condition is true, otherwise returns [b].
   Widget either(
     final Widget? a,
     final String? b,

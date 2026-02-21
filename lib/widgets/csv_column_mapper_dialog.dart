@@ -19,6 +19,7 @@ class CsvColumnMapperDialog extends StatefulWidget {
 
   final List<String> headers;
 
+  /// Creates state for the column mapper dialog.
   @override
   State<CsvColumnMapperDialog> createState() => _CsvColumnMapperDialogState();
 }
@@ -110,6 +111,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
+  /// Attempts to auto-select the most likely date/description/amount columns.
   void _autoDetectColumns() {
     if (widget.headers.isEmpty) {
       return;
@@ -121,6 +123,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     _selectedAmountColumn = _findBestMatchUniqueId(_getAmountColumnPatterns());
   }
 
+  /// Builds a dropdown for selecting a unique header id for a required field.
   Widget _buildDropdown(String label, String? currentValue, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -143,6 +146,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
+  /// Builds the mapping dropdowns for date, description, and amount.
   Widget _buildMappingDropdowns() {
     return Column(
       children: <Widget>[
@@ -165,6 +169,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
+  /// Builds a preview table and highlights the currently selected columns.
   Widget _buildPreviewTable() {
     // Displaying only up to the first 5 data rows for preview
     final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
@@ -294,6 +299,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ); // End SingleChildScrollView
   }
 
+  /// Finds the best matching header name for a list of expected patterns.
   String? _findBestMatch(List<String> patterns) {
     if (patterns.isEmpty) {
       return null;
@@ -327,6 +333,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     return bestMatch;
   }
 
+  /// Finds the best matching unique header id for a list of expected patterns.
   String? _findBestMatchUniqueId(List<String> patterns) {
     final String? bestHeader = _findBestMatch(patterns);
     if (bestHeader == null) {
@@ -340,6 +347,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
+  /// Returns common header patterns for amount/value columns.
   List<String> _getAmountColumnPatterns() {
     return <String>[
       'amount',
@@ -362,6 +370,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ];
   }
 
+  /// Returns common header patterns for date/time columns.
   List<String> _getDateColumnPatterns() {
     return <String>[
       'date',
@@ -380,6 +389,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ];
   }
 
+  /// Returns common header patterns for description/payee columns.
   List<String> _getDescriptionColumnPatterns() {
     return <String>[
       'description',
@@ -401,6 +411,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ];
   }
 
+  /// Initializes mappings from potentially duplicated header names to unique ids.
   void _initializeUniqueHeaderMappings() {
     _uniqueIdToHeaderName = <String, String>{};
     final Map<String, int> headerCounts = <String, int>{};
@@ -427,6 +438,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
 }
 
 // Helper function to show the dialog (optional, but good practice)
+/// Shows the CSV column mapper dialog and returns the chosen mapping.
 Future<Map<String, String>?> showCsvColumnMapperDialog({
   required BuildContext context,
   required List<String> headers,

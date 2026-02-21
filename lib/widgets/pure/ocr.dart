@@ -40,6 +40,7 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
     );
   }
 
+  /// Decodes image bytes to a ui.Image for OCR processing.
   Future<ui.Image> fromBytesToImage(Uint8List list) async {
     // Decode the image
     final ui.Codec codec = await ui.instantiateImageCodec(list);
@@ -48,6 +49,7 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
     return frameInfo.image;
   }
 
+  /// Reads an image from the clipboard, runs OCR, and appends recognized text to the controller.
   Future<void> _recognizeTextFromClipboard() async {
     final Uint8List? bytes = await Pasteboard.image;
     if (bytes != null) {

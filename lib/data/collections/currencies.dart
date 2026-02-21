@@ -20,12 +20,14 @@ class Currencies extends MoneyObjects<Currency> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Finds a currency by its symbol.
   Currency? getCurrencyFromSymbol(final String symbolToMatch) {
     return iterableList().firstWhereOrNull(
       (Currency currency) => currency.fieldSymbol.value == symbolToMatch,
     );
   }
 
+  /// Returns the exchange ratio for a currency symbol; defaults to 1 if not found.
   double getRatioFromSymbol(final String symbol) {
     final Currency? currency = getCurrencyFromSymbol(symbol);
     if (currency == null) {

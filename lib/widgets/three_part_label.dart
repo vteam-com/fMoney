@@ -37,6 +37,7 @@ class ThreePartLabel extends StatelessWidget {
           );
   }
 
+  /// Renders the first text block with size-dependent styling.
   Widget renderText1(final BuildContext context) {
     if (small) {
       return Text(text1, style: getTextTheme(context).labelLarge);
@@ -45,6 +46,7 @@ class ThreePartLabel extends StatelessWidget {
     }
   }
 
+  /// Renders the second text block with bodySmall styling.
   Widget renderText2(final BuildContext context) {
     return Text(text2, style: getTextTheme(context).bodySmall);
   }

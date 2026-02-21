@@ -47,6 +47,7 @@ class RentalPnL {
     return text;
   }
 
+  /// Appends distribution percentages to the profit text.
   String appendDistribution() {
     String text = '';
 
@@ -58,10 +59,13 @@ class RentalPnL {
     return text;
   }
 
+  /// Returns the sum of all expense categories.
   double get expenses => expenseInterest + expenseMaintenance + expenseManagement + expenseRepairs + expenseTaxes;
 
+  /// Returns total profit (income + expenses, where expenses are negative).
   double get profit => income + expenses; // since Expense is stored as a negative value we use a [+]
 
+  /// Formats a labeled amount string with padding for column alignment.
   String textAmount(final String text, final double amount) {
     final String textPadded = '$text:'.padRight(_textPaddingWidth);
     final String amountPadded = getAmountAsStringUsingCurrency(

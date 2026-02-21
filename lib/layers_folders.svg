@@ -1735,11 +1735,11 @@
 </g>
 <g>
   <path d="M 759.0 10466.0 H 890.0 Q 896.0 10466.0 896.0 10472.0 V 10481.0 Q 896.0 10487.0 890.0 10487.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_helper.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_helper.dart</title>
 </g>
 <g>
   <path d="M 759.0 10466.0 H 890.0 Q 896.0 10466.0 896.0 10472.0 V 10481.0 Q 896.0 10487.0 890.0 10487.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_helper.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_helper.dart</title>
 </g>
 <g>
   <path d="M 847.0 4272.0 H 893.0 Q 899.0 4272.0 899.0 4278.0 V 5295.0 Q 899.0 5301.0 893.0 5301.0 H 819.0" class="edgeVertical"/>
@@ -1891,11 +1891,11 @@
 </g>
 <g>
   <path d="M 759.0 10466.0 H 896.0 Q 902.0 10466.0 902.0 10472.0 V 10513.0 Q 902.0 10519.0 896.0 10519.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_colors.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_colors.dart</title>
 </g>
 <g>
   <path d="M 759.0 10466.0 H 896.0 Q 902.0 10466.0 902.0 10472.0 V 10513.0 Q 902.0 10519.0 896.0 10519.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_colors.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_colors.dart</title>
 </g>
 <g>
   <path d="M 847.0 4118.0 H 899.0 Q 905.0 4118.0 905.0 4124.0 V 5359.0 Q 905.0 5365.0 899.0 5365.0 H 819.0" class="edgeVertical"/>
@@ -2019,11 +2019,11 @@
 </g>
 <g>
   <path d="M 759.0 10466.0 H 902.0 Q 908.0 10466.0 908.0 10472.0 V 10545.0 Q 908.0 10551.0 902.0 10551.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_entry.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_entry.dart</title>
 </g>
 <g>
   <path d="M 759.0 10466.0 H 902.0 Q 908.0 10466.0 908.0 10472.0 V 10545.0 Q 908.0 10551.0 902.0 10551.0 H 755.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ widgets/sankey/sankey_entry.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ widgets/sankey/sankey_entry.dart</title>
 </g>
 <g>
   <path d="M 759.0 8276.0 H 905.0 Q 911.0 8276.0 911.0 8282.0 V 9091.0 Q 911.0 9097.0 905.0 9097.0 H 755.0" class="edgeVertical"/>
@@ -3207,7 +3207,7 @@
 </g>
 <g>
   <path d="M 759.0 10466.0 H 1055.0 Q 1061.0 10466.0 1061.0 10472.0 V 12297.0 Q 1061.0 12303.0 1055.0 12303.0 H 867.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ helpers/string_helper.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ helpers/string_helper.dart</title>
 </g>
 <g>
   <path d="M 759.0 6274.0 H 1055.0 Q 1061.0 6274.0 1061.0 6280.0 V 7147.0 Q 1061.0 7153.0 1055.0 7153.0 H 755.0" class="edgeVertical"/>
@@ -3415,7 +3415,7 @@
 </g>
 <g>
   <path d="M 759.0 10466.0 H 1100.0 Q 1106.0 10466.0 1106.0 10472.0 V 12777.0 Q 1106.0 12783.0 1100.0 12783.0 H 867.0" class="edgeVertical"/>
-  <title>widgets/sankey/__sankey_painter.dart ▶ helpers/constants.dart</title>
+  <title>widgets/sankey/sankey_painter.dart ▶ helpers/constants.dart</title>
 </g>
 <g>
   <path d="M 759.0 6274.0 H 1100.0 Q 1106.0 6274.0 1106.0 6280.0 V 7525.0 Q 1106.0 7531.0 1100.0 7531.0 H 755.0" class="edgeVertical"/>
@@ -6343,7 +6343,7 @@
 </g>
 <g>
   <path d="M 823.0 2178.0 H 2687.0 Q 2693.0 2178.0 2693.0 2184.0 V 10449.0 Q 2693.0 10455.0 2687.0 10455.0 H 755.0" class="edgeVertical"/>
-  <title>views/view_cashflow/sankey_panel.dart ▶ widgets/sankey/__sankey_painter.dart</title>
+  <title>views/view_cashflow/sankey_panel.dart ▶ widgets/sankey/sankey_painter.dart</title>
 </g>
 <g>
   <path d="M 847.0 3554.0 H 2690.0 Q 2696.0 3554.0 2696.0 3560.0 V 11839.0 Q 2696.0 11845.0 2690.0 11845.0 H 755.0" class="edgeVertical"/>
@@ -8651,7 +8651,7 @@
 31. widgets/mini_timeline_daily.dart
 32. widgets/mini_timeline_twelve_months.dart
 33. widgets/pure/quantity_widget.dart
-34. widgets/sankey/__sankey_painter.dart
+34. widgets/sankey/sankey_painter.dart
 35. widgets/widgets_domain/field.dart</title></g><g class="badge outgoingBadge">
   <path d="M 877.0,12314.0 L 865.0,12307.0 Q 862.0,12307.0 862.0,12310.0 L 862.0,12318.0 Q 862.0,12321.0 865.0,12321.0 Z" fill="#10b981"/>
   <text x="866.68" y="12315.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. helpers/misc_helpers.dart</title></g><text x="618.0" y="12308.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">string_helper.dart</text>
@@ -8936,8 +8936,8 @@
 68. widgets/pure/box.dart
 69. widgets/pure/center_message.dart
 70. widgets/pure/scale_down.dart
-71. widgets/sankey/__sankey_painter.dart
-72. widgets/sankey/sankey_helper.dart
+71. widgets/sankey/sankey_helper.dart
+72. widgets/sankey/sankey_painter.dart
 73. widgets/theme_controller.dart
 74. widgets/token_text.dart
 75. widgets/value_quality.dart
@@ -9718,7 +9718,7 @@
 3. data/entities/transaction.dart
 4. helpers/category_types.dart
 5. widgets/pure/scale_down.dart
-6. widgets/sankey/__sankey_painter.dart
+6. widgets/sankey/sankey_painter.dart
 7. widgets/theme_controller.dart</title></g><text x="658.0" y="2172.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_panel.dart</text>
 <g class="badge incomingBadge">
   <path d="M 813.0,2289.0 L 825.0,2282.0 Q 828.0,2282.0 828.0,2285.0 L 828.0,2293.0 Q 828.0,2296.0 825.0,2296.0 Z" fill="#3b82f6"/>
@@ -11285,20 +11285,20 @@
 2. helpers/string_helper.dart
 3. widgets/sankey/sankey_colors.dart
 4. widgets/sankey/sankey_entry.dart
-5. widgets/sankey/sankey_helper.dart</title></g><text x="594.0" y="10460.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">__sankey_painter.dart</text>
+5. widgets/sankey/sankey_helper.dart</title></g><text x="594.0" y="10460.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_painter.dart</text>
 <g class="badge incomingBadge">
   <path d="M 749.0,10487.0 L 761.0,10480.0 Q 764.0,10480.0 764.0,10483.0 L 764.0,10491.0 Q 764.0,10494.0 761.0,10494.0 Z" fill="#3b82f6"/>
-  <text x="759.32" y="10488.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. widgets/sankey/__sankey_painter.dart</title></g><g class="badge outgoingBadge">
+  <text x="759.32" y="10488.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. widgets/sankey/sankey_painter.dart</title></g><g class="badge outgoingBadge">
   <path d="M 765.0,10498.0 L 753.0,10491.0 Q 750.0,10491.0 750.0,10494.0 L 750.0,10502.0 Q 750.0,10505.0 753.0,10505.0 Z" fill="#10b981"/>
   <text x="754.68" y="10499.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. helpers/constants.dart
 2. widgets/sankey/sankey_entry.dart</title></g><text x="594.0" y="10492.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 749.0,10519.0 L 761.0,10512.0 Q 764.0,10512.0 764.0,10515.0 L 764.0,10523.0 Q 764.0,10526.0 761.0,10526.0 Z" fill="#3b82f6"/>
-  <text x="759.32" y="10520.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. widgets/sankey/__sankey_painter.dart</title></g><text x="594.0" y="10524.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_colors.dart</text>
+  <text x="759.32" y="10520.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. widgets/sankey/sankey_painter.dart</title></g><text x="594.0" y="10524.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_colors.dart</text>
 <g class="badge incomingBadge">
   <path d="M 749.0,10551.0 L 761.0,10544.0 Q 764.0,10544.0 764.0,10547.0 L 764.0,10555.0 Q 764.0,10558.0 761.0,10558.0 Z" fill="#3b82f6"/>
-  <text x="759.32" y="10552.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. widgets/sankey/__sankey_painter.dart
-2. widgets/sankey/sankey_helper.dart</title></g><text x="594.0" y="10556.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_entry.dart</text>
+  <text x="759.32" y="10552.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. widgets/sankey/sankey_helper.dart
+2. widgets/sankey/sankey_painter.dart</title></g><text x="594.0" y="10556.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">sankey_entry.dart</text>
 <g class="badge incomingBadge">
   <path d="M 861.0,5583.0 L 873.0,5576.0 Q 876.0,5576.0 876.0,5579.0 L 876.0,5587.0 Q 876.0,5590.0 873.0,5590.0 Z" fill="#3b82f6"/>
   <text x="871.32" y="5584.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. views/data_file_controller.dart</title></g><g class="badge outgoingBadge">

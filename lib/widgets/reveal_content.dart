@@ -33,6 +33,7 @@ class RevealContentState extends State<RevealContent> {
     );
   }
 
+  /// Cycles to the next widget in [RevealContent.widgets] and wraps at the end.
   void _toggleReveal() {
     setState(() {
       _showItem++;

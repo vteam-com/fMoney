@@ -117,6 +117,7 @@ class TransactionCard extends StatelessWidget {
   }
 }
 
+/// Builds an adaptive box with title, count, and content.
 Widget buildAdaptiveBox({
   required final BuildContext context,
   required final String title,

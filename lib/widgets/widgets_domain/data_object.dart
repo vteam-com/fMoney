@@ -114,6 +114,7 @@ class DataObject extends DataInterface {
     return widgets;
   }
 
+  /// Builds a name/value widget for a specific [fieldDefinition] on [objectInstance].
   Widget buildWidgetNameValueFromFieldDefinition({
     required final DataObject objectInstance,
     required final Field<dynamic> fieldDefinition,
@@ -231,12 +232,15 @@ class DataObject extends DataInterface {
     }
   }
 
+  /// Returns the field definitions for this object instance.
   FieldDefinitions get fieldDefinitions => <Field<dynamic>>[];
 
+  /// Returns the subset of fields that should be shown in detail panels.
   FieldDefinitions getFieldDefinitionsForPanel() {
     return fieldDefinitions.where((Field<dynamic> element) => element.useAsDetailPanels(this)).toList();
   }
 
+  /// Returns a diff between stashed values and current values for this object.
   MyJson getMutatedDiff<T>() {
     final MyJson afterEditing = getPersistableJSon();
     return myJsonDiff(
@@ -245,6 +249,7 @@ class DataObject extends DataInterface {
     );
   }
 
+  /// Returns a color representing the current mutation state.
   Color getMutationColor() {
     switch (mutation) {
       case MutationType.inserted:
@@ -281,8 +286,10 @@ class DataObject extends DataInterface {
     return 'Id=$uniqueId'; // By default the ID is the best unique way
   }
 
+  /// True if this object was modified.
   bool get isChanged => mutation == MutationType.changed;
 
+  /// Returns true if [moneyObject] has any persisted changes compared to stashed values.
   static bool isDataModified(DataObject moneyObject) {
     final MyJson afterEditing = moneyObject.getPersistableJSon();
     final MyJson diff = myJsonDiff(
@@ -292,14 +299,18 @@ class DataObject extends DataInterface {
     return diff.keys.isNotEmpty;
   }
 
+  /// True if this object is marked as deleted.
   bool get isDeleted => mutation == MutationType.deleted;
 
+  /// True if this object is newly inserted.
   bool get isInserted => mutation == MutationType.inserted;
 
+  /// Returns true if any fields differ from the stashed values.
   bool isMutated<T>() {
     return getMutatedDiff<T>().keys.isNotEmpty;
   }
 
+  /// Mutates a field by name and optionally triggers balance recalculation.
   void mutateField(
     final String fieldName,
     final dynamic newValue,
@@ -320,6 +331,7 @@ class DataObject extends DataInterface {
     }
   }
 
+  /// Returns a rollup object with fields common across [moneyObjectInstances].
   DataObject rollup(List<DataObject> moneyObjectInstances) {
     if (moneyObjectInstances.isEmpty) {
       return DataObject();
@@ -339,6 +351,7 @@ class DataObject extends DataInterface {
     return DataObject.fromJSon(commonJson, 0);
   }
 
+  /// Stashes current persisted values as the baseline for mutation tracking.
   void stashValueBeforeEditing() {
     if (valueBeforeEdit == null) {
       valueBeforeEdit = getPersistableJSon();
@@ -347,6 +360,7 @@ class DataObject extends DataInterface {
     }
   }
 
+  /// Returns the persisted JSON for this object as a string.
   String toJsonString() {
     return getPersistableJSon().toString();
   }
@@ -376,6 +390,7 @@ class DataObject extends DataInterface {
     assert(false, 'derived class must implement uniqueId');
   }
 
+  /// Builds a compact name/value row used by detail panels.
   Widget _buildNameValuePair(
     Field<dynamic> fieldDefinition,
     final dynamic fieldValue,

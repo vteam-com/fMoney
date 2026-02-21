@@ -31,6 +31,7 @@ void importQIF(final BuildContext context, final String filePath) {
       });
 }
 
+/// Loads QIF data from lines and returns ImportData with parsed entries.
 ImportData loadQIF(final List<String> lines) {
   final ImportData importData = ImportData();
 

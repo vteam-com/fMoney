@@ -50,6 +50,7 @@ class DataFileController extends GetxController {
   // Tracking changes
   DataMutations trackMutations = DataMutations();
 
+  /// Closes the current data file and resets file state.
   void closeFile([bool rebuild = true]) {
     keepUnused(rebuild);
     Data().close();
@@ -58,15 +59,18 @@ class DataFileController extends GetxController {
     isLoading.value = false;
   }
 
+  /// Resets file state to untitled when file is closed.
   void dataFileIsClosed() {
     currentLoadedFileName.value = Constants.untitledFileName;
     currentLoadedFileDateTime.value = null;
   }
 
+  /// Returns default folder path for saving files with given name.
   Future<String> defaultFolderToSaveTo(final String defaultFileName) async {
     return MyFileSystems.append('.', defaultFileName);
   }
 
+  /// Generates next folder path for saving based on current file location.
   Future<String> generateNextFolderToSaveTo() async {
     if (currentLoadedFileName.value.isNotEmpty && currentLoadedFileName.value != Constants.untitledFileName) {
       final String extension = p.extension(currentLoadedFileName.value);
@@ -77,10 +81,13 @@ class DataFileController extends GetxController {
     return '.';
   }
 
+  /// Returns true if current file is untitled (no file loaded).
   bool get isUntitled => currentLoadedFileName.value == Constants.untitledFileName;
 
+  /// Returns string representation of last update timestamp.
   String get lastUpdateAsString => '${trackMutations.lastDateTimeChanged}';
 
+  /// Loads demo data for testing and demonstration purposes.
   Future<void> loadDemoData() async {
     isLoading.value = true;
     DataSimulator().generateData();
@@ -88,6 +95,7 @@ class DataFileController extends GetxController {
     isLoading.value = false;
   }
 
+  /// Loads data file from specified data source.
   Future<bool> loadFile(final DataSource dataSource) async {
     this.closeFile(false); // ensure that we closed current file and state
 
@@ -112,11 +120,12 @@ class DataFileController extends GetxController {
     }
   }
 
+  /// Loads data file from specified data source path.
   Future<bool> loadFileFromPath(final DataSource dataSource) async {
     return await loadFile(dataSource);
   }
 
-  // Async method to fetch data
+  /// Loads the last saved file from preferences.
   Future<void> loadLastFileSaved() async {
     try {
       isLoading.value = true;
@@ -147,6 +156,7 @@ class DataFileController extends GetxController {
     }
   }
 
+  /// Creates a new untitled data file with default account.
   void onFileNew() async {
     this.closeFile();
 
@@ -161,6 +171,7 @@ class DataFileController extends GetxController {
     );
   }
 
+  /// Opens file picker to select and load a data file.
   Future<bool> onFileOpen() async {
     FilePickerResult? pickerResult;
 
@@ -225,6 +236,7 @@ class DataFileController extends GetxController {
     return false;
   }
 
+  /// Saves current data to CSV file format.
   void onSaveToCsv() async {
     final String fullPathToFileName = await MoneyDataIO().saveToCsv(Data());
 
@@ -233,6 +245,7 @@ class DataFileController extends GetxController {
     trackMutations.reset();
   }
 
+  /// Saves current data to SQL database file format.
   Future<bool> onSaveToSql() async {
     String fileNameAndPath = currentLoadedFileName.value;
 
@@ -257,15 +270,18 @@ class DataFileController extends GetxController {
     return result;
   }
 
+  /// Shows the current file location in system file manager.
   void onShowFileLocation() async {
     final String path = await generateNextFolderToSaveTo();
     showLocalFolder(path);
   }
 
+  /// Sets the current loaded file name and updates MRU list.
   void setCurrentFileName(final String filenameLoaded) {
     currentLoadedFileName.value = filenameLoaded;
     DataAccess.addToMRU(filenameLoaded);
   }
 
+  /// Returns the singleton DataFileController instance.
   static DataFileController get to => Get.find();
 }

@@ -397,6 +397,7 @@ class Account extends DataObject {
   static final Fields<Account> _fields = Fields<Account>();
   static final Fields<Account> _fieldsForColumns = Fields<Account>();
 
+  /// Returns field definitions for Account entities.
   static Fields<Account> get fields {
     if (_fields.isEmpty) {
       final Account tmp = Account.fromJson(<String, dynamic>{});
@@ -428,6 +429,7 @@ class Account extends DataObject {
     return _fields;
   }
 
+  /// Returns field definitions for Account column view.
   static Fields<Account> get fieldsForColumnView {
     if (_fieldsForColumns.isEmpty) {
       final Account tmp = Account.fromJson(<String, dynamic>{});
@@ -446,54 +448,66 @@ class Account extends DataObject {
     return _fieldsForColumns;
   }
 
+  /// Returns the account currency as a display string.
   String getAccountCurrencyAsText() {
     return getCurrencyAsString(fieldCurrency.value);
   }
 
+  /// Returns a widget displaying the account currency.
   Widget getAccountCurrencyAsWidget() {
     return buildCurrencyWidget(getAccountCurrencyAsText());
   }
 
+  /// Returns the currency ratio for the account's currency.
   double getCurrencyRatio() {
     return DataObject.getCurrencyRatio(fieldCurrency.value);
   }
 
+  /// Returns the account name; empty string if null.
   static String getName(final Account? instance) {
     return instance == null ? '' : instance.fieldName.value;
   }
 
+  /// True if the account is an active bank account.
   bool isActiveBankAccount() {
     return isBankAccount() && isOpen;
   }
 
+  /// True if the account is an asset account.
   bool get isAssetAccount {
     return fieldType.value == AccountType.asset;
   }
 
+  /// True if the account is a bank account.
   bool isBankAccount() {
     return fieldType.value == AccountType.savings ||
         fieldType.value == AccountType.checking ||
         fieldType.value == AccountType.cash;
   }
 
+  /// Returns true if [bitIndex] is set in [value].
   bool isBitOn(final int value, final int bitIndex) {
     return (value & bitIndex) == bitIndex;
   }
 
+  /// True if the account is closed.
   bool isClosed() {
     return isBitOn(fieldFlags.value, AccountFlags.closed.index);
   }
 
+  /// True if the account is a fake/internal account.
   bool isFakeAccount() {
     return fieldType.value == AccountType.notUsed_7 || fieldType.value == AccountType.categoryFund;
   }
 
+  /// True if the account is an investment account.
   bool isInvestmentAccount() {
     return fieldType.value == AccountType.investment ||
         fieldType.value == AccountType.retirement ||
         fieldType.value == AccountType.moneyMarket;
   }
 
+  /// True if the account matches the user's filter choices (including closed).
   bool get isMatchingUserChoiceIncludingClosedAccount {
     if (PreferenceController.to.includeClosedAccounts) {
       return true;
@@ -501,10 +515,12 @@ class Account extends DataObject {
     return isOpen;
   }
 
+  /// True if the account is open.
   bool get isOpen {
     return !isClosed();
   }
 
+  /// Sets the open/closed state of the account.
   set isOpen(bool value) {
     if (value) {
       fieldFlags.value &= ~AccountFlags.closed.index; // Remove the bit at the specified position
@@ -513,6 +529,7 @@ class Account extends DataObject {
     }
   }
 
+  /// Returns true if the account type matches any of the given [types].
   bool matchType(final List<AccountType> types) {
     if (types.isEmpty) {
       // All accounts except the fake ones

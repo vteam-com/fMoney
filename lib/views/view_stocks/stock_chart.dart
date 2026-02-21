@@ -132,6 +132,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     }
   }
 
+  /// Converts price history cache into chart data points for visualization.
   void fromPriceHistoryToChartDataPoints(StockPriceHistoryCache priceCache) {
     if (priceCache.status == StockLookupStatus.validSymbol || priceCache.status == StockLookupStatus.foundInCache) {
       final List<FlSpot> tmpDataPoints = <FlSpot>[];
@@ -156,6 +157,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     }
   }
 
+  /// Inserts a point for the first activity date if the price history starts later.
   void _adjustMissingDataPointInThePast() {
     for (final ChartEvent activity in widget.holdingsActivities.reversed) {
       if (dataPoints.isEmpty || activity.dates.min!.millisecondsSinceEpoch < dataPoints.first.x) {
@@ -170,6 +172,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     }
   }
 
+  /// Builds the stock chart with overlays for splits, activities, dividends, and current price.
   Widget _buildChart() {
     // Date ascending
     dataPoints.sort((FlSpot a, FlSpot b) => a.x.compareTo(b.x));
@@ -250,6 +253,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     );
   }
 
+  /// Builds the current price display and refresh button.
   Widget _buildPriceRefreshButton() {
     if (dataPoints.isEmpty) {
       return CenterMessage(
@@ -320,6 +324,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     );
   }
 
+  /// Fetches stock split history from TwelveData and converts it into [StockSplit] models.
   Future<List<StockSplit>> _fetchSplitsFromTwelveData(String symbol) async {
     final List<StockSplit> splitsFound = <StockSplit>[];
 
@@ -367,6 +372,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     return splitsFound;
   }
 
+  /// Fetches stock split history from Yahoo Finance and converts it into [StockSplit] models.
   Future<List<StockSplit>> _fetchStockSplitsFromYahoo(String symbol) async {
     final List<StockSplit> splitsFound = <StockSplit>[];
 
@@ -462,6 +468,7 @@ void _paintLine(
   canvas.drawRect(rect, _paint);
 }
 
+/// Paints a text label at the given canvas coordinates.
 void _paintLabel(
   ui.Canvas canvas,
   String text,

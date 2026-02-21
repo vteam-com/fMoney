@@ -83,6 +83,7 @@ class Payee extends DataObject {
 
   static final Fields<Payee> _fields = Fields<Payee>();
 
+  /// Returns the field definitions for Payee entities.
   static Fields<Payee> get fields {
     if (_fields.isEmpty) {
       final Payee tmp = Payee.fromJson(<String, dynamic>{});

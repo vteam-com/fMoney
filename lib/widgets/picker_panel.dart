@@ -15,6 +15,7 @@ const double _itemDividerAlpha = 0.2;
 const double _itemDividerWidth = 1;
 const int _scrollOffsetItems = 2;
 
+/// Shows a popup selection dialog with optional letter picker.
 void showPopupSelection({
   required BuildContext context,
   required String title,
@@ -110,6 +111,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Applies text and letter filters to produce [filteredList].
   void _applyFilters() {
     setState(() {
       filteredList = widget.options.where((String option) {
@@ -124,6 +126,7 @@ class PickerPanelState extends State<PickerPanel> {
     });
   }
 
+  /// Builds the filter text input used to narrow down available options.
   Widget _buildFilterTextField() {
     return MyTextInput(
       key: MyKeys.keyHeaderFilterTextInput,
@@ -137,6 +140,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Builds the list view of currently filtered items.
   Widget _buildFilteredList(BuildContext _) {
     return ListView.builder(
       itemCount: filteredList.length,
@@ -150,6 +154,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Builds the optional letter picker to quickly filter by starting letter.
   Widget _buildLetterPicker() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
@@ -172,6 +177,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Builds the main picker content including the filtered list and optional letter picker.
   Widget _buildPickerContent(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -181,6 +187,7 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Builds a single selectable picker item row.
   Widget _buildPickerItem(
     BuildContext context,
     String label,
@@ -217,12 +224,14 @@ class PickerPanelState extends State<PickerPanel> {
     );
   }
 
+  /// Initializes the filtered list from the full set of options.
   void _initializeFilters() {
     setState(() {
       filteredList = widget.options;
     });
   }
 
+  /// Populates the unique first-letter list used by the letter picker.
   void _populateUniqueLetters() {
     for (final String option in widget.options) {
       if (option.isNotEmpty) {
@@ -234,6 +243,7 @@ class PickerPanelState extends State<PickerPanel> {
     }
   }
 
+  /// Schedules a scroll jump so the selected item is visible when the panel opens.
   void _scheduleScrollToSelectedItem() {
     if (widget.selectedItem.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

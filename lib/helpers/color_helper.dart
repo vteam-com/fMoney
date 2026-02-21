@@ -129,6 +129,7 @@ Color getColorFromString(final String hexColor) {
   return Colors.transparent;
 }
 
+/// Returns the color scheme from the current theme.
 ColorScheme getColorTheme(final BuildContext context) {
   return getTheme(context).colorScheme;
 }
@@ -145,14 +146,17 @@ Pair<double, double> getHueAndBrightnessFromColor(Color color) {
   return Pair<double, double>(hue, brightness);
 }
 
+/// Returns the text theme from the current theme.
 TextTheme getTextTheme(final BuildContext context) {
   return getTheme(context).textTheme;
 }
 
+/// Returns the current theme data.
 ThemeData getTheme(final BuildContext context) {
   return Theme.of(context);
 }
 
+/// Converts HSV color values to RGB Color.
 Color hsvToColor(double hue, double brightness) {
   final Color color = HSVColor.fromAHSV(_maxUnit, hue, _maxUnit, _maxUnit).toColor();
   return adjustBrightness(color, brightness);

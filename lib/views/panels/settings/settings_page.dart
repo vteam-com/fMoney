@@ -15,6 +15,7 @@ class SettingsPage extends GetView<GetxController> {
   /// Constructs a `SettingsPage` widget with the provided [key].
   const SettingsPage({super.key});
 
+  /// Builds the settings page UI.
   @override
   Widget build(BuildContext context) {
     return myScaffold(
@@ -50,6 +51,7 @@ class SettingsPage extends GetView<GetxController> {
     );
   }
 
+  /// Builds the currencies panel showing configured currencies and their display formats.
   Widget _buildCurrenciesPanel(final BuildContext context) {
     final List<Widget> widgets = <Widget>[];
 

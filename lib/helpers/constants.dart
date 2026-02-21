@@ -144,22 +144,26 @@ class IntValues {
   static const int minBitCount = 1;
   static const int maxBitCount = 64;
 
+  /// Returns maximum signed integer value for specified bit count.
   static int maxSigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (1 << (bitCount - 1)) - 1;
   }
 
   // ...
+  /// Returns maximum unsigned integer value for specified bit count.
   static int maxUnsigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (1 << bitCount) - 1;
   }
 
+  /// Returns minimum signed integer value for specified bit count.
   static int minSigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (-1 << (bitCount - 1)) - 1;
   }
 
+  /// Returns minimum unsigned integer value for specified bit count.
   static int minUnsigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return -1 << (bitCount - 1);
@@ -189,11 +193,13 @@ enum CashflowViewAs { sankey, netWorthOverTime, budget, trend }
 enum BudgetViewAs { list, chart, recurrences, suggestions }
 
 extension ViewExtension on ViewId {
+  /// Returns preference ID for the view with specified suffix.
   String getViewPreferenceId(final String suffix) {
     // ignore: unnecessary_this
     return '${this.name.toLowerCase()}_$suffix';
   }
 
+  /// Returns the IconData for the view.
   IconData getIconData() {
     switch (this) {
       case ViewId.viewCashFlow:
@@ -225,6 +231,7 @@ extension ViewExtension on ViewId {
     }
   }
 
+  /// Returns an Icon widget for the view.
   Icon getIcon() {
     return Icon(getIconData());
   }

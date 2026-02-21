@@ -32,6 +32,7 @@ class DistributionBar extends StatefulWidget {
 
   final List<Distribution> segments;
 
+  /// Creates state for the distribution bar.
   @override
   State<DistributionBar> createState() => _DistributionBarState();
 }
@@ -40,6 +41,7 @@ class _DistributionBarState extends State<DistributionBar> {
   final List<Widget> detailRowWidgets = <Widget>[];
   final List<Widget> segmentWidgets = <Widget>[];
 
+  /// Builds the distribution bar and details list.
   @override
   Widget build(BuildContext context) {
     detailRowWidgets.clear();
@@ -71,6 +73,7 @@ class _DistributionBarState extends State<DistributionBar> {
     );
   }
 
+  /// Builds a single detail row showing category name, amount, and recurring toggle.
   Widget _buildDetailRow(
     final BuildContext _,
     final Category category,
@@ -106,6 +109,7 @@ class _DistributionBarState extends State<DistributionBar> {
     );
   }
 
+  /// Builds the horizontal stacked bar representing category percentages.
   Widget _buildHorizontalBar() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_barRadius), // Radius for rounded ends
@@ -116,6 +120,7 @@ class _DistributionBarState extends State<DistributionBar> {
     );
   }
 
+  /// Builds the list of detail rows under the horizontal bar.
   Widget _buildRowOfDetails() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,6 +128,7 @@ class _DistributionBarState extends State<DistributionBar> {
     );
   }
 
+  /// Builds the segment widgets and detail rows for the current segments.
   void _buildWidgets(final BuildContext context) {
     for (final Distribution segment in widget.segments) {
       Color backgroundColorOfSegment = segment.category.getColorOrAncestorsColor();
@@ -160,6 +166,7 @@ class _DistributionBarState extends State<DistributionBar> {
     }
   }
 
+  /// Builds the percentage overlay text for a segment.
   Widget _builtSegmentOverlayText(final double percentage, final Color color) {
     final int value = (percentage * _percentageScale).toInt();
     if (value <= _zeroInt) {

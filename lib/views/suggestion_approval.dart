@@ -139,6 +139,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
     );
   }
 
+  /// Animates the row out and invokes the approve callback after a short delay.
   void _fadeOutAndApproved() {
     _animationController.forward().then((_) {
       setState(() {
@@ -153,6 +154,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
     });
   }
 
+  /// Shows a dialog with the transaction split list and an option to add a split.
   void _showTransactionSplits(BuildContext context) {
     showDialog<void>(
       context: context,

@@ -81,11 +81,13 @@ class DateRange {
   @override
   String toString() => '${dateToString(min)} : ${dateToString(max)}';
 
+  /// Clears the date range by setting min and max to null.
   void clear() {
     min = null;
     max = null;
   }
 
+  /// Returns the duration of the date range in days.
   int get durationInDays {
     if (max == null || min == null) {
       return _zeroInt;
@@ -103,6 +105,7 @@ class DateRange {
     return difference.inDays;
   }
 
+  /// Returns the duration in days as formatted text (singular/plural).
   String get durationInDaysText => getSingularPluralText(
     getIntAsText(durationInDays),
     durationInDays,
@@ -110,10 +113,12 @@ class DateRange {
     'days',
   );
 
+  /// Returns the duration of the date range in months (approximate).
   int get durationInMonths {
     return durationInDays ~/ _daysPerMonthApprox; // Close enough
   }
 
+  /// Returns the duration of the date range in years.
   int get durationInYears {
     if (hasNullDates) {
       return _zeroInt;
@@ -122,6 +127,7 @@ class DateRange {
     return (_valueOrZeroIfNull(max!.year) - _valueOrZeroIfNull(min!.year)) + _rangeStep;
   }
 
+  /// Returns the duration in years as formatted text (singular/plural).
   String get durationInYearsText => getSingularPluralText(
     getIntAsText(durationInYears),
     durationInYears,
@@ -129,6 +135,7 @@ class DateRange {
     'years',
   );
 
+  /// Ensures both min and max dates are not null, sets to current date if both null.
   void ensureNoNullDates() {
     min ??= max;
     max ??= min;
@@ -138,8 +145,10 @@ class DateRange {
     }
   }
 
+  /// Returns true if either min or max date is null.
   bool get hasNullDates => min == null || max == null;
 
+  /// Expands the date range to include the specified date.
   void inflate(final DateTime? dateTime) {
     if (dateTime != null) {
       min ??= dateTime;
@@ -155,8 +164,10 @@ class DateRange {
     }
   }
 
+  /// Returns true if date is strictly between min and max (exclusive).
   bool isBetween(final DateTime date) => min!.isBefore(date) && max!.isAfter(date);
 
+  /// Returns true if date is between or equal to min and max (inclusive).
   bool isBetweenEqual(final DateTime? date) {
     if (date == null) {
       return false;
@@ -167,8 +178,10 @@ class DateRange {
     return isBetween(date);
   }
 
+  /// Returns string representation with dates and duration in days.
   String toStringDays() => '${dateToString(min)} ($durationInDaysText) ${dateToString(max)}';
 
+  /// Returns string representation of duration (years or days).
   String toStringDuration() {
     if (durationInDays >= _daysPerYear) {
       return durationInYearsText;
@@ -176,8 +189,10 @@ class DateRange {
     return durationInDaysText;
   }
 
+  /// Returns string representation with years and duration in years.
   String toStringYears() => '${dateToYearString(min)} ($durationInYearsText) ${dateToYearString(max)}';
 
+  /// Returns [value] or zero if it is null.
   int _valueOrZeroIfNull(final int? value) {
     if (value == null) {
       return _zeroInt;
@@ -204,8 +219,10 @@ class NumRange {
     }
   }
 
+  /// Returns formatted description as integer currency.
   String get descriptionAsInt => _getDescription(validIntToCurrency(min), validIntToCurrency(max));
 
+  /// Returns formatted description as double currency.
   String get descriptionAsMoney => _getDescription(validDoubleToCurrency(min), validDoubleToCurrency(max));
 
   /// Increments the range by one, if possible.
@@ -216,6 +233,7 @@ class NumRange {
     }
   }
 
+  /// Expands the numeric range to include the specified value.
   void inflate(num value) {
     if (value < min) {
       min = value;
@@ -241,10 +259,12 @@ class NumRange {
 }
 
 extension Range on num {
+  /// Returns true if number is strictly between from and to (exclusive).
   bool isBetween(final num from, final num to) {
     return from < this && this < to;
   }
 
+  /// Returns true if number is between or equal to from and to (inclusive).
   bool isBetweenOrEqual(final num from, final num to) {
     return from < this && this < to;
   }

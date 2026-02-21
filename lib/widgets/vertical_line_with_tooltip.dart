@@ -27,6 +27,7 @@ class VerticalLineWithTooltip extends StatelessWidget {
     return Tooltip(message: tooltip, child: _build());
   }
 
+  /// Builds the vertical line widget, using a fallback size when height is zero.
   Widget _build() {
     if (height == 0) {
       // we do this just to get the tooltip to work

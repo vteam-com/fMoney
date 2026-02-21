@@ -207,8 +207,10 @@ class Event extends DataObject {
   static final Fields<Event> _fields = Fields<Event>();
   static final Fields<Event> _fieldsColumView = Fields<Event>();
 
+  /// Returns the category name for this event.
   String get categoryName => data!.getCategoryNameFromId(this.fieldCategoryId.value);
 
+  /// Updates the category for an event and notifies listeners.
   static void changeCategory(Event item, final int categoryId) {
     // record the change
     item.stashValueBeforeEditing();
@@ -225,17 +227,22 @@ class Event extends DataObject {
     );
   }
 
+  /// Returns the event duration as a [DateRange].
   DateRange get durationInDateRange => DateRange(
     min: fieldDateBegin.value,
     max: fieldDateEnd.value ?? DateTime.now(),
   );
 
+  /// Returns the event duration in days.
   int get durationInDays => durationInDateRange.durationInDays;
 
+  /// Returns the event duration as a display string.
   String get durationAsString => durationInDateRange.toStringDuration();
 
+  /// Returns the event name or a generated fallback.
   String get eventName => fieldName.value.isEmpty ? 'Event $uniqueId' : fieldName.value;
 
+  /// Returns the field definitions for Event entities.
   static Fields<Event> get fields {
     if (_fields.isEmpty) {
       final Event tmpInstance = Event._static(
@@ -260,6 +267,7 @@ class Event extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for Event column view.
   static Fields<Event> get fieldsForColumnView {
     if (_fieldsColumView.isEmpty) {
       final Event tmpInstance = Event._static(
@@ -283,6 +291,7 @@ class Event extends DataObject {
     return _fieldsColumView;
   }
 
+  /// Creates a date field definition with picker/editor and serialization behavior.
   static FieldDate _createDateField(
     String name,
     String serializeName,

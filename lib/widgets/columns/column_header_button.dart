@@ -6,6 +6,7 @@ import 'package:money/widgets/columns/column_content_center.dart';
 const double _headerHorizontalPadding = 3;
 const double _sortIconSize = 20;
 
+/// Builds a column header button with optional sorting/filter indicators.
 Widget buildColumnHeaderButton({
   required BuildContext context,
   required String text,
@@ -47,6 +48,7 @@ Widget buildColumnHeaderButton({
   );
 }
 
+/// Builds the header content row with alignment and optional sort/filter adorners.
 Widget _buildTextAndSortAndFilter(
   BuildContext context,
   TextAlign align,
@@ -98,6 +100,7 @@ Widget _buildTextAndSortAndFilter(
   }
 }
 
+/// Builds the trailing adorners for a header cell.
 Widget _buildAdorners(
   final SortIndicator sortIndicator,
   final bool hasFilters,
@@ -110,6 +113,7 @@ Widget _buildAdorners(
   );
 }
 
+/// Builds a sort icon widget with optional rotation for ascending state.
 Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
   switch (sortIndicator) {
     case SortIndicator.sortAscending:
@@ -128,6 +132,7 @@ Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
   }
 }
 
+/// Builds the filter icon adorner when filtering is active.
 Widget _buildAdornerFoFilter(final bool filterOn) {
   if (filterOn) {
     return const Icon(Icons.filter_alt_outlined, size: _sortIconSize);
@@ -135,6 +140,7 @@ Widget _buildAdornerFoFilter(final bool filterOn) {
   return const SizedBox();
 }
 
+/// Builds tooltip text describing the current sorting and filtering state.
 String _getTooltipText(final SortIndicator sortIndicator, final bool filterOn) {
   String tooltip = filterOn ? 'Filtering\n' : '';
 
@@ -151,6 +157,7 @@ String _getTooltipText(final SortIndicator sortIndicator, final bool filterOn) {
 
 enum SortIndicator { none, sortAscending, sortDescending }
 
+/// Returns a SortIndicator based on current sort and target column.
 SortIndicator getSortIndicator(
   final int currentSort,
   final int sortToMatch,

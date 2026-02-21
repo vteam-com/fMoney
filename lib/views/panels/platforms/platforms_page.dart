@@ -67,6 +67,7 @@ class PlatformsPage extends StatelessWidget {
     ),
   );
 
+  /// Builds a platform item widget with name, image, description, and URL.
   Widget paltformItem(
     final String name,
     final String image,

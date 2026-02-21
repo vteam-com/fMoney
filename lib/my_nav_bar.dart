@@ -61,6 +61,7 @@ class MyNavigationBar extends StatelessWidget {
     );
   }
 
+  /// Returns navigation destinations for bottom navigation bar.
   List<NavigationDestination> geMenuItemsFortNavBar() {
     return getAppBarDestinations()
         .map(
@@ -75,6 +76,7 @@ class MyNavigationBar extends StatelessWidget {
         .toList();
   }
 
+  /// Returns navigation destinations for navigation rail.
   List<NavigationRailDestination> geMenuItemsFortNavRail() {
     return getAppBarDestinations()
         .map(
@@ -87,6 +89,7 @@ class MyNavigationBar extends StatelessWidget {
         .toList();
   }
 
+  /// Returns list of navigation items for app bar destinations.
   List<MyNavigationItem> getAppBarDestinations() {
     final List<MyNavigationItem> appBarDestinations = <MyNavigationItem>[
       MyNavigationItem(

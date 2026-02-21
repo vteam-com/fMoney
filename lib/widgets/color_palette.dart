@@ -120,6 +120,7 @@ class ColorPalette extends StatelessWidget {
     );
   }
 
+  /// Builds a single labeled color swatch showing foreground-on-background contrast.
   Widget _buildColorBar(
     final BuildContext context,
     final Color foreground,

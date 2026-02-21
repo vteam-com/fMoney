@@ -15,6 +15,7 @@ import 'package:money/widgets/pure/snack_bar.dart';
 
 /// Represents money data io.
 class MoneyDataIO {
+  /// Loads data from file path based on file extension.
   Future<bool> loadFromPath(final Data data, final DataSource dateSource) async {
     try {
       final String fileExtension = MyFileSystems.getFileExtension(
@@ -56,6 +57,7 @@ class MoneyDataIO {
     return true;
   }
 
+  /// Loads data from SQLite database file.
   Future<bool> loadFromSql(
     final Data data, {
     required final String filePath,
@@ -109,6 +111,7 @@ class MoneyDataIO {
     return false;
   }
 
+  /// Validates database file path and returns valid path or null.
   Future<String?> validateDataBasePathIsValidAndExist(
     final String? filePath,
     final Uint8List fileBytes,
@@ -128,6 +131,7 @@ class MoneyDataIO {
     return null;
   }
 
+  /// Saves data to SQLite database file with completion callback.
   Future<bool> saveToSql(
     final Data data, {
     required final String filePath,
@@ -189,6 +193,7 @@ class MoneyDataIO {
 
   static const String mainFileName = 'mymoney.mmcsv';
 
+  /// Loads data from zipped CSV archive file.
   Future<void> loadFromZippedCsv(
     final Data data,
     String filePathToLoad,
@@ -206,6 +211,7 @@ class MoneyDataIO {
     loadFromArchive(data, archive);
   }
 
+  /// Loads data from archive containing multiple CSV files.
   void loadFromArchive(final Data data, final Archive archive) {
     // Extract the files and read the content
     for (ArchiveFile file in archive) {
@@ -284,6 +290,7 @@ class MoneyDataIO {
     }
   }
 
+  /// Extracts and returns content from a single zip archive file.
   String getZipSingleFileContent(ArchiveFile file) {
     try {
       final List<int> fileBytes = file.content as List<int>;
@@ -297,6 +304,7 @@ class MoneyDataIO {
     }
   }
 
+  /// Saves data to CSV format and returns the file path.
   Future<String> saveToCsv(final Data data) async {
     final String destinationFolder = await DataAccess.generateNextFolderToSaveTo();
     if (destinationFolder.isEmpty) {
@@ -317,6 +325,7 @@ class MoneyDataIO {
     return zipFileName;
   }
 
+  /// Creates and returns CSV zip archive as list of integers.
   List<int> getCsvZipAchieveListOfInt(Data data) {
     // Create the ZIP archive
     final Archive archive = Archive();
@@ -328,6 +337,7 @@ class MoneyDataIO {
     return zipBytes;
   }
 
+  /// Writes each data collection as CSV file to the archive.
   void writeEachFiles(Data data, Archive archive) {
     addCsvToArchive(archive, 'account_aliases.csv', data.accountAliases.toCSV());
     addCsvToArchive(archive, 'accounts.csv', data.accounts.toCSV());
@@ -352,6 +362,7 @@ class MoneyDataIO {
     addCsvToArchive(archive, 'transactions.csv', data.transactions.toCSV());
   }
 
+  /// Adds CSV content as file to the archive.
   void addCsvToArchive(
     final Archive archive,
     final String filename,

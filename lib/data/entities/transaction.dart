@@ -697,14 +697,19 @@ class Transaction extends DataObject implements MergeableItem {
 
   static final Fields<Transaction> _fields = Fields<Transaction>();
 
+  /// Returns the account name for this transaction.
   String get accountName => instanceOfAccount?.fieldName.value ?? '<Account???>';
 
+  /// Returns the transaction amount formatted as a string.
   String get amountAsString => fieldAmount.value.toString();
 
+  /// Returns the category instance for this transaction.
   Category? get category => DataAbstract.instance.getCategory(this.fieldCategoryId.value) as Category?;
 
+  /// Returns the category name for this transaction.
   String get categoryName => DataAbstract.instance.getCategoryNameFromId(this.fieldCategoryId.value);
 
+  /// Changes the category for the given transaction and notifies listeners.
   static void changeCategory(dynamic t, final int categoryId) {
     // record the change
     (t as Transaction).stashValueBeforeEditing();
@@ -780,6 +785,7 @@ class Transaction extends DataObject implements MergeableItem {
     }
   }
 
+  /// Returns true if this transaction transfers to the given account.
   bool containsTransferTo(dynamic a) {
     if (this.isSplit) {
       for (TransactionSplit s in this.splits) {
@@ -795,6 +801,7 @@ class Transaction extends DataObject implements MergeableItem {
     return false;
   }
 
+  /// Returns the currency code for this transaction.
   String get currency {
     if (this.instanceOfAccount == null || (this.instanceOfAccount as dynamic).fieldCurrency.value.isEmpty == true) {
       return Constants.defaultCurrency;
@@ -803,8 +810,10 @@ class Transaction extends DataObject implements MergeableItem {
     return (this.instanceOfAccount as dynamic).fieldCurrency.value.toString();
   }
 
+  /// Returns the transaction date as a YYYY-MM-DD string.
   String get dateTimeAsString => dateToString(fieldDateTime.value);
 
+  /// Returns the field definitions for Transaction entities.
   static Fields<Transaction> get fields {
     if (_fields.isEmpty) {
       final Transaction tmp = Transaction(date: DateTime.now());
@@ -837,6 +846,7 @@ class Transaction extends DataObject implements MergeableItem {
     return _fields;
   }
 
+  /// Returns the field definitions for Transaction column view.
   static Fields<Transaction> get fieldsForColumnView {
     final Transaction tmp = Transaction(date: DateTime.now());
     return Fields<Transaction>()..setDefinitions(<Field<dynamic>>[
@@ -854,6 +864,7 @@ class Transaction extends DataObject implements MergeableItem {
     ]);
   }
 
+  /// Converts a native amount to normalized currency using the account ratio.
   double getNormalizedAmount(double nativeValue) {
     // Convert the value to USD
     if (instanceOfAccount == null || (instanceOfAccount as dynamic).getCurrencyRatio() as num == _zeroDouble) {
@@ -862,6 +873,7 @@ class Transaction extends DataObject implements MergeableItem {
     return nativeValue * instanceOfAccount!.getCurrencyRatio();
   }
 
+  /// Returns the investment associated with this transaction, creating one if needed.
   Investment getOrCreateInvestment() {
     instanceOfInvestment ??=
         DataAbstract.instance.getInvestment(this.uniqueId) as Investment? ??
@@ -876,6 +888,7 @@ class Transaction extends DataObject implements MergeableItem {
     return instanceOfInvestment!;
   }
 
+  /// Returns a caption using either payee information or transfer information.
   String getPayeeOrTransferCaption({final bool showAccount = false}) {
     final Investment? investment = instanceOfInvestment;
     final double amount = this.fieldAmount.value.asDouble();
@@ -902,6 +915,7 @@ class Transaction extends DataObject implements MergeableItem {
     return displayName.isEmpty ? '<Payee???>' : displayName;
   }
 
+  /// Builds a display caption for a transfer.
   String getTransferCaption(
     final dynamic relatedAccount,
     final bool isFrom, {
@@ -914,16 +928,19 @@ class Transaction extends DataObject implements MergeableItem {
     return caption;
   }
 
+  /// Returns the account instance for this transaction.
   Account? get instanceOfAccount {
     /// cache instances of related MoneyObjects
     _instanceOfAccount ??= DataAbstract.instance.getAccount(this.fieldAccountId.value) as Account?;
     return _instanceOfAccount as Account?;
   }
 
+  /// Sets the cached account instance for this transaction.
   set instanceOfAccount(Account? value) {
     _instanceOfAccount = value;
   }
 
+  /// Returns the transfer instance for this transaction, creating linkage if needed.
   Transfer? get instanceOfTransfer {
     if (_instanceOfTransfer == null && isTransfer) {
       final Transaction? relatedTransaction =
@@ -938,18 +955,24 @@ class Transaction extends DataObject implements MergeableItem {
     return _instanceOfTransfer;
   }
 
+  /// Sets the cached transfer instance for this transaction.
   set instanceOfTransfer(Transfer? value) {
     _instanceOfTransfer = value;
   }
 
+  /// True if this transaction belongs to an asset account.
   bool get isAssetAccount => DataAbstract.instance.isAccountAsset(fieldAccountId.value);
 
+  /// True if this transaction is eligible to be included in budgets.
   bool get isCandidateForBudget => this.fieldCategoryId.value != _unsetId && (this.isExpense || this.isIncome);
 
+  /// True if this transaction is categorized as an expense.
   bool get isExpense => DataAbstract.instance.isCategoryExpense(fieldCategoryId.value);
 
+  /// True if this transaction is categorized as an income.
   bool get isIncome => DataAbstract.instance.isCategoryIncome(fieldCategoryId.value);
 
+  /// Returns true if this transaction or any split matches a category in [categoriesToMatch].
   bool isMatchingAnyOfTheseCategories(List<int> categoriesToMatch) {
     if (categoriesToMatch.contains(fieldCategoryId.value)) {
       return true;
@@ -965,10 +988,13 @@ class Transaction extends DataObject implements MergeableItem {
     return false;
   }
 
+  /// True if this transaction contains splits.
   bool get isSplit => this.splits.isNotEmpty;
 
+  /// True if this transaction is linked to another transaction as a transfer.
   bool get isTransfer => fieldTransfer.value != _unsetId;
 
+  /// Returns a one-line description combining payee/transfer caption and category.
   String get oneLinePayeeAndDescription {
     String description = this.getPayeeOrTransferCaption(showAccount: true);
 
@@ -979,6 +1005,7 @@ class Transaction extends DataObject implements MergeableItem {
     return description;
   }
 
+  /// Returns the payee name for this transaction.
   String get payeeName => DataAbstract.instance.getPayeeName(fieldPayee.value);
 
   /// Find all the objects referenced by this Transaction and wire them back up
@@ -1070,8 +1097,10 @@ class Transaction extends DataObject implements MergeableItem {
     // }
   }
 
+  /// Returns the account on the other side of a transfer, if any.
   dynamic get relatedAccount => (instanceOfTransfer?.relatedTransaction as dynamic)?.instanceOfAccount;
 
+  /// Returns a display name for a related account, including closed-account marker.
   String relatedAccountName(dynamic relatedAccount) {
     if (relatedAccount == null) {
       return '<Account???>';
@@ -1084,6 +1113,7 @@ class Transaction extends DataObject implements MergeableItem {
     return name + relatedAccount.fieldName.value;
   }
 
+  /// Sorts transactions by date/time with ID as a tiebreaker.
   static int sortByDateTime(
     final dynamic a,
     final dynamic b,
@@ -1108,6 +1138,7 @@ class Transaction extends DataObject implements MergeableItem {
     }
   }
 
+  /// Builds a toggle button for transaction status.
   Widget _buildStatusButtonToggle() {
     return TextButton(
       style: OutlinedButton.styleFrom(

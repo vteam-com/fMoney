@@ -74,6 +74,7 @@ class PanelBudget extends StatefulWidget {
   @override
   State<PanelBudget> createState() => _PanelBudgetState();
 
+  /// Returns the number of years covered by the budget panel.
   int get numberOfYears => max(_minYears, maxYear - minYear);
 }
 
@@ -113,6 +114,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Calculates a descriptive accuracy string comparing budgeted vs actual amounts.
   String calculateBudgetAccuracy(double budgeted, double actual) {
     if (budgeted == _zeroDouble && actual == _zeroDouble) {
       return 'Both budgeted and actual amounts are zero. Accuracy is undefined.';
@@ -137,6 +139,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     return result;
   }
 
+  /// Initializes the budget items from data based on current filters.
   void initializeItems() {
     bool whereClause(Transaction t) {
       return t.isCandidateForBudget &&
@@ -173,12 +176,13 @@ class _PanelBudgetState extends State<PanelBudget> {
     _sort();
   }
 
+  /// Returns true if the panel is configured for income categories.
   bool get isForIncome => widget.categoryTypes.contains(CategoryType.income);
 
-  bool get isListEmpty {
-    return items.isEmpty;
-  }
+  /// Returns true if there are no budget items to display.
+  bool get isListEmpty => items.isEmpty;
 
+  /// Builds a section header widget with title and controls.
   Widget sectionHeader(final BuildContext context) {
     return Row(
       children: <Widget>[
@@ -219,8 +223,10 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Returns the sum of actual amounts across all categories per year.
   double get sumForAllCategoriesActual => (sumForAllCategories / widget.numberOfYears) / _monthsPerYear;
 
+  /// Builds a vertical line divider widget with specified color.
   Widget verticalLine(Color color) {
     return SizedBox(
       height: _verticalDividerHeight,
@@ -228,6 +234,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Builds the main panel content based on the current [panelType] selection.
   Widget _buildContent() {
     switch (panelType) {
       case BudgetViewAs.list:
@@ -258,6 +265,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     }
   }
 
+  /// Builds the panel layout with a section header above the active content.
   Widget _buildContentAsList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,6 +276,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Builds a condensed summary view optimized for small screen widths.
   Widget _buildContentForSmallScreen() {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: _smallScreenMaxWidth),
@@ -302,6 +311,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Builds the budget list view with sortable columns and a summary footer.
   Widget _buildList() {
     final Color dividersColor = Theme.of(context).dividerColor.withAlpha(_dividerAlpha);
     final double adjustValue = isForIncome ? _positiveMultiplier : _negativeMultiplier;
@@ -557,6 +567,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Builds the suggested budget list for categories based on observed transactions.
   Widget _buildSuggestion(List<MapEntry<String, BudgetCumulator>> list) {
     final List<Widget> widgets = <Widget>[];
 
@@ -599,6 +610,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     );
   }
 
+  /// Builds the context menu for a category row.
   Widget _categoryContextMenu(final Category category) {
     return buildMenuButton(context, <MenuEntry>[
       // View - Transactions
@@ -634,6 +646,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     ], icon: Icons.more_vert);
   }
 
+  /// Updates the active sort column and direction, then re-sorts the list.
   void _onColumnSort(int columnIndex) {
     setState(() {
       if (columnIndex == _sortColumnIndex) {
@@ -645,6 +658,7 @@ class _PanelBudgetState extends State<PanelBudget> {
     });
   }
 
+  /// Sorts the budget items according to the selected column and direction.
   void _sort() {
     items.sort((RecurringExpenses a, RecurringExpenses b) {
       switch (_sortColumnIndex) {

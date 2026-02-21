@@ -57,6 +57,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
   }
 
   @override
+  /// Returns a SidePanelSupport configured for aliases view.
   SidePanelSupport getSidePanelSupport() {
     return SidePanelSupport(
       onDetails: getSidePanelViewDetails,
@@ -64,6 +65,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds the side panel view for transactions with selection and currency options.
   Widget getSidePanelViewTransactions({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,

@@ -43,6 +43,7 @@ class _PaymentRollup {
   String reference = '';
 }
 
+/// Returns loan payments for an account, combining manual entries and matching transactions.
 List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
   final List<int> categoriesToMatch = <int>[
     account.fieldCategoryIdForInterest.value,

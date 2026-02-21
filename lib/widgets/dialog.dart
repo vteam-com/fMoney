@@ -59,6 +59,7 @@ class MyAlertDialog extends StatelessWidget {
   }
 }
 
+/// Shows a responsive dialog with adaptive sizing and optional actions.
 void adaptiveScreenSizeDialog({
   required final BuildContext context,
   final String title = '',

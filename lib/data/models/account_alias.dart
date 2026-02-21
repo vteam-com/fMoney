@@ -55,6 +55,7 @@ class AccountAlias extends DataObject {
 
   static final Fields<AccountAlias> _fields = Fields<AccountAlias>();
 
+  /// Returns the field definitions for AccountAlias entities.
   static Fields<AccountAlias> get fields {
     if (_fields.isEmpty) {
       final AccountAlias tmp = AccountAlias.fromJson(<String, dynamic>{});

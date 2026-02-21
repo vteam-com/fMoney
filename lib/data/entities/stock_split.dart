@@ -91,14 +91,17 @@ class StockSplit extends DataObject {
   );
 
   // Fields for this instance
+  /// Returns field definitions for this instance.
   @override
   FieldDefinitions get fieldDefinitions => fields.definitions;
 
+  /// Returns a short string representation used by generic data views.
   @override
   String getRepresentation() {
     return data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
   }
 
+  /// Returns a debug-friendly string describing this stock split.
   @override
   String toString() {
     return '${fieldDate.value}|${fieldSecurity.value}|${fieldNumerator.value} for ${fieldDenominator.value}';
@@ -112,6 +115,7 @@ class StockSplit extends DataObject {
 
   static final Fields<StockSplit> _fields = Fields<StockSplit>();
 
+  /// Returns the field definitions for StockSplit entities.
   static Fields<StockSplit> get fields {
     if (_fields.isEmpty) {
       // Create a temporary instance for field definitions - no data relationships needed

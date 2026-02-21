@@ -18,6 +18,7 @@ class PolicyScreen extends StatelessWidget {
     );
   }
 
+  /// Returns the privacy policy content as a Markdown string.
   String getMDContext() {
     return '''
 # Privacy Policy for fMoney App

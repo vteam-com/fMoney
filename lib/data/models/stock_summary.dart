@@ -12,5 +12,6 @@ class StockSummary {
   final double shares;
   final String symbol;
 
+  /// Returns the current holding value (shares multiplied by share price).
   double get holdingValue => shares * sharePrice;
 }

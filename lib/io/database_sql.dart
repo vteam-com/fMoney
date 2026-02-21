@@ -8,14 +8,17 @@ import 'package:sqlite3/sqlite3.dart';
 class MyDatabaseImplementation {
   late final Database _db;
 
+  /// Closes the database connection.
   void dispose() {
     _db.close();
   }
 
+  /// Executes SQL command on the database.
   void execute(final String command) {
     _db.execute(command);
   }
 
+  /// Initializes the database with required tables.
   void initDatabase(Database database) {
     database.execute('''
 CREATE TABLE [LoanPayments] (
@@ -261,6 +264,7 @@ CREATE TABLE IF NOT EXISTS [Currencies] (
     );
   }
 
+  /// Loads database from file path.
   Future<void> load(final String fileToOpen, final Uint8List _ /* fileBytes */) async {
     if (File(fileToOpen).existsSync()) {
       _db = sqlite3.open(fileToOpen);
@@ -275,10 +279,12 @@ CREATE TABLE IF NOT EXISTS [Currencies] (
     }
   }
 
+  /// Executes SELECT query and returns results as list of MyJson.
   Future<List<MyJson>> select(final String query) async {
     return _db.select(query);
   }
 
+  /// Checks if table exists in the database.
   Future<bool> tableExists(String tableName) async {
     final ResultSet result = _db.select(
       "SELECT name FROM sqlite_master WHERE type='table' AND name=?",

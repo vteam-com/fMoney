@@ -104,6 +104,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds a renters list for the given building.
   Widget buildRenters(final BuildContext context, final RentBuilding building) {
     final List<RentUnit> rentersInThisBuilding = Data().rentUnits
         .iterableList()
@@ -138,6 +139,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Returns a formatted string of unit names and renters.
   String getUnitsAsString(final List<RentUnit> listOfUnits) {
     final List<String> listAsText = <String>[];
     for (RentUnit unit in listOfUnits) {

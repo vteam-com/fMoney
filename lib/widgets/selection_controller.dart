@@ -18,6 +18,7 @@ class SelectionController extends GetxController {
   String preferenceKeyForPersistingSelections = '';
   RxSet<int> selectedItems = <int>{}.obs;
 
+  /// Returns the first selected ID or -1 if none selected.
   int get firstSelectedId {
     if (selectedItems.isEmpty) {
       return -1;
@@ -26,10 +27,12 @@ class SelectionController extends GetxController {
   }
 
   // Function to check if an item is selected
+  /// Checks whether the item with [id] is currently selected.
   bool isSelected(int id) {
     return selectedItems.contains(id);
   }
 
+  /// Loads the last selected ID from preferences and selects it.
   void load() {
     if (preferenceKeyForPersistingSelections.isNotEmpty) {
       final int lastSelectionId = PreferenceController.to.getInt(
@@ -40,6 +43,7 @@ class SelectionController extends GetxController {
     }
   }
 
+  /// Persists the first selected ID to preferences.
   void save() {
     if (preferenceKeyForPersistingSelections.isNotEmpty) {
       PreferenceController.to.setInt(
@@ -49,6 +53,7 @@ class SelectionController extends GetxController {
     }
   }
 
+  /// Selects a single [id] and persists the choice.
   void select(int id) {
     selectedItems.clear();
     if (id != -1) {
@@ -57,9 +62,11 @@ class SelectionController extends GetxController {
     save();
   }
 
+  /// Singleton accessor for the registered SelectionController.
   static SelectionController get to => Get.find();
 
   // Function to toggle selection
+  /// Toggles selection state for the given [id].
   void toggleSelection(int id) {
     if (selectedItems.contains(id)) {
       selectedItems.remove(id);

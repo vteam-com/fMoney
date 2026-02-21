@@ -145,6 +145,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
     );
   }
 
+  /// Scores rows to find the most likely header row for financial data.
   int _findBestHeaderRowIndex(List<List<String>> rows) {
     if (rows.isEmpty) {
       return -1;
@@ -210,6 +211,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
 }
 
 // Helper function to show the dialog
+/// Shows a modal dialog for selecting the header row index from parsed XLSX rows.
 Future<int?> showXlsxHeaderRowSelectorDialog({
   required BuildContext context,
   required List<List<String>> rows,

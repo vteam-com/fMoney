@@ -34,6 +34,7 @@ class FieldFilters {
     return FieldFilters(fieldFilters);
   }
 
+  /// Serializes this filter group to JSON.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'filters': list.map((FieldFilter filter) => filter.toJson()).toList(),
@@ -42,18 +43,23 @@ class FieldFilters {
 
   List<FieldFilter> list = <FieldFilter>[];
 
+  /// Adds a filter to this group.
   void add(final FieldFilter ff) {
     list.add(ff);
   }
 
+  /// Removes all filters from this group.
   void clear() {
     list.clear();
   }
 
+  /// Returns true if there are no filters.
   bool get isEmpty => list.isEmpty;
 
+  /// Returns true if there is at least one filter.
   bool get isNotEmpty => !isEmpty;
 
+  /// Returns the number of filters in this group.
   int get length => list.length;
 
   @override
@@ -61,6 +67,7 @@ class FieldFilters {
     return toJsonString();
   }
 
+  /// Serializes this filter group to a JSON string.
   String toJsonString() {
     return jsonEncode(toJson());
   }

@@ -32,10 +32,12 @@ class ValuesParser {
 
   List<ValuesQuality> _values = <ValuesQuality>[];
 
+  /// Adds a parsed [ValuesQuality] item to the internal list.
   void add(final ValuesQuality item) {
     _values.add(item);
   }
 
+  /// Interleaves three column strings into a single semicolon-separated buffer.
   static String assembleIntoSingleTextBuffer(
     final String multiStringDates,
     final String multiStringDescriptions,
@@ -61,6 +63,7 @@ class ValuesParser {
     return singleText;
   }
 
+  /// Attempts to parse a line into date/description/amount triple.
   ValuesQuality attemptToExtractTriples(String line) {
     String dateAsText = '';
     String descriptionAsText = '';
@@ -113,6 +116,7 @@ class ValuesParser {
     );
   }
 
+  /// Builds a columnar presentation widget for all parsed lines.
   Widget buildPresentation(final BuildContext context) {
     final List<Widget> rows = <Widget>[];
 
@@ -147,6 +151,7 @@ class ValuesParser {
         : Column(mainAxisAlignment: MainAxisAlignment.start, children: rows);
   }
 
+  /// Parses raw input text into a list of ValuesQuality transactions.
   void convertInputTextToTransactionList(
     final BuildContext? _,
     String inputString,
@@ -197,6 +202,7 @@ class ValuesParser {
     }
   }
 
+  /// Checks each parsed value against existing transactions for the account.
   static void evaluateExistence({
     required final int accountId,
     required final List<ValuesQuality> values,
@@ -210,6 +216,7 @@ class ValuesParser {
     }
   }
 
+  /// Returns the list of amount strings from parsed values.
   List<String> getListOfAmountString() {
     final List<String> list = <String>[];
     for (final ValuesQuality value in _values) {
@@ -218,6 +225,7 @@ class ValuesParser {
     return list;
   }
 
+  /// Returns the list of date strings from parsed values.
   List<String> getListOfDatesString() {
     final List<String> list = <String>[];
     for (final ValuesQuality value in _values) {
@@ -226,6 +234,7 @@ class ValuesParser {
     return list;
   }
 
+  /// Returns the list of description strings from parsed values.
   List<String> getListOfDescriptionString() {
     final List<String> list = <String>[];
     for (final ValuesQuality value in _values) {
@@ -234,20 +243,26 @@ class ValuesParser {
     return list;
   }
 
+  /// True if no parsed values are present.
   bool get isEmpty => onlyNewTransactions.isEmpty;
 
+  /// True if any parsed values are present.
   bool get isNotEmpty => !isEmpty;
 
+  // ignore: unnecessary_getters_setters
+  /// Getter for the internal list of parsed ValuesQuality items.
   // ignore: unnecessary_getters_setters
   List<ValuesQuality> get lines {
     //
     return _values;
   }
 
+  /// Setter for the internal list of parsed ValuesQuality items.
   set lines(List<ValuesQuality> value) {
     //
     _values = value;
   }
 
+  /// Returns only those parsed items that are not already existing transactions.
   List<ValuesQuality> get onlyNewTransactions => _values.where((ValuesQuality item) => !item.exist).toList();
 }

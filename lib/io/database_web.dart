@@ -7,9 +7,12 @@ import 'dart:typed_data';
 import 'package:money/helpers/json_helper.dart';
 
 /// implement the Sqlite3 WASM Web Support see https://pub.dev/packages/sqlite3#wasm-web-support
+/// Web database implementation (no-op for web environment).
 class MyDatabaseImplementation {
+  /// No-op dispose method for web environment.
   void dispose() {}
 
+  /// No-op execute method for web environment.
   void execute(final String query) {}
 
   /// SQL Delete
@@ -25,6 +28,7 @@ class MyDatabaseImplementation {
     final String whereClause,
   ) {}
 
+  /// Loads database from file bytes in web environment using JavaScript.
   Future<void> load(final String fileToOpen, final Uint8List fileBytes) async {
     try {
       final js.JsObject jsArray = js.JsObject.jsify(fileBytes);
@@ -41,6 +45,7 @@ class MyDatabaseImplementation {
     }
   }
 
+  /// Executes SQL query and returns results as list of maps in web environment.
   Future<List<Map<String, dynamic>>> select(final String query) async {
     try {
       final dynamic jsObjectResult = await js.context.callMethod(

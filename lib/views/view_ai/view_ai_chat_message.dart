@@ -29,14 +29,19 @@ class ChatMessageWidget extends StatefulWidget {
     required this.onToggleExpanded,
   });
 
+  /// The message to display.
   final ChatMessage message;
+
+  /// Called when the user toggles the expanded/collapsed state.
   final VoidCallback onToggleExpanded;
 
+  /// Creates state for the chat message widget.
   @override
   State<ChatMessageWidget> createState() => _ChatMessageWidgetState();
 }
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget> {
+  /// Builds the chat message bubble with footer actions.
   @override
   Widget build(final BuildContext context) {
     final ChatMessage message = widget.message;
@@ -105,6 +110,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
     );
   }
 
+  /// Shows message details, including timestamp and full content.
   void _showMessageDetails() {
     final bool isUser = widget.message.type == ChatFrom.user;
 
@@ -166,6 +172,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
     }
   }
 
+  /// Shows a popup with the full JSON prompt payload sent to the AI.
   void _showPromptPopup(final Map<String, dynamic> jsonAsTextPayloadSentToOllama) {
     final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextPayloadSentToOllama);
 

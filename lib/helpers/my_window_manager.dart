@@ -16,6 +16,7 @@ import 'package:window_manager/window_manager.dart';
 
 /// Represents my window manager.
 class MyWindowManager extends WindowListener {
+  /// Sets up main window with platform-specific optimizations.
   static void setupMainWindow() async {
     if (!kIsWeb) {
       // Enable Impeller for better performance
@@ -49,6 +50,7 @@ class MyWindowManager extends WindowListener {
     }
   }
 
+  /// Saves current window state to shared preferences.
   static Future<void> saveWindowState() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final Rect bounds = await windowManager.getBounds();
@@ -59,6 +61,7 @@ class MyWindowManager extends WindowListener {
     await prefs.setDouble('window_height', bounds.height);
   }
 
+  /// Restores window state from shared preferences.
   static Future<void> restoreWindowState() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -85,6 +88,7 @@ class MyWindowManager extends WindowListener {
     await windowManager.focus();
   }
 
+  /// Safely gets double value from shared preferences.
   static double? getSafeDouble(
     final SharedPreferences prefs,
     final String key,
@@ -110,6 +114,7 @@ class MyWindowManager extends WindowListener {
     }
   }
 
+  /// Sets the application window size.
   static void setAppWindowSize(final double width, final double height) {
     windowManager.ensureInitialized().then((void _) {
       final WindowOptions windowOptions = WindowOptions(

@@ -79,6 +79,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
     );
   }
 
+  /// Updates [zoomValueAsText] based on the current preference text scale.
   void updateZoomTextFromValue() {
     zoomValueAsText = '${(preferenceController.textScale * _percentScale).toInt()}%';
   }

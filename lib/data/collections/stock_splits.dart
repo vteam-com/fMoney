@@ -32,6 +32,7 @@ class StockSplits extends MoneyObjects<StockSplit> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Clears all stock splits for a given security.
   void clearSplitForSecurity(final int securityId) {
     final Iterable<StockSplit> listOfSplitsFound = iterableList().where(
       (StockSplit split) => split.fieldSecurity.value == securityId,
@@ -41,6 +42,7 @@ class StockSplits extends MoneyObjects<StockSplit> {
     }
   }
 
+  /// Returns all stock splits for a security, sorted by date.
   List<StockSplit> getStockSplitsForSecurity(final Security s) {
     final List<StockSplit> list = <StockSplit>[];
     for (StockSplit split in iterableList()) {

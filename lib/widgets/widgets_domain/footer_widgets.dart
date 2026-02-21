@@ -17,6 +17,7 @@ const double _numericFooterFontSize = 9;
 const int _numericFooterMaxLines = 1;
 const num _smallValueThreshold = 10000;
 
+/// Builds a footer widget for a [DateRange] (min/max plus duration).
 Widget getFooterForDateRange(final DateRange dateRange) {
   return LayoutBuilder(
     builder: (BuildContext _, BoxConstraints constraints) {
@@ -45,6 +46,7 @@ Widget getFooterForDateRange(final DateRange dateRange) {
   );
 }
 
+/// Builds a footer widget for a monetary [amount].
 Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
   final TextStyle style = TextStyle(
     color: Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
@@ -64,6 +66,7 @@ Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
   );
 }
 
+/// Builds a footer widget for an integer-like numeric [value].
 Widget getFooterForInt(
   final num value, {
   final bool applyColorBasedOnValue = true,
@@ -80,6 +83,7 @@ Widget getFooterForInt(
   return scaleDown(Text(prefix + getNumberShorthandText(value), style: style));
 }
 
+/// Builds a footer widget that displays min/avg/max for a numeric [range].
 Widget getFooterForNumericRange(final RunningAverage range, final FieldType fieldType) {
   return LayoutBuilder(
     builder: (BuildContext _, BoxConstraints constraints) {
@@ -149,6 +153,7 @@ Widget getFooterForNumericRange(final RunningAverage range, final FieldType fiel
   );
 }
 
+/// Formats a numeric footer value based on [fieldType] and shorthand threshold.
 String _formatValue(double value, FieldType fieldType) {
   if (!isNumber(value)) {
     return '---';
@@ -164,6 +169,7 @@ String _formatValue(double value, FieldType fieldType) {
   }
 }
 
+/// Returns true if [value] is small enough to display without shorthand formatting.
 bool isSmallValue(final num value) {
   return isBetween(value, -_smallValueThreshold, _smallValueThreshold);
 }

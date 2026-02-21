@@ -16,6 +16,7 @@ class ChatMessage {
   final Map<String, dynamic> payloadSentToOllama;
   bool isExpanded;
 
+  /// Serializes this message to JSON.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'message': message,
@@ -26,6 +27,7 @@ class ChatMessage {
     };
   }
 
+  /// Deserializes a message from JSON.
   static ChatMessage fromJson(Map<String, dynamic> json) {
     return ChatMessage(
       message: json['message'] as String,

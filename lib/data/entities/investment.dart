@@ -328,20 +328,24 @@ class Investment extends DataObject {
   /// The actual transaction date.
   dynamic _transactionInstance;
 
+  /// Builds a compact widget representation for small screens.
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
     return buildSmallScreenWidget?.call(this) ?? const Text('no UI');
   }
 
   // Fields for this instance
+  /// Returns field definitions for this instance.
   @override
   FieldDefinitions get fieldDefinitions => fields.definitions;
 
+  /// Returns a short string representation used by generic data views.
   @override
   String getRepresentation() {
     return fieldSecurity.value.toString();
   }
 
+  /// Returns a debug-friendly string describing this investment.
   @override
   String toString() {
     return '$uniqueId $date ${fieldInvestmentType.getValueForDisplay(this)} ${fieldSecuritySymbol.getValueForDisplay(this)} $effectiveUnits ${fieldUnitPrice.value} ${fieldHoldingShares.value} $activityAmount';
@@ -355,8 +359,10 @@ class Investment extends DataObject {
 
   static final Fields<Investment> _fields = Fields<Investment>();
 
+  /// Returns the investment activity type.
   InvestmentType get actionType => getInvestmentTypeFromValue(this.fieldInvestmentType.value);
 
+  /// Returns the transaction amount for this investment (0 if missing).
   double get activityAmount {
     // if (investmentType.value != InvestmentType.dividend.index &&
     //     investmentType.value != InvestmentType.add.index &&
@@ -370,12 +376,15 @@ class Investment extends DataObject {
     // return 0.00;
   }
 
+  /// Applies stock split ratio for this security up to this investment date.
   void applySplits() {
     _splitRatio = data?.getSplitRatioForSecurityBeforeDate(fieldSecurity.value, date) ?? _oneDouble;
   }
 
+  /// Returns the cost basis for the shares at the adjusted unit price.
   double get costForShares => this.effectiveUnitsAdjusted * this.unitPriceAdjusted;
 
+  /// Returns the transaction date for this investment (today if missing).
   DateTime get date {
     final dynamic transaction = transactionInstance;
     if (transaction != null) {
@@ -384,6 +393,7 @@ class Investment extends DataObject {
     return DateTime.now();
   }
 
+  /// Returns units adjusted for buy/sell sign.
   double get effectiveUnits {
     if (this.fieldUnits.value == _zeroDouble) {
       return _zeroDouble;
@@ -394,6 +404,7 @@ class Investment extends DataObject {
 
   // Buy is a positive value
   // Sell is negative value
+  /// Returns units adjusted for buy/sell sign and stock splits.
   double get effectiveUnitsAdjusted {
     if (this.fieldUnits.value == _zeroDouble) {
       return _zeroDouble;
@@ -402,6 +413,7 @@ class Investment extends DataObject {
     return this.fieldUnits.value * this._splitRatio * _signBasedOnActivity;
   }
 
+  /// Returns the field definitions for Investment entities.
   static Fields<Investment> get fields {
     if (_fields.isEmpty) {
       final Investment tmp = Investment.fromJson(<String, dynamic>{});
@@ -434,6 +446,7 @@ class Investment extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for Investment column view.
   static Fields<Investment> get fieldsForColumnView {
     final Investment tmp = Investment.fromJson(<String, dynamic>{});
     return Fields<Investment>()..setDefinitions(<Field<dynamic>>[
@@ -458,6 +471,7 @@ class Investment extends DataObject {
   }
 
   /// ignore: fcheck_dead_code
+  /// Returns the final cumulative amount for this investment.
   StockCumulative get finalAmount {
     final StockCumulative cumulative = StockCumulative();
     cumulative.quantity = _negativeMultiplier * effectiveUnits * this.fieldUnitPrice.value.asDouble();
@@ -465,6 +479,7 @@ class Investment extends DataObject {
     return cumulative;
   }
 
+  /// Returns the original (pre-split) cost basis for this investment.
   double get originalCostBasis {
     // looking for the original un-split cost basis at the date of this transaction.
     final double proceeds = this.fieldUnitPrice.value.asDouble() * this.fieldUnits.value;
@@ -482,6 +497,7 @@ class Investment extends DataObject {
     return proceeds;
   }
 
+  /// Sorts investments by date, then by investment type.
   static int sortByDateAndInvestmentType(final Investment a, final Investment b, final bool ascending) {
     int result = sortByDate(a.date, b.date, ascending);
 
@@ -505,8 +521,10 @@ class Investment extends DataObject {
     return result;
   }
 
+  /// Returns the security symbol for this investment.
   String get symbol => data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
 
+  /// Returns the holding value based on current holding shares and adjusted unit price.
   double get transactionHoldingValue => this.fieldHoldingShares.value * this.unitPriceAdjusted;
 
   /// The actual transaction date.
@@ -520,8 +538,10 @@ class Investment extends DataObject {
     _transactionInstance = value;
   }
 
+  /// Returns holding value plus activity amount.
   double get transactionNetValue => transactionHoldingValue + this.activityAmount;
 
+  /// Returns the dividend amount for dividend investments.
   double get activityDividend {
     if (fieldInvestmentType.value == InvestmentType.dividend.index) {
       final dynamic transaction = transactionInstance;
@@ -542,6 +562,7 @@ class Investment extends DataObject {
       ? _positiveMultiplier
       : _negativeMultiplier;
 
+  /// Returns the unit price adjusted for stock splits.
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
 
   static Widget Function(Investment instance)? buildSmallScreenWidget;

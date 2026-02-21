@@ -66,6 +66,7 @@ class AmountModel {
   /// the raw value as double
   double asDouble() => _amount;
 
+  /// Returns the amount as a shorthand string with currency.
   String toShortHand() {
     return getAmountAsShortHandStringUsingCurrency(
       _amount,
@@ -74,6 +75,7 @@ class AmountModel {
   }
 }
 
+/// Sorts AmountModel objects by amount value.
 int sortByAmount(final AmountModel a, final AmountModel b, final bool ascending) {
   if (ascending) {
     return a.asDouble().compareTo(b.asDouble());

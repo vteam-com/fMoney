@@ -35,6 +35,7 @@ const List<int> _naturalFitDivisors = <int>[
   10,
 ];
 
+/// Converts dynamic value to double if possible.
 double getDoubleFromDynamic(final dynamic value) {
   if (value is double) {
     return value;
@@ -101,19 +102,23 @@ void copyToClipboardAndInformUser(
   });
 }
 
+/// Checks if value is strictly between min and max (exclusive).
 bool isBetween(final num value, final num min, final num max) {
   return value > min && value < max;
 }
 
+/// Checks if value is between or equal to min and max (inclusive).
 bool isBetweenOrEqual(final num value, final num min, final num max) {
   return value >= min && value <= max;
 }
 
+/// Returns true if running on mobile platform (iOS or Android).
 bool isPlatformMobile() {
   return !kIsWeb && (Platform.isAndroid || Platform.isIOS);
   //  return defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
 }
 
+/// Rounds double to specified number of decimal places.
 double roundDouble(final double value, final int places) {
   final num mod = pow(_baseTen, places);
   return (value * mod).round().toDouble() / mod;
@@ -160,6 +165,7 @@ int roundToTheNextNaturalFit(final int value) {
   return _naturalFitDivisors.last;
 }
 
+/// Shows a snackbar with the specified message.
 void showSnackBar(final BuildContext context, final String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -169,6 +175,7 @@ void showSnackBar(final BuildContext context, final String message) {
   );
 }
 
+/// Trims double to exactly 5 decimal places.
 double trimToFiveDecimalPlaces(double value) {
   // Multiply the value by 100,000 to move the decimal point 5 places to the right
   final double multipliedValue = value * _fiveDecimalMultiplier;
@@ -186,6 +193,7 @@ class Debouncer {
 
   Timer? _timer;
 
+  /// Runs callback with debouncing.
   void run(VoidCallback callback) {
     _timer?.cancel();
     _timer = Timer(duration, callback);
@@ -200,16 +208,18 @@ class TimeLapse {
 
   Stopwatch? stopwatch;
 
-  // End stopwatch and print time spent
+  /// Ends stopwatch and prints elapsed time.
   void endAndPrint() {
     // print('Elapsed time: ${stopwatch?.elapsedMilliseconds} milliseconds');
   }
 }
 
+/// Returns true if value is considered zero within epsilon tolerance.
 bool isConsideredZero(num value, [double epsilon = _defaultEpsilon]) {
   return value.abs() <= epsilon;
 }
 
+/// Launches Google search with the specified query.
 Future<void> launchGoogleSearch(String query) async {
   final Uri url = Uri.parse('https://www.google.com/search?q=$query');
   if (!await launchUrl(url)) {

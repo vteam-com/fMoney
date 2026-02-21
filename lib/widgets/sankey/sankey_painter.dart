@@ -199,6 +199,7 @@ class _SankeyPainter extends CustomPainter {
   // The right when depicting a "Net Profit"
   // or
   // The left when depicting a "Net Lost"
+  /// Builds the net profit/loss block positioned left or right of center.
   Block buildSegmentForNetProfitLost(
     double netAmount,
     double lastHeight,
@@ -249,6 +250,7 @@ class _SankeyPainter extends CustomPainter {
   // The right when depicting a "Net Profit"
   // or
   // The left when depicting a "Net Lost"
+  /// Renders the net profit/loss block and its connecting channels.
   void renderNetProfitOrLost(
     double netAmount,
     double lastHeight,
@@ -303,6 +305,7 @@ class _SankeyPainter extends CustomPainter {
     );
   }
 
+  /// Renders a list of source blocks and channels to a target block.
   double renderSourcesToTarget(
     final ui.Canvas canvas,
     final List<SanKeyEntry> list,

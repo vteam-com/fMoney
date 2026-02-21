@@ -4,6 +4,7 @@ const double _readOnlyHorizontalPadding = 12;
 const double _readOnlyOpacity = 0.5;
 const double _editableOpacity = 1.0;
 
+/// Builds a form field wrapper with optional read-only styling.
 Widget myFormField({
   required final String title,
   required final Widget child,
@@ -15,6 +16,7 @@ Widget myFormField({
   );
 }
 
+/// Creates InputDecoration with optional read-only appearance.
 InputDecoration myFormFieldDecoration({
   required final String fieldName,
   required final bool isReadOnly,

@@ -17,6 +17,7 @@ const int _countIncrement = 1;
 const double _payeeLabelWidth = 100.0;
 const double _categoryChoicesHeight = 400.0;
 
+/// Shows a dialog to merge a set of transactions from one payee to another.
 void showMergePayee<T extends MergeableItem>(
   final BuildContext context,
   Payee payee,
@@ -44,12 +45,16 @@ class MergeTransactionsDialog<T extends MergeableItem> extends StatefulWidget {
     super.key,
   });
 
+  /// The payee currently associated with the selected transactions.
   final Payee currentPayee;
 
+  /// Data accessor used to resolve payees/categories and apply mutations.
   final DataAbstract data;
 
+  /// The transactions to merge.
   final List<T> transactions;
 
+  /// Creates state for the merge transactions dialog.
   @override
   State<MergeTransactionsDialog<T>> createState() => _MergeTransactionsDialogState<T>();
 }
@@ -59,8 +64,10 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
 
   Payee? _selectedPayee;
 
+  /// Tracks how often each category ID appears for the selected payee.
   AccumulatorSum<int, int> categoryIdsFound = AccumulatorSum<int, int>();
 
+  /// Builds the dialog UI to pick a target payee and optional category changes.
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -134,6 +141,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
     );
   }
 
+  /// Computes category counts for transactions matching the selected payee.
   void getAssociatedCategories() {
     if (_selectedPayee != null) {
       categoryIdsFound.clear();
@@ -145,6 +153,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
     }
   }
 
+  /// Builds the category suggestion and override radio list.
   Widget _buildCategoryChoices() {
     if (categoryIdsFound.values.isEmpty) {
       return const SizedBox();
@@ -227,6 +236,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
   }
 }
 
+/// Mutates a list of mergeable items to assign them to a target payee.
 void mutateMergeableItemsToPayee<T extends MergeableItem>(
   final List<T> items,
   final int toPayeeId,

@@ -10,6 +10,7 @@ import 'package:money/widgets/pure/snack_bar.dart';
 const double _transferAmountSign = -1.0;
 const int _snackDurationSeconds = 5;
 
+/// Shows dialog for importing transfer transactions.
 void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   inputData ??= ImportFieldsForTransfer(
     accountFrom: Data().accounts.getMostRecentlySelectedAccount(),
@@ -35,6 +36,7 @@ void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   );
 }
 
+/// Builds action buttons for transfer import dialog.
 List<Widget> getActionButtons(
   ImportFieldsForTransfer inputData,
   BuildContext context,

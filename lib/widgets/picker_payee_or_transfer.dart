@@ -66,6 +66,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
     );
   }
 
+  /// Builds the Payee/Transfer segmented choice widget.
   Widget buildChoice() {
     return mySegmentSelector(
       context: context,
@@ -88,6 +89,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
     );
   }
 
+  /// Builds the appropriate input widget based on Payee/Transfer choice.
   Widget buildIInput() {
     if (_choice == TransactionFlavor.payee) {
       return Row(
@@ -123,6 +125,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
     }
   }
 
+  /// Presents an input row with optional caption and widget.
   Widget presentInput(final String caption, final Widget widget) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,

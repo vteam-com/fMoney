@@ -34,6 +34,7 @@ class ImportFieldsForTransfer {
 
   Category? category;
 
+  /// Returns true if accounts are valid for transfer (different accounts).
   bool get validAccounts => accountFrom != accountTo;
 }
 
@@ -189,10 +190,12 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
     );
   }
 
+  /// Removes focus from the transfer panel input field.
   void removeFocus() {
     _focusNode.unfocus();
   }
 
+  /// Requests focus for the transfer panel input field.
   void requestFocus() {
     FocusScope.of(context).requestFocus(_focusNode);
   }

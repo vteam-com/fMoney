@@ -223,6 +223,7 @@ extension MyJsonExtensions on MyJson {
     return jsonDecode(jsonString) as T;
   }
 
+  /// Converts object to JSON string.
   static String toJson(final dynamic object) {
     return jsonEncode(object);
   }

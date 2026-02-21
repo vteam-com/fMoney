@@ -185,6 +185,7 @@ class MenuEntry {
   final String title;
 }
 
+/// Builds a menu button with a dropdown of menu items.
 Widget buildMenuButton(
   final BuildContext context,
   final List<MenuEntry> menuItems, {
@@ -218,6 +219,7 @@ Widget buildMenuButton(
   );
 }
 
+/// Builds a button for jumping between different views.
 Widget buildJumpToButton(
   final BuildContext context,
   final List<MenuEntry> listOfViewToJumpTo,

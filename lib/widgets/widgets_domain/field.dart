@@ -24,10 +24,13 @@ const int _percentValueScale = 100;
 const int _percentDecimalPlaces = 3;
 const double _percentSymbolFontSize = 9;
 
+/// Default callback that returns an empty string.
 dynamic defaultCallbackValue(final DataInterface _) => '';
 
+/// Default callback that always returns true.
 bool defaultCallbackValueTrue(final DataInterface _) => true;
 
+/// Default callback that always returns false.
 bool defaultCallbackValueFalse(final DataInterface _) => false;
 
 /// A generic class representing a field in a data model.
@@ -199,6 +202,7 @@ class Field<T> {
 
   late T _value;
 
+  /// Returns the best name to use for this field in headers and CSV output.
   String getBestFieldDescribingName() {
     if (serializeName.isNotEmpty) {
       return serializeName;
@@ -209,6 +213,7 @@ class Field<T> {
     return T.toString();
   }
 
+  /// Returns a string representation for [value] based on this field's type.
   String getString(final dynamic value) {
     switch (type) {
       case FieldType.numeric:
@@ -236,6 +241,7 @@ class Field<T> {
     }
   }
 
+  /// Returns the field value rendered as a widget for the given [instance].
   Widget getValueAsWidget(DataInterface instance) {
     final dynamic value = this.getValueForDisplay(instance);
     if (value is Widget) {
@@ -250,6 +256,7 @@ class Field<T> {
     );
   }
 
+  /// Builds a widget suitable for detail view display for [value].
   Widget getValueWidgetForDetailView(final dynamic value) {
     if (type == FieldType.widget) {
       return value as Widget;
@@ -264,15 +271,18 @@ class Field<T> {
     }
   }
 
+  /// Sets the amount model value for money fields.
   void setAmount(final dynamic newValue) {
     (this as FieldMoney).value.setAmount(newValue);
   }
 
+  /// Gets the current field value.
   // ignore: unnecessary_getters_setters
   T get value {
     return _value;
   }
 
+  /// Sets the current field value.
   set value(T v) {
     _value = v;
   }
@@ -440,6 +450,7 @@ class Fields<T> {
 
   final FieldDefinitions definitions = <Field<dynamic>>[];
 
+  /// Returns true if [objectInstance] matches free-text and/or column filters.
   bool applyFilters(
     final DataInterface objectInstance,
     final String filterBytFreeStyleLowerCaseText, // Optional empty string
@@ -467,6 +478,7 @@ class Fields<T> {
         isMatchingColumnFiltering(objectInstance, filterByFieldsValue);
   }
 
+  /// Returns the field definition with the given [name].
   Field<dynamic> getFieldByName(final String name) {
     return definitions.firstWhere((Field<dynamic> field) => field.name == name);
   }
@@ -503,6 +515,7 @@ class Fields<T> {
     return Row(children: cells);
   }
 
+  /// Returns a string value for a field with name [fieldName] on [objectInstance].
   String getStringValueUsingFieldName(
     final DataInterface objectInstance,
     final String fieldName,
@@ -516,8 +529,10 @@ class Fields<T> {
     return '';
   }
 
+  /// Returns true if this field definition list has no entries.
   bool get isEmpty => definitions.isEmpty;
 
+  /// Returns true if [objectInstance] matches all column filters.
   bool isMatchingColumnFiltering(
     final DataInterface objectInstance,
     final FieldFilters filterByFieldsValue,
@@ -548,7 +563,7 @@ class Fields<T> {
     return true;
   }
 
-  // check if the lowerCaseTextToFind matches any of the fields text value
+  /// Returns true if any field contains [filterBytFreeStyleLowerCaseText].
   bool isMatchingFreeStyleText(
     DataInterface objectInstance,
     String filterBytFreeStyleLowerCaseText,
@@ -566,6 +581,7 @@ class Fields<T> {
     return false;
   }
 
+  /// Replaces current definitions with [list].
   void setDefinitions(List<Field<dynamic>> list) {
     definitions.clear();
     for (Field<dynamic> object in list) {
@@ -655,6 +671,7 @@ enum FooterType {
   range,
 }
 
+/// Returns the field definition that matches [nameToFind] by name or serialize name.
 Field<dynamic>? getFieldDefinitionByName(
   final FieldDefinitions fields,
   final String nameToFind,
@@ -670,6 +687,7 @@ Field<dynamic>? getFieldDefinitionByName(
   return null;
 }
 
+/// Builds a display widget for a field [value] based on [type].
 Widget buildWidgetFromTypeAndValue({
   required final dynamic value,
   required final FieldType type,
@@ -768,6 +786,7 @@ Widget buildWidgetFromTypeAndValue({
   }
 }
 
+/// Builds an amount widget, optionally using shorthand formatting.
 Widget buildFieldWidgetForAmount({
   final dynamic value = 0,
   final String currency = Constants.defaultCurrency,
@@ -794,6 +813,7 @@ Widget buildFieldWidgetForAmount({
   );
 }
 
+/// Builds a date widget for [date].
 Widget buildFieldWidgetForDate({
   final DateTime? date,
   final TextAlign align = TextAlign.left,
@@ -807,6 +827,7 @@ Widget buildFieldWidgetForDate({
   );
 }
 
+/// Builds a numeric widget for [value], optionally using shorthand formatting.
 Widget buildFieldWidgetForNumber({
   final num value = 0,
   final bool shorthand = false,
@@ -824,6 +845,7 @@ Widget buildFieldWidgetForNumber({
   );
 }
 
+/// Builds a percentage widget using an opacity style for zero vs non-zero values.
 Widget buildFieldWidgetForPercentage({final double value = 0}) {
   // 0.000 to 100.000%
   return Row(
@@ -845,6 +867,7 @@ Widget buildFieldWidgetForPercentage({final double value = 0}) {
   );
 }
 
+/// Builds a text widget using either fixed-width or proportional font.
 Widget buildFieldWidgetForText({
   final String text = '',
   final TextAlign align = TextAlign.left,
@@ -859,6 +882,7 @@ Widget buildFieldWidgetForText({
   );
 }
 
+/// Converts a [TextAlign] to a corresponding [Alignment].
 Alignment textAlignToAlignment(final TextAlign textAlign) {
   switch (textAlign) {
     case TextAlign.left:

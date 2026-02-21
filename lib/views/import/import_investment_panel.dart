@@ -169,14 +169,17 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
     );
   }
 
+  /// Removes focus from the investment panel input field.
   void removeFocus() {
     _focusNode.unfocus();
   }
 
+  /// Requests focus for the investment panel input field.
   void requestFocus() {
     FocusScope.of(context).requestFocus(_focusNode);
   }
 
+  /// Updates the bound input fields model from the current text controller values.
   void _updateInputFields() {
     widget.inputFields.symbol = _controllerSymbol.text;
     widget.inputFields.units = double.tryParse(_controllerUnites.text) ?? 0.0;

@@ -33,6 +33,7 @@ const int _yearBaseRecent = 2000;
 const int _yearBasePast = 1900;
 
 // Simple, dependency-free XLSX parser (only one sheet, static values)
+/// Imports XLSX file and parses transaction data from Excel format.
 Future<void> importXLSX(BuildContext context, String filePath) async {
   try {
     final File file = File(filePath);
@@ -287,6 +288,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
   }
 }
 
+/// Loads XLSX data from headers, rows, and column mapping into ImportData.
 ImportData loadXLSX(
   List<String> headers,
   List<List<String>> dataRows,

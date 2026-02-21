@@ -99,6 +99,7 @@ class NetWorthChartState extends State<NetWorthChart> {
   }
 }
 
+/// Extracts milestone events from transactions for chart display.
 List<ChartEvent> getMilestonesEvents(final List<Transaction> transactions) {
   final List<ChartEvent> milestoneTransactions = <ChartEvent>[];
 

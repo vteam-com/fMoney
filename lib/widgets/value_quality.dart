@@ -38,8 +38,10 @@ class ValueQuality {
   @override
   String toString() => asString();
 
+  /// Parses the stored string as a monetary amount with currency and sign handling.
   double asAmount() => (parseAmount(valueAsString, currency) ?? 0.00) * (reverseAmountValue ? -1 : 1);
 
+  /// Parses the stored string as a DateTime using the configured date format.
   DateTime? asDate() {
     if (valueAsString.isEmpty) {
       return null;
@@ -47,8 +49,10 @@ class ValueQuality {
     return DateFormat(dateFormat).tryParse(valueAsString);
   }
 
+  /// Returns the raw stored string value.
   String asString() => valueAsString;
 
+  /// Builds a styled amount widget or warning if parsing fails.
   Widget valueAsAmountWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, '< no amount >');
@@ -63,6 +67,7 @@ class ValueQuality {
     return WidgetFromData(amountModel: mm);
   }
 
+  /// Builds a styled date widget or warning if parsing fails.
   Widget valueAsDateWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, '< no date >');
@@ -77,6 +82,7 @@ class ValueQuality {
     return SelectableText(dateText);
   }
 
+  /// Builds a selectable text widget for the value, or a warning if empty.
   Widget valueAsTextWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, '< no description >');
@@ -110,6 +116,7 @@ class ValuesQuality {
   @override
   String toString() => '$date; $description; $amount';
 
+  /// Checks whether this value set already exists as a transaction for the given account.
   bool checkIfExistAlready({
     required final int accountId,
     required TransactionExistsCallback transactionExistsCallback,
@@ -123,6 +130,7 @@ class ValuesQuality {
     return exist;
   }
 
+  /// Returns the date range covered by a list of values.
   static DateRange getDateRange(final List<ValuesQuality> list) {
     final DateRange range = DateRange();
     for (final ValuesQuality v in list) {
@@ -131,6 +139,7 @@ class ValuesQuality {
     return range;
   }
 
+  /// Sorts a list of values by date, description, or amount.
   static void sort(
     final List<ValuesQuality> list,
     final int sortBy,
@@ -158,6 +167,7 @@ class ValuesQuality {
   }
 }
 
+/// Delegates to [transactionExistsCallback] to check whether a transaction exists.
 bool isTransactionAlreadyInTheSystem({
   required final int accountId,
   required final DateTime dateTime,

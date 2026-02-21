@@ -6,6 +6,7 @@ import 'package:money/widgets/picker_edit_box.dart';
 export 'package:flutter/material.dart';
 export 'package:money/helpers/investment_types.dart';
 
+/// Shows a picker for selecting a security type.
 Widget pickerSecurityType({
   required final SecurityType itemSelected,
   required final void Function(SecurityType?) onSelected,

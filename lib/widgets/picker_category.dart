@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
+/// Shows a picker for selecting a category name.
 Widget pickerCategory({
   Key? key,
   required final List<String> categoryNames,

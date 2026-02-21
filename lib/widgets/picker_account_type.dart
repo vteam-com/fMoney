@@ -3,6 +3,7 @@ import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/widgets/picker_edit_box.dart';
 
+/// Shows a picker for selecting an account type.
 Widget pickerAccountType({
   required final AccountType itemSelected,
   required final void Function(AccountType) onSelected,

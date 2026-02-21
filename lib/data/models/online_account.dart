@@ -127,6 +127,8 @@ class OnlineAccount extends DataObject {
   FieldDefinitions get fieldDefinitions => fields.definitions;
 
   static final Fields<OnlineAccount> _fields = Fields<OnlineAccount>();
+
+  /// Returns the field definitions for OnlineAccount entities.
   static Fields<OnlineAccount> get fields {
     if (_fields.isEmpty) {
       final OnlineAccount tmp = OnlineAccount.fromJson(<String, dynamic>{});

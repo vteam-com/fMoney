@@ -27,12 +27,14 @@ import 'package:path/path.dart' as path; // Added import for path
 
 import 'helpers/home_controller.dart';
 
+/// Current selected sub-view index (used for reactive view switching).
 RxInt subViewInt = 0.obs;
 
 /// Represents home page.
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 
+  /// Builds the main application page and switches content based on viewport size.
   @override
   Widget build(BuildContext context) {
     final DataFileController dataController = Get.find();
@@ -61,6 +63,10 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
+  /// Builds the main content area based on current screen size.
+  ///
+  /// This method uses the `Obx` widget to rebuild the content area when the screen size changes.
+  /// It returns either the large-screen layout or the small-screen layout based on the current screen size.
   Widget _buildAdaptiveContent(BuildContext context) {
     return Obx(() {
       if (context.isWidthSmall) {
@@ -73,6 +79,9 @@ class HomePage extends GetView<HomeController> {
     });
   }
 
+  /// Builds the large-screen layout with a vertical navigation bar.
+  ///
+  /// This method returns a `SafeArea` widget with a `Row` child, containing the vertical navigation bar and the main content area.
   Widget _buildContentForLargeSurface(final BuildContext context) {
     return SafeArea(
       bottom: false,
@@ -97,6 +106,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
+  /// Builds the small-screen layout with a bottom navigation bar.
   Widget _buildContentForSmallSurface(final BuildContext _) {
     return Column(
       children: <Widget>[
@@ -111,6 +121,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
+  /// Returns the currently selected sub-view widget.
   Widget _getSubView() {
     switch (PreferenceController.to.currentView.value) {
       case ViewId.viewAccounts:

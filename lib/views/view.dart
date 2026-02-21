@@ -10,10 +10,13 @@ abstract class ViewWidget extends StatefulWidget {
   @override
   State<ViewWidget> createState();
 
+  /// Returns the plural class name for the view.
   String getClassNamePlural();
 
+  /// Returns the singular class name for the view.
   String getClassNameSingular();
 
+  /// Returns the description text for the view.
   String getDescription();
 }
 
@@ -33,7 +36,9 @@ abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
     );
   }
 
+  /// Builds the header widget with optional child.
   Widget buildHeader([final Widget? child]);
 
+  /// Builds the main view content widget.
   Widget buildViewContent(final Widget child);
 }

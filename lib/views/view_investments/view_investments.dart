@@ -164,6 +164,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     return MyLineChart(dataPoints: dataPoints, showDots: true);
   }
 
+  /// Returns the account id associated with the transaction backing the given investment.
   int _getAccountIdForInvestment(final int investmentTransactionId) {
     final Transaction? transactionFound = Data().transactions.get(
       investmentTransactionId,
@@ -174,6 +175,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     return -1;
   }
 
+  /// Checks whether an investment belongs to the given security and to the same account.
   bool _isSameSecurityFromTheSameAccount(
     final Investment investment,
     final int securityId,

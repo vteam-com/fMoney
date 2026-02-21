@@ -28,6 +28,7 @@ class DialogService {
   // singleton
   static final DialogService _instance = DialogService._internal();
 
+  /// Shows a simple message box dialog with OK button.
   Future<void> showMessageBox(String title, String message) async {
     await showDialog<dynamic>(
       context: navigatorKey.currentContext!,

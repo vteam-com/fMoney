@@ -170,6 +170,7 @@ class Data implements DataAbstract {
   /// singleton
   static final Data _instance = Data._internal();
 
+  /// Checks for dangling transfers and shows a warning if any are found.
   void checkTransfers() {
     final Set<Transaction> dangling = getDanglingTransfers();
     if (dangling.isNotEmpty) {
@@ -184,10 +185,12 @@ class Data implements DataAbstract {
     }
   }
 
+  /// Clears all data and resets mutations.
   void clear() {
     clearExistingData();
   }
 
+  /// Clears all existing data from all tables.
   void clearExistingData() {
     for (final MoneyObjects<dynamic> moneyObjects in tables) {
       moneyObjects.clear();
@@ -246,6 +249,7 @@ class Data implements DataAbstract {
     }
   }
 
+  /// Deletes the given items and triggers mutation notifications.
   void deleteItems(final List<DataObject> itemsToDelete) {
     for (final DataObject item in itemsToDelete) {
       notifyMutationChanged(
@@ -257,6 +261,7 @@ class Data implements DataAbstract {
     updateAll();
   }
 
+  /// Returns transfers that reference deleted accounts.
   Set<Transaction> getDanglingTransfers() {
     final Set<Transaction> dangling = <Transaction>{};
     final List<Account> deletedAccounts = <Account>[];
@@ -267,14 +272,7 @@ class Data implements DataAbstract {
     return dangling;
   }
 
-  List<DataObject> getMutatedInstances(final MutationType typeOfMutation) {
-    final List<DataObject> mutated = <DataObject>[];
-    for (final MoneyObjects<dynamic> listOfInstance in tables) {
-      mutated.addAll(listOfInstance.getMutatedObjects(typeOfMutation));
-    }
-    return mutated;
-  }
-
+  /// Groups mutated objects by type for pending changes UI.
   List<MutationGroup> getMutationGroups(final MutationType typeOfMutation) {
     final List<MutationGroup> allMutationGroups = <MutationGroup>[];
 
@@ -294,11 +292,13 @@ class Data implements DataAbstract {
     return allMutationGroups;
   }
 
+  /// Calculates net worth across all accounts.
   AmountModel getNetWorth() {
     final double sum = accounts.getSumOfAccountBalances();
     return AmountModel(amount: sum);
   }
 
+  /// Finds or creates the related transfer transaction for a destination account.
   Transaction? getOrCreateRelatedTransaction({
     required Transaction transactionSource,
     required Account destinationAccount,
@@ -366,6 +366,7 @@ class Data implements DataAbstract {
     return relatedTransaction;
   }
 
+  /// Ensures transfer linkage exists or updates it for the given transaction.
   void verifyApplyTransfer({
     required final Transaction transaction,
     required final Account? relatedAccount,
@@ -397,6 +398,7 @@ class Data implements DataAbstract {
     }
   }
 
+  /// Creates a transfer linkage between source and destination transactions.
   Transaction makeTransferLinkage({
     required Transaction transactionSource,
     required Account destinationAccount,

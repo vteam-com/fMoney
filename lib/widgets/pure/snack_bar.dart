@@ -148,6 +148,7 @@ class SnackBarService {
     }
   }
 
+  /// Schedules a post-frame retry to flush the queued snackbars when a messenger becomes available.
   static void _scheduleQueueFlush() {
     if (_flushScheduled || _queue.isEmpty) {
       return;

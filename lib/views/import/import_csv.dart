@@ -9,6 +9,7 @@ import 'package:money/widgets/csv_column_mapper_dialog.dart'; // Import the dial
 
 const int _previewRowLimit = 5;
 
+/// Imports CSV file and parses transaction data from comma-separated format.
 Future<void> importCSV(BuildContext context, String filePath) async {
   // print('importCSV called with filePath: $filePath'); // Removed
   try {
@@ -79,6 +80,7 @@ Future<void> importCSV(BuildContext context, String filePath) async {
   }
 }
 
+/// Loads CSV data from headers, rows, and column mapping into ImportData.
 ImportData loadCSV(
   List<String> headers,
   List<List<String>> dataRows,

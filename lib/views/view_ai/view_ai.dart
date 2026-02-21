@@ -76,21 +76,52 @@ class ViewAI extends ViewWidget {
 // ignore: always_specify_types
 /// Interface for Ollama service to enable testing with dependency injection
 abstract class OllamaServiceInterface {
+  /// Available models returned by the Ollama service.
   List<Map<String, dynamic>> get availableModels;
+
+  /// Currently selected model name.
   String get selectedModel;
+
+  /// Sets the currently selected model name.
   set selectedModel(String value);
+
+  /// Returns true if Ollama is installed on this system.
   Future<bool> checkIfOllamaInstalled();
+
+  /// Returns true if the Ollama HTTP API is reachable.
   Future<bool> checkIfOllamaRunning();
+
+  /// Initiates Ollama installation.
   Future<void> installOllama();
+
+  /// Starts the Ollama service.
   Future<void> startOllama();
+
+  /// Loads available models from Ollama.
   Future<List<Map<String, dynamic>>> loadAvailableModels();
+
+  /// Loads the last selected model from persistence.
   Future<void> getLastUserSelectedModel();
+
+  /// Persists the selected model.
   Future<void> saveSelectedModel(String model);
+
+  /// Loads the conversation context for the selected model.
   Future<List<int>?> loadConversationContext();
+
+  /// Persists the conversation context for the selected model.
   Future<void> saveConversationContext(List<int>? context);
+
+  /// Loads stored chat history for the selected model.
   Future<List<ChatMessage>> loadChatHistory();
+
+  /// Persists chat history for the selected model.
   Future<void> saveChatHistory(List<ChatMessage> chatHistory);
+
+  /// Sends an inference payload to Ollama.
   Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload);
+
+  /// Checks Ollama status and returns installation/running info.
   Future<OllamaStatus> checkOllamaStatus();
 }
 
@@ -210,6 +241,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     super.dispose();
   }
 
+  /// Scrolls the chat list to the bottom after the next frame.
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((final _) {
       if (_scrollController.hasClients) {
@@ -310,6 +342,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     );
   }
 
+  /// Submits a user prompt to Ollama and appends responses to chat history.
   Future<void> _submitPrompt(final String promptAsked) async {
     if (!_isOllamaRunning) {
       setState(() {});
@@ -414,7 +447,16 @@ Answer the question:''';
     _cancelled = false;
   }
 
-  void _appendChatHistory(final String text, ChatFrom source, [Map<String, dynamic>? payload]) {
+  /// Appends a message to chat history and triggers UI update.
+  ///
+  /// [text] is the message text to append.
+  /// [source] is the source of the message (user or AI).
+  /// [payload] is the payload sent to Ollama, if any.
+  void _appendChatHistory(
+    final String text,
+    ChatFrom source, [
+    Map<String, dynamic>? payload,
+  ]) {
     _chatHistory.add(
       ChatMessage(
         message: text,
@@ -431,6 +473,7 @@ Answer the question:''';
     }
   }
 
+  /// Checks Ollama installation/running status and updates UI state.
   Future<void> _checkOllamaStatus() async {
     setState(() => _isChecking = true);
 
@@ -447,6 +490,7 @@ Answer the question:''';
     setState(() => _isChecking = false);
   }
 
+  /// Builds the chat list view including history and processing indicator.
   Widget _chatListView() {
     return ListView.builder(
       controller: _scrollController,
@@ -478,6 +522,7 @@ Answer the question:''';
     );
   }
 
+  /// Teaches the AI about accounts by sending recent transactions as context.
   Future<void> teachAIAboutAccounts() async {
     if (mounted) {
       setState(() {

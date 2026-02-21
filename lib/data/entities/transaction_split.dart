@@ -242,8 +242,10 @@ class TransactionSplit extends DataObject {
 
   static final Fields<TransactionSplit> _fields = Fields<TransactionSplit>();
 
+  /// Returns the category name for this split.
   String get categoryName => data.getCategoryNameFromId(fieldCategoryId.value);
 
+  /// Returns the field definitions for TransactionSplit entities.
   static Fields<TransactionSplit> get fields {
     if (_fields.isEmpty) {
       // For static fields, we create a dummy instance without data
@@ -274,6 +276,7 @@ class TransactionSplit extends DataObject {
     return _fields;
   }
 
+  /// Returns the parent transaction for this split.
   dynamic getTransferTransaction() {
     return data.getTransaction(this.fieldTransactionId.value);
   }

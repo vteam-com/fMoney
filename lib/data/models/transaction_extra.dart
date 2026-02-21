@@ -81,6 +81,7 @@ class TransactionExtra extends DataObject {
 
   static final Fields<TransactionExtra> _fields = Fields<TransactionExtra>();
 
+  /// Returns the field definitions for TransactionExtra entities.
   static Fields<TransactionExtra> get fields {
     if (_fields.isEmpty) {
       final TransactionExtra tmp = TransactionExtra.fromJson(

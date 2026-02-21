@@ -168,6 +168,7 @@ class LoanPayment extends DataObject {
 
   static final Fields<LoanPayment> _fields = Fields<LoanPayment>();
 
+  /// Returns the field definitions for LoanPayment entities.
   static Fields<LoanPayment> get fields {
     if (_fields.isEmpty) {
       // Create a temporary instance for field definitions - no data relationships needed
@@ -195,6 +196,7 @@ class LoanPayment extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for LoanPayment column view.
   static Fields<LoanPayment> get fieldsForColumnView {
     if (_fields.isEmpty) {
       // Create a temporary instance for field definitions - no data relationships needed
@@ -222,6 +224,7 @@ class LoanPayment extends DataObject {
     return _fields;
   }
 
+  /// Calculates the annualized interest rate based on interest and principal change.
   double getRate() {
     final double previousBalance = this.fieldBalance.value.asDouble() - this.fieldPrincipal.value.asDouble();
     if (previousBalance == 0) {

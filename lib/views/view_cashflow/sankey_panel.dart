@@ -8,7 +8,7 @@ import 'package:money/data/entities/category.dart';
 import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/widgets/pure/scale_down.dart';
-import 'package:money/widgets/sankey/__sankey_painter.dart';
+import 'package:money/widgets/sankey/sankey_painter.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 const double _zeroDouble = 0.0;
@@ -49,6 +49,7 @@ class SankeyPanel extends StatelessWidget {
     );
   }
 
+  /// Transforms transactions in the selected year range into Sankey income/expense entries.
   ({List<SanKeyEntry> incomes, List<SanKeyEntry> expenses}) _transformData() {
     final Map<Category, double> mapOfExpenses = <Category, double>{};
     final Map<Category, double> mapOfIncomes = <Category, double>{};

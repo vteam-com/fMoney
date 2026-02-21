@@ -27,6 +27,7 @@ class MoneyObjects<T> {
   final List<DataObject> _list = <DataObject>[];
   final Map<num, DataObject> _map = <num, DataObject>{};
 
+  /// Appends an existing money object to the collection.
   void appendMoneyObject(final DataObject moneyObject) {
     // assert(moneyObject.uniqueId != -1);
 
@@ -34,6 +35,7 @@ class MoneyObjects<T> {
     _map[moneyObject.uniqueId] = moneyObject;
   }
 
+  /// Appends a new money object, assigns it a unique ID, and optionally fires notifications.
   DataObject appendNewMoneyObject(
     final DataObject moneyObject, {
     bool fireNotification = true,
@@ -53,11 +55,13 @@ class MoneyObjects<T> {
     return moneyObject;
   }
 
+  /// Clears the collection.
   void clear() {
     _list.clear();
     _map.clear();
   }
 
+  /// Returns true if an object with [id] exists in the collection.
   bool containsKey(final int id) {
     return _map.containsKey(id);
   }
@@ -71,6 +75,7 @@ class MoneyObjects<T> {
     );
   }
 
+  /// Returns the first item in the collection, or null if empty.
   T? firstItem([bool includeDeleted = false]) {
     final List<T> list = iterableList(includeDeleted: includeDeleted).toList();
     if (list.isEmpty) {
@@ -79,6 +84,7 @@ class MoneyObjects<T> {
     return iterableList(includeDeleted: includeDeleted).toList().first;
   }
 
+  /// Returns the item with [id], or null if not found.
   T? get(final int id) {
     if (_map.containsKey(id)) {
       return _map[id] as T;
@@ -86,6 +92,7 @@ class MoneyObjects<T> {
     return null;
   }
 
+  /// Builds a CSV document from a list of money objects.
   static String getCsvFromList(
     final List<DataObject> moneyObjects, {
     final String valueSeparator = ',',
@@ -119,6 +126,7 @@ class MoneyObjects<T> {
     return csv.toString();
   }
 
+  /// Returns the CSV header row for the given [declarations].
   static String getCsvHeader(
     final FieldDefinitions declarations,
     final bool forSerialization,
@@ -133,6 +141,7 @@ class MoneyObjects<T> {
     return headerList.join(',');
   }
 
+  /// Returns the internal list sorted by unique ID.
   List<DataObject> getListSortedById() {
     _list.sort((final DataObject a, final DataObject b) {
       return sortByValue(a.uniqueId, b.uniqueId, true);
@@ -140,10 +149,12 @@ class MoneyObjects<T> {
     return _list;
   }
 
+  /// Returns objects that have the given mutation type.
   List<DataObject> getMutatedObjects(final MutationType typeOfMutation) {
     return _list.where((final DataObject element) => element.mutation == typeOfMutation).toList();
   }
 
+  /// Returns the next available unique ID.
   int getNextId() {
     int nextId = _unsetId;
     for (DataObject moneyObject in _list) {
@@ -158,10 +169,12 @@ class MoneyObjects<T> {
     return DataObject();
   }
 
+  /// Returns true if the collection is empty.
   bool get isEmpty {
     return _list.isEmpty;
   }
 
+  /// Returns true if [field] should be included based on serialization mode.
   static bool isFieldMatchingCondition(
     final Field<dynamic> field,
     final bool forSerialization,
@@ -169,6 +182,7 @@ class MoneyObjects<T> {
     return !forSerialization || field.serializeName.isNotEmpty;
   }
 
+  /// Returns true if the collection is not empty.
   bool get isNotEmpty => !isEmpty;
 
   /// Recast list as type ```<T>```
@@ -176,10 +190,12 @@ class MoneyObjects<T> {
     return _iterableListOfMoneyObject(includeDeleted).whereType<T>();
   }
 
+  /// Returns the number of items in the collection.
   int get length {
     return _list.length;
   }
 
+  /// Loads objects from JSON rows, replacing any existing content.
   void loadFromJson(final List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
@@ -193,6 +209,7 @@ class MoneyObjects<T> {
     // implement in the override derived classes
   }
 
+  /// Saves mutated objects to SQL via the provided database interface.
   bool saveSql(final DatabaseInterface db, final String tableName) {
     for (final DataObject item in _iterableListOfMoneyObject(true)) {
       switch (item.mutation) {
@@ -237,6 +254,7 @@ class MoneyObjects<T> {
     return list;
   }
 
+  /// Sorts [list] using [sortWith] and falls back to unique ID for stable ordering.
   static void sortListFallbackOnIdForTieBreaker(
     List<DataObject> list,
     int Function(DataObject, DataObject, bool) sortWith,
@@ -251,10 +269,12 @@ class MoneyObjects<T> {
     });
   }
 
+  /// Returns a CSV representation of the collection.
   String toCSV() {
     return getCsvFromList(getListSortedById());
   }
 
+  /// Returns the field values for [item] as a single separated-values row.
   static String toStringAsSeparatedValues(
     final FieldDefinitions fieldDefinitions,
     final DataObject item, [
@@ -272,6 +292,7 @@ class MoneyObjects<T> {
         .join(valueSeparator);
   }
 
+  /// Builds UI widgets describing what fields changed for the given objects.
   List<Widget> whatWasMutated(List<DataObject> objects) {
     final List<Widget> widgets = <Widget>[];
     for (final DataObject moneyObject in objects) {
@@ -362,6 +383,7 @@ class MoneyObjects<T> {
     return widgets;
   }
 
+  /// Returns an iterable view of the collection, optionally including deleted items.
   Iterable<DataObject> _iterableListOfMoneyObject([
     bool includeDeleted = false,
   ]) {
@@ -375,6 +397,7 @@ class MoneyObjects<T> {
   }
 }
 
+/// Finds the first object with [uniqueId] in [listToSearch].
 DataObject? findObjectById(
   final int? uniqueId,
   final List<DataObject> listToSearch,

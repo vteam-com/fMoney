@@ -200,6 +200,7 @@ class _PanelTrendState extends State<PanelTrend> {
     );
   }
 
+  /// Returns border data with themed top/bottom colors for the trend chart.
   FlBorderData getBorders(final double min, final double max) {
     return FlBorderData(
       show: true,
@@ -210,10 +211,12 @@ class _PanelTrendState extends State<PanelTrend> {
     );
   }
 
+  /// Returns a themed horizontal line color based on the numeric value.
   Color getHorizontalLineColorBasedOnValue(final double value) {
     return context.colorTheme.colorBasedOnValue(value).withValues(alpha: _lineAlpha);
   }
 
+  /// Builds grouped bar chart data for each year using income, expense, and profit rods.
   List<BarChartGroupData> _buildBarGroups() {
     return List<BarChartGroupData>.generate(years.length, (int index) {
       final int year = years[index];
@@ -257,6 +260,7 @@ class _PanelTrendState extends State<PanelTrend> {
     });
   }
 
+  /// Builds axis title configuration for the bar chart.
   FlTitlesData _buildTitlesData() {
     return FlTitlesData(
       leftTitles: AxisTitles(
@@ -290,6 +294,7 @@ class _PanelTrendState extends State<PanelTrend> {
     );
   }
 
+  /// Generates yearly aggregates and chart bounds for the current configuration.
   void _generateList() {
     yearCategoryIncomeExpenseSums = RecurringExpenses.getSumByIncomeExpenseByYears(
       widget.minYear,

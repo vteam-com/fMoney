@@ -224,6 +224,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Returns investments for the specified security with split adjustments applied.
   List<Investment> getListOfInvestment(Security security) {
     final List<Investment> list = Investments.getInvestmentsForThisSecurity(
       security.uniqueId,
@@ -233,6 +234,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     return list;
   }
 
+  /// Returns true if the security holding matches the selected pivot for closed status.
   bool isMatchingPivot(final Security instance) {
     if (_selectedPivot[_pivotIndexClosed]) {
       // No holding of stock
@@ -248,6 +250,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     return true;
   }
 
+  /// Builds the dividend panel showing all dividend payments for the selected security.
   Widget _buildPanelForDividend(
     final BuildContext context,
     final Security security,
@@ -283,6 +286,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds the stock split history panel for the selected security.
   Widget _buildPanelForSplits(
     final BuildContext context,
     final Security security,
@@ -314,6 +318,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Returns the set of investment fields to show in the side panel transactions list.
   List<Field<dynamic>> _getFieldsToDisplayForSidePanelTransactions(
     bool includeSplitColumns,
   ) {
@@ -337,6 +342,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     return fieldsToDisplay;
   }
 
+  /// Builds the side panel chart subview for the selected security.
   Widget _getSidePanelViewChart({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
@@ -377,6 +383,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     return const Center(child: Text('No stock selected'));
   }
 
+  /// Builds the side panel transactions subview for the selected security.
   Widget _getSidePanelViewTransactions({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
@@ -466,6 +473,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds the pivot toggle row used to filter securities (active/closed/all).
   Widget _renderToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,

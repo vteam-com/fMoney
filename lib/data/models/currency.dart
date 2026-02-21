@@ -113,6 +113,7 @@ class Currency extends DataObject {
 
   static final Fields<Currency> _fields = Fields<Currency>();
 
+  /// Returns the field definitions for Currency entities.
   static Fields<Currency> get fields {
     if (_fields.isEmpty) {
       final Currency tmp = Currency.fromJson(<String, dynamic>{});

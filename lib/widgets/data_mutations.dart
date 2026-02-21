@@ -7,6 +7,7 @@ class DataMutations extends GetxController {
   RxInt deleted = 0.obs;
   Rx<DateTime> lastDateTimeChanged = Rx<DateTime>(DateTime.now());
 
+  /// Increments mutation counters and updates the last edit time.
   void increaseNumber({
     int increaseAdded = 0,
     int increaseChanged = 0,
@@ -23,10 +24,12 @@ class DataMutations extends GetxController {
     return numberOfChanges() > 0;
   }
 
+  /// Returns the total number of mutations.
   int numberOfChanges() {
     return added.value + changed.value + deleted.value;
   }
 
+  /// Resets all mutation counters and updates the last edit time.
   void reset() {
     setLastEditToNow();
     added.value = 0;
@@ -34,9 +37,11 @@ class DataMutations extends GetxController {
     deleted.value = 0;
   }
 
+  /// Updates [lastDateTimeChanged] to now.
   void setLastEditToNow() {
     lastDateTimeChanged.value = DateTime.now();
   }
 
+  /// Returns the registered instance from GetX.
   static DataMutations get to => Get.find();
 }

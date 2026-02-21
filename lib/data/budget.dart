@@ -70,6 +70,7 @@ class BudgetAnalyzer {
 
   final List<Transaction> transactions;
 
+  /// Returns the earliest and latest transaction dates in [transactions].
   ({DateTime start, DateTime end}) _calculateDateRange(
     List<Transaction> transactions,
   ) {
@@ -80,6 +81,7 @@ class BudgetAnalyzer {
     );
   }
 
+  /// Computes average, standard deviation, and a simple trend metric for [values].
   ({double average, double stdDev, double trend}) _calculateStatistics(
     List<double> values,
   ) {
@@ -142,6 +144,7 @@ class BudgetAnalyzer {
     );
   }
 
+  /// Returns the average original amount across the given [transactions].
   double _calculateAverageOriginalAmount(List<Transaction> transactions) {
     if (transactions.isEmpty) {
       return _zeroDouble;
@@ -153,6 +156,7 @@ class BudgetAnalyzer {
     return totalAmount / transactions.length;
   }
 
+  /// Calculates per-category budget cumulators for a list of expense/income transactions.
   Map<String, BudgetCumulator> _calculateCategoryBudgets(
     List<Transaction> expenses,
   ) {
@@ -189,6 +193,7 @@ class BudgetAnalyzer {
     });
   }
 
+  /// Calculates a monthly-equivalent amount based on detected [frequency].
   double _calculateMonthlyAmount(
     List<Transaction> transactions,
     ExpenseFrequency frequency,
@@ -236,6 +241,7 @@ class BudgetAnalyzer {
     return monthlyAmount;
   }
 
+  /// Aggregates transactions into totals per month.
   Map<DateTime, double> _calculateMonthlyTotals(List<Transaction> trans) {
     final Map<DateTime, double> monthlyTotals = <DateTime, double>{};
 
@@ -256,6 +262,7 @@ class BudgetAnalyzer {
     return (end.year - start.year) * _monthsPerYear + end.month - start.month + _oneInt;
   }
 
+  /// Calculates an average savings rate using the intersection of income/expense months.
   double _calculateSavingsRate(
     Map<DateTime, double> monthlyIncome,
     Map<DateTime, double> monthlyExpenses,
@@ -284,6 +291,7 @@ class BudgetAnalyzer {
     return monthCount > _zeroInt ? totalSavingsRate / monthCount : _zeroDouble;
   }
 
+  /// Detects the likely expense frequency based on time intervals between transactions.
   ExpenseFrequency _detectExpenseFrequency(List<Transaction> transactions) {
     if (transactions.isEmpty) {
       return ExpenseFrequency.irregular;

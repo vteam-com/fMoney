@@ -258,6 +258,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds the horizontal toggle row used to filter categories by type.
   Widget _buildToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -281,6 +282,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Returns the selected category type filter based on the current pivot toggle.
   List<CategoryType> _getSelectedCategoryType() {
     if (_selectedPivot[_pivotIndexNone]) {
       return <CategoryType>[CategoryType.none];
@@ -304,6 +306,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     return <CategoryType>[]; // all
   }
 
+  /// Sums balances across the currently listed categories, optionally filtered by type.
   double _getTotalBalanceOfAccounts(final List<CategoryType> types) {
     double total = _zeroDouble;
     getList().forEach((final Category category) {
@@ -314,6 +317,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     return total;
   }
 
+  /// Returns transactions whose categories fall within the selected category subtree.
   List<Transaction> _getTransactionsFromSelectedIds(
     final List<int> selectedIds,
   ) {

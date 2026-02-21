@@ -3,6 +3,7 @@ import 'package:money/helpers/color_helper.dart';
 const double _popupMenuBorderWidth = 2;
 const double _popupMenuBorderRadius = 8;
 
+/// Creates a PopupMenuButton with themed styling and icon.
 PopupMenuButton<int> myPopupMenuIconButton({
   final Key? key,
   required final BuildContext context,

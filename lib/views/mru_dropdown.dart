@@ -17,6 +17,7 @@ const double _timestampFontSize = 12.0;
 class MruDropdown extends StatelessWidget {
   const MruDropdown({super.key});
 
+  /// Builds the MRU file dropdown and loads the selected file.
   @override
   Widget build(BuildContext context) {
     final TokenTextStyle tokenStyle = TokenTextStyle(
@@ -77,6 +78,7 @@ class MruDropdown extends StatelessWidget {
     );
   }
 
+  /// Builds a relative timestamp label for the currently loaded file.
   Widget _buildTimeStampOfFile(final DateTime? dataSourceTimeStamp) {
     if (dataSourceTimeStamp == null) {
       return const SizedBox();

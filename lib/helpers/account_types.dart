@@ -70,6 +70,7 @@ String getTypeAsText(final AccountType type) {
   return 'other $type';
 }
 
+/// Returns list of account type names as strings.
 List<String> getAccountTypeAsText() {
   return <String>[
     getTypeAsText(AccountType.checking),

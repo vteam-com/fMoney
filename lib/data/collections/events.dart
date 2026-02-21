@@ -26,6 +26,7 @@ class Events extends MoneyObjects<Event> {
     return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
+  /// Creates and adds a new event with default values.
   Event addNewEvent() {
     // add a new Category
     final Event event = Event(

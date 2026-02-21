@@ -639,35 +639,35 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/database_sql.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 312.0, 56.0 312.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 312.0, 56.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/data/collections/data.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 7452.0, 56.0 7452.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 7452.0, 56.0 7452.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/file_systems.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 242.0, 56.0 242.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 242.0, 56.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 662.0, 56.0 662.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 662.0, 56.0 662.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 15292.0, 56.0 15292.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 15292.0, 56.0 15292.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/io/database.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 5142.0, 56.0 5142.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 5142.0, 56.0 5142.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/data_access.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 7382.0, 56.0 7382.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 7382.0, 56.0 7382.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/data_source.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 2132.0, 56.0 2132.0" class="edge"/>
+  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 2132.0, 56.0 2132.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart</title>
 </g>
 <g>
@@ -4395,7 +4395,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/data_file_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/io/data_simulator.dart</title>
 </g>
 <g>
-  <path d="M 270.0 2578.0 C 320.0 2578.0, 6.0 13052.0, 56.0 13052.0" class="edge"/>
+  <path d="M 270.0 2578.0 C 320.0 2578.0, 6.0 12982.0, 56.0 12982.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/data_file_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/io/money_data_io.dart</title>
 </g>
 <g>
@@ -5123,8 +5123,8 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/scale_down.dart</title>
 </g>
 <g>
-  <path d="M 270.0 13358.0 C 320.0 13358.0, 6.0 12982.0, 56.0 12982.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart</title>
+  <path d="M 270.0 13358.0 C 320.0 13358.0, 6.0 13052.0, 56.0 13052.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart</title>
 </g>
 <g>
   <path d="M 270.0 13358.0 C 320.0 13358.0, 6.0 4232.0, 56.0 4232.0" class="edge"/>
@@ -5759,44 +5759,44 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/box_with_scrolling_content.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/box.dart</title>
 </g>
 <g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 102.0, 56.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 662.0, 56.0 662.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 10322.0, 56.0 10322.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 7662.0, 56.0 7662.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 9622.0, 56.0 9622.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 10322.0, 56.0 10322.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 7662.0, 56.0 7662.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
+</g>
+<g>
+  <path d="M 270.0 13078.0 C 320.0 13078.0, 6.0 9622.0, 56.0 9622.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
+</g>
+<g>
   <path d="M 270.0 9648.0 C 320.0 9648.0, 6.0 102.0, 56.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
 <g>
   <path d="M 270.0 9648.0 C 320.0 9648.0, 6.0 7662.0, 56.0 7662.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 102.0, 56.0 102.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 662.0, 56.0 662.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 10322.0, 56.0 10322.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 7662.0, 56.0 7662.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 9622.0, 56.0 9622.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 10322.0, 56.0 10322.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 7662.0, 56.0 7662.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
-</g>
-<g>
-  <path d="M 270.0 13008.0 C 320.0 13008.0, 6.0 9622.0, 56.0 9622.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/__sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
 </g>
 <g>
   <path d="M 270.0 18398.0 C 320.0 18398.0, 6.0 522.0, 56.0 522.0" class="edge"/>
@@ -6692,56 +6692,56 @@
 </g>
 <g class="badge incomingBadge">
   <path d="M 64.0,102.0 L 48.0,94.4 Q 45.0,94.4 45.0,97.4 L 45.0,106.6 Q 45.0,109.6 48.0,109.6 Z" fill="#3b82f6"/>
-  <text x="50.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">79</text><title>1. __sankey_painter.dart
-2. account.dart
-3. accounts.dart
-4. adaptable_view_with_list.dart
-5. amount_model.dart
-6. app_bar.dart
-7. app_title.dart
-8. box.dart
-9. button_helpers.dart
-10. categories.dart
-11. category.dart
-12. center_message.dart
-13. chart.dart
-14. columns_input.dart
-15. currency_helper.dart
-16. data_access.dart
-17. data_file_controller.dart
-18. data_object.dart
-19. dialog.dart
-20. dialog_mutate_split.dart
-21. dialog_mutate_transaction.dart
-22. event.dart
-23. field.dart
-24. get_stock_from_cache_or_backend.dart
-25. home_page.dart
-26. home_routes.dart
-27. import_transactions_list_preview.dart
-28. import_transactions_panel.dart
-29. input_values.dart
-30. label_and_amount.dart
-31. list_item_header.dart
-32. locale.dart
-33. menu_entry.dart
-34. merge_categories.dart
-35. money_object_card.dart
-36. money_objects.dart
-37. mru_dropdown.dart
-38. multiple_selection_toggle.dart
-39. my_nav_bar.dart
-40. panel_budget.dart
-41. panel_trend.dart
-42. picker_account.dart
-43. picker_panel.dart
-44. platforms_routes.dart
-45. policy_routes.dart
-46. preferences_controller.dart
-47. recurring_card.dart
-48. rent_building.dart
-49. rental_pnl_card.dart
-50. sankey_helper.dart
+  <text x="50.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">79</text><title>1. account.dart
+2. accounts.dart
+3. adaptable_view_with_list.dart
+4. amount_model.dart
+5. app_bar.dart
+6. app_title.dart
+7. box.dart
+8. button_helpers.dart
+9. categories.dart
+10. category.dart
+11. center_message.dart
+12. chart.dart
+13. columns_input.dart
+14. currency_helper.dart
+15. data_access.dart
+16. data_file_controller.dart
+17. data_object.dart
+18. dialog.dart
+19. dialog_mutate_split.dart
+20. dialog_mutate_transaction.dart
+21. event.dart
+22. field.dart
+23. get_stock_from_cache_or_backend.dart
+24. home_page.dart
+25. home_routes.dart
+26. import_transactions_list_preview.dart
+27. import_transactions_panel.dart
+28. input_values.dart
+29. label_and_amount.dart
+30. list_item_header.dart
+31. locale.dart
+32. menu_entry.dart
+33. merge_categories.dart
+34. money_object_card.dart
+35. money_objects.dart
+36. mru_dropdown.dart
+37. multiple_selection_toggle.dart
+38. my_nav_bar.dart
+39. panel_budget.dart
+40. panel_trend.dart
+41. picker_account.dart
+42. picker_panel.dart
+43. platforms_routes.dart
+44. policy_routes.dart
+45. preferences_controller.dart
+46. recurring_card.dart
+47. rent_building.dart
+48. rental_pnl_card.dart
+49. sankey_helper.dart
+50. sankey_painter.dart
 51. scale_down.dart
 52. settings_routes.dart
 53. side_panel.dart
@@ -7163,35 +7163,35 @@
 9. theme_custom.dart</title></g><text x="160.0" y="605.0" class="textNormal">data_object.dart</text>
 <g class="badge incomingBadge">
   <path d="M 64.0,662.0 L 48.0,654.4 Q 45.0,654.4 45.0,657.4 L 45.0,666.6 Q 45.0,669.6 48.0,669.6 Z" fill="#3b82f6"/>
-  <text x="50.72" y="663.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">36</text><title>1. __sankey_painter.dart
-2. accounts.dart
-3. alias.dart
-4. badge_pending_changes.dart
-5. category.dart
-6. column_filter_panel.dart
-7. currency_helper.dart
-8. data_simulator.dart
-9. dialog_mutate_money_object.dart
-10. field.dart
-11. import_data.dart
-12. import_qfx.dart
-13. import_qif.dart
-14. input_values.dart
-15. investment.dart
-16. json_helper.dart
-17. list_helper.dart
-18. loan_payments.dart
-19. merge_payees.dart
-20. mini_timeline_daily.dart
-21. mini_timeline_twelve_months.dart
-22. money_data_io.dart
-23. money_object_card.dart
-24. multiple_selection_toggle.dart
-25. my_line_chart.dart
-26. payee.dart
-27. pending_changes_dialog.dart
-28. quantity_widget.dart
-29. ranges.dart
+  <text x="50.72" y="663.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">36</text><title>1. accounts.dart
+2. alias.dart
+3. badge_pending_changes.dart
+4. category.dart
+5. column_filter_panel.dart
+6. currency_helper.dart
+7. data_simulator.dart
+8. dialog_mutate_money_object.dart
+9. field.dart
+10. import_data.dart
+11. import_qfx.dart
+12. import_qif.dart
+13. input_values.dart
+14. investment.dart
+15. json_helper.dart
+16. list_helper.dart
+17. loan_payments.dart
+18. merge_payees.dart
+19. mini_timeline_daily.dart
+20. mini_timeline_twelve_months.dart
+21. money_data_io.dart
+22. money_object_card.dart
+23. multiple_selection_toggle.dart
+24. my_line_chart.dart
+25. payee.dart
+26. pending_changes_dialog.dart
+27. quantity_widget.dart
+28. ranges.dart
+29. sankey_painter.dart
 30. securities.dart
 31. stock_chart.dart
 32. view_ai_header.dart
@@ -8866,8 +8866,8 @@
 3. view_ai_instructions.dart</title></g><text x="160.0" y="7605.0" class="textNormal">my_svg.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,7662.0 L 50.0,7655.0 Q 47.0,7655.0 47.0,7658.0 L 47.0,7666.0 Q 47.0,7669.0 50.0,7669.0 Z" fill="#3b82f6"/>
-  <text x="51.68" y="7663.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. __sankey_painter.dart
-2. sankey_helper.dart</title></g><text x="160.0" y="7675.0" class="textNormal">sankey_entry.dart</text>
+  <text x="51.68" y="7663.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. sankey_helper.dart
+2. sankey_painter.dart</title></g><text x="160.0" y="7675.0" class="textNormal">sankey_entry.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,7732.0 L 50.0,7725.0 Q 47.0,7725.0 47.0,7728.0 L 47.0,7736.0 Q 47.0,7739.0 50.0,7739.0 Z" fill="#3b82f6"/>
   <text x="51.68" y="7733.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. data.dart
@@ -9187,7 +9187,7 @@
 2. currency_helper.dart</title></g><text x="160.0" y="9565.0" class="textNormal">locale.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,9622.0 L 50.0,9615.0 Q 47.0,9615.0 47.0,9618.0 L 47.0,9626.0 Q 47.0,9629.0 50.0,9629.0 Z" fill="#3b82f6"/>
-  <text x="51.68" y="9623.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. __sankey_painter.dart</title></g><g class="badge outgoingBadge">
+  <text x="51.68" y="9623.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. sankey_painter.dart</title></g><g class="badge outgoingBadge">
   <path d="M 276.0,9648.0 L 264.0,9641.0 Q 261.0,9641.0 261.0,9644.0 L 261.0,9652.0 Q 261.0,9655.0 264.0,9655.0 Z" fill="#10b981"/>
   <text x="265.68" y="9649.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. constants.dart
 2. sankey_entry.dart</title></g><text x="160.0" y="9635.0" class="textNormal">sankey_helper.dart</text>
@@ -9237,7 +9237,7 @@
 2. theme_controller.dart</title></g><text x="160.0" y="10265.0" class="textNormal">my_window_manager.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,10322.0 L 50.0,10315.0 Q 47.0,10315.0 47.0,10318.0 L 47.0,10326.0 Q 47.0,10329.0 50.0,10329.0 Z" fill="#3b82f6"/>
-  <text x="51.68" y="10323.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. __sankey_painter.dart</title></g><text x="160.0" y="10335.0" class="textNormal">sankey_colors.dart</text>
+  <text x="51.68" y="10323.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. sankey_painter.dart</title></g><text x="160.0" y="10335.0" class="textNormal">sankey_colors.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,10392.0 L 50.0,10385.0 Q 47.0,10385.0 47.0,10388.0 L 47.0,10396.0 Q 47.0,10399.0 50.0,10399.0 Z" fill="#3b82f6"/>
   <text x="51.68" y="10393.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. get_stock_from_cache_or_backend.dart
@@ -9924,25 +9924,25 @@
 9. widget_from_data.dart</title></g><text x="160.0" y="12925.0" class="textNormal">settings_page.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,12982.0 L 50.0,12975.0 Q 47.0,12975.0 47.0,12978.0 L 47.0,12986.0 Q 47.0,12989.0 50.0,12989.0 Z" fill="#3b82f6"/>
-  <text x="51.68" y="12983.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. sankey_panel.dart</title></g><g class="badge outgoingBadge">
+  <text x="51.68" y="12983.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. data_file_controller.dart</title></g><g class="badge outgoingBadge">
   <path d="M 276.0,13008.0 L 264.0,13001.0 Q 261.0,13001.0 261.0,13004.0 L 261.0,13012.0 Q 261.0,13015.0 264.0,13015.0 Z" fill="#10b981"/>
-  <text x="265.68" y="13009.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. constants.dart
-2. sankey_colors.dart
-3. sankey_entry.dart
-4. sankey_helper.dart
-5. string_helper.dart</title></g><text x="160.0" y="12995.0" class="textNormal">__sankey_painter.dart</text>
-<g class="badge incomingBadge">
-  <path d="M 62.0,13052.0 L 50.0,13045.0 Q 47.0,13045.0 47.0,13048.0 L 47.0,13056.0 Q 47.0,13059.0 50.0,13059.0 Z" fill="#3b82f6"/>
-  <text x="51.68" y="13053.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. data_file_controller.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 276.0,13078.0 L 264.0,13071.0 Q 261.0,13071.0 261.0,13074.0 L 261.0,13082.0 Q 261.0,13085.0 264.0,13085.0 Z" fill="#10b981"/>
-  <text x="265.68" y="13079.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. data.dart
+  <text x="265.68" y="13009.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. data.dart
 2. data_access.dart
 3. data_source.dart
 4. database.dart
 5. file_systems.dart
 6. json_helper.dart
 7. snack_bar.dart
-8. string_helper.dart</title></g><text x="160.0" y="13065.0" class="textNormal">money_data_io.dart</text>
+8. string_helper.dart</title></g><text x="160.0" y="12995.0" class="textNormal">money_data_io.dart</text>
+<g class="badge incomingBadge">
+  <path d="M 62.0,13052.0 L 50.0,13045.0 Q 47.0,13045.0 47.0,13048.0 L 47.0,13056.0 Q 47.0,13059.0 50.0,13059.0 Z" fill="#3b82f6"/>
+  <text x="51.68" y="13053.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. sankey_panel.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 276.0,13078.0 L 264.0,13071.0 Q 261.0,13071.0 261.0,13074.0 L 261.0,13082.0 Q 261.0,13085.0 264.0,13085.0 Z" fill="#10b981"/>
+  <text x="265.68" y="13079.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. constants.dart
+2. sankey_colors.dart
+3. sankey_entry.dart
+4. sankey_helper.dart
+5. string_helper.dart</title></g><text x="160.0" y="13065.0" class="textNormal">sankey_painter.dart</text>
 <g class="badge incomingBadge">
   <path d="M 62.0,13122.0 L 50.0,13115.0 Q 47.0,13115.0 47.0,13118.0 L 47.0,13126.0 Q 47.0,13129.0 50.0,13129.0 Z" fill="#3b82f6"/>
   <text x="51.68" y="13123.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. footer_accumulators.dart</title></g><g class="badge outgoingBadge">
@@ -9980,10 +9980,10 @@
   <path d="M 62.0,13332.0 L 50.0,13325.0 Q 47.0,13325.0 47.0,13328.0 L 47.0,13336.0 Q 47.0,13339.0 50.0,13339.0 Z" fill="#3b82f6"/>
   <text x="51.68" y="13333.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. view_cashflow.dart</title></g><g class="badge outgoingBadge">
   <path d="M 276.0,13358.0 L 264.0,13351.0 Q 261.0,13351.0 261.0,13354.0 L 261.0,13362.0 Q 261.0,13365.0 264.0,13365.0 Z" fill="#10b981"/>
-  <text x="265.68" y="13359.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">7</text><title>1. __sankey_painter.dart
-2. category.dart
-3. category_types.dart
-4. data.dart
+  <text x="265.68" y="13359.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">7</text><title>1. category.dart
+2. category_types.dart
+3. data.dart
+4. sankey_painter.dart
 5. scale_down.dart
 6. theme_controller.dart
 7. transaction.dart</title></g><text x="160.0" y="13345.0" class="textNormal">sankey_panel.dart</text>

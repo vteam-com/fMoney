@@ -71,6 +71,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
     );
   }
 
+  /// Aggregates transactions into sums by the currently selected [TimelineScale].
   List<PairXYY> _calculateSumByPeriod() {
     switch (_selectedScale) {
       // DAILY
@@ -103,6 +104,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
     }
   }
 
+  /// Copies the aggregated timeline data to the system clipboard.
   void _copyToClipboard(List<PairXYY> data) {
     final String clipboardData = data
         .map(

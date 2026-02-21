@@ -44,6 +44,7 @@ class Block {
   static const double blockWidth = 50.0;
   static const double minBlockHeight = 20.0;
 
+  /// Draws the block rectangle and centered text onto the canvas.
   void draw(final Canvas canvas) {
     if (!rect.hasNaN) {
       // Rectangle
@@ -64,6 +65,7 @@ class Block {
   }
 }
 
+/// Renders source blocks and percentage-based channels to a target block.
 void renderSourcesToTargetAsPercentage(
   final ui.Canvas canvas,
   final List<Block> list,
@@ -104,6 +106,7 @@ void renderSourcesToTargetAsPercentage(
   }
 }
 
+/// Calculates vertical space needed to render a list of entries.
 double getHeightNeededToRender(final List<SanKeyEntry> list) {
   final double sum = sumValue(list);
 
@@ -119,6 +122,7 @@ double getHeightNeededToRender(final List<SanKeyEntry> list) {
   return verticalPosition;
 }
 
+/// Draws centered text inside a rectangle with optional rotation.
 void drawTextInRect(
   final Canvas context,
   final String name,
@@ -159,6 +163,7 @@ void drawTextInRect(
   context.restore();
 }
 
+/// Draws a curved channel between two vertical points.
 void drawChanel({
   required final ui.Canvas canvas,
   required final ChannelPoint start,
@@ -221,6 +226,7 @@ void drawChanel({
   // canvas.drawPath(path, paintStroke);
 }
 
+/// Sums the heights of a list of blocks.
 double sumHeight(final List<Block> list) {
   final double sumOfHeight = list.fold(
     0.0,
@@ -229,6 +235,7 @@ double sumHeight(final List<Block> list) {
   return sumOfHeight;
 }
 
+/// Sums the values of a list of SanKeyEntry items.
 double sumValue(final List<SanKeyEntry> list) {
   final double sumOfHeight = list.fold(
     0.0,

@@ -448,6 +448,7 @@ class RentBuilding extends DataObject {
 
   static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
 
+  /// Attempts to associate this rental with an account by looking for the first matching income transaction.
   void associateAccountToBuilding() {
     final dynamic firstTransactionForThisBuilding = data
         .getTransactions(includeDeleted: true)
@@ -459,6 +460,7 @@ class RentBuilding extends DataObject {
     }
   }
 
+  /// Updates year-based and lifetime profit-and-loss using the given transaction.
   void cumulatePnL(Transaction t) {
     final int transactionCategoryId = t.fieldCategoryId.value;
 
@@ -505,6 +507,7 @@ class RentBuilding extends DataObject {
     lifeTimePnL = getLifeTimePnL();
   }
 
+  /// Applies a single income/expense amount to the correct PnL buckets.
   void cumulatePnLValues(RentalPnL pnl, int categoryId, double amount) {
     if (this.categoryForIncomeTreeIds.contains(categoryId)) {
       fieldTransactionsForIncomes.value++;
@@ -533,6 +536,7 @@ class RentBuilding extends DataObject {
     }
   }
 
+  /// Returns the field definitions for RentBuilding entities.
   static Fields<RentBuilding> get fields {
     if (_fields.isEmpty) {
       final RentBuilding tmp = RentBuilding.fromJson(<String, dynamic>{});
@@ -570,6 +574,7 @@ class RentBuilding extends DataObject {
     return _fields;
   }
 
+  /// Returns the field definitions for RentBuilding column view.
   static Fields<RentBuilding> get fieldsForColumnView {
     final RentBuilding tmp = RentBuilding.fromJson(<String, dynamic>{});
     return Fields<RentBuilding>()..setDefinitions(<Field<dynamic>>[
@@ -591,10 +596,12 @@ class RentBuilding extends DataObject {
     ]);
   }
 
+  /// Returns the category name for the given category [id].
   String getCategoryName(final int id) {
     return data.getCategoryNameFromId(id);
   }
 
+  /// Returns the currency of the associated account or the default currency.
   String getCurrencyOfAssociatedAccount() {
     if (this.account == null) {
       return Constants.defaultCurrency;
@@ -603,6 +610,7 @@ class RentBuilding extends DataObject {
     }
   }
 
+  /// Returns lifetime profit-and-loss accumulated across all years.
   RentalPnL getLifeTimePnL() {
     final RentalPnL lifeTimePnL = RentalPnL(date: DateTime.now());
     pnlOverYears.forEach((int _ /* year */, RentalPnL pnl) {
@@ -619,6 +627,7 @@ class RentBuilding extends DataObject {
     return lifeTimePnL;
   }
 
+  /// Returns true if a transaction category is associated with this rental.
   bool isTransactionAssociatedWithThisRental(int transactionCategoryId) {
     return this.categoryForIncomeTreeIds.contains(transactionCategoryId) ||
         this.categoryForInterestTreeIds.contains(transactionCategoryId) ||
@@ -628,6 +637,7 @@ class RentBuilding extends DataObject {
         this.categoryForTaxesTreeIds.contains(transactionCategoryId);
   }
 
+  /// Returns true if a transaction or any split is associated with this rental.
   bool isTransactionOrSplitAssociatedWithThisRental(Transaction t) {
     final int transactionCategoryId = t.fieldCategoryId.value;
     if (t.isSplit) {

@@ -364,6 +364,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     return t.fieldAccountId.value == accountId;
   }
 
+  /// Returns the selected account types based on UI pivot selections.
   List<AccountType> getSelectedAccountType() {
     if (_selectedPivot[_accountTypeIndexBank]) {
       return getSelectedAccountTypesByIndex(_accountTypeIndexBank);
@@ -408,6 +409,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     }
   }
 
+  /// Builds the horizontal toggle row used to select account type pivots.
   Widget _renderToggles() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -433,6 +435,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     );
   }
 
+  /// Builds the side panel details view for the currently selected account.
   Widget _getSidePanelViewDetails({
     required final List<int> selectedIds,
   }) {
@@ -477,6 +480,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     }
   }
 
+  /// Builds holding summary cards for an investment account grouped by stock symbol.
   List<Widget> _buildStockHoldingCards(final Account account) {
     final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
     Accounts.groupAccountStockSymbols(account, groupBySymbol, Data());
@@ -710,6 +714,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     }
   }
 
+  /// Builds the side panel transactions subview for the selected account.
   Widget _getSidePanelViewTransactions({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,
@@ -871,6 +876,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     });
   }
 
+  /// Returns transactions for the last selected account with optional filtering.
   List<Transaction> getTransactionForLastSelectedAccount(
     final Account account,
   ) {

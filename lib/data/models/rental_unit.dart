@@ -79,6 +79,7 @@ class RentUnit extends DataObject {
 
   static final Fields<RentUnit> _fields = Fields<RentUnit>();
 
+  /// Returns the field definitions for RentUnit entities.
   static Fields<RentUnit> get fields {
     if (_fields.isEmpty) {
       final RentUnit tmp = RentUnit.fromJson(<String, dynamic>{});

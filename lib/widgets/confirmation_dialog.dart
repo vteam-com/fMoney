@@ -2,6 +2,7 @@ import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/gaps.dart';
 
+/// Shows a confirmation dialog with a single action button.
 void showConfirmationDialog({
   required final BuildContext context,
   required final String title,
@@ -46,6 +47,7 @@ class ConfirmationDialog extends StatelessWidget {
 
   final String question;
 
+  /// Builds the confirmation dialog content.
   @override
   Widget build(final BuildContext context) {
     return Center(

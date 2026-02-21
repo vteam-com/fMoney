@@ -18,7 +18,10 @@ class ListViewTransactionSplits extends StatefulWidget {
   });
 
   final int defaultSortingField;
-  final List<TransactionSplit> splits;
+  final
+  /// Returns a list of transaction splits with optional filtering and sorting.
+  List<TransactionSplit>
+  splits;
   final double totalAmount;
 
   @override
@@ -98,12 +101,15 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     );
   }
 
+  /// Returns the difference between sum of splits and total amount.
   double get amountDelta {
     return sumOfSplits - widget.totalAmount;
   }
 
+  /// Returns true if the sum of splits matches the total amount.
   bool get isTotalMatching => amountDelta == 0;
 
+  /// Returns the sum of all split amounts.
   double get sumOfSplits {
     return widget.splits.fold(
       0.0,
@@ -111,6 +117,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     );
   }
 
+  /// Builds a tally row indicating whether the split amounts match the transaction total.
   Widget _buildTally() {
     if (isTotalMatching) {
       return Row(

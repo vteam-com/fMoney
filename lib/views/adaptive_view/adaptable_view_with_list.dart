@@ -154,6 +154,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     );
   }
 
+  /// Builds the top section widget containing title and content.
   Widget topSection(final bool displayAsColumns) {
     return Column(
       children: <Widget>[
@@ -190,6 +191,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     );
   }
 
+  /// Builds the draggable divider widget between the main list and side panel.
   Widget _buildSplitDivider(
     Axis axis,
     int index,
@@ -206,6 +208,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     );
   }
 
+  /// Configures the split controller areas based on persisted side panel state.
   void _configureSplitPanelAreas() {
     if (PreferenceController.to.isSidePanelExpanded) {
       _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + _sidePanelExpandedMinExtra;
@@ -216,6 +219,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     }
   }
 
+  /// Handles keyboard shortcuts that toggle the side panel.
   KeyEventResult _handleKeyboardShortcuts(FocusNode _, KeyEvent event) {
     if (event is KeyDownEvent) {
       // F9 shortcut
@@ -234,6 +238,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     return KeyEventResult.ignored;
   }
 
+  /// Persists side panel size changes when rebuilding.
   void _rebuild() async {
     if (PreferenceController.to.isSidePanelExpanded) {
       // save the height of the side panel

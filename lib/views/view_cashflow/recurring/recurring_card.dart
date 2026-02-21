@@ -79,6 +79,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
+  /// Builds the averages box showing yearly, monthly, and daily averages.
   Widget _buildBoxAverages(final BuildContext context) {
     return Box(
       title: 'Averages',
@@ -118,6 +119,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
+  /// Builds the category distribution box for the payment's category breakdown.
   Widget _buildBoxDistribution(final BuildContext _) {
     return Box(
       title: 'Categories',
@@ -126,6 +128,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
+  /// Builds the timeline box showing daily sums over the searched date range.
   Widget _buildBoxTimelinePerDayOverYears(final BuildContext context) {
     final List<Pair<int, double>> sumByDays = Transactions.transactionSumByTime(
       payment.transactions,
@@ -160,6 +163,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
+  /// Builds a date range timeline row for the given [dateRange].
   Widget _buildDateRangeRow(
     final DateRange dateRange,
     final double paddingLeft,
@@ -176,6 +180,7 @@ class RecurringCard extends StatelessWidget {
     );
   }
 
+  /// Builds the card header with payee name and total amount.
   Widget _buildHeader(final BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final String payeeName = Data().payees.getNameFromId(payment.payeeId);
@@ -208,6 +213,7 @@ class RecurringCard extends StatelessWidget {
   }
 }
 
+/// Builds a label/value row for an amount.
 Widget _buildTextAmountRow(
   final BuildContext context,
   final String title,

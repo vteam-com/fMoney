@@ -38,6 +38,7 @@ String getCountryFromCurrencyIso4217(String iso4217code) {
   return locale.substring(separator + 1).toLowerCase();
 }
 
+/// Returns currency symbol string from three-letter currency code.
 String getCurrencyAsString(final String threeLetterCurrencySymbol) {
   if (threeLetterCurrencySymbol.isEmpty) {
     return Constants.defaultCurrency;

@@ -120,6 +120,7 @@ class Categories extends MoneyObjects<Category> {
     return category;
   }
 
+  /// Appends a new category with required fields; optionally fires notification.
   Category appendNewCategory({
     required int parentId,
     required String name,
@@ -137,6 +138,7 @@ class Categories extends MoneyObjects<Category> {
     return category;
   }
 
+  /// Ensures ancestor categories exist for a colon-separated [name]; creates missing ones.
   Category ensureAncestorExist({
     required final String name,
     final CategoryType? overrideTypeOfParent,
@@ -169,20 +171,24 @@ class Categories extends MoneyObjects<Category> {
     return getByName(name)!;
   }
 
+  /// Returns all expense categories.
   List<Category> getAllExpenseCategories() {
     return iterableList().where((Category category) => category.isExpense).toList();
   }
 
+  /// Returns all income categories.
   List<Category> getAllIncomeCategories() {
     return iterableList().where((Category category) => category.isIncome).toList();
   }
 
+  /// Finds a category by exact name.
   Category? getByName(final String name) {
     return iterableList().firstWhereOrNull(
       (final Category category) => category.fieldName.value == name,
     );
   }
 
+  /// Returns the ID for a category by name; -1 if not found.
   int? getIdByName(final String name) {
     final Category? found = iterableList().firstWhereOrNull(
       (final Category category) => category.fieldName.value == name,
@@ -190,10 +196,12 @@ class Categories extends MoneyObjects<Category> {
     return found?.uniqueId ?? -1;
   }
 
+  /// Returns all category names as strings.
   List<String> getCategoriesAsStrings() {
     return this.getListSorted().map((Category element) => element.fieldName.value).toList();
   }
 
+  /// Returns direct child categories of the given [parentId].
   List<Category> getCategoriesWithThisParent(final int parentId) {
     final List<Category> list = <Category>[];
     for (final Category item in iterableList()) {
@@ -204,6 +212,7 @@ class Categories extends MoneyObjects<Category> {
     return list;
   }
 
+  /// Returns a widget representing the category for the given [id].
   Widget getCategoryWidget(final int id) {
     if (id == -1) {
       return const Text('?');
@@ -216,6 +225,7 @@ class Categories extends MoneyObjects<Category> {
     return get(id)?.getColorAndNameWidget() ?? const Text('Unknown');
   }
 
+  /// Returns a sorted list of all categories by name.
   List<Category> getListSorted() {
     final List<Category> list = iterableList().toList();
     list.sort(
@@ -224,6 +234,7 @@ class Categories extends MoneyObjects<Category> {
     return list;
   }
 
+  /// Gets the category name for the given [id]; handles special cases.
   String getNameFromId(final int id) {
     if (id == -1) {
       return '';
@@ -235,6 +246,7 @@ class Categories extends MoneyObjects<Category> {
     return Category.getName(get(id));
   }
 
+  /// Gets or creates a category by [name] and [type]; restores if deleted.
   Category getOrCreate(final String name, final CategoryType type) {
     Category? category = getByName(name);
 
@@ -249,6 +261,7 @@ class Categories extends MoneyObjects<Category> {
     return category;
   }
 
+  /// Walks up the hierarchy to return the top-level ancestor category.
   Category getTopAncestor(final Category category) {
     if (category.fieldParentId.value == -1) {
       return category; // this is the top
@@ -260,6 +273,7 @@ class Categories extends MoneyObjects<Category> {
     return getTopAncestor(parent);
   }
 
+  /// Returns all descendant IDs in the tree starting from [rootIdToStartFrom].
   List<int> getTreeIds(final int rootIdToStartFrom) {
     final List<int> list = <int>[];
     if (rootIdToStartFrom > 0) {
@@ -268,6 +282,7 @@ class Categories extends MoneyObjects<Category> {
     return list;
   }
 
+  /// Recursive helper to collect descendant category IDs.
   void getTreeIdsRecursive(final int categoryId, final List<int> list) {
     if (categoryId > 0) {
       list.add(categoryId);
@@ -280,34 +295,42 @@ class Categories extends MoneyObjects<Category> {
     }
   }
 
+  /// Gets or creates the 'Savings:Interest' income category.
   Category get interestEarned {
     return getOrCreate('Savings:Interest', CategoryType.income);
   }
 
+  /// Gets or creates the 'Investments:Bonds' expense category.
   Category get investmentBonds {
     return getOrCreate('Investments:Bonds', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Credit' income category.
   Category get investmentCredit {
     return getOrCreate('Investments:Credit', CategoryType.income);
   }
 
+  /// Gets or creates the 'Investments:Debit' expense category.
   Category get investmentDebit {
     return getOrCreate('Investments:Debit', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Dividends' income category.
   Category get investmentDividends {
     return getOrCreate('Investments:Dividends', CategoryType.income);
   }
 
+  /// Gets or creates the 'Investments:Fees' expense category.
   Category get investmentFees {
     return getOrCreate('Investments:Fees', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Interest' income category.
   Category get investmentInterest {
     return getOrCreate('Investments:Interest', CategoryType.income);
   }
 
+  /// Gets or creates the 'Investments:Long Term Capital Gains Distribution' income category.
   Category get investmentLongTermCapitalGainsDistribution {
     return getOrCreate(
       'Investments:Long Term Capital Gains Distribution',
@@ -315,26 +338,32 @@ class Categories extends MoneyObjects<Category> {
     );
   }
 
+  /// Gets or creates the 'Investments:Miscellaneous' expense category.
   Category get investmentMiscellaneous {
     return getOrCreate('Investments:Miscellaneous', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Mutual Funds' expense category.
   Category get investmentMutualFunds {
     return getOrCreate('Investments:Mutual Funds', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Options' expense category.
   Category get investmentOptions {
     return getOrCreate('Investments:Options', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Other' expense category.
   Category get investmentOther {
     return getOrCreate('Investments:Other', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Reinvest' category.
   Category get investmentReinvest {
     return getOrCreate('Investments:Reinvest', CategoryType.none);
   }
 
+  /// Gets or creates the 'Investments:Short Term Capital Gains Distribution' income category.
   Category get investmentShortTermCapitalGainsDistribution {
     return getOrCreate(
       'Investments:Short Term Capital Gains Distribution',
@@ -342,10 +371,12 @@ class Categories extends MoneyObjects<Category> {
     );
   }
 
+  /// Gets or creates the 'Investments:Stocks' expense category.
   Category get investmentStocks {
     return getOrCreate('Investments:Stocks', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Investments:Transfer' category.
   Category get investmentTransfer {
     return getOrCreate('Investments:Transfer', CategoryType.none);
   }
@@ -356,6 +387,7 @@ class Categories extends MoneyObjects<Category> {
   /// ignore: fcheck_dead_code
   bool isCategoryAnIncome(final int categoryId) => get(categoryId)?.isIncome ?? false;
 
+  /// Moves [categoryToReparent] under [newParentCategory] and updates descendants' names.
   void reparentCategory(
     final Category categoryToReparent,
     final Category newParentCategory,
@@ -374,14 +406,17 @@ class Categories extends MoneyObjects<Category> {
     this.data.updateAll();
   }
 
+  /// Gets or creates the 'Taxes:Sales Tax' expense category.
   Category get salesTax {
     return getOrCreate('Taxes:Sales Tax', CategoryType.expense);
   }
 
+  /// Gets or creates the 'Savings' income category.
   Category get savings {
     return getOrCreate('Savings', CategoryType.income);
   }
 
+  /// Gets or creates the special 'Split' category (cached).
   Category get split {
     // ignore: prefer_conditional_assignment
     if (_split == null) {
@@ -390,30 +425,37 @@ class Categories extends MoneyObjects<Category> {
     return _split!;
   }
 
+  /// Returns the unique ID of the special 'Split' category.
   int splitCategoryId() {
     return split.uniqueId;
   }
 
+  /// Gets or creates the special 'Transfer' category.
   Category get transfer {
     return getOrCreate('Transfer', CategoryType.none);
   }
 
+  /// Returns the unique ID of the special 'Transfer' category.
   int transferCategoryId() {
     return transfer.uniqueId;
   }
 
+  /// Gets or creates the 'Xfer from Deleted Account' category.
   Category get transferFromDeletedAccount {
     return getOrCreate('Xfer from Deleted Account', CategoryType.none);
   }
 
+  /// Gets or creates the 'Xfer to Deleted Account' category.
   Category get transferToDeletedAccount {
     return getOrCreate('Xfer to Deleted Account', CategoryType.none);
   }
 
+  /// Gets or creates the 'UnassignedSplit' category.
   Category get unassignedSplit {
     return getOrCreate('UnassignedSplit', CategoryType.none);
   }
 
+  /// Gets or creates the 'Unknown' category.
   Category get unknown {
     return getOrCreate('Unknown', CategoryType.none);
   }

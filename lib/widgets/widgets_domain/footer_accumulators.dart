@@ -94,6 +94,7 @@ class FooterAccumulators {
     return const SizedBox();
   }
 
+  /// Clears all accumulated footer values.
   void clear() {
     accumulatorSumAmount.clear();
     accumulatorSumNumber.clear();

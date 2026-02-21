@@ -9,6 +9,7 @@ import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
+/// Shows dialog for editing a single money object with action buttons.
 void myShowDialogAndActionsForMoneyObject({
   required final String title,
   required final DataObject moneyObject,
@@ -21,6 +22,7 @@ void myShowDialogAndActionsForMoneyObject({
   );
 }
 
+/// Shows dialog for editing multiple money objects with action buttons.
 void myShowDialogAndActionsForMoneyObjects({
   required final String title,
   required final List<DataObject> moneyObjects,
@@ -135,6 +137,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
     );
   }
 
+  /// Builds action buttons for the money object dialog.
   List<Widget> getActionButtons({
     required BuildContext context,
     required DataObject moneyObject,

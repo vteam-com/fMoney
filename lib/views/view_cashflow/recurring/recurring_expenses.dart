@@ -27,6 +27,7 @@ class RecurringExpenses {
 
   DateRange? dates = DateRange();
 
+  /// Returns budgeted recurring expenses for the specified year range.
   static List<RecurringExpenses> getBudgetedTransactions(
     final int minYear,
     final int maxYear,
@@ -91,6 +92,7 @@ class RecurringExpenses {
     return items;
   }
 
+  /// Returns a map of yearly income/expense sums across all categories.
   static Map<int, RecurringExpenses> getSumByIncomeExpenseByYears(
     int minYear,
     int maxYear,

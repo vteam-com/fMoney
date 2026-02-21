@@ -14,6 +14,7 @@ import 'package:money/widgets/wizard_choice.dart';
 
 const double _wizardSpacing = 40.0;
 
+/// Shows wizard dialog for importing transactions from various sources.
 void showImportTransactionsWizard() {
   final BuildContext originalContext = Get.context!; // Store the original context
 
@@ -66,6 +67,7 @@ void showImportTransactionsWizard() {
   );
 }
 
+/// Handles file selection and import from chosen file.
 void onImportFromFile(final BuildContext context) async {
   final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
     type: FileType.any,

@@ -123,12 +123,14 @@ class Transfer extends DataObject {
   @override
   int get uniqueId => source!.uniqueId as int;
 
+  /// Returns the number of days between the sending and receiving transaction dates.
   int dateSpreadBetweenSendingAndReceiving() {
     final DateTime dateSent = geSenderTransactionDate() ?? DateTime.now();
     final DateTime dateReceived = getReceivedDateOrToday();
     return dateReceived.difference(dateSent).inDays;
   }
 
+  /// Returns the field definitions for Transfer column view.
   static Fields<Transfer> get fieldsForColumnView {
     final Transfer tmp = Transfer.fromJson(<String, dynamic>{});
 
@@ -152,6 +154,7 @@ class Transfer extends DataObject {
     return source!.fieldDateTime.value as DateTime?;
   }
 
+  /// Returns a memo string for the destination side of the transfer.
   String getMemoDestination() {
     String memos = source!.fieldTransferSplit.value == _unsetId ? '' : '[Split:${source!.fieldTransferSplit.value}] ';
     if (relatedTransaction != null) {
@@ -160,14 +163,17 @@ class Transfer extends DataObject {
     return memos;
   }
 
+  /// Returns the memo from the source transaction.
   String getMemoSource() {
     return source!.fieldMemo.value as String;
   }
 
+  /// Returns the receiver transaction date or today if missing.
   DateTime getReceivedDateOrToday() {
     return receiverTransactionDate ?? DateTime.now();
   }
 
+  /// Returns a troubleshooting status string (orphan/date spread).
   String getTroubleshoot() {
     String status = '';
     if (isOrphan) {
@@ -184,12 +190,16 @@ class Transfer extends DataObject {
     return status;
   }
 
+  /// Returns the receiver account, if available.
   Account? get receiverAccount => relatedTransaction?.instanceOfAccount as Account?;
 
+  /// Returns the receiver account name or a placeholder if missing.
   String get receiverAccountName => receiverAccount?.fieldName.value ?? '<account not found>';
 
+  /// Returns the receiver transaction, if available.
   dynamic get receiverTransaction => relatedTransaction;
 
+  /// Returns the receiver transaction date, if available.
   DateTime? get receiverTransactionDate {
     if (relatedTransaction != null) {
       return relatedTransaction!.fieldDateTime.value as DateTime?;
@@ -201,18 +211,21 @@ class Transfer extends DataObject {
 
   //---------------------------------------------
   // Sender Account
+  /// Returns the sender account, if available.
   Account? get senderAccount {
     return senderTransaction?.instanceOfAccount as Account?;
   }
 
   //---------------------------------------------
   // Account Names
+  /// Returns the sender account name or a placeholder if missing.
   String get senderAccountName {
     return senderAccount?.fieldName.value ?? '<account not found>';
   }
 
   //---------------------------------------------
   // Transactions
+  /// Returns the sender (source) transaction.
   dynamic get senderTransaction {
     return source;
   }

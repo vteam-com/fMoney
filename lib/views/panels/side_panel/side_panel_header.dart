@@ -76,6 +76,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
+  /// Builds the currency selector used by side panel chart/transaction subviews.
   Widget _buildCurrencySelections(final BuildContext context, final BoxConstraints constraints) {
     final bool smallDevice = constraints.maxWidth < _smallDeviceMaxWidth;
 
@@ -111,6 +112,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
+  /// Builds the expand/collapse button for the side panel.
   Widget _buildExpando() {
     return IconButton(
       key: Constants.keySidePanelExpando,
@@ -122,6 +124,7 @@ class SidePanelHeader extends StatelessWidget {
     );
   }
 
+  /// Builds the segmented selector used to switch between supported side panel subviews.
   Widget _buildViewSelections(final BuildContext context, final BoxConstraints _) {
     if (sidePanelSupport.supportedSubViews.isEmpty) {
       return const SizedBox.shrink();

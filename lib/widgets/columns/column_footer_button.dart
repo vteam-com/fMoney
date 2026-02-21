@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Builds a column footer button with alignment and callbacks.
 Widget buildColumnFooterButton({
   required final BuildContext context,
   required final TextAlign textAlign,
@@ -31,6 +32,7 @@ Widget buildColumnFooterButton({
   );
 }
 
+/// Aligns the footer cell content based on the requested [align] value.
 Widget _alignChild(BuildContext _, TextAlign align, Widget content) {
   Alignment alignment = Alignment.center;
 

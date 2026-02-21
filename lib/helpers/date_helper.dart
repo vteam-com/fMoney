@@ -32,6 +32,7 @@ const int _endOfDaySecond = 59;
 const int _endOfDayMillisecond = 999;
 const int _endOfDayMicrosecond = 999;
 
+/// Generates all possible date format combinations.
 List<String> generateAllDateFormats() {
   final List<String> separators = <String>['-', '/'];
   final List<String> yearFormats = <String>['yyyy', 'yy'];
@@ -57,10 +58,12 @@ List<String> generateAllDateFormats() {
   return allFormats;
 }
 
+/// Returns possible date formats for a single date string.
 List<String> getPossibleDateFormats(String dateString) {
   return getPossibleDateFormatsForAllValues(<String>[dateString]);
 }
 
+/// Returns possible date formats for multiple date strings.
 List<String> getPossibleDateFormatsForAllValues(List<String> dateStrings) {
   final List<String> validFormats = <String>[];
 
@@ -81,6 +84,7 @@ List<String> getPossibleDateFormatsForAllValues(List<String> dateStrings) {
   return validFormats;
 }
 
+/// Checks if date format works on the given date string.
 bool doesDateFormatWorkOnThisString(String format, String dateString) {
   final DateTime? parsedDate = DateFormat(format).tryParse(dateString);
   if (parsedDate != null) {
@@ -90,6 +94,7 @@ bool doesDateFormatWorkOnThisString(String format, String dateString) {
   return false;
 }
 
+/// Attempts to parse DateTime from dynamic value.
 DateTime? attemptToGetDateFromDynamic(final dynamic value) {
   if (value is DateTime) {
     return value;
@@ -153,6 +158,7 @@ DateTime? attemptToGetDateFromText(final String text) {
   return parsedDate;
 }
 
+/// Converts DateTime to ISO 8601 string format with space instead of T.
 String dateToDateTimeString(final DateTime? dateTime) {
   String dateTimeAsText = '';
   if (dateTime != null) {
@@ -187,6 +193,7 @@ String dateToIso8601OrDefaultString(
   return value.toIso8601String();
 }
 
+/// Converts DateTime to SQLite datetime string format.
 String dateToSqliteFormat(DateTime? dateTime) {
   if (dateTime != null) {
     return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
@@ -194,6 +201,7 @@ String dateToSqliteFormat(DateTime? dateTime) {
   return '';
 }
 
+/// Converts DateTime to formatted date string.
 String dateToString(final DateTime? date) {
   if (date == null) {
     return '____-__-__';
@@ -301,6 +309,7 @@ DateTime? parseQfxDataFormat(final String qfxDate) {
   }
 }
 
+/// Returns elapsed time string between two dates.
 String getElapsedTime(DateTime? dateTime, {DateTime? relativeTo}) {
   if (dateTime == null) {
     return '';
@@ -352,6 +361,7 @@ extension DateTimeExtension on DateTime {
   /// DateTime.now().startOfDay -> 2019-09-30 00:00:00.000
   DateTime get startOfDay => DateTime(year, month, day);
 
+  /// Returns DateTime with time component set to start of day.
   DateTime get dropTime => startOfDay;
 
   /// Returns end of a day.
@@ -369,6 +379,7 @@ extension DateTimeExtension on DateTime {
   );
 }
 
+/// Compares two DateTime objects ignoring time component.
 bool isSameDateWithoutTime(final DateTime? a, final DateTime? b) {
   if (a == null && b == null) {
     return true;

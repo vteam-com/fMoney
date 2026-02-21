@@ -50,6 +50,7 @@ class BadgePendingChanges extends StatelessWidget {
     );
   }
 
+  /// Builds a counter widget with prefix, value, and text style.
   Widget buildCounter(
     final String prefix,
     final int value,
@@ -61,6 +62,7 @@ class BadgePendingChanges extends StatelessWidget {
     );
   }
 
+  /// Returns a label widget indicating the type of pending changes.
   Widget getChangeLabel(final BuildContext context) {
     final List<Widget> widgets = <Widget>[];
     final TextStyle textStyle = Theme.of(

@@ -104,6 +104,7 @@ class ViewHeader extends StatelessWidget {
     );
   }
 
+  /// Builds the header content including title, action buttons, filters, and optional child.
   Widget _buildContent(final BuildContext context) {
     final List<Widget> widgets = <Widget>[];
 
