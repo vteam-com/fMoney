@@ -382,8 +382,10 @@ class Categories extends MoneyObjects<Category> {
     return getOrCreate('Investments:Transfer', CategoryType.none);
   }
 
+  /// Returns `true` if the category with [categoryId] is an expense category.
   bool isCategoryAnExpense(final int categoryId) => get(categoryId)?.isExpense ?? false;
 
+  /// Returns `true` if the category with [categoryId] is an income category.
   bool isCategoryAnIncome(final int categoryId) => get(categoryId)?.isIncome ?? false;
 
   /// Moves [categoryToReparent] under [newParentCategory] and updates descendants' names.

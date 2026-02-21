@@ -1,6 +1,6 @@
+// ignore: fcheck_one_class_per_file
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-// ignore: fcheck_one_class_per_file
 import 'package:money/views/data.dart';
 import 'package:money/views/providers/account.dart';
 import 'package:money/views/providers/category.dart';

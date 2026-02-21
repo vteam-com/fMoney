@@ -2,8 +2,6 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-// ignore: fcheck_one_class_per_file
-import 'package:money/views/transactions.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/gaps.dart';
@@ -101,19 +99,6 @@ class MoneyObjectCard extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-/// A stateless widget for transaction card.
-class TransactionCard extends StatelessWidget {
-  const TransactionCard({required this.title, super.key, this.transaction});
-
-  final String title;
-  final Transaction? transaction;
-
-  @override
-  Widget build(BuildContext context) {
-    return MoneyObjectCard(title: title, moneyObject: transaction);
   }
 }
 
