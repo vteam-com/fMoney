@@ -1,7 +1,7 @@
+// ignore: fcheck_dead_code
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
-
 import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';

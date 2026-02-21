@@ -2,12 +2,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/import/import_data.dart';
 
 /// Imports QFX file and processes transactions from file path.

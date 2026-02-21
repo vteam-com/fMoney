@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/category.dart';
-import 'package:money/data/models/account.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';
+import 'package:money/views/providers/account.dart';
+import 'package:money/views/providers/category.dart';
 import 'package:money/widgets/popup_menu_icon_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/gaps.dart';

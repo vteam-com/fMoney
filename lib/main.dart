@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/home_routes.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/panels/platforms/platforms_routes.dart';

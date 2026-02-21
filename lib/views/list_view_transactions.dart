@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/collections/transactions.dart';
-import 'package:money/data/money_objects.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/dialog_mutate_transaction.dart';
+import 'package:money/views/money_objects.dart';
+import 'package:money/views/transactions.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/field.dart';

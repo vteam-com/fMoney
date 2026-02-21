@@ -141,3 +141,4 @@ web/downloads/mymoney-app-linux.zip
 web/downloads/mymoney-app-macos.zip
 web/downloads/mymoney-app-windows.zip
 mymoney.mmcsv
+coverage/lcov.info

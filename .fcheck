@@ -1,4 +1,0 @@
-analyzers:
-  default: on
-  disabled:
-    - hardcoded_strings    

@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/collections/transactions.dart';
-import 'package:money/data/entities/category.dart';
-import 'package:money/data/entities/event.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/views/data.dart';
+import 'package:money/views/providers/category.dart';
+import 'package:money/views/providers/event.dart';
+import 'package:money/views/transactions.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';

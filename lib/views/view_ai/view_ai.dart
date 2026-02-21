@@ -2,11 +2,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/transaction.dart';
-import 'package:money/data/models/account.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/views/view.dart';
+import 'package:money/views/data.dart';
+import 'package:money/views/providers/account.dart';
+import 'package:money/views/providers/transaction.dart';
 import 'package:money/views/view_ai/ollama_service.dart';
 import 'package:money/views/view_ai/processing_indicator.dart';
 import 'package:money/views/view_ai/view_ai_chat_message.dart';
@@ -15,6 +14,7 @@ import 'package:money/views/view_ai/view_ai_header.dart';
 import 'package:money/views/view_ai/view_ai_input.dart';
 import 'package:money/views/view_ai/view_ai_instructions.dart';
 import 'package:money/widgets/pure/my_svg.dart';
+import 'package:money/widgets/pure/view.dart';
 import 'package:money/widgets/pure/working.dart';
 import 'package:money/widgets/text_title.dart';
 

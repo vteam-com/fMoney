@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/transaction.dart';
-import 'package:money/data/entities/transfer.dart';
 import 'package:money/views/money_object_card.dart';
+import 'package:money/views/providers/transaction.dart';
+import 'package:money/views/providers/transfer.dart';
 
 const double _panelSpacing = 30.0;
 

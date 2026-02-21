@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';

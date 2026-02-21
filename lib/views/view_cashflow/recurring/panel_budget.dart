@@ -1,17 +1,17 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:money/data/budget.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/category.dart';
-import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/menu_entry.dart';
+import 'package:money/views/providers/budget.dart';
+import 'package:money/views/providers/category.dart';
+import 'package:money/views/providers/transaction.dart';
 import 'package:money/views/view_cashflow/recurring/panel_recurring.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_expenses.dart';
 import 'package:money/widgets/columns/column_header_button.dart';

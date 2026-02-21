@@ -3,15 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/widgets/semantic_text.dart';
 import 'package:money/widgets/value_quality.dart';
 
 const int _threeColumnSeparatorCount = 2;
 const int _twoValueCount = 2;
 const int _expectedTripleCount = 3;
-const double _dateColumnWidth = 100;
-const double _descriptionColumnWidth = 300;
-const double _amountColumnWidth = 100;
 
 /// The `ValuesParser` class is responsible for parsing input data and extracting
 /// relevant values from it. It provides methods for parsing, transforming, and
@@ -114,41 +110,6 @@ class ValuesParser {
       ),
       reverseAmountValue: reverseAmountValue,
     );
-  }
-
-  /// Builds a columnar presentation widget for all parsed lines.
-  Widget buildPresentation(final BuildContext context) {
-    final List<Widget> rows = <Widget>[];
-
-    if (lines.isNotEmpty) {
-      for (ValuesQuality line in lines) {
-        rows.add(
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: _dateColumnWidth,
-                child: line.date.valueAsDateWidget(context),
-              ),
-              // Date
-              SizedBox(
-                width: _descriptionColumnWidth,
-                child: line.description.valueAsTextWidget(context),
-              ),
-              // Description
-              SizedBox(
-                width: _amountColumnWidth,
-                child: line.amount.valueAsAmountWidget(context),
-              ),
-              // Amount
-            ],
-          ),
-        );
-      }
-    }
-
-    return rows.isEmpty
-        ? buildWarning(context, 'Not input text')
-        : Column(mainAxisAlignment: MainAxisAlignment.start, children: rows);
   }
 
   /// Parses raw input text into a list of ValuesQuality transactions.

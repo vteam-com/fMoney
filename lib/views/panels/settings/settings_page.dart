@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/models/currency.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/views/data.dart';
+import 'package:money/views/providers/currency.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/box.dart';

@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:money/data/models/pair_xyz.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 

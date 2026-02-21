@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/category.dart';
-import 'package:money/data/entities/event.dart';
-import 'package:money/data/models/account.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/panels/view_header.dart';
-import 'package:money/views/view.dart';
+import 'package:money/views/providers/account.dart';
+import 'package:money/views/providers/category.dart';
+import 'package:money/views/providers/event.dart';
 import 'package:money/views/view_cashflow/net_worth_chart.dart';
 import 'package:money/views/view_cashflow/recurring/panel_budget.dart';
 import 'package:money/views/view_cashflow/recurring/panel_trend.dart';
@@ -18,6 +17,7 @@ import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/pick_number.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/pure/view.dart';
 import 'package:money/widgets/years_range_selector.dart';
 
 const double _headerPadding = 8.0;

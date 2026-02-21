@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/widgets/default_values.dart';
+import 'package:money/helpers/default_values.dart';
 
 void main() {
   group('valueOrDefaultBool', () {

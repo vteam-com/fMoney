@@ -1,7 +1,7 @@
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/transaction_split.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/views/data.dart';
+import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_auto_size.dart';

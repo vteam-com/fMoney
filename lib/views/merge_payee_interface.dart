@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/entities/data_abstract.dart';
-import 'package:money/data/mergeable_item.dart';
-import 'package:money/data/models/payee.dart';
+import 'package:money/data/models/mergeable_item.dart';
+import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/payee.dart';
 
 /// Abstract interface for providing merge payee functionality
 /// This allows decoupling Transaction from specific merge implementations

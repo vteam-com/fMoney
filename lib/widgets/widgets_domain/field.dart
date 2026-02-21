@@ -515,20 +515,6 @@ class Fields<T> {
     return Row(children: cells);
   }
 
-  /// Returns a string value for a field with name [fieldName] on [objectInstance].
-  String getStringValueUsingFieldName(
-    final DataInterface objectInstance,
-    final String fieldName,
-  ) {
-    final Field<dynamic>? fieldFound = definitions.firstWhereOrNull(
-      (Field<dynamic> f) => f.name == fieldName,
-    );
-    if (fieldFound != null) {
-      return _getFieldValueAsStringForFiltering(objectInstance, fieldFound);
-    }
-    return '';
-  }
-
   /// Returns true if this field definition list has no entries.
   bool get isEmpty => definitions.isEmpty;
 

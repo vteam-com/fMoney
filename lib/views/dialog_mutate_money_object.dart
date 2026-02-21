@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/transaction.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/views/data.dart';
+import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';

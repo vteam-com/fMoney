@@ -22,9 +22,9 @@ version: 1.15.01
 
 environment:
   # This is the dart constraint
-  sdk: ">=3.10.8"
+  sdk: ">=3.11.0 <4.0.0"
   # This is the Flutter SDK
-  flutter: ">=3.38.9"
+  flutter: ">=3.41.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,7 +34,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   archive: ^4.0.7
-  clipboard: ^3.0.8
+  clipboard: ^3.0.14
   collection: ^1.19.1
   csv: ^6.0.0
   desktop_drop: ^0.7.0
@@ -51,14 +51,13 @@ dependencies:
   js: ^0.7.2
   logger: ^2.6.0
   markdown: ^7.3.0
-  multi_split_view: ^3.6.0
+  multi_split_view: ^3.6.1
   pasteboard: ^0.4.0
   path: ^1.9.1
   path_provider: ^2.1.5
-
   shared_preferences: ^2.5.3
   sqlite3: ^3.0.0
-  textify: ^0.5.0
+  textify: ^0.5.2
   # path: "../textify"
   universal_io: ^2.2.2
   url_launcher: ^6.3.1
@@ -67,14 +66,13 @@ dependencies:
 
 dev_dependencies:
   analyzer:
-  fcheck:
   flutter_launcher_icons:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  mockito: ^5.4.6
+  mockito: ^5.6.3
   plugin_platform_interface: ^2.1.8
 
 # https://pub.dev/packages/flutter_launcher_icons

@@ -1,9 +1,9 @@
-// ignore: fcheck_one_class_per_file
-import 'package:money/data/collections/transactions.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+// ignore: fcheck_one_class_per_file
+import 'package:money/views/transactions.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/gaps.dart';

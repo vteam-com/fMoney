@@ -1,11 +1,11 @@
-import 'package:money/data/collections/data.dart';
-import 'package:money/data/entities/rent_building.dart';
-import 'package:money/data/models/rental_unit.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
+import 'package:money/views/data.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
+import 'package:money/views/providers/rent_building.dart';
+import 'package:money/views/providers/rental_unit.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/gaps.dart';

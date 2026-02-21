@@ -1,10 +1,10 @@
-import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/views/data.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/my_banner.dart';
 import 'package:money/widgets/pure/box.dart';

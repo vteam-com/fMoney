@@ -1,4 +1,4 @@
-// Imports
+// ignore: fcheck_dead_code
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/color_helper.dart';
