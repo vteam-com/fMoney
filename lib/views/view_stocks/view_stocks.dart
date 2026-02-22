@@ -20,6 +20,7 @@ import 'package:money/views/providers/stock_split.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/charts/chart_event.dart';
+import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
@@ -475,26 +476,23 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the pivot toggle row used to filter securities (active/closed/all).
   Widget _renderToggles() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+    return buildPivotToggleRow(
+      isSelected: _selectedPivot,
+      children: _pivots,
       padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
-      child: ToggleButtons(
-        direction: Axis.horizontal,
-        onPressed: (final int index) {
-          // ignore: invalid_use_of_protected_member
-          setState(() {
-            for (int i = _zeroInt; i < _selectedPivot.length; i++) {
-              _selectedPivot[i] = i == index;
-            }
-            list = getList();
-            clearSelection();
-          });
-        },
-        borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
-        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
-        isSelected: _selectedPivot,
-        children: _pivots,
-      ),
+      borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
+      minHeight: _toggleMinHeight,
+      minWidth: _toggleMinWidth,
+      onPressed: (int index) {
+        // ignore: invalid_use_of_protected_member
+        setState(() {
+          for (int i = _zeroInt; i < _selectedPivot.length; i++) {
+            _selectedPivot[i] = i == index;
+          }
+          list = getList();
+          clearSelection();
+        });
+      },
     );
   }
 }

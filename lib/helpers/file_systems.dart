@@ -1,4 +1,5 @@
 // Function to open a folder in the FileExplorer/Finder
+// ignore: fcheck_dead_code
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

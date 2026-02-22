@@ -81,9 +81,6 @@ class DataFileController extends GetxController {
     return '.';
   }
 
-  /// Returns true if current file is untitled (no file loaded).
-  bool get isUntitled => currentLoadedFileName.value == Constants.untitledFileName;
-
   /// Returns string representation of last update timestamp.
   String get lastUpdateAsString => '${trackMutations.lastDateTimeChanged}';
 

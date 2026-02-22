@@ -242,18 +242,33 @@ class Event extends DataObject {
   /// Returns the event name or a generated fallback.
   String get eventName => fieldName.value.isEmpty ? 'Event $uniqueId' : fieldName.value;
 
+  /// Creates a lightweight static [Event] used only for field definition wiring.
+  static Event _createStaticFieldInstance() {
+    return Event._static(
+      id: -1,
+      name: '',
+      dateBegin: null,
+      dateEnd: null,
+      people: '',
+      memo: '',
+    );
+  }
+
+  /// Lazily initializes and returns cached [Fields] definitions for event views.
+  static Fields<Event> _ensureFieldDefinitions(
+    Fields<Event> cache,
+    FieldDefinitions Function(Event) definitionsBuilder,
+  ) {
+    if (cache.isEmpty) {
+      cache.setDefinitions(definitionsBuilder(_createStaticFieldInstance()));
+    }
+    return cache;
+  }
+
   /// Returns the field definitions for Event entities.
   static Fields<Event> get fields {
-    if (_fields.isEmpty) {
-      final Event tmpInstance = Event._static(
-        id: -1,
-        name: '',
-        dateBegin: null,
-        dateEnd: null,
-        people: '',
-        memo: '',
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
+    return _ensureFieldDefinitions(_fields, (Event tmpInstance) {
+      return <Field<dynamic>>[
         tmpInstance.fieldId,
         tmpInstance.fieldName,
         tmpInstance.fieldCategoryId,
@@ -262,23 +277,14 @@ class Event extends DataObject {
         tmpInstance.fieldDuration,
         tmpInstance.fieldPeople,
         tmpInstance.fieldMemo,
-      ]);
-    }
-    return _fields;
+      ];
+    });
   }
 
   /// Returns the field definitions for Event column view.
   static Fields<Event> get fieldsForColumnView {
-    if (_fieldsColumView.isEmpty) {
-      final Event tmpInstance = Event._static(
-        id: -1,
-        name: '',
-        dateBegin: null,
-        dateEnd: null,
-        people: '',
-        memo: '',
-      );
-      _fieldsColumView.setDefinitions(<Field<dynamic>>[
+    return _ensureFieldDefinitions(_fieldsColumView, (Event tmpInstance) {
+      return <Field<dynamic>>[
         tmpInstance.fieldName,
         tmpInstance.fieldCategoryId,
         tmpInstance.fieldDateBegin,
@@ -286,9 +292,8 @@ class Event extends DataObject {
         tmpInstance.fieldDuration,
         tmpInstance.fieldPeople,
         tmpInstance.fieldMemo,
-      ]);
-    }
-    return _fieldsColumView;
+      ];
+    });
   }
 
   /// Creates a date field definition with picker/editor and serialization behavior.

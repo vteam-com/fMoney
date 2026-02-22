@@ -544,16 +544,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         .toList();
   }
 
-  /// Builds side panel header widget for the given item.
-  Widget getSidePanelHeader(
-    final BuildContext _,
-    final num index,
-    final DataObject item,
-  ) {
-    keepUnused(item);
-    return Center(child: Text('${getClassNameSingular()} #${index + 1}'));
-  }
-
   /// Returns the last selected item from the side panel list.
   T? getSidePanelLastSelectedItem<T>(final MoneyObjects<T> list) {
     final int selectedItemId = getSidePanelLastSelectedItemId();

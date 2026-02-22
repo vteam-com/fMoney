@@ -6,6 +6,58 @@ const double _cellHighlightAlpha = 0.2;
 const double _previewSpacing = 20;
 const double _cellHorizontalPadding = 8;
 const double _cellVerticalPadding = 4;
+const List<String> _amountColumnPatterns = <String>[
+  'amount',
+  'transaction amount',
+  'value',
+  'debit',
+  'credit',
+  'withdrawn',
+  'withdrawal',
+  'deposited',
+  'deposit',
+  'payment',
+  'transfer amount',
+  'balance',
+  'charge',
+  'fee',
+  'cost',
+  'price',
+  'total',
+];
+const List<String> _dateColumnPatterns = <String>[
+  'date',
+  'transaction date',
+  'posting date',
+  'value date',
+  'check date',
+  'deposit date',
+  'withdrawal date',
+  'transfer date',
+  'settlement date',
+  'effective date',
+  'processed date',
+  'timestamp',
+  'time',
+];
+const List<String> _descriptionColumnPatterns = <String>[
+  'description',
+  'transaction description',
+  'details',
+  'memo',
+  'reference',
+  'payee',
+  'vendor',
+  'transaction',
+  'narration',
+  'remarks',
+  'note',
+  'comment',
+  'merchant',
+  'recipient',
+  'supplier',
+  'store',
+];
 
 /// A stateful widget for csv column mapper dialog.
 class CsvColumnMapperDialog extends StatefulWidget {
@@ -118,9 +170,9 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     }
 
     // Find best matches for each required column type
-    _selectedDateColumn = _findBestMatchUniqueId(_getDateColumnPatterns());
-    _selectedDescriptionColumn = _findBestMatchUniqueId(_getDescriptionColumnPatterns());
-    _selectedAmountColumn = _findBestMatchUniqueId(_getAmountColumnPatterns());
+    _selectedDateColumn = _findBestMatchUniqueId(_dateColumnPatterns);
+    _selectedDescriptionColumn = _findBestMatchUniqueId(_descriptionColumnPatterns);
+    _selectedAmountColumn = _findBestMatchUniqueId(_amountColumnPatterns);
   }
 
   /// Builds a dropdown for selecting a unique header id for a required field.
@@ -345,70 +397,6 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
       (String uniqueId) => _uniqueIdToHeaderName[uniqueId] == bestHeader,
       orElse: () => bestHeader, // Fallback to just the header if not found (though this shouldn't happen)
     );
-  }
-
-  /// Returns common header patterns for amount/value columns.
-  List<String> _getAmountColumnPatterns() {
-    return <String>[
-      'amount',
-      'transaction amount',
-      'value',
-      'debit',
-      'credit',
-      'withdrawn',
-      'withdrawal',
-      'deposited',
-      'deposit',
-      'payment',
-      'transfer amount',
-      'balance',
-      'charge',
-      'fee',
-      'cost',
-      'price',
-      'total',
-    ];
-  }
-
-  /// Returns common header patterns for date/time columns.
-  List<String> _getDateColumnPatterns() {
-    return <String>[
-      'date',
-      'transaction date',
-      'posting date',
-      'value date',
-      'check date',
-      'deposit date',
-      'withdrawal date',
-      'transfer date',
-      'settlement date',
-      'effective date',
-      'processed date',
-      'timestamp',
-      'time',
-    ];
-  }
-
-  /// Returns common header patterns for description/payee columns.
-  List<String> _getDescriptionColumnPatterns() {
-    return <String>[
-      'description',
-      'transaction description',
-      'details',
-      'memo',
-      'reference',
-      'payee',
-      'vendor',
-      'transaction',
-      'narration',
-      'remarks',
-      'note',
-      'comment',
-      'merchant',
-      'recipient',
-      'supplier',
-      'store',
-    ];
   }
 
   /// Initializes mappings from potentially duplicated header names to unique ids.

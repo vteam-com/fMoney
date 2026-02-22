@@ -159,8 +159,6 @@ void main() {
           ),
         ),
       );
-
-      Data().stockSplits.clearSplitForSecurity(0);
     });
   });
 }

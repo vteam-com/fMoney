@@ -64,14 +64,4 @@ class SelectionController extends GetxController {
 
   /// Singleton accessor for the registered SelectionController.
   static SelectionController get to => Get.find();
-
-  // Function to toggle selection
-  /// Toggles selection state for the given [id].
-  void toggleSelection(int id) {
-    if (selectedItems.contains(id)) {
-      selectedItems.remove(id);
-    } else {
-      selectedItems.add(id);
-    }
-  }
 }

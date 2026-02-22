@@ -1,3 +1,4 @@
+// ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
 import 'package:money/helpers/ranges.dart';
 

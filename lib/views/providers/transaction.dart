@@ -1015,87 +1015,88 @@ class Transaction extends DataObject implements MergeableItem {
   /// <param name="from">The account this transaction belongs to</param>
   /// <param name="duplicateTransfers">How to handle transfers.  In a cut/paste situation you want
   /// to create new transfer transactions (true), but in a XmlStore.Load situation we do not (false)</param>
-  void postDeserializeFixup(bool duplicateTransfers) {
-    keepUnused(duplicateTransfers);
-    // if (this.CategoryName != null)
-    // {
-    //   this.Category = money.Categories.GetOrCreateCategory(this.CategoryName, CategoryType.None);
-    //   this.CategoryName = null;
-    // }
-    // if (from != null)
-    // {
-    //   this.Account = from;
-    // }
-    // else if (this.AccountName != null)
-    // {
-    //   this.Account = money.Accounts.FindAccount(this.AccountName);
-    // }
-    // this.AccountName = null;
-    // if (this.PayeeName != null)
-    // {
-    //   this.Payee = money.Payees.FindPayee(this.PayeeName, true);
-    //   this.PayeeName = null;
-    // }
-    //
-    // // do not copy budgeting information outside of balancing the budget.
-    // // (Note: setting IsBudgeted to false will screw up the budget balance).
-    // this.flags &= ~TransactionFlags.Budgeted;
-    //
-    // if (duplicateTransfers)
-    // {
-    //   if (this.TransferName != null)
-    //   {
-    //     Account to = money.Accounts.FindAccount(this.TransferName);
-    //     if (to == null)
-    //     {
-    //       to = money.Accounts.AddAccount(this.TransferName);
-    //     }
-    //     if (to != from)
-    //     {
-    //       money.Transfer(this, to);
-    //       this.TransferName = null;
-    //     }
-    //   }
-    // }
-    // else if (this.TransferId != -1 && this.Transfer == null)
-    // {
-    //   Transaction other = money.Transactions.FindTransactionById(this.transferId);
-    //   if (this.TransferSplit != -1)
-    //   {
-    //     // then the other side of this is a split.
-    //     Split s = other.NonNullSplits.FindSplit(this.TransferSplit);
-    //     if (s != null)
-    //     {
-    //       s.Transaction = other;
-    //       this.Transfer = new Transfer(0, this, other, s);
-    //       s.Transfer = new Transfer(0, other, s, this);
-    //     }
-    //   }
-    //   else if (other != null)
-    //   {
-    //     this.Transfer = new Transfer(0, this, other);
-    //     other.Transfer = new Transfer(0, other, this);
-    //   }
-    // }
-    //
-    // if (this.Investment != null)
-    // {
-    //   this.Investment.Parent = parent;
-    //   this.Investment.Transaction = this;
-    //   if (this.Investment.SecurityName != null)
-    //   {
-    //     this.Investment.Security = money.Securities.FindSecurity(this.Investment.SecurityName, true);
-    //   }
-    // }
-    // if (this.categoryId == DataAbstract.instance.categories.splitCategoryId()) {
-    //   DataAbstract.instance.this.Splits.Transaction = this;
-    //   this.Splits.Parent = this;
-    //   foreach (Split s in this.Splits.Items)
-    //   {
-    //     s.PostDeserializeFixup(money, this, duplicateTransfers);
-    //   }
-    // }
-  }
+  // void postDeserializeFixup(bool duplicateTransfers) {
+  //   keepUnused(duplicateTransfers);
+  // TODO: implement postDeserializeFixup
+  // if (this.CategoryName != null)
+  // {
+  //   this.Category = money.Categories.GetOrCreateCategory(this.CategoryName, CategoryType.None);
+  //   this.CategoryName = null;
+  // }
+  // if (from != null)
+  // {
+  //   this.Account = from;
+  // }
+  // else if (this.AccountName != null)
+  // {
+  //   this.Account = money.Accounts.FindAccount(this.AccountName);
+  // }
+  // this.AccountName = null;
+  // if (this.PayeeName != null)
+  // {
+  //   this.Payee = money.Payees.FindPayee(this.PayeeName, true);
+  //   this.PayeeName = null;
+  // }
+  //
+  // // do not copy budgeting information outside of balancing the budget.
+  // // (Note: setting IsBudgeted to false will screw up the budget balance).
+  // this.flags &= ~TransactionFlags.Budgeted;
+  //
+  // if (duplicateTransfers)
+  // {
+  //   if (this.TransferName != null)
+  //   {
+  //     Account to = money.Accounts.FindAccount(this.TransferName);
+  //     if (to == null)
+  //     {
+  //       to = money.Accounts.AddAccount(this.TransferName);
+  //     }
+  //     if (to != from)
+  //     {
+  //       money.Transfer(this, to);
+  //       this.TransferName = null;
+  //     }
+  //   }
+  // }
+  // else if (this.TransferId != -1 && this.Transfer == null)
+  // {
+  //   Transaction other = money.Transactions.FindTransactionById(this.transferId);
+  //   if (this.TransferSplit != -1)
+  //   {
+  //     // then the other side of this is a split.
+  //     Split s = other.NonNullSplits.FindSplit(this.TransferSplit);
+  //     if (s != null)
+  //     {
+  //       s.Transaction = other;
+  //       this.Transfer = new Transfer(0, this, other, s);
+  //       s.Transfer = new Transfer(0, other, s, this);
+  //     }
+  //   }
+  //   else if (other != null)
+  //   {
+  //     this.Transfer = new Transfer(0, this, other);
+  //     other.Transfer = new Transfer(0, other, this);
+  //   }
+  // }
+  //
+  // if (this.Investment != null)
+  // {
+  //   this.Investment.Parent = parent;
+  //   this.Investment.Transaction = this;
+  //   if (this.Investment.SecurityName != null)
+  //   {
+  //     this.Investment.Security = money.Securities.FindSecurity(this.Investment.SecurityName, true);
+  //   }
+  // }
+  // if (this.categoryId == DataAbstract.instance.categories.splitCategoryId()) {
+  //   DataAbstract.instance.this.Splits.Transaction = this;
+  //   this.Splits.Parent = this;
+  //   foreach (Split s in this.Splits.Items)
+  //   {
+  //     s.PostDeserializeFixup(money, this, duplicateTransfers);
+  //   }
+  // }
+  // }
 
   /// Returns the account on the other side of a transfer, if any.
   dynamic get relatedAccount => (instanceOfTransfer?.relatedTransaction as dynamic)?.instanceOfAccount;

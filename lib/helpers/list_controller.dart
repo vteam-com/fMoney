@@ -33,17 +33,6 @@ class ListController extends GetxController {
     return itemHeight * index;
   }
 
-  /// Scrolls to the bookmarked position.
-  void scrollToBookmark() {
-    if (bookmark != -1) {
-      scrollController.animateTo(
-        bookmark,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    }
-  }
-
   /// Scrolls to the bottom of the list.
   void scrollToBottom() {
     scrollController.animateTo(

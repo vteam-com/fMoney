@@ -1,0 +1,36 @@
+import 'package:flutter/widgets.dart';
+import 'package:money/widgets/button_helpers.dart';
+import 'package:money/widgets/dialog_auto_size.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
+
+/// Shared content layout for mutation dialogs.
+Widget buildMutationDialogBody({
+  required DataObject moneyObject,
+  required bool isInEditingMode,
+  required void Function(bool) onEdited,
+  required List<Widget> actionButtons,
+  bool wrapInDialogAutoSize = true,
+}) {
+  final Widget body = Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: moneyObject.buildListOfNamesValuesWidgets(
+              onEdit: isInEditingMode ? onEdited : null,
+            ),
+          ),
+        ),
+      ),
+      dialogActionButtons(actionButtons),
+    ],
+  );
+
+  if (!wrapInDialogAutoSize) {
+    return body;
+  }
+
+  return DialogAutoSize(child: body);
+}

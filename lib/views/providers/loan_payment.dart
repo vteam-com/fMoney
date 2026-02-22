@@ -167,21 +167,36 @@ class LoanPayment extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<LoanPayment> _fields = Fields<LoanPayment>();
+  static final Fields<LoanPayment> _fieldsForColumns = Fields<LoanPayment>();
+
+  /// Creates a lightweight static [LoanPayment] used only for field list assembly.
+  static LoanPayment _createStaticFieldInstance() {
+    return LoanPayment(
+      id: -1,
+      accountId: -1,
+      date: null,
+      memo: '',
+      principal: 0.0,
+      interest: 0.0,
+      data: null, // Not used in static context
+    );
+  }
+
+  /// Lazily initializes and returns cached [Fields] definitions for loan payments.
+  static Fields<LoanPayment> _ensureFieldDefinitions(
+    Fields<LoanPayment> cache,
+    FieldDefinitions Function(LoanPayment) definitionsBuilder,
+  ) {
+    if (cache.isEmpty) {
+      cache.setDefinitions(definitionsBuilder(_createStaticFieldInstance()));
+    }
+    return cache;
+  }
 
   /// Returns the field definitions for LoanPayment entities.
   static Fields<LoanPayment> get fields {
-    if (_fields.isEmpty) {
-      // Create a temporary instance for field definitions - no data relationships needed
-      final LoanPayment tmpInstance = LoanPayment(
-        id: -1,
-        accountId: -1,
-        date: null,
-        memo: '',
-        principal: 0.0,
-        interest: 0.0,
-        data: null, // Not used in static context
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
+    return _ensureFieldDefinitions(_fields, (LoanPayment tmpInstance) {
+      return <Field<dynamic>>[
         tmpInstance.fieldId,
         tmpInstance.fieldDate,
         tmpInstance.fieldAccountId,
@@ -191,25 +206,14 @@ class LoanPayment extends DataObject {
         tmpInstance.fieldInterest,
         tmpInstance.fieldPrincipal,
         tmpInstance.fieldBalance,
-      ]);
-    }
-    return _fields;
+      ];
+    });
   }
 
   /// Returns the field definitions for LoanPayment column view.
   static Fields<LoanPayment> get fieldsForColumnView {
-    if (_fields.isEmpty) {
-      // Create a temporary instance for field definitions - no data relationships needed
-      final LoanPayment tmpInstance = LoanPayment(
-        id: -1,
-        accountId: -1,
-        date: null,
-        memo: '',
-        principal: 0.0,
-        interest: 0.0,
-        data: null, // Not used in static context
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
+    return _ensureFieldDefinitions(_fieldsForColumns, (LoanPayment tmpInstance) {
+      return <Field<dynamic>>[
         tmpInstance.fieldDate,
         tmpInstance.fieldAccountId,
         tmpInstance.fieldMemo,
@@ -219,9 +223,8 @@ class LoanPayment extends DataObject {
         tmpInstance.fieldPrincipal,
         tmpInstance.fieldInterest,
         tmpInstance.fieldBalance,
-      ]);
-    }
-    return _fields;
+      ];
+    });
   }
 
   /// Calculates the annualized interest rate based on interest and principal change.

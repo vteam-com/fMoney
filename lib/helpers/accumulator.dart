@@ -1,4 +1,5 @@
 // ignore: fcheck_one_class_per_file
+// ignore: fcheck_dead_code
 
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';

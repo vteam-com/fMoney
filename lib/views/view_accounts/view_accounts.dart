@@ -41,6 +41,7 @@ import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/label_and_amount.dart';
 import 'package:money/widgets/label_and_quantity.dart';
+import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/gaps.dart';
@@ -411,27 +412,24 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Builds the horizontal toggle row used to select account type pivots.
   Widget _renderToggles() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+    return buildPivotToggleRow(
+      key: const Key('view_accounts_pivots'),
+      isSelected: _selectedPivot,
+      children: _pivots,
       padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
-      child: ToggleButtons(
-        key: const Key('view_accounts_pivots'),
-        direction: Axis.horizontal,
-        onPressed: (final int index) {
-          // ignore: invalid_use_of_protected_member
-          setState(() {
-            for (int i = _zeroInt; i < _selectedPivot.length; i++) {
-              _selectedPivot[i] = i == index;
-            }
-            list = getList();
-            clearSelection();
-          });
-        },
-        borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
-        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
-        isSelected: _selectedPivot,
-        children: _pivots,
-      ),
+      borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
+      minHeight: _toggleMinHeight,
+      minWidth: _toggleMinWidth,
+      onPressed: (int index) {
+        // ignore: invalid_use_of_protected_member
+        setState(() {
+          for (int i = _zeroInt; i < _selectedPivot.length; i++) {
+            _selectedPivot[i] = i == index;
+          }
+          list = getList();
+          clearSelection();
+        });
+      },
     );
   }
 

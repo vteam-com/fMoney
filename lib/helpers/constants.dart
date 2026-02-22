@@ -1,4 +1,5 @@
 // ignore: fcheck_one_class_per_file
+// ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
 
 const String settingKeyCashflowRecurringOccurrences = 'keyCashflowOccurrences';

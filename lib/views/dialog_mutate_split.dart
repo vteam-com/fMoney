@@ -1,12 +1,11 @@
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data.dart';
+import 'package:money/views/dialog_mutate_shared.dart';
 import 'package:money/views/providers/transaction_split.dart';
-import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
-import 'package:money/widgets/dialog_auto_size.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
@@ -46,35 +45,19 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
 
   @override
   Widget build(final BuildContext context) {
-    return DialogAutoSize(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: _split.buildListOfNamesValuesWidgets(
-                  onEdit: isInEditingMode
-                      ? (bool wasModified) {
-                          setState(() {
-                            dataWasModified = wasModified || isDataModified();
-                          });
-                        }
-                      : null,
-                ),
-              ),
-            ),
-          ),
-          dialogActionButtons(
-            getActionButtons(
-              context: context,
-              split: _split,
-              editMode: isInEditingMode,
-              dataWasModified: dataWasModified,
-            ),
-          ),
-        ],
+    return buildMutationDialogBody(
+      moneyObject: _split,
+      isInEditingMode: isInEditingMode,
+      onEdited: (bool wasModified) {
+        setState(() {
+          dataWasModified = wasModified || DataObject.isDataModified(_split);
+        });
+      },
+      actionButtons: getActionButtons(
+        context: context,
+        split: _split,
+        editMode: isInEditingMode,
+        dataWasModified: dataWasModified,
       ),
     );
   }
@@ -147,15 +130,5 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
         },
       ),
     ];
-  }
-
-  /// Returns true if split data has been modified from original state.
-  bool isDataModified() {
-    final MyJson afterEditing = _split.getPersistableJSon();
-    final MyJson diff = myJsonDiff(
-      before: _split.valueBeforeEdit ?? <String, dynamic>{},
-      after: afterEditing,
-    );
-    return diff.keys.isNotEmpty;
   }
 }

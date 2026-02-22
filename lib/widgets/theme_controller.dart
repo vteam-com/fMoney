@@ -1,4 +1,5 @@
 // ignore: fcheck_one_class_per_file
+// ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
@@ -125,53 +126,58 @@ class ThemeController extends GetxController {
   /// Returns the current theme data (light or dark) based on the mode.
   ThemeData get themeData => isDarkTheme.value ? themeDataDark : themeDataLight;
 
-  /// Builds and returns the dark theme data for the selected color seed.
-  ThemeData get themeDataDark {
-    // Validate color range
+  /// Ensures [colorSelected] points to a valid index in [Themes.themeAsColors].
+  void _ensureValidColorSelection() {
     if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
       colorSelected = _defaultThemeIndex.obs;
     }
+  }
 
-    final ThemeData themeData = ThemeData(
+  /// Builds a [ThemeData] from brightness and custom money color roles.
+  ThemeData _buildThemeData({
+    required Brightness brightness,
+    required MoneyThemeData moneyThemeData,
+  }) {
+    _ensureValidColorSelection();
+    return ThemeData(
       colorSchemeSeed: Themes.themeAsColors[colorSelected.value],
-      brightness: Brightness.dark,
+      brightness: brightness,
       extensions: <ThemeExtension<dynamic>>[
-        MoneyThemeData(
-          success: Colors.green.shade300,
-          warning: Colors.amber.shade300,
-          error: Colors.red.shade200,
-          disabled: Colors.grey.shade500,
-          quantityPositive: Colors.blue.shade300,
-          quantityNegative: Colors.orange.shade300,
-          info: Colors.blue.shade200,
-        ),
+        moneyThemeData,
       ],
     );
-    return themeData;
+  }
+
+  /// Builds and returns the dark theme data for the selected color seed.
+  ThemeData get themeDataDark {
+    return _buildThemeData(
+      brightness: Brightness.dark,
+      moneyThemeData: MoneyThemeData(
+        success: Colors.green.shade300,
+        warning: Colors.amber.shade300,
+        error: Colors.red.shade200,
+        disabled: Colors.grey.shade500,
+        quantityPositive: Colors.blue.shade300,
+        quantityNegative: Colors.orange.shade300,
+        info: Colors.blue.shade200,
+      ),
+    );
   }
 
   /// Builds and returns the light theme data for the selected color seed.
   ThemeData get themeDataLight {
-    // Validate color range
-    if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
-      colorSelected = _defaultThemeIndex.obs;
-    }
-    final ThemeData themeData = ThemeData(
-      colorSchemeSeed: Themes.themeAsColors[colorSelected.value],
+    return _buildThemeData(
       brightness: Brightness.light,
-      extensions: <ThemeExtension<dynamic>>[
-        MoneyThemeData(
-          success: Colors.green.shade800,
-          warning: Colors.amber.shade800,
-          error: Colors.red.shade800,
-          disabled: Colors.grey.shade600,
-          quantityPositive: Colors.blue.shade600,
-          quantityNegative: Colors.orange.shade600,
-          info: Colors.blue.shade700,
-        ),
-      ],
+      moneyThemeData: MoneyThemeData(
+        success: Colors.green.shade800,
+        warning: Colors.amber.shade800,
+        error: Colors.red.shade800,
+        disabled: Colors.grey.shade600,
+        quantityPositive: Colors.blue.shade600,
+        quantityNegative: Colors.orange.shade600,
+        info: Colors.blue.shade700,
+      ),
     );
-    return themeData;
   }
 
   /// Singleton accessor for the registered ThemeController instance.

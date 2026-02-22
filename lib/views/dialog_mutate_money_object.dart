@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data.dart';
+import 'package:money/views/dialog_mutate_shared.dart';
 import 'package:money/views/providers/transaction.dart';
-import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
@@ -108,32 +108,21 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
 
   @override
   Widget build(final BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _moneyObject.buildListOfNamesValuesWidgets(
-                onEdit: (bool wasModified) {
-                  setState(() {
-                    dataWasModified = wasModified || DataObject.isDataModified(_moneyObject);
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        dialogActionButtons(
-          getActionButtons(
-            context: context,
-            moneyObject: _moneyObject,
-            editMode: true,
-            dataWasModified: dataWasModified,
-          ),
-        ),
-      ],
+    return buildMutationDialogBody(
+      moneyObject: _moneyObject,
+      isInEditingMode: true,
+      wrapInDialogAutoSize: false,
+      onEdited: (bool wasModified) {
+        setState(() {
+          dataWasModified = wasModified || DataObject.isDataModified(_moneyObject);
+        });
+      },
+      actionButtons: getActionButtons(
+        context: context,
+        moneyObject: _moneyObject,
+        editMode: true,
+        dataWasModified: dataWasModified,
+      ),
     );
   }
 

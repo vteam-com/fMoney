@@ -229,11 +229,6 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     return _unsetId; // No clear format detected
   }
 
-  /// Removes focus from the text input field.
-  void removeFocus() {
-    _focusNode.unfocus();
-  }
-
   /// Requests focus for the text input field.
   void requestFocus() {
     FocusScope.of(context).requestFocus(_focusNode);

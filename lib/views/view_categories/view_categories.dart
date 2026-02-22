@@ -20,6 +20,7 @@ import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
+import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -260,25 +261,22 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   /// Builds the horizontal toggle row used to filter categories by type.
   Widget _buildToggles() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+    return buildPivotToggleRow(
+      isSelected: _selectedPivot,
+      children: _pivots,
       padding: const EdgeInsets.only(bottom: _headerPadding),
-      child: ToggleButtons(
-        direction: Axis.horizontal,
-        onPressed: (final int index) {
-          setState(() {
-            for (int i = 0; i < _selectedPivot.length; i++) {
-              _selectedPivot[i] = i == index;
-            }
-            list = getList();
-            clearSelection();
-          });
-        },
-        borderRadius: const BorderRadius.all(Radius.circular(_toggleRadius)),
-        constraints: const BoxConstraints(minHeight: _toggleMinHeight, minWidth: _toggleMinWidth),
-        isSelected: _selectedPivot,
-        children: _pivots,
-      ),
+      borderRadius: const BorderRadius.all(Radius.circular(_toggleRadius)),
+      minHeight: _toggleMinHeight,
+      minWidth: _toggleMinWidth,
+      onPressed: (int index) {
+        setState(() {
+          for (int i = 0; i < _selectedPivot.length; i++) {
+            _selectedPivot[i] = i == index;
+          }
+          list = getList();
+          clearSelection();
+        });
+      },
     );
   }
 

@@ -286,9 +286,6 @@ class DataObject extends DataInterface {
     return 'Id=$uniqueId'; // By default the ID is the best unique way
   }
 
-  /// True if this object was modified.
-  bool get isChanged => mutation == MutationType.changed;
-
   /// Returns true if [moneyObject] has any persisted changes compared to stashed values.
   static bool isDataModified(DataObject moneyObject) {
     final MyJson afterEditing = moneyObject.getPersistableJSon();

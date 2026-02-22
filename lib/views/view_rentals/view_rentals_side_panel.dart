@@ -43,18 +43,6 @@ class ViewRentalsSidePanel {
     return Data().rentBuildings.iterableList(includeDeleted: true).toList();
   }
 
-  /// Calculates the Profit & Loss (P&L) over the years for a given rental property.
-  /// Currently unused and incomplete. Needs further implementation to calculate and store P&L values.
-  void getPnLOverYears(RentBuilding rental) {
-    for (final Transaction transaction in Data().transactions.iterableList()) {
-      if (rental.categoryForIncomeTreeIds.contains(
-        transaction.fieldCategoryId.value,
-      )) {
-        // TODO: Implement P&L calculation logic here
-      }
-    }
-  }
-
   /// Returns the content for the chart sub-view in the details panel.
   /// Displays either a chart of lifetime P&L for all rentals (if no rental is selected)
   /// or a chart of cumulative profit over time for the selected rental.

@@ -138,14 +138,4 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       count: rentersInThisBuilding.length,
     );
   }
-
-  /// Returns a formatted string of unit names and renters.
-  String getUnitsAsString(final List<RentUnit> listOfUnits) {
-    final List<String> listAsText = <String>[];
-    for (RentUnit unit in listOfUnits) {
-      listAsText.add('${unit.fieldName}:${unit.fieldRenter}');
-    }
-
-    return listAsText.join('\n');
-  }
 }

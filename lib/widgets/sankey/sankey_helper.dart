@@ -3,7 +3,6 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/sankey/sankey_entry.dart';
 
 const double _defaultFontSize = 12;
@@ -104,22 +103,6 @@ void renderSourcesToTargetAsPercentage(
     rollingVerticalPositionDrawnOnTheTarget += targetSectionHeight;
     block.draw(canvas);
   }
-}
-
-/// Calculates vertical space needed to render a list of entries.
-double getHeightNeededToRender(final List<SanKeyEntry> list) {
-  final double sum = sumValue(list);
-
-  double verticalPosition = 0.0;
-
-  for (SanKeyEntry element in list) {
-    final double height = (element.value.abs() / sum.abs()) * Constants.targetHeight;
-    verticalPosition += height;
-    verticalPosition += Constants.gapBetweenChannels;
-  }
-
-  // how much vertical space was needed to render this
-  return verticalPosition;
 }
 
 /// Draws centered text inside a rectangle with optional rotation.

@@ -1,12 +1,11 @@
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/data.dart';
+import 'package:money/views/dialog_mutate_shared.dart';
 import 'package:money/views/providers/transaction.dart';
-import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
-import 'package:money/widgets/dialog_auto_size.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Shows a dialog that allows the user to mutate a transaction.
 ///
@@ -60,35 +59,19 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
 
   @override
   Widget build(final BuildContext context) {
-    return DialogAutoSize(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: _transaction.buildListOfNamesValuesWidgets(
-                  onEdit: isInEditingMode
-                      ? (bool wasModified) {
-                          setState(() {
-                            dataWasModified = wasModified || isDataModified();
-                          });
-                        }
-                      : null,
-                ),
-              ),
-            ),
-          ),
-          dialogActionButtons(
-            getActionButtons(
-              context: context,
-              transaction: _transaction,
-              editMode: isInEditingMode,
-              dataWasModified: dataWasModified,
-            ),
-          ),
-        ],
+    return buildMutationDialogBody(
+      moneyObject: _transaction,
+      isInEditingMode: isInEditingMode,
+      onEdited: (bool wasModified) {
+        setState(() {
+          dataWasModified = wasModified || DataObject.isDataModified(_transaction);
+        });
+      },
+      actionButtons: getActionButtons(
+        context: context,
+        transaction: _transaction,
+        editMode: isInEditingMode,
+        dataWasModified: dataWasModified,
       ),
     );
   }
@@ -184,15 +167,5 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
         },
       ),
     ];
-  }
-
-  /// Returns true if transaction data has been modified from original state.
-  bool isDataModified() {
-    final MyJson afterEditing = _transaction.getPersistableJSon();
-    final MyJson diff = myJsonDiff(
-      before: _transaction.valueBeforeEdit ?? <String, dynamic>{},
-      after: afterEditing,
-    );
-    return diff.keys.isNotEmpty;
   }
 }
