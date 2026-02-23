@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  clipboard
   desktop_drop
   pasteboard
   screen_retriever_windows

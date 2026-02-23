@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -95,7 +95,7 @@ void copyToClipboardAndInformUser(
   final BuildContext context,
   final String textToCopy,
 ) {
-  FlutterClipboard.copy(textToCopy).then((_) {
+  Clipboard.setData(ClipboardData(text: textToCopy)).then((_) {
     if (context.mounted) {
       showSnackBar(context, 'Copied to clipboard');
     }

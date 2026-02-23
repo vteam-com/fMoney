@@ -34,7 +34,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   archive: ^4.0.7
-  clipboard: ^3.0.14
   collection: ^1.19.1
   csv: ^6.0.0
   desktop_drop: ^0.7.0

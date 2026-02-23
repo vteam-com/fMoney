@@ -656,6 +656,10 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_intents.dart</title>
 </g>
 <g>
+  <path d="M 270.0 128.0 C 320.0 128.0, 326.0 592.0, 376.0 592.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/application_bindings.dart</title>
+</g>
+<g>
   <path d="M 270.0 128.0 C 320.0 128.0, 2566.0 172.0, 2616.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/list_controller.dart</title>
 </g>
@@ -708,20 +712,16 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/preferences_controller.dart</title>
 </g>
 <g>
+  <path d="M 270.0 128.0 C 320.0 128.0, 10246.0 242.0, 10296.0 242.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/scale_down.dart</title>
+</g>
+<g>
   <path d="M 270.0 128.0 C 320.0 128.0, 5766.0 172.0, 5816.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart</title>
 </g>
 <g>
   <path d="M 270.0 128.0 C 320.0 128.0, 2246.0 312.0, 2296.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart</title>
-</g>
-<g>
-  <path d="M 270.0 128.0 C 320.0 128.0, 326.0 592.0, 376.0 592.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/application_bindings.dart</title>
-</g>
-<g>
-  <path d="M 270.0 128.0 C 320.0 128.0, 10246.0 242.0, 10296.0 242.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/scale_down.dart</title>
 </g>
 <g>
   <path d="M 1230.0 1248.0 C 1280.0 1248.0, 1286.0 1852.0, 1336.0 1852.0" class="edge"/>
@@ -758,6 +758,10 @@
 <g>
   <path d="M 910.0 198.0 C 960.0 198.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/home_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
+</g>
+<g>
+  <path d="M 910.0 198.0 C 960.0 198.0, 966.0 172.0, 1016.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/home_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/home_controller.dart</title>
 </g>
 <g>
   <path d="M 910.0 198.0 C 960.0 198.0, 966.0 1222.0, 1016.0 1222.0" class="edge"/>
@@ -842,10 +846,6 @@
 <g>
   <path d="M 910.0 198.0 C 960.0 198.0, 3206.0 102.0, 3256.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/home_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/working.dart</title>
-</g>
-<g>
-  <path d="M 910.0 198.0 C 960.0 198.0, 966.0 172.0, 1016.0 172.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/home_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/home_controller.dart</title>
 </g>
 <g>
   <path d="M 3150.0 548.0 C 3200.0 548.0, 5766.0 592.0, 5816.0 592.0" class="edge"/>
@@ -3536,16 +3536,16 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/welcome/view_welcome.dart</title>
 </g>
 <g>
+  <path d="M 910.0 128.0 C 960.0 128.0, 966.0 242.0, 1016.0 242.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_controller.dart</title>
+</g>
+<g>
   <path d="M 910.0 128.0 C 960.0 128.0, 8006.0 102.0, 8056.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/app_scaffold.dart</title>
 </g>
 <g>
   <path d="M 910.0 128.0 C 960.0 128.0, 1606.0 102.0, 1656.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/text_title.dart</title>
-</g>
-<g>
-  <path d="M 910.0 128.0 C 960.0 128.0, 966.0 242.0, 1016.0 242.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_controller.dart</title>
 </g>
 <g>
   <path d="M 1230.0 1318.0 C 1280.0 1318.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
