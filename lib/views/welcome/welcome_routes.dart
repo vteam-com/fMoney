@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
-
-import 'welcome_binding.dart';
-import 'welcome_page.dart';
+import 'package:money/views/welcome/welcome_binding.dart';
+import 'package:money/views/welcome/welcome_page.dart';
 
 /// Defines the routes for the welcome page in the application.
 /// The [WelcomeRoutes] class is a utility class that holds the

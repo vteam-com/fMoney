@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import 'helpers/home_controller.dart';
+import 'package:money/helpers/home_controller.dart';
 
 /// Represents home binding.
 class HomeBinding extends Bindings {

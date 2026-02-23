@@ -1,5 +1,6 @@
 // ignore: fcheck_dead_code
 import 'dart:math';
+
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 

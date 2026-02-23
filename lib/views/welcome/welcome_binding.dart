@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import 'welcome_controller.dart';
+import 'package:money/views/welcome/welcome_controller.dart';
 
 /// Represents welcome binding.
 class WelcomeBinding extends Bindings {

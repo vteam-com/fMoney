@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/views/view_ai/view_ai_chat_types.dart';

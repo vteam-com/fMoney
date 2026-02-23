@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, avoid_print
 // ignore: fcheck_dead_code
 import 'dart:async';
-// ignore: deprecated_member_use
 import 'dart:js' as js;
 import 'dart:typed_data';
+
 import 'package:money/helpers/json_helper.dart';
 
 /// implement the Sqlite3 WASM Web Support see https://pub.dev/packages/sqlite3#wasm-web-support

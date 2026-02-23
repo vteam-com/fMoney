@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 import 'package:money/app_bar.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/home_controller.dart';
 import 'package:money/my_nav_bar.dart';
 import 'package:money/views/data_file_controller.dart';
-import 'package:money/views/import/import_csv.dart'; // Added import for CSV
+import 'package:money/views/import/import_csv.dart';
 import 'package:money/views/import/import_qfx.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
 import 'package:money/views/view_accounts/view_accounts.dart';
@@ -23,9 +24,7 @@ import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/drop_zone.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/working.dart';
-import 'package:path/path.dart' as path; // Added import for path
-
-import 'helpers/home_controller.dart';
+import 'package:path/path.dart' as path;
 
 /// Current selected sub-view index (used for reactive view switching).
 RxInt subViewInt = 0.obs;

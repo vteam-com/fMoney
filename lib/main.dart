@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/app_intents.dart';
+import 'package:money/helpers/application_bindings.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/home_routes.dart';
@@ -15,11 +16,9 @@ import 'package:money/views/panels/splash_page.dart';
 import 'package:money/views/welcome/welcome_page.dart';
 import 'package:money/views/welcome/welcome_routes.dart';
 import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/theme_controller.dart';
-
-import 'helpers/application_bindings.dart';
-import 'widgets/pure/scale_down.dart';
 
 /// The main entry point for the MoneyFlutter application.
 /// Sets up the app structure, theming, and initial routes.

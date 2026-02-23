@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:money/views/welcome/view_welcome.dart';
+import 'package:money/views/welcome/welcome_controller.dart';
 import 'package:money/widgets/app_scaffold.dart';
 import 'package:money/widgets/text_title.dart';
-
-import 'welcome_controller.dart';
 
 /// Represents the welcome page of the fMoney application.
 ///
