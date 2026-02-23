@@ -5,6 +5,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/views/providers/account.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -182,49 +183,48 @@ class LoanPayment extends DataObject {
     );
   }
 
-  /// Lazily initializes and returns cached [Fields] definitions for loan payments.
-  static Fields<LoanPayment> _ensureFieldDefinitions(
-    Fields<LoanPayment> cache,
-    FieldDefinitions Function(LoanPayment) definitionsBuilder,
-  ) {
-    if (cache.isEmpty) {
-      cache.setDefinitions(definitionsBuilder(_createStaticFieldInstance()));
-    }
-    return cache;
+  /// Builds field definitions for [LoanPayment] with optional column-view additions.
+  static FieldDefinitions _buildFieldDefinitions(
+    LoanPayment tmpInstance, {
+    required bool forColumnView,
+  }) {
+    return <Field<dynamic>>[
+      if (!forColumnView) tmpInstance.fieldId,
+      tmpInstance.fieldDate,
+      tmpInstance.fieldAccountId,
+      tmpInstance.fieldMemo,
+      tmpInstance.fieldReference,
+      if (forColumnView) tmpInstance.payment,
+      tmpInstance.fieldRate,
+      if (!forColumnView) tmpInstance.fieldInterest,
+      tmpInstance.fieldPrincipal,
+      if (forColumnView) tmpInstance.fieldInterest,
+      tmpInstance.fieldBalance,
+    ];
   }
 
   /// Returns the field definitions for LoanPayment entities.
   static Fields<LoanPayment> get fields {
-    return _ensureFieldDefinitions(_fields, (LoanPayment tmpInstance) {
-      return <Field<dynamic>>[
-        tmpInstance.fieldId,
-        tmpInstance.fieldDate,
-        tmpInstance.fieldAccountId,
-        tmpInstance.fieldMemo,
-        tmpInstance.fieldReference,
-        tmpInstance.fieldRate,
-        tmpInstance.fieldInterest,
-        tmpInstance.fieldPrincipal,
-        tmpInstance.fieldBalance,
-      ];
-    });
+    return ensureCachedFieldDefinitions<LoanPayment>(
+      cache: _fields,
+      instanceFactory: _createStaticFieldInstance,
+      definitionsBuilder: (LoanPayment tmpInstance) => _buildFieldDefinitions(
+        tmpInstance,
+        forColumnView: false,
+      ),
+    );
   }
 
   /// Returns the field definitions for LoanPayment column view.
   static Fields<LoanPayment> get fieldsForColumnView {
-    return _ensureFieldDefinitions(_fieldsForColumns, (LoanPayment tmpInstance) {
-      return <Field<dynamic>>[
-        tmpInstance.fieldDate,
-        tmpInstance.fieldAccountId,
-        tmpInstance.fieldMemo,
-        tmpInstance.fieldReference,
-        tmpInstance.payment,
-        tmpInstance.fieldRate,
-        tmpInstance.fieldPrincipal,
-        tmpInstance.fieldInterest,
-        tmpInstance.fieldBalance,
-      ];
-    });
+    return ensureCachedFieldDefinitions<LoanPayment>(
+      cache: _fieldsForColumns,
+      instanceFactory: _createStaticFieldInstance,
+      definitionsBuilder: (LoanPayment tmpInstance) => _buildFieldDefinitions(
+        tmpInstance,
+        forColumnView: true,
+      ),
+    );
   }
 
   /// Calculates the annualized interest rate based on interest and principal change.

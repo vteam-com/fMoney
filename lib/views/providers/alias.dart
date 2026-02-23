@@ -4,6 +4,7 @@ import 'package:money/data/models/alias_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -131,19 +132,20 @@ class Alias extends DataObject {
   static final Fields<Alias> _fields = Fields<Alias>();
   static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
 
+  /// Builds [Alias] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(final Alias tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldPattern,
+    tmp.fieldFlags,
+    tmp.fieldPayeeId,
+  ];
+
   /// Returns the field definitions for Alias entities.
-  static Fields<Alias> get fields {
-    if (_fields.isEmpty) {
-      final Alias tmp = Alias._fromJsonStatic(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldPattern,
-        tmp.fieldFlags,
-        tmp.fieldPayeeId,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Alias> get fields => ensureCachedFieldDefinitions<Alias>(
+    cache: _fields,
+    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 
   /// Returns the field definitions for Alias column view.
   static Fields<Alias> get fieldsForColumnView {

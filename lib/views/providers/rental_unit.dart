@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -79,18 +80,19 @@ class RentUnit extends DataObject {
 
   static final Fields<RentUnit> _fields = Fields<RentUnit>();
 
+  /// Builds [RentUnit] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(final RentUnit tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldBuilding,
+    tmp.fieldName,
+    tmp.fieldRenter,
+    tmp.fieldNote,
+  ];
+
   /// Returns the field definitions for RentUnit entities.
-  static Fields<RentUnit> get fields {
-    if (_fields.isEmpty) {
-      final RentUnit tmp = RentUnit.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldBuilding,
-        tmp.fieldName,
-        tmp.fieldRenter,
-        tmp.fieldNote,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<RentUnit> get fields => ensureCachedFieldDefinitions<RentUnit>(
+    cache: _fields,
+    instanceFactory: () => RentUnit.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 }

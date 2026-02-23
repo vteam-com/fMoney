@@ -148,19 +148,27 @@ class ThemeController extends GetxController {
     );
   }
 
+  /// Builds color-role values for [MoneyThemeData] based on [brightness].
+  MoneyThemeData _buildMoneyThemeData(Brightness brightness) {
+    final bool isDarkBrightness = brightness == Brightness.dark;
+    Color pickByBrightness(Color dark, Color light) => isDarkBrightness ? dark : light;
+
+    return MoneyThemeData(
+      success: pickByBrightness(Colors.green.shade300, Colors.green.shade800),
+      warning: pickByBrightness(Colors.amber.shade300, Colors.amber.shade800),
+      error: pickByBrightness(Colors.red.shade200, Colors.red.shade800),
+      disabled: pickByBrightness(Colors.grey.shade500, Colors.grey.shade600),
+      quantityPositive: pickByBrightness(Colors.blue.shade300, Colors.blue.shade600),
+      quantityNegative: pickByBrightness(Colors.orange.shade300, Colors.orange.shade600),
+      info: pickByBrightness(Colors.blue.shade200, Colors.blue.shade700),
+    );
+  }
+
   /// Builds and returns the dark theme data for the selected color seed.
   ThemeData get themeDataDark {
     return _buildThemeData(
       brightness: Brightness.dark,
-      moneyThemeData: MoneyThemeData(
-        success: Colors.green.shade300,
-        warning: Colors.amber.shade300,
-        error: Colors.red.shade200,
-        disabled: Colors.grey.shade500,
-        quantityPositive: Colors.blue.shade300,
-        quantityNegative: Colors.orange.shade300,
-        info: Colors.blue.shade200,
-      ),
+      moneyThemeData: _buildMoneyThemeData(Brightness.dark),
     );
   }
 
@@ -168,15 +176,7 @@ class ThemeController extends GetxController {
   ThemeData get themeDataLight {
     return _buildThemeData(
       brightness: Brightness.light,
-      moneyThemeData: MoneyThemeData(
-        success: Colors.green.shade800,
-        warning: Colors.amber.shade800,
-        error: Colors.red.shade800,
-        disabled: Colors.grey.shade600,
-        quantityPositive: Colors.blue.shade600,
-        quantityNegative: Colors.orange.shade600,
-        info: Colors.blue.shade700,
-      ),
+      moneyThemeData: _buildMoneyThemeData(Brightness.light),
     );
   }
 

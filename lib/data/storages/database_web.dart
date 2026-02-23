@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, avoid_print
 // ignore: fcheck_dead_code
 import 'dart:async';
-import 'dart:js' as js;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 import 'package:money/helpers/json_helper.dart';
@@ -31,9 +32,11 @@ class MyDatabaseImplementation {
   /// Loads database from file bytes in web environment using JavaScript.
   Future<void> load(final String fileToOpen, final Uint8List fileBytes) async {
     try {
-      final js.JsObject jsArray = js.JsObject.jsify(fileBytes);
-      // Pass the array to JavaScript function to load the database
-      await js.context.callMethod('loadDatabaseFromBinary', <dynamic>[jsArray]);
+      // Pass byte array to JavaScript function to load the database.
+      await _callJsPromise(
+        'loadDatabaseFromBinary',
+        <JSAny?>[fileBytes.toList().jsify()],
+      );
     } catch (e) {
       // Rollback the transaction if an error occurs
       // _db.execute('ROLLBACK');
@@ -48,25 +51,30 @@ class MyDatabaseImplementation {
   /// Executes SQL query and returns results as list of maps in web environment.
   Future<List<Map<String, dynamic>>> select(final String query) async {
     try {
-      final dynamic jsObjectResult = await js.context.callMethod(
+      final JSAny? jsObjectResult = await _callJsPromise(
         'executeSql',
-        <dynamic>[query],
+        <JSAny?>[query.toJS],
       );
+      final Object? dartResult = jsObjectResult?.dartify();
 
-      if (jsObjectResult == null || jsObjectResult.length == 0) {
+      if (dartResult is! List<dynamic> || dartResult.isEmpty) {
         // no results found from the query
         // print('No results found');
         return <Map<String, dynamic>>[];
       }
 
-      // Access the first result set, ensuring it's a JsObject
-      final dynamic firstResult = jsObjectResult[0];
-      if (firstResult == null || firstResult is! js.JsObject) {
+      // Access the first result set, ensuring it's a map-like object.
+      final dynamic firstResult = dartResult.first;
+      if (firstResult is! Map<dynamic, dynamic>) {
         print('Error: The result set structure is unexpected.');
         return <Map<String, dynamic>>[];
       }
-      // Convert the JsObject result to List<Map<String, dynamic>>
-      return _convertJsResultToList(firstResult);
+      // Convert the first result map to List<Map<String, dynamic>>.
+      return _convertJsResultToList(
+        firstResult.map(
+          (final dynamic key, final dynamic value) => MapEntry<String, dynamic>(key.toString(), value),
+        ),
+      );
     } catch (e) {
       print('Error executing query: $e');
       return <Map<String, dynamic>>[];
@@ -86,10 +94,30 @@ class MyDatabaseImplementation {
     }
   }
 
-  // Helper to convert JsObject to List<Map<String, dynamic>>
-  List<Map<String, dynamic>> _convertJsResultToList(js.JsObject jsResult) {
+  /// Calls a JavaScript function on `globalThis` and awaits its Promise result.
+  Future<JSAny?> _callJsPromise(
+    final String method,
+    final List<JSAny?> arguments,
+  ) async {
+    final JSAny? result = globalContext.callMethodVarArgs<JSAny?>(
+      method.toJS,
+      arguments,
+    );
+    if (result == null) {
+      return null;
+    }
+    if (result.isA<JSPromise<JSAny?>>()) {
+      return (result as JSPromise<JSAny?>).toDart;
+    }
+    return result;
+  }
+
+  /// Converts SQL.js result map to a typed list of row maps.
+  List<Map<String, dynamic>> _convertJsResultToList(
+    final Map<String, dynamic> jsResult,
+  ) {
     final List<String> columns = List<String>.from(
-      jsResult['columns'] as List<String>,
+      jsResult['columns'] as List<dynamic>,
     );
     final List<dynamic> values = jsResult['values'] as List<dynamic>;
     if (values.isEmpty) {

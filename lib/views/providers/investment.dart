@@ -9,6 +9,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -413,37 +414,43 @@ class Investment extends DataObject {
     return this.fieldUnits.value * this._splitRatio * _signBasedOnActivity;
   }
 
+  /// Builds the canonical field-definition list used by [fields].
+  static FieldDefinitions _buildEntityFieldDefinitions(Investment instance) {
+    final FieldDefinitions definitions = <Field<dynamic>>[];
+    definitions.addAll(<Field<dynamic>>[
+      instance.fieldId,
+      instance.fieldTransactionDate,
+      instance.fieldTransactionAccountName,
+      instance.fieldSecurity,
+      instance.fieldSecuritySymbol,
+      instance.fieldInvestmentType,
+      instance.fieldTradeType,
+      instance.fieldUnits,
+      instance.fieldSplitRatioAsText,
+      instance.fieldUnitsAdjusted,
+      instance.fieldHoldingShares,
+      instance.fieldUnitPrice,
+      instance.fieldUnitPriceAdjusted,
+      instance.fieldCommission,
+      instance.fieldMarkUpDown,
+      instance.fieldTaxes,
+      instance.fieldFees,
+      instance.fieldLoad,
+      instance.fieldTaxExempt,
+      instance.fieldWithholding,
+      instance.fieldActivityAmount,
+      instance.fieldHoldingSharesValue,
+    ]);
+    return definitions;
+  }
+
   /// Returns the field definitions for Investment entities.
   static Fields<Investment> get fields {
-    if (_fields.isEmpty) {
-      final Investment tmp = Investment.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldTransactionDate,
-        tmp.fieldTransactionAccountName,
-        tmp.fieldSecurity,
-        tmp.fieldSecuritySymbol,
-        tmp.fieldInvestmentType,
-        tmp.fieldTradeType,
-        tmp.fieldUnits,
-        tmp.fieldSplitRatioAsText,
-        tmp.fieldUnitsAdjusted,
-        tmp.fieldHoldingShares,
-        tmp.fieldUnitPrice,
-        tmp.fieldUnitPriceAdjusted,
-        tmp.fieldCommission,
-        tmp.fieldMarkUpDown,
-        tmp.fieldTaxes,
-        tmp.fieldFees,
-        tmp.fieldLoad,
-        tmp.fieldTaxExempt,
-        tmp.fieldWithholding,
-        tmp.fieldActivityAmount,
-        tmp.fieldHoldingSharesValue,
-      ]);
-    }
-
-    return _fields;
+    return ensureCachedFieldDefinitions<Investment>(
+      cache: _fields,
+      instanceFactory: () => Investment.fromJson(<String, dynamic>{}),
+      definitionsBuilder: _buildEntityFieldDefinitions,
+    );
   }
 
   /// Returns the field definitions for Investment column view.

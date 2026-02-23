@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -55,17 +56,18 @@ class AccountAlias extends DataObject {
 
   static final Fields<AccountAlias> _fields = Fields<AccountAlias>();
 
+  /// Builds [AccountAlias] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(final AccountAlias tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldPattern,
+    tmp.fieldFlags,
+    tmp.fieldAccountId,
+  ];
+
   /// Returns the field definitions for AccountAlias entities.
-  static Fields<AccountAlias> get fields {
-    if (_fields.isEmpty) {
-      final AccountAlias tmp = AccountAlias.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldPattern,
-        tmp.fieldFlags,
-        tmp.fieldAccountId,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<AccountAlias> get fields => ensureCachedFieldDefinitions<AccountAlias>(
+    cache: _fields,
+    instanceFactory: () => AccountAlias.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 }

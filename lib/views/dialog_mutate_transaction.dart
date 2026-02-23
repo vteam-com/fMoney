@@ -5,7 +5,6 @@ import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Shows a dialog that allows the user to mutate a transaction.
 ///
@@ -26,6 +25,44 @@ Future<dynamic> showTransactionAndActions({
     builder: (final BuildContext _) {
       return DialogMutateTransaction(transaction: transaction);
     },
+  );
+}
+
+/// Builds the transaction dialog body while tracking whether its data was edited.
+Widget buildTrackedTransactionDialogBody({
+  required BuildContext context,
+  required Transaction transaction,
+  required bool isInEditingMode,
+  required bool dataWasModified,
+  required ValueChanged<bool> setDataWasModified,
+  required List<Widget> Function({
+    required BuildContext context,
+    required Transaction transaction,
+    required bool editMode,
+    required bool dataWasModified,
+  })
+  getActionButtons,
+}) {
+  return buildMutationDialogBodyWithTrackedChanges<Transaction>(
+    context: context,
+    moneyObject: transaction,
+    isInEditingMode: isInEditingMode,
+    dataWasModified: dataWasModified,
+    setDataWasModified: setDataWasModified,
+    actionButtonsBuilder:
+        (
+          BuildContext context,
+          Transaction transaction,
+          bool editMode,
+          bool dataWasModified,
+        ) {
+          return getActionButtons(
+            context: context,
+            transaction: transaction,
+            editMode: editMode,
+            dataWasModified: dataWasModified,
+          );
+        },
   );
 }
 
@@ -59,20 +96,17 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
 
   @override
   Widget build(final BuildContext context) {
-    return buildMutationDialogBody(
-      moneyObject: _transaction,
+    return buildTrackedTransactionDialogBody(
+      context: context,
+      transaction: _transaction,
       isInEditingMode: isInEditingMode,
-      onEdited: (bool wasModified) {
+      dataWasModified: dataWasModified,
+      setDataWasModified: (bool value) {
         setState(() {
-          dataWasModified = wasModified || DataObject.isDataModified(_transaction);
+          dataWasModified = value;
         });
       },
-      actionButtons: getActionButtons(
-        context: context,
-        transaction: _transaction,
-        editMode: isInEditingMode,
-        dataWasModified: dataWasModified,
-      ),
+      getActionButtons: getActionButtons,
     );
   }
 

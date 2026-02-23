@@ -7,6 +7,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/locale.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_account_type.dart';
 import 'package:money/widgets/preferences_controller.dart';
@@ -399,9 +400,10 @@ class Account extends DataObject {
 
   /// Returns field definitions for Account entities.
   static Fields<Account> get fields {
-    if (_fields.isEmpty) {
-      final Account tmp = Account.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
+    return ensureCachedFieldDefinitions<Account>(
+      cache: _fields,
+      instanceFactory: () => Account.fromJson(<String, dynamic>{}),
+      definitionsBuilder: (Account tmp) => <Field<dynamic>>[
         tmp.fieldId,
         tmp.fieldName,
         tmp.fieldAccountId,
@@ -424,9 +426,8 @@ class Account extends DataObject {
         tmp.fieldCurrency,
         tmp.fieldBalanceNormalized,
         tmp.fieldIsAccountOpen,
-      ]);
-    }
-    return _fields;
+      ],
+    );
   }
 
   /// Returns field definitions for Account column view.

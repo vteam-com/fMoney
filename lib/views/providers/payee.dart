@@ -1,5 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -83,20 +84,21 @@ class Payee extends DataObject {
 
   static final Fields<Payee> _fields = Fields<Payee>();
 
+  /// Builds [Payee] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(final Payee tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldName,
+    tmp.fieldCategoriesAsText,
+    tmp.fieldCount,
+    tmp.fieldSum,
+  ];
+
   /// Returns the field definitions for Payee entities.
-  static Fields<Payee> get fields {
-    if (_fields.isEmpty) {
-      final Payee tmp = Payee.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldName,
-        tmp.fieldCategoriesAsText,
-        tmp.fieldCount,
-        tmp.fieldSum,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Payee> get fields => ensureCachedFieldDefinitions<Payee>(
+    cache: _fields,
+    instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 
   /// Returns a [Fields] instance that defines the fields to be displayed in a column view for a [Payee] object.
   /// The fields included are:

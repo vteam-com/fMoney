@@ -5,7 +5,6 @@ import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
@@ -45,20 +44,30 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
 
   @override
   Widget build(final BuildContext context) {
-    return buildMutationDialogBody(
+    return buildMutationDialogBodyWithTrackedChanges<TransactionSplit>(
+      context: context,
       moneyObject: _split,
       isInEditingMode: isInEditingMode,
-      onEdited: (bool wasModified) {
+      dataWasModified: dataWasModified,
+      setDataWasModified: (bool value) {
         setState(() {
-          dataWasModified = wasModified || DataObject.isDataModified(_split);
+          dataWasModified = value;
         });
       },
-      actionButtons: getActionButtons(
-        context: context,
-        split: _split,
-        editMode: isInEditingMode,
-        dataWasModified: dataWasModified,
-      ),
+      actionButtonsBuilder:
+          (
+            BuildContext context,
+            TransactionSplit split,
+            bool editMode,
+            bool dataWasModified,
+          ) {
+            return getActionButtons(
+              context: context,
+              split: split,
+              editMode: editMode,
+              dataWasModified: dataWasModified,
+            );
+          },
     );
   }
 

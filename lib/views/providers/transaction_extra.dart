@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -81,19 +82,18 @@ class TransactionExtra extends DataObject {
 
   static final Fields<TransactionExtra> _fields = Fields<TransactionExtra>();
 
+  /// Builds [TransactionExtra] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(final TransactionExtra tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldTaxDate,
+    tmp.fieldTaxYear,
+    tmp.fieldTransaction,
+  ];
+
   /// Returns the field definitions for TransactionExtra entities.
-  static Fields<TransactionExtra> get fields {
-    if (_fields.isEmpty) {
-      final TransactionExtra tmp = TransactionExtra.fromJson(
-        <String, dynamic>{},
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldTaxDate,
-        tmp.fieldTaxYear,
-        tmp.fieldTransaction,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<TransactionExtra> get fields => ensureCachedFieldDefinitions<TransactionExtra>(
+    cache: _fields,
+    instanceFactory: () => TransactionExtra.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 }

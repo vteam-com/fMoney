@@ -34,3 +34,27 @@ Widget buildMutationDialogBody({
 
   return DialogAutoSize(child: body);
 }
+
+/// Builds mutation dialog body and tracks modifications by consulting [DataObject.isDataModified].
+Widget buildMutationDialogBodyWithTrackedChanges<T extends DataObject>({
+  required BuildContext context,
+  required T moneyObject,
+  required bool isInEditingMode,
+  required bool dataWasModified,
+  required ValueChanged<bool> setDataWasModified,
+  required List<Widget> Function(BuildContext, T, bool, bool) actionButtonsBuilder,
+}) {
+  return buildMutationDialogBody(
+    moneyObject: moneyObject,
+    isInEditingMode: isInEditingMode,
+    onEdited: (bool wasModified) {
+      setDataWasModified(wasModified || DataObject.isDataModified(moneyObject));
+    },
+    actionButtons: actionButtonsBuilder(
+      context,
+      moneyObject,
+      isInEditingMode,
+      dataWasModified,
+    ),
+  );
+}
