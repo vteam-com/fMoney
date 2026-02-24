@@ -24,6 +24,7 @@ import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
+import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
@@ -51,53 +52,29 @@ class ViewForMoneyObjects extends StatefulWidget {
 /// State for view for money objects.
 class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   Fields<DataObject> _fieldToDisplay = Fields<DataObject>();
-
   FieldFilters _filterByFieldsValue = FieldFilters();
-
   String _filterByText = '';
-
   final FooterAccumulators _footerAccumulators = FooterAccumulators();
-
   bool _isMultiSelectionOn = false;
-
   int _lastSelectedItemId = -1;
-
   final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
-
   bool _sortAscending = true;
-
   int _sortByFieldIndex = 0;
-
   final DataFileController dataController = Get.find();
-
   bool firstLoadCompleted = false;
-
   final ListControllerMain lc = ListControllerMain();
-
   List<DataObject> list = <DataObject>[];
-
   List<String> listOfUniqueString = <String>[];
-
   List<ValueSelection> listOfValueSelected = <ValueSelection>[];
-
   void Function()? onAddTransaction;
-
   VoidCallback? onDeleteItems;
-
   VoidCallback? onEditItems;
-
   VoidCallback? onMultiSelect;
-
   PreferenceController preferenceController = Get.find();
-
   late final SidePanelSupport sidePanelOptions;
-
   Object? subViewSelectedItem;
-
   bool supportsMultiSelection = false;
-
   late final ViewId viewId;
-
   @override
   void initState() {
     super.initState();
@@ -240,6 +217,58 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         lc.scrollToBottom();
       },
       child: child,
+    );
+  }
+
+  /// Builds a standard pivot toggle row wired to refresh this view list on selection change.
+  Widget buildStandardPivotToggleRow({
+    Key? key,
+    required List<bool> selectedPivot,
+    required List<Widget> pivotChildren,
+    required EdgeInsetsGeometry padding,
+    required BorderRadius borderRadius,
+    required double minHeight,
+    required double minWidth,
+  }) {
+    return buildPivotToggleRow(
+      key: key,
+      isSelected: selectedPivot,
+      children: pivotChildren,
+      padding: padding,
+      borderRadius: borderRadius,
+      minHeight: minHeight,
+      minWidth: minWidth,
+      onPressed: (int index) {
+        updatePivotSelectionAndRefresh(selectedPivot, index);
+      },
+    );
+  }
+
+  /// Builds the common details-panel layout with a money-object card and additional panels.
+  Widget buildStandardSidePanelDetailsWrap<T extends DataObject>({
+    required T? selectedItem,
+    required List<Widget> extraPanels,
+    required double spacing,
+  }) {
+    if (selectedItem == null) {
+      return const CenterMessage(message: 'No item selected.');
+    }
+
+    return SingleChildScrollView(
+      child: Center(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          runSpacing: spacing,
+          spacing: spacing,
+          children: <Widget>[
+            MoneyObjectCard(
+              title: getClassNameSingular(),
+              moneyObject: selectedItem,
+            ),
+            ...extraPanels,
+          ],
+        ),
+      ),
     );
   }
 

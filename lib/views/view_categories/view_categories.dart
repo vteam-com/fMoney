@@ -20,7 +20,6 @@ import 'package:money/widgets/button_helpers.dart';
 import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
-import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -261,16 +260,13 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   /// Builds the horizontal toggle row used to filter categories by type.
   Widget _buildToggles() {
-    return buildPivotToggleRow(
-      isSelected: _selectedPivot,
-      children: _pivots,
+    return buildStandardPivotToggleRow(
+      selectedPivot: _selectedPivot,
+      pivotChildren: _pivots,
       padding: const EdgeInsets.only(bottom: _headerPadding),
       borderRadius: const BorderRadius.all(Radius.circular(_toggleRadius)),
       minHeight: _toggleMinHeight,
       minWidth: _toggleMinWidth,
-      onPressed: (int index) {
-        updatePivotSelectionAndRefresh(_selectedPivot, index);
-      },
     );
   }
 

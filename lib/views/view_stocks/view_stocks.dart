@@ -20,7 +20,6 @@ import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_stocks/stock_chart.dart';
 import 'package:money/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart';
 import 'package:money/widgets/charts/chart_event.dart';
-import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
@@ -200,27 +199,17 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   @override
   Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
+    keepUnused(selectedIds);
     final Security? selectedSecurity = getFirstSelectedItem() as Security?;
-    if (selectedSecurity == null) {
-      return const CenterMessage(message: 'No item selected.');
-    }
-
-    return SingleChildScrollView(
-      child: Center(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          runSpacing: _pivotSpacing,
-          spacing: _pivotSpacing,
-          children: <Widget>[
-            MoneyObjectCard(
-              title: getClassNameSingular(),
-              moneyObject: selectedSecurity,
-            ),
-            _buildPanelForSplits(context, selectedSecurity),
-            _buildPanelForDividend(context, selectedSecurity),
-          ],
-        ),
-      ),
+    return buildStandardSidePanelDetailsWrap<Security>(
+      selectedItem: selectedSecurity,
+      spacing: _pivotSpacing,
+      extraPanels: <Widget>[
+        if (selectedSecurity != null) ...<Widget>[
+          _buildPanelForSplits(context, selectedSecurity),
+          _buildPanelForDividend(context, selectedSecurity),
+        ],
+      ],
     );
   }
 
@@ -475,16 +464,13 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the pivot toggle row used to filter securities (active/closed/all).
   Widget _renderToggles() {
-    return buildPivotToggleRow(
-      isSelected: _selectedPivot,
-      children: _pivots,
+    return buildStandardPivotToggleRow(
+      selectedPivot: _selectedPivot,
+      pivotChildren: _pivots,
       padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
       borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
       minHeight: _toggleMinHeight,
       minWidth: _toggleMinWidth,
-      onPressed: (int index) {
-        updatePivotSelectionAndRefresh(_selectedPivot, index);
-      },
     );
   }
 }

@@ -7,7 +7,6 @@ import 'package:money/views/data.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/views/view_rentals/view_rentals_side_panel.dart';
-import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -81,26 +80,14 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
 
   @override
   Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
+    keepUnused(selectedIds);
     final RentBuilding? selectedItem = getFirstSelectedItem() as RentBuilding?;
-    if (selectedItem == null) {
-      return const CenterMessage(message: 'No item selected.');
-    }
-
-    return SingleChildScrollView(
-      child: Center(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          runSpacing: _panelSpacing,
-          spacing: _panelSpacing,
-          children: <Widget>[
-            MoneyObjectCard(
-              title: getClassNameSingular(),
-              moneyObject: selectedItem,
-            ),
-            buildRenters(context, selectedItem),
-          ],
-        ),
-      ),
+    return buildStandardSidePanelDetailsWrap<RentBuilding>(
+      selectedItem: selectedItem,
+      spacing: _panelSpacing,
+      extraPanels: <Widget>[
+        if (selectedItem != null) buildRenters(context, selectedItem),
+      ],
     );
   }
 
