@@ -397,57 +397,46 @@ class Account extends DataObject {
 
   static final Fields<Account> _fields = Fields<Account>();
   static final Fields<Account> _fieldsForColumns = Fields<Account>();
+  static final List<FieldBlueprint<Account>> _fieldBlueprints = <FieldBlueprint<Account>>[
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldId),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldName, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldAccountId, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldDescription, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldType, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOpeningBalance),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOnlineAccount),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldWebSite),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldReconcileWarning),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastSync),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldSyncGuid),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldUpdatedOn, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldFlags),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastBalance),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForPrincipal),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForInterest),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCount, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldStockHoldingEstimation),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNative, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCurrency, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNormalized, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldIsAccountOpen),
+  ];
 
   /// Returns field definitions for Account entities.
-  static Fields<Account> get fields {
-    return ensureCachedFieldDefinitions<Account>(
-      cache: _fields,
-      instanceFactory: () => Account.fromJson(<String, dynamic>{}),
-      definitionsBuilder: (Account tmp) => <Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldName,
-        tmp.fieldAccountId,
-        tmp.fieldDescription,
-        tmp.fieldType,
-        tmp.fieldOpeningBalance,
-        tmp.fieldOnlineAccount,
-        tmp.fieldWebSite,
-        tmp.fieldReconcileWarning,
-        tmp.fieldLastSync,
-        tmp.fieldSyncGuid,
-        tmp.fieldUpdatedOn,
-        tmp.fieldFlags,
-        tmp.fieldLastBalance,
-        tmp.fieldCategoryIdForPrincipal,
-        tmp.fieldCategoryIdForInterest,
-        tmp.fieldCount,
-        tmp.fieldStockHoldingEstimation,
-        tmp.fieldBalanceNative,
-        tmp.fieldCurrency,
-        tmp.fieldBalanceNormalized,
-        tmp.fieldIsAccountOpen,
-      ],
-    );
-  }
+  static Fields<Account> get fields => ensureCachedFieldDefinitionsFromBlueprints<Account>(
+    cache: _fields,
+    instanceFactory: () => Account.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns field definitions for Account column view.
-  static Fields<Account> get fieldsForColumnView {
-    if (_fieldsForColumns.isEmpty) {
-      final Account tmp = Account.fromJson(<String, dynamic>{});
-      _fieldsForColumns.setDefinitions(<Field<dynamic>>[
-        tmp.fieldName,
-        tmp.fieldAccountId,
-        tmp.fieldDescription,
-        tmp.fieldType,
-        tmp.fieldUpdatedOn,
-        tmp.fieldCount,
-        tmp.fieldBalanceNative,
-        tmp.fieldCurrency,
-        tmp.fieldBalanceNormalized,
-      ]);
-    }
-    return _fieldsForColumns;
-  }
+  static Fields<Account> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Account>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Account.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Returns the account currency as a display string.
   String getAccountCurrencyAsText() {

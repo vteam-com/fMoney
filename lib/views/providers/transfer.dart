@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/providers/account.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -123,6 +124,50 @@ class Transfer extends DataObject {
   @override
   int get uniqueId => source!.uniqueId as int;
 
+  static final Fields<Transfer> _fieldsForColumns = Fields<Transfer>();
+  static final List<FieldBlueprint<Transfer>> _fieldBlueprints = <FieldBlueprint<Transfer>>[
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldSenderTransactionDate,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldSenderAccountId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldSenderTransactionStatus,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldSenderTransactionMemo,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldReceiverTransactionDate,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldReceiverAccountId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldAccountStatusDestination,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldMemoDestination,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldTroubleshoot,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transfer>(
+      selector: (Transfer tmp) => tmp.fieldTransactionAmount,
+      includeInColumnView: true,
+    ),
+  ];
+
   /// Returns the number of days between the sending and receiving transaction dates.
   int dateSpreadBetweenSendingAndReceiving() {
     final DateTime dateSent = geSenderTransactionDate() ?? DateTime.now();
@@ -131,22 +176,12 @@ class Transfer extends DataObject {
   }
 
   /// Returns the field definitions for Transfer column view.
-  static Fields<Transfer> get fieldsForColumnView {
-    final Transfer tmp = Transfer.fromJson(<String, dynamic>{});
-
-    return Fields<Transfer>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldSenderTransactionDate,
-      tmp.fieldSenderAccountId,
-      tmp.fieldSenderTransactionStatus,
-      tmp.fieldSenderTransactionMemo,
-      tmp.fieldReceiverTransactionDate,
-      tmp.fieldReceiverAccountId,
-      tmp.fieldAccountStatusDestination,
-      tmp.fieldMemoDestination,
-      tmp.fieldTroubleshoot,
-      tmp.fieldTransactionAmount,
-    ]);
-  }
+  static Fields<Transfer> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Transfer>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Transfer.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   //---------------------------------------------
   /// Dates

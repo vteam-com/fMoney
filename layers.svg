@@ -1921,11 +1921,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 478.0 C 5120.0 478.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5070.0 478.0 C 5120.0 478.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 478.0 C 5120.0 478.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5070.0 478.0 C 5120.0 478.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2001,6 +2001,10 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rent_building.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
+  <path d="M 5070.0 408.0 C 5120.0 408.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rent_building.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
+</g>
+<g>
   <path d="M 5070.0 408.0 C 5120.0 408.0, 5126.0 452.0, 5176.0 452.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rent_building.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/rental_unit.dart</title>
 </g>
@@ -2013,7 +2017,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rent_building.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction_split.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 408.0 C 5120.0 408.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5070.0 408.0 C 5120.0 408.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rent_building.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2081,11 +2085,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/locale.dart</title>
 </g>
 <g>
-  <path d="M 6350.0 128.0 C 6400.0 128.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 6350.0 128.0 C 6400.0 128.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
-  <path d="M 6350.0 128.0 C 6400.0 128.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 6350.0 128.0 C 6400.0 128.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2129,7 +2133,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account_alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 688.0 C 5120.0 688.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5070.0 688.0 C 5120.0 688.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account_alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
@@ -2145,7 +2149,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/account_alias.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field.dart</title>
 </g>
 <g>
-  <path d="M 6030.0 128.0 C 6080.0 128.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 6030.0 128.0 C 6080.0 128.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/category.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -2177,7 +2181,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/category.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 6030.0 128.0 C 6080.0 128.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 6030.0 128.0 C 6080.0 128.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/category.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
+</g>
+<g>
+  <path d="M 6030.0 128.0 C 6080.0 128.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/category.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2257,7 +2265,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction_extra.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 828.0 C 5120.0 828.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5070.0 828.0 C 5120.0 828.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction_extra.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
@@ -2283,6 +2291,10 @@
 <g>
   <path d="M 6030.0 408.0 C 6080.0 408.0, 6086.0 102.0, 6136.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/account.dart</title>
+</g>
+<g>
+  <path d="M 6030.0 408.0 C 6080.0 408.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
   <path d="M 6030.0 408.0 C 6080.0 408.0, 6086.0 172.0, 6136.0 172.0" class="edge"/>
@@ -2313,11 +2325,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/payee.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 198.0 C 5120.0 198.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5070.0 198.0 C 5120.0 198.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/payee.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 198.0 C 5120.0 198.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5070.0 198.0 C 5120.0 198.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/payee.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2357,7 +2369,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/event.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 5070.0 268.0 C 5120.0 268.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5070.0 268.0 C 5120.0 268.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/event.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
+</g>
+<g>
+  <path d="M 5070.0 268.0 C 5120.0 268.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/event.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2413,11 +2429,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/loan_payment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 5390.0 408.0 C 5440.0 408.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5390.0 408.0 C 5440.0 408.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/loan_payment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
-  <path d="M 5390.0 408.0 C 5440.0 408.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5390.0 408.0 C 5440.0 408.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/loan_payment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2485,11 +2501,15 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/security.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/ranges.dart</title>
 </g>
 <g>
+  <path d="M 5390.0 128.0 C 5440.0 128.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/security.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
+</g>
+<g>
   <path d="M 5390.0 128.0 C 5440.0 128.0, 5446.0 242.0, 5496.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/security.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/stock_split.dart</title>
 </g>
 <g>
-  <path d="M 5390.0 128.0 C 5440.0 128.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5390.0 128.0 C 5440.0 128.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/security.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2517,7 +2537,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/security.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field_type.dart</title>
 </g>
 <g>
-  <path d="M 6670.0 338.0 C 6720.0 338.0, 9286.0 102.0, 9336.0 102.0" class="edge"/>
+  <path d="M 6670.0 198.0 C 6720.0 198.0, 9286.0 102.0, 9336.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field.dart</title>
 </g>
 <g>
@@ -2525,7 +2545,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rental_unit.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 5390.0 478.0 C 5440.0 478.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 5390.0 478.0 C 5440.0 478.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/rental_unit.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
@@ -2585,6 +2605,10 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
+  <path d="M 5710.0 128.0 C 5760.0 128.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
+</g>
+<g>
   <path d="M 5710.0 128.0 C 5760.0 128.0, 5766.0 242.0, 5816.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/investment.dart</title>
 </g>
@@ -2597,7 +2621,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/transfer.dart</title>
 </g>
 <g>
-  <path d="M 5710.0 128.0 C 5760.0 128.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
+  <path d="M 5710.0 128.0 C 5760.0 128.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title>
 </g>
 <g>
@@ -2689,7 +2713,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/investment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/data_abstract.dart</title>
 </g>
 <g>
-  <path d="M 6030.0 268.0 C 6080.0 268.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 6030.0 268.0 C 6080.0 268.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/providers/investment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/field_definition_cache.dart</title>
 </g>
 <g>
@@ -4057,7 +4081,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/data_simulator.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/account_types_enum.dart</title>
 </g>
 <g>
-  <path d="M 2830.0 548.0 C 2880.0 548.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 2830.0 548.0 C 2880.0 548.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/data_simulator.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -4249,7 +4273,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_investments/view_investments.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field.dart</title>
 </g>
 <g>
-  <path d="M 1230.0 478.0 C 1280.0 478.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 1230.0 478.0 C 1280.0 478.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_categories/view_categories.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -4561,7 +4585,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_transfers/transfer_sender_receiver.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/transfer.dart</title>
 </g>
 <g>
-  <path d="M 4750.0 198.0 C 4800.0 198.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 4750.0 198.0 C 4800.0 198.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/categories.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5117,7 +5141,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/loan_payments.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart</title>
 </g>
 <g>
-  <path d="M 1230.0 688.0 C 1280.0 688.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 1230.0 688.0 C 1280.0 688.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/view_cashflow.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5241,7 +5265,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/net_worth_chart.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/preferences_controller.dart</title>
 </g>
 <g>
-  <path d="M 1550.0 1038.0 C 1600.0 1038.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 1550.0 1038.0 C 1600.0 1038.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5381,7 +5405,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_trend.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/widget_from_data.dart</title>
 </g>
 <g>
-  <path d="M 1550.0 548.0 C 1600.0 548.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 1550.0 548.0 C 1600.0 548.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_budget.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5541,7 +5565,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_payment.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/providers/transaction.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 758.0 C 1920.0 758.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 1870.0 758.0 C 1920.0 758.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_expenses.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5769,7 +5793,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/distribution_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/amount_model.dart</title>
 </g>
 <g>
-  <path d="M 2830.0 338.0 C 2880.0 338.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 2830.0 338.0 C 2880.0 338.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/distribution_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -5813,7 +5837,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/list_helper.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 6670.0 198.0 C 6720.0 198.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
+  <path d="M 6670.0 268.0 C 6720.0 268.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
@@ -6357,7 +6381,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/adaptive_columns_or_rows_list.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field_filters.dart</title>
 </g>
 <g>
-  <path d="M 6670.0 268.0 C 6720.0 268.0, 9926.0 102.0, 9976.0 102.0" class="edge"/>
+  <path d="M 6670.0 338.0 C 6720.0 338.0, 9926.0 102.0, 9976.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title>
 </g>
 <g>
@@ -6737,7 +6761,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/picker_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/token_text.dart</title>
 </g>
 <g>
-  <path d="M 6350.0 828.0 C 6400.0 828.0, 6406.0 172.0, 6456.0 172.0" class="edge"/>
+  <path d="M 6350.0 828.0 C 6400.0 828.0, 6406.0 242.0, 6456.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/picker_category_type.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title>
 </g>
 <g>
@@ -9144,20 +9168,21 @@
 4. view_cashflow.dart
 5. view_events.dart</title></g><g class="badge outgoingBadge">
   <path d="M 5078.0,268.0 L 5062.0,260.4 Q 5059.0,260.4 5059.0,263.4 L 5059.0,272.6 Q 5059.0,275.6 5062.0,275.6 Z" fill="#10b981"/>
-  <text x="5064.72" y="269.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. constants.dart
+  <text x="5064.72" y="269.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">15</text><title>1. constants.dart
 2. data_abstract.dart
 3. data_interface.dart
 4. data_object.dart
 5. field.dart
-6. field_type.dart
-7. json_helper.dart
-8. list_helper.dart
-9. list_item_card.dart
-10. mutation_types.dart
-11. picker_category.dart
-12. picker_edit_box_date.dart
-13. ranges.dart
-14. token_text.dart</title></g><text x="4960.0" y="255.0" class="textNormal">event.dart</text>
+6. field_definition_cache.dart
+7. field_type.dart
+8. json_helper.dart
+9. list_helper.dart
+10. list_item_card.dart
+11. mutation_types.dart
+12. picker_category.dart
+13. picker_edit_box_date.dart
+14. ranges.dart
+15. token_text.dart</title></g><text x="4960.0" y="255.0" class="textNormal">event.dart</text>
 <g class="badge incomingBadge">
   <path d="M 4862.0,312.0 L 4850.0,305.0 Q 4847.0,305.0 4847.0,308.0 L 4847.0,316.0 Q 4847.0,319.0 4850.0,319.0 Z" fill="#3b82f6"/>
   <text x="4851.68" y="313.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. accounts.dart
@@ -9179,22 +9204,23 @@
 2. view_rentals.dart
 3. view_rentals_side_panel.dart</title></g><g class="badge outgoingBadge">
   <path d="M 5078.0,408.0 L 5062.0,400.4 Q 5059.0,400.4 5059.0,403.4 L 5059.0,412.6 Q 5059.0,415.6 5062.0,415.6 Z" fill="#10b981"/>
-  <text x="5064.72" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">16</text><title>1. account.dart
+  <text x="5064.72" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">17</text><title>1. account.dart
 2. amount_model.dart
 3. constants.dart
 4. data_abstract.dart
 5. data_interface.dart
 6. data_object.dart
 7. field.dart
-8. field_type.dart
-9. json_helper.dart
-10. list_item_card.dart
-11. ranges.dart
-12. rental_pnl.dart
-13. rental_unit.dart
-14. transaction.dart
-15. transaction_split.dart
-16. widget_from_data.dart</title></g><text x="4960.0" y="395.0" class="textNormal">rent_building.dart</text>
+8. field_definition_cache.dart
+9. field_type.dart
+10. json_helper.dart
+11. list_item_card.dart
+12. ranges.dart
+13. rental_pnl.dart
+14. rental_unit.dart
+15. transaction.dart
+16. transaction_split.dart
+17. widget_from_data.dart</title></g><text x="4960.0" y="395.0" class="textNormal">rent_building.dart</text>
 <g class="badge incomingBadge">
   <path d="M 4862.0,452.0 L 4850.0,445.0 Q 4847.0,445.0 4847.0,448.0 L 4847.0,456.0 Q 4847.0,459.0 4850.0,459.0 Z" fill="#3b82f6"/>
   <text x="4851.68" y="453.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. aliases.dart
@@ -9276,19 +9302,20 @@
 8. view_investments.dart
 9. view_stocks.dart</title></g><g class="badge outgoingBadge">
   <path d="M 5398.0,128.0 L 5382.0,120.4 Q 5379.0,120.4 5379.0,123.4 L 5379.0,132.6 Q 5379.0,135.6 5382.0,135.6 Z" fill="#10b981"/>
-  <text x="5384.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">13</text><title>1. amount_model.dart
+  <text x="5384.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. amount_model.dart
 2. data_interface.dart
 3. data_object.dart
 4. dividend.dart
 5. field.dart
-6. field_type.dart
-7. json_helper.dart
-8. list_helper.dart
-9. list_item_card.dart
-10. picker_security_type.dart
-11. quantity_widget.dart
-12. ranges.dart
-13. stock_split.dart</title></g><text x="5280.0" y="115.0" class="textNormal">security.dart</text>
+6. field_definition_cache.dart
+7. field_type.dart
+8. json_helper.dart
+9. list_helper.dart
+10. list_item_card.dart
+11. picker_security_type.dart
+12. quantity_widget.dart
+13. ranges.dart
+14. stock_split.dart</title></g><text x="5280.0" y="115.0" class="textNormal">security.dart</text>
 <g class="badge incomingBadge">
   <path d="M 5182.0,172.0 L 5170.0,165.0 Q 5167.0,165.0 5167.0,168.0 L 5167.0,176.0 Q 5167.0,179.0 5170.0,179.0 Z" fill="#3b82f6"/>
   <text x="5171.68" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. accounts.dart
@@ -9405,7 +9432,7 @@
 28. view_transactions.dart
 29. view_transfers.dart</title></g><g class="badge outgoingBadge">
   <path d="M 5718.0,128.0 L 5702.0,120.4 Q 5699.0,120.4 5699.0,123.4 L 5699.0,132.6 Q 5699.0,135.6 5702.0,135.6 Z" fill="#10b981"/>
-  <text x="5704.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">29</text><title>1. account.dart
+  <text x="5704.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">30</text><title>1. account.dart
 2. amount_model.dart
 3. category.dart
 4. constants.dart
@@ -9415,25 +9442,26 @@
 8. data_object.dart
 9. date_helper.dart
 10. field.dart
-11. field_type.dart
-12. icon_button.dart
-13. investment.dart
-14. investment_types.dart
-15. json_helper.dart
-16. list_helper.dart
-17. list_item_card.dart
-18. mergeable_item.dart
-19. mutation_types.dart
-20. picker_category.dart
-21. picker_edit_box_date.dart
-22. picker_panel.dart
-23. picker_payee_or_transfer.dart
-24. selection_controller.dart
-25. snack_bar.dart
-26. transaction_split.dart
-27. transaction_types.dart
-28. transfer.dart
-29. widget_from_data.dart</title></g><text x="5600.0" y="115.0" class="textNormal">transaction.dart</text>
+11. field_definition_cache.dart
+12. field_type.dart
+13. icon_button.dart
+14. investment.dart
+15. investment_types.dart
+16. json_helper.dart
+17. list_helper.dart
+18. list_item_card.dart
+19. mergeable_item.dart
+20. mutation_types.dart
+21. picker_category.dart
+22. picker_edit_box_date.dart
+23. picker_panel.dart
+24. picker_payee_or_transfer.dart
+25. selection_controller.dart
+26. snack_bar.dart
+27. transaction_split.dart
+28. transaction_types.dart
+29. transfer.dart
+30. widget_from_data.dart</title></g><text x="5600.0" y="115.0" class="textNormal">transaction.dart</text>
 <g class="badge incomingBadge">
   <path d="M 5504.0,172.0 L 5488.0,164.4 Q 5485.0,164.4 5485.0,167.4 L 5485.0,176.6 Q 5485.0,179.6 5488.0,179.6 Z" fill="#3b82f6"/>
   <text x="5490.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">24</text><title>1. account_aliases.dart
@@ -9517,7 +9545,7 @@
 19. view_events.dart
 20. view_transactions.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6038.0,128.0 L 6022.0,120.4 Q 6019.0,120.4 6019.0,123.4 L 6019.0,132.6 Q 6019.0,135.6 6022.0,135.6 Z" fill="#10b981"/>
-  <text x="6024.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">21</text><title>1. category_types.dart
+  <text x="6024.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">22</text><title>1. category_types.dart
 2. circle.dart
 3. color_helper.dart
 4. color_picker.dart
@@ -9526,18 +9554,19 @@
 7. data_interface.dart
 8. data_object.dart
 9. field.dart
-10. field_type.dart
-11. gaps.dart
-12. json_helper.dart
-13. list_helper.dart
-14. list_item_card.dart
-15. mutation_types.dart
-16. my_text_input.dart
-17. pairs.dart
-18. picker_category_type.dart
-19. string_helper.dart
-20. token_text.dart
-21. widget_from_data.dart</title></g><text x="5920.0" y="115.0" class="textNormal">category.dart</text>
+10. field_definition_cache.dart
+11. field_type.dart
+12. gaps.dart
+13. json_helper.dart
+14. list_helper.dart
+15. list_item_card.dart
+16. mutation_types.dart
+17. my_text_input.dart
+18. pairs.dart
+19. picker_category_type.dart
+20. string_helper.dart
+21. token_text.dart
+22. widget_from_data.dart</title></g><text x="5920.0" y="115.0" class="textNormal">category.dart</text>
 <g class="badge incomingBadge">
   <path d="M 5824.0,172.0 L 5808.0,164.4 Q 5805.0,164.4 5805.0,167.4 L 5805.0,176.6 Q 5805.0,179.6 5808.0,179.6 Z" fill="#3b82f6"/>
   <text x="5810.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. data.dart
@@ -9604,14 +9633,15 @@
 3. transfer_sender_receiver.dart
 4. view_transfers.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6036.0,408.0 L 6024.0,401.0 Q 6021.0,401.0 6021.0,404.0 L 6021.0,412.0 Q 6021.0,415.0 6024.0,415.0 Z" fill="#10b981"/>
-  <text x="6025.68" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. account.dart
+  <text x="6025.68" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text><title>1. account.dart
 2. data_interface.dart
 3. data_object.dart
 4. field.dart
-5. field_type.dart
-6. json_helper.dart
-7. transaction_split.dart
-8. transaction_types.dart</title></g><text x="5920.0" y="395.0" class="textNormal">transfer.dart</text>
+5. field_definition_cache.dart
+6. field_type.dart
+7. json_helper.dart
+8. transaction_split.dart
+9. transaction_types.dart</title></g><text x="5920.0" y="395.0" class="textNormal">transfer.dart</text>
 <g class="badge incomingBadge">
   <path d="M 5822.0,452.0 L 5810.0,445.0 Q 5807.0,445.0 5807.0,448.0 L 5807.0,456.0 Q 5807.0,459.0 5810.0,459.0 Z" fill="#3b82f6"/>
   <text x="5811.68" y="453.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. event.dart
@@ -9831,7 +9861,25 @@
 2. mutation_types.dart</title></g><text x="6560.0" y="115.0" class="textNormal">data_abstract.dart</text>
 <g class="badge incomingBadge">
   <path d="M 6464.0,172.0 L 6448.0,164.4 Q 6445.0,164.4 6445.0,167.4 L 6445.0,176.6 Q 6445.0,179.6 6448.0,179.6 Z" fill="#3b82f6"/>
-  <text x="6450.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">10</text><title>1. categories.dart
+  <text x="6450.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. account.dart
+2. account_alias.dart
+3. alias.dart
+4. category.dart
+5. event.dart
+6. investment.dart
+7. loan_payment.dart
+8. payee.dart
+9. rent_building.dart
+10. rental_unit.dart
+11. security.dart
+12. transaction.dart
+13. transaction_extra.dart
+14. transfer.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 6676.0,198.0 L 6664.0,191.0 Q 6661.0,191.0 6661.0,194.0 L 6661.0,202.0 Q 6661.0,205.0 6664.0,205.0 Z" fill="#10b981"/>
+  <text x="6665.68" y="199.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. field.dart</title></g><text x="6560.0" y="185.0" class="textSmall">field_definition_cache.dart</text>
+<g class="badge incomingBadge">
+  <path d="M 6464.0,242.0 L 6448.0,234.4 Q 6445.0,234.4 6445.0,237.4 L 6445.0,246.6 Q 6445.0,249.6 6448.0,249.6 Z" fill="#3b82f6"/>
+  <text x="6450.72" y="243.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">10</text><title>1. categories.dart
 2. category.dart
 3. data_simulator.dart
 4. distribution_bar.dart
@@ -9841,11 +9889,11 @@
 8. sankey_panel.dart
 9. view_cashflow.dart
 10. view_categories.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 6676.0,198.0 L 6664.0,191.0 Q 6661.0,191.0 6661.0,194.0 L 6661.0,202.0 Q 6661.0,205.0 6664.0,205.0 Z" fill="#10b981"/>
-  <text x="6665.68" y="199.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. misc_helpers.dart</title></g><text x="6560.0" y="185.0" class="textNormal">category_types.dart</text>
+  <path d="M 6676.0,268.0 L 6664.0,261.0 Q 6661.0,261.0 6661.0,264.0 L 6661.0,272.0 Q 6661.0,275.0 6664.0,275.0 Z" fill="#10b981"/>
+  <text x="6665.68" y="269.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. misc_helpers.dart</title></g><text x="6560.0" y="255.0" class="textNormal">category_types.dart</text>
 <g class="badge incomingBadge">
-  <path d="M 6462.0,242.0 L 6450.0,235.0 Q 6447.0,235.0 6447.0,238.0 L 6447.0,246.0 Q 6447.0,249.0 6450.0,249.0 Z" fill="#3b82f6"/>
-  <text x="6451.68" y="243.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text><title>1. account.dart
+  <path d="M 6462.0,312.0 L 6450.0,305.0 Q 6447.0,305.0 6447.0,308.0 L 6447.0,316.0 Q 6447.0,319.0 6450.0,319.0 Z" fill="#3b82f6"/>
+  <text x="6451.68" y="313.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text><title>1. account.dart
 2. alias.dart
 3. category.dart
 4. event.dart
@@ -9854,20 +9902,8 @@
 7. rent_building.dart
 8. security.dart
 9. transaction.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 6676.0,268.0 L 6664.0,261.0 Q 6661.0,261.0 6661.0,264.0 L 6661.0,272.0 Q 6661.0,275.0 6664.0,275.0 Z" fill="#10b981"/>
-  <text x="6665.68" y="269.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. color_helper.dart</title></g><text x="6560.0" y="255.0" class="textNormal">list_item_card.dart</text>
-<g class="badge incomingBadge">
-  <path d="M 6462.0,312.0 L 6450.0,305.0 Q 6447.0,305.0 6447.0,308.0 L 6447.0,316.0 Q 6447.0,319.0 6450.0,319.0 Z" fill="#3b82f6"/>
-  <text x="6451.68" y="313.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. account.dart
-2. account_alias.dart
-3. alias.dart
-4. investment.dart
-5. loan_payment.dart
-6. payee.dart
-7. rental_unit.dart
-8. transaction_extra.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6676.0,338.0 L 6664.0,331.0 Q 6661.0,331.0 6661.0,334.0 L 6661.0,342.0 Q 6661.0,345.0 6664.0,345.0 Z" fill="#10b981"/>
-  <text x="6665.68" y="339.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. field.dart</title></g><text x="6560.0" y="325.0" class="textSmall">field_definition_cache.dart</text>
+  <text x="6665.68" y="339.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. color_helper.dart</title></g><text x="6560.0" y="325.0" class="textNormal">list_item_card.dart</text>
 <g class="badge incomingBadge">
   <path d="M 6462.0,382.0 L 6450.0,375.0 Q 6447.0,375.0 6447.0,378.0 L 6447.0,386.0 Q 6447.0,389.0 6450.0,389.0 Z" fill="#3b82f6"/>
   <text x="6451.68" y="383.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">6</text><title>1. event.dart

@@ -3,6 +3,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/views/providers/stock_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_security_type.dart';
@@ -273,49 +274,60 @@ class Security extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<Security> _fields = Fields<Security>();
+  static final Fields<Security> _fieldsForColumns = Fields<Security>();
+  static final List<FieldBlueprint<Security>> _fieldBlueprints = <FieldBlueprint<Security>>[
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldId),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldName, includeInColumnView: true),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldSymbol, includeInColumnView: true),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldTransactionDateRange,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPrice, includeInColumnView: true),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldLastPrice, includeInColumnView: true),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldCuspid),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldSecurityType,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldNumberOfTrades,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldHoldingShares,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldHoldingValue,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldActivityProfit,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(
+      selector: (Security tmp) => tmp.fieldActivityDividend,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldProfit, includeInColumnView: true),
+  ];
 
   /// Returns the field definitions for Security entities.
-  static Fields<Security> get fields {
-    if (_fields.isEmpty) {
-      final Security tmp = Security.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldName,
-        tmp.fieldSymbol,
-        tmp.fieldTransactionDateRange,
-        tmp.fieldPrice,
-        tmp.fieldLastPrice,
-        tmp.fieldCuspid,
-        tmp.fieldSecurityType,
-        tmp.fieldNumberOfTrades,
-        tmp.fieldHoldingShares,
-        tmp.fieldHoldingValue,
-        tmp.fieldActivityProfit,
-        tmp.fieldActivityDividend,
-        tmp.fieldProfit,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Security> get fields => ensureCachedFieldDefinitionsFromBlueprints<Security>(
+    cache: _fields,
+    instanceFactory: () => Security.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for Security column view.
-  static Fields<Security> get fieldsForColumnView {
-    final Security tmp = Security.fromJson(<String, dynamic>{});
-    return Fields<Security>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldName,
-      tmp.fieldSymbol,
-      tmp.fieldTransactionDateRange,
-      tmp.fieldPrice,
-      tmp.fieldLastPrice,
-      tmp.fieldSecurityType,
-      tmp.fieldNumberOfTrades,
-      tmp.fieldHoldingShares,
-      tmp.fieldHoldingValue,
-      tmp.fieldActivityProfit,
-      tmp.fieldActivityDividend,
-      tmp.fieldProfit,
-    ]);
-  }
+  static Fields<Security> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Security>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Security.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Returns a display string for the security type index.
   static String getSecurityTypeFromInt(final int index) {

@@ -6,6 +6,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/providers/account.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/views/providers/rental_unit.dart';
 import 'package:money/views/providers/transaction.dart';
 import 'package:money/views/providers/transaction_split.dart';
@@ -447,6 +448,70 @@ class RentBuilding extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
+  static final Fields<RentBuilding> _fieldsForColumns = Fields<RentBuilding>();
+  static final List<FieldBlueprint<RentBuilding>> _fieldBlueprints = <FieldBlueprint<RentBuilding>>[
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldId),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldName, includeInColumnView: true),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldAddress,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldCurrency,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedDate),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedPrice),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLandValue,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldEstimatedValue,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName1),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage1),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName2),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage2),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForIncome),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForInterest),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForManagement),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForMaintenance),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForRepairs),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForTaxes),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldTransactionsForIncomes,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldRevenue, includeInColumnView: true),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldTransactionsForExpenses,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldExpense, includeInColumnView: true),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseInterest,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseMaintenance,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseManagement,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseRepair,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(
+      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseTaxes,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldProfit, includeInColumnView: true),
+  ];
 
   /// Attempts to associate this rental with an account by looking for the first matching income transaction.
   void associateAccountToBuilding() {
@@ -537,64 +602,20 @@ class RentBuilding extends DataObject {
   }
 
   /// Returns the field definitions for RentBuilding entities.
-  static Fields<RentBuilding> get fields {
-    if (_fields.isEmpty) {
-      final RentBuilding tmp = RentBuilding.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldName,
-        tmp.fieldAddress,
-        tmp.fieldCurrency,
-        tmp.fieldPurchasedDate,
-        tmp.fieldPurchasedPrice,
-        tmp.fieldLandValue,
-        tmp.fieldEstimatedValue,
-        tmp.fieldOwnershipName1,
-        tmp.fieldOwnershipPercentage1,
-        tmp.fieldOwnershipName2,
-        tmp.fieldOwnershipPercentage2,
-        tmp.categoryForIncome,
-        tmp.categoryForInterest,
-        tmp.categoryForManagement,
-        tmp.categoryForMaintenance,
-        tmp.categoryForRepairs,
-        tmp.categoryForTaxes,
-        tmp.fieldTransactionsForIncomes,
-        tmp.fieldRevenue,
-        tmp.fieldTransactionsForExpenses,
-        tmp.fieldExpense,
-        tmp.fieldLifeTimeExpenseInterest,
-        tmp.fieldLifeTimeExpenseMaintenance,
-        tmp.fieldLifeTimeExpenseManagement,
-        tmp.fieldLifeTimeExpenseRepair,
-        tmp.fieldLifeTimeExpenseTaxes,
-        tmp.fieldProfit,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<RentBuilding> get fields => ensureCachedFieldDefinitionsFromBlueprints<RentBuilding>(
+    cache: _fields,
+    instanceFactory: () => RentBuilding.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for RentBuilding column view.
-  static Fields<RentBuilding> get fieldsForColumnView {
-    final RentBuilding tmp = RentBuilding.fromJson(<String, dynamic>{});
-    return Fields<RentBuilding>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldName,
-      tmp.fieldAddress,
-      tmp.fieldCurrency,
-      tmp.fieldLandValue,
-      tmp.fieldEstimatedValue,
-      tmp.fieldTransactionsForIncomes,
-      tmp.fieldRevenue,
-      tmp.fieldTransactionsForExpenses,
-      tmp.fieldExpense,
-      tmp.fieldLifeTimeExpenseInterest,
-      tmp.fieldLifeTimeExpenseMaintenance,
-      tmp.fieldLifeTimeExpenseManagement,
-      tmp.fieldLifeTimeExpenseRepair,
-      tmp.fieldLifeTimeExpenseTaxes,
-      tmp.fieldProfit,
-    ]);
-  }
+  static Fields<RentBuilding> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<RentBuilding>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => RentBuilding.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Returns the category name for the given category [id].
   String getCategoryName(final int id) {

@@ -83,38 +83,33 @@ class Payee extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<Payee> _fields = Fields<Payee>();
-
-  /// Builds [Payee] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(final Payee tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldName,
-    tmp.fieldCategoriesAsText,
-    tmp.fieldCount,
-    tmp.fieldSum,
+  static final Fields<Payee> _fieldsForColumns = Fields<Payee>();
+  static final List<FieldBlueprint<Payee>> _fieldBlueprints = <FieldBlueprint<Payee>>[
+    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldId),
+    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldName, includeInColumnView: true),
+    FieldBlueprint<Payee>(
+      selector: (Payee tmp) => tmp.fieldCategoriesAsText,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldCount, includeInColumnView: true),
+    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldSum, includeInColumnView: true),
   ];
 
   /// Returns the field definitions for Payee entities.
-  static Fields<Payee> get fields => ensureCachedFieldDefinitions<Payee>(
+  static Fields<Payee> get fields => ensureCachedFieldDefinitionsFromBlueprints<Payee>(
     cache: _fields,
     instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
   );
 
-  /// Returns a [Fields] instance that defines the fields to be displayed in a column view for a [Payee] object.
-  /// The fields included are:
-  /// - [Payee.fieldName]: The name of the payee.
-  /// - [Payee.fieldCategoriesAsText]: The categories associated with the payee, as a string.
-  /// - [Payee.fieldCount]: The count or number of occurrences for the payee.
-  /// - [Payee.fieldSum]: The total sum or amount associated with the payee.
-  static Fields<Payee> get fieldsForColumnView {
-    final Payee tmp = Payee.fromJson(<String, dynamic>{});
-    return Fields<Payee>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldName,
-      tmp.fieldCategoriesAsText,
-      tmp.fieldCount,
-      tmp.fieldSum,
-    ]);
-  }
+  /// Returns the field definitions for Payee column view.
+  static Fields<Payee> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Payee>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Returns a string representation of the categories associated with the payee.
   /// If there are no categories, an empty string is returned.

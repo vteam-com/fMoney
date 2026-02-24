@@ -7,6 +7,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/color_picker.dart';
 import 'package:money/widgets/picker_category_type.dart';
@@ -303,49 +304,52 @@ class Category extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<Category> _fields = Fields<Category>();
+  static final Fields<Category> _fieldsForColumns = Fields<Category>();
+  static final List<FieldBlueprint<Category>> _fieldBlueprints = <FieldBlueprint<Category>>[
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldId),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldParentId),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldLevel, includeInColumnView: true),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldColor, includeInColumnView: true),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldName, includeInColumnView: true),
+    FieldBlueprint<Category>(
+      selector: (Category tmp) => tmp.fieldDescription,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldType, includeInColumnView: true),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldBudget, includeInColumnView: true),
+    FieldBlueprint<Category>(
+      selector: (Category tmp) => tmp.fieldBudgetBalance,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldFrequency),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldTaxRefNum),
+    FieldBlueprint<Category>(
+      selector: (Category tmp) => tmp.fieldTransactionCount,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSum, includeInColumnView: true),
+    FieldBlueprint<Category>(
+      selector: (Category tmp) => tmp.fieldTransactionCountRollup,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSumRollup, includeInColumnView: true),
+  ];
 
   /// Returns the field definitions for Category entities.
-  static Fields<Category> get fields {
-    if (_fields.isEmpty) {
-      final Category tmp = Category.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldParentId,
-        tmp.fieldLevel,
-        tmp.fieldColor,
-        tmp.fieldName,
-        tmp.fieldDescription,
-        tmp.fieldType,
-        tmp.fieldBudget,
-        tmp.fieldBudgetBalance,
-        tmp.fieldFrequency,
-        tmp.fieldTaxRefNum,
-        tmp.fieldTransactionCount,
-        tmp.fieldSum,
-        tmp.fieldTransactionCountRollup,
-        tmp.fieldSumRollup,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Category> get fields => ensureCachedFieldDefinitionsFromBlueprints<Category>(
+    cache: _fields,
+    instanceFactory: () => Category.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for Category column view.
-  static Fields<Category> get fieldsForColumnView {
-    final Category tmp = Category.fromJson(<String, dynamic>{});
-    return Fields<Category>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldLevel,
-      tmp.fieldColor,
-      tmp.fieldName,
-      tmp.fieldDescription,
-      tmp.fieldType,
-      tmp.fieldBudget,
-      tmp.fieldBudgetBalance,
-      tmp.fieldTransactionCount,
-      tmp.fieldSum,
-      tmp.fieldTransactionCountRollup,
-      tmp.fieldSumRollup,
-    ]);
-  }
+  static Fields<Category> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Category>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Category.fromJson(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Populates [list] with all ancestor categories recursively.
   void getAncestors(List<Category> list) {

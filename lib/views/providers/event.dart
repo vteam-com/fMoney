@@ -4,6 +4,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
@@ -205,7 +206,38 @@ class Event extends DataObject {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<Event> _fields = Fields<Event>();
-  static final Fields<Event> _fieldsColumView = Fields<Event>();
+  static final Fields<Event> _fieldsForColumnView = Fields<Event>();
+  static final List<FieldBlueprint<Event>> _fieldBlueprints = <FieldBlueprint<Event>>[
+    FieldBlueprint<Event>(selector: (Event tmpInstance) => tmpInstance.fieldId),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldName,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldCategoryId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldDateBegin,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldDateEnd,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldDuration,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldPeople,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Event>(
+      selector: (Event tmpInstance) => tmpInstance.fieldMemo,
+      includeInColumnView: true,
+    ),
+  ];
 
   /// Returns the category name for this event.
   String get categoryName => data!.getCategoryNameFromId(this.fieldCategoryId.value);
@@ -254,47 +286,21 @@ class Event extends DataObject {
     );
   }
 
-  /// Lazily initializes and returns cached [Fields] definitions for event views.
-  static Fields<Event> _ensureFieldDefinitions(
-    Fields<Event> cache,
-    FieldDefinitions Function(Event) definitionsBuilder,
-  ) {
-    if (cache.isEmpty) {
-      cache.setDefinitions(definitionsBuilder(_createStaticFieldInstance()));
-    }
-    return cache;
-  }
-
   /// Returns the field definitions for Event entities.
-  static Fields<Event> get fields {
-    return _ensureFieldDefinitions(_fields, (Event tmpInstance) {
-      return <Field<dynamic>>[
-        tmpInstance.fieldId,
-        tmpInstance.fieldName,
-        tmpInstance.fieldCategoryId,
-        tmpInstance.fieldDateBegin,
-        tmpInstance.fieldDateEnd,
-        tmpInstance.fieldDuration,
-        tmpInstance.fieldPeople,
-        tmpInstance.fieldMemo,
-      ];
-    });
-  }
+  static Fields<Event> get fields => ensureCachedFieldDefinitionsFromBlueprints<Event>(
+    cache: _fields,
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for Event column view.
-  static Fields<Event> get fieldsForColumnView {
-    return _ensureFieldDefinitions(_fieldsColumView, (Event tmpInstance) {
-      return <Field<dynamic>>[
-        tmpInstance.fieldName,
-        tmpInstance.fieldCategoryId,
-        tmpInstance.fieldDateBegin,
-        tmpInstance.fieldDateEnd,
-        tmpInstance.fieldDuration,
-        tmpInstance.fieldPeople,
-        tmpInstance.fieldMemo,
-      ];
-    });
-  }
+  static Fields<Event> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Event>(
+    cache: _fieldsForColumnView,
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Creates a date field definition with picker/editor and serialization behavior.
   static FieldDate _createDateField(

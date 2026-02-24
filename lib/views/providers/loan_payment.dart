@@ -169,6 +169,48 @@ class LoanPayment extends DataObject {
 
   static final Fields<LoanPayment> _fields = Fields<LoanPayment>();
   static final Fields<LoanPayment> _fieldsForColumns = Fields<LoanPayment>();
+  static final List<FieldBlueprint<LoanPayment>> _fieldBlueprints = <FieldBlueprint<LoanPayment>>[
+    FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldId),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldDate,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldAccountId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldMemo,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldReference,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.payment,
+      includeInEntity: false,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldRate,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldPrincipal,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest,
+      includeInEntity: false,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<LoanPayment>(
+      selector: (LoanPayment tmpInstance) => tmpInstance.fieldBalance,
+      includeInColumnView: true,
+    ),
+  ];
 
   /// Creates a lightweight static [LoanPayment] used only for field list assembly.
   static LoanPayment _createStaticFieldInstance() {
@@ -183,49 +225,21 @@ class LoanPayment extends DataObject {
     );
   }
 
-  /// Builds field definitions for [LoanPayment] with optional column-view additions.
-  static FieldDefinitions _buildFieldDefinitions(
-    LoanPayment tmpInstance, {
-    required bool forColumnView,
-  }) {
-    return <Field<dynamic>>[
-      if (!forColumnView) tmpInstance.fieldId,
-      tmpInstance.fieldDate,
-      tmpInstance.fieldAccountId,
-      tmpInstance.fieldMemo,
-      tmpInstance.fieldReference,
-      if (forColumnView) tmpInstance.payment,
-      tmpInstance.fieldRate,
-      if (!forColumnView) tmpInstance.fieldInterest,
-      tmpInstance.fieldPrincipal,
-      if (forColumnView) tmpInstance.fieldInterest,
-      tmpInstance.fieldBalance,
-    ];
-  }
-
   /// Returns the field definitions for LoanPayment entities.
-  static Fields<LoanPayment> get fields {
-    return ensureCachedFieldDefinitions<LoanPayment>(
-      cache: _fields,
-      instanceFactory: _createStaticFieldInstance,
-      definitionsBuilder: (LoanPayment tmpInstance) => _buildFieldDefinitions(
-        tmpInstance,
-        forColumnView: false,
-      ),
-    );
-  }
+  static Fields<LoanPayment> get fields => ensureCachedFieldDefinitionsFromBlueprints<LoanPayment>(
+    cache: _fields,
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for LoanPayment column view.
-  static Fields<LoanPayment> get fieldsForColumnView {
-    return ensureCachedFieldDefinitions<LoanPayment>(
-      cache: _fieldsForColumns,
-      instanceFactory: _createStaticFieldInstance,
-      definitionsBuilder: (LoanPayment tmpInstance) => _buildFieldDefinitions(
-        tmpInstance,
-        forColumnView: true,
-      ),
-    );
-  }
+  static Fields<LoanPayment> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<LoanPayment>(
+    cache: _fieldsForColumns,
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Calculates the annualized interest rate based on interest and principal change.
   double getRate() {

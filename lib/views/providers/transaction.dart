@@ -9,6 +9,7 @@ import 'package:money/helpers/transaction_types.dart';
 import 'package:money/views/providers/account.dart';
 import 'package:money/views/providers/category.dart';
 import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/views/providers/field_definition_cache.dart';
 import 'package:money/views/providers/investment.dart';
 import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/views/providers/transfer.dart';
@@ -696,6 +697,55 @@ class Transaction extends DataObject implements MergeableItem {
   set uniqueId(final int value) => fieldId.value = value;
 
   static final Fields<Transaction> _fields = Fields<Transaction>();
+  static final Fields<Transaction> _fieldsForColumns = Fields<Transaction>();
+  static final List<FieldBlueprint<Transaction>> _fieldBlueprints = <FieldBlueprint<Transaction>>[
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldId),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldDateTime,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldAccountId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldNumber,
+      includeInEntity: false,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldPayee,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldOriginalPayee),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldCategoryId,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMemo, includeInColumnView: true),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldNumber),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldReconciledDate),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBudgetBalanceDate),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransfer),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldStatus, includeInColumnView: true),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFitid),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFlags),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldCurrency, includeInColumnView: true),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldSalesTax),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransferSplit),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMergeDate),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldAmount, includeInColumnView: true),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldAmountAsTextNormalized,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBalanceNative),
+    FieldBlueprint<Transaction>(
+      selector: (Transaction tmp) => tmp.fieldBalanceNormalized,
+      includeInColumnView: true,
+    ),
+    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldPaidOn),
+  ];
 
   /// Returns the account name for this transaction.
   String get accountName => instanceOfAccount?.fieldName.value ?? '<Account???>';
@@ -814,55 +864,20 @@ class Transaction extends DataObject implements MergeableItem {
   String get dateTimeAsString => dateToString(fieldDateTime.value);
 
   /// Returns the field definitions for Transaction entities.
-  static Fields<Transaction> get fields {
-    if (_fields.isEmpty) {
-      final Transaction tmp = Transaction(date: DateTime.now());
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldDateTime,
-        tmp.fieldAccountId,
-        tmp.fieldPayee,
-        tmp.fieldOriginalPayee,
-        tmp.fieldCategoryId,
-        tmp.fieldMemo,
-        tmp.fieldNumber,
-        tmp.fieldReconciledDate,
-        tmp.fieldBudgetBalanceDate,
-        tmp.fieldTransfer,
-        tmp.fieldStatus,
-        tmp.fieldFitid,
-        tmp.fieldFlags,
-        tmp.fieldCurrency,
-        tmp.fieldSalesTax,
-        tmp.fieldTransferSplit,
-        tmp.fieldMergeDate,
-        tmp.fieldAmount,
-        tmp.fieldAmountAsTextNormalized,
-        tmp.fieldBalanceNative,
-        tmp.fieldBalanceNormalized,
-        tmp.fieldPaidOn,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Transaction> get fields => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
+    cache: _fields,
+    instanceFactory: () => Transaction(date: DateTime.now()),
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
+  );
 
   /// Returns the field definitions for Transaction column view.
-  static Fields<Transaction> get fieldsForColumnView {
-    final Transaction tmp = Transaction(date: DateTime.now());
-    return Fields<Transaction>()..setDefinitions(<Field<dynamic>>[
-      tmp.fieldDateTime,
-      tmp.fieldAccountId,
-      tmp.fieldNumber,
-      tmp.fieldPayee,
-      tmp.fieldCategoryId,
-      tmp.fieldMemo,
-      tmp.fieldStatus,
-      tmp.fieldCurrency,
-      tmp.fieldAmount,
-      tmp.fieldAmountAsTextNormalized,
-      tmp.fieldBalanceNormalized,
-    ]);
-  }
+  static Fields<Transaction> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Transaction(date: DateTime.now()),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Converts a native amount to normalized currency using the account ratio.
   double getNormalizedAmount(double nativeValue) {

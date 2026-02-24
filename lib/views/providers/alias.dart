@@ -131,37 +131,28 @@ class Alias extends DataObject {
 
   static final Fields<Alias> _fields = Fields<Alias>();
   static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
-
-  /// Builds [Alias] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(final Alias tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldPattern,
-    tmp.fieldFlags,
-    tmp.fieldPayeeId,
+  static final List<FieldBlueprint<Alias>> _fieldBlueprints = <FieldBlueprint<Alias>>[
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldId),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern, includeInColumnView: true),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags, includeInColumnView: true),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId, includeInColumnView: true),
   ];
 
   /// Returns the field definitions for Alias entities.
-  static Fields<Alias> get fields => ensureCachedFieldDefinitions<Alias>(
+  static Fields<Alias> get fields => ensureCachedFieldDefinitionsFromBlueprints<Alias>(
     cache: _fields,
     instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
+    blueprints: _fieldBlueprints,
+    forColumnView: false,
   );
 
   /// Returns the field definitions for Alias column view.
-  static Fields<Alias> get fieldsForColumnView {
-    if (_fieldsForColumns.isEmpty) {
-      // used for the first time
-      final Alias tmp = Alias._fromJsonStatic(<String, dynamic>{});
-      _fieldsForColumns.setDefinitions(<Field<dynamic>>[
-        tmp.fieldPattern,
-        tmp.fieldFlags,
-        tmp.fieldPayeeId,
-      ]);
-    }
-
-    // return the cached singleton
-    return _fieldsForColumns;
-  }
+  static Fields<Alias> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Alias>(
+    cache: _fieldsForColumns,
+    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
+    blueprints: _fieldBlueprints,
+    forColumnView: true,
+  );
 
   /// Checks if the given [text] matches this alias (regex or exact).
   bool isMatch(final String text) {
