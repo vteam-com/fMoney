@@ -2,7 +2,6 @@ import 'package:money/data/models/mergeable_item.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
@@ -11,18 +10,16 @@ import 'package:money/providers/category.dart';
 import 'package:money/providers/data_abstract.dart';
 import 'package:money/providers/field_definition_cache.dart';
 import 'package:money/providers/investment.dart';
+import 'package:money/providers/transaction_delegate_helpers.dart';
 import 'package:money/providers/transaction_split.dart';
 import 'package:money/providers/transfer.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
-import 'package:money/widgets/data_access.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';
 import 'package:money/widgets/picker_panel.dart';
 import 'package:money/widgets/picker_payee_or_transfer.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/pure/snack_bar.dart';
-import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -641,7 +638,7 @@ class Transaction extends DataObject implements MergeableItem {
   dynamic _instanceOfAccount;
 
   // Instance of Transfer
-  Transfer? _instanceOfTransfer;
+  Transfer? cachedTransfer;
 
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
@@ -747,16 +744,16 @@ class Transaction extends DataObject implements MergeableItem {
     FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldPaidOn),
   ];
 
-  /// Returns the account name for this transaction.
+  /// Returns the display account name for this transaction.
   String get accountName => instanceOfAccount?.fieldName.value ?? '<Account???>';
 
-  /// Returns the transaction amount formatted as a string.
+  /// Returns the transaction amount formatted using account currency rules.
   String get amountAsString => fieldAmount.value.toString();
 
-  /// Returns the category instance for this transaction.
+  /// Returns the resolved category object for this transaction, if any.
   Category? get category => DataAbstract.instance.getCategory(this.fieldCategoryId.value) as Category?;
 
-  /// Returns the category name for this transaction.
+  /// Returns the resolved category name for this transaction.
   String get categoryName => DataAbstract.instance.getCategoryNameFromId(this.fieldCategoryId.value);
 
   /// Changes the category for the given transaction and notifies listeners.
@@ -776,82 +773,20 @@ class Transaction extends DataObject implements MergeableItem {
     );
   }
 
-  /// TODO - clean this up,
+  /// Validates transfer linkage and appends broken links to [dangling].
   void checkTransfers(
     Set<Transaction> dangling,
     List<dynamic> deletedAccounts,
   ) {
-    keepUnused(deletedAccounts);
-    if (fieldTransfer.value != _unsetId && this.instanceOfTransfer == null) {
-      // transferInstance?.getReceiverAccount();
-      // if (IsDeletedAccount(this.to, money, deletedAccounts)) {
-      //   this.Category =
-      //       this.Amount < 0 ? DataAbstract.instance.categories.TransferToDeletedAccount : money.Categories.TransferFromDeletedAccount;
-      //   this.to = null;
-      // } else {
-      dangling.add(this);
-      // }
-    }
-
-    if (this.instanceOfTransfer != null) {
-      final Transaction other = this.instanceOfTransfer!.relatedTransaction as Transaction;
-      if (other.isSplit) {
-        //       int count = 0;
-        //       Split splitXfer = null;
-        //
-        //       for (Split s in other.splits.GetSplits()) {
-        //         if (s.transfer != null) {
-        //           if (splitXfer == null) {
-        //             splitXfer = s;
-        //           }
-        //           if (s.transfer.Transaction == this) {
-        //             count++;
-        //           }
-        //         }
-        // }
-        //
-        //       if (count == 0) {
-        //         if (other.transfer != null && other.transfer.transaction == this) {
-        //           // Ok, well it could be that the transfer is the whole transaction, but then
-        //           // one side was itemized. For example, you transfer 500 from one account to
-        //           // another, then on the deposit side you want to record what that was for
-        //           // by itemizing the $500 in a split.  If this is the case then it is not dangling.
-        //         } else if (!this.AutoFixDandlingTransfer(splitXfer)) {
-        //           added = true;
-        //           dangling.add(this);
-        //         }
-        //       }
-      } else {
-        if (other.instanceOfTransfer == null ||
-            (other.instanceOfTransfer?.relatedTransaction as Transaction?) != this) {
-          dangling.add(this);
-        } else {
-          // one last check, the other side also needs to be correctly setup as a transfer
-          if (other.fieldTransfer.value != this.uniqueId) {
-            dangling.add(this);
-          }
-        }
-      }
-    }
+    transactionCheckTransfers(this, dangling, deletedAccounts);
   }
 
-  /// Returns true if this transaction transfers to the given account.
+  /// Returns true if this transaction or one of its splits transfers to account [a].
   bool containsTransferTo(dynamic a) {
-    if (this.isSplit) {
-      for (final TransactionSplit s in this.splits) {
-        if (s.fieldTransferId.value != _unsetId && s.getTransferTransaction()?.fieldAccountId.value == a.uniqueId) {
-          return true;
-        }
-      }
-    }
-    if (this.instanceOfTransfer != null &&
-        (this.instanceOfTransfer?.relatedTransaction as dynamic)?.fieldAccountId.value == (a as dynamic).uniqueId) {
-      return true;
-    }
-    return false;
+    return transactionContainsTransferTo(this, a);
   }
 
-  /// Returns the currency code for this transaction.
+  /// Returns the transaction currency code derived from the linked account.
   String get currency {
     if (this.instanceOfAccount == null || (this.instanceOfAccount as dynamic).fieldCurrency.value.isEmpty == true) {
       return Constants.defaultCurrency;
@@ -860,10 +795,10 @@ class Transaction extends DataObject implements MergeableItem {
     return (this.instanceOfAccount as dynamic).fieldCurrency.value.toString();
   }
 
-  /// Returns the transaction date as a YYYY-MM-DD string.
+  /// Returns the transaction date as a compact display string.
   String get dateTimeAsString => dateToString(fieldDateTime.value);
 
-  /// Returns the field definitions for Transaction entities.
+  /// Returns cached field definitions for entity/detail views.
   static Fields<Transaction> get fields => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
     cache: _fields,
     instanceFactory: () => Transaction(date: DateTime.now()),
@@ -871,7 +806,7 @@ class Transaction extends DataObject implements MergeableItem {
     forColumnView: false,
   );
 
-  /// Returns the field definitions for Transaction column view.
+  /// Returns cached field definitions for table/column views.
   static Fields<Transaction> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
     cache: _fieldsForColumns,
     instanceFactory: () => Transaction(date: DateTime.now()),
@@ -879,319 +814,93 @@ class Transaction extends DataObject implements MergeableItem {
     forColumnView: true,
   );
 
-  /// Converts a native amount to normalized currency using the account ratio.
+  /// Returns [nativeValue] converted into normalized/default currency.
   double getNormalizedAmount(double nativeValue) {
-    // Convert the value to USD
-    if (instanceOfAccount == null || (instanceOfAccount as dynamic).getCurrencyRatio() as num == _zeroDouble) {
-      return nativeValue;
-    }
-    return nativeValue * instanceOfAccount!.getCurrencyRatio();
+    return transactionGetNormalizedAmount(this, nativeValue);
   }
 
-  /// Returns the investment associated with this transaction, creating one if needed.
+  /// Returns investment metadata for this transaction, creating a default one when missing.
   Investment getOrCreateInvestment() {
-    instanceOfInvestment ??=
-        DataAbstract.instance.getInvestment(this.uniqueId) as Investment? ??
-        Investment(
-          id: this.uniqueId,
-          security: _unsetId,
-          unitPrice: _zeroDouble,
-          units: _zeroDouble,
-          investmentType: _zeroInt,
-          tradeType: _zeroInt,
-        );
-    return instanceOfInvestment!;
+    return transactionGetOrCreateInvestment(this);
   }
 
-  /// Returns a caption using either payee information or transfer information.
+  /// Returns payee or transfer caption text for UI display.
   String getPayeeOrTransferCaption({final bool showAccount = false}) {
-    final Investment? investment = instanceOfInvestment;
-    final double amount = this.fieldAmount.value.asDouble();
-
-    bool isFrom = false;
-    String displayName = '';
-    if (isTransfer) {
-      if (investment != null) {
-        if (investment.fieldInvestmentType.value == InvestmentType.add.index) {
-          isFrom = true;
-        }
-      } else if (amount > _zeroDouble) {
-        isFrom = true;
-      }
-
-      return getTransferCaption(
-        instanceOfTransfer?.receiverAccount,
-        isFrom,
-        showAccount: showAccount,
-      );
-    } else {
-      displayName = DataAbstract.instance.getPayeeName(fieldPayee.value);
-    }
-    return displayName.isEmpty ? '<Payee???>' : displayName;
+    return transactionGetPayeeOrTransferCaption(this, showAccount: showAccount);
   }
 
-  /// Builds a display caption for a transfer.
-  String getTransferCaption(
-    final dynamic relatedAccount,
-    final bool isFrom, {
-    final bool showAccount = false,
-  }) {
-    String caption = showAccount ? accountName : 'Transfer';
-    final String arrowDirection = isFrom ? ' ← ' : ' → ';
-    caption += arrowDirection;
-    caption += relatedAccountName(relatedAccount);
-    return caption;
-  }
-
-  /// Returns the account instance for this transaction.
+  /// Returns cached account instance associated with this transaction.
   Account? get instanceOfAccount {
     /// cache instances of related MoneyObjects
     _instanceOfAccount ??= DataAbstract.instance.getAccount(this.fieldAccountId.value) as Account?;
     return _instanceOfAccount as Account?;
   }
 
-  /// Sets the cached account instance for this transaction.
+  /// Sets cached account instance associated with this transaction.
   set instanceOfAccount(Account? value) {
     _instanceOfAccount = value;
   }
 
-  /// Returns the transfer instance for this transaction, creating linkage if needed.
+  /// Returns cached transfer linkage, resolving it lazily when needed.
   Transfer? get instanceOfTransfer {
-    if (_instanceOfTransfer == null && isTransfer) {
-      final Transaction? relatedTransaction =
-          DataAbstract.instance.getTransaction(
-                this.fieldTransfer.value,
-              )
-              as Transaction?;
-      if (relatedTransaction != null) {
-        linkTransfer(this, relatedTransaction);
-      }
-    }
-    return _instanceOfTransfer;
+    return transactionResolveInstanceOfTransfer(this);
   }
 
-  /// Sets the cached transfer instance for this transaction.
+  /// Sets cached transfer linkage for this transaction.
   set instanceOfTransfer(Transfer? value) {
-    _instanceOfTransfer = value;
+    cachedTransfer = value;
   }
 
-  /// True if this transaction belongs to an asset account.
+  /// Returns true when the linked account type is asset.
   bool get isAssetAccount => DataAbstract.instance.isAccountAsset(fieldAccountId.value);
 
-  /// True if this transaction is eligible to be included in budgets.
+  /// Returns true when category type makes this transaction budget-eligible.
   bool get isCandidateForBudget => this.fieldCategoryId.value != _unsetId && (this.isExpense || this.isIncome);
 
-  /// True if this transaction is categorized as an expense.
+  /// Returns true when this transaction category is an expense.
   bool get isExpense => DataAbstract.instance.isCategoryExpense(fieldCategoryId.value);
 
-  /// True if this transaction is categorized as an income.
+  /// Returns true when this transaction category is an income.
   bool get isIncome => DataAbstract.instance.isCategoryIncome(fieldCategoryId.value);
 
   /// Returns true if this transaction or any split matches a category in [categoriesToMatch].
   bool isMatchingAnyOfTheseCategories(List<int> categoriesToMatch) {
-    if (categoriesToMatch.contains(fieldCategoryId.value)) {
-      return true;
-    }
-
-    if (this.isSplit) {
-      for (final TransactionSplit s in this.splits) {
-        if (categoriesToMatch.contains(s.fieldCategoryId.value)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return transactionIsMatchingAnyOfTheseCategories(this, categoriesToMatch);
   }
 
-  /// True if this transaction contains splits.
+  /// Returns true when this transaction has one or more splits.
   bool get isSplit => this.splits.isNotEmpty;
 
-  /// True if this transaction is linked to another transaction as a transfer.
+  /// Returns true when this transaction is linked to a transfer.
   bool get isTransfer => fieldTransfer.value != _unsetId;
 
-  /// Returns a one-line description combining payee/transfer caption and category.
+  /// Returns one-line description combining payee/transfer and category.
   String get oneLinePayeeAndDescription {
-    String description = this.getPayeeOrTransferCaption(showAccount: true);
-
-    if (this.categoryName.isNotEmpty) {
-      description += ' | ${this.categoryName}';
-    }
-
-    return description;
+    return transactionOneLinePayeeAndDescription(this);
   }
 
-  /// Returns the payee name for this transaction.
+  /// Returns the resolved payee name for this transaction.
   String get payeeName => DataAbstract.instance.getPayeeName(fieldPayee.value);
 
-  /// Find all the objects referenced by this Transaction and wire them back up
-
-  /// <param name="money">The owner</param>
-  /// <param name="parent">The container</param>
-  /// <param name="from">The account this transaction belongs to</param>
-  /// <param name="duplicateTransfers">How to handle transfers.  In a cut/paste situation you want
-  /// to create new transfer transactions (true), but in a XmlStore.Load situation we do not (false)</param>
-  // void postDeserializeFixup(bool duplicateTransfers) {
-  //   keepUnused(duplicateTransfers);
-  // TODO: implement postDeserializeFixup
-  // if (this.CategoryName != null)
-  // {
-  //   this.Category = money.Categories.GetOrCreateCategory(this.CategoryName, CategoryType.None);
-  //   this.CategoryName = null;
-  // }
-  // if (from != null)
-  // {
-  //   this.Account = from;
-  // }
-  // else if (this.AccountName != null)
-  // {
-  //   this.Account = money.Accounts.FindAccount(this.AccountName);
-  // }
-  // this.AccountName = null;
-  // if (this.PayeeName != null)
-  // {
-  //   this.Payee = money.Payees.FindPayee(this.PayeeName, true);
-  //   this.PayeeName = null;
-  // }
-  //
-  // // do not copy budgeting information outside of balancing the budget.
-  // // (Note: setting IsBudgeted to false will screw up the budget balance).
-  // this.flags &= ~TransactionFlags.Budgeted;
-  //
-  // if (duplicateTransfers)
-  // {
-  //   if (this.TransferName != null)
-  //   {
-  //     Account to = money.Accounts.FindAccount(this.TransferName);
-  //     if (to == null)
-  //     {
-  //       to = money.Accounts.AddAccount(this.TransferName);
-  //     }
-  //     if (to != from)
-  //     {
-  //       money.Transfer(this, to);
-  //       this.TransferName = null;
-  //     }
-  //   }
-  // }
-  // else if (this.TransferId != -1 && this.Transfer == null)
-  // {
-  //   Transaction other = money.Transactions.FindTransactionById(this.transferId);
-  //   if (this.TransferSplit != -1)
-  //   {
-  //     // then the other side of this is a split.
-  //     Split s = other.NonNullSplits.FindSplit(this.TransferSplit);
-  //     if (s != null)
-  //     {
-  //       s.Transaction = other;
-  //       this.Transfer = new Transfer(0, this, other, s);
-  //       s.Transfer = new Transfer(0, other, s, this);
-  //     }
-  //   }
-  //   else if (other != null)
-  //   {
-  //     this.Transfer = new Transfer(0, this, other);
-  //     other.Transfer = new Transfer(0, other, this);
-  //   }
-  // }
-  //
-  // if (this.Investment != null)
-  // {
-  //   this.Investment.Parent = parent;
-  //   this.Investment.Transaction = this;
-  //   if (this.Investment.SecurityName != null)
-  //   {
-  //     this.Investment.Security = money.Securities.FindSecurity(this.Investment.SecurityName, true);
-  //   }
-  // }
-  // if (this.categoryId == DataAbstract.instance.categories.splitCategoryId()) {
-  //   DataAbstract.instance.this.Splits.Transaction = this;
-  //   this.Splits.Parent = this;
-  //   foreach (Split s in this.Splits.Items)
-  //   {
-  //     s.PostDeserializeFixup(money, this, duplicateTransfers);
-  //   }
-  // }
-  // }
-
-  /// Returns the account on the other side of a transfer, if any.
+  /// Returns related account for transfer transactions.
   dynamic get relatedAccount => (instanceOfTransfer?.relatedTransaction as dynamic)?.instanceOfAccount;
 
-  /// Returns a display name for a related account, including closed-account marker.
-  String relatedAccountName(dynamic relatedAccount) {
-    if (relatedAccount == null) {
-      return '<Account???>';
-    }
-    String name = '';
-
-    if ((relatedAccount as Account).isClosed()) {
-      name += 'Closed-Account: ';
-    }
-    return name + relatedAccount.fieldName.value;
-  }
-
-  /// Sorts transactions by date/time with ID as a tiebreaker.
+  /// Sorts by date first, then unique id as deterministic tie-breaker.
   static int sortByDateTime(
     final dynamic a,
     final dynamic b,
     final bool ascending,
   ) {
-    int result = sortByDate(
-      (a as Transaction).fieldDateTime.value,
-      (b as Transaction).fieldDateTime.value!,
-      ascending,
-    );
-    // To ensure a predictable sort order, always include a tie-breaker
-    if (result == _zeroInt) {
-      result = sortByValue(a.uniqueId, b.uniqueId, ascending);
-    }
-    return result;
+    return transactionSortByDateTime(a as Transaction, b as Transaction, ascending);
   }
 
-  /// keep track of the original Payee information, only do this if the originalPayee info is empty
+  /// Stores current payee/transfer caption into original-payee when empty.
   void stashOriginalPayee() {
-    if (this.fieldOriginalPayee.value.isEmpty) {
-      this.fieldOriginalPayee.value = this.getPayeeOrTransferCaption();
-    }
+    transactionStashOriginalPayee(this);
   }
 
-  /// Builds a toggle button for transaction status.
   Widget _buildStatusButtonToggle() {
-    return TextButton(
-      style: OutlinedButton.styleFrom(
-        padding: EdgeInsets.zero, // Remove all padding
-      ),
-      child: Text(transactionStatusToLetter(this.fieldStatus.value)),
-      onPressed: () {
-        if (this.fieldStatus.value == TransactionStatus.reconciled) {
-          // do nothing, its not allowed to change a reconciled transaction
-          SnackBarService.displayWarning(
-            message: 'Reconcile Transaction Status are prevented from changed.',
-          );
-          return;
-        }
-        if (this.fieldStatus.value == TransactionStatus.cleared) {
-          // Attempt to restore/undo
-          if (valueBeforeEdit != null) {
-            // bring back the previous value
-            final int oldValue = (valueBeforeEdit![this.fieldStatus.name] ?? _zeroInt) as int;
-            this.fieldStatus.value = TransactionStatus.values[oldValue];
-
-            // if this was the only change to this instance we can undo the mutation state
-            if (mutation == MutationType.changed && DataObject.isDataModified(this) == false) {
-              mutation = MutationType.none;
-              DataAccess.trackMutations.increaseNumber(
-                increaseChanged: _unsetId,
-              );
-            } else {
-              DataAccess.trackMutations.setLastEditToNow(); // still need to refresh the UI
-            }
-          }
-        } else {
-          mutateField(this.fieldStatus.name, TransactionStatus.cleared, false);
-        }
-        SelectionController.to.select(this.uniqueId);
-      },
-    );
+    return transactionBuildStatusButtonToggle(this);
   }
 }
 

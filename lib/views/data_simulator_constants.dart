@@ -17,7 +17,7 @@ class DataSimulatorConstants {
   static const int listIndexSecond = 1;
   static const int negativeMultiplier = -1;
   static const int maxRandomIncomeAmount = 2500;
-  static const int maxRandomExpenseAmount = -500;
+  static const int maxRandomExpenseAmount = 500;
   static const int initialDepositYearsBack = -21;
   static const double initialDepositAmount = 100000;
   static const double homePurchaseValue = 250000;
