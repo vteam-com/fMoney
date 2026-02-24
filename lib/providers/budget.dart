@@ -1,7 +1,7 @@
 // ignore: fcheck_one_class_per_file
 import 'dart:math';
 
-import 'package:money/views/providers/transaction.dart';
+import 'package:money/providers/transaction.dart';
 
 const double _zeroDouble = 0.0;
 const int _zeroInt = 0;

@@ -1,11 +1,11 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/providers/account.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/loan_payment.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/account.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/loan_payment.dart';
-import 'package:money/views/providers/transaction.dart';
 
 const int _unsetId = -1;
 const int _fakeIdStart = 10000000;

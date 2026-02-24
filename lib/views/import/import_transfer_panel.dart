@@ -1,9 +1,9 @@
 // ignore: fcheck_one_class_per_file
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/providers/account.dart';
+import 'package:money/providers/category.dart';
 import 'package:money/views/data.dart';
-import 'package:money/views/providers/account.dart';
-import 'package:money/views/providers/category.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/picker_edit_box_date.dart';

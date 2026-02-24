@@ -1,9 +1,9 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/rent_building.dart';
+import 'package:money/providers/rental_unit.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/rent_building.dart';
-import 'package:money/views/providers/rental_unit.dart';
-import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/rental_pnl.dart';
 
 /// Represents rent buildings.

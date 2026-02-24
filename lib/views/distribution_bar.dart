@@ -1,7 +1,7 @@
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/views/providers/category.dart';
+import 'package:money/providers/category.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 

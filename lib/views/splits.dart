@@ -1,8 +1,8 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/transaction.dart';
+import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/transaction.dart';
-import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 /// Represents splits.

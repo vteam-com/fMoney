@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/online_account.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/online_account.dart';
 
 /// Represents online accounts.
 class OnlineAccounts extends MoneyObjects<OnlineAccount> {

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/views/providers/data_abstract.dart';
+import 'package:money/providers/data_abstract.dart';
 import 'package:money/widgets/picker_category.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';

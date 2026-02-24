@@ -1,5 +1,6 @@
 // Imports
 // The following lines import necessary libraries and packages for the file.
+import 'package:money/providers/data_abstract.dart';
 import 'package:money/views/account_aliases.dart';
 import 'package:money/views/accounts.dart';
 import 'package:money/views/aliases.dart';
@@ -11,7 +12,6 @@ import 'package:money/views/loan_payments.dart';
 import 'package:money/views/money_objects.dart';
 import 'package:money/views/online_accounts.dart';
 import 'package:money/views/payees.dart';
-import 'package:money/views/providers/data_abstract.dart';
 import 'package:money/views/rent_buildings.dart';
 import 'package:money/views/rental_units.dart';
 import 'package:money/views/securities.dart';

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/dialog_mutate_shared.dart';
-import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';

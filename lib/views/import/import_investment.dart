@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:money/helpers/investment_types.dart';
+import 'package:money/providers/investment.dart';
+import 'package:money/providers/investment_import_fields.dart';
+import 'package:money/providers/payee.dart';
+import 'package:money/providers/security.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/import/import_investment_panel.dart';
-import 'package:money/views/providers/investment.dart';
-import 'package:money/views/providers/investment_import_fields.dart';
-import 'package:money/views/providers/payee.dart';
-import 'package:money/views/providers/security.dart';
-import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/gaps.dart';

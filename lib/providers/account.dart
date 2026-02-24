@@ -7,7 +7,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/locale.dart';
-import 'package:money/views/providers/field_definition_cache.dart';
+import 'package:money/providers/field_definition_cache.dart';
 import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/picker_account_type.dart';
 import 'package:money/widgets/preferences_controller.dart';

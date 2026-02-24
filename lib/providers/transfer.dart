@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
-import 'package:money/views/providers/account.dart';
-import 'package:money/views/providers/field_definition_cache.dart';
-import 'package:money/views/providers/transaction_split.dart';
+import 'package:money/providers/account.dart';
+import 'package:money/providers/field_definition_cache.dart';
+import 'package:money/providers/transaction_split.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';

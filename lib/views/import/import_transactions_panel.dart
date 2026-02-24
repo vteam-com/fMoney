@@ -1,9 +1,9 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/providers/account.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/import/import_transactions_list_preview.dart';
-import 'package:money/views/providers/account.dart';
 import 'package:money/widgets/columns_input.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';

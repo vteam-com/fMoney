@@ -2,15 +2,15 @@ import 'package:collection/collection.dart';
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/investment.dart';
+import 'package:money/providers/security.dart';
+import 'package:money/providers/stock_split.dart';
 import 'package:money/views/investments.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/investment.dart';
-import 'package:money/views/providers/security.dart';
-import 'package:money/views/providers/stock_split.dart';
 
 // Exports
-export 'package:money/views/providers/security.dart';
+export 'package:money/providers/security.dart';
 
 /// Represents securities.
 class Securities extends MoneyObjects<Security> {

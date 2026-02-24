@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/list_view_transaction_splits.dart';
-import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';

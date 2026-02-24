@@ -1,7 +1,7 @@
 import 'package:money/helpers/constants.dart';
+import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/dialog_mutate_shared.dart';
-import 'package:money/views/providers/transaction_split.dart';
 import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';

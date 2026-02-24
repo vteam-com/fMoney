@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/mergeable_item.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/payee.dart';
 import 'package:money/views/merge_payee_interface.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/payee.dart';
 
 /// Implementation of MergePayeeProvider using showMergePayee function
 class DefaultMergePayeeProvider implements MergePayeeProvider {

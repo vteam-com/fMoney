@@ -3,9 +3,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/providers/account.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
-import 'package:money/views/providers/account.dart';
-import 'package:money/views/providers/transaction.dart';
 import 'package:money/views/view_ai/ollama_service.dart';
 import 'package:money/views/view_ai/processing_indicator.dart';
 import 'package:money/views/view_ai/view_ai_chat_message.dart';

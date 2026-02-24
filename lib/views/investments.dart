@@ -1,9 +1,9 @@
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/investment.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/investment.dart';
-import 'package:money/views/providers/transaction.dart';
 import 'package:money/widgets/picker_security_type.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 

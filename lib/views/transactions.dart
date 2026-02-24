@@ -7,13 +7,13 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/providers/account.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/transaction.dart';
+import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/account.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/transaction.dart';
-import 'package:money/views/providers/transaction_split.dart';
 
-export 'package:money/views/providers/transaction.dart';
+export 'package:money/providers/transaction.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;

@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/account_alias.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/account_alias.dart';
 
 /// Represents account aliases.
 class AccountAliases extends MoneyObjects<AccountAlias> {

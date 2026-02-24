@@ -6,9 +6,9 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/providers/category.dart';
+import 'package:money/providers/data_abstract.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/category.dart';
-import 'package:money/views/providers/data_abstract.dart';
 import 'package:money/views/transactions.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/views/providers/transaction_split.dart';
+import 'package:money/providers/transaction_split.dart';
 
 /// Abstract interface for providing category suggestion widgets
 /// This allows decoupling Transaction from specific widget implementations

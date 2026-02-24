@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/security.dart';
+import 'package:money/providers/stock_split.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/security.dart';
-import 'package:money/views/providers/stock_split.dart';
 
 /// Represents stock splits.
 class StockSplits extends MoneyObjects<StockSplit> {

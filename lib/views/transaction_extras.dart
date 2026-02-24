@@ -1,6 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/transaction_extra.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/transaction_extra.dart';
 
 /// Represents transaction extras.
 class TransactionExtras extends MoneyObjects<TransactionExtra> {

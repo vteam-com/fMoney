@@ -6,10 +6,10 @@ import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/providers/category.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/distribution_bar.dart';
-import 'package:money/views/providers/category.dart';
-import 'package:money/views/providers/transaction.dart';
 
 const int _monthsPerYear = 12;
 const int _zeroInt = 0;

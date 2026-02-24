@@ -2,10 +2,10 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/payee.dart';
+import 'package:money/providers/transaction.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/payee.dart';
-import 'package:money/views/providers/transaction.dart';
 
 /// Represents payees.
 class Payees extends MoneyObjects<Payee> {

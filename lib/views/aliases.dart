@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/providers/alias.dart';
+import 'package:money/providers/data_abstract.dart';
+import 'package:money/providers/payee.dart';
 import 'package:money/views/money_objects.dart';
-import 'package:money/views/providers/alias.dart';
-import 'package:money/views/providers/data_abstract.dart';
-import 'package:money/views/providers/payee.dart';
 
 /// Represents aliases.
 class Aliases extends MoneyObjects<Alias> {
