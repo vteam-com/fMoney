@@ -6,6 +6,21 @@ import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 
+/// Builds action buttons for the transaction mutation dialog.
+///
+/// Arguments:
+/// - `context`: Build context of the active dialog.
+/// - `transaction`: Current transaction being displayed/edited.
+/// - `editMode`: Whether the dialog is currently in edit mode.
+/// - `dataWasModified`: Whether transaction data changed in the dialog.
+typedef MutationActionButtonsBuilder =
+    List<Widget> Function({
+      required BuildContext context,
+      required Transaction transaction,
+      required bool editMode,
+      required bool dataWasModified,
+    });
+
 /// Shows a dialog that allows the user to mutate a transaction.
 ///
 /// The dialog displays the transaction details and provides options to edit or confirm the transaction.
@@ -35,13 +50,7 @@ Widget buildTrackedTransactionDialogBody({
   required bool isInEditingMode,
   required bool dataWasModified,
   required ValueChanged<bool> setDataWasModified,
-  required List<Widget> Function({
-    required BuildContext context,
-    required Transaction transaction,
-    required bool editMode,
-    required bool dataWasModified,
-  })
-  getActionButtons,
+  required MutationActionButtonsBuilder getActionButtons,
 }) {
   return buildMutationDialogBodyWithTrackedChanges<Transaction>(
     context: context,

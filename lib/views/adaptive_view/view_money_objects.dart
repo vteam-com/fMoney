@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/date_helper.dart';
-import 'package:money/helpers/default_values.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/adaptive_view/adaptable_view_with_list.dart';
+import 'package:money/views/adaptive_view/view_money_objects_filter_helpers.dart';
+import 'package:money/views/adaptive_view/view_money_objects_footer_helpers.dart';
+import 'package:money/views/adaptive_view/view_money_objects_ui_helpers.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/dialog_mutate_money_object.dart';
@@ -24,13 +25,9 @@ import 'package:money/widgets/confirmation_dialog.dart';
 import 'package:money/widgets/dialog.dart';
 import 'package:money/widgets/dialog_button.dart';
 import 'package:money/widgets/message_box.dart';
-import 'package:money/widgets/pivot_toggle_row.dart';
 import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
-import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/working.dart';
-import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -230,17 +227,15 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     required double minHeight,
     required double minWidth,
   }) {
-    return buildPivotToggleRow(
+    return buildStandardPivotToggleRowUi(
       key: key,
-      isSelected: selectedPivot,
-      children: pivotChildren,
+      selectedPivot: selectedPivot,
+      pivotChildren: pivotChildren,
       padding: padding,
       borderRadius: borderRadius,
       minHeight: minHeight,
       minWidth: minWidth,
-      onPressed: (int index) {
-        updatePivotSelectionAndRefresh(selectedPivot, index);
-      },
+      onPressed: (int index) => updatePivotSelectionAndRefresh(selectedPivot, index),
     );
   }
 
@@ -250,25 +245,11 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     required List<Widget> extraPanels,
     required double spacing,
   }) {
-    if (selectedItem == null) {
-      return const CenterMessage(message: 'No item selected.');
-    }
-
-    return SingleChildScrollView(
-      child: Center(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          runSpacing: spacing,
-          spacing: spacing,
-          children: <Widget>[
-            MoneyObjectCard(
-              title: getClassNameSingular(),
-              moneyObject: selectedItem,
-            ),
-            ...extraPanels,
-          ],
-        ),
-      ),
+    return buildStandardSidePanelDetailsWrapUi<T>(
+      selectedItem: selectedItem,
+      extraPanels: extraPanels,
+      spacing: spacing,
+      title: getClassNameSingular(),
     );
   }
 
@@ -329,101 +310,11 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Calculates footer accumulators for the current list data.
   void footerAccumulators() {
-    _footerAccumulators.clear();
-
-    for (final DataObject item in list) {
-      for (final Field<dynamic> field in _fieldToDisplay.definitions) {
-        switch (field.type) {
-          case FieldType.text:
-            _footerAccumulators.accumulatorListOfText.cumulate(
-              field,
-              field.getValueForDisplay(item).toString(),
-            );
-
-          case FieldType.date:
-            final dynamic dateTime = field.getValueForDisplay(item);
-            if (dateTime != null) {
-              _footerAccumulators.accumulatorDateRange.cumulate(
-                field,
-                dateTime as DateTime,
-              );
-            }
-          case FieldType.dateRange:
-            final dynamic dateRangeValue = field.getValue(item);
-            if (dateRangeValue.min != null) {
-              _footerAccumulators.accumulatorDateRange.cumulate(
-                field,
-                dateRangeValue.min as DateTime,
-              );
-            }
-            if (dateRangeValue.max != null) {
-              _footerAccumulators.accumulatorDateRange.cumulate(
-                field,
-                dateRangeValue.max as DateTime,
-              );
-            }
-
-          case FieldType.widget:
-            if (field.getValueForReading != null) {
-              _footerAccumulators.accumulatorListOfText.cumulate(
-                field,
-                field.getValueForReading?.call(item)!.toString() ?? '',
-              );
-            }
-
-          case FieldType.amount:
-            final double value = smartToDouble(field.getValueForDisplay(item));
-            if (isNumber(value)) {
-              _footerAccumulators.accumulatorSumAmount.cumulate(field, value);
-              if (field.footer == FooterType.average) {
-                _footerAccumulators.accumulatorForAverage.cumulate(
-                  field,
-                  value,
-                );
-              }
-              if (field.footer == FooterType.range) {
-                _footerAccumulators.accumulatorNumericRange.cumulate(
-                  field,
-                  value,
-                );
-              }
-            }
-
-          case FieldType.numeric:
-          case FieldType.amountShorthand:
-          case FieldType.numericShorthand:
-          case FieldType.quantity:
-            final dynamic value = field.getValueForDisplay(item);
-            if (field.footer == FooterType.count) {
-              _footerAccumulators.accumulatorListOfText.cumulate(
-                field,
-                getIntAsText(value as int),
-              );
-            } else {
-              if (value is num) {
-                _footerAccumulators.accumulatorSumNumber.cumulate(
-                  field,
-                  value.toDouble(),
-                );
-                if (field.footer == FooterType.average) {
-                  _footerAccumulators.accumulatorForAverage.cumulate(
-                    field,
-                    value,
-                  );
-                }
-                if (field.footer == FooterType.range) {
-                  _footerAccumulators.accumulatorNumericRange.cumulate(
-                    field,
-                    value,
-                  );
-                }
-              }
-            }
-          default:
-            break;
-        }
-      }
-    }
+    recomputeFooterAccumulators(
+      footerAccumulators: _footerAccumulators,
+      items: list,
+      definitions: _fieldToDisplay.definitions,
+    );
   }
 
   /// Allowed to be override by derived classes
@@ -642,68 +533,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return _selectedItemsByUniqueId.value.firstOrNull;
   }
 
-  /// Compile the list of single data value for a column/field definition
-  List<String> getUniqueInstances(
-    final Field<dynamic> columnToCustomerFilterOn,
-  ) {
-    final Set<String> set = <String>{}; // This is a Set()
-    final List<DataObject> list = getList(applyFilter: false);
-    for (final DataObject moneyObject in list) {
-      final String fieldValue = columnToCustomerFilterOn.getValueForDisplay(moneyObject).toString();
-      set.add(fieldValue);
-    }
-    return set.toList();
-  }
-
-  /// Compile the list of single date value for a column/field definition
-  List<String> getUniqueInstancesOfDates(
-    final Field<dynamic> columnToCustomerFilterOn,
-  ) {
-    final Set<String> set = <String>{}; // This is a Set()
-    final List<DataObject> list = getList(applyFilter: false);
-    for (final DataObject moneyObject in list) {
-      final String fieldValue = dateToString(
-        columnToCustomerFilterOn.getValueForDisplay(moneyObject) as DateTime?,
-      );
-      set.add(fieldValue);
-    }
-    final List<String> uniqueValues = set.toList();
-    uniqueValues.sort();
-    return uniqueValues;
-  }
-
-  /// Compile the list of single date value for a column/field definition
-  List<String> getUniqueInstancesOfNumbers(
-    final Field<dynamic> columnToCustomerFilterOn,
-  ) {
-    final Set<String> set = <String>{}; // This is a Set()
-    final List<DataObject> list = getList(applyFilter: false);
-    for (final DataObject moneyObject in list) {
-      final String fieldValue = formatDoubleTrimZeros(
-        columnToCustomerFilterOn.getValueForDisplay(moneyObject) as double,
-      );
-      set.add(fieldValue);
-    }
-    final List<String> uniqueValues = set.toList();
-    uniqueValues.sort((String a, String b) => compareStringsAsNumbers(a, b));
-    return uniqueValues;
-  }
-
-  /// Compile the list of single date value for a column/field definition
-  List<String> getUniqueInstancesOfWidgets(
-    final Field<dynamic> columnToCustomerFilterOn,
-  ) {
-    final Set<String> set = <String>{}; // This is a Set()
-    final List<DataObject> list = getList(applyFilter: false);
-    for (final DataObject moneyObject in list) {
-      final String fieldValue = columnToCustomerFilterOn.getValueForReading?.call(moneyObject) as String? ?? '';
-      set.add(fieldValue);
-    }
-    final List<String> uniqueValues = set.toList();
-    uniqueValues.sort();
-    return uniqueValues;
-  }
-
   /// Returns true if the data instance matches current filters.
   bool isMatchingFilters(final DataInterface instance) {
     if (areFiltersOn()) {
@@ -742,7 +571,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     switch (fieldDefinition.type) {
       case FieldType.quantity:
         {
-          listOfUniqueString = getUniqueInstancesOfNumbers(fieldDefinition);
+          listOfUniqueString = collectUniqueNumericValues(
+            getList(applyFilter: false),
+            fieldDefinition,
+          );
 
           for (final String item in listOfUniqueString) {
             listOfValueSelected.add(
@@ -758,7 +590,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
       case FieldType.date:
         {
-          listOfUniqueString = getUniqueInstancesOfDates(fieldDefinition);
+          listOfUniqueString = collectUniqueDateValues(
+            getList(applyFilter: false),
+            fieldDefinition,
+          );
 
           for (final String item in listOfUniqueString) {
             listOfValueSelected.add(
@@ -774,7 +609,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
       case FieldType.widget:
         {
-          listOfUniqueString = getUniqueInstancesOfWidgets(fieldDefinition);
+          listOfUniqueString = collectUniqueWidgetValues(
+            getList(applyFilter: false),
+            fieldDefinition,
+          );
 
           for (final String item in listOfUniqueString) {
             listOfValueSelected.add(
@@ -791,7 +629,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       case FieldType.text:
       default:
         {
-          listOfUniqueString = getUniqueInstances(fieldDefinition);
+          listOfUniqueString = collectUniqueStringValues(
+            getList(applyFilter: false),
+            fieldDefinition,
+          );
 
           if (fieldDefinition.type == FieldType.amount) {
             listOfUniqueString.sort(
@@ -928,60 +769,24 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   Widget _buildCenterMessageForEmptyList(final Key key) {
-    return CenterMessage(key: key, message: 'No ${getClassNamePlural()}');
+    return buildCenterMessageForEmptyListUi(
+      key: key,
+      classNamePlural: getClassNamePlural(),
+    );
   }
 
   /// Builds a message explaining that filters resulted in an empty list.
   Widget _buildCenterMessageForEmptyListDueToFilters(final Key key) {
-    final List<String> activeFilterValues = <String>[];
-    if (_filterByText.isNotEmpty) {
-      activeFilterValues.add('"$_filterByText"');
-    }
-    if (_filterByFieldsValue.isNotEmpty) {
-      activeFilterValues.addAll(
-        _filterByFieldsValue.list.map(
-          (FieldFilter filter) => filter.toString(),
-        ),
-      );
-    }
-
-    return Center(
-      child: Box(
-        key: key,
-        padding: SizeForPadding.large,
-        child: IntrinsicHeight(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextTitle('No ${getClassNamePlural()} found with the filters:'),
-              gapLarge(),
-              SelectableText(activeFilterValues.join('\n')),
-              gapHuge(),
-              Row(
-                children: <Widget>[
-                  const Spacer(),
-                  IntrinsicWidth(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          _resetFiltersAndGetList();
-                        });
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          const Text('Clear Filters'),
-                          gapSmall(),
-                          const Icon(Icons.filter_alt_off_outlined),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    return buildCenterMessageForEmptyListDueToFiltersUi(
+      key: key,
+      classNamePlural: getClassNamePlural(),
+      filterByText: _filterByText,
+      filterByFieldsValue: _filterByFieldsValue,
+      onClearFilters: () {
+        setState(() {
+          _resetFiltersAndGetList();
+        });
+      },
     );
   }
 

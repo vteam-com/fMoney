@@ -838,7 +838,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// Returns true if this transaction transfers to the given account.
   bool containsTransferTo(dynamic a) {
     if (this.isSplit) {
-      for (TransactionSplit s in this.splits) {
+      for (final TransactionSplit s in this.splits) {
         if (s.fieldTransferId.value != _unsetId && s.getTransferTransaction()?.fieldAccountId.value == a.uniqueId) {
           return true;
         }
