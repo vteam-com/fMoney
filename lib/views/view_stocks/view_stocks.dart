@@ -31,7 +31,6 @@ import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 export 'package:money/views/view_stocks/stock_chart.dart';
 
-const int _zeroInt = 0;
 const int _pivotIndexClosed = 0;
 const int _pivotIndexActive = 1;
 const int _pivotIndexAll = 2;
@@ -484,14 +483,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       minHeight: _toggleMinHeight,
       minWidth: _toggleMinWidth,
       onPressed: (int index) {
-        // ignore: invalid_use_of_protected_member
-        setState(() {
-          for (int i = _zeroInt; i < _selectedPivot.length; i++) {
-            _selectedPivot[i] = i == index;
-          }
-          list = getList();
-          clearSelection();
-        });
+        updatePivotSelectionAndRefresh(_selectedPivot, index);
       },
     );
   }

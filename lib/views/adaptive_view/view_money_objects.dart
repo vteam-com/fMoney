@@ -884,6 +884,20 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     });
   }
 
+  /// Selects a pivot by index, refreshes the list, and clears current row selection.
+  void updatePivotSelectionAndRefresh(
+    List<bool> selectedPivot,
+    int selectedIndex,
+  ) {
+    setState(() {
+      for (int i = 0; i < selectedPivot.length; i++) {
+        selectedPivot[i] = i == selectedIndex;
+      }
+      list = getList();
+      clearSelection();
+    });
+  }
+
   Widget _buildCenterMessageForEmptyList(final Key key) {
     return CenterMessage(key: key, message: 'No ${getClassNamePlural()}');
   }

@@ -269,13 +269,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
       minHeight: _toggleMinHeight,
       minWidth: _toggleMinWidth,
       onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < _selectedPivot.length; i++) {
-            _selectedPivot[i] = i == index;
-          }
-          list = getList();
-          clearSelection();
-        });
+        updatePivotSelectionAndRefresh(_selectedPivot, index);
       },
     );
   }

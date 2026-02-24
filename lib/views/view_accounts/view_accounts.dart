@@ -421,14 +421,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       minHeight: _toggleMinHeight,
       minWidth: _toggleMinWidth,
       onPressed: (int index) {
-        // ignore: invalid_use_of_protected_member
-        setState(() {
-          for (int i = _zeroInt; i < _selectedPivot.length; i++) {
-            _selectedPivot[i] = i == index;
-          }
-          list = getList();
-          clearSelection();
-        });
+        updatePivotSelectionAndRefresh(_selectedPivot, index);
       },
     );
   }
