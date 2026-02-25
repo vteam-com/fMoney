@@ -1,5 +1,12 @@
 # Change Log
 
+## [version 1.16.00] 2026-02-25
+
+### Added
+- Localization EN|FR|ES
+
+### Refactor code
+
 ## [version 1.15.01] 2026-02-09
 
 ### Update
