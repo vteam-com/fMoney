@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -155,7 +157,8 @@ class Investment extends DataObject {
           final DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
-          return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
+          return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ??
+              Text(AppL10n.tr(AppTranslationKeys.noPicker));
         },
     setValue: (final DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
@@ -249,7 +252,8 @@ class Investment extends DataObject {
           final DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
-          return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ?? const Text('no picker');
+          return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ??
+              Text(AppL10n.tr(AppTranslationKeys.noPicker));
         },
     setValue: (final DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
@@ -332,7 +336,7 @@ class Investment extends DataObject {
   /// Builds a compact widget representation for small screens.
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
-    return buildSmallScreenWidget?.call(this) ?? const Text('no UI');
+    return buildSmallScreenWidget?.call(this) ?? Text(AppL10n.tr(AppTranslationKeys.noUi));
   }
 
   // Fields for this instance

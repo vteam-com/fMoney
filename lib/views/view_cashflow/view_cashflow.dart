@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -125,7 +127,7 @@ class _ViewCashFlowState extends ViewWidgetState {
           spacing: SizeForPadding.large,
           children: <Widget>[
             Text(
-              'Cash Flow',
+              AppL10n.tr(AppTranslationKeys.cashFlow),
               style: getTextTheme(context).titleLarge,
               textAlign: TextAlign.start,
             ),
@@ -162,7 +164,7 @@ class _ViewCashFlowState extends ViewWidgetState {
                         },
                       ),
                     ),
-                    const Text('Include Asset Accounts'),
+                    Text(AppL10n.tr(AppTranslationKeys.includeAssetAccounts)),
                   ],
                 ),
               ),
@@ -203,19 +205,19 @@ class _ViewCashFlowState extends ViewWidgetState {
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: CashflowViewAs.sankey.index,
-          label: const Text('Sankey'),
+          label: Text(AppL10n.tr(AppTranslationKeys.sankey)),
         ),
         ButtonSegment<int>(
           value: CashflowViewAs.netWorthOverTime.index,
-          label: const Text('NetWorth'),
+          label: Text(AppL10n.tr(AppTranslationKeys.networth)),
         ),
         ButtonSegment<int>(
           value: CashflowViewAs.trend.index,
-          label: const Text('Trend'),
+          label: Text(AppL10n.tr(AppTranslationKeys.trend)),
         ),
         ButtonSegment<int>(
           value: CashflowViewAs.budget.index,
-          label: const Text('Budget'),
+          label: Text(AppL10n.tr(AppTranslationKeys.budget)),
         ),
       ],
       selectedId: PreferenceController.to.cashflowViewAs.value.index,

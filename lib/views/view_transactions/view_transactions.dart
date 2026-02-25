@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -316,7 +318,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
       if (transaction.isTransfer) {
         if (transaction.instanceOfTransfer == null) {
-          return const Text('Missing Transfer');
+          return Text(AppL10n.tr(AppTranslationKeys.missingTransfer));
         }
         return TransferSenderReceiver(
           transfer: transaction.instanceOfTransfer!,
@@ -336,6 +338,6 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
         }
       }
     }
-    return const CenterMessage(message: 'No related transactions');
+    return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noRelatedTransactions));
   }
 }

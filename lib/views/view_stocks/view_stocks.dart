@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:money/data/models/dividend.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -295,7 +297,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
             children: <Widget>[
               Text(split.fieldDate.getValueForDisplay(split).toString()),
               Text(split.fieldNumerator.value.toString()),
-              const Text(' for '),
+              Text(AppL10n.tr(AppTranslationKeys.forSpacer)),
               Text(split.fieldDenominator.value.toString()),
             ],
           );
@@ -369,7 +371,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
         );
       }
     }
-    return const Center(child: Text('No stock selected'));
+    return Center(child: Text(AppL10n.tr(AppTranslationKeys.noStockSelected)));
   }
 
   /// Builds the side panel transactions subview for the selected security.
@@ -381,7 +383,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     _lastSecuritySelected = getFirstSelectedItem() as Security?;
 
     if (_lastSecuritySelected == null) {
-      return const CenterMessage(message: 'No security selected.');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noSecuritySelected));
     }
 
     final List<Investment> listOfInvestmentsForThisStock = getListOfInvestment(

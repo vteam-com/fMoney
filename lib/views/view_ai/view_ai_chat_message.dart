@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/views/view_ai/view_ai_chat_message_footer.dart';
@@ -123,7 +125,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Message Details'),
+            title: Text(AppL10n.tr(AppTranslationKeys.messageDetails)),
             content: SizedBox(
               width: MediaQuery.of(context).size.width * _detailsWidthFactor,
               height: MediaQuery.of(context).size.height * _detailsHeightFactor,
@@ -132,18 +134,28 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Timestamp: ${widget.message.timestamp.toString()}',
+                      AppL10n.tr(
+                        AppTranslationKeys.timestampTimestamp,
+                        params: <String, String>{
+                          'timestamp': widget.message.timestamp.toString(),
+                        },
+                      ),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     gapMedium(),
                     Text(
-                      'Elapsed: ${getElapsedTime(widget.message.timestamp)}',
+                      AppL10n.tr(
+                        AppTranslationKeys.elapsedElapsed,
+                        params: <String, String>{
+                          'elapsed': getElapsedTime(widget.message.timestamp),
+                        },
+                      ),
                       style: const TextStyle(fontStyle: FontStyle.italic),
                     ),
                     gapMedium(),
-                    const Text(
-                      'Content:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Text(
+                      AppL10n.tr(AppTranslationKeys.content),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     gapSmall(),
                     SelectableText(widget.message.message),
@@ -163,7 +175,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Close'),
+                child: Text(AppL10n.tr(AppTranslationKeys.close)),
               ),
             ],
           );
@@ -180,7 +192,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Full Prompt Sent to AI'),
+          title: Text(AppL10n.tr(AppTranslationKeys.fullPromptSentToAi)),
           content: SizedBox(
             width: MediaQuery.of(context).size.width * _detailsWidthFactor,
             height: MediaQuery.of(context).size.height * _detailsHeightFactor,
@@ -202,7 +214,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Close'),
+              child: Text(AppL10n.tr(AppTranslationKeys.close)),
             ),
           ],
         );

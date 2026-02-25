@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 
 // Exports
 export 'package:flutter/widgets.dart';
@@ -29,7 +31,7 @@ abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
         return Column(
           children: <Widget>[
             buildHeader(),
-            Expanded(child: buildViewContent(const Center(child: Text('Content goes here')))),
+            Expanded(child: buildViewContent(Center(child: Text(AppL10n.tr(AppTranslationKeys.contentGoesHere))))),
           ],
         );
       },

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/panels/side_panel/side_panel_support.dart';
 import 'package:money/widgets/my_segment.dart';
@@ -140,7 +142,7 @@ class SidePanelHeader extends StatelessWidget {
         ))
           ButtonSegment<int>(
             value: _subViewIndexDetails,
-            label: smallDevice ? null : const Text('Details'),
+            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.details)),
             icon: const Icon(Icons.info_outline),
           ),
         if (sidePanelSupport.supportedSubViews.contains(
@@ -148,7 +150,7 @@ class SidePanelHeader extends StatelessWidget {
         ))
           ButtonSegment<int>(
             value: _subViewIndexChart,
-            label: smallDevice ? null : const Text('Chart'),
+            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.chart)),
             icon: const Icon(Icons.bar_chart),
           ),
         if (sidePanelSupport.supportedSubViews.contains(
@@ -156,7 +158,7 @@ class SidePanelHeader extends StatelessWidget {
         ))
           ButtonSegment<int>(
             value: _subViewIndexTransactions,
-            label: smallDevice ? null : const Text('Transactions'),
+            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.transactions)),
             icon: const Icon(Icons.calendar_view_day),
           ),
         if (sidePanelSupport.supportedSubViews.contains(
@@ -164,7 +166,7 @@ class SidePanelHeader extends StatelessWidget {
         ))
           ButtonSegment<int>(
             value: _subViewIndexPnl,
-            label: smallDevice ? null : const Text('PnL'),
+            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.pnl)),
             icon: const Icon(Icons.calendar_view_day),
           ),
       ],

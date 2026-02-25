@@ -1,5 +1,7 @@
 import 'package:money/data/models/mergeable_item.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -78,7 +80,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
           const Spacer(),
           Row(
             children: <Widget>[
-              const SizedBox(width: _payeeLabelWidth, child: Text('From payee')),
+              SizedBox(width: _payeeLabelWidth, child: Text(AppL10n.tr(AppTranslationKeys.fromPayee))),
               Expanded(
                 child: Box(child: Text(widget.currentPayee.fieldName.value)),
               ),
@@ -88,7 +90,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(width: _payeeLabelWidth, child: Text('To payee')),
+              SizedBox(width: _payeeLabelWidth, child: Text(AppL10n.tr(AppTranslationKeys.toPayee))),
               Expanded(
                 child: Box(
                   child: PickerEditBox(
@@ -178,7 +180,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'or change to category',
+                  AppL10n.tr(AppTranslationKeys.orChangeToCategory),
                   style: getTextTheme(context).bodySmall,
                 ),
                 gapMedium(),
@@ -210,10 +212,10 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
     if (radioButtonChoices.isNotEmpty) {
       radioButtonChoices.insert(
         _zeroIndex,
-        const RadioListTile<int?>(
+        RadioListTile<int?>(
           value: null,
           title: Text(
-            'Keep all transactions to their current categories',
+            AppL10n.tr(AppTranslationKeys.keepAllTransactionsToTheirCurrentCategories),
           ),
         ),
       );

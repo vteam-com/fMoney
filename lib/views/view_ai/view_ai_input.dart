@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 
 const double _inputPadding = 16.0;
@@ -66,21 +68,21 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                 onPressed: () {
                   widget.onSendPrompt('List all the account names');
                 },
-                child: const Text('Account names'),
+                child: Text(AppL10n.tr(AppTranslationKeys.accountNames)),
               ),
               ElevatedButton(
                 onPressed: () {
                   widget.onSendPrompt('Identify the largest single transaction amount in each account');
                 },
-                child: const Text('Largest transactions'),
+                child: Text(AppL10n.tr(AppTranslationKeys.largestTransactions)),
               ),
               ElevatedButton(
                 onPressed: () => widget.onSendPrompt('Analyze my spending patterns'),
-                child: const Text('Analyze spending'),
+                child: Text(AppL10n.tr(AppTranslationKeys.analyzeSpending)),
               ),
               ElevatedButton(
                 onPressed: () => widget.onSendPrompt('Predict future expenses'),
-                child: const Text('Expense predictions'),
+                child: Text(AppL10n.tr(AppTranslationKeys.expensePredictions)),
               ),
             ],
           ),
@@ -91,7 +93,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                 onPressed: () {
                   widget.onTeachAI();
                 },
-                child: const Text('BankAccounts'),
+                child: Text(AppL10n.tr(AppTranslationKeys.bankaccounts)),
               ),
               Expanded(
                 child: TextField(

@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
@@ -138,7 +140,11 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
   /// Builds the list of details for the selected mutation group.
   Widget _buildListOfDetailsOfSelectedGroup(Mutations mutations) {
     if (mutations.selectedGroup >= mutations.mutationGroups.length) {
-      return Center(child: Text('No items were ${mutations.title}'));
+      return Center(
+        child: Text(
+          AppL10n.tr(AppTranslationKeys.noItemsWereTitle, params: <String, String>{'title': mutations.title}),
+        ),
+      );
     }
 
     final MutationGroup g = mutations.mutationGroups[mutations.selectedGroup];

@@ -8,8 +8,8 @@ flutter pub upgrade > /dev/null
 echo --------------- Pub Outdated
 flutter pub outdated
 
-# echo --------------- Generate Loc
-# python3 tool/loc.py
+echo --------------- Generate Loc
+python3 tool/loc.py
 
 echo --------------- Sort code
 dart run tool/sort_source.dart
@@ -25,6 +25,8 @@ echo --------------- Test
 echo "    Running tests..."
 flutter test --reporter=compact --no-pub
 
+echo --- Generate Loc
+python3 tool/loc.py
 
 echo --------------- fCheck
 # Use an ephemeral private directory for this session's fcheck installation
@@ -34,6 +36,6 @@ export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
 
 # Install the pinned version into the isolated cache, then run it.
 # Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
-dart pub global activate fcheck 0.9.17 > /dev/null
-dart pub global run fcheck --fix --svg --svgfolder --svgsize --list full
+dart pub global activate fcheck 1.0.0 > /dev/null
+dart pub global run fcheck --fix --svg --list full
 # dart run ../fcheck/bin/fcheck.dart --fix --svg --svgfolder --list 100 ./lib/

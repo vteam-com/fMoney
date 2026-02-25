@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 
 const int _minHeaderColumnCount = 3;
 const int _maxPreviewRows = 10;
@@ -64,18 +66,23 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
     final int maxRowsToShow = _originalIndices.length > _maxPreviewRows ? _maxPreviewRows : _originalIndices.length;
 
     return AlertDialog(
-      title: const Text('Select Header Row'),
+      title: Text(AppL10n.tr(AppTranslationKeys.selectHeaderRow)),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text(
-              'Select the row that contains the column headers (automatically selected based on content):',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              AppL10n.tr(
+                AppTranslationKeys.selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent,
+              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: _previewSpacing),
             if (_originalIndices.isEmpty)
-              const Text('No rows found with 3 or more columns.', style: TextStyle(fontStyle: FontStyle.italic))
+              Text(
+                AppL10n.tr(AppTranslationKeys.noRowsFoundWith3OrMoreColumns),
+                style: const TextStyle(fontStyle: FontStyle.italic),
+              )
             else
               RadioGroup<int>(
                 groupValue: _selectedRowIndex,
@@ -94,7 +101,12 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
                         : widget.rows[originalIndex].join(' | ');
                     return RadioListTile<int>(
                       title: Text(
-                        'Row ${originalIndex + _rowNumberOffset}',
+                        AppL10n.tr(
+                          AppTranslationKeys.rowIndex,
+                          params: <String, String>{
+                            'index': (originalIndex + _rowNumberOffset).toString(),
+                          },
+                        ),
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
@@ -111,7 +123,13 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
               Padding(
                 padding: const EdgeInsets.only(top: _footerTopPadding),
                 child: Text(
-                  'Showing first $_maxPreviewRows of ${_originalIndices.length} eligible rows',
+                  AppL10n.tr(
+                    AppTranslationKeys.showingFirstMaxrowsOfRowcountEligibleRows,
+                    params: <String, String>{
+                      'maxRows': _maxPreviewRows.toString(),
+                      'rowCount': _originalIndices.length.toString(),
+                    },
+                  ),
                   style: const TextStyle(
                     fontSize: _subtitleFontSize,
                     color: Colors.grey,
@@ -122,7 +140,12 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
               Padding(
                 padding: const EdgeInsets.only(top: _footerTopPadding),
                 child: Text(
-                  'Showing ${_originalIndices.length} eligible rows (excluded rows with < 3 columns)',
+                  AppL10n.tr(
+                    AppTranslationKeys.showingRowcountEligibleRowsExcludedRowsWith3Columns,
+                    params: <String, String>{
+                      'rowCount': _originalIndices.length.toString(),
+                    },
+                  ),
                   style: const TextStyle(
                     fontSize: _subtitleFontSize,
                     color: Colors.grey,
@@ -134,7 +157,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(

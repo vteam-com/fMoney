@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/pure/form_field_switch.dart';
@@ -59,7 +61,7 @@ class DataObject extends DataInterface {
   /// SubTitle    |
   ///
   /// Expect this to be override by the derived domain classes
-  Widget buildFieldsAsWidgetForSmallScreen() => const Text('Small screen content goes here');
+  Widget buildFieldsAsWidgetForSmallScreen() => Text(AppL10n.tr(AppTranslationKeys.smallScreenContentGoesHere));
 
   ///
   /// Name: Bob
@@ -69,7 +71,13 @@ class DataObject extends DataInterface {
     bool compact = false,
   }) {
     if (fieldDefinitions.isEmpty) {
-      return <Widget>[Center(child: Text('No fields found for $this'))];
+      return <Widget>[
+        Center(
+          child: Text(
+            AppL10n.tr(AppTranslationKeys.noFieldsFoundForItem, params: <String, String>{'item': toString()}),
+          ),
+        ),
+      ];
     }
     final List<Widget> widgets = <Widget>[];
 
@@ -103,7 +111,7 @@ class DataObject extends DataInterface {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('ID: '),
+              Text(AppL10n.tr(AppTranslationKeys.idLabel)),
               SelectableText(uniqueId.toString()),
             ],
           ),

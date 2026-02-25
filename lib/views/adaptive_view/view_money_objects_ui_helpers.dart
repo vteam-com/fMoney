@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/money_object_card.dart';
 import 'package:money/widgets/pivot_toggle_row.dart';
@@ -41,7 +43,7 @@ Widget buildStandardSidePanelDetailsWrapUi<T extends DataObject>({
   required String title,
 }) {
   if (selectedItem == null) {
-    return const CenterMessage(message: 'No item selected.');
+    return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
   }
 
   return SingleChildScrollView(
@@ -108,7 +110,7 @@ Widget buildCenterMessageForEmptyListDueToFiltersUi({
                     onPressed: onClearFilters,
                     child: Row(
                       children: <Widget>[
-                        const Text('Clear Filters'),
+                        Text(AppL10n.tr(AppTranslationKeys.clearFilters)),
                         gapSmall(),
                         const Icon(Icons.filter_alt_off_outlined),
                       ],

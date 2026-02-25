@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/my_segment.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_edit_box.dart';
@@ -73,11 +75,11 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: TransactionFlavor.payee.index,
-          label: const Text('Payee'),
+          label: Text(AppL10n.tr(AppTranslationKeys.payee)),
         ),
         ButtonSegment<int>(
           value: TransactionFlavor.transfer.index,
-          label: const Text('Transfer'),
+          label: Text(AppL10n.tr(AppTranslationKeys.transfer)),
         ),
       ],
       selectedId: _choice.index,
@@ -96,7 +98,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
         children: <Widget>[
           Expanded(
             child: PickerEditBox(
-              title: 'Payee',
+              title: AppL10n.tr(AppTranslationKeys.payee),
               items: widget.payeeNames,
               initialValue: widget.selectedPayeeName ?? '',
               onChanged: (String? name) {

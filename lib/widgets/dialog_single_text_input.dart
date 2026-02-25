@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,7 +60,7 @@ Future<void> showTextInputDialog({
               Navigator.pop(context);
               onCancel?.call();
             },
-            child: const Text('Cancel'),
+            child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -66,7 +68,7 @@ Future<void> showTextInputDialog({
               Navigator.pop(context);
               onContinue(text);
             },
-            child: const Text('Continue'),
+            child: Text(AppL10n.tr(AppTranslationKeys.continueLabel)),
           ),
         ],
       );

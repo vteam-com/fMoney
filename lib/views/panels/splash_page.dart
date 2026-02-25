@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/text_title.dart';
 
@@ -22,7 +24,7 @@ class SplashScreen extends StatelessWidget {
           height: _splashHeight,
           child: Column(
             children: <Widget>[
-              const TextTitle('fMoney'),
+              TextTitle(AppL10n.tr(AppTranslationKeys.fmoney)),
               gapHuge(),
               const CircularProgressIndicator(),
             ],

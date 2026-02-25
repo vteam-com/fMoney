@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/views/panels/policies/view_policy.dart';
 import 'package:money/widgets/text_title.dart';
@@ -10,7 +12,7 @@ class PolicyPage extends GetView<GetxController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const TextTitle('Policy'), centerTitle: true),
+      appBar: AppBar(title: TextTitle(AppL10n.tr(AppTranslationKeys.policy)), centerTitle: true),
       body: Container(
         color: getColorTheme(context).surface,
         child: const SafeArea(child: PolicyScreen()),

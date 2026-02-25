@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/pair_xyz.dart';
@@ -66,7 +68,7 @@ class ViewRentalsSidePanel {
       //
       final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
       if (rental == null) {
-        return const Center(child: Text('Rental property not found'));
+        return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
       }
 
       final List<PairXYY> dataPoints = <PairXYY>[];
@@ -92,13 +94,13 @@ class ViewRentalsSidePanel {
   }) {
     keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
-      return const Text('Select a Rental property to see its P&L');
+      return Text(AppL10n.tr(AppTranslationKeys.selectARentalPropertyToSeeItsPL));
     }
 
     // Single Rental property selected
     final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
     if (rental == null) {
-      return const Center(child: Text('Rental property not found'));
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
     }
 
     // Show PnL for the selected rental property, per year
@@ -132,7 +134,7 @@ class ViewRentalsSidePanel {
     keepUnused(showAsNativeCurrency);
     final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
     if (rental == null) {
-      return const Center(child: Text('Rental property not found'));
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
     }
     final SelectionController selectionController = Get.put(
       SelectionController(),

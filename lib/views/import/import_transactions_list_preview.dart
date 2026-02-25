@@ -1,4 +1,6 @@
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -121,10 +123,10 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
                   style: const TextStyle(fontSize: SizeForText.small),
                 ),
                 const Spacer(),
-                const Text(
-                  'Total',
+                Text(
+                  AppL10n.tr(AppTranslationKeys.total),
                   textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: SizeForText.small),
+                  style: const TextStyle(fontSize: SizeForText.small),
                 ),
                 gapSmall(),
                 WidgetFromData(
@@ -200,8 +202,8 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
       children: <Widget>[
         Expanded(child: valueQuality.valueAsTextWidget(context)),
         if (payeeMatch)
-          const Badge(
-            label: Text('Payee Match'),
+          Badge(
+            label: Text(AppL10n.tr(AppTranslationKeys.payeeMatch)),
             backgroundColor: Colors.lightBlue,
             textColor: Colors.black,
           ),

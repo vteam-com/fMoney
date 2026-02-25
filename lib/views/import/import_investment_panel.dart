@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
@@ -80,7 +82,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
               children: <Widget>[
                 // Title
                 Text(
-                  'Add Investment Transaction',
+                  AppL10n.tr(AppTranslationKeys.addInvestmentTransaction),
                   style: getTextTheme(context).titleLarge,
                 ),
 

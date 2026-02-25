@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/gaps.dart';
@@ -36,22 +38,22 @@ class ViewAIInstructions extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             gapLarge(),
-            const TextTitle('Ollama AI Assistant'),
+            TextTitle(AppL10n.tr(AppTranslationKeys.ollamaAiAssistant)),
             gapMedium(),
-            const Text(
-              'Ollama is required to use the AI assistant. Click below to install it.',
+            Text(
+              AppL10n.tr(AppTranslationKeys.ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt),
               textAlign: TextAlign.center,
             ),
             gapLarge(),
             if (!isOllamaInstalled)
               ElevatedButton(
                 onPressed: onInstall,
-                child: const Text('Install Ollama now'),
+                child: Text(AppL10n.tr(AppTranslationKeys.installOllamaNow)),
               ),
             if (!isOllamaRunning)
               ElevatedButton(
                 onPressed: onCheckStatus,
-                child: const Text('Run Ollama'),
+                child: Text(AppL10n.tr(AppTranslationKeys.runOllama)),
               ),
           ],
         ),

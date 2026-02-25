@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -151,7 +153,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
     final List<FlSpot> dataPoints = <FlSpot>[];
     if (investments.isEmpty) {
-      return const CenterMessage(message: 'No data');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noData));
     }
 
     for (final Investment investment in investments) {

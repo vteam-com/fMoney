@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const double _platformsPageWidth = 400.0;
@@ -15,7 +17,7 @@ class PlatformsPage extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Available on')),
+    appBar: AppBar(title: Text(AppL10n.tr(AppTranslationKeys.availableOn))),
     body: Center(
       child: SizedBox(
         width: _platformsPageWidth,

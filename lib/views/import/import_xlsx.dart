@@ -6,6 +6,8 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/xlsx_header_row_selector_dialog.dart';
@@ -93,7 +95,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
     if (sheetFile.name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No sheet XML found in XLSX file.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noSheetXmlFoundInXlsxFile))),
       );
       return;
     }
@@ -196,7 +198,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     if (filteredData.isEmpty) {
       debugPrint('ERROR: No valid data rows found after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('XLSX file contains no valid data.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoValidData))),
       );
       return;
     }
@@ -207,7 +209,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     if (worksheetData.isEmpty) {
       debugPrint('ERROR: Worksheet data is empty after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('XLSX file contains no data rows.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows))),
       );
       return;
     }
@@ -227,7 +229,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     );
     if (headerRowIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('XLSX import cancelled.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxImportCancelled))),
       );
       return;
     }
@@ -252,7 +254,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
     if (dataRows.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('XLSX file contains no data rows.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows))),
       );
       return;
     }
@@ -273,17 +275,21 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
         showAndConfirmTransactionToImport(context, importData);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No valid entries found in XLSX to import.')),
+          SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInXlsxToImport))),
         );
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('XLSX import cancelled.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxImportCancelled))),
       );
     }
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error importing XLSX: $e')),
+      SnackBar(
+        content: Text(
+          AppL10n.tr(AppTranslationKeys.errorImportingXlsxError, params: <String, String>{'error': e.toString()}),
+        ),
+      ),
     );
   }
 }

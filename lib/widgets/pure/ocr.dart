@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:pasteboard/pasteboard.dart';
@@ -36,7 +38,7 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
       child: ElevatedButton.icon(
         onPressed: _recognizeTextFromClipboard,
         icon: const Icon(Icons.content_paste_go_outlined),
-        label: const Text('OCR'),
+        label: Text(AppL10n.tr(AppTranslationKeys.ocr)),
       ),
     );
   }
@@ -93,7 +95,7 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
       }
     } else {
       SnackBarService.displayError(
-        title: 'OCR',
+        title: AppL10n.tr(AppTranslationKeys.ocr),
         message: 'No image found in clipboard.',
       );
     }

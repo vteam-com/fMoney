@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
@@ -277,7 +279,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
     if (choiceOfDateFormat.isEmpty) {
       return Text(
-        'Bad Date Format',
+        AppL10n.tr(AppTranslationKeys.badDateFormat),
         style: TextStyle(
           color: context.colorTheme.getColorForState(ColorState.error),
         ),
@@ -318,9 +320,9 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   Widget _buildChoiceOfDebitVsCredit() {
     return mySegmentSelector(
       context: context,
-      segments: const <ButtonSegment<int>>[
-        ButtonSegment<int>(value: 0, label: Text('Credit')),
-        ButtonSegment<int>(value: 1, label: Text('Debit')),
+      segments: <ButtonSegment<int>>[
+        ButtonSegment<int>(value: 0, label: Text(AppL10n.tr(AppTranslationKeys.credit))),
+        ButtonSegment<int>(value: 1, label: Text(AppL10n.tr(AppTranslationKeys.debit))),
       ],
       selectedId: _userChoiceDebitVsCredit,
       onSelectionChanged: (final int newSelection) {
@@ -339,7 +341,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Import transaction to account',
+          AppL10n.tr(AppTranslationKeys.importTransactionToAccount),
           style: getTextTheme(context).bodyLarge,
         ),
         gapLarge(),

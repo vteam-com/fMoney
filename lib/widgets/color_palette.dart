@@ -1,4 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/pure/gaps.dart';
 
@@ -50,7 +52,7 @@ class ColorPalette extends StatelessWidget {
     return Column(
       children: <Widget>[
         const Divider(),
-        const Text('Helper for debugging'),
+        Text(AppL10n.tr(AppTranslationKeys.helperForDebugging)),
         _buildColorBar(context, Colors.white, Colors.black, 'white', 'black'),
         _buildColorBar(context, Colors.black, Colors.white, 'black', 'white'),
         _buildColorBar(

@@ -1,5 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/gaps.dart';
 
@@ -53,9 +55,9 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
               filterText = value;
             });
           },
-          decoration: const InputDecoration(
-            labelText: 'filter',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: AppL10n.tr(AppTranslationKeys.filter),
+            border: const OutlineInputBorder(),
           ),
         ),
 
@@ -96,7 +98,14 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
           ),
         ),
         const Divider(),
-        Center(child: Text('${getIntAsText(getSelectedCount())} selected')),
+        Center(
+          child: Text(
+            AppL10n.tr(
+              AppTranslationKeys.countSelected,
+              params: <String, String>{'count': getIntAsText(getSelectedCount())},
+            ),
+          ),
+        ),
       ],
     );
   }

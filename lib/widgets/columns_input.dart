@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/columns/input_values.dart';
@@ -82,14 +84,14 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
       child: Column(
         children: <Widget>[
           TabBar(
-            tabs: const <Widget>[
-              Tab(
+            tabs: <Widget>[
+              const Tab(
                 key: Key('key_import_tab_three_columns'),
                 child: Text('3 columns'),
               ),
               Tab(
-                key: Key('key_import_tab_free_style'),
-                child: Text('Free style'),
+                key: const Key('key_import_tab_free_style'),
+                child: Text(AppL10n.tr(AppTranslationKeys.freeStyle)),
               ),
             ],
             onTap: (int index) {

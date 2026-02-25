@@ -1,5 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/providers/account.dart';
@@ -157,6 +159,6 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
         return TransferSenderReceiver(transfer: transfer);
       }
     }
-    return const CenterMessage(message: 'No item selected.');
+    return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
   }
 }

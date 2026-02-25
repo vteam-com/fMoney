@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/pair_xyz.dart';
@@ -26,7 +28,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
   @override
   Widget build(final BuildContext context) {
     if (widget.transactions.isEmpty) {
-      return const Center(child: Text('No transactions'));
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.noTransactions)));
     }
 
     final List<PairXYY> sumByPeriod = _calculateSumByPeriod();
@@ -115,6 +117,6 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
     // Optional: Show a snackbar to confirm copy
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+    ).showSnackBar(SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.copiedToClipboard))));
   }
 }

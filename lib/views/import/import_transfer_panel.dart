@@ -1,4 +1,5 @@
-// ignore: fcheck_one_class_per_file
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/providers/account.dart';
@@ -90,7 +91,7 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
               children: <Widget>[
                 // Title
                 Text(
-                  'Record a Transfer between two accounts',
+                  AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts),
                   style: getTextTheme(context).titleLarge,
                 ),
 
@@ -134,9 +135,9 @@ class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPan
                 gapMedium(),
 
                 if (!validAccounts)
-                  const Text(
-                    'Please select different accounts',
-                    style: TextStyle(color: Colors.red),
+                  Text(
+                    AppL10n.tr(AppTranslationKeys.pleaseSelectDifferentAccounts),
+                    style: const TextStyle(color: Colors.red),
                   ),
 
                 if (validAccounts)

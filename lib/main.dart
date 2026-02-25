@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/app_intents.dart';
 import 'package:money/helpers/application_bindings.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/home_routes.dart';
+import 'package:money/l10n/app_localizations.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
@@ -120,7 +122,16 @@ class MyApp extends StatelessWidget {
                 theme: themeController.themeDataLight,
                 darkTheme: themeController.themeDataDark,
                 themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
-                title: 'fMoney by VTeam',
+                onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
+                locale: Get.locale ?? const Locale('en'),
+                fallbackLocale: const Locale('en'),
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
                 initialBinding: ApplicationBindings(),
                 initialRoute: '/',
                 getPages: <GetPage<dynamic>>[

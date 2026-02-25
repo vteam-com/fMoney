@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 
 const int _previewRowLimit = 5;
 const double _columnHighlightAlpha = 0.5;
@@ -103,8 +105,8 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     if (widget.headers.isEmpty) {
       // Should not happen if CSV is valid and has headers
       return AlertDialog(
-        title: const Text('Error'), // Keep inner Text const if possible
-        content: const Text('CSV headers are missing or empty.'), // Keep inner Text const
+        title: Text(AppL10n.tr(AppTranslationKeys.error)), // Keep inner Text const if possible
+        content: Text(AppL10n.tr(AppTranslationKeys.csvHeadersAreMissingOrEmpty)), // Keep inner Text const
         actions: <Widget>[
           TextButton(
             child: const Text('OK'),
@@ -115,7 +117,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     }
 
     return AlertDialog(
-      title: const Text('Choose Columns'),
+      title: Text(AppL10n.tr(AppTranslationKeys.chooseColumns)),
       content: SingleChildScrollView(
         child: SizedBox(
           width: double.maxFinite, // Use available width
@@ -124,7 +126,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
             children: <Widget>[
               _buildMappingDropdowns(),
               const SizedBox(height: _previewSpacing),
-              const Text('Data Preview (First 5 rows):', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                AppL10n.tr(AppTranslationKeys.dataPreviewFirst5Rows),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               _buildPreviewTable(),
             ],
           ),
@@ -132,16 +137,16 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
           onPressed: () => Navigator.of(context).pop(), // No result means cancellation
         ),
         TextButton(
-          child: const Text('Confirm'),
+          child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
           onPressed: () {
             // Validate selections (all are selected)
             if (_selectedDateColumn == null || _selectedDescriptionColumn == null || _selectedAmountColumn == null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please map all fields (Date, Description, Amount).')),
+                SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.pleaseMapAllFieldsDateDescriptionAmount))),
               );
               return;
             }
@@ -185,7 +190,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
           border: const OutlineInputBorder(),
         ),
         initialValue: currentValue,
-        hint: const Text('Select column'),
+        hint: Text(AppL10n.tr(AppTranslationKeys.selectColumn)),
         isExpanded: true,
         items: _uniqueIds.map<DropdownMenuItem<String>>((String uniqueId) {
           return DropdownMenuItem<String>(
@@ -226,7 +231,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     // Displaying only up to the first 5 data rows for preview
     final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
     if (previewRowCount == 0) {
-      return const Text('No data rows to preview.');
+      return Text(AppL10n.tr(AppTranslationKeys.noDataRowsToPreview));
     }
 
     final ColorScheme colorScheme = Theme.of(context).colorScheme;

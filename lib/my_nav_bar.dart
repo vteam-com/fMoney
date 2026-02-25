@@ -1,4 +1,6 @@
 import 'package:money/data/models/my_navigation_item.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/preferences_controller.dart';
@@ -68,7 +70,7 @@ class MyNavigationBar extends StatelessWidget {
           (final MyNavigationItem item) => NavigationDestination(
             key: item.key,
             label: item.label,
-            tooltip: 'Show ${item.label}',
+            tooltip: AppL10n.tr(AppTranslationKeys.navShowLabel, params: <String, String>{'label': item.label}),
             icon: item.icon,
             selectedIcon: item.icon,
           ),
@@ -93,65 +95,65 @@ class MyNavigationBar extends StatelessWidget {
   List<MyNavigationItem> getAppBarDestinations() {
     final List<MyNavigationItem> appBarDestinations = <MyNavigationItem>[
       MyNavigationItem(
-        label: 'Cashflow',
-        tooltip: 'Show your Cash Flow',
+        label: AppL10n.tr(AppTranslationKeys.navCashflow),
+        tooltip: AppL10n.tr(AppTranslationKeys.navCashflowTooltip),
         icon: ViewId.viewCashFlow.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Events',
-        tooltip: 'Your life events',
+        label: AppL10n.tr(AppTranslationKeys.navEvents),
+        tooltip: AppL10n.tr(AppTranslationKeys.navEventsTooltip),
         icon: ViewId.viewEvents.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Accounts',
-        tooltip: 'Show Accounts',
+        label: AppL10n.tr(AppTranslationKeys.navAccounts),
+        tooltip: AppL10n.tr(AppTranslationKeys.navAccountsTooltip),
         icon: ViewId.viewAccounts.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Categories',
-        tooltip: 'Show Categories',
+        label: AppL10n.tr(AppTranslationKeys.navCategories),
+        tooltip: AppL10n.tr(AppTranslationKeys.navCategoriesTooltip),
         icon: ViewId.viewCategories.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Payees',
-        tooltip: 'Show Payees',
+        label: AppL10n.tr(AppTranslationKeys.navPayees),
+        tooltip: AppL10n.tr(AppTranslationKeys.navPayeesTooltip),
         icon: ViewId.viewPayees.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Aliases',
-        tooltip: 'Show Aliases',
+        label: AppL10n.tr(AppTranslationKeys.navAliases),
+        tooltip: AppL10n.tr(AppTranslationKeys.navAliasesTooltip),
         icon: ViewId.viewAliases.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Transactions',
-        tooltip: 'Show Transactions',
+        label: AppL10n.tr(AppTranslationKeys.navTransactions),
+        tooltip: AppL10n.tr(AppTranslationKeys.navTransactionsTooltip),
         icon: ViewId.viewTransactions.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Transfers',
-        tooltip: 'View transfers between accounts',
+        label: AppL10n.tr(AppTranslationKeys.navTransfers),
+        tooltip: AppL10n.tr(AppTranslationKeys.navTransfersTooltip),
         icon: ViewId.viewTransfers.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Investments',
-        tooltip: 'Investment transactions',
+        label: AppL10n.tr(AppTranslationKeys.navInvestments),
+        tooltip: AppL10n.tr(AppTranslationKeys.navInvestmentsTooltip),
         icon: ViewId.viewInvestments.getIcon(),
       ),
       MyNavigationItem(
-        label: 'Stocks',
-        tooltip: 'Stocks tracking',
+        label: AppL10n.tr(AppTranslationKeys.navStocks),
+        tooltip: AppL10n.tr(AppTranslationKeys.navStocksTooltip),
         icon: ViewId.viewStocks.getIcon(),
       ),
       if (PreferenceController.to.includeRentalManagement)
         MyNavigationItem(
-          label: 'Rentals',
-          tooltip: 'Rentals',
+          label: AppL10n.tr(AppTranslationKeys.navRentals),
+          tooltip: AppL10n.tr(AppTranslationKeys.navRentalsTooltip),
           icon: ViewId.viewRentals.getIcon(),
         ),
 
       MyNavigationItem(
-        label: 'AI Assistant',
-        tooltip: 'AI-powered financial insights',
+        label: AppL10n.tr(AppTranslationKeys.aiAssistant),
+        tooltip: AppL10n.tr(AppTranslationKeys.navAiAssistantTooltip),
         icon: ViewId.viewAI.getIcon(),
       ),
     ];

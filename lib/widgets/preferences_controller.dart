@@ -1,4 +1,5 @@
 // ignore: fcheck_dead_code
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -43,6 +44,7 @@ class PreferenceController extends GetxController {
   Rx<bool> trendIncludeAssetAccounts = false.obs;
 
   final RxString _apiKeyForStocks = ''.obs;
+  final RxString _localeCode = 'en'.obs;
   final RxBool _includeClosedAccounts = false.obs;
 
   ///---------------------------------
@@ -156,6 +158,17 @@ class PreferenceController extends GetxController {
   ///---------------------------------
   /// Stock quote API Key
   String get apiKeyForStocks => _apiKeyForStocks.value;
+
+  /// Returns the persisted app locale code (`en` or `fr`).
+  String get localeCode => _localeCode.value;
+
+  /// Sets app locale, persists it, and updates GetX locale.
+  set localeCode(final String value) {
+    final String sanitized = value == 'fr' ? 'fr' : 'en';
+    _localeCode.value = sanitized;
+    setString(settingKeyLocale, sanitized);
+    Get.updateLocale(Locale(sanitized));
+  }
 
   ///---------------------------------
   set apiKeyForStocks(final String value) {
@@ -277,6 +290,8 @@ class PreferenceController extends GetxController {
     );
     _includeRentalManagement.value = getBool(settingKeyRentalsSupport, false);
     _apiKeyForStocks.value = getString(settingKeyStockApiKey, '');
+    _localeCode.value = getString(settingKeyLocale, 'en');
+    Get.updateLocale(Locale(_localeCode.value == 'fr' ? 'fr' : 'en'));
 
     cashflowViewAs.value =
         CashflowViewAs.values[getInt(

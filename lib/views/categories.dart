@@ -2,6 +2,8 @@
 import 'package:collection/collection.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -67,7 +69,7 @@ class Categories extends MoneyObjects<Category> {
       padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
       radius: const Radius.circular(3),
     ),
-    child: const Text('Split'),
+    child: Text(AppL10n.tr(AppTranslationKeys.split)),
   );
 
   /// Add a new Category ensure that the name is unique under the parent or root
@@ -223,7 +225,7 @@ class Categories extends MoneyObjects<Category> {
       return categoryWidgetForSplit;
     }
 
-    return get(id)?.getColorAndNameWidget() ?? const Text('Unknown');
+    return get(id)?.getColorAndNameWidget() ?? Text(AppL10n.tr(AppTranslationKeys.unknown));
   }
 
   /// Returns a sorted list of all categories by name.

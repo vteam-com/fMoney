@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/working.dart';
@@ -37,7 +39,7 @@ class ProcessingIndicator extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              'Thinking...',
+              AppL10n.tr(AppTranslationKeys.thinking),
               style: TextStyle(
                 color: getColorTheme(context).onSurfaceVariant,
                 fontStyle: FontStyle.italic,

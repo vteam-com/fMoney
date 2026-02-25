@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -195,17 +197,17 @@ class _PanelBudgetState extends State<PanelBudget> {
           segments: <ButtonSegment<int>>[
             ButtonSegment<int>(
               value: BudgetViewAs.list.index,
-              label: const Text('List'),
+              label: Text(AppL10n.tr(AppTranslationKeys.list)),
             ),
             ButtonSegment<int>(
               value: BudgetViewAs.chart.index,
-              label: const Text('Chart'),
+              label: Text(AppL10n.tr(AppTranslationKeys.chart)),
             ),
             ButtonSegment<int>(
               value: BudgetViewAs.recurrences.index,
-              label: const Text('Recurring'),
+              label: Text(AppL10n.tr(AppTranslationKeys.recurring)),
             ),
-            const ButtonSegment<int>(value: _suggestionSegmentValue, label: Text('Suggestion')),
+            ButtonSegment<int>(value: _suggestionSegmentValue, label: Text(AppL10n.tr(AppTranslationKeys.suggestion))),
           ],
           selectedId: panelType.index,
           onSelectionChanged: (final int newSelection) {
@@ -238,10 +240,12 @@ class _PanelBudgetState extends State<PanelBudget> {
   Widget _buildContent() {
     switch (panelType) {
       case BudgetViewAs.list:
-        return isListEmpty ? const CenterMessage(message: 'No budget income category found') : _buildList();
+        return isListEmpty
+            ? CenterMessage(message: AppL10n.tr(AppTranslationKeys.noBudgetIncomeCategoryFound))
+            : _buildList();
 
       case BudgetViewAs.chart:
-        return const CenterMessage(message: 'CHART ');
+        return CenterMessage(message: AppL10n.tr(AppTranslationKeys.chartUpperSpacer));
 
       case BudgetViewAs.recurrences:
         final DateRange dateRangeTransactions = DateRange.fromStarEndYears(
@@ -286,13 +290,13 @@ class _PanelBudgetState extends State<PanelBudget> {
         children: <Widget>[
           Text(widget.title, style: context.textTheme.headlineLarge),
           const SizedBox(height: _spacingLarge),
-          Text('Monthly Budgeted', style: context.textTheme.bodyLarge),
+          Text(AppL10n.tr(AppTranslationKeys.monthlyBudgeted), style: context.textTheme.bodyLarge),
           WidgetFromData.fromDouble(
             sumForAllCategoriesBudget,
             DataWidgetSize.header,
           ),
           const SizedBox(height: _spacingMedium),
-          Text('Monthly Actual', style: context.textTheme.bodyLarge),
+          Text(AppL10n.tr(AppTranslationKeys.monthlyActual), style: context.textTheme.bodyLarge),
           WidgetFromData.fromDouble(
             sumForAllCategoriesActual,
             DataWidgetSize.header,

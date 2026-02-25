@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/mru_dropdown.dart';
@@ -23,9 +25,9 @@ class WelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Spacer(),
-          const Text(
-            'Choose an option to get started:',
-            style: TextStyle(fontSize: _welcomeTextFontSize),
+          Text(
+            AppL10n.tr(AppTranslationKeys.chooseAnOptionToGetStarted),
+            style: const TextStyle(fontSize: _welcomeTextFontSize),
           ),
           gapLarge(),
           Wrap(
@@ -39,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                   DataFileController.to.onFileNew();
                   Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
-                child: const Text('New File ...'),
+                child: Text(AppL10n.tr(AppTranslationKeys.newFile)),
               ),
               OutlinedButton(
                 onPressed: () async {
@@ -48,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                     Get.offAllNamed<dynamic>(Constants.routeHomePage);
                   }
                 },
-                child: const Text('Open File ...'),
+                child: Text(AppL10n.tr(AppTranslationKeys.openFile)),
               ),
               OutlinedButton(
                 onPressed: () async {
@@ -56,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
                   await DataFileController.to.loadDemoData();
                   Get.offAllNamed<dynamic>(Constants.routeHomePage);
                 },
-                child: const Text('Use Demo Data'),
+                child: Text(AppL10n.tr(AppTranslationKeys.useDemoData)),
               ),
             ],
           ),
@@ -72,14 +74,14 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       Get.toNamed<dynamic>(Constants.routePolicyPage);
                     },
-                    child: const Text('Privacy Policy'),
+                    child: Text(AppL10n.tr(AppTranslationKeys.privacyPolicy)),
                   ),
                   gapLarge(),
                   TextButton(
                     onPressed: () {
                       showLicensePage(context: context);
                     },
-                    child: const Text('Licenses'),
+                    child: Text(AppL10n.tr(AppTranslationKeys.licenses)),
                   ),
                 ],
               ),

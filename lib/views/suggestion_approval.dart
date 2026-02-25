@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/list_view_transaction_splits.dart';
@@ -159,7 +161,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
     showDialog<void>(
       context: context,
       builder: (BuildContext dialogContext) => AlertDialog(
-        title: const Text('Transaction split'),
+        title: Text(AppL10n.tr(AppTranslationKeys.transactionSplit)),
         content: IntrinsicHeight(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +182,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Close'),
+            child: Text(AppL10n.tr(AppTranslationKeys.close)),
           ),
           TextButton(
             onPressed: () {
@@ -199,7 +201,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
               newSplit.mutation = MutationType.inserted;
               Data().splits.appendMoneyObject(newSplit);
             },
-            child: const Text('Add'),
+            child: Text(AppL10n.tr(AppTranslationKeys.add)),
           ),
         ],
       ),

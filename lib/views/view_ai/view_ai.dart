@@ -2,6 +2,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/providers/account.dart';
 import 'package:money/providers/transaction.dart';
@@ -297,7 +299,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
               size: _checkingIconSize,
               color: getColorTheme(context).primary,
             ),
-            const Text('Checking Ollama status...'),
+            Text(AppL10n.tr(AppTranslationKeys.checkingOllamaStatus)),
             const WorkingIndicator(
               size: _checkingIconSize,
             ),

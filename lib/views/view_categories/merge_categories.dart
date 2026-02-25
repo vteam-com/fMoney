@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/providers/category.dart';
@@ -55,7 +57,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(width: _categoryLabelWidth, child: Text('From category')),
+            SizedBox(width: _categoryLabelWidth, child: Text(AppL10n.tr(AppTranslationKeys.fromCategory))),
             Expanded(
               child: Box(child: Text(widget.categoryToMove.fieldName.value)),
             ),
@@ -66,7 +68,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(width: _categoryLabelWidth, child: Text('To category')),
+            SizedBox(width: _categoryLabelWidth, child: Text(AppL10n.tr(AppTranslationKeys.toCategory))),
             Expanded(
               child: Box(
                 child: pickerCategory(
@@ -143,7 +145,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Append'),
+              child: Text(AppL10n.tr(AppTranslationKeys.append)),
             ),
           ),
           gapLarge(),
@@ -174,7 +176,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Merge'),
+              child: Text(AppL10n.tr(AppTranslationKeys.merge)),
             ),
           ),
         ],

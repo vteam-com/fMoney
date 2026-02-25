@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -40,7 +42,7 @@ class Chart extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     if (list.isEmpty) {
-      return const CenterMessage(message: 'No chart to display');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noChartToDisplay));
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {

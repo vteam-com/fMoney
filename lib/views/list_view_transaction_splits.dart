@@ -1,5 +1,7 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/dialog_mutate_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
@@ -85,12 +87,12 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
                   // update
                 });
               },
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Icon(Icons.refresh),
-                  SizedBox(width: 8),
-                  Text('Refresh list'),
+                  const Icon(Icons.refresh),
+                  const SizedBox(width: 8),
+                  Text(AppL10n.tr(AppTranslationKeys.refreshList)),
                 ],
               ),
             ),
@@ -122,7 +124,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     if (isTotalMatching) {
       return Row(
         children: <Widget>[
-          const Text('Amount is matching'),
+          Text(AppL10n.tr(AppTranslationKeys.amountIsMatching)),
           gapSmall(),
           WidgetFromData.fromDouble(sumOfSplits),
         ],
@@ -130,7 +132,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
     } else {
       return Row(
         children: <Widget>[
-          const Text('Amount is off by'),
+          Text(AppL10n.tr(AppTranslationKeys.amountIsOffBy)),
           gapSmall(),
           WidgetFromData.fromDouble(amountDelta),
         ],

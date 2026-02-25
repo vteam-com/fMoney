@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:money/data/models/dividend.dart';
 import 'package:money/data/models/stock_data_price.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -116,7 +118,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                 },
               );
             },
-            child: const Text('Set API Key'),
+            child: Text(AppL10n.tr(AppTranslationKeys.setApiKey)),
           ),
         );
       }
@@ -180,7 +182,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     _adjustMissingDataPointInThePast();
 
     if (dataPoints.isEmpty) {
-      return const CenterMessage(message: 'No data points');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noDataPoints));
     }
 
     // lines are drawn let to right sorted by time

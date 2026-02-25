@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_this
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -183,10 +185,10 @@ class Event extends DataObject {
 
   @override
   Widget buildFieldsAsWidgetForSmallScreen() {
-    return const MyListItemAsCard(
-      leftTopAsString: 'Begin',
-      rightTopAsString: 'End',
-      rightBottomAsString: 'Memo',
+    return MyListItemAsCard(
+      leftTopAsString: AppL10n.tr(AppTranslationKeys.begin),
+      rightTopAsString: AppL10n.tr(AppTranslationKeys.end),
+      rightBottomAsString: AppL10n.tr(AppTranslationKeys.memo),
     );
   }
 

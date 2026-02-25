@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/chart_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -27,7 +29,7 @@ class MyLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (dataPoints.isEmpty) {
-      return const Center(child: Text('No data to display'));
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.noDataToDisplay)));
     }
     return LineChart(
       LineChartData(

@@ -15,6 +15,7 @@ const String settingKeyFilterText = 'filterText';
 const String settingKeyFiltersColumns = 'filtersColumns';
 const String settingKeyIncludeClosedAccounts = 'includeClosedAccounts';
 const String settingKeyMRU = 'mru';
+const String settingKeyLocale = 'locale';
 const String settingKeyRentalsSupport = 'rentals';
 const String settingKeySelectedSidePanelTab = 'selectedSidePanelTab';
 const String settingKeySelectedListItemId = 'selectedItemId';

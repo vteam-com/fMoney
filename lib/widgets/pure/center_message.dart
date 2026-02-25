@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/pure/box.dart';
 
@@ -10,9 +12,9 @@ class CenterMessage extends StatelessWidget {
   /// constructor
   const CenterMessage({required this.message, this.child, super.key});
 
-  factory CenterMessage.noItems() => const CenterMessage(message: 'No items');
+  factory CenterMessage.noItems() => CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItems));
 
-  factory CenterMessage.noTransaction() => const CenterMessage(message: 'No transactions.');
+  factory CenterMessage.noTransaction() => CenterMessage(message: AppL10n.tr(AppTranslationKeys.noTransactionsPeriod));
 
   final Widget? child;
   final String message;

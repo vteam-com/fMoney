@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
@@ -514,7 +516,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
 
     if (moneyObject == null) {
-      return const CenterMessage(message: 'No item selected.');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
     }
 
     return SingleChildScrollView(

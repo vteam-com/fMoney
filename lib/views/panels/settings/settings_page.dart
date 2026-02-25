@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/providers/currency.dart';
 import 'package:money/views/data.dart';
@@ -18,24 +20,26 @@ class SettingsPage extends GetView<GetxController> {
   /// Builds the settings page UI.
   @override
   Widget build(BuildContext context) {
+    final String localeCode = Localizations.localeOf(context).languageCode;
     return myScaffold(
       context,
-      AppBar(title: const TextTitle('Settings'), centerTitle: true),
+      AppBar(title: TextTitle(AppL10n.tr(AppTranslationKeys.settings)), centerTitle: true),
       Center(
         child: SingleChildScrollView(
           child: Box(
             child: Column(
               children: <Widget>[
                 SwitchListTile(
-                  title: const Text('Rental'),
-                  subtitle: const Text(
-                    'Manage the expenses and rental income of properties.',
+                  title: Text(AppL10n.tr(AppTranslationKeys.rental)),
+                  subtitle: Text(
+                    AppL10n.tr(AppTranslationKeys.manageTheExpensesAndRentalIncomeOfProperties),
                   ),
                   value: PreferenceController.to.includeRentalManagement,
                   onChanged: (bool _) {
                     PreferenceController.to.includeRentalManagement = !PreferenceController.to.includeRentalManagement;
                   },
                 ),
+                _buildLanguageControl(localeCode),
                 const Divider(height: 50),
                 MyTextInput(
                   hintText: 'Stock service API key from https://twelvedata.com',
@@ -47,6 +51,30 @@ class SettingsPage extends GetView<GetxController> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /// Builds the language selector that switches the active app locale.
+  Widget _buildLanguageControl(final String localeCode) {
+    return ListTile(
+      title: Text(AppL10n.tr(AppTranslationKeys.language)),
+      subtitle: SegmentedButton<String>(
+        segments: <ButtonSegment<String>>[
+          ButtonSegment<String>(
+            value: 'en',
+            label: Text(AppL10n.tr(AppTranslationKeys.languageEnglish)),
+          ),
+          ButtonSegment<String>(
+            value: 'fr',
+            label: Text(AppL10n.tr(AppTranslationKeys.languageFrench)),
+          ),
+        ],
+        selected: <String>{localeCode == 'fr' ? 'fr' : 'en'},
+        onSelectionChanged: (Set<String> selection) {
+          final String newLocaleCode = selection.first;
+          PreferenceController.to.localeCode = newLocaleCode;
+        },
       ),
     );
   }

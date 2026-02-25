@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
@@ -111,19 +113,19 @@ Widget getFooterForNumericRange(final RunningAverage range, final FieldType fiel
                 children: <TableRow>[
                   TableRow(
                     children: <Widget>[
-                      const Text('Min: '),
+                      Text(AppL10n.tr(AppTranslationKeys.minLabel)),
                       Text(_formatValue(min, fieldType), textAlign: TextAlign.right),
                     ],
                   ),
                   TableRow(
                     children: <Widget>[
-                      const Text('Avg: '),
+                      Text(AppL10n.tr(AppTranslationKeys.avgLabel)),
                       Text(_formatValue(avg, fieldType), textAlign: TextAlign.right),
                     ],
                   ),
                   TableRow(
                     children: <Widget>[
-                      const Text('Max: '),
+                      Text(AppL10n.tr(AppTranslationKeys.maxLabel)),
                       Text(_formatValue(max, fieldType), textAlign: TextAlign.right),
                     ],
                   ),

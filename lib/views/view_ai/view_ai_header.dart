@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/my_svg.dart';
@@ -53,7 +55,7 @@ class ViewAiHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             spacing: _headerSpacing,
             children: <Widget>[
-              const TextTitle('AI Assistant'),
+              TextTitle(AppL10n.tr(AppTranslationKeys.aiAssistant)),
               if (availableModels.isNotEmpty)
                 PopupMenuButton<String>(
                   constraints: const BoxConstraints(minWidth: _modelMenuMinWidth),
@@ -156,7 +158,13 @@ class ViewAiHeader extends StatelessWidget {
               ),
               if (questionCount > 0 || contextTokensCount > 0)
                 Text(
-                  'Questions: $questionCount | Tokens: ${formatByteSize(contextTokensCount)}',
+                  AppL10n.tr(
+                    AppTranslationKeys.questionsQuestioncountTokensTokencount,
+                    params: <String, String>{
+                      'questionCount': questionCount.toString(),
+                      'tokenCount': formatByteSize(contextTokensCount),
+                    },
+                  ),
                   style: TextStyle(
                     fontSize: _footerFontSize,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,

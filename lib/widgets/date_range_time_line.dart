@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 
 const int _inclusiveYearCount = 1;
@@ -38,7 +40,10 @@ class DateRangeTimeline extends StatelessWidget {
             Text('${startDate.year}', style: style),
 
             // Number of years
-            Text('$numYears years', style: style),
+            Text(
+              AppL10n.tr(AppTranslationKeys.countYears, params: <String, String>{'count': numYears.toString()}),
+              style: style,
+            ),
 
             // End year
             Text('${endDate.year}', style: style),

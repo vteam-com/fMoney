@@ -1,5 +1,7 @@
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 
 const double _dropOverlayAlpha = 0.2;
 const double _dropOverlayFontSize = 24;
@@ -53,10 +55,10 @@ class DropZoneState extends State<DropZone> {
           if (_dragging)
             Container(
               color: Colors.blue.withValues(alpha: _dropOverlayAlpha),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'Drop files here',
-                  style: TextStyle(
+                  AppL10n.tr(AppTranslationKeys.dropFilesHere),
+                  style: const TextStyle(
                     fontSize: _dropOverlayFontSize,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,0 +1,272 @@
+{
+  "accountNames": "Noms des comptes",
+  "add": "Ajouter",
+  "addInvestmentTransaction": "Ajouter une transaction d'investissement",
+  "aiAssistant": "Assistant IA",
+  "amountIsMatching": "Le montant correspond",
+  "amountIsOffBy": "Le montant differe de",
+  "analyzeSpending": "Analyser les depenses",
+  "appTitle": "fMoney par VTeam",
+  "append": "Ajouter",
+  "availableOn": "Disponible sur",
+  "avgLabel": "Moy. : ",
+  "badDateFormat": "Format de date invalide",
+  "bankaccounts": "Comptes bancaires",
+  "begin": "Debut",
+  "budget": "Budget",
+  "cancel": "Annuler",
+  "cash": "Liquidites",
+  "cashFlow": "Flux de tresorerie",
+  "chart": "Graphique",
+  "chartUpperSpacer": "GRAPHIQUE ",
+  "checkingOllamaStatus": "Verification du statut Ollama...",
+  "chooseAnOptionToGetStarted": "Choisissez une option pour commencer :",
+  "chooseColumns": "Choisir les colonnes",
+  "clearFilters": "Effacer les filtres",
+  "close": "Fermer",
+  "confirm": "Confirmer",
+  "content": "Contenu :",
+  "contentGoesHere": "Le contenu apparait ici",
+  "continueLabel": "Continuer",
+  "copiedToClipboard": "Copie dans le presse-papiers",
+  "countSelected": "@count selectionnes",
+  "@countSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "countYears": "@count ans",
+  "@countYears": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "credit": "Credit",
+  "csvFileEmpty": "Le fichier CSV est vide.",
+  "csvHeadersAreMissingOrEmpty": "Les en-tetes CSV sont manquants ou vides.",
+  "csvImportCancelled": "Import CSV annule.",
+  "dataPreviewFirst5Rows": "Apercu des donnees (5 premieres lignes) :",
+  "debit": "Debit",
+  "details": "Details",
+  "dropFilesHere": "Deposez les fichiers ici",
+  "elapsedElapsed": "Ecoule : @elapsed",
+  "@elapsedElapsed": {
+    "placeholders": {
+      "elapsed": {
+        "type": "String"
+      }
+    }
+  },
+  "end": "Fin",
+  "error": "Erreur",
+  "errorImportingCsvError": "Erreur lors de l'import CSV : @error",
+  "@errorImportingCsvError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "errorImportingXlsxError": "Erreur lors de l'import XLSX : @error",
+  "@errorImportingXlsxError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "expensePredictions": "Previsions de depenses",
+  "filter": "filtre",
+  "fmoney": "fMoney",
+  "forSpacer": " pour ",
+  "freeStyle": "Style libre",
+  "fromCategory": "De la categorie",
+  "fromPayee": "Du beneficiaire",
+  "fullPromptSentToAi": "Prompt complet envoye a l'IA",
+  "helperForDebugging": "Aide au debogage",
+  "idLabel": "ID : ",
+  "importTransactionToAccount": "Importer la transaction vers le compte",
+  "includeAssetAccounts": "Inclure les comptes d'actifs",
+  "installOllamaNow": "Installer Ollama maintenant",
+  "investments": "Investissements",
+  "keepAllTransactionsToTheirCurrentCategories": "Conserver toutes les transactions dans leurs categories actuelles",
+  "language": "Langue",
+  "languageEnglish": "Anglais",
+  "languageFrench": "Francais",
+  "largestTransactions": "Plus grosses transactions",
+  "licenses": "Licences",
+  "list": "Liste",
+  "manageTheExpensesAndRentalIncomeOfProperties": "Gerer les depenses et les revenus locatifs des proprietes.",
+  "maxLabel": "Max : ",
+  "memo": "Memo",
+  "merge": "Fusionner",
+  "messageDetails": "Details du message",
+  "minLabel": "Min : ",
+  "missingTransfer": "Transfert manquant",
+  "monthlyActual": "Mensuel reel",
+  "monthlyBudgeted": "Mensuel budgete",
+  "navAccounts": "Comptes",
+  "navAccountsTooltip": "Afficher les comptes",
+  "navAiAssistantTooltip": "Analyses financieres assistees par IA",
+  "navAliases": "Alias",
+  "navAliasesTooltip": "Afficher les alias",
+  "navCashflow": "Flux",
+  "navCashflowTooltip": "Afficher votre flux de tresorerie",
+  "navCategories": "Categories",
+  "navCategoriesTooltip": "Afficher les categories",
+  "navEvents": "Evenements",
+  "navEventsTooltip": "Vos evenements de vie",
+  "navInvestments": "Investissements",
+  "navInvestmentsTooltip": "Transactions d'investissement",
+  "navPayees": "Beneficiaires",
+  "navPayeesTooltip": "Afficher les beneficiaires",
+  "navRentals": "Locations",
+  "navRentalsTooltip": "Locations",
+  "navShowLabel": "Afficher @label",
+  "@navShowLabel": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "navStocks": "Actions",
+  "navStocksTooltip": "Suivi des actions",
+  "navTransactions": "Transactions",
+  "navTransactionsTooltip": "Afficher les transactions",
+  "navTransfers": "Transferts",
+  "navTransfersTooltip": "Voir les transferts entre comptes",
+  "networth": "Patrimoine",
+  "newFile": "Nouveau fichier ...",
+  "noAccountSelected": "Aucun compte selectionne",
+  "noAccountSelectedPeriod": "Aucun compte selectionne.",
+  "noBudgetIncomeCategoryFound": "Aucune categorie de revenu budgete trouvee",
+  "noChartToDisplay": "Aucun graphique a afficher",
+  "noData": "Aucune donnee",
+  "noDataPoints": "Aucun point de donnees",
+  "noDataRowsToPreview": "Aucune ligne de donnees a previsualiser.",
+  "noDataToDisplay": "Aucune donnee a afficher",
+  "noDateRangeYet": "Pas encore de plage de dates",
+  "noFieldsFoundForItem": "Aucun champ trouve pour @item",
+  "@noFieldsFoundForItem": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "noItemSelected": "Aucun element selectionne.",
+  "noItems": "Aucun element",
+  "noItemsWereTitle": "Aucun element n'a ete @title",
+  "@noItemsWereTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "noPicker": "aucun selecteur",
+  "noRelatedTransactions": "Aucune transaction associee",
+  "noRowsFoundWith3OrMoreColumns": "Aucune ligne avec 3 colonnes ou plus.",
+  "noSecuritySelected": "Aucun titre selectionne.",
+  "noSheetXmlFoundInXlsxFile": "Aucun XML de feuille trouve dans le fichier XLSX.",
+  "noStockSelected": "Aucune action selectionnee",
+  "noTransactions": "Aucune transaction",
+  "noTransactionsPeriod": "Aucune transaction.",
+  "noUi": "pas d'UI",
+  "noValidEntriesFoundInCsvToImport": "Aucune entree valide trouvee dans le CSV a importer.",
+  "noValidEntriesFoundInXlsxToImport": "Aucune entree valide trouvee dans le XLSX a importer.",
+  "ocr": "OCR",
+  "ollamaAiAssistant": "Assistant IA Ollama",
+  "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama est requis pour utiliser l'assistant IA. Cliquez ci-dessous pour l'installer.",
+  "openFile": "Ouvrir un fichier ...",
+  "orChangeToCategory": "ou changer vers la categorie",
+  "payee": "Beneficiaire",
+  "payeeMatch": "Correspondance beneficiaire",
+  "pleaseMapAllFieldsDateDescriptionAmount": "Veuillez mapper tous les champs (Date, Description, Montant).",
+  "pleaseSelectDifferentAccounts": "Veuillez selectionner des comptes differents",
+  "pnl": "P&L",
+  "policy": "Politique",
+  "privacyPolicy": "Politique de confidentialite",
+  "questionsQuestioncountTokensTokencount": "Questions : {questionCount} | Tokens : {tokenCount}",
+  "@questionsQuestioncountTokensTokencount": {
+    "placeholders": {
+      "questionCount": {
+        "type": "String"
+      },
+      "tokenCount": {
+        "type": "String"
+      }
+    }
+  },
+  "recordATransferBetweenTwoAccounts": "Enregistrer un transfert entre deux comptes",
+  "recurring": "Recurrent",
+  "refreshList": "Rafraichir la liste",
+  "rental": "Location",
+  "rentalPropertyNotFound": "Propriete locative introuvable",
+  "rowIndex": "Ligne {index}",
+  "@rowIndex": {
+    "placeholders": {
+      "index": {
+        "type": "String"
+      }
+    }
+  },
+  "runOllama": "Executer Ollama",
+  "sankey": "Sankey",
+  "selectARentalPropertyToSeeItsPL": "Selectionnez une propriete locative pour voir son P&L",
+  "selectColumn": "Selectionner une colonne",
+  "selectHeaderRow": "Selectionner la ligne d'en-tete",
+  "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Selectionnez la ligne qui contient les en-tetes de colonnes (selection automatique selon le contenu) :",
+  "setApiKey": "Definir la cle API",
+  "settings": "Parametres",
+  "showingFirstMaxrowsOfRowcountEligibleRows": "Affichage des {maxRows} premieres lignes sur {rowCount} lignes eligibles",
+  "@showingFirstMaxrowsOfRowcountEligibleRows": {
+    "placeholders": {
+      "maxRows": {
+        "type": "String"
+      },
+      "rowCount": {
+        "type": "String"
+      }
+    }
+  },
+  "showingRowcountEligibleRowsExcludedRowsWith3Columns": "Affichage de {rowCount} lignes eligibles (lignes < 3 colonnes exclues)",
+  "@showingRowcountEligibleRowsExcludedRowsWith3Columns": {
+    "placeholders": {
+      "rowCount": {
+        "type": "String"
+      }
+    }
+  },
+  "skippingDuplicate": " Doublon ignore ",
+  "smallScreenContentGoesHere": "Le contenu pour petit ecran apparait ici",
+  "split": "Repartition",
+  "suggestion": "Suggestion",
+  "thinking": "Reflexion...",
+  "timestampTimestamp": "Horodatage : @timestamp",
+  "@timestampTimestamp": {
+    "placeholders": {
+      "timestamp": {
+        "type": "String"
+      }
+    }
+  },
+  "toCategory": "Vers la categorie",
+  "toPayee": "Vers le beneficiaire",
+  "total": "Total",
+  "transactionSplit": "Repartition de transaction",
+  "transactions": "Transactions",
+  "transfer": "Transfert",
+  "trend": "Tendance",
+  "unknown": "Inconnu",
+  "useDemoData": "Utiliser des donnees de demonstration",
+  "welcomeToFmoney": "Bienvenue sur fMoney",
+  "xlsxFileContainsNoDataRows": "Le fichier XLSX ne contient aucune ligne de donnees.",
+  "xlsxFileContainsNoValidData": "Le fichier XLSX ne contient aucune donnee valide.",
+  "xlsxImportCancelled": "Import XLSX annule."
+}

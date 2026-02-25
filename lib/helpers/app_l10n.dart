@@ -1,0 +1,381 @@
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:money/l10n/app_localizations.dart';
+import 'package:money/l10n/app_localizations_en.dart';
+import 'package:money/l10n/app_localizations_fr.dart';
+
+/// Provides access to Flutter AppLocalizations without requiring BuildContext.
+class AppL10n {
+  AppL10n._();
+
+  /// Returns a localized string for [key] with optional [params].
+  static String tr(final String key, {final Map<String, String>? params}) {
+    final AppLocalizations l10n = _localizations;
+    final Map<String, String> p = params ?? <String, String>{};
+
+    switch (key) {
+      case 'accountNames':
+        return l10n.accountNames;
+      case 'add':
+        return l10n.add;
+      case 'addInvestmentTransaction':
+        return l10n.addInvestmentTransaction;
+      case 'amountIsMatching':
+        return l10n.amountIsMatching;
+      case 'amountIsOffBy':
+        return l10n.amountIsOffBy;
+      case 'analyzeSpending':
+        return l10n.analyzeSpending;
+      case 'append':
+        return l10n.append;
+      case 'availableOn':
+        return l10n.availableOn;
+      case 'avgLabel':
+        return l10n.avgLabel;
+      case 'badDateFormat':
+        return l10n.badDateFormat;
+      case 'bankaccounts':
+        return l10n.bankaccounts;
+      case 'budget':
+        return l10n.budget;
+      case 'cancel':
+        return l10n.cancel;
+      case 'cashFlow':
+        return l10n.cashFlow;
+      case 'chart':
+        return l10n.chart;
+      case 'checkingOllamaStatus':
+        return l10n.checkingOllamaStatus;
+      case 'chooseAnOptionToGetStarted':
+        return l10n.chooseAnOptionToGetStarted;
+      case 'chooseColumns':
+        return l10n.chooseColumns;
+      case 'clearFilters':
+        return l10n.clearFilters;
+      case 'close':
+        return l10n.close;
+      case 'confirm':
+        return l10n.confirm;
+      case 'content':
+        return l10n.content;
+      case 'contentGoesHere':
+        return l10n.contentGoesHere;
+      case 'continueLabel':
+        return l10n.continueLabel;
+      case 'copiedToClipboard':
+        return l10n.copiedToClipboard;
+      case 'countSelected':
+        return l10n.countSelected(p['count'] ?? '');
+      case 'countYears':
+        return l10n.countYears(p['count'] ?? '');
+      case 'credit':
+        return l10n.credit;
+      case 'csvFileEmpty':
+        return l10n.csvFileEmpty;
+      case 'csvHeadersAreMissingOrEmpty':
+        return l10n.csvHeadersAreMissingOrEmpty;
+      case 'csvImportCancelled':
+        return l10n.csvImportCancelled;
+      case 'dataPreviewFirst5Rows':
+        return l10n.dataPreviewFirst5Rows;
+      case 'debit':
+        return l10n.debit;
+      case 'details':
+        return l10n.details;
+      case 'dropFilesHere':
+        return l10n.dropFilesHere;
+      case 'elapsedElapsed':
+        return l10n.elapsedElapsed(p['elapsed'] ?? '');
+      case 'error':
+        return l10n.error;
+      case 'errorImportingCsvError':
+        return l10n.errorImportingCsvError(p['error'] ?? '');
+      case 'errorImportingXlsxError':
+        return l10n.errorImportingXlsxError(p['error'] ?? '');
+      case 'expensePredictions':
+        return l10n.expensePredictions;
+      case 'forSpacer':
+        return l10n.forSpacer;
+      case 'freeStyle':
+        return l10n.freeStyle;
+      case 'fromCategory':
+        return l10n.fromCategory;
+      case 'fromPayee':
+        return l10n.fromPayee;
+      case 'fullPromptSentToAi':
+        return l10n.fullPromptSentToAi;
+      case 'helperForDebugging':
+        return l10n.helperForDebugging;
+      case 'idLabel':
+        return l10n.idLabel;
+      case 'importTransactionToAccount':
+        return l10n.importTransactionToAccount;
+      case 'includeAssetAccounts':
+        return l10n.includeAssetAccounts;
+      case 'installOllamaNow':
+        return l10n.installOllamaNow;
+      case 'keepAllTransactionsToTheirCurrentCategories':
+        return l10n.keepAllTransactionsToTheirCurrentCategories;
+      case 'language':
+        return l10n.language;
+      case 'languageEnglish':
+        return l10n.languageEnglish;
+      case 'languageFrench':
+        return l10n.languageFrench;
+      case 'navCashflow':
+        return l10n.navCashflow;
+      case 'navCashflowTooltip':
+        return l10n.navCashflowTooltip;
+      case 'navEvents':
+        return l10n.navEvents;
+      case 'navEventsTooltip':
+        return l10n.navEventsTooltip;
+      case 'navAccounts':
+        return l10n.navAccounts;
+      case 'navAccountsTooltip':
+        return l10n.navAccountsTooltip;
+      case 'navCategories':
+        return l10n.navCategories;
+      case 'navCategoriesTooltip':
+        return l10n.navCategoriesTooltip;
+      case 'navPayees':
+        return l10n.navPayees;
+      case 'navPayeesTooltip':
+        return l10n.navPayeesTooltip;
+      case 'navAliases':
+        return l10n.navAliases;
+      case 'navAliasesTooltip':
+        return l10n.navAliasesTooltip;
+      case 'navTransactions':
+        return l10n.navTransactions;
+      case 'navTransactionsTooltip':
+        return l10n.navTransactionsTooltip;
+      case 'navTransfers':
+        return l10n.navTransfers;
+      case 'navTransfersTooltip':
+        return l10n.navTransfersTooltip;
+      case 'navInvestments':
+        return l10n.navInvestments;
+      case 'navInvestmentsTooltip':
+        return l10n.navInvestmentsTooltip;
+      case 'navStocks':
+        return l10n.navStocks;
+      case 'navStocksTooltip':
+        return l10n.navStocksTooltip;
+      case 'navRentals':
+        return l10n.navRentals;
+      case 'navRentalsTooltip':
+        return l10n.navRentalsTooltip;
+      case 'navAiAssistantTooltip':
+        return l10n.navAiAssistantTooltip;
+      case 'navShowLabel':
+        return l10n.navShowLabel(p['label'] ?? '');
+      case 'largestTransactions':
+        return l10n.largestTransactions;
+      case 'licenses':
+        return l10n.licenses;
+      case 'list':
+        return l10n.list;
+      case 'manageTheExpensesAndRentalIncomeOfProperties':
+        return l10n.manageTheExpensesAndRentalIncomeOfProperties;
+      case 'maxLabel':
+        return l10n.maxLabel;
+      case 'merge':
+        return l10n.merge;
+      case 'messageDetails':
+        return l10n.messageDetails;
+      case 'minLabel':
+        return l10n.minLabel;
+      case 'missingTransfer':
+        return l10n.missingTransfer;
+      case 'monthlyActual':
+        return l10n.monthlyActual;
+      case 'monthlyBudgeted':
+        return l10n.monthlyBudgeted;
+      case 'networth':
+        return l10n.networth;
+      case 'newFile':
+        return l10n.newFile;
+      case 'noAccountSelectedPeriod':
+        return l10n.noAccountSelectedPeriod;
+      case 'noAccountSelected':
+        return l10n.noAccountSelected;
+      case 'noDataRowsToPreview':
+        return l10n.noDataRowsToPreview;
+      case 'noDataPoints':
+        return l10n.noDataPoints;
+      case 'noData':
+        return l10n.noData;
+      case 'noDataToDisplay':
+        return l10n.noDataToDisplay;
+      case 'noDateRangeYet':
+        return l10n.noDateRangeYet;
+      case 'noFieldsFoundForItem':
+        return l10n.noFieldsFoundForItem(p['item'] ?? '');
+      case 'noItemsWereTitle':
+        return l10n.noItemsWereTitle(p['title'] ?? '');
+      case 'noItems':
+        return l10n.noItems;
+      case 'noItemSelected':
+        return l10n.noItemSelected;
+      case 'noPicker':
+        return l10n.noPicker;
+      case 'noRowsFoundWith3OrMoreColumns':
+        return l10n.noRowsFoundWith3OrMoreColumns;
+      case 'noSheetXmlFoundInXlsxFile':
+        return l10n.noSheetXmlFoundInXlsxFile;
+      case 'noStockSelected':
+        return l10n.noStockSelected;
+      case 'noSecuritySelected':
+        return l10n.noSecuritySelected;
+      case 'noTransactions':
+        return l10n.noTransactions;
+      case 'noTransactionsPeriod':
+        return l10n.noTransactionsPeriod;
+      case 'noRelatedTransactions':
+        return l10n.noRelatedTransactions;
+      case 'noUi':
+        return l10n.noUi;
+      case 'noValidEntriesFoundInCsvToImport':
+        return l10n.noValidEntriesFoundInCsvToImport;
+      case 'noValidEntriesFoundInXlsxToImport':
+        return l10n.noValidEntriesFoundInXlsxToImport;
+      case 'ocr':
+        return l10n.ocr;
+      case 'ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt':
+        return l10n.ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt;
+      case 'openFile':
+        return l10n.openFile;
+      case 'orChangeToCategory':
+        return l10n.orChangeToCategory;
+      case 'payee':
+        return l10n.payee;
+      case 'payeeMatch':
+        return l10n.payeeMatch;
+      case 'pleaseMapAllFieldsDateDescriptionAmount':
+        return l10n.pleaseMapAllFieldsDateDescriptionAmount;
+      case 'pleaseSelectDifferentAccounts':
+        return l10n.pleaseSelectDifferentAccounts;
+      case 'pnl':
+        return l10n.pnl;
+      case 'privacyPolicy':
+        return l10n.privacyPolicy;
+      case 'questionsQuestioncountTokensTokencount':
+        return l10n.questionsQuestioncountTokensTokencount(p['questionCount'] ?? '', p['tokenCount'] ?? '');
+      case 'recordATransferBetweenTwoAccounts':
+        return l10n.recordATransferBetweenTwoAccounts;
+      case 'recurring':
+        return l10n.recurring;
+      case 'refreshList':
+        return l10n.refreshList;
+      case 'rental':
+        return l10n.rental;
+      case 'rentalPropertyNotFound':
+        return l10n.rentalPropertyNotFound;
+      case 'rowIndex':
+        return l10n.rowIndex(p['index'] ?? '');
+      case 'begin':
+        return l10n.begin;
+      case 'end':
+        return l10n.end;
+      case 'memo':
+        return l10n.memo;
+      case 'runOllama':
+        return l10n.runOllama;
+      case 'sankey':
+        return l10n.sankey;
+      case 'selectARentalPropertyToSeeItsPL':
+        return l10n.selectARentalPropertyToSeeItsPL;
+      case 'selectColumn':
+        return l10n.selectColumn;
+      case 'selectHeaderRow':
+        return l10n.selectHeaderRow;
+      case 'selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent':
+        return l10n.selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent;
+      case 'setApiKey':
+        return l10n.setApiKey;
+      case 'settings':
+        return l10n.settings;
+      case 'policy':
+        return l10n.policy;
+      case 'filter':
+        return l10n.filter;
+      case 'showingFirstMaxrowsOfRowcountEligibleRows':
+        return l10n.showingFirstMaxrowsOfRowcountEligibleRows(p['maxRows'] ?? '', p['rowCount'] ?? '');
+      case 'showingRowcountEligibleRowsExcludedRowsWith3Columns':
+        return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(p['rowCount'] ?? '');
+      case 'skippingDuplicate':
+        return l10n.skippingDuplicate;
+      case 'smallScreenContentGoesHere':
+        return l10n.smallScreenContentGoesHere;
+      case 'aiAssistant':
+        return l10n.aiAssistant;
+      case 'ollamaAiAssistant':
+        return l10n.ollamaAiAssistant;
+      case 'investments':
+        return l10n.investments;
+      case 'cash':
+        return l10n.cash;
+      case 'chartUpperSpacer':
+        return l10n.chartUpperSpacer;
+      case 'fmoney':
+        return l10n.fmoney;
+      case 'noChartToDisplay':
+        return l10n.noChartToDisplay;
+      case 'noBudgetIncomeCategoryFound':
+        return l10n.noBudgetIncomeCategoryFound;
+      case 'split':
+        return l10n.split;
+      case 'suggestion':
+        return l10n.suggestion;
+      case 'thinking':
+        return l10n.thinking;
+      case 'timestampTimestamp':
+        return l10n.timestampTimestamp(p['timestamp'] ?? '');
+      case 'toCategory':
+        return l10n.toCategory;
+      case 'toPayee':
+        return l10n.toPayee;
+      case 'total':
+        return l10n.total;
+      case 'transactionSplit':
+        return l10n.transactionSplit;
+      case 'transactions':
+        return l10n.transactions;
+      case 'transfer':
+        return l10n.transfer;
+      case 'trend':
+        return l10n.trend;
+      case 'unknown':
+        return l10n.unknown;
+      case 'useDemoData':
+        return l10n.useDemoData;
+      case 'welcomeToFmoney':
+        return l10n.welcomeToFmoney;
+      case 'xlsxFileContainsNoDataRows':
+        return l10n.xlsxFileContainsNoDataRows;
+      case 'xlsxFileContainsNoValidData':
+        return l10n.xlsxFileContainsNoValidData;
+      case 'xlsxImportCancelled':
+        return l10n.xlsxImportCancelled;
+      default:
+        return key;
+    }
+  }
+
+  /// Resolves the current [AppLocalizations] using GetX context or locale fallback.
+  static AppLocalizations get _localizations {
+    final Locale locale = Get.locale ?? const Locale('en');
+    final BuildContext? context = Get.context;
+    if (context != null) {
+      final AppLocalizations? localized = AppLocalizations.of(context);
+      if (localized != null) {
+        return localized;
+      }
+    }
+    if (locale.languageCode == 'fr') {
+      return AppLocalizationsFr();
+    }
+    return AppLocalizationsEn();
+  }
+}

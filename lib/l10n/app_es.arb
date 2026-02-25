@@ -1,0 +1,272 @@
+{
+  "accountNames": "Account names",
+  "add": "Add",
+  "addInvestmentTransaction": "Add Investment Transaction",
+  "aiAssistant": "AI Assistant",
+  "amountIsMatching": "Amount is matching",
+  "amountIsOffBy": "Amount is off by",
+  "analyzeSpending": "Analyze spending",
+  "appTitle": "fMoney by VTeam",
+  "append": "Append",
+  "availableOn": "Available on",
+  "avgLabel": "Avg: ",
+  "badDateFormat": "Bad Date Format",
+  "bankaccounts": "BankAccounts",
+  "begin": "Begin",
+  "budget": "Budget",
+  "cancel": "Cancel",
+  "cash": "Cash",
+  "cashFlow": "Cash Flow",
+  "chart": "Chart",
+  "chartUpperSpacer": "CHART ",
+  "checkingOllamaStatus": "Checking Ollama status...",
+  "chooseAnOptionToGetStarted": "Choose an option to get started:",
+  "chooseColumns": "Choose Columns",
+  "clearFilters": "Clear Filters",
+  "close": "Close",
+  "confirm": "Confirm",
+  "content": "Content:",
+  "contentGoesHere": "Content goes here",
+  "continueLabel": "Continue",
+  "copiedToClipboard": "Copied to clipboard",
+  "countSelected": "@count selected",
+  "@countSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "countYears": "@count years",
+  "@countYears": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "credit": "Credit",
+  "csvFileEmpty": "CSV file is empty.",
+  "csvHeadersAreMissingOrEmpty": "CSV headers are missing or empty.",
+  "csvImportCancelled": "CSV import cancelled.",
+  "dataPreviewFirst5Rows": "Data Preview (First 5 rows):",
+  "debit": "Debit",
+  "details": "Details",
+  "dropFilesHere": "Drop files here",
+  "elapsedElapsed": "Elapsed: @elapsed",
+  "@elapsedElapsed": {
+    "placeholders": {
+      "elapsed": {
+        "type": "String"
+      }
+    }
+  },
+  "end": "End",
+  "error": "Error",
+  "errorImportingCsvError": "Error importing CSV: @error",
+  "@errorImportingCsvError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "errorImportingXlsxError": "Error importing XLSX: @error",
+  "@errorImportingXlsxError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "expensePredictions": "Expense predictions",
+  "filter": "filter",
+  "fmoney": "fMoney",
+  "forSpacer": " for ",
+  "freeStyle": "Free style",
+  "fromCategory": "From category",
+  "fromPayee": "From payee",
+  "fullPromptSentToAi": "Full Prompt Sent to AI",
+  "helperForDebugging": "Helper for debugging",
+  "idLabel": "ID: ",
+  "importTransactionToAccount": "Import transaction to account",
+  "includeAssetAccounts": "Include Asset Accounts",
+  "installOllamaNow": "Install Ollama now",
+  "investments": "Investments",
+  "keepAllTransactionsToTheirCurrentCategories": "Keep all transactions to their current categories",
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageFrench": "French",
+  "largestTransactions": "Largest transactions",
+  "licenses": "Licenses",
+  "list": "List",
+  "manageTheExpensesAndRentalIncomeOfProperties": "Manage the expenses and rental income of properties.",
+  "maxLabel": "Max: ",
+  "memo": "Memo",
+  "merge": "Merge",
+  "messageDetails": "Message Details",
+  "minLabel": "Min: ",
+  "missingTransfer": "Missing Transfer",
+  "monthlyActual": "Monthly Actual",
+  "monthlyBudgeted": "Monthly Budgeted",
+  "navAccounts": "Accounts",
+  "navAccountsTooltip": "Show Accounts",
+  "navAiAssistantTooltip": "AI-powered financial insights",
+  "navAliases": "Aliases",
+  "navAliasesTooltip": "Show Aliases",
+  "navCashflow": "Cashflow",
+  "navCashflowTooltip": "Show your Cash Flow",
+  "navCategories": "Categories",
+  "navCategoriesTooltip": "Show Categories",
+  "navEvents": "Events",
+  "navEventsTooltip": "Your life events",
+  "navInvestments": "Investments",
+  "navInvestmentsTooltip": "Investment transactions",
+  "navPayees": "Payees",
+  "navPayeesTooltip": "Show Payees",
+  "navRentals": "Rentals",
+  "navRentalsTooltip": "Rentals",
+  "navShowLabel": "Show @label",
+  "@navShowLabel": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "navStocks": "Stocks",
+  "navStocksTooltip": "Stocks tracking",
+  "navTransactions": "Transactions",
+  "navTransactionsTooltip": "Show Transactions",
+  "navTransfers": "Transfers",
+  "navTransfersTooltip": "View transfers between accounts",
+  "networth": "NetWorth",
+  "newFile": "New File ...",
+  "noAccountSelected": "No account selected",
+  "noAccountSelectedPeriod": "No account selected.",
+  "noBudgetIncomeCategoryFound": "No budget income category found",
+  "noChartToDisplay": "No chart to display",
+  "noData": "No data",
+  "noDataPoints": "No data points",
+  "noDataRowsToPreview": "No data rows to preview.",
+  "noDataToDisplay": "No data to display",
+  "noDateRangeYet": "No date range yet",
+  "noFieldsFoundForItem": "No fields found for @item",
+  "@noFieldsFoundForItem": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "noItemSelected": "No item selected.",
+  "noItems": "No items",
+  "noItemsWereTitle": "No items were @title",
+  "@noItemsWereTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "noPicker": "no picker",
+  "noRelatedTransactions": "No related transactions",
+  "noRowsFoundWith3OrMoreColumns": "No rows found with 3 or more columns.",
+  "noSecuritySelected": "No security selected.",
+  "noSheetXmlFoundInXlsxFile": "No sheet XML found in XLSX file.",
+  "noStockSelected": "No stock selected",
+  "noTransactions": "No transactions",
+  "noTransactionsPeriod": "No transactions.",
+  "noUi": "no UI",
+  "noValidEntriesFoundInCsvToImport": "No valid entries found in CSV to import.",
+  "noValidEntriesFoundInXlsxToImport": "No valid entries found in XLSX to import.",
+  "ocr": "OCR",
+  "ollamaAiAssistant": "Ollama AI Assistant",
+  "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama is required to use the AI assistant. Click below to install it.",
+  "openFile": "Open File ...",
+  "orChangeToCategory": "or change to category",
+  "payee": "Payee",
+  "payeeMatch": "Payee Match",
+  "pleaseMapAllFieldsDateDescriptionAmount": "Please map all fields (Date, Description, Amount).",
+  "pleaseSelectDifferentAccounts": "Please select different accounts",
+  "pnl": "PnL",
+  "policy": "Policy",
+  "privacyPolicy": "Privacy Policy",
+  "questionsQuestioncountTokensTokencount": "Questions: {questionCount} | Tokens: {tokenCount}",
+  "@questionsQuestioncountTokensTokencount": {
+    "placeholders": {
+      "questionCount": {
+        "type": "String"
+      },
+      "tokenCount": {
+        "type": "String"
+      }
+    }
+  },
+  "recordATransferBetweenTwoAccounts": "Record a Transfer between two accounts",
+  "recurring": "Recurring",
+  "refreshList": "Refresh list",
+  "rental": "Rental",
+  "rentalPropertyNotFound": "Rental property not found",
+  "rowIndex": "Row {index}",
+  "@rowIndex": {
+    "placeholders": {
+      "index": {
+        "type": "String"
+      }
+    }
+  },
+  "runOllama": "Run Ollama",
+  "sankey": "Sankey",
+  "selectARentalPropertyToSeeItsPL": "Select a Rental property to see its P&L",
+  "selectColumn": "Select column",
+  "selectHeaderRow": "Select Header Row",
+  "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Select the row that contains the column headers (automatically selected based on content):",
+  "setApiKey": "Set API Key",
+  "settings": "Settings",
+  "showingFirstMaxrowsOfRowcountEligibleRows": "Showing first {maxRows} of {rowCount} eligible rows",
+  "@showingFirstMaxrowsOfRowcountEligibleRows": {
+    "placeholders": {
+      "maxRows": {
+        "type": "String"
+      },
+      "rowCount": {
+        "type": "String"
+      }
+    }
+  },
+  "showingRowcountEligibleRowsExcludedRowsWith3Columns": "Showing {rowCount} eligible rows (excluded rows with < 3 columns)",
+  "@showingRowcountEligibleRowsExcludedRowsWith3Columns": {
+    "placeholders": {
+      "rowCount": {
+        "type": "String"
+      }
+    }
+  },
+  "skippingDuplicate": " Skipping Duplicate ",
+  "smallScreenContentGoesHere": "Small screen content goes here",
+  "split": "Split",
+  "suggestion": "Suggestion",
+  "thinking": "Thinking...",
+  "timestampTimestamp": "Timestamp: @timestamp",
+  "@timestampTimestamp": {
+    "placeholders": {
+      "timestamp": {
+        "type": "String"
+      }
+    }
+  },
+  "toCategory": "To category",
+  "toPayee": "To payee",
+  "total": "Total",
+  "transactionSplit": "Transaction split",
+  "transactions": "Transactions",
+  "transfer": "Transfer",
+  "trend": "Trend",
+  "unknown": "Unknown",
+  "useDemoData": "Use Demo Data",
+  "welcomeToFmoney": "Welcome to fMoney",
+  "xlsxFileContainsNoDataRows": "XLSX file contains no data rows.",
+  "xlsxFileContainsNoValidData": "XLSX file contains no valid data.",
+  "xlsxImportCancelled": "XLSX import cancelled."
+}

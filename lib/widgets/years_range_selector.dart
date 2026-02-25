@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_this
 import 'dart:math';
 
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/ranges.dart';
 
@@ -59,7 +61,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
   Widget build(BuildContext context) {
     // If the year range is invalid, display a message.
     if (!widget.yearRange.isValid()) {
-      return const Text('No date range yet');
+      return Text(AppL10n.tr(AppTranslationKeys.noDateRangeYet));
     }
 
     return LayoutBuilder(

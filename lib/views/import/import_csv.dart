@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/views/import/import_data.dart';
 import 'package:money/widgets/csv_column_mapper_dialog.dart'; // Import the dialog
 // TODO: Replace print calls with a proper logging utility.
@@ -19,9 +21,9 @@ Future<void> importCSV(BuildContext context, String filePath) async {
     if (!context.mounted) return; // Guard after await
 
     if (lines.isEmpty) {
-      // print('CSV file is empty.'); // Removed
+      // print(AppL10n.tr(AppTranslationKeys.csvFileEmpty)); // Removed
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CSV file is empty.')),
+        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.csvFileEmpty))),
       );
       return;
     }
@@ -57,7 +59,7 @@ Future<void> importCSV(BuildContext context, String filePath) async {
         // print('No entries to import after processing CSV.'); // Removed
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No valid entries found in CSV to import.')),
+            SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport))),
           );
         }
       }
@@ -66,7 +68,7 @@ Future<void> importCSV(BuildContext context, String filePath) async {
       if (context.mounted) {
         // Added guard, though SnackBar is after pop, original context should be fine.
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('CSV import cancelled.')),
+          SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.csvImportCancelled))),
         );
       }
     }
@@ -74,7 +76,11 @@ Future<void> importCSV(BuildContext context, String filePath) async {
     // print('Error importing CSV: $e'); // Removed
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error importing CSV: $e')),
+        SnackBar(
+          content: Text(
+            AppL10n.tr(AppTranslationKeys.errorImportingCsvError, params: <String, String>{'error': e.toString()}),
+          ),
+        ),
       );
     }
   }

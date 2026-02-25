@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 
 const double _inactiveOpacity = 0.3;
 const double _activeOpacity = 1;
@@ -29,9 +31,9 @@ class MyBanner extends StatelessWidget {
             angle: _bannerRotationDegrees * _degreesToRadians, // Convert degrees to radians
             child: Container(
               color: Colors.grey,
-              child: const Text(
-                ' Skipping Duplicate ',
-                style: TextStyle(color: Colors.black, fontSize: _bannerFontSize),
+              child: Text(
+                AppL10n.tr(AppTranslationKeys.skippingDuplicate),
+                style: const TextStyle(color: Colors.black, fontSize: _bannerFontSize),
               ),
             ),
           ),

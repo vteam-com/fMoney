@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/dialog_mutate_transaction.dart';
@@ -54,7 +56,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
     // get the list sorted
     final List<Transaction> transactions = widget.getList();
     if (transactions.isEmpty) {
-      return const Center(child: Text('No transactions'));
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.noTransactions)));
     }
 
     MoneyObjects.sortList(

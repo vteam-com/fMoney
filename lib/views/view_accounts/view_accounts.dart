@@ -4,6 +4,8 @@ import 'package:money/data/models/stock_summary.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/investment_types.dart';
@@ -306,7 +308,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_investment'),
-        text1: 'Investments',
+        text1: AppL10n.tr(AppTranslationKeys.investments),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -433,7 +435,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     keepUnused(selectedIds);
     final Account? selectedAccount = getFirstSelectedItem() as Account?;
     if (selectedAccount == null) {
-      return const CenterMessage(message: 'No item selected.');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
     }
 
     if (selectedAccount.isInvestmentAccount()) {
@@ -617,7 +619,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const TextTitle('Cash'),
+              TextTitle(AppL10n.tr(AppTranslationKeys.cash)),
               WidgetFromData(
                 amountModel: AmountModel(
                   amount: totalCash,
@@ -631,7 +633,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const TextTitle('Investments'),
+              TextTitle(AppL10n.tr(AppTranslationKeys.investments)),
               WidgetFromData(
                 amountModel: AmountModel(
                   amount: totalInvestment,
@@ -662,7 +664,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       final Account? account = getFirstSelectedItemFromSelectedList(selectedIds) as Account?;
       if (account == null) {
         // this should not happen
-        return const Text('No account selected');
+        return Text(AppL10n.tr(AppTranslationKeys.noAccountSelected));
       }
 
       account.maxBalancePerYears.forEach((int key, double value) {
@@ -713,7 +715,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     keepUnused(selectedIds);
     final Account? account = getFirstSelectedItem() as Account?;
     if (account == null) {
-      return const CenterMessage(message: 'No account selected.');
+      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noAccountSelectedPeriod));
     } else {
       if (account.fieldType.value == AccountType.loan) {
         return _getSubViewContentForTransactionsForLoans(
