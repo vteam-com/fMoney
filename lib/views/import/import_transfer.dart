@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:money/providers/import_fields_for_transfer.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/import/import_transfer_panel.dart';

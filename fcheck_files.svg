@@ -337,8 +337,8 @@
 <rect x="1650.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_ui_helpers.dart</title></rect>
 <rect x="1650.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/adaptable_view_with_list.dart</title></rect>
 <rect x="1650.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_recurring.dart</title></rect>
-<rect x="1650.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart</title></rect>
-<rect x="1650.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart</title></rect>
+<rect x="1650.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart</title></rect>
+<rect x="1650.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart</title></rect>
 <rect x="1650.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/rental_pnl_card.dart</title></rect>
 <rect x="1650.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_footer_helpers.dart</title></rect>
 <rect x="1650.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/column_filter_panel.dart</title></rect>
@@ -391,12 +391,13 @@
 <rect x="2290.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title></rect>
 <rect x="2290.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/adaptive_columns_or_rows_list.dart</title></rect>
 <rect x="2290.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_payment.dart</title></rect>
-<rect x="2290.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_data_price.dart</title></rect>
-<rect x="2290.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart</title></rect>
-<rect x="2290.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart</title></rect>
-<rect x="2290.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart</title></rect>
-<rect x="2290.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart</title></rect>
-<rect x="2290.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/chart_helper.dart</title></rect>
+<rect x="2290.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart</title></rect>
+<rect x="2290.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_data_price.dart</title></rect>
+<rect x="2290.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart</title></rect>
+<rect x="2290.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart</title></rect>
+<rect x="2290.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart</title></rect>
+<rect x="2290.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart</title></rect>
+<rect x="2290.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/chart_helper.dart</title></rect>
 <rect x="2610.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/center_message.dart</title></rect>
 <rect x="2610.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/list_controller.dart</title></rect>
 <rect x="2610.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/message_box.dart</title></rect>
@@ -543,7 +544,6 @@
 <rect x="9970.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field_type.dart</title></rect>
 <rect x="9970.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field_filters.dart</title></rect>
 <rect x="9970.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/quantity_widget.dart</title></rect>
-<rect x="9970.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/l10n/app_localizations.dart</title></rect>
 <rect x="10290.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title></rect>
 <rect x="10290.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/json_helper.dart</title></rect>
 <rect x="10290.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/amount_model.dart</title></rect>
@@ -611,6 +611,14 @@
 <g>
   <path d="M 590.0 198.0 C 640.0 198.0, 646.0 172.0, 696.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/home_routes.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/home_page.dart</title>
+</g>
+<g>
+  <path d="M 2510.0 898.0 C 2560.0 898.0, 6406.0 102.0, 6456.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/account.dart</title>
+</g>
+<g>
+  <path d="M 2510.0 898.0 C 2560.0 898.0, 5766.0 102.0, 5816.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/category.dart</title>
 </g>
 <g>
   <path d="M 5710.0 268.0 C 5760.0 268.0, 10886.0 242.0, 10936.0 242.0" class="edge"/>
@@ -1597,10 +1605,6 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/home_routes.dart</title>
 </g>
 <g>
-  <path d="M 270.0 128.0 C 320.0 128.0, 9926.0 522.0, 9976.0 522.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/l10n/app_localizations.dart</title>
-</g>
-<g>
   <path d="M 270.0 128.0 C 320.0 128.0, 3846.0 102.0, 3896.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/main.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/data.dart</title>
 </g>
@@ -2237,7 +2241,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/menu_entry.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field_filters.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 758.0 C 2240.0 758.0, 2246.0 872.0, 2296.0 872.0" class="edge"/>
+  <path d="M 2190.0 758.0 C 2240.0 758.0, 2246.0 942.0, 2296.0 942.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/get_stock_from_cache_or_backend.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_data_price.dart</title>
 </g>
 <g>
@@ -2441,7 +2445,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/stock_chart.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/data/models/dividend.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 268.0 C 1920.0 268.0, 2246.0 872.0, 2296.0 872.0" class="edge"/>
+  <path d="M 1870.0 268.0 C 1920.0 268.0, 2246.0 942.0, 2296.0 942.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/stock_chart.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_data_price.dart</title>
 </g>
 <g>
@@ -5253,7 +5257,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_wizard.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_from_text.dart</title>
 </g>
 <g>
-  <path d="M 1550.0 198.0 C 1600.0 198.0, 1606.0 1082.0, 1656.0 1082.0" class="edge"/>
+  <path d="M 1550.0 198.0 C 1600.0 198.0, 1606.0 1012.0, 1656.0 1012.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_wizard.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart</title>
 </g>
 <g>
@@ -5321,7 +5325,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_edit_box_date.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 1388.0 C 2240.0 1388.0, 2246.0 1152.0, 2296.0 1152.0" class="edge"/>
+  <path d="M 2190.0 1388.0 C 2240.0 1388.0, 2246.0 1222.0, 2296.0 1222.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart</title>
 </g>
 <g>
@@ -5493,31 +5497,35 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_list_preview.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/widget_from_data.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 5446.0 102.0, 5496.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 2246.0 872.0, 2296.0 872.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart</title>
+</g>
+<g>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 5446.0 102.0, 5496.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/transaction.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 3846.0 102.0, 3896.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 3846.0 102.0, 3896.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/data.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 1926.0 1432.0, 1976.0 1432.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 1926.0 1432.0, 1976.0 1432.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer_panel.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 7686.0 102.0, 7736.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 7686.0 102.0, 7736.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 8006.0 102.0, 8056.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 8006.0 102.0, 8056.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_button.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/gaps.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 6086.0 102.0, 6136.0 102.0" class="edge"/>
+  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 6086.0 102.0, 6136.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart</title>
 </g>
 <g>
@@ -5607,6 +5615,10 @@
 <g>
   <path d="M 2190.0 1458.0 C 2240.0 1458.0, 5766.0 102.0, 5816.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/category.dart</title>
+</g>
+<g>
+  <path d="M 2190.0 1458.0 C 2240.0 1458.0, 2246.0 872.0, 2296.0 872.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart</title>
 </g>
 <g>
   <path d="M 2190.0 1458.0 C 2240.0 1458.0, 3846.0 102.0, 3896.0 102.0" class="edge"/>
@@ -5825,7 +5837,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/scale_down.dart</title>
 </g>
 <g>
-  <path d="M 1550.0 968.0 C 1600.0 968.0, 1606.0 1012.0, 1656.0 1012.0" class="edge"/>
+  <path d="M 1550.0 968.0 C 1600.0 968.0, 1606.0 1082.0, 1656.0 1082.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart</title>
 </g>
 <g>
@@ -5869,15 +5881,15 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_payment.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 1012.0, 2296.0 1012.0" class="edge"/>
+  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 1082.0, 2296.0 1082.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 942.0, 2296.0 942.0" class="edge"/>
+  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 1012.0, 2296.0 1012.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 1082.0, 2296.0 1082.0" class="edge"/>
+  <path d="M 2190.0 1318.0 C 2240.0 1318.0, 2246.0 1152.0, 2296.0 1152.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart</title>
 </g>
 <g>
@@ -6429,10 +6441,6 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/list_helper.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 9870.0 128.0 C 9920.0 128.0, 9926.0 522.0, 9976.0 522.0" class="edge"/>
-  <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/l10n/app_localizations.dart</title>
-</g>
-<g>
   <path d="M 6670.0 198.0 C 6720.0 198.0, 11206.0 102.0, 11256.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart</title>
 </g>
@@ -6593,35 +6601,35 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/box_with_scrolling_content.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/box.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 1926.0 1222.0, 1976.0 1222.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 1926.0 1222.0, 1976.0 1222.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 2246.0 662.0, 2296.0 662.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 2246.0 662.0, 2296.0 662.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 1926.0 1082.0, 1976.0 1082.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 1926.0 1082.0, 1976.0 1082.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 1926.0 1222.0, 1976.0 1222.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 1926.0 1222.0, 1976.0 1222.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 2246.0 662.0, 2296.0 662.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 2246.0 662.0, 2296.0 662.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title>
 </g>
 <g>
-  <path d="M 1870.0 1038.0 C 1920.0 1038.0, 1926.0 1082.0, 1976.0 1082.0" class="edge"/>
+  <path d="M 1870.0 1108.0 C 1920.0 1108.0, 1926.0 1082.0, 1976.0 1082.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title>
 </g>
 <g>
@@ -7105,7 +7113,7 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/charts/my_line_chart.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 2190.0 478.0 C 2240.0 478.0, 2246.0 1222.0, 2296.0 1222.0" class="edge"/>
+  <path d="M 2190.0 478.0 C 2240.0 478.0, 2246.0 1292.0, 2296.0 1292.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/charts/my_line_chart.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/chart_helper.dart</title>
 </g>
 <g>
@@ -7161,23 +7169,23 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/charts/chart_event.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/ranges.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 968.0 C 2560.0 968.0, 10886.0 242.0, 10936.0 242.0" class="edge"/>
+  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 10886.0 242.0, 10936.0 242.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 968.0 C 2560.0 968.0, 10566.0 382.0, 10616.0 382.0" class="edge"/>
+  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 10566.0 382.0, 10616.0 382.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/pairs.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 968.0 C 2560.0 968.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
+  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 968.0 C 2560.0 968.0, 10246.0 312.0, 10296.0 312.0" class="edge"/>
+  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 10246.0 312.0, 10296.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/theme_custom.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 968.0 C 2560.0 968.0, 2566.0 452.0, 2616.0 452.0" class="edge"/>
+  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 2566.0 452.0, 2616.0 452.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/vertical_line_with_tooltip.dart</title>
 </g>
 <g>
@@ -7229,11 +7237,11 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/rental_pnl.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/currency_helper.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1178.0 C 2560.0 1178.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
+  <path d="M 2510.0 1248.0 C 2560.0 1248.0, 6406.0 312.0, 6456.0 312.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/investment_types.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1178.0 C 2560.0 1178.0, 7046.0 102.0, 7096.0 102.0" class="edge"/>
+  <path d="M 2510.0 1248.0 C 2560.0 1248.0, 7046.0 102.0, 7096.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_edit_box.dart</title>
 </g>
 <g>
@@ -7333,15 +7341,15 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/value_parser.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/value_quality.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
+  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
+  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1038.0 C 2560.0 1038.0, 10246.0 102.0, 10296.0 102.0" class="edge"/>
+  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 10246.0 102.0, 10296.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title>
 </g>
 <g>
@@ -7389,15 +7397,15 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/columns/input_values.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/ocr.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 10566.0 382.0, 10616.0 382.0" class="edge"/>
+  <path d="M 2510.0 1178.0 C 2560.0 1178.0, 10566.0 382.0, 10616.0 382.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/pairs.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
+  <path d="M 2510.0 1178.0 C 2560.0 1178.0, 10886.0 172.0, 10936.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 2510.0 1108.0 C 2560.0 1108.0, 2566.0 452.0, 2616.0 452.0" class="edge"/>
+  <path d="M 2510.0 1178.0 C 2560.0 1178.0, 2566.0 452.0, 2616.0 452.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/vertical_line_with_tooltip.dart</title>
 </g>
 <g>
@@ -7654,25 +7662,24 @@
 </g>
 <g class="badge outgoingBadge">
   <path d="M 278.0,128.0 L 262.0,120.4 Q 259.0,120.4 259.0,123.4 L 259.0,132.6 Q 259.0,135.6 262.0,135.6 Z" fill="#10b981"/>
-  <text x="264.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">19</text><title>1. app_intents.dart
-2. app_localizations.dart
-3. application_bindings.dart
-4. data.dart
-5. data_file_controller.dart
-6. home_routes.dart
-7. import_transactions_from_text.dart
-8. list_controller.dart
-9. my_window_manager.dart
-10. platforms_routes.dart
-11. policy_routes.dart
-12. preferences_controller.dart
-13. scale_down.dart
-14. settings_routes.dart
-15. snack_bar.dart
-16. splash_page.dart
-17. theme_controller.dart
-18. welcome_page.dart
-19. welcome_routes.dart</title></g><text x="160.0" y="115.0" class="textNormal">main.dart</text>
+  <text x="264.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">18</text><title>1. app_intents.dart
+2. application_bindings.dart
+3. data.dart
+4. data_file_controller.dart
+5. home_routes.dart
+6. import_transactions_from_text.dart
+7. list_controller.dart
+8. my_window_manager.dart
+9. platforms_routes.dart
+10. policy_routes.dart
+11. preferences_controller.dart
+12. scale_down.dart
+13. settings_routes.dart
+14. snack_bar.dart
+15. splash_page.dart
+16. theme_controller.dart
+17. welcome_page.dart
+18. welcome_routes.dart</title></g><text x="160.0" y="115.0" class="textNormal">main.dart</text>
 <text x="160.0" y="185.0" class="textNormal">main_test.dart</text>
 <g class="badge incomingBadge">
   <path d="M 382.0,102.0 L 370.0,95.0 Q 367.0,95.0 367.0,98.0 L 367.0,106.0 Q 367.0,109.0 370.0,109.0 Z" fill="#3b82f6"/>
@@ -8706,24 +8713,25 @@
 9. transactions.dart</title></g><text x="1760.0" y="955.0" class="textNormal">panel_recurring.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1662.0,1012.0 L 1650.0,1005.0 Q 1647.0,1005.0 1647.0,1008.0 L 1647.0,1016.0 Q 1647.0,1019.0 1650.0,1019.0 Z" fill="#3b82f6"/>
-  <text x="1651.68" y="1013.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. sankey_panel.dart</title></g><g class="badge outgoingBadge">
+  <text x="1651.68" y="1013.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_wizard.dart</title></g><g class="badge outgoingBadge">
   <path d="M 1876.0,1038.0 L 1864.0,1031.0 Q 1861.0,1031.0 1861.0,1034.0 L 1861.0,1042.0 Q 1861.0,1045.0 1864.0,1045.0 Z" fill="#10b981"/>
-  <text x="1865.68" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. constants.dart
-2. sankey_colors.dart
-3. sankey_entry.dart
-4. sankey_helper.dart
-5. string_helper.dart</title></g><text x="1760.0" y="1025.0" class="textNormal">sankey_painter.dart</text>
-<g class="badge incomingBadge">
-  <path d="M 1662.0,1082.0 L 1650.0,1075.0 Q 1647.0,1075.0 1647.0,1078.0 L 1647.0,1086.0 Q 1647.0,1089.0 1650.0,1089.0 Z" fill="#3b82f6"/>
-  <text x="1651.68" y="1083.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_wizard.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 1876.0,1108.0 L 1864.0,1101.0 Q 1861.0,1101.0 1861.0,1104.0 L 1861.0,1112.0 Q 1861.0,1115.0 1864.0,1115.0 Z" fill="#10b981"/>
-  <text x="1865.68" y="1109.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">7</text><title>1. data.dart
+  <text x="1865.68" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. data.dart
 2. dialog.dart
 3. dialog_button.dart
 4. gaps.dart
-5. import_transfer_panel.dart
-6. snack_bar.dart
-7. transaction.dart</title></g><text x="1760.0" y="1095.0" class="textNormal">import_transfer.dart</text>
+5. import_fields_for_transfer.dart
+6. import_transfer_panel.dart
+7. snack_bar.dart
+8. transaction.dart</title></g><text x="1760.0" y="1025.0" class="textNormal">import_transfer.dart</text>
+<g class="badge incomingBadge">
+  <path d="M 1662.0,1082.0 L 1650.0,1075.0 Q 1647.0,1075.0 1647.0,1078.0 L 1647.0,1086.0 Q 1647.0,1089.0 1650.0,1089.0 Z" fill="#3b82f6"/>
+  <text x="1651.68" y="1083.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. sankey_panel.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 1876.0,1108.0 L 1864.0,1101.0 Q 1861.0,1101.0 1861.0,1104.0 L 1861.0,1112.0 Q 1861.0,1115.0 1864.0,1115.0 Z" fill="#10b981"/>
+  <text x="1865.68" y="1109.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. constants.dart
+2. sankey_colors.dart
+3. sankey_entry.dart
+4. sankey_helper.dart
+5. string_helper.dart</title></g><text x="1760.0" y="1095.0" class="textNormal">sankey_painter.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1662.0,1152.0 L 1650.0,1145.0 Q 1647.0,1145.0 1647.0,1148.0 L 1647.0,1156.0 Q 1647.0,1159.0 1650.0,1159.0 Z" fill="#3b82f6"/>
   <text x="1651.68" y="1153.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. view_rentals_side_panel.dart</title></g><g class="badge outgoingBadge">
@@ -9049,7 +9057,7 @@
   <path d="M 1982.0,1432.0 L 1970.0,1425.0 Q 1967.0,1425.0 1967.0,1428.0 L 1967.0,1436.0 Q 1967.0,1439.0 1970.0,1439.0 Z" fill="#3b82f6"/>
   <text x="1971.68" y="1433.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_transfer.dart</title></g><g class="badge outgoingBadge">
   <path d="M 2198.0,1458.0 L 2182.0,1450.4 Q 2179.0,1450.4 2179.0,1453.4 L 2179.0,1462.6 Q 2179.0,1465.6 2182.0,1465.6 Z" fill="#10b981"/>
-  <text x="2184.72" y="1459.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. account.dart
+  <text x="2184.72" y="1459.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">15</text><title>1. account.dart
 2. app_l10n.dart
 3. app_translation_keys.dart
 4. category.dart
@@ -9058,11 +9066,12 @@
 7. date_helper.dart
 8. form_field_widget.dart
 9. gaps.dart
-10. my_text_input.dart
-11. picker_account.dart
-12. picker_category.dart
-13. picker_edit_box_date.dart
-14. widget_from_data.dart</title></g><text x="2080.0" y="1445.0" class="textSmall">import_transfer_panel.dart</text>
+10. import_fields_for_transfer.dart
+11. my_text_input.dart
+12. picker_account.dart
+13. picker_category.dart
+14. picker_edit_box_date.dart
+15. widget_from_data.dart</title></g><text x="2080.0" y="1445.0" class="textSmall">import_transfer_panel.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1982.0,1502.0 L 1970.0,1495.0 Q 1967.0,1495.0 1967.0,1498.0 L 1967.0,1506.0 Q 1967.0,1509.0 1970.0,1509.0 Z" fill="#3b82f6"/>
   <text x="1971.68" y="1503.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. badge_pending_changes.dart</title></g><g class="badge outgoingBadge">
@@ -9286,40 +9295,47 @@
 8. transaction.dart</title></g><text x="2400.0" y="815.0" class="textNormal">recurring_payment.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,872.0 L 2290.0,865.0 Q 2287.0,865.0 2287.0,868.0 L 2287.0,876.0 Q 2287.0,879.0 2290.0,879.0 Z" fill="#3b82f6"/>
-  <text x="2291.68" y="873.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. get_stock_from_cache_or_backend.dart
-2. stock_chart.dart</title></g><text x="2400.0" y="885.0" class="textNormal">stock_data_price.dart</text>
+  <text x="2291.68" y="873.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. import_transfer.dart
+2. import_transfer_panel.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 2516.0,898.0 L 2504.0,891.0 Q 2501.0,891.0 2501.0,894.0 L 2501.0,902.0 Q 2501.0,905.0 2504.0,905.0 Z" fill="#10b981"/>
+  <text x="2505.68" y="899.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. account.dart
+2. category.dart</title></g><text x="2400.0" y="885.0" class="textSmall">import_fields_for_transfer.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,942.0 L 2290.0,935.0 Q 2287.0,935.0 2287.0,938.0 L 2287.0,946.0 Q 2287.0,949.0 2290.0,949.0 Z" fill="#3b82f6"/>
-  <text x="2291.68" y="943.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. recurring_card.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 2516.0,968.0 L 2504.0,961.0 Q 2501.0,961.0 2501.0,964.0 L 2501.0,972.0 Q 2501.0,975.0 2504.0,975.0 Z" fill="#10b981"/>
-  <text x="2505.68" y="969.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text><title>1. date_helper.dart
-2. pairs.dart
-3. string_helper.dart
-4. theme_custom.dart
-5. vertical_line_with_tooltip.dart</title></g><text x="2400.0" y="955.0" class="textNormal">mini_timeline_daily.dart</text>
+  <text x="2291.68" y="943.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. get_stock_from_cache_or_backend.dart
+2. stock_chart.dart</title></g><text x="2400.0" y="955.0" class="textNormal">stock_data_price.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,1012.0 L 2290.0,1005.0 Q 2287.0,1005.0 2287.0,1008.0 L 2287.0,1016.0 Q 2287.0,1019.0 2290.0,1019.0 Z" fill="#3b82f6"/>
   <text x="2291.68" y="1013.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. recurring_card.dart</title></g><g class="badge outgoingBadge">
   <path d="M 2516.0,1038.0 L 2504.0,1031.0 Q 2501.0,1031.0 2501.0,1034.0 L 2501.0,1042.0 Q 2501.0,1045.0 2504.0,1045.0 Z" fill="#10b981"/>
-  <text x="2505.68" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. app_l10n.dart
-2. app_translation_keys.dart
-3. color_helper.dart</title></g><text x="2400.0" y="1025.0" class="textSmall">date_range_time_line.dart</text>
+  <text x="2505.68" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text><title>1. date_helper.dart
+2. pairs.dart
+3. string_helper.dart
+4. theme_custom.dart
+5. vertical_line_with_tooltip.dart</title></g><text x="2400.0" y="1025.0" class="textNormal">mini_timeline_daily.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,1082.0 L 2290.0,1075.0 Q 2287.0,1075.0 2287.0,1078.0 L 2287.0,1086.0 Q 2287.0,1089.0 2290.0,1089.0 Z" fill="#3b82f6"/>
   <text x="2291.68" y="1083.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. recurring_card.dart</title></g><g class="badge outgoingBadge">
   <path d="M 2516.0,1108.0 L 2504.0,1101.0 Q 2501.0,1101.0 2501.0,1104.0 L 2501.0,1112.0 Q 2501.0,1115.0 2504.0,1115.0 Z" fill="#10b981"/>
-  <text x="2505.68" y="1109.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. pairs.dart
-2. string_helper.dart
-3. vertical_line_with_tooltip.dart</title></g><text x="2400.0" y="1095.0" class="textSmall">mini_timeline_twelve_months.dart</text>
+  <text x="2505.68" y="1109.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. app_l10n.dart
+2. app_translation_keys.dart
+3. color_helper.dart</title></g><text x="2400.0" y="1095.0" class="textSmall">date_range_time_line.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,1152.0 L 2290.0,1145.0 Q 2287.0,1145.0 2287.0,1148.0 L 2287.0,1156.0 Q 2287.0,1159.0 2290.0,1159.0 Z" fill="#3b82f6"/>
-  <text x="2291.68" y="1153.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_investment_panel.dart</title></g><g class="badge outgoingBadge">
+  <text x="2291.68" y="1153.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. recurring_card.dart</title></g><g class="badge outgoingBadge">
   <path d="M 2516.0,1178.0 L 2504.0,1171.0 Q 2501.0,1171.0 2501.0,1174.0 L 2501.0,1182.0 Q 2501.0,1185.0 2504.0,1185.0 Z" fill="#10b981"/>
-  <text x="2505.68" y="1179.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. investment_types.dart
-2. picker_edit_box.dart</title></g><text x="2400.0" y="1165.0" class="textSmall">picker_investment_type.dart</text>
+  <text x="2505.68" y="1179.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. pairs.dart
+2. string_helper.dart
+3. vertical_line_with_tooltip.dart</title></g><text x="2400.0" y="1165.0" class="textSmall">mini_timeline_twelve_months.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2302.0,1222.0 L 2290.0,1215.0 Q 2287.0,1215.0 2287.0,1218.0 L 2287.0,1226.0 Q 2287.0,1229.0 2290.0,1229.0 Z" fill="#3b82f6"/>
-  <text x="2291.68" y="1223.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. my_line_chart.dart</title></g><text x="2400.0" y="1235.0" class="textNormal">chart_helper.dart</text>
+  <text x="2291.68" y="1223.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. import_investment_panel.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 2516.0,1248.0 L 2504.0,1241.0 Q 2501.0,1241.0 2501.0,1244.0 L 2501.0,1252.0 Q 2501.0,1255.0 2504.0,1255.0 Z" fill="#10b981"/>
+  <text x="2505.68" y="1249.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. investment_types.dart
+2. picker_edit_box.dart</title></g><text x="2400.0" y="1235.0" class="textSmall">picker_investment_type.dart</text>
+<g class="badge incomingBadge">
+  <path d="M 2302.0,1292.0 L 2290.0,1285.0 Q 2287.0,1285.0 2287.0,1288.0 L 2287.0,1296.0 Q 2287.0,1299.0 2290.0,1299.0 Z" fill="#3b82f6"/>
+  <text x="2291.68" y="1293.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. my_line_chart.dart</title></g><text x="2400.0" y="1305.0" class="textNormal">chart_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 2624.0,102.0 L 2608.0,94.4 Q 2605.0,94.4 2605.0,97.4 L 2605.0,106.6 Q 2605.0,109.6 2608.0,109.6 Z" fill="#3b82f6"/>
   <text x="2610.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. chart.dart
@@ -10485,7 +10501,7 @@
 3. picker_edit_box.dart</title></g><text x="5600.0" y="325.0" class="textSmall">picker_security_type.dart</text>
 <g class="badge incomingBadge">
   <path d="M 5824.0,102.0 L 5808.0,94.4 Q 5805.0,94.4 5805.0,97.4 L 5805.0,106.6 Q 5805.0,109.6 5808.0,109.6 Z" fill="#3b82f6"/>
-  <text x="5810.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">24</text><title>1. categories.dart
+  <text x="5810.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">25</text><title>1. categories.dart
 2. data.dart
 3. data_simulator.dart
 4. data_simulator_accounts.dart
@@ -10493,22 +10509,23 @@
 6. data_simulator_investments.dart
 7. data_simulator_transactions.dart
 8. distribution_bar.dart
-9. import_investment_panel.dart
-10. import_transfer_panel.dart
-11. investment_import_fields.dart
-12. menu_entry.dart
-13. merge_categories.dart
-14. net_worth_chart.dart
-15. panel_budget.dart
-16. panel_trend.dart
-17. recurring_expenses.dart
-18. recurring_payment.dart
-19. sankey_panel.dart
-20. transaction.dart
-21. view_cashflow.dart
-22. view_categories.dart
-23. view_events.dart
-24. view_transactions.dart</title></g><g class="badge outgoingBadge">
+9. import_fields_for_transfer.dart
+10. import_investment_panel.dart
+11. import_transfer_panel.dart
+12. investment_import_fields.dart
+13. menu_entry.dart
+14. merge_categories.dart
+15. net_worth_chart.dart
+16. panel_budget.dart
+17. panel_trend.dart
+18. recurring_expenses.dart
+19. recurring_payment.dart
+20. sankey_panel.dart
+21. transaction.dart
+22. view_cashflow.dart
+23. view_categories.dart
+24. view_events.dart
+25. view_transactions.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6038.0,128.0 L 6022.0,120.4 Q 6019.0,120.4 6019.0,123.4 L 6019.0,132.6 Q 6019.0,135.6 6022.0,135.6 Z" fill="#10b981"/>
   <text x="6024.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">22</text><title>1. category_types.dart
 2. circle.dart
@@ -10719,7 +10736,7 @@
   <text x="6345.68" y="829.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. rectangle.dart</title></g><text x="6240.0" y="815.0" class="textNormal">circle.dart</text>
 <g class="badge incomingBadge">
   <path d="M 6464.0,102.0 L 6448.0,94.4 Q 6445.0,94.4 6445.0,97.4 L 6445.0,106.6 Q 6445.0,109.6 6448.0,109.6 Z" fill="#3b82f6"/>
-  <text x="6450.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">24</text><title>1. accounts.dart
+  <text x="6450.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">25</text><title>1. accounts.dart
 2. data.dart
 3. data_file_controller.dart
 4. data_simulator.dart
@@ -10727,22 +10744,23 @@
 6. data_simulator_investments.dart
 7. data_simulator_transactions.dart
 8. import_data.dart
-9. import_investment_panel.dart
-10. import_transactions_from_text.dart
-11. import_transactions_panel.dart
-12. import_transfer_panel.dart
-13. investment_import_fields.dart
-14. loan_payment.dart
-15. loan_payments.dart
-16. menu_entry.dart
-17. rent_building.dart
-18. transaction.dart
-19. transactions.dart
-20. transfer.dart
-21. view_accounts.dart
-22. view_ai.dart
-23. view_cashflow.dart
-24. view_transfers.dart</title></g><g class="badge outgoingBadge">
+9. import_fields_for_transfer.dart
+10. import_investment_panel.dart
+11. import_transactions_from_text.dart
+12. import_transactions_panel.dart
+13. import_transfer_panel.dart
+14. investment_import_fields.dart
+15. loan_payment.dart
+16. loan_payments.dart
+17. menu_entry.dart
+18. rent_building.dart
+19. transaction.dart
+20. transactions.dart
+21. transfer.dart
+22. view_accounts.dart
+23. view_ai.dart
+24. view_cashflow.dart
+25. view_transfers.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6678.0,128.0 L 6662.0,120.4 Q 6659.0,120.4 6659.0,123.4 L 6659.0,132.6 Q 6659.0,135.6 6662.0,135.6 Z" fill="#10b981"/>
   <text x="6664.72" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">20</text><title>1. account_types.dart
 2. account_types_enum.dart
@@ -11226,9 +11244,7 @@
 56. view_welcome.dart
 57. welcome_page.dart
 58. xlsx_header_row_selector_dialog.dart
-59. years_range_selector.dart</title></g><g class="badge outgoingBadge">
-  <path d="M 9876.0,128.0 L 9864.0,121.0 Q 9861.0,121.0 9861.0,124.0 L 9861.0,132.0 Q 9861.0,135.0 9864.0,135.0 Z" fill="#10b981"/>
-  <text x="9865.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. app_localizations.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
+59. years_range_selector.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,172.0 L 9648.0,164.4 Q 9645.0,164.4 9645.0,167.4 L 9645.0,176.6 Q 9645.0,179.6 9648.0,179.6 Z" fill="#3b82f6"/>
   <text x="9650.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">59</text><title>1. categories.dart
@@ -11512,10 +11528,6 @@
   <path d="M 10196.0,478.0 L 10184.0,471.0 Q 10181.0,471.0 10181.0,474.0 L 10181.0,482.0 Q 10181.0,485.0 10184.0,485.0 Z" fill="#10b981"/>
   <text x="10185.68" y="479.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. string_helper.dart
 2. theme_custom.dart</title></g><text x="10080.0" y="465.0" class="textNormal">quantity_widget.dart</text>
-<g class="badge incomingBadge">
-  <path d="M 9982.0,522.0 L 9970.0,515.0 Q 9967.0,515.0 9967.0,518.0 L 9967.0,526.0 Q 9967.0,529.0 9970.0,529.0 Z" fill="#3b82f6"/>
-  <text x="9971.68" y="523.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. app_l10n.dart
-2. main.dart</title></g><text x="10080.0" y="535.0" class="textNormal">app_localizations.dart</text>
 <g class="badge incomingBadge">
   <path d="M 10304.0,102.0 L 10288.0,94.4 Q 10285.0,94.4 10285.0,97.4 L 10285.0,106.6 Q 10285.0,109.6 10288.0,109.6 Z" fill="#3b82f6"/>
   <text x="10290.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">56</text><title>1. adaptive_columns_or_rows_list.dart

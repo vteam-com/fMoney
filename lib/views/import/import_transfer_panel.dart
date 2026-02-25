@@ -4,6 +4,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/providers/account.dart';
 import 'package:money/providers/category.dart';
+import 'package:money/providers/import_fields_for_transfer.dart';
 import 'package:money/views/data.dart';
 import 'package:money/widgets/picker_account.dart';
 import 'package:money/widgets/picker_category.dart';
@@ -16,29 +17,6 @@ import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 const double _panelSpacing = 24.0;
 const double _zeroDouble = 0.0;
 
-/// Represents import fields for transfer.
-class ImportFieldsForTransfer {
-  ImportFieldsForTransfer({
-    required this.accountFrom,
-    required this.accountTo,
-    required this.date,
-    required this.category,
-    required this.amount,
-    required this.memo,
-  });
-
-  Account accountFrom;
-  Account accountTo;
-  double amount;
-  DateTime date;
-  String memo;
-
-  Category? category;
-
-  /// Returns true if accounts are valid for transfer (different accounts).
-  bool get validAccounts => accountFrom != accountTo;
-}
-
 /// use for free style text to transaction import
 class ImportFieldsForTransferPanel extends StatefulWidget {
   const ImportFieldsForTransferPanel({super.key, required this.inputFields});
@@ -46,11 +24,11 @@ class ImportFieldsForTransferPanel extends StatefulWidget {
   final ImportFieldsForTransfer inputFields;
 
   @override
-  ImportFieldsForTransferPanelState createState() => ImportFieldsForTransferPanelState();
+  State<ImportFieldsForTransferPanel> createState() => _ImportFieldsForTransferPanelState();
 }
 
 /// State for import fields for transfer panel.
-class ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPanel> {
+class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPanel> {
   late final TextEditingController _controllerAmount = TextEditingController(
     text: widget.inputFields.amount.toString(),
   );
