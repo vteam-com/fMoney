@@ -8,6 +8,8 @@ import 'package:money/views/view_cashflow/recurring/recurring_card.dart';
 import 'package:money/views/view_cashflow/recurring/recurring_payment.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
+const double _recurringPanelPadding = 21.0;
+
 /// A stateful widget for panel recurring.
 class PanelRecurring extends StatefulWidget {
   const PanelRecurring({
@@ -41,7 +43,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
     return Container(
       color: getColorTheme(context).surface,
       child: ListView.builder(
-        padding: const EdgeInsets.all(21),
+        padding: const EdgeInsets.all(_recurringPanelPadding),
         itemCount: recurringPayments.length,
         itemBuilder: (BuildContext _, int index) {
           // build the Card UI

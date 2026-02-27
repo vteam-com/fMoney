@@ -9,6 +9,11 @@ const double _defaultFontSize = 12;
 const double _defaultRotation = 0;
 const double _centerFraction = 0.5;
 const double _channelHeight = 100;
+const double _defaultBlockX = 0.0;
+const double _defaultBlockY = 0.0;
+const double _defaultBlockWidth = 10.0;
+const double _defaultBlockHeight = 20.0;
+const Color _defaultChannelColor = Color(0xFF56687A);
 
 /// Represents channel point.
 class ChannelPoint {
@@ -37,7 +42,7 @@ class Block {
   TextAlign alignVertical = TextAlign.start;
   Color color;
   String name = '';
-  Rect rect = const Rect.fromLTWH(0, 0, 10, 20);
+  Rect rect = const Rect.fromLTWH(_defaultBlockX, _defaultBlockY, _defaultBlockWidth, _defaultBlockHeight);
   Color textColor = Colors.black;
 
   static const double blockWidth = 50.0;
@@ -151,7 +156,7 @@ void drawChanel({
   required final ui.Canvas canvas,
   required final ChannelPoint start,
   required final ChannelPoint end,
-  final Color color = const Color(0xFF56687A),
+  final Color color = _defaultChannelColor,
 }) {
   // We render left to right, so lets see what channel goes on the left and the one that goes on the right
   final ChannelPoint channelPointLeft = (start.x < end.x) ? start : end;

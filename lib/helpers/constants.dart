@@ -115,11 +115,32 @@ class Constants {
 /// Represents size for padding.
 class SizeForPadding {
   static const double huge = 21;
+  static const double xlarge = 16;
   static const double large = 13;
   static const double medium = 5;
+  static const double xsmall = 4;
   static const double nano = 2;
   static const double normal = 8;
   static const double small = 3;
+}
+
+/// Represents common corner radii.
+class SizeForRadius {
+  static const double normal = 8;
+  static const double small = 4;
+}
+
+/// Represents common animation and delay durations in milliseconds.
+class DurationInMs {
+  static const int quick = 100;
+  static const int normal = 300;
+  static const int slow = 500;
+}
+
+/// Represents default window dimensions.
+class SizeForWindow {
+  static const double desktopWidth = 800;
+  static const double desktopHeight = 600;
 }
 
 /// Represents size for text.

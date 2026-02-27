@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:money/helpers/constants.dart';
 
+const double _sidePanelTransactionsHorizontalPadding = 10.0;
+
 /// Represents side panel support.
 class SidePanelSupport {
   SidePanelSupport({
@@ -79,7 +81,7 @@ class SidePanelSupport {
       /// Transactions
       case SidePanelSubViewEnum.transactions:
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: _sidePanelTransactionsHorizontalPadding),
           child: onTransactions!(
             selectedIds: selectedIds,
             showAsNativeCurrency: selectedCurrency == 0,

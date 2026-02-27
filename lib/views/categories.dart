@@ -67,7 +67,7 @@ class Categories extends MoneyObjects<Category> {
     options: RoundedRectDottedBorderOptions(
       color: Colors.grey.shade600,
       padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
-      radius: const Radius.circular(3),
+      radius: const Radius.circular(SizeForPadding.small),
     ),
     child: Text(AppL10n.tr(AppTranslationKeys.split)),
   );

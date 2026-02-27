@@ -6,6 +6,7 @@ const int _previewRowLimit = 5;
 const double _columnHighlightAlpha = 0.5;
 const double _cellHighlightAlpha = 0.2;
 const double _previewSpacing = 20;
+const double _dropdownVerticalPadding = 8.0;
 const double _cellHorizontalPadding = 8;
 const double _cellVerticalPadding = 4;
 const List<String> _amountColumnPatterns = <String>[
@@ -183,7 +184,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   /// Builds a dropdown for selecting a unique header id for a required field.
   Widget _buildDropdown(String label, String? currentValue, ValueChanged<String?> onChanged) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: _dropdownVerticalPadding),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           labelText: label,

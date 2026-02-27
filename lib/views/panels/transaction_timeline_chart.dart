@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/pair_xyz.dart';
@@ -65,7 +66,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(SizeForPadding.xlarge),
             child: Chart(list: sumByPeriod),
           ),
         ),

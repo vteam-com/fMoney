@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/providers/transaction_split.dart';
 import 'package:money/views/dialog_mutate_split.dart';
 import 'package:money/widgets/adaptive_list/list_item_header.dart';
@@ -91,7 +92,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   const Icon(Icons.refresh),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: SizeForPadding.normal),
                   Text(AppL10n.tr(AppTranslationKeys.refreshList)),
                 ],
               ),

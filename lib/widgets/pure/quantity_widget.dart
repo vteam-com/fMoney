@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 
+const double _quantityFractionalFontSize = 11.0;
+
 /// Formatted text using the supplied currency code and optional the currency/country flag
 class QuantityWidget extends StatelessWidget {
   /// Constructor
@@ -51,7 +53,7 @@ class QuantityWidget extends StatelessWidget {
           if (rightOfDecimalPoint.isNotEmpty)
             TextSpan(
               text: rightOfDecimalPoint,
-              style: const TextStyle(fontSize: 11),
+              style: const TextStyle(fontSize: _quantityFractionalFontSize),
             ),
         ],
       ),

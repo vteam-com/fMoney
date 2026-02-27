@@ -1,5 +1,9 @@
 import 'package:money/helpers/color_helper.dart';
 
+const double _pickerButtonWidth = 30.0;
+const double _pickerButtonHeight = 22.0;
+const double _pickerLetterFontSize = 10.0;
+
 /// A stateful widget for picker letters.
 class PickerLetters extends StatefulWidget {
   const PickerLetters({
@@ -41,12 +45,12 @@ class _PickerLettersState extends State<PickerLetters> {
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
             // Remove padding
-            minimumSize: const Size(30, 22),
-            maximumSize: const Size(30, 22),
+            minimumSize: const Size(_pickerButtonWidth, _pickerButtonHeight),
+            maximumSize: const Size(_pickerButtonWidth, _pickerButtonHeight),
             foregroundColor: isSelected ? theme.onPrimary : theme.onSurface,
             backgroundColor: isSelected ? theme.primary : theme.surface,
           ),
-          child: Text(letter, style: const TextStyle(fontSize: 10)),
+          child: Text(letter, style: const TextStyle(fontSize: _pickerLetterFontSize)),
         ),
       );
     }

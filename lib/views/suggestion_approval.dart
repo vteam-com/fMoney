@@ -15,6 +15,7 @@ const double _zeroDouble = 0.0;
 const double _oneDouble = 1.0;
 const int _approvalFadeDurationMs = 400;
 const int _approvalDelayMs = 10;
+const double _workingIndicatorSize = 10.0;
 const double _splitDialogHeight = 300.0;
 const double _splitDialogWidth = 800.0;
 
@@ -97,7 +98,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
     final double opacity = widget.onApproved == null ? 1 : 0.6;
 
     if (approved) {
-      return const WorkingIndicator(size: 10);
+      return const WorkingIndicator(size: _workingIndicatorSize);
     }
     return FadeTransition(
       opacity: _opacityAnimation,

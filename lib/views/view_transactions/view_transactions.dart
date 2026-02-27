@@ -27,6 +27,7 @@ const int _pivotIndexIncome = 0;
 const int _pivotIndexExpense = 1;
 const int _pivotIndexAll = 2;
 const double _zeroDouble = 0.0;
+const double _pivotHeaderFontSize = 20.0;
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///
@@ -62,7 +63,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   final List<Widget> pivots = <Widget>[];
   final TextStyle styleHeader = const TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20,
+    fontSize: _pivotHeaderFontSize,
   );
 
   bool balanceDone = false;

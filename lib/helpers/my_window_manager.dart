@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -80,7 +81,12 @@ class MyWindowManager extends WindowListener {
       await windowManager.setBounds(Rect.fromLTWH(x, y, width, height));
     } else {
       // Optional: set a default window size
-      await windowManager.setSize(const Size(800, 600));
+      await windowManager.setSize(
+        const Size(
+          SizeForWindow.desktopWidth,
+          SizeForWindow.desktopHeight,
+        ),
+      );
       await windowManager.center();
     }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/constants.dart';
 
 /// Builds a column footer button with alignment and callbacks.
 Widget buildColumnFooterButton({
@@ -20,7 +21,7 @@ Widget buildColumnFooterButton({
         ),
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(
-            horizontal: 3.0, // Left and right padding
+            horizontal: SizeForPadding.small, // Left and right padding
           ),
         ),
       ),

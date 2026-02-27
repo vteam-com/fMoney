@@ -1,4 +1,5 @@
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 
 export 'package:flutter/material.dart';
 
@@ -107,7 +108,7 @@ class MyListItemAsCard extends StatelessWidget {
     }
     if (b != null) {
       return AnimatedOpacity(
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: DurationInMs.slow),
         opacity: 1,
         child: Text(
           b,

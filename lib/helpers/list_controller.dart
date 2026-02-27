@@ -1,6 +1,7 @@
 // ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money/helpers/constants.dart';
 
 /// Base controller for managing scrollable list state.
 /// Features:
@@ -37,7 +38,7 @@ class ListController extends GetxController {
   void scrollToBottom() {
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: DurationInMs.normal),
       curve: Curves.easeOut,
     );
   }
@@ -51,7 +52,7 @@ class ListController extends GetxController {
   void scrollToOffSet(final double offset) {
     scrollController.animateTo(
       offset,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: DurationInMs.normal),
       curve: Curves.easeOut,
     );
   }
@@ -60,7 +61,7 @@ class ListController extends GetxController {
   void scrollToTop() {
     scrollController.animateTo(
       0.0,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: DurationInMs.normal),
       curve: Curves.easeOut,
     );
   }

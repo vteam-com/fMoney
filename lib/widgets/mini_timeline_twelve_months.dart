@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/vertical_line_with_tooltip.dart';
@@ -50,7 +51,10 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
                 children: bars,
               ),
             ),
-            const Divider(height: 2, thickness: 2),
+            const Divider(
+              height: SizeForPadding.nano,
+              thickness: SizeForPadding.nano,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -75,6 +79,6 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
   }
 
   Widget _buildMontLabel(final String text) {
-    return Text(text, style: const TextStyle(fontSize: 8));
+    return Text(text, style: const TextStyle(fontSize: SizeForText.nano));
   }
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/providers/currency.dart';
 import 'package:money/views/data.dart';
 import 'package:money/widgets/app_scaffold.dart';
@@ -10,6 +11,8 @@ import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
+
+const double _settingsSectionDividerHeight = 50.0;
 
 /// The `SettingsPage` class is a `GetView` that extends `GetxController`. It represents the settings page of the application.
 /// This page allows the user to manage various settings, such as rental management, stock service API key, and currencies.
@@ -40,12 +43,12 @@ class SettingsPage extends GetView<GetxController> {
                   },
                 ),
                 _buildLanguageControl(localeCode),
-                const Divider(height: 50),
+                const Divider(height: _settingsSectionDividerHeight),
                 MyTextInput(
                   hintText: 'Stock service API key from https://twelvedata.com',
                   controller: TextEditingController()..text = PreferenceController.to.apiKeyForStocks,
                 ),
-                const Divider(height: 50),
+                const Divider(height: _settingsSectionDividerHeight),
                 _buildCurrenciesPanel(context),
               ],
             ),
@@ -89,10 +92,10 @@ class SettingsPage extends GetView<GetxController> {
           decoration: BoxDecoration(
             color: getColorTheme(context).surfaceContainerHighest,
             border: Border.all(color: getColorTheme(context).outline),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(SizeForRadius.small)),
           ),
-          margin: const EdgeInsets.all(4),
-          padding: const EdgeInsets.all(4),
+          margin: const EdgeInsets.all(SizeForPadding.xsmall),
+          padding: const EdgeInsets.all(SizeForPadding.xsmall),
           child: Column(
             children: <Widget>[
               Row(

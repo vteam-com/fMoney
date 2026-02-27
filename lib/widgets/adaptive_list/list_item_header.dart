@@ -80,7 +80,7 @@ class MyListItemHeader<T> extends StatelessWidget {
     }
     return Container(
       color: backgroundColor,
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.normal),
       child: Row(children: headers),
     );
   }

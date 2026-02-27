@@ -60,8 +60,8 @@ class _SidePanelState extends State<SidePanel> {
           right: BorderSide(color: getColorTheme(context).outline),
         ),
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
+          topLeft: Radius.circular(SizeForRadius.normal),
+          topRight: Radius.circular(SizeForRadius.normal),
         ),
       ),
       child: ValueListenableBuilder<List<int>>(

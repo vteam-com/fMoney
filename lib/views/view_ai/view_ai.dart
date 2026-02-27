@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/providers/account.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
@@ -249,7 +250,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: DurationInMs.normal),
           curve: Curves.easeOut,
         );
       }
@@ -496,7 +497,7 @@ Answer the question:''';
   Widget _chatListView() {
     return ListView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(SizeForPadding.xlarge),
       reverse: false,
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
       itemBuilder: (BuildContext _, int index) {

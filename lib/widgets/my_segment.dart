@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/scale_down.dart';
+
+const double _segmentVisualDensity = -4.0;
+const double _segmentHorizontalPadding = 12.0;
 
 /// Builds a segmented control with customizable direction and icons.
 Widget mySegmentSelector({
@@ -18,7 +22,7 @@ Widget mySegmentSelector({
   if (direction == Axis.horizontal) {
     return SegmentedButton<int>(
       style: const ButtonStyle(
-        visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+        visualDensity: VisualDensity(horizontal: _segmentVisualDensity, vertical: _segmentVisualDensity),
       ),
 
       // only show the checkMark for larger devices
@@ -50,9 +54,15 @@ Widget mySegmentSelector({
               }
               return Theme.of(context).colorScheme.onSurface;
             }),
-            visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            visualDensity: const VisualDensity(
+              horizontal: _segmentVisualDensity,
+              vertical: _segmentVisualDensity,
+            ),
             padding: const WidgetStatePropertyAll<EdgeInsetsGeometry?>(
-              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              EdgeInsets.symmetric(
+                horizontal: _segmentHorizontalPadding,
+                vertical: SizeForPadding.normal,
+              ),
             ),
           ),
           child: segment.icon != null && segment.label != null

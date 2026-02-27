@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
@@ -148,7 +149,7 @@ class Data implements DataAbstract {
     final Set<Transaction> dangling = getDanglingTransfers();
     if (dangling.isNotEmpty) {
       Timer(
-        const Duration(milliseconds: 100),
+        const Duration(milliseconds: DurationInMs.quick),
         () => SnackBarService.displayWarning(
           message: '${dangling.length} Dangling transfers have been found',
           title: 'Dangling Transfers',

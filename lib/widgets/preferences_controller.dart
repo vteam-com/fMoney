@@ -135,7 +135,7 @@ class PreferenceController extends GetxController {
       DataAccess.loadLastFileSaved();
     } else {
       // queue changing screen after app loaded
-      Future<Null>.delayed(const Duration(milliseconds: 100), () {
+      Future<Null>.delayed(const Duration(milliseconds: DurationInMs.quick), () {
         Get.offNamed<dynamic>(Constants.routeWelcomePage);
       });
     }

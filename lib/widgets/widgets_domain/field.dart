@@ -499,7 +499,7 @@ class Fields<T> {
           Expanded(
             flex: fieldDefinition.columnWidth.index,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+              padding: const EdgeInsets.fromLTRB(SizeForPadding.nano, 0, SizeForPadding.nano, 0),
               child: buildWidgetFromTypeAndValue(
                 value: value,
                 type: fieldDefinition.type,
