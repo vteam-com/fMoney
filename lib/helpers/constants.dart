@@ -1,5 +1,4 @@
 // ignore: fcheck_one_class_per_file
-// ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
 
 const String settingKeyCashflowRecurringOccurrences = 'keyCashflowOccurrences';
@@ -152,23 +151,10 @@ class IntValues {
     return (1 << (bitCount - 1)) - 1;
   }
 
-  // ...
-  /// Returns maximum unsigned integer value for specified bit count.
-  static int maxUnsigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
-    return (1 << bitCount) - 1;
-  }
-
   /// Returns minimum signed integer value for specified bit count.
   static int minSigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
     return (-1 << (bitCount - 1)) - 1;
-  }
-
-  /// Returns minimum unsigned integer value for specified bit count.
-  static int minUnsigned(int bitCount) {
-    RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
-    return -1 << (bitCount - 1);
   }
 }
 

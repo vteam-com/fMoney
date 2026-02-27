@@ -11,13 +11,6 @@ flutter pub outdated
 echo --------------- Generate Loc
 python3 tool/loc.py
 
-echo --------------- Sort code
-dart run tool/sort_source.dart
-
-echo --------------- Format sources
-dart format . | sed 's/^/    /'
-dart fix --apply | sed 's/^/    /'
-
 echo --------------- Analyze
 flutter analyze lib test --no-pub | sed 's/^/    /'
 
@@ -36,6 +29,10 @@ export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
 
 # Install the pinned version into the isolated cache, then run it.
 # Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
-dart pub global activate fcheck 1.0.0 > /dev/null
+dart pub global activate fcheck 1.0.2 > /dev/null
 dart pub global run fcheck --fix --svg --list full --exclude "**/app_localizations.dart"
 # dart run ../fcheck/bin/fcheck.dart --fix --svg --svgfolder --list 100 ./lib/
+
+echo --------------- Format sources
+dart format . | sed 's/^/    /'
+dart fix --apply | sed 's/^/    /'

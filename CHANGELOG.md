@@ -1,8 +1,16 @@
 # Change Log
 
+## [version 1.16.01] 2026-02-27
+
+### Update
+
+- fCheck 1.0.2 score 100%
+- Update to Flutter 3.41.0 and Dart 3.11.0
+
 ## [version 1.16.00] 2026-02-25
 
 ### Added
+
 - Localization EN|FR|ES
 
 ### Refactor code
@@ -10,6 +18,7 @@
 ## [version 1.15.01] 2026-02-09
 
 ### Update
+
 - Maintenance release focused on dead-code cleanup.
 - Remove unused-variable warnings while keeping callback/interface parameter intent explicit.
 - Improve code quality checks by aligning analyzer and fcheck outcomes.
@@ -17,19 +26,22 @@
 ## [version 1.15.00] 2025-12-27
 
 ### Update
+
 - Flutter and Dart version updates to latest (3.38.0)
 - Update to sqlite3 ^3.0.0
 - Remove GetX snackbar dependency
 - Update builds.yml for CI/CD improvements
 
 ### Add
+
 - Add test for ViewAI with 80% code coverage
 - Use GLAD to generate Graph.svg
 
 ## [version 1.14.00] 2025-10-28
 
 ### Update
-- Rebrand "MyMoney" to "fMoney" to communicated flutter/free open source 
+
+- Rebrand "MyMoney" to "fMoney" to communicated flutter/free open source
 
 ## [version 1.13.04] 2025-10-16
 

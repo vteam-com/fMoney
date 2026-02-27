@@ -38,6 +38,14 @@
     <stop offset="0%" stop-color="#28a745"/>
     <stop offset="100%" stop-color="#007bff"/>
   </linearGradient>
+  <linearGradient id="warningNodeGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff6e8" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#f2a23a" stop-opacity="0.45"/>
+  </linearGradient>
+  <linearGradient id="errorNodeGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fdeeed" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#e05545" stop-opacity="0.5"/>
+  </linearGradient>
 </defs>
 <style>  
   .layerBackground { 
@@ -92,6 +100,20 @@
   .fileNode:hover {     
     fill: PaleGoldenRod;
     transition: all 0.1s ease-in-out; 
+  }
+
+  .fileNodeWarning,
+  .layerBackgroundWarning,
+  .layerBackgroundVirtualFolderWarning {
+    fill: url(#warningNodeGradient);
+    fill-opacity: 0.68;
+  }
+
+  .fileNodeError,
+  .layerBackgroundError,
+  .layerBackgroundVirtualFolderError {
+    fill: url(#errorNodeGradient);
+    fill-opacity: 0.72;
   }
 
   .textNormal,
@@ -12697,7 +12719,7 @@
 <g class="folderTitleLayer">
 <text x="623.0" y="105.0" class="layerTitle" text-anchor="middle">
   <tspan x="623.0" dy="0">fMoney</tspan>
-  <tspan x="623.0" dy="16.0">money v1.16.00</tspan>
+  <tspan x="623.0" dy="16.0">money v1.16.01</tspan>
 </text>
 <text x="643.0" y="157.0" class="layerTitle">  test_driver</text>
 <text x="643.0" y="279.0" class="layerTitle">  lib</text>
