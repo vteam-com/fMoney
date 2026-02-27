@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  FLUTTER_VERSION: "3.41.2"
+
 jobs:
   build-windows:
     name: Build Windows
@@ -15,7 +18,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.41.0"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Install Dependencies
         run: flutter pub get
@@ -43,7 +46,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.41.0"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Install Dependencies
         run: flutter pub get
@@ -66,7 +69,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.41.0"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Install Dependencies
         run: flutter pub get
