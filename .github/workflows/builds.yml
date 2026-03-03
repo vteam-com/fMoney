@@ -7,6 +7,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 env:
   FLUTTER_VERSION: "3.41.2"
 
