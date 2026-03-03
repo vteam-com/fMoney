@@ -8,6 +8,7 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
 import 'package:money/home_routes.dart';
 import 'package:money/l10n/app_localizations.dart';
+import 'package:money/views/about/about_routes.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
@@ -150,6 +151,7 @@ class MyApp extends StatelessWidget {
                   ...SettingsRoutes.routes,
                   ...PlatformsRoutes.routes,
                   ...PolicyRoutes.routes,
+                  ...AboutRoutes.routes,
                 ],
               ),
             ),

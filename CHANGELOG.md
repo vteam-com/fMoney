@@ -1,5 +1,28 @@
 # Change Log
 
+## [version 1.16.02] 2026-03-03
+
+### Added
+
+- **About Page**: New menu entry in Settings popup for app version and license information
+- **Version Information**: Displays current app version, build number, and package name
+- **License Viewer**: Integration with Flutter's standard license page for all dependencies
+- **Localization Support**: About page supports English, French, and Spanish
+
+### Updated
+
+- **GitHub Artifacts**: Enhanced workflow with automatic release creation and artifact management
+- **Storage Management**: Implemented conservative cleanup strategy (keep latest 2 releases, 2 artifacts per platform, 10 workflow runs)
+- **Quantity-Based Control**: Replaced time-based retention with precise quantity limits for predictable storage
+- **Code Quality**: Fixed all magic numbers with semantic constants
+- **Dependencies**: Added package_info_plus for version detection
+
+### Infrastructure
+
+- **GitHub Actions**: Enhanced builds.yml with automatic cleanup and release management
+- **Documentation**: Updated GitHub artifacts automation documentation
+- **Constants**: Added semantic constants for HTTP status, platform spacing, and loading padding
+
 ## [version 1.16.01] 2026-02-27
 
 ### Update

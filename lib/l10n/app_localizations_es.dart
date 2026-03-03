@@ -9,6 +9,9 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
+  String get about => 'Acerca de';
+
+  @override
   String get accountNames => 'Account names';
 
   @override
@@ -28,6 +31,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get analyzeSpending => 'Analyze spending';
+
+  @override
+  String get appDescription => 'Aplicación gratuita de gestión financiera personal Flutter de código abierto';
+
+  @override
+  String get appLongDescription =>
+      'Una solución completa de gestión de dinero para seguir gastos, administrar presupuestos y monitorear inversiones.';
+
+  @override
+  String get appName => 'fMoney';
 
   @override
   String get appTitle => 'fMoney by VTeam';
@@ -212,6 +225,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get licenses => 'Licenses';
+
+  @override
+  String get licensesDescription =>
+      'fMoney está construido con software de código abierto. Consulta las licencias de todos los paquetes utilizados en esta aplicación.';
 
   @override
   String get list => 'List';
@@ -542,6 +559,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get useDemoData => 'Use Demo Data';
+
+  @override
+  String get versionInformation => 'Información de Versión';
+
+  @override
+  String get viewLicenses => 'Ver Licencias';
 
   @override
   String get welcomeToFmoney => 'Welcome to fMoney';

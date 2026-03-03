@@ -60,6 +60,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       case Constants.commandInstallPlatforms:
         Get.toNamed<dynamic>(Constants.routeInstallPlatformsPage);
         break;
+      case Constants.commandAbout:
+        Get.toNamed<dynamic>(Constants.routeAboutPage);
+        break;
       case Constants.commandIncludeClosedAccount:
         PreferenceController.to.includeClosedAccounts = !PreferenceController.to.includeClosedAccounts;
         break;
@@ -155,6 +158,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         'Install App...',
         Icons.install_desktop,
         key: Constants.keyPlatformsButton,
+      ),
+      _buildSettingsMenuItem(
+        Constants.commandAbout,
+        'About...',
+        Icons.info_outline,
+        key: const Key('key_about'),
       ),
       ..._buildThemeColorMenuItems(themeController),
       PopupMenuItem<int>(

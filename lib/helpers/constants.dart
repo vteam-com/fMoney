@@ -48,6 +48,7 @@ class Constants {
   static const int commandIncludeClosedAccount = 1200;
   static const int commandInstallPlatforms = 1300;
   static const int commandTextZoom = 1000;
+  static const int commandAbout = 1600;
 
   static const int sidePanelHeightCollapsedDefault = 44;
   static const int sidePanelHeightExpandedDefault = 380;
@@ -96,6 +97,7 @@ class Constants {
   static String routePolicyPage = '/policy';
   static String routeSettingsPage = '/settings';
   static String routeInstallPlatformsPage = '/platforms';
+  static String routeAboutPage = '/about';
   static String routeWelcomePage = '/welcome';
   static const double sanKeyColumnWidth = 200.0;
   static const double screenWidthLarge = 1800;
@@ -105,6 +107,13 @@ class Constants {
   static const double targetHeight = 200.0;
   static const double platformButtonSpacing = 16.0;
   static const double loadingPadding = 16.0;
+  static const double aboutPagePadding = 16.0;
+  static const double aboutSectionSpacing = 24.0;
+  static const double aboutIconSize = 8.0;
+  static const double aboutInfoRowSpacing = 4.0;
+  static const double aboutInfoLabelWidth = 120.0;
+  static const double aboutVersionSpacing = 12.0;
+  static const double aboutLicenseIconSize = 48.0;
   static const int httpStatusOk = 200;
   static String untitledFileName = 'Untitled';
   static String viewStockFieldNameAccount = 'Account';

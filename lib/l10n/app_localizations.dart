@@ -93,6 +93,12 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('es'), Locale('fr')];
 
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
   /// No description provided for @accountNames.
   ///
   /// In en, this message translates to:
@@ -134,6 +140,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Analyze spending'**
   String get analyzeSpending;
+
+  /// No description provided for @appDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Free open-source Flutter Personal Finance Management Application'**
+  String get appDescription;
+
+  /// No description provided for @appLongDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.'**
+  String get appLongDescription;
+
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'fMoney'**
+  String get appName;
 
   /// No description provided for @appTitle.
   ///
@@ -482,6 +506,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Licenses'**
   String get licenses;
+
+  /// No description provided for @licensesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'fMoney is built using open-source software. View the licenses for all packages used in this application.'**
+  String get licensesDescription;
 
   /// No description provided for @list.
   ///
@@ -1106,6 +1136,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use Demo Data'**
   String get useDemoData;
+
+  /// No description provided for @versionInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Version Information'**
+  String get versionInformation;
+
+  /// No description provided for @viewLicenses.
+  ///
+  /// In en, this message translates to:
+  /// **'View Licenses'**
+  String get viewLicenses;
 
   /// No description provided for @welcomeToFmoney.
   ///

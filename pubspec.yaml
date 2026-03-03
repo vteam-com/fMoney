@@ -1,5 +1,6 @@
 name: money
-description: Money budgeting tools that runs on all known platforms; Windows,
+description:
+  Free Flutter Money budgeting tools that runs on all known platforms; Windows,
   MacOS, Linux, iOS, Android, Web.
 
 # The following line prevents the package from being accidentally published to
@@ -18,7 +19,7 @@ publish_to: none # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.16.03
+version: 1.16.02
 
 environment:
   # This is the dart constraint
@@ -54,6 +55,7 @@ dependencies:
   logger: ^2.6.0
   markdown: ^7.3.0
   multi_split_view: ^3.6.1
+  package_info_plus: ^8.1.2
   pasteboard: ^0.4.0
   path: ^1.9.1
   path_provider: ^2.1.5

@@ -6,6 +6,13 @@ abstract class AppTranslationKeys {
   /// Translation keys used across the application UI.
   static const String accountNames = 'accountNames';
   static const String add = 'add';
+  static const String about = 'about';
+  static const String appName = 'appName';
+  static const String appDescription = 'appDescription';
+  static const String appLongDescription = 'appLongDescription';
+  static const String licensesDescription = 'licensesDescription';
+  static const String viewLicenses = 'viewLicenses';
+  static const String versionInformation = 'versionInformation';
   static const String addInvestmentTransaction = 'addInvestmentTransaction';
   static const String amountIsMatching = 'amountIsMatching';
   static const String amountIsOffBy = 'amountIsOffBy';
