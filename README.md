@@ -400,22 +400,13 @@ Windows
 ./check.cmd
 ```
 
-## Libraries Dependencies
+## Line of Code Heat map
 
-![layers.svg](layers.svg)
+![loc.svg](./fcheck_loc.svg)
 
 ## Layer Dependencies
 
-install
-
-```dart pub global activate lakos```
-
-```brew install graphviz```
-
-run
-```./graph.sh```
-
-![graph.svg](graph.svg)
+![layers.svg](./fcheck_folders.svg)
 
 ## Deploy
 

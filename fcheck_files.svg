@@ -320,6 +320,7 @@
 <rect x="1010.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/my_nav_bar.dart</title></rect>
 <rect x="1010.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/welcome/view_welcome.dart</title></rect>
 <rect x="1010.0" y="1350.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/drop_zone.dart</title></rect>
+<rect x="1010.0" y="1420.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/services/github_artifacts_service.dart</title></rect>
 <rect x="1330.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects.dart</title></rect>
 <rect x="1330.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_wizard.dart</title></rect>
 <rect x="1330.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/transaction_timeline_chart.dart</title></rect>
@@ -3305,6 +3306,14 @@
 <g>
   <path d="M 910.0 408.0 C 960.0 408.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/views/panels/platforms/platforms_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
+</g>
+<g>
+  <path d="M 910.0 408.0 C 960.0 408.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/panels/platforms/platforms_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
+</g>
+<g>
+  <path d="M 910.0 408.0 C 960.0 408.0, 966.0 1432.0, 1016.0 1432.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/views/panels/platforms/platforms_page.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/services/github_artifacts_service.dart</title>
 </g>
 <g>
   <path d="M 590.0 128.0 C 640.0 128.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
@@ -6559,6 +6568,10 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/amount_model.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
+  <path d="M 1230.0 1458.0 C 1280.0 1458.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/services/github_artifacts_service.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
+</g>
+<g>
   <path d="M 2510.0 338.0 C 2560.0 338.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
@@ -7866,8 +7879,10 @@
   <path d="M 702.0,382.0 L 690.0,375.0 Q 687.0,375.0 687.0,378.0 L 687.0,386.0 Q 687.0,389.0 690.0,389.0 Z" fill="#3b82f6"/>
   <text x="691.68" y="383.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. platforms_routes.dart</title></g><g class="badge outgoingBadge">
   <path d="M 916.0,408.0 L 904.0,401.0 Q 901.0,401.0 901.0,404.0 L 901.0,412.0 Q 901.0,415.0 904.0,415.0 Z" fill="#10b981"/>
-  <text x="905.68" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. app_l10n.dart
-2. app_translation_keys.dart</title></g><text x="800.0" y="395.0" class="textNormal">platforms_page.dart</text>
+  <text x="905.68" y="409.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. app_l10n.dart
+2. app_translation_keys.dart
+3. constants.dart
+4. github_artifacts_service.dart</title></g><text x="800.0" y="395.0" class="textNormal">platforms_page.dart</text>
 <g class="badge incomingBadge">
   <path d="M 702.0,452.0 L 690.0,445.0 Q 687.0,445.0 687.0,448.0 L 687.0,456.0 Q 687.0,459.0 690.0,459.0 Z" fill="#3b82f6"/>
   <text x="691.68" y="453.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. home_routes.dart</title></g><g class="badge outgoingBadge">
@@ -8262,6 +8277,11 @@
   <path d="M 1236.0,1388.0 L 1224.0,1381.0 Q 1221.0,1381.0 1221.0,1384.0 L 1221.0,1392.0 Q 1221.0,1395.0 1224.0,1395.0 Z" fill="#10b981"/>
   <text x="1225.68" y="1389.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. app_l10n.dart
 2. app_translation_keys.dart</title></g><text x="1120.0" y="1375.0" class="textNormal">drop_zone.dart</text>
+<g class="badge incomingBadge">
+  <path d="M 1022.0,1432.0 L 1010.0,1425.0 Q 1007.0,1425.0 1007.0,1428.0 L 1007.0,1436.0 Q 1007.0,1439.0 1010.0,1439.0 Z" fill="#3b82f6"/>
+  <text x="1011.68" y="1433.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. platforms_page.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 1236.0,1458.0 L 1224.0,1451.0 Q 1221.0,1451.0 1221.0,1454.0 L 1221.0,1462.0 Q 1221.0,1465.0 1224.0,1465.0 Z" fill="#10b981"/>
+  <text x="1225.68" y="1459.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. constants.dart</title></g><text x="1120.0" y="1445.0" class="textSmall">github_artifacts_service.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1344.0,102.0 L 1328.0,94.4 Q 1325.0,94.4 1325.0,97.4 L 1325.0,106.6 Q 1325.0,109.6 1328.0,109.6 Z" fill="#3b82f6"/>
   <text x="1330.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">10</text><title>1. view_accounts.dart
@@ -11927,7 +11947,7 @@
 10. transactions.dart</title></g><text x="10720.0" y="395.0" class="textNormal">pairs.dart</text>
 <g class="badge incomingBadge">
   <path d="M 10944.0,102.0 L 10928.0,94.4 Q 10925.0,94.4 10925.0,97.4 L 10925.0,106.6 Q 10925.0,109.6 10928.0,109.6 Z" fill="#3b82f6"/>
-  <text x="10930.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">92</text><title>1. account.dart
+  <text x="10930.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">94</text><title>1. account.dart
 2. accounts.dart
 3. adaptable_view_with_list.dart
 4. amount_model.dart
@@ -11952,73 +11972,75 @@
 23. event.dart
 24. field.dart
 25. get_stock_from_cache_or_backend.dart
-26. home_page.dart
-27. home_routes.dart
-28. import_transactions_list_preview.dart
-29. import_transactions_panel.dart
-30. input_values.dart
-31. label_and_amount.dart
-32. list_controller.dart
-33. list_item_card.dart
-34. list_item_header.dart
-35. list_view_transaction_splits.dart
-36. locale.dart
-37. menu_entry.dart
-38. merge_categories.dart
-39. message_box.dart
-40. mini_timeline_twelve_months.dart
-41. money_object_card.dart
-42. money_objects.dart
-43. mru_dropdown.dart
-44. multiple_selection_toggle.dart
-45. my_nav_bar.dart
-46. my_segment.dart
-47. my_window_manager.dart
-48. panel_budget.dart
-49. panel_trend.dart
-50. picker_account.dart
-51. picker_panel.dart
-52. platforms_routes.dart
-53. policy_routes.dart
-54. preferences_controller.dart
-55. recurring_card.dart
-56. rent_building.dart
-57. rental_pnl_card.dart
-58. sankey_painter.dart
-59. scale_down.dart
-60. settings_page.dart
-61. settings_routes.dart
-62. side_panel.dart
-63. side_panel_header.dart
-64. side_panel_support.dart
-65. stock_chart.dart
-66. theme_controller.dart
-67. token_text.dart
-68. transaction.dart
-69. transaction_delegate_helpers.dart
-70. transaction_timeline_chart.dart
-71. value_quality.dart
-72. view_accounts.dart
-73. view_ai.dart
-74. view_ai_instructions.dart
-75. view_aliases.dart
-76. view_cashflow.dart
-77. view_categories.dart
-78. view_events.dart
-79. view_investments.dart
-80. view_money_objects.dart
-81. view_money_objects_ui_helpers.dart
-82. view_payees.dart
-83. view_policy.dart
-84. view_rentals.dart
-85. view_rentals_side_panel.dart
-86. view_stocks.dart
-87. view_transactions.dart
-88. view_transfers.dart
-89. view_welcome.dart
-90. welcome_routes.dart
-91. wizard_choice.dart
-92. zoom.dart</title></g><text x="11040.0" y="115.0" class="textNormal">constants.dart</text>
+26. github_artifacts_service.dart
+27. home_page.dart
+28. home_routes.dart
+29. import_transactions_list_preview.dart
+30. import_transactions_panel.dart
+31. input_values.dart
+32. label_and_amount.dart
+33. list_controller.dart
+34. list_item_card.dart
+35. list_item_header.dart
+36. list_view_transaction_splits.dart
+37. locale.dart
+38. menu_entry.dart
+39. merge_categories.dart
+40. message_box.dart
+41. mini_timeline_twelve_months.dart
+42. money_object_card.dart
+43. money_objects.dart
+44. mru_dropdown.dart
+45. multiple_selection_toggle.dart
+46. my_nav_bar.dart
+47. my_segment.dart
+48. my_window_manager.dart
+49. panel_budget.dart
+50. panel_trend.dart
+51. picker_account.dart
+52. picker_panel.dart
+53. platforms_page.dart
+54. platforms_routes.dart
+55. policy_routes.dart
+56. preferences_controller.dart
+57. recurring_card.dart
+58. rent_building.dart
+59. rental_pnl_card.dart
+60. sankey_painter.dart
+61. scale_down.dart
+62. settings_page.dart
+63. settings_routes.dart
+64. side_panel.dart
+65. side_panel_header.dart
+66. side_panel_support.dart
+67. stock_chart.dart
+68. theme_controller.dart
+69. token_text.dart
+70. transaction.dart
+71. transaction_delegate_helpers.dart
+72. transaction_timeline_chart.dart
+73. value_quality.dart
+74. view_accounts.dart
+75. view_ai.dart
+76. view_ai_instructions.dart
+77. view_aliases.dart
+78. view_cashflow.dart
+79. view_categories.dart
+80. view_events.dart
+81. view_investments.dart
+82. view_money_objects.dart
+83. view_money_objects_ui_helpers.dart
+84. view_payees.dart
+85. view_policy.dart
+86. view_rentals.dart
+87. view_rentals_side_panel.dart
+88. view_stocks.dart
+89. view_transactions.dart
+90. view_transfers.dart
+91. view_welcome.dart
+92. welcome_routes.dart
+93. wizard_choice.dart
+94. zoom.dart</title></g><text x="11040.0" y="115.0" class="textNormal">constants.dart</text>
 <g class="badge incomingBadge">
   <path d="M 10944.0,172.0 L 10928.0,164.4 Q 10925.0,164.4 10925.0,167.4 L 10925.0,176.6 Q 10925.0,179.6 10928.0,179.6 Z" fill="#3b82f6"/>
   <text x="10930.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">38</text><title>1. accounts.dart

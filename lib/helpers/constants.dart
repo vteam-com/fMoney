@@ -103,6 +103,9 @@ class Constants {
   static const double screenWidthSmall = 600;
 
   static const double targetHeight = 200.0;
+  static const double platformButtonSpacing = 16.0;
+  static const double loadingPadding = 16.0;
+  static const int httpStatusOk = 200;
   static String untitledFileName = 'Untitled';
   static String viewStockFieldNameAccount = 'Account';
   static String viewStockFieldNameSymbol = 'Symbol';

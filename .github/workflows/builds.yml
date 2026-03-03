@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  release:
+    types: [published]
 
 env:
   FLUTTER_VERSION: "3.41.2"
@@ -26,11 +28,16 @@ jobs:
       - name: Build Windows App
         run: flutter build windows
 
+      - name: Create Windows ZIP
+        run: |
+          cd build/windows/x64/runner/Release
+          7z a -tzip ../../../../../mymoney-app-windows.zip .
+
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
           name: mymoney-app-windows
-          path: build/windows/x64/runner/Release/**
+          path: mymoney-app-windows.zip
 
   build-linux:
     name: Build Linux
@@ -54,11 +61,16 @@ jobs:
       - name: Build Linux App
         run: flutter build linux
 
+      - name: Create Linux ZIP
+        run: |
+          cd build/linux/x64/release/bundle
+          tar -czf ../../../../../mymoney-app-linux.tar.gz .
+
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
         with:
           name: mymoney-app-linux
-          path: build/linux/
+          path: mymoney-app-linux.tar.gz
 
   build-macos:
     name: Build macOS
@@ -77,8 +89,200 @@ jobs:
       - name: Build macOS App
         run: flutter build macos
 
+      - name: Create macOS ZIP
+        run: |
+          cd build/macos/Build/Products/Release
+          zip -r ../../../../../mymoney-app-macos.zip .
+
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v4
         with:
           name: mymoney-app-macos
-          path: build/macos/Build/Products/Release/
+          path: mymoney-app-macos.zip
+
+  create-release:
+    name: Create Release
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Generate Release Tag
+        id: tag
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+          echo "tag=v${TIMESTAMP}" >> $GITHUB_OUTPUT
+          echo "name=Release ${TIMESTAMP}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.name }}
+          body: |
+            ## fMoney Desktop Apps - ${{ steps.tag.outputs.name }}
+
+            ### Downloads
+            - **Windows**: mymoney-app-windows.zip
+            - **Linux**: mymoney-app-linux.tar.gz  
+            - **macOS**: mymoney-app-macos.zip
+
+            ### Installation
+            1. Download the appropriate file for your platform
+            2. Extract the archive
+            3. Run the executable
+
+            ### Requirements
+            - Windows 10+ (64-bit)
+            - Linux with GTK3 support
+            - macOS 10.14+ (Intel & Silicon)
+
+            Built from commit: ${{ github.sha }}
+          files: |
+            ./artifacts/mymoney-app-windows/mymoney-app-windows.zip
+            ./artifacts/mymoney-app-linux/mymoney-app-linux.tar.gz
+            ./artifacts/mymoney-app-macos/mymoney-app-macos.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cleanup-old-releases:
+    name: Cleanup Old Releases
+    needs: create-release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Keep only latest 3 releases
+        run: |
+          python3 << 'EOF'
+          import requests
+          import json
+          import os
+
+          # Get all releases
+          url = "https://api.github.com/repos/${{ github.repository }}/releases"
+          headers = {
+              "Authorization": "token ${{ secrets.GITHUB_TOKEN }}",
+              "Accept": "application/vnd.github.v3+json"
+          }
+
+          response = requests.get(url, headers=headers)
+          if response.status_code != 200:
+              print(f"Failed to fetch releases: {response.status_code}")
+              exit(1)
+
+          releases = response.json()
+
+          # Sort by creation date (newest first)
+          releases.sort(key=lambda x: x['created_at'], reverse=True)
+
+          # Keep only the latest 2 releases
+          releases_to_keep = releases[:2]
+          releases_to_delete = releases[2:]
+
+          print(f"Found {len(releases)} releases, keeping {len(releases_to_keep)}, deleting {len(releases_to_delete)}")
+
+          # Delete old releases
+          for release in releases_to_delete:
+              tag = release['tag_name']
+              delete_url = f"https://api.github.com/repos/${{ github.repository }}/releases/{release['id']}"
+              
+              print(f"Deleting release: {tag}")
+              delete_response = requests.delete(delete_url, headers=headers)
+              
+              if delete_response.status_code == 204:
+                  print(f"✅ Successfully deleted release: {tag}")
+              else:
+                  print(f"❌ Failed to delete release {tag}: {delete_response.status_code}")
+                  print(delete_response.text)
+
+          print("✅ Release cleanup completed")
+          EOF
+
+      - name: Cleanup old artifacts (keep latest 2 per platform)
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifactNames = ['mymoney-app-windows', 'mymoney-app-linux', 'mymoney-app-macos'];
+
+            for (const artifactName of artifactNames) {
+              console.log(`\n🔍 Cleaning up artifacts for: ${artifactName}`);
+              
+              // List all artifacts for this name
+              const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: artifactName,
+                per_page: 100,
+              });
+              
+              // Sort by creation date (newest first)
+              const sortedArtifacts = artifacts.artifacts.sort((a, b) => 
+                new Date(b.created_at) - new Date(a.created_at)
+              );
+              
+              // Keep only latest 2, delete the rest
+              const toKeep = sortedArtifacts.slice(0, 2);
+              const toDelete = sortedArtifacts.slice(2);
+              
+              console.log(`Found ${sortedArtifacts.length} artifacts, keeping ${toKeep.length}, deleting ${toDelete.length}`);
+              
+              // Delete old artifacts
+              for (const artifact of toDelete) {
+                try {
+                  await github.rest.actions.deleteArtifact({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    artifact_id: artifact.id,
+                  });
+                  console.log(`✅ Deleted artifact: ${artifact.id} (${artifact.created_at})`);
+                } catch (error) {
+                  console.log(`❌ Failed to delete artifact ${artifact.id}: ${error.message}`);
+                }
+              }
+            }
+
+      - name: Cleanup old workflow runs
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: runs } = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'builds.yml',
+              per_page: 50,
+            });
+
+            // Keep only the latest 10 successful runs
+            const successfulRuns = runs.workflow_runs.filter(run => run.conclusion === 'success');
+            const runsToDelete = successfulRuns.slice(10);
+
+            console.log(`Found ${successfulRuns.length} successful runs, deleting ${runsToDelete.length} old runs`);
+
+            for (const run of runsToDelete) {
+              try {
+                await github.rest.actions.deleteWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id,
+                });
+                console.log(`✅ Deleted run: ${run.id} (${run.created_at})`);
+              } catch (error) {
+                console.log(`❌ Failed to delete run ${run.id}: ${error.message}`);
+              }
+            }
