@@ -1562,6 +1562,14 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/app_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/app_title.dart</title>
 </g>
 <g>
+  <path d="M 1230.0 1038.0 C 1280.0 1038.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/app_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title>
+</g>
+<g>
+  <path d="M 1230.0 1038.0 C 1280.0 1038.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/app_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
+</g>
+<g>
   <path d="M 1230.0 1038.0 C 1280.0 1038.0, 10246.0 102.0, 10296.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/app_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title>
 </g>
@@ -7386,6 +7394,14 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/text_title.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title>
 </g>
 <g>
+  <path d="M 4430.0 128.0 C 4480.0 128.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/button_helpers.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title>
+</g>
+<g>
+  <path d="M 4430.0 128.0 C 4480.0 128.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/button_helpers.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
+</g>
+<g>
   <path d="M 4430.0 128.0 C 4480.0 128.0, 10886.0 102.0, 10936.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/button_helpers.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
@@ -8253,19 +8269,21 @@
   <path d="M 1022.0,1012.0 L 1010.0,1005.0 Q 1007.0,1005.0 1007.0,1008.0 L 1007.0,1016.0 Q 1007.0,1019.0 1010.0,1019.0 Z" fill="#3b82f6"/>
   <text x="1011.68" y="1013.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. home_page.dart</title></g><g class="badge outgoingBadge">
   <path d="M 1238.0,1038.0 L 1222.0,1030.4 Q 1219.0,1030.4 1219.0,1033.4 L 1219.0,1042.6 Q 1219.0,1045.6 1222.0,1045.6 Z" fill="#10b981"/>
-  <text x="1224.72" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">13</text><title>1. app_title.dart
-2. color_helper.dart
-3. color_palette.dart
-4. constants.dart
-5. data_file_controller.dart
-6. import_transactions_from_text.dart
-7. import_wizard.dart
-8. popup_menu_icon_button.dart
-9. preferences_controller.dart
-10. scale_down.dart
-11. theme_controller.dart
-12. three_part_label.dart
-13. zoom.dart</title></g><text x="1120.0" y="1025.0" class="textNormal">app_bar.dart</text>
+  <text x="1224.72" y="1039.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">15</text><title>1. app_l10n.dart
+2. app_title.dart
+3. app_translation_keys.dart
+4. color_helper.dart
+5. color_palette.dart
+6. constants.dart
+7. data_file_controller.dart
+8. import_transactions_from_text.dart
+9. import_wizard.dart
+10. popup_menu_icon_button.dart
+11. preferences_controller.dart
+12. scale_down.dart
+13. theme_controller.dart
+14. three_part_label.dart
+15. zoom.dart</title></g><text x="1120.0" y="1025.0" class="textNormal">app_bar.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1022.0,1082.0 L 1010.0,1075.0 Q 1007.0,1075.0 1007.0,1078.0 L 1007.0,1086.0 Q 1007.0,1089.0 1010.0,1089.0 Z" fill="#3b82f6"/>
   <text x="1011.68" y="1083.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. home_page.dart</title></g><g class="badge outgoingBadge">
@@ -10058,7 +10076,9 @@
 6. view_money_objects.dart
 7. view_payees.dart</title></g><g class="badge outgoingBadge">
   <path d="M 4436.0,128.0 L 4424.0,121.0 Q 4421.0,121.0 4421.0,124.0 L 4421.0,132.0 Q 4421.0,135.0 4424.0,135.0 Z" fill="#10b981"/>
-  <text x="4425.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. constants.dart</title></g><text x="4320.0" y="115.0" class="textNormal">button_helpers.dart</text>
+  <text x="4425.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. app_l10n.dart
+2. app_translation_keys.dart
+3. constants.dart</title></g><text x="4320.0" y="115.0" class="textNormal">button_helpers.dart</text>
 <g class="badge incomingBadge">
   <path d="M 4222.0,172.0 L 4210.0,165.0 Q 4207.0,165.0 4207.0,168.0 L 4207.0,176.0 Q 4207.0,179.0 4210.0,179.0 Z" fill="#3b82f6"/>
   <text x="4211.68" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. data.dart</title></g><g class="badge outgoingBadge">
@@ -11341,130 +11361,134 @@
 2. data_file_controller.dart</title></g><text x="9440.0" y="185.0" class="textNormal">data_mutations.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,102.0 L 9648.0,94.4 Q 9645.0,94.4 9645.0,97.4 L 9645.0,106.6 Q 9645.0,109.6 9648.0,109.6 Z" fill="#3b82f6"/>
-  <text x="9650.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">61</text><title>1. about_page.dart
-2. categories.dart
-3. center_message.dart
-4. chart.dart
-5. color_palette.dart
-6. column_filter_panel.dart
-7. columns_input.dart
-8. csv_column_mapper_dialog.dart
-9. data_object.dart
-10. date_range_time_line.dart
-11. dialog_single_text_input.dart
-12. drop_zone.dart
-13. event.dart
-14. footer_widgets.dart
-15. import_csv.dart
-16. import_investment_panel.dart
-17. import_transactions_list_preview.dart
-18. import_transactions_panel.dart
-19. import_transfer_panel.dart
-20. import_xlsx.dart
-21. investment.dart
-22. list_view_transaction_splits.dart
-23. list_view_transactions.dart
-24. merge_categories.dart
-25. merge_payees.dart
-26. my_banner.dart
-27. my_line_chart.dart
-28. my_nav_bar.dart
-29. ocr.dart
-30. panel_budget.dart
-31. pending_changes_dialog.dart
-32. picker_payee_or_transfer.dart
-33. platforms_page.dart
-34. policy_page.dart
-35. processing_indicator.dart
-36. settings_page.dart
-37. side_panel_header.dart
-38. snack_bar.dart
-39. splash_page.dart
-40. stock_chart.dart
-41. suggestion_approval.dart
-42. transaction_timeline_chart.dart
-43. view.dart
-44. view_accounts.dart
-45. view_ai.dart
-46. view_ai_chat_message.dart
-47. view_ai_header.dart
-48. view_ai_input.dart
-49. view_ai_instructions.dart
-50. view_cashflow.dart
-51. view_investments.dart
-52. view_money_objects.dart
-53. view_money_objects_ui_helpers.dart
-54. view_rentals_side_panel.dart
-55. view_stocks.dart
-56. view_transactions.dart
-57. view_transfers.dart
-58. view_welcome.dart
-59. welcome_page.dart
-60. xlsx_header_row_selector_dialog.dart
-61. years_range_selector.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
+  <text x="9650.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">63</text><title>1. about_page.dart
+2. app_bar.dart
+3. button_helpers.dart
+4. categories.dart
+5. center_message.dart
+6. chart.dart
+7. color_palette.dart
+8. column_filter_panel.dart
+9. columns_input.dart
+10. csv_column_mapper_dialog.dart
+11. data_object.dart
+12. date_range_time_line.dart
+13. dialog_single_text_input.dart
+14. drop_zone.dart
+15. event.dart
+16. footer_widgets.dart
+17. import_csv.dart
+18. import_investment_panel.dart
+19. import_transactions_list_preview.dart
+20. import_transactions_panel.dart
+21. import_transfer_panel.dart
+22. import_xlsx.dart
+23. investment.dart
+24. list_view_transaction_splits.dart
+25. list_view_transactions.dart
+26. merge_categories.dart
+27. merge_payees.dart
+28. my_banner.dart
+29. my_line_chart.dart
+30. my_nav_bar.dart
+31. ocr.dart
+32. panel_budget.dart
+33. pending_changes_dialog.dart
+34. picker_payee_or_transfer.dart
+35. platforms_page.dart
+36. policy_page.dart
+37. processing_indicator.dart
+38. settings_page.dart
+39. side_panel_header.dart
+40. snack_bar.dart
+41. splash_page.dart
+42. stock_chart.dart
+43. suggestion_approval.dart
+44. transaction_timeline_chart.dart
+45. view.dart
+46. view_accounts.dart
+47. view_ai.dart
+48. view_ai_chat_message.dart
+49. view_ai_header.dart
+50. view_ai_input.dart
+51. view_ai_instructions.dart
+52. view_cashflow.dart
+53. view_investments.dart
+54. view_money_objects.dart
+55. view_money_objects_ui_helpers.dart
+56. view_rentals_side_panel.dart
+57. view_stocks.dart
+58. view_transactions.dart
+59. view_transfers.dart
+60. view_welcome.dart
+61. welcome_page.dart
+62. xlsx_header_row_selector_dialog.dart
+63. years_range_selector.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,172.0 L 9648.0,164.4 Q 9645.0,164.4 9645.0,167.4 L 9645.0,176.6 Q 9645.0,179.6 9648.0,179.6 Z" fill="#3b82f6"/>
-  <text x="9650.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">61</text><title>1. about_page.dart
-2. categories.dart
-3. center_message.dart
-4. chart.dart
-5. color_palette.dart
-6. column_filter_panel.dart
-7. columns_input.dart
-8. csv_column_mapper_dialog.dart
-9. data_object.dart
-10. date_range_time_line.dart
-11. dialog_single_text_input.dart
-12. drop_zone.dart
-13. event.dart
-14. footer_widgets.dart
-15. import_csv.dart
-16. import_investment_panel.dart
-17. import_transactions_list_preview.dart
-18. import_transactions_panel.dart
-19. import_transfer_panel.dart
-20. import_xlsx.dart
-21. investment.dart
-22. list_view_transaction_splits.dart
-23. list_view_transactions.dart
-24. merge_categories.dart
-25. merge_payees.dart
-26. my_banner.dart
-27. my_line_chart.dart
-28. my_nav_bar.dart
-29. ocr.dart
-30. panel_budget.dart
-31. pending_changes_dialog.dart
-32. picker_payee_or_transfer.dart
-33. platforms_page.dart
-34. policy_page.dart
-35. processing_indicator.dart
-36. settings_page.dart
-37. side_panel_header.dart
-38. snack_bar.dart
-39. splash_page.dart
-40. stock_chart.dart
-41. suggestion_approval.dart
-42. transaction_timeline_chart.dart
-43. view.dart
-44. view_accounts.dart
-45. view_ai.dart
-46. view_ai_chat_message.dart
-47. view_ai_header.dart
-48. view_ai_input.dart
-49. view_ai_instructions.dart
-50. view_cashflow.dart
-51. view_investments.dart
-52. view_money_objects.dart
-53. view_money_objects_ui_helpers.dart
-54. view_rentals_side_panel.dart
-55. view_stocks.dart
-56. view_transactions.dart
-57. view_transfers.dart
-58. view_welcome.dart
-59. welcome_page.dart
-60. xlsx_header_row_selector_dialog.dart
-61. years_range_selector.dart</title></g><text x="9760.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
+  <text x="9650.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">63</text><title>1. about_page.dart
+2. app_bar.dart
+3. button_helpers.dart
+4. categories.dart
+5. center_message.dart
+6. chart.dart
+7. color_palette.dart
+8. column_filter_panel.dart
+9. columns_input.dart
+10. csv_column_mapper_dialog.dart
+11. data_object.dart
+12. date_range_time_line.dart
+13. dialog_single_text_input.dart
+14. drop_zone.dart
+15. event.dart
+16. footer_widgets.dart
+17. import_csv.dart
+18. import_investment_panel.dart
+19. import_transactions_list_preview.dart
+20. import_transactions_panel.dart
+21. import_transfer_panel.dart
+22. import_xlsx.dart
+23. investment.dart
+24. list_view_transaction_splits.dart
+25. list_view_transactions.dart
+26. merge_categories.dart
+27. merge_payees.dart
+28. my_banner.dart
+29. my_line_chart.dart
+30. my_nav_bar.dart
+31. ocr.dart
+32. panel_budget.dart
+33. pending_changes_dialog.dart
+34. picker_payee_or_transfer.dart
+35. platforms_page.dart
+36. policy_page.dart
+37. processing_indicator.dart
+38. settings_page.dart
+39. side_panel_header.dart
+40. snack_bar.dart
+41. splash_page.dart
+42. stock_chart.dart
+43. suggestion_approval.dart
+44. transaction_timeline_chart.dart
+45. view.dart
+46. view_accounts.dart
+47. view_ai.dart
+48. view_ai_chat_message.dart
+49. view_ai_header.dart
+50. view_ai_input.dart
+51. view_ai_instructions.dart
+52. view_cashflow.dart
+53. view_investments.dart
+54. view_money_objects.dart
+55. view_money_objects_ui_helpers.dart
+56. view_rentals_side_panel.dart
+57. view_stocks.dart
+58. view_transactions.dart
+59. view_transfers.dart
+60. view_welcome.dart
+61. welcome_page.dart
+62. xlsx_header_row_selector_dialog.dart
+63. years_range_selector.dart</title></g><text x="9760.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,242.0 L 9648.0,234.4 Q 9645.0,234.4 9645.0,237.4 L 9645.0,246.6 Q 9645.0,249.6 9648.0,249.6 Z" fill="#3b82f6"/>
   <text x="9650.72" y="243.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">44</text><title>1. account.dart

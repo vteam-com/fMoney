@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
@@ -128,7 +129,9 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
 
         return Focus(
           focusNode: _keyboardFocusNode,
-          autofocus: true,
+          // On web, route/view focus can be requested before the list is laid
+          // out, which trips focus traversal assertions.
+          autofocus: !kIsWeb,
           onKeyEvent: _handleKeyboardShortcuts,
           child: ValueListenableBuilder<List<int>>(
             valueListenable: widget.selectedItemsByUniqueId,

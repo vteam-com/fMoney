@@ -1,5 +1,6 @@
 // ignore: fcheck_dead_code
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -102,7 +103,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
                         );
                       }
                       widget.onSelectionChanged?.call(itemInstance.uniqueId);
-                      FocusScope.of(context).requestFocus();
+                      if (!kIsWeb) {
+                        FocusScope.of(context).requestFocus();
+                      }
                     });
                   },
                 ),
@@ -125,13 +128,17 @@ class MyListViewState<T> extends State<MyListView<T>> {
                     }
                     widget.onSelectionChanged?.call(itemInstance.uniqueId);
 
-                    FocusScope.of(context).requestFocus();
+                    if (!kIsWeb) {
+                      FocusScope.of(context).requestFocus();
+                    }
                   },
                   onLongPress: () {
                     widget.onLongPress?.call(context, itemInstance.uniqueId);
-                    FocusScope.of(context).requestFocus();
+                    if (!kIsWeb) {
+                      FocusScope.of(context).requestFocus();
+                    }
                   },
-                  autoFocus: index == widget.selectedItemIds.value.firstOrNull,
+                  autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
                   adornmentColor: itemInstance.getMutationColor(),
                   child: _buildListItemContent(

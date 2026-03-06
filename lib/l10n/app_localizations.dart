@@ -99,6 +99,12 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
+  /// No description provided for @aboutMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'About...'**
+  String get aboutMenuItem;
+
   /// No description provided for @accountNames.
   ///
   /// In en, this message translates to:
@@ -116,6 +122,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Investment Transaction'**
   String get addInvestmentTransaction;
+
+  /// No description provided for @addNewTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new transactions'**
+  String get addNewTransactions;
+
+  /// No description provided for @addTransactionsMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add transactions...'**
+  String get addTransactionsMenuItem;
 
   /// No description provided for @aiAssistant.
   ///
@@ -267,6 +285,12 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @closeFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Close file'**
+  String get closeFile;
+
   /// No description provided for @confirm.
   ///
   /// In en, this message translates to:
@@ -296,6 +320,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copied to clipboard'**
   String get copiedToClipboard;
+
+  /// No description provided for @copyListToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy list to clipboard'**
+  String get copyListToClipboard;
 
   /// No description provided for @countSelected.
   ///
@@ -345,6 +375,12 @@ abstract class AppLocalizations {
   /// **'Debit'**
   String get debit;
 
+  /// No description provided for @deleteSelectedItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected item(s)'**
+  String get deleteSelectedItems;
+
   /// No description provided for @details.
   ///
   /// In en, this message translates to:
@@ -356,6 +392,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drop files here'**
   String get dropFilesHere;
+
+  /// No description provided for @editSelectedItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit selected item(s)'**
+  String get editSelectedItems;
 
   /// No description provided for @elapsedElapsed.
   ///
@@ -392,6 +434,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expense predictions'**
   String get expensePredictions;
+
+  /// No description provided for @fileLocationMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'File location...'**
+  String get fileLocationMenuItem;
+
+  /// No description provided for @fileMenuTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'File menu'**
+  String get fileMenuTooltip;
 
   /// No description provided for @filter.
   ///
@@ -441,6 +495,12 @@ abstract class AppLocalizations {
   /// **'Helper for debugging'**
   String get helperForDebugging;
 
+  /// No description provided for @hideClosedAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide closed accounts'**
+  String get hideClosedAccounts;
+
   /// No description provided for @idLabel.
   ///
   /// In en, this message translates to:
@@ -464,6 +524,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Info'**
   String get info;
+
+  /// No description provided for @installAppMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Install App...'**
+  String get installAppMenuItem;
 
   /// No description provided for @installOllamaNow.
   ///
@@ -548,6 +614,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Merge'**
   String get merge;
+
+  /// No description provided for @mergeItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge item(s)'**
+  String get mergeItems;
 
   /// No description provided for @messageDetails.
   ///
@@ -735,6 +807,12 @@ abstract class AppLocalizations {
   /// **'New File ...'**
   String get newFile;
 
+  /// No description provided for @newMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newMenuItem;
+
   /// No description provided for @noAccountSelected.
   ///
   /// In en, this message translates to:
@@ -903,6 +981,12 @@ abstract class AppLocalizations {
   /// **'Open File ...'**
   String get openFile;
 
+  /// No description provided for @openMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Open...'**
+  String get openMenuItem;
+
   /// No description provided for @orChangeToCategory.
   ///
   /// In en, this message translates to:
@@ -957,6 +1041,12 @@ abstract class AppLocalizations {
   /// **'Questions: {questionCount} | Tokens: {tokenCount}'**
   String questionsQuestioncountTokensTokencount(String questionCount, String tokenCount);
 
+  /// No description provided for @rebalanceMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Rebalance...'**
+  String get rebalanceMenuItem;
+
   /// No description provided for @recordATransferBetweenTwoAccounts.
   ///
   /// In en, this message translates to:
@@ -1005,6 +1095,18 @@ abstract class AppLocalizations {
   /// **'Sankey'**
   String get sankey;
 
+  /// No description provided for @saveToCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to CSV'**
+  String get saveToCsv;
+
+  /// No description provided for @saveToSql.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to SQL'**
+  String get saveToSql;
+
   /// No description provided for @selectARentalPropertyToSeeItsPL.
   ///
   /// In en, this message translates to:
@@ -1040,6 +1142,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @settingsMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings...'**
+  String get settingsMenuItem;
+
+  /// No description provided for @showClosedAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Show closed accounts'**
+  String get showClosedAccounts;
 
   /// No description provided for @showingFirstMaxrowsOfRowcountEligibleRows.
   ///
@@ -1107,6 +1221,12 @@ abstract class AppLocalizations {
   /// **'To payee'**
   String get toPayee;
 
+  /// No description provided for @toggleBrightness.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle brightness'**
+  String get toggleBrightness;
+
   /// No description provided for @total.
   ///
   /// In en, this message translates to:
@@ -1155,6 +1275,12 @@ abstract class AppLocalizations {
   /// **'Version Information'**
   String get versionInformation;
 
+  /// No description provided for @viewClosedAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'View closed accounts'**
+  String get viewClosedAccounts;
+
   /// No description provided for @viewLicenses.
   ///
   /// In en, this message translates to:
@@ -1190,6 +1316,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'XLSX import cancelled.'**
   String get xlsxImportCancelled;
+
+  /// No description provided for @zoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom'**
+  String get zoom;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

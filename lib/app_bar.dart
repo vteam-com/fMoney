@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money/app_title.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data_file_controller.dart';
@@ -93,42 +95,47 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Builds the main file/actions popup menu for the app bar.
   Widget _buildPopupMenu(BuildContext context) {
     final List<PopupMenuItem<int>> menuItems = <PopupMenuItem<int>>[
-      _buildMenuItem(Constants.commandFileNew, 'New', Icons.note_add_outlined, shortcut: 'Ctrl+N'),
+      _buildMenuItem(
+        Constants.commandFileNew,
+        AppL10n.tr(AppTranslationKeys.newMenuItem),
+        Icons.note_add_outlined,
+        shortcut: 'Ctrl+N',
+      ),
       _buildMenuItem(
         Constants.commandFileOpen,
-        'Open...',
+        AppL10n.tr(AppTranslationKeys.openMenuItem),
         Icons.file_open_outlined,
         shortcut: 'Ctrl+O',
       ),
       _buildMenuItem(
         Constants.commandAddTransactions,
-        'Add transactions...',
+        AppL10n.tr(AppTranslationKeys.addTransactionsMenuItem),
         Icons.post_add_outlined,
         shortcut: 'Ctrl+T',
       ),
       _buildMenuItem(
         Constants.commandRebalance,
-        'Rebalance...',
+        AppL10n.tr(AppTranslationKeys.rebalanceMenuItem),
         Icons.refresh_outlined,
         shortcut: 'Ctrl+R',
       ),
       if (!kIsWeb) ...<PopupMenuItem<int>>[
         _buildMenuItem(
           Constants.commandFileLocation,
-          'File location...',
+          AppL10n.tr(AppTranslationKeys.fileLocationMenuItem),
           Icons.folder_open_outlined,
         ),
-        _buildMenuItem(Constants.commandFileSaveCsv, 'Save to CSV', Icons.save),
-        _buildMenuItem(Constants.commandFileSaveSql, 'Save to SQL', Icons.save),
+        _buildMenuItem(Constants.commandFileSaveCsv, AppL10n.tr(AppTranslationKeys.saveToCsv), Icons.save),
+        _buildMenuItem(Constants.commandFileSaveSql, AppL10n.tr(AppTranslationKeys.saveToSql), Icons.save),
       ],
-      _buildMenuItem(Constants.commandFileClose, 'Close file', Icons.close),
+      _buildMenuItem(Constants.commandFileClose, AppL10n.tr(AppTranslationKeys.closeFile), Icons.close),
     ];
 
     return myPopupMenuIconButton(
       key: const Key('key_menu_button'),
       context: context,
       icon: Icons.menu,
-      tooltip: 'File menu',
+      tooltip: AppL10n.tr(AppTranslationKeys.fileMenuTooltip),
       list: menuItems,
       onSelected: _handleMenuSelection,
     );
@@ -143,25 +150,27 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     final List<PopupMenuItem<int>> actionList = <PopupMenuItem<int>>[
       _buildSettingsMenuItem(
         Constants.commandIncludeClosedAccount,
-        preferencesController.includeClosedAccounts ? 'Hide "Closed Accounts"' : 'Show "Closed Account"',
+        preferencesController.includeClosedAccounts
+            ? AppL10n.tr(AppTranslationKeys.hideClosedAccounts)
+            : AppL10n.tr(AppTranslationKeys.showClosedAccounts),
         Icons.inventory,
         opacity: preferencesController.includeClosedAccounts ? _opacityEnabled : _opacityDisabled,
       ),
       _buildSettingsMenuItem(
         Constants.commandSettings,
-        'Settings...',
+        AppL10n.tr(AppTranslationKeys.settingsMenuItem),
         Icons.settings,
         key: const Key('key_settings'),
       ),
       _buildSettingsMenuItem(
         Constants.commandInstallPlatforms,
-        'Install App...',
+        AppL10n.tr(AppTranslationKeys.installAppMenuItem),
         Icons.install_desktop,
         key: Constants.keyPlatformsButton,
       ),
       _buildSettingsMenuItem(
         Constants.commandAbout,
-        'About...',
+        AppL10n.tr(AppTranslationKeys.aboutMenuItem),
         Icons.info_outline,
         key: const Key('key_about'),
       ),
@@ -169,7 +178,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       PopupMenuItem<int>(
         value: Constants.commandTextZoom,
         child: ZoomIncreaseDecrease(
-          title: 'Zoom',
+          title: AppL10n.tr(AppTranslationKeys.zoom),
           onDecrease: ThemeController.to.fontScaleDecrease,
           onIncrease: ThemeController.to.fontScaleIncrease,
         ),
@@ -192,7 +201,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       key: Constants.keySettingsButton,
       context: context,
       icon: Icons.settings_outlined,
-      tooltip: 'Settings',
+      tooltip: AppL10n.tr(AppTranslationKeys.settings),
       list: actionList,
       onSelected: onAppBarAction,
     );
@@ -260,7 +269,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: const Icon(Icons.inventory, size: _inventoryIconSize),
       ),
       onPressed: () => preferencesController.includeClosedAccounts = !preferencesController.includeClosedAccounts,
-      tooltip: preferencesController.includeClosedAccounts ? 'Hide closed accounts' : 'View closed accounts',
+      tooltip: preferencesController.includeClosedAccounts
+          ? AppL10n.tr(AppTranslationKeys.hideClosedAccounts)
+          : AppL10n.tr(AppTranslationKeys.viewClosedAccounts),
     );
   }
 
@@ -272,7 +283,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         themeController.isDarkTheme.value ? Icons.wb_sunny : Icons.mode_night,
       ),
       onPressed: ThemeController.to.toggleThemeMode,
-      tooltip: 'Toggle brightness',
+      tooltip: AppL10n.tr(AppTranslationKeys.toggleBrightness),
     );
   }
 

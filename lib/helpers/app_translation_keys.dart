@@ -6,7 +6,10 @@ abstract class AppTranslationKeys {
   /// Translation keys used across the application UI.
   static const String accountNames = 'accountNames';
   static const String add = 'add';
+  static const String addNewTransactions = 'addNewTransactions';
+  static const String addTransactionsMenuItem = 'addTransactionsMenuItem';
   static const String about = 'about';
+  static const String aboutMenuItem = 'aboutMenuItem';
   static const String appName = 'appName';
   static const String appDescription = 'appDescription';
   static const String appLongDescription = 'appLongDescription';
@@ -31,10 +34,12 @@ abstract class AppTranslationKeys {
   static const String chooseColumns = 'chooseColumns';
   static const String clearFilters = 'clearFilters';
   static const String close = 'close';
+  static const String closeFile = 'closeFile';
   static const String confirm = 'confirm';
   static const String content = 'content';
   static const String contentGoesHere = 'contentGoesHere';
   static const String continueLabel = 'continueLabel';
+  static const String copyListToClipboard = 'copyListToClipboard';
   static const String copiedToClipboard = 'copiedToClipboard';
   static const String countSelected = 'countSelected';
   static const String countYears = 'countYears';
@@ -45,22 +50,28 @@ abstract class AppTranslationKeys {
   static const String dataPreviewFirst5Rows = 'dataPreviewFirst5Rows';
   static const String debit = 'debit';
   static const String details = 'details';
+  static const String deleteSelectedItems = 'deleteSelectedItems';
   static const String dropFilesHere = 'dropFilesHere';
   static const String elapsedElapsed = 'elapsedElapsed';
+  static const String editSelectedItems = 'editSelectedItems';
   static const String error = 'error';
   static const String errorImportingCsvError = 'errorImportingCsvError';
   static const String errorImportingXlsxError = 'errorImportingXlsxError';
   static const String expensePredictions = 'expensePredictions';
+  static const String fileLocationMenuItem = 'fileLocationMenuItem';
+  static const String fileMenuTooltip = 'fileMenuTooltip';
   static const String forSpacer = 'forSpacer';
   static const String freeStyle = 'freeStyle';
   static const String fromCategory = 'fromCategory';
   static const String fromPayee = 'fromPayee';
   static const String fullPromptSentToAi = 'fullPromptSentToAi';
   static const String helperForDebugging = 'helperForDebugging';
+  static const String hideClosedAccounts = 'hideClosedAccounts';
   static const String idLabel = 'idLabel';
   static const String info = 'info';
   static const String importTransactionToAccount = 'importTransactionToAccount';
   static const String includeAssetAccounts = 'includeAssetAccounts';
+  static const String installAppMenuItem = 'installAppMenuItem';
   static const String installOllamaNow = 'installOllamaNow';
   static const String keepAllTransactionsToTheirCurrentCategories = 'keepAllTransactionsToTheirCurrentCategories';
   static const String largestTransactions = 'largestTransactions';
@@ -72,6 +83,7 @@ abstract class AppTranslationKeys {
   static const String manageTheExpensesAndRentalIncomeOfProperties = 'manageTheExpensesAndRentalIncomeOfProperties';
   static const String maxLabel = 'maxLabel';
   static const String merge = 'merge';
+  static const String mergeItems = 'mergeItems';
   static const String messageDetails = 'messageDetails';
   static const String minLabel = 'minLabel';
   static const String missingTransfer = 'missingTransfer';
@@ -79,6 +91,7 @@ abstract class AppTranslationKeys {
   static const String monthlyBudgeted = 'monthlyBudgeted';
   static const String networth = 'networth';
   static const String newFile = 'newFile';
+  static const String newMenuItem = 'newMenuItem';
   static const String noAccountSelected = 'noAccountSelected';
   static const String noDataRowsToPreview = 'noDataRowsToPreview';
   static const String noDataToDisplay = 'noDataToDisplay';
@@ -97,6 +110,7 @@ abstract class AppTranslationKeys {
   static const String ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt =
       'ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt';
   static const String openFile = 'openFile';
+  static const String openMenuItem = 'openMenuItem';
   static const String orChangeToCategory = 'orChangeToCategory';
   static const String payee = 'payee';
   static const String payeeMatch = 'payeeMatch';
@@ -106,12 +120,15 @@ abstract class AppTranslationKeys {
   static const String privacyPolicy = 'privacyPolicy';
   static const String questionsQuestioncountTokensTokencount = 'questionsQuestioncountTokensTokencount';
   static const String recordATransferBetweenTwoAccounts = 'recordATransferBetweenTwoAccounts';
+  static const String rebalanceMenuItem = 'rebalanceMenuItem';
   static const String recurring = 'recurring';
   static const String refreshList = 'refreshList';
   static const String rental = 'rental';
   static const String rentalPropertyNotFound = 'rentalPropertyNotFound';
   static const String rowIndex = 'rowIndex';
   static const String runOllama = 'runOllama';
+  static const String saveToCsv = 'saveToCsv';
+  static const String saveToSql = 'saveToSql';
   static const String sankey = 'sankey';
   static const String selectARentalPropertyToSeeItsPL = 'selectARentalPropertyToSeeItsPL';
   static const String selectColumn = 'selectColumn';
@@ -120,6 +137,8 @@ abstract class AppTranslationKeys {
       'selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent';
   static const String setApiKey = 'setApiKey';
   static const String settings = 'settings';
+  static const String settingsMenuItem = 'settingsMenuItem';
+  static const String showClosedAccounts = 'showClosedAccounts';
   static const String showingFirstMaxrowsOfRowcountEligibleRows = 'showingFirstMaxrowsOfRowcountEligibleRows';
   static const String showingRowcountEligibleRowsExcludedRowsWith3Columns =
       'showingRowcountEligibleRowsExcludedRowsWith3Columns';
@@ -130,6 +149,7 @@ abstract class AppTranslationKeys {
   static const String success = 'success';
   static const String thinking = 'thinking';
   static const String timestampTimestamp = 'timestampTimestamp';
+  static const String toggleBrightness = 'toggleBrightness';
   static const String toCategory = 'toCategory';
   static const String toPayee = 'toPayee';
   static const String total = 'total';
@@ -139,6 +159,7 @@ abstract class AppTranslationKeys {
   static const String trend = 'trend';
   static const String unknown = 'unknown';
   static const String useDemoData = 'useDemoData';
+  static const String viewClosedAccounts = 'viewClosedAccounts';
   static const String warning = 'warning';
   static const String xlsxFileContainsNoDataRows = 'xlsxFileContainsNoDataRows';
   static const String xlsxFileContainsNoValidData = 'xlsxFileContainsNoValidData';
@@ -189,4 +210,5 @@ abstract class AppTranslationKeys {
   static const String fmoney = 'fmoney';
   static const String noRelatedTransactions = 'noRelatedTransactions';
   static const String policy = 'policy';
+  static const String zoom = 'zoom';
 }

@@ -12,6 +12,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get about => 'À propos';
 
   @override
+  String get aboutMenuItem => 'A propos...';
+
+  @override
   String get accountNames => 'Noms des comptes';
 
   @override
@@ -19,6 +22,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get addInvestmentTransaction => 'Ajouter une transaction d\'investissement';
+
+  @override
+  String get addNewTransactions => 'Ajouter de nouvelles transactions';
+
+  @override
+  String get addTransactionsMenuItem => 'Ajouter des transactions...';
 
   @override
   String get aiAssistant => 'Assistant IA';
@@ -97,6 +106,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get close => 'Fermer';
 
   @override
+  String get closeFile => 'Fermer le fichier';
+
+  @override
   String get confirm => 'Confirmer';
 
   @override
@@ -110,6 +122,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get copiedToClipboard => 'Copie dans le presse-papiers';
+
+  @override
+  String get copyListToClipboard => 'Copier la liste dans le presse-papiers';
 
   @override
   String countSelected(String count) {
@@ -140,10 +155,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get debit => 'Debit';
 
   @override
+  String get deleteSelectedItems => 'Supprimer les elements selectionnes';
+
+  @override
   String get details => 'Details';
 
   @override
   String get dropFilesHere => 'Deposez les fichiers ici';
+
+  @override
+  String get editSelectedItems => 'Modifier les elements selectionnes';
 
   @override
   String elapsedElapsed(String elapsed) {
@@ -170,6 +191,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get expensePredictions => 'Previsions de depenses';
 
   @override
+  String get fileLocationMenuItem => 'Emplacement du fichier...';
+
+  @override
+  String get fileMenuTooltip => 'Menu fichier';
+
+  @override
   String get filter => 'filtre';
 
   @override
@@ -194,6 +221,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get helperForDebugging => 'Aide au debogage';
 
   @override
+  String get hideClosedAccounts => 'Masquer les comptes fermes';
+
+  @override
   String get idLabel => 'ID : ';
 
   @override
@@ -204,6 +234,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get info => 'Info';
+
+  @override
+  String get installAppMenuItem => 'Installer l\'application...';
 
   @override
   String get installOllamaNow => 'Installer Ollama maintenant';
@@ -249,6 +282,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get merge => 'Fusionner';
+
+  @override
+  String get mergeItems => 'Fusionner les elements';
 
   @override
   String get messageDetails => 'Details du message';
@@ -346,6 +382,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newFile => 'Nouveau fichier ...';
 
   @override
+  String get newMenuItem => 'Nouveau';
+
+  @override
   String get noAccountSelected => 'Aucun compte selectionne';
 
   @override
@@ -435,6 +474,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get openFile => 'Ouvrir un fichier ...';
 
   @override
+  String get openMenuItem => 'Ouvrir...';
+
+  @override
   String get orChangeToCategory => 'ou changer vers la categorie';
 
   @override
@@ -464,6 +506,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get rebalanceMenuItem => 'Reequilibrer...';
+
+  @override
   String get recordATransferBetweenTwoAccounts => 'Enregistrer un transfert entre deux comptes';
 
   @override
@@ -490,6 +535,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sankey => 'Sankey';
 
   @override
+  String get saveToCsv => 'Enregistrer en CSV';
+
+  @override
+  String get saveToSql => 'Enregistrer en SQL';
+
+  @override
   String get selectARentalPropertyToSeeItsPL => 'Selectionnez une propriete locative pour voir son P&L';
 
   @override
@@ -507,6 +558,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settings => 'Parametres';
+
+  @override
+  String get settingsMenuItem => 'Parametres...';
+
+  @override
+  String get showClosedAccounts => 'Afficher les comptes fermes';
 
   @override
   String showingFirstMaxrowsOfRowcountEligibleRows(String maxRows, String rowCount) {
@@ -548,6 +605,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get toPayee => 'Vers le beneficiaire';
 
   @override
+  String get toggleBrightness => 'Basculer la luminosite';
+
+  @override
   String get total => 'Total';
 
   @override
@@ -572,6 +632,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get versionInformation => 'Informations de version';
 
   @override
+  String get viewClosedAccounts => 'Voir les comptes fermes';
+
+  @override
   String get viewLicenses => 'Voir les licences';
 
   @override
@@ -588,4 +651,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get xlsxImportCancelled => 'Import XLSX annule.';
+
+  @override
+  String get zoom => 'Zoom';
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/color_helper.dart';
 
@@ -65,48 +66,53 @@ class MyListItemState extends State<MyListItem> {
           )
         : Colors.transparent;
 
-    return Focus(
-      autofocus: widget.autoFocus,
-      onFocusChange: (final bool value) {
-        if (value) {}
-      },
-      onKeyEvent: widget.onListViewKeyEvent,
-      child: MouseRegion(
-        onHover: (PointerHoverEvent _) => setState(() => _hovering = true),
-        onExit: (PointerExitEvent _) => setState(() => _hovering = false),
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              isSelected = !isSelected;
-            });
-            widget.onTap?.call();
-          },
-          onDoubleTap: widget.onDoubleTap,
-          onLongPress: widget.onLongPress,
-          child: DecoratedBox(
-            // height: 40,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: Border(
-                top: BorderSide(
-                  width: _rowDividerWidth,
-                  color: getColorTheme(
-                    context,
-                  ).outline.withValues(alpha: _rowDividerAlpha),
-                ),
-                left: BorderSide(
-                  width: _adornmentWidth,
-                  color: widget.adornmentColor,
-                ),
-                bottom: BorderSide(
-                  width: _rowDividerWidth,
-                  color: getColorTheme(
-                    context,
-                  ).outline.withValues(alpha: _rowDividerAlpha),
+    return ExcludeFocus(
+      excluding: kIsWeb,
+      child: Focus(
+        autofocus: !kIsWeb && widget.autoFocus,
+        canRequestFocus: !kIsWeb,
+        skipTraversal: kIsWeb,
+        onFocusChange: (final bool value) {
+          if (value) {}
+        },
+        onKeyEvent: widget.onListViewKeyEvent,
+        child: MouseRegion(
+          onHover: (PointerHoverEvent _) => setState(() => _hovering = true),
+          onExit: (PointerExitEvent _) => setState(() => _hovering = false),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                isSelected = !isSelected;
+              });
+              widget.onTap?.call();
+            },
+            onDoubleTap: widget.onDoubleTap,
+            onLongPress: widget.onLongPress,
+            child: DecoratedBox(
+              // height: 40,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                border: Border(
+                  top: BorderSide(
+                    width: _rowDividerWidth,
+                    color: getColorTheme(
+                      context,
+                    ).outline.withValues(alpha: _rowDividerAlpha),
+                  ),
+                  left: BorderSide(
+                    width: _adornmentWidth,
+                    color: widget.adornmentColor,
+                  ),
+                  bottom: BorderSide(
+                    width: _rowDividerWidth,
+                    color: getColorTheme(
+                      context,
+                    ).outline.withValues(alpha: _rowDividerAlpha),
+                  ),
                 ),
               ),
+              child: widget.child,
             ),
-            child: widget.child,
           ),
         ),
       ),

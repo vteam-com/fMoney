@@ -18,8 +18,14 @@ class AppL10n {
         return l10n.accountNames;
       case 'add':
         return l10n.add;
+      case 'addNewTransactions':
+        return l10n.addNewTransactions;
+      case 'addTransactionsMenuItem':
+        return l10n.addTransactionsMenuItem;
       case 'addInvestmentTransaction':
         return l10n.addInvestmentTransaction;
+      case 'aboutMenuItem':
+        return l10n.aboutMenuItem;
       case 'amountIsMatching':
         return l10n.amountIsMatching;
       case 'amountIsOffBy':
@@ -54,6 +60,8 @@ class AppL10n {
         return l10n.clearFilters;
       case 'close':
         return l10n.close;
+      case 'closeFile':
+        return l10n.closeFile;
       case 'confirm':
         return l10n.confirm;
       case 'content':
@@ -62,6 +70,8 @@ class AppL10n {
         return l10n.contentGoesHere;
       case 'continueLabel':
         return l10n.continueLabel;
+      case 'copyListToClipboard':
+        return l10n.copyListToClipboard;
       case 'copiedToClipboard':
         return l10n.copiedToClipboard;
       case 'countSelected':
@@ -82,10 +92,14 @@ class AppL10n {
         return l10n.debit;
       case 'details':
         return l10n.details;
+      case 'deleteSelectedItems':
+        return l10n.deleteSelectedItems;
       case 'dropFilesHere':
         return l10n.dropFilesHere;
       case 'elapsedElapsed':
         return l10n.elapsedElapsed(p['elapsed'] ?? '');
+      case 'editSelectedItems':
+        return l10n.editSelectedItems;
       case 'error':
         return l10n.error;
       case 'errorImportingCsvError':
@@ -94,6 +108,10 @@ class AppL10n {
         return l10n.errorImportingXlsxError(p['error'] ?? '');
       case 'expensePredictions':
         return l10n.expensePredictions;
+      case 'fileLocationMenuItem':
+        return l10n.fileLocationMenuItem;
+      case 'fileMenuTooltip':
+        return l10n.fileMenuTooltip;
       case 'forSpacer':
         return l10n.forSpacer;
       case 'freeStyle':
@@ -106,6 +124,8 @@ class AppL10n {
         return l10n.fullPromptSentToAi;
       case 'helperForDebugging':
         return l10n.helperForDebugging;
+      case 'hideClosedAccounts':
+        return l10n.hideClosedAccounts;
       case 'idLabel':
         return l10n.idLabel;
       case 'info':
@@ -114,6 +134,8 @@ class AppL10n {
         return l10n.importTransactionToAccount;
       case 'includeAssetAccounts':
         return l10n.includeAssetAccounts;
+      case 'installAppMenuItem':
+        return l10n.installAppMenuItem;
       case 'installOllamaNow':
         return l10n.installOllamaNow;
       case 'keepAllTransactionsToTheirCurrentCategories':
@@ -184,6 +206,8 @@ class AppL10n {
         return l10n.maxLabel;
       case 'merge':
         return l10n.merge;
+      case 'mergeItems':
+        return l10n.mergeItems;
       case 'messageDetails':
         return l10n.messageDetails;
       case 'minLabel':
@@ -198,6 +222,8 @@ class AppL10n {
         return l10n.networth;
       case 'newFile':
         return l10n.newFile;
+      case 'newMenuItem':
+        return l10n.newMenuItem;
       case 'noAccountSelectedPeriod':
         return l10n.noAccountSelectedPeriod;
       case 'noAccountSelected':
@@ -248,6 +274,8 @@ class AppL10n {
         return l10n.ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt;
       case 'openFile':
         return l10n.openFile;
+      case 'openMenuItem':
+        return l10n.openMenuItem;
       case 'orChangeToCategory':
         return l10n.orChangeToCategory;
       case 'payee':
@@ -266,6 +294,8 @@ class AppL10n {
         return l10n.questionsQuestioncountTokensTokencount(p['questionCount'] ?? '', p['tokenCount'] ?? '');
       case 'recordATransferBetweenTwoAccounts':
         return l10n.recordATransferBetweenTwoAccounts;
+      case 'rebalanceMenuItem':
+        return l10n.rebalanceMenuItem;
       case 'recurring':
         return l10n.recurring;
       case 'refreshList':
@@ -284,6 +314,10 @@ class AppL10n {
         return l10n.memo;
       case 'runOllama':
         return l10n.runOllama;
+      case 'saveToCsv':
+        return l10n.saveToCsv;
+      case 'saveToSql':
+        return l10n.saveToSql;
       case 'sankey':
         return l10n.sankey;
       case 'selectARentalPropertyToSeeItsPL':
@@ -298,6 +332,10 @@ class AppL10n {
         return l10n.setApiKey;
       case 'settings':
         return l10n.settings;
+      case 'settingsMenuItem':
+        return l10n.settingsMenuItem;
+      case 'showClosedAccounts':
+        return l10n.showClosedAccounts;
       case 'policy':
         return l10n.policy;
       case 'filter':
@@ -336,6 +374,8 @@ class AppL10n {
         return l10n.thinking;
       case 'timestampTimestamp':
         return l10n.timestampTimestamp(p['timestamp'] ?? '');
+      case 'toggleBrightness':
+        return l10n.toggleBrightness;
       case 'toCategory':
         return l10n.toCategory;
       case 'toPayee':
@@ -354,8 +394,12 @@ class AppL10n {
         return l10n.unknown;
       case 'useDemoData':
         return l10n.useDemoData;
+      case 'viewClosedAccounts':
+        return l10n.viewClosedAccounts;
       case 'warning':
         return l10n.warning;
+      case 'zoom':
+        return l10n.zoom;
       case 'welcomeToFmoney':
         return l10n.welcomeToFmoney;
       case 'xlsxFileContainsNoDataRows':

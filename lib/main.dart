@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -108,54 +109,59 @@ class MyApp extends StatelessWidget {
 
     return Obx(() {
       final String k = preferenceController.getUniqueState;
+      final Widget app = _WebStartupFocusGuard(
+        child: ScaffoldMessenger(
+          key: SnackBarService.scaffoldKey,
+          child: GetMaterialApp(
+            key: Key(k),
+            debugShowCheckedModeBanner: false,
+            theme: themeController.themeDataLight,
+            darkTheme: themeController.themeDataDark,
+            themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
+            onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
+            locale: Get.locale ?? const Locale('en'),
+            fallbackLocale: const Locale('en'),
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            initialBinding: ApplicationBindings(),
+            initialRoute: '/',
+            getPages: <GetPage<dynamic>>[
+              GetPage<dynamic>(
+                name: '/',
+                page: () {
+                  final PreferenceController preferenceController = Get.find();
+                  if (preferenceController.isReady.value) {
+                    return const WelcomePage();
+                  }
+                  return const SplashScreen();
+                },
+              ),
+              ...HomeRoutes.routes,
+              ...WelcomeRoutes.routes,
+              ...SettingsRoutes.routes,
+              ...PlatformsRoutes.routes,
+              ...PolicyRoutes.routes,
+              ...AboutRoutes.routes,
+            ],
+          ),
+        ),
+      );
 
       return Shortcuts(
         shortcuts: _shortcuts,
         child: Actions(
           actions: _actions,
-          child: Focus(
-            autofocus: true,
-            child: ScaffoldMessenger(
-              key: SnackBarService.scaffoldKey,
-              child: GetMaterialApp(
-                key: Key(k),
-                debugShowCheckedModeBanner: false,
-                theme: themeController.themeDataLight,
-                darkTheme: themeController.themeDataDark,
-                themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
-                onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
-                locale: Get.locale ?? const Locale('en'),
-                fallbackLocale: const Locale('en'),
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                initialBinding: ApplicationBindings(),
-                initialRoute: '/',
-                getPages: <GetPage<dynamic>>[
-                  GetPage<dynamic>(
-                    name: '/',
-                    page: () {
-                      final PreferenceController preferenceController = Get.find();
-                      if (preferenceController.isReady.value) {
-                        return const WelcomePage();
-                      }
-                      return const SplashScreen();
-                    },
-                  ),
-                  ...HomeRoutes.routes,
-                  ...WelcomeRoutes.routes,
-                  ...SettingsRoutes.routes,
-                  ...PlatformsRoutes.routes,
-                  ...PolicyRoutes.routes,
-                  ...AboutRoutes.routes,
-                ],
-              ),
-            ),
-          ),
+          child: kIsWeb
+              ? app
+              : Focus(
+                  autofocus: true,
+                  child: app,
+                ),
         ),
       );
     });
@@ -166,5 +172,43 @@ class MyApp extends StatelessWidget {
       LogicalKeySet(LogicalKeyboardKey.control, key): intent,
       LogicalKeySet(LogicalKeyboardKey.meta, key): intent,
     };
+  }
+}
+
+/// Delays focus eligibility on web until after the first frame has completed.
+class _WebStartupFocusGuard extends StatefulWidget {
+  /// Creates a focus guard for app startup.
+  const _WebStartupFocusGuard({required this.child});
+
+  /// The subtree that should be protected from early web focus traversal.
+  final Widget child;
+
+  @override
+  State<_WebStartupFocusGuard> createState() => _WebStartupFocusGuardState();
+}
+
+class _WebStartupFocusGuardState extends State<_WebStartupFocusGuard> {
+  bool _allowFocus = !kIsWeb;
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsWeb) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {
+            _allowFocus = true;
+          });
+        }
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeFocus(
+      excluding: !_allowFocus,
+      child: widget.child,
+    );
   }
 }

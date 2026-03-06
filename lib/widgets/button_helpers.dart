@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 
 /// Wraps action buttons in a row with end alignment.
@@ -19,7 +21,7 @@ Widget buildMergeButton(final void Function() callback) {
       callback();
     },
     icon: const Icon(Icons.merge_outlined),
-    tooltip: 'Merge item(s)',
+    tooltip: AppL10n.tr(AppTranslationKeys.mergeItems),
   );
 }
 
@@ -46,7 +48,7 @@ Widget buildAddTransactionsButton(final void Function() callback) {
       callback();
     },
     icon: const Icon(Icons.post_add_outlined),
-    tooltip: 'Add a new transactions',
+    tooltip: AppL10n.tr(AppTranslationKeys.addNewTransactions),
   );
 }
 
@@ -58,7 +60,7 @@ Widget buildEditButton(final void Function() callback) {
       callback.call();
     },
     icon: const Icon(Icons.edit_outlined),
-    tooltip: 'Edit selected item(s)',
+    tooltip: AppL10n.tr(AppTranslationKeys.editSelectedItems),
   );
 }
 
@@ -70,7 +72,7 @@ Widget buildDeleteButton(final void Function() callback) {
       callback.call();
     },
     icon: const Icon(Icons.delete_outline),
-    tooltip: 'Delete selected item(s)',
+    tooltip: AppL10n.tr(AppTranslationKeys.deleteSelectedItems),
   );
 }
 
@@ -85,6 +87,6 @@ Widget buildCopyButton(
       callback.call();
     },
     icon: const Icon(Icons.copy_all),
-    tooltip: 'Copy list to clipboard',
+    tooltip: AppL10n.tr(AppTranslationKeys.copyListToClipboard),
   );
 }
