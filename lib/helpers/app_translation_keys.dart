@@ -58,6 +58,7 @@ abstract class AppTranslationKeys {
   static const String fullPromptSentToAi = 'fullPromptSentToAi';
   static const String helperForDebugging = 'helperForDebugging';
   static const String idLabel = 'idLabel';
+  static const String info = 'info';
   static const String importTransactionToAccount = 'importTransactionToAccount';
   static const String includeAssetAccounts = 'includeAssetAccounts';
   static const String installOllamaNow = 'installOllamaNow';
@@ -126,6 +127,7 @@ abstract class AppTranslationKeys {
   static const String smallScreenContentGoesHere = 'smallScreenContentGoesHere';
   static const String split = 'split';
   static const String suggestion = 'suggestion';
+  static const String success = 'success';
   static const String thinking = 'thinking';
   static const String timestampTimestamp = 'timestampTimestamp';
   static const String toCategory = 'toCategory';
@@ -137,6 +139,7 @@ abstract class AppTranslationKeys {
   static const String trend = 'trend';
   static const String unknown = 'unknown';
   static const String useDemoData = 'useDemoData';
+  static const String warning = 'warning';
   static const String xlsxFileContainsNoDataRows = 'xlsxFileContainsNoDataRows';
   static const String xlsxFileContainsNoValidData = 'xlsxFileContainsNoValidData';
   static const String xlsxImportCancelled = 'xlsxImportCancelled';

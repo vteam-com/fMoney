@@ -459,6 +459,12 @@ abstract class AppLocalizations {
   /// **'Include Asset Accounts'**
   String get includeAssetAccounts;
 
+  /// No description provided for @info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get info;
+
   /// No description provided for @installOllamaNow.
   ///
   /// In en, this message translates to:
@@ -1065,6 +1071,12 @@ abstract class AppLocalizations {
   /// **'Split'**
   String get split;
 
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
   /// No description provided for @suggestion.
   ///
   /// In en, this message translates to:
@@ -1148,6 +1160,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Licenses'**
   String get viewLicenses;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
 
   /// No description provided for @welcomeToFmoney.
   ///

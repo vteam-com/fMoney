@@ -203,6 +203,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get includeAssetAccounts => 'Include Asset Accounts';
 
   @override
+  String get info => 'Info';
+
+  @override
   String get installOllamaNow => 'Install Ollama now';
 
   @override
@@ -523,6 +526,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get split => 'Split';
 
   @override
+  String get success => 'Success';
+
+  @override
   String get suggestion => 'Suggestion';
 
   @override
@@ -565,6 +571,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewLicenses => 'View Licenses';
+
+  @override
+  String get warning => 'Warning';
 
   @override
   String get welcomeToFmoney => 'Welcome to fMoney';

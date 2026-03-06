@@ -108,6 +108,8 @@ class AppL10n {
         return l10n.helperForDebugging;
       case 'idLabel':
         return l10n.idLabel;
+      case 'info':
+        return l10n.info;
       case 'importTransactionToAccount':
         return l10n.importTransactionToAccount;
       case 'includeAssetAccounts':
@@ -328,6 +330,8 @@ class AppL10n {
         return l10n.split;
       case 'suggestion':
         return l10n.suggestion;
+      case 'success':
+        return l10n.success;
       case 'thinking':
         return l10n.thinking;
       case 'timestampTimestamp':
@@ -350,6 +354,8 @@ class AppL10n {
         return l10n.unknown;
       case 'useDemoData':
         return l10n.useDemoData;
+      case 'warning':
+        return l10n.warning;
       case 'welcomeToFmoney':
         return l10n.welcomeToFmoney;
       case 'xlsxFileContainsNoDataRows':

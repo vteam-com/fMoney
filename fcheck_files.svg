@@ -7670,6 +7670,14 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/pure/center_message.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/box.dart</title>
 </g>
 <g>
+  <path d="M 6350.0 128.0 C 6400.0 128.0, 9606.0 102.0, 9656.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title>
+</g>
+<g>
+  <path d="M 6350.0 128.0 C 6400.0 128.0, 9606.0 172.0, 9656.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
+</g>
+<g>
   <path d="M 6350.0 128.0 C 6400.0 128.0, 10246.0 102.0, 10296.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/color_helper.dart</title>
 </g>
@@ -10762,8 +10770,10 @@
 13. transaction_delegate_helpers.dart
 14. view_accounts.dart</title></g><g class="badge outgoingBadge">
   <path d="M 6356.0,128.0 L 6344.0,121.0 Q 6341.0,121.0 6341.0,124.0 L 6341.0,132.0 Q 6341.0,135.0 6344.0,135.0 Z" fill="#10b981"/>
-  <text x="6345.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. color_helper.dart
-2. theme_custom.dart</title></g><text x="6240.0" y="115.0" class="textNormal">snack_bar.dart</text>
+  <text x="6345.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. app_l10n.dart
+2. app_translation_keys.dart
+3. color_helper.dart
+4. theme_custom.dart</title></g><text x="6240.0" y="115.0" class="textNormal">snack_bar.dart</text>
 <g class="badge incomingBadge">
   <path d="M 6144.0,172.0 L 6128.0,164.4 Q 6125.0,164.4 6125.0,167.4 L 6125.0,176.6 Q 6125.0,179.6 6128.0,179.6 Z" fill="#3b82f6"/>
   <text x="6130.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">12</text><title>1. accounts.dart
@@ -11331,7 +11341,7 @@
 2. data_file_controller.dart</title></g><text x="9440.0" y="185.0" class="textNormal">data_mutations.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,102.0 L 9648.0,94.4 Q 9645.0,94.4 9645.0,97.4 L 9645.0,106.6 Q 9645.0,109.6 9648.0,109.6 Z" fill="#3b82f6"/>
-  <text x="9650.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">60</text><title>1. about_page.dart
+  <text x="9650.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">61</text><title>1. about_page.dart
 2. categories.dart
 3. center_message.dart
 4. chart.dart
@@ -11368,32 +11378,33 @@
 35. processing_indicator.dart
 36. settings_page.dart
 37. side_panel_header.dart
-38. splash_page.dart
-39. stock_chart.dart
-40. suggestion_approval.dart
-41. transaction_timeline_chart.dart
-42. view.dart
-43. view_accounts.dart
-44. view_ai.dart
-45. view_ai_chat_message.dart
-46. view_ai_header.dart
-47. view_ai_input.dart
-48. view_ai_instructions.dart
-49. view_cashflow.dart
-50. view_investments.dart
-51. view_money_objects.dart
-52. view_money_objects_ui_helpers.dart
-53. view_rentals_side_panel.dart
-54. view_stocks.dart
-55. view_transactions.dart
-56. view_transfers.dart
-57. view_welcome.dart
-58. welcome_page.dart
-59. xlsx_header_row_selector_dialog.dart
-60. years_range_selector.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
+38. snack_bar.dart
+39. splash_page.dart
+40. stock_chart.dart
+41. suggestion_approval.dart
+42. transaction_timeline_chart.dart
+43. view.dart
+44. view_accounts.dart
+45. view_ai.dart
+46. view_ai_chat_message.dart
+47. view_ai_header.dart
+48. view_ai_input.dart
+49. view_ai_instructions.dart
+50. view_cashflow.dart
+51. view_investments.dart
+52. view_money_objects.dart
+53. view_money_objects_ui_helpers.dart
+54. view_rentals_side_panel.dart
+55. view_stocks.dart
+56. view_transactions.dart
+57. view_transfers.dart
+58. view_welcome.dart
+59. welcome_page.dart
+60. xlsx_header_row_selector_dialog.dart
+61. years_range_selector.dart</title></g><text x="9760.0" y="115.0" class="textNormal">app_l10n.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,172.0 L 9648.0,164.4 Q 9645.0,164.4 9645.0,167.4 L 9645.0,176.6 Q 9645.0,179.6 9648.0,179.6 Z" fill="#3b82f6"/>
-  <text x="9650.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">60</text><title>1. about_page.dart
+  <text x="9650.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">61</text><title>1. about_page.dart
 2. categories.dart
 3. center_message.dart
 4. chart.dart
@@ -11430,29 +11441,30 @@
 35. processing_indicator.dart
 36. settings_page.dart
 37. side_panel_header.dart
-38. splash_page.dart
-39. stock_chart.dart
-40. suggestion_approval.dart
-41. transaction_timeline_chart.dart
-42. view.dart
-43. view_accounts.dart
-44. view_ai.dart
-45. view_ai_chat_message.dart
-46. view_ai_header.dart
-47. view_ai_input.dart
-48. view_ai_instructions.dart
-49. view_cashflow.dart
-50. view_investments.dart
-51. view_money_objects.dart
-52. view_money_objects_ui_helpers.dart
-53. view_rentals_side_panel.dart
-54. view_stocks.dart
-55. view_transactions.dart
-56. view_transfers.dart
-57. view_welcome.dart
-58. welcome_page.dart
-59. xlsx_header_row_selector_dialog.dart
-60. years_range_selector.dart</title></g><text x="9760.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
+38. snack_bar.dart
+39. splash_page.dart
+40. stock_chart.dart
+41. suggestion_approval.dart
+42. transaction_timeline_chart.dart
+43. view.dart
+44. view_accounts.dart
+45. view_ai.dart
+46. view_ai_chat_message.dart
+47. view_ai_header.dart
+48. view_ai_input.dart
+49. view_ai_instructions.dart
+50. view_cashflow.dart
+51. view_investments.dart
+52. view_money_objects.dart
+53. view_money_objects_ui_helpers.dart
+54. view_rentals_side_panel.dart
+55. view_stocks.dart
+56. view_transactions.dart
+57. view_transfers.dart
+58. view_welcome.dart
+59. welcome_page.dart
+60. xlsx_header_row_selector_dialog.dart
+61. years_range_selector.dart</title></g><text x="9760.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9664.0,242.0 L 9648.0,234.4 Q 9645.0,234.4 9645.0,237.4 L 9645.0,246.6 Q 9645.0,249.6 9648.0,249.6 Z" fill="#3b82f6"/>
   <text x="9650.72" y="243.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">44</text><title>1. account.dart
