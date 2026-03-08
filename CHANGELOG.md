@@ -1,5 +1,18 @@
 # Change Log
 
+## [version 1.17.00] 2026-03-06
+
+### Added
+
+- **Android Support**: Added back Android platform support and project configuration
+- **Broader Localization Coverage**: Localized additional app bar actions, tooltips, and list action labels across the UI
+
+### Updated
+
+- **File and Settings Menus**: Replaced remaining inline English labels with localized strings for file operations, settings, zoom, install, and about actions
+- **Action Tooltips**: Localized merge, add, edit, delete, copy, snackbar severity, and related helper text
+- **Web Focus Behavior**: Improved startup and list focus handling on web to avoid premature focus capture and keep selection behavior consistent
+
 ## [version 1.16.02] 2026-03-03
 
 ### Added

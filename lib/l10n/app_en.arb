@@ -92,6 +92,7 @@
   },
   "expensePredictions": "Expense predictions",
   "fileLocationMenuItem": "File location...",
+  "fileLocationNotSupportedOnMobile": "Opening the file location is only supported on desktop platforms.",
   "fileMenuTooltip": "File menu",
   "filter": "filter",
   "fmoney": "fMoney",

@@ -5,6 +5,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_wizard.dart';
@@ -19,6 +20,7 @@ import 'package:money/widgets/zoom.dart';
 const double _opacityEnabled = 1.0;
 const double _opacityDisabled = 0.5;
 const double _colorPaletteHeight = 300.0;
+const double _appBarHeight = 64.0;
 const double _themeItemVerticalPadding = 4.0;
 const double _themeItemRadius = 4.0;
 const double _inventoryIconSize = 18.0;
@@ -30,7 +32,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   /// The size this widget would prefer if it were otherwise unconstrained.
   @override
-  final Size preferredSize = const Size.fromHeight(kToolbarHeight);
+  final Size preferredSize = const Size.fromHeight(_appBarHeight);
 
   /// Builds the application app bar.
   @override
@@ -39,6 +41,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     final PreferenceController preferencesController = Get.find<PreferenceController>();
 
     return AppBar(
+      toolbarHeight: _appBarHeight,
       backgroundColor: getColorTheme(context).secondaryContainer,
       leading: _buildPopupMenu(context),
       title: AppTitle(),
@@ -119,12 +122,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Icons.refresh_outlined,
         shortcut: 'Ctrl+R',
       ),
-      if (!kIsWeb) ...<PopupMenuItem<int>>[
+      if (!kIsWeb && !isPlatformMobile())
         _buildMenuItem(
           Constants.commandFileLocation,
           AppL10n.tr(AppTranslationKeys.fileLocationMenuItem),
           Icons.folder_open_outlined,
         ),
+      if (!kIsWeb) ...<PopupMenuItem<int>>[
         _buildMenuItem(Constants.commandFileSaveCsv, AppL10n.tr(AppTranslationKeys.saveToCsv), Icons.save),
         _buildMenuItem(Constants.commandFileSaveSql, AppL10n.tr(AppTranslationKeys.saveToSql), Icons.save),
       ],

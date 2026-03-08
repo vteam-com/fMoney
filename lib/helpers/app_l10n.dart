@@ -110,6 +110,8 @@ class AppL10n {
         return l10n.expensePredictions;
       case 'fileLocationMenuItem':
         return l10n.fileLocationMenuItem;
+      case 'fileLocationNotSupportedOnMobile':
+        return l10n.fileLocationNotSupportedOnMobile;
       case 'fileMenuTooltip':
         return l10n.fileMenuTooltip;
       case 'forSpacer':

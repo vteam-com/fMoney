@@ -7,6 +7,7 @@ import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/mru_dropdown.dart';
 import 'package:money/views/panels/pending_changes/badge_pending_changes.dart';
 import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/reveal_content.dart';
 
 // Exports
@@ -30,10 +31,15 @@ class AppTitle extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints _) {
+        if (context.isWidthSmall) {
+          return _buildCompactTitle(context, dataController);
+        }
         return Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IntrinsicWidth(child: _buildNetWorthToggle(context)),
                 gapSmall(),
@@ -51,6 +57,33 @@ class AppTitle extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  /// Builds the compact app title layout for small-width surfaces.
+  Widget _buildCompactTitle(
+    final BuildContext context,
+    final DataFileController dataController,
+  ) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: SingleChildScrollView(
+            reverse: true,
+            scrollDirection: Axis.horizontal,
+            child: IntrinsicWidth(child: _buildNetWorthToggle(context)),
+          ),
+        ),
+        gapSmall(),
+        Obx(() {
+          return BadgePendingChanges(
+            key: Constants.keyPendingChanges,
+            itemsAdded: dataController.trackMutations.added.value,
+            itemsChanged: dataController.trackMutations.changed.value,
+            itemsDeleted: dataController.trackMutations.deleted.value,
+          );
+        }),
+      ],
     );
   }
 

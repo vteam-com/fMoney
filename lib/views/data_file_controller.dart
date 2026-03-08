@@ -269,6 +269,12 @@ class DataFileController extends GetxController {
 
   /// Shows the current file location in system file manager.
   void onShowFileLocation() async {
+    // if (isPlatformMobile()) {
+    //   SnackBarService.displayInfo(
+    //     message: AppL10n.tr(AppTranslationKeys.fileLocationNotSupportedOnMobile),
+    //   );
+    //   return;
+    // }
     final String path = await generateNextFolderToSaveTo();
     showLocalFolder(path);
   }

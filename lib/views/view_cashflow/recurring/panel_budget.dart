@@ -42,7 +42,6 @@ const double _headerPadding = 8.0;
 const double _smallScreenMaxWidth = 400.0;
 const double _suggestionsMaxWidth = 800.0;
 const double _suggestionsHeight = 400.0;
-const double _spacingLarge = 20.0;
 const double _spacingMedium = 10.0;
 const double _verticalDividerHeight = 38.0;
 const double _zeroHeight = 0.0;
@@ -82,21 +81,14 @@ class PanelBudget extends StatefulWidget {
 
 class _PanelBudgetState extends State<PanelBudget> {
   late BudgetRecommendation _budget;
-
   bool _sortAscending = false;
-
   int _sortColumnIndex = _defaultSortColumnIndex;
-
   List<RecurringExpenses> items = <RecurringExpenses>[];
-
   late BudgetViewAs panelType = isForIncome
       ? PreferenceController.to.budgetViewAsForIncomes.value
       : PreferenceController.to.budgetViewAsForExpenses.value;
-
   double sumForAllCategories = _zeroDouble;
-
   double sumForAllCategoriesBudget = _zeroDouble;
-
   @override
   void initState() {
     super.initState();
@@ -282,35 +274,37 @@ class _PanelBudgetState extends State<PanelBudget> {
 
   /// Builds a condensed summary view optimized for small screen widths.
   Widget _buildContentForSmallScreen() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: _smallScreenMaxWidth),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(widget.title, style: context.textTheme.headlineLarge),
-          const SizedBox(height: _spacingLarge),
-          Text(AppL10n.tr(AppTranslationKeys.monthlyBudgeted), style: context.textTheme.bodyLarge),
-          WidgetFromData.fromDouble(
-            sumForAllCategoriesBudget,
-            DataWidgetSize.header,
-          ),
-          const SizedBox(height: _spacingMedium),
-          Text(AppL10n.tr(AppTranslationKeys.monthlyActual), style: context.textTheme.bodyLarge),
-          WidgetFromData.fromDouble(
-            sumForAllCategoriesActual,
-            DataWidgetSize.header,
-          ),
-          const SizedBox(height: _spacingLarge),
-          Text(
-            calculateBudgetAccuracy(
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: _smallScreenMaxWidth),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(widget.title, style: context.textTheme.headlineLarge),
+            const SizedBox(height: _spacingMedium),
+            Text(AppL10n.tr(AppTranslationKeys.monthlyBudgeted), style: context.textTheme.bodyLarge),
+            WidgetFromData.fromDouble(
               sumForAllCategoriesBudget,
-              sumForAllCategoriesActual,
+              DataWidgetSize.header,
             ),
-            textAlign: TextAlign.end,
-            style: context.textTheme.headlineSmall,
-          ),
-        ],
+            const SizedBox(height: _spacingMedium),
+            Text(AppL10n.tr(AppTranslationKeys.monthlyActual), style: context.textTheme.bodyLarge),
+            WidgetFromData.fromDouble(
+              sumForAllCategoriesActual,
+              DataWidgetSize.header,
+            ),
+            const SizedBox(height: _spacingMedium),
+            Text(
+              calculateBudgetAccuracy(
+                sumForAllCategoriesBudget,
+                sumForAllCategoriesActual,
+              ),
+              textAlign: TextAlign.end,
+              style: context.textTheme.headlineSmall,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -320,252 +314,245 @@ class _PanelBudgetState extends State<PanelBudget> {
     final Color dividersColor = Theme.of(context).dividerColor.withAlpha(_dividerAlpha);
     final double adjustValue = isForIncome ? _positiveMultiplier : _negativeMultiplier;
 
-    return Column(
-      children: <Widget>[
-        Container(
-          color: getColorTheme(context).surfaceContainer,
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(child: _buildListHeader(dividersColor)),
+        SliverPadding(
           padding: const EdgeInsets.all(_headerPadding),
-          child: Column(
-            children: <Widget>[
-              //
-              // Column Header
-              //
-              Row(
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate((BuildContext _, int index) {
+              final RecurringExpenses item = items[index];
+              return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Category',
-                    textAlign: TextAlign.start,
-                    flex: _columnFlexCategory,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnCategory,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnCategory),
-                  ),
-                  verticalLine(dividersColor),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Budgeted/M',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnBudget,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnBudget),
-                  ),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Actual/M',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnActualMonth,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnActualMonth),
-                  ),
-                  verticalLine(dividersColor),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Budgeted/Y',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnBudget,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnBudget),
-                  ),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Actual/Y',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnActualYear,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnActualYear),
-                  ),
-                  verticalLine(dividersColor),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'Range',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                  ),
-                  buildColumnHeaderButton(
-                    context: context,
-                    text: 'All time',
-                    textAlign: TextAlign.end,
-                    flex: _columnFlexSingle,
-                    sortIndicator: getSortIndicator(
-                      _sortColumnIndex,
-                      _sortColumnAllTime,
-                      _sortAscending,
-                    ),
-                    onPressed: () => _onColumnSort(_sortColumnAllTime),
-                  ),
+                  if (index > 0) Divider(height: _zeroHeight, color: dividersColor),
+                  _buildListRow(item, dividersColor, adjustValue),
                 ],
+              );
+            }, childCount: items.length),
+          ),
+        ),
+        SliverToBoxAdapter(child: _buildListFooter(dividersColor)),
+      ],
+    );
+  }
+
+  /// Builds the summary footer row for the budget table.
+  Widget _buildListFooter(final Color dividersColor) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        const Expanded(flex: _columnFlexCategory, child: Text('')),
+        verticalLine(dividersColor),
+        Expanded(
+          child: WidgetFromData.fromDouble(
+            sumForAllCategoriesBudget,
+            DataWidgetSize.title,
+          ),
+        ),
+        Expanded(
+          child: WidgetFromData.fromDouble(
+            sumForAllCategoriesActual,
+            DataWidgetSize.title,
+          ),
+        ),
+        verticalLine(dividersColor),
+        Expanded(
+          child: WidgetFromData.fromDouble(
+            sumForAllCategoriesBudget * _monthsPerYear,
+            DataWidgetSize.title,
+          ),
+        ),
+        Expanded(
+          child: WidgetFromData.fromDouble(
+            sumForAllCategories / widget.numberOfYears,
+            DataWidgetSize.title,
+          ),
+        ),
+        verticalLine(dividersColor),
+        const Expanded(child: Text('')),
+        Expanded(
+          child: WidgetFromData.fromDouble(
+            sumForAllCategories,
+            DataWidgetSize.title,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Builds the header row for the scrollable budget table.
+  Widget _buildListHeader(final Color dividersColor) {
+    return Container(
+      color: getColorTheme(context).surfaceContainer,
+      padding: const EdgeInsets.all(_headerPadding),
+      child: Row(
+        children: <Widget>[
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Category',
+            textAlign: TextAlign.start,
+            flex: _columnFlexCategory,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnCategory,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnCategory),
+          ),
+          verticalLine(dividersColor),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Budgeted/M',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnBudget,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnBudget),
+          ),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Actual/M',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnActualMonth,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnActualMonth),
+          ),
+          verticalLine(dividersColor),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Budgeted/Y',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnBudget,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnBudget),
+          ),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Actual/Y',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnActualYear,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnActualYear),
+          ),
+          verticalLine(dividersColor),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'Range',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+          ),
+          buildColumnHeaderButton(
+            context: context,
+            text: 'All time',
+            textAlign: TextAlign.end,
+            flex: _columnFlexSingle,
+            sortIndicator: getSortIndicator(
+              _sortColumnIndex,
+              _sortColumnAllTime,
+              _sortAscending,
+            ),
+            onPressed: () => _onColumnSort(_sortColumnAllTime),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Builds a single scrollable budget data row.
+  Widget _buildListRow(
+    final RecurringExpenses item,
+    final Color dividersColor,
+    final double adjustValue,
+  ) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: _columnFlexCategory,
+          child: Row(
+            children: <Widget>[
+              _categoryContextMenu(item.category),
+              Expanded(child: item.category.getNameAsWidget()),
+            ],
+          ),
+        ),
+        verticalLine(dividersColor),
+        Expanded(
+          flex: _columnFlexDouble,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: WidgetFromData.fromDouble(
+                  item.category.fieldBudget.value.asDouble() * adjustValue,
+                  DataWidgetSize.title,
+                ),
+              ),
+              Expanded(
+                child: WidgetFromData.fromDouble(
+                  item.sumPerMonth,
+                  DataWidgetSize.title,
+                ),
               ),
             ],
           ),
         ),
-
-        // Column details
+        verticalLine(dividersColor),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(_headerPadding),
-            child: ListView.separated(
-              separatorBuilder: (BuildContext _, int _) => Divider(height: _zeroHeight, color: dividersColor),
-              padding: const EdgeInsets.all(_zeroHeight),
-              itemCount: items.length,
-              itemBuilder: (final BuildContext _, final int index) {
-                // build the Card UI
-                final RecurringExpenses item = items[index];
-                return Row(
-                  children: <Widget>[
-                    // Category Long Name
-                    Expanded(
-                      flex: _columnFlexCategory,
-                      child: Row(
-                        children: <Widget>[
-                          _categoryContextMenu(item.category),
-                          Expanded(child: item.category.getNameAsWidget()),
-                        ],
-                      ),
-                    ),
-                    verticalLine(dividersColor),
-                    // Budgeted and actual sum per month
-                    Expanded(
-                      flex: _columnFlexDouble,
-                      child: Row(
-                        children: <Widget>[
-                          // Budgeted per month
-                          Expanded(
-                            child: WidgetFromData.fromDouble(
-                              item.category.fieldBudget.value.asDouble() * adjustValue,
-                              DataWidgetSize.title,
-                            ),
-                          ),
-                          Expanded(
-                            child: WidgetFromData.fromDouble(
-                              item.sumPerMonth,
-                              DataWidgetSize.title,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // column line
-                    verticalLine(dividersColor),
-
-                    // Budgeted & actual per Year
-                    Expanded(
-                      flex: _columnFlexDouble,
-                      child: Row(
-                        children: <Widget>[
-                          // Budget per year
-                          Expanded(
-                            child: WidgetFromData.fromDouble(
-                              item.category.fieldBudget.value.asDouble() * _monthsPerYear * adjustValue,
-                              DataWidgetSize.title,
-                            ),
-                          ),
-
-                          // Sum per year
-                          Expanded(
-                            child: WidgetFromData.fromDouble(
-                              item.sumPerMonth * _monthsPerYear,
-                              DataWidgetSize.title,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // column line
-                    verticalLine(dividersColor),
-
-                    // Date and range and total sum for all date
-                    Expanded(
-                      flex: _columnFlexDouble,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Tooltip(
-                              message: item.dates!.toStringDays(),
-                              child: Text(
-                                item.dates!.toStringYears(),
-                                textAlign: TextAlign.right,
-                                // style: TextStyle(fontSize: 10),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: WidgetFromData.fromDouble(
-                              item.sumOfAllTransactions,
-                              DataWidgetSize.title,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+          flex: _columnFlexDouble,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: WidgetFromData.fromDouble(
+                  item.category.fieldBudget.value.asDouble() * _monthsPerYear * adjustValue,
+                  DataWidgetSize.title,
+                ),
+              ),
+              Expanded(
+                child: WidgetFromData.fromDouble(
+                  item.sumPerMonth * _monthsPerYear,
+                  DataWidgetSize.title,
+                ),
+              ),
+            ],
           ),
         ),
-
-        // Footer
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            const Expanded(flex: _columnFlexCategory, child: Text('')),
-            verticalLine(dividersColor),
-            Expanded(
-              child: WidgetFromData.fromDouble(
-                sumForAllCategoriesBudget,
-                DataWidgetSize.title,
+        verticalLine(dividersColor),
+        Expanded(
+          flex: _columnFlexDouble,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Tooltip(
+                  message: item.dates!.toStringDays(),
+                  child: Text(
+                    item.dates!.toStringYears(),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
               ),
-            ),
-            Expanded(
-              child: WidgetFromData.fromDouble(
-                sumForAllCategoriesActual,
-                DataWidgetSize.title,
+              Expanded(
+                child: WidgetFromData.fromDouble(
+                  item.sumOfAllTransactions,
+                  DataWidgetSize.title,
+                ),
               ),
-            ),
-            verticalLine(dividersColor),
-            Expanded(
-              child: WidgetFromData.fromDouble(
-                sumForAllCategoriesBudget * _monthsPerYear,
-                DataWidgetSize.title,
-              ),
-            ),
-            Expanded(
-              child: WidgetFromData.fromDouble(
-                sumForAllCategories / widget.numberOfYears,
-                DataWidgetSize.title,
-              ),
-            ),
-            verticalLine(dividersColor),
-            const Expanded(child: Text('')),
-            Expanded(
-              child: WidgetFromData.fromDouble(
-                sumForAllCategories,
-                DataWidgetSize.title,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

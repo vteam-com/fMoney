@@ -59,6 +59,7 @@ abstract class AppTranslationKeys {
   static const String errorImportingXlsxError = 'errorImportingXlsxError';
   static const String expensePredictions = 'expensePredictions';
   static const String fileLocationMenuItem = 'fileLocationMenuItem';
+  static const String fileLocationNotSupportedOnMobile = 'fileLocationNotSupportedOnMobile';
   static const String fileMenuTooltip = 'fileMenuTooltip';
   static const String forSpacer = 'forSpacer';
   static const String freeStyle = 'freeStyle';

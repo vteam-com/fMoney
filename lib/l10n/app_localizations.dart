@@ -441,6 +441,12 @@ abstract class AppLocalizations {
   /// **'File location...'**
   String get fileLocationMenuItem;
 
+  /// No description provided for @fileLocationNotSupportedOnMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening the file location is only supported on desktop platforms.'**
+  String get fileLocationNotSupportedOnMobile;
+
   /// No description provided for @fileMenuTooltip.
   ///
   /// In en, this message translates to:

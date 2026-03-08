@@ -92,6 +92,7 @@
   },
   "expensePredictions": "Previsions de depenses",
   "fileLocationMenuItem": "Emplacement du fichier...",
+  "fileLocationNotSupportedOnMobile": "L'ouverture de l'emplacement du fichier est prise en charge uniquement sur les plateformes de bureau.",
   "fileMenuTooltip": "Menu fichier",
   "filter": "filtre",
   "fmoney": "fMoney",

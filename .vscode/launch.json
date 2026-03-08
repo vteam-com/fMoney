@@ -5,7 +5,10 @@
             "name": "debug",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
+            "flutterMode": "debug",
+            "args": [
+                "--track-widget-creation",
+            ]
         },
         {
             "name": "profile",

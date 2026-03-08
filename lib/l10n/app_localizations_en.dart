@@ -194,6 +194,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fileLocationMenuItem => 'File location...';
 
   @override
+  String get fileLocationNotSupportedOnMobile => 'Opening the file location is only supported on desktop platforms.';
+
+  @override
   String get fileMenuTooltip => 'File menu';
 
   @override
