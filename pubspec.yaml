@@ -108,6 +108,7 @@ flutter:
 
   # assets section
   assets:
+    - assets/main_icon.png
     - assets/flags/
     - assets/images/
     - assets/images/platforms/

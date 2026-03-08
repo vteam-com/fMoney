@@ -4,6 +4,8 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+const String _appIconAssetPath = 'assets/main_icon.png';
+
 /// A page displaying app version information and licenses.
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -170,12 +172,17 @@ class _AboutPageState extends State<AboutPage> {
     });
   }
 
+  /// Dislay the 3rd party dependencies
   void _showLicensePage() {
     showLicensePage(
       context: context,
       applicationName: 'fMoney',
       applicationVersion: _packageInfo?.version ?? 'Unknown',
-      applicationIcon: const Icon(Icons.account_balance_wallet, size: Constants.aboutLicenseIconSize),
+      applicationIcon: Image.asset(
+        _appIconAssetPath,
+        width: Constants.aboutLicenseIconSize,
+        height: Constants.aboutLicenseIconSize,
+      ),
       applicationLegalese: '© 2024 fMoney Team. All rights reserved.',
     );
   }

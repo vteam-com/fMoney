@@ -26,6 +26,12 @@ class AppL10n {
         return l10n.addInvestmentTransaction;
       case 'aboutMenuItem':
         return l10n.aboutMenuItem;
+      case 'appDescription':
+        return l10n.appDescription;
+      case 'appLongDescription':
+        return l10n.appLongDescription;
+      case 'appName':
+        return l10n.appName;
       case 'amountIsMatching':
         return l10n.amountIsMatching;
       case 'amountIsOffBy':
@@ -200,6 +206,8 @@ class AppL10n {
         return l10n.largestTransactions;
       case 'licenses':
         return l10n.licenses;
+      case 'licensesDescription':
+        return l10n.licensesDescription;
       case 'list':
         return l10n.list;
       case 'manageTheExpensesAndRentalIncomeOfProperties':
@@ -396,8 +404,12 @@ class AppL10n {
         return l10n.unknown;
       case 'useDemoData':
         return l10n.useDemoData;
+      case 'versionInformation':
+        return l10n.versionInformation;
       case 'viewClosedAccounts':
         return l10n.viewClosedAccounts;
+      case 'viewLicenses':
+        return l10n.viewLicenses;
       case 'warning':
         return l10n.warning;
       case 'zoom':
