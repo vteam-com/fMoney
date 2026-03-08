@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/providers/account.dart';
 import 'package:money/providers/category.dart';
@@ -8,7 +9,6 @@ import 'package:money/widgets/popup_menu_icon_button.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,8 +1,8 @@
-import 'package:money/app/app_scope.dart';
 import 'package:money/app_bar.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/my_nav_bar.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_csv.dart';
 import 'package:money/views/import/import_qfx.dart';

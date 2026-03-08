@@ -1,8 +1,8 @@
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/default_values.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators.dart';
 
 /// Recomputes footer accumulators for [items] using [definitions].

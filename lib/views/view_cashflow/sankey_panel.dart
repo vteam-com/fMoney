@@ -2,8 +2,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/category_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/category.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';

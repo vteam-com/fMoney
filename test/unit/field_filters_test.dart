@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 void main() {

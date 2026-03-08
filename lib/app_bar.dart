@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/app_title.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
@@ -7,6 +6,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
 import 'package:money/views/import/import_wizard.dart';

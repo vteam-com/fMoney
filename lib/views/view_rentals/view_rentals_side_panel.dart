@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/rent_building.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/providers/transaction_split.dart';

@@ -1,6 +1,8 @@
 // ignore: fcheck_one_class_per_file
 
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_filter.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
@@ -12,9 +14,7 @@ import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _percentZeroOpacity = 0.4;

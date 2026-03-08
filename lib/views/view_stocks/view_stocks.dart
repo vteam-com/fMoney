@@ -1,4 +1,3 @@
-import 'package:money/app/app_scope.dart';
 import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -7,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/investment.dart';
 import 'package:money/providers/security.dart';
 import 'package:money/providers/stock_split.dart';

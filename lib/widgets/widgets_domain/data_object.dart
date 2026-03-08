@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -10,7 +11,6 @@ import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 
 const double _readOnlyOpacity = 0.5;
 const double _editableOpacity = 1.0;

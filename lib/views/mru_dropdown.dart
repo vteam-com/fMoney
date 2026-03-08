@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/file_systems.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/widgets/data_source.dart';
 import 'package:money/widgets/picker_panel.dart';

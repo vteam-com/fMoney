@@ -1,4 +1,5 @@
 // Imports
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -19,7 +20,6 @@ import 'package:money/widgets/token_text.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _unsetId = -1;

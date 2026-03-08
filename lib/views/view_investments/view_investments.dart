@@ -1,10 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/investment.dart';
 import 'package:money/providers/security.dart';
 import 'package:money/providers/transaction.dart';

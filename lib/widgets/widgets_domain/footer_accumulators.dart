@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/footer_widgets.dart';
 
 const int _sampleLimit = 10;

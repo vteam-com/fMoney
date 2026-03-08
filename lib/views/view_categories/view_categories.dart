@@ -1,9 +1,10 @@
-import 'package:money/app/app_scope.dart';
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/category.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
@@ -23,7 +24,6 @@ import 'package:money/widgets/selection_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 
 const int _zeroIndex = 0;

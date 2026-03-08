@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -9,7 +10,6 @@ import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// A mock used in tests for mock theme controller.

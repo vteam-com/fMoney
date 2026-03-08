@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_this
 import 'package:collection/collection.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -15,7 +16,6 @@ import 'package:money/widgets/rental_pnl.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /*

@@ -1,10 +1,10 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/widgets.dart';
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/data_access.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

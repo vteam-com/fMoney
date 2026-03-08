@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/category.dart';
 import 'package:money/providers/event.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';

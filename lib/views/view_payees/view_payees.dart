@@ -1,7 +1,7 @@
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/transaction_types.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/payee.dart';
 import 'package:money/views/adaptive_view/view_money_objects.dart';
 import 'package:money/views/data.dart';

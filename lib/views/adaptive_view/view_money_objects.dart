@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:money/app/app_scope.dart';
+import 'package:money/data/models/field_filter.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -8,6 +9,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/adaptive_view/adaptable_view_with_list.dart';
 import 'package:money/views/adaptive_view/view_money_objects_filter_helpers.dart';
@@ -34,9 +36,7 @@ import 'package:money/widgets/pure/working.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators.dart';
 
 /// A stateful widget for view for money objects.

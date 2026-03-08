@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:money/app/app_scope.dart';
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/data/models/stock_summary.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
@@ -14,6 +14,7 @@ import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/providers/account.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/providers/data_abstract.dart';
 import 'package:money/providers/investment.dart';
 import 'package:money/providers/investment_import_fields.dart';
@@ -52,7 +53,6 @@ import 'package:money/widgets/text_title.dart';
 import 'package:money/widgets/three_part_label.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 

@@ -1,4 +1,5 @@
 import 'package:money/data/models/dividend.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -11,7 +12,6 @@ import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 
 /*
   cid  name          type          notnull  dflt_value  pk

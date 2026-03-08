@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_this
 // ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_l10n.dart';
@@ -15,7 +16,6 @@ import 'package:money/providers/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/providers/app_scope.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
 

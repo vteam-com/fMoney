@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
@@ -8,7 +9,6 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 
 const double _dateFooterMinWidth = 80;
 const double _dateFooterFontSize = 10;

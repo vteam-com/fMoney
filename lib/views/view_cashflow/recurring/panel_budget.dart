@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
@@ -22,7 +23,6 @@ import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/token_text.dart';
-import 'package:money/widgets/widgets_domain/field_filter.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 

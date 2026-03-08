@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_this
 
+import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -10,7 +11,6 @@ import 'package:money/widgets/adaptive_list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
-import 'package:money/widgets/widgets_domain/field_type.dart';
 
 /// Represents loan payment.
 class LoanPayment extends DataObject {
