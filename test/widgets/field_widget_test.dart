@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -14,13 +13,13 @@ import 'package:money/widgets/widgets_domain/field_type.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// A mock used in tests for mock theme controller.
-class MockThemeController extends GetxController with Mock implements ThemeController {
+class MockThemeController with Mock implements ThemeController {
   @override
-  RxBool get isDarkTheme => false.obs;
+  bool get isDarkTheme => false;
 }
 
 /// A mock used in tests for mock preference controller.
-class MockPreferenceController extends GetxController with Mock implements PreferenceController {
+class MockPreferenceController with Mock implements PreferenceController {
   @override
   String getString(String key, [String defaultValueIfNotFound = '']) => '';
 
@@ -36,18 +35,16 @@ class MockPreferenceController extends GetxController with Mock implements Prefe
 
 void main() {
   setUp(() {
-    // Enable test mode
-    Get.testMode = true;
-
     final MockPreferenceController mockPreferenceController = MockPreferenceController();
     final MockThemeController mockThemeController = MockThemeController();
 
-    Get.put<ThemeController>(mockThemeController);
-    Get.put<PreferenceController>(mockPreferenceController);
+    ThemeController.instance = mockThemeController;
+    PreferenceController.instance = mockPreferenceController;
   });
 
   tearDown(() {
-    Get.reset();
+    ThemeController.instance = null;
+    PreferenceController.instance = null;
   });
 
   testWidgets('Is Mobile', (final WidgetTester tester) async {

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
@@ -85,8 +84,8 @@ class _PanelBudgetState extends State<PanelBudget> {
   int _sortColumnIndex = _defaultSortColumnIndex;
   List<RecurringExpenses> items = <RecurringExpenses>[];
   late BudgetViewAs panelType = isForIncome
-      ? PreferenceController.to.budgetViewAsForIncomes.value
-      : PreferenceController.to.budgetViewAsForExpenses.value;
+      ? PreferenceController.to.budgetViewAsForIncomes
+      : PreferenceController.to.budgetViewAsForExpenses;
   double sumForAllCategories = _zeroDouble;
   double sumForAllCategoriesBudget = _zeroDouble;
   @override
@@ -103,7 +102,7 @@ class _PanelBudgetState extends State<PanelBudget> {
       width: double.infinity,
       height: double.infinity,
       child: Center(
-        child: ThemeController.to.isDeviceWidthSmall.value ? _buildContentForSmallScreen() : _buildContentAsList(),
+        child: ThemeController.to.isDeviceWidthSmall ? _buildContentForSmallScreen() : _buildContentAsList(),
       ),
     );
   }
@@ -206,9 +205,9 @@ class _PanelBudgetState extends State<PanelBudget> {
             setState(() {
               panelType = BudgetViewAs.values[newSelection];
               if (isForIncome) {
-                PreferenceController.to.budgetViewAsForIncomes.value = BudgetViewAs.values[newSelection];
+                PreferenceController.to.setBudgetViewAsForIncomes(BudgetViewAs.values[newSelection]);
               } else {
-                PreferenceController.to.budgetViewAsForExpenses.value = BudgetViewAs.values[newSelection];
+                PreferenceController.to.setBudgetViewAsForExpenses(BudgetViewAs.values[newSelection]);
               }
             });
           },
@@ -281,15 +280,21 @@ class _PanelBudgetState extends State<PanelBudget> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(widget.title, style: context.textTheme.headlineLarge),
+            Text(widget.title, style: getTextTheme(context).headlineLarge),
             const SizedBox(height: _spacingMedium),
-            Text(AppL10n.tr(AppTranslationKeys.monthlyBudgeted), style: context.textTheme.bodyLarge),
+            Text(
+              AppL10n.tr(AppTranslationKeys.monthlyBudgeted),
+              style: getTextTheme(context).bodyLarge,
+            ),
             WidgetFromData.fromDouble(
               sumForAllCategoriesBudget,
               DataWidgetSize.header,
             ),
             const SizedBox(height: _spacingMedium),
-            Text(AppL10n.tr(AppTranslationKeys.monthlyActual), style: context.textTheme.bodyLarge),
+            Text(
+              AppL10n.tr(AppTranslationKeys.monthlyActual),
+              style: getTextTheme(context).bodyLarge,
+            ),
             WidgetFromData.fromDouble(
               sumForAllCategoriesActual,
               DataWidgetSize.header,
@@ -301,7 +306,7 @@ class _PanelBudgetState extends State<PanelBudget> {
                 sumForAllCategoriesActual,
               ),
               textAlign: TextAlign.end,
-              style: context.textTheme.headlineSmall,
+              style: getTextTheme(context).headlineSmall,
             ),
           ],
         ),

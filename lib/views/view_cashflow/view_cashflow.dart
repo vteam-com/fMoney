@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
@@ -92,28 +91,48 @@ class _ViewCashFlowState extends ViewWidgetState {
 
   @override
   Widget build(final BuildContext context) {
-    return Obx(() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // Header
-          ViewHeader.buildViewHeaderContainer(context, _buildHeaderContent()),
-          // View
-          Expanded(
-            child: Container(
-              key: Key(
-                PreferenceController.to.cashflowViewAs.value.toString() +
-                    selectedYearStart.toString() +
-                    selectedYearEnd.toString(),
+    return ListenableBuilder(
+      listenable: PreferenceController.to,
+      builder: (BuildContext context, Widget? _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            // Header
+            ViewHeader.buildViewHeaderContainer(context, _buildHeaderContent()),
+            // View
+            Expanded(
+              child: Container(
+                key: Key(
+                  PreferenceController.to.cashflowViewAs.toString() +
+                      selectedYearStart.toString() +
+                      selectedYearEnd.toString(),
+                ),
+                // rebuild if the date changes
+                color: getColorTheme(context).surface,
+                child: _buildView(),
               ),
-              // rebuild if the date changes
-              color: getColorTheme(context).surface,
-              child: _buildView(),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
+  }
+
+  /// Builds the trend asset-account toggle.
+  Widget _buildIncludeAssetAccountsToggle() {
+    return Row(
+      children: <Widget>[
+        Checkbox.adaptive(
+          value: PreferenceController.to.trendIncludeAssetAccounts,
+          onChanged: (bool? newValue) {
+            if (newValue != null) {
+              PreferenceController.to.setTrendIncludeAssetAccounts(newValue);
+            }
+          },
+        ),
+        Text(AppL10n.tr(AppTranslationKeys.includeAssetAccounts)),
+      ],
+    );
   }
 
   /// Builds the cashflow view header including view selector and year range controls.
@@ -140,33 +159,19 @@ class _ViewCashFlowState extends ViewWidgetState {
             //
             // Optional settings for NetWorth
             //
-            if (CashflowViewAs.netWorthOverTime == PreferenceController.to.cashflowViewAs.value)
+            if (CashflowViewAs.netWorthOverTime == PreferenceController.to.cashflowViewAs)
               NumberPicker(
                 title: 'Event Tolerances',
                 minValue: _eventToleranceMin,
                 maxValue: _eventToleranceMax,
-                selectedNumber: PreferenceController.to.netWorthEventThreshold.value,
+                selectedNumber: PreferenceController.to.netWorthEventThreshold,
                 onChanged: (int value) {
-                  PreferenceController.to.netWorthEventThreshold.value = value;
+                  PreferenceController.to.setNetWorthEventThreshold(value);
                 },
               ),
-            if (CashflowViewAs.trend == PreferenceController.to.cashflowViewAs.value)
+            if (CashflowViewAs.trend == PreferenceController.to.cashflowViewAs)
               IntrinsicWidth(
-                child: Row(
-                  children: <Widget>[
-                    Obx(
-                      () => Checkbox.adaptive(
-                        value: PreferenceController.to.trendIncludeAssetAccounts.value,
-                        onChanged: (bool? newValue) {
-                          if (newValue != null) {
-                            PreferenceController.to.trendIncludeAssetAccounts.value = newValue;
-                          }
-                        },
-                      ),
-                    ),
-                    Text(AppL10n.tr(AppTranslationKeys.includeAssetAccounts)),
-                  ],
-                ),
+                child: _buildIncludeAssetAccountsToggle(),
               ),
           ],
         ),
@@ -220,9 +225,9 @@ class _ViewCashFlowState extends ViewWidgetState {
           label: Text(AppL10n.tr(AppTranslationKeys.budget)),
         ),
       ],
-      selectedId: PreferenceController.to.cashflowViewAs.value.index,
+      selectedId: PreferenceController.to.cashflowViewAs.index,
       onSelectionChanged: (final int newSelection) {
-        PreferenceController.to.cashflowViewAs.value = CashflowViewAs.values[newSelection];
+        PreferenceController.to.setCashflowViewAs(CashflowViewAs.values[newSelection]);
       },
     );
   }
@@ -233,7 +238,7 @@ class _ViewCashFlowState extends ViewWidgetState {
       return CenterMessage.noTransaction();
     }
 
-    switch (PreferenceController.to.cashflowViewAs.value) {
+    switch (PreferenceController.to.cashflowViewAs) {
       case CashflowViewAs.sankey:
         return SankeyPanel(
           minYear: this.selectedYearStart,
@@ -277,15 +282,13 @@ class _ViewCashFlowState extends ViewWidgetState {
           ],
         );
       case CashflowViewAs.trend:
-        return Obx(() {
-          return PanelTrend(
-            dateRangeSearch: dateRangeTransactions,
-            minYear: this.selectedYearStart,
-            maxYear: this.selectedYearEnd,
-            viewRecurringAs: PreferenceController.to.cashflowViewAs.value,
-            includeAssetAccounts: PreferenceController.to.trendIncludeAssetAccounts.value,
-          );
-        });
+        return PanelTrend(
+          dateRangeSearch: dateRangeTransactions,
+          minYear: this.selectedYearStart,
+          maxYear: this.selectedYearEnd,
+          viewRecurringAs: PreferenceController.to.cashflowViewAs,
+          includeAssetAccounts: PreferenceController.to.trendIncludeAssetAccounts,
+        );
     }
   }
 }

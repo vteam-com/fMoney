@@ -2,6 +2,8 @@
 
 From the MoneyTools vTeam, we bring you the flutter edition of the MyMoney.net app
 
+The app uses Flutter's built-in state management and navigation primitives, primarily `ChangeNotifier`, `ValueNotifier`, `ListenableBuilder`, and `Navigator`.
+
 ## Getting Started
 
 ### GitHub

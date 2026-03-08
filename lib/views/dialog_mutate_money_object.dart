@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/providers/transaction.dart';
@@ -28,7 +28,7 @@ void myShowDialogAndActionsForMoneyObjects({
   required final List<DataObject> moneyObjects,
   void Function()? onApplyChange,
 }) {
-  final BuildContext context = Get.context!;
+  final BuildContext context = AppRouter.context!;
 
   if (moneyObjects.isEmpty) {
     messageBox(context, 'No items to edit');

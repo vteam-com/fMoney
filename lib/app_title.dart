@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -27,7 +26,7 @@ class AppTitle extends StatelessWidget {
   /// Builds the app title widget including net worth reveal and MRU dropdown.
   @override
   Widget build(BuildContext context) {
-    final DataFileController dataController = Get.find();
+    final DataFileController dataController = DataFileController.to;
 
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints _) {
@@ -43,14 +42,17 @@ class AppTitle extends StatelessWidget {
               children: <Widget>[
                 IntrinsicWidth(child: _buildNetWorthToggle(context)),
                 gapSmall(),
-                Obx(() {
-                  return BadgePendingChanges(
-                    key: Constants.keyPendingChanges,
-                    itemsAdded: dataController.trackMutations.added.value,
-                    itemsChanged: dataController.trackMutations.changed.value,
-                    itemsDeleted: dataController.trackMutations.deleted.value,
-                  );
-                }),
+                ListenableBuilder(
+                  listenable: dataController.trackMutations,
+                  builder: (BuildContext _, Widget? _) {
+                    return BadgePendingChanges(
+                      key: Constants.keyPendingChanges,
+                      itemsAdded: dataController.trackMutations.added,
+                      itemsChanged: dataController.trackMutations.changed,
+                      itemsDeleted: dataController.trackMutations.deleted,
+                    );
+                  },
+                ),
               ],
             ),
             const MruDropdown(),
@@ -75,14 +77,17 @@ class AppTitle extends StatelessWidget {
           ),
         ),
         gapSmall(),
-        Obx(() {
-          return BadgePendingChanges(
-            key: Constants.keyPendingChanges,
-            itemsAdded: dataController.trackMutations.added.value,
-            itemsChanged: dataController.trackMutations.changed.value,
-            itemsDeleted: dataController.trackMutations.deleted.value,
-          );
-        }),
+        ListenableBuilder(
+          listenable: dataController.trackMutations,
+          builder: (BuildContext _, Widget? _) {
+            return BadgePendingChanges(
+              key: Constants.keyPendingChanges,
+              itemsAdded: dataController.trackMutations.added,
+              itemsChanged: dataController.trackMutations.changed,
+              itemsDeleted: dataController.trackMutations.deleted,
+            );
+          },
+        ),
       ],
     );
   }

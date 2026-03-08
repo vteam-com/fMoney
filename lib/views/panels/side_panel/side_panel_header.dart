@@ -132,7 +132,7 @@ class SidePanelHeader extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final bool smallDevice = ThemeController.to.isDeviceWidthSmall.value;
+    final bool smallDevice = ThemeController.to.isDeviceWidthSmall;
 
     return mySegmentSelector(
       context: context,

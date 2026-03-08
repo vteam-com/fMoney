@@ -103,7 +103,7 @@ class NetWorthChartState extends State<NetWorthChart> {
 List<ChartEvent> getMilestonesEvents(final List<Transaction> transactions) {
   final List<ChartEvent> milestoneTransactions = <ChartEvent>[];
 
-  if (PreferenceController.to.netWorthEventThreshold.value == 0) {
+  if (PreferenceController.to.netWorthEventThreshold == 0) {
     for (final Event event in Data().events.iterableList()) {
       final Category? category = Data().categories.get(
         event.fieldCategoryId.value,
@@ -140,7 +140,7 @@ List<ChartEvent> getMilestonesEvents(final List<Transaction> transactions) {
 
   for (int i = 0; i < transactions.length; i++) {
     final double zScore = zScores[i];
-    if (zScore.abs() >= PreferenceController.to.netWorthEventThreshold.value) {
+    if (zScore.abs() >= PreferenceController.to.netWorthEventThreshold) {
       final Transaction t = transactions[i];
       milestoneTransactions.add(
         ChartEvent(

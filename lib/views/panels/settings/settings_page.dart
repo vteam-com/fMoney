@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -14,9 +13,9 @@ import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _settingsSectionDividerHeight = 50.0;
 
-/// The `SettingsPage` class is a `GetView` that extends `GetxController`. It represents the settings page of the application.
+/// The `SettingsPage` class represents the settings page of the application.
 /// This page allows the user to manage various settings, such as rental management, stock service API key, and currencies.
-class SettingsPage extends GetView<GetxController> {
+class SettingsPage extends StatelessWidget {
   /// Constructs a `SettingsPage` widget with the provided [key].
   const SettingsPage({super.key});
 
@@ -54,30 +53,6 @@ class SettingsPage extends GetView<GetxController> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  /// Builds the language selector that switches the active app locale.
-  Widget _buildLanguageControl(final String localeCode) {
-    return ListTile(
-      title: Text(AppL10n.tr(AppTranslationKeys.language)),
-      subtitle: SegmentedButton<String>(
-        segments: <ButtonSegment<String>>[
-          ButtonSegment<String>(
-            value: 'en',
-            label: Text(AppL10n.tr(AppTranslationKeys.languageEnglish)),
-          ),
-          ButtonSegment<String>(
-            value: 'fr',
-            label: Text(AppL10n.tr(AppTranslationKeys.languageFrench)),
-          ),
-        ],
-        selected: <String>{localeCode == 'fr' ? 'fr' : 'en'},
-        onSelectionChanged: (Set<String> selection) {
-          final String newLocaleCode = selection.first;
-          PreferenceController.to.localeCode = newLocaleCode;
-        },
       ),
     );
   }
@@ -121,6 +96,30 @@ class SettingsPage extends GetView<GetxController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: widgets,
+    );
+  }
+
+  /// Builds the language selector that switches the active app locale.
+  Widget _buildLanguageControl(final String localeCode) {
+    return ListTile(
+      title: Text(AppL10n.tr(AppTranslationKeys.language)),
+      subtitle: SegmentedButton<String>(
+        segments: <ButtonSegment<String>>[
+          ButtonSegment<String>(
+            value: 'en',
+            label: Text(AppL10n.tr(AppTranslationKeys.languageEnglish)),
+          ),
+          ButtonSegment<String>(
+            value: 'fr',
+            label: Text(AppL10n.tr(AppTranslationKeys.languageFrench)),
+          ),
+        ],
+        selected: <String>{localeCode == 'fr' ? 'fr' : 'en'},
+        onSelectionChanged: (Set<String> selection) {
+          final String newLocaleCode = selection.first;
+          PreferenceController.to.localeCode = newLocaleCode;
+        },
+      ),
     );
   }
 }

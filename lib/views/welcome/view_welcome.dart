@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/data_file_controller.dart';
@@ -39,7 +39,7 @@ class WelcomeScreen extends StatelessWidget {
               OutlinedButton(
                 onPressed: () {
                   DataFileController.to.onFileNew();
-                  Get.offAllNamed<dynamic>(Constants.routeHomePage);
+                  AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.newFile)),
               ),
@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () async {
                   final bool succeeded = await DataFileController.to.onFileOpen();
                   if (succeeded) {
-                    Get.offAllNamed<dynamic>(Constants.routeHomePage);
+                    AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
                   }
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.openFile)),
@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () async {
                   DataFileController.to.closeFile();
                   await DataFileController.to.loadDemoData();
-                  Get.offAllNamed<dynamic>(Constants.routeHomePage);
+                  AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.useDemoData)),
               ),
@@ -72,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                 children: <Widget>[
                   TextButton(
                     onPressed: () {
-                      Get.toNamed<dynamic>(Constants.routePolicyPage);
+                      AppRouter.pushNamed<dynamic>(Constants.routePolicyPage);
                     },
                     child: Text(AppL10n.tr(AppTranslationKeys.privacyPolicy)),
                   ),

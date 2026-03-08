@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/providers/category.dart';
 import 'package:money/providers/transaction.dart';
@@ -26,7 +26,7 @@ class SankeyPanel extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ({List<SanKeyEntry> incomes, List<SanKeyEntry> expenses}) sankeyData = _transformData();
-    final ThemeController themeController = Get.find();
+    final ThemeController themeController = AppScope.of(context).themeController;
     return LayoutBuilder(
       builder: (final BuildContext context, final BoxConstraints constraints) {
         return SingleChildScrollView(
@@ -40,7 +40,7 @@ class SankeyPanel extends StatelessWidget {
               rightEntries: sankeyData.expenses,
               compactView: context.isWidthSmall,
               colors: SankeyColors(
-                darkTheme: themeController.isDarkTheme.value,
+                darkTheme: themeController.isDarkTheme,
               ),
             ),
           ),

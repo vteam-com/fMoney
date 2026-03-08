@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/file_systems.dart';
@@ -25,56 +26,64 @@ class MruDropdown extends StatelessWidget {
       separatorPaddingLeft: SizeForPadding.nano,
       separatorPaddingRight: SizeForPadding.nano,
     );
-    final PreferenceController preferenceController = Get.find();
-    final DataFileController dataController = Get.find();
+    final AppServices services = AppScope.of(context);
+    final PreferenceController preferenceController = services.preferenceController;
+    final DataFileController dataController = DataFileController.to;
 
     return SingleChildScrollView(
       reverse: true,
       scrollDirection: Axis.horizontal,
-      child: Obx(() {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            InkWell(
-              key: Constants.keyMruButton,
-              onTap: () {
-                showPopupSelection(
-                  context: context,
-                  title: 'Recent files',
-                  showLetterPicker: false,
-                  tokenTextStyle: tokenStyle,
-                  rightAligned: true,
-                  width: _mruDropdownWidth,
-                  items: preferenceController.mru,
-                  selectedItem: '',
-                  onSelected:
-                      (
-                        final String selectedTextRepresentingFileNamePath,
-                      ) async {
-                        final DataSource dataSource = DataSource(
-                          filePath: selectedTextRepresentingFileNamePath,
-                        );
-                        await DataFileController.to.loadFileFromPath(dataSource);
-                        Get.offAllNamed<dynamic>(Constants.routeHomePage);
-                      },
-                );
-              },
-              child: Row(
-                children: <Widget>[
-                  TokenText(
-                    dataController.currentLoadedFileName.value,
-                    style: tokenStyle,
-                  ),
-                  const Icon(Icons.expand_more),
-                ],
+      child: ListenableBuilder(
+        listenable: Listenable.merge(<Listenable>[
+          preferenceController,
+          dataController.currentLoadedFileName,
+          dataController.currentLoadedFileDateTime,
+        ]),
+        builder: (BuildContext context, Widget? _) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              InkWell(
+                key: Constants.keyMruButton,
+                onTap: () {
+                  showPopupSelection(
+                    context: context,
+                    title: 'Recent files',
+                    showLetterPicker: false,
+                    tokenTextStyle: tokenStyle,
+                    rightAligned: true,
+                    width: _mruDropdownWidth,
+                    items: preferenceController.mru,
+                    selectedItem: '',
+                    onSelected:
+                        (
+                          final String selectedTextRepresentingFileNamePath,
+                        ) async {
+                          final DataSource dataSource = DataSource(
+                            filePath: selectedTextRepresentingFileNamePath,
+                          );
+                          await DataFileController.to.loadFileFromPath(dataSource);
+                          AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+                        },
+                  );
+                },
+                child: Row(
+                  children: <Widget>[
+                    TokenText(
+                      dataController.currentLoadedFileName.value,
+                      style: tokenStyle,
+                    ),
+                    const Icon(Icons.expand_more),
+                  ],
+                ),
               ),
-            ),
-            _buildTimeStampOfFile(
-              dataController.currentLoadedFileDateTime.value,
-            ),
-          ],
-        );
-      }),
+              _buildTimeStampOfFile(
+                dataController.currentLoadedFileDateTime.value,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 

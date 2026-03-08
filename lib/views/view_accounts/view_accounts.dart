@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/data/models/stock_summary.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/accumulator.dart';
@@ -9,7 +9,6 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/investment_types.dart';
-import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/ranges.dart';
@@ -740,10 +739,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
 
-    final SelectionController selectionController = Get.put(
-      SelectionController(
-        getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      ),
+    final SelectionController selectionController = SelectionController(
+      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
     );
 
     selectionController.load();
@@ -764,39 +761,42 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       if (account.fieldType.value == AccountType.credit) Transaction.fields.getFieldByName(columnIdPaidOn),
     ];
 
-    return Obx(() {
-      return ListViewTransactions(
-        key: Key(
-          'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
-        ),
-        columnsToInclude: columnsToDisplay,
-        getList: () => getTransactionForLastSelectedAccount(account),
-        sortFieldIndex: sortFieldIndex,
-        sortAscending: sortAscending,
-        listController: Get.find<ListControllerSidePanel>(),
-        selectionController: selectionController,
-        onUserChoiceChanged:
-            (
-              int sortByFieldIndex,
-              bool sortAscending,
-              final int selectedTransactionId,
-            ) {
-              // keep track of user choice
-              sortFieldIndex = sortByFieldIndex;
-              sortAscending = sortAscending;
+    return ListenableBuilder(
+      listenable: DataFileController.to,
+      builder: (final BuildContext _, final Widget? _) {
+        return ListViewTransactions(
+          key: Key(
+            'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
+          ),
+          columnsToInclude: columnsToDisplay,
+          getList: () => getTransactionForLastSelectedAccount(account),
+          sortFieldIndex: sortFieldIndex,
+          sortAscending: sortAscending,
+          listController: AppScope.instance.listControllerSidePanel,
+          selectionController: selectionController,
+          onUserChoiceChanged:
+              (
+                int sortByFieldIndex,
+                bool sortAscending,
+                final int selectedTransactionId,
+              ) {
+                // keep track of user choice
+                sortFieldIndex = sortByFieldIndex;
+                sortAscending = sortAscending;
 
-              // Save user choices
+                // Save user choices
 
-              // Select Column
-              PreferenceController.to.setSidePanelSortBy(sortByFieldIndex);
-              // Sort
-              PreferenceController.to.setSidePanelSortAscending(sortAscending);
+                // Select Column
+                PreferenceController.to.setSidePanelSortBy(sortByFieldIndex);
+                // Sort
+                PreferenceController.to.setSidePanelSortAscending(sortAscending);
 
-              // last item selected
-              PreferenceController.to.setSidePanelSelectedItemId(selectedTransactionId);
-            },
-      );
-    });
+                // last item selected
+                PreferenceController.to.setSidePanelSelectedItemId(selectedTransactionId);
+              },
+        );
+      },
+    );
   }
 
   // Details Panel for Transactions
@@ -808,65 +808,66 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
 
-    final SelectionController selectionController = Get.put(
-      SelectionController(
-        getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      ),
+    final SelectionController selectionController = SelectionController(
+      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
     );
 
     selectionController.load();
 
-    return Obx(() {
-      final List<LoanPayment> aggregatedList = getAccountLoanPayments(account, data);
+    return ListenableBuilder(
+      listenable: DataFileController.to,
+      builder: (final BuildContext _, final Widget? _) {
+        final List<LoanPayment> aggregatedList = getAccountLoanPayments(account, data);
 
-      MoneyObjects.sortList(
-        aggregatedList,
-        LoanPayment.fieldsForColumnView.definitions,
-        sortFieldIndex,
-        sortAscending,
-      );
+        MoneyObjects.sortList(
+          aggregatedList,
+          LoanPayment.fieldsForColumnView.definitions,
+          sortFieldIndex,
+          sortAscending,
+        );
 
-      return AdaptiveListColumnsOrRowsSingleSelection(
-        key: Key(
-          'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
-        ),
-        list: aggregatedList,
-        fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,
-        filters: FieldFilters(),
-        sortByFieldIndex: sortFieldIndex,
-        sortAscending: sortAscending,
-        selectedId: selectionController.firstSelectedId,
-        listController: Get.find<ListControllerSidePanel>(),
-        displayAsColumns: true,
-        backgroundColorForHeaderFooter: Colors.transparent,
-        onSelectionChanged: (int uniqueId) {
-          sortFieldIndex = sortFieldIndex;
-          selectionController.select(uniqueId);
-          PreferenceController.to.setSidePanelSelectedItemId(uniqueId);
-        },
-        onColumnHeaderTap: (int columnHeaderIndex) {
-          // ignore: invalid_use_of_protected_member
-          setState(() {
-            if (columnHeaderIndex == sortFieldIndex) {
-              // toggle order
-              sortFieldIndex = sortFieldIndex;
-            } else {
-              sortFieldIndex = columnHeaderIndex;
-            }
-            PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
-          });
-        },
-        onItemLongPress: (BuildContext _, int itemId) {
-          final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
-          myShowDialogAndActionsForMoneyObject(
-            title: 'Loan Payment',
-            moneyObject: instance,
-          );
-          selectionController.select(itemId);
-          PreferenceController.to.setSidePanelSelectedItemId(itemId);
-        },
-      );
-    });
+        return AdaptiveListColumnsOrRowsSingleSelection(
+          key: Key(
+            'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
+          ),
+          list: aggregatedList,
+          fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,
+          filters: FieldFilters(),
+          sortByFieldIndex: sortFieldIndex,
+          sortAscending: sortAscending,
+          selectedId: selectionController.firstSelectedId,
+          listController: AppScope.instance.listControllerSidePanel,
+          displayAsColumns: true,
+          backgroundColorForHeaderFooter: Colors.transparent,
+          onSelectionChanged: (int uniqueId) {
+            sortFieldIndex = sortFieldIndex;
+            selectionController.select(uniqueId);
+            PreferenceController.to.setSidePanelSelectedItemId(uniqueId);
+          },
+          onColumnHeaderTap: (int columnHeaderIndex) {
+            // ignore: invalid_use_of_protected_member
+            setState(() {
+              if (columnHeaderIndex == sortFieldIndex) {
+                // toggle order
+                sortFieldIndex = sortFieldIndex;
+              } else {
+                sortFieldIndex = columnHeaderIndex;
+              }
+              PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
+            });
+          },
+          onItemLongPress: (BuildContext _, int itemId) {
+            final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
+            myShowDialogAndActionsForMoneyObject(
+              title: 'Loan Payment',
+              moneyObject: instance,
+            );
+            selectionController.select(itemId);
+            PreferenceController.to.setSidePanelSelectedItemId(itemId);
+          },
+        );
+      },
+    );
   }
 
   /// Returns transactions for the last selected account with optional filtering.

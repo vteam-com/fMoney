@@ -1,5 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -59,7 +60,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
   bool _sortAscending = true;
   int _sortByFieldIndex = 0;
-  final DataFileController dataController = Get.find();
+  final DataFileController dataController = DataFileController.to;
   bool firstLoadCompleted = false;
   final ListControllerMain lc = ListControllerMain();
   List<DataObject> list = <DataObject>[];
@@ -69,7 +70,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   VoidCallback? onDeleteItems;
   VoidCallback? onEditItems;
   VoidCallback? onMultiSelect;
-  PreferenceController preferenceController = Get.find();
+  PreferenceController preferenceController = AppScope.instance.preferenceController;
   late final SidePanelSupport sidePanelOptions;
   Object? subViewSelectedItem;
   bool supportsMultiSelection = false;
@@ -86,69 +87,75 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     footerAccumulators();
 
     return buildViewContent(
-      Obx(() {
-        final Key key = Key(
-          '${preferenceController.includeClosedAccounts}|${list.length}|${areFiltersOn()}|${dataController.lastUpdateAsString}|${sidePanelOptions.selectedCurrency}}',
-        );
+      ListenableBuilder(
+        listenable: Listenable.merge(<Listenable>[
+          preferenceController,
+          dataController,
+        ]),
+        builder: (final BuildContext _, final Widget? _) {
+          final Key key = Key(
+            '${preferenceController.includeClosedAccounts}|${list.length}|${areFiltersOn()}|${dataController.lastUpdateAsString}|${sidePanelOptions.selectedCurrency}}',
+          );
 
-        if (firstLoadCompleted == false) {
-          return _buildLoadingScreen();
-        }
+          if (firstLoadCompleted == false) {
+            return _buildLoadingScreen();
+          }
 
-        if (list.isEmpty) {
-          return _buildInformUserOfEmptyList(key);
-        }
+          if (list.isEmpty) {
+            return _buildInformUserOfEmptyList(key);
+          }
 
-        return AdaptiveViewWithList(
-          key: key,
-          top: buildHeader(),
-          list: list,
-          fieldDefinitions: _fieldToDisplay.definitions,
-          filters: _filterByFieldsValue,
-          selectedItemsByUniqueId: _selectedItemsByUniqueId,
-          sortByFieldIndex: _sortByFieldIndex,
-          sortAscending: _sortAscending,
-          listController: lc,
-          isMultiSelectionOn: _isMultiSelectionOn,
-          onColumnHeaderTap: _changeListSortOrder,
-          onColumnHeaderLongPress: onCustomizeColumn,
-          getColumnFooterWidget: getColumnFooterWidget,
-          onSelectionChanged: (int _) {
-            lc.bookmark = lc.scrollController.offset;
-            _selectedItemsByUniqueId.value = _selectedItemsByUniqueId.value.toList();
-            saveLastUserChoicesOfView();
-          },
-          onItemTap: _onItemTap,
-          flexBottom: preferenceController.isSidePanelExpanded ? 1 : 0,
-          bottom: SidePanel(
-            key: Key(
-              '${settingKeySidePanel}currency|${sidePanelOptions.selectedCurrency}',
+          return AdaptiveViewWithList(
+            key: key,
+            top: buildHeader(),
+            list: list,
+            fieldDefinitions: _fieldToDisplay.definitions,
+            filters: _filterByFieldsValue,
+            selectedItemsByUniqueId: _selectedItemsByUniqueId,
+            sortByFieldIndex: _sortByFieldIndex,
+            sortAscending: _sortAscending,
+            listController: lc,
+            isMultiSelectionOn: _isMultiSelectionOn,
+            onColumnHeaderTap: _changeListSortOrder,
+            onColumnHeaderLongPress: onCustomizeColumn,
+            getColumnFooterWidget: getColumnFooterWidget,
+            onSelectionChanged: (int _) {
+              lc.bookmark = lc.scrollController.offset;
+              _selectedItemsByUniqueId.value = _selectedItemsByUniqueId.value.toList();
+              saveLastUserChoicesOfView();
+            },
+            onItemTap: _onItemTap,
+            flexBottom: preferenceController.isSidePanelExpanded ? 1 : 0,
+            bottom: SidePanel(
+              key: Key(
+                '${settingKeySidePanel}currency|${sidePanelOptions.selectedCurrency}',
+              ),
+              isExpanded: preferenceController.isSidePanelExpanded,
+              onExpanded: (final bool isExpanded) {
+                setState(() {
+                  preferenceController.isSidePanelExpanded = isExpanded;
+                });
+              },
+              selectedItems: _selectedItemsByUniqueId,
+
+              // SubView
+              sidePanelSupport: sidePanelOptions,
+
+              // Currency
+              getCurrencyChoices: getCurrencyChoices,
+              currencySelected: sidePanelOptions.selectedCurrency,
+              currencySelectionChanged: (final int selected) {
+                setState(() {
+                  sidePanelOptions.selectedCurrency = selected;
+                });
+              },
+
+              /// Actions
+              getActionButtons: getActionsButtons,
             ),
-            isExpanded: preferenceController.isSidePanelExpanded,
-            onExpanded: (final bool isExpanded) {
-              setState(() {
-                preferenceController.isSidePanelExpanded = isExpanded;
-              });
-            },
-            selectedItems: _selectedItemsByUniqueId,
-
-            // SubView
-            sidePanelSupport: sidePanelOptions,
-
-            // Currency
-            getCurrencyChoices: getCurrencyChoices,
-            currencySelected: sidePanelOptions.selectedCurrency,
-            currencySelectionChanged: (final int selected) {
-              setState(() {
-                sidePanelOptions.selectedCurrency = selected;
-              });
-            },
-
-            /// Actions
-            getActionButtons: getActionsButtons,
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 

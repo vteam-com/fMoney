@@ -1,6 +1,5 @@
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/providers/payee.dart';
@@ -175,12 +174,10 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
       list,
     );
     if (payee != null && payee.fieldId.value > _unsetId) {
-      final SelectionController selectionController = Get.put(
-        SelectionController(),
-      );
+      final SelectionController selectionController = SelectionController();
       return ListViewTransactions(
         key: Key(payee.uniqueId.toString()),
-        listController: Get.find<ListControllerSidePanel>(),
+        listController: AppScope.instance.listControllerSidePanel,
         columnsToInclude: <Field<dynamic>>[
           Transaction.fields.getFieldByName(columnIdDate),
           Transaction.fields.getFieldByName(columnIdAccount),

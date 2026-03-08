@@ -1,6 +1,6 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/widgets/data_access.dart';
@@ -21,82 +21,86 @@ const int _defaultNetWorthEventThreshold = 5;
 /// - Window state
 /// - Font scaling
 /// Uses SharedPreferences for persistence.
-class PreferenceController extends GetxController {
+class PreferenceController extends ChangeNotifier {
   PreferenceController() {
+    PreferenceController.instance = this;
     DataAccess.getMRU = () => mru;
     DataAccess.addToMRU = addToMRU;
     DataAccess.jumpToView = jumpToView;
   }
-  final RxBool isReady = false.obs;
-  final RxBool useYahooStock = true.obs;
+  bool isReady = false;
+  bool useYahooStock = true;
 
-  Rx<BudgetViewAs> budgetViewAsForExpenses = BudgetViewAs.list.obs;
-  Rx<BudgetViewAs> budgetViewAsForIncomes = BudgetViewAs.list.obs;
-  RxInt cashflowRecurringOccurrences = _defaultCashflowRecurringOccurrences.obs;
-  Rx<CashflowViewAs> cashflowViewAs = CashflowViewAs.sankey.obs;
+  BudgetViewAs budgetViewAsForExpenses = BudgetViewAs.list;
+  BudgetViewAs budgetViewAsForIncomes = BudgetViewAs.list;
+  int cashflowRecurringOccurrences = _defaultCashflowRecurringOccurrences;
+  CashflowViewAs cashflowViewAs = CashflowViewAs.sankey;
 
   ///---------------------------------
   /// Observable enum
-  Rx<ViewId> currentView = ViewId.viewCashFlow.obs;
+  ViewId currentView = ViewId.viewCashFlow;
 
-  RxList<String> mru = <String>[].obs;
-  RxInt netWorthEventThreshold = _defaultNetWorthEventThreshold.obs;
-  Rx<bool> trendIncludeAssetAccounts = false.obs;
+  List<String> mru = <String>[];
+  int netWorthEventThreshold = _defaultNetWorthEventThreshold;
+  bool trendIncludeAssetAccounts = false;
 
-  final RxString _apiKeyForStocks = ''.obs;
-  final RxString _localeCode = 'en'.obs;
-  final RxBool _includeClosedAccounts = false.obs;
+  String _apiKeyForStocks = '';
+  String _localeCode = 'en';
+  bool _includeClosedAccounts = false;
 
   ///---------------------------------
   /// Include Rental feature
-  final RxBool _includeRentalManagement = false.obs;
+  bool _includeRentalManagement = false;
 
   ///---------------------------------
   /// SidePanel
   ///
   /// Expand/Collapse
-  final RxBool _isSidePanelExpanded = false.obs;
+  bool _isSidePanelExpanded = false;
 
   /// GET
-  bool get isSidePanelExpanded => _isSidePanelExpanded.value;
+  bool get isSidePanelExpanded => _isSidePanelExpanded;
 
   /// SET
   set isSidePanelExpanded(final bool value) {
-    _isSidePanelExpanded.value = value;
+    _isSidePanelExpanded = value;
 
     // persist
     setBool(settingKeySidePanelExpanded, value);
+    notifyListeners();
   }
 
   ///---------------------------------
   /// SidePanel Height
   ///
   /// Expand/Collapse
-  final RxInt _sidePanelHeight = Constants.sidePanelHeightWhenExpanded.obs;
+  int _sidePanelHeight = Constants.sidePanelHeightWhenExpanded;
 
   /// GET
-  int get sidePanelHeight => _sidePanelHeight.value;
+  int get sidePanelHeight => _sidePanelHeight;
 
   /// SET
   set sidePanelHeight(final int value) {
-    _sidePanelHeight.value = value;
+    _sidePanelHeight = value;
 
     // persist
     setInt(settingKeySidePanelHeight, value);
+    notifyListeners();
   }
 
   ///---------------------------------
   /// Selected SidePanel Tab
-  final Rx<SidePanelSubViewEnum> _selectedSidePanelTabId = SidePanelSubViewEnum.details.obs;
+  SidePanelSubViewEnum _selectedSidePanelTabId = SidePanelSubViewEnum.details;
 
   /// GET
-  SidePanelSubViewEnum get selectedSidePanelTabId => _selectedSidePanelTabId.value;
+  SidePanelSubViewEnum get selectedSidePanelTabId => _selectedSidePanelTabId;
 
   /// SET
   set selectedSidePanelTabId(SidePanelSubViewEnum value) {
-    _selectedSidePanelTabId.value = value;
+    _selectedSidePanelTabId = value;
     // persist
     setInt(settingKeySelectedSidePanelTab, value.index);
+    notifyListeners();
   }
 
   // Side panel helper methods to reduce duplication
@@ -123,20 +127,22 @@ class PreferenceController extends GetxController {
 
   ///---------------------------------
   /// Text Font Size/Scale
-  final RxDouble _textScale = 1.0.obs;
+  double _textScale = 1.0;
+
+  /// Global access to the live app preference controller.
+  static PreferenceController? instance;
 
   SharedPreferences? _preferences;
 
-  @override
-  void onInit() async {
-    super.onInit();
+  /// Starts preference loading and initial route selection.
+  Future<void> start() async {
     await init();
     if (mru.isNotEmpty) {
       DataAccess.loadLastFileSaved();
     } else {
       // queue changing screen after app loaded
       Future<Null>.delayed(const Duration(milliseconds: DurationInMs.quick), () {
-        Get.offNamed<dynamic>(Constants.routeWelcomePage);
+        AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
       });
     }
   }
@@ -152,28 +158,30 @@ class PreferenceController extends GetxController {
       if (_preferences != null) {
         _preferences!.setStringList(settingKeyMRU, mru);
       }
+      notifyListeners();
     }
   }
 
   ///---------------------------------
   /// Stock quote API Key
-  String get apiKeyForStocks => _apiKeyForStocks.value;
+  String get apiKeyForStocks => _apiKeyForStocks;
 
   /// Returns the persisted app locale code (`en` or `fr`).
-  String get localeCode => _localeCode.value;
+  String get localeCode => _localeCode;
 
-  /// Sets app locale, persists it, and updates GetX locale.
+  /// Sets app locale, persists it.
   set localeCode(final String value) {
     final String sanitized = value == 'fr' ? 'fr' : 'en';
-    _localeCode.value = sanitized;
+    _localeCode = sanitized;
     setString(settingKeyLocale, sanitized);
-    Get.updateLocale(Locale(sanitized));
+    notifyListeners();
   }
 
   ///---------------------------------
   set apiKeyForStocks(final String value) {
-    _apiKeyForStocks.value = value;
+    _apiKeyForStocks = value;
     setString(settingKeyStockApiKey, value);
+    notifyListeners();
   }
 
   // Clear all values from preferences
@@ -207,36 +215,39 @@ class PreferenceController extends GetxController {
 
   /// Returns a unique state string combining key preference values.
   String get getUniqueState =>
-      'isReady:${isReady.value} Rental:$includeRentalManagement IncludeClosedAccounts:$includeClosedAccounts TextScale:$textScale';
+      'isReady:$isReady Rental:$includeRentalManagement IncludeClosedAccounts:$includeClosedAccounts TextScale:$textScale';
 
   ///---------------------------------
   /// Show or Hide Account that are marked as Closed
   /// Hide/Show Closed Accounts
   /// Returns whether closed accounts should be included in views.
-  bool get includeClosedAccounts => _includeClosedAccounts.value;
+  bool get includeClosedAccounts => _includeClosedAccounts;
 
   /// Sets whether closed accounts should be included in views.
   set includeClosedAccounts(bool value) {
-    _includeClosedAccounts.value = value;
+    _includeClosedAccounts = value;
     setBool(settingKeyIncludeClosedAccounts, value);
+    notifyListeners();
   }
 
   ///--------------------------------
   /// Rental
   /// Returns whether rental management should be included in views.
-  bool get includeRentalManagement => _includeRentalManagement.value;
+  bool get includeRentalManagement => _includeRentalManagement;
 
   /// Sets whether rental management should be included in views.
   set includeRentalManagement(final bool value) {
-    _includeRentalManagement.value = value;
+    _includeRentalManagement = value;
     setBool(settingKeyRentalsSupport, value);
+    notifyListeners();
   }
 
   /// Initializes preferences and loads stored values.
   Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
     await loadDefaults();
-    isReady.value = true;
+    isReady = true;
+    notifyListeners();
   }
 
   /// Navigates to specified view with selected item ID.
@@ -273,42 +284,42 @@ class PreferenceController extends GetxController {
 
   /// Loads default preference values when none are set.
   Future<void> loadDefaults() async {
-    mru.value = _preferences!.getStringList(settingKeyMRU) ?? <String>[];
+    mru = _preferences!.getStringList(settingKeyMRU) ?? <String>[];
 
     // Side Panel Expanded/Collapsed
-    _isSidePanelExpanded.value = getBool(settingKeySidePanelExpanded, false);
+    _isSidePanelExpanded = getBool(settingKeySidePanelExpanded, false);
 
     // Side Panel Height
-    _sidePanelHeight.value = getInt(
+    _sidePanelHeight = getInt(
       settingKeySidePanelHeight,
       isSidePanelExpanded ? Constants.sidePanelHeightWhenExpanded : Constants.sidePanelHeightWhenCollapsed,
     );
 
-    _includeClosedAccounts.value = getBool(
+    _includeClosedAccounts = getBool(
       settingKeyIncludeClosedAccounts,
       false,
     );
-    _includeRentalManagement.value = getBool(settingKeyRentalsSupport, false);
-    _apiKeyForStocks.value = getString(settingKeyStockApiKey, '');
-    _localeCode.value = getString(settingKeyLocale, 'en');
-    Get.updateLocale(Locale(_localeCode.value == 'fr' ? 'fr' : 'en'));
+    _includeRentalManagement = getBool(settingKeyRentalsSupport, false);
+    _apiKeyForStocks = getString(settingKeyStockApiKey, '');
+    _localeCode = getString(settingKeyLocale, 'en');
+    notifyListeners();
 
-    cashflowViewAs.value =
+    cashflowViewAs =
         CashflowViewAs.values[getInt(
           settingKeyCashflowView,
           CashflowViewAs.sankey.index,
         )];
-    budgetViewAsForIncomes.value =
+    budgetViewAsForIncomes =
         BudgetViewAs.values[getInt(
           settingKeyBudgetViewAsIncomes,
           BudgetViewAs.list.index,
         )];
-    budgetViewAsForExpenses.value =
+    budgetViewAsForExpenses =
         BudgetViewAs.values[getInt(
           settingKeyBudgetViewAsExpenses,
           BudgetViewAs.list.index,
         )];
-    cashflowRecurringOccurrences.value = getInt(
+    cashflowRecurringOccurrences = getInt(
       settingKeyCashflowRecurringOccurrences,
       _defaultCashflowRecurringOccurrences,
     );
@@ -375,20 +386,55 @@ class PreferenceController extends GetxController {
   // Methods to update the current view
   /// Updates the current view to the specified ViewId.
   void setView(ViewId view) {
-    currentView.value = view;
+    currentView = view;
+    notifyListeners();
+  }
+
+  /// Sets the cashflow visualization mode.
+  void setCashflowViewAs(CashflowViewAs viewAs) {
+    cashflowViewAs = viewAs;
+    setInt(settingKeyCashflowView, viewAs.index);
+    notifyListeners();
+  }
+
+  /// Sets the budget presentation for income cards.
+  void setBudgetViewAsForIncomes(BudgetViewAs viewAs) {
+    budgetViewAsForIncomes = viewAs;
+    setInt(settingKeyBudgetViewAsIncomes, viewAs.index);
+    notifyListeners();
+  }
+
+  /// Sets the budget presentation for expense cards.
+  void setBudgetViewAsForExpenses(BudgetViewAs viewAs) {
+    budgetViewAsForExpenses = viewAs;
+    setInt(settingKeyBudgetViewAsExpenses, viewAs.index);
+    notifyListeners();
+  }
+
+  /// Sets the net worth chart anomaly threshold.
+  void setNetWorthEventThreshold(int value) {
+    netWorthEventThreshold = value;
+    notifyListeners();
+  }
+
+  /// Sets whether asset accounts are included in trend mode.
+  void setTrendIncludeAssetAccounts(bool value) {
+    trendIncludeAssetAccounts = value;
+    notifyListeners();
   }
 
   /// Returns the current text scale factor.
-  double get textScale => _textScale.value;
+  double get textScale => _textScale;
 
   /// Sets the text scale factor and saves to preferences.
   set textScale(double value) {
-    _textScale.value = value;
+    _textScale = value;
     setDouble(settingKeyTextScale, textScale);
+    notifyListeners();
   }
 
   /// Returns the singleton PreferenceController instance.
-  static PreferenceController get to => Get.find();
+  static PreferenceController get to => instance ??= PreferenceController();
 }
 
 /// Navigation helpers

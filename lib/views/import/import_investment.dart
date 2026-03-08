@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/providers/investment.dart';
 import 'package:money/providers/investment_import_fields.dart';
@@ -25,7 +25,7 @@ void showImportInvestment({InvestmentImportFields? inputData}) {
     description: '',
   );
 
-  final BuildContext context = Get.context!;
+  final BuildContext context = AppRouter.context!;
   adaptiveScreenSizeDialog(
     context: context,
     captionForClose: 'Cancel',

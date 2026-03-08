@@ -1,7 +1,7 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/scheduler.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
@@ -180,7 +180,7 @@ class SnackBarService {
       title: title ?? AppL10n.tr(AppTranslationKeys.error),
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error),
+      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error),
     );
   }
 
@@ -194,7 +194,7 @@ class SnackBarService {
       title: title ?? AppL10n.tr(AppTranslationKeys.success),
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success),
+      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success),
     );
   }
 
@@ -208,7 +208,7 @@ class SnackBarService {
       title: title ?? AppL10n.tr(AppTranslationKeys.warning),
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning),
+      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning),
     );
   }
 
@@ -222,7 +222,7 @@ class SnackBarService {
       title: title ?? AppL10n.tr(AppTranslationKeys.info),
       message: message,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.info),
+      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.info),
     );
   }
 

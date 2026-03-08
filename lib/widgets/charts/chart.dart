@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -230,7 +230,7 @@ FlBorderData getBorders(final double min, final double max) => FlBorderData(
 
 /// Returns a themed horizontal line color based on the numeric value.
 Color getHorizontalLineColorBasedOnValue(final double value) => Theme.of(
-  Get.context!,
+  AppRouter.context!,
 ).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
 /// Builds a currency-formatted widget for chart axis labels.

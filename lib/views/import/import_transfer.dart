@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/providers/import_fields_for_transfer.dart';
 import 'package:money/providers/transaction.dart';
 import 'package:money/views/data.dart';
@@ -22,7 +22,7 @@ void showImportTransfer({ImportFieldsForTransfer? inputData}) {
     memo: '',
   );
 
-  final BuildContext context = Get.context!;
+  final BuildContext context = AppRouter.context!;
   adaptiveScreenSizeDialog(
     context: context,
     captionForClose: 'Cancel',

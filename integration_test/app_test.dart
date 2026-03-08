@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/main.dart' as app;
 import 'package:money/views/data.dart';
@@ -37,9 +36,6 @@ void main() {
     testWidgets('Full app test', (WidgetTester tester) async {
       // Use an empty SharedPreferences to get the same results each time
       SharedPreferences.setMockInitialValues(<String, Object>{});
-
-      // // Enable GetX test mode to allow contextless navigation in tests
-      Get.testMode = true;
 
       // Enable snackbar testing mode to skip showing snackbars in integration tests
       SnackBarService.enableTestingMode();

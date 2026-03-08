@@ -1,34 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/theme_controller.dart';
 
 /// A mock used in tests for mock theme controller.
-class MockThemeController extends GetxController implements ThemeController {
-  @override
-  RxInt colorSelected = 0.obs;
-
-  @override
-  RxBool isDarkTheme = false.obs;
-
-  @override
-  RxBool isDeviceWidthLarge = false.obs;
-
-  @override
-  RxBool isDeviceWidthMedium = true.obs;
-
-  @override
-  RxBool isDeviceWidthSmall = false.obs;
-
-  @override
-  Color primaryColor = Colors.grey;
-
-  bool get isDarkMode => false;
-
-  double get textScale => 1.0;
-
+class MockThemeController extends ThemeController {
   @override
   void adjustFontScale(double delta) {}
 
@@ -75,12 +53,20 @@ class MockThemeController extends GetxController implements ThemeController {
 
   @override
   void updateTheme() {}
+
+  @override
+  void attachPreferenceController(PreferenceController preferenceController) {}
+
+  @override
+  void setDeviceWidthBreakpoints({
+    required bool isSmall,
+    required bool isMedium,
+    required bool isLarge,
+  }) {}
 }
 
 void main() {
   setUp(() {
-    // Register mock ThemeController for tests
-    Get.put<ThemeController>(MockThemeController());
     SnackBarService.clearQueue();
     SnackBarService.disableTestingMode();
   });
@@ -88,7 +74,6 @@ void main() {
   tearDown(() {
     SnackBarService.clearQueue();
     SnackBarService.disableTestingMode();
-    Get.reset();
   });
   group('SnackBarService', () {
     testWidgets('displays custom snackbar correctly', (WidgetTester tester) async {

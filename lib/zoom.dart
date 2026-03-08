@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/theme_controller.dart';
@@ -25,12 +25,13 @@ class ZoomIncreaseDecrease extends StatefulWidget {
 }
 
 class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
-  PreferenceController preferenceController = Get.find();
+  late final PreferenceController preferenceController;
   String zoomValueAsText = '';
 
   @override
   void initState() {
     super.initState();
+    preferenceController = AppScope.instance.preferenceController;
     updateZoomTextFromValue();
   }
 

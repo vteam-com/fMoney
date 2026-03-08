@@ -1,7 +1,6 @@
 // ignore: fcheck_one_class_per_file
 // ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -47,17 +46,25 @@ const double _appWindowHeight = 900.0;
 /// - Font scaling
 /// - Window size management
 /// - Theme persistence
-class ThemeController extends GetxController {
-  RxInt colorSelected = _defaultThemeIndex.obs;
-  RxBool isDarkTheme = false.obs;
-  RxBool isDeviceWidthLarge = false.obs;
-  RxBool isDeviceWidthMedium = true.obs;
-  RxBool isDeviceWidthSmall = false.obs;
-  Color primaryColor = Colors.grey;
+class ThemeController extends ChangeNotifier {
+  ThemeController() {
+    ThemeController.instance = this;
+  }
 
-  @override
-  void onInit() {
-    super.onInit();
+  int colorSelected = _defaultThemeIndex;
+  bool isDarkTheme = false;
+  bool isDeviceWidthLarge = false;
+  bool isDeviceWidthMedium = true;
+  bool isDeviceWidthSmall = false;
+  Color primaryColor = Colors.grey;
+  PreferenceController? _preferenceController;
+
+  /// Global access to the live theme controller.
+  static ThemeController? instance;
+
+  /// Attaches the preference controller dependency needed for theme persistence.
+  void attachPreferenceController(PreferenceController preferenceController) {
+    _preferenceController = preferenceController;
     loadThemeFromPreferences();
   }
 
@@ -78,21 +85,22 @@ class ThemeController extends GetxController {
 
   /// Loads theme mode and color index from persisted preferences.
   void loadThemeFromPreferences() async {
-    if (!PreferenceController.to.isReady.value) {
-      await PreferenceController.to.init();
+    final PreferenceController preferenceController = _preferenceController ?? PreferenceController.to;
+    if (!preferenceController.isReady) {
+      await preferenceController.init();
     }
-    isDarkTheme.value = PreferenceController.to.getBool(
+    isDarkTheme = preferenceController.getBool(
       settingKeyDarkMode,
       false,
     );
-    colorSelected.value = PreferenceController.to.getInt(settingKeyTheme, _defaultThemeIndex);
+    colorSelected = preferenceController.getInt(settingKeyTheme, _defaultThemeIndex);
     updateTheme();
   }
 
   /// Persists theme mode and color index to preferences.
   void saveThemeToPreferences() async {
-    PreferenceController.to.setBool(settingKeyDarkMode, isDarkTheme.value);
-    PreferenceController.to.setInt(settingKeyTheme, colorSelected.value);
+    PreferenceController.to.setBool(settingKeyDarkMode, isDarkTheme);
+    PreferenceController.to.setInt(settingKeyTheme, colorSelected);
   }
 
   /// Sets the app window size to the predefined small width.
@@ -117,19 +125,19 @@ class ThemeController extends GetxController {
 
   /// Sets the active theme color by [index] and persists the choice.
   void setThemeColor(final int index) {
-    colorSelected.value = index;
+    colorSelected = index;
     primaryColor = themeData.colorScheme.primary;
     saveThemeToPreferences();
     updateTheme();
   }
 
   /// Returns the current theme data (light or dark) based on the mode.
-  ThemeData get themeData => isDarkTheme.value ? themeDataDark : themeDataLight;
+  ThemeData get themeData => isDarkTheme ? themeDataDark : themeDataLight;
 
   /// Ensures [colorSelected] points to a valid index in [Themes.themeAsColors].
   void _ensureValidColorSelection() {
-    if (!isIndexInRange(Themes.themeAsColors, colorSelected.value)) {
-      colorSelected = _defaultThemeIndex.obs;
+    if (!isIndexInRange(Themes.themeAsColors, colorSelected)) {
+      colorSelected = _defaultThemeIndex;
     }
   }
 
@@ -140,7 +148,7 @@ class ThemeController extends GetxController {
   }) {
     _ensureValidColorSelection();
     return ThemeData(
-      colorSchemeSeed: Themes.themeAsColors[colorSelected.value],
+      colorSchemeSeed: Themes.themeAsColors[colorSelected],
       brightness: brightness,
       extensions: <ThemeExtension<dynamic>>[
         moneyThemeData,
@@ -181,11 +189,11 @@ class ThemeController extends GetxController {
   }
 
   /// Singleton accessor for the registered ThemeController instance.
-  static ThemeController get to => Get.find();
+  static ThemeController get to => instance ??= ThemeController();
 
   /// Toggles between light and dark theme modes and persists the change.
   void toggleThemeMode() {
-    isDarkTheme.value = !isDarkTheme.value;
+    isDarkTheme = !isDarkTheme;
     primaryColor = themeData.colorScheme.primary;
     saveThemeToPreferences();
     updateTheme();
@@ -194,7 +202,24 @@ class ThemeController extends GetxController {
   /// this will rebuild the app to use the current theme
   void updateTheme() {
     primaryColor = themeData.colorScheme.primary;
-    Get.changeTheme(themeData);
+    notifyListeners();
+  }
+
+  /// Stores the latest responsive width classification for non-widget callers.
+  void setDeviceWidthBreakpoints({
+    required bool isSmall,
+    required bool isMedium,
+    required bool isLarge,
+  }) {
+    final bool hasChanged =
+        isDeviceWidthSmall != isSmall || isDeviceWidthMedium != isMedium || isDeviceWidthLarge != isLarge;
+    if (!hasChanged) {
+      return;
+    }
+    isDeviceWidthSmall = isSmall;
+    isDeviceWidthMedium = isMedium;
+    isDeviceWidthLarge = isLarge;
+    notifyListeners();
   }
 
   //--------------------------------------------------------

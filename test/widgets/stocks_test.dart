@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:money/data/models/dividend.dart';
@@ -21,7 +20,7 @@ import 'package:money/widgets/widgets_domain/data_object.dart';
 
 // Mock the SharedPreference
 /// A mock used in tests for mock preference controller.
-class MockPreferenceController extends GetxController with Mock implements PreferenceController {
+class MockPreferenceController with Mock implements PreferenceController {
   @override
   String getString(String key, [String defaultValueIfNotFound = '']) {
     switch (key) {
@@ -60,13 +59,13 @@ void main() {
 
   setUp(() {
     mockPreferenceController = MockPreferenceController();
-    Get.put<PreferenceController>(mockPreferenceController);
-    // ignore: unused_local_variable
-    final DataFileController dataController = Get.put(DataFileController());
+    PreferenceController.instance = mockPreferenceController;
+    DataFileController.instance = DataFileController();
   });
 
   tearDown(() {
-    Get.reset();
+    PreferenceController.instance = null;
+    DataFileController.instance = null;
   });
 
   testWidgets('Stock Chart', (WidgetTester tester) async {

@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -6,7 +5,7 @@ import 'package:money/views/panels/policies/view_policy.dart';
 import 'package:money/widgets/text_title.dart';
 
 /// Represents policy page.
-class PolicyPage extends GetView<GetxController> {
+class PolicyPage extends StatelessWidget {
   const PolicyPage({super.key});
 
   @override

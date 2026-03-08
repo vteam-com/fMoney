@@ -1,11 +1,10 @@
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
-import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/providers/investment.dart';
@@ -419,7 +418,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       filters: FieldFilters(),
       sortByFieldIndex: sortByFieldIndex,
       sortAscending: sortAscending,
-      listController: Get.find<ListControllerMain>(),
+      listController: AppScope.instance.listControllerMain,
       selectedId: getSidePanelLastSelectedItemId(),
       // Field & Columns related
       displayAsColumns: true,

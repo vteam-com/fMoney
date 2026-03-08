@@ -3,9 +3,8 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart'; // Import GetX
 import 'package:money/views/import/import_wizard.dart';
-import 'package:money/widgets/wizard_choice.dart'; // Import WizardChoice
+import 'package:money/widgets/wizard_choice.dart';
 // ignore: depend_on_referenced_packages
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -97,12 +96,11 @@ void main() {
 
   testWidgets('Wizard Dialog displays correctly with title and CSV option', (WidgetTester tester) async {
     await tester.pumpWidget(
-      GetMaterialApp(
+      MaterialApp(
         home: Builder(
           builder: (BuildContext context) {
-            // Use GetMaterialApp
             return ElevatedButton(
-              onPressed: () => showImportTransactionsWizard(),
+              onPressed: () => showImportTransactionsWizard(context),
               child: const Text('Show Wizard'),
             );
           },
@@ -123,11 +121,11 @@ void main() {
     mockFilePicker.setPickerResult(FilePickerResult(<PlatformFile>[mockFile]));
 
     await tester.pumpWidget(
-      GetMaterialApp(
+      MaterialApp(
         home: Builder(
           builder: (BuildContext context) {
             return ElevatedButton(
-              onPressed: () => showImportTransactionsWizard(),
+              onPressed: () => showImportTransactionsWizard(context),
               child: const Text('Show Wizard'),
             );
           },
@@ -164,13 +162,12 @@ void main() {
     final MockNavigatorObserver mockObserver = MockNavigatorObserver();
 
     await tester.pumpWidget(
-      GetMaterialApp(
-        // Use GetMaterialApp
+      MaterialApp(
         navigatorObservers: <NavigatorObserver>[mockObserver],
         home: Builder(
           builder: (BuildContext context) {
             return ElevatedButton(
-              onPressed: () => showImportTransactionsWizard(),
+              onPressed: () => showImportTransactionsWizard(context),
               child: const Text('Show Wizard'),
             );
           },

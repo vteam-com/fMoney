@@ -299,7 +299,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
 
               // Fetch Historical Stock Splits
               List<StockSplit> splits = <StockSplit>[];
-              if (PreferenceController.to.useYahooStock.value) {
+              if (PreferenceController.to.useYahooStock) {
                 splits = await _fetchStockSplitsFromYahoo(widget.symbol);
               } else {
                 splits = await _fetchSplitsFromTwelveData(widget.symbol);

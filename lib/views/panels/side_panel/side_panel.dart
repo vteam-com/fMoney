@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/views/panels/side_panel/side_panel_header.dart';
@@ -44,11 +43,8 @@ class SidePanel extends StatefulWidget {
 class _SidePanelState extends State<SidePanel> {
   @override
   Widget build(final BuildContext context) {
-    if (!widget.sidePanelSupport.supportedSubViews.contains(
-      PreferenceController.to.selectedSidePanelTabId,
-    )) {
-      PreferenceController.to.selectedSidePanelTabId = SidePanelSubViewEnum.details;
-    }
+    final SidePanelSubViewEnum effectiveSubView = _getEffectiveSelectedSubView();
+    _syncSelectedSubViewIfNeeded(effectiveSubView);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
@@ -72,47 +68,75 @@ class _SidePanelState extends State<SidePanel> {
               final List<int> listOfSelectedItemIndex,
               final _,
             ) {
-              return Obx(() {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    SidePanelHeader(
-                      isExpanded: widget.isExpanded,
-                      onExpanded: widget.onExpanded,
+              return ListenableBuilder(
+                listenable: PreferenceController.to,
+                builder: (final BuildContext _, final Widget? _) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SidePanelHeader(
+                        isExpanded: widget.isExpanded,
+                        onExpanded: widget.onExpanded,
 
-                      // SubPanel
-                      sidePanelSupport: widget.sidePanelSupport,
-                      subViewSelected: PreferenceController.to.selectedSidePanelTabId,
-                      subViewSelectionChanged:
-                          (
-                            final SidePanelSubViewEnum selected,
-                          ) {
-                            PreferenceController.to.selectedSidePanelTabId = selected;
-                          },
+                        // SubPanel
+                        sidePanelSupport: widget.sidePanelSupport,
+                        subViewSelected: effectiveSubView,
+                        subViewSelectionChanged:
+                            (
+                              final SidePanelSubViewEnum selected,
+                            ) {
+                              PreferenceController.to.selectedSidePanelTabId = selected;
+                            },
 
-                      // Currency
-                      currencyChoices: widget.getCurrencyChoices(
-                        PreferenceController.to.selectedSidePanelTabId,
-                        listOfSelectedItemIndex,
-                      ),
-                      currencySelected: widget.currencySelected,
-                      currentSelectionChanged: widget.currencySelectionChanged,
-
-                      // Actions
-                      actionButtons: widget.getActionButtons,
-                    ),
-                    if (widget.isExpanded)
-                      Expanded(
-                        child: widget.sidePanelSupport.getSidePanelContent(
-                          PreferenceController.to.selectedSidePanelTabId,
+                        // Currency
+                        currencyChoices: widget.getCurrencyChoices(
+                          effectiveSubView,
                           listOfSelectedItemIndex,
                         ),
+                        currencySelected: widget.currencySelected,
+                        currentSelectionChanged: widget.currencySelectionChanged,
+
+                        // Actions
+                        actionButtons: widget.getActionButtons,
                       ),
-                  ],
-                );
-              });
+                      if (widget.isExpanded)
+                        Expanded(
+                          child: widget.sidePanelSupport.getSidePanelContent(
+                            effectiveSubView,
+                            listOfSelectedItemIndex,
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              );
             },
       ),
     );
+  }
+
+  /// Returns a supported side-panel tab for the current side panel.
+  SidePanelSubViewEnum _getEffectiveSelectedSubView() {
+    final SidePanelSubViewEnum selectedSubView = PreferenceController.to.selectedSidePanelTabId;
+    if (widget.sidePanelSupport.supportedSubViews.contains(selectedSubView)) {
+      return selectedSubView;
+    }
+    return SidePanelSubViewEnum.details;
+  }
+
+  /// Schedules persistence of the effective side-panel tab when needed.
+  void _syncSelectedSubViewIfNeeded(final SidePanelSubViewEnum effectiveSubView) {
+    if (PreferenceController.to.selectedSidePanelTabId == effectiveSubView) {
+      return;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      if (PreferenceController.to.selectedSidePanelTabId != effectiveSubView) {
+        PreferenceController.to.selectedSidePanelTabId = effectiveSubView;
+      }
+    });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/views/import/import_csv.dart';
 import 'package:money/views/import/import_investment.dart';
 import 'package:money/views/import/import_qfx.dart';
@@ -15,8 +15,8 @@ import 'package:money/widgets/wizard_choice.dart';
 const double _wizardSpacing = 40.0;
 
 /// Shows wizard dialog for importing transactions from various sources.
-void showImportTransactionsWizard() {
-  final BuildContext originalContext = Get.context!; // Store the original context
+void showImportTransactionsWizard([BuildContext? context]) {
+  final BuildContext originalContext = context ?? AppRouter.context!;
 
   adaptiveScreenSizeDialog(
     context: originalContext, // Use original context for showing the dialog

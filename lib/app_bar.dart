@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/app_title.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
@@ -15,7 +16,7 @@ import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/theme_controller.dart';
 import 'package:money/widgets/three_part_label.dart';
-import 'package:money/widgets/zoom.dart';
+import 'package:money/zoom.dart';
 
 const double _opacityEnabled = 1.0;
 const double _opacityDisabled = 0.5;
@@ -37,8 +38,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Builds the application app bar.
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find<ThemeController>();
-    final PreferenceController preferencesController = Get.find<PreferenceController>();
+    final AppServices services = AppScope.of(context);
+    final ThemeController themeController = services.themeController;
+    final PreferenceController preferencesController = services.preferenceController;
 
     return AppBar(
       toolbarHeight: _appBarHeight,
@@ -57,16 +59,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   void onAppBarAction(int value) {
     switch (value) {
       case Constants.commandAddTransactions:
-        showImportTransactionsFromTextInput(Get.context!);
+        showImportTransactionsFromTextInput(AppRouter.context!);
         break;
       case Constants.commandSettings:
-        Get.toNamed<dynamic>(Constants.routeSettingsPage);
+        AppRouter.pushNamed<dynamic>(Constants.routeSettingsPage);
         break;
       case Constants.commandInstallPlatforms:
-        Get.toNamed<dynamic>(Constants.routeInstallPlatformsPage);
+        AppRouter.pushNamed<dynamic>(Constants.routeInstallPlatformsPage);
         break;
       case Constants.commandAbout:
-        Get.toNamed<dynamic>(Constants.routeAboutPage);
+        AppRouter.pushNamed<dynamic>(Constants.routeAboutPage);
         break;
       case Constants.commandIncludeClosedAccount:
         PreferenceController.to.includeClosedAccounts = !PreferenceController.to.includeClosedAccounts;
@@ -238,7 +240,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     ThemeController themeController,
   ) {
     return List<PopupMenuItem<int>>.generate(Themes.themeAsColors.length, (int index) {
-      final bool isSelected = index == themeController.colorSelected.value;
+      final bool isSelected = index == themeController.colorSelected;
       final String themeColorName = Themes.themeColorNames[index];
 
       return PopupMenuItem<int>(
@@ -246,7 +248,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: _themeItemVerticalPadding),
           decoration: BoxDecoration(
-            color: isSelected ? getColorTheme(Get.context!).secondaryContainer : null,
+            color: isSelected ? getColorTheme(AppRouter.context!).secondaryContainer : null,
             borderRadius: const BorderRadius.all(Radius.circular(_themeItemRadius)),
           ),
           child: ThreePartLabel(
@@ -284,7 +286,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return IconButton(
       key: const Key('key_toggle_mode'),
       icon: Icon(
-        themeController.isDarkTheme.value ? Icons.wb_sunny : Icons.mode_night,
+        themeController.isDarkTheme ? Icons.wb_sunny : Icons.mode_night,
       ),
       onPressed: ThemeController.to.toggleThemeMode,
       tooltip: AppL10n.tr(AppTranslationKeys.toggleBrightness),
@@ -295,12 +297,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   void _handleMenuSelection(int index) {
     switch (index) {
       case Constants.commandFileNew:
-        Get.offAllNamed<dynamic>(Constants.routeHomePage);
+        AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
         DataFileController.to.onFileNew();
         break;
       case Constants.commandFileOpen:
         DataFileController.to.onFileOpen().then((_) {
-          Get.offAllNamed<dynamic>(Constants.routeHomePage);
+          AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
         });
         break;
       case Constants.commandFileLocation:
@@ -320,7 +322,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         break;
       case Constants.commandFileClose:
         DataFileController.to.closeFile();
-        Get.offAllNamed<dynamic>(Constants.routeWelcomePage);
+        AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeWelcomePage);
         break;
       default:
         debugPrint('Unhandled menu item: $index');

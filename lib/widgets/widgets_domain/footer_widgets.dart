@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/accumulator.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -51,7 +51,7 @@ Widget getFooterForDateRange(final DateRange dateRange) {
 /// Builds a footer widget for a monetary [amount].
 Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
   final TextStyle style = TextStyle(
-    color: Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
+    color: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
     fontFamily: 'RobotoMono',
   );
 
@@ -75,7 +75,9 @@ Widget getFooterForInt(
   final String prefix = '',
 }) {
   final TextStyle style = TextStyle(
-    color: applyColorBasedOnValue ? Theme.of(Get.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value) : null,
+    color: applyColorBasedOnValue
+        ? Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value)
+        : null,
     fontFamily: 'RobotoMono',
   );
 

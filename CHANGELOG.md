@@ -1,5 +1,14 @@
 # Change Log
 
+## [version 1.17.01] 2026-03-08
+
+### Updated
+
+- **State Management**: Removed the legacy state-management package and migrated the app to Flutter's built-in state management primitives (`ChangeNotifier`, `ValueNotifier`, `ListenableBuilder`, and `Navigator`)
+- **Navigation and Startup Flow**: Reworked app routing to use the root `Navigator` key and added safer startup synchronization for widget and integration tests
+- **Controller Wiring**: Replaced the remaining service-locator and reactive patterns with standard Flutter controller singletons and listenables
+- **Tests and Runtime Stability**: Fixed build-time notification issues that surfaced after the migration to Flutter's built-in state flow
+
 ## [version 1.17.00] 2026-03-06
 
 ### Added
@@ -65,7 +74,7 @@
 
 - Flutter and Dart version updates to latest (3.38.0)
 - Update to sqlite3 ^3.0.0
-- Remove GetX snackbar dependency
+- Remove legacy snackbar package dependency
 - Update builds.yml for CI/CD improvements
 
 ### Add
@@ -433,7 +442,7 @@
 
 - General Setting is now a Page instead of a dialog
 - Policies is now a Page
-- Using GetX
+- Switched state management to Flutter's built-in controllers and listeners
 
 ## [version 1.8.30] 2024-06-20
 
@@ -812,7 +821,7 @@
 ### Added
 
 - User can now Add new Accounts
-- Use package [provider] for state management
+- Use Flutter's built-in state management
 - Load from CSV [mymoney.mmcsv] file
 - Close and create a new file
 

@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:money/widgets/preferences_controller.dart';
 
 // List the selected item IDs, optionally can be persisted and loaded in Preferences
@@ -8,15 +7,18 @@ import 'package:money/widgets/preferences_controller.dart';
 /// - Persist selections to preferences using a key
 /// - Toggle individual item selection
 /// - Support for first selected ID retrieval
-class SelectionController extends GetxController {
+class SelectionController {
   SelectionController([this.preferenceKeyForPersistingSelections = '']) {
+    SelectionController._lastCreated = this;
     if (preferenceKeyForPersistingSelections.isNotEmpty) {
       load();
     }
   }
 
+  static SelectionController? _lastCreated;
+
   String preferenceKeyForPersistingSelections = '';
-  RxSet<int> selectedItems = <int>{}.obs;
+  final Set<int> selectedItems = <int>{};
 
   /// Returns the first selected ID or -1 if none selected.
   int get firstSelectedId {
@@ -62,6 +64,9 @@ class SelectionController extends GetxController {
     save();
   }
 
-  /// Singleton accessor for the registered SelectionController.
-  static SelectionController get to => Get.find();
+  /// Returns the most recently created selection controller.
+  static SelectionController get to {
+    assert(_lastCreated != null, 'SelectionController.to accessed before any SelectionController was created.');
+    return _lastCreated!;
+  }
 }

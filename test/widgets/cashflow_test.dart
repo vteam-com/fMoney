@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/view_cashflow/view_cashflow.dart';
 import 'package:money/widgets/preferences_controller.dart';
@@ -22,10 +21,22 @@ class DummyHostingApp extends StatefulWidget {
 
 /// State used by dummy hosting app in tests.
 class DummyHostingAppState extends State<DummyHostingApp> {
-  final PreferenceController preferenceController = Get.put(
-    PreferenceController(),
-  );
-  final ThemeController themeController = Get.put(ThemeController());
+  final PreferenceController preferenceController = PreferenceController();
+  final ThemeController themeController = ThemeController();
+
+  @override
+  void initState() {
+    super.initState();
+    PreferenceController.instance = preferenceController;
+    ThemeController.instance = themeController;
+  }
+
+  @override
+  void dispose() {
+    PreferenceController.instance = null;
+    ThemeController.instance = null;
+    super.dispose();
+  }
 
   @override
   Widget build(final BuildContext context) {

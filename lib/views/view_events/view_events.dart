@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/providers/category.dart';
@@ -212,14 +211,12 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
     required final bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
-    final SelectionController selectionController = Get.put(
-      SelectionController(
-        getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      ),
+    final SelectionController selectionController = SelectionController(
+      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
     );
 
     return ListViewTransactions(
-      listController: Get.find<ListControllerSidePanel>(),
+      listController: AppScope.instance.listControllerSidePanel,
       columnsToInclude: <Field<dynamic>>[
         Transaction.fields.getFieldByName(columnIdDate),
         Transaction.fields.getFieldByName(columnIdAccount),

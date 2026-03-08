@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -26,8 +26,9 @@ import 'package:path/path.dart' as p;
 /// - Manage MRU list
 /// - File format conversions
 /// - File location management
-class DataFileController extends GetxController {
+class DataFileController extends ChangeNotifier {
   DataFileController() {
+    DataFileController.instance = this;
     DataAccess.trackMutations = trackMutations;
     DataAccess.onDataChanged = update;
     DataAccess.onFileClosed = dataFileIsClosed;
@@ -40,15 +41,23 @@ class DataFileController extends GetxController {
     // Bind the merge payee provider
     Data().mergePayeeProvider = DefaultMergePayeeProvider();
   }
-  Rxn<DateTime> currentLoadedFileDateTime = Rxn<DateTime>();
-  RxString currentLoadedFileName = Constants.untitledFileName.obs;
-  RxList<String> data = <String>[].obs;
+  final ValueNotifier<DateTime?> currentLoadedFileDateTime = ValueNotifier<DateTime?>(null);
+  final ValueNotifier<String> currentLoadedFileName = ValueNotifier<String>(Constants.untitledFileName);
+  final ValueNotifier<List<String>> data = ValueNotifier<List<String>>(<String>[]);
   String fileName = '';
   // Observable variables
-  RxBool isLoading = true.obs;
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
 
   // Tracking changes
-  DataMutations trackMutations = DataMutations();
+  final DataMutations trackMutations = DataMutations();
+
+  /// Global access to the live app data file controller.
+  static DataFileController? instance;
+
+  /// Notifies listeners that the underlying data model has changed.
+  void update() {
+    notifyListeners();
+  }
 
   /// Closes the current data file and resets file state.
   void closeFile([bool rebuild = true]) {
@@ -57,12 +66,14 @@ class DataFileController extends GetxController {
     dataFileIsClosed();
     trackMutations.reset();
     isLoading.value = false;
+    notifyListeners();
   }
 
   /// Resets file state to untitled when file is closed.
   void dataFileIsClosed() {
     currentLoadedFileName.value = Constants.untitledFileName;
     currentLoadedFileDateTime.value = null;
+    notifyListeners();
   }
 
   /// Returns default folder path for saving files with given name.
@@ -87,9 +98,11 @@ class DataFileController extends GetxController {
   /// Loads demo data for testing and demonstration purposes.
   Future<void> loadDemoData() async {
     isLoading.value = true;
+    notifyListeners();
     DataSimulator().generateData();
     Data().recalculateBalances();
     isLoading.value = false;
+    notifyListeners();
   }
 
   /// Loads data file from specified data source.
@@ -104,8 +117,9 @@ class DataFileController extends GetxController {
         currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(
           dataSource.filePath,
         );
+        notifyListeners();
         Future<Null>.delayed(Duration.zero, () {
-          Get.offNamed<dynamic>(Constants.routeHomePage);
+          AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeHomePage);
         });
       }
       return success;
@@ -114,6 +128,7 @@ class DataFileController extends GetxController {
       return false;
     } finally {
       isLoading.value = false;
+      notifyListeners();
     }
   }
 
@@ -126,29 +141,32 @@ class DataFileController extends GetxController {
   Future<void> loadLastFileSaved() async {
     try {
       isLoading.value = true;
+      notifyListeners();
 
       if (DataAccess.getMRU().isNotEmpty) {
         final bool loaded = await loadFile(DataSource(filePath: DataAccess.getMRU().first));
         if (!loaded) {
           Future<Null>.delayed(Duration.zero, () {
-            Get.offNamed<dynamic>(Constants.routeWelcomePage);
+            AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
           });
         }
         return;
       } else {
         // Once the file is loaded, navigate to the main screen
         isLoading.value = false;
+        notifyListeners();
 
         Future<Null>.delayed(Duration.zero, () {
-          Get.offNamed<dynamic>(Constants.routeWelcomePage);
+          AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
         });
       }
     } catch (e, stackTrace) {
       // Handle error
       logger.e('Error fetching data', error: e, stackTrace: stackTrace);
       isLoading.value = false;
+      notifyListeners();
       Future<Null>.delayed(Duration.zero, () {
-        Get.offNamed<dynamic>(Constants.routeWelcomePage);
+        AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
       });
     }
   }
@@ -283,8 +301,9 @@ class DataFileController extends GetxController {
   void setCurrentFileName(final String filenameLoaded) {
     currentLoadedFileName.value = filenameLoaded;
     DataAccess.addToMRU(filenameLoaded);
+    notifyListeners();
   }
 
   /// Returns the singleton DataFileController instance.
-  static DataFileController get to => Get.find();
+  static DataFileController get to => instance ??= DataFileController();
 }

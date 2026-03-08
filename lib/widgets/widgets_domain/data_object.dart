@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -261,11 +261,11 @@ class DataObject extends DataInterface {
   Color getMutationColor() {
     switch (mutation) {
       case MutationType.inserted:
-        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success);
+        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success);
       case MutationType.changed:
-        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning);
+        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning);
       case MutationType.deleted:
-        return Theme.of(Get.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error);
+        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error);
       default:
         return Colors.transparent;
     }

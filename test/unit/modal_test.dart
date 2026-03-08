@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/views/categories.dart';
 import 'package:money/views/data.dart';
@@ -7,8 +6,11 @@ import 'package:money/views/data_file_controller.dart';
 
 void main() {
   setUp(() {
-    // ignore: unused_local_variable
-    final DataFileController dataController = Get.put(DataFileController());
+    DataFileController.instance = DataFileController();
+  });
+
+  tearDown(() {
+    DataFileController.instance = null;
   });
 
   test('Category', () {

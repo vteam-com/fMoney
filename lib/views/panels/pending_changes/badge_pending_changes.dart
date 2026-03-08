@@ -68,31 +68,31 @@ class BadgePendingChanges extends StatelessWidget {
     final TextStyle textStyle = Theme.of(
       context,
     ).textTheme.labelSmall!.copyWith(fontSize: _counterFontSize, fontWeight: FontWeight.w900);
-    if (DataFileController.to.trackMutations.added.value > _zeroInt) {
+    if (DataFileController.to.trackMutations.added > _zeroInt) {
       widgets.add(
         buildCounter(
           '+',
-          DataFileController.to.trackMutations.added.value,
+          DataFileController.to.trackMutations.added,
           textStyle.copyWith(color: Colors.green),
         ),
       );
     }
 
-    if (DataFileController.to.trackMutations.changed.value > _zeroInt) {
+    if (DataFileController.to.trackMutations.changed > _zeroInt) {
       widgets.add(
         buildCounter(
           '=',
-          DataFileController.to.trackMutations.changed.value,
+          DataFileController.to.trackMutations.changed,
           textStyle.copyWith(color: Colors.orange),
         ),
       );
     }
 
-    if (DataFileController.to.trackMutations.deleted.value > _zeroInt) {
+    if (DataFileController.to.trackMutations.deleted > _zeroInt) {
       widgets.add(
         buildCounter(
           '-',
-          DataFileController.to.trackMutations.deleted.value,
+          DataFileController.to.trackMutations.deleted,
           textStyle.copyWith(color: Colors.red),
         ),
       );
@@ -104,7 +104,7 @@ class BadgePendingChanges extends StatelessWidget {
   /// Returns a tooltip text string that summarizes the pending changes, including the number of added, modified, and deleted items, as well as the last time the changes were edited.
   String getTooltipText() {
     final String lastChangedOn = getElapsedTime(
-      DataFileController.to.trackMutations.lastDateTimeChanged.value,
+      DataFileController.to.trackMutations.lastDateTimeChanged,
     );
     return 'Added: ${DataFileController.to.trackMutations.added}\nModified: ${DataFileController.to.trackMutations.changed}\nDeleted: ${DataFileController.to.trackMutations.deleted}\n\nEdited $lastChangedOn';
   }

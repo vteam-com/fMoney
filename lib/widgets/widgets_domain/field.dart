@@ -1,8 +1,8 @@
 // ignore: fcheck_one_class_per_file
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -790,9 +790,9 @@ Widget buildFieldWidgetForAmount({
       textAlign: align,
       style: TextStyle(
         fontFamily: 'RobotoMono',
-        color: Get.context == null
+        color: AppRouter.context == null
             ? null
-            : Theme.of(Get.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
+            : Theme.of(AppRouter.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
       ),
     ),
     textAlignToAlignment(align),

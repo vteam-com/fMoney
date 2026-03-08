@@ -82,10 +82,9 @@ class AdaptiveViewWithList extends StatefulWidget {
 }
 
 class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
+  bool _isPersistingSidePanelHeight = false;
   final FocusNode _keyboardFocusNode = FocusNode();
-
   final MultiSplitViewController _splitController = MultiSplitViewController();
-
   @override
   void initState() {
     super.initState();
@@ -213,12 +212,19 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
 
   /// Configures the split controller areas based on persisted side panel state.
   void _configureSplitPanelAreas() {
-    if (PreferenceController.to.isSidePanelExpanded) {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + _sidePanelExpandedMinExtra;
-      _splitController.areas[1].size = PreferenceController.to.sidePanelHeight.toDouble();
-    } else {
-      _splitController.areas[1].min = Constants.sidePanelHeightWhenCollapsed + _zeroDouble;
-      _splitController.areas[1].size = Constants.sidePanelHeightWhenCollapsed.toDouble();
+    final double minSize = PreferenceController.to.isSidePanelExpanded
+        ? Constants.sidePanelHeightWhenCollapsed + _sidePanelExpandedMinExtra
+        : Constants.sidePanelHeightWhenCollapsed + _zeroDouble;
+    final double targetSize = PreferenceController.to.isSidePanelExpanded
+        ? PreferenceController.to.sidePanelHeight.toDouble()
+        : Constants.sidePanelHeightWhenCollapsed.toDouble();
+
+    if (_splitController.areas[1].min != minSize) {
+      _splitController.areas[1].min = minSize;
+    }
+
+    if (_splitController.areas[1].size != targetSize) {
+      _splitController.areas[1].size = targetSize;
     }
   }
 
@@ -241,12 +247,44 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     return KeyEventResult.ignored;
   }
 
-  /// Persists side panel size changes when rebuilding.
-  void _rebuild() async {
-    if (PreferenceController.to.isSidePanelExpanded) {
-      // save the height of the side panel
-      PreferenceController.to.sidePanelHeight = _splitController.areas[1].size!.toInt();
+  /// Persists side panel size changes after the current frame.
+  void _persistSidePanelHeightIfNeeded() {
+    if (!mounted || _isPersistingSidePanelHeight || !PreferenceController.to.isSidePanelExpanded) {
+      return;
     }
+
+    final double? currentSize = _splitController.areas[1].size;
+    if (currentSize == null) {
+      return;
+    }
+
+    final int newHeight = currentSize.toInt();
+    if (PreferenceController.to.sidePanelHeight == newHeight) {
+      return;
+    }
+
+    _isPersistingSidePanelHeight = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _isPersistingSidePanelHeight = false;
+      if (!mounted || !PreferenceController.to.isSidePanelExpanded) {
+        return;
+      }
+
+      final double? scheduledSize = _splitController.areas[1].size;
+      if (scheduledSize == null) {
+        return;
+      }
+
+      final int scheduledHeight = scheduledSize.toInt();
+      if (PreferenceController.to.sidePanelHeight != scheduledHeight) {
+        PreferenceController.to.sidePanelHeight = scheduledHeight;
+      }
+    });
+  }
+
+  /// Persists side panel size changes when rebuilding.
+  void _rebuild() {
+    _persistSidePanelHeightIfNeeded();
   }
 
   void _toggleSidePanel() {

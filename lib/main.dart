@@ -2,23 +2,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/app_intents.dart';
-import 'package:money/helpers/application_bindings.dart';
+import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
-import 'package:money/home_routes.dart';
+import 'package:money/home_page.dart';
 import 'package:money/l10n/app_localizations.dart';
-import 'package:money/views/about/about_routes.dart';
+import 'package:money/views/about/about_page.dart';
 import 'package:money/views/data.dart';
 import 'package:money/views/data_file_controller.dart';
 import 'package:money/views/import/import_transactions_from_text.dart';
-import 'package:money/views/panels/platforms/platforms_routes.dart';
-import 'package:money/views/panels/policies/policy_routes.dart';
-import 'package:money/views/panels/settings/settings_routes.dart';
+import 'package:money/views/panels/platforms/platforms_page.dart';
+import 'package:money/views/panels/policies/policy_page.dart';
+import 'package:money/views/panels/settings/settings_page.dart';
 import 'package:money/views/panels/splash_page.dart';
+import 'package:money/views/welcome/view_welcome.dart';
 import 'package:money/views/welcome/welcome_page.dart';
-import 'package:money/views/welcome/welcome_routes.dart';
 import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
@@ -36,8 +37,13 @@ void main() {
 /// Root widget of the application.
 /// Configures the overall app theme and initial route.
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
+  MyApp({super.key}) {
+    DataFileController();
+    _services.themeController.attachPreferenceController(
+      _services.preferenceController,
+    );
+    _services.preferenceController.start();
+  }
   final Map<Type, Action<Intent>> _actions = <Type, Action<Intent>>{
     RebalanceIntent: CallbackAction<RebalanceIntent>(
       onInvoke: (RebalanceIntent _) {
@@ -70,12 +76,17 @@ class MyApp extends StatelessWidget {
 
     NewTransactionIntent: CallbackAction<NewTransactionIntent>(
       onInvoke: (NewTransactionIntent _) {
-        showImportTransactionsFromTextInput(Get.context!);
+        showImportTransactionsFromTextInput(AppRouter.context!);
         return null;
       },
     ),
   };
-
+  final AppServices _services = AppServices(
+    listControllerMain: ListControllerMain(),
+    listControllerSidePanel: ListControllerSidePanel(),
+    preferenceController: PreferenceController(),
+    themeController: ThemeController(),
+  );
   final Map<ShortcutActivator, Intent> _shortcuts = <ShortcutActivator, Intent>{
     ...MyApp._dualShortcut(LogicalKeyboardKey.keyR, const RebalanceIntent()),
     ...MyApp._dualShortcut(LogicalKeyboardKey.equal, const ZoomInIntent()),
@@ -83,88 +94,64 @@ class MyApp extends StatelessWidget {
     ...MyApp._dualShortcut(LogicalKeyboardKey.digit0, const ZoomResetIntent()),
     ...MyApp._dualShortcut(LogicalKeyboardKey.keyT, const NewTransactionIntent()),
   };
-
-  final DataFileController dataController = Get.put(DataFileController());
-
-  final ListControllerMain listControllerMain = Get.put(ListControllerMain());
-
-  final ListControllerSidePanel listControllerSidePanel = Get.put(
-    ListControllerSidePanel(),
-  );
-
-  final PreferenceController preferenceController = Get.put(
-    PreferenceController(),
-  );
-
-  final ThemeController themeController = Get.put(ThemeController());
-
   @override
   Widget build(BuildContext context) {
-    // Get.updateLocale(const Locale('en', 'US'));
+    AppScope.register(_services);
 
     // Cache the S/M/L width for Widget that do not have access to BuildContext
-    themeController.isDeviceWidthSmall.value = context.isWidthSmall;
-    themeController.isDeviceWidthMedium.value = context.isWidthMedium;
-    themeController.isDeviceWidthLarge.value = context.isWidthLarge;
+    _services.themeController.setDeviceWidthBreakpoints(
+      isSmall: context.isWidthSmall,
+      isMedium: context.isWidthMedium,
+      isLarge: context.isWidthLarge,
+    );
 
-    return Obx(() {
-      final String k = preferenceController.getUniqueState;
-      final Widget app = _WebStartupFocusGuard(
-        child: ScaffoldMessenger(
-          key: SnackBarService.scaffoldKey,
-          child: GetMaterialApp(
-            key: Key(k),
-            debugShowCheckedModeBanner: false,
-            theme: themeController.themeDataLight,
-            darkTheme: themeController.themeDataDark,
-            themeMode: themeController.isDarkTheme.value ? ThemeMode.dark : ThemeMode.light,
-            onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
-            locale: Get.locale ?? const Locale('en'),
-            fallbackLocale: const Locale('en'),
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            initialBinding: ApplicationBindings(),
-            initialRoute: '/',
-            getPages: <GetPage<dynamic>>[
-              GetPage<dynamic>(
-                name: '/',
-                page: () {
-                  final PreferenceController preferenceController = Get.find();
-                  if (preferenceController.isReady.value) {
-                    return const WelcomePage();
-                  }
-                  return const SplashScreen();
-                },
+    return AppScope(
+      services: _services,
+      child: AnimatedBuilder(
+        animation: Listenable.merge(<Listenable>[
+          _services.preferenceController,
+          _services.themeController,
+        ]),
+        builder: (BuildContext _, Widget? _) {
+          final Widget app = _WebStartupFocusGuard(
+            child: ScaffoldMessenger(
+              key: SnackBarService.scaffoldKey,
+              child: MaterialApp(
+                navigatorKey: AppRouter.navigatorKey,
+                debugShowCheckedModeBanner: false,
+                theme: _services.themeController.themeDataLight,
+                darkTheme: _services.themeController.themeDataDark,
+                themeMode: _services.themeController.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+                onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
+                locale: Locale(_services.preferenceController.localeCode),
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                initialRoute: '/',
+                onGenerateRoute: _onGenerateRoute,
               ),
-              ...HomeRoutes.routes,
-              ...WelcomeRoutes.routes,
-              ...SettingsRoutes.routes,
-              ...PlatformsRoutes.routes,
-              ...PolicyRoutes.routes,
-              ...AboutRoutes.routes,
-            ],
-          ),
-        ),
-      );
+            ),
+          );
 
-      return Shortcuts(
-        shortcuts: _shortcuts,
-        child: Actions(
-          actions: _actions,
-          child: kIsWeb
-              ? app
-              : Focus(
-                  autofocus: true,
-                  child: app,
-                ),
-        ),
-      );
-    });
+          return Shortcuts(
+            shortcuts: _shortcuts,
+            child: Actions(
+              actions: _actions,
+              child: kIsWeb
+                  ? app
+                  : Focus(
+                      autofocus: true,
+                      child: app,
+                    ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   static Map<ShortcutActivator, Intent> _dualShortcut(LogicalKeyboardKey key, Intent intent) {
@@ -172,6 +159,34 @@ class MyApp extends StatelessWidget {
       LogicalKeySet(LogicalKeyboardKey.control, key): intent,
       LogicalKeySet(LogicalKeyboardKey.meta, key): intent,
     };
+  }
+
+  /// Builds named routes for the standard Flutter navigator.
+  Route<dynamic> _onGenerateRoute(RouteSettings settings) {
+    final String? routeName = settings.name;
+    late final Widget page;
+    if (routeName == '/') {
+      page = _services.preferenceController.isReady ? const WelcomePage() : const SplashScreen();
+    } else if (routeName == Constants.routeHomePage) {
+      page = const HomePage();
+    } else if (routeName == Constants.routeWelcomePage) {
+      page = const WelcomePage();
+    } else if (routeName == Constants.routeSettingsPage) {
+      page = const SettingsPage();
+    } else if (routeName == Constants.routeInstallPlatformsPage) {
+      page = const PlatformsPage();
+    } else if (routeName == Constants.routePolicyPage) {
+      page = const PolicyPage();
+    } else if (routeName == Constants.routeAboutPage) {
+      page = const AboutPage();
+    } else {
+      page = const WelcomeScreen();
+    }
+
+    return MaterialPageRoute<dynamic>(
+      builder: (BuildContext _) => page,
+      settings: settings,
+    );
   }
 }
 

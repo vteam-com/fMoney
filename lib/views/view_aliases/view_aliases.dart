@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:money/app/app_scope.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/providers/alias.dart';
 import 'package:money/providers/transaction.dart';
@@ -71,10 +70,8 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
     required final bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
-    final SelectionController selectionController = Get.put(
-      SelectionController(
-        getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      ),
+    final SelectionController selectionController = SelectionController(
+      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
     );
 
     final Alias? alias = getMoneyObjectFromFirstSelectedId<Alias>(
@@ -84,7 +81,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
     if (alias != null && alias.fieldId.value > -1) {
       return ListViewTransactions(
         key: Key(alias.uniqueId.toString()),
-        listController: Get.find<ListControllerSidePanel>(),
+        listController: AppScope.instance.listControllerSidePanel,
         columnsToInclude: <Field<dynamic>>[
           Transaction.fields.getFieldByName(columnIdDate),
           Transaction.fields.getFieldByName(columnIdAccount),

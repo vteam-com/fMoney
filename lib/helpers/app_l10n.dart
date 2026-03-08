@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:money/helpers/app_router.dart';
 import 'package:money/l10n/app_localizations.dart';
 import 'package:money/l10n/app_localizations_en.dart';
 import 'package:money/l10n/app_localizations_fr.dart';
@@ -415,16 +415,16 @@ class AppL10n {
     }
   }
 
-  /// Resolves the current [AppLocalizations] using GetX context or locale fallback.
+  /// Resolves the current [AppLocalizations] using app context or locale fallback.
   static AppLocalizations get _localizations {
-    final Locale locale = Get.locale ?? const Locale('en');
-    final BuildContext? context = Get.context;
+    final BuildContext? context = AppRouter.context;
     if (context != null) {
       final AppLocalizations? localized = AppLocalizations.of(context);
       if (localized != null) {
         return localized;
       }
     }
+    final Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
     if (locale.languageCode == 'fr') {
       return AppLocalizationsFr();
     }

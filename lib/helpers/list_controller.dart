@@ -1,6 +1,5 @@
 // ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:money/helpers/constants.dart';
 
 /// Base controller for managing scrollable list state.
@@ -9,23 +8,22 @@ import 'package:money/helpers/constants.dart';
 /// - Bookmark positions
 /// - Scroll to top/bottom
 /// - Animated scrolling
-class ListController extends GetxController {
+class ListController {
+  /// Creates a list controller and wires the scroll listener immediately.
+  ListController() {
+    scrollController.addListener(_scrollListener);
+  }
+
   final ScrollController scrollController = ScrollController();
-  final RxDouble scrollPosition = 0.0.obs;
+  final ValueNotifier<double> scrollPosition = ValueNotifier<double>(0.0);
 
   double bookmark = -1;
 
-  @override
-  void onClose() {
+  /// Disposes the internal scroll resources.
+  void dispose() {
     scrollController.removeListener(_scrollListener);
     scrollController.dispose();
-    super.onClose();
-  }
-
-  @override
-  void onInit() {
-    scrollController.addListener(_scrollListener);
-    super.onInit();
+    scrollPosition.dispose();
   }
 
   /// Returns scroll offset for the specified index.
