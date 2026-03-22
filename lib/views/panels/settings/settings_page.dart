@@ -110,11 +110,21 @@ class SettingsPage extends StatelessWidget {
             label: Text(AppL10n.tr(AppTranslationKeys.languageEnglish)),
           ),
           ButtonSegment<String>(
+            value: 'es',
+            label: Text(AppL10n.tr(AppTranslationKeys.languageSpanish)),
+          ),
+          ButtonSegment<String>(
             value: 'fr',
             label: Text(AppL10n.tr(AppTranslationKeys.languageFrench)),
           ),
         ],
-        selected: <String>{localeCode == 'fr' ? 'fr' : 'en'},
+        selected: <String>{
+          switch (localeCode) {
+            'es' => 'es',
+            'fr' => 'fr',
+            _ => 'en',
+          },
+        },
         onSelectionChanged: (Set<String> selection) {
           final String newLocaleCode = selection.first;
           PreferenceController.to.localeCode = newLocaleCode;

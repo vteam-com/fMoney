@@ -16,6 +16,13 @@ abstract class AppTranslationKeys {
   static const String licensesDescription = 'licensesDescription';
   static const String viewLicenses = 'viewLicenses';
   static const String versionInformation = 'versionInformation';
+  static const String themeColorPurple = 'themeColorPurple';
+  static const String themeColorBlue = 'themeColorBlue';
+  static const String themeColorTeal = 'themeColorTeal';
+  static const String themeColorGreen = 'themeColorGreen';
+  static const String themeColorYellow = 'themeColorYellow';
+  static const String themeColorOrange = 'themeColorOrange';
+  static const String themeColorPink = 'themeColorPink';
   static const String addInvestmentTransaction = 'addInvestmentTransaction';
   static const String amountIsMatching = 'amountIsMatching';
   static const String amountIsOffBy = 'amountIsOffBy';
@@ -79,6 +86,7 @@ abstract class AppTranslationKeys {
   static const String language = 'language';
   static const String languageEnglish = 'languageEnglish';
   static const String languageFrench = 'languageFrench';
+  static const String languageSpanish = 'languageSpanish';
   static const String licenses = 'licenses';
   static const String list = 'list';
   static const String manageTheExpensesAndRentalIncomeOfProperties = 'manageTheExpensesAndRentalIncomeOfProperties';

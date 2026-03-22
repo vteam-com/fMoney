@@ -11,10 +11,10 @@
   "amountIsOffBy": "Amount is off by",
   "analyzeSpending": "Analyze spending",
   "appDescription": "Free open-source Flutter Personal Finance Management Application",
+  "append": "Append",
   "appLongDescription": "A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.",
   "appName": "fMoney",
   "appTitle": "fMoney by VTeam",
-  "append": "Append",
   "availableOn": "Available on",
   "avgLabel": "Avg: ",
   "badDateFormat": "Bad Date Format",
@@ -113,7 +113,17 @@
   "keepAllTransactionsToTheirCurrentCategories": "Keep all transactions to their current categories",
   "language": "Language",
   "languageEnglish": "English",
-  "languageFrench": "French",
+  "@languageEnglish": {
+    "description": "REVIEWED"
+  },
+  "languageFrench": "Francais",
+  "@languageFrench": {
+    "description": "REVIEWED"
+  },
+  "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "REVIEWED"
+  },
   "largestTransactions": "Largest transactions",
   "licenses": "Licenses",
   "licensesDescription": "fMoney is built using open-source software. View the licenses for all packages used in this application.",
@@ -179,8 +189,8 @@
       }
     }
   },
-  "noItemSelected": "No item selected.",
   "noItems": "No items",
+  "noItemSelected": "No item selected.",
   "noItemsWereTitle": "No items were @title",
   "@noItemsWereTitle": {
     "placeholders": {
@@ -274,6 +284,13 @@
   "split": "Split",
   "success": "Success",
   "suggestion": "Suggestion",
+  "themeColorBlue": "Blue",
+  "themeColorGreen": "Green",
+  "themeColorOrange": "Orange",
+  "themeColorPink": "Pink",
+  "themeColorPurple": "Purple",
+  "themeColorTeal": "Teal",
+  "themeColorYellow": "Yellow",
   "thinking": "Thinking...",
   "timestampTimestamp": "Timestamp: @timestamp",
   "@timestampTimestamp": {
@@ -284,11 +301,11 @@
     }
   },
   "toCategory": "To category",
-  "toPayee": "To payee",
   "toggleBrightness": "Toggle brightness",
+  "toPayee": "To payee",
   "total": "Total",
-  "transactionSplit": "Transaction split",
   "transactions": "Transactions",
+  "transactionSplit": "Transaction split",
   "transfer": "Transfer",
   "trend": "Trend",
   "unknown": "Unknown",

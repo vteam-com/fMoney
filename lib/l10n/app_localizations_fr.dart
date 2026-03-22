@@ -137,7 +137,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get credit => 'Credit';
+  String get credit => 'Crédit';
 
   @override
   String get csvFileEmpty => 'Le fichier CSV est vide.';
@@ -152,13 +152,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dataPreviewFirst5Rows => 'Apercu des donnees (5 premieres lignes) :';
 
   @override
-  String get debit => 'Debit';
+  String get debit => 'Débit';
 
   @override
   String get deleteSelectedItems => 'Supprimer les elements selectionnes';
 
   @override
-  String get details => 'Details';
+  String get details => 'Détails';
 
   @override
   String get dropFilesHere => 'Deposez les fichiers ici';
@@ -237,7 +237,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get includeAssetAccounts => 'Inclure les comptes d\'actifs';
 
   @override
-  String get info => 'Info';
+  String get info => 'Infos';
 
   @override
   String get installAppMenuItem => 'Installer l\'application...';
@@ -256,10 +256,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get language => 'Langue';
 
   @override
-  String get languageEnglish => 'Anglais';
+  String get languageEnglish => 'English';
 
   @override
   String get languageFrench => 'Francais';
+
+  @override
+  String get languageSpanish => 'Español';
 
   @override
   String get largestTransactions => 'Plus grosses transactions';
@@ -282,7 +285,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get maxLabel => 'Max : ';
 
   @override
-  String get memo => 'Memo';
+  String get memo => 'Mémo';
 
   @override
   String get merge => 'Fusionner';
@@ -327,7 +330,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get navCashflowTooltip => 'Afficher votre flux de tresorerie';
 
   @override
-  String get navCategories => 'Categories';
+  String get navCategories => 'Catégories';
 
   @override
   String get navCategoriesTooltip => 'Afficher les categories';
@@ -593,6 +596,27 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get suggestion => 'Suggestion';
+
+  @override
+  String get themeColorBlue => 'Bleu';
+
+  @override
+  String get themeColorGreen => 'Vert';
+
+  @override
+  String get themeColorOrange => 'Orange';
+
+  @override
+  String get themeColorPink => 'Rose';
+
+  @override
+  String get themeColorPurple => 'Violet';
+
+  @override
+  String get themeColorTeal => 'Sarcelle';
+
+  @override
+  String get themeColorYellow => 'Jaune';
 
   @override
   String get thinking => 'Reflexion...';

@@ -282,123 +282,257 @@
 <text x="10720.0" y="75.0" class="layerTitle">34</text>
 <rect x="10905.0" y="50" width="270.0" height="2050.0" rx="8.0" class="layerBackground"/>
 <text x="11040.0" y="75.0" class="layerTitle">35</text>
-<rect x="50.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/main.dart</title></rect>
+<rect x="50.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/main.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="50.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/test_driver/main_test.dart</title></rect>
 <rect x="370.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/home_page.dart</title></rect>
-<rect x="370.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/settings/settings_page.dart</title></rect>
+<rect x="370.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/settings/settings_page.dart
+
+9 Hardcoded Strings warnings</title></rect>
 <rect x="370.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/policies/policy_page.dart</title></rect>
 <rect x="370.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/welcome/welcome_page.dart</title></rect>
-<rect x="370.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/platforms/platforms_page.dart</title></rect>
+<rect x="370.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/platforms/platforms_page.dart
+
+10 Hardcoded Strings warnings</title></rect>
 <rect x="370.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/splash_page.dart</title></rect>
-<rect x="370.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/about/about_page.dart</title></rect>
+<rect x="370.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/about/about_page.dart
+
+5 Hardcoded Strings warnings</title></rect>
 <rect x="370.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/app_intents.dart</title></rect>
 <rect x="690.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/welcome/view_welcome.dart</title></rect>
-<rect x="690.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/policies/view_policy.dart</title></rect>
-<rect x="690.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_accounts/view_accounts.dart</title></rect>
-<rect x="690.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/view_stocks.dart</title></rect>
-<rect x="690.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_categories/view_categories.dart</title></rect>
-<rect x="690.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transactions/view_transactions.dart</title></rect>
-<rect x="690.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/view_cashflow.dart</title></rect>
-<rect x="690.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_investments/view_investments.dart</title></rect>
-<rect x="690.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_payees/view_payees.dart</title></rect>
-<rect x="690.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_events/view_events.dart</title></rect>
-<rect x="690.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/app_bar.dart</title></rect>
-<rect x="690.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai.dart</title></rect>
-<rect x="690.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transfers/view_transfers.dart</title></rect>
-<rect x="690.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_aliases/view_aliases.dart</title></rect>
-<rect x="690.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/view_rentals.dart</title></rect>
+<rect x="690.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/policies/view_policy.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="690.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_accounts/view_accounts.dart
+
+20 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/view_stocks.dart
+
+21 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_categories/view_categories.dart
+
+13 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transactions/view_transactions.dart
+
+10 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/view_cashflow.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_investments/view_investments.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="650.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_payees/view_payees.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_events/view_events.dart
+
+5 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="790.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/app_bar.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="860.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai.dart
+
+12 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="930.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transfers/view_transfers.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="1000.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_aliases/view_aliases.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="690.0" y="1070.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/view_rentals.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="690.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/my_nav_bar.dart</title></rect>
 <rect x="690.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/drop_zone.dart</title></rect>
-<rect x="690.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/github_artifacts_service.dart</title></rect>
-<rect x="1010.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects.dart</title></rect>
-<rect x="1010.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_wizard.dart</title></rect>
-<rect x="1010.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/transaction_timeline_chart.dart</title></rect>
-<rect x="1010.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transfers/transfer_sender_receiver.dart</title></rect>
+<rect x="690.0" y="1280.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/github_artifacts_service.dart
+
+9 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects.dart
+
+9 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_wizard.dart
+
+13 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/transaction_timeline_chart.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1010.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_transfers/transfer_sender_receiver.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="1010.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/view.dart</title></rect>
-<rect x="1010.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_budget.dart</title></rect>
-<rect x="1010.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/view_rentals_side_panel.dart</title></rect>
-<rect x="1010.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/merge_payees.dart</title></rect>
-<rect x="1010.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_categories/merge_categories.dart</title></rect>
-<rect x="1010.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_trend.dart</title></rect>
+<rect x="1010.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_budget.dart
+
+7 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/view_rentals_side_panel.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1010.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/merge_payees.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="650.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_categories/merge_categories.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="1010.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_trend.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="1010.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/app_title.dart</title></rect>
 <rect x="1010.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/net_worth_chart.dart</title></rect>
 <rect x="1010.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/sankey_panel.dart</title></rect>
-<rect x="1010.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_chat_message.dart</title></rect>
+<rect x="1010.0" y="1000.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_chat_message.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1010.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_instructions.dart</title></rect>
 <rect x="1010.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_header.dart</title></rect>
 <rect x="1010.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/processing_indicator.dart</title></rect>
-<rect x="1010.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/color_palette.dart</title></rect>
+<rect x="1010.0" y="1280.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/color_palette.dart
+
+8 Hardcoded Strings warnings</title></rect>
 <rect x="1010.0" y="1350.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/years_range_selector.dart</title></rect>
-<rect x="1010.0" y="1420.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/zoom.dart</title></rect>
-<rect x="1010.0" y="1490.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_input.dart</title></rect>
+<rect x="1010.0" y="1420.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/zoom.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1010.0" y="1490.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_input.dart
+
+5 Hardcoded Strings warnings</title></rect>
 <rect x="1010.0" y="1560.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/label_and_quantity.dart</title></rect>
-<rect x="1010.0" y="1630.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/ollama_service.dart</title></rect>
+<rect x="1010.0" y="1630.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/ollama_service.dart
+
+15 Hardcoded Strings warnings</title></rect>
 <rect x="1010.0" y="1700.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pick_number.dart</title></rect>
 <rect x="1010.0" y="1770.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/my_navigation_item.dart</title></rect>
 <rect x="1010.0" y="1840.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_summary.dart</title></rect>
 <rect x="1330.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/list_view_transactions.dart</title></rect>
-<rect x="1330.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/menu_entry.dart</title></rect>
-<rect x="1330.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/stock_chart.dart</title></rect>
+<rect x="1330.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/menu_entry.dart
+
+10 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_stocks/stock_chart.dart
+
+7 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/my_svg.dart</title></rect>
-<rect x="1330.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment.dart</title></rect>
-<rect x="1330.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/mru_dropdown.dart</title></rect>
-<rect x="1330.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_qfx.dart</title></rect>
-<rect x="1330.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/view_header.dart</title></rect>
+<rect x="1330.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/mru_dropdown.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1330.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_qfx.dart
+
+30 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/view_header.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1330.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_expenses.dart</title></rect>
-<rect x="1330.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_csv.dart</title></rect>
-<rect x="1330.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_ui_helpers.dart</title></rect>
+<rect x="1330.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_csv.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="790.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_ui_helpers.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/adaptable_view_with_list.dart</title></rect>
-<rect x="1330.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart</title></rect>
+<rect x="1330.0" y="930.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/panel_recurring.dart</title></rect>
-<rect x="1330.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart</title></rect>
-<rect x="1330.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/rental_pnl_card.dart</title></rect>
+<rect x="1330.0" y="1070.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_painter.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="1140.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_rentals/rental_pnl_card.dart
+
+8 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_footer_helpers.dart</title></rect>
 <rect x="1330.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/column_filter_panel.dart</title></rect>
-<rect x="1330.0" y="1350.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_qif.dart</title></rect>
-<rect x="1330.0" y="1420.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_xlsx.dart</title></rect>
+<rect x="1330.0" y="1350.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_qif.dart
+
+11 Hardcoded Strings warnings</title></rect>
+<rect x="1330.0" y="1420.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_xlsx.dart
+
+19 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="1490.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/side_panel/side_panel.dart</title></rect>
-<rect x="1330.0" y="1560.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/pending_changes/badge_pending_changes.dart</title></rect>
+<rect x="1330.0" y="1560.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/pending_changes/badge_pending_changes.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1330.0" y="1630.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/adaptive_view/view_money_objects_filter_helpers.dart</title></rect>
 <rect x="1330.0" y="1700.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_transaction_card.dart</title></rect>
-<rect x="1330.0" y="1770.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_chat_message_footer.dart</title></rect>
+<rect x="1330.0" y="1770.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_chat_message_footer.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="1330.0" y="1840.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/wizard_choice.dart</title></rect>
 <rect x="1330.0" y="1910.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/budget.dart</title></rect>
 <rect x="1330.0" y="1980.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/info_banner.dart</title></rect>
 <rect x="1330.0" y="2050.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/reveal_content.dart</title></rect>
-<rect x="1650.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/app_scope.dart</title></rect>
+<rect x="1650.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/app_scope.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/text_title.dart</title></rect>
-<rect x="1650.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_object_card.dart</title></rect>
-<rect x="1650.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_money_object.dart</title></rect>
+<rect x="1650.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_object_card.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1650.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_money_object.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/three_part_label.dart</title></rect>
-<rect x="1650.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_data.dart</title></rect>
-<rect x="1650.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/charts/my_line_chart.dart</title></rect>
+<rect x="1650.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_data.dart
+
+6 Hardcoded Strings warnings</title></rect>
+<rect x="1650.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/charts/my_line_chart.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/charts/chart_event.dart</title></rect>
 <rect x="1650.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_ai/view_ai_chat_types.dart</title></rect>
 <rect x="1650.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/adaptive_columns_or_rows_single_selection.dart</title></rect>
-<rect x="1650.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/get_stock_from_cache_or_backend.dart</title></rect>
+<rect x="1650.0" y="790.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/get_stock_from_cache_or_backend.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1650.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/label_and_amount.dart</title></rect>
 <rect x="1650.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/box_with_scrolling_content.dart</title></rect>
-<rect x="1650.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/csv_column_mapper_dialog.dart</title></rect>
+<rect x="1650.0" y="1000.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/csv_column_mapper_dialog.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/popup_menu_icon_button.dart</title></rect>
 <rect x="1650.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_helper.dart</title></rect>
 <rect x="1650.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pivot_toggle_row.dart</title></rect>
 <rect x="1650.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_colors.dart</title></rect>
-<rect x="1650.0" y="1350.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart</title></rect>
-<rect x="1650.0" y="1420.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment_panel.dart</title></rect>
-<rect x="1650.0" y="1490.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer_panel.dart</title></rect>
-<rect x="1650.0" y="1560.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/pending_changes/pending_changes_dialog.dart</title></rect>
+<rect x="1650.0" y="1350.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/view_cashflow/recurring/recurring_card.dart
+
+7 Hardcoded Strings warnings</title></rect>
+<rect x="1650.0" y="1420.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_investment_panel.dart
+
+9 Hardcoded Strings warnings</title></rect>
+<rect x="1650.0" y="1490.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transfer_panel.dart
+
+6 Hardcoded Strings warnings</title></rect>
+<rect x="1650.0" y="1560.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/pending_changes/pending_changes_dialog.dart
+
+8 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="1630.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/side_panel/side_panel_header.dart</title></rect>
-<rect x="1650.0" y="1700.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_transaction.dart</title></rect>
-<rect x="1650.0" y="1770.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/multiple_selection_toggle.dart</title></rect>
-<rect x="1650.0" y="1840.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_single_text_input.dart</title></rect>
+<rect x="1650.0" y="1700.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_transaction.dart
+
+9 Hardcoded Strings warnings</title></rect>
+<rect x="1650.0" y="1770.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/multiple_selection_toggle.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1650.0" y="1840.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_single_text_input.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="1650.0" y="1910.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/filter_input.dart</title></rect>
-<rect x="1650.0" y="1980.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/xlsx_header_row_selector_dialog.dart</title></rect>
+<rect x="1650.0" y="1980.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/xlsx_header_row_selector_dialog.dart
+
+20 Hardcoded Strings warnings</title></rect>
 <rect x="1970.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/panels/side_panel/side_panel_support.dart</title></rect>
-<rect x="1970.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_file_controller.dart</title></rect>
-<rect x="1970.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/charts/chart.dart</title></rect>
+<rect x="1970.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_file_controller.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="1970.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/charts/chart.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1970.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart</title></rect>
-<rect x="1970.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_from_text.dart</title></rect>
-<rect x="1970.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/footer_accumulators.dart</title></rect>
+<rect x="1970.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_from_text.dart
+
+6 Hardcoded Strings warnings</title></rect>
+<rect x="1970.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/footer_accumulators.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="1970.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/investment_import_fields.dart</title></rect>
 <rect x="1970.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/multiple_selection_context.dart</title></rect>
 <rect x="1970.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/sankey/sankey_entry.dart</title></rect>
@@ -407,33 +541,61 @@
 <rect x="1970.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/import_fields_for_transfer.dart</title></rect>
 <rect x="1970.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_data_price.dart</title></rect>
 <rect x="1970.0" y="1000.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_daily.dart</title></rect>
-<rect x="1970.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart</title></rect>
+<rect x="1970.0" y="1070.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/mini_timeline_twelve_months.dart
+
+12 Hardcoded Strings warnings</title></rect>
 <rect x="1970.0" y="1140.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/date_range_time_line.dart</title></rect>
-<rect x="1970.0" y="1210.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart</title></rect>
+<rect x="1970.0" y="1210.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_investment_type.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="1970.0" y="1280.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/chart_helper.dart</title></rect>
 <rect x="2290.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/center_message.dart</title></rect>
 <rect x="2290.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/list_controller.dart</title></rect>
 <rect x="2290.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/message_box.dart</title></rect>
-<rect x="2290.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/distribution_bar.dart</title></rect>
-<rect x="2290.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/my_window_manager.dart</title></rect>
+<rect x="2290.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/distribution_bar.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="2290.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/my_window_manager.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="2290.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/vertical_line_with_tooltip.dart</title></rect>
-<rect x="2290.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator.dart</title></rect>
+<rect x="2290.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator.dart
+
+7 Hardcoded Strings warnings</title></rect>
 <rect x="2290.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_panel.dart</title></rect>
 <rect x="2290.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/footer_widgets.dart</title></rect>
-<rect x="2290.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_data_io.dart</title></rect>
+<rect x="2290.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_data_io.dart
+
+40 Hardcoded Strings warnings</title></rect>
 <rect x="2290.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/merge_payee_provider.dart</title></rect>
 <rect x="2290.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/suggestion_approval_provider.dart</title></rect>
 <rect x="2290.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_footer.dart</title></rect>
 <rect x="2610.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/data_source.dart</title></rect>
-<rect x="2610.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/file_systems.dart</title></rect>
-<rect x="2610.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_list_preview.dart</title></rect>
-<rect x="2610.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_investments.dart</title></rect>
-<rect x="2610.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_reference_data.dart</title></rect>
-<rect x="2610.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_transactions.dart</title></rect>
+<rect x="2610.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/file_systems.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="2610.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/import/import_transactions_list_preview.dart
+
+6 Hardcoded Strings warnings</title></rect>
+<rect x="2610.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_investments.dart
+
+5 Hardcoded Strings warnings</title></rect>
+<rect x="2610.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_reference_data.dart
+
+47 Hardcoded Strings warnings</title></rect>
+<rect x="2610.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_transactions.dart
+
+22 Hardcoded Strings warnings</title></rect>
 <rect x="2610.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/suggestion_approval.dart</title></rect>
-<rect x="2610.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_accounts.dart</title></rect>
-<rect x="2610.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns_input.dart</title></rect>
-<rect x="2610.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_categories.dart</title></rect>
+<rect x="2610.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_accounts.dart
+
+14 Hardcoded Strings warnings</title></rect>
+<rect x="2610.0" y="650.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns_input.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="2610.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_categories.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="2610.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/storages/database.dart</title></rect>
 <rect x="2610.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/merge_payee_interface.dart</title></rect>
 <rect x="2610.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/category_suggestion_interface.dart</title></rect>
@@ -441,113 +603,243 @@
 <rect x="2610.0" y="1070.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_utils.dart</title></rect>
 <rect x="2930.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/working.dart</title></rect>
 <rect x="2930.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_simulator_constants.dart</title></rect>
-<rect x="2930.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/value_parser.dart</title></rect>
+<rect x="2930.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/value_parser.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="2930.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/list_view_transaction_splits.dart</title></rect>
-<rect x="2930.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns/input_values.dart</title></rect>
+<rect x="2930.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns/input_values.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="2930.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/my_banner.dart</title></rect>
-<rect x="2930.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/storages/database_sql.dart</title></rect>
-<rect x="2930.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/storages/database_web.dart</title></rect>
+<rect x="2930.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/storages/database_sql.dart
+
+5 Hardcoded Strings warnings</title></rect>
+<rect x="2930.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/storages/database_web.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="3250.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/box.dart</title></rect>
-<rect x="3250.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/value_quality.dart</title></rect>
+<rect x="3250.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/value_quality.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="3250.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_view.dart</title></rect>
 <rect x="3250.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_header.dart</title></rect>
-<rect x="3250.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_split.dart</title></rect>
-<rect x="3250.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/ocr.dart</title></rect>
-<rect x="3570.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data.dart</title></rect>
-<rect x="3570.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/confirmation_dialog.dart</title></rect>
+<rect x="3250.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_split.dart
+
+8 Hardcoded Strings warnings</title></rect>
+<rect x="3250.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/ocr.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="3570.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="3570.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/confirmation_dialog.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="3570.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/dialog_mutate_shared.dart</title></rect>
-<rect x="3570.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns/column_header_button.dart</title></rect>
+<rect x="3570.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns/column_header_button.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="3570.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/semantic_text.dart</title></rect>
 <rect x="3570.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item.dart</title></rect>
 <rect x="3890.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/button_helpers.dart</title></rect>
 <rect x="3890.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/data_collections.dart</title></rect>
 <rect x="3890.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/columns/column_content_center.dart</title></rect>
 <rect x="3890.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_auto_size.dart</title></rect>
-<rect x="4210.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/accounts.dart</title></rect>
-<rect x="4210.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/categories.dart</title></rect>
-<rect x="4210.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/rent_buildings.dart</title></rect>
-<rect x="4210.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/payees.dart</title></rect>
-<rect x="4210.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/splits.dart</title></rect>
-<rect x="4210.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/stock_splits.dart</title></rect>
-<rect x="4210.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/aliases.dart</title></rect>
-<rect x="4210.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/events.dart</title></rect>
-<rect x="4210.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/account_aliases.dart</title></rect>
-<rect x="4210.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/currencies.dart</title></rect>
-<rect x="4210.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/online_accounts.dart</title></rect>
-<rect x="4210.0" y="860.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/rental_units.dart</title></rect>
-<rect x="4210.0" y="930.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/transaction_extras.dart</title></rect>
-<rect x="4530.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/transactions.dart</title></rect>
-<rect x="4530.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/payee.dart</title></rect>
-<rect x="4530.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/event.dart</title></rect>
-<rect x="4530.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/loan_payments.dart</title></rect>
-<rect x="4530.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/rent_building.dart</title></rect>
-<rect x="4530.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/alias.dart</title></rect>
-<rect x="4530.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/securities.dart</title></rect>
-<rect x="4530.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/currency.dart</title></rect>
-<rect x="4530.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/account_alias.dart</title></rect>
-<rect x="4530.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/online_account.dart</title></rect>
-<rect x="4530.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_extra.dart</title></rect>
-<rect x="4850.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/security.dart</title></rect>
-<rect x="4850.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/accumulator.dart</title></rect>
+<rect x="4210.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/accounts.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/categories.dart
+
+28 Hardcoded Strings warnings</title></rect>
+<rect x="4210.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/rent_buildings.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/payees.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="4210.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/splits.dart
+
+10 Hardcoded Strings warnings</title></rect>
+<rect x="4210.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/stock_splits.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/aliases.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/events.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="650.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/account_aliases.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/currencies.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="790.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/online_accounts.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="860.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/rental_units.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4210.0" y="930.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/transaction_extras.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4530.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/transactions.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4530.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/payee.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/event.dart
+
+16 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/loan_payments.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/rent_building.dart
+
+27 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/alias.dart
+
+12 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/securities.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="4530.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/currency.dart
+
+11 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="650.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/account_alias.dart
+
+7 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/online_account.dart
+
+12 Hardcoded Strings warnings</title></rect>
+<rect x="4530.0" y="790.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_extra.dart
+
+7 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/security.dart
+
+17 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/accumulator.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="4850.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/pair_xyz.dart</title></rect>
-<rect x="4850.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/investments.dart</title></rect>
-<rect x="4850.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/loan_payment.dart</title></rect>
-<rect x="4850.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/rental_unit.dart</title></rect>
-<rect x="4850.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/rental_pnl.dart</title></rect>
-<rect x="4850.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/alias_types.dart</title></rect>
-<rect x="5170.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction.dart</title></rect>
-<rect x="5170.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_objects.dart</title></rect>
-<rect x="5170.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/stock_split.dart</title></rect>
-<rect x="5170.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_security_type.dart</title></rect>
-<rect x="5490.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/category.dart</title></rect>
+<rect x="4850.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/investments.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/loan_payment.dart
+
+12 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/rental_unit.dart
+
+9 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/rental_pnl.dart
+
+2 Hardcoded Strings warnings</title></rect>
+<rect x="4850.0" y="580.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/alias_types.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="5170.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction.dart
+
+39 Hardcoded Strings warnings</title></rect>
+<rect x="5170.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/views/money_objects.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="5170.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/stock_split.dart
+
+10 Hardcoded Strings warnings</title></rect>
+<rect x="5170.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_security_type.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="5490.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/category.dart
+
+18 Hardcoded Strings warnings</title></rect>
 <rect x="5490.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_edit_box_date.dart</title></rect>
 <rect x="5490.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/mergeable_item.dart</title></rect>
 <rect x="5490.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/database_interface.dart</title></rect>
-<rect x="5490.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_delegate_helpers.dart</title></rect>
-<rect x="5490.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_payee_or_transfer.dart</title></rect>
+<rect x="5490.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_delegate_helpers.dart
+
+3 Hardcoded Strings warnings</title></rect>
+<rect x="5490.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_payee_or_transfer.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="5490.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/diff.dart</title></rect>
 <rect x="5810.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/snack_bar.dart</title></rect>
-<rect x="5810.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/investment.dart</title></rect>
+<rect x="5810.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/investment.dart
+
+30 Hardcoded Strings warnings</title></rect>
 <rect x="5810.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/selection_controller.dart</title></rect>
 <rect x="5810.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/my_segment.dart</title></rect>
 <rect x="5810.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/icon_button.dart</title></rect>
-<rect x="5810.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transfer.dart</title></rect>
-<rect x="5810.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_account.dart</title></rect>
+<rect x="5810.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transfer.dart
+
+4 Hardcoded Strings warnings</title></rect>
+<rect x="5810.0" y="510.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_account.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="5810.0" y="580.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/default_values.dart</title></rect>
 <rect x="5810.0" y="650.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/color_picker.dart</title></rect>
-<rect x="5810.0" y="720.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_category_type.dart</title></rect>
+<rect x="5810.0" y="720.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_category_type.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="5810.0" y="790.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/circle.dart</title></rect>
-<rect x="6130.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/account.dart</title></rect>
-<rect x="6130.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart</title></rect>
-<rect x="6130.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_split.dart</title></rect>
+<rect x="6130.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/account.dart
+
+33 Hardcoded Strings warnings</title></rect>
+<rect x="6130.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/category_types.dart
+
+16 Hardcoded Strings warnings</title></rect>
+<rect x="6130.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/transaction_split.dart
+
+18 Hardcoded Strings warnings</title></rect>
 <rect x="6130.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/investment_types.dart</title></rect>
-<rect x="6130.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/transaction_types.dart</title></rect>
+<rect x="6130.0" y="370.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/transaction_types.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="6130.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/stock_cumulative.dart</title></rect>
 <rect x="6130.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/rectangle.dart</title></rect>
 <rect x="6450.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/data_abstract.dart</title></rect>
 <rect x="6450.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/providers/field_definition_cache.dart</title></rect>
 <rect x="6450.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/adaptive_list/list_item_card.dart</title></rect>
-<rect x="6450.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_category.dart</title></rect>
+<rect x="6450.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_category.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="6450.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/dividend.dart</title></rect>
-<rect x="6450.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_account_type.dart</title></rect>
+<rect x="6450.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_account_type.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="6770.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_edit_box.dart</title></rect>
-<rect x="6770.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/account_types.dart</title></rect>
+<rect x="6770.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/account_types.dart
+
+24 Hardcoded Strings warnings</title></rect>
 <rect x="7090.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/account_types_enum.dart</title></rect>
-<rect x="7090.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_panel.dart</title></rect>
-<rect x="7410.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog.dart</title></rect>
+<rect x="7090.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_panel.dart
+
+1 Hardcoded Strings warning</title></rect>
+<rect x="7410.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="7410.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/my_text_input.dart</title></rect>
 <rect x="7410.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/token_text.dart</title></rect>
 <rect x="7410.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/picker_letter.dart</title></rect>
 <rect x="7730.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_button.dart</title></rect>
 <rect x="7730.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/dialog_full_screen.dart</title></rect>
 <rect x="8050.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/app_scaffold.dart</title></rect>
-<rect x="8370.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/preferences_controller.dart</title></rect>
+<rect x="8370.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/preferences_controller.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="8690.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/data_access.dart</title></rect>
-<rect x="9010.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/data_object.dart</title></rect>
+<rect x="9010.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/data_object.dart
+
+3 Hardcoded Strings warnings</title></rect>
 <rect x="9010.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/data_mutations.dart</title></rect>
-<rect x="9330.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title></rect>
+<rect x="9330.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart
+
+46 Hardcoded Strings warnings</title></rect>
 <rect x="9330.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title></rect>
-<rect x="9330.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field.dart</title></rect>
+<rect x="9330.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/widgets_domain/field.dart
+
+4 Hardcoded Strings warnings</title></rect>
 <rect x="9330.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/mutation_types.dart</title></rect>
 <rect x="9330.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/form_field_widget.dart</title></rect>
 <rect x="9330.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/form_field_switch.dart</title></rect>
@@ -564,17 +856,29 @@
 <rect x="9970.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/amount_model.dart</title></rect>
 <rect x="9970.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/theme_custom.dart</title></rect>
 <rect x="9970.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/data/models/field_filter.dart</title></rect>
-<rect x="9970.0" y="440.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/locale.dart</title></rect>
+<rect x="9970.0" y="440.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/locale.dart
+
+2 Hardcoded Strings warnings</title></rect>
 <rect x="9970.0" y="510.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/currency_label.dart</title></rect>
 <rect x="10290.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/gaps.dart</title></rect>
-<rect x="10290.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/ranges.dart</title></rect>
+<rect x="10290.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/ranges.dart
+
+5 Hardcoded Strings warnings</title></rect>
 <rect x="10290.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/widgets/pure/scale_down.dart</title></rect>
-<rect x="10290.0" y="300.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/currency_helper.dart</title></rect>
+<rect x="10290.0" y="300.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/currency_helper.dart
+
+1 Hardcoded Strings warning</title></rect>
 <rect x="10290.0" y="370.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/pairs.dart</title></rect>
 <rect x="10610.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title></rect>
-<rect x="10610.0" y="160.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart</title></rect>
-<rect x="10610.0" y="230.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/date_helper.dart</title></rect>
-<rect x="10930.0" y="90.0" width="220" height="50" class="fileNode"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart</title></rect>
+<rect x="10610.0" y="160.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/string_helper.dart
+
+11 Hardcoded Strings warnings</title></rect>
+<rect x="10610.0" y="230.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/date_helper.dart
+
+20 Hardcoded Strings warnings</title></rect>
+<rect x="10930.0" y="90.0" width="220" height="50" class="fileNode fileNodeWarning"><title>File: /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart
+
+1 Hardcoded Strings warning</title></rect>
 <g>
   <path d="M 1230.0 1458.0 C 1280.0 1458.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/zoom.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
@@ -6636,6 +6940,14 @@
   <title>/Users/jp/src/github/vteam/fMoney/lib/helpers/amount_model.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
+  <path d="M 2190.0 338.0 C 2240.0 338.0, 9286.0 102.0, 9336.0 102.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_l10n.dart</title>
+</g>
+<g>
+  <path d="M 2190.0 338.0 C 2240.0 338.0, 9286.0 172.0, 9336.0 172.0" class="edge"/>
+  <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/app_translation_keys.dart</title>
+</g>
+<g>
   <path d="M 2190.0 338.0 C 2240.0 338.0, 10566.0 102.0, 10616.0 102.0" class="edge"/>
   <title>/Users/jp/src/github/vteam/fMoney/lib/widgets/theme_controller.dart ▶ /Users/jp/src/github/vteam/fMoney/lib/helpers/constants.dart</title>
 </g>
@@ -9390,12 +9702,14 @@
 7. side_panel_header.dart
 8. zoom.dart</title></g><g class="badge outgoingBadge">
   <path d="M 2196.0,338.0 L 2184.0,331.0 Q 2181.0,331.0 2181.0,334.0 L 2181.0,342.0 Q 2181.0,345.0 2184.0,345.0 Z" fill="#10b981"/>
-  <text x="2185.68" y="339.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">6</text><title>1. constants.dart
-2. list_helper.dart
-3. misc_helpers.dart
-4. my_window_manager.dart
-5. preferences_controller.dart
-6. theme_custom.dart</title></g><text x="2080.0" y="325.0" class="textNormal">theme_controller.dart</text>
+  <text x="2185.68" y="339.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. app_l10n.dart
+2. app_translation_keys.dart
+3. constants.dart
+4. list_helper.dart
+5. misc_helpers.dart
+6. my_window_manager.dart
+7. preferences_controller.dart
+8. theme_custom.dart</title></g><text x="2080.0" y="325.0" class="textNormal">theme_controller.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1982.0,382.0 L 1970.0,375.0 Q 1967.0,375.0 1967.0,378.0 L 1967.0,386.0 Q 1967.0,389.0 1970.0,389.0 Z" fill="#3b82f6"/>
   <text x="1971.68" y="383.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. app_bar.dart
@@ -11378,7 +11692,7 @@
 2. data_file_controller.dart</title></g><text x="9120.0" y="185.0" class="textNormal">data_mutations.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9344.0,102.0 L 9328.0,94.4 Q 9325.0,94.4 9325.0,97.4 L 9325.0,106.6 Q 9325.0,109.6 9328.0,109.6 Z" fill="#3b82f6"/>
-  <text x="9330.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">63</text><title>1. about_page.dart
+  <text x="9330.72" y="103.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">64</text><title>1. about_page.dart
 2. app_bar.dart
 3. button_helpers.dart
 4. categories.dart
@@ -11421,32 +11735,33 @@
 41. splash_page.dart
 42. stock_chart.dart
 43. suggestion_approval.dart
-44. transaction_timeline_chart.dart
-45. view.dart
-46. view_accounts.dart
-47. view_ai.dart
-48. view_ai_chat_message.dart
-49. view_ai_header.dart
-50. view_ai_input.dart
-51. view_ai_instructions.dart
-52. view_cashflow.dart
-53. view_investments.dart
-54. view_money_objects.dart
-55. view_money_objects_ui_helpers.dart
-56. view_rentals_side_panel.dart
-57. view_stocks.dart
-58. view_transactions.dart
-59. view_transfers.dart
-60. view_welcome.dart
-61. welcome_page.dart
-62. xlsx_header_row_selector_dialog.dart
-63. years_range_selector.dart</title></g><g class="badge outgoingBadge">
+44. theme_controller.dart
+45. transaction_timeline_chart.dart
+46. view.dart
+47. view_accounts.dart
+48. view_ai.dart
+49. view_ai_chat_message.dart
+50. view_ai_header.dart
+51. view_ai_input.dart
+52. view_ai_instructions.dart
+53. view_cashflow.dart
+54. view_investments.dart
+55. view_money_objects.dart
+56. view_money_objects_ui_helpers.dart
+57. view_rentals_side_panel.dart
+58. view_stocks.dart
+59. view_transactions.dart
+60. view_transfers.dart
+61. view_welcome.dart
+62. welcome_page.dart
+63. xlsx_header_row_selector_dialog.dart
+64. years_range_selector.dart</title></g><g class="badge outgoingBadge">
   <path d="M 9556.0,128.0 L 9544.0,121.0 Q 9541.0,121.0 9541.0,124.0 L 9541.0,132.0 Q 9541.0,135.0 9544.0,135.0 Z" fill="#10b981"/>
   <text x="9545.68" y="129.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. app_localizations.dart
 2. app_router.dart</title></g><text x="9440.0" y="115.0" class="textNormal">app_l10n.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9344.0,172.0 L 9328.0,164.4 Q 9325.0,164.4 9325.0,167.4 L 9325.0,176.6 Q 9325.0,179.6 9328.0,179.6 Z" fill="#3b82f6"/>
-  <text x="9330.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">63</text><title>1. about_page.dart
+  <text x="9330.72" y="173.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">64</text><title>1. about_page.dart
 2. app_bar.dart
 3. button_helpers.dart
 4. categories.dart
@@ -11489,26 +11804,27 @@
 41. splash_page.dart
 42. stock_chart.dart
 43. suggestion_approval.dart
-44. transaction_timeline_chart.dart
-45. view.dart
-46. view_accounts.dart
-47. view_ai.dart
-48. view_ai_chat_message.dart
-49. view_ai_header.dart
-50. view_ai_input.dart
-51. view_ai_instructions.dart
-52. view_cashflow.dart
-53. view_investments.dart
-54. view_money_objects.dart
-55. view_money_objects_ui_helpers.dart
-56. view_rentals_side_panel.dart
-57. view_stocks.dart
-58. view_transactions.dart
-59. view_transfers.dart
-60. view_welcome.dart
-61. welcome_page.dart
-62. xlsx_header_row_selector_dialog.dart
-63. years_range_selector.dart</title></g><text x="9440.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
+44. theme_controller.dart
+45. transaction_timeline_chart.dart
+46. view.dart
+47. view_accounts.dart
+48. view_ai.dart
+49. view_ai_chat_message.dart
+50. view_ai_header.dart
+51. view_ai_input.dart
+52. view_ai_instructions.dart
+53. view_cashflow.dart
+54. view_investments.dart
+55. view_money_objects.dart
+56. view_money_objects_ui_helpers.dart
+57. view_rentals_side_panel.dart
+58. view_stocks.dart
+59. view_transactions.dart
+60. view_transfers.dart
+61. view_welcome.dart
+62. welcome_page.dart
+63. xlsx_header_row_selector_dialog.dart
+64. years_range_selector.dart</title></g><text x="9440.0" y="185.0" class="textSmall">app_translation_keys.dart</text>
 <g class="badge incomingBadge">
   <path d="M 9344.0,242.0 L 9328.0,234.4 Q 9325.0,234.4 9325.0,237.4 L 9325.0,246.6 Q 9325.0,249.6 9328.0,249.6 Z" fill="#3b82f6"/>
   <text x="9330.72" y="243.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">44</text><title>1. account.dart

@@ -257,7 +257,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageEnglish => 'English';
 
   @override
-  String get languageFrench => 'French';
+  String get languageFrench => 'Francais';
+
+  @override
+  String get languageSpanish => 'Español';
 
   @override
   String get largestTransactions => 'Largest transactions';
@@ -590,6 +593,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suggestion => 'Suggestion';
+
+  @override
+  String get themeColorBlue => 'Blue';
+
+  @override
+  String get themeColorGreen => 'Green';
+
+  @override
+  String get themeColorOrange => 'Orange';
+
+  @override
+  String get themeColorPink => 'Pink';
+
+  @override
+  String get themeColorPurple => 'Purple';
+
+  @override
+  String get themeColorTeal => 'Teal';
+
+  @override
+  String get themeColorYellow => 'Yellow';
 
   @override
   String get thinking => 'Thinking...';

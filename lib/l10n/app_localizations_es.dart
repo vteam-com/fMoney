@@ -15,13 +15,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aboutMenuItem => 'Acerca de...';
 
   @override
-  String get accountNames => 'Account names';
+  String get accountNames => 'Nombres de cuentas';
 
   @override
-  String get add => 'Add';
+  String get add => 'Agregar';
 
   @override
-  String get addInvestmentTransaction => 'Add Investment Transaction';
+  String get addInvestmentTransaction => 'Agregar transacción de inversión';
 
   @override
   String get addNewTransactions => 'Agregar nuevas transacciones';
@@ -30,16 +30,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addTransactionsMenuItem => 'Agregar transacciones...';
 
   @override
-  String get aiAssistant => 'AI Assistant';
+  String get aiAssistant => 'Asistente de IA';
 
   @override
-  String get amountIsMatching => 'Amount is matching';
+  String get amountIsMatching => 'El importe coincide';
 
   @override
-  String get amountIsOffBy => 'Amount is off by';
+  String get amountIsOffBy => 'El importe difiere en';
 
   @override
-  String get analyzeSpending => 'Analyze spending';
+  String get analyzeSpending => 'Analizar gastos';
 
   @override
   String get appDescription => 'Aplicación gratuita de gestión financiera personal Flutter de código abierto';
@@ -52,176 +52,177 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appName => 'fMoney';
 
   @override
-  String get appTitle => 'fMoney by VTeam';
+  String get appTitle => 'fMoney de VTeam';
 
   @override
-  String get append => 'Append';
+  String get append => 'Anexar';
 
   @override
-  String get availableOn => 'Available on';
+  String get availableOn => 'Disponible en';
 
   @override
-  String get avgLabel => 'Avg: ';
+  String get avgLabel => 'Prom.: ';
 
   @override
-  String get badDateFormat => 'Bad Date Format';
+  String get badDateFormat => 'Formato de fecha incorrecto';
 
   @override
-  String get bankaccounts => 'BankAccounts';
+  String get bankaccounts => 'Cuentas bancarias';
 
   @override
-  String get begin => 'Begin';
+  String get begin => 'Comenzar';
 
   @override
-  String get budget => 'Budget';
+  String get budget => 'Presupuesto';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'Cancelar';
 
   @override
-  String get cash => 'Cash';
+  String get cash => 'Efectivo';
 
   @override
-  String get cashFlow => 'Cash Flow';
+  String get cashFlow => 'Flujo de caja';
 
   @override
-  String get chart => 'Chart';
+  String get chart => 'Gráfico';
 
   @override
-  String get chartUpperSpacer => 'CHART ';
+  String get chartUpperSpacer => 'GRÁFICO';
 
   @override
-  String get checkingOllamaStatus => 'Checking Ollama status...';
+  String get checkingOllamaStatus => 'Verificando estado de Ollama...';
 
   @override
-  String get chooseAnOptionToGetStarted => 'Choose an option to get started:';
+  String get chooseAnOptionToGetStarted => 'Elige una opción para comenzar:';
 
   @override
-  String get chooseColumns => 'Choose Columns';
+  String get chooseColumns => 'Elegir columnas';
 
   @override
-  String get clearFilters => 'Clear Filters';
+  String get clearFilters => 'Limpiar filtros';
 
   @override
-  String get close => 'Close';
+  String get close => 'Cerrar';
 
   @override
   String get closeFile => 'Cerrar archivo';
 
   @override
-  String get confirm => 'Confirm';
+  String get confirm => 'Confirmar';
 
   @override
-  String get content => 'Content:';
+  String get content => 'Contenido:';
 
   @override
-  String get contentGoesHere => 'Content goes here';
+  String get contentGoesHere => 'El contenido va aquí';
 
   @override
-  String get continueLabel => 'Continue';
+  String get continueLabel => 'Continuar';
 
   @override
-  String get copiedToClipboard => 'Copied to clipboard';
+  String get copiedToClipboard => 'Copiado al portapapeles';
 
   @override
   String get copyListToClipboard => 'Copiar lista al portapapeles';
 
   @override
   String countSelected(String count) {
-    return '@count selected';
+    return '@count seleccionado(s)';
   }
 
   @override
   String countYears(String count) {
-    return '@count years';
+    return '@count año(s)';
   }
 
   @override
-  String get credit => 'Credit';
+  String get credit => 'Crédito';
 
   @override
-  String get csvFileEmpty => 'CSV file is empty.';
+  String get csvFileEmpty => 'El archivo CSV está vacío.';
 
   @override
-  String get csvHeadersAreMissingOrEmpty => 'CSV headers are missing or empty.';
+  String get csvHeadersAreMissingOrEmpty => 'Los encabezados CSV faltan o están vacíos.';
 
   @override
-  String get csvImportCancelled => 'CSV import cancelled.';
+  String get csvImportCancelled => 'Importación CSV cancelada.';
 
   @override
-  String get dataPreviewFirst5Rows => 'Data Preview (First 5 rows):';
+  String get dataPreviewFirst5Rows => 'Vista previa de datos (primeras 5 filas):';
 
   @override
-  String get debit => 'Debit';
+  String get debit => 'Débito';
 
   @override
   String get deleteSelectedItems => 'Eliminar elemento(s) seleccionado(s)';
 
   @override
-  String get details => 'Details';
+  String get details => 'Detalles';
 
   @override
-  String get dropFilesHere => 'Drop files here';
+  String get dropFilesHere => 'Arrastra archivos aquí';
 
   @override
   String get editSelectedItems => 'Editar elemento(s) seleccionado(s)';
 
   @override
   String elapsedElapsed(String elapsed) {
-    return 'Elapsed: @elapsed';
+    return 'Transcurrido: @elapsed';
   }
 
   @override
-  String get end => 'End';
+  String get end => 'Fin';
 
   @override
   String get error => 'Error';
 
   @override
   String errorImportingCsvError(String error) {
-    return 'Error importing CSV: @error';
+    return 'Error al importar CSV: @error';
   }
 
   @override
   String errorImportingXlsxError(String error) {
-    return 'Error importing XLSX: @error';
+    return 'Error al importar XLSX: @error';
   }
 
   @override
-  String get expensePredictions => 'Expense predictions';
+  String get expensePredictions => 'Predicciones de gastos';
 
   @override
   String get fileLocationMenuItem => 'Ubicación del archivo...';
 
   @override
-  String get fileLocationNotSupportedOnMobile => 'Opening the file location is only supported on desktop platforms.';
+  String get fileLocationNotSupportedOnMobile =>
+      'Abrir la ubicación del archivo solo está disponible en plataformas de escritorio.';
 
   @override
   String get fileMenuTooltip => 'Menú de archivo';
 
   @override
-  String get filter => 'filter';
+  String get filter => 'Filtro';
 
   @override
   String get fmoney => 'fMoney';
 
   @override
-  String get forSpacer => ' for ';
+  String get forSpacer => ' para ';
 
   @override
-  String get freeStyle => 'Free style';
+  String get freeStyle => 'Libre';
 
   @override
-  String get fromCategory => 'From category';
+  String get fromCategory => 'De categoría';
 
   @override
-  String get fromPayee => 'From payee';
+  String get fromPayee => 'De beneficiario';
 
   @override
-  String get fullPromptSentToAi => 'Full Prompt Sent to AI';
+  String get fullPromptSentToAi => 'Prompt completo enviado a la IA';
 
   @override
-  String get helperForDebugging => 'Helper for debugging';
+  String get helperForDebugging => 'Ayuda para depuración';
 
   @override
   String get hideClosedAccounts => 'Ocultar cuentas cerradas';
@@ -230,307 +231,312 @@ class AppLocalizationsEs extends AppLocalizations {
   String get idLabel => 'ID: ';
 
   @override
-  String get importTransactionToAccount => 'Import transaction to account';
+  String get importTransactionToAccount => 'Importar transacción a cuenta';
 
   @override
-  String get includeAssetAccounts => 'Include Asset Accounts';
+  String get includeAssetAccounts => 'Incluir cuentas de activos';
 
   @override
-  String get info => 'Info';
+  String get info => 'Información';
 
   @override
   String get installAppMenuItem => 'Instalar aplicación...';
 
   @override
-  String get installOllamaNow => 'Install Ollama now';
+  String get installOllamaNow => 'Instalar Ollama ahora';
 
   @override
-  String get investments => 'Investments';
+  String get investments => 'Inversiones';
 
   @override
-  String get keepAllTransactionsToTheirCurrentCategories => 'Keep all transactions to their current categories';
+  String get keepAllTransactionsToTheirCurrentCategories =>
+      'Mantener todas las transacciones en sus categorías actuales';
 
   @override
-  String get language => 'Language';
+  String get language => 'Idioma';
 
   @override
   String get languageEnglish => 'English';
 
   @override
-  String get languageFrench => 'French';
+  String get languageFrench => 'Francais';
 
   @override
-  String get largestTransactions => 'Largest transactions';
+  String get languageSpanish => 'Español';
 
   @override
-  String get licenses => 'Licenses';
+  String get largestTransactions => 'Transacciones más grandes';
+
+  @override
+  String get licenses => 'Licencias';
 
   @override
   String get licensesDescription =>
       'fMoney está construido con software de código abierto. Consulta las licencias de todos los paquetes utilizados en esta aplicación.';
 
   @override
-  String get list => 'List';
+  String get list => 'Lista';
 
   @override
-  String get manageTheExpensesAndRentalIncomeOfProperties => 'Manage the expenses and rental income of properties.';
+  String get manageTheExpensesAndRentalIncomeOfProperties =>
+      'Gestiona los gastos e ingresos de alquiler de propiedades.';
 
   @override
-  String get maxLabel => 'Max: ';
+  String get maxLabel => 'Máx: ';
 
   @override
-  String get memo => 'Memo';
+  String get memo => 'Nota';
 
   @override
-  String get merge => 'Merge';
+  String get merge => 'Combinar';
 
   @override
   String get mergeItems => 'Combinar elemento(s)';
 
   @override
-  String get messageDetails => 'Message Details';
+  String get messageDetails => 'Detalles del mensaje';
 
   @override
-  String get minLabel => 'Min: ';
+  String get minLabel => 'Mín: ';
 
   @override
-  String get missingTransfer => 'Missing Transfer';
+  String get missingTransfer => 'Transferencia faltante';
 
   @override
-  String get monthlyActual => 'Monthly Actual';
+  String get monthlyActual => 'Real mensual';
 
   @override
-  String get monthlyBudgeted => 'Monthly Budgeted';
+  String get monthlyBudgeted => 'Presupuestado mensual';
 
   @override
-  String get navAccounts => 'Accounts';
+  String get navAccounts => 'Cuentas';
 
   @override
-  String get navAccountsTooltip => 'Show Accounts';
+  String get navAccountsTooltip => 'Ver cuentas';
 
   @override
-  String get navAiAssistantTooltip => 'AI-powered financial insights';
+  String get navAiAssistantTooltip => 'Perspectivas financieras con IA';
 
   @override
-  String get navAliases => 'Aliases';
+  String get navAliases => 'Alias';
 
   @override
-  String get navAliasesTooltip => 'Show Aliases';
+  String get navAliasesTooltip => 'Ver alias';
 
   @override
-  String get navCashflow => 'Cashflow';
+  String get navCashflow => 'Flujo de caja';
 
   @override
-  String get navCashflowTooltip => 'Show your Cash Flow';
+  String get navCashflowTooltip => 'Ver tu flujo de caja';
 
   @override
-  String get navCategories => 'Categories';
+  String get navCategories => 'Categorías';
 
   @override
-  String get navCategoriesTooltip => 'Show Categories';
+  String get navCategoriesTooltip => 'Ver categorías';
 
   @override
-  String get navEvents => 'Events';
+  String get navEvents => 'Eventos';
 
   @override
-  String get navEventsTooltip => 'Your life events';
+  String get navEventsTooltip => 'Tus eventos de vida';
 
   @override
-  String get navInvestments => 'Investments';
+  String get navInvestments => 'Inversiones';
 
   @override
-  String get navInvestmentsTooltip => 'Investment transactions';
+  String get navInvestmentsTooltip => 'Transacciones de inversión';
 
   @override
-  String get navPayees => 'Payees';
+  String get navPayees => 'Beneficiarios';
 
   @override
-  String get navPayeesTooltip => 'Show Payees';
+  String get navPayeesTooltip => 'Ver beneficiarios';
 
   @override
-  String get navRentals => 'Rentals';
+  String get navRentals => 'Alquileres';
 
   @override
-  String get navRentalsTooltip => 'Rentals';
+  String get navRentalsTooltip => 'Alquileres';
 
   @override
   String navShowLabel(String label) {
-    return 'Show @label';
+    return 'Mostrar @label';
   }
 
   @override
-  String get navStocks => 'Stocks';
+  String get navStocks => 'Acciones';
 
   @override
-  String get navStocksTooltip => 'Stocks tracking';
+  String get navStocksTooltip => 'Seguimiento de acciones';
 
   @override
-  String get navTransactions => 'Transactions';
+  String get navTransactions => 'Transacciones';
 
   @override
-  String get navTransactionsTooltip => 'Show Transactions';
+  String get navTransactionsTooltip => 'Ver transacciones';
 
   @override
-  String get navTransfers => 'Transfers';
+  String get navTransfers => 'Transferencias';
 
   @override
-  String get navTransfersTooltip => 'View transfers between accounts';
+  String get navTransfersTooltip => 'Ver transferencias entre cuentas';
 
   @override
-  String get networth => 'NetWorth';
+  String get networth => 'Patrimonio neto';
 
   @override
-  String get newFile => 'New File ...';
+  String get newFile => 'Nuevo archivo...';
 
   @override
   String get newMenuItem => 'Nuevo';
 
   @override
-  String get noAccountSelected => 'No account selected';
+  String get noAccountSelected => 'Ninguna cuenta seleccionada';
 
   @override
-  String get noAccountSelectedPeriod => 'No account selected.';
+  String get noAccountSelectedPeriod => 'Ninguna cuenta seleccionada.';
 
   @override
-  String get noBudgetIncomeCategoryFound => 'No budget income category found';
+  String get noBudgetIncomeCategoryFound => 'No se encontró categoría de ingresos en el presupuesto';
 
   @override
-  String get noChartToDisplay => 'No chart to display';
+  String get noChartToDisplay => 'No hay gráfico para mostrar';
 
   @override
-  String get noData => 'No data';
+  String get noData => 'Sin datos';
 
   @override
-  String get noDataPoints => 'No data points';
+  String get noDataPoints => 'Sin puntos de datos';
 
   @override
-  String get noDataRowsToPreview => 'No data rows to preview.';
+  String get noDataRowsToPreview => 'No hay filas de datos para previsualizar.';
 
   @override
-  String get noDataToDisplay => 'No data to display';
+  String get noDataToDisplay => 'Sin datos para mostrar';
 
   @override
-  String get noDateRangeYet => 'No date range yet';
+  String get noDateRangeYet => 'Aún sin rango de fechas';
 
   @override
   String noFieldsFoundForItem(String item) {
-    return 'No fields found for @item';
+    return 'No se encontraron campos para @item';
   }
 
   @override
-  String get noItemSelected => 'No item selected.';
+  String get noItemSelected => 'Ningún elemento seleccionado.';
 
   @override
-  String get noItems => 'No items';
+  String get noItems => 'Sin elementos';
 
   @override
   String noItemsWereTitle(String title) {
-    return 'No items were @title';
+    return 'Ningún elemento fue @title';
   }
 
   @override
-  String get noPicker => 'no picker';
+  String get noPicker => 'sin selector';
 
   @override
-  String get noRelatedTransactions => 'No related transactions';
+  String get noRelatedTransactions => 'Sin transacciones relacionadas';
 
   @override
-  String get noRowsFoundWith3OrMoreColumns => 'No rows found with 3 or more columns.';
+  String get noRowsFoundWith3OrMoreColumns => 'No se encontraron filas con 3 o más columnas.';
 
   @override
-  String get noSecuritySelected => 'No security selected.';
+  String get noSecuritySelected => 'Ningún valor seleccionado.';
 
   @override
-  String get noSheetXmlFoundInXlsxFile => 'No sheet XML found in XLSX file.';
+  String get noSheetXmlFoundInXlsxFile => 'No se encontró XML de hoja en el archivo XLSX.';
 
   @override
-  String get noStockSelected => 'No stock selected';
+  String get noStockSelected => 'Ninguna acción seleccionada';
 
   @override
-  String get noTransactions => 'No transactions';
+  String get noTransactions => 'Sin transacciones';
 
   @override
-  String get noTransactionsPeriod => 'No transactions.';
+  String get noTransactionsPeriod => 'Sin transacciones.';
 
   @override
-  String get noUi => 'no UI';
+  String get noUi => 'sin interfaz';
 
   @override
-  String get noValidEntriesFoundInCsvToImport => 'No valid entries found in CSV to import.';
+  String get noValidEntriesFoundInCsvToImport => 'No se encontraron entradas válidas en el CSV para importar.';
 
   @override
-  String get noValidEntriesFoundInXlsxToImport => 'No valid entries found in XLSX to import.';
+  String get noValidEntriesFoundInXlsxToImport => 'No se encontraron entradas válidas en el XLSX para importar.';
 
   @override
   String get ocr => 'OCR';
 
   @override
-  String get ollamaAiAssistant => 'Ollama AI Assistant';
+  String get ollamaAiAssistant => 'Asistente IA Ollama';
 
   @override
   String get ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt =>
-      'Ollama is required to use the AI assistant. Click below to install it.';
+      'Se requiere Ollama para usar el asistente de IA. Haz clic abajo para instalarlo.';
 
   @override
-  String get openFile => 'Open File ...';
+  String get openFile => 'Abrir archivo...';
 
   @override
   String get openMenuItem => 'Abrir...';
 
   @override
-  String get orChangeToCategory => 'or change to category';
+  String get orChangeToCategory => 'o cambiar a categoría';
 
   @override
-  String get payee => 'Payee';
+  String get payee => 'Beneficiario';
 
   @override
-  String get payeeMatch => 'Payee Match';
+  String get payeeMatch => 'Coincidencia de beneficiario';
 
   @override
-  String get pleaseMapAllFieldsDateDescriptionAmount => 'Please map all fields (Date, Description, Amount).';
+  String get pleaseMapAllFieldsDateDescriptionAmount => 'Por favor mapea todos los campos (Fecha, Descripción, Monto).';
 
   @override
-  String get pleaseSelectDifferentAccounts => 'Please select different accounts';
+  String get pleaseSelectDifferentAccounts => 'Por favor selecciona cuentas diferentes';
 
   @override
   String get pnl => 'PnL';
 
   @override
-  String get policy => 'Policy';
+  String get policy => 'Política';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Política de privacidad';
 
   @override
   String questionsQuestioncountTokensTokencount(String questionCount, String tokenCount) {
-    return 'Questions: $questionCount | Tokens: $tokenCount';
+    return 'Preguntas: $questionCount | Tokens: $tokenCount';
   }
 
   @override
   String get rebalanceMenuItem => 'Reequilibrar...';
 
   @override
-  String get recordATransferBetweenTwoAccounts => 'Record a Transfer between two accounts';
+  String get recordATransferBetweenTwoAccounts => 'Registrar una transferencia entre dos cuentas';
 
   @override
-  String get recurring => 'Recurring';
+  String get recurring => 'Recurrente';
 
   @override
-  String get refreshList => 'Refresh list';
+  String get refreshList => 'Actualizar lista';
 
   @override
-  String get rental => 'Rental';
+  String get rental => 'Alquiler';
 
   @override
-  String get rentalPropertyNotFound => 'Rental property not found';
+  String get rentalPropertyNotFound => 'Propiedad de alquiler no encontrada';
 
   @override
   String rowIndex(String index) {
-    return 'Row $index';
+    return 'Fila $index';
   }
 
   @override
-  String get runOllama => 'Run Ollama';
+  String get runOllama => 'Ejecutar Ollama';
 
   @override
   String get sankey => 'Sankey';
@@ -542,23 +548,23 @@ class AppLocalizationsEs extends AppLocalizations {
   String get saveToSql => 'Guardar en SQL';
 
   @override
-  String get selectARentalPropertyToSeeItsPL => 'Select a Rental property to see its P&L';
+  String get selectARentalPropertyToSeeItsPL => 'Selecciona una propiedad de alquiler para ver su P&L';
 
   @override
-  String get selectColumn => 'Select column';
+  String get selectColumn => 'Seleccionar columna';
 
   @override
-  String get selectHeaderRow => 'Select Header Row';
+  String get selectHeaderRow => 'Seleccionar fila de encabezado';
 
   @override
   String get selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent =>
-      'Select the row that contains the column headers (automatically selected based on content):';
+      'Selecciona la fila que contiene los encabezados de columna (seleccionada automáticamente según el contenido):';
 
   @override
-  String get setApiKey => 'Set API Key';
+  String get setApiKey => 'Establecer clave API';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'Configuración';
 
   @override
   String get settingsMenuItem => 'Configuración...';
@@ -568,42 +574,63 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String showingFirstMaxrowsOfRowcountEligibleRows(String maxRows, String rowCount) {
-    return 'Showing first $maxRows of $rowCount eligible rows';
+    return 'Mostrando las primeras $maxRows de $rowCount filas elegibles';
   }
 
   @override
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount) {
-    return 'Showing $rowCount eligible rows (excluded rows with < 3 columns)';
+    return 'Mostrando $rowCount filas elegibles (excluidas filas con < 3 columnas)';
   }
 
   @override
-  String get skippingDuplicate => ' Skipping Duplicate ';
+  String get skippingDuplicate => ' Omitiendo duplicado ';
 
   @override
-  String get smallScreenContentGoesHere => 'Small screen content goes here';
+  String get smallScreenContentGoesHere => 'El contenido de pantalla pequeña va aquí';
 
   @override
-  String get split => 'Split';
+  String get split => 'División';
 
   @override
-  String get success => 'Success';
+  String get success => 'Éxito';
 
   @override
-  String get suggestion => 'Suggestion';
+  String get suggestion => 'Sugerencia';
 
   @override
-  String get thinking => 'Thinking...';
+  String get themeColorBlue => 'Azul';
+
+  @override
+  String get themeColorGreen => 'Verde';
+
+  @override
+  String get themeColorOrange => 'Naranja';
+
+  @override
+  String get themeColorPink => 'Rosa';
+
+  @override
+  String get themeColorPurple => 'Púrpura';
+
+  @override
+  String get themeColorTeal => 'Verde azulado';
+
+  @override
+  String get themeColorYellow => 'Amarillo';
+
+  @override
+  String get thinking => 'Pensando...';
 
   @override
   String timestampTimestamp(String timestamp) {
-    return 'Timestamp: @timestamp';
+    return 'Marca de tiempo: @timestamp';
   }
 
   @override
-  String get toCategory => 'To category';
+  String get toCategory => 'A categoría';
 
   @override
-  String get toPayee => 'To payee';
+  String get toPayee => 'A beneficiario';
 
   @override
   String get toggleBrightness => 'Cambiar brillo';
@@ -612,22 +639,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get total => 'Total';
 
   @override
-  String get transactionSplit => 'Transaction split';
+  String get transactionSplit => 'División de transacción';
 
   @override
-  String get transactions => 'Transactions';
+  String get transactions => 'Transacciones';
 
   @override
-  String get transfer => 'Transfer';
+  String get transfer => 'Transferencia';
 
   @override
-  String get trend => 'Trend';
+  String get trend => 'Tendencia';
 
   @override
-  String get unknown => 'Unknown';
+  String get unknown => 'Desconocido';
 
   @override
-  String get useDemoData => 'Use Demo Data';
+  String get useDemoData => 'Usar datos de demostración';
 
   @override
   String get versionInformation => 'Información de Versión';
@@ -639,19 +666,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get viewLicenses => 'Ver Licencias';
 
   @override
-  String get warning => 'Warning';
+  String get warning => 'Advertencia';
 
   @override
-  String get welcomeToFmoney => 'Welcome to fMoney';
+  String get welcomeToFmoney => 'Bienvenido a fMoney';
 
   @override
-  String get xlsxFileContainsNoDataRows => 'XLSX file contains no data rows.';
+  String get xlsxFileContainsNoDataRows => 'El archivo XLSX no contiene filas de datos.';
 
   @override
-  String get xlsxFileContainsNoValidData => 'XLSX file contains no valid data.';
+  String get xlsxFileContainsNoValidData => 'El archivo XLSX no contiene datos válidos.';
 
   @override
-  String get xlsxImportCancelled => 'XLSX import cancelled.';
+  String get xlsxImportCancelled => 'Importación XLSX cancelada.';
 
   @override
   String get zoom => 'Zoom';

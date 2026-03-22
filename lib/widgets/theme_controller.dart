@@ -1,6 +1,8 @@
 // ignore: fcheck_one_class_per_file
 // ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -21,13 +23,13 @@ class Themes {
   ];
 
   static final List<String> themeColorNames = <String>[
-    'Purple',
-    'Blue',
-    'Teal',
-    'Green',
-    'Yellow',
-    'Orange',
-    'Pink',
+    AppL10n.tr(AppTranslationKeys.themeColorPurple),
+    AppL10n.tr(AppTranslationKeys.themeColorBlue),
+    AppL10n.tr(AppTranslationKeys.themeColorTeal),
+    AppL10n.tr(AppTranslationKeys.themeColorGreen),
+    AppL10n.tr(AppTranslationKeys.themeColorYellow),
+    AppL10n.tr(AppTranslationKeys.themeColorOrange),
+    AppL10n.tr(AppTranslationKeys.themeColorPink),
   ];
 }
 

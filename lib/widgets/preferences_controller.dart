@@ -166,12 +166,16 @@ class PreferenceController extends ChangeNotifier {
   /// Stock quote API Key
   String get apiKeyForStocks => _apiKeyForStocks;
 
-  /// Returns the persisted app locale code (`en` or `fr`).
+  /// Returns the persisted app locale code (`en`, `es`, or `fr`).
   String get localeCode => _localeCode;
 
   /// Sets app locale, persists it.
   set localeCode(final String value) {
-    final String sanitized = value == 'fr' ? 'fr' : 'en';
+    final String sanitized = switch (value) {
+      'es' => 'es',
+      'fr' => 'fr',
+      _ => 'en',
+    };
     _localeCode = sanitized;
     setString(settingKeyLocale, sanitized);
     notifyListeners();

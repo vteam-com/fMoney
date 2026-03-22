@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/l10n/app_localizations.dart';
 import 'package:money/l10n/app_localizations_en.dart';
+import 'package:money/l10n/app_localizations_es.dart';
 import 'package:money/l10n/app_localizations_fr.dart';
 
 /// Provides access to Flutter AppLocalizations without requiring BuildContext.
@@ -22,6 +23,8 @@ class AppL10n {
         return l10n.addNewTransactions;
       case 'addTransactionsMenuItem':
         return l10n.addTransactionsMenuItem;
+      case 'about':
+        return l10n.about;
       case 'addInvestmentTransaction':
         return l10n.addInvestmentTransaction;
       case 'aboutMenuItem':
@@ -154,6 +157,8 @@ class AppL10n {
         return l10n.languageEnglish;
       case 'languageFrench':
         return l10n.languageFrench;
+      case 'languageSpanish':
+        return l10n.languageSpanish;
       case 'navCashflow':
         return l10n.navCashflow;
       case 'navCashflowTooltip':
@@ -301,7 +306,10 @@ class AppL10n {
       case 'privacyPolicy':
         return l10n.privacyPolicy;
       case 'questionsQuestioncountTokensTokencount':
-        return l10n.questionsQuestioncountTokensTokencount(p['questionCount'] ?? '', p['tokenCount'] ?? '');
+        return l10n.questionsQuestioncountTokensTokencount(
+          p['questionCount'] ?? '',
+          p['tokenCount'] ?? '',
+        );
       case 'recordATransferBetweenTwoAccounts':
         return l10n.recordATransferBetweenTwoAccounts;
       case 'rebalanceMenuItem':
@@ -351,9 +359,14 @@ class AppL10n {
       case 'filter':
         return l10n.filter;
       case 'showingFirstMaxrowsOfRowcountEligibleRows':
-        return l10n.showingFirstMaxrowsOfRowcountEligibleRows(p['maxRows'] ?? '', p['rowCount'] ?? '');
+        return l10n.showingFirstMaxrowsOfRowcountEligibleRows(
+          p['maxRows'] ?? '',
+          p['rowCount'] ?? '',
+        );
       case 'showingRowcountEligibleRowsExcludedRowsWith3Columns':
-        return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(p['rowCount'] ?? '');
+        return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(
+          p['rowCount'] ?? '',
+        );
       case 'skippingDuplicate':
         return l10n.skippingDuplicate;
       case 'smallScreenContentGoesHere':
@@ -380,6 +393,20 @@ class AppL10n {
         return l10n.suggestion;
       case 'success':
         return l10n.success;
+      case 'themeColorBlue':
+        return l10n.themeColorBlue;
+      case 'themeColorGreen':
+        return l10n.themeColorGreen;
+      case 'themeColorOrange':
+        return l10n.themeColorOrange;
+      case 'themeColorPink':
+        return l10n.themeColorPink;
+      case 'themeColorPurple':
+        return l10n.themeColorPurple;
+      case 'themeColorTeal':
+        return l10n.themeColorTeal;
+      case 'themeColorYellow':
+        return l10n.themeColorYellow;
       case 'thinking':
         return l10n.thinking;
       case 'timestampTimestamp':
@@ -437,6 +464,9 @@ class AppL10n {
       }
     }
     final Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
+    if (locale.languageCode == 'es') {
+      return AppLocalizationsEs();
+    }
     if (locale.languageCode == 'fr') {
       return AppLocalizationsFr();
     }

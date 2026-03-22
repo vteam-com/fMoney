@@ -560,17 +560,23 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
-  /// No description provided for @languageEnglish.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'English'**
   String get languageEnglish;
 
-  /// No description provided for @languageFrench.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
-  /// **'French'**
+  /// **'Francais'**
   String get languageFrench;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Español'**
+  String get languageSpanish;
 
   /// No description provided for @largestTransactions.
   ///
@@ -1201,6 +1207,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suggestion'**
   String get suggestion;
+
+  /// No description provided for @themeColorBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get themeColorBlue;
+
+  /// No description provided for @themeColorGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get themeColorGreen;
+
+  /// No description provided for @themeColorOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get themeColorOrange;
+
+  /// No description provided for @themeColorPink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get themeColorPink;
+
+  /// No description provided for @themeColorPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get themeColorPurple;
+
+  /// No description provided for @themeColorTeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get themeColorTeal;
+
+  /// No description provided for @themeColorYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get themeColorYellow;
 
   /// No description provided for @thinking.
   ///
