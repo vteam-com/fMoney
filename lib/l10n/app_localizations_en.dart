@@ -45,6 +45,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appDescription => 'Free open-source Flutter Personal Finance Management Application';
 
   @override
+  String get append => 'Append';
+
+  @override
   String get appLongDescription =>
       'A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.';
 
@@ -53,9 +56,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'fMoney by VTeam';
-
-  @override
-  String get append => 'Append';
 
   @override
   String get availableOn => 'Available on';
@@ -421,10 +421,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get noItemSelected => 'No item selected.';
+  String get noItems => 'No items';
 
   @override
-  String get noItems => 'No items';
+  String get noItemSelected => 'No item selected.';
 
   @override
   String noItemsWereTitle(String title) {
@@ -627,19 +627,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toCategory => 'To category';
 
   @override
-  String get toPayee => 'To payee';
+  String get toggleBrightness => 'Toggle brightness';
 
   @override
-  String get toggleBrightness => 'Toggle brightness';
+  String get toPayee => 'To payee';
 
   @override
   String get total => 'Total';
 
   @override
-  String get transactionSplit => 'Transaction split';
+  String get transactions => 'Transactions';
 
   @override
-  String get transactions => 'Transactions';
+  String get transactionSplit => 'Transaction split';
 
   @override
   String get transfer => 'Transfer';

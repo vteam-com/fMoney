@@ -14,6 +14,9 @@
   "append": "Ajouter",
   "appLongDescription": "Une solution complète de gestion d'argent pour suivre les dépenses, gérer les budgets et surveiller les investissements.",
   "appName": "fMoney",
+  "@appName": {
+    "description": "REVIEWED"
+  },
   "appTitle": "fMoney par VTeam",
   "availableOn": "Disponible sur",
   "avgLabel": "Moy. : ",
@@ -21,6 +24,9 @@
   "bankaccounts": "Comptes bancaires",
   "begin": "Debut",
   "budget": "Budget",
+  "@budget": {
+    "description": "REVIEWED"
+  },
   "cancel": "Annuler",
   "cash": "Liquidites",
   "cashFlow": "Flux de tresorerie",
@@ -96,6 +102,9 @@
   "fileMenuTooltip": "Menu fichier",
   "filter": "filtre",
   "fmoney": "fMoney",
+  "@fmoney": {
+    "description": "REVIEWED"
+  },
   "forSpacer": " pour ",
   "freeStyle": "Style libre",
   "fromCategory": "De la categorie",
@@ -166,6 +175,9 @@
   "navStocks": "Actions",
   "navStocksTooltip": "Suivi des actions",
   "navTransactions": "Transactions",
+  "@navTransactions": {
+    "description": "REVIEWED"
+  },
   "navTransactionsTooltip": "Afficher les transactions",
   "navTransfers": "Transferts",
   "navTransfersTooltip": "Voir les transferts entre comptes",
@@ -211,6 +223,9 @@
   "noValidEntriesFoundInCsvToImport": "Aucune entree valide trouvee dans le CSV a importer.",
   "noValidEntriesFoundInXlsxToImport": "Aucune entree valide trouvee dans le XLSX a importer.",
   "ocr": "OCR",
+  "@ocr": {
+    "description": "REVIEWED"
+  },
   "ollamaAiAssistant": "Assistant IA Ollama",
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama est requis pour utiliser l'assistant IA. Cliquez ci-dessous pour l'installer.",
   "openFile": "Ouvrir un fichier ...",
@@ -250,6 +265,9 @@
   },
   "runOllama": "Executer Ollama",
   "sankey": "Sankey",
+  "@sankey": {
+    "description": "REVIEWED"
+  },
   "saveToCsv": "Enregistrer en CSV",
   "saveToSql": "Enregistrer en SQL",
   "selectARentalPropertyToSeeItsPL": "Selectionnez une propriete locative pour voir son P&L",
@@ -284,9 +302,15 @@
   "split": "Repartition",
   "success": "Succes",
   "suggestion": "Suggestion",
+  "@suggestion": {
+    "description": "REVIEWED"
+  },
   "themeColorBlue": "Bleu",
   "themeColorGreen": "Vert",
   "themeColorOrange": "Orange",
+  "@themeColorOrange": {
+    "description": "REVIEWED"
+  },
   "themeColorPink": "Rose",
   "themeColorPurple": "Violet",
   "themeColorTeal": "Sarcelle",
@@ -304,7 +328,13 @@
   "toggleBrightness": "Basculer la luminosite",
   "toPayee": "Vers le beneficiaire",
   "total": "Total",
+  "@total": {
+    "description": "REVIEWED"
+  },
   "transactions": "Transactions",
+  "@transactions": {
+    "description": "REVIEWED"
+  },
   "transactionSplit": "Repartition de transaction",
   "transfer": "Transfert",
   "trend": "Tendance",
@@ -318,5 +348,8 @@
   "xlsxFileContainsNoDataRows": "Le fichier XLSX ne contient aucune ligne de donnees.",
   "xlsxFileContainsNoValidData": "Le fichier XLSX ne contient aucune donnee valide.",
   "xlsxImportCancelled": "Import XLSX annule.",
-  "zoom": "Zoom"
+  "zoom": "Zoom",
+  "@zoom": {
+    "description": "REVIEWED"
+  }
 }

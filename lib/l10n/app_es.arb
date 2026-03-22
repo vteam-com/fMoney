@@ -14,6 +14,9 @@
   "append": "Anexar",
   "appLongDescription": "Una solución completa de gestión de dinero para seguir gastos, administrar presupuestos y monitorear inversiones.",
   "appName": "fMoney",
+  "@appName": {
+    "description": "REVIEWED"
+  },
   "appTitle": "fMoney de VTeam",
   "availableOn": "Disponible en",
   "avgLabel": "Prom.: ",
@@ -74,6 +77,9 @@
   },
   "end": "Fin",
   "error": "Error",
+  "@error": {
+    "description": "REVIEWED"
+  },
   "errorImportingCsvError": "Error al importar CSV: @error",
   "@errorImportingCsvError": {
     "placeholders": {
@@ -96,6 +102,9 @@
   "fileMenuTooltip": "Menú de archivo",
   "filter": "Filtro",
   "fmoney": "fMoney",
+  "@fmoney": {
+    "description": "REVIEWED"
+  },
   "forSpacer": " para ",
   "freeStyle": "Libre",
   "fromCategory": "De categoría",
@@ -104,6 +113,9 @@
   "helperForDebugging": "Ayuda para depuración",
   "hideClosedAccounts": "Ocultar cuentas cerradas",
   "idLabel": "ID: ",
+  "@idLabel": {
+    "description": "REVIEWED"
+  },
   "importTransactionToAccount": "Importar transacción a cuenta",
   "includeAssetAccounts": "Incluir cuentas de activos",
   "info": "Información",
@@ -211,6 +223,9 @@
   "noValidEntriesFoundInCsvToImport": "No se encontraron entradas válidas en el CSV para importar.",
   "noValidEntriesFoundInXlsxToImport": "No se encontraron entradas válidas en el XLSX para importar.",
   "ocr": "OCR",
+  "@ocr": {
+    "description": "REVIEWED"
+  },
   "ollamaAiAssistant": "Asistente IA Ollama",
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Se requiere Ollama para usar el asistente de IA. Haz clic abajo para instalarlo.",
   "openFile": "Abrir archivo...",
@@ -221,6 +236,9 @@
   "pleaseMapAllFieldsDateDescriptionAmount": "Por favor mapea todos los campos (Fecha, Descripción, Monto).",
   "pleaseSelectDifferentAccounts": "Por favor selecciona cuentas diferentes",
   "pnl": "PnL",
+  "@pnl": {
+    "description": "REVIEWED"
+  },
   "policy": "Política",
   "privacyPolicy": "Política de privacidad",
   "questionsQuestioncountTokensTokencount": "Preguntas: {questionCount} | Tokens: {tokenCount}",
@@ -250,6 +268,9 @@
   },
   "runOllama": "Ejecutar Ollama",
   "sankey": "Sankey",
+  "@sankey": {
+    "description": "REVIEWED"
+  },
   "saveToCsv": "Guardar en CSV",
   "saveToSql": "Guardar en SQL",
   "selectARentalPropertyToSeeItsPL": "Selecciona una propiedad de alquiler para ver su P&L",
@@ -304,6 +325,9 @@
   "toggleBrightness": "Cambiar brillo",
   "toPayee": "A beneficiario",
   "total": "Total",
+  "@total": {
+    "description": "REVIEWED"
+  },
   "transactions": "Transacciones",
   "transactionSplit": "División de transacción",
   "transfer": "Transferencia",
@@ -318,5 +342,8 @@
   "xlsxFileContainsNoDataRows": "El archivo XLSX no contiene filas de datos.",
   "xlsxFileContainsNoValidData": "El archivo XLSX no contiene datos válidos.",
   "xlsxImportCancelled": "Importación XLSX cancelada.",
-  "zoom": "Zoom"
+  "zoom": "Zoom",
+  "@zoom": {
+    "description": "REVIEWED"
+  }
 }

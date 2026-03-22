@@ -1,28 +1,25 @@
 #!/usr/bin/env python3
 """
-Script to sort Flutter ARB (Application Resource Bundle) files alphabetically.
+Script to normalize Flutter ARB (Application Resource Bundle) files.
 
-This script sorts translation keys alphabetically while preserving the correct
-ordering of placeholder definitions (@keys) which must come immediately after
-their corresponding translation keys.
+This script preserves the existing key order in ARB files, appends any missing
+keys, removes extra keys, and keeps placeholder definitions (@keys) aligned
+with their corresponding translation keys when new entries are added.
 
 Usage:
-    python sort_arb_files.py
+    python tool/loc.py
     # or
-    python sort_arb_files.py /path/to/l10n/directory
+    python tool/loc.py /path/to/l10n/directory
 """
 
 import json
 import sys
 from pathlib import Path
-from collections import defaultdict
 import subprocess
 
 
-
-
-def sort_arb_file(file_path):
-    """Sort a single ARB file alphabetically."""
+def normalize_arb_file(file_path: Path) -> int:
+    """Rewrite a single ARB file while preserving its current key order."""
     print(f"Processing {file_path}...")
 
     # Read the file, handle malformed JSON gracefully
@@ -61,49 +58,81 @@ def sort_arb_file(file_path):
                 print(f"  Skipping {file_path}. Please fix the file manually.")
                 return 0
 
-    # Separate regular keys and placeholder keys (@keys), keeping last occurrence
-    regular_keys = {}
-    placeholder_keys = {}
-
-    for key, value in data.items():
-        if key.startswith('@'):
-            # Keep last occurrence of placeholder key
-            placeholder_keys[key[1:]] = (key, value)  # Store with base key
-        else:
-            # Keep last occurrence of regular key
-            regular_keys[key] = value
-
-    # Sort regular keys alphabetically
-    sorted_regular_keys = sorted(regular_keys.keys())
-
-    # Build the sorted data, ensuring placeholders come right after their main keys
-    sorted_data = {}
-
-    for key in sorted_regular_keys:
-        # Add the regular key
-        sorted_data[key] = regular_keys[key]
-
-        # Add the corresponding placeholder if it exists
-        if key in placeholder_keys:
-            placeholder_key, placeholder_value = placeholder_keys[key]
-            sorted_data[placeholder_key] = placeholder_value
-
     original_count = len(data)
-    final_count = len(sorted_data)
 
-    # Write back the sorted data
+    # Write back the normalized data without reordering keys.
     with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(sorted_data, f, indent=2, ensure_ascii=False)
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
-    if original_count == final_count:
-        print(f"  ✅ Sorted successfully (maintained {final_count} unique entries)")
-    else:
-        print(f"  ⚠️  Warning: Removed duplicates, entry count changed from {original_count} to {final_count}")
-
+    final_count = len(data)
+    print(f"  ✅ Normalized successfully (maintained {final_count} entries)")
     return final_count
 
 
-def main():
+def should_skip_translation(data: dict[str, object], key: str) -> bool:
+    """Return whether a key is marked to skip translation via ARB metadata."""
+    metadata_key = f"@{key}"
+    metadata = data.get(metadata_key)
+    if not isinstance(metadata, dict):
+        return False
+
+    description = metadata.get("description")
+    if not isinstance(description, str):
+        return False
+
+    normalized_description = description.strip().lower()
+    return normalized_description in {"reviewed", "ignored"}
+
+
+def should_preserve_extra_key(data: dict[str, object], key: str) -> bool:
+    """Return whether an extra ARB key should be preserved during cleanup."""
+    if not key.startswith("@"):
+        return False
+
+    base_key = key[1:]
+    if base_key not in data:
+        return False
+
+    return should_skip_translation(data, base_key)
+
+
+def copy_missing_keys(
+    source_data: dict[str, object],
+    target_data: dict[str, object],
+    missing_keys: list[str],
+    locale_name: str,
+) -> tuple[int, int]:
+    """Copy missing keys from the source ARB into the target ARB without translating."""
+    added_count = 0
+    skipped_translation_count = 0
+
+    for key in missing_keys:
+        if key.startswith("@"):
+            if key in source_data:
+                target_data[key] = source_data[key]
+                added_count += 1
+            continue
+
+        if key not in source_data:
+            continue
+
+        if should_skip_translation(source_data, key):
+            skipped_translation_count += 1
+            print(
+                f"  • Skipping translation for {locale_name}:{key} "
+                "because @key.description is REVIEWED/IGNORED."
+            )
+
+        target_data[key] = source_data[key]
+        placeholder_key = f"@{key}"
+        if placeholder_key in source_data:
+            target_data[placeholder_key] = source_data[placeholder_key]
+        added_count += 1
+
+    return added_count, skipped_translation_count
+
+
+def main() -> None:
     """Main function to process ARB files."""
     # Default to lib/l10n directory
     l10n_dir = Path("lib/l10n")
@@ -124,18 +153,18 @@ def main():
         print("Make sure you're in the Flutter project root directory.")
         sys.exit(1)
 
-    print(f"Found {len(arb_files)} ARB file(s) to sort:")
+    print(f"Found {len(arb_files)} ARB file(s) to normalize:")
     for arb_file in arb_files:
         print(f"  • {arb_file.name}")
     print()
 
-    # Sort each file
+    # Normalize each file without changing key order.
     total_files = 0
-    for arb_file in sorted(arb_files):  # Sort filenames for consistent output
-        entries = sort_arb_file(arb_file)
+    for arb_file in sorted(arb_files):
+        entries = normalize_arb_file(arb_file)
         total_files += 1
 
-    print("✅ ARB file sorting completed!")
+    print("✅ ARB file normalization completed!")
     print(f"Processed {total_files} file(s)")
 
     print("To regenerate localization files, run:")
@@ -146,7 +175,7 @@ def main():
     en_path = l10n_dir / "app_en.arb"
     es_path = l10n_dir / "app_es.arb"
     fr_path = l10n_dir / "app_fr.arb"
-    def read_keys(path):
+    def read_keys(path: Path) -> set[str]:
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -209,6 +238,8 @@ def main():
         # Remove extra keys from ES
         removed_es = 0
         for key in extra_in_es:
+            if should_preserve_extra_key(es_data, key):
+                continue
             if key in es_data:
                 del es_data[key]
                 removed_es += 1
@@ -218,22 +249,12 @@ def main():
                 removed_es += 1
 
         # Add missing keys to ES
-        added_es = 0
-        for key in missing_in_es:
-            if key.startswith("@"):
-                # Placeholder key, copy directly if exists in EN
-                if key in en_data:
-                    es_data[key] = en_data[key]
-                    added_es += 1
-            else:
-                # Regular key, copy English as placeholder
-                if key in en_data:
-                    es_data[key] = en_data[key]
-                    # Also copy placeholder if exists
-                    placeholder_key = "@" + key
-                    if placeholder_key in en_data:
-                        es_data[placeholder_key] = en_data[placeholder_key]
-                    added_es += 1
+        added_es, skipped_translation_es = copy_missing_keys(
+            source_data=en_data,
+            target_data=es_data,
+            missing_keys=missing_in_es,
+            locale_name="es",
+        )
 
         # Remove [ES] translation stub handling; no translation
         updated_es = 0
@@ -242,10 +263,8 @@ def main():
         with open(es_path, "w", encoding="utf-8") as f:
             json.dump(es_data, f, indent=2, ensure_ascii=False)
         print(f"Removed {removed_es} extra keys and added {added_es} missing keys to {es_path.name}.")
+        print(f"Skipped translation for {skipped_translation_es} reviewed/ignored entries in {es_path.name}.")
         print(f"Translated {updated_es} entries in {es_path.name}.")
-
-        # Re-sort ES ARB file
-        sort_arb_file(es_path)
 
         # Update FR ARB
         try:
@@ -258,6 +277,8 @@ def main():
         # Remove extra keys from FR
         removed_fr = 0
         for key in extra_in_fr:
+            if should_preserve_extra_key(fr_data, key):
+                continue
             if key in fr_data:
                 del fr_data[key]
                 removed_fr += 1
@@ -267,22 +288,12 @@ def main():
                 removed_fr += 1
 
         # Add missing keys to FR
-        added_fr = 0
-        for key in missing_in_fr:
-            if key.startswith("@"):
-                # Placeholder key, copy directly if exists in EN
-                if key in en_data:
-                    fr_data[key] = en_data[key]
-                    added_fr += 1
-            else:
-                # Regular key, copy English as placeholder
-                if key in en_data:
-                    fr_data[key] = en_data[key]
-                    # Also copy placeholder if exists
-                    placeholder_key = "@" + key
-                    if placeholder_key in en_data:
-                        fr_data[placeholder_key] = en_data[placeholder_key]
-                    added_fr += 1
+        added_fr, skipped_translation_fr = copy_missing_keys(
+            source_data=en_data,
+            target_data=fr_data,
+            missing_keys=missing_in_fr,
+            locale_name="fr",
+        )
 
         # Remove [FR] translation stub handling; no translation
         updated_fr = 0
@@ -291,10 +302,8 @@ def main():
         with open(fr_path, "w", encoding="utf-8") as f:
             json.dump(fr_data, f, indent=2, ensure_ascii=False)
         print(f"Removed {removed_fr} extra keys and added {added_fr} missing keys to {fr_path.name}.")
+        print(f"Skipped translation for {skipped_translation_fr} reviewed/ignored entries in {fr_path.name}.")
         print(f"Translated {updated_fr} entries in {fr_path.name}.")
-
-        # Re-sort FR ARB file
-        sort_arb_file(fr_path)
 
         # After updates, verify all have same total entries count and keys
         try:
@@ -310,18 +319,26 @@ def main():
             en_keys_final = set(en_data_final.keys())
             es_keys_final = set(es_data_final.keys())
             fr_keys_final = set(fr_data_final.keys())
+            comparable_es_keys_final = {
+                key for key in es_keys_final
+                if not (key not in en_keys_final and should_preserve_extra_key(es_data_final, key))
+            }
+            comparable_fr_keys_final = {
+                key for key in fr_keys_final
+                if not (key not in en_keys_final and should_preserve_extra_key(fr_data_final, key))
+            }
             print("\n=== Final Entry Counts ===")
             print(f"EN: {en_count} entries")
             print(f"ES: {es_count} entries")
             print(f"FR: {fr_count} entries")
-            if en_keys_final == es_keys_final == fr_keys_final:
+            if en_keys_final == comparable_es_keys_final == comparable_fr_keys_final:
                 print("✅ All ARB files have matching keys including placeholders.")
             else:
                 print("⚠️  Warning: ARB files do not have matching keys.")
-                missing_in_es_final = en_keys_final - es_keys_final
-                missing_in_fr_final = en_keys_final - fr_keys_final
-                extra_in_es_final = es_keys_final - en_keys_final
-                extra_in_fr_final = fr_keys_final - en_keys_final
+                missing_in_es_final = en_keys_final - comparable_es_keys_final
+                missing_in_fr_final = en_keys_final - comparable_fr_keys_final
+                extra_in_es_final = comparable_es_keys_final - en_keys_final
+                extra_in_fr_final = comparable_fr_keys_final - en_keys_final
                 if missing_in_es_final:
                     print(f"Keys missing in ES after update ({len(missing_in_es_final)}):")
                     for k in sorted(missing_in_es_final):

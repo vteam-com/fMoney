@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Free open-source Flutter Personal Finance Management Application'**
   String get appDescription;
 
+  /// No description provided for @append.
+  ///
+  /// In en, this message translates to:
+  /// **'Append'**
+  String get append;
+
   /// No description provided for @appLongDescription.
   ///
   /// In en, this message translates to:
@@ -181,12 +187,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'fMoney by VTeam'**
   String get appTitle;
-
-  /// No description provided for @append.
-  ///
-  /// In en, this message translates to:
-  /// **'Append'**
-  String get append;
 
   /// No description provided for @availableOn.
   ///
@@ -884,17 +884,17 @@ abstract class AppLocalizations {
   /// **'No fields found for @item'**
   String noFieldsFoundForItem(String item);
 
-  /// No description provided for @noItemSelected.
-  ///
-  /// In en, this message translates to:
-  /// **'No item selected.'**
-  String get noItemSelected;
-
   /// No description provided for @noItems.
   ///
   /// In en, this message translates to:
   /// **'No items'**
   String get noItems;
+
+  /// No description provided for @noItemSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No item selected.'**
+  String get noItemSelected;
 
   /// No description provided for @noItemsWereTitle.
   ///
@@ -1268,17 +1268,17 @@ abstract class AppLocalizations {
   /// **'To category'**
   String get toCategory;
 
-  /// No description provided for @toPayee.
-  ///
-  /// In en, this message translates to:
-  /// **'To payee'**
-  String get toPayee;
-
   /// No description provided for @toggleBrightness.
   ///
   /// In en, this message translates to:
   /// **'Toggle brightness'**
   String get toggleBrightness;
+
+  /// No description provided for @toPayee.
+  ///
+  /// In en, this message translates to:
+  /// **'To payee'**
+  String get toPayee;
 
   /// No description provided for @total.
   ///
@@ -1286,17 +1286,17 @@ abstract class AppLocalizations {
   /// **'Total'**
   String get total;
 
-  /// No description provided for @transactionSplit.
-  ///
-  /// In en, this message translates to:
-  /// **'Transaction split'**
-  String get transactionSplit;
-
   /// No description provided for @transactions.
   ///
   /// In en, this message translates to:
   /// **'Transactions'**
   String get transactions;
+
+  /// No description provided for @transactionSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction split'**
+  String get transactionSplit;
 
   /// No description provided for @transfer.
   ///

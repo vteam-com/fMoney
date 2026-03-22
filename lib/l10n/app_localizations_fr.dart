@@ -45,6 +45,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appDescription => 'Application gratuite de gestion financière personnelle Flutter open-source';
 
   @override
+  String get append => 'Ajouter';
+
+  @override
   String get appLongDescription =>
       'Une solution complète de gestion d\'argent pour suivre les dépenses, gérer les budgets et surveiller les investissements.';
 
@@ -53,9 +56,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get appTitle => 'fMoney par VTeam';
-
-  @override
-  String get append => 'Ajouter';
 
   @override
   String get availableOn => 'Disponible sur';
@@ -424,10 +424,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get noItemSelected => 'Aucun element selectionne.';
+  String get noItems => 'Aucun element';
 
   @override
-  String get noItems => 'Aucun element';
+  String get noItemSelected => 'Aucun element selectionne.';
 
   @override
   String noItemsWereTitle(String title) {
@@ -630,19 +630,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get toCategory => 'Vers la categorie';
 
   @override
-  String get toPayee => 'Vers le beneficiaire';
+  String get toggleBrightness => 'Basculer la luminosite';
 
   @override
-  String get toggleBrightness => 'Basculer la luminosite';
+  String get toPayee => 'Vers le beneficiaire';
 
   @override
   String get total => 'Total';
 
   @override
-  String get transactionSplit => 'Repartition de transaction';
+  String get transactions => 'Transactions';
 
   @override
-  String get transactions => 'Transactions';
+  String get transactionSplit => 'Repartition de transaction';
 
   @override
   String get transfer => 'Transfert';
