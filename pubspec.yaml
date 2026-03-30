@@ -34,38 +34,38 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  archive: ^4.0.7
+  archive: ^4.0.9
   collection: ^1.19.1
   csv: ^6.0.0
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
   desktop_drop: ^0.7.0
   dotted_border: ^3.1.0
-  file_picker: ^10.3.9
-  fl_chart: ^1.0.0
+  file_picker: ^10.3.10
+  fl_chart: ^1.2.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
-  flutter_svg: ^2.2.1
-  http: ^1.4.0
+  flutter_svg: ^2.2.4
+  http: ^1.6.0
   intl: ^0.20.2
   js: ^0.7.2
-  logger: ^2.6.0
-  markdown: ^7.3.0
+  logger: ^2.7.0
+  markdown: ^7.3.1
   multi_split_view: ^3.6.1
   package_info_plus: ^8.1.2
-  pasteboard: ^0.4.0
+  pasteboard: ^0.5.0
   path: ^1.9.1
   path_provider: ^2.1.5
-  shared_preferences: ^2.5.3
-  sqlite3: ^3.0.0
+  shared_preferences: ^2.5.5
+  sqlite3: ^3.2.0
   textify: ^0.5.2
   # path: "../textify"
-  universal_io: ^2.2.2
-  url_launcher: ^6.3.1
-  uuid: ^4.5.2
-  window_manager: ^0.5.0
+  universal_io: ^2.3.1
+  url_launcher: ^6.3.2
+  uuid: ^4.5.3
+  window_manager: ^0.5.1
 
 dev_dependencies:
   analyzer:
@@ -75,7 +75,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  mockito: ^5.6.3
+  mockito: ^5.6.4
   plugin_platform_interface: ^2.1.8
 
 # https://pub.dev/packages/flutter_launcher_icons
