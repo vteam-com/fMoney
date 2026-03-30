@@ -1,8 +1,8 @@
 // ignore: fcheck_dead_code
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/panels/side_panel/side_panel.dart';
-import 'package:money/widgets/adaptive_list/list_item.dart';
-import 'package:money/widgets/theme_controller.dart';
+import 'package:money/views/panels/core/side_panel.dart';
+import 'package:money/widgets/list/list_item.dart';
+import 'package:money/widgets/state/theme_controller.dart';
 
 const int _zeroIndex = 0;
 const double _zeroDouble = 0.0;

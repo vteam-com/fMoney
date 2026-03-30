@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/category_types.dart';
-import 'package:money/views/categories.dart';
-import 'package:money/views/data.dart';
-import 'package:money/views/data_file_controller.dart';
+import 'package:money/shared/domain/categories.dart';
+import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/presentation/provider_data_file_controller.dart';
 
 void main() {
   setUp(() {

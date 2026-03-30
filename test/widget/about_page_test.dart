@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/about/about_page.dart';
+import 'package:money/views/screens/pages/about_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 void main() {

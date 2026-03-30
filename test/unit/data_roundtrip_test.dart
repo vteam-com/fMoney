@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/data.dart';
-import 'package:money/views/money_data_io.dart';
+import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/presentation/service_money_data_io.dart';
 
 void main() {
   // Mark todo as partially completed - basic round-trip test created

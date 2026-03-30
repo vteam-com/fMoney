@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/view_ai/view_ai_input.dart';
+import 'package:money/widgets/pure/chat_input_area.dart';
 
 /// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatelessWidget {

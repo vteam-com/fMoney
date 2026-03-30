@@ -7,23 +7,23 @@ import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
-import 'package:money/home_page.dart';
 import 'package:money/l10n/app_localizations.dart';
-import 'package:money/providers/app_scope.dart';
-import 'package:money/views/about/about_page.dart';
-import 'package:money/views/data.dart';
-import 'package:money/views/data_file_controller.dart';
-import 'package:money/views/import/import_transactions_from_text.dart';
-import 'package:money/views/panels/platforms/platforms_page.dart';
-import 'package:money/views/panels/policies/policy_page.dart';
-import 'package:money/views/panels/settings/settings_page.dart';
-import 'package:money/views/panels/splash_page.dart';
-import 'package:money/views/welcome/view_welcome.dart';
-import 'package:money/views/welcome/welcome_page.dart';
-import 'package:money/widgets/preferences_controller.dart';
+import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/presentation/app_scope.dart';
+import 'package:money/shared/presentation/provider_data_file_controller.dart';
+import 'package:money/views/imports/core/import_transactions_from_text.dart';
+import 'package:money/views/screens/pages/about_page.dart';
+import 'package:money/views/screens/pages/platforms_page.dart';
+import 'package:money/views/screens/pages/policy_page.dart';
+import 'package:money/views/screens/pages/settings_page.dart';
+import 'package:money/views/screens/pages/splash_page.dart';
+import 'package:money/views/screens/pages/view_welcome.dart';
+import 'package:money/views/screens/pages/welcome_page.dart';
+import 'package:money/views/screens/shell/home_page.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
-import 'package:money/widgets/theme_controller.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
+import 'package:money/widgets/state/theme_controller.dart';
 
 /// The main entry point for the MoneyFlutter application.
 /// Sets up the app structure, theming, and initial routes.

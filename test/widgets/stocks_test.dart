@@ -7,15 +7,15 @@ import 'package:mockito/mockito.dart';
 import 'package:money/data/models/dividend.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
-import 'package:money/providers/security.dart';
-import 'package:money/providers/stock_split.dart';
-import 'package:money/views/data.dart';
-import 'package:money/views/data_file_controller.dart';
-import 'package:money/views/get_stock_from_cache_or_backend.dart';
-import 'package:money/views/view_stocks/stock_chart.dart';
+import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/security.dart';
+import 'package:money/shared/domain/stock_split.dart';
+import 'package:money/shared/presentation/provider_data_file_controller.dart';
+import 'package:money/shared/presentation/service_stock_cache_lookup.dart';
+import 'package:money/views/panels/core/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event.dart';
-import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 
 // Mock the SharedPreference

@@ -6,10 +6,10 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/data.dart';
-import 'package:money/views/view_cashflow/view_cashflow.dart';
-import 'package:money/widgets/preferences_controller.dart';
-import 'package:money/widgets/theme_controller.dart';
+import 'package:money/shared/domain/data.dart';
+import 'package:money/views/screens/home/view_cashflow.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
+import 'package:money/widgets/state/theme_controller.dart';
 
 /// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatefulWidget {

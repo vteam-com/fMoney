@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/widgets/preferences_controller.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
-import 'package:money/widgets/theme_controller.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
+import 'package:money/widgets/state/theme_controller.dart';
 
 /// A mock used in tests for mock theme controller.
 class MockThemeController extends ThemeController {
