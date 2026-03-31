@@ -27,6 +27,7 @@ abstract class AppTranslationKeys {
   static const String amountIsMatching = 'amountIsMatching';
   static const String amountIsOffBy = 'amountIsOffBy';
   static const String analyzeSpending = 'analyzeSpending';
+  static const String approveCategory = 'approveCategory';
   static const String append = 'append';
   static const String apply = 'apply';
   static const String availableOn = 'availableOn';
@@ -163,6 +164,7 @@ abstract class AppTranslationKeys {
   static const String saveToSql = 'saveToSql';
   static const String sankey = 'sankey';
   static const String selectARentalPropertyToSeeItsPL = 'selectARentalPropertyToSeeItsPL';
+  static const String selectCategory = 'selectCategory';
   static const String selectColumn = 'selectColumn';
   static const String selectHeaderRow = 'selectHeaderRow';
   static const String selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent =

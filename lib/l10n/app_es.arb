@@ -46,6 +46,7 @@
   "@appName": {
     "description": "REVIEWED"
   },
+  "approveCategory": "Aprobar categoria",
   "appTitle": "fMoney de VTeam",
   "assets": "Activos",
   "availableOn": "Disponible en",
@@ -642,6 +643,7 @@
     }
   },
   "selectARentalPropertyToSeeItsPL": "Selecciona una propiedad de alquiler para ver su P&L",
+  "selectCategory": "Seleccionar una categoria",
   "selectColumn": "Seleccionar columna",
   "selectHeaderRow": "Seleccionar fila de encabezado",
   "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Selecciona la fila que contiene los encabezados de columna (seleccionada automáticamente según el contenido):",

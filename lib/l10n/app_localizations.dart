@@ -261,6 +261,12 @@ abstract class AppLocalizations {
   /// **'Analyze spending'**
   String get analyzeSpending;
 
+  /// No description provided for @approveCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve category'**
+  String get approveCategory;
+
   /// No description provided for @appCopyright.
   ///
   /// In en, this message translates to:
@@ -1934,6 +1940,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a Rental property to see its P&L'**
   String get selectARentalPropertyToSeeItsPL;
+
+  /// No description provided for @selectCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a category'**
+  String get selectCategory;
 
   /// No description provided for @selectColumn.
   ///

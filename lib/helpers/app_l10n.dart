@@ -42,6 +42,8 @@ class AppL10n {
         return l10n.amountIsOffBy;
       case AppTranslationKeys.analyzeSpending:
         return l10n.analyzeSpending;
+      case AppTranslationKeys.approveCategory:
+        return l10n.approveCategory;
       case AppTranslationKeys.append:
         return l10n.append;
       case AppTranslationKeys.apply:
@@ -385,6 +387,8 @@ class AppL10n {
         return l10n.sankey;
       case AppTranslationKeys.selectARentalPropertyToSeeItsPL:
         return l10n.selectARentalPropertyToSeeItsPL;
+      case AppTranslationKeys.selectCategory:
+        return l10n.selectCategory;
       case AppTranslationKeys.selectColumn:
         return l10n.selectColumn;
       case AppTranslationKeys.selectHeaderRow:

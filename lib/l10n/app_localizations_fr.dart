@@ -95,6 +95,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get analyzeSpending => 'Analyser les depenses';
 
   @override
+  String get approveCategory => 'Approuver la categorie';
+
+  @override
   String get appCopyright => '© 2024 fMoney Team. Tous droits reserves.';
 
   @override
@@ -998,6 +1001,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get selectARentalPropertyToSeeItsPL => 'Selectionnez une propriete locative pour voir son P&L';
+
+  @override
+  String get selectCategory => 'Selectionner une categorie';
 
   @override
   String get selectColumn => 'Selectionner une colonne';

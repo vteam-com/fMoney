@@ -46,6 +46,7 @@
   "@appName": {
     "description": "REVIEWED"
   },
+  "approveCategory": "Approve category",
   "appTitle": "fMoney by VTeam",
   "assets": "Assets",
   "availableOn": "Available on",
@@ -642,6 +643,7 @@
     }
   },
   "selectARentalPropertyToSeeItsPL": "Select a Rental property to see its P&L",
+  "selectCategory": "Select a category",
   "selectColumn": "Select column",
   "selectHeaderRow": "Select Header Row",
   "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Select the row that contains the column headers (automatically selected based on content):",

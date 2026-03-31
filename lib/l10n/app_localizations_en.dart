@@ -95,6 +95,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get analyzeSpending => 'Analyze spending';
 
   @override
+  String get approveCategory => 'Approve category';
+
+  @override
   String get appCopyright => '© 2024 fMoney Team. All rights reserved.';
 
   @override
@@ -993,6 +996,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectARentalPropertyToSeeItsPL => 'Select a Rental property to see its P&L';
+
+  @override
+  String get selectCategory => 'Select a category';
 
   @override
   String get selectColumn => 'Select column';

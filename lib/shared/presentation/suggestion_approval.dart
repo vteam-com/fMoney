@@ -119,7 +119,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
             if (widget.onApproved != null)
               MyIconButton(
                 icon: Icons.thumb_up,
-                tooltip: 'Approve category',
+                tooltip: AppL10n.tr(AppTranslationKeys.approveCategory),
                 hoverColor: Colors.green,
                 onPressed: _fadeOutAndApproved,
               ),
@@ -128,7 +128,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
             if (widget.onChooseCategory != null)
               MyIconButton(
                 icon: Icons.arrow_drop_down,
-                tooltip: 'Select a category',
+                tooltip: AppL10n.tr(AppTranslationKeys.selectCategory),
                 hoverColor: Colors.blue,
                 onPressed: () {
                   if (context.mounted) {

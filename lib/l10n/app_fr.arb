@@ -46,6 +46,7 @@
   "@appName": {
     "description": "REVIEWED"
   },
+  "approveCategory": "Approuver la categorie",
   "appTitle": "fMoney par VTeam",
   "assets": "Actifs",
   "availableOn": "Disponible sur",
@@ -642,6 +643,7 @@
     }
   },
   "selectARentalPropertyToSeeItsPL": "Selectionnez une propriete locative pour voir son P&L",
+  "selectCategory": "Selectionner une categorie",
   "selectColumn": "Selectionner une colonne",
   "selectHeaderRow": "Selectionner la ligne d'en-tete",
   "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Selectionnez la ligne qui contient les en-tetes de colonnes (selection automatique selon le contenu) :",
