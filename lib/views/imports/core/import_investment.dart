@@ -1,4 +1,6 @@
+import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/providers/investment_import_fields.dart';
 import 'package:money/shared/domain/data.dart';
@@ -28,7 +30,7 @@ void showImportInvestment({InvestmentImportFields? inputData}) {
   final BuildContext context = AppRouter.context!;
   adaptiveScreenSizeDialog(
     context: context,
-    captionForClose: 'Cancel',
+    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
     actionButtons: getActionButtons(inputData, context),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,7 +50,7 @@ List<Widget> getActionButtons(
   final List<Widget> actionButtons = <Widget>[
     // Button - Import
     DialogActionButton(
-      text: 'Add Investment',
+      text: AppL10n.tr(AppTranslationKeys.addInvestment),
       onPressed: () {
         // Import
 

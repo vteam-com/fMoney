@@ -1,5 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_full_screen.dart';
 import 'package:money/widgets/pure/scale_down.dart';
@@ -65,7 +66,7 @@ void adaptiveScreenSizeDialog({
   final String title = '',
   required final Widget child,
   List<Widget>? actionButtons,
-  final String? captionForClose = 'Close',
+  final String? captionForClose = SharedStrings.labelClose,
 }) {
   actionButtons ??= <Widget>[];
 

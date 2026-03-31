@@ -1,5 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/list/multiple_selection_context.dart';
 
@@ -24,7 +25,7 @@ class MultipleSelectionToggle extends StatelessWidget {
             final _,
           ) {
             return Tooltip(
-              message: 'Toggle multi-selection',
+              message: SharedStrings.tooltipToggleMultiSelection,
               child: TextButton.icon(
                 key: Constants.keyMultiSelectionToggle,
                 icon: const Icon(Icons.checklist),

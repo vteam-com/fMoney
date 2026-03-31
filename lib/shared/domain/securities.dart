@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/investment.dart';
@@ -15,7 +16,7 @@ export 'package:money/shared/domain/security.dart';
 /// Represents securities.
 class Securities extends MoneyObjects<Security> {
   Securities() {
-    collectionName = 'Securities';
+    collectionName = SharedDomainStrings.domainString124;
   }
   late DataAbstract data;
 
@@ -80,7 +81,7 @@ class Securities extends MoneyObjects<Security> {
     Security? security = getBySymbol(symbolToFind);
     if (security == null) {
       security = Security.fromJson(<String, dynamic>{
-        'Symbol': symbolToFind,
+        SharedDomainStrings.domainString131: symbolToFind,
       }); // Creates a new Security if not found.
       appendNewMoneyObject(
         security,

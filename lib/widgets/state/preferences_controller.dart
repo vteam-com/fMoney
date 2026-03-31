@@ -4,6 +4,7 @@ import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/widgets_domain/data_access.dart';
 import 'package:money/widgets/widgets_domain/field_filters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,7 +46,7 @@ class PreferenceController extends ChangeNotifier {
   bool trendIncludeAssetAccounts = false;
 
   String _apiKeyForStocks = '';
-  String _localeCode = 'en';
+  String _localeCode = SharedStrings.localeCodeEnglish;
   bool _includeClosedAccounts = false;
 
   ///---------------------------------
@@ -174,7 +175,7 @@ class PreferenceController extends ChangeNotifier {
     final String sanitized = switch (value) {
       'es' => 'es',
       'fr' => 'fr',
-      _ => 'en',
+      _ => SharedStrings.localeCodeEnglish,
     };
     _localeCode = sanitized;
     setString(settingKeyLocale, sanitized);
@@ -219,7 +220,10 @@ class PreferenceController extends ChangeNotifier {
 
   /// Returns a unique state string combining key preference values.
   String get getUniqueState =>
-      'isReady:$isReady Rental:$includeRentalManagement IncludeClosedAccounts:$includeClosedAccounts TextScale:$textScale';
+      '${SharedStrings.preferenceStateReady}$isReady '
+      '${SharedStrings.preferenceStateRental}$includeRentalManagement '
+      '${SharedStrings.preferenceStateIncludeClosedAccounts}$includeClosedAccounts '
+      '${SharedStrings.preferenceStateTextScale}$textScale';
 
   ///---------------------------------
   /// Show or Hide Account that are marked as Closed
@@ -305,7 +309,7 @@ class PreferenceController extends ChangeNotifier {
     );
     _includeRentalManagement = getBool(settingKeyRentalsSupport, false);
     _apiKeyForStocks = getString(settingKeyStockApiKey, '');
-    _localeCode = getString(settingKeyLocale, 'en');
+    _localeCode = getString(settingKeyLocale, SharedStrings.localeCodeEnglish);
     notifyListeners();
 
     cashflowViewAs =

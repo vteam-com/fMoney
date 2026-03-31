@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/widgets/pickers/picker_category.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
@@ -54,23 +55,23 @@ class TransactionSplit extends DataObject {
   factory TransactionSplit.fromJson(final MyJson row, final DataAbstract data) {
     return TransactionSplit(
       // 0
-      transactionId: row.getInt('Transaction', _unsetId),
+      transactionId: row.getInt(SharedDomainStrings.domainString141, _unsetId),
       // 1
-      id: row.getInt('Id', _unsetId),
+      id: row.getInt(SharedDomainStrings.domainString057, _unsetId),
       // 2
-      categoryId: row.getInt('Category', _unsetId),
+      categoryId: row.getInt(SharedDomainStrings.domainString029, _unsetId),
       // 3
-      payeeId: row.getInt('Payee', _unsetId),
+      payeeId: row.getInt(SharedDomainStrings.domainString105, _unsetId),
       // 4
-      amount: row.getDouble('Amount'),
+      amount: row.getDouble(SharedDomainStrings.domainString017),
       // 5
-      transferId: row.getInt('Transfer', _unsetId),
+      transferId: row.getInt(SharedDomainStrings.domainString144, _unsetId),
       // 6
-      memo: row.getString('Memo'),
+      memo: row.getString(SharedDomainStrings.domainString086),
       // 7
-      flags: row.getInt('Flags'),
+      flags: row.getInt(SharedDomainStrings.domainString055),
       // 8
-      budgetBalanceDate: row.getDate('BudgetBalanceDate'),
+      budgetBalanceDate: row.getDate(SharedDomainStrings.domainString025),
       data: data,
     );
   }
@@ -112,8 +113,8 @@ class TransactionSplit extends DataObject {
 
   // 4
   FieldMoney fieldAmount = FieldMoney(
-    name: 'Amount',
-    serializeName: 'Amount',
+    name: SharedDomainStrings.domainString017,
+    serializeName: SharedDomainStrings.domainString017,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldAmount.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as TransactionSplit).fieldAmount.value.asDouble(),
@@ -124,7 +125,7 @@ class TransactionSplit extends DataObject {
   // 8
   FieldDate fieldBudgetBalanceDate = FieldDate(
     name: 'Budgeted Date',
-    serializeName: 'BudgetBalanceDate',
+    serializeName: SharedDomainStrings.domainString025,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldBudgetBalanceDate.value,
     getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
@@ -134,8 +135,8 @@ class TransactionSplit extends DataObject {
 
   // 2
   FieldInt fieldCategoryId = FieldInt(
-    name: 'Category',
-    serializeName: 'Category',
+    name: SharedDomainStrings.domainString029,
+    serializeName: SharedDomainStrings.domainString029,
     type: FieldType.text,
     align: TextAlign.left,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).categoryName,
@@ -173,8 +174,8 @@ class TransactionSplit extends DataObject {
 
   // 7
   FieldInt fieldFlags = FieldInt(
-    name: 'Flags',
-    serializeName: 'Flags',
+    name: SharedDomainStrings.domainString055,
+    serializeName: SharedDomainStrings.domainString055,
     columnWidth: ColumnWidth.hidden,
     align: TextAlign.center,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldFlags.value,
@@ -187,8 +188,8 @@ class TransactionSplit extends DataObject {
 
   // 6
   FieldString fieldMemo = FieldString(
-    name: 'Memo',
-    serializeName: 'Memo',
+    name: SharedDomainStrings.domainString086,
+    serializeName: SharedDomainStrings.domainString086,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
@@ -197,8 +198,8 @@ class TransactionSplit extends DataObject {
 
   // 3
   FieldInt fieldPayeeId = FieldInt(
-    name: 'Payee',
-    serializeName: 'Payee',
+    name: SharedDomainStrings.domainString105,
+    serializeName: SharedDomainStrings.domainString105,
     type: FieldType.text,
     align: TextAlign.left,
     getValueForDisplay: (final DataInterface instance) =>
@@ -208,8 +209,8 @@ class TransactionSplit extends DataObject {
 
   // 0
   FieldInt fieldTransactionId = FieldInt(
-    name: 'Transaction',
-    serializeName: 'Transaction',
+    name: SharedDomainStrings.domainString141,
+    serializeName: SharedDomainStrings.domainString141,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
@@ -217,8 +218,8 @@ class TransactionSplit extends DataObject {
 
   // 5
   FieldInt fieldTransferId = FieldInt(
-    name: 'Transfer',
-    serializeName: 'Transfer',
+    name: SharedDomainStrings.domainString144,
+    serializeName: SharedDomainStrings.domainString144,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
@@ -231,7 +232,7 @@ class TransactionSplit extends DataObject {
   /// Splits are different from the other tables, the primary keys is Transaction+Id
   @override
   String getWhereClause() {
-    return '"Transaction"=${fieldTransactionId.value} AND "Id"=$uniqueId';
+    return '${SharedDomainStrings.domainString160}${fieldTransactionId.value}${SharedDomainStrings.domainString161}$uniqueId';
   }
 
   @override

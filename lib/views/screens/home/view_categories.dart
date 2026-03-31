@@ -1,4 +1,6 @@
 import 'package:money/data/models/field_filter.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -86,7 +88,10 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
           // Queue up the edit dialog
           myShowDialogAndActionsForMoneyObject(
-            title: 'New ${getClassNameSingular()}',
+            title: AppL10n.tr(
+              AppTranslationKeys.newItemLabel,
+              params: <String, String>{'item': getClassNameSingular()},
+            ),
             moneyObject: newItem,
             onApplyChange: () {
               setState(() {
@@ -94,7 +99,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
               });
             },
           );
-        }, 'Add new category'),
+        }, AppL10n.tr(AppTranslationKeys.addNewCategory)),
       );
 
       /// Merge
@@ -105,8 +110,8 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
             // let the user pick another Category and move the transactions of the current selected Category to the destination
             adaptiveScreenSizeDialog(
               context: context,
-              title: 'Move Category',
-              captionForClose: 'Cancel', // this will hide the close button
+              title: AppL10n.tr(AppTranslationKeys.moveCategory),
+              captionForClose: AppL10n.tr(AppTranslationKeys.cancel), // this will hide the close button
               child: MergeCategoriesTransactionsDialog(
                 categoryToMove: getFirstSelectedItem() as Category,
               ),
@@ -138,17 +143,17 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Categories';
+    return AppL10n.tr(AppTranslationKeys.categories);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Category';
+    return AppL10n.tr(AppTranslationKeys.category);
   }
 
   @override
   String getDescription() {
-    return 'Classification of your money transactions.';
+    return AppL10n.tr(AppTranslationKeys.categoriesDescription);
   }
 
   @override
@@ -189,7 +194,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_none'),
-        text1: 'None',
+        text1: AppL10n.tr(AppTranslationKeys.noneLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -200,7 +205,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_expenses'),
-        text1: 'Expense',
+        text1: AppL10n.tr(AppTranslationKeys.expenseLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -214,7 +219,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_income'),
-        text1: 'Income',
+        text1: AppL10n.tr(AppTranslationKeys.incomeLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -225,7 +230,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_saving'),
-        text1: 'Saving',
+        text1: AppL10n.tr(AppTranslationKeys.savingLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -236,7 +241,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_investments'),
-        text1: 'Investment',
+        text1: AppL10n.tr(AppTranslationKeys.investment),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -247,7 +252,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_all'),
-        text1: 'All',
+        text1: AppL10n.tr(AppTranslationKeys.allLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(

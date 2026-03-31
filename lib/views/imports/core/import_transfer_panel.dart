@@ -75,7 +75,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
 
                 // From Account
                 myFormField(
-                  title: 'From Account',
+                  title: AppL10n.tr(AppTranslationKeys.fromAccount),
                   child: pickerAccount(
                     accountNames: Data().accounts.getSortedAccountNames(),
                     selectedName: widget.inputFields.accountFrom.fieldName.value,
@@ -94,7 +94,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
                 gapMedium(),
                 // To Account
                 myFormField(
-                  title: 'To Account',
+                  title: AppL10n.tr(AppTranslationKeys.toAccount),
                   child: pickerAccount(
                     accountNames: Data().accounts.getSortedAccountNames(),
                     selectedName: widget.inputFields.accountTo.fieldName.value,
@@ -121,7 +121,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
                 if (validAccounts)
                   // Date
                   myFormField(
-                    title: 'Date',
+                    title: AppL10n.tr(AppTranslationKeys.date),
                     child: PickerEditBoxDate(
                       initialValue: dateToString(widget.inputFields.date),
                       onChanged: (String? newDateSelected) {
@@ -135,7 +135,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
                 if (validAccounts)
                   // Category
                   myFormField(
-                    title: 'Category',
+                    title: AppL10n.tr(AppTranslationKeys.category),
                     child: pickerCategory(
                       categoryNames: Data().categories.getCategoriesAsStrings(),
                       selectedName: widget.inputFields.category?.fieldName.value,
@@ -151,14 +151,14 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
                 if (validAccounts)
                   // Amount per unit
                   MyTextInput(
-                    hintText: 'Amount',
+                    hintText: AppL10n.tr(AppTranslationKeys.amount),
                     controller: _controllerAmount,
                   ),
 
                 if (validAccounts)
                   // Memo description
                   MyTextInput(
-                    hintText: 'Memo',
+                    hintText: AppL10n.tr(AppTranslationKeys.memo),
                     controller: _controllerDescription,
                   ),
               ],

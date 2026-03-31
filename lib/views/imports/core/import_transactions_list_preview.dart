@@ -6,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/columns/value_parser.dart';
@@ -38,9 +39,21 @@ class ImportTransactionsListPreview extends StatefulWidget {
 
 class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPreview> {
   late final List<Triple<String, TextAlign, int>> _columnNames = <Triple<String, TextAlign, int>>[
-    Triple<String, TextAlign, int>('Date', TextAlign.left, _columnFlexDate),
-    Triple<String, TextAlign, int>('Description/Payee', TextAlign.left, _columnFlexDescription),
-    Triple<String, TextAlign, int>('Amount', TextAlign.right, _columnFlexAmount),
+    Triple<String, TextAlign, int>(
+      AppL10n.tr(AppTranslationKeys.date),
+      TextAlign.left,
+      _columnFlexDate,
+    ),
+    Triple<String, TextAlign, int>(
+      AppL10n.tr(AppTranslationKeys.descriptionPayee),
+      TextAlign.left,
+      _columnFlexDescription,
+    ),
+    Triple<String, TextAlign, int>(
+      AppL10n.tr(AppTranslationKeys.amount),
+      TextAlign.right,
+      _columnFlexAmount,
+    ),
   ];
 
   bool _sortAscending = true;
@@ -73,9 +86,9 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
   Widget build(BuildContext context) {
     if (widget.values.isEmpty) {
       return Box(
-        title: 'Preview',
+        title: AppL10n.tr(AppTranslationKeys.preview),
         padding: SizeForPadding.huge,
-        child: buildWarning(context, 'No transactions'),
+        child: buildWarning(context, AppL10n.tr(AppTranslationKeys.noTransactions)),
       );
     }
 
@@ -84,11 +97,11 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     return Box(
       header: buildHeaderTitleAndCounter(
         context,
-        'Preview',
+        AppL10n.tr(AppTranslationKeys.preview),
         buildTallyOfItemsToImportOrSkip(),
       ),
       copyToClipboard: () {
-        final String text = widget.values.toList().join('\n');
+        final String text = widget.values.toList().join(SharedStrings.lineFeed);
         copyToClipboardAndInformUser(context, text);
       },
       child: Column(
@@ -151,7 +164,10 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     if (totalItems != itemsToImport) {
       text = '${getIntAsText(itemsToImport)}/${getIntAsText(totalItems)}';
     }
-    return '$text entries';
+    return AppL10n.tr(
+      AppTranslationKeys.entriesCount,
+      params: <String, String>{'count': text},
+    );
   }
 
   /// Returns sum of all values in the list.

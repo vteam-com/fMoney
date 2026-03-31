@@ -1,4 +1,5 @@
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 const double _percentScale = 100;
 const int _textPaddingWidth = 15;
@@ -13,7 +14,7 @@ class RentalPnL {
     this.expenseManagement = 0,
     this.expenseRepairs = 0,
     this.expenseTaxes = 0,
-    this.currency = 'USD',
+    this.currency = SharedStrings.currencyUsd,
     Map<String, double>? distributions,
   }) {
     this.distributions = distributions ?? <String, double>{};
@@ -72,6 +73,6 @@ class RentalPnL {
       amount,
       iso4217code: currency,
     ).padLeft(_textPaddingWidth);
-    return '$textPadded\t$amountPadded\n';
+    return '$textPadded${SharedStrings.tab}$amountPadded${SharedStrings.lineFeed}';
   }
 }

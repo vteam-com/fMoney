@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final Logger logger = Logger(
@@ -97,7 +99,10 @@ void copyToClipboardAndInformUser(
 ) {
   Clipboard.setData(ClipboardData(text: textToCopy)).then((_) {
     if (context.mounted) {
-      showSnackBar(context, 'Copied to clipboard');
+      showSnackBar(
+        context,
+        AppL10n.tr(AppTranslationKeys.copiedToClipboard),
+      );
     }
   });
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
@@ -106,7 +107,7 @@ class Transfer extends DataObject {
 
   /// Transfer amount
   FieldMoney fieldTransactionAmount = FieldMoney(
-    name: 'Amount',
+    name: SharedDomainStrings.domainString017,
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (final DataInterface instance) => (instance as Transfer).source!.fieldAmount.value,
   );
@@ -212,7 +213,7 @@ class Transfer extends DataObject {
   String getTroubleshoot() {
     String status = '';
     if (isOrphan) {
-      status += 'Orphan';
+      status += SharedDomainStrings.domainString101;
     }
     final int dateSpread = dateSpreadBetweenSendingAndReceiving().abs();
 
@@ -220,7 +221,7 @@ class Transfer extends DataObject {
       if (status.isNotEmpty) {
         status += ', ';
       }
-      status += '$dateSpread days';
+      status += '$dateSpread${SharedDomainStrings.domainString003}';
     }
     return status;
   }
@@ -229,7 +230,7 @@ class Transfer extends DataObject {
   Account? get receiverAccount => relatedTransaction?.instanceOfAccount as Account?;
 
   /// Returns the receiver account name or a placeholder if missing.
-  String get receiverAccountName => receiverAccount?.fieldName.value ?? '<account not found>';
+  String get receiverAccountName => receiverAccount?.fieldName.value ?? SharedDomainStrings.domainString009;
 
   /// Returns the receiver transaction, if available.
   dynamic get receiverTransaction => relatedTransaction;
@@ -255,7 +256,7 @@ class Transfer extends DataObject {
   // Account Names
   /// Returns the sender account name or a placeholder if missing.
   String get senderAccountName {
-    return senderAccount?.fieldName.value ?? '<account not found>';
+    return senderAccount?.fieldName.value ?? SharedDomainStrings.domainString009;
   }
 
   //---------------------------------------------

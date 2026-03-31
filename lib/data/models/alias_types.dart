@@ -1,3 +1,5 @@
+import 'package:money/helpers/shared_strings.dart';
+
 enum AliasType {
   none, // 0
   regex, // 1
@@ -9,6 +11,6 @@ String getAliasTypeAsString(final AliasType type) {
     case AliasType.none:
       return '=';
     case AliasType.regex:
-      return 'RegExp';
+      return SharedStrings.aliasTypeRegExp;
   }
 }

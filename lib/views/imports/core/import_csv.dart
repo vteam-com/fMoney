@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/views/imports/core/import_data.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart'; // Import the dialog
 // TODO: Replace print calls with a proper logging utility.
@@ -93,7 +94,7 @@ ImportData loadCSV(
   Map<String, String> columnMapping,
 ) {
   final ImportData importData = ImportData();
-  importData.fileType = 'CSV';
+  importData.fileType = SharedStrings.fileTypeCsv;
 
   final String dateColumnName = columnMapping['date']!;
   final String descriptionColumnName = columnMapping['description']!;
@@ -154,7 +155,7 @@ ImportData loadCSV(
         date: date,
         name: description,
         amount: amount,
-        type: 'CSVImport',
+        type: SharedStrings.importTypeCsv,
         fitid: 'csv_row_${i + 1}_${date.millisecondsSinceEpoch}',
         memo: '',
         number: '',

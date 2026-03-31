@@ -114,7 +114,10 @@ class ViewRentalsSidePanel {
     }
 
     pnlCards.add(
-      RentalPnLCard(pnl: rental.lifeTimePnL, customTitle: 'Life Time P&L'),
+      RentalPnLCard(
+        pnl: rental.lifeTimePnL,
+        customTitle: AppL10n.tr(AppTranslationKeys.lifeTimePnl),
+      ),
     );
 
     return SingleChildScrollView(

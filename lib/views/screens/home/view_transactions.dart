@@ -88,7 +88,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           // Category
           MenuEntry(
             icon: ViewId.viewCategories.getIconData(),
-            title: 'Switch to Categories',
+            title: AppL10n.tr(AppTranslationKeys.switchToCategories),
             onPressed: () {
               final Transaction? transaction = getFirstSelectedItem() as Transaction?;
               if (transaction != null) {
@@ -106,7 +106,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           // Payee
           MenuEntry(
             icon: ViewId.viewPayees.getIconData(),
-            title: 'Switch to Payees',
+            title: AppL10n.tr(AppTranslationKeys.switchToPayees),
             onPressed: () {
               final Transaction? transaction = getFirstSelectedItem() as Transaction?;
               if (transaction != null) {
@@ -123,7 +123,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           // Search Payee
           MenuEntry(
             icon: Icons.person_search_outlined,
-            title: 'Search for Payee',
+            title: AppL10n.tr(AppTranslationKeys.searchForPayee),
             onPressed: () {
               final Transaction? transaction = getFirstSelectedItem() as Transaction?;
               if (transaction != null) {
@@ -140,17 +140,17 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Transactions';
+    return AppL10n.tr(AppTranslationKeys.transactions);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Transaction';
+    return AppL10n.tr(AppTranslationKeys.transaction);
   }
 
   @override
   String getDescription() {
-    return 'Details actions of your accounts.';
+    return AppL10n.tr(AppTranslationKeys.transactionsDescription);
   }
 
   @override
@@ -203,7 +203,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
     pivots.add(
       ThreePartLabel(
-        text1: 'Incomes',
+        text1: AppL10n.tr(AppTranslationKeys.incomes),
         small: true,
         isVertical: true,
         text2: getIntAsText(
@@ -218,7 +218,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     );
     pivots.add(
       ThreePartLabel(
-        text1: 'Expenses',
+        text1: AppL10n.tr(AppTranslationKeys.expenses),
         small: true,
         isVertical: true,
         text2: getIntAsText(
@@ -233,7 +233,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     );
     pivots.add(
       ThreePartLabel(
-        text1: 'All',
+        text1: AppL10n.tr(AppTranslationKeys.allLabel),
         small: true,
         isVertical: true,
         text2: getIntAsText(Data().transactions.iterableList().length),
@@ -332,7 +332,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: MoneyObjectCard(
-              title: 'Investment',
+              title: AppL10n.tr(AppTranslationKeys.investment),
               moneyObject: investment,
             ),
           );

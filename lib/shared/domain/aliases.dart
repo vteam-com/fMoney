@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/alias.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
@@ -8,7 +9,7 @@ import 'package:money/shared/domain/payee.dart';
 /// Represents aliases.
 class Aliases extends MoneyObjects<Alias> {
   Aliases() {
-    collectionName = 'Aliases';
+    collectionName = SharedDomainStrings.domainString016;
   }
   late DataAbstract data;
 

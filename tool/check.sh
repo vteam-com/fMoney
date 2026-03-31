@@ -8,8 +8,8 @@ flutter pub upgrade > /dev/null
 echo --------------- Pub Outdated
 flutter pub outdated
 
-echo --------------- Generate Loc
-python3 tool/loc.py
+# echo --------------- Generate Loc
+# python3 tool/loc.py
 
 echo --------------- Analyze
 flutter analyze lib test --no-pub | sed 's/^/    /'
@@ -17,9 +17,6 @@ flutter analyze lib test --no-pub | sed 's/^/    /'
 echo --------------- Test
 echo "    Running tests..."
 flutter test --reporter=compact --no-pub
-
-echo --- Generate Loc
-python3 tool/loc.py
 
 echo --------------- fCheck
 # Use an ephemeral private directory for this session's fcheck installation

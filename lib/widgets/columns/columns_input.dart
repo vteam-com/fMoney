@@ -3,6 +3,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/columns/input_values.dart';
 import 'package:money/widgets/columns/value_parser.dart';
 
@@ -87,7 +88,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
             tabs: <Widget>[
               const Tab(
                 key: Key('key_import_tab_three_columns'),
-                child: Text('3 columns'),
+                child: Text(SharedStrings.threeColumnsLabel),
               ),
               Tab(
                 key: const Key('key_import_tab_free_style'),
@@ -129,7 +130,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
     return Center(
       child: InputValues(
         key: const Key('key_input_value'),
-        title: 'Date; Description; Amount',
+        title: SharedStrings.labelDateDescriptionAmount,
         controller: _controllerSingleColumn,
         allowedCharacters: '0123456789/-.\\',
         expectAmountAsInputValues: false,
@@ -146,7 +147,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
         Expanded(
           flex: 1,
           child: InputValues(
-            title: 'Date',
+            title: AppL10n.tr(AppTranslationKeys.date),
             controller: _controllerColumn1,
             allowedCharacters: '0123456789/-.\\',
             expectAmountAsInputValues: false,
@@ -155,7 +156,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
         Expanded(
           flex: _descriptionColumnFlex,
           child: InputValues(
-            title: 'Description',
+            title: AppL10n.tr(AppTranslationKeys.description),
             controller: _controllerColumn2,
             allowedCharacters: '',
             expectAmountAsInputValues: false,
@@ -164,7 +165,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
         Expanded(
           flex: 1,
           child: InputValues(
-            title: 'Amount',
+            title: AppL10n.tr(AppTranslationKeys.amount),
             controller: _controllerColumn3,
             allowedCharacters:
                 '0123456789,.()-+', // amounts like 12.34 12,34 1,234.56 1.234,56 +1.234,56 -1,234.56 (1,234.56)

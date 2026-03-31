@@ -1,11 +1,12 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account_alias.dart';
 import 'package:money/shared/domain/money_objects.dart';
 
 /// Represents account aliases.
 class AccountAliases extends MoneyObjects<AccountAlias> {
   AccountAliases() {
-    collectionName = 'Account Aliases';
+    collectionName = SharedDomainStrings.domainString012;
   }
 
   @override

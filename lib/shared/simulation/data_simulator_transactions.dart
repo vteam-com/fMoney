@@ -1,6 +1,7 @@
 import 'package:money/data/models/data_simulator_constants.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
@@ -146,7 +147,7 @@ class DataSimulatorTransactionsDomain {
 
     generateTransactionsMonthlyExpenses(
       account: accountBankUSA,
-      payeeName: 'ElectricCity',
+      payeeName: SharedSimulationStrings.simPayeeElectricCity,
       category: categoryBillsElectricity,
       amount: -getAmount(DataSimulatorConstants.electricityMin, DataSimulatorConstants.electricityMax),
       yearMin: startDate.year,
@@ -156,7 +157,7 @@ class DataSimulatorTransactionsDomain {
 
     generateTransactionsMonthlyExpenses(
       account: accountBankUSA,
-      payeeName: 'TMobile',
+      payeeName: SharedSimulationStrings.simPayeeTMobile,
       category: categoryBillsPhone,
       amount: -getAmount(DataSimulatorConstants.phoneMin, DataSimulatorConstants.phoneMax),
       yearMin: startDate.year,
@@ -166,7 +167,7 @@ class DataSimulatorTransactionsDomain {
 
     generateTransactionsMonthlyExpenses(
       account: accountBankUSA,
-      payeeName: 'FastISP',
+      payeeName: SharedSimulationStrings.simPayeeFastIsp,
       category: categoryBillsInternet,
       amount: DataSimulatorConstants.internetAmount,
       yearMin: startDate.year,
@@ -176,7 +177,7 @@ class DataSimulatorTransactionsDomain {
 
     generateTransactionsMonthlyExpenses(
       account: accountBankUSA,
-      payeeName: 'Comcast',
+      payeeName: SharedSimulationStrings.simPayeeComcast,
       category: categoryBillsTV,
       amount: DataSimulatorConstants.tvAmount,
       yearMin: startDate.year,
@@ -194,7 +195,7 @@ class DataSimulatorTransactionsDomain {
     );
     generateTransactionsMonthlyExpenses(
       account: accountCreditCardUSD,
-      payeeName: 'Gold Gym',
+      payeeName: SharedSimulationStrings.simPayeeGoldGym,
       category: categorySubscriptionsGym,
       amount: DataSimulatorConstants.gymAmount,
       yearMin: dateForGym.year,
@@ -209,7 +210,7 @@ class DataSimulatorTransactionsDomain {
     );
     generateTransactionsMonthlyExpenses(
       account: accountCreditCardUSD,
-      payeeName: 'Netflix',
+      payeeName: SharedSimulationStrings.simPayeeNetflix,
       category: categorySubscriptionsStreaming,
       amount: DataSimulatorConstants.netflixAmount,
       yearMin: dateForNetflix.year,
@@ -261,25 +262,25 @@ class DataSimulatorTransactionsDomain {
         <Object>[
           categorySubscriptionTransport,
           <List<Object>>[
-            <Object>['City Bus', DataSimulatorConstants.transportCityBusMax],
-            <Object>['Taxi', DataSimulatorConstants.transportTaxiMax],
-            <Object>['Uber', DataSimulatorConstants.transportUberMax],
+            <Object>[SharedSimulationStrings.simPayeeCityBus, DataSimulatorConstants.transportCityBusMax],
+            <Object>[SharedSimulationStrings.simPayeeTaxi, DataSimulatorConstants.transportTaxiMax],
+            <Object>[SharedSimulationStrings.simPayeeUber, DataSimulatorConstants.transportUberMax],
           ],
         ],
         <Object>[
           categoryFoodGrocery,
           <List<Object>>[
-            <Object>['TheFoodStore', DataSimulatorConstants.groceryStoreMax],
-            <Object>['SafeWay', DataSimulatorConstants.grocerySafewayMax],
-            <Object>['WholeFood', DataSimulatorConstants.groceryWholeFoodMax],
+            <Object>[SharedSimulationStrings.simPayeeTheFoodStore, DataSimulatorConstants.groceryStoreMax],
+            <Object>[SharedSimulationStrings.simPayeeSafeWay, DataSimulatorConstants.grocerySafewayMax],
+            <Object>[SharedSimulationStrings.simPayeeWholeFood, DataSimulatorConstants.groceryWholeFoodMax],
           ],
         ],
         <Object>[
           categoryFoodRestaurant,
           <List<Object>>[
-            <Object>['Starbucks', DataSimulatorConstants.restaurantStarbucksMax],
-            <Object>['AppleBees', DataSimulatorConstants.restaurantAppleBeesMax],
-            <Object>['PizzaHut', DataSimulatorConstants.restaurantPizzaHutMax],
+            <Object>[SharedSimulationStrings.simPayeeStarbucks, DataSimulatorConstants.restaurantStarbucksMax],
+            <Object>[SharedSimulationStrings.simPayeeAppleBees, DataSimulatorConstants.restaurantAppleBeesMax],
+            <Object>[SharedSimulationStrings.simPayeePizzaHut, DataSimulatorConstants.restaurantPizzaHutMax],
           ],
         ],
       ].getRandomItem();
@@ -369,7 +370,7 @@ class DataSimulatorTransactionsDomain {
             payeeId: employer2.uniqueId,
             categoryId: categorySalaryBonus.uniqueId,
             amount: DataSimulatorConstants.holidayBonusAmount,
-            memo: 'Holiday Bonus',
+            memo: SharedSimulationStrings.simMemoHolidayBonus,
           );
         }
       }
@@ -396,7 +397,7 @@ class DataSimulatorTransactionsDomain {
           accountDestination: accountCreditCardUSD,
           date: getLastDayOfPreviousMonth(transaction.fieldDateTime.value!),
           amount: rollingBalance,
-          memo: 'PAY CREDIT CARD',
+          memo: SharedSimulationStrings.simMemoPayCreditCard,
         );
         rollingBalance = DataSimulatorConstants.zeroAmount;
         lastMonth = transaction.fieldDateTime.value!.month;
@@ -411,8 +412,8 @@ class DataSimulatorTransactionsDomain {
     required AddTransactionCallback addTransaction,
     required BuyHomeCallback buyHome,
   }) {
-    final Payee payeeLandLord = Data().payees.getOrCreate('TheLandlord');
-    final Payee payeeForHomeLoan = Data().payees.getOrCreate('HomeLoanBank');
+    final Payee payeeLandLord = Data().payees.getOrCreate(SharedSimulationStrings.simPayeeTheLandlord);
+    final Payee payeeForHomeLoan = Data().payees.getOrCreate(SharedSimulationStrings.simPayeeHomeLoanBank);
 
     final List<DateTime> dates = generateListOfDates(
       yearInThePast: numberOfYearInThePast,
@@ -431,9 +432,11 @@ class DataSimulatorTransactionsDomain {
           account: accountBankUSA,
           date: date,
           payeeId: payeeLandLord.uniqueId,
-          categoryId: Data().categories.getOrCreate('Bills:Rent', CategoryType.expense).uniqueId,
+          categoryId: Data().categories
+              .getOrCreate(SharedSimulationStrings.simCategoryBillsRent, CategoryType.expense)
+              .uniqueId,
           amount: monthlyRent,
-          memo: 'Pay Rent #${++numberOfRentPayment}',
+          memo: '${SharedSimulationStrings.simMemoPayRentPrefix}${++numberOfRentPayment}',
         );
       } else {
         if (!boughtHome) {
@@ -447,7 +450,7 @@ class DataSimulatorTransactionsDomain {
           payeeId: payeeForHomeLoan.uniqueId,
           categoryId: Data().categories.split.uniqueId,
           amount: monthlyHomeLoan,
-          memo: 'Mortgage Payment #${++numberOfMortgagePayment}',
+          memo: '${SharedSimulationStrings.simMemoMortgagePaymentPrefix}${++numberOfMortgagePayment}',
         );
 
         final TransactionSplit splitMortgagePaymentPrincipal = TransactionSplit(

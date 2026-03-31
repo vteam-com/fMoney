@@ -6,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/security.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
@@ -216,7 +217,8 @@ void _saveToCache(final String symbol, List<StockDatePrice> prices) async {
 
   // Sheet Content
   for (final StockDatePrice item in prices) {
-    csvContent += '${dateToString(item.date)},${item.price.toString()}\n';
+    csvContent +=
+        '${dateToString(item.date)}${SharedStrings.csvComma}${item.price.toString()}${SharedStrings.lineFeed}';
   }
 
   await PreferenceController.to.setString('stock-$symbol', csvContent);

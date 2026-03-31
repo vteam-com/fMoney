@@ -1,4 +1,7 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/transaction.dart';
 import 'package:money/shared/presentation/dialog_mutate_shared.dart';
@@ -130,7 +133,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
       return <Widget>[
         DialogActionButton(
           key: Constants.keyButtonApplyOrDone,
-          text: dataWasModified ? 'Apply' : 'Done',
+          text: dataWasModified ? AppL10n.tr(AppTranslationKeys.apply) : SharedStrings.labelDone,
           onPressed: () {
             // Changes were made
             if (dataWasModified) {
@@ -149,7 +152,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
     return <Widget>[
       // Close
       DialogActionButton(
-        text: 'Close',
+        text: AppL10n.tr(AppTranslationKeys.close),
         onPressed: () {
           Navigator.of(context).pop(false);
         },
@@ -157,18 +160,18 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
       // Delete
       DialogActionButton(
         icon: Icons.delete_outlined,
-        text: 'Delete',
+        text: AppL10n.tr(AppTranslationKeys.delete),
         onPressed: () {
           showConfirmationDialog(
             context: context,
-            title: 'Delete Transaction',
-            question: 'Are you sure you want to delete this transaction?',
+            title: SharedStrings.labelDeleteTransaction,
+            question: SharedStrings.questionDeleteTransaction,
             content: Column(
               children: transaction.buildListOfNamesValuesWidgets(
                 compact: true,
               ),
             ),
-            buttonText: 'Delete',
+            buttonText: AppL10n.tr(AppTranslationKeys.delete),
             onConfirmation: () {
               Data().transactions.deleteItem(transaction);
               Navigator.of(context).pop(false);
@@ -179,7 +182,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
       // Duplicate
       DialogActionButton(
         icon: Icons.copy_outlined,
-        text: 'Duplicate',
+        text: SharedStrings.labelDuplicate,
         onPressed: () {
           _transaction = Transaction(date: transaction.fieldDateTime.value)
             ..fieldId.value = -1
@@ -201,7 +204,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
       DialogActionButton(
         key: Constants.keyButtonEdit,
         icon: Icons.edit_outlined,
-        text: 'Edit',
+        text: AppL10n.tr(AppTranslationKeys.edit),
         onPressed: () {
           transaction.stashValueBeforeEditing();
           setState(() {

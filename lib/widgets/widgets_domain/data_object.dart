@@ -5,6 +5,7 @@ import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/form_field_switch.dart';
 import 'package:money/widgets/pure/form_field_widget.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
@@ -285,13 +286,13 @@ class DataObject extends DataInterface {
 
   /// Return the best way to identify this instance, e.g. Name
   String getRepresentation() {
-    return 'Id: $uniqueId'; // By default the ID is the best unique way
+    return '${SharedStrings.idPrefixReadable}$uniqueId'; // By default the ID is the best unique way
   }
 
   /// Return the where clause use to identify the unique storage identification of a row in the database
   /// for most table it will be " where Id='1' "
   String getWhereClause() {
-    return 'Id=$uniqueId'; // By default the ID is the best unique way
+    return '${SharedStrings.idPrefixWhere}$uniqueId'; // By default the ID is the best unique way
   }
 
   /// Returns true if [moneyObject] has any persisted changes compared to stashed values.
@@ -392,7 +393,7 @@ class DataObject extends DataInterface {
   // must be implemented by derived classes
   @override
   set uniqueId(int value) {
-    assert(false, 'derived class must implement uniqueId');
+    assert(false, SharedStrings.errorDerivedClassMustImplementUniqueId);
   }
 
   /// Builds a compact name/value row used by detail panels.

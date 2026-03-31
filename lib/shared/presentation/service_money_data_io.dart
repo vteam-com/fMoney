@@ -7,6 +7,7 @@ import 'package:archive/archive.dart';
 import 'package:money/data/storages/database.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
@@ -23,7 +24,7 @@ class MoneyDataIO {
       );
       switch (fileExtension.toLowerCase()) {
         // Sqlite
-        case '.mmdb':
+        case SharedStrings.fileExtensionMmdb:
           // Load from SQLite
           if (await loadFromSql(
             data,
@@ -32,7 +33,7 @@ class MoneyDataIO {
           )) {
             DataAccess.addToMRU(dateSource.filePath);
           }
-        case '.mmcsv':
+        case SharedStrings.fileExtensionMmcsv:
           // Zip CSV files
           await loadFromZippedCsv(data, dateSource.filePath, dateSource.fileBytes);
           DataAccess.addToMRU(dateSource.filePath);
@@ -40,7 +41,7 @@ class MoneyDataIO {
         default:
           SnackBarService.displayWarning(
             autoDismiss: false,
-            message: 'Unsupported file type $fileExtension',
+            message: '${SharedStrings.messageUnsupportedFileTypePrefix}$fileExtension',
           );
           return false;
       }
@@ -72,37 +73,35 @@ class MoneyDataIO {
 
       await db.load(filePath, fileBytes);
       // Load
-      data.accountAliases.loadFromJson(
-        await db.select('SELECT * FROM AccountAliases'),
-      );
-      data.accounts.loadFromJson(await db.select('SELECT * FROM Accounts'));
-      data.aliases.loadFromJson(await db.select('SELECT * FROM Aliases'));
-      data.categories.loadFromJson(await db.select('SELECT * FROM Categories'));
-      data.currencies.loadFromJson(await db.select('SELECT * FROM Currencies'));
-      data.investments.loadFromJson(await db.select('SELECT * FROM Investments'));
-      data.loanPayments.loadFromJson(await db.select('SELECT * FROM LoanPayments'));
+      data.accountAliases.loadFromJson(await _selectAll(db, SharedStrings.tableAccountAliases));
+      data.accounts.loadFromJson(await _selectAll(db, SharedStrings.tableAccounts));
+      data.aliases.loadFromJson(await _selectAll(db, SharedStrings.tableAliases));
+      data.categories.loadFromJson(await _selectAll(db, SharedStrings.tableCategories));
+      data.currencies.loadFromJson(await _selectAll(db, SharedStrings.tableCurrencies));
+      data.investments.loadFromJson(await _selectAll(db, SharedStrings.tableInvestments));
+      data.loanPayments.loadFromJson(await _selectAll(db, SharedStrings.tableLoanPayments));
       data.onlineAccounts.loadFromJson(
-        await db.select('SELECT * FROM OnlineAccounts'),
+        await _selectAll(db, SharedStrings.tableOnlineAccounts),
       );
-      data.payees.loadFromJson(await db.select('SELECT * FROM Payees'));
+      data.payees.loadFromJson(await _selectAll(db, SharedStrings.tablePayees));
       data.rentBuildings.loadFromJson(
-        await db.select('SELECT * FROM RentBuildings'),
+        await _selectAll(db, SharedStrings.tableRentBuildings),
       );
-      data.rentUnits.loadFromJson(await db.select('SELECT * FROM RentUnits'));
-      data.securities.loadFromJson(await db.select('SELECT * FROM Securities'));
-      data.stockSplits.loadFromJson(await db.select('SELECT * FROM StockSplits'));
+      data.rentUnits.loadFromJson(await _selectAll(db, SharedStrings.tableRentUnits));
+      data.securities.loadFromJson(await _selectAll(db, SharedStrings.tableSecurities));
+      data.stockSplits.loadFromJson(await _selectAll(db, SharedStrings.tableStockSplits));
 
       // Check if the Events table exists before loading it
-      if (await db.tableExists('Events')) {
-        data.events.loadFromJson(await db.select('SELECT * FROM Events'));
+      if (await db.tableExists(SharedStrings.tableEvents)) {
+        data.events.loadFromJson(await _selectAll(db, SharedStrings.tableEvents));
       }
 
-      data.transactions.loadFromJson(await db.select('SELECT * FROM Transactions'));
+      data.transactions.loadFromJson(await _selectAll(db, SharedStrings.tableTransactions));
       data.transactionExtras.loadFromJson(
-        await db.select('SELECT * FROM TransactionExtras'),
+        await _selectAll(db, SharedStrings.tableTransactionExtras),
       );
       // Must come after Transactions are loaded
-      data.splits.loadFromJson(await db.select('SELECT * FROM Splits'));
+      data.splits.loadFromJson(await _selectAll(db, SharedStrings.tableSplits));
 
       // Close the database when done
       db.dispose();
@@ -146,38 +145,29 @@ class MoneyDataIO {
       db.load(filePath, Uint8List(0));
 
       // Save transaction first
-      data.accountAliases.saveSql(db, 'AccountAliases');
-      data.accounts.saveSql(db, 'Accounts');
-      data.aliases.saveSql(db, 'Aliases');
-      data.categories.saveSql(db, 'Categories');
-      data.currencies.saveSql(db, 'Currencies');
-      data.investments.saveSql(db, 'Investments');
-      data.loanPayments.saveSql(db, 'LoanPayments');
-      data.onlineAccounts.saveSql(db, 'OnlineAccounts');
-      data.payees.saveSql(db, 'Payees');
-      data.rentBuildings.saveSql(db, 'RentBuildings');
-      data.rentUnits.saveSql(db, 'RentUnits');
-      data.securities.saveSql(db, 'Securities');
-      data.stockSplits.saveSql(db, 'StockSplits');
+      data.accountAliases.saveSql(db, SharedStrings.tableAccountAliases);
+      data.accounts.saveSql(db, SharedStrings.tableAccounts);
+      data.aliases.saveSql(db, SharedStrings.tableAliases);
+      data.categories.saveSql(db, SharedStrings.tableCategories);
+      data.currencies.saveSql(db, SharedStrings.tableCurrencies);
+      data.investments.saveSql(db, SharedStrings.tableInvestments);
+      data.loanPayments.saveSql(db, SharedStrings.tableLoanPayments);
+      data.onlineAccounts.saveSql(db, SharedStrings.tableOnlineAccounts);
+      data.payees.saveSql(db, SharedStrings.tablePayees);
+      data.rentBuildings.saveSql(db, SharedStrings.tableRentBuildings);
+      data.rentUnits.saveSql(db, SharedStrings.tableRentUnits);
+      data.securities.saveSql(db, SharedStrings.tableSecurities);
+      data.stockSplits.saveSql(db, SharedStrings.tableStockSplits);
 
-      if (!await db.tableExists('Events')) {
+      if (!await db.tableExists(SharedStrings.tableEvents)) {
         // Create the Events table if it doesn't exist
-        db.execute('''
-          CREATE TABLE [Events] (
-            [Id] int PRIMARY KEY,
-            [Name] nvarchar(255) NOT NULL,
-            [Category] int,
-            [Begin] datetime NOT NULL,
-            [End] datetime NOT NULL,
-            [People] nvarchar(255) NOT NULL,
-            [Memo] nvarchar(255) NOT NULL
-          );''');
+        db.execute(SharedSqlStrings.sqlCreateEventsTable);
       }
-      data.events.saveSql(db, 'Events');
+      data.events.saveSql(db, SharedStrings.tableEvents);
 
-      data.transactions.saveSql(db, 'Transactions');
-      data.transactionExtras.saveSql(db, 'TransactionExtras');
-      data.splits.saveSql(db, 'Splits');
+      data.transactions.saveSql(db, SharedStrings.tableTransactions);
+      data.transactionExtras.saveSql(db, SharedStrings.tableTransactionExtras);
+      data.splits.saveSql(db, SharedStrings.tableSplits);
 
       db.dispose();
     } catch (e) {
@@ -371,4 +361,8 @@ class MoneyDataIO {
     final List<int> bytes = utf8.encode(textContent);
     archive.addFile(ArchiveFile(filename, bytes.length, bytes));
   }
+}
+
+Future<List<Map<String, dynamic>>> _selectAll(MyDatabase db, String tableName) async {
+  return await db.select('${SharedSqlStrings.sqlSelectAllPrefix}$tableName');
 }

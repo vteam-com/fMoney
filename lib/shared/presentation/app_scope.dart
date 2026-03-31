@@ -1,6 +1,7 @@
 // ignore: fcheck_one_class_per_file
 import 'package:flutter/widgets.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
 
@@ -44,13 +45,13 @@ class AppScope extends InheritedWidget {
   /// Returns the nearest [AppServices] from the widget tree.
   static AppServices of(BuildContext context) {
     final AppScope? scope = context.dependOnInheritedWidgetOfExactType<AppScope>();
-    assert(scope != null, 'AppScope not found in widget tree.');
+    assert(scope != null, SharedStrings.messageAppScopeMissing);
     return scope!.services;
   }
 
   /// Returns the registered app services for non-widget callers in the UI layer.
   static AppServices get instance {
-    assert(_instance != null, 'AppScope instance is not available yet.');
+    assert(_instance != null, SharedStrings.messageAppScopeUnavailable);
     return _instance!;
   }
 

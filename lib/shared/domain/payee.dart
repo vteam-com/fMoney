@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/list/list_item_card.dart';
@@ -26,12 +27,12 @@ class Payee extends DataObject {
 
   Set<String> categories = <String>{};
   FieldString fieldCategoriesAsText = FieldString(
-    name: 'Categories',
+    name: SharedDomainStrings.domainString028,
     getValueForDisplay: (final DataInterface instance) => (instance as Payee).getCategoriesAsString(),
   );
 
   FieldInt fieldCount = FieldInt(
-    name: 'Transactions',
+    name: SharedDomainStrings.domainString143,
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldCount.value,
   );
@@ -43,8 +44,8 @@ class Payee extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    name: 'Name',
-    serializeName: 'Name',
+    name: SharedDomainStrings.domainString088,
+    serializeName: SharedDomainStrings.domainString088,
     getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldName.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Payee).fieldName.value,
     setValue: (final DataInterface instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
@@ -127,7 +128,7 @@ class Payee extends DataObject {
     if (categories.length == _doubleCategoryCount) {
       return categories.join('; ');
     }
-    return '${getIntAsText(categories.length)} categories';
+    return '${getIntAsText(categories.length)}${SharedDomainStrings.domainString002}';
   }
 
   /// Returns the name of the [Payee] object, or an empty string if the [Payee] is null.

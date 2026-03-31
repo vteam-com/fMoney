@@ -17,6 +17,20 @@ const int _bonusDatePlusOne = 8;
 const int _preferredColumnCountMin = 3;
 const int _preferredColumnCountMax = 5;
 const int _preferredColumnBonus = 5;
+const Set<String> _dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
+const Set<String> _descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
+const Set<String> _amountKeywords = <String>{
+  'amount',
+  'valor',
+  'value',
+  'montante',
+  'debit',
+  'credit',
+  'entrada',
+  'saida',
+  'saldo',
+  'balance',
+};
 
 /// A stateful widget for xlsx header row selector dialog.
 class XlsxHeaderRowSelectorDialog extends StatefulWidget {
@@ -161,7 +175,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
           onPressed: () => Navigator.of(context).pop(),
         ),
         TextButton(
-          child: const Text('OK'),
+          child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
           onPressed: () => Navigator.of(context).pop(_selectedRowIndex),
         ),
       ],
@@ -175,21 +189,6 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
     }
 
     // Keywords for different column types (case insensitive)
-    final Set<String> dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
-    final Set<String> descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
-    final Set<String> amountKeywords = <String>{
-      'amount',
-      'valor',
-      'value',
-      'montante',
-      'debit',
-      'credit',
-      'entrada',
-      'saida',
-      'saldo',
-      'balance',
-    };
-
     int bestIndex = -1;
     int highestScore = -1;
 
@@ -200,9 +199,9 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
       int score = 0;
 
       // Count matches for each type
-      final int dateMatches = headers.where((String h) => dateKeywords.any((String k) => h.contains(k))).length;
-      final int descMatches = headers.where((String h) => descriptionKeywords.any((String k) => h.contains(k))).length;
-      final int amountMatches = headers.where((String h) => amountKeywords.any((String k) => h.contains(k))).length;
+      final int dateMatches = headers.where((String h) => _dateKeywords.any((String k) => h.contains(k))).length;
+      final int descMatches = headers.where((String h) => _descriptionKeywords.any((String k) => h.contains(k))).length;
+      final int amountMatches = headers.where((String h) => _amountKeywords.any((String k) => h.contains(k))).length;
 
       // Score based on having matches for different types
       score += dateMatches * _dateScoreWeight;

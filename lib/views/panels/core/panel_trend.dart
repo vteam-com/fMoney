@@ -4,6 +4,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_filter.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/shared/domain/category.dart';
@@ -32,6 +34,8 @@ const double _barWidthNarrow = 10.0;
 const double _barRadius = 8.0;
 const int _barAlpha = 120;
 const double _lineAlpha = 0.3;
+const int _lineFeedCodePoint = 10;
+const int _tabCodePoint = 9;
 
 /// Widget that displays recurring cashflow trends over time as a bar chart.
 /// Shows income, expenses and profit/loss for each time period.
@@ -104,9 +108,14 @@ class _PanelTrendState extends State<PanelTrend> {
                   int rodIndex,
                 ) {
                   keepUnused(rodIndex);
+                  final String lineFeed = String.fromCharCode(_lineFeedCodePoint);
+                  final String tab = String.fromCharCode(_tabCodePoint);
                   final int year = years[groupIndex];
                   final RecurringExpenses yearData = yearCategoryIncomeExpenseSums[year]!;
                   final double profit = yearData.sumIncome + yearData.sumExpense;
+                  final String profitOrLossLabel = profit > _zeroDouble
+                      ? AppL10n.tr(AppTranslationKeys.profit)
+                      : AppL10n.tr(AppTranslationKeys.loss);
                   return BarTooltipItem(
                     year.toString(),
                     textAlign: TextAlign.end,
@@ -117,7 +126,8 @@ class _PanelTrendState extends State<PanelTrend> {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '\nRevenue\t${AmountModel(amount: yearData.sumIncome).toShortHand()}',
+                        text:
+                            '$lineFeed${AppL10n.tr(AppTranslationKeys.incomeLabel)}$tab${AmountModel(amount: yearData.sumIncome).toShortHand()}',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.normal,
@@ -125,7 +135,8 @@ class _PanelTrendState extends State<PanelTrend> {
                         ),
                       ),
                       TextSpan(
-                        text: '\nExpense\t${AmountModel(amount: yearData.sumExpense).toShortHand()}',
+                        text:
+                            '$lineFeed${AppL10n.tr(AppTranslationKeys.expenseLabel)}$tab${AmountModel(amount: yearData.sumExpense).toShortHand()}',
                         style: TextStyle(
                           color: Colors.red.shade100,
                           fontWeight: FontWeight.normal,
@@ -133,8 +144,7 @@ class _PanelTrendState extends State<PanelTrend> {
                         ),
                       ),
                       TextSpan(
-                        text:
-                            '\n${profit > _zeroDouble ? 'Profit' : 'Loss'}\t${AmountModel(amount: profit).toShortHand()}',
+                        text: '$lineFeed$profitOrLossLabel$tab${AmountModel(amount: profit).toShortHand()}',
                         style: TextStyle(
                           color: profit > _zeroDouble ? Colors.blue : Colors.orange,
                           fontWeight: FontWeight.normal,

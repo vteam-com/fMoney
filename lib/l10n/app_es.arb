@@ -1,46 +1,139 @@
 {
   "about": "Acerca de",
   "aboutMenuItem": "Acerca de...",
+  "account": "Cuenta",
   "accountNames": "Nombres de cuentas",
+  "accounts": "Cuentas",
+  "accountsDescription": "Tus principales activos.",
+  "activeLabel": "Activas",
   "add": "Agregar",
+  "addInvestment": "Agregar inversion",
   "addInvestmentTransaction": "Agregar transacción de inversión",
+  "addNewAccount": "Agregar nueva cuenta",
+  "addNewCategory": "Agregar nueva categoria",
+  "addNewEvent": "Agregar nuevo evento",
   "addNewTransactions": "Agregar nuevas transacciones",
+  "addTransactionBetweenTwoAccounts": "Agregar una transaccion entre dos cuentas.",
   "addTransactionsMenuItem": "Agregar transacciones...",
   "aiAssistant": "Asistente de IA",
+  "aiLearnedAboutAccountsAndTransactions": "La IA ha aprendido sobre @count cuentas y sus transacciones.",
+  "@aiLearnedAboutAccountsAndTransactions": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "alias": "Seudonimo",
+  "aliases": "Seudonimos",
+  "allLabel": "Todo",
+  "allTime": "Todo el tiempo",
+  "@allTime": {
+    "description": "REVIEWED"
+  },
+  "allYourMajorLifeEventsDescription": "Todos tus principales eventos de vida",
+  "amount": "Monto",
   "amountIsMatching": "El importe coincide",
   "amountIsOffBy": "El importe difiere en",
+  "amountPerUnit": "Monto por unidad",
   "analyzeSpending": "Analizar gastos",
+  "appCopyright": "© 2024 fMoney Team. Todos los derechos reservados.",
   "appDescription": "Aplicación gratuita de gestión financiera personal Flutter de código abierto",
   "append": "Anexar",
   "appLongDescription": "Una solución completa de gestión de dinero para seguir gastos, administrar presupuestos y monitorear inversiones.",
+  "apply": "Aplicar",
   "appName": "fMoney",
   "@appName": {
     "description": "REVIEWED"
   },
   "appTitle": "fMoney de VTeam",
+  "assets": "Activos",
   "availableOn": "Disponible en",
+  "averageCost": "Costo promedio",
+  "averages": "Promedios",
+  "@averages": {
+    "description": "REVIEWED"
+  },
   "avgLabel": "Prom.: ",
   "badDateFormat": "Formato de fecha incorrecto",
   "bankaccounts": "Cuentas bancarias",
+  "banks": "Bancos",
   "begin": "Comenzar",
   "budget": "Presupuesto",
+  "@budget": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyActualZero": "El monto real es cero. No se pueden calcular porcentajes.",
+  "@budgetAccuracyActualZero": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyBothZero": "Tanto el monto presupuestado como el real son cero. La precision no esta definida.",
+  "@budgetAccuracyBothZero": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyPercent": "Precision:    @value%",
+  "@budgetAccuracyPercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetVariancePercent": "Variacion:    @value%",
+  "@budgetVariancePercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetVarianceUndefined": "El monto presupuestado es cero. La variacion no esta definida.",
+  "@budgetVarianceUndefined": {
+    "description": "REVIEWED"
+  },
+  "buildNumberLabel": "Numero de compilacion",
+  "buySellDividend": "Compra/Venta/Dividendo.",
   "cancel": "Cancelar",
   "cash": "Efectivo",
   "cashFlow": "Flujo de caja",
+  "categories": "Categorias",
+  "categoriesDescription": "Clasificacion de tus transacciones de dinero.",
+  "category": "Categoria",
   "chart": "Gráfico",
   "chartUpperSpacer": "GRÁFICO",
+  "chatTruncatedSuffix": "\n(...)",
   "checkingOllamaStatus": "Verificando estado de Ollama...",
   "chooseAnOptionToGetStarted": "Elige una opción para comenzar:",
   "chooseColumns": "Elegir columnas",
   "clearFilters": "Limpiar filtros",
   "close": "Cerrar",
+  "closedLabel": "Cerradas",
   "closeFile": "Cerrar archivo",
+  "closePosition": "Cerrar posicion",
+  "columnFilterName": "Filtro de columna ({name})",
+  "@columnFilterName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "columnIndex": "Columna {index}",
+  "@columnIndex": {
+    "placeholders": {
+      "index": {
+        "type": "String"
+      }
+    }
+  },
   "confirm": "Confirmar",
   "content": "Contenido:",
   "contentGoesHere": "El contenido va aquí",
   "continueLabel": "Continuar",
   "copiedToClipboard": "Copiado al portapapeles",
   "copyListToClipboard": "Copiar lista al portapapeles",
+  "copyMessage": "Copiar mensaje",
+  "copyMessageToClipboard": "Copiar mensaje al portapapeles",
   "countSelected": "@count seleccionado(s)",
   "@countSelected": {
     "placeholders": {
@@ -62,10 +155,29 @@
   "csvHeadersAreMissingOrEmpty": "Los encabezados CSV faltan o están vacíos.",
   "csvImportCancelled": "Importación CSV cancelada.",
   "dataPreviewFirst5Rows": "Vista previa de datos (primeras 5 filas):",
+  "date": "Fecha",
+  "day": "Dia",
+  "@day": {
+    "description": "REVIEWED"
+  },
   "debit": "Débito",
+  "defaultListOfItems": "Lista predeterminada de elementos",
+  "delete": "Eliminar",
   "deleteSelectedItems": "Eliminar elemento(s) seleccionado(s)",
+  "description": "Descripcion",
+  "descriptionPayee": "Descripcion/Beneficiario",
   "details": "Detalles",
+  "dividend": "Dividendo",
   "dropFilesHere": "Arrastra archivos aquí",
+  "edit": "Editar",
+  "editedElapsed": "Editado {elapsed}",
+  "@editedElapsed": {
+    "placeholders": {
+      "elapsed": {
+        "type": "String"
+      }
+    }
+  },
   "editSelectedItems": "Editar elemento(s) seleccionado(s)",
   "elapsedElapsed": "Transcurrido: @elapsed",
   "@elapsedElapsed": {
@@ -76,6 +188,14 @@
     }
   },
   "end": "Fin",
+  "entriesCount": "{count} entradas",
+  "@entriesCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "error": "Error",
   "@error": {
     "description": "REVIEWED"
@@ -96,7 +216,21 @@
       }
     }
   },
+  "errorInvalidResponseFromOllama": "Error: respuesta invalida de Ollama",
+  "errorWithReason": "Error de IA: @reason",
+  "@errorWithReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "event": "Evento",
+  "events": "Eventos",
+  "eventTolerances": "Tolerancias de eventos",
+  "expenseLabel": "Gasto",
   "expensePredictions": "Predicciones de gastos",
+  "expenses": "Gastos",
   "fileLocationMenuItem": "Ubicación del archivo...",
   "fileLocationNotSupportedOnMobile": "Abrir la ubicación del archivo solo está disponible en plataformas de escritorio.",
   "fileMenuTooltip": "Menú de archivo",
@@ -105,23 +239,71 @@
   "@fmoney": {
     "description": "REVIEWED"
   },
+  "forAccessingTwelveData": "para acceder a https://twelvedata.com",
   "forSpacer": " para ",
   "freeStyle": "Libre",
+  "fromAccount": "Desde cuenta",
   "fromCategory": "De categoría",
   "fromPayee": "De beneficiario",
   "fullPromptSentToAi": "Prompt completo enviado a la IA",
+  "getLatestPrice": "Obtener ultimo precio",
   "helperForDebugging": "Ayuda para depuración",
   "hideClosedAccounts": "Ocultar cuentas cerradas",
   "idLabel": "ID: ",
   "@idLabel": {
     "description": "REVIEWED"
   },
+  "importedTransactionsIntoAccount": "Importado - {count} transacciones en \"{account}\"",
+  "@importedTransactionsIntoAccount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "importFileType": "Importar {fileType}",
+  "@importFileType": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      }
+    }
+  },
+  "importFromQfxQifXlsxCsvDescription": "Importar transacciones desde un archivo QFX, QIF, XLSX o CSV.",
+  "importFromQfxQifXlsxCsvFile": "Desde archivo QFX|QIF|XLSX|CSV",
+  "importNoMatchingAccountsWithId": "Importar - No hay cuentas \"{fileType}\" con ID \"{id}\"",
+  "@importNoMatchingAccountsWithId": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importTransactions": "Importar transacciones",
   "importTransactionToAccount": "Importar transacción a cuenta",
+  "importWord": "Importar",
   "includeAssetAccounts": "Incluir cuentas de activos",
+  "incomeLabel": "Ingreso",
+  "incomes": "Ingresos",
   "info": "Información",
   "installAppMenuItem": "Instalar aplicación...",
   "installOllamaNow": "Instalar Ollama ahora",
+  "interest": "Interes",
+  "@interest": {
+    "description": "REVIEWED"
+  },
+  "investment": "Inversion",
   "investments": "Inversiones",
+  "investmentTransaction": "Transaccion de inversion",
+  "investmentType": "Tipo de inversion",
+  "item": "Elemento",
+  "items": "Elementos",
   "keepAllTransactionsToTheirCurrentCategories": "Mantener todas las transacciones en sus categorías actuales",
   "language": "Idioma",
   "languageEnglish": "English",
@@ -139,17 +321,93 @@
   "largestTransactions": "Transacciones más grandes",
   "licenses": "Licencias",
   "licensesDescription": "fMoney está construido con software de código abierto. Consulta las licencias de todos los paquetes utilizados en esta aplicación.",
+  "lifeTimePnl": "P&L de por vida",
+  "@lifeTimePnl": {
+    "description": "REVIEWED"
+  },
   "list": "Lista",
+  "loanPayment": "Pago de prestamo",
+  "loss": "Perdida",
+  "@loss": {
+    "description": "REVIEWED"
+  },
+  "maintenance": "Mantenimiento",
+  "@maintenance": {
+    "description": "REVIEWED"
+  },
+  "management": "Gestion",
+  "@management": {
+    "description": "REVIEWED"
+  },
   "manageTheExpensesAndRentalIncomeOfProperties": "Gestiona los gastos e ingresos de alquiler de propiedades.",
+  "manualBulkTextInput": "Entrada manual de texto masivo",
+  "manualBulkTextInputDescription": "Consulta tus estados en linea, luego copia y pega texto o usa OCR para extraer [Fechas | Memos | Montos].",
+  "marketPrice": "Precio de mercado",
+  "matchingTransaction": "Transaccion coincidente",
   "maxLabel": "Máx: ",
   "memo": "Nota",
   "merge": "Combinar",
   "mergeItems": "Combinar elemento(s)",
+  "mergeTransactionsCount": "Combinar @count transacciones",
+  "@mergeTransactionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "mergeTransactionsIntoCategory": "Usa esta opcion para combinar transacciones de \"@from\" en \"@to\".",
+  "@mergeTransactionsIntoCategory": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
   "messageDetails": "Detalles del mensaje",
   "minLabel": "Mín: ",
   "missingTransfer": "Transferencia faltante",
+  "month": "Mes",
+  "@month": {
+    "description": "REVIEWED"
+  },
   "monthlyActual": "Real mensual",
   "monthlyBudgeted": "Presupuestado mensual",
+  "moveCategory": "Mover categoria",
+  "moveCategoryAsChild": "Usa esta opcion para mover \"@from\" como categoria hija de \"@to\".",
+  "@moveCategoryAsChild": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "multipleSelectionCount": "Seleccion multiple.({count})",
+  "@multipleSelectionCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "mutationAdded": "agregado",
+  "@mutationAdded": {
+    "description": "REVIEWED"
+  },
+  "mutationDeleted": "eliminado",
+  "@mutationDeleted": {
+    "description": "REVIEWED"
+  },
+  "mutationModified": "modificado",
+  "@mutationModified": {
+    "description": "REVIEWED"
+  },
   "navAccounts": "Cuentas",
   "navAccountsTooltip": "Ver cuentas",
   "navAiAssistantTooltip": "Perspectivas financieras con IA",
@@ -178,11 +436,23 @@
   "navStocks": "Acciones",
   "navStocksTooltip": "Seguimiento de acciones",
   "navTransactions": "Transacciones",
+  "@navTransactions": {
+    "description": "REVIEWED"
+  },
   "navTransactionsTooltip": "Ver transacciones",
   "navTransfers": "Transferencias",
   "navTransfersTooltip": "Ver transferencias entre cuentas",
   "networth": "Patrimonio neto",
+  "newBankAccount": "Nueva cuenta bancaria",
   "newFile": "Nuevo archivo...",
+  "newItemLabel": "Nuevo @item",
+  "@newItemLabel": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "newMenuItem": "Nuevo",
   "noAccountSelected": "Ninguna cuenta seleccionada",
   "noAccountSelectedPeriod": "Ninguna cuenta seleccionada.",
@@ -201,10 +471,33 @@
       }
     }
   },
+  "noHistoryInformationAboutSymbol": "No hay informacion historica sobre \"{symbol}\"",
+  "@noHistoryInformationAboutSymbol": {
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      }
+    }
+  },
   "noItems": "Sin elementos",
   "noItemSelected": "Ningún elemento seleccionado.",
+  "noItemsToDelete": "No hay elementos para eliminar",
   "noItemsWereTitle": "Ningún elemento fue @title",
   "@noItemsWereTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "noMatchingTransactions": "No hay transacciones coincidentes",
+  "noNeedToMergeCategoryToItself": "No es necesario combinar una categoria consigo misma, selecciona una categoria diferente.",
+  "@noNeedToMergeCategoryToItself": {
+    "description": "REVIEWED"
+  },
+  "noneLabel": "Ninguno",
+  "noneWithTitle": "Ninguno @title",
+  "@noneWithTitle": {
     "placeholders": {
       "title": {
         "type": "String"
@@ -217,6 +510,7 @@
   "noSecuritySelected": "Ningún valor seleccionado.",
   "noSheetXmlFoundInXlsxFile": "No se encontró XML de hoja en el archivo XLSX.",
   "noStockSelected": "Ninguna acción seleccionada",
+  "nothingToImport": "Nada para importar",
   "noTransactions": "Sin transacciones",
   "noTransactionsPeriod": "Sin transacciones.",
   "noUi": "sin interfaz",
@@ -231,8 +525,50 @@
   "openFile": "Abrir archivo...",
   "openMenuItem": "Abrir...",
   "orChangeToCategory": "o cambiar a categoría",
+  "packageNameLabel": "Nombre del paquete",
   "payee": "Beneficiario",
+  "payeeAliasesDescription": "Alias de beneficiario.",
   "payeeMatch": "Coincidencia de beneficiario",
+  "payees": "Beneficiarios",
+  "pendingChanges": "Cambios pendientes",
+  "@pendingChanges": {
+    "description": "REVIEWED"
+  },
+  "pickAccountToImportTo": "Elige cuenta para importar",
+  "pickDifferentCategoryThan": "Elige una categoria diferente de \"@category\".",
+  "@pickDifferentCategoryThan": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "platformAndroid": "Android",
+  "@platformAndroid": {
+    "description": "REVIEWED"
+  },
+  "platformDesktop64bitSoftware": "Software de escritorio de 64 bits.",
+  "platformDesktopIntelSiliconSoftware": "Software de escritorio para Intel y Silicon.",
+  "platformDesktopSoftware": "Software de escritorio.",
+  "platformIos": "iOS",
+  "@platformIos": {
+    "description": "REVIEWED"
+  },
+  "platformLinux": "Linux",
+  "@platformLinux": {
+    "description": "REVIEWED"
+  },
+  "platformMacos": "macOS",
+  "@platformMacos": {
+    "description": "REVIEWED"
+  },
+  "platformMobileApp": "Aplicacion movil.",
+  "platformRunOnAnyOsWithMostBrowsers": "Funciona en cualquier SO con la mayoria de navegadores.",
+  "platformWebBrowser": "Navegador web",
+  "platformWindows": "Windows",
+  "@platformWindows": {
+    "description": "REVIEWED"
+  },
   "pleaseMapAllFieldsDateDescriptionAmount": "Por favor mapea todos los campos (Fecha, Descripción, Monto).",
   "pleaseSelectDifferentAccounts": "Por favor selecciona cuentas diferentes",
   "pnl": "PnL",
@@ -240,7 +576,14 @@
     "description": "REVIEWED"
   },
   "policy": "Política",
+  "preview": "Vista previa",
   "privacyPolicy": "Política de privacidad",
+  "privacyPolicyMarkdown": "# Politica de privacidad de la aplicacion fMoney\n\n## 1. No se recopila informacion:\nfMoney no recopila ninguna informacion personal de sus usuarios. No requerimos que los usuarios proporcionen datos personales como nombre, direccion de correo electronico u otra informacion identificativa.\n\n## 2. Uso de la informacion:\nComo no recopilamos informacion personal, no usamos ni compartimos informacion sobre nuestros usuarios.\n\n## 3. No se registran datos:\nfMoney no registra ningun dato de sus usuarios.\n\n## 4. Contacto:\nSi tienes preguntas o sugerencias sobre nuestra politica de privacidad, no dudes en contactarnos en questions@vteam.com.\n\n_________________\n\n\nAl usar fMoney, aceptas esta politica de privacidad. Si no estas de acuerdo con esta politica, no utilices nuestra aplicacion. El uso continuado de la aplicacion despues de publicar cambios en esta politica se considerara como aceptacion de dichos cambios.\n",
+  "profit": "Ganancia",
+  "@profit": {
+    "description": "REVIEWED"
+  },
+  "propertiesToRentDescription": "Propiedades para alquilar.",
   "questionsQuestioncountTokensTokencount": "Preguntas: {questionCount} | Tokens: {tokenCount}",
   "@questionsQuestioncountTokensTokencount": {
     "placeholders": {
@@ -252,12 +595,27 @@
       }
     }
   },
+  "range": "Rango",
+  "@range": {
+    "description": "REVIEWED"
+  },
+  "readLess": "Leer menos",
+  "readMore": "Leer mas",
   "rebalanceMenuItem": "Reequilibrar...",
+  "receiver": "Receptor",
   "recordATransferBetweenTwoAccounts": "Registrar una transferencia entre dos cuentas",
+  "recordTransfer": "Registrar transferencia",
   "recurring": "Recurrente",
   "refreshList": "Actualizar lista",
   "rental": "Alquiler",
   "rentalPropertyNotFound": "Propiedad de alquiler no encontrada",
+  "rentals": "Alquileres",
+  "renters": "Inquilinos",
+  "repairs": "Reparaciones",
+  "@repairs": {
+    "description": "REVIEWED"
+  },
+  "requestWasCancelled": "La solicitud fue cancelada.",
   "rowIndex": "Fila {index}",
   "@rowIndex": {
     "placeholders": {
@@ -273,13 +631,42 @@
   },
   "saveToCsv": "Guardar en CSV",
   "saveToSql": "Guardar en SQL",
+  "savingLabel": "Ahorro",
+  "searchForPayee": "Buscar beneficiario",
+  "securitySymbolInvalid": "El simbolo \"{symbol}\" no es valido",
+  "@securitySymbolInvalid": {
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      }
+    }
+  },
   "selectARentalPropertyToSeeItsPL": "Selecciona una propiedad de alquiler para ver su P&L",
   "selectColumn": "Seleccionar columna",
   "selectHeaderRow": "Seleccionar fila de encabezado",
   "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Selecciona la fila que contiene los encabezados de columna (seleccionada automáticamente según el contenido):",
+  "selectValidAccounts": "Selecciona cuentas validas.",
+  "sender": "Emisor",
   "setApiKey": "Establecer clave API",
   "settings": "Configuración",
   "settingsMenuItem": "Configuración...",
+  "shares": "Acciones",
+  "shortcutAddTransactions": "Ctrl+T",
+  "@shortcutAddTransactions": {
+    "description": "REVIEWED"
+  },
+  "shortcutNewFile": "Ctrl+N",
+  "@shortcutNewFile": {
+    "description": "REVIEWED"
+  },
+  "shortcutOpenFile": "Ctrl+O",
+  "@shortcutOpenFile": {
+    "description": "REVIEWED"
+  },
+  "shortcutRebalance": "Ctrl+R",
+  "@shortcutRebalance": {
+    "description": "REVIEWED"
+  },
   "showClosedAccounts": "Mostrar cuentas cerradas",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Mostrando las primeras {maxRows} de {rowCount} filas elegibles",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
@@ -303,16 +690,52 @@
   "skippingDuplicate": " Omitiendo duplicado ",
   "smallScreenContentGoesHere": "El contenido de pantalla pequeña va aquí",
   "split": "División",
+  "splitRatio": "{numerator} por {denominator}",
+  "@splitRatio": {
+    "placeholders": {
+      "numerator": {
+        "type": "String"
+      },
+      "denominator": {
+        "type": "String"
+      }
+    }
+  },
+  "splits": "Desdoblamientos",
+  "stock": "Accion",
+  "stocks": "Acciones",
+  "stocksTrackingDescription": "Seguimiento de acciones.",
   "success": "Éxito",
   "suggestion": "Sugerencia",
+  "@suggestion": {
+    "description": "REVIEWED"
+  },
+  "switchToCategories": "Cambiar a categorias",
+  "switchToPayees": "Cambiar a beneficiarios",
+  "switchToStocks": "Cambiar a acciones",
+  "switchToTransactions": "Cambiar a transacciones",
+  "symbol": "Simbolo",
+  "taxes": "Impuestos",
+  "@taxes": {
+    "description": "REVIEWED"
+  },
+  "teachingCancelled": "Entrenamiento cancelado.",
+  "teachingFailedPartially": "El entrenamiento fallo parcialmente; es posible que algunas cuentas no se hayan aprendido.",
   "themeColorBlue": "Azul",
   "themeColorGreen": "Verde",
   "themeColorOrange": "Naranja",
+  "@themeColorOrange": {
+    "description": "REVIEWED"
+  },
   "themeColorPink": "Rosa",
   "themeColorPurple": "Púrpura",
   "themeColorTeal": "Verde azulado",
   "themeColorYellow": "Amarillo",
   "thinking": "Pensando...",
+  "timeline": "Linea de tiempo",
+  "@timeline": {
+    "description": "REVIEWED"
+  },
   "timestampTimestamp": "Marca de tiempo: @timestamp",
   "@timestampTimestamp": {
     "placeholders": {
@@ -321,6 +744,7 @@
       }
     }
   },
+  "toAccount": "A cuenta",
   "toCategory": "A categoría",
   "toggleBrightness": "Cambiar brillo",
   "toPayee": "A beneficiario",
@@ -328,20 +752,70 @@
   "@total": {
     "description": "REVIEWED"
   },
+  "totalTransactionAmount": "Monto total de la transaccion",
+  "trackYourStockPortfolioDescription": "Sigue tu cartera de acciones.",
+  "transaction": "Transaccion",
   "transactions": "Transacciones",
+  "@transactions": {
+    "description": "REVIEWED"
+  },
+  "transactionsAddedCount": "{count} transacciones agregadas",
+  "@transactionsAddedCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionsAveraging": "@count transacciones en promedio",
+  "@transactionsAveraging": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionsDescription": "Detalla las acciones de tus cuentas.",
+  "transactionsFoundInFileToImport": "{count} transacciones encontradas en el archivo {fileType}, para importar en \"{account}\"",
+  "@transactionsFoundInFileToImport": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "fileType": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
   "transactionSplit": "División de transacción",
   "transfer": "Transferencia",
+  "transfers": "Transferencias",
+  "transfersBetweenAccountsDescription": "Transferencias entre cuentas.",
   "trend": "Tendencia",
+  "units": "Unidades",
   "unknown": "Desconocido",
   "useDemoData": "Usar datos de demostración",
+  "value": "Valor",
   "versionInformation": "Información de Versión",
+  "versionLabel": "Version de la app",
   "viewClosedAccounts": "Ver cuentas cerradas",
   "viewLicenses": "Ver Licencias",
+  "viewMessageDetails": "Ver detalles del mensaje",
+  "viewPromptDetails": "Ver detalles del prompt",
   "warning": "Advertencia",
   "welcomeToFmoney": "Bienvenido a fMoney",
+  "welcomeToYourAiAccountant": "Bienvenido a tu contador con IA",
+  "whoIsGettingYourMoney": "Quien recibe tu dinero.",
   "xlsxFileContainsNoDataRows": "El archivo XLSX no contiene filas de datos.",
   "xlsxFileContainsNoValidData": "El archivo XLSX no contiene datos válidos.",
   "xlsxImportCancelled": "Importación XLSX cancelada.",
+  "year": "Ano",
+  "@year": {
+    "description": "REVIEWED"
+  },
   "zoom": "Zoom",
   "@zoom": {
     "description": "REVIEWED"

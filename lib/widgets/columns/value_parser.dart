@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/columns/value_quality.dart';
 
 const int _threeColumnSeparatorCount = 2;
@@ -54,7 +55,8 @@ class ValuesParser {
 
     String singleText = '';
     for (int line = 0; line < maxLines; line++) {
-      singleText += '${dates[line]}; ${descriptions[line]}; ${amounts[line]}\n';
+      singleText +=
+          '${dates[line]}${SharedStrings.semicolonSpace}${descriptions[line]}${SharedStrings.semicolonSpace}${amounts[line]}${SharedStrings.lineFeed}';
     }
     return singleText;
   }

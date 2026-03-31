@@ -8,6 +8,7 @@ import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
@@ -17,7 +18,7 @@ import 'package:money/widgets/pure/mutation_types.dart';
 /// Represents categories.
 class Categories extends MoneyObjects<Category> {
   Categories() {
-    collectionName = 'Categories';
+    collectionName = SharedDomainStrings.domainString028;
   }
   late DataAbstract data;
 
@@ -75,14 +76,14 @@ class Categories extends MoneyObjects<Category> {
   /// Add a new Category ensure that the name is unique under the parent or root
   Category addNewCategory({
     final int parentId = -1,
-    final String name = 'New Category',
+    final String name = SharedDomainStrings.domainString089,
     final CategoryType? type,
     final String color = '',
     final String description = '',
   }) {
     assert(
       name.contains(':') && parentId == -1 || !name.contains(':'),
-      'Supply a parent ID or hierarchy names but not both',
+      SharedDomainStrings.domainString130,
     );
 
     final dynamic parent = data.getCategory(parentId);
@@ -244,7 +245,7 @@ class Categories extends MoneyObjects<Category> {
     }
 
     if (id == splitCategoryId()) {
-      return '<Split>';
+      return SharedDomainStrings.domainString008;
     }
     return Category.getName(get(id));
   }
@@ -298,90 +299,90 @@ class Categories extends MoneyObjects<Category> {
     }
   }
 
-  /// Gets or creates the 'Savings:Interest' income category.
+  /// Gets or creates the SharedDomainStrings.domainString123 income category.
   Category get interestEarned {
-    return getOrCreate('Savings:Interest', CategoryType.income);
+    return getOrCreate(SharedDomainStrings.domainString123, CategoryType.income);
   }
 
-  /// Gets or creates the 'Investments:Bonds' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString062 expense category.
   Category get investmentBonds {
-    return getOrCreate('Investments:Bonds', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString062, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Credit' income category.
+  /// Gets or creates the SharedDomainStrings.domainString063 income category.
   Category get investmentCredit {
-    return getOrCreate('Investments:Credit', CategoryType.income);
+    return getOrCreate(SharedDomainStrings.domainString063, CategoryType.income);
   }
 
-  /// Gets or creates the 'Investments:Debit' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString064 expense category.
   Category get investmentDebit {
-    return getOrCreate('Investments:Debit', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString064, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Dividends' income category.
+  /// Gets or creates the SharedDomainStrings.domainString065 income category.
   Category get investmentDividends {
-    return getOrCreate('Investments:Dividends', CategoryType.income);
+    return getOrCreate(SharedDomainStrings.domainString065, CategoryType.income);
   }
 
-  /// Gets or creates the 'Investments:Fees' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString066 expense category.
   Category get investmentFees {
-    return getOrCreate('Investments:Fees', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString066, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Interest' income category.
+  /// Gets or creates the SharedDomainStrings.domainString067 income category.
   Category get investmentInterest {
-    return getOrCreate('Investments:Interest', CategoryType.income);
+    return getOrCreate(SharedDomainStrings.domainString067, CategoryType.income);
   }
 
-  /// Gets or creates the 'Investments:Long Term Capital Gains Distribution' income category.
+  /// Gets or creates the SharedDomainStrings.domainString068 income category.
   Category get investmentLongTermCapitalGainsDistribution {
     return getOrCreate(
-      'Investments:Long Term Capital Gains Distribution',
+      SharedDomainStrings.domainString068,
       CategoryType.income,
     );
   }
 
-  /// Gets or creates the 'Investments:Miscellaneous' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString069 expense category.
   Category get investmentMiscellaneous {
-    return getOrCreate('Investments:Miscellaneous', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString069, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Mutual Funds' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString070 expense category.
   Category get investmentMutualFunds {
-    return getOrCreate('Investments:Mutual Funds', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString070, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Options' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString071 expense category.
   Category get investmentOptions {
-    return getOrCreate('Investments:Options', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString071, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Other' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString072 expense category.
   Category get investmentOther {
-    return getOrCreate('Investments:Other', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString072, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Reinvest' category.
+  /// Gets or creates the SharedDomainStrings.domainString073 category.
   Category get investmentReinvest {
-    return getOrCreate('Investments:Reinvest', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString073, CategoryType.none);
   }
 
-  /// Gets or creates the 'Investments:Short Term Capital Gains Distribution' income category.
+  /// Gets or creates the SharedDomainStrings.domainString074 income category.
   Category get investmentShortTermCapitalGainsDistribution {
     return getOrCreate(
-      'Investments:Short Term Capital Gains Distribution',
+      SharedDomainStrings.domainString074,
       CategoryType.income,
     );
   }
 
-  /// Gets or creates the 'Investments:Stocks' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString075 expense category.
   Category get investmentStocks {
-    return getOrCreate('Investments:Stocks', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString075, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Investments:Transfer' category.
+  /// Gets or creates the SharedDomainStrings.domainString076 category.
   Category get investmentTransfer {
-    return getOrCreate('Investments:Transfer', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString076, CategoryType.none);
   }
 
   /// Returns `true` if the category with [categoryId] is an expense category.
@@ -409,57 +410,57 @@ class Categories extends MoneyObjects<Category> {
     this.data.updateAll();
   }
 
-  /// Gets or creates the 'Taxes:Sales Tax' expense category.
+  /// Gets or creates the SharedDomainStrings.domainString139 expense category.
   Category get salesTax {
-    return getOrCreate('Taxes:Sales Tax', CategoryType.expense);
+    return getOrCreate(SharedDomainStrings.domainString139, CategoryType.expense);
   }
 
-  /// Gets or creates the 'Savings' income category.
+  /// Gets or creates the SharedDomainStrings.domainString122 income category.
   Category get savings {
-    return getOrCreate('Savings', CategoryType.income);
+    return getOrCreate(SharedDomainStrings.domainString122, CategoryType.income);
   }
 
-  /// Gets or creates the special 'Split' category (cached).
+  /// Gets or creates the special SharedDomainStrings.domainString126 category (cached).
   Category get split {
     // ignore: prefer_conditional_assignment
     if (_split == null) {
-      _split = getOrCreate('Split', CategoryType.none);
+      _split = getOrCreate(SharedDomainStrings.domainString126, CategoryType.none);
     }
     return _split!;
   }
 
-  /// Returns the unique ID of the special 'Split' category.
+  /// Returns the unique ID of the special SharedDomainStrings.domainString126 category.
   int splitCategoryId() {
     return split.uniqueId;
   }
 
-  /// Gets or creates the special 'Transfer' category.
+  /// Gets or creates the special SharedDomainStrings.domainString144 category.
   Category get transfer {
-    return getOrCreate('Transfer', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString144, CategoryType.none);
   }
 
-  /// Returns the unique ID of the special 'Transfer' category.
+  /// Returns the unique ID of the special SharedDomainStrings.domainString144 category.
   int transferCategoryId() {
     return transfer.uniqueId;
   }
 
-  /// Gets or creates the 'Xfer from Deleted Account' category.
+  /// Gets or creates the SharedDomainStrings.domainString154 category.
   Category get transferFromDeletedAccount {
-    return getOrCreate('Xfer from Deleted Account', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString154, CategoryType.none);
   }
 
-  /// Gets or creates the 'Xfer to Deleted Account' category.
+  /// Gets or creates the SharedDomainStrings.domainString155 category.
   Category get transferToDeletedAccount {
-    return getOrCreate('Xfer to Deleted Account', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString155, CategoryType.none);
   }
 
-  /// Gets or creates the 'UnassignedSplit' category.
+  /// Gets or creates the SharedDomainStrings.domainString147 category.
   Category get unassignedSplit {
-    return getOrCreate('UnassignedSplit', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString147, CategoryType.none);
   }
 
-  /// Gets or creates the 'Unknown' category.
+  /// Gets or creates the SharedDomainStrings.domainString150 category.
   Category get unknown {
-    return getOrCreate('Unknown', CategoryType.none);
+    return getOrCreate(SharedDomainStrings.domainString150, CategoryType.none);
   }
 }

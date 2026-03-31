@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 /// Service to fetch latest GitHub release artifacts
 class GitHubArtifactsService {
@@ -32,7 +33,7 @@ class GitHubArtifactsService {
       final http.Response response = await http.get(
         Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/releases/latest'),
         headers: <String, String>{
-          'Accept': 'application/vnd.github.v3+json',
+          'Accept': SharedStrings.githubApiAcceptV3Json,
           'User-Agent': 'fMoney-App',
         },
       );
@@ -51,12 +52,12 @@ class GitHubArtifactsService {
         final String downloadUrl = asset['browser_download_url'] as String;
 
         // Map asset names to platforms
-        if (name.contains('windows')) {
-          artifactUrls['windows'] = downloadUrl;
-        } else if (name.contains('linux')) {
-          artifactUrls['linux'] = downloadUrl;
-        } else if (name.contains('macos')) {
-          artifactUrls['macos'] = downloadUrl;
+        if (name.contains(SharedStrings.platformKeyWindows)) {
+          artifactUrls[SharedStrings.platformKeyWindows] = downloadUrl;
+        } else if (name.contains(SharedStrings.platformKeyLinux)) {
+          artifactUrls[SharedStrings.platformKeyLinux] = downloadUrl;
+        } else if (name.contains(SharedStrings.platformKeyMacos)) {
+          artifactUrls[SharedStrings.platformKeyMacos] = downloadUrl;
         }
       }
 
@@ -75,7 +76,7 @@ class GitHubArtifactsService {
           '$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/workflows/builds.yml/runs?branch=main&status=success&per_page=1',
         ),
         headers: <String, String>{
-          'Accept': 'application/vnd.github.v3+json',
+          'Accept': SharedStrings.githubApiAcceptV3Json,
           'User-Agent': 'fMoney-App',
         },
       );
@@ -98,7 +99,7 @@ class GitHubArtifactsService {
       final http.Response artifactsResponse = await http.get(
         Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/runs/$runId/artifacts'),
         headers: <String, String>{
-          'Accept': 'application/vnd.github.v3+json',
+          'Accept': SharedStrings.githubApiAcceptV3Json,
           'User-Agent': 'fMoney-App',
         },
       );
@@ -117,12 +118,12 @@ class GitHubArtifactsService {
         final String archiveDownloadUrl = artifact['archive_download_url'] as String;
 
         // Map artifact names to platforms
-        if (name.contains('windows')) {
-          artifactUrls['windows'] = archiveDownloadUrl;
-        } else if (name.contains('linux')) {
-          artifactUrls['linux'] = archiveDownloadUrl;
-        } else if (name.contains('macos')) {
-          artifactUrls['macos'] = archiveDownloadUrl;
+        if (name.contains(SharedStrings.platformKeyWindows)) {
+          artifactUrls[SharedStrings.platformKeyWindows] = archiveDownloadUrl;
+        } else if (name.contains(SharedStrings.platformKeyLinux)) {
+          artifactUrls[SharedStrings.platformKeyLinux] = archiveDownloadUrl;
+        } else if (name.contains(SharedStrings.platformKeyMacos)) {
+          artifactUrls[SharedStrings.platformKeyMacos] = archiveDownloadUrl;
         }
       }
 
@@ -135,9 +136,9 @@ class GitHubArtifactsService {
   /// Gets fallback URLs
   static Map<String, String> _getFallbackUrls() {
     return <String, String>{
-      'windows': 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
-      'linux': 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
-      'macos': 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
+      SharedStrings.platformKeyWindows: 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
+      SharedStrings.platformKeyLinux: 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
+      SharedStrings.platformKeyMacos: 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
     };
   }
 }

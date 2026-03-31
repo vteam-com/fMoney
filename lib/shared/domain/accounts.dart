@@ -9,6 +9,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data_abstract.dart';
@@ -36,7 +37,7 @@ const int _creditCardLookbackDays = 60;
 /// Represents accounts.
 class Accounts extends MoneyObjects<Account> {
   Accounts() {
-    collectionName = 'Accounts';
+    collectionName = SharedDomainStrings.domainString014;
   }
   late DataAbstract data;
 

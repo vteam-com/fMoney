@@ -1,7 +1,10 @@
 // ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 import 'package:money/helpers/account_types_enum.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data.dart';
@@ -74,7 +77,7 @@ class ImportEntry {
     if (memo.isNotEmpty) {
       return memo;
     }
-    return '$stockSymbol $stockAction ${formatDoubleTrimZeros(stockQuantity)} x ${stockPrice.toString()}';
+    return '$stockSymbol $stockAction ${formatDoubleTrimZeros(stockQuantity)}${SharedStrings.multiplierX}${stockPrice.toString()}';
   }
 }
 
@@ -90,7 +93,7 @@ void showAndConfirmTransactionToImport(
         .toList();
 
     showPopupSelection(
-      title: 'Pick account to import to',
+      title: AppL10n.tr(AppTranslationKeys.pickAccountToImportTo),
       context: context,
       items: activeAccountNames,
       selectedItem: '',
@@ -106,8 +109,13 @@ void showAndConfirmTransactionToImport(
         } else {
           SnackBarService.displayWarning(
             autoDismiss: false,
-            message:
-                'Import - No matching "${importData.fileType}" accounts with ID "${importData.account?.uniqueId.toString() ?? '-1'}"',
+            message: AppL10n.tr(
+              AppTranslationKeys.importNoMatchingAccountsWithId,
+              params: <String, String>{
+                'fileType': importData.fileType,
+                'id': importData.account?.uniqueId.toString() ?? '-1',
+              },
+            ),
           );
           return;
         }
@@ -143,8 +151,14 @@ void _showAndConfirmTransactionToImport(
     );
   }
 
-  final String messageToUser =
-      '${list.length} transactions found in $fileType file, to be imported into "${account.fieldName.value}"';
+  final String messageToUser = AppL10n.tr(
+    AppTranslationKeys.transactionsFoundInFileToImport,
+    params: <String, String>{
+      'count': list.length.toString(),
+      'fileType': fileType,
+      'account': account.fieldName.value,
+    },
+  );
 
   final Widget questionContent = SizedBox(
     height: _previewHeight,
@@ -158,10 +172,13 @@ void _showAndConfirmTransactionToImport(
 
   showConfirmationDialog(
     context: context,
-    title: 'Import QFX',
+    title: AppL10n.tr(
+      AppTranslationKeys.importFileType,
+      params: <String, String>{'fileType': fileType},
+    ),
     question: messageToUser,
     content: questionContent,
-    buttonText: 'Import',
+    buttonText: AppL10n.tr(AppTranslationKeys.importWord),
     onConfirmation: () {
       final List<Transaction> transactionsToAdd = <Transaction>[];
       for (final ValuesQuality singleTransactionInput in valuesQuality) {
@@ -177,7 +194,13 @@ void _showAndConfirmTransactionToImport(
       }
       addNewTransactions(
         transactionsToAdd,
-        'Imported - ${transactionsToAdd.length} transactions into "${account.fieldName.value}"',
+        AppL10n.tr(
+          AppTranslationKeys.importedTransactionsIntoAccount,
+          params: <String, String>{
+            'count': transactionsToAdd.length.toString(),
+            'account': account.fieldName.value,
+          },
+        ),
       );
     },
   );

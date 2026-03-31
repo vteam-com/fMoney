@@ -1,5 +1,6 @@
 // ignore: fcheck_dead_code
 import 'package:intl/intl.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 // Exports
 export 'package:intl/intl.dart';
@@ -35,9 +36,9 @@ const int _endOfDayMicrosecond = 999;
 /// Generates all possible date format combinations.
 List<String> generateAllDateFormats() {
   final List<String> separators = <String>['-', '/'];
-  final List<String> yearFormats = <String>['yyyy', 'yy'];
-  final List<String> monthFormats = <String>['MM', 'M'];
-  final List<String> dayFormats = <String>['dd', 'd'];
+  final List<String> yearFormats = <String>[SharedStrings.dateTokenYearFour, SharedStrings.dateTokenYearTwo];
+  final List<String> monthFormats = <String>[SharedStrings.dateTokenMonthTwo, SharedStrings.dateTokenMonthOne];
+  final List<String> dayFormats = <String>[SharedStrings.dateTokenDayTwo, SharedStrings.dateTokenDayOne];
 
   final List<String> allFormats = <String>[];
 
@@ -162,7 +163,7 @@ DateTime? attemptToGetDateFromText(final String text) {
 String dateToDateTimeString(final DateTime? dateTime) {
   String dateTimeAsText = '';
   if (dateTime != null) {
-    dateTimeAsText += dateTime.toIso8601String().replaceAll('T', ' ');
+    dateTimeAsText += dateTime.toIso8601String().replaceAll(SharedStrings.dateTimeIsoSeparator, SharedStrings.space);
   }
   return dateTimeAsText;
 }
@@ -325,33 +326,44 @@ String getElapsedTime(DateTime? dateTime, {DateTime? relativeTo}) {
     final int days = remainingDays % _daysPerMonthApprox;
 
     if (months == _zeroInt && days == _zeroInt) {
-      return '$years year${years > _singularCount ? 's' : ''} ago';
+      return '${_formatElapsedUnit(years, SharedStrings.elapsedYear)} ${SharedStrings.elapsedAgo}';
     } else if (days == _zeroInt) {
-      return '$years year${years > _singularCount ? 's' : ''}, '
-          '$months month${months > _singularCount ? 's' : ''} ago';
+      return '${_formatElapsedUnit(years, SharedStrings.elapsedYear)}'
+          '${SharedStrings.commaSpace}'
+          '${_formatElapsedUnit(months, SharedStrings.elapsedMonth)}'
+          ' ${SharedStrings.elapsedAgo}';
     } else {
-      return '$years year${years > _singularCount ? 's' : ''}, '
-          '$months month${months > _singularCount ? 's' : ''}, '
-          '$days day${days > _singularCount ? 's' : ''} ago';
+      return '${_formatElapsedUnit(years, SharedStrings.elapsedYear)}'
+          '${SharedStrings.commaSpace}'
+          '${_formatElapsedUnit(months, SharedStrings.elapsedMonth)}'
+          '${SharedStrings.commaSpace}'
+          '${_formatElapsedUnit(days, SharedStrings.elapsedDay)}'
+          ' ${SharedStrings.elapsedAgo}';
     }
   } else if (difference.inDays >= _daysPerMonthApprox) {
     final int months = difference.inDays ~/ _daysPerMonthApprox;
     final int remainingDays = difference.inDays % _daysPerMonthApprox;
     if (remainingDays == _zeroInt) {
-      return '$months month${months > _singularCount ? 's' : ''} ago';
+      return '${_formatElapsedUnit(months, SharedStrings.elapsedMonth)} ${SharedStrings.elapsedAgo}';
     } else {
-      return '$months month${months > _singularCount ? 's' : ''}, '
-          '$remainingDays day${remainingDays > _singularCount ? 's' : ''} ago';
+      return '${_formatElapsedUnit(months, SharedStrings.elapsedMonth)}'
+          '${SharedStrings.commaSpace}'
+          '${_formatElapsedUnit(remainingDays, SharedStrings.elapsedDay)}'
+          ' ${SharedStrings.elapsedAgo}';
     }
   } else if (difference.inDays >= _singularCount) {
-    return '${difference.inDays} day${difference.inDays > _singularCount ? 's' : ''} ago';
+    return '${_formatElapsedUnit(difference.inDays, SharedStrings.elapsedDay)} ${SharedStrings.elapsedAgo}';
   } else if (difference.inHours >= _singularCount) {
-    return '${difference.inHours} hour${difference.inHours > _singularCount ? 's' : ''} ago';
+    return '${_formatElapsedUnit(difference.inHours, SharedStrings.elapsedHour)} ${SharedStrings.elapsedAgo}';
   } else if (difference.inMinutes >= _singularCount) {
-    return '${difference.inMinutes} minute${difference.inMinutes > _singularCount ? 's' : ''} ago';
+    return '${_formatElapsedUnit(difference.inMinutes, SharedStrings.elapsedMinute)} ${SharedStrings.elapsedAgo}';
   } else {
-    return 'Just now';
+    return SharedStrings.elapsedJustNow;
   }
+}
+
+String _formatElapsedUnit(final int value, final String unit) {
+  return '$value $unit${value > _singularCount ? 's' : SharedStrings.empty}';
 }
 
 /// Extension methods for [DateTime] class.

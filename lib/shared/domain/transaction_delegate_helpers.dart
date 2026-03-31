@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/investment.dart';
@@ -111,7 +112,7 @@ String transactionGetPayeeOrTransferCaption(
   } else {
     displayName = DataAbstract.instance.getPayeeName((transaction.fieldPayee.value as num).toInt());
   }
-  return displayName.isEmpty ? '<Payee???>' : displayName;
+  return displayName.isEmpty ? SharedDomainStrings.domainString007 : displayName;
 }
 
 /// Builds transfer caption text for [transaction] and [relatedAccount].
@@ -121,7 +122,7 @@ String transactionGetTransferCaption(
   bool isFrom, {
   required bool showAccount,
 }) {
-  String caption = showAccount ? transaction.accountName as String : 'Transfer';
+  String caption = showAccount ? transaction.accountName as String : SharedDomainStrings.domainString144;
   final String arrowDirection = isFrom ? ' <- ' : ' -> ';
   caption += arrowDirection;
   caption += transactionRelatedAccountName(relatedAccount);
@@ -131,7 +132,7 @@ String transactionGetTransferCaption(
 /// Returns formatted account name for [relatedAccount].
 String transactionRelatedAccountName(dynamic relatedAccount) {
   if (relatedAccount == null) {
-    return '<Account???>';
+    return SharedDomainStrings.domainString006;
   }
   String name = '';
 
@@ -167,7 +168,7 @@ Widget transactionBuildStatusButtonToggle(dynamic transaction) {
     onPressed: () {
       if (transaction.fieldStatus.value == TransactionStatus.reconciled) {
         SnackBarService.displayWarning(
-          message: 'Reconcile Transaction Status are prevented from changed.',
+          message: SharedDomainStrings.domainString114,
         );
         return;
       }

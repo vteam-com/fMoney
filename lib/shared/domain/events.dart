@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/event.dart';
 import 'package:money/shared/domain/money_objects.dart';
@@ -6,7 +7,7 @@ import 'package:money/shared/domain/money_objects.dart';
 /// Represents events.
 class Events extends MoneyObjects<Event> {
   Events() {
-    collectionName = 'LoanPayments';
+    collectionName = SharedDomainStrings.domainString084;
   }
   late DataAbstract data;
 

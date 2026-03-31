@@ -1,43 +1,139 @@
 {
   "about": "About",
   "aboutMenuItem": "About...",
+  "account": "Account",
   "accountNames": "Account names",
+  "accounts": "Accounts",
+  "accountsDescription": "Your main assets.",
+  "activeLabel": "Active",
   "add": "Add",
+  "addInvestment": "Add investment",
   "addInvestmentTransaction": "Add Investment Transaction",
+  "addNewAccount": "Add new account",
+  "addNewCategory": "Add new category",
+  "addNewEvent": "Add new event",
   "addNewTransactions": "Add new transactions",
+  "addTransactionBetweenTwoAccounts": "Add a transaction between two accounts.",
   "addTransactionsMenuItem": "Add transactions...",
   "aiAssistant": "AI Assistant",
+  "aiLearnedAboutAccountsAndTransactions": "AI has learned about @count accounts and their transactions.",
+  "@aiLearnedAboutAccountsAndTransactions": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "alias": "Alias",
+  "aliases": "Aliases",
+  "allLabel": "All",
+  "allTime": "All time",
+  "@allTime": {
+    "description": "REVIEWED"
+  },
+  "allYourMajorLifeEventsDescription": "All your major life events",
+  "amount": "Amount",
   "amountIsMatching": "Amount is matching",
   "amountIsOffBy": "Amount is off by",
+  "amountPerUnit": "Amount per unit",
   "analyzeSpending": "Analyze spending",
+  "appCopyright": "© 2024 fMoney Team. All rights reserved.",
   "appDescription": "Free open-source Flutter Personal Finance Management Application",
   "append": "Append",
   "appLongDescription": "A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.",
+  "apply": "Apply",
   "appName": "fMoney",
+  "@appName": {
+    "description": "REVIEWED"
+  },
   "appTitle": "fMoney by VTeam",
+  "assets": "Assets",
   "availableOn": "Available on",
+  "averageCost": "Average cost",
+  "averages": "Averages",
+  "@averages": {
+    "description": "REVIEWED"
+  },
   "avgLabel": "Avg: ",
   "badDateFormat": "Bad Date Format",
   "bankaccounts": "BankAccounts",
+  "banks": "Banks",
   "begin": "Begin",
   "budget": "Budget",
+  "@budget": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyActualZero": "Actual amount is zero. Cannot calculate percentages.",
+  "@budgetAccuracyActualZero": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyBothZero": "Both budgeted and actual amounts are zero. Accuracy is undefined.",
+  "@budgetAccuracyBothZero": {
+    "description": "REVIEWED"
+  },
+  "budgetAccuracyPercent": "Accuracy:    @value%",
+  "@budgetAccuracyPercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetVariancePercent": "Variance:    @value%",
+  "@budgetVariancePercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetVarianceUndefined": "Budgeted amount is zero. Variance is undefined.",
+  "@budgetVarianceUndefined": {
+    "description": "REVIEWED"
+  },
+  "buildNumberLabel": "Build Number",
+  "buySellDividend": "Buy/Sell/Dividend.",
   "cancel": "Cancel",
   "cash": "Cash",
   "cashFlow": "Cash Flow",
+  "categories": "Categories",
+  "categoriesDescription": "Classification of your money transactions.",
+  "category": "Category",
   "chart": "Chart",
   "chartUpperSpacer": "CHART ",
+  "chatTruncatedSuffix": "\n...",
   "checkingOllamaStatus": "Checking Ollama status...",
   "chooseAnOptionToGetStarted": "Choose an option to get started:",
   "chooseColumns": "Choose Columns",
   "clearFilters": "Clear Filters",
   "close": "Close",
+  "closedLabel": "Closed",
   "closeFile": "Close file",
+  "closePosition": "Close Position",
+  "columnFilterName": "Column Filter ({name})",
+  "@columnFilterName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "columnIndex": "Column {index}",
+  "@columnIndex": {
+    "placeholders": {
+      "index": {
+        "type": "String"
+      }
+    }
+  },
   "confirm": "Confirm",
   "content": "Content:",
   "contentGoesHere": "Content goes here",
   "continueLabel": "Continue",
   "copiedToClipboard": "Copied to clipboard",
   "copyListToClipboard": "Copy list to clipboard",
+  "copyMessage": "Copy message",
+  "copyMessageToClipboard": "Copy message to clipboard",
   "countSelected": "@count selected",
   "@countSelected": {
     "placeholders": {
@@ -59,10 +155,29 @@
   "csvHeadersAreMissingOrEmpty": "CSV headers are missing or empty.",
   "csvImportCancelled": "CSV import cancelled.",
   "dataPreviewFirst5Rows": "Data Preview (First 5 rows):",
+  "date": "Date",
+  "day": "Day",
+  "@day": {
+    "description": "REVIEWED"
+  },
   "debit": "Debit",
+  "defaultListOfItems": "Default list of items",
+  "delete": "Delete",
   "deleteSelectedItems": "Delete selected item(s)",
+  "description": "Description",
+  "descriptionPayee": "Description/Payee",
   "details": "Details",
+  "dividend": "Dividend",
   "dropFilesHere": "Drop files here",
+  "edit": "Edit",
+  "editedElapsed": "Edited {elapsed}",
+  "@editedElapsed": {
+    "placeholders": {
+      "elapsed": {
+        "type": "String"
+      }
+    }
+  },
   "editSelectedItems": "Edit selected item(s)",
   "elapsedElapsed": "Elapsed: @elapsed",
   "@elapsedElapsed": {
@@ -73,7 +188,18 @@
     }
   },
   "end": "End",
+  "entriesCount": "{count} entries",
+  "@entriesCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "error": "Error",
+  "@error": {
+    "description": "REVIEWED"
+  },
   "errorImportingCsvError": "Error importing CSV: @error",
   "@errorImportingCsvError": {
     "placeholders": {
@@ -90,26 +216,94 @@
       }
     }
   },
+  "errorInvalidResponseFromOllama": "Error: Invalid response from Ollama",
+  "errorWithReason": "Error: @reason",
+  "@errorWithReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "event": "Event",
+  "events": "Events",
+  "eventTolerances": "Event Tolerances",
+  "expenseLabel": "Expense",
   "expensePredictions": "Expense predictions",
+  "expenses": "Expenses",
   "fileLocationMenuItem": "File location...",
   "fileLocationNotSupportedOnMobile": "Opening the file location is only supported on desktop platforms.",
   "fileMenuTooltip": "File menu",
   "filter": "filter",
   "fmoney": "fMoney",
+  "@fmoney": {
+    "description": "REVIEWED"
+  },
+  "forAccessingTwelveData": "for accessing https://twelvedata.com",
   "forSpacer": " for ",
   "freeStyle": "Free style",
+  "fromAccount": "From Account",
   "fromCategory": "From category",
   "fromPayee": "From payee",
   "fullPromptSentToAi": "Full Prompt Sent to AI",
+  "getLatestPrice": "Get latest price",
   "helperForDebugging": "Helper for debugging",
   "hideClosedAccounts": "Hide closed accounts",
   "idLabel": "ID: ",
+  "@idLabel": {
+    "description": "REVIEWED"
+  },
+  "importedTransactionsIntoAccount": "Imported - {count} transactions into \"{account}\"",
+  "@importedTransactionsIntoAccount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "importFileType": "Import {fileType}",
+  "@importFileType": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      }
+    }
+  },
+  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, QIF, XLSX, or CSV file.",
+  "importFromQfxQifXlsxCsvFile": "From QFX|QIF|XLSX|CSV file",
+  "importNoMatchingAccountsWithId": "Import - No matching \"{fileType}\" accounts with ID \"{id}\"",
+  "@importNoMatchingAccountsWithId": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importTransactions": "Import transactions",
   "importTransactionToAccount": "Import transaction to account",
+  "importWord": "Import",
   "includeAssetAccounts": "Include Asset Accounts",
+  "incomeLabel": "Income",
+  "incomes": "Incomes",
   "info": "Info",
   "installAppMenuItem": "Install App...",
   "installOllamaNow": "Install Ollama now",
+  "interest": "Interest",
+  "@interest": {
+    "description": "REVIEWED"
+  },
+  "investment": "Investment",
   "investments": "Investments",
+  "investmentTransaction": "Investment Transaction",
+  "investmentType": "Investment Type",
+  "item": "Item",
+  "items": "Items",
   "keepAllTransactionsToTheirCurrentCategories": "Keep all transactions to their current categories",
   "language": "Language",
   "languageEnglish": "English",
@@ -127,17 +321,93 @@
   "largestTransactions": "Largest transactions",
   "licenses": "Licenses",
   "licensesDescription": "fMoney is built using open-source software. View the licenses for all packages used in this application.",
+  "lifeTimePnl": "Life Time P&L",
+  "@lifeTimePnl": {
+    "description": "REVIEWED"
+  },
   "list": "List",
+  "loanPayment": "Loan Payment",
+  "loss": "Loss",
+  "@loss": {
+    "description": "REVIEWED"
+  },
+  "maintenance": "Maintenance",
+  "@maintenance": {
+    "description": "REVIEWED"
+  },
+  "management": "Management",
+  "@management": {
+    "description": "REVIEWED"
+  },
   "manageTheExpensesAndRentalIncomeOfProperties": "Manage the expenses and rental income of properties.",
+  "manualBulkTextInput": "Manual bulk text input",
+  "manualBulkTextInputDescription": "Refer to your online statements, then Copy & Paste text or use OCR to extract the [Dates | Memos | Amounts].",
+  "marketPrice": "Market price",
+  "matchingTransaction": "Matching Transaction",
   "maxLabel": "Max: ",
   "memo": "Memo",
   "merge": "Merge",
   "mergeItems": "Merge item(s)",
+  "mergeTransactionsCount": "Merge @count transactions",
+  "@mergeTransactionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "mergeTransactionsIntoCategory": "Use this option to merge transactions from \"@from\" into \"@to\".",
+  "@mergeTransactionsIntoCategory": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
   "messageDetails": "Message Details",
   "minLabel": "Min: ",
   "missingTransfer": "Missing Transfer",
+  "month": "Month",
+  "@month": {
+    "description": "REVIEWED"
+  },
   "monthlyActual": "Monthly Actual",
   "monthlyBudgeted": "Monthly Budgeted",
+  "moveCategory": "Move Category",
+  "moveCategoryAsChild": "Use this option to move \"@from\" as a child category of \"@to\".",
+  "@moveCategoryAsChild": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "multipleSelectionCount": "Multiple selection.({count})",
+  "@multipleSelectionCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "mutationAdded": "added",
+  "@mutationAdded": {
+    "description": "REVIEWED"
+  },
+  "mutationDeleted": "deleted",
+  "@mutationDeleted": {
+    "description": "REVIEWED"
+  },
+  "mutationModified": "modified",
+  "@mutationModified": {
+    "description": "REVIEWED"
+  },
   "navAccounts": "Accounts",
   "navAccountsTooltip": "Show Accounts",
   "navAiAssistantTooltip": "AI-powered financial insights",
@@ -166,11 +436,23 @@
   "navStocks": "Stocks",
   "navStocksTooltip": "Stocks tracking",
   "navTransactions": "Transactions",
+  "@navTransactions": {
+    "description": "REVIEWED"
+  },
   "navTransactionsTooltip": "Show Transactions",
   "navTransfers": "Transfers",
   "navTransfersTooltip": "View transfers between accounts",
   "networth": "NetWorth",
+  "newBankAccount": "New Bank Account",
   "newFile": "New File ...",
+  "newItemLabel": "New @item",
+  "@newItemLabel": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "newMenuItem": "New",
   "noAccountSelected": "No account selected",
   "noAccountSelectedPeriod": "No account selected.",
@@ -189,10 +471,33 @@
       }
     }
   },
+  "noHistoryInformationAboutSymbol": "No history information about \"{symbol}\"",
+  "@noHistoryInformationAboutSymbol": {
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      }
+    }
+  },
   "noItems": "No items",
   "noItemSelected": "No item selected.",
+  "noItemsToDelete": "No items to delete",
   "noItemsWereTitle": "No items were @title",
   "@noItemsWereTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "noMatchingTransactions": "No matching transactions",
+  "noNeedToMergeCategoryToItself": "No need to merge to itself, select a different category.",
+  "@noNeedToMergeCategoryToItself": {
+    "description": "REVIEWED"
+  },
+  "noneLabel": "None",
+  "noneWithTitle": "None @title",
+  "@noneWithTitle": {
     "placeholders": {
       "title": {
         "type": "String"
@@ -205,24 +510,80 @@
   "noSecuritySelected": "No security selected.",
   "noSheetXmlFoundInXlsxFile": "No sheet XML found in XLSX file.",
   "noStockSelected": "No stock selected",
+  "nothingToImport": "Nothing to import",
   "noTransactions": "No transactions",
   "noTransactionsPeriod": "No transactions.",
   "noUi": "no UI",
   "noValidEntriesFoundInCsvToImport": "No valid entries found in CSV to import.",
   "noValidEntriesFoundInXlsxToImport": "No valid entries found in XLSX to import.",
   "ocr": "OCR",
+  "@ocr": {
+    "description": "REVIEWED"
+  },
   "ollamaAiAssistant": "Ollama AI Assistant",
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama is required to use the AI assistant. Click below to install it.",
   "openFile": "Open File ...",
   "openMenuItem": "Open...",
   "orChangeToCategory": "or change to category",
+  "packageNameLabel": "Package Name",
   "payee": "Payee",
+  "payeeAliasesDescription": "Payee aliases.",
   "payeeMatch": "Payee Match",
+  "payees": "Payees",
+  "pendingChanges": "Pending Changes",
+  "@pendingChanges": {
+    "description": "REVIEWED"
+  },
+  "pickAccountToImportTo": "Pick account to import to",
+  "pickDifferentCategoryThan": "Pick a different category than \"@category\".",
+  "@pickDifferentCategoryThan": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "platformAndroid": "Android",
+  "@platformAndroid": {
+    "description": "REVIEWED"
+  },
+  "platformDesktop64bitSoftware": "Desktop 64bit Software.",
+  "platformDesktopIntelSiliconSoftware": "Desktop Intel & Silicon Software.",
+  "platformDesktopSoftware": "Desktop Software.",
+  "platformIos": "iOS",
+  "@platformIos": {
+    "description": "REVIEWED"
+  },
+  "platformLinux": "Linux",
+  "@platformLinux": {
+    "description": "REVIEWED"
+  },
+  "platformMacos": "macOS",
+  "@platformMacos": {
+    "description": "REVIEWED"
+  },
+  "platformMobileApp": "Mobile app.",
+  "platformRunOnAnyOsWithMostBrowsers": "Run on any OS with most browsers.",
+  "platformWebBrowser": "Web Browser",
+  "platformWindows": "Windows",
+  "@platformWindows": {
+    "description": "REVIEWED"
+  },
   "pleaseMapAllFieldsDateDescriptionAmount": "Please map all fields (Date, Description, Amount).",
   "pleaseSelectDifferentAccounts": "Please select different accounts",
   "pnl": "PnL",
+  "@pnl": {
+    "description": "REVIEWED"
+  },
   "policy": "Policy",
+  "preview": "Preview",
   "privacyPolicy": "Privacy Policy",
+  "privacyPolicyMarkdown": "# Privacy Policy for fMoney App\n\n## 1. No Information Collected:\nfMoney does not collect any personal information from its users. We do not require users to provide any personal data such as name, email address, or any other identifying information.\n\n## 2. Information Usage:\nSince we do not collect any personal information, we do not use or share any information about our users.\n\n## 3. No Data Logged:\nfMoney does not log any data from its users.\n\n## 4. Contact Us:\nIf you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at questions@vteam.com.\n\n_________________\n\n\nBy using fMoney, you signify your acceptance of this Privacy Policy. If you do not agree to this policy, please do not use our application. Your continued use of the application following the posting of changes to this policy will be deemed your acceptance of those changes.\n",
+  "profit": "Profit",
+  "@profit": {
+    "description": "REVIEWED"
+  },
+  "propertiesToRentDescription": "Properties to rent.",
   "questionsQuestioncountTokensTokencount": "Questions: {questionCount} | Tokens: {tokenCount}",
   "@questionsQuestioncountTokensTokencount": {
     "placeholders": {
@@ -234,12 +595,27 @@
       }
     }
   },
+  "range": "Range",
+  "@range": {
+    "description": "REVIEWED"
+  },
+  "readLess": "Read Less",
+  "readMore": "Read More",
   "rebalanceMenuItem": "Rebalance...",
+  "receiver": "Receiver",
   "recordATransferBetweenTwoAccounts": "Record a Transfer between two accounts",
+  "recordTransfer": "Record Transfer",
   "recurring": "Recurring",
   "refreshList": "Refresh list",
   "rental": "Rental",
   "rentalPropertyNotFound": "Rental property not found",
+  "rentals": "Rentals",
+  "renters": "Renters",
+  "repairs": "Repairs",
+  "@repairs": {
+    "description": "REVIEWED"
+  },
+  "requestWasCancelled": "Request was cancelled.",
   "rowIndex": "Row {index}",
   "@rowIndex": {
     "placeholders": {
@@ -250,15 +626,47 @@
   },
   "runOllama": "Run Ollama",
   "sankey": "Sankey",
+  "@sankey": {
+    "description": "REVIEWED"
+  },
   "saveToCsv": "Save to CSV",
   "saveToSql": "Save to SQL",
+  "savingLabel": "Saving",
+  "searchForPayee": "Search for Payee",
+  "securitySymbolInvalid": "Security \"{symbol}\" is not valid",
+  "@securitySymbolInvalid": {
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      }
+    }
+  },
   "selectARentalPropertyToSeeItsPL": "Select a Rental property to see its P&L",
   "selectColumn": "Select column",
   "selectHeaderRow": "Select Header Row",
   "selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent": "Select the row that contains the column headers (automatically selected based on content):",
+  "selectValidAccounts": "Select valid accounts.",
+  "sender": "Sender",
   "setApiKey": "Set API Key",
   "settings": "Settings",
   "settingsMenuItem": "Settings...",
+  "shares": "Shares",
+  "shortcutAddTransactions": "Ctrl+T",
+  "@shortcutAddTransactions": {
+    "description": "REVIEWED"
+  },
+  "shortcutNewFile": "Ctrl+N",
+  "@shortcutNewFile": {
+    "description": "REVIEWED"
+  },
+  "shortcutOpenFile": "Ctrl+O",
+  "@shortcutOpenFile": {
+    "description": "REVIEWED"
+  },
+  "shortcutRebalance": "Ctrl+R",
+  "@shortcutRebalance": {
+    "description": "REVIEWED"
+  },
   "showClosedAccounts": "Show closed accounts",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Showing first {maxRows} of {rowCount} eligible rows",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
@@ -282,16 +690,52 @@
   "skippingDuplicate": " Skipping Duplicate ",
   "smallScreenContentGoesHere": "Small screen content goes here",
   "split": "Split",
+  "splitRatio": "{numerator} for {denominator}",
+  "@splitRatio": {
+    "placeholders": {
+      "numerator": {
+        "type": "String"
+      },
+      "denominator": {
+        "type": "String"
+      }
+    }
+  },
+  "splits": "Splits",
+  "stock": "Stock",
+  "stocks": "Stocks",
+  "stocksTrackingDescription": "Stocks tracking.",
   "success": "Success",
   "suggestion": "Suggestion",
+  "@suggestion": {
+    "description": "REVIEWED"
+  },
+  "switchToCategories": "Switch to Categories",
+  "switchToPayees": "Switch to Payees",
+  "switchToStocks": "Switch to Stocks",
+  "switchToTransactions": "Switch to Transactions",
+  "symbol": "Symbol",
+  "taxes": "Taxes",
+  "@taxes": {
+    "description": "REVIEWED"
+  },
+  "teachingCancelled": "Teaching cancelled.",
+  "teachingFailedPartially": "Teaching failed partially - some accounts may not be learned.",
   "themeColorBlue": "Blue",
   "themeColorGreen": "Green",
   "themeColorOrange": "Orange",
+  "@themeColorOrange": {
+    "description": "REVIEWED"
+  },
   "themeColorPink": "Pink",
   "themeColorPurple": "Purple",
   "themeColorTeal": "Teal",
   "themeColorYellow": "Yellow",
   "thinking": "Thinking...",
+  "timeline": "Timeline",
+  "@timeline": {
+    "description": "REVIEWED"
+  },
   "timestampTimestamp": "Timestamp: @timestamp",
   "@timestampTimestamp": {
     "placeholders": {
@@ -300,23 +744,80 @@
       }
     }
   },
+  "toAccount": "To Account",
   "toCategory": "To category",
   "toggleBrightness": "Toggle brightness",
   "toPayee": "To payee",
   "total": "Total",
+  "@total": {
+    "description": "REVIEWED"
+  },
+  "totalTransactionAmount": "Total Transaction Amount",
+  "trackYourStockPortfolioDescription": "Track your stock portfolio.",
+  "transaction": "Transaction",
   "transactions": "Transactions",
+  "@transactions": {
+    "description": "REVIEWED"
+  },
+  "transactionsAddedCount": "{count} transactions added",
+  "@transactionsAddedCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionsAveraging": "@count transactions averaging",
+  "@transactionsAveraging": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionsDescription": "Details actions of your accounts.",
+  "transactionsFoundInFileToImport": "{count} transactions found in {fileType} file, to be imported into \"{account}\"",
+  "@transactionsFoundInFileToImport": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "fileType": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
   "transactionSplit": "Transaction split",
   "transfer": "Transfer",
+  "transfers": "Transfers",
+  "transfersBetweenAccountsDescription": "Transfers between accounts.",
   "trend": "Trend",
+  "units": "Units",
   "unknown": "Unknown",
   "useDemoData": "Use Demo Data",
+  "value": "Value",
   "versionInformation": "Version Information",
+  "versionLabel": "Version",
   "viewClosedAccounts": "View closed accounts",
   "viewLicenses": "View Licenses",
+  "viewMessageDetails": "View message details",
+  "viewPromptDetails": "View prompt details",
   "warning": "Warning",
   "welcomeToFmoney": "Welcome to fMoney",
+  "welcomeToYourAiAccountant": "Welcome to your AI Accountant",
+  "whoIsGettingYourMoney": "Who is getting your money.",
   "xlsxFileContainsNoDataRows": "XLSX file contains no data rows.",
   "xlsxFileContainsNoValidData": "XLSX file contains no valid data.",
   "xlsxImportCancelled": "XLSX import cancelled.",
-  "zoom": "Zoom"
+  "year": "Year",
+  "@year": {
+    "description": "REVIEWED"
+  },
+  "zoom": "Zoom",
+  "@zoom": {
+    "description": "REVIEWED"
+  }
 }

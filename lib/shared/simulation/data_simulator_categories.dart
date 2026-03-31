@@ -1,5 +1,6 @@
 import 'package:money/data/models/data_simulator_constants.dart';
 import 'package:money/helpers/category_types.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
 
@@ -150,7 +151,7 @@ DataSimulatorCategoriesBundle generateSimulatorCategories() {
     name: 'Salary',
     type: CategoryType.income,
     color: '#FF00FF00',
-    description: 'Main income',
+    description: SharedSimulationStrings.simDescriptionMainIncome,
   );
   final Category salaryPaycheck = Data().categories.addNewCategory(
     parentId: salary.uniqueId,

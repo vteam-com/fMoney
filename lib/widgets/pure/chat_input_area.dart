@@ -1,6 +1,7 @@
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 const double _inputPadding = 16.0;
 const double _inputSpacing = 8.0;
@@ -66,22 +67,22 @@ class _ChatInputAreaState extends State<ChatInputArea> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
-                  widget.onSendPrompt('List all the account names');
+                  widget.onSendPrompt(AppL10n.tr(AppTranslationKeys.accountNames));
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.accountNames)),
               ),
               ElevatedButton(
                 onPressed: () {
-                  widget.onSendPrompt('Identify the largest single transaction amount in each account');
+                  widget.onSendPrompt(AppL10n.tr(AppTranslationKeys.largestTransactions));
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.largestTransactions)),
               ),
               ElevatedButton(
-                onPressed: () => widget.onSendPrompt('Analyze my spending patterns'),
+                onPressed: () => widget.onSendPrompt(AppL10n.tr(AppTranslationKeys.analyzeSpending)),
                 child: Text(AppL10n.tr(AppTranslationKeys.analyzeSpending)),
               ),
               ElevatedButton(
-                onPressed: () => widget.onSendPrompt('Predict future expenses'),
+                onPressed: () => widget.onSendPrompt(AppL10n.tr(AppTranslationKeys.expensePredictions)),
                 child: Text(AppL10n.tr(AppTranslationKeys.expensePredictions)),
               ),
             ],
@@ -99,7 +100,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                 child: TextField(
                   controller: widget.inputController,
                   decoration: InputDecoration(
-                    hintText: 'Ask the AI assistant...',
+                    hintText: SharedStrings.aiAssistantHint,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(_inputRadius),
                     ),

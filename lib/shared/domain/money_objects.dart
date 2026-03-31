@@ -6,6 +6,7 @@ import 'package:money/data/models/database_interface.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/diff.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
@@ -165,7 +166,7 @@ class MoneyObjects<T> {
 
   /// Must be override by derived class
   DataObject instanceFromJson(final MyJson _ /* json */) {
-    assert(false, 'You must implement this in your derived class');
+    assert(false, SharedDomainStrings.domainString157);
     return DataObject();
   }
 

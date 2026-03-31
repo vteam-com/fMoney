@@ -110,7 +110,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
         content: Text(AppL10n.tr(AppTranslationKeys.csvHeadersAreMissingOrEmpty)), // Keep inner Text const
         actions: <Widget>[
           TextButton(
-            child: const Text('OK'),
+            child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -208,17 +208,17 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   Widget _buildMappingDropdowns() {
     return Column(
       children: <Widget>[
-        _buildDropdown('Date Column:', _selectedDateColumn, (String? newValue) {
+        _buildDropdown(AppL10n.tr(AppTranslationKeys.date), _selectedDateColumn, (String? newValue) {
           setState(() {
             _selectedDateColumn = newValue;
           });
         }),
-        _buildDropdown('Description Column:', _selectedDescriptionColumn, (String? newValue) {
+        _buildDropdown(AppL10n.tr(AppTranslationKeys.description), _selectedDescriptionColumn, (String? newValue) {
           setState(() {
             _selectedDescriptionColumn = newValue;
           });
         }),
-        _buildDropdown('Amount Column:', _selectedAmountColumn, (String? newValue) {
+        _buildDropdown(AppL10n.tr(AppTranslationKeys.amount), _selectedAmountColumn, (String? newValue) {
           setState(() {
             _selectedAmountColumn = newValue;
           });

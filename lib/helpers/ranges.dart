@@ -1,5 +1,6 @@
 // ignore: fcheck_one_class_per_file
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 
 // Exports
@@ -109,8 +110,8 @@ class DateRange {
   String get durationInDaysText => getSingularPluralText(
     getIntAsText(durationInDays),
     durationInDays,
-    'day',
-    'days',
+    SharedStrings.durationDay,
+    SharedStrings.durationDays,
   );
 
   /// Returns the duration of the date range in months (approximate).
@@ -131,8 +132,8 @@ class DateRange {
   String get durationInYearsText => getSingularPluralText(
     getIntAsText(durationInYears),
     durationInYears,
-    'year',
-    'years',
+    SharedStrings.durationYear,
+    SharedStrings.durationYears,
   );
 
   /// Ensures both min and max dates are not null, sets to current date if both null.
@@ -255,7 +256,8 @@ class NumRange {
     max = newMax;
   }
 
-  String _getDescription(final String min, final String max) => '$min min, $max max';
+  String _getDescription(final String min, final String max) =>
+      min + SharedStrings.rangeMinInfix + max + SharedStrings.rangeMaxSuffix;
 }
 
 extension Range on num {

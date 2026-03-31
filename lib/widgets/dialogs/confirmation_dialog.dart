@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/dialogs/dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/gaps.dart';
@@ -14,7 +16,7 @@ void showConfirmationDialog({
   adaptiveScreenSizeDialog(
     context: context,
     title: title,
-    captionForClose: 'Cancel',
+    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
     actionButtons: <Widget>[
       DialogActionButton(
         text: buttonText,

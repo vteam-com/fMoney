@@ -1,5 +1,8 @@
+import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/transaction.dart';
@@ -31,7 +34,7 @@ void myShowDialogAndActionsForMoneyObjects({
   final BuildContext context = AppRouter.context!;
 
   if (moneyObjects.isEmpty) {
-    messageBox(context, 'No items to edit');
+    messageBox(context, SharedStrings.messageNoItemsToEdit);
     return;
   }
 
@@ -136,7 +139,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
     return <Widget>[
       // Cancel
       DialogActionButton(
-        text: 'Cancel',
+        text: AppL10n.tr(AppTranslationKeys.cancel),
         onPressed: () {
           Navigator.of(context).pop(false);
         },
@@ -145,7 +148,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
       // Apply
       if (editMode && dataWasModified)
         DialogActionButton(
-          text: 'Apply',
+          text: AppL10n.tr(AppTranslationKeys.apply),
           onPressed: () {
             // Changes were made
             if (dataWasModified) {

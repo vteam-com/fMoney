@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/box.dart';
 import 'package:money/widgets/pure/ocr.dart';
@@ -39,7 +40,7 @@ class InputValues extends StatelessWidget {
           header: buildHeaderTitleAndCounter(
             context,
             title,
-            '${getIntAsText(lineCount)} lines',
+            '${getIntAsText(lineCount)}${SharedStrings.suffixLines}',
           ),
           child: TextField(
             key: const Key('key_input_text_field_value'),

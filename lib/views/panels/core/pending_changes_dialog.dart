@@ -1,5 +1,6 @@
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/presentation/provider_data_file_controller.dart';
@@ -37,8 +38,8 @@ class PendingChangesDialog extends StatefulWidget {
   static void show(final BuildContext context) {
     adaptiveScreenSizeDialog(
       context: context,
-      title: 'Pending Changes',
-      captionForClose: 'Close',
+      title: AppL10n.tr(AppTranslationKeys.pendingChanges),
+      captionForClose: AppL10n.tr(AppTranslationKeys.close),
       child: const SizedBox(
         width: _dialogWidth,
         height: _dialogHeight,
@@ -46,14 +47,14 @@ class PendingChangesDialog extends StatefulWidget {
       ),
       actionButtons: <Widget>[
         DialogActionButton(
-          text: 'Save to SQL',
+          text: AppL10n.tr(AppTranslationKeys.saveToSql),
           onPressed: () {
             DataFileController.to.onSaveToSql();
             Navigator.of(context).pop(true);
           },
         ),
         DialogActionButton(
-          text: 'Save to CSV',
+          text: AppL10n.tr(AppTranslationKeys.saveToCsv),
           onPressed: () {
             DataFileController.to.onSaveToCsv();
             Navigator.of(context).pop(true);
@@ -69,17 +70,17 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
   final List<Mutations> _data = <Mutations>[
     Mutations(
       typeOfMutation: MutationType.inserted,
-      title: 'added',
+      title: AppL10n.tr(AppTranslationKeys.mutationAdded),
       color: Colors.green,
     ),
     Mutations(
       typeOfMutation: MutationType.changed,
-      title: 'modified',
+      title: AppL10n.tr(AppTranslationKeys.mutationModified),
       color: Colors.orange,
     ),
     Mutations(
       typeOfMutation: MutationType.deleted,
-      title: 'deleted',
+      title: AppL10n.tr(AppTranslationKeys.mutationDeleted),
       color: Colors.red,
     ),
   ];
@@ -254,9 +255,14 @@ class Mutations {
   /// Returns a formatted title including the count of mutations.
   String get fullTitle {
     if (count == 0) {
-      return 'None $title';
+      return AppL10n.tr(
+        AppTranslationKeys.noneWithTitle,
+        params: <String, String>{
+          'title': title,
+        },
+      );
     }
-    return '${getIntAsText(count)} $title';
+    return '${getIntAsText(count)}${SharedStrings.space}$title';
   }
 
   /// Initializes the list of mutations.

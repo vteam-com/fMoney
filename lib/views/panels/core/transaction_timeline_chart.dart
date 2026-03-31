@@ -11,6 +11,8 @@ import 'package:money/widgets/charts/chart.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 
+const int _lineFeedCodePoint = 10;
+
 /// Widget to display a timeline chart of transactions.
 class TransactionTimelineChart extends StatefulWidget {
   const TransactionTimelineChart({super.key, required this.transactions});
@@ -95,7 +97,10 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
       case TimelineScale.monthly:
         return Transactions.transactionSumBy(
           widget.transactions,
-          (DateTime date) => '${date.year}\n${date.month}',
+          (DateTime date) {
+            final String lineFeed = String.fromCharCode(_lineFeedCodePoint);
+            return '${date.year}$lineFeed${date.month}';
+          },
         );
 
       // YEARLY

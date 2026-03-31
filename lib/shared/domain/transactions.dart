@@ -7,6 +7,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
@@ -25,7 +26,7 @@ const int _dayTokenIndex = 2;
 /// Represents transactions.
 class Transactions extends MoneyObjects<Transaction> {
   Transactions() {
-    collectionName = 'Transactions';
+    collectionName = SharedDomainStrings.domainString143;
   }
   late DataAbstract data;
 

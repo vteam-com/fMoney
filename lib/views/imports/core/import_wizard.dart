@@ -1,6 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/views/imports/core/import_csv.dart';
 import 'package:money/views/imports/core/import_investment.dart';
 import 'package:money/views/imports/core/import_qfx.dart';
@@ -20,8 +23,8 @@ void showImportTransactionsWizard([BuildContext? context]) {
 
   adaptiveScreenSizeDialog(
     context: originalContext, // Use original context for showing the dialog
-    captionForClose: 'Cancel',
-    title: 'Import transactions',
+    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
+    title: AppL10n.tr(AppTranslationKeys.importTransactions),
     child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,33 +32,32 @@ void showImportTransactionsWizard([BuildContext? context]) {
         children: <Widget>[
           gapMedium(),
           WizardChoice(
-            title: 'From QFX|QIF|XLSX|CSV file', // Changed title
-            description: 'Import transactions from a QFX, QIF, XLSX, or CSV file.', // Changed description
+            title: AppL10n.tr(AppTranslationKeys.importFromQfxQifXlsxCsvFile),
+            description: AppL10n.tr(AppTranslationKeys.importFromQfxQifXlsxCsvDescription),
             onPressed: () {
               Navigator.of(originalContext).pop(true); // Use originalContext
               onImportFromFile(originalContext); // Pass original, still-mounted context
             },
           ),
           WizardChoice(
-            title: 'Manual bulk text input',
-            description:
-                'Refer to your online statements, then Copy & Paste text or use OCR to extract the [Dates | Memos | Amounts].',
+            title: AppL10n.tr(AppTranslationKeys.manualBulkTextInput),
+            description: AppL10n.tr(AppTranslationKeys.manualBulkTextInputDescription),
             onPressed: () {
               Navigator.of(originalContext).pop(true); // Use originalContext
               showImportTransactionsFromTextInput(originalContext); // Use originalContext
             },
           ),
           WizardChoice(
-            title: 'Record a transfer',
-            description: 'add a transaction Between two accounts.',
+            title: AppL10n.tr(AppTranslationKeys.recordTransfer),
+            description: AppL10n.tr(AppTranslationKeys.addTransactionBetweenTwoAccounts),
             onPressed: () {
               Navigator.of(originalContext).pop(true); // Use originalContext
               showImportTransfer();
             },
           ),
           WizardChoice(
-            title: 'Investment Transaction',
-            description: 'Buy/Sell/Dividend.',
+            title: AppL10n.tr(AppTranslationKeys.investmentTransaction),
+            description: AppL10n.tr(AppTranslationKeys.buySellDividend),
             onPressed: () {
               Navigator.of(originalContext).pop(true); // Use originalContext
               showImportInvestment();
@@ -75,16 +77,16 @@ void onImportFromFile(final BuildContext context) async {
   if (pickerResult != null) {
     if (context.mounted) {
       switch (pickerResult.files.single.extension?.toLowerCase()) {
-        case 'qif':
+        case SharedStrings.fileExtensionQif:
           importQIF(context, pickerResult.files.single.path.toString());
           break; // Added break
-        case 'qfx':
+        case SharedStrings.fileExtensionQfx:
           importQFX(context, pickerResult.files.single.path.toString());
           break; // Added break
-        case 'xlsx': // XLSX import
+        case SharedStrings.fileExtensionXlsx:
           importXLSX(context, pickerResult.files.single.path.toString());
           break;
-        case 'csv': // Added csv case
+        case SharedStrings.fileExtensionCsv:
           importCSV(context, pickerResult.files.single.path.toString());
           break;
       }

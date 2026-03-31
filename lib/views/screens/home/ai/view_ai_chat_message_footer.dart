@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:money/data/view_ai_chat_types.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 
@@ -46,7 +48,9 @@ class ChatMessageFooter extends StatelessWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 child: Text(
-                  message.isExpanded ? 'Read Less' : 'Read More',
+                  message.isExpanded
+                      ? AppL10n.tr(AppTranslationKeys.readLess)
+                      : AppL10n.tr(AppTranslationKeys.readMore),
                   style: TextStyle(
                     color: getColorTheme(context).primary,
                     fontSize: _footerFontSize,
@@ -76,7 +80,7 @@ class ChatMessageFooter extends StatelessWidget {
               icon: const Icon(Icons.copy, size: _footerIconSize),
               padding: const EdgeInsets.all(_footerIconPadding),
               constraints: const BoxConstraints(),
-              tooltip: 'Copy message to clipboard',
+              tooltip: AppL10n.tr(AppTranslationKeys.copyMessageToClipboard),
             ),
             IconButton(
               onPressed: onViewDetails,
@@ -86,7 +90,9 @@ class ChatMessageFooter extends StatelessWidget {
               ),
               padding: const EdgeInsets.all(_footerIconPadding),
               constraints: const BoxConstraints(),
-              tooltip: isUser ? 'View prompt details' : 'View message details',
+              tooltip: isUser
+                  ? AppL10n.tr(AppTranslationKeys.viewPromptDetails)
+                  : AppL10n.tr(AppTranslationKeys.viewMessageDetails),
             ),
           ],
         ),

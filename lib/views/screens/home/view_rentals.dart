@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/shared/domain/data.dart';
@@ -31,17 +33,17 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Rentals';
+    return AppL10n.tr(AppTranslationKeys.rentals);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Rental';
+    return AppL10n.tr(AppTranslationKeys.rental);
   }
 
   @override
   String getDescription() {
-    return 'Properties to rent.';
+    return AppL10n.tr(AppTranslationKeys.propertiesToRentDescription);
   }
 
   @override
@@ -102,7 +104,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
 
     return buildAdaptiveBox(
       context: context,
-      title: 'Renters',
+      title: AppL10n.tr(AppTranslationKeys.renters),
       content: ListView.separated(
         itemCount: rentersInThisBuilding.length,
         itemBuilder: (BuildContext _, int index) {

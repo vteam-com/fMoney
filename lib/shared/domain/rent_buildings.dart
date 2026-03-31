@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
 import 'package:money/shared/domain/rent_building.dart';
@@ -9,7 +10,7 @@ import 'package:money/widgets/components/rental_pnl.dart';
 /// Represents rent buildings.
 class RentBuildings extends MoneyObjects<RentBuilding> {
   RentBuildings() {
-    collectionName = 'Rental Buildings';
+    collectionName = SharedDomainStrings.domainString117;
   }
   late DataAbstract data;
 

@@ -120,7 +120,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         buildJumpToButton(context, <MenuEntry>[
           MenuEntry(
             icon: ViewId.viewTransactions.getIconData(),
-            title: 'Matching Transaction',
+            title: AppL10n.tr(AppTranslationKeys.matchingTransaction),
             onPressed: () {
               final Transaction? selectedInfoTransaction = getSidePanelLastSelectedTransaction();
 
@@ -154,7 +154,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
                 }
               }
               SnackBarService.displayWarning(
-                message: 'No matching transactions',
+                message: AppL10n.tr(AppTranslationKeys.noMatchingTransactions),
               );
             },
           ),
@@ -167,10 +167,10 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         buildAddItemButton(() {
           // add a new Account
           final Account newItem = Data().accounts.addNewAccount(
-            'New Bank Account',
+            AppL10n.tr(AppTranslationKeys.newBankAccount),
           );
           updateListAndSelect(newItem.uniqueId);
-        }, 'Add new account'),
+        }, AppL10n.tr(AppTranslationKeys.addNewAccount)),
       );
 
       // this can go last
@@ -199,12 +199,12 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Accounts';
+    return AppL10n.tr(AppTranslationKeys.accounts);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Account';
+    return AppL10n.tr(AppTranslationKeys.account);
   }
 
   // default currency for this view
@@ -235,7 +235,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   @override
   String getDescription() {
-    return 'Your main assets.';
+    return AppL10n.tr(AppTranslationKeys.accountsDescription);
   }
 
   @override
@@ -296,7 +296,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_bank'),
-        text1: 'Banks',
+        text1: AppL10n.tr(AppTranslationKeys.banks),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -318,7 +318,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_credit'),
-        text1: 'Credit',
+        text1: AppL10n.tr(AppTranslationKeys.credit),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -329,7 +329,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_assets'),
-        text1: 'Assets',
+        text1: AppL10n.tr(AppTranslationKeys.assets),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -340,7 +340,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     _pivots.add(
       ThreePartLabel(
         key: const Key('key_toggle_show_all'),
-        text1: 'All',
+        text1: AppL10n.tr(AppTranslationKeys.allLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(
@@ -543,14 +543,14 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
                     ),
                     MenuEntry.customAction(
                       icon: Icons.refresh,
-                      text: 'Get latest price',
+                      text: AppL10n.tr(AppTranslationKeys.getLatestPrice),
                       onPressed: () async {
                         await loadFomBackendAndSaveToCache(summary.symbol);
                       },
                     ),
                     MenuEntry.customAction(
                       icon: Icons.add,
-                      text: 'Add investment',
+                      text: AppL10n.tr(AppTranslationKeys.addInvestment),
                       onPressed: () async {
                         showImportInvestment(
                           inputData: InvestmentImportFields(
@@ -563,7 +563,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
                             units: summary.shares,
                             amountPerUnit: summary.sharePrice,
                             transactionAmount: summary.shares * summary.sharePrice,
-                            description: 'Close Position',
+                            description: AppL10n.tr(AppTranslationKeys.closePosition),
                           ),
                         );
                       },
@@ -574,17 +574,17 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               gapMedium(),
 
               // number of shares
-              LabelAndQuantity(caption: 'Shares', quantity: summary.shares),
+              LabelAndQuantity(caption: AppL10n.tr(AppTranslationKeys.shares), quantity: summary.shares),
 
               // Average cost price
               LabelAndAmount(
-                caption: 'Average cost',
+                caption: AppL10n.tr(AppTranslationKeys.averageCost),
                 amount: summary.averageCost,
               ),
 
               // Price per share
               LabelAndAmount(
-                caption: 'Market price',
+                caption: AppL10n.tr(AppTranslationKeys.marketPrice),
                 amount: summary.sharePrice,
               ),
 
@@ -592,7 +592,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               gapMedium(),
               const Divider(),
               LabelAndAmount(
-                caption: 'Value',
+                caption: AppL10n.tr(AppTranslationKeys.value),
                 amount: summary.holdingValue,
               ),
             ],
@@ -644,7 +644,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           ),
           gapMedium(),
           const Divider(),
-          LabelAndAmount(caption: 'Value', amount: account.balance),
+          LabelAndAmount(caption: AppL10n.tr(AppTranslationKeys.value), amount: account.balance),
         ],
       ),
     );
@@ -859,7 +859,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           onItemLongPress: (BuildContext _, int itemId) {
             final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
             myShowDialogAndActionsForMoneyObject(
-              title: 'Loan Payment',
+              title: AppL10n.tr(AppTranslationKeys.loanPayment),
               moneyObject: instance,
             );
             selectionController.select(itemId);

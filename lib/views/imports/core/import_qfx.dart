@@ -6,6 +6,7 @@ import 'package:money/helpers/account_types.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/views/imports/core/import_data.dart';
@@ -36,7 +37,7 @@ void importQfxFromString(final BuildContext? context, final String text) {
     accountType,
   );
   importData.entries = getTransactionFromOFX(ofx);
-  importData.fileType = 'QFX';
+  importData.fileType = SharedStrings.fileTypeQfx;
   if (context != null) {
     showAndConfirmTransactionToImport(context, importData);
   }
@@ -61,11 +62,11 @@ class OfxBankInfo {
     // Now we should have just this
     // <BANKID>123456<ACCTID>00001 99-55555<ACCTTYPE>SAVINGS
     final OfxBankInfo bankInfo = OfxBankInfo();
-    bankInfo.id = findAndGetValueOf(ofx, '<BANKID>', bankInfo.id);
-    bankInfo.accountId = findAndGetValueOf(ofx, '<ACCTID>', bankInfo.accountId);
+    bankInfo.id = findAndGetValueOf(ofx, SharedStrings.ofxTagBankId, bankInfo.id);
+    bankInfo.accountId = findAndGetValueOf(ofx, SharedStrings.ofxTagAccountId, bankInfo.accountId);
     bankInfo.accountType = findAndGetValueOf(
       ofx,
-      '<ACCTTYPE>',
+      SharedStrings.ofxTagAccountType,
       bankInfo.accountType,
     );
     return bankInfo;
@@ -77,39 +78,39 @@ class OfxBankInfo {
 int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
   int categoryId = -1;
   switch (ofxTransaction.type) {
-    case 'CREDIT':
+    case SharedStrings.ofxTypeCredit:
       categoryId = Data().categories.investmentCredit.fieldId.value;
       break;
-    case 'DEBIT':
+    case SharedStrings.ofxTypeDebit:
       categoryId = Data().categories.investmentDebit.fieldId.value;
       break;
-    case 'INT':
+    case SharedStrings.ofxTypeInterest:
       categoryId = Data().categories.investmentInterest.fieldId.value;
       break;
-    case 'DIV':
+    case SharedStrings.ofxTypeDividend:
       categoryId = Data().categories.investmentDividends.fieldId.value;
       break;
-    case 'FEE':
-    case 'SRVCHG': // service charge
+    case SharedStrings.ofxTypeFee:
+    case SharedStrings.ofxTypeServiceCharge:
       categoryId = Data().categories.investmentFees.fieldId.value;
       break;
-    case 'DEP': // deposit
-    case 'ATM': // automatic teller machine
-    case 'POS': // Point of sale
-    case 'PAYMENT': // Electronic payment
-    case 'CASH': // Cash withdrawal
-    case 'DIRECTDEP': // Direct deposit
-    case 'DIRECTDEBIT': // Direct debit;
-    case 'REPEATPMT': // Repeating payment
-    case 'CHECK': // check
-    case 'OTHER':
+    case SharedStrings.ofxTypeDeposit:
+    case SharedStrings.ofxTypeAtm:
+    case SharedStrings.ofxTypePos:
+    case SharedStrings.ofxTypePayment:
+    case SharedStrings.ofxTypeCash:
+    case SharedStrings.ofxTypeDirectDeposit:
+    case SharedStrings.ofxTypeDirectDebit:
+    case SharedStrings.ofxTypeRepeatPayment:
+    case SharedStrings.ofxTypeCheck:
+    case SharedStrings.ofxTypeOther:
       if (ofxTransaction.amount > 0) {
         categoryId = Data().categories.investmentCredit.fieldId.value;
       } else {
         categoryId = Data().categories.investmentDebit.fieldId.value;
       }
       break;
-    case 'XFER':
+    case SharedStrings.ofxTypeTransfer:
       categoryId = Data().categories.investmentTransfer.fieldId.value;
       break;
   }
@@ -129,8 +130,8 @@ List<ImportEntry> getTransactionFromOFX(final String rawOfx) {
     );
 
     bankTransactionLit = bankTransactionLit.replaceAll(
-      '</STMTTRN>',
-      '</STMTTRN>\n',
+      SharedStrings.ofxCloseStatementTransaction,
+      SharedStrings.ofxCloseStatementTransactionLine,
     );
     final List<String> lines = LineSplitter.split(bankTransactionLit).toList();
 
@@ -150,25 +151,25 @@ List<ImportEntry> parseQFXTransactions(final List<String> lines) {
 
     final String rawTransactionText = getStringContentBetweenTwoTokens(
       line,
-      '<STMTTRN>',
-      '</STMTTRN>',
+      SharedStrings.ofxOpenStatementTransaction,
+      SharedStrings.ofxCloseStatementTransaction,
     );
 
     if (rawTransactionText.isNotEmpty) {
       final ImportEntry currentTransaction = ImportEntry(
-        type: findAndGetValueOf(rawTransactionText, '<TRNTYPE>', ''),
+        type: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionType, ''),
         date:
             parseQfxDataFormat(
-              findAndGetValueOf(rawTransactionText, '<DTPOSTED>', ''),
+              findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, ''),
             ) ??
             DateTime.now(),
         amount: double.parse(
-          findAndGetValueOf(rawTransactionText, '<TRNAMT>', '0.00'),
+          findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionAmount, '0.00'),
         ),
-        name: findAndGetValueOf(rawTransactionText, '<NAME>', ''),
-        fitid: findAndGetValueOf(rawTransactionText, '<FITID>', ''),
-        memo: findAndGetValueOf(rawTransactionText, '<MEMO>', ''),
-        number: findAndGetValueOf(rawTransactionText, '<CHECKNUM>', ''),
+        name: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagName, ''),
+        fitid: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagFitId, ''),
+        memo: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagMemo, ''),
+        number: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagCheckNumber, ''),
       );
       transactions.add(currentTransaction);
     }

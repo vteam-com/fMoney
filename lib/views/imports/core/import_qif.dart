@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/imports/core/import_data.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
@@ -20,7 +21,7 @@ void importQIF(final BuildContext context, final String filePath) {
       .readAsLines()
       .then((final List<String> lines) {
         final ImportData importData = loadQIF(lines);
-        importData.fileType = 'QIF';
+        importData.fileType = SharedStrings.fileTypeQif;
         if (context.mounted) {
           showAndConfirmTransactionToImport(context, importData);
         }
@@ -52,11 +53,11 @@ ImportData loadQIF(final List<String> lines) {
       switch (fieldLetter) {
         case '!':
           switch (fieldData) {
-            case 'Type:Invst':
+            case SharedStrings.qifTypeInvestment:
               importData.accountType = AccountType.investment;
           }
 
-        case 'D':
+        case SharedStrings.qifFieldDate:
           // In some cases the QIF will
           // have the date in the following format 01/30'2000
           // so before processing the date we replace the "'" with "/"
@@ -64,29 +65,29 @@ ImportData loadQIF(final List<String> lines) {
           dateAsString = dateAsString.replaceAll("'", '/');
           currentEntry.date = DateFormat('MM/dd/yyyy').parse(dateAsString);
 
-        case 'T':
-        case 'U':
+        case SharedStrings.qifFieldAmount:
+        case SharedStrings.qifFieldAmountAlt:
           // Amount
           currentEntry.amount = parseUSDAmount(fieldData) ?? 0.00;
 
-        case 'M':
+        case SharedStrings.qifFieldMemo:
           // Memo
           currentEntry.name = getNormalizedValue(fieldData);
 
-        case 'N':
+        case SharedStrings.qifFieldAction:
           // Stock Action
           currentEntry.stockAction = getNormalizedValue(fieldData);
 
-        case 'Q':
+        case SharedStrings.qifFieldQuantity:
           // Quantity - We use Amount parser because quantity can have fraction
           currentEntry.stockQuantity = parseUSDAmount(fieldData) ?? 0.0;
 
-        case 'Y':
+        case SharedStrings.qifFieldSecurity:
           // Security
           currentEntry.stockSymbol = getNormalizedValue(fieldData);
 
-        case 'P':
-        case 'I':
+        case SharedStrings.qifFieldPayee:
+        case SharedStrings.qifFieldPrice:
           currentEntry.stockPrice = parseUSDAmount(fieldData) ?? 0.00;
       }
     }

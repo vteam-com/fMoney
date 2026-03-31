@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_filter.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
@@ -30,10 +33,10 @@ class MenuEntry {
   }) {
     return MenuEntry(
       icon: Icons.edit,
-      title: 'Edit Category',
+      title: '${AppL10n.tr(AppTranslationKeys.edit)} ${AppL10n.tr(AppTranslationKeys.category)}',
       onPressed: () async {
         myShowDialogAndActionsForMoneyObject(
-          title: 'Edit "${category.name}"',
+          title: '${AppL10n.tr(AppTranslationKeys.edit)} ${category.name}',
           moneyObject: category,
           onApplyChange: () {
             onApplyChange?.call();
@@ -46,7 +49,7 @@ class MenuEntry {
   factory MenuEntry.toAccounts({required final int accountId}) {
     return MenuEntry(
       icon: ViewId.viewAccounts.getIconData(),
-      title: 'Go to Account',
+      title: AppL10n.tr(AppTranslationKeys.navAccounts),
       onPressed: () {
         // Prepare the Account view to show only the selected account
         final Account? accountInstance = Data().accounts.get(accountId);
@@ -72,7 +75,7 @@ class MenuEntry {
   factory MenuEntry.toCategory({required final Category category}) {
     return MenuEntry(
       icon: ViewId.viewCategories.getIconData(),
-      title: 'Go to Category',
+      title: AppL10n.tr(AppTranslationKeys.navCategories),
       onPressed: () {
         // Prepare the Transaction view Filter to show only the selected account
         PreferenceController.to.jumpToView(
@@ -109,7 +112,7 @@ class MenuEntry {
     // Jump to Stock view
     return MenuEntry(
       icon: ViewId.viewInvestments.getIconData(),
-      title: 'Go to Investments',
+      title: AppL10n.tr(AppTranslationKeys.navInvestments),
       onPressed: () {
         PreferenceController.to.jumpToView(
           viewId: ViewId.viewInvestments,
@@ -133,7 +136,7 @@ class MenuEntry {
     // Jump to Stock view
     return MenuEntry(
       icon: ViewId.viewStocks.getIconData(),
-      title: 'Go to Stocks',
+      title: AppL10n.tr(AppTranslationKeys.navStocks),
       onPressed: () {
         PreferenceController.to.jumpToView(
           viewId: ViewId.viewStocks,
@@ -152,7 +155,7 @@ class MenuEntry {
   }) {
     return MenuEntry(
       icon: ViewId.viewTransactions.getIconData(),
-      title: 'Go to Transactions',
+      title: AppL10n.tr(AppTranslationKeys.navTransactions),
       onPressed: () {
         // Prepare the Transaction view Filter to show only the selected account
         PreferenceController.to.jumpToView(
@@ -168,13 +171,13 @@ class MenuEntry {
   factory MenuEntry.toWeb({required final String url}) {
     return MenuEntry(
       icon: Icons.web_asset_outlined,
-      title: 'Yahoo finance',
+      title: SharedStrings.labelYahooFinance,
       onPressed: () async {
         final Uri urlWebSite = Uri.parse(url);
         if (await canLaunchUrl(urlWebSite)) {
           await launchUrl(urlWebSite);
         } else {
-          SnackBarService.displayError(message: 'Could not launch $urlWebSite');
+          SnackBarService.displayError(message: '${SharedStrings.messageCouldNotLaunch}$urlWebSite');
         }
       },
     );
@@ -190,7 +193,7 @@ Widget buildMenuButton(
   final BuildContext context,
   final List<MenuEntry> menuItems, {
   IconData icon = Icons.more_horiz,
-  String tooltip = 'Switch view',
+  String tooltip = SharedStrings.labelSwitchView,
 }) {
   final List<PopupMenuItem<int>> list = <PopupMenuItem<int>>[];
   for (int i = 0; i < menuItems.length; i++) {
@@ -228,6 +231,6 @@ Widget buildJumpToButton(
     context,
     listOfViewToJumpTo,
     icon: Icons.open_in_new_outlined,
-    tooltip: 'Switch view',
+    tooltip: SharedStrings.labelSwitchView,
   );
 }

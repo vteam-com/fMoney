@@ -1,3 +1,5 @@
+import 'package:money/helpers/shared_strings.dart';
+
 enum TransactionStatus { none, electronic, cleared, reconciled, voided }
 
 /// Converts transaction status enum to single letter representation.
@@ -6,13 +8,13 @@ String transactionStatusToLetter(final TransactionStatus status) {
     case TransactionStatus.none:
       return '_';
     case TransactionStatus.electronic:
-      return 'E';
+      return SharedStrings.transactionStatusLetterElectronic;
     case TransactionStatus.cleared:
-      return 'C';
+      return SharedStrings.transactionStatusLetterCleared;
     case TransactionStatus.reconciled:
-      return 'R';
+      return SharedStrings.transactionStatusLetterReconciled;
     case TransactionStatus.voided:
-      return 'V';
+      return SharedStrings.transactionStatusLetterVoided;
   }
 }
 

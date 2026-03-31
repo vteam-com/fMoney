@@ -88,7 +88,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
 
                 // Account
                 myFormField(
-                  title: 'To Account',
+                  title: AppL10n.tr(AppTranslationKeys.toAccount),
                   child: pickerAccount(
                     accountNames: Data().accounts.getSortedAccountNames(),
                     selectedName: widget.inputFields.account.fieldName.value,
@@ -103,7 +103,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
 
                 // Date
                 myFormField(
-                  title: 'Date',
+                  title: AppL10n.tr(AppTranslationKeys.date),
                   child: PickerEditBoxDate(
                     initialValue: dateToString(widget.inputFields.date),
                     onChanged: (String? newDateSelected) {
@@ -116,7 +116,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
 
                 // Investment Type
                 myFormField(
-                  title: 'Investment Type',
+                  title: AppL10n.tr(AppTranslationKeys.investmentType),
                   child: pickerInvestmentType(
                     itemSelected: widget.inputFields.investmentType,
                     onSelected: (final InvestmentType newSelection) {
@@ -127,7 +127,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
 
                 // Investment Category
                 myFormField(
-                  title: 'Category',
+                  title: AppL10n.tr(AppTranslationKeys.category),
                   child: pickerCategory(
                     categoryNames: Data().categories.getCategoriesAsStrings(),
                     selectedName: widget.inputFields.category.fieldName.value,
@@ -141,26 +141,32 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
                 ),
 
                 // Symbol
-                MyTextInput(hintText: 'Symbol', controller: _controllerSymbol),
+                MyTextInput(
+                  hintText: AppL10n.tr(AppTranslationKeys.symbol),
+                  controller: _controllerSymbol,
+                ),
 
                 // Units
-                MyTextInput(hintText: 'Units', controller: _controllerUnites),
+                MyTextInput(
+                  hintText: AppL10n.tr(AppTranslationKeys.units),
+                  controller: _controllerUnites,
+                ),
 
                 // Amount per unit
                 MyTextInput(
-                  hintText: 'Amount per unit',
+                  hintText: AppL10n.tr(AppTranslationKeys.amountPerUnit),
                   controller: _controllerAmount,
                 ),
 
                 // Transaction Amount
                 MyTextInput(
-                  hintText: 'Total Transaction Amount',
+                  hintText: AppL10n.tr(AppTranslationKeys.totalTransactionAmount),
                   controller: _controllerTransactionAmount,
                 ),
 
                 // Description
                 MyTextInput(
-                  hintText: 'Description',
+                  hintText: AppL10n.tr(AppTranslationKeys.description),
                   controller: _controllerDescription,
                 ),
               ],

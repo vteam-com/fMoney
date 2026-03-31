@@ -4,9 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:money/l10n/app_localizations_en.dart';
-import 'package:money/l10n/app_localizations_es.dart';
-import 'package:money/l10n/app_localizations_fr.dart';
+
+import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
 
 // ignore_for_file: type=lint
 
@@ -104,11 +105,35 @@ abstract class AppLocalizations {
   /// **'About...'**
   String get aboutMenuItem;
 
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
   /// No description provided for @accountNames.
   ///
   /// In en, this message translates to:
   /// **'Account names'**
   String get accountNames;
+
+  /// No description provided for @accounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts'**
+  String get accounts;
+
+  /// No description provided for @accountsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your main assets.'**
+  String get accountsDescription;
+
+  /// No description provided for @activeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeLabel;
 
   /// No description provided for @add.
   ///
@@ -116,17 +141,47 @@ abstract class AppLocalizations {
   /// **'Add'**
   String get add;
 
+  /// No description provided for @addInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add investment'**
+  String get addInvestment;
+
   /// No description provided for @addInvestmentTransaction.
   ///
   /// In en, this message translates to:
   /// **'Add Investment Transaction'**
   String get addInvestmentTransaction;
 
+  /// No description provided for @addNewAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new account'**
+  String get addNewAccount;
+
+  /// No description provided for @addNewCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new category'**
+  String get addNewCategory;
+
+  /// No description provided for @addNewEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new event'**
+  String get addNewEvent;
+
   /// No description provided for @addNewTransactions.
   ///
   /// In en, this message translates to:
   /// **'Add new transactions'**
   String get addNewTransactions;
+
+  /// No description provided for @addTransactionBetweenTwoAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a transaction between two accounts.'**
+  String get addTransactionBetweenTwoAccounts;
 
   /// No description provided for @addTransactionsMenuItem.
   ///
@@ -140,6 +195,48 @@ abstract class AppLocalizations {
   /// **'AI Assistant'**
   String get aiAssistant;
 
+  /// No description provided for @aiLearnedAboutAccountsAndTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'AI has learned about @count accounts and their transactions.'**
+  String aiLearnedAboutAccountsAndTransactions(String count);
+
+  /// No description provided for @alias.
+  ///
+  /// In en, this message translates to:
+  /// **'Alias'**
+  String get alias;
+
+  /// No description provided for @aliases.
+  ///
+  /// In en, this message translates to:
+  /// **'Aliases'**
+  String get aliases;
+
+  /// No description provided for @allLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allLabel;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get allTime;
+
+  /// No description provided for @allYourMajorLifeEventsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'All your major life events'**
+  String get allYourMajorLifeEventsDescription;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
   /// No description provided for @amountIsMatching.
   ///
   /// In en, this message translates to:
@@ -152,11 +249,23 @@ abstract class AppLocalizations {
   /// **'Amount is off by'**
   String get amountIsOffBy;
 
+  /// No description provided for @amountPerUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount per unit'**
+  String get amountPerUnit;
+
   /// No description provided for @analyzeSpending.
   ///
   /// In en, this message translates to:
   /// **'Analyze spending'**
   String get analyzeSpending;
+
+  /// No description provided for @appCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2024 fMoney Team. All rights reserved.'**
+  String get appCopyright;
 
   /// No description provided for @appDescription.
   ///
@@ -176,7 +285,13 @@ abstract class AppLocalizations {
   /// **'A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.'**
   String get appLongDescription;
 
-  /// No description provided for @appName.
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'fMoney'**
@@ -188,11 +303,29 @@ abstract class AppLocalizations {
   /// **'fMoney by VTeam'**
   String get appTitle;
 
+  /// No description provided for @assets.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets'**
+  String get assets;
+
   /// No description provided for @availableOn.
   ///
   /// In en, this message translates to:
   /// **'Available on'**
   String get availableOn;
+
+  /// No description provided for @averageCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Average cost'**
+  String get averageCost;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Averages'**
+  String get averages;
 
   /// No description provided for @avgLabel.
   ///
@@ -212,17 +345,65 @@ abstract class AppLocalizations {
   /// **'BankAccounts'**
   String get bankaccounts;
 
+  /// No description provided for @banks.
+  ///
+  /// In en, this message translates to:
+  /// **'Banks'**
+  String get banks;
+
   /// No description provided for @begin.
   ///
   /// In en, this message translates to:
   /// **'Begin'**
   String get begin;
 
-  /// No description provided for @budget.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Budget'**
   String get budget;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Actual amount is zero. Cannot calculate percentages.'**
+  String get budgetAccuracyActualZero;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Both budgeted and actual amounts are zero. Accuracy is undefined.'**
+  String get budgetAccuracyBothZero;
+
+  /// No description provided for @budgetAccuracyPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy:    @value%'**
+  String budgetAccuracyPercent(String value);
+
+  /// No description provided for @budgetVariancePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Variance:    @value%'**
+  String budgetVariancePercent(String value);
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Budgeted amount is zero. Variance is undefined.'**
+  String get budgetVarianceUndefined;
+
+  /// No description provided for @buildNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Number'**
+  String get buildNumberLabel;
+
+  /// No description provided for @buySellDividend.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy/Sell/Dividend.'**
+  String get buySellDividend;
 
   /// No description provided for @cancel.
   ///
@@ -242,6 +423,24 @@ abstract class AppLocalizations {
   /// **'Cash Flow'**
   String get cashFlow;
 
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @categoriesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Classification of your money transactions.'**
+  String get categoriesDescription;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
   /// No description provided for @chart.
   ///
   /// In en, this message translates to:
@@ -253,6 +452,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'CHART '**
   String get chartUpperSpacer;
+
+  /// No description provided for @chatTruncatedSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'\n...'**
+  String get chatTruncatedSuffix;
 
   /// No description provided for @checkingOllamaStatus.
   ///
@@ -284,11 +489,35 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @closedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get closedLabel;
+
   /// No description provided for @closeFile.
   ///
   /// In en, this message translates to:
   /// **'Close file'**
   String get closeFile;
+
+  /// No description provided for @closePosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Position'**
+  String get closePosition;
+
+  /// No description provided for @columnFilterName.
+  ///
+  /// In en, this message translates to:
+  /// **'Column Filter ({name})'**
+  String columnFilterName(String name);
+
+  /// No description provided for @columnIndex.
+  ///
+  /// In en, this message translates to:
+  /// **'Column {index}'**
+  String columnIndex(String index);
 
   /// No description provided for @confirm.
   ///
@@ -325,6 +554,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copy list to clipboard'**
   String get copyListToClipboard;
+
+  /// No description provided for @copyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy message'**
+  String get copyMessage;
+
+  /// No description provided for @copyMessageToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy message to clipboard'**
+  String get copyMessageToClipboard;
 
   /// No description provided for @countSelected.
   ///
@@ -368,11 +609,35 @@ abstract class AppLocalizations {
   /// **'Data Preview (First 5 rows):'**
   String get dataPreviewFirst5Rows;
 
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get day;
+
   /// No description provided for @debit.
   ///
   /// In en, this message translates to:
   /// **'Debit'**
   String get debit;
+
+  /// No description provided for @defaultListOfItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Default list of items'**
+  String get defaultListOfItems;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 
   /// No description provided for @deleteSelectedItems.
   ///
@@ -380,17 +645,47 @@ abstract class AppLocalizations {
   /// **'Delete selected item(s)'**
   String get deleteSelectedItems;
 
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @descriptionPayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Description/Payee'**
+  String get descriptionPayee;
+
   /// No description provided for @details.
   ///
   /// In en, this message translates to:
   /// **'Details'**
   String get details;
 
+  /// No description provided for @dividend.
+  ///
+  /// In en, this message translates to:
+  /// **'Dividend'**
+  String get dividend;
+
   /// No description provided for @dropFilesHere.
   ///
   /// In en, this message translates to:
   /// **'Drop files here'**
   String get dropFilesHere;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @editedElapsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited {elapsed}'**
+  String editedElapsed(String elapsed);
 
   /// No description provided for @editSelectedItems.
   ///
@@ -410,7 +705,13 @@ abstract class AppLocalizations {
   /// **'End'**
   String get end;
 
-  /// No description provided for @error.
+  /// No description provided for @entriesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} entries'**
+  String entriesCount(String count);
+
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Error'**
@@ -428,11 +729,53 @@ abstract class AppLocalizations {
   /// **'Error importing XLSX: @error'**
   String errorImportingXlsxError(String error);
 
+  /// No description provided for @errorInvalidResponseFromOllama.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: Invalid response from Ollama'**
+  String get errorInvalidResponseFromOllama;
+
+  /// No description provided for @errorWithReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: @reason'**
+  String errorWithReason(String reason);
+
+  /// No description provided for @event.
+  ///
+  /// In en, this message translates to:
+  /// **'Event'**
+  String get event;
+
+  /// No description provided for @events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get events;
+
+  /// No description provided for @eventTolerances.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Tolerances'**
+  String get eventTolerances;
+
+  /// No description provided for @expenseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get expenseLabel;
+
   /// No description provided for @expensePredictions.
   ///
   /// In en, this message translates to:
   /// **'Expense predictions'**
   String get expensePredictions;
+
+  /// No description provided for @expenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get expenses;
 
   /// No description provided for @fileLocationMenuItem.
   ///
@@ -458,11 +801,17 @@ abstract class AppLocalizations {
   /// **'filter'**
   String get filter;
 
-  /// No description provided for @fmoney.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'fMoney'**
   String get fmoney;
+
+  /// No description provided for @forAccessingTwelveData.
+  ///
+  /// In en, this message translates to:
+  /// **'for accessing https://twelvedata.com'**
+  String get forAccessingTwelveData;
 
   /// No description provided for @forSpacer.
   ///
@@ -475,6 +824,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Free style'**
   String get freeStyle;
+
+  /// No description provided for @fromAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From Account'**
+  String get fromAccount;
 
   /// No description provided for @fromCategory.
   ///
@@ -494,6 +849,12 @@ abstract class AppLocalizations {
   /// **'Full Prompt Sent to AI'**
   String get fullPromptSentToAi;
 
+  /// No description provided for @getLatestPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Get latest price'**
+  String get getLatestPrice;
+
   /// No description provided for @helperForDebugging.
   ///
   /// In en, this message translates to:
@@ -506,11 +867,47 @@ abstract class AppLocalizations {
   /// **'Hide closed accounts'**
   String get hideClosedAccounts;
 
-  /// No description provided for @idLabel.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'ID: '**
   String get idLabel;
+
+  /// No description provided for @importedTransactionsIntoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported - {count} transactions into \"{account}\"'**
+  String importedTransactionsIntoAccount(String count, String account);
+
+  /// No description provided for @importFileType.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {fileType}'**
+  String importFileType(String fileType);
+
+  /// No description provided for @importFromQfxQifXlsxCsvDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Import transactions from a QFX, QIF, XLSX, or CSV file.'**
+  String get importFromQfxQifXlsxCsvDescription;
+
+  /// No description provided for @importFromQfxQifXlsxCsvFile.
+  ///
+  /// In en, this message translates to:
+  /// **'From QFX|QIF|XLSX|CSV file'**
+  String get importFromQfxQifXlsxCsvFile;
+
+  /// No description provided for @importNoMatchingAccountsWithId.
+  ///
+  /// In en, this message translates to:
+  /// **'Import - No matching \"{fileType}\" accounts with ID \"{id}\"'**
+  String importNoMatchingAccountsWithId(String fileType, String id);
+
+  /// No description provided for @importTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Import transactions'**
+  String get importTransactions;
 
   /// No description provided for @importTransactionToAccount.
   ///
@@ -518,11 +915,29 @@ abstract class AppLocalizations {
   /// **'Import transaction to account'**
   String get importTransactionToAccount;
 
+  /// No description provided for @importWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get importWord;
+
   /// No description provided for @includeAssetAccounts.
   ///
   /// In en, this message translates to:
   /// **'Include Asset Accounts'**
   String get includeAssetAccounts;
+
+  /// No description provided for @incomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get incomeLabel;
+
+  /// No description provided for @incomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomes'**
+  String get incomes;
 
   /// No description provided for @info.
   ///
@@ -542,11 +957,47 @@ abstract class AppLocalizations {
   /// **'Install Ollama now'**
   String get installOllamaNow;
 
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Interest'**
+  String get interest;
+
+  /// No description provided for @investment.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment'**
+  String get investment;
+
   /// No description provided for @investments.
   ///
   /// In en, this message translates to:
   /// **'Investments'**
   String get investments;
+
+  /// No description provided for @investmentTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment Transaction'**
+  String get investmentTransaction;
+
+  /// No description provided for @investmentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment Type'**
+  String get investmentType;
+
+  /// No description provided for @item.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get item;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get items;
 
   /// No description provided for @keepAllTransactionsToTheirCurrentCategories.
   ///
@@ -596,17 +1047,71 @@ abstract class AppLocalizations {
   /// **'fMoney is built using open-source software. View the licenses for all packages used in this application.'**
   String get licensesDescription;
 
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Life Time P&L'**
+  String get lifeTimePnl;
+
   /// No description provided for @list.
   ///
   /// In en, this message translates to:
   /// **'List'**
   String get list;
 
+  /// No description provided for @loanPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan Payment'**
+  String get loanPayment;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Loss'**
+  String get loss;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get maintenance;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Management'**
+  String get management;
+
   /// No description provided for @manageTheExpensesAndRentalIncomeOfProperties.
   ///
   /// In en, this message translates to:
   /// **'Manage the expenses and rental income of properties.'**
   String get manageTheExpensesAndRentalIncomeOfProperties;
+
+  /// No description provided for @manualBulkTextInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual bulk text input'**
+  String get manualBulkTextInput;
+
+  /// No description provided for @manualBulkTextInputDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Refer to your online statements, then Copy & Paste text or use OCR to extract the [Dates | Memos | Amounts].'**
+  String get manualBulkTextInputDescription;
+
+  /// No description provided for @marketPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Market price'**
+  String get marketPrice;
+
+  /// No description provided for @matchingTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching Transaction'**
+  String get matchingTransaction;
 
   /// No description provided for @maxLabel.
   ///
@@ -632,6 +1137,18 @@ abstract class AppLocalizations {
   /// **'Merge item(s)'**
   String get mergeItems;
 
+  /// No description provided for @mergeTransactionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge @count transactions'**
+  String mergeTransactionsCount(String count);
+
+  /// No description provided for @mergeTransactionsIntoCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this option to merge transactions from \"@from\" into \"@to\".'**
+  String mergeTransactionsIntoCategory(String from, String to);
+
   /// No description provided for @messageDetails.
   ///
   /// In en, this message translates to:
@@ -650,6 +1167,12 @@ abstract class AppLocalizations {
   /// **'Missing Transfer'**
   String get missingTransfer;
 
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get month;
+
   /// No description provided for @monthlyActual.
   ///
   /// In en, this message translates to:
@@ -661,6 +1184,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Monthly Budgeted'**
   String get monthlyBudgeted;
+
+  /// No description provided for @moveCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Category'**
+  String get moveCategory;
+
+  /// No description provided for @moveCategoryAsChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this option to move \"@from\" as a child category of \"@to\".'**
+  String moveCategoryAsChild(String from, String to);
+
+  /// No description provided for @multipleSelectionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple selection.({count})'**
+  String multipleSelectionCount(String count);
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'added'**
+  String get mutationAdded;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'deleted'**
+  String get mutationDeleted;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'modified'**
+  String get mutationModified;
 
   /// No description provided for @navAccounts.
   ///
@@ -782,7 +1341,7 @@ abstract class AppLocalizations {
   /// **'Stocks tracking'**
   String get navStocksTooltip;
 
-  /// No description provided for @navTransactions.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Transactions'**
@@ -812,11 +1371,23 @@ abstract class AppLocalizations {
   /// **'NetWorth'**
   String get networth;
 
+  /// No description provided for @newBankAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'New Bank Account'**
+  String get newBankAccount;
+
   /// No description provided for @newFile.
   ///
   /// In en, this message translates to:
   /// **'New File ...'**
   String get newFile;
+
+  /// No description provided for @newItemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New @item'**
+  String newItemLabel(String item);
 
   /// No description provided for @newMenuItem.
   ///
@@ -884,6 +1455,12 @@ abstract class AppLocalizations {
   /// **'No fields found for @item'**
   String noFieldsFoundForItem(String item);
 
+  /// No description provided for @noHistoryInformationAboutSymbol.
+  ///
+  /// In en, this message translates to:
+  /// **'No history information about \"{symbol}\"'**
+  String noHistoryInformationAboutSymbol(String symbol);
+
   /// No description provided for @noItems.
   ///
   /// In en, this message translates to:
@@ -896,11 +1473,41 @@ abstract class AppLocalizations {
   /// **'No item selected.'**
   String get noItemSelected;
 
+  /// No description provided for @noItemsToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'No items to delete'**
+  String get noItemsToDelete;
+
   /// No description provided for @noItemsWereTitle.
   ///
   /// In en, this message translates to:
   /// **'No items were @title'**
   String noItemsWereTitle(String title);
+
+  /// No description provided for @noMatchingTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching transactions'**
+  String get noMatchingTransactions;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'No need to merge to itself, select a different category.'**
+  String get noNeedToMergeCategoryToItself;
+
+  /// No description provided for @noneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get noneLabel;
+
+  /// No description provided for @noneWithTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'None @title'**
+  String noneWithTitle(String title);
 
   /// No description provided for @noPicker.
   ///
@@ -938,6 +1545,12 @@ abstract class AppLocalizations {
   /// **'No stock selected'**
   String get noStockSelected;
 
+  /// No description provided for @nothingToImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to import'**
+  String get nothingToImport;
+
   /// No description provided for @noTransactions.
   ///
   /// In en, this message translates to:
@@ -968,7 +1581,7 @@ abstract class AppLocalizations {
   /// **'No valid entries found in XLSX to import.'**
   String get noValidEntriesFoundInXlsxToImport;
 
-  /// No description provided for @ocr.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'OCR'**
@@ -1004,17 +1617,119 @@ abstract class AppLocalizations {
   /// **'or change to category'**
   String get orChangeToCategory;
 
+  /// No description provided for @packageNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Package Name'**
+  String get packageNameLabel;
+
   /// No description provided for @payee.
   ///
   /// In en, this message translates to:
   /// **'Payee'**
   String get payee;
 
+  /// No description provided for @payeeAliasesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Payee aliases.'**
+  String get payeeAliasesDescription;
+
   /// No description provided for @payeeMatch.
   ///
   /// In en, this message translates to:
   /// **'Payee Match'**
   String get payeeMatch;
+
+  /// No description provided for @payees.
+  ///
+  /// In en, this message translates to:
+  /// **'Payees'**
+  String get payees;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Changes'**
+  String get pendingChanges;
+
+  /// No description provided for @pickAccountToImportTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick account to import to'**
+  String get pickAccountToImportTo;
+
+  /// No description provided for @pickDifferentCategoryThan.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a different category than \"@category\".'**
+  String pickDifferentCategoryThan(String category);
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Android'**
+  String get platformAndroid;
+
+  /// No description provided for @platformDesktop64bitSoftware.
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop 64bit Software.'**
+  String get platformDesktop64bitSoftware;
+
+  /// No description provided for @platformDesktopIntelSiliconSoftware.
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop Intel & Silicon Software.'**
+  String get platformDesktopIntelSiliconSoftware;
+
+  /// No description provided for @platformDesktopSoftware.
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop Software.'**
+  String get platformDesktopSoftware;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'iOS'**
+  String get platformIos;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Linux'**
+  String get platformLinux;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'macOS'**
+  String get platformMacos;
+
+  /// No description provided for @platformMobileApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile app.'**
+  String get platformMobileApp;
+
+  /// No description provided for @platformRunOnAnyOsWithMostBrowsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Run on any OS with most browsers.'**
+  String get platformRunOnAnyOsWithMostBrowsers;
+
+  /// No description provided for @platformWebBrowser.
+  ///
+  /// In en, this message translates to:
+  /// **'Web Browser'**
+  String get platformWebBrowser;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Windows'**
+  String get platformWindows;
 
   /// No description provided for @pleaseMapAllFieldsDateDescriptionAmount.
   ///
@@ -1028,7 +1743,7 @@ abstract class AppLocalizations {
   /// **'Please select different accounts'**
   String get pleaseSelectDifferentAccounts;
 
-  /// No description provided for @pnl.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'PnL'**
@@ -1040,11 +1755,35 @@ abstract class AppLocalizations {
   /// **'Policy'**
   String get policy;
 
+  /// No description provided for @preview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get preview;
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyPolicy;
+
+  /// No description provided for @privacyPolicyMarkdown.
+  ///
+  /// In en, this message translates to:
+  /// **'# Privacy Policy for fMoney App\n\n## 1. No Information Collected:\nfMoney does not collect any personal information from its users. We do not require users to provide any personal data such as name, email address, or any other identifying information.\n\n## 2. Information Usage:\nSince we do not collect any personal information, we do not use or share any information about our users.\n\n## 3. No Data Logged:\nfMoney does not log any data from its users.\n\n## 4. Contact Us:\nIf you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at questions@vteam.com.\n\n_________________\n\n\nBy using fMoney, you signify your acceptance of this Privacy Policy. If you do not agree to this policy, please do not use our application. Your continued use of the application following the posting of changes to this policy will be deemed your acceptance of those changes.\n'**
+  String get privacyPolicyMarkdown;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Profit'**
+  String get profit;
+
+  /// No description provided for @propertiesToRentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Properties to rent.'**
+  String get propertiesToRentDescription;
 
   /// No description provided for @questionsQuestioncountTokensTokencount.
   ///
@@ -1052,17 +1791,47 @@ abstract class AppLocalizations {
   /// **'Questions: {questionCount} | Tokens: {tokenCount}'**
   String questionsQuestioncountTokensTokencount(String questionCount, String tokenCount);
 
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Range'**
+  String get range;
+
+  /// No description provided for @readLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Less'**
+  String get readLess;
+
+  /// No description provided for @readMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Read More'**
+  String get readMore;
+
   /// No description provided for @rebalanceMenuItem.
   ///
   /// In en, this message translates to:
   /// **'Rebalance...'**
   String get rebalanceMenuItem;
 
+  /// No description provided for @receiver.
+  ///
+  /// In en, this message translates to:
+  /// **'Receiver'**
+  String get receiver;
+
   /// No description provided for @recordATransferBetweenTwoAccounts.
   ///
   /// In en, this message translates to:
   /// **'Record a Transfer between two accounts'**
   String get recordATransferBetweenTwoAccounts;
+
+  /// No description provided for @recordTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Transfer'**
+  String get recordTransfer;
 
   /// No description provided for @recurring.
   ///
@@ -1088,6 +1857,30 @@ abstract class AppLocalizations {
   /// **'Rental property not found'**
   String get rentalPropertyNotFound;
 
+  /// No description provided for @rentals.
+  ///
+  /// In en, this message translates to:
+  /// **'Rentals'**
+  String get rentals;
+
+  /// No description provided for @renters.
+  ///
+  /// In en, this message translates to:
+  /// **'Renters'**
+  String get renters;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Repairs'**
+  String get repairs;
+
+  /// No description provided for @requestWasCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Request was cancelled.'**
+  String get requestWasCancelled;
+
   /// No description provided for @rowIndex.
   ///
   /// In en, this message translates to:
@@ -1100,7 +1893,7 @@ abstract class AppLocalizations {
   /// **'Run Ollama'**
   String get runOllama;
 
-  /// No description provided for @sankey.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Sankey'**
@@ -1117,6 +1910,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save to SQL'**
   String get saveToSql;
+
+  /// No description provided for @savingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving'**
+  String get savingLabel;
+
+  /// No description provided for @searchForPayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for Payee'**
+  String get searchForPayee;
+
+  /// No description provided for @securitySymbolInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Security \"{symbol}\" is not valid'**
+  String securitySymbolInvalid(String symbol);
 
   /// No description provided for @selectARentalPropertyToSeeItsPL.
   ///
@@ -1142,6 +1953,18 @@ abstract class AppLocalizations {
   /// **'Select the row that contains the column headers (automatically selected based on content):'**
   String get selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent;
 
+  /// No description provided for @selectValidAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Select valid accounts.'**
+  String get selectValidAccounts;
+
+  /// No description provided for @sender.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender'**
+  String get sender;
+
   /// No description provided for @setApiKey.
   ///
   /// In en, this message translates to:
@@ -1159,6 +1982,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings...'**
   String get settingsMenuItem;
+
+  /// No description provided for @shares.
+  ///
+  /// In en, this message translates to:
+  /// **'Shares'**
+  String get shares;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Ctrl+T'**
+  String get shortcutAddTransactions;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Ctrl+N'**
+  String get shortcutNewFile;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Ctrl+O'**
+  String get shortcutOpenFile;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Ctrl+R'**
+  String get shortcutRebalance;
 
   /// No description provided for @showClosedAccounts.
   ///
@@ -1196,17 +2049,95 @@ abstract class AppLocalizations {
   /// **'Split'**
   String get split;
 
+  /// No description provided for @splitRatio.
+  ///
+  /// In en, this message translates to:
+  /// **'{numerator} for {denominator}'**
+  String splitRatio(String numerator, String denominator);
+
+  /// No description provided for @splits.
+  ///
+  /// In en, this message translates to:
+  /// **'Splits'**
+  String get splits;
+
+  /// No description provided for @stock.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock'**
+  String get stock;
+
+  /// No description provided for @stocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Stocks'**
+  String get stocks;
+
+  /// No description provided for @stocksTrackingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Stocks tracking.'**
+  String get stocksTrackingDescription;
+
   /// No description provided for @success.
   ///
   /// In en, this message translates to:
   /// **'Success'**
   String get success;
 
-  /// No description provided for @suggestion.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Suggestion'**
   String get suggestion;
+
+  /// No description provided for @switchToCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Categories'**
+  String get switchToCategories;
+
+  /// No description provided for @switchToPayees.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Payees'**
+  String get switchToPayees;
+
+  /// No description provided for @switchToStocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Stocks'**
+  String get switchToStocks;
+
+  /// No description provided for @switchToTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Transactions'**
+  String get switchToTransactions;
+
+  /// No description provided for @symbol.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbol'**
+  String get symbol;
+
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Taxes'**
+  String get taxes;
+
+  /// No description provided for @teachingCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching cancelled.'**
+  String get teachingCancelled;
+
+  /// No description provided for @teachingFailedPartially.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching failed partially - some accounts may not be learned.'**
+  String get teachingFailedPartially;
 
   /// No description provided for @themeColorBlue.
   ///
@@ -1220,7 +2151,7 @@ abstract class AppLocalizations {
   /// **'Green'**
   String get themeColorGreen;
 
-  /// No description provided for @themeColorOrange.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Orange'**
@@ -1256,11 +2187,23 @@ abstract class AppLocalizations {
   /// **'Thinking...'**
   String get thinking;
 
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline'**
+  String get timeline;
+
   /// No description provided for @timestampTimestamp.
   ///
   /// In en, this message translates to:
   /// **'Timestamp: @timestamp'**
   String timestampTimestamp(String timestamp);
+
+  /// No description provided for @toAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'To Account'**
+  String get toAccount;
 
   /// No description provided for @toCategory.
   ///
@@ -1280,17 +2223,59 @@ abstract class AppLocalizations {
   /// **'To payee'**
   String get toPayee;
 
-  /// No description provided for @total.
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Total'**
   String get total;
 
-  /// No description provided for @transactions.
+  /// No description provided for @totalTransactionAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Transaction Amount'**
+  String get totalTransactionAmount;
+
+  /// No description provided for @trackYourStockPortfolioDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your stock portfolio.'**
+  String get trackYourStockPortfolioDescription;
+
+  /// No description provided for @transaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction'**
+  String get transaction;
+
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Transactions'**
   String get transactions;
+
+  /// No description provided for @transactionsAddedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions added'**
+  String transactionsAddedCount(String count);
+
+  /// No description provided for @transactionsAveraging.
+  ///
+  /// In en, this message translates to:
+  /// **'@count transactions averaging'**
+  String transactionsAveraging(String count);
+
+  /// No description provided for @transactionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Details actions of your accounts.'**
+  String get transactionsDescription;
+
+  /// No description provided for @transactionsFoundInFileToImport.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions found in {fileType} file, to be imported into \"{account}\"'**
+  String transactionsFoundInFileToImport(String count, String fileType, String account);
 
   /// No description provided for @transactionSplit.
   ///
@@ -1304,11 +2289,29 @@ abstract class AppLocalizations {
   /// **'Transfer'**
   String get transfer;
 
+  /// No description provided for @transfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers'**
+  String get transfers;
+
+  /// No description provided for @transfersBetweenAccountsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers between accounts.'**
+  String get transfersBetweenAccountsDescription;
+
   /// No description provided for @trend.
   ///
   /// In en, this message translates to:
   /// **'Trend'**
   String get trend;
+
+  /// No description provided for @units.
+  ///
+  /// In en, this message translates to:
+  /// **'Units'**
+  String get units;
 
   /// No description provided for @unknown.
   ///
@@ -1322,11 +2325,23 @@ abstract class AppLocalizations {
   /// **'Use Demo Data'**
   String get useDemoData;
 
+  /// No description provided for @value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get value;
+
   /// No description provided for @versionInformation.
   ///
   /// In en, this message translates to:
   /// **'Version Information'**
   String get versionInformation;
+
+  /// No description provided for @versionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get versionLabel;
 
   /// No description provided for @viewClosedAccounts.
   ///
@@ -1340,6 +2355,18 @@ abstract class AppLocalizations {
   /// **'View Licenses'**
   String get viewLicenses;
 
+  /// No description provided for @viewMessageDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View message details'**
+  String get viewMessageDetails;
+
+  /// No description provided for @viewPromptDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View prompt details'**
+  String get viewPromptDetails;
+
   /// No description provided for @warning.
   ///
   /// In en, this message translates to:
@@ -1351,6 +2378,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to fMoney'**
   String get welcomeToFmoney;
+
+  /// No description provided for @welcomeToYourAiAccountant.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to your AI Accountant'**
+  String get welcomeToYourAiAccountant;
+
+  /// No description provided for @whoIsGettingYourMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is getting your money.'**
+  String get whoIsGettingYourMoney;
 
   /// No description provided for @xlsxFileContainsNoDataRows.
   ///
@@ -1370,7 +2409,13 @@ abstract class AppLocalizations {
   /// **'XLSX import cancelled.'**
   String get xlsxImportCancelled;
 
-  /// No description provided for @zoom.
+  /// REVIEWED
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// REVIEWED
   ///
   /// In en, this message translates to:
   /// **'Zoom'**

@@ -3,6 +3,7 @@
 
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 /// Generic accumulator for collecting values by key.
 /// Features:
@@ -305,17 +306,24 @@ class RunningAverage {
   }
 
   /// Returns formatted description with average as integer and count.
-  String get descriptionAsInt => 'Average\n${range.descriptionAsInt}\n$descriptionCount';
+  String get descriptionAsInt =>
+      '${SharedStrings.runningAverageLabel}${SharedStrings.lineFeed}'
+      '${range.descriptionAsInt}${SharedStrings.lineFeed}$descriptionCount';
 
   /// Returns formatted description with average as money and count.
-  String get descriptionAsMoney => 'Average\n${range.descriptionAsMoney}\n$descriptionCount';
+  String get descriptionAsMoney =>
+      '${SharedStrings.runningAverageLabel}${SharedStrings.lineFeed}'
+      '${range.descriptionAsMoney}${SharedStrings.lineFeed}$descriptionCount';
 
   /// Returns formatted count description including zero values.
   String get descriptionCount {
     if (_countZeros == 0) {
-      return '$_count entries.';
+      return '$_count${SharedStrings.runningAverageEntriesSuffix}';
     }
-    return '$_count of ${_count + _countZeros} non zero entries.';
+    return '$_count'
+        '${SharedStrings.runningAverageOfInfix}'
+        '${_count + _countZeros}'
+        '${SharedStrings.runningAverageNonZeroEntriesSuffix}';
   }
 
   /// Returns the calculated average, optionally including zero values.

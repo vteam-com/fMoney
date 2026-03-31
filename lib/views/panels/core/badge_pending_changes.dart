@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/presentation/provider_data_file_controller.dart';
 import 'package:money/views/panels/core/pending_changes_dialog.dart';
@@ -106,6 +109,12 @@ class BadgePendingChanges extends StatelessWidget {
     final String lastChangedOn = getElapsedTime(
       DataFileController.to.trackMutations.lastDateTimeChanged,
     );
-    return 'Added: ${DataFileController.to.trackMutations.added}\nModified: ${DataFileController.to.trackMutations.changed}\nDeleted: ${DataFileController.to.trackMutations.deleted}\n\nEdited $lastChangedOn';
+    return '${AppL10n.tr(AppTranslationKeys.mutationAdded)}: ${DataFileController.to.trackMutations.added}'
+        '${SharedStrings.lineFeed}'
+        '${AppL10n.tr(AppTranslationKeys.mutationModified)}: ${DataFileController.to.trackMutations.changed}'
+        '${SharedStrings.lineFeed}'
+        '${AppL10n.tr(AppTranslationKeys.mutationDeleted)}: ${DataFileController.to.trackMutations.deleted}'
+        '${SharedStrings.lineFeed}${SharedStrings.lineFeed}'
+        '${AppL10n.tr(AppTranslationKeys.editedElapsed, params: <String, String>{'elapsed': lastChangedOn})}';
   }
 }

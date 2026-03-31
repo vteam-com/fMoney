@@ -69,7 +69,10 @@ Widget buildCenterMessageForEmptyListUi({
   required Key key,
   required String classNamePlural,
 }) {
-  return CenterMessage(key: key, message: 'No $classNamePlural');
+  return CenterMessage(
+    key: key,
+    message: '${AppL10n.tr(AppTranslationKeys.noItems)} $classNamePlural',
+  );
 }
 
 /// Builds the empty-list message that includes active filters and a clear action.
@@ -98,7 +101,9 @@ Widget buildCenterMessageForEmptyListDueToFiltersUi({
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TextTitle('No $classNamePlural found with the filters:'),
+            TextTitle(
+              '${AppL10n.tr(AppTranslationKeys.noItems)} $classNamePlural ${AppL10n.tr(AppTranslationKeys.filter)}:',
+            ),
             gapLarge(),
             SelectableText(activeFilterValues.join('\n')),
             gapHuge(),

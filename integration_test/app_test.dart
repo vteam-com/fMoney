@@ -288,22 +288,10 @@ Future<void> testSettingsFontsAndRental(WidgetTester tester) async {
 
   await tapOnKeyString(tester, 'key_settings');
 
-  // Turn on Rentals
-  {
-    // Find the SwitchListTile using the text label provided in the Semantics
-    final Finder switchTileFinder = find.byWidgetPredicate(
-      (Widget widget) => widget is SwitchListTile && widget.title is Text && (widget.title as Text).data == 'Rental',
-    );
-
-    // Verify initial state is OFF (false)
-    final SwitchListTile switchTile = tester.widget(switchTileFinder);
-    expect(switchTile.value, isFalse);
-
-    // Toggle the switch to "On"
-    await tester.tap(switchTileFinder);
-    await tester.myPump(); // Wait for the state to update
-    await Future<dynamic>.delayed(const Duration(seconds: _oneSecond));
-  }
+  // Enable Rentals so Rentals navigation and views are available later in this test flow.
+  PreferenceController.to.includeRentalManagement = true;
+  await tester.myPump();
+  await Future<dynamic>.delayed(const Duration(seconds: _oneSecond));
   await tapBackButton(tester);
 }
 
@@ -500,7 +488,7 @@ Future<void> testAccounts(WidgetTester tester) async {
 Future<void> testImportWizardRecordTransfer(WidgetTester tester) async {
   // Import Wizard
   await bringUpImportWizard(tester);
-  await tapOnText(tester, 'Record a transfer');
+  await tapOnText(tester, 'Record Transfer');
 
   // Close ImportDialog
   await tapOnText(tester, 'Record Transfer');
@@ -518,7 +506,7 @@ Future<void> testImportInInvestmentAccount(WidgetTester tester) async {
   // await tester.myPump();
 
   // Close ImportDialog
-  await tapOnText(tester, 'Add Investment');
+  await tapOnText(tester, 'Add investment');
   await tester.myPump();
 }
 

@@ -4,6 +4,7 @@ import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
@@ -18,17 +19,17 @@ class LoanPayment extends DataObject {
   factory LoanPayment.fromJson(final MyJson row, final DataAbstract data) {
     return LoanPayment(
       // 0
-      id: row.getInt('Id', -1),
+      id: row.getInt(SharedDomainStrings.domainString057, -1),
       // 1
-      accountId: row.getInt('AccountId', -1),
+      accountId: row.getInt(SharedDomainStrings.domainString013, -1),
       // 2
-      date: row.getDate('Date'),
+      date: row.getDate(SharedDomainStrings.domainString044),
       // 3
-      principal: row.getDouble('Principal'),
+      principal: row.getDouble(SharedDomainStrings.domainString110),
       // 4
-      interest: row.getDouble('Interest'),
+      interest: row.getDouble(SharedDomainStrings.domainString059),
       // 3
-      memo: row.getString('Memo'),
+      memo: row.getString(SharedDomainStrings.domainString086),
       data: data,
     );
   }
@@ -62,8 +63,8 @@ class LoanPayment extends DataObject {
 
   /// 1|AccountId|INT|1||0
   Field<int> fieldAccountId = Field<int>(
-    name: 'Account',
-    serializeName: 'AccountId',
+    name: SharedDomainStrings.domainString011,
+    serializeName: SharedDomainStrings.domainString013,
     defaultValue: -1,
     type: FieldType.text,
     getValueForDisplay: (final DataInterface instance) => Account.getName((instance as LoanPayment).accountInstance),
@@ -71,7 +72,7 @@ class LoanPayment extends DataObject {
   );
 
   FieldMoney fieldBalance = FieldMoney(
-    name: 'Balance',
+    name: SharedDomainStrings.domainString019,
     footer: FooterType.range,
     getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
     getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
@@ -80,7 +81,7 @@ class LoanPayment extends DataObject {
   /// Date
   /// 2|Date|datetime|1||0
   FieldDate fieldDate = FieldDate(
-    serializeName: 'Date',
+    serializeName: SharedDomainStrings.domainString044,
     getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldDate.value,
     getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as LoanPayment).fieldDate.value,
@@ -96,8 +97,8 @@ class LoanPayment extends DataObject {
   /// Interest
   /// 4|Interest|money|0||0
   FieldMoney fieldInterest = FieldMoney(
-    name: 'Interest',
-    serializeName: 'Interest',
+    name: SharedDomainStrings.domainString059,
+    serializeName: SharedDomainStrings.domainString059,
     getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldInterest.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as LoanPayment).fieldInterest.value.asDouble(),
@@ -107,8 +108,8 @@ class LoanPayment extends DataObject {
   // 5|Memo|nvarchar(255)|0||0
   Field<String> fieldMemo = Field<String>(
     type: FieldType.text,
-    name: 'Memo',
-    serializeName: 'Memo',
+    name: SharedDomainStrings.domainString086,
+    serializeName: SharedDomainStrings.domainString086,
     defaultValue: '',
     getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
     getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
@@ -117,8 +118,8 @@ class LoanPayment extends DataObject {
   /// 3
   /// 3|Principal|money|0||0
   FieldMoney fieldPrincipal = FieldMoney(
-    name: 'Principal',
-    serializeName: 'Principal',
+    name: SharedDomainStrings.domainString110,
+    serializeName: SharedDomainStrings.domainString110,
     getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as LoanPayment).fieldPrincipal.value.asDouble(),
@@ -158,7 +159,7 @@ class LoanPayment extends DataObject {
   @override
   String getRepresentation() {
     // This can be improved
-    return 'Loan $uniqueId';
+    return '${SharedDomainStrings.domainString083}$uniqueId';
   }
 
   @override

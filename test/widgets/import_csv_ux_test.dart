@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
 
 void main() {
@@ -49,19 +51,17 @@ void main() {
     await pumpDialog(tester);
 
     // Verify dialog title
-    expect(find.text('Choose Columns'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsOneWidget);
 
-    // Verify presence of mapping dropdowns (identified by their labels for now)
-    expect(find.text('Date Column:'), findsOneWidget);
-    expect(find.text('Description Column:'), findsOneWidget);
-    expect(find.text('Amount Column:'), findsOneWidget);
+    // Verify presence of mapping dropdowns.
+    expect(find.byType(DropdownButtonFormField<String>), findsNWidgets(3));
 
     // Verify presence of preview table title
-    expect(find.text('Data Preview (First 5 rows):'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.dataPreviewFirst5Rows)), findsOneWidget);
 
     // Verify presence of action buttons
-    expect(find.widgetWithText(TextButton, 'Cancel'), findsOneWidget);
-    expect(find.widgetWithText(TextButton, 'Confirm'), findsOneWidget);
+    expect(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.cancel)), findsOneWidget);
+    expect(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)), findsOneWidget);
   });
 
   testWidgets('Dropdown menus are populated with header names', (WidgetTester tester) async {
@@ -105,32 +105,41 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Date').last, warnIfMissed: false);
     await tester.pumpAndSettle();
-    expect(find.descendant(of: dateDropdownFinder, matching: find.text('Date')), findsOneWidget);
+    final DropdownButtonFormField<String> dateDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      dateDropdownFinder,
+    );
+    expect(dateDropdownWidget.initialValue, 'Date');
 
     // Select 'Description' for Description Column
     await tester.tap(descriptionDropdownFinder);
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Description').last, warnIfMissed: false);
     await tester.pumpAndSettle();
-    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Description')), findsOneWidget);
+    final DropdownButtonFormField<String> descriptionDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      descriptionDropdownFinder,
+    );
+    expect(descriptionDropdownWidget.initialValue, 'Description');
 
     // Select 'Amount' for Amount Column
     await tester.tap(amountDropdownFinder);
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(DropdownMenuItem<String>, 'Amount').last, warnIfMissed: false);
     await tester.pumpAndSettle();
-    expect(find.descendant(of: amountDropdownFinder, matching: find.text('Amount')), findsOneWidget);
+    final DropdownButtonFormField<String> amountDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      amountDropdownFinder,
+    );
+    expect(amountDropdownWidget.initialValue, 'Amount');
   });
 
   testWidgets('Confirm button works correctly with auto-detected mappings', (WidgetTester tester) async {
     await pumpDialog(tester);
 
     // With standard headers, auto-detection should work and confirm should succeed
-    await tester.tap(find.widgetWithText(TextButton, 'Confirm'));
+    await tester.tap(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)));
     await tester.pumpAndSettle(); // Allow dialog to close
 
     // Dialog should close successfully with auto-detected mappings
-    expect(find.text('Choose Columns'), findsNothing);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsNothing);
   });
 
   testWidgets('User can clear auto-detected selections and get validation error', (WidgetTester tester) async {
@@ -144,10 +153,10 @@ void main() {
 
     // With custom headers that don't match patterns, nothing should be auto-selected
     // Try to confirm - should get validation error
-    await tester.tap(find.widgetWithText(TextButton, 'Confirm'));
+    await tester.tap(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)));
     await tester.pumpAndSettle(); // Allow SnackBar to appear
 
-    expect(find.text('Please map all fields (Date, Description, Amount).'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.pleaseMapAllFieldsDateDescriptionAmount)), findsOneWidget);
   });
 
   testWidgets('Confirm button returns mapping when all fields are mapped', (WidgetTester tester) async {
@@ -199,7 +208,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Tap Confirm button
-    await tester.tap(find.widgetWithText(TextButton, 'Confirm'));
+    await tester.tap(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)));
     await tester.pumpAndSettle(); // Allow dialog to close and result to be processed
 
     expect(result, isA<Map<String, String>>());
@@ -235,7 +244,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Tap Cancel button
-    await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+    await tester.tap(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.cancel)));
     await tester.pumpAndSettle(); // Allow dialog to close
 
     expect(result, isNull);
@@ -264,15 +273,15 @@ void main() {
   testWidgets('Dialog shows error message when headers are empty', (WidgetTester tester) async {
     await pumpDialog(tester, headers: <String>[], dataRows: <List<String>>[]);
 
-    expect(find.text('Error'), findsOneWidget);
-    expect(find.text('CSV headers are missing or empty.'), findsOneWidget);
-    expect(find.widgetWithText(TextButton, 'OK'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.error)), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.csvHeadersAreMissingOrEmpty)), findsOneWidget);
+    expect(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)), findsOneWidget);
 
     // Close the error dialog
-    await tester.tap(find.widgetWithText(TextButton, 'OK'));
+    await tester.tap(find.widgetWithText(TextButton, AppL10n.tr(AppTranslationKeys.confirm)));
     await tester.pumpAndSettle();
 
-    expect(find.text('Error'), findsNothing);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.error)), findsNothing);
   });
 
   testWidgets('Preview table handles rows with inconsistent column counts', (WidgetTester tester) async {
@@ -290,7 +299,7 @@ void main() {
     );
 
     // Verify dialog title (to ensure dialog loaded)
-    expect(find.text('Choose Columns'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsOneWidget);
 
     // Verify headers are displayed
     for (final String header in headersForInconsistentTest) {
@@ -357,7 +366,10 @@ void main() {
 
     // Verify Date column is auto-selected to 'Transaction Date'
     final Finder dateDropdownFinder = find.byType(DropdownButtonFormField<String>).at(0);
-    expect(find.descendant(of: dateDropdownFinder, matching: find.text('Transaction Date')), findsOneWidget);
+    final DropdownButtonFormField<String> dateDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      dateDropdownFinder,
+    );
+    expect(dateDropdownWidget.initialValue, 'Transaction Date');
   });
 
   testWidgets('Auto-detects Description column from common header names', (WidgetTester tester) async {
@@ -375,7 +387,10 @@ void main() {
 
     // Verify Description column is auto-selected to 'Payee'
     final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
-    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Payee')), findsOneWidget);
+    final DropdownButtonFormField<String> descriptionDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      descriptionDropdownFinder,
+    );
+    expect(descriptionDropdownWidget.initialValue, 'Payee');
   });
 
   testWidgets('Auto-detects Amount column from common header names', (WidgetTester tester) async {
@@ -393,7 +408,10 @@ void main() {
 
     // Verify Amount column is auto-selected to 'Credit'
     final Finder amountDropdownFinder = find.byType(DropdownButtonFormField<String>).at(2);
-    expect(find.descendant(of: amountDropdownFinder, matching: find.text('Credit')), findsOneWidget);
+    final DropdownButtonFormField<String> amountDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      amountDropdownFinder,
+    );
+    expect(amountDropdownWidget.initialValue, 'Credit');
   });
 
   testWidgets('User can override auto-detected columns', (WidgetTester tester) async {
@@ -410,7 +428,9 @@ void main() {
 
     // Verify auto-detection worked
     final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
-    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Memo')), findsOneWidget);
+    final DropdownButtonFormField<String> descriptionDropdownWidgetBefore = tester
+        .widget<DropdownButtonFormField<String>>(descriptionDropdownFinder);
+    expect(descriptionDropdownWidgetBefore.initialValue, 'Memo');
 
     // Override the selection
     await tester.tap(descriptionDropdownFinder);
@@ -419,7 +439,9 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify override worked
-    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Transaction Date')), findsOneWidget);
+    final DropdownButtonFormField<String> descriptionDropdownWidgetAfter = tester
+        .widget<DropdownButtonFormField<String>>(descriptionDropdownFinder);
+    expect(descriptionDropdownWidgetAfter.initialValue, 'Transaction Date');
   });
 
   testWidgets('Handles headers with no matches gracefully', (WidgetTester tester) async {
@@ -439,10 +461,19 @@ void main() {
     final Finder descriptionDropdownFinder = find.byType(DropdownButtonFormField<String>).at(1);
     final Finder amountDropdownFinder = find.byType(DropdownButtonFormField<String>).at(2);
 
-    // Should show "Select column" hint text when no value is selected
-    expect(find.descendant(of: dateDropdownFinder, matching: find.text('Select column')), findsOneWidget);
-    expect(find.descendant(of: descriptionDropdownFinder, matching: find.text('Select column')), findsOneWidget);
-    expect(find.descendant(of: amountDropdownFinder, matching: find.text('Select column')), findsOneWidget);
+    final DropdownButtonFormField<String> dateDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      dateDropdownFinder,
+    );
+    final DropdownButtonFormField<String> descriptionDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      descriptionDropdownFinder,
+    );
+    final DropdownButtonFormField<String> amountDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      amountDropdownFinder,
+    );
+
+    expect(dateDropdownWidget.initialValue, isNull);
+    expect(descriptionDropdownWidget.initialValue, isNull);
+    expect(amountDropdownWidget.initialValue, isNull);
   });
 
   testWidgets('Preview table scrolls horizontally with many columns', (WidgetTester tester) async {
@@ -461,7 +492,7 @@ void main() {
     );
 
     // 2. Verify dialog and table are present
-    expect(find.text('Choose Columns'), findsOneWidget);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsOneWidget);
     final Finder dataTableFinder = find.byType(DataTable);
     expect(dataTableFinder, findsOneWidget);
 

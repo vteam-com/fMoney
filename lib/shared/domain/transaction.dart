@@ -5,6 +5,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
@@ -69,43 +70,43 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   factory Transaction.fromJSon(final MyJson json, final double runningBalance) {
-    final Transaction t = Transaction(date: json.getDate('Date'));
+    final Transaction t = Transaction(date: json.getDate(SharedDomainStrings.domainString044));
     // 0 ID
-    t.fieldId.value = json.getInt('Id', _unsetId);
+    t.fieldId.value = json.getInt(SharedDomainStrings.domainString057, _unsetId);
     // 1 Account ID
-    t.fieldAccountId.value = json.getInt('Account', _unsetId);
+    t.fieldAccountId.value = json.getInt(SharedDomainStrings.domainString011, _unsetId);
     t.instanceOfAccount = DataAbstract.instance.getAccount(t.fieldAccountId.value) as Account?;
     // 3 Status
-    t.fieldStatus.value = TransactionStatus.values[json.getInt('Status')];
+    t.fieldStatus.value = TransactionStatus.values[json.getInt(SharedDomainStrings.domainString128)];
     // 4 Payee ID
-    t.fieldPayee.value = json.getInt('Payee', _unsetId);
+    t.fieldPayee.value = json.getInt(SharedDomainStrings.domainString105, _unsetId);
     // 5 Original Payee
-    t.fieldOriginalPayee.value = json.getString('OriginalPayee');
+    t.fieldOriginalPayee.value = json.getString(SharedDomainStrings.domainString100);
     // 6 Category Id
-    t.fieldCategoryId.value = json.getInt('Category', _unsetId);
+    t.fieldCategoryId.value = json.getInt(SharedDomainStrings.domainString029, _unsetId);
     // 7 Memo
-    t.fieldMemo.value = json.getString('Memo');
+    t.fieldMemo.value = json.getString(SharedDomainStrings.domainString086);
     // 8 Number
-    t.fieldNumber.value = json.getString('Number');
+    t.fieldNumber.value = json.getString(SharedDomainStrings.domainString092);
     // 9 Reconciled Date
-    t.fieldReconciledDate.value = json.getDate('ReconciledDate');
+    t.fieldReconciledDate.value = json.getDate(SharedDomainStrings.domainString116);
     // 10 BudgetBalanceDate
-    t.fieldBudgetBalanceDate.value = json.getDate('BudgetBalanceDate');
+    t.fieldBudgetBalanceDate.value = json.getDate(SharedDomainStrings.domainString025);
     // 11 Transfer
-    t.fieldTransfer.value = json.getInt('Transfer', _unsetId);
+    t.fieldTransfer.value = json.getInt(SharedDomainStrings.domainString144, _unsetId);
     // 12 FITID
-    t.fieldFitid.value = json.getString('FITID');
+    t.fieldFitid.value = json.getString(SharedDomainStrings.domainString051);
     // 13 Flags
-    t.fieldFlags.value = json.getInt('Flags');
+    t.fieldFlags.value = json.getInt(SharedDomainStrings.domainString055);
 
     // 14 Amount
-    t.fieldAmount.value.setAmount(json.getDouble('Amount'));
+    t.fieldAmount.value.setAmount(json.getDouble(SharedDomainStrings.domainString017));
     // 15 Sales Tax
-    t.fieldSalesTax.value.setAmount(json.getDouble('SalesTax'));
+    t.fieldSalesTax.value.setAmount(json.getDouble(SharedDomainStrings.domainString121));
     // 16 Transfer Split
-    t.fieldTransferSplit.value = json.getInt('TransferSplit', _unsetId);
+    t.fieldTransferSplit.value = json.getInt(SharedDomainStrings.domainString145, _unsetId);
     // 17 Merge Date
-    t.fieldMergeDate.value = json.getDate('MergeDate');
+    t.fieldMergeDate.value = json.getDate(SharedDomainStrings.domainString087);
 
     // not serialized
     t.balance = runningBalance;
@@ -131,8 +132,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// SQLite  1|Account|INT|1||0
   FieldInt fieldAccountId = FieldInt(
     type: FieldType.text,
-    name: 'Account',
-    serializeName: 'Account',
+    name: SharedDomainStrings.domainString011,
+    serializeName: SharedDomainStrings.domainString011,
     align: TextAlign.left,
     footer: FooterType.count,
     defaultValue: _unsetId,
@@ -147,7 +148,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// 14|Amount|money|1||0
   FieldMoney fieldAmount = FieldMoney(
     name: columnIdAmount,
-    serializeName: 'Amount',
+    serializeName: SharedDomainStrings.domainString017,
     getValueForDisplay: (final DataInterface instance) => AmountModel(
       amount: (instance as Transaction).fieldAmount.value.asDouble(),
       iso4217: instance.currency,
@@ -218,8 +219,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Budget Balance Date
   /// 10|BudgetBalanceDate|datetime|0||0
   FieldDate fieldBudgetBalanceDate = FieldDate(
-    name: 'ReconciledDate',
-    serializeName: 'ReconciledDate',
+    name: SharedDomainStrings.domainString116,
+    serializeName: SharedDomainStrings.domainString116,
     getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
@@ -235,8 +236,8 @@ class Transaction extends DataObject implements MergeableItem {
     columnWidth: ColumnWidth.large,
     align: TextAlign.left,
     footer: FooterType.count,
-    name: 'Category',
-    serializeName: 'Category',
+    name: SharedDomainStrings.domainString029,
+    serializeName: SharedDomainStrings.domainString029,
     defaultValue: _unsetId,
     getValueForDisplay: (final DataInterface instance) {
       final Transaction t = instance as Transaction;
@@ -262,7 +263,7 @@ class Transaction extends DataObject implements MergeableItem {
             ? (final BuildContext context) {
                 t.possibleMatchingCategoryId = _unsetId;
                 showPopupSelection(
-                  title: 'Category',
+                  title: SharedDomainStrings.domainString029,
                   context: context,
                   items: DataAbstract.instance.getCategoriesAsStrings(),
                   selectedItem: '',
@@ -325,7 +326,7 @@ class Transaction extends DataObject implements MergeableItem {
 
   FieldString fieldCurrency = FieldString(
     type: FieldType.widget,
-    name: 'Currency',
+    name: SharedDomainStrings.domainString042,
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.count,
@@ -338,8 +339,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Date
   /// SQLite 2|Date|datetime|1||0
   FieldDate fieldDateTime = FieldDate(
-    name: 'Date',
-    serializeName: 'Date',
+    name: SharedDomainStrings.domainString044,
+    serializeName: SharedDomainStrings.domainString044,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldDateTime.value,
     getValueForSerialization: (final DataInterface instance) =>
         dateToSqliteFormat((instance as Transaction).fieldDateTime.value),
@@ -370,8 +371,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// FITID
   /// 12|FITID|nchar(40)|0||0
   FieldString fieldFitid = FieldString(
-    name: 'FITID',
-    serializeName: 'FITID',
+    name: SharedDomainStrings.domainString051,
+    serializeName: SharedDomainStrings.domainString051,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
   );
@@ -379,8 +380,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Flags
   /// 13|Flags|INT|1||0
   FieldInt fieldFlags = FieldInt(
-    name: 'Flags',
-    serializeName: 'Flags',
+    name: SharedDomainStrings.domainString055,
+    serializeName: SharedDomainStrings.domainString055,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
@@ -395,8 +396,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Memo
   /// 7|Memo|nvarchar(255)|0||0
   FieldString fieldMemo = FieldString(
-    name: 'Memo',
-    serializeName: 'Memo',
+    name: SharedDomainStrings.domainString086,
+    serializeName: SharedDomainStrings.domainString086,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
@@ -407,7 +408,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// 17|MergeDate|datetime|0||0
   FieldDate fieldMergeDate = FieldDate(
     name: 'Merge Date',
-    serializeName: 'MergeDate',
+    serializeName: SharedDomainStrings.domainString087,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldMergeDate.value,
@@ -418,7 +419,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// 8|Number|nchar(10)|0||0
   FieldString fieldNumber = FieldString(
     name: 'Ref',
-    serializeName: 'Number',
+    serializeName: SharedDomainStrings.domainString092,
     columnWidth: ColumnWidth.nano,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
@@ -429,7 +430,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// SQLite 5|OriginalPayee|nvarchar(255)|0||0
   FieldString fieldOriginalPayee = FieldString(
     name: 'Original Payee',
-    serializeName: 'OriginalPayee',
+    serializeName: SharedDomainStrings.domainString100,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
   );
@@ -449,7 +450,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// SQLite 4|Payee|INT|0||0
   FieldInt fieldPayee = FieldInt(
     name: 'Payee/Transfer',
-    serializeName: 'Payee',
+    serializeName: SharedDomainStrings.domainString105,
     defaultValue: _unsetId,
     type: FieldType.text,
     footer: FooterType.count,
@@ -561,8 +562,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Reconciled Date
   /// 9|ReconciledDate|datetime|0||0
   FieldDate fieldReconciledDate = FieldDate(
-    name: 'ReconciledDate',
-    serializeName: 'ReconciledDate',
+    name: SharedDomainStrings.domainString116,
+    serializeName: SharedDomainStrings.domainString116,
     getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
@@ -575,7 +576,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// 15|SalesTax|money|0||0
   FieldMoney fieldSalesTax = FieldMoney(
     name: 'Sales Tax',
-    serializeName: 'SalesTax',
+    serializeName: SharedDomainStrings.domainString121,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldSalesTax.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as Transaction).fieldSalesTax.value.asDouble(),
@@ -595,7 +596,7 @@ class Transaction extends DataObject implements MergeableItem {
     defaultValue: TransactionStatus.none,
     useAsDetailPanels: defaultCallbackValueFalse,
     name: columnIdStatus,
-    serializeName: 'Status',
+    serializeName: SharedDomainStrings.domainString128,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction)._buildStatusButtonToggle(),
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldStatus.value.index,
     setValue: (DataInterface instance, dynamic newValue) =>
@@ -610,8 +611,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Transfer
   /// 11|Transfer|bigint|0||0
   Field<int> fieldTransfer = Field<int>(
-    name: 'Transfer',
-    serializeName: 'Transfer',
+    name: SharedDomainStrings.domainString144,
+    serializeName: SharedDomainStrings.domainString144,
     defaultValue: _unsetId,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransfer.value,
@@ -621,8 +622,8 @@ class Transaction extends DataObject implements MergeableItem {
   /// Transfer Split
   /// 16|TransferSplit|INT|0||0
   FieldInt fieldTransferSplit = FieldInt(
-    name: 'TransferSplit',
-    serializeName: 'TransferSplit',
+    name: SharedDomainStrings.domainString145,
+    serializeName: SharedDomainStrings.domainString145,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
@@ -644,12 +645,14 @@ class Transaction extends DataObject implements MergeableItem {
   Widget buildFieldsAsWidgetForSmallScreen() {
     return MyListItemAsCard(
       leftTopAsString: payeeName,
-      leftBottomAsString: '${DataAbstract.instance.getCategoryNameFromId(fieldCategoryId.value)}\n${fieldMemo.value}',
+      leftBottomAsString:
+          '${DataAbstract.instance.getCategoryNameFromId(fieldCategoryId.value)}${SharedDomainStrings.domainString158}${fieldMemo.value}',
       rightTopAsWidget: WidgetFromData(
         amountModel: fieldAmount.value,
         size: DataWidgetSize.title,
       ),
-      rightBottomAsString: '$dateTimeAsString\n${DataAbstract.instance.getAccountName(fieldAccountId.value)}',
+      rightBottomAsString:
+          '$dateTimeAsString${SharedDomainStrings.domainString158}${DataAbstract.instance.getAccountName(fieldAccountId.value)}',
     );
   }
 
@@ -745,7 +748,7 @@ class Transaction extends DataObject implements MergeableItem {
   ];
 
   /// Returns the display account name for this transaction.
-  String get accountName => instanceOfAccount?.fieldName.value ?? '<Account???>';
+  String get accountName => instanceOfAccount?.fieldName.value ?? SharedDomainStrings.domainString006;
 
   /// Returns the transaction amount formatted using account currency rules.
   String get amountAsString => fieldAmount.value.toString();

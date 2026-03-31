@@ -1,6 +1,7 @@
 import 'package:money/data/models/data_simulator_constants.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
@@ -79,7 +80,7 @@ class DataSimulatorInvestmentsDomain {
       Security(
         id: idStockApple,
         name: 'Apple Inc',
-        symbol: 'AAPL',
+        symbol: SharedSimulationStrings.simStockSymbolAapl,
         price: DataSimulatorConstants.appleStockPrice,
         lastPrice: DataSimulatorConstants.appleStockLastPrice,
         cuspid: '',
@@ -96,7 +97,7 @@ class DataSimulatorInvestmentsDomain {
       Security(
         id: idStockFord,
         name: 'Ford',
-        symbol: 'F',
+        symbol: SharedSimulationStrings.simStockSymbolF,
         price: DataSimulatorConstants.fordStockPrice,
         lastPrice: DataSimulatorConstants.fordStockLastPrice,
         cuspid: '',
@@ -198,7 +199,7 @@ class DataSimulatorInvestmentsDomain {
       ),
       categoryId: accountStartupLoan.fieldCategoryIdForPrincipal.value,
       amount: -loanAmount,
-      memo: 'Invest in project goto Mars',
+      memo: SharedSimulationStrings.simMemoInvestMars,
     );
 
     final List<DateTime> dates = generateListOfDates(
@@ -239,9 +240,9 @@ class DataSimulatorInvestmentsDomain {
       addTransaction(
         account: accountBankCanada,
         date: date,
-        payeeId: Data().payees.getOrCreate('MarsProject').uniqueId,
+        payeeId: Data().payees.getOrCreate(SharedSimulationStrings.simPayeeMarsProject).uniqueId,
         amount: monthlyPayment,
-        memo: 'Pay back investment',
+        memo: SharedSimulationStrings.simMemoPayBackInvestment,
       );
     }
   }

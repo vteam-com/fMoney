@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -34,13 +35,13 @@ class TransactionExtra extends DataObject {
   factory TransactionExtra.fromJson(final MyJson row) {
     final TransactionExtra t = TransactionExtra(
       // id
-      id: row.getInt('Id', -1),
+      id: row.getInt(SharedDomainStrings.domainString057, -1),
       // Transaction Id
-      transaction: row.getInt('Transaction', -1),
+      transaction: row.getInt(SharedDomainStrings.domainString141, -1),
       // Tax Year
-      taxYear: row.getInt('TaxYear'),
+      taxYear: row.getInt(SharedDomainStrings.domainString136),
       // Tax Date
-      taxDate: row.getDate('TaxDate'),
+      taxDate: row.getDate(SharedDomainStrings.domainString133),
     );
 
     return t;
@@ -54,19 +55,19 @@ class TransactionExtra extends DataObject {
 
   // 4
   FieldDate fieldTaxDate = FieldDate(
-    serializeName: 'TaxDate',
+    serializeName: SharedDomainStrings.domainString133,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTaxDate.value,
   );
 
   // 2
   FieldInt fieldTaxYear = FieldInt(
-    serializeName: 'TaxYear',
+    serializeName: SharedDomainStrings.domainString136,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTaxYear.value,
   );
 
   // 1
   FieldInt fieldTransaction = FieldInt(
-    serializeName: 'Transaction',
+    serializeName: SharedDomainStrings.domainString141,
     getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTransaction.value,
   );
 

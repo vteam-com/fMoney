@@ -3,7 +3,10 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/sankey/sankey_colors.dart';
 import 'package:money/widgets/sankey/sankey_entry.dart';
@@ -96,7 +99,7 @@ class _SankeyPainter extends CustomPainter {
     double lastHeight = ratioIncomeToExpense * totalIncome;
     lastHeight = max(Block.minBlockHeight, lastHeight);
     final Block targetRevenues = Block(
-      'Revenue\n${getAmountAsShorthandText(totalIncome)}',
+      '${AppL10n.tr(AppTranslationKeys.incomes)}${SharedStrings.lineFeed}${getAmountAsShorthandText(totalIncome)}',
       ui.Rect.fromLTWH(
         horizontalCenter - columnWidth,
         verticalStackOfTargets,
@@ -114,7 +117,7 @@ class _SankeyPainter extends CustomPainter {
     lastHeight = ratioIncomeToExpense * totalExpense;
     lastHeight = max(Block.minBlockHeight, lastHeight);
     final Block targetExpenses = Block(
-      'Expenses\n-${getAmountAsShorthandText(totalExpense)}',
+      '${AppL10n.tr(AppTranslationKeys.expenses)}${SharedStrings.lineFeed}-${getAmountAsShorthandText(totalExpense)}',
       ui.Rect.fromLTWH(
         horizontalCenter + gap,
         topOfCenters,
@@ -211,7 +214,7 @@ class _SankeyPainter extends CustomPainter {
     lastHeight = ratioIncomeToExpense * netAmount.abs();
     lastHeight = max(Block.minBlockHeight, lastHeight);
 
-    String text = 'Net ';
+    String text = SharedStrings.empty;
 
     late Rect rect;
     late double netRectLeft;
@@ -219,12 +222,12 @@ class _SankeyPainter extends CustomPainter {
 
     if (netAmount < 0) {
       // Net Lost
-      text += 'Lost\n';
+      text += AppL10n.tr(AppTranslationKeys.loss) + SharedStrings.lineFeed;
       netRectLeft = horizontalCenter - (columnWidth + gap);
       netRectTop = targetRevenues.rect.bottom + gap;
     } else {
       // Net Profit
-      text += 'Profit\n';
+      text += AppL10n.tr(AppTranslationKeys.profit) + SharedStrings.lineFeed;
       netRectLeft = horizontalCenter + gap;
       netRectTop = targetExpenses.rect.bottom + gap;
     }

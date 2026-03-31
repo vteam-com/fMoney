@@ -1,3 +1,6 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/transaction.dart';
@@ -21,16 +24,16 @@ void showImportTransactionsFromTextInput(
 
   final ValuesParser parser = ValuesParser(
     dateFormat: 'MM/dd/yyyy',
-    currency: 'USD',
+    currency: SharedStrings.currencyUsd,
   );
 
   final List<Widget> actionButtons = <Widget>[
     // Button - Import
     DialogActionButton(
-      text: 'Import',
+      text: AppL10n.tr(AppTranslationKeys.importWord),
       onPressed: () {
         if (parser.isEmpty) {
-          messageBox(context, 'Nothing to import');
+          messageBox(context, AppL10n.tr(AppTranslationKeys.nothingToImport));
         } else {
           // Import
           final List<Transaction> transactionsToAdd = <Transaction>[];
@@ -48,7 +51,10 @@ void showImportTransactionsFromTextInput(
           }
           addNewTransactions(
             transactionsToAdd,
-            '${transactionsToAdd.length} transactions added',
+            AppL10n.tr(
+              AppTranslationKeys.transactionsAddedCount,
+              params: <String, String>{'count': transactionsToAdd.length.toString()},
+            ),
           );
 
           Navigator.of(context).pop(false);
@@ -59,7 +65,7 @@ void showImportTransactionsFromTextInput(
 
   adaptiveScreenSizeDialog(
     context: context,
-    captionForClose: 'Cancel',
+    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
     actionButtons: actionButtons,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,7 +113,7 @@ void addNewTransactions(
 
   SnackBarService.displaySuccess(
     autoDismiss: true,
-    title: 'Import',
+    title: AppL10n.tr(AppTranslationKeys.importWord),
     message: messageToUserAfterAdding,
   );
 }

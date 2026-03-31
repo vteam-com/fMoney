@@ -1,10 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pairs.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/vertical_line_with_tooltip.dart';
+
+const int _monthsInYear = 12;
 
 /// A stateless widget for mini timeline twelve months.
 class MiniTimelineTwelveMonths extends StatelessWidget {
@@ -18,10 +21,22 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
   final List<Pair<int, double>> values;
 
   @override
-  Widget build(BuildContext _) {
+  Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (final BuildContext _, final BoxConstraints constraints) {
         final List<Widget> bars = <Widget>[];
+        final String locale = Localizations.localeOf(context).toLanguageTag();
+        final DateFormat formatter = DateFormat.MMM(locale);
+        final List<String> monthLabels = List<String>.generate(
+          _monthsInYear,
+          (int monthIndex) {
+            final String shortMonth = formatter.format(DateTime(DateTime.now().year, monthIndex + 1, 1));
+            if (shortMonth.isEmpty) {
+              return '';
+            }
+            return shortMonth.substring(0, 1).toUpperCase();
+          },
+        );
 
         if (values.isNotEmpty) {
           num maxValue = 0;
@@ -57,20 +72,7 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildMontLabel('J'),
-                _buildMontLabel('F'),
-                _buildMontLabel('M'),
-                _buildMontLabel('A'),
-                _buildMontLabel('M'),
-                _buildMontLabel('J'),
-                _buildMontLabel('J'),
-                _buildMontLabel('A'),
-                _buildMontLabel('S'),
-                _buildMontLabel('O'),
-                _buildMontLabel('N'),
-                _buildMontLabel('D'),
-              ],
+              children: monthLabels.map(_buildMontLabel).toList(),
             ),
           ],
         );

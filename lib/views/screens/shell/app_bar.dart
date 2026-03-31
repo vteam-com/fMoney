@@ -56,27 +56,29 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   /// Handles app bar actions such as add transactions, settings, and theme changes.
-  void onAppBarAction(int value) {
+  void onAppBarAction(BuildContext context, int value) {
     switch (value) {
       case Constants.commandAddTransactions:
-        showImportTransactionsFromTextInput(AppRouter.context!);
+        showImportTransactionsFromTextInput(context);
+        DataFileController.to.update();
         break;
       case Constants.commandSettings:
-        AppRouter.pushNamed<dynamic>(Constants.routeSettingsPage);
+        Navigator.of(context).pushNamed(Constants.routeSettingsPage);
         break;
       case Constants.commandInstallPlatforms:
-        AppRouter.pushNamed<dynamic>(Constants.routeInstallPlatformsPage);
+        Navigator.of(context).pushNamed(Constants.routeInstallPlatformsPage);
         break;
       case Constants.commandAbout:
-        AppRouter.pushNamed<dynamic>(Constants.routeAboutPage);
+        Navigator.of(context).pushNamed(Constants.routeAboutPage);
         break;
       case Constants.commandIncludeClosedAccount:
         PreferenceController.to.includeClosedAccounts = !PreferenceController.to.includeClosedAccounts;
+        DataFileController.to.update();
         break;
       default:
         ThemeController.to.setThemeColor(value);
+        DataFileController.to.update();
     }
-    DataFileController.to.update();
   }
 
   /// Builds a popup menu item for the app bar menu.
@@ -104,25 +106,25 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Constants.commandFileNew,
         AppL10n.tr(AppTranslationKeys.newMenuItem),
         Icons.note_add_outlined,
-        shortcut: 'Ctrl+N',
+        shortcut: AppL10n.tr(AppTranslationKeys.shortcutNewFile),
       ),
       _buildMenuItem(
         Constants.commandFileOpen,
         AppL10n.tr(AppTranslationKeys.openMenuItem),
         Icons.file_open_outlined,
-        shortcut: 'Ctrl+O',
+        shortcut: AppL10n.tr(AppTranslationKeys.shortcutOpenFile),
       ),
       _buildMenuItem(
         Constants.commandAddTransactions,
         AppL10n.tr(AppTranslationKeys.addTransactionsMenuItem),
         Icons.post_add_outlined,
-        shortcut: 'Ctrl+T',
+        shortcut: AppL10n.tr(AppTranslationKeys.shortcutAddTransactions),
       ),
       _buildMenuItem(
         Constants.commandRebalance,
         AppL10n.tr(AppTranslationKeys.rebalanceMenuItem),
         Icons.refresh_outlined,
-        shortcut: 'Ctrl+R',
+        shortcut: AppL10n.tr(AppTranslationKeys.shortcutRebalance),
       ),
       if (!kIsWeb && !isPlatformMobile())
         _buildMenuItem(
@@ -209,7 +211,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       icon: Icons.settings_outlined,
       tooltip: AppL10n.tr(AppTranslationKeys.settings),
       list: actionList,
-      onSelected: onAppBarAction,
+      onSelected: (int value) => onAppBarAction(context, value),
     );
   }
 

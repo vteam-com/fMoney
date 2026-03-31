@@ -4,6 +4,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/chart_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/charts/chart.dart';
 
@@ -77,7 +78,7 @@ class MyLineChart extends StatelessWidget {
                 touchedSpot.x.toInt(),
               );
               return LineTooltipItem(
-                '${dateToString(date)}\n${doubleToCurrency(touchedSpot.y)}',
+                '${dateToString(date)}${SharedStrings.lineFeed}${doubleToCurrency(touchedSpot.y)}',
                 const TextStyle(color: Colors.white),
               );
             }).toList(),
@@ -91,4 +92,4 @@ class MyLineChart extends StatelessWidget {
 }
 
 /// Formats a DateTime as 'yyyy\nMMM'.
-String formatDate(DateTime date) => DateFormat('yyyy\nMMM').format(date);
+String formatDate(DateTime date) => DateFormat(SharedStrings.dateFormatYearLineMonth).format(date);

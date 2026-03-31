@@ -1,4 +1,6 @@
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pairs.dart';
@@ -82,7 +84,7 @@ class RecurringCard extends StatelessWidget {
   /// Builds the averages box showing yearly, monthly, and daily averages.
   Widget _buildBoxAverages(final BuildContext context) {
     return Box(
-      title: 'Averages',
+      title: AppL10n.tr(AppTranslationKeys.averages),
       padding: _cardSpacing,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,19 +101,19 @@ class RecurringCard extends StatelessWidget {
           // Average per yearS
           _buildTextAmountRow(
             context,
-            'Year',
+            AppL10n.tr(AppTranslationKeys.year),
             payment.total / (payment.dateRangeFound.durationInYears),
           ),
           // Average per month
           _buildTextAmountRow(
             context,
-            'Month',
+            AppL10n.tr(AppTranslationKeys.month),
             payment.total / (payment.dateRangeFound.durationInMonths),
           ),
           // Average per day
           _buildTextAmountRow(
             context,
-            'Day',
+            AppL10n.tr(AppTranslationKeys.day),
             payment.total / (payment.dateRangeFound.durationInDays),
           ),
         ],
@@ -122,7 +124,7 @@ class RecurringCard extends StatelessWidget {
   /// Builds the category distribution box for the payment's category breakdown.
   Widget _buildBoxDistribution(final BuildContext _) {
     return Box(
-      title: 'Categories',
+      title: AppL10n.tr(AppTranslationKeys.categories),
       padding: _cardSpacing,
       child: DistributionBar(segments: payment.categoryDistribution),
     );
@@ -135,7 +137,7 @@ class RecurringCard extends StatelessWidget {
     );
 
     return Box(
-      title: 'Timeline',
+      title: AppL10n.tr(AppTranslationKeys.timeline),
       padding: _cardSpacing,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -155,7 +157,12 @@ class RecurringCard extends StatelessWidget {
           gapLarge(),
           _buildTextAmountRow(
             context,
-            '${getIntAsText(payment.frequency)} transactions averaging',
+            AppL10n.tr(
+              AppTranslationKeys.transactionsAveraging,
+              params: <String, String>{
+                'count': getIntAsText(payment.frequency),
+              },
+            ),
             payment.total / payment.frequency,
           ),
         ],

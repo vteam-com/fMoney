@@ -62,7 +62,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
             // Jump to Stock view
             MenuEntry(
               icon: ViewId.viewStocks.getIconData(),
-              title: 'Switch to Stocks',
+              title: AppL10n.tr(AppTranslationKeys.switchToStocks),
               onPressed: () {
                 // Prepare the Stocks view
                 // Filter by Stock Symbol
@@ -94,17 +94,17 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Investments';
+    return AppL10n.tr(AppTranslationKeys.investments);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Investment';
+    return AppL10n.tr(AppTranslationKeys.investment);
   }
 
   @override
   String getDescription() {
-    return 'Track your stock portfolio.';
+    return AppL10n.tr(AppTranslationKeys.trackYourStockPortfolioDescription);
   }
 
   @override

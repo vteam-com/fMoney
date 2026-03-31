@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:path_provider/path_provider.dart';
 
 const int _singleCharLength = 1;
@@ -80,13 +81,13 @@ String escapeString(String input) => input.replaceAll("'", "''");
 /// @param showPlusSign Whether to show a plus sign for positive values. Defaults to false.
 /// @returns The formatted double string.
 String formatDoubleUpToFiveZero(double value, {bool showPlusSign = false}) {
-  final NumberFormat formatter = NumberFormat('#,##0.#####', 'en_US');
+  final NumberFormat formatter = NumberFormat(SharedStrings.numberFormatUpToFiveDecimals, 'en_US');
   return getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + formatter.format(value);
 }
 
 /// Formats double with trimmed trailing zeros.
 String formatDoubleTrimZeros(double value) {
-  final NumberFormat formatter = NumberFormat('#,##0.##', 'en_US');
+  final NumberFormat formatter = NumberFormat(SharedStrings.numberFormatTrimmedDecimals, 'en_US');
   return formatter.format(value);
 }
 
@@ -111,7 +112,7 @@ List<String> getColumnInCsvLine(final String csvLine) {
 /// return a ISO 3166-1 Alpha2  US | CA | ES
 String getCountryFromLocale(final String locale) {
   if (locale.isEmpty) {
-    return 'US'; // default to US
+    return SharedStrings.countryCodeUs; // default to US
   }
   final List<String> tokens = locale.replaceAll('-', '_').split('_');
   return tokens.last;
@@ -388,7 +389,7 @@ String removeUtf8Bom(String text) {
 /// Parses USD amount string and returns double value.
 double? parseUSDAmount(String input) {
   input = input.replaceAll('\$', '');
-  input = input.replaceAll('USD', '');
+  input = input.replaceAll(SharedStrings.currencyUsd, SharedStrings.empty);
   final RegExp usdPattern = RegExp(
     r'^[+-]?(\d+(\,\d{3})*(\.\d+)?|\.\d+)(\s*USD)?$',
   );
@@ -440,10 +441,10 @@ String convertParenthesesToNegativeString(String amountText) {
 double? parseAmount(String amountAsText, final String currency) {
   amountAsText = convertParenthesesToNegativeString(amountAsText);
   switch (currency.toLowerCase()) {
-    case 'eur':
+    case SharedStrings.currencyCodeEurLower:
       return parseEuroAmount(amountAsText);
-    case 'usd':
-    case 'cad':
+    case SharedStrings.currencyCodeUsdLower:
+    case SharedStrings.currencyCodeCadLower:
     default:
       return parseUSDAmount(amountAsText);
   }
@@ -469,12 +470,12 @@ bool isNumber(num value) => value.isFinite && !value.isNaN;
 /// Formats byte size into human readable string (B, KB, MB, GB).
 String formatByteSize(final int bytes) {
   if (bytes >= _bytesPerGigabyte) {
-    return '${(bytes / _bytesPerGigabyte).toStringAsFixed(_byteSizePrecision)} GB';
+    return '${(bytes / _bytesPerGigabyte).toStringAsFixed(_byteSizePrecision)}${SharedStrings.byteUnitGigabytes}';
   } else if (bytes >= _bytesPerMegabyte) {
-    return '${(bytes / _bytesPerMegabyte).toStringAsFixed(_byteSizePrecision)} MB';
+    return '${(bytes / _bytesPerMegabyte).toStringAsFixed(_byteSizePrecision)}${SharedStrings.byteUnitMegabytes}';
   } else if (bytes >= _bytesPerKilobyte) {
-    return '${(bytes / _bytesPerKilobyte).toStringAsFixed(_byteSizePrecision)} KB';
+    return '${(bytes / _bytesPerKilobyte).toStringAsFixed(_byteSizePrecision)}${SharedStrings.byteUnitKilobytes}';
   } else {
-    return '$bytes B';
+    return '$bytes${SharedStrings.byteUnitBytes}';
   }
 }

@@ -1,5 +1,6 @@
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 /// Get the country code for flag from currency ISO code
 String getCountryFromCurrencyIso4217(String iso4217code) {
@@ -27,12 +28,12 @@ String getCountryFromCurrencyIso4217(String iso4217code) {
 
   final String? locale = getLocaleFromCurrencyIso4217(code);
   if (locale == null || locale.isEmpty) {
-    return 'us';
+    return SharedStrings.countryCodeUsLower;
   }
 
   final int separator = locale.indexOf('_');
   if (separator < 0 || separator + 1 >= locale.length) {
-    return 'us';
+    return SharedStrings.countryCodeUsLower;
   }
 
   return locale.substring(separator + 1).toLowerCase();

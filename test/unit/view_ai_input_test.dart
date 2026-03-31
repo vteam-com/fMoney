@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/chat_input_area.dart';
 
 /// A test host widget for dummy hosting app.
@@ -60,10 +63,10 @@ void main() {
         ),
       );
 
-      expect(find.text('Account names'), findsOneWidget);
-      expect(find.text('Largest transactions'), findsOneWidget);
-      expect(find.text('Analyze spending'), findsOneWidget);
-      expect(find.text('Expense predictions'), findsOneWidget);
+      expect(find.text(AppL10n.tr(AppTranslationKeys.accountNames)), findsOneWidget);
+      expect(find.text(AppL10n.tr(AppTranslationKeys.largestTransactions)), findsOneWidget);
+      expect(find.text(AppL10n.tr(AppTranslationKeys.analyzeSpending)), findsOneWidget);
+      expect(find.text(AppL10n.tr(AppTranslationKeys.expensePredictions)), findsOneWidget);
     });
 
     testWidgets('displays teach AI button', (final WidgetTester tester) async {
@@ -79,7 +82,7 @@ void main() {
         ),
       );
 
-      expect(find.text('BankAccounts'), findsOneWidget);
+      expect(find.text(AppL10n.tr(AppTranslationKeys.bankaccounts)), findsOneWidget);
     });
 
     testWidgets('displays text input field with proper hint', (final WidgetTester tester) async {
@@ -96,7 +99,7 @@ void main() {
       );
 
       expect(find.byType(TextField), findsOneWidget);
-      expect(find.text('Ask the AI assistant...'), findsOneWidget);
+      expect(find.text(SharedStrings.aiAssistantHint), findsOneWidget);
     });
 
     testWidgets('shows send button when not processing', (final WidgetTester tester) async {
@@ -149,11 +152,11 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Account names'));
+      await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.accountNames)));
       await tester.pump();
 
       expect(onSendPromptCalled, true);
-      expect(sentPromptText, 'List all the account names');
+      expect(sentPromptText, AppL10n.tr(AppTranslationKeys.accountNames));
     });
 
     testWidgets('calls onSendPrompt when largest transactions button is tapped', (final WidgetTester tester) async {
@@ -172,11 +175,11 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Largest transactions'));
+      await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.largestTransactions)));
       await tester.pump();
 
       expect(onSendPromptCalled, true);
-      expect(sentPromptText, 'Identify the largest single transaction amount in each account');
+      expect(sentPromptText, AppL10n.tr(AppTranslationKeys.largestTransactions));
     });
 
     testWidgets('calls onSendPrompt when analyze spending button is tapped', (final WidgetTester tester) async {
@@ -195,11 +198,11 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Analyze spending'));
+      await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.analyzeSpending)));
       await tester.pump();
 
       expect(onSendPromptCalled, true);
-      expect(sentPromptText, 'Analyze my spending patterns');
+      expect(sentPromptText, AppL10n.tr(AppTranslationKeys.analyzeSpending));
     });
 
     testWidgets('calls onSendPrompt when expense predictions button is tapped', (final WidgetTester tester) async {
@@ -218,11 +221,11 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Expense predictions'));
+      await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.expensePredictions)));
       await tester.pump();
 
       expect(onSendPromptCalled, true);
-      expect(sentPromptText, 'Predict future expenses');
+      expect(sentPromptText, AppL10n.tr(AppTranslationKeys.expensePredictions));
     });
 
     testWidgets('calls onSendPrompt with text field content when send button is tapped', (

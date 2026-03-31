@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/gaps.dart';
 import 'package:money/widgets/pure/my_text_input.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,7 +14,7 @@ const double _dialogHeight = 200;
 Future<void> showTextInputDialog({
   required BuildContext context,
   required void Function(String) onContinue,
-  final String title = 'Input',
+  final String title = SharedStrings.inputTitle,
   final String subTitle = '',
   final String initialValue = '',
   void Function()? onCancel,
@@ -48,7 +49,7 @@ Future<void> showTextInputDialog({
                 child: MyTextInput(
                   key: const Key('key_single_input_dialog'),
                   controller: textEditingController,
-                  hintText: 'Enter $title',
+                  hintText: '${SharedStrings.enterPrefix}$title',
                 ),
               ),
             ],

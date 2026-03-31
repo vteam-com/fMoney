@@ -5,6 +5,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/components/semantic_text.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
@@ -55,7 +56,7 @@ class ValueQuality {
   /// Builds a styled amount widget or warning if parsing fails.
   Widget valueAsAmountWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
-      return buildWarning(context, '< no amount >');
+      return buildWarning(context, SharedStrings.placeholderNoAmount);
     }
 
     final double? amount = parseAmount(valueAsString, currency);
@@ -70,7 +71,7 @@ class ValueQuality {
   /// Builds a styled date widget or warning if parsing fails.
   Widget valueAsDateWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
-      return buildWarning(context, '< no date >');
+      return buildWarning(context, SharedStrings.placeholderNoDate);
     }
 
     final DateTime? parsedDate = asDate();
@@ -85,7 +86,7 @@ class ValueQuality {
   /// Builds a selectable text widget for the value, or a warning if empty.
   Widget valueAsTextWidget(final BuildContext? context) {
     if (valueAsString.isEmpty) {
-      return buildWarning(context, '< no description >');
+      return buildWarning(context, SharedStrings.placeholderNoDescription);
     }
     return SelectableText(valueAsString);
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/presentation/app_scope.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
@@ -54,7 +55,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
         ),
         Tooltip(
           key: Constants.keyZoomNormal,
-          message: 'Cmd/Ctrl 0',
+          message: SharedStrings.shortcutZoomReset,
           child: TextButton(
             onPressed: () {
               setState(() {

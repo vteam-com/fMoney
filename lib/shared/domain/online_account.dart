@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
@@ -52,30 +53,30 @@ class OnlineAccount extends DataObject {
   factory OnlineAccount.fromJson(final MyJson row) {
     return OnlineAccount(
       // 1
-      name: row.getString('Name'),
+      name: row.getString(SharedDomainStrings.domainString088),
       // 2
-      institution: row.getString('Institution'),
+      institution: row.getString(SharedDomainStrings.domainString058),
       // 3
-      ofx: row.getString('Ofx'),
+      ofx: row.getString(SharedDomainStrings.domainString094),
       // 4
-      ofxVersion: row.getString('OfxVersion'),
+      ofxVersion: row.getString(SharedDomainStrings.domainString096),
       // 5
-      fdic: row.getString('Fdic'),
+      fdic: row.getString(SharedDomainStrings.domainString052),
       // 6
-      userId: row.getString('UserId'),
+      userId: row.getString(SharedDomainStrings.domainString151),
       // 7
-      password: row.getString('Password'),
+      password: row.getString(SharedDomainStrings.domainString103),
       // 8
       userCred1: row.getString('UserCred1'),
       // 9
       userCred2: row.getString('UserCred2'),
       // 10
-      authToken: row.getString('AuthToken'),
+      authToken: row.getString(SharedDomainStrings.domainString018),
       // 11
-      bankId: row.getString('BankId'),
+      bankId: row.getString(SharedDomainStrings.domainString020),
       // 12
-      branchId: row.getString('BranchId'),
-    )..fieldId.value = row.getInt('Id', _unsetId);
+      branchId: row.getString(SharedDomainStrings.domainString023),
+    )..fieldId.value = row.getInt(SharedDomainStrings.domainString057, _unsetId);
   }
 
   // 10
@@ -97,7 +98,7 @@ class OnlineAccount extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    serializeName: 'Name',
+    serializeName: SharedDomainStrings.domainString088,
     getValueForSerialization: (final DataInterface instance) => (instance as OnlineAccount).fieldName.value,
   );
 

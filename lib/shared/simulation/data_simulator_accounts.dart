@@ -1,6 +1,7 @@
 import 'package:money/data/models/data_simulator_constants.dart';
 import 'package:money/helpers/account_types_enum.dart';
 import 'package:money/helpers/category_types.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
@@ -61,18 +62,18 @@ DataSimulatorAccountsBundle generateSimulatorAccounts({
 }) {
   final Account accountBankUSA = addNewAccount(
     DataSimulatorConstants.unsetId,
-    'Bank Of America',
+    SharedSimulationStrings.simBankOfAmerica,
     'B0001',
     AccountType.checking.index,
-    'USD',
+    SharedStrings.currencyUsd,
   );
 
   final Account accountBankCanada = addNewAccount(
     DataSimulatorConstants.unsetId,
-    'Bank Of Montreal',
+    SharedSimulationStrings.simBankOfMontreal,
     'B0002',
     AccountType.savings.index,
-    'CAD',
+    SharedSimulationStrings.simCurrencyCad,
   );
 
   addTransaction(
@@ -83,7 +84,7 @@ DataSimulatorAccountsBundle generateSimulatorAccounts({
       DataSimulatorConstants.firstDayOfMonth,
     ),
     amount: DataSimulatorConstants.initialDepositAmount,
-    payeeId: Data().payees.getByName('Lottery Win')!.uniqueId,
+    payeeId: Data().payees.getByName(SharedSimulationStrings.simPayeeLotteryWin)!.uniqueId,
     categoryId: Data().categories
         .addNewCategory(
           name: 'Misc Incomes',
@@ -91,31 +92,31 @@ DataSimulatorAccountsBundle generateSimulatorAccounts({
           color: '#004400',
         )
         .uniqueId,
-    memo: 'Initial opening of account',
+    memo: SharedSimulationStrings.simMemoInitialOpening,
   );
 
   final Account accountCreditCardUSD = addNewAccount(
     DataSimulatorConstants.unsetId,
-    'VisaCard',
+    SharedSimulationStrings.simAccountVisaCard,
     '0002',
     AccountType.credit.index,
-    'USD',
+    SharedStrings.currencyUsd,
   );
 
   final Account accountForInvestments = addNewAccount(
     DataSimulatorConstants.unsetId,
-    'Fidelity',
+    SharedSimulationStrings.simAccountFidelity,
     '0003',
     AccountType.investment.index,
-    'USD',
+    SharedStrings.currencyUsd,
   );
 
   final Account accountStartupLoan = addNewAccount(
     DataSimulatorConstants.unsetId,
-    'Startup',
+    SharedSimulationStrings.simAccountStartup,
     '0004',
     AccountType.loan.index,
-    'CAD',
+    SharedSimulationStrings.simCurrencyCad,
   );
 
   Data().categories.appendNewMoneyObject(
@@ -129,10 +130,10 @@ DataSimulatorAccountsBundle generateSimulatorAccounts({
   );
 
   accountStartupLoan.fieldCategoryIdForInterest.value = Data().categories
-      .getOrCreate('Lend:Interest:Startup', CategoryType.investment)
+      .getOrCreate(SharedSimulationStrings.simCategoryLendInterestStartup, CategoryType.investment)
       .uniqueId;
   accountStartupLoan.fieldCategoryIdForPrincipal.value = Data().categories
-      .getOrCreate('Lend:Principal:Startup', CategoryType.investment)
+      .getOrCreate(SharedSimulationStrings.simCategoryLendPrincipalStartup, CategoryType.investment)
       .uniqueId;
 
   return DataSimulatorAccountsBundle(

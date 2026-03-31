@@ -117,7 +117,14 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
 
     if (from == to) {
       return Center(
-        child: InfoBanner.warning('Pick a different category then "$from".'),
+        child: InfoBanner.warning(
+          AppL10n.tr(
+            AppTranslationKeys.pickDifferentCategoryThan,
+            params: <String, String>{
+              'category': from,
+            },
+          ),
+        ),
       );
     }
 
@@ -128,13 +135,19 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
         children: <Widget>[
           // Append
           _buildActionOffering(
-            'Use this option to move "$from" as a child of category of "$to".',
+            AppL10n.tr(
+              AppTranslationKeys.moveCategoryAsChild,
+              params: <String, String>{
+                'from': from,
+                'to': to,
+              },
+            ),
             OutlinedButton(
               onPressed: () {
                 if (_categoryPicked == widget.categoryToMove) {
                   showSnackBar(
                     context,
-                    'No need to merge to itself, select a different payee',
+                    AppL10n.tr(AppTranslationKeys.noNeedToMergeCategoryToItself),
                   );
                 } else {
                   // reparent Category
@@ -151,13 +164,19 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
           gapLarge(),
           // Merge
           _buildActionOffering(
-            'Use this option to merge the transactions of "$from" in to "$to".',
+            AppL10n.tr(
+              AppTranslationKeys.mergeTransactionsIntoCategory,
+              params: <String, String>{
+                'from': from,
+                'to': to,
+              },
+            ),
             OutlinedButton(
               onPressed: () {
                 if (_categoryPicked == widget.categoryToMove) {
                   showSnackBar(
                     context,
-                    'No need to merge to itself, select a different category',
+                    AppL10n.tr(AppTranslationKeys.noNeedToMergeCategoryToItself),
                   );
                 } else {
                   // move to Transaction to the picked category

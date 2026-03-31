@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/components/box_with_scrolling_content.dart';
@@ -40,50 +42,50 @@ class RentalPnLCard extends StatelessWidget {
           ],
         ),
         LabelAndAmount(
-          caption: 'Income',
+          caption: AppL10n.tr(AppTranslationKeys.incomeLabel),
           amount: pnl.income,
           currencyIso4217: pnl.currency,
         ),
         gapLarge(),
         LabelAndAmount(
-          caption: 'Expense',
+          caption: AppL10n.tr(AppTranslationKeys.expenseLabel),
           amount: pnl.expenses,
           currencyIso4217: pnl.currency,
         ),
         gapMedium(),
         LabelAndAmount(
-          caption: '  Interest',
+          caption: AppL10n.tr(AppTranslationKeys.interest),
           amount: pnl.expenseInterest,
           currencyIso4217: pnl.currency,
           small: true,
         ),
         LabelAndAmount(
-          caption: '  Maintenance',
+          caption: AppL10n.tr(AppTranslationKeys.maintenance),
           amount: pnl.expenseMaintenance,
           currencyIso4217: pnl.currency,
           small: true,
         ),
         LabelAndAmount(
-          caption: '  Management',
+          caption: AppL10n.tr(AppTranslationKeys.management),
           amount: pnl.expenseManagement,
           currencyIso4217: pnl.currency,
           small: true,
         ),
         LabelAndAmount(
-          caption: '  Repairs',
+          caption: AppL10n.tr(AppTranslationKeys.repairs),
           amount: pnl.expenseRepairs,
           currencyIso4217: pnl.currency,
           small: true,
         ),
         LabelAndAmount(
-          caption: '  Taxes',
+          caption: AppL10n.tr(AppTranslationKeys.taxes),
           amount: pnl.expenseTaxes,
           currencyIso4217: pnl.currency,
           small: true,
         ),
         gapLarge(),
         LabelAndAmount(
-          caption: 'Profit',
+          caption: AppL10n.tr(AppTranslationKeys.profit),
           amount: pnl.profit,
           currencyIso4217: pnl.currency,
         ),

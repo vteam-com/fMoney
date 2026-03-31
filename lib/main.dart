@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:money/helpers/app_intents.dart';
+import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/my_window_manager.dart';
@@ -49,8 +51,8 @@ class MyApp extends StatelessWidget {
       onInvoke: (RebalanceIntent _) {
         Data().recalculateBalances();
         SnackBarService.displayInfo(
-          message: 'Balances recalculated',
-          title: 'Rebalance',
+          message: AppL10n.tr(AppTranslationKeys.success),
+          title: AppL10n.tr(AppTranslationKeys.rebalanceMenuItem),
         );
         return null;
       },

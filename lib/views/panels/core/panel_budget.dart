@@ -9,6 +9,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/providers/budget.dart';
 import 'package:money/shared/domain/category.dart';
 import 'package:money/shared/domain/data.dart';
@@ -110,23 +111,33 @@ class _PanelBudgetState extends State<PanelBudget> {
   /// Calculates a descriptive accuracy string comparing budgeted vs actual amounts.
   String calculateBudgetAccuracy(double budgeted, double actual) {
     if (budgeted == _zeroDouble && actual == _zeroDouble) {
-      return 'Both budgeted and actual amounts are zero. Accuracy is undefined.';
+      return AppL10n.tr(AppTranslationKeys.budgetAccuracyBothZero);
     }
 
     if (actual == _zeroDouble) {
-      return 'Actual amount is zero. Cannot calculate percentages.';
+      return AppL10n.tr(AppTranslationKeys.budgetAccuracyActualZero);
     }
 
     final double accuracyPercentage = (budgeted / actual) * _percentageMultiplier;
     final double variancePercentage = ((actual - budgeted) / budgeted) * _percentageMultiplier;
-
-    String result = 'Accuracy:    ${accuracyPercentage.toStringAsFixed(_percentageDecimalPlaces)}%\n';
+    String result = AppL10n.tr(
+      AppTranslationKeys.budgetAccuracyPercent,
+      params: <String, String>{
+        'value': accuracyPercentage.toStringAsFixed(_percentageDecimalPlaces),
+      },
+    );
+    result += SharedStrings.lineFeed;
 
     // Check for cases where variance calculation is invalid
     if (budgeted == _zeroDouble) {
-      result += 'Budgeted amount is zero. Variance is undefined.';
+      result += AppL10n.tr(AppTranslationKeys.budgetVarianceUndefined);
     } else {
-      result += 'Variance:    ${variancePercentage.toStringAsFixed(_percentageDecimalPlaces)}%';
+      result += AppL10n.tr(
+        AppTranslationKeys.budgetVariancePercent,
+        params: <String, String>{
+          'value': variancePercentage.toStringAsFixed(_percentageDecimalPlaces),
+        },
+      );
     }
 
     return result;
@@ -395,7 +406,7 @@ class _PanelBudgetState extends State<PanelBudget> {
         children: <Widget>[
           buildColumnHeaderButton(
             context: context,
-            text: 'Category',
+            text: AppL10n.tr(AppTranslationKeys.category),
             textAlign: TextAlign.start,
             flex: _columnFlexCategory,
             sortIndicator: getSortIndicator(
@@ -458,13 +469,13 @@ class _PanelBudgetState extends State<PanelBudget> {
           verticalLine(dividersColor),
           buildColumnHeaderButton(
             context: context,
-            text: 'Range',
+            text: AppL10n.tr(AppTranslationKeys.range),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
           ),
           buildColumnHeaderButton(
             context: context,
-            text: 'All time',
+            text: AppL10n.tr(AppTranslationKeys.allTime),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
             sortIndicator: getSortIndicator(

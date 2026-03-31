@@ -8,6 +8,7 @@ import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/views/imports/core/import_data.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/dialogs/xlsx_header_row_selector_dialog.dart';
@@ -70,11 +71,11 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
             text = text
                 .replaceAll('\r', '')
                 .replaceAll('\n', '')
-                .replaceAll('&amp;', '&')
-                .replaceAll('&lt;', '<')
-                .replaceAll('&gt;', '>')
-                .replaceAll('&quot;', '"')
-                .replaceAll('&#39;', "'");
+                .replaceAll(SharedStrings.xmlEntityAmp, '&')
+                .replaceAll(SharedStrings.xmlEntityLt, '<')
+                .replaceAll(SharedStrings.xmlEntityGt, '>')
+                .replaceAll(SharedStrings.xmlEntityQuot, '"')
+                .replaceAll(SharedStrings.xmlEntityApos, "'");
             return text.trim();
           })
           .toList();
@@ -148,17 +149,17 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
         // Decode XML entities and Portuguese characters
         value = value
-            .replaceAll('&amp;', '&')
-            .replaceAll('&lt;', '<')
-            .replaceAll('&gt;', '>')
-            .replaceAll('&quot;', '"')
-            .replaceAll('&#39;', "'")
-            .replaceAll('&#xE7;', 'ç')
-            .replaceAll('&#xE3;', 'ã')
-            .replaceAll('&#xE9;', 'é')
-            .replaceAll('&#xEA;', 'ê')
-            .replaceAll('&#xF5;', 'õ')
-            .replaceAll('&#xF3;', 'ó');
+            .replaceAll(SharedStrings.xmlEntityAmp, '&')
+            .replaceAll(SharedStrings.xmlEntityLt, '<')
+            .replaceAll(SharedStrings.xmlEntityGt, '>')
+            .replaceAll(SharedStrings.xmlEntityQuot, '"')
+            .replaceAll(SharedStrings.xmlEntityApos, "'")
+            .replaceAll(SharedStrings.xmlEntityCedilla, 'ç')
+            .replaceAll(SharedStrings.xmlEntityATilde, 'ã')
+            .replaceAll(SharedStrings.xmlEntityEAcute, 'é')
+            .replaceAll(SharedStrings.xmlEntityECirc, 'ê')
+            .replaceAll(SharedStrings.xmlEntityOTilde, 'õ')
+            .replaceAll(SharedStrings.xmlEntityOAcute, 'ó');
 
         // Convert Excel serial date to readable date if value looks like one
         final double? excelDate = double.tryParse(value);
@@ -243,7 +244,12 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 
       // If header is empty, numeric, or looks like data (date or number), create a generic name
       if (header.isEmpty || DateTime.tryParse(header) != null || double.tryParse(header.replaceAll(',', '')) != null) {
-        meaningfulHeaders.add('Column ${i + _oneInt}');
+        meaningfulHeaders.add(
+          AppL10n.tr(
+            AppTranslationKeys.columnIndex,
+            params: <String, String>{'index': (i + _oneInt).toString()},
+          ),
+        );
       } else {
         meaningfulHeaders.add(header);
       }
@@ -301,7 +307,7 @@ ImportData loadXLSX(
   Map<String, String> columnMapping,
 ) {
   final ImportData importData = ImportData();
-  importData.fileType = 'XLSX';
+  importData.fileType = SharedStrings.fileTypeXlsx;
 
   final String dateColumnName = columnMapping['date']!;
   final String descriptionColumnName = columnMapping['description']!;
@@ -388,7 +394,7 @@ ImportData loadXLSX(
         date: date,
         name: rawDescription,
         amount: amount,
-        type: 'XLSXImport',
+        type: SharedStrings.importTypeXlsx,
         fitid: 'xlsx_row_${i + _oneInt}_${date.millisecondsSinceEpoch}',
         memo: '',
         number: '',

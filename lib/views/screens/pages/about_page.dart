@@ -158,9 +158,9 @@ class _AboutPageState extends State<AboutPage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: Constants.aboutVersionSpacing),
-        _buildInfoRow('Version', _packageInfo!.version),
-        _buildInfoRow('Build Number', _packageInfo!.buildNumber),
-        _buildInfoRow('Package Name', _packageInfo!.packageName),
+        _buildInfoRow(AppL10n.tr(AppTranslationKeys.versionLabel), _packageInfo!.version),
+        _buildInfoRow(AppL10n.tr(AppTranslationKeys.buildNumberLabel), _packageInfo!.buildNumber),
+        _buildInfoRow(AppL10n.tr(AppTranslationKeys.packageNameLabel), _packageInfo!.packageName),
       ],
     );
   }
@@ -176,14 +176,14 @@ class _AboutPageState extends State<AboutPage> {
   void _showLicensePage() {
     showLicensePage(
       context: context,
-      applicationName: 'fMoney',
-      applicationVersion: _packageInfo?.version ?? 'Unknown',
+      applicationName: AppL10n.tr(AppTranslationKeys.appName),
+      applicationVersion: _packageInfo?.version ?? AppL10n.tr(AppTranslationKeys.unknown),
       applicationIcon: Image.asset(
         _appIconAssetPath,
         width: Constants.aboutLicenseIconSize,
         height: Constants.aboutLicenseIconSize,
       ),
-      applicationLegalese: '© 2024 fMoney Team. All rights reserved.',
+      applicationLegalese: AppL10n.tr(AppTranslationKeys.appCopyright),
     );
   }
 }

@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
+import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -176,7 +178,7 @@ class DataFileController extends ChangeNotifier {
     this.closeFile();
 
     final Account newAccount = Data().accounts.addNewAccount(
-      'New Bank Account',
+      AppL10n.tr(AppTranslationKeys.newBankAccount),
     );
     DataAccess.jumpToView(
       viewId: ViewId.viewAccounts,

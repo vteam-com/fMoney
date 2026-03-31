@@ -3,6 +3,7 @@ import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/file_systems.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/presentation/app_scope.dart';
 import 'package:money/shared/presentation/provider_data_file_controller.dart';
 import 'package:money/widgets/pickers/picker_panel.dart';
@@ -48,7 +49,7 @@ class MruDropdown extends StatelessWidget {
                 onTap: () {
                   showPopupSelection(
                     context: context,
-                    title: 'Recent files',
+                    title: SharedStrings.labelRecentFiles,
                     showLetterPicker: false,
                     tokenTextStyle: tokenStyle,
                     rightAligned: true,

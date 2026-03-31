@@ -6,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/investment.dart';
 import 'package:money/shared/domain/investments.dart';
@@ -86,7 +87,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     _pivots.clear();
     _pivots.add(
       ThreePartLabel(
-        text1: 'Closed',
+        text1: AppL10n.tr(AppTranslationKeys.closedLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(sumClosed),
@@ -95,7 +96,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
     _pivots.add(
       ThreePartLabel(
-        text1: 'Active',
+        text1: AppL10n.tr(AppTranslationKeys.activeLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(sumActive),
@@ -104,7 +105,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
     _pivots.add(
       ThreePartLabel(
-        text1: 'All',
+        text1: AppL10n.tr(AppTranslationKeys.allLabel),
         small: true,
         isVertical: true,
         text2: getAmountAsStringUsingCurrency(sumAll),
@@ -148,17 +149,17 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Stocks';
+    return AppL10n.tr(AppTranslationKeys.stocks);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Stock';
+    return AppL10n.tr(AppTranslationKeys.stock);
   }
 
   @override
   String getDescription() {
-    return 'Stocks tracking.';
+    return AppL10n.tr(AppTranslationKeys.stocksTrackingDescription);
   }
 
   @override
@@ -252,7 +253,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
     return buildAdaptiveBox(
       context: context,
-      title: 'Dividend',
+      title: AppL10n.tr(AppTranslationKeys.dividend),
       count: security.dividends.length,
       content: ListView.separated(
         itemCount: security.dividends.length,
@@ -285,7 +286,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
     return buildAdaptiveBox(
       context: context,
-      title: 'Splits',
+      title: AppL10n.tr(AppTranslationKeys.splits),
       count: splits.length,
       content: ListView.separated(
         itemCount: splits.length,
@@ -313,18 +314,18 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     bool includeSplitColumns,
   ) {
     final List<String> included = <String>[
-      'Date',
-      'Account',
-      'Activity',
-      'Units',
-      if (includeSplitColumns) 'Split',
-      if (includeSplitColumns) 'Units A.S.',
-      'Holding',
-      'Price',
-      if (includeSplitColumns) 'Price A.S.',
-      'HoldingValue',
-      'Commission',
-      'ActivityAmount',
+      SharedStrings.investmentFieldDate,
+      SharedStrings.investmentFieldAccount,
+      SharedStrings.investmentFieldActivity,
+      SharedStrings.investmentFieldUnits,
+      if (includeSplitColumns) SharedStrings.investmentFieldSplit,
+      if (includeSplitColumns) SharedStrings.investmentFieldUnitsAdjusted,
+      SharedStrings.investmentFieldHolding,
+      SharedStrings.investmentFieldPrice,
+      if (includeSplitColumns) SharedStrings.investmentFieldPriceAdjusted,
+      SharedStrings.investmentFieldHoldingValue,
+      SharedStrings.investmentFieldCommission,
+      SharedStrings.investmentFieldActivityAmount,
     ];
     final List<Field<dynamic>> fieldsToDisplay = Investment.fields.definitions
         .where((Field<dynamic> element) => included.contains(element.name))
@@ -455,7 +456,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
         final Investment? instance = Data().investments.get(itemId);
         if (instance != null) {
           myShowDialogAndActionsForMoneyObject(
-            title: 'Investment',
+            title: AppL10n.tr(AppTranslationKeys.investment),
             moneyObject: instance,
           );
         }

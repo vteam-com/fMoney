@@ -1,4 +1,7 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/transaction_split.dart';
 import 'package:money/shared/presentation/dialog_mutate_shared.dart';
@@ -82,7 +85,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
       return <Widget>[
         DialogActionButton(
           key: Constants.keyButtonApplyOrDone,
-          text: dataWasModified ? 'Apply' : 'Done',
+          text: dataWasModified ? AppL10n.tr(AppTranslationKeys.apply) : SharedStrings.labelDone,
           onPressed: () {
             // Changes were made
             if (dataWasModified) {
@@ -101,7 +104,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
     return <Widget>[
       // Close
       DialogActionButton(
-        text: 'Close',
+        text: AppL10n.tr(AppTranslationKeys.close),
         onPressed: () {
           Navigator.of(context).pop(false);
         },
@@ -109,16 +112,16 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
       // Delete
       DialogActionButton(
         icon: Icons.delete_outlined,
-        text: 'Delete',
+        text: AppL10n.tr(AppTranslationKeys.delete),
         onPressed: () {
           showConfirmationDialog(
             context: context,
-            title: 'Delete Split',
-            question: 'Are you sure you want to delete this Split?',
+            title: SharedStrings.labelDeleteSplit,
+            question: SharedStrings.questionDeleteSplit,
             content: Column(
               children: split.buildListOfNamesValuesWidgets(compact: true),
             ),
-            buttonText: 'Delete',
+            buttonText: AppL10n.tr(AppTranslationKeys.delete),
             onConfirmation: () {
               Data().splits.deleteItem(split);
               Navigator.of(context).pop(false);
@@ -130,7 +133,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
       DialogActionButton(
         key: Constants.keyButtonEdit,
         icon: Icons.edit_outlined,
-        text: 'Edit',
+        text: AppL10n.tr(AppTranslationKeys.edit),
         onPressed: () {
           split.stashValueBeforeEditing();
           setState(() {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/widgets/pickers/picker_edit_box.dart';
 
@@ -10,7 +12,7 @@ Widget pickerAccount({
 }) {
   return PickerEditBox(
     key: Constants.keyAccountPicker,
-    title: 'Account',
+    title: AppL10n.tr(AppTranslationKeys.account),
     items: accountNames,
     initialValue: selectedName ?? '',
     onChanged: onSelected,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -129,7 +130,7 @@ class MyWindowManager extends WindowListener {
         center: true,
         skipTaskbar: false,
         titleBarStyle: TitleBarStyle.normal,
-        title: 'fMoney by vTeam',
+        title: SharedStrings.appWindowTitle,
       );
       windowManager.waitUntilReadyToShow(windowOptions, () async {
         await windowManager.show();

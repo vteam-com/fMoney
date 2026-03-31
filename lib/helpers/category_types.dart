@@ -1,4 +1,5 @@
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 enum CategoryType {
   none, // 0
@@ -23,20 +24,20 @@ extension CategoryTypeExtension on CategoryType {
   /// Returns CategoryType from string name, case-insensitive.
   static CategoryType fromName(final String categoryTypeName) {
     switch (categoryTypeName.toLowerCase()) {
-      case 'income':
+      case SharedStrings.categoryTypeIncomeToken:
         return CategoryType.income;
-      case 'expense':
+      case SharedStrings.categoryTypeExpenseToken:
         return CategoryType.expense;
-      case 'recurringexpense':
-      case 'expenserecurring':
+      case SharedStrings.categoryTypeRecurringExpenseToken:
+      case SharedStrings.categoryTypeExpenseRecurringToken:
         return CategoryType.recurringExpense;
-      case 'saving':
+      case SharedStrings.categoryTypeSavingToken:
         return CategoryType.saving;
-      case 'reserved':
+      case SharedStrings.categoryTypeReservedToken:
         return CategoryType.reserved;
-      case 'transfer':
+      case SharedStrings.categoryTypeTransferToken:
         return CategoryType.transfer;
-      case 'investment':
+      case SharedStrings.categoryTypeInvestmentToken:
         return CategoryType.investment;
       default:
         return CategoryType.none;
@@ -61,21 +62,21 @@ extension CategoryTypeExtension on CategoryType {
   String asString() {
     switch (this) {
       case CategoryType.income:
-        return 'Income';
+        return SharedStrings.categoryTypeIncomeLabel;
       case CategoryType.expense:
-        return 'Expense';
+        return SharedStrings.categoryTypeExpenseLabel;
       case CategoryType.recurringExpense:
-        return 'ExpenseRecurring';
+        return SharedStrings.categoryTypeExpenseRecurringLabel;
       case CategoryType.saving:
-        return 'Saving';
+        return SharedStrings.categoryTypeSavingLabel;
       case CategoryType.reserved:
-        return 'Reserved';
+        return SharedStrings.categoryTypeReservedLabel;
       case CategoryType.transfer:
-        return 'Transfer';
+        return SharedStrings.categoryTypeTransferLabel;
       case CategoryType.investment:
-        return 'Investment';
+        return SharedStrings.categoryTypeInvestmentLabel;
       case CategoryType.none:
-        return 'None';
+        return SharedStrings.categoryTypeNoneLabel;
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
@@ -33,16 +34,16 @@ const double _colorSwatchSizeLarge = 40.0;
 class Category extends DataObject {
   factory Category.fromJson(final MyJson row, [final DataAbstract? data]) {
     return Category(
-      id: row.getInt('Id', _unsetId),
-      parentId: row.getInt('ParentId', _unsetId),
-      name: row.getString('Name'),
-      description: row.getString('Description'),
-      color: row.getString('Color').trim(),
-      type: CategoryTypeExtension.fromInt(row.getInt('Type')),
-      budget: row.getDouble('Budget'),
-      budgetBalance: row.getDouble('Balance'),
-      frequency: row.getInt('Frequency'),
-      taxRefNum: row.getInt('TaxRefNum'),
+      id: row.getInt(SharedDomainStrings.domainString057, _unsetId),
+      parentId: row.getInt(SharedDomainStrings.domainString102, _unsetId),
+      name: row.getString(SharedDomainStrings.domainString088),
+      description: row.getString(SharedDomainStrings.domainString046),
+      color: row.getString(SharedDomainStrings.domainString038).trim(),
+      type: CategoryTypeExtension.fromInt(row.getInt(SharedDomainStrings.domainString146)),
+      budget: row.getDouble(SharedDomainStrings.domainString024),
+      budgetBalance: row.getDouble(SharedDomainStrings.domainString019),
+      frequency: row.getInt(SharedDomainStrings.domainString056),
+      taxRefNum: row.getInt(SharedDomainStrings.domainString135),
       data: data,
     );
   }
@@ -76,8 +77,8 @@ class Category extends DataObject {
   /// Budget
   /// 6|Budget|money|0||0
   FieldMoney fieldBudget = FieldMoney(
-    name: 'Budget',
-    serializeName: 'Budget',
+    name: SharedDomainStrings.domainString024,
+    serializeName: SharedDomainStrings.domainString024,
     getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldBudget.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
     setValue: (final DataInterface instance, final dynamic value) {
@@ -97,7 +98,7 @@ class Category extends DataObject {
   /// Color
   /// 5|Color|nchar(10)|0||0
   Field<String> fieldColor = Field<String>(
-    serializeName: 'Color',
+    serializeName: SharedDomainStrings.domainString038,
     type: FieldType.widget,
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
@@ -136,8 +137,8 @@ class Category extends DataObject {
   /// 3|Description|nvarchar(255)|0||0
   FieldString fieldDescription = FieldString(
     columnWidth: ColumnWidth.large,
-    name: 'Description',
-    serializeName: 'Description',
+    name: SharedDomainStrings.domainString046,
+    serializeName: SharedDomainStrings.domainString046,
     getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldDescription.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldDescription.value,
     setValue: (final DataInterface instance, dynamic value) =>
@@ -146,7 +147,7 @@ class Category extends DataObject {
 
   /// 8|Frequency|INT|0||0
   FieldInt fieldFrequency = FieldInt(
-    serializeName: 'Frequency',
+    serializeName: SharedDomainStrings.domainString056,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldFrequency.value,
   );
@@ -175,8 +176,8 @@ class Category extends DataObject {
   /// 2|Name|nvarchar(80)|1||0
   FieldString fieldName = FieldString(
     columnWidth: ColumnWidth.largest,
-    name: 'Name',
-    serializeName: 'Name',
+    name: SharedDomainStrings.domainString088,
+    serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
     getValueForDisplay: (final DataInterface instance) => TokenText((instance as Category).fieldName.value),
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldName.value,
@@ -190,8 +191,8 @@ class Category extends DataObject {
 
   /// 1|ParentId|INT|0||0
   FieldInt fieldParentId = FieldInt(
-    name: 'ParentId',
-    serializeName: 'ParentId',
+    name: SharedDomainStrings.domainString102,
+    serializeName: SharedDomainStrings.domainString102,
     getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldParentId.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldParentId.value,
   );
@@ -210,7 +211,7 @@ class Category extends DataObject {
 
   /// 9|TaxRefNum|INT|0||0
   FieldInt fieldTaxRefNum = FieldInt(
-    serializeName: 'TaxRefNum',
+    serializeName: SharedDomainStrings.domainString135,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldTaxRefNum.value,
   );
@@ -234,7 +235,7 @@ class Category extends DataObject {
   Field<CategoryType> fieldType = Field<CategoryType>(
     type: FieldType.text,
     align: TextAlign.center,
-    serializeName: 'Type',
+    serializeName: SharedDomainStrings.domainString146,
     defaultValue: CategoryType.none,
     footer: FooterType.count,
     getValueForDisplay: (final DataInterface instance) => (instance as Category).getTypeAsText(),

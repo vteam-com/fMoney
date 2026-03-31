@@ -1,4 +1,7 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/components/filter_input.dart';
 import 'package:money/widgets/components/three_part_label.dart';
@@ -122,19 +125,19 @@ class ViewHeader extends StatelessWidget {
                 if (onScrollToTop != null)
                   MyIconButton(
                     icon: Icons.first_page,
-                    tooltip: 'Scroll to the Top of the list',
+                    tooltip: SharedStrings.tooltipScrollToTop,
                     onPressed: onScrollToTop!,
                   ),
                 if (onScrollToSelection != null)
                   MyIconButton(
                     icon: Icons.center_focus_strong,
-                    tooltip: 'Scroll to last selection',
+                    tooltip: SharedStrings.tooltipScrollToSelection,
                     onPressed: onScrollToSelection!,
                   ),
                 if (onScrollToBottom != null)
                   MyIconButton(
                     icon: Icons.last_page,
-                    tooltip: 'Scroll to the Bottom of the list',
+                    tooltip: SharedStrings.tooltipScrollToBottom,
                     onPressed: onScrollToBottom!,
                   ),
               ],
@@ -185,7 +188,7 @@ class ViewHeader extends StatelessWidget {
         SizedBox(
           width: _filterWidth,
           child: FilterInput(
-            hintText: 'Filter',
+            hintText: AppL10n.tr(AppTranslationKeys.filter),
             initialValue: textFilter,
             autoSubmitAfterSeconds: _autoSubmitDisabled,
             onChanged: (final String text) {
@@ -200,7 +203,7 @@ class ViewHeader extends StatelessWidget {
       widgets.add(
         IconButton(
           icon: const Icon(Icons.filter_alt_off_outlined),
-          tooltip: 'Clear all filters',
+          tooltip: AppL10n.tr(AppTranslationKeys.clearFilters),
           onPressed: onClearAllFilters,
         ),
       );

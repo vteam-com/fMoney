@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -19,11 +20,11 @@ class RentUnit extends DataObject {
 
   factory RentUnit.fromJson(final MyJson row) {
     return RentUnit()
-      ..fieldId.value = row.getInt('Id', -1)
-      ..fieldName.value = row.getString('Name')
-      ..fieldBuilding.value = row.getInt('Building', -1)
-      ..fieldRenter.value = row.getString('Renter')
-      ..fieldNote.value = row.getString('Note');
+      ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
+      ..fieldName.value = row.getString(SharedDomainStrings.domainString088)
+      ..fieldBuilding.value = row.getInt(SharedDomainStrings.domainString026, -1)
+      ..fieldRenter.value = row.getString(SharedDomainStrings.domainString119)
+      ..fieldNote.value = row.getString(SharedDomainStrings.domainString091);
   }
 
   double balance = 0.00;
@@ -33,8 +34,8 @@ class RentUnit extends DataObject {
   /// Building Id
   /// 1|Building|INT|1||0
   FieldInt fieldBuilding = FieldInt(
-    name: 'Building',
-    serializeName: 'Building',
+    name: SharedDomainStrings.domainString026,
+    serializeName: SharedDomainStrings.domainString026,
     getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldBuilding.value,
   );
 
@@ -47,24 +48,24 @@ class RentUnit extends DataObject {
   /// 2
   /// 2|Name|nvarchar(255)|1||0
   FieldString fieldName = FieldString(
-    name: 'Name',
-    serializeName: 'Name',
+    name: SharedDomainStrings.domainString088,
+    serializeName: SharedDomainStrings.domainString088,
     getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldName.value,
   );
 
   /// 4
   /// 4|Note|nvarchar(255)|0||0
   FieldString fieldNote = FieldString(
-    name: 'Note',
-    serializeName: 'Note',
+    name: SharedDomainStrings.domainString091,
+    serializeName: SharedDomainStrings.domainString091,
     getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldNote.value,
   );
 
   /// 3
   /// 3|Renter|nvarchar(255)|0||0
   FieldString fieldRenter = FieldString(
-    name: 'Renter',
-    serializeName: 'Renter',
+    name: SharedDomainStrings.domainString119,
+    serializeName: SharedDomainStrings.domainString119,
     getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldRenter.value,
   );
 

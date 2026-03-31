@@ -1,13 +1,14 @@
 // Imports
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/currency.dart';
 import 'package:money/shared/domain/money_objects.dart';
 
 /// Represents currencies.
 class Currencies extends MoneyObjects<Currency> {
   Currencies() {
-    collectionName = 'Currencies';
+    collectionName = SharedDomainStrings.domainString041;
   }
 
   @override

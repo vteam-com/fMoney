@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_type.dart';
 import 'package:money/helpers/accumulator.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/widgets_domain/field.dart';
 import 'package:money/widgets/widgets_domain/footer_widgets.dart';
 
@@ -49,12 +52,16 @@ class FooterAccumulators {
         if (count > 0) {
           String samples = '';
           if (count > _sampleLimit) {
-            samples = '${list.take(_sampleLimit).join('\n')}\n...';
+            samples = '${list.take(_sampleLimit).join(SharedStrings.lineFeed)}${SharedStrings.footerSampleTruncation}';
           } else {
-            samples = list.join('\n');
+            samples = list.join(SharedStrings.lineFeed);
           }
+          final String countLabel = AppL10n.tr(
+            AppTranslationKeys.entriesCount,
+            params: <String, String>{'count': count.toString()},
+          );
           return Tooltip(
-            message: '$count items\n$samples',
+            message: '$countLabel${SharedStrings.lineFeed}$samples',
             child: getFooterForInt(count, applyColorBasedOnValue: false),
           );
         }
@@ -72,15 +79,19 @@ class FooterAccumulators {
             );
           }
         }
-        return Tooltip(message: 'Sum.', child: widget);
+        return Tooltip(
+          message: SharedStrings.footerSumLabel,
+          child: widget,
+        );
 
       case FooterType.average:
         if (accumulatorForAverage.containsKey(field)) {
           final RunningAverage range = accumulatorForAverage.getValue(field)!;
           final double value = range.getAverage();
+          final String averagePrefix = AppL10n.tr(AppTranslationKeys.avgLabel);
           final Widget widget = field.type == FieldType.amount
-              ? getFooterForAmount(value, prefix: 'Av ')
-              : getFooterForInt(value, prefix: 'Av ');
+              ? getFooterForAmount(value, prefix: averagePrefix)
+              : getFooterForInt(value, prefix: averagePrefix);
           return Tooltip(
             message: field.type == FieldType.amount ? range.descriptionAsMoney : range.descriptionAsInt,
             child: widget,

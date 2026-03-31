@@ -6,6 +6,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/list/list_item_card.dart';
@@ -60,13 +61,13 @@ class Event extends DataObject {
   /// Constructor from a SQLite row
   factory Event.fromJson(final MyJson row, final DataAbstract data) {
     return Event(
-      id: row.getInt('Id', -1),
-      name: row.getString('Name'),
-      categoryId: row.getInt('Category', -1),
-      dateBegin: row.getDate('Begin'),
-      dateEnd: row.getDate('End'),
-      people: row.getString('People'),
-      memo: row.getString('Memo'),
+      id: row.getInt(SharedDomainStrings.domainString057, -1),
+      name: row.getString(SharedDomainStrings.domainString088),
+      categoryId: row.getInt(SharedDomainStrings.domainString029, -1),
+      dateBegin: row.getDate(SharedDomainStrings.domainString021),
+      dateEnd: row.getDate(SharedDomainStrings.domainString047),
+      people: row.getString(SharedDomainStrings.domainString107),
+      memo: row.getString(SharedDomainStrings.domainString086),
       data: data,
     );
   }
@@ -76,8 +77,8 @@ class Event extends DataObject {
     type: FieldType.widget,
     align: TextAlign.left,
     footer: FooterType.count,
-    name: 'Category',
-    serializeName: 'Category',
+    name: SharedDomainStrings.domainString029,
+    serializeName: SharedDomainStrings.domainString029,
     defaultValue: -1,
     getValueForDisplay: (final DataInterface instance) {
       final Event event = instance as Event;
@@ -118,15 +119,15 @@ class Event extends DataObject {
 
   /// Date Begin
   FieldDate fieldDateBegin = _createDateField(
-    'Begins',
-    'Begin',
+    SharedDomainStrings.domainString022,
+    SharedDomainStrings.domainString021,
     (Event event) => event.fieldDateBegin,
   );
 
   /// Date End
   FieldDate fieldDateEnd = _createDateField(
-    'Ends',
-    'End',
+    SharedDomainStrings.domainString048,
+    SharedDomainStrings.domainString047,
     (Event event) => event.fieldDateEnd,
   );
 
@@ -149,8 +150,8 @@ class Event extends DataObject {
 
   /// Memo
   FieldString fieldMemo = FieldString(
-    name: 'Memo',
-    serializeName: 'Memo',
+    name: SharedDomainStrings.domainString086,
+    serializeName: SharedDomainStrings.domainString086,
     columnWidth: ColumnWidth.large,
     getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldMemo.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldMemo.value,
@@ -158,8 +159,8 @@ class Event extends DataObject {
 
   /// Name
   FieldString fieldName = FieldString(
-    name: 'Name',
-    serializeName: 'Name',
+    name: SharedDomainStrings.domainString088,
+    serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
     getValueForDisplay: (final DataInterface instance) => TokenText((instance as Event).eventName),
     getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldName.value,
@@ -173,8 +174,8 @@ class Event extends DataObject {
 
   /// People
   FieldString fieldPeople = FieldString(
-    name: 'People',
-    serializeName: 'People',
+    name: SharedDomainStrings.domainString107,
+    serializeName: SharedDomainStrings.domainString107,
     getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldPeople.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldPeople.value,
   );
@@ -274,7 +275,7 @@ class Event extends DataObject {
   String get durationAsString => durationInDateRange.toStringDuration();
 
   /// Returns the event name or a generated fallback.
-  String get eventName => fieldName.value.isEmpty ? 'Event $uniqueId' : fieldName.value;
+  String get eventName => fieldName.value.isEmpty ? '${SharedDomainStrings.domainString050}$uniqueId' : fieldName.value;
 
   /// Creates a lightweight static [Event] used only for field definition wiring.
   static Event _createStaticFieldInstance() {

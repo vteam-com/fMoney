@@ -2,6 +2,7 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
 import 'package:money/shared/domain/payee.dart';
@@ -10,7 +11,7 @@ import 'package:money/shared/domain/transaction.dart';
 /// Represents payees.
 class Payees extends MoneyObjects<Payee> {
   Payees() {
-    collectionName = 'Payees';
+    collectionName = SharedDomainStrings.domainString106;
   }
   late DataAbstract data;
 
@@ -20,8 +21,8 @@ class Payees extends MoneyObjects<Payee> {
     /*
      */
     for (final MyJson row in rows) {
-      final int id = row.getInt('Id', -1);
-      final String name = row['Name'].toString();
+      final int id = row.getInt(SharedDomainStrings.domainString057, -1);
+      final String name = row[SharedDomainStrings.domainString088].toString();
       appendMoneyObject(
         Payee()
           ..fieldId.value = id
@@ -90,7 +91,7 @@ class Payees extends MoneyObjects<Payee> {
     final Payee? payee = get(id);
 
     if (payee == null) {
-      return '<unknown payee $id>';
+      return '${SharedDomainStrings.domainString162}$id${SharedDomainStrings.domainString163}';
     }
     return payee.fieldName.value;
   }

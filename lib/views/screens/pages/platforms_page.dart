@@ -44,41 +44,41 @@ class _PlatformsPageState extends State<PlatformsPage> {
               return Column(
                 children: <Widget>[
                   _buildPlatformItem(
-                    'macOS',
+                    AppL10n.tr(AppTranslationKeys.platformMacos),
                     'assets/images/platforms/platformDesktopMacOS.png',
-                    'Desktop Intel & Silicon Software.',
+                    AppL10n.tr(AppTranslationKeys.platformDesktopIntelSiliconSoftware),
                     artifactUrls['macos'] ?? 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
                   ),
                   _buildPlatformItem(
-                    'Windows',
+                    AppL10n.tr(AppTranslationKeys.platformWindows),
                     'assets/images/platforms/platformDesktopWindows.png',
-                    'Desktop 64bit Software.',
+                    AppL10n.tr(AppTranslationKeys.platformDesktop64bitSoftware),
                     artifactUrls['windows'] ?? 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
                   ),
                   _buildPlatformItem(
-                    'Linux',
+                    AppL10n.tr(AppTranslationKeys.platformLinux),
                     'assets/images/platforms/platformDesktopLinux.png',
-                    'Desktop Software.',
+                    AppL10n.tr(AppTranslationKeys.platformDesktopSoftware),
                     artifactUrls['linux'] ?? 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
                   ),
                   const SizedBox(height: _sectionSpacing),
                   _buildPlatformItem(
-                    'iOS',
+                    AppL10n.tr(AppTranslationKeys.platformIos),
                     'assets/images/platforms/platformMobileIOS.png',
-                    'Mobile app.',
+                    AppL10n.tr(AppTranslationKeys.platformMobileApp),
                     'https://apps.apple.com/us/app/cooking-timer-by-vteam/id1188460815',
                   ),
                   _buildPlatformItem(
-                    'Android',
+                    AppL10n.tr(AppTranslationKeys.platformAndroid),
                     'assets/images/platforms/platformMobileAndroid.png',
-                    'Mobile app.',
+                    AppL10n.tr(AppTranslationKeys.platformMobileApp),
                     'https://play.google.com/store/apps/details?id=com.vteam.cookingtimerflutter',
                   ),
                   const SizedBox(height: _sectionSpacing),
                   _buildPlatformItem(
-                    'Web Browser',
+                    AppL10n.tr(AppTranslationKeys.platformWebBrowser),
                     'assets/images/platforms/platformWeb.png',
-                    'Run on any OS with most browsers.',
+                    AppL10n.tr(AppTranslationKeys.platformRunOnAnyOsWithMostBrowsers),
                     'https://money.vteam.com',
                   ),
                   if (snapshot.connectionState == ConnectionState.waiting)

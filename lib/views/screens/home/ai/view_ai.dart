@@ -7,6 +7,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/providers/ollama_service.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data.dart';
@@ -332,7 +333,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
             isProcessing: _isProcessingPrompt,
             onCancel: () async {
               _cancelled = true;
-              _appendChatHistory('Request was cancelled.', ChatFrom.ai);
+              _appendChatHistory(AppL10n.tr(AppTranslationKeys.requestWasCancelled), ChatFrom.ai);
               await _ollamaService.saveChatHistory(_chatHistory);
               setState(() {
                 _isProcessingPrompt = false;
@@ -381,7 +382,7 @@ Answer the question:''';
       'model': _ollamaService.selectedModel,
       'messages': <Map<String, String>>[
         <String, String>{
-          'role': 'user',
+          'role': SharedStrings.payloadRoleUser,
           'content': aiPrompt,
         },
       ],
@@ -390,7 +391,7 @@ Answer the question:''';
 
     // Add conversation context to payload if it exists and has content
     if (_conversationContext != null && _conversationContext!.isNotEmpty) {
-      payload['context'] = _conversationContext;
+      payload[SharedStrings.payloadKeyContext] = _conversationContext;
     }
 
     // Add user message to chat history
@@ -411,12 +412,12 @@ Answer the question:''';
         return;
       }
 
-      if (jsonResponse.containsKey('response')) {
-        final String aiResponse = jsonResponse['response'] as String;
+      if (jsonResponse.containsKey(SharedStrings.payloadKeyResponse)) {
+        final String aiResponse = jsonResponse[SharedStrings.payloadKeyResponse] as String;
 
         // Update conversation context with the returned context
-        if (jsonResponse.containsKey('context')) {
-          _conversationContext = (jsonResponse['context'] as List<dynamic>).cast<int>();
+        if (jsonResponse.containsKey(SharedStrings.payloadKeyContext)) {
+          _conversationContext = (jsonResponse[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
           // Save updated context to persistent storage
           await _ollamaService.saveConversationContext(_conversationContext);
         }
@@ -431,7 +432,7 @@ Answer the question:''';
         }
       } else {
         if (!_cancelled) {
-          _appendChatHistory('Error: Invalid response from Ollama', ChatFrom.ai);
+          _appendChatHistory(AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), ChatFrom.ai);
           await _ollamaService.saveChatHistory(_chatHistory);
           setState(() {
             _isProcessingPrompt = false;
@@ -440,7 +441,13 @@ Answer the question:''';
       }
     } catch (e) {
       if (!_cancelled) {
-        _appendChatHistory('Error: $e', ChatFrom.ai);
+        _appendChatHistory(
+          AppL10n.tr(
+            AppTranslationKeys.errorWithReason,
+            params: <String, String>{'reason': e.toString()},
+          ),
+          ChatFrom.ai,
+        );
         await _ollamaService.saveChatHistory(_chatHistory);
         setState(() {
           _isProcessingPrompt = false;
@@ -502,8 +509,8 @@ Answer the question:''';
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
       itemBuilder: (BuildContext _, int index) {
         if (_chatHistory.isEmpty && !_isProcessingPrompt) {
-          return const Center(
-            child: TextTitle('Welcome to your AI Accountant'),
+          return Center(
+            child: TextTitle(AppL10n.tr(AppTranslationKeys.welcomeToYourAiAccountant)),
           );
         }
         // Handle chat messages
@@ -577,7 +584,7 @@ TRANSACTIONS:${transactionsData.join(';')}
         'model': _ollamaService.selectedModel,
         'messages': <Map<String, String>>[
           <String, String>{
-            'role': 'user',
+            'role': SharedStrings.payloadRoleUser,
             'content': accountData,
           },
         ],
@@ -586,7 +593,7 @@ TRANSACTIONS:${transactionsData.join(';')}
 
       // Add current context to payload if it exists
       if (_conversationContext != null && _conversationContext!.isNotEmpty) {
-        payload['context'] = _conversationContext;
+        payload[SharedStrings.payloadKeyContext] = _conversationContext;
       }
 
       try {
@@ -596,8 +603,8 @@ TRANSACTIONS:${transactionsData.join(';')}
 
         final Map<String, dynamic> response = await _ollamaService.sendPayload(payload);
 
-        if (response.containsKey('context')) {
-          _conversationContext = (response['context'] as List<dynamic>).cast<int>();
+        if (response.containsKey(SharedStrings.payloadKeyContext)) {
+          _conversationContext = (response[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
           successCount++;
           debugPrint('📚 Sent account $accountName ($successCount/${accounts.length})');
         }
@@ -613,7 +620,9 @@ TRANSACTIONS:${transactionsData.join(';')}
 
     if (failed || _cancelled) {
       _appendChatHistory(
-        _cancelled ? 'Teaching cancelled.' : 'Teaching failed partially - some accounts may not be learned.',
+        _cancelled
+            ? AppL10n.tr(AppTranslationKeys.teachingCancelled)
+            : AppL10n.tr(AppTranslationKeys.teachingFailedPartially),
         ChatFrom.ai,
       );
       await _ollamaService.saveChatHistory(_chatHistory);
@@ -623,7 +632,10 @@ TRANSACTIONS:${transactionsData.join(';')}
       );
 
       _appendChatHistory(
-        'AI has learned about ${accounts.length} accounts and their transactions.',
+        AppL10n.tr(
+          AppTranslationKeys.aiLearnedAboutAccountsAndTransactions,
+          params: <String, String>{'count': accounts.length.toString()},
+        ),
         ChatFrom.ai,
       );
       await _ollamaService.saveChatHistory(_chatHistory);

@@ -2,12 +2,13 @@
 // ignore: fcheck_dead_code
 import 'dart:io';
 
+import 'package:money/helpers/shared_strings.dart';
 import 'package:path/path.dart' as p;
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens local folder in system file explorer.
 Future<void> showLocalFolder(final String folderPath) async {
-  final Uri url = Uri.parse('file:$folderPath');
+  final Uri url = Uri.parse('${SharedStrings.fileUriScheme}$folderPath');
 
   if (!await launchUrl(url)) {
     throw Exception('Could not launch $url');

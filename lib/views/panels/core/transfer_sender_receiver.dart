@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/transaction.dart';
 import 'package:money/shared/domain/transfer.dart';
 import 'package:money/views/panels/core/money_transaction_card.dart';
@@ -31,13 +33,13 @@ class TransferSenderReceiver extends StatelessWidget {
           children: <Widget>[
             IntrinsicWidth(
               child: TransactionCard(
-                title: 'Sender',
+                title: AppL10n.tr(AppTranslationKeys.sender),
                 transaction: transfer.senderTransaction as Transaction?,
               ),
             ),
             IntrinsicWidth(
               child: TransactionCard(
-                title: 'Receiver',
+                title: AppL10n.tr(AppTranslationKeys.receiver),
                 transaction: transfer.receiverTransaction as Transaction?,
               ),
             ),

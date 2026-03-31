@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:textify/textify.dart';
@@ -76,12 +77,12 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
                   .replaceAll(',,', ',')
                   .trim();
               if (cleanedAmount.isNotEmpty && cleanedAmount != ',' && cleanedAmount != '1') {
-                widget.textController.text += '$cleanedAmount\n';
+                widget.textController.text += '$cleanedAmount${SharedStrings.lineFeed}';
               }
             }
           } else {
             if (widget.textController.text.isNotEmpty) {
-              widget.textController.text += '\n';
+              widget.textController.text += SharedStrings.lineFeed;
             }
             widget.textController.text += text;
           }
@@ -90,13 +91,13 @@ class _PasteImageOcrState extends State<PasteImageOcr> {
         // Handle potential errors
         logger.e('Error recognizing text: $e');
         SnackBarService.displayError(
-          message: 'Failed to extract text from image.',
+          message: SharedStrings.messageFailedToExtractTextFromImage,
         );
       }
     } else {
       SnackBarService.displayError(
         title: AppL10n.tr(AppTranslationKeys.ocr),
-        message: 'No image found in clipboard.',
+        message: SharedStrings.messageNoImageFoundInClipboard,
       );
     }
   }

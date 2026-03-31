@@ -15,6 +15,7 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data.dart';
 import 'package:money/shared/domain/security.dart';
@@ -97,7 +98,12 @@ class _StockChartWidgetState extends State<StockChartWidget> {
   @override
   Widget build(BuildContext context) {
     if (security == null) {
-      return CenterMessage(message: 'Security "${widget.symbol}" is not valid');
+      return CenterMessage(
+        message: AppL10n.tr(
+          AppTranslationKeys.securitySymbolInvalid,
+          params: <String, String>{'symbol': widget.symbol},
+        ),
+      );
     }
 
     if (PreferenceController.to.apiKeyForStocks == Constants.fakeStockApiKey) {
@@ -110,8 +116,8 @@ class _StockChartWidgetState extends State<StockChartWidget> {
             onPressed: () {
               showTextInputDialog(
                 context: context,
-                title: 'API Key',
-                subTitle: 'for accessing https://twelvedata.com',
+                title: AppL10n.tr(AppTranslationKeys.setApiKey),
+                subTitle: AppL10n.tr(AppTranslationKeys.forAccessingTwelveData),
                 initialValue: PreferenceController.to.apiKeyForStocks,
                 onContinue: (final String text) {
                   PreferenceController.to.apiKeyForStocks = text;
@@ -259,7 +265,10 @@ class _StockChartWidgetState extends State<StockChartWidget> {
   Widget _buildPriceRefreshButton() {
     if (dataPoints.isEmpty) {
       return CenterMessage(
-        message: 'No history information about "${widget.symbol}"',
+        message: AppL10n.tr(
+          AppTranslationKeys.noHistoryInformationAboutSymbol,
+          params: <String, String>{'symbol': widget.symbol},
+        ),
       );
     }
     return scaleDown(
@@ -385,7 +394,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     final Map<String, String> queryParams = <String, String>{
       'interval': '1d', // Daily interval
       'range': '5y', // Last 5 years range
-      'events': 'splits', // Fetch stock splits
+      'events': SharedStrings.stockEventSplits, // Fetch stock splits
     };
 
     // Construct the full URL with query parameters
@@ -415,7 +424,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                 final events = firstEntry['events'];
                 if (events != null) {
                   // ignore: always_specify_types
-                  final MyJson? splits = events['splits'] as MyJson?;
+                  final MyJson? splits = events[SharedStrings.stockEventSplits] as MyJson?;
                   if (splits != null) {
                     // ignore: always_specify_types
                     for (var splitJson in splits.values) {
@@ -519,7 +528,13 @@ class _PaintSplits extends CustomPainter {
       _paintLine(canvas, Colors.grey, left, chartHeight - _gridLineOffsetY, _gridLineHeight);
       _paintLabel(
         canvas,
-        '${split.fieldNumerator.value} for ${split.fieldDenominator.value}',
+        AppL10n.tr(
+          AppTranslationKeys.splitRatio,
+          params: <String, String>{
+            'numerator': getIntAsText(split.fieldNumerator.value),
+            'denominator': getIntAsText(split.fieldDenominator.value),
+          },
+        ),
         Colors.blue,
         left + _labelOffsetX,
         chartHeight + _labelOffsetY,
@@ -584,7 +599,7 @@ class PaintActivities extends CustomPainter {
       }
       // add description
       if (activity.description.isNotEmpty) {
-        text += '\n${activity.description}';
+        text += '${SharedStrings.lineFeed}${activity.description}';
       }
       final Color boxColor = (lineColor ?? activity.colorToUse).withAlpha(_boxAlpha);
       Color textColor = boxColor;

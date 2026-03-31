@@ -383,12 +383,12 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Allowed to be override by derived classes
   String getClassNamePlural() {
-    return 'Items';
+    return AppL10n.tr(AppTranslationKeys.items);
   }
 
   /// Allowed to be override by derived classes
   String getClassNameSingular() {
-    return 'Item';
+    return AppL10n.tr(AppTranslationKeys.item);
   }
 
   /// Allowed to be override by derived classes
@@ -415,7 +415,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Allowed to be override by derived classes
   String getDescription() {
-    return 'Default list of items';
+    return AppL10n.tr(AppTranslationKeys.defaultListOfItems);
   }
 
   /// Derived class will override to customize the fields to display in the Adaptive Table
@@ -513,7 +513,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
     if (selectedIds.length > 1) {
       return CenterMessage(
-        message: 'Multiple selection.(${selectedIds.length})',
+        message: AppL10n.tr(
+          AppTranslationKeys.multipleSelectionCount,
+          params: <String, String>{'count': selectedIds.length.toString()},
+        ),
       );
     }
 
@@ -666,11 +669,14 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
     adaptiveScreenSizeDialog(
       context: context,
-      title: 'Column Filter (${fieldDefinition.name})',
+      title: AppL10n.tr(
+        AppTranslationKeys.columnFilterName,
+        params: <String, String>{'name': fieldDefinition.name},
+      ),
       child: content,
       actionButtons: <Widget>[
         DialogActionButton(
-          text: 'Apply',
+          text: AppL10n.tr(AppTranslationKeys.apply),
           onPressed: () {
             Navigator.of(context).pop(false);
             setState(() {
@@ -866,7 +872,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   ) {
     myShowDialogAndActionsForMoneyObjects(
       title: getSingularPluralText(
-        'Edit',
+        AppL10n.tr(AppTranslationKeys.edit),
         moneyObjects.length,
         getClassNameSingular(),
         getClassNamePlural(),
@@ -881,7 +887,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final List<DataObject> moneyObjects,
   ) {
     if (moneyObjects.isEmpty) {
-      messageBox(context, 'No items to delete');
+      messageBox(context, AppL10n.tr(AppTranslationKeys.noItemsToDelete));
       return;
     }
 
@@ -889,7 +895,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     final String namePlural = getClassNamePlural();
 
     final String title = getSingularPluralText(
-      'Delete',
+      AppL10n.tr(AppTranslationKeys.delete),
       moneyObjects.length,
       nameSingular,
       namePlural,
@@ -917,7 +923,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       title: title,
       question: question,
       content: content,
-      buttonText: 'Delete',
+      buttonText: AppL10n.tr(AppTranslationKeys.delete),
       onConfirmation: () {
         Data().deleteItems(moneyObjects);
       },

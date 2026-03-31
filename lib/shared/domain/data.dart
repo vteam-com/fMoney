@@ -7,6 +7,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/transaction_types.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/account_aliases.dart';
@@ -151,8 +152,8 @@ class Data implements DataAbstract {
       Timer(
         const Duration(milliseconds: DurationInMs.quick),
         () => SnackBarService.displayWarning(
-          message: '${dangling.length} Dangling transfers have been found',
-          title: 'Dangling Transfers',
+          message: '${dangling.length}${SharedDomainStrings.domainString001}',
+          title: SharedDomainStrings.domainString043,
           autoDismiss: false,
         ),
       );
@@ -359,7 +360,7 @@ class Data implements DataAbstract {
           relatedAccount.uniqueId,
         );
         relatedTransaction.mutateField(
-          'Account',
+          SharedDomainStrings.domainString011,
           relatedAccount.uniqueId,
           false,
         );

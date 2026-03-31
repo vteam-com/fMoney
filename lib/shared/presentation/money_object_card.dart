@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -120,6 +122,6 @@ Widget buildAdaptiveBox({
     ),
     footer: footer,
     padding: SizeForPadding.huge,
-    child: count == 0 ? CenterMessage(message: 'No $title found') : content,
+    child: count == 0 ? CenterMessage(message: '${AppL10n.tr(AppTranslationKeys.noItems)} $title') : content,
   );
 }

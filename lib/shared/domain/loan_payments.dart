@@ -1,5 +1,6 @@
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/data_abstract.dart';
@@ -14,7 +15,7 @@ const double _zeroDouble = 0.0;
 /// Represents loan payments.
 class LoanPayments extends MoneyObjects<LoanPayment> {
   LoanPayments() {
-    collectionName = 'LoanPayments';
+    collectionName = SharedDomainStrings.domainString084;
   }
   late DataAbstract data;
 
@@ -87,7 +88,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
     // Reference (combination of Memo and Payee)
     pr.reference = concat(pr.reference, t.fieldMemo.value, ';', true);
     if (isFromSplit) {
-      pr.reference = concat(pr.reference, '<Split>', ';', true);
+      pr.reference = concat(pr.reference, SharedDomainStrings.domainString008, ';', true);
     }
     pr.reference = concat(
       pr.reference,

@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
 import 'package:money/shared/domain/security.dart';
@@ -9,7 +10,7 @@ import 'package:money/shared/domain/stock_split.dart';
 /// Represents stock splits.
 class StockSplits extends MoneyObjects<StockSplit> {
   StockSplits() {
-    collectionName = 'Stock Splits';
+    collectionName = SharedDomainStrings.domainString129;
   }
 
   late DataAbstract data;

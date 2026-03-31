@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/columns/column_content_center.dart';
 
 const double _headerHorizontalPadding = 3;
@@ -20,7 +21,7 @@ Widget buildColumnHeaderButton({
   return Expanded(
     flex: flex,
     child: Tooltip(
-      message: '$text\n${_getTooltipText(sortIndicator, hasFilters)}'.trim(),
+      message: '$text${SharedStrings.lineFeed}${_getTooltipText(sortIndicator, hasFilters)}'.trim(),
       child: TextButton(
         style: ButtonStyle(
           shape: WidgetStateProperty.all<OutlinedBorder>(
@@ -142,13 +143,13 @@ Widget _buildAdornerFoFilter(final bool filterOn) {
 
 /// Builds tooltip text describing the current sorting and filtering state.
 String _getTooltipText(final SortIndicator sortIndicator, final bool filterOn) {
-  String tooltip = filterOn ? 'Filtering\n' : '';
+  String tooltip = filterOn ? '${SharedStrings.labelFiltering}${SharedStrings.lineFeed}' : '';
 
   switch (sortIndicator) {
     case SortIndicator.sortAscending:
-      tooltip += 'Sorting Ascending';
+      tooltip += SharedStrings.labelSortingAscending;
     case SortIndicator.sortDescending:
-      tooltip += 'Sorting Descending';
+      tooltip += SharedStrings.labelSortingDescending;
     case SortIndicator.none:
       break;
   }

@@ -6,6 +6,7 @@ import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 /// implement the Sqlite3 WASM Web Support see https://pub.dev/packages/sqlite3#wasm-web-support
 /// Web database implementation (no-op for web environment).
@@ -85,9 +86,9 @@ class MyDatabaseImplementation {
   Future<bool> tableExists(final String tableName) async {
     try {
       final List<Map<String, dynamic>> list = await select(
-        "SELECT name FROM sqlite_master WHERE type='table'",
+        SharedSqlStrings.sqlSelectTableNames,
       );
-      return _listMapContains(list, 'name', tableName);
+      return _listMapContains(list, SharedSqlStrings.columnName, tableName);
     } catch (e) {
       print('Error checking if table exists: $e');
       return false;

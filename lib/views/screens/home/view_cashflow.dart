@@ -161,7 +161,7 @@ class _ViewCashFlowState extends ViewWidgetState {
             //
             if (CashflowViewAs.netWorthOverTime == PreferenceController.to.cashflowViewAs)
               NumberPicker(
-                title: 'Event Tolerances',
+                title: AppL10n.tr(AppTranslationKeys.eventTolerances),
                 minValue: _eventToleranceMin,
                 maxValue: _eventToleranceMax,
                 selectedNumber: PreferenceController.to.netWorthEventThreshold,
@@ -256,7 +256,7 @@ class _ViewCashFlowState extends ViewWidgetState {
           children: <Widget>[
             Expanded(
               child: PanelBudget(
-                title: 'Incomes',
+                title: AppL10n.tr(AppTranslationKeys.incomes),
                 categoryTypes: <CategoryType>[
                   CategoryType.income,
                   CategoryType.investment,
@@ -269,7 +269,7 @@ class _ViewCashFlowState extends ViewWidgetState {
             ),
             Expanded(
               child: PanelBudget(
-                title: 'Expenses',
+                title: AppL10n.tr(AppTranslationKeys.expenses),
                 categoryTypes: <CategoryType>[
                   CategoryType.expense,
                   CategoryType.recurringExpense,

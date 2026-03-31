@@ -1,5 +1,6 @@
 import 'package:money/data/models/stock_cumulative.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/investment.dart';
 import 'package:money/shared/domain/money_objects.dart';
@@ -10,7 +11,7 @@ import 'package:money/widgets/widgets_domain/field.dart';
 /// Represents investments.
 class Investments extends MoneyObjects<Investment> {
   Investments() {
-    collectionName = 'Investments';
+    collectionName = SharedDomainStrings.domainString061;
   }
   late DataAbstract data;
 
@@ -46,7 +47,7 @@ class Investments extends MoneyObjects<Investment> {
   ) {
     // first sort by date, TradeType, Amount
     final Field<dynamic> fieldToSortBy = Investment.fields.getFieldByName(
-      'Date',
+      SharedDomainStrings.domainString044,
     );
     MoneyObjects.sortListFallbackOnIdForTieBreaker(
       investments,

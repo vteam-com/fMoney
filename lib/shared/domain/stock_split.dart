@@ -1,6 +1,7 @@
 // import 'package:money/data/collections/data.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -34,12 +35,12 @@ class StockSplit extends DataObject {
   /// Constructor from a SQLite row
   factory StockSplit.fromJson(final MyJson row, final DataAbstract data) {
     return StockSplit(
-      date: row.getDate('Date'),
-      security: row.getInt('Security'),
-      numerator: row.getInt('Numerator'),
-      denominator: row.getInt('Denominator'),
+      date: row.getDate(SharedDomainStrings.domainString044),
+      security: row.getInt(SharedDomainStrings.domainString125),
+      numerator: row.getInt(SharedDomainStrings.domainString093),
+      denominator: row.getInt(SharedDomainStrings.domainString045),
       data: data,
-    )..fieldId.value = row.getInt('Id', -1);
+    )..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1);
   }
   StockSplit({
     required DateTime? date,
@@ -57,16 +58,16 @@ class StockSplit extends DataObject {
   final DataAbstract? data;
 
   FieldDate fieldDate = FieldDate(
-    name: 'Date',
-    serializeName: 'Date',
+    name: SharedDomainStrings.domainString044,
+    serializeName: SharedDomainStrings.domainString044,
     getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDate.value,
     getValueForSerialization: (final DataInterface instance) =>
         dateToSqliteFormat((instance as StockSplit).fieldDate.value),
   );
 
   FieldInt fieldDenominator = FieldInt(
-    name: 'Denominator',
-    serializeName: 'Denominator',
+    name: SharedDomainStrings.domainString045,
+    serializeName: SharedDomainStrings.domainString045,
     getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
     getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
   );
@@ -77,15 +78,15 @@ class StockSplit extends DataObject {
   );
 
   FieldInt fieldNumerator = FieldInt(
-    name: 'Numerator',
-    serializeName: 'Numerator',
+    name: SharedDomainStrings.domainString093,
+    serializeName: SharedDomainStrings.domainString093,
     getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
     getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
   );
 
   FieldInt fieldSecurity = FieldInt(
-    name: 'Security',
-    serializeName: 'Security',
+    name: SharedDomainStrings.domainString125,
+    serializeName: SharedDomainStrings.domainString125,
     getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
     getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
   );
@@ -98,7 +99,7 @@ class StockSplit extends DataObject {
   /// Returns a short string representation used by generic data views.
   @override
   String getRepresentation() {
-    return data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
+    return data?.getSecuritySymbolFromId(fieldSecurity.value) ?? SharedDomainStrings.domainString150;
   }
 
   /// Returns a debug-friendly string describing this stock split.

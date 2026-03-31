@@ -5,6 +5,7 @@ import 'package:money/helpers/data_simulator_utils.dart' as simulator_utils;
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/account.dart';
 import 'package:money/shared/domain/category.dart';
@@ -199,10 +200,10 @@ class DataSimulator {
     final Security? stock = Data().securities.get(stockId);
 
     if (activity == InvestmentType.buy) {
-      action = 'bought';
+      action = SharedSimulationStrings.simVerbBought;
       transactionAmount *= DataSimulatorConstants.negativeMultiplier;
     }
-    final Payee payee = Data().payees.getOrCreate('Broker');
+    final Payee payee = Data().payees.getOrCreate(SharedSimulationStrings.simPayeeBroker);
 
     final Transaction t = _addTransactionAccountDatePayeeCategory(
       account: account,
@@ -211,7 +212,7 @@ class DataSimulator {
       payeeId: payee.uniqueId,
       categoryId: _categoryInvestmentTrades.uniqueId,
       memo:
-          'You $action ${formatDoubleTrimZeros(quantity)} shares of "${stock!.fieldName.value} (${stock.fieldSymbol.value})"',
+          '${SharedSimulationStrings.simMemoYou}$action ${formatDoubleTrimZeros(quantity)}${SharedSimulationStrings.simMemoSharesOf}${stock!.fieldName.value}${SharedSimulationStrings.simMemoWithSymbolClose}${stock.fieldSymbol.value}${SharedSimulationStrings.simMemoEndQuote}',
     );
 
     Data().investments.appendMoneyObject(
@@ -290,10 +291,10 @@ class DataSimulator {
   void _buyHome(final Payee payeeForHomeLoan, final DateTime date) {
     final Account accountAssetHome = _addNewAccount(
       DataSimulatorConstants.unsetId,
-      'Main Home',
+      SharedSimulationStrings.simAccountMainHome,
       'A0001',
       AccountType.asset.index,
-      'USD',
+      SharedStrings.currencyUsd,
     );
 
     _addTransactionAccountDatePayeeCategory(
@@ -306,7 +307,7 @@ class DataSimulator {
             type: CategoryType.investment,
           )
           .uniqueId,
-      memo: 'Purchase house valued at 250K',
+      memo: SharedSimulationStrings.simMemoHomePurchase,
     );
 
     _addTransactionAccountDatePayeeCategory(
@@ -315,7 +316,7 @@ class DataSimulator {
       payeeId: payeeForHomeLoan.uniqueId,
       categoryId: _categoryHomeLoanDownPayment.uniqueId,
       amount: DataSimulatorConstants.homeDownPaymentAmount,
-      memo: 'Down payment',
+      memo: SharedSimulationStrings.simMemoDownPayment,
     );
   }
 

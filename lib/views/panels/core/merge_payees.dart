@@ -28,7 +28,12 @@ void showMergePayee<T extends MergeableItem>(
 ) {
   adaptiveScreenSizeDialog(
     context: context,
-    title: 'Merge ${transactions.length} transactions',
+    title: AppL10n.tr(
+      AppTranslationKeys.mergeTransactionsCount,
+      params: <String, String>{
+        'count': getIntAsText(transactions.length),
+      },
+    ),
     captionForClose: null, // this will hide the close button
     child: MergeTransactionsDialog<T>(
       currentPayee: payee,
@@ -94,7 +99,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
               Expanded(
                 child: Box(
                   child: PickerEditBox(
-                    title: 'Payee',
+                    title: AppL10n.tr(AppTranslationKeys.payee),
                     items: widget.data.getPayeeNames(),
                     initialValue: widget.currentPayee.fieldName.value,
                     onChanged: (String? name) {
@@ -121,12 +126,12 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
           const Spacer(),
           dialogActionButtons(<Widget>[
             DialogActionButton(
-              text: 'Cancel',
+              text: AppL10n.tr(AppTranslationKeys.cancel),
               onPressed: () => Navigator.pop(context),
             ),
             if (_selectedPayee != null && _selectedPayee != widget.currentPayee)
               DialogActionButton(
-                text: 'Merge',
+                text: AppL10n.tr(AppTranslationKeys.merge),
                 onPressed: () {
                   mutateMergeableItemsToPayee<T>(
                     widget.transactions,

@@ -1,4 +1,5 @@
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
@@ -23,21 +24,21 @@ class AccountAlias extends DataObject {
   @override
   factory AccountAlias.fromJson(final MyJson row) {
     return AccountAlias()
-      ..fieldId.value = row.getInt('Id', -1)
-      ..fieldPattern.value = row.getString('Pattern')
-      ..fieldFlags.value = row.getInt('Flag', 0)
-      ..fieldAccountId.value = row.getString('AccountId');
+      ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
+      ..fieldPattern.value = row.getString(SharedDomainStrings.domainString104)
+      ..fieldFlags.value = row.getInt(SharedDomainStrings.domainString054, 0)
+      ..fieldAccountId.value = row.getString(SharedDomainStrings.domainString013);
   }
 
-  FieldString fieldAccountId = FieldString(serializeName: 'AccountId');
+  FieldString fieldAccountId = FieldString(serializeName: SharedDomainStrings.domainString013);
 
-  FieldInt fieldFlags = FieldInt(serializeName: 'Flags', defaultValue: 0);
+  FieldInt fieldFlags = FieldInt(serializeName: SharedDomainStrings.domainString055, defaultValue: 0);
 
   FieldId fieldId = FieldId(
     getValueForSerialization: (final DataInterface instance) => (instance as AccountAlias).uniqueId,
   );
 
-  FieldString fieldPattern = FieldString(serializeName: 'Pattern');
+  FieldString fieldPattern = FieldString(serializeName: SharedDomainStrings.domainString104);
 
   // Fields for this instance
   @override

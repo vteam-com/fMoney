@@ -1,4 +1,5 @@
 import 'package:money/helpers/account_types_enum.dart';
+import 'package:money/helpers/shared_strings.dart';
 
 enum AccountFlags {
   none, // 0
@@ -10,28 +11,28 @@ enum AccountFlags {
 /// Convert a text into a AccountType
 AccountType? getAccountTypeFromText(final String text) {
   switch (text) {
-    case 'Savings':
+    case SharedStrings.accountTypeSavings:
       return AccountType.savings;
-    case 'Checking':
+    case SharedStrings.accountTypeChecking:
       return AccountType.checking;
-    case 'MoneyMarket':
+    case SharedStrings.accountTypeMoneyMarket:
       return AccountType.moneyMarket;
-    case 'Cash':
+    case SharedStrings.accountTypeCash:
       return AccountType.cash;
-    case 'Credit':
-    case 'CreditCard': // as seen in OFX <ACCTTYPE>
+    case SharedStrings.accountTypeCredit:
+    case SharedStrings.accountTypeCreditCard: // as seen in OFX <ACCTTYPE>
       return AccountType.credit;
-    case 'CreditLine':
+    case SharedStrings.accountTypeCreditLine:
       return AccountType.creditLine;
-    case 'Investment':
+    case SharedStrings.accountTypeInvestment:
       return AccountType.investment;
-    case 'Retirement':
+    case SharedStrings.accountTypeRetirement:
       return AccountType.retirement;
-    case 'Asset':
+    case SharedStrings.accountTypeAsset:
       return AccountType.asset;
-    case 'Fund':
+    case SharedStrings.accountTypeFund:
       return AccountType.categoryFund;
-    case 'Loan':
+    case SharedStrings.accountTypeLoan:
       return AccountType.loan;
     default:
       return null;
@@ -42,32 +43,32 @@ AccountType? getAccountTypeFromText(final String text) {
 String getTypeAsText(final AccountType type) {
   switch (type) {
     case AccountType.savings:
-      return 'Savings';
+      return SharedStrings.accountTypeSavings;
     case AccountType.checking:
-      return 'Checking';
+      return SharedStrings.accountTypeChecking;
     case AccountType.moneyMarket:
-      return 'MoneyMarket';
+      return SharedStrings.accountTypeMoneyMarket;
     case AccountType.cash:
-      return 'Cash';
+      return SharedStrings.accountTypeCash;
     case AccountType.credit:
-      return 'Credit';
+      return SharedStrings.accountTypeCredit;
     case AccountType.investment:
-      return 'Investment';
+      return SharedStrings.accountTypeInvestment;
     case AccountType.retirement:
-      return 'Retirement';
+      return SharedStrings.accountTypeRetirement;
     case AccountType.asset:
-      return 'Asset';
+      return SharedStrings.accountTypeAsset;
     case AccountType.categoryFund:
-      return 'Fund';
+      return SharedStrings.accountTypeFund;
     case AccountType.loan:
-      return 'Loan';
+      return SharedStrings.accountTypeLoan;
     case AccountType.creditLine:
-      return 'CreditLine';
+      return SharedStrings.accountTypeCreditLine;
     default:
       break;
   }
 
-  return 'other $type';
+  return '${SharedStrings.accountTypeOtherPrefix}$type';
 }
 
 /// Returns list of account type names as strings.

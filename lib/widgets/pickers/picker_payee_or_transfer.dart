@@ -115,7 +115,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
       );
     } else {
       return presentInput(
-        widget.amount > 0 ? 'From Account' : 'To Account',
+        widget.amount > 0 ? AppL10n.tr(AppTranslationKeys.fromAccount) : AppL10n.tr(AppTranslationKeys.toAccount),
         pickerAccount(
           accountNames: widget.accountNames,
           selectedName: widget.selectedAccountName,

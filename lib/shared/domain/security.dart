@@ -4,6 +4,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/ranges.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/shared/domain/stock_split.dart';
 import 'package:money/widgets/list/list_item_card.dart';
@@ -55,23 +56,23 @@ class Security extends DataObject {
   factory Security.fromJson(final MyJson row) {
     return Security(
       // 0
-      id: row.getInt('Id', -1),
+      id: row.getInt(SharedDomainStrings.domainString057, -1),
       // 1
-      name: row.getString('Name'),
+      name: row.getString(SharedDomainStrings.domainString088),
       // 2
-      symbol: row.getString('Symbol'),
+      symbol: row.getString(SharedDomainStrings.domainString131),
       // 3
-      price: row.getDouble('Price'),
+      price: row.getDouble(SharedDomainStrings.domainString108),
       // 4
-      lastPrice: row.getDouble('LastPrice'),
+      lastPrice: row.getDouble(SharedDomainStrings.domainString079),
       // 5
-      cuspid: row.getString('CUSPID'),
+      cuspid: row.getString(SharedDomainStrings.domainString027),
       // 6
-      securityType: row.getInt('SECURITYTYPE'),
+      securityType: row.getInt(SharedDomainStrings.domainString120),
       // 7
-      taxable: row.getInt('Taxable'),
+      taxable: row.getInt(SharedDomainStrings.domainString137),
       // 8
-      priceDate: row.getDate('PriceDate'),
+      priceDate: row.getDate(SharedDomainStrings.domainString109),
     );
   }
 
@@ -93,8 +94,8 @@ class Security extends DataObject {
 
   // 5
   FieldString fieldCuspid = FieldString(
-    name: 'CUSPID',
-    serializeName: 'CUSPID',
+    name: SharedDomainStrings.domainString027,
+    serializeName: SharedDomainStrings.domainString027,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldCuspid.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldCuspid.value,
   );
@@ -113,7 +114,7 @@ class Security extends DataObject {
   // 4
   FieldMoney fieldLastPrice = FieldMoney(
     name: 'Last Price',
-    serializeName: 'LastPrice',
+    serializeName: SharedDomainStrings.domainString079,
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldLastPrice.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldLastPrice.value.asDouble(),
@@ -124,8 +125,8 @@ class Security extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    name: 'Name',
-    serializeName: 'Name',
+    name: SharedDomainStrings.domainString088,
+    serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldName.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldName.value,
@@ -144,9 +145,9 @@ class Security extends DataObject {
 
   // 3
   FieldMoney fieldPrice = FieldMoney(
-    name: 'Price',
+    name: SharedDomainStrings.domainString108,
     columnWidth: ColumnWidth.small,
-    serializeName: 'Price',
+    serializeName: SharedDomainStrings.domainString108,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldPrice.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldPrice.value.asDouble(),
     setValue: (final DataInterface instance, dynamic value) => (instance as Security).fieldPrice.value.setAmount(value),
@@ -155,7 +156,7 @@ class Security extends DataObject {
   // 8
   FieldDate fieldPriceDate = FieldDate(
     name: 'LatestPrice',
-    serializeName: 'PriceDate',
+    serializeName: SharedDomainStrings.domainString109,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldPriceDate.value,
     getValueForSerialization: (final DataInterface instance) =>
         dateToSqliteFormat((instance as Security).fieldPriceDate.value),
@@ -189,8 +190,8 @@ class Security extends DataObject {
   */
   // 6
   FieldInt fieldSecurityType = FieldInt(
-    name: 'Type',
-    serializeName: 'SECURITYTYPE',
+    name: SharedDomainStrings.domainString146,
+    serializeName: SharedDomainStrings.domainString120,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.text,
     align: TextAlign.center,
@@ -222,8 +223,8 @@ class Security extends DataObject {
 
   // 2
   FieldString fieldSymbol = FieldString(
-    name: 'Symbol',
-    serializeName: 'Symbol',
+    name: SharedDomainStrings.domainString131,
+    serializeName: SharedDomainStrings.domainString131,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldSymbol.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldSymbol.value,
     setValue: (final DataInterface instance, dynamic value) {
@@ -244,8 +245,8 @@ class Security extends DataObject {
   List<StockSplit> splitsHistory = <StockSplit>[];
   // 7
   FieldInt taxable = FieldInt(
-    name: 'Taxable',
-    serializeName: 'Taxable',
+    name: SharedDomainStrings.domainString137,
+    serializeName: SharedDomainStrings.domainString137,
     getValueForDisplay: (final DataInterface instance) => (instance as Security).taxable.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Security).taxable.value,
   );

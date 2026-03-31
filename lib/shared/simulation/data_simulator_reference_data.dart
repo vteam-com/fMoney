@@ -2,6 +2,7 @@ import 'package:money/data/models/alias_types.dart';
 import 'package:money/data/models/data_simulator_constants.dart';
 import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account_alias.dart';
 import 'package:money/shared/domain/alias.dart';
 import 'package:money/shared/domain/currency.dart';
@@ -14,7 +15,7 @@ class DataSimulatorReferenceDataDomain {
   void generateAccountAliases() {
     Data().accountAliases.appendNewMoneyObject(
       AccountAlias.fromJson(<String, dynamic>{
-        'Pattern': '*foo*',
+        'Pattern': SharedSimulationStrings.simPatternFoo,
         'Flag': DataSimulatorConstants.defaultFlags,
         'AccountId': 'A12345',
       }),
@@ -22,7 +23,7 @@ class DataSimulatorReferenceDataDomain {
     );
     Data().accountAliases.appendNewMoneyObject(
       AccountAlias.fromJson(<String, dynamic>{
-        'Pattern': '*bar*',
+        'Pattern': SharedSimulationStrings.simPatternBar,
         'Flag': DataSimulatorConstants.defaultFlags,
         'AccountId': 'B987654',
       }),
@@ -36,7 +37,7 @@ class DataSimulatorReferenceDataDomain {
       Alias(
         id: DataSimulatorConstants.unsetId,
         payeeId: DataSimulatorConstants.payeeIdLotteryWin,
-        pattern: 'ABC',
+        pattern: SharedSimulationStrings.simPatternAbcUpper,
         flags: AliasType.none.index,
         data: Data(),
       ),
@@ -46,7 +47,7 @@ class DataSimulatorReferenceDataDomain {
       Alias(
         id: DataSimulatorConstants.unsetId,
         payeeId: DataSimulatorConstants.payeeIdLotteryWin,
-        pattern: 'abc',
+        pattern: SharedSimulationStrings.simPatternAbcLower,
         flags: AliasType.none.index,
         data: Data(),
       ),
@@ -56,7 +57,7 @@ class DataSimulatorReferenceDataDomain {
       Alias(
         id: DataSimulatorConstants.unsetId,
         payeeId: DataSimulatorConstants.payeeIdBroker,
-        pattern: '.*starbucks.*',
+        pattern: SharedSimulationStrings.simPatternStarbucksRegex,
         flags: AliasType.regex.index,
         data: Data(),
       ),
@@ -69,40 +70,40 @@ class DataSimulatorReferenceDataDomain {
     final List<MyJson> demoCurrencies = <MyJson>[
       <String, dynamic>{
         'Id': DataSimulatorConstants.unsetId,
-        'Name': 'USA',
-        'Symbol': 'USD',
+        'Name': SharedSimulationStrings.simCurrencyNameUsa,
+        'Symbol': SharedStrings.currencyUsd,
         'CultureCode': 'en-US',
         'Ratio': DataSimulatorConstants.usdRatio,
         'LastRatio': DataSimulatorConstants.usdLastRatio,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.unsetId,
-        'Name': 'Canada',
-        'Symbol': 'CAD',
+        'Name': SharedSimulationStrings.simCurrencyNameCanada,
+        'Symbol': SharedSimulationStrings.simCurrencyCad,
         'CultureCode': 'en-CA',
         'Ratio': DataSimulatorConstants.cadRatio,
         'LastRatio': DataSimulatorConstants.cadLastRatio,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.unsetId,
-        'Name': 'Euro',
-        'Symbol': 'EUR',
+        'Name': SharedSimulationStrings.simCurrencyNameEuro,
+        'Symbol': SharedSimulationStrings.simCurrencyEur,
         'CultureCode': 'en-ES',
         'Ratio': DataSimulatorConstants.eurRatio,
         'LastRatio': DataSimulatorConstants.eurLastRatio,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.unsetId,
-        'Name': 'UK',
-        'Symbol': 'GBP',
+        'Name': SharedSimulationStrings.simCurrencyNameUk,
+        'Symbol': SharedSimulationStrings.simCurrencyGbp,
         'CultureCode': 'en-GB',
         'Ratio': DataSimulatorConstants.gbpRatio,
         'LastRatio': DataSimulatorConstants.gbpLastRatio,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.unsetId,
-        'Name': 'Japan',
-        'Symbol': 'JPY',
+        'Name': SharedSimulationStrings.simCurrencyNameJapan,
+        'Symbol': SharedSimulationStrings.simCurrencyJpy,
         'CultureCode': 'en-JP',
         'Ratio': DataSimulatorConstants.jpyRatio,
         'LastRatio': DataSimulatorConstants.jpyLastRatio,
@@ -128,68 +129,74 @@ class DataSimulatorReferenceDataDomain {
   /// Populates payees with a fixed set of demo entities.
   void generatePayees() {
     Data().payees.loadFromJson(<MyJson>[
-      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdBurgerKing, 'Name': 'Job At BurgerKing'},
-      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdNasa, 'Name': 'NASA'},
-      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdLotteryWin, 'Name': 'Lottery Win'},
-      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdBroker, 'Name': 'Broker'},
+      <String, dynamic>{
+        'Id': DataSimulatorConstants.payeeIdBurgerKing,
+        'Name': SharedSimulationStrings.simPayeeBurgerKingJob,
+      },
+      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdNasa, 'Name': SharedSimulationStrings.simPayeeNasa},
+      <String, dynamic>{
+        'Id': DataSimulatorConstants.payeeIdLotteryWin,
+        'Name': SharedSimulationStrings.simPayeeLotteryWin,
+      },
+      <String, dynamic>{'Id': DataSimulatorConstants.payeeIdBroker, 'Name': SharedSimulationStrings.simPayeeBroker},
     ]);
   }
 
   /// Generates sample events.
   void generateEvents() {
-    final dynamic categoryIdForProperties = Data().categories.getByName('Properties')!;
-    final dynamic categoryIdForTravels = Data().categories.getByName('Travel')!;
+    final dynamic categoryIdForProperties = Data().categories.getByName(SharedSimulationStrings.simCategoryProperties)!;
+    final dynamic categoryIdForTravels = Data().categories.getByName(SharedSimulationStrings.simCategoryTravel)!;
 
     Data().events.loadFromJson(<MyJson>[
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdCondo,
-        'Name': 'Condo in Chicago',
+        'Name': SharedSimulationStrings.simEventCondoChicago,
         'Category': categoryIdForProperties.uniqueId,
         'Begin': '1987-03-04',
         'End': '1999-12-04',
-        'Memo': 'My first property',
+        'Memo': SharedSimulationStrings.simEventMemoFirstProperty,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdWedding,
-        'Name': 'Wedding and honeymoon',
+        'Name': SharedSimulationStrings.simEventWedding,
         'Category': categoryIdForTravels.uniqueId,
         'Begin': '1995-06-20',
         'End': '1995-06-30',
-        'People': 'Karen; Bob; Yoko',
-        'Memo': 'It was raining, see photos here http://example.com',
+        'People': SharedSimulationStrings.simEventPeopleWedding,
+        'Memo': SharedSimulationStrings.simEventMemoWedding,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdHome,
-        'Name': 'Home in Springfield',
+        'Name': SharedSimulationStrings.simEventHomeSpringfield,
         'Category': categoryIdForProperties.uniqueId,
         'Begin': '1997-01-04',
         'End': '2016-01-04',
-        'Memo': 'Our first home',
+        'Memo': SharedSimulationStrings.simEventMemoFirstHome,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdDivorce,
-        'Name': 'Divorce',
+        'Name': SharedSimulationStrings.simEventDivorce,
         'Begin': '2020-01-01',
         'End': '2020-04-13',
-        'People': 'Karen; Bob',
-        'Memo': 'Our friendly divorce',
+        'People': SharedSimulationStrings.simEventPeopleDivorce,
+        'Memo': SharedSimulationStrings.simEventMemoDivorce,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdSoldHouse,
-        'Name': 'Sold house',
+        'Name': SharedSimulationStrings.simEventSoldHouse,
         'Category': categoryIdForProperties.uniqueId,
         'Begin': '2020-03-01',
         'End': '2020-03-05',
-        'Memo': 'My trip to Vegas',
+        'Memo': SharedSimulationStrings.simEventMemoVegasTrip,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.eventIdVegas,
-        'Name': 'Vegas',
+        'Name': SharedSimulationStrings.simEventVegas,
         'Category': categoryIdForTravels.uniqueId,
         'Begin': '2020-07-01',
         'End': '2020-07-05',
-        'People': 'Bob, John, Paul, Ringo',
-        'Memo': 'My trip to Vegas with buddies',
+        'People': SharedSimulationStrings.simEventPeopleVegas,
+        'Memo': SharedSimulationStrings.simEventMemoVegasBuddies,
       },
     ]);
   }
@@ -199,13 +206,23 @@ class DataSimulatorReferenceDataDomain {
     Data().rentBuildings.loadFromJson(<MyJson>[
       <String, dynamic>{
         'Id': DataSimulatorConstants.rentBuildingId,
-        'Name': 'AirBnB',
-        'Address': 'One Washington DC',
-        'CategoryForIncome': Data().categories.getOrCreate('RentalIncome', CategoryType.income).uniqueId,
-        'CategoryForInterest': Data().categories.getOrCreate('RentalInterest', CategoryType.expense).uniqueId,
-        'CategoryForTaxes': Data().categories.getOrCreate('RentalTaxes', CategoryType.expense).uniqueId,
-        'CategoryForMaintenance': Data().categories.getOrCreate('RentalMaintenance', CategoryType.expense).uniqueId,
-        'CategoryForManagement': Data().categories.getOrCreate('RentalManagement', CategoryType.expense).uniqueId,
+        'Name': SharedSimulationStrings.simRentalBuildingAirbnb,
+        'Address': SharedSimulationStrings.simRentalAddressWashingtonDc,
+        'CategoryForIncome': Data().categories
+            .getOrCreate(SharedSimulationStrings.simRentalIncome, CategoryType.income)
+            .uniqueId,
+        'CategoryForInterest': Data().categories
+            .getOrCreate(SharedSimulationStrings.simRentalInterest, CategoryType.expense)
+            .uniqueId,
+        'CategoryForTaxes': Data().categories
+            .getOrCreate(SharedSimulationStrings.simRentalTaxes, CategoryType.expense)
+            .uniqueId,
+        'CategoryForMaintenance': Data().categories
+            .getOrCreate(SharedSimulationStrings.simRentalMaintenance, CategoryType.expense)
+            .uniqueId,
+        'CategoryForManagement': Data().categories
+            .getOrCreate(SharedSimulationStrings.simRentalManagement, CategoryType.expense)
+            .uniqueId,
       },
     ]);
 
@@ -214,15 +231,15 @@ class DataSimulatorReferenceDataDomain {
         'Id': DataSimulatorConstants.rentUnitId,
         'Name': 'roomA',
         'Building': DataSimulatorConstants.rentUnitBuildingId,
-        'Renter': 'Bob Smith',
-        'Note': 'Renting for 1 year',
+        'Renter': SharedSimulationStrings.simRenterBobSmith,
+        'Note': SharedSimulationStrings.simRenterNoteOneYear,
       },
       <String, dynamic>{
         'Id': DataSimulatorConstants.rentUnitAlternateId,
         'Name': 'roomB',
         'Building': DataSimulatorConstants.rentUnitBuildingId,
-        'Renter': 'Sue Richard',
-        'Note': 'Renting for 6 months',
+        'Renter': SharedSimulationStrings.simRenterSueRichard,
+        'Note': SharedSimulationStrings.simRenterNoteSixMonths,
       },
     ]);
   }

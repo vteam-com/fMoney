@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/gaps.dart';
 
 const double _colorBarMargin = 2;
@@ -53,14 +54,14 @@ class ColorPalette extends StatelessWidget {
       children: <Widget>[
         const Divider(),
         Text(AppL10n.tr(AppTranslationKeys.helperForDebugging)),
-        _buildColorBar(context, Colors.white, Colors.black, 'white', 'black'),
-        _buildColorBar(context, Colors.black, Colors.white, 'black', 'white'),
+        _buildColorBar(context, Colors.white, Colors.black, SharedStrings.colorWhite, SharedStrings.colorBlack),
+        _buildColorBar(context, Colors.black, Colors.white, SharedStrings.colorBlack, SharedStrings.colorWhite),
         _buildColorBar(
           context,
           getColorTheme(context).onSurface,
           getColorTheme(context).surface,
-          'onSurface',
-          'surface',
+          SharedStrings.colorOnSurface,
+          SharedStrings.colorSurface,
         ),
         _buildColorBar(
           context,
@@ -73,22 +74,22 @@ class ColorPalette extends StatelessWidget {
           context,
           getColorTheme(context).onPrimary,
           getColorTheme(context).primary,
-          'onPrimary',
-          'primary',
+          SharedStrings.colorOnPrimary,
+          SharedStrings.colorPrimary,
         ),
         _buildColorBar(
           context,
           getColorTheme(context).onSecondary,
           getColorTheme(context).secondary,
-          'onSecondary',
-          'secondary',
+          SharedStrings.colorOnSecondary,
+          SharedStrings.colorSecondary,
         ),
         _buildColorBar(
           context,
           getColorTheme(context).onTertiary,
           getColorTheme(context).tertiary,
-          'onTertiary',
-          'tertiary',
+          SharedStrings.colorOnTertiary,
+          SharedStrings.colorTertiary,
         ),
         _buildColorBar(
           context,

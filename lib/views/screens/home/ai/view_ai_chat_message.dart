@@ -82,7 +82,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                 children: <Widget>[
                   MarkdownBody(
                     data: shouldTruncate && !message.isExpanded
-                        ? '${message.message.trim().split('\n').take(_truncatePreviewLines).join('\n')}\n...'
+                        ? '${message.message.trim().split('\n').take(_truncatePreviewLines).join('\n')}'
+                              '${AppL10n.tr(AppTranslationKeys.chatTruncatedSuffix)}'
                         : message.message.trim(),
                     styleSheet: MarkdownStyleSheet(
                       p: TextStyle(
@@ -169,7 +170,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                   await Clipboard.setData(ClipboardData(text: widget.message.message));
                 },
                 icon: const Icon(Icons.copy_all),
-                tooltip: 'Copy message',
+                tooltip: AppL10n.tr(AppTranslationKeys.copyMessage),
               ),
               TextButton(
                 onPressed: () {

@@ -10,6 +10,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pair_xyz.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pure/center_message.dart';
 import 'package:money/widgets/pure/theme_custom.dart';
 
@@ -205,7 +206,7 @@ class Chart extends StatelessWidget {
 
   /// Formats tooltip text for a bar chart group and rod.
   String getTooltipText(BarChartGroupData group, BarChartRodData rod) =>
-      '${list[group.x].xText}\n${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
+      '${list[group.x].xText}${SharedStrings.lineFeed}${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
   Widget _buildLegendBottom(final double value, final TitleMeta _) => Container(
     padding: const EdgeInsets.only(top: _legendPaddingTop),

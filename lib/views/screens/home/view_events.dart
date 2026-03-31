@@ -1,4 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/transaction_types.dart';
@@ -53,7 +55,10 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
 
           // Queue up the edit dialog
           myShowDialogAndActionsForMoneyObject(
-            title: 'New ${getClassNameSingular()}',
+            title: AppL10n.tr(
+              AppTranslationKeys.newItemLabel,
+              params: <String, String>{'item': getClassNameSingular()},
+            ),
             moneyObject: newItem,
             onApplyChange: () {
               setState(() {
@@ -61,7 +66,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
               });
             },
           );
-        }, 'Add new event'),
+        }, AppL10n.tr(AppTranslationKeys.addNewEvent)),
       );
     }
     return list;
@@ -69,12 +74,12 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Events';
+    return AppL10n.tr(AppTranslationKeys.events);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Event';
+    return AppL10n.tr(AppTranslationKeys.event);
   }
 
   /// Returns a human-readable description of the view.
@@ -82,7 +87,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
   /// @return A string describing the purpose of the view.
   @override
   String getDescription() {
-    return 'All your major life events';
+    return AppL10n.tr(AppTranslationKeys.allYourMajorLifeEventsDescription);
   }
 
   /// Defines the fields for the table that displays the data in this view.

@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 
 /// Utility functions for currency formatting that don't depend on MoneyObject.
@@ -32,7 +33,7 @@ String getAmountAsStringUsingCurrency(
     locale: localeToUse,
     symbol: currencySymbol, // Euro symbol
     decimalDigits: decimalDigits, // Number of decimal places
-    customPattern: '¤#,##0.00', // Pattern to place the symbol on the left
+    customPattern: SharedStrings.currencyPatternSymbolLeft, // Pattern to place the symbol on the left
   );
 
   return currencyFormat.format(

@@ -10,6 +10,7 @@ import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
@@ -62,31 +63,31 @@ class Investment extends DataObject {
   factory Investment.fromJson(final MyJson row, [DataAbstract? data]) {
     return Investment(
       // 1
-      id: row.getInt('Id', _unsetId),
+      id: row.getInt(SharedDomainStrings.domainString057, _unsetId),
       // 1
-      security: row.getInt('Security'),
+      security: row.getInt(SharedDomainStrings.domainString125),
       // 2
-      unitPrice: row.getDouble('UnitPrice'),
+      unitPrice: row.getDouble(SharedDomainStrings.domainString148),
       // 3
-      units: row.getDouble('Units'),
+      units: row.getDouble(SharedDomainStrings.domainString149),
       // 4
-      commission: row.getDouble('Commission'),
+      commission: row.getDouble(SharedDomainStrings.domainString039),
       // 5
-      markUpDown: row.getDouble('MarkUpDown'),
+      markUpDown: row.getDouble(SharedDomainStrings.domainString085),
       // 6
-      taxes: row.getDouble('Taxes'),
+      taxes: row.getDouble(SharedDomainStrings.domainString138),
       // 7
-      fees: row.getDouble('Fees'),
+      fees: row.getDouble(SharedDomainStrings.domainString053),
       // 8
-      load: row.getDouble('Load'),
+      load: row.getDouble(SharedDomainStrings.domainString082),
       // 9
-      investmentType: row.getInt('InvestmentType'),
+      investmentType: row.getInt(SharedDomainStrings.domainString060),
       // 10
-      tradeType: row.getInt('TradeType'),
+      tradeType: row.getInt(SharedDomainStrings.domainString140),
       // 11
-      taxExempt: row.getInt('TaxExempt'),
+      taxExempt: row.getInt(SharedDomainStrings.domainString134),
       // 12
-      withholding: row.getDouble('Withholding'),
+      withholding: row.getDouble(SharedDomainStrings.domainString153),
       data: data,
     );
   }
@@ -105,8 +106,8 @@ class Investment extends DataObject {
 
   /// 4    Commission      money   0                    0
   FieldMoney fieldCommission = FieldMoney(
-    name: 'Commission',
-    serializeName: 'Commission',
+    name: SharedDomainStrings.domainString039,
+    serializeName: SharedDomainStrings.domainString039,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldCommission.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as Investment).fieldCommission.value.asDouble(),
@@ -114,8 +115,8 @@ class Investment extends DataObject {
 
   /// 7    Fees            money   0                    0
   FieldMoney fieldFees = FieldMoney(
-    name: 'Fees',
-    serializeName: 'Fees',
+    name: SharedDomainStrings.domainString053,
+    serializeName: SharedDomainStrings.domainString053,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldFees.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
   );
@@ -145,7 +146,7 @@ class Investment extends DataObject {
   /// 9    InvestmentType  INT     1                    0
   FieldInt fieldInvestmentType = FieldInt(
     name: 'Activity',
-    serializeName: 'InvestmentType',
+    serializeName: SharedDomainStrings.domainString060,
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.text,
@@ -168,16 +169,16 @@ class Investment extends DataObject {
 
   /// 8    Load            money   0                    0
   FieldMoney fieldLoad = FieldMoney(
-    name: 'Load',
-    serializeName: 'Load',
+    name: SharedDomainStrings.domainString082,
+    serializeName: SharedDomainStrings.domainString082,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldLoad.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
   );
 
   /// 5    MarkUpDown      money   0                    0
   FieldMoney fieldMarkUpDown = FieldMoney(
-    name: 'MarkUpDown',
-    serializeName: 'MarkUpDown',
+    name: SharedDomainStrings.domainString085,
+    serializeName: SharedDomainStrings.domainString085,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
     getValueForSerialization: (final DataInterface instance) =>
         (instance as Investment).fieldMarkUpDown.value.asDouble(),
@@ -193,14 +194,14 @@ class Investment extends DataObject {
 
   /// 1    Security        INT     1                    0
   FieldInt fieldSecurity = FieldInt(
-    name: 'Security',
-    serializeName: 'Security',
+    name: SharedDomainStrings.domainString125,
+    serializeName: SharedDomainStrings.domainString125,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
   );
 
   FieldString fieldSecuritySymbol = FieldString(
-    name: 'Symbol',
+    name: SharedDomainStrings.domainString131,
     columnWidth: ColumnWidth.tiny,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).symbol,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
@@ -211,38 +212,39 @@ class Investment extends DataObject {
   );
 
   FieldString fieldSplitRatioAsText = FieldString(
-    name: 'Split',
+    name: SharedDomainStrings.domainString126,
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
     getValueForDisplay: (final DataInterface instance) =>
-        'x ${formatDoubleTrimZeros((instance as Investment)._splitRatio)}',
+        '${SharedDomainStrings.domainString159}${formatDoubleTrimZeros((instance as Investment)._splitRatio)}',
   );
 
   /// 11   TaxExempt       bit     0                    0
   FieldInt fieldTaxExempt = FieldInt(
-    name: 'Taxable',
-    serializeName: 'TaxExempt',
+    name: SharedDomainStrings.domainString137,
+    serializeName: SharedDomainStrings.domainString134,
     columnWidth: ColumnWidth.nano,
     align: TextAlign.center,
     type: FieldType.text,
-    getValueForDisplay: (final DataInterface instance) =>
-        (instance as Investment).fieldTaxExempt.value == _oneInt ? 'No' : 'Yes',
+    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value == _oneInt
+        ? SharedDomainStrings.domainString090
+        : SharedDomainStrings.domainString156,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value,
   );
 
   /// 6    Taxes           money   0                    0
   FieldMoney fieldTaxes = FieldMoney(
-    name: 'Taxes',
-    serializeName: 'Taxes',
+    name: SharedDomainStrings.domainString138,
+    serializeName: SharedDomainStrings.domainString138,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldTaxes.value,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
   );
 
   /// 10   TradeType       INT     0                    0
   FieldInt fieldTradeType = FieldInt(
-    name: 'TradeType',
-    serializeName: 'TradeType',
+    name: SharedDomainStrings.domainString140,
+    serializeName: SharedDomainStrings.domainString140,
     type: FieldType.text,
     getValueForDisplay: (final DataInterface instance) =>
         InvestmentTradeType.values[(instance as Investment).fieldTradeType.value].name.toUpperCase(),
@@ -262,19 +264,19 @@ class Investment extends DataObject {
   );
 
   FieldString fieldTransactionAccountName = FieldString(
-    name: 'Account',
+    name: SharedDomainStrings.domainString011,
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (final DataInterface instance) {
       final dynamic transaction = (instance as Investment).transactionInstance;
       if (transaction != null) {
         return transaction.accountName;
       }
-      return '<Account?>';
+      return SharedDomainStrings.domainString005;
     },
   );
 
   FieldDate fieldTransactionDate = FieldDate(
-    name: 'Date',
+    name: SharedDomainStrings.domainString044,
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).date,
     sort: (final DataInterface a, final DataInterface b, final bool ascending) =>
@@ -283,8 +285,8 @@ class Investment extends DataObject {
 
   /// 2    UnitPrice       money   1
   FieldMoney fieldUnitPrice = FieldMoney(
-    name: 'Price',
-    serializeName: 'UnitPrice',
+    name: SharedDomainStrings.domainString108,
+    serializeName: SharedDomainStrings.domainString148,
     footer: FooterType.average,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldUnitPrice.value,
     getValueForSerialization: (final DataInterface instance) =>
@@ -304,8 +306,8 @@ class Investment extends DataObject {
 
   /// 3    Units           money   0                    0
   FieldQuantity fieldUnits = FieldQuantity(
-    name: 'Units',
-    serializeName: 'Units',
+    name: SharedDomainStrings.domainString149,
+    serializeName: SharedDomainStrings.domainString149,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).effectiveUnits,
     getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldUnits.value,
     setValue: (final DataInterface instance, dynamic value) {
@@ -321,8 +323,8 @@ class Investment extends DataObject {
 
   /// 12   Withholding     money   0                    0
   FieldMoney fieldWithholding = FieldMoney(
-    name: 'Withholding',
-    serializeName: 'Withholding',
+    name: SharedDomainStrings.domainString153,
+    serializeName: SharedDomainStrings.domainString153,
     getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldWithholding.value,
     getValueForSerialization: (final DataInterface instance) =>
         (instance as Investment).fieldWithholding.value.asDouble(),
@@ -563,7 +565,7 @@ class Investment extends DataObject {
   }
 
   /// Returns the security symbol for this investment.
-  String get symbol => data?.getSecuritySymbolFromId(fieldSecurity.value) ?? 'Unknown';
+  String get symbol => data?.getSecuritySymbolFromId(fieldSecurity.value) ?? SharedDomainStrings.domainString150;
 
   /// Returns the holding value based on current holding shares and adjusted unit price.
   double get transactionHoldingValue => this.fieldHoldingShares.value * this.unitPriceAdjusted;

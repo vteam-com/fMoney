@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/widgets/pickers/picker_edit_box.dart';
 
 export 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ Widget pickerSecurityType({
   final List<String> options = enumToStringList(SecurityType.values);
 
   return PickerEditBox(
-    title: 'Type',
+    title: SharedStrings.fieldType,
     items: options,
     initialValue: itemSelected.name,
     onChanged: (String newSelection) {

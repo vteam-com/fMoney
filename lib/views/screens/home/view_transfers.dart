@@ -35,17 +35,17 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Transfers';
+    return AppL10n.tr(AppTranslationKeys.transfers);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Transfer';
+    return AppL10n.tr(AppTranslationKeys.transfer);
   }
 
   @override
   String getDescription() {
-    return 'Transfers between accounts.';
+    return AppL10n.tr(AppTranslationKeys.transfersBetweenAccountsDescription);
   }
 
   @override

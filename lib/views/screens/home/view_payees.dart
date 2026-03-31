@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/pair_xyz.dart';
 import 'package:money/helpers/transaction_types.dart';
@@ -62,7 +64,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
           buildJumpToButton(context, <MenuEntry>[
             MenuEntry(
               icon: ViewId.viewTransactions.getIconData(),
-              title: 'Switch to Transactions',
+              title: AppL10n.tr(AppTranslationKeys.switchToTransactions),
               onPressed: () {
                 final Payee? payee = getFirstSelectedItem() as Payee?;
                 if (payee != null) {
@@ -80,17 +82,17 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
   @override
   String getClassNamePlural() {
-    return 'Payees';
+    return AppL10n.tr(AppTranslationKeys.payees);
   }
 
   @override
   String getClassNameSingular() {
-    return 'Payee';
+    return AppL10n.tr(AppTranslationKeys.payee);
   }
 
   @override
   String getDescription() {
-    return 'Who is getting your money.';
+    return AppL10n.tr(AppTranslationKeys.whoIsGettingYourMoney);
   }
 
   @override

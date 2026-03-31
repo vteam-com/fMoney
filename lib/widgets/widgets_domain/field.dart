@@ -9,6 +9,7 @@ import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/pure/scale_down.dart';
@@ -342,7 +343,7 @@ class FieldPercentage extends Field<double> {
 class FieldId extends Field<int> {
   FieldId({super.getValueForDisplay, super.getValueForSerialization})
     : super(
-        serializeName: 'Id',
+        serializeName: SharedStrings.fieldId,
         useAsDetailPanels: defaultCallbackValueFalse,
         defaultValue: -1,
         columnWidth: ColumnWidth.hidden,
@@ -445,7 +446,7 @@ class FieldString extends Field<String> {
 class Fields<T> {
   /// Constructor
   Fields() {
-    assert(T != dynamic, 'Type T cannot be dynamic');
+    assert(T != dynamic, SharedStrings.errorTypeTCannotBeDynamic);
   }
 
   final FieldDefinitions definitions = <Field<dynamic>>[];
@@ -789,7 +790,7 @@ Widget buildFieldWidgetForAmount({
             ),
       textAlign: align,
       style: TextStyle(
-        fontFamily: 'RobotoMono',
+        fontFamily: SharedStrings.fontRobotoMono,
         color: AppRouter.context == null
             ? null
             : Theme.of(AppRouter.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
@@ -809,7 +810,7 @@ Widget buildFieldWidgetForDate({
     textAlign: align,
     overflow: TextOverflow.ellipsis, // Clip with ellipsis
     maxLines: 1, // Restrict to single line,
-    style: const TextStyle(fontFamily: 'RobotoMono'),
+    style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
   );
 }
 
@@ -825,7 +826,7 @@ Widget buildFieldWidgetForNumber({
           ? (value is double ? getAmountAsShorthandText(value) : getNumberShorthandText(value))
           : value.toString(),
       textAlign: align,
-      style: const TextStyle(fontFamily: 'RobotoMono'),
+      style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
     ),
     textAlignToAlignment(align),
   );
@@ -842,7 +843,7 @@ Widget buildFieldWidgetForPercentage({final double value = 0}) {
         child: Text(
           (value * _percentValueScale).toStringAsFixed(_percentDecimalPlaces),
           textAlign: TextAlign.right,
-          style: const TextStyle(fontFamily: 'RobotoMono'),
+          style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
         ),
       ),
       const Opacity(
@@ -864,7 +865,9 @@ Widget buildFieldWidgetForText({
     textAlign: align,
     overflow: TextOverflow.ellipsis, // Clip with ellipsis
     maxLines: 1, // Restrict to single line,
-    style: TextStyle(fontFamily: fixedFont ? 'RobotoMono' : 'RobotoFlex'),
+    style: TextStyle(
+      fontFamily: fixedFont ? SharedStrings.fontRobotoMono : SharedStrings.fontRobotoFlex,
+    ),
   );
 }
 

@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:money/data/view_ai_chat_types.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/shared_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,7 +33,10 @@ class OllamaService {
   /// Returns true if the `ollama` executable is available on the system.
   static Future<bool> checkIfOllamaInstalled() async {
     try {
-      final ProcessResult installResult = await Process.run('which', <String>['ollama']);
+      final ProcessResult installResult = await Process.run(
+        SharedStrings.processWhich,
+        <String>[SharedStrings.executableOllama],
+      );
       return installResult.exitCode == _exitCodeSuccess;
     } catch (e) {
       debugPrint('Ollama check error: $e');
@@ -85,8 +89,8 @@ class OllamaService {
 
       if (Platform.isMacOS) {
         await Process.start(
-          'ollama',
-          <String>['run', selectedModel],
+          SharedStrings.executableOllama,
+          <String>[SharedStrings.ollamaArgRun, selectedModel],
           mode: ProcessStartMode.detached,
           environment: Platform.environment,
         );
@@ -94,15 +98,21 @@ class OllamaService {
         debugPrint('Launching Ollama silently on macOS...');
       } else if (Platform.isWindows) {
         await Process.start(
-          'cmd',
-          <String>['/c', 'start', '/min', 'ollama', 'serve'],
+          SharedStrings.processCmd,
+          <String>[
+            '/c',
+            SharedStrings.processStart,
+            '/min',
+            SharedStrings.executableOllama,
+            SharedStrings.ollamaArgServe,
+          ],
           mode: ProcessStartMode.detached,
         );
         debugPrint('Launching Ollama silently on Windows...');
       } else if (Platform.isLinux) {
         await Process.start(
-          'ollama',
-          <String>['serve'],
+          SharedStrings.executableOllama,
+          <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
         );
         debugPrint('Launching Ollama silently on Linux...');
@@ -238,19 +248,19 @@ class OllamaService {
     request.headers.contentType = ContentType.json;
 
     // Convert messages format if needed for /api/generate
-    if (endpoint == 'generate' && payload.containsKey('messages')) {
-      final List<Map<String, String>> messages = payload['messages'] as List<Map<String, String>>;
+    if (endpoint == 'generate' && payload.containsKey(SharedStrings.payloadKeyMessages)) {
+      final List<Map<String, String>> messages = payload[SharedStrings.payloadKeyMessages] as List<Map<String, String>>;
       // Combine messages into a single prompt for /api/generate
       final StringBuffer prompt = StringBuffer();
       for (final Map<String, String> message in messages) {
         final String role = message['role'] ?? '';
         final String content = message['content'] ?? '';
         if (role == 'system') {
-          prompt.write('System: $content\n\n');
+          prompt.write(SharedStrings.promptPrefixSystem + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
         } else if (role == 'user') {
-          prompt.write('User: $content\n\n');
+          prompt.write(SharedStrings.promptPrefixUser + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
         } else if (role == 'assistant') {
-          prompt.write('Assistant: $content\n\n');
+          prompt.write(SharedStrings.promptPrefixAssistant + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
         }
       }
 
@@ -262,8 +272,8 @@ class OllamaService {
       };
 
       // Add context if present
-      if (payload.containsKey('context')) {
-        generatePayload['context'] = payload['context'];
+      if (payload.containsKey(SharedStrings.payloadKeyContext)) {
+        generatePayload[SharedStrings.payloadKeyContext] = payload[SharedStrings.payloadKeyContext];
       }
 
       final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
