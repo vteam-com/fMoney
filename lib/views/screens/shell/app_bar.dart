@@ -22,8 +22,6 @@ const double _opacityEnabled = 1.0;
 const double _opacityDisabled = 0.5;
 const double _colorPaletteHeight = 300.0;
 const double _appBarHeight = 64.0;
-const double _themeItemVerticalPadding = 4.0;
-const double _themeItemRadius = 4.0;
 const double _inventoryIconSize = 18.0;
 const int _debugMenuValue = -1;
 
@@ -182,7 +180,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Icons.info_outline,
         key: const Key('key_about'),
       ),
-      ..._buildThemeColorMenuItems(themeController),
+      ...themeController.buildThemeColorMenuItems(context),
       PopupMenuItem<int>(
         value: Constants.commandTextZoom,
         child: ZoomIncreaseDecrease(
@@ -235,36 +233,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         small: true,
       ),
     );
-  }
-
-  /// Builds menu items for selecting the current theme color.
-  List<PopupMenuItem<int>> _buildThemeColorMenuItems(
-    ThemeController themeController,
-  ) {
-    return List<PopupMenuItem<int>>.generate(Themes.themeAsColors.length, (int index) {
-      final bool isSelected = index == themeController.colorSelected;
-      final String themeColorName = Themes.themeColorNames[index];
-
-      return PopupMenuItem<int>(
-        value: index,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: _themeItemVerticalPadding),
-          decoration: BoxDecoration(
-            color: isSelected ? getColorTheme(AppRouter.context!).secondaryContainer : null,
-            borderRadius: const BorderRadius.all(Radius.circular(_themeItemRadius)),
-          ),
-          child: ThreePartLabel(
-            key: Key('key_theme_$themeColorName'),
-            icon: Icon(
-              isSelected ? Icons.color_lens : Icons.color_lens_outlined,
-              color: Themes.themeAsColors[index],
-            ),
-            text1: themeColorName,
-            small: true,
-          ),
-        ),
-      );
-    });
   }
 
   /// Builds an icon button that toggles inclusion of closed accounts.

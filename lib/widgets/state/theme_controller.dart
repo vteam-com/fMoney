@@ -1,4 +1,3 @@
-// ignore: fcheck_one_class_per_file
 // ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n.dart';
@@ -11,7 +10,8 @@ import 'package:money/widgets/pure/theme_custom.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
 /// Represents themes.
-class Themes {
+class _Themes {
+  /// Available primary seed colors for the application theme.
   static final List<Color> themeAsColors = <Color>[
     Colors.deepPurple,
     Colors.blue,
@@ -20,16 +20,6 @@ class Themes {
     Colors.yellow,
     Colors.orange,
     Colors.pink,
-  ];
-
-  static final List<String> themeColorNames = <String>[
-    AppL10n.tr(AppTranslationKeys.themeColorPurple),
-    AppL10n.tr(AppTranslationKeys.themeColorBlue),
-    AppL10n.tr(AppTranslationKeys.themeColorTeal),
-    AppL10n.tr(AppTranslationKeys.themeColorGreen),
-    AppL10n.tr(AppTranslationKeys.themeColorYellow),
-    AppL10n.tr(AppTranslationKeys.themeColorOrange),
-    AppL10n.tr(AppTranslationKeys.themeColorPink),
   ];
 }
 
@@ -40,6 +30,9 @@ const double _fontScalePercentDivisor = 100.0;
 const int _fontScaleMinPercent = 40;
 const int _fontScaleMaxPercent = 400;
 const double _appWindowHeight = 900.0;
+const double _themeItemVerticalPadding = 4.0;
+const double _themeItemRadius = 4.0;
+const double _themeItemIconSpacing = 8.0;
 
 /// Controller for managing app theme settings including:
 /// - Light/dark mode switching
@@ -136,9 +129,9 @@ class ThemeController extends ChangeNotifier {
   /// Returns the current theme data (light or dark) based on the mode.
   ThemeData get themeData => isDarkTheme ? themeDataDark : themeDataLight;
 
-  /// Ensures [colorSelected] points to a valid index in [Themes.themeAsColors].
+  /// Ensures [colorSelected] points to a valid index in [_Themes.themeAsColors].
   void _ensureValidColorSelection() {
-    if (!isIndexInRange(Themes.themeAsColors, colorSelected)) {
+    if (!isIndexInRange(_Themes.themeAsColors, colorSelected)) {
       colorSelected = _defaultThemeIndex;
     }
   }
@@ -150,12 +143,53 @@ class ThemeController extends ChangeNotifier {
   }) {
     _ensureValidColorSelection();
     return ThemeData(
-      colorSchemeSeed: Themes.themeAsColors[colorSelected],
+      colorSchemeSeed: _Themes.themeAsColors[colorSelected],
       brightness: brightness,
       extensions: <ThemeExtension<dynamic>>[
         moneyThemeData,
       ],
     );
+  }
+
+  /// Returns localized display names for each available theme color.
+  List<String> get themeColorNames => <String>[
+    AppL10n.tr(AppTranslationKeys.themeColorPurple),
+    AppL10n.tr(AppTranslationKeys.themeColorBlue),
+    AppL10n.tr(AppTranslationKeys.themeColorTeal),
+    AppL10n.tr(AppTranslationKeys.themeColorGreen),
+    AppL10n.tr(AppTranslationKeys.themeColorYellow),
+    AppL10n.tr(AppTranslationKeys.themeColorOrange),
+    AppL10n.tr(AppTranslationKeys.themeColorPink),
+  ];
+
+  /// Builds popup menu items for selecting the current theme color.
+  List<PopupMenuItem<int>> buildThemeColorMenuItems(final BuildContext context) {
+    return List<PopupMenuItem<int>>.generate(_Themes.themeAsColors.length, (final int index) {
+      final bool isSelected = index == colorSelected;
+      final String themeColorName = themeColorNames[index];
+
+      return PopupMenuItem<int>(
+        value: index,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: _themeItemVerticalPadding),
+          decoration: BoxDecoration(
+            color: isSelected ? Theme.of(context).colorScheme.secondaryContainer : null,
+            borderRadius: const BorderRadius.all(Radius.circular(_themeItemRadius)),
+          ),
+          child: Row(
+            key: Key('key_theme_$themeColorName'),
+            children: <Widget>[
+              Icon(
+                isSelected ? Icons.color_lens : Icons.color_lens_outlined,
+                color: _Themes.themeAsColors[index],
+              ),
+              const SizedBox(width: _themeItemIconSpacing),
+              Text(themeColorName),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   /// Builds color-role values for [MoneyThemeData] based on [brightness].

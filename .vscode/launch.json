@@ -32,6 +32,16 @@
                 "-d",
                 "chrome"
             ]
+        },
+        {
+            "name": "macOS (debug)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "macos"
+            ]
         }
     ]
 }
