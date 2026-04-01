@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/shared/domain/accounts.dart';
 
 void main() {
   group('getLinesFromTextBlob', () {
@@ -119,27 +120,31 @@ void main() {
       expect(convertFromRawCsvTextToListOfJSonObject(input), expected);
     });
 
-    test('handles exceptions during parsing', () {
+    test('handles rows with fewer fields than headers', () {
       const String input = 'name,age\nJohn,30\nInvalid';
+      final List<Map<String, dynamic>> expected = <Map<String, dynamic>>[
+        <String, dynamic>{'name': 'John', 'age': '30'},
+        <String, dynamic>{'name': 'Invalid', 'age': ''},
+      ];
+      expect(convertFromRawCsvTextToListOfJSonObject(input), expected);
+    });
 
-      // Call the function that throws an exception and catch the exception
-      dynamic caughtException;
-      try {
-        convertFromRawCsvTextToListOfJSonObject(input);
-      } catch (e) {
-        caughtException = e;
-      }
+    test('removes UTF-8 BOM from the first header', () {
+      const String input = '\uFEFFname,age\nJohn,30';
+      final List<Map<String, dynamic>> expected = <Map<String, dynamic>>[
+        <String, dynamic>{'name': 'John', 'age': '30'},
+      ];
+      expect(convertFromRawCsvTextToListOfJSonObject(input), expected);
+    });
+  });
 
-      // Verify that the exception was caught
-      expect(caughtException, isNotNull);
+  group('csvSerialization', () {
+    test('escapes quotes in exported values', () {
+      final Accounts accounts = Accounts();
+      accounts.addNewAccount('Checking "Main"');
 
-      // Verify the exception message
-      expect(
-        caughtException.toString(),
-        contains(
-          'RangeError (length): Invalid value: Only valid value is 0: 1',
-        ),
-      );
+      final String csv = accounts.toCSV();
+      expect(csv.contains('Checking ""Main""'), isTrue);
     });
   });
 }

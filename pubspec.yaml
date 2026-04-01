@@ -36,7 +36,7 @@ environment:
 dependencies:
   archive: ^4.0.9
   collection: ^1.19.1
-  csv: ^6.0.0
+  csv: ^8.0.0
   cupertino_icons: ^1.0.9
   desktop_drop: ^0.7.0
   dotted_border: ^3.1.0

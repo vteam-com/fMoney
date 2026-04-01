@@ -249,14 +249,44 @@ List<MyJson> convertFromRawCsvTextToListOfJSonObject(String fileContent) {
     fileContent,
   );
   if (lines.length > 1) {
-    final List<String> csvHeaderColumns = lines.first;
+    final List<String> csvHeaderColumns = lines.first
+        .map((String header) => removeUtf8Bom(header))
+        .toList(growable: false);
     for (final List<String> csvRowValues in lines.skip(1)) {
+      if (_isEmptyCsvRow(csvRowValues)) {
+        continue;
+      }
+      final List<String> normalizedCsvRowValues = _normalizeCsvRowValues(
+        csvRowValues,
+        csvHeaderColumns.length,
+      );
       final MyJson rowValues = myJsonFromKeyValuePairs(
         csvHeaderColumns,
-        csvRowValues,
+        normalizedCsvRowValues,
       );
       rows.add(rowValues);
     }
   }
   return rows;
+}
+
+/// Returns true when every cell in [row] is empty or whitespace.
+bool _isEmptyCsvRow(final List<String> row) {
+  return row.every((String value) => value.trim().isEmpty);
+}
+
+/// Normalizes [row] so it matches [expectedColumnCount] by trimming extras and padding missing values.
+List<String> _normalizeCsvRowValues(
+  final List<String> row,
+  final int expectedColumnCount,
+) {
+  final List<String> normalizedValues = List<String>.filled(
+    expectedColumnCount,
+    '',
+  );
+  final int sharedColumnCount = row.length < expectedColumnCount ? row.length : expectedColumnCount;
+  for (int i = 0; i < sharedColumnCount; i++) {
+    normalizedValues[i] = row[i];
+  }
+  return normalizedValues;
 }

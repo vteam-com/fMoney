@@ -288,9 +288,15 @@ class MoneyObjects<T> {
           final dynamic value = field.getValueForSerialization == defaultCallbackValue || !forSerialization
               ? item.toReadableString(field)
               : field.getValueForSerialization(item);
-          return '"$value"';
+          return '"${_escapeCsvValue(value)}"';
         })
         .join(valueSeparator);
+  }
+
+  /// Escapes a single CSV field value by doubling embedded quote characters.
+  static String _escapeCsvValue(final Object? value) {
+    final String text = value?.toString() ?? SharedStrings.empty;
+    return text.replaceAll('"', '""');
   }
 
   /// Builds UI widgets describing what fields changed for the given objects.
