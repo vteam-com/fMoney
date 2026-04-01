@@ -146,37 +146,41 @@ jobs:
           echo "name=Release ${TIMESTAMP}" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          name: ${{ steps.tag.outputs.name }}
-          body: |
-            ## fMoney Desktop Apps - ${{ steps.tag.outputs.name }}
-
-            ### Downloads
-            - **Windows**: mymoney-app-windows.zip
-            - **Linux**: mymoney-app-linux.tar.gz  
-            - **macOS**: mymoney-app-macos.zip
-
-            ### Installation
-            1. Download the appropriate file for your platform
-            2. Extract the archive
-            3. Run the executable
-
-            ### Requirements
-            - Windows 10+ (64-bit)
-            - Linux with GTK3 support
-            - macOS 10.14+ (Intel & Silicon)
-
-            Built from commit: ${{ github.sha }}
-          files: |
-            ./artifacts/mymoney-app-windows/mymoney-app-windows.zip
-            ./artifacts/mymoney-app-linux/mymoney-app-linux.tar.gz
-            ./artifacts/mymoney-app-macos/mymoney-app-macos.zip
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ steps.tag.outputs.tag }}
+          RELEASE_NAME: ${{ steps.tag.outputs.name }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          # Create release notes
+          cat > /tmp/release_notes.md << 'EOF'
+          ## fMoney Desktop Apps - ${RELEASE_NAME}
+
+          ### Downloads
+          - **Windows**: mymoney-app-windows.zip
+          - **Linux**: mymoney-app-linux.tar.gz  
+          - **macOS**: mymoney-app-macos.zip
+
+          ### Installation
+          1. Download the appropriate file for your platform
+          2. Extract the archive
+          3. Run the executable
+
+          ### Requirements
+          - Windows 10+ (64-bit)
+          - Linux with GTK3 support
+          - macOS 10.14+ (Intel & Silicon)
+
+          Built from commit: ${COMMIT_SHA}
+          EOF
+
+          # Create the release with artifacts
+          gh release create "${TAG_NAME}" \
+            --title "${RELEASE_NAME}" \
+            --notes-file /tmp/release_notes.md \
+            ./artifacts/mymoney-app-windows/mymoney-app-windows.zip \
+            ./artifacts/mymoney-app-linux/mymoney-app-linux.tar.gz \
+            ./artifacts/mymoney-app-macos/mymoney-app-macos.zip
 
   cleanup-old-releases:
     name: Cleanup Old Releases
