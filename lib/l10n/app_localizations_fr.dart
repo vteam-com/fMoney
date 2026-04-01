@@ -95,9 +95,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get analyzeSpending => 'Analyser les depenses';
 
   @override
-  String get approveCategory => 'Approuver la categorie';
-
-  @override
   String get appCopyright => '© 2024 fMoney Team. Tous droits reserves.';
 
   @override
@@ -115,6 +112,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get appName => 'fMoney';
+
+  @override
+  String get approveCategory => 'Approuver la categorie';
 
   @override
   String get appTitle => 'fMoney par VTeam';
@@ -1046,6 +1046,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get shortcutRebalance => 'Ctrl+R';
 
   @override
+  String get shortcutZoomDecrease => 'Commande/Ctrl -';
+
+  @override
+  String get shortcutZoomIncrease => 'Commande/Ctrl +';
+
+  @override
+  String get shortcutZoomReset => 'Commande/Ctrl 0';
+
+  @override
   String get showClosedAccounts => 'Afficher les comptes fermes';
 
   @override
@@ -1057,6 +1066,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount) {
     return 'Affichage de $rowCount lignes eligibles (lignes < 3 colonnes exclues)';
   }
+
+  @override
+  String get sidePanelExpandCollapseTooltip => 'Developper/reduire le panneau';
 
   @override
   String get skippingDuplicate => ' Doublon ignore ';

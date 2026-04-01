@@ -1,0 +1,848 @@
+import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/l10n/app_localizations.dart';
+
+/// Resolves translation [key] values for [AppL10n] in staged batches.
+String resolveAppL10nKey(
+  final AppLocalizations l10n,
+  final String key,
+  final Map<String, String> p,
+) {
+  switch (key) {
+    case AppTranslationKeys.accountNames:
+      return l10n.accountNames;
+    case AppTranslationKeys.add:
+      return l10n.add;
+    case AppTranslationKeys.addNewTransactions:
+      return l10n.addNewTransactions;
+    case AppTranslationKeys.addTransactionsMenuItem:
+      return l10n.addTransactionsMenuItem;
+    case AppTranslationKeys.about:
+      return l10n.about;
+    case AppTranslationKeys.addInvestmentTransaction:
+      return l10n.addInvestmentTransaction;
+    case AppTranslationKeys.aboutMenuItem:
+      return l10n.aboutMenuItem;
+    case AppTranslationKeys.appDescription:
+      return l10n.appDescription;
+    case AppTranslationKeys.appLongDescription:
+      return l10n.appLongDescription;
+    case AppTranslationKeys.appName:
+      return l10n.appName;
+    case AppTranslationKeys.amountIsMatching:
+      return l10n.amountIsMatching;
+    case AppTranslationKeys.amountIsOffBy:
+      return l10n.amountIsOffBy;
+    case AppTranslationKeys.analyzeSpending:
+      return l10n.analyzeSpending;
+    case AppTranslationKeys.approveCategory:
+      return l10n.approveCategory;
+    case AppTranslationKeys.append:
+      return l10n.append;
+    case AppTranslationKeys.apply:
+      return l10n.apply;
+    case AppTranslationKeys.availableOn:
+      return l10n.availableOn;
+    case AppTranslationKeys.avgLabel:
+      return l10n.avgLabel;
+    case AppTranslationKeys.badDateFormat:
+      return l10n.badDateFormat;
+    case AppTranslationKeys.bankaccounts:
+      return l10n.bankaccounts;
+    case AppTranslationKeys.budgetAccuracyActualZero:
+      return l10n.budgetAccuracyActualZero;
+    case AppTranslationKeys.budgetAccuracyBothZero:
+      return l10n.budgetAccuracyBothZero;
+    case AppTranslationKeys.budgetAccuracyPercent:
+      return l10n.budgetAccuracyPercent(p['value'] ?? '');
+    case AppTranslationKeys.budgetVariancePercent:
+      return l10n.budgetVariancePercent(p['value'] ?? '');
+    case AppTranslationKeys.budgetVarianceUndefined:
+      return l10n.budgetVarianceUndefined;
+    case AppTranslationKeys.budget:
+      return l10n.budget;
+    case AppTranslationKeys.cancel:
+      return l10n.cancel;
+    case AppTranslationKeys.cashFlow:
+      return l10n.cashFlow;
+    case AppTranslationKeys.chart:
+      return l10n.chart;
+    case AppTranslationKeys.checkingOllamaStatus:
+      return l10n.checkingOllamaStatus;
+    case AppTranslationKeys.chooseAnOptionToGetStarted:
+      return l10n.chooseAnOptionToGetStarted;
+    case AppTranslationKeys.chooseColumns:
+      return l10n.chooseColumns;
+    case AppTranslationKeys.clearFilters:
+      return l10n.clearFilters;
+    case AppTranslationKeys.close:
+      return l10n.close;
+    case AppTranslationKeys.closeFile:
+      return l10n.closeFile;
+    case AppTranslationKeys.confirm:
+      return l10n.confirm;
+    case AppTranslationKeys.content:
+      return l10n.content;
+    case AppTranslationKeys.contentGoesHere:
+      return l10n.contentGoesHere;
+    case AppTranslationKeys.continueLabel:
+      return l10n.continueLabel;
+    case AppTranslationKeys.copyListToClipboard:
+      return l10n.copyListToClipboard;
+    case AppTranslationKeys.copiedToClipboard:
+      return l10n.copiedToClipboard;
+    case AppTranslationKeys.countSelected:
+      return l10n.countSelected(p['count'] ?? '');
+    case AppTranslationKeys.countYears:
+      return l10n.countYears(p['count'] ?? '');
+    case AppTranslationKeys.day:
+      return l10n.day;
+    case AppTranslationKeys.credit:
+      return l10n.credit;
+    case AppTranslationKeys.csvFileEmpty:
+      return l10n.csvFileEmpty;
+    case AppTranslationKeys.csvHeadersAreMissingOrEmpty:
+      return l10n.csvHeadersAreMissingOrEmpty;
+    case AppTranslationKeys.csvImportCancelled:
+      return l10n.csvImportCancelled;
+    case AppTranslationKeys.dataPreviewFirst5Rows:
+      return l10n.dataPreviewFirst5Rows;
+    case AppTranslationKeys.debit:
+      return l10n.debit;
+    case AppTranslationKeys.details:
+      return l10n.details;
+    case AppTranslationKeys.deleteSelectedItems:
+      return l10n.deleteSelectedItems;
+    case AppTranslationKeys.dropFilesHere:
+      return l10n.dropFilesHere;
+    case AppTranslationKeys.editedElapsed:
+      return l10n.editedElapsed(p['elapsed'] ?? '');
+    case AppTranslationKeys.elapsedElapsed:
+      return l10n.elapsedElapsed(p['elapsed'] ?? '');
+    case AppTranslationKeys.edit:
+      return l10n.edit;
+    case AppTranslationKeys.editSelectedItems:
+      return l10n.editSelectedItems;
+    case AppTranslationKeys.error:
+      return l10n.error;
+    case AppTranslationKeys.errorImportingCsvError:
+      return l10n.errorImportingCsvError(p['error'] ?? '');
+    case AppTranslationKeys.errorImportingXlsxError:
+      return l10n.errorImportingXlsxError(p['error'] ?? '');
+    case AppTranslationKeys.expensePredictions:
+      return l10n.expensePredictions;
+    case AppTranslationKeys.fileLocationMenuItem:
+      return l10n.fileLocationMenuItem;
+    case AppTranslationKeys.fileLocationNotSupportedOnMobile:
+      return l10n.fileLocationNotSupportedOnMobile;
+    case AppTranslationKeys.fileMenuTooltip:
+      return l10n.fileMenuTooltip;
+    case AppTranslationKeys.forAccessingTwelveData:
+      return l10n.forAccessingTwelveData;
+    case AppTranslationKeys.forSpacer:
+      return l10n.forSpacer;
+    case AppTranslationKeys.freeStyle:
+      return l10n.freeStyle;
+    case AppTranslationKeys.fromCategory:
+      return l10n.fromCategory;
+    case AppTranslationKeys.fromPayee:
+      return l10n.fromPayee;
+    case AppTranslationKeys.fullPromptSentToAi:
+      return l10n.fullPromptSentToAi;
+    case AppTranslationKeys.helperForDebugging:
+      return l10n.helperForDebugging;
+    case AppTranslationKeys.hideClosedAccounts:
+      return l10n.hideClosedAccounts;
+    case AppTranslationKeys.idLabel:
+      return l10n.idLabel;
+    case AppTranslationKeys.info:
+      return l10n.info;
+    case AppTranslationKeys.importTransactionToAccount:
+      return l10n.importTransactionToAccount;
+    case AppTranslationKeys.includeAssetAccounts:
+      return l10n.includeAssetAccounts;
+    case AppTranslationKeys.installAppMenuItem:
+      return l10n.installAppMenuItem;
+    case AppTranslationKeys.installOllamaNow:
+      return l10n.installOllamaNow;
+    case AppTranslationKeys.keepAllTransactionsToTheirCurrentCategories:
+      return l10n.keepAllTransactionsToTheirCurrentCategories;
+    case AppTranslationKeys.language:
+      return l10n.language;
+    case AppTranslationKeys.languageEnglish:
+      return l10n.languageEnglish;
+    case AppTranslationKeys.languageFrench:
+      return l10n.languageFrench;
+    case AppTranslationKeys.languageSpanish:
+      return l10n.languageSpanish;
+    case AppTranslationKeys.navCashflow:
+      return l10n.navCashflow;
+    case AppTranslationKeys.navCashflowTooltip:
+      return l10n.navCashflowTooltip;
+    case AppTranslationKeys.navEvents:
+      return l10n.navEvents;
+    case AppTranslationKeys.navEventsTooltip:
+      return l10n.navEventsTooltip;
+    case AppTranslationKeys.navAccounts:
+      return l10n.navAccounts;
+    case AppTranslationKeys.navAccountsTooltip:
+      return l10n.navAccountsTooltip;
+    case AppTranslationKeys.navCategories:
+      return l10n.navCategories;
+    case AppTranslationKeys.navCategoriesTooltip:
+      return l10n.navCategoriesTooltip;
+    case AppTranslationKeys.navPayees:
+      return l10n.navPayees;
+    case AppTranslationKeys.navPayeesTooltip:
+      return l10n.navPayeesTooltip;
+    case AppTranslationKeys.navAliases:
+      return l10n.navAliases;
+    case AppTranslationKeys.navAliasesTooltip:
+      return l10n.navAliasesTooltip;
+    case AppTranslationKeys.navTransactions:
+      return l10n.navTransactions;
+    case AppTranslationKeys.navTransactionsTooltip:
+      return l10n.navTransactionsTooltip;
+    case AppTranslationKeys.navTransfers:
+      return l10n.navTransfers;
+    case AppTranslationKeys.navTransfersTooltip:
+      return l10n.navTransfersTooltip;
+    case AppTranslationKeys.navInvestments:
+      return l10n.navInvestments;
+    default:
+      return _resolveAppL10nKeyStageTwo(l10n, key, p);
+  }
+}
+
+/// Resolves the second batch of translation keys for [AppL10n].
+String _resolveAppL10nKeyStageTwo(
+  final AppLocalizations l10n,
+  final String key,
+  final Map<String, String> p,
+) {
+  switch (key) {
+    case AppTranslationKeys.navInvestmentsTooltip:
+      return l10n.navInvestmentsTooltip;
+    case AppTranslationKeys.navStocks:
+      return l10n.navStocks;
+    case AppTranslationKeys.navStocksTooltip:
+      return l10n.navStocksTooltip;
+    case AppTranslationKeys.navRentals:
+      return l10n.navRentals;
+    case AppTranslationKeys.navRentalsTooltip:
+      return l10n.navRentalsTooltip;
+    case AppTranslationKeys.navAiAssistantTooltip:
+      return l10n.navAiAssistantTooltip;
+    case AppTranslationKeys.navShowLabel:
+      return l10n.navShowLabel(p['label'] ?? '');
+    case AppTranslationKeys.largestTransactions:
+      return l10n.largestTransactions;
+    case AppTranslationKeys.licenses:
+      return l10n.licenses;
+    case AppTranslationKeys.licensesDescription:
+      return l10n.licensesDescription;
+    case AppTranslationKeys.list:
+      return l10n.list;
+    case AppTranslationKeys.manageTheExpensesAndRentalIncomeOfProperties:
+      return l10n.manageTheExpensesAndRentalIncomeOfProperties;
+    case AppTranslationKeys.maxLabel:
+      return l10n.maxLabel;
+    case AppTranslationKeys.merge:
+      return l10n.merge;
+    case AppTranslationKeys.mergeItems:
+      return l10n.mergeItems;
+    case AppTranslationKeys.mergeTransactionsCount:
+      return l10n.mergeTransactionsCount(p['count'] ?? '');
+    case AppTranslationKeys.mergeTransactionsIntoCategory:
+      return l10n.mergeTransactionsIntoCategory(p['from'] ?? '', p['to'] ?? '');
+    case AppTranslationKeys.multipleSelectionCount:
+      return l10n.multipleSelectionCount(p['count'] ?? '');
+    case AppTranslationKeys.mutationAdded:
+      return l10n.mutationAdded;
+    case AppTranslationKeys.mutationDeleted:
+      return l10n.mutationDeleted;
+    case AppTranslationKeys.mutationModified:
+      return l10n.mutationModified;
+    case AppTranslationKeys.messageDetails:
+      return l10n.messageDetails;
+    case AppTranslationKeys.minLabel:
+      return l10n.minLabel;
+    case AppTranslationKeys.missingTransfer:
+      return l10n.missingTransfer;
+    case AppTranslationKeys.monthlyActual:
+      return l10n.monthlyActual;
+    case AppTranslationKeys.monthlyBudgeted:
+      return l10n.monthlyBudgeted;
+    case AppTranslationKeys.month:
+      return l10n.month;
+    case AppTranslationKeys.networth:
+      return l10n.networth;
+    case AppTranslationKeys.newFile:
+      return l10n.newFile;
+    case AppTranslationKeys.newMenuItem:
+      return l10n.newMenuItem;
+    case AppTranslationKeys.noAccountSelectedPeriod:
+      return l10n.noAccountSelectedPeriod;
+    case AppTranslationKeys.noAccountSelected:
+      return l10n.noAccountSelected;
+    case AppTranslationKeys.noDataRowsToPreview:
+      return l10n.noDataRowsToPreview;
+    case AppTranslationKeys.noDataPoints:
+      return l10n.noDataPoints;
+    case AppTranslationKeys.noData:
+      return l10n.noData;
+    case AppTranslationKeys.noDataToDisplay:
+      return l10n.noDataToDisplay;
+    case AppTranslationKeys.noDateRangeYet:
+      return l10n.noDateRangeYet;
+    case AppTranslationKeys.noFieldsFoundForItem:
+      return l10n.noFieldsFoundForItem(p['item'] ?? '');
+    case AppTranslationKeys.noHistoryInformationAboutSymbol:
+      return l10n.noHistoryInformationAboutSymbol(p['symbol'] ?? '');
+    case AppTranslationKeys.noNeedToMergeCategoryToItself:
+      return l10n.noNeedToMergeCategoryToItself;
+    case AppTranslationKeys.noItemsToDelete:
+      return l10n.noItemsToDelete;
+    case AppTranslationKeys.noItemsWereTitle:
+      return l10n.noItemsWereTitle(p['title'] ?? '');
+    case AppTranslationKeys.noItems:
+      return l10n.noItems;
+    case AppTranslationKeys.noItemSelected:
+      return l10n.noItemSelected;
+    case AppTranslationKeys.noPicker:
+      return l10n.noPicker;
+    case AppTranslationKeys.noRowsFoundWith3OrMoreColumns:
+      return l10n.noRowsFoundWith3OrMoreColumns;
+    case AppTranslationKeys.noSheetXmlFoundInXlsxFile:
+      return l10n.noSheetXmlFoundInXlsxFile;
+    case AppTranslationKeys.noStockSelected:
+      return l10n.noStockSelected;
+    case AppTranslationKeys.noSecuritySelected:
+      return l10n.noSecuritySelected;
+    case AppTranslationKeys.noTransactions:
+      return l10n.noTransactions;
+    case AppTranslationKeys.noTransactionsPeriod:
+      return l10n.noTransactionsPeriod;
+    case AppTranslationKeys.noRelatedTransactions:
+      return l10n.noRelatedTransactions;
+    case AppTranslationKeys.noUi:
+      return l10n.noUi;
+    case AppTranslationKeys.noValidEntriesFoundInCsvToImport:
+      return l10n.noValidEntriesFoundInCsvToImport;
+    case AppTranslationKeys.noValidEntriesFoundInXlsxToImport:
+      return l10n.noValidEntriesFoundInXlsxToImport;
+    case AppTranslationKeys.ocr:
+      return l10n.ocr;
+    case AppTranslationKeys.ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt:
+      return l10n.ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt;
+    case AppTranslationKeys.openFile:
+      return l10n.openFile;
+    case AppTranslationKeys.openMenuItem:
+      return l10n.openMenuItem;
+    case AppTranslationKeys.orChangeToCategory:
+      return l10n.orChangeToCategory;
+    case AppTranslationKeys.payee:
+      return l10n.payee;
+    case AppTranslationKeys.payeeMatch:
+      return l10n.payeeMatch;
+    case AppTranslationKeys.pleaseMapAllFieldsDateDescriptionAmount:
+      return l10n.pleaseMapAllFieldsDateDescriptionAmount;
+    case AppTranslationKeys.pleaseSelectDifferentAccounts:
+      return l10n.pleaseSelectDifferentAccounts;
+    case AppTranslationKeys.pnl:
+      return l10n.pnl;
+    case AppTranslationKeys.privacyPolicy:
+      return l10n.privacyPolicy;
+    case AppTranslationKeys.questionsQuestioncountTokensTokencount:
+      return l10n.questionsQuestioncountTokensTokencount(
+        p['questionCount'] ?? '',
+        p['tokenCount'] ?? '',
+      );
+    case AppTranslationKeys.recordATransferBetweenTwoAccounts:
+      return l10n.recordATransferBetweenTwoAccounts;
+    case AppTranslationKeys.rebalanceMenuItem:
+      return l10n.rebalanceMenuItem;
+    case AppTranslationKeys.recurring:
+      return l10n.recurring;
+    case AppTranslationKeys.refreshList:
+      return l10n.refreshList;
+    case AppTranslationKeys.range:
+      return l10n.range;
+    case AppTranslationKeys.rental:
+      return l10n.rental;
+    case AppTranslationKeys.rentalPropertyNotFound:
+      return l10n.rentalPropertyNotFound;
+    case AppTranslationKeys.rowIndex:
+      return l10n.rowIndex(p['index'] ?? '');
+    case AppTranslationKeys.sender:
+      return l10n.sender;
+    case AppTranslationKeys.begin:
+      return l10n.begin;
+    case AppTranslationKeys.end:
+      return l10n.end;
+    case AppTranslationKeys.memo:
+      return l10n.memo;
+    case AppTranslationKeys.runOllama:
+      return l10n.runOllama;
+    case AppTranslationKeys.saveToCsv:
+      return l10n.saveToCsv;
+    case AppTranslationKeys.saveToSql:
+      return l10n.saveToSql;
+    case AppTranslationKeys.sankey:
+      return l10n.sankey;
+    case AppTranslationKeys.sidePanelExpandCollapseTooltip:
+      return l10n.sidePanelExpandCollapseTooltip;
+    case AppTranslationKeys.selectARentalPropertyToSeeItsPL:
+      return l10n.selectARentalPropertyToSeeItsPL;
+    case AppTranslationKeys.selectCategory:
+      return l10n.selectCategory;
+    case AppTranslationKeys.selectColumn:
+      return l10n.selectColumn;
+    case AppTranslationKeys.selectHeaderRow:
+      return l10n.selectHeaderRow;
+    case AppTranslationKeys.selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent:
+      return l10n.selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent;
+    case AppTranslationKeys.setApiKey:
+      return l10n.setApiKey;
+    case AppTranslationKeys.securitySymbolInvalid:
+      return l10n.securitySymbolInvalid(p['symbol'] ?? '');
+    case AppTranslationKeys.settings:
+      return l10n.settings;
+    case AppTranslationKeys.settingsMenuItem:
+      return l10n.settingsMenuItem;
+    case AppTranslationKeys.showClosedAccounts:
+      return l10n.showClosedAccounts;
+    case AppTranslationKeys.policy:
+      return l10n.policy;
+    case AppTranslationKeys.filter:
+      return l10n.filter;
+    case AppTranslationKeys.showingFirstMaxrowsOfRowcountEligibleRows:
+      return l10n.showingFirstMaxrowsOfRowcountEligibleRows(
+        p['maxRows'] ?? '',
+        p['rowCount'] ?? '',
+      );
+    case AppTranslationKeys.showingRowcountEligibleRowsExcludedRowsWith3Columns:
+      return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(
+        p['rowCount'] ?? '',
+      );
+    case AppTranslationKeys.skippingDuplicate:
+      return l10n.skippingDuplicate;
+    case AppTranslationKeys.smallScreenContentGoesHere:
+      return l10n.smallScreenContentGoesHere;
+    case AppTranslationKeys.aiAssistant:
+      return l10n.aiAssistant;
+    default:
+      return _resolveAppL10nKeyStageThree(l10n, key, p);
+  }
+}
+
+/// Resolves the third batch of translation keys for [AppL10n].
+String _resolveAppL10nKeyStageThree(
+  final AppLocalizations l10n,
+  final String key,
+  final Map<String, String> p,
+) {
+  switch (key) {
+    case AppTranslationKeys.ollamaAiAssistant:
+      return l10n.ollamaAiAssistant;
+    case AppTranslationKeys.investments:
+      return l10n.investments;
+    case AppTranslationKeys.cash:
+      return l10n.cash;
+    case AppTranslationKeys.chartUpperSpacer:
+      return l10n.chartUpperSpacer;
+    case AppTranslationKeys.fmoney:
+      return l10n.fmoney;
+    case AppTranslationKeys.noChartToDisplay:
+      return l10n.noChartToDisplay;
+    case AppTranslationKeys.noBudgetIncomeCategoryFound:
+      return l10n.noBudgetIncomeCategoryFound;
+    case AppTranslationKeys.split:
+      return l10n.split;
+    case AppTranslationKeys.splitRatio:
+      return l10n.splitRatio(p['numerator'] ?? '', p['denominator'] ?? '');
+    case AppTranslationKeys.suggestion:
+      return l10n.suggestion;
+    case AppTranslationKeys.success:
+      return l10n.success;
+    case AppTranslationKeys.themeColorBlue:
+      return l10n.themeColorBlue;
+    case AppTranslationKeys.themeColorGreen:
+      return l10n.themeColorGreen;
+    case AppTranslationKeys.themeColorOrange:
+      return l10n.themeColorOrange;
+    case AppTranslationKeys.themeColorPink:
+      return l10n.themeColorPink;
+    case AppTranslationKeys.themeColorPurple:
+      return l10n.themeColorPurple;
+    case AppTranslationKeys.themeColorTeal:
+      return l10n.themeColorTeal;
+    case AppTranslationKeys.themeColorYellow:
+      return l10n.themeColorYellow;
+    case AppTranslationKeys.thinking:
+      return l10n.thinking;
+    case AppTranslationKeys.timestampTimestamp:
+      return l10n.timestampTimestamp(p['timestamp'] ?? '');
+    case AppTranslationKeys.toggleBrightness:
+      return l10n.toggleBrightness;
+    case AppTranslationKeys.toCategory:
+      return l10n.toCategory;
+    case AppTranslationKeys.toPayee:
+      return l10n.toPayee;
+    case AppTranslationKeys.total:
+      return l10n.total;
+    case AppTranslationKeys.transactionSplit:
+      return l10n.transactionSplit;
+    case AppTranslationKeys.transactions:
+      return l10n.transactions;
+    case AppTranslationKeys.transactionsAveraging:
+      return l10n.transactionsAveraging(p['count'] ?? '');
+    case AppTranslationKeys.transfer:
+      return l10n.transfer;
+    case AppTranslationKeys.receiver:
+      return l10n.receiver;
+    case AppTranslationKeys.timeline:
+      return l10n.timeline;
+    case AppTranslationKeys.trend:
+      return l10n.trend;
+    case AppTranslationKeys.unknown:
+      return l10n.unknown;
+    case AppTranslationKeys.useDemoData:
+      return l10n.useDemoData;
+    case AppTranslationKeys.versionInformation:
+      return l10n.versionInformation;
+    case AppTranslationKeys.viewClosedAccounts:
+      return l10n.viewClosedAccounts;
+    case AppTranslationKeys.viewLicenses:
+      return l10n.viewLicenses;
+    case AppTranslationKeys.warning:
+      return l10n.warning;
+    case AppTranslationKeys.zoom:
+      return l10n.zoom;
+    case AppTranslationKeys.welcomeToFmoney:
+      return l10n.welcomeToFmoney;
+    case AppTranslationKeys.xlsxFileContainsNoDataRows:
+      return l10n.xlsxFileContainsNoDataRows;
+    case AppTranslationKeys.xlsxFileContainsNoValidData:
+      return l10n.xlsxFileContainsNoValidData;
+    case AppTranslationKeys.xlsxImportCancelled:
+      return l10n.xlsxImportCancelled;
+    case AppTranslationKeys.item:
+      return l10n.item;
+    case AppTranslationKeys.items:
+      return l10n.items;
+    case AppTranslationKeys.defaultListOfItems:
+      return l10n.defaultListOfItems;
+    case AppTranslationKeys.columnFilterName:
+      return l10n.columnFilterName(p['name'] ?? '');
+    case AppTranslationKeys.delete:
+      return l10n.delete;
+    case AppTranslationKeys.activeLabel:
+      return l10n.activeLabel;
+    case AppTranslationKeys.addInvestment:
+      return l10n.addInvestment;
+    case AppTranslationKeys.addNewAccount:
+      return l10n.addNewAccount;
+    case AppTranslationKeys.addNewCategory:
+      return l10n.addNewCategory;
+    case AppTranslationKeys.addNewEvent:
+      return l10n.addNewEvent;
+    case AppTranslationKeys.aiLearnedAboutAccountsAndTransactions:
+      return l10n.aiLearnedAboutAccountsAndTransactions(p['count'] ?? '');
+    case AppTranslationKeys.alias:
+      return l10n.alias;
+    case AppTranslationKeys.aliases:
+      return l10n.aliases;
+    case AppTranslationKeys.allLabel:
+      return l10n.allLabel;
+    case AppTranslationKeys.allYourMajorLifeEventsDescription:
+      return l10n.allYourMajorLifeEventsDescription;
+    case AppTranslationKeys.appCopyright:
+      return l10n.appCopyright;
+    case AppTranslationKeys.assets:
+      return l10n.assets;
+    case AppTranslationKeys.averageCost:
+      return l10n.averageCost;
+    case AppTranslationKeys.averages:
+      return l10n.averages;
+    case AppTranslationKeys.banks:
+      return l10n.banks;
+    case AppTranslationKeys.buildNumberLabel:
+      return l10n.buildNumberLabel;
+    case AppTranslationKeys.categories:
+      return l10n.categories;
+    case AppTranslationKeys.categoriesDescription:
+      return l10n.categoriesDescription;
+    case AppTranslationKeys.category:
+      return l10n.category;
+    case AppTranslationKeys.chatTruncatedSuffix:
+      return l10n.chatTruncatedSuffix;
+    case AppTranslationKeys.closePosition:
+      return l10n.closePosition;
+    case AppTranslationKeys.closedLabel:
+      return l10n.closedLabel;
+    case AppTranslationKeys.copyMessage:
+      return l10n.copyMessage;
+    case AppTranslationKeys.copyMessageToClipboard:
+      return l10n.copyMessageToClipboard;
+    case AppTranslationKeys.event:
+      return l10n.event;
+    case AppTranslationKeys.eventTolerances:
+      return l10n.eventTolerances;
+    case AppTranslationKeys.events:
+      return l10n.events;
+    case AppTranslationKeys.expenses:
+      return l10n.expenses;
+    case AppTranslationKeys.expenseLabel:
+      return l10n.expenseLabel;
+    case AppTranslationKeys.interest:
+      return l10n.interest;
+    case AppTranslationKeys.incomes:
+      return l10n.incomes;
+    case AppTranslationKeys.incomeLabel:
+      return l10n.incomeLabel;
+    case AppTranslationKeys.investment:
+      return l10n.investment;
+    case AppTranslationKeys.getLatestPrice:
+      return l10n.getLatestPrice;
+    case AppTranslationKeys.loanPayment:
+      return l10n.loanPayment;
+    case AppTranslationKeys.loss:
+      return l10n.loss;
+    case AppTranslationKeys.lifeTimePnl:
+      return l10n.lifeTimePnl;
+    case AppTranslationKeys.maintenance:
+      return l10n.maintenance;
+    case AppTranslationKeys.management:
+      return l10n.management;
+    case AppTranslationKeys.marketPrice:
+      return l10n.marketPrice;
+    case AppTranslationKeys.matchingTransaction:
+      return l10n.matchingTransaction;
+    case AppTranslationKeys.moveCategory:
+      return l10n.moveCategory;
+    case AppTranslationKeys.moveCategoryAsChild:
+      return l10n.moveCategoryAsChild(p['from'] ?? '', p['to'] ?? '');
+    case AppTranslationKeys.newBankAccount:
+      return l10n.newBankAccount;
+    case AppTranslationKeys.newItemLabel:
+      return l10n.newItemLabel(p['item'] ?? '');
+    case AppTranslationKeys.noMatchingTransactions:
+      return l10n.noMatchingTransactions;
+    case AppTranslationKeys.noneLabel:
+      return l10n.noneLabel;
+    case AppTranslationKeys.noneWithTitle:
+      return l10n.noneWithTitle(p['title'] ?? '');
+    case AppTranslationKeys.packageNameLabel:
+      return l10n.packageNameLabel;
+    case AppTranslationKeys.payeeAliasesDescription:
+      return l10n.payeeAliasesDescription;
+    case AppTranslationKeys.payees:
+      return l10n.payees;
+    case AppTranslationKeys.platformAndroid:
+      return l10n.platformAndroid;
+    case AppTranslationKeys.platformDesktop64bitSoftware:
+      return l10n.platformDesktop64bitSoftware;
+    default:
+      return _resolveAppL10nKeyStageFour(l10n, key, p);
+  }
+}
+
+/// Resolves the final batch of translation keys for [AppL10n].
+String _resolveAppL10nKeyStageFour(
+  final AppLocalizations l10n,
+  final String key,
+  final Map<String, String> p,
+) {
+  switch (key) {
+    case AppTranslationKeys.platformDesktopIntelSiliconSoftware:
+      return l10n.platformDesktopIntelSiliconSoftware;
+    case AppTranslationKeys.platformDesktopSoftware:
+      return l10n.platformDesktopSoftware;
+    case AppTranslationKeys.platformIos:
+      return l10n.platformIos;
+    case AppTranslationKeys.platformLinux:
+      return l10n.platformLinux;
+    case AppTranslationKeys.platformMacos:
+      return l10n.platformMacos;
+    case AppTranslationKeys.platformMobileApp:
+      return l10n.platformMobileApp;
+    case AppTranslationKeys.platformRunOnAnyOsWithMostBrowsers:
+      return l10n.platformRunOnAnyOsWithMostBrowsers;
+    case AppTranslationKeys.platformWebBrowser:
+      return l10n.platformWebBrowser;
+    case AppTranslationKeys.platformWindows:
+      return l10n.platformWindows;
+    case AppTranslationKeys.pickDifferentCategoryThan:
+      return l10n.pickDifferentCategoryThan(p['category'] ?? '');
+    case AppTranslationKeys.pendingChanges:
+      return l10n.pendingChanges;
+    case AppTranslationKeys.profit:
+      return l10n.profit;
+    case AppTranslationKeys.privacyPolicyMarkdown:
+      return l10n.privacyPolicyMarkdown;
+    case AppTranslationKeys.propertiesToRentDescription:
+      return l10n.propertiesToRentDescription;
+    case AppTranslationKeys.readLess:
+      return l10n.readLess;
+    case AppTranslationKeys.readMore:
+      return l10n.readMore;
+    case AppTranslationKeys.repairs:
+      return l10n.repairs;
+    case AppTranslationKeys.renters:
+      return l10n.renters;
+    case AppTranslationKeys.rentals:
+      return l10n.rentals;
+    case AppTranslationKeys.requestWasCancelled:
+      return l10n.requestWasCancelled;
+    case AppTranslationKeys.savingLabel:
+      return l10n.savingLabel;
+    case AppTranslationKeys.searchForPayee:
+      return l10n.searchForPayee;
+    case AppTranslationKeys.shares:
+      return l10n.shares;
+    case AppTranslationKeys.shortcutAddTransactions:
+      return l10n.shortcutAddTransactions;
+    case AppTranslationKeys.shortcutNewFile:
+      return l10n.shortcutNewFile;
+    case AppTranslationKeys.shortcutOpenFile:
+      return l10n.shortcutOpenFile;
+    case AppTranslationKeys.shortcutRebalance:
+      return l10n.shortcutRebalance;
+    case AppTranslationKeys.shortcutZoomDecrease:
+      return l10n.shortcutZoomDecrease;
+    case AppTranslationKeys.shortcutZoomIncrease:
+      return l10n.shortcutZoomIncrease;
+    case AppTranslationKeys.shortcutZoomReset:
+      return l10n.shortcutZoomReset;
+    case AppTranslationKeys.splits:
+      return l10n.splits;
+    case AppTranslationKeys.stock:
+      return l10n.stock;
+    case AppTranslationKeys.stocks:
+      return l10n.stocks;
+    case AppTranslationKeys.stocksTrackingDescription:
+      return l10n.stocksTrackingDescription;
+    case AppTranslationKeys.switchToCategories:
+      return l10n.switchToCategories;
+    case AppTranslationKeys.switchToPayees:
+      return l10n.switchToPayees;
+    case AppTranslationKeys.switchToStocks:
+      return l10n.switchToStocks;
+    case AppTranslationKeys.switchToTransactions:
+      return l10n.switchToTransactions;
+    case AppTranslationKeys.taxes:
+      return l10n.taxes;
+    case AppTranslationKeys.teachingCancelled:
+      return l10n.teachingCancelled;
+    case AppTranslationKeys.teachingFailedPartially:
+      return l10n.teachingFailedPartially;
+    case AppTranslationKeys.trackYourStockPortfolioDescription:
+      return l10n.trackYourStockPortfolioDescription;
+    case AppTranslationKeys.transaction:
+      return l10n.transaction;
+    case AppTranslationKeys.transactionsDescription:
+      return l10n.transactionsDescription;
+    case AppTranslationKeys.transfers:
+      return l10n.transfers;
+    case AppTranslationKeys.transfersBetweenAccountsDescription:
+      return l10n.transfersBetweenAccountsDescription;
+    case AppTranslationKeys.value:
+      return l10n.value;
+    case AppTranslationKeys.versionLabel:
+      return l10n.versionLabel;
+    case AppTranslationKeys.viewMessageDetails:
+      return l10n.viewMessageDetails;
+    case AppTranslationKeys.viewPromptDetails:
+      return l10n.viewPromptDetails;
+    case AppTranslationKeys.welcomeToYourAiAccountant:
+      return l10n.welcomeToYourAiAccountant;
+    case AppTranslationKeys.whoIsGettingYourMoney:
+      return l10n.whoIsGettingYourMoney;
+    case AppTranslationKeys.year:
+      return l10n.year;
+    case AppTranslationKeys.allTime:
+      return l10n.allTime;
+    case AppTranslationKeys.account:
+      return l10n.account;
+    case AppTranslationKeys.accounts:
+      return l10n.accounts;
+    case AppTranslationKeys.accountsDescription:
+      return l10n.accountsDescription;
+    case AppTranslationKeys.addTransactionBetweenTwoAccounts:
+      return l10n.addTransactionBetweenTwoAccounts;
+    case AppTranslationKeys.amount:
+      return l10n.amount;
+    case AppTranslationKeys.amountPerUnit:
+      return l10n.amountPerUnit;
+    case AppTranslationKeys.buySellDividend:
+      return l10n.buySellDividend;
+    case AppTranslationKeys.columnIndex:
+      return l10n.columnIndex(p['index'] ?? '');
+    case AppTranslationKeys.date:
+      return l10n.date;
+    case AppTranslationKeys.description:
+      return l10n.description;
+    case AppTranslationKeys.descriptionPayee:
+      return l10n.descriptionPayee;
+    case AppTranslationKeys.entriesCount:
+      return l10n.entriesCount(p['count'] ?? '');
+    case AppTranslationKeys.fromAccount:
+      return l10n.fromAccount;
+    case AppTranslationKeys.dividend:
+      return l10n.dividend;
+    case AppTranslationKeys.importFileType:
+      return l10n.importFileType(p['fileType'] ?? '');
+    case AppTranslationKeys.importFromQfxQifXlsxCsvDescription:
+      return l10n.importFromQfxQifXlsxCsvDescription;
+    case AppTranslationKeys.importFromQfxQifXlsxCsvFile:
+      return l10n.importFromQfxQifXlsxCsvFile;
+    case AppTranslationKeys.importedTransactionsIntoAccount:
+      return l10n.importedTransactionsIntoAccount(p['count'] ?? '', p['account'] ?? '');
+    case AppTranslationKeys.importNoMatchingAccountsWithId:
+      return l10n.importNoMatchingAccountsWithId(p['fileType'] ?? '', p['id'] ?? '');
+    case AppTranslationKeys.importTransactions:
+      return l10n.importTransactions;
+    case AppTranslationKeys.importWord:
+      return l10n.importWord;
+    case AppTranslationKeys.investmentTransaction:
+      return l10n.investmentTransaction;
+    case AppTranslationKeys.investmentType:
+      return l10n.investmentType;
+    case AppTranslationKeys.manualBulkTextInput:
+      return l10n.manualBulkTextInput;
+    case AppTranslationKeys.manualBulkTextInputDescription:
+      return l10n.manualBulkTextInputDescription;
+    case AppTranslationKeys.nothingToImport:
+      return l10n.nothingToImport;
+    case AppTranslationKeys.pickAccountToImportTo:
+      return l10n.pickAccountToImportTo;
+    case AppTranslationKeys.preview:
+      return l10n.preview;
+    case AppTranslationKeys.recordTransfer:
+      return l10n.recordTransfer;
+    case AppTranslationKeys.selectValidAccounts:
+      return l10n.selectValidAccounts;
+    case AppTranslationKeys.symbol:
+      return l10n.symbol;
+    case AppTranslationKeys.toAccount:
+      return l10n.toAccount;
+    case AppTranslationKeys.totalTransactionAmount:
+      return l10n.totalTransactionAmount;
+    case AppTranslationKeys.transactionsAddedCount:
+      return l10n.transactionsAddedCount(p['count'] ?? '');
+    case AppTranslationKeys.transactionsFoundInFileToImport:
+      return l10n.transactionsFoundInFileToImport(
+        p['count'] ?? '',
+        p['fileType'] ?? '',
+        p['account'] ?? '',
+      );
+    case AppTranslationKeys.units:
+      return l10n.units;
+    case AppTranslationKeys.errorInvalidResponseFromOllama:
+      return l10n.errorInvalidResponseFromOllama;
+    case AppTranslationKeys.errorWithReason:
+      return l10n.errorWithReason(p['reason'] ?? '');
+    default:
+      return key;
+  }
+}

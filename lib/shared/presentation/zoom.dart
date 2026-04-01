@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/presentation/app_scope.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
@@ -44,7 +45,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
         Text(widget.title),
         IconButton(
           key: Constants.keyZoomDecrease,
-          tooltip: 'Cmd/Ctrl -',
+          tooltip: AppL10n.tr(AppTranslationKeys.shortcutZoomDecrease),
           icon: const Icon(Icons.text_decrease),
           onPressed: () {
             setState(() {
@@ -55,7 +56,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
         ),
         Tooltip(
           key: Constants.keyZoomNormal,
-          message: SharedStrings.shortcutZoomReset,
+          message: AppL10n.tr(AppTranslationKeys.shortcutZoomReset),
           child: TextButton(
             onPressed: () {
               setState(() {
@@ -68,7 +69,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
         ),
         IconButton(
           key: Constants.keyZoomIncrease,
-          tooltip: 'Cmd/Ctrl +',
+          tooltip: AppL10n.tr(AppTranslationKeys.shortcutZoomIncrease),
           icon: const Icon(Icons.text_increase),
           onPressed: () {
             setState(() {

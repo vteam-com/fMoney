@@ -122,7 +122,7 @@ class SidePanelHeader extends StatelessWidget {
         onExpanded(!isExpanded);
       },
       icon: Icon(isExpanded ? Icons.expand_more : Icons.expand_less),
-      tooltip: 'Expand/Collapse panel',
+      tooltip: AppL10n.tr(AppTranslationKeys.sidePanelExpandCollapseTooltip),
     );
   }
 

@@ -163,6 +163,7 @@ abstract class AppTranslationKeys {
   static const String saveToCsv = 'saveToCsv';
   static const String saveToSql = 'saveToSql';
   static const String sankey = 'sankey';
+  static const String sidePanelExpandCollapseTooltip = 'sidePanelExpandCollapseTooltip';
   static const String selectARentalPropertyToSeeItsPL = 'selectARentalPropertyToSeeItsPL';
   static const String selectCategory = 'selectCategory';
   static const String selectColumn = 'selectColumn';
@@ -334,6 +335,9 @@ abstract class AppTranslationKeys {
   static const String shortcutNewFile = 'shortcutNewFile';
   static const String shortcutOpenFile = 'shortcutOpenFile';
   static const String shortcutRebalance = 'shortcutRebalance';
+  static const String shortcutZoomDecrease = 'shortcutZoomDecrease';
+  static const String shortcutZoomIncrease = 'shortcutZoomIncrease';
+  static const String shortcutZoomReset = 'shortcutZoomReset';
   static const String splits = 'splits';
   static const String stock = 'stock';
   static const String stocks = 'stocks';

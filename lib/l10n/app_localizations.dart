@@ -261,12 +261,6 @@ abstract class AppLocalizations {
   /// **'Analyze spending'**
   String get analyzeSpending;
 
-  /// No description provided for @approveCategory.
-  ///
-  /// In en, this message translates to:
-  /// **'Approve category'**
-  String get approveCategory;
-
   /// No description provided for @appCopyright.
   ///
   /// In en, this message translates to:
@@ -302,6 +296,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'fMoney'**
   String get appName;
+
+  /// No description provided for @approveCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve category'**
+  String get approveCategory;
 
   /// No description provided for @appTitle.
   ///
@@ -2025,6 +2025,24 @@ abstract class AppLocalizations {
   /// **'Ctrl+R'**
   String get shortcutRebalance;
 
+  /// No description provided for @shortcutZoomDecrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Cmd/Ctrl -'**
+  String get shortcutZoomDecrease;
+
+  /// No description provided for @shortcutZoomIncrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Cmd/Ctrl +'**
+  String get shortcutZoomIncrease;
+
+  /// No description provided for @shortcutZoomReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Cmd/Ctrl 0'**
+  String get shortcutZoomReset;
+
   /// No description provided for @showClosedAccounts.
   ///
   /// In en, this message translates to:
@@ -2042,6 +2060,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Showing {rowCount} eligible rows (excluded rows with < 3 columns)'**
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount);
+
+  /// No description provided for @sidePanelExpandCollapseTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand/collapse panel'**
+  String get sidePanelExpandCollapseTooltip;
 
   /// No description provided for @skippingDuplicate.
   ///

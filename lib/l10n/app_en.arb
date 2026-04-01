@@ -669,6 +669,9 @@
   "@shortcutRebalance": {
     "description": "REVIEWED"
   },
+  "shortcutZoomDecrease": "Cmd/Ctrl -",
+  "shortcutZoomIncrease": "Cmd/Ctrl +",
+  "shortcutZoomReset": "Cmd/Ctrl 0",
   "showClosedAccounts": "Show closed accounts",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Showing first {maxRows} of {rowCount} eligible rows",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
@@ -689,6 +692,7 @@
       }
     }
   },
+  "sidePanelExpandCollapseTooltip": "Expand/collapse panel",
   "skippingDuplicate": " Skipping Duplicate ",
   "smallScreenContentGoesHere": "Small screen content goes here",
   "split": "Split",

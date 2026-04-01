@@ -95,9 +95,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get analyzeSpending => 'Analyze spending';
 
   @override
-  String get approveCategory => 'Approve category';
-
-  @override
   String get appCopyright => '© 2024 fMoney Team. All rights reserved.';
 
   @override
@@ -115,6 +112,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appName => 'fMoney';
+
+  @override
+  String get approveCategory => 'Approve category';
 
   @override
   String get appTitle => 'fMoney by VTeam';
@@ -1041,6 +1041,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shortcutRebalance => 'Ctrl+R';
 
   @override
+  String get shortcutZoomDecrease => 'Cmd/Ctrl -';
+
+  @override
+  String get shortcutZoomIncrease => 'Cmd/Ctrl +';
+
+  @override
+  String get shortcutZoomReset => 'Cmd/Ctrl 0';
+
+  @override
   String get showClosedAccounts => 'Show closed accounts';
 
   @override
@@ -1052,6 +1061,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount) {
     return 'Showing $rowCount eligible rows (excluded rows with < 3 columns)';
   }
+
+  @override
+  String get sidePanelExpandCollapseTooltip => 'Expand/collapse panel';
 
   @override
   String get skippingDuplicate => ' Skipping Duplicate ';

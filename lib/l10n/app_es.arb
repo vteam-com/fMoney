@@ -669,6 +669,9 @@
   "@shortcutRebalance": {
     "description": "REVIEWED"
   },
+  "shortcutZoomDecrease": "Comando/Ctrl -",
+  "shortcutZoomIncrease": "Comando/Ctrl +",
+  "shortcutZoomReset": "Comando/Ctrl 0",
   "showClosedAccounts": "Mostrar cuentas cerradas",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Mostrando las primeras {maxRows} de {rowCount} filas elegibles",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
@@ -689,6 +692,7 @@
       }
     }
   },
+  "sidePanelExpandCollapseTooltip": "Expandir/contraer panel",
   "skippingDuplicate": " Omitiendo duplicado ",
   "smallScreenContentGoesHere": "El contenido de pantalla pequeña va aquí",
   "split": "División",
