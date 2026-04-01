@@ -1,5 +1,15 @@
 # Change Log
 
+## [version 1.17.02] 2026-04-01
+
+### Updated
+
+- fix Android build
+- fCheck 100% score
+- **CI/CD Runtime Compatibility**: Updated GitHub Actions workflow dependencies to current action majors compatible with Node.js 24 transition requirements
+- **JavaScript Action Runtime**: Configured workflow environment to force JavaScript actions to run on Node.js 24 to avoid upcoming Node.js 20 deprecation warnings
+- **Build Tooling Baseline**: Standardized CI Node.js setup to use current runtime for consistent pipeline execution across runners
+
 ## [version 1.17.01] 2026-03-08
 
 ### Updated
