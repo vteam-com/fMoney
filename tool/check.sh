@@ -8,9 +8,6 @@ flutter pub upgrade > /dev/null
 echo --------------- Pub Outdated
 flutter pub outdated
 
-# echo --------------- Generate Loc
-# python3 tool/loc.py
-
 echo --------------- Analyze
 flutter analyze lib test --no-pub | sed 's/^/    /'
 
