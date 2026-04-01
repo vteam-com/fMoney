@@ -1,3 +1,7 @@
+#!/bin/sh
+tool/clean.sh
+
+
 #!/bin/bash
 
 flutter test integration_test --coverage  --coverage-path=coverage/lcov_integration.info -d macos || exit 1
