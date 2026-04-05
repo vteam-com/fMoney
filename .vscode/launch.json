@@ -42,6 +42,17 @@
                 "-d",
                 "macos"
             ]
+        },
+        {
+            "name": "macOS (release)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "macos",
+                "--release"
+            ]
         }
     ]
 }

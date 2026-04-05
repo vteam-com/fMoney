@@ -1,15 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/src/platform/file_picker_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/views/imports/core/import_wizard.dart';
 import 'package:money/widgets/components/wizard_choice.dart';
-// ignore: depend_on_referenced_packages
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// A mock used in tests for test mock file picker.
-class TestMockFilePicker with MockPlatformInterfaceMixin implements FilePicker {
+class TestMockFilePicker extends FilePickerPlatform {
   FilePickerResult? _pickerResult;
 
   void setPickerResult(FilePickerResult? result) {
@@ -31,49 +28,15 @@ class TestMockFilePicker with MockPlatformInterfaceMixin implements FilePicker {
     bool withReadStream = false,
     bool lockParentWindow = false,
     bool readSequential = false,
+    bool cancelUploadOnWindowBlur = true,
   }) async {
     return _pickerResult;
   }
-
-  @override
-  Future<String?> getDirectoryPath({
-    String? dialogTitle,
-    bool lockParentWindow = false,
-    String? initialDirectory,
-  }) async {
-    return null;
-  }
-
-  @override
-  Future<bool?> clearTemporaryFiles() async {
-    return true;
-  }
-
-  @override
-  Future<List<String>?> pickFileAndDirectoryPaths({
-    String? initialDirectory,
-    FileType type = FileType.any,
-    List<String>? allowedExtensions,
-  }) async {
-    return null;
-  }
-
-  @override
-  Future<String?> saveFile({
-    String? dialogTitle,
-    String? fileName,
-    String? initialDirectory,
-    FileType type = FileType.any,
-    List<String>? allowedExtensions,
-    Uint8List? bytes,
-    bool lockParentWindow = false,
-  }) async {
-    return null;
-  }
 }
 
-void setMockFilePicker(FilePicker mock) {
-  FilePicker.platform = mock;
+/// Updates the platform implementation that backs the static [FilePicker] methods.
+void setMockFilePicker(FilePickerPlatform mock) {
+  FilePickerPlatform.instance = mock;
 }
 
 void main() {
@@ -81,7 +44,7 @@ void main() {
 
   setUpAll(() {
     // Initialize platform with a default mock to avoid LateInitializationError before first setUp runs
-    FilePicker.platform = TestMockFilePicker();
+    FilePickerPlatform.instance = TestMockFilePicker();
   });
 
   setUp(() {
@@ -91,7 +54,7 @@ void main() {
 
   tearDown(() {
     // Ensure a clean platform instance for the next test
-    FilePicker.platform = TestMockFilePicker();
+    FilePickerPlatform.instance = TestMockFilePicker();
   });
 
   testWidgets('Wizard Dialog displays correctly with title and CSV option', (WidgetTester tester) async {

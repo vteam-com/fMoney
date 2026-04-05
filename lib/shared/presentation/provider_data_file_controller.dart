@@ -204,16 +204,16 @@ class DataFileController extends ChangeNotifier {
     try {
       // WEB
       if (kIsWeb) {
-        pickerResult = await FilePicker.platform.pickFiles(type: FileType.any);
+        pickerResult = await FilePicker.pickFiles(type: FileType.any);
       } else
       // Mobile
       if (Platform.isAndroid || Platform.isIOS) {
         // See https://github.com/miguelpruivo/flutter_file_picker/issues/729
-        pickerResult = await FilePicker.platform.pickFiles(type: FileType.any);
+        pickerResult = await FilePicker.pickFiles(type: FileType.any);
       } else
       // Desktop
       {
-        pickerResult = await FilePicker.platform.pickFiles(
+        pickerResult = await FilePicker.pickFiles(
           type: FileType.custom,
           allowedExtensions: supportedFileTypes,
         );

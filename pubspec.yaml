@@ -23,9 +23,9 @@ version: 1.17.02
 
 environment:
   # This is the dart constraint
-  sdk: ">=3.11.0 <4.0.0"
+  sdk: ">=3.11.4 <4.0.0"
   # This is the Flutter SDK
-  flutter: ">=3.41.0"
+  flutter: ">=3.41.6"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -40,7 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.9
   desktop_drop: ^0.7.0
   dotted_border: ^3.1.0
-  file_picker: ^10.3.10
+  file_picker: ^11.0.1
   fl_chart: ^1.2.0
   flutter:
     sdk: flutter
@@ -59,7 +59,7 @@ dependencies:
   path: ^1.9.1
   path_provider: ^2.1.5
   shared_preferences: ^2.5.5
-  sqlite3: ^3.2.0
+  sqlite3: ^3.3.0
   textify: ^0.5.2
   # path: "../textify"
   universal_io: ^2.3.1
