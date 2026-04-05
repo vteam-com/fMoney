@@ -55,3 +55,4 @@ linter:
     use_key_in_widget_constructors: true
     use_super_parameters: true
     unnecessary_parenthesis: true
+    avoid_void_async: true

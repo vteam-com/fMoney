@@ -274,7 +274,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Performs initial load and restores user preferences.
-  void firstLoad() async {
+  Future<void> firstLoad() async {
     _fieldToDisplay = getFieldsForTable();
 
     // restore last user choices for this view

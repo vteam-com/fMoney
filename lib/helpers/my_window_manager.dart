@@ -19,7 +19,7 @@ import 'package:window_manager/window_manager.dart';
 /// Represents my window manager.
 class MyWindowManager extends WindowListener {
   /// Sets up main window with platform-specific optimizations.
-  static void setupMainWindow() async {
+  static Future<void> setupMainWindow() async {
     if (!kIsWeb) {
       // Enable Impeller for better performance
       // This reduces shader compilation jank on mobile platforms
@@ -110,7 +110,7 @@ class MyWindowManager extends WindowListener {
   }
 
   @override
-  void onWindowClose() async {
+  Future<void> onWindowClose() async {
     final bool isPreventClose = await windowManager.isPreventClose();
     if (isPreventClose) {
       // Prevent the close, do your save logic first

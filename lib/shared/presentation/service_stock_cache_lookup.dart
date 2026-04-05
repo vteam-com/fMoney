@@ -211,7 +211,7 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
 }
 
 /// Saves stock price history for [symbol] to local preferences cache.
-void _saveToCache(final String symbol, List<StockDatePrice> prices) async {
+Future<void> _saveToCache(final String symbol, List<StockDatePrice> prices) async {
   // CSV Header
   String csvContent = '"date","price"\n';
 
@@ -247,6 +247,6 @@ void _saveToCache(final String symbol, List<StockDatePrice> prices) async {
 }
 
 /// Marks [symbol] as an invalid stock symbol in the local cache.
-void _saveToCacheInvalidSymbol(final String symbol) async {
+Future<void> _saveToCacheInvalidSymbol(final String symbol) async {
   await PreferenceController.to.setString('stock-$symbol', flagAsInvalidSymbol);
 }

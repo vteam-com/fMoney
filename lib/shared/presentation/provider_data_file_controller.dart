@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -120,7 +121,7 @@ class DataFileController extends ChangeNotifier {
           dataSource.filePath,
         );
         notifyListeners();
-        Future<Null>.delayed(Duration.zero, () {
+        SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
           AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeHomePage);
         });
       }
@@ -148,7 +149,7 @@ class DataFileController extends ChangeNotifier {
       if (DataAccess.getMRU().isNotEmpty) {
         final bool loaded = await loadFile(DataSource(filePath: DataAccess.getMRU().first));
         if (!loaded) {
-          Future<Null>.delayed(Duration.zero, () {
+          SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
             AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
           });
         }
@@ -158,7 +159,7 @@ class DataFileController extends ChangeNotifier {
         isLoading.value = false;
         notifyListeners();
 
-        Future<Null>.delayed(Duration.zero, () {
+        SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
           AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
         });
       }
@@ -167,14 +168,14 @@ class DataFileController extends ChangeNotifier {
       logger.e('Error fetching data', error: e, stackTrace: stackTrace);
       isLoading.value = false;
       notifyListeners();
-      Future<Null>.delayed(Duration.zero, () {
+      SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
         AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
       });
     }
   }
 
-  /// Creates a new untitled data file with default account.
-  void onFileNew() async {
+  /// Creates a new untitled data file with default account and navigates to the accounts view.
+  Future<void> onFileNew() {
     this.closeFile();
 
     final Account newAccount = Data().accounts.addNewAccount(
@@ -186,6 +187,7 @@ class DataFileController extends ChangeNotifier {
       textFilter: '',
       columnFilters: null,
     );
+    return Future<void>.value();
   }
 
   /// Opens file picker to select and load a data file.
@@ -254,7 +256,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Saves current data to CSV file format.
-  void onSaveToCsv() async {
+  Future<void> onSaveToCsv() async {
     final String fullPathToFileName = await MoneyDataIO().saveToCsv(Data());
 
     setCurrentFileName(fullPathToFileName);
@@ -288,7 +290,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Shows the current file location in system file manager.
-  void onShowFileLocation() async {
+  Future<void> onShowFileLocation() async {
     // if (isPlatformMobile()) {
     //   SnackBarService.displayInfo(
     //     message: AppL10n.tr(AppTranslationKeys.fileLocationNotSupportedOnMobile),

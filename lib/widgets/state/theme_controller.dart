@@ -79,7 +79,7 @@ class ThemeController extends ChangeNotifier {
   void fontScaleDecrease() => adjustFontScale(-_fontScaleStep);
 
   /// Loads theme mode and color index from persisted preferences.
-  void loadThemeFromPreferences() async {
+  Future<void> loadThemeFromPreferences() async {
     final PreferenceController preferenceController = _preferenceController ?? PreferenceController.to;
     if (!preferenceController.isReady) {
       await preferenceController.init();
@@ -93,7 +93,7 @@ class ThemeController extends ChangeNotifier {
   }
 
   /// Persists theme mode and color index to preferences.
-  void saveThemeToPreferences() async {
+  Future<void> saveThemeToPreferences() async {
     PreferenceController.to.setBool(settingKeyDarkMode, isDarkTheme);
     PreferenceController.to.setInt(settingKeyTheme, colorSelected);
   }

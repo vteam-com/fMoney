@@ -259,7 +259,7 @@ class PreferenceController extends ChangeNotifier {
   }
 
   /// Navigates to specified view with selected item ID.
-  void jumpToView({
+  Future<void> jumpToView({
     required final ViewId viewId,
     required final int selectedId,
     final String textFilter = '',
@@ -447,7 +447,7 @@ class PreferenceController extends ChangeNotifier {
 
 /// Navigation helpers
 
-void switchViewTransactionForPayee(final String payeeName) async {
+Future<void> switchViewTransactionForPayee(final String payeeName) async {
   final FieldFilters fieldFilters = FieldFilters();
   fieldFilters.add(
     FieldFilter(

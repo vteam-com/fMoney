@@ -455,7 +455,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     return splitsFound;
   }
 
-  void _getStockHistoricalData() async {
+  Future<void> _getStockHistoricalData() async {
     final StockPriceHistoryCache priceCache = await getFromCacheOrBackend(
       widget.symbol,
     );

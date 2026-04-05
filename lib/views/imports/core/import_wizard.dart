@@ -70,7 +70,7 @@ void showImportTransactionsWizard([BuildContext? context]) {
 }
 
 /// Handles file selection and import from chosen file.
-void onImportFromFile(final BuildContext context) async {
+Future<void> onImportFromFile(final BuildContext context) async {
   final FilePickerResult? pickerResult = await FilePicker.pickFiles(
     type: FileType.any,
   );

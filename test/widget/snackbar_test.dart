@@ -17,10 +17,10 @@ class MockThemeController extends ThemeController {
   void fontScaleIncrease() {}
 
   @override
-  void loadThemeFromPreferences() {}
+  Future<void> loadThemeFromPreferences() async {}
 
   @override
-  void saveThemeToPreferences() {}
+  Future<void> saveThemeToPreferences() async {}
 
   @override
   void setAppSizeToLarge() {}
