@@ -20,7 +20,7 @@ import 'package:money/views/imports/import_qfx.dart';
 import 'package:money/views/shell/app_bar.dart';
 import 'package:money/views/shell/my_nav_bar.dart';
 import 'package:money/widgets/components/app_scaffold.dart';
-import 'package:money/widgets/pickers/drop_zone.dart';
+import 'package:money/widgets/pure/drop_zone.dart';
 import 'package:money/widgets/pure/working.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:path/path.dart' as path;

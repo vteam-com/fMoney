@@ -10,7 +10,7 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/ranges.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/providers/budget.dart';
+import 'package:money/shared/domain/budget_analyzer.dart';
 import 'package:money/shared/domain/category_domain.dart';
 import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/domain/transaction_domain.dart';

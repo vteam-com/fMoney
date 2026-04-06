@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/providers/github_artifacts_service.dart';
+import 'package:money/helpers/github_artifacts_service.dart';
 
 void main() {
   group('GitHubArtifactsService', () {

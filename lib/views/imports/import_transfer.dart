@@ -1,8 +1,8 @@
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_router.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/providers/import_fields_for_transfer.dart';
 import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/views/imports/import_fields_for_transfer.dart';
 import 'package:money/shared/domain/transaction_domain.dart';
 import 'package:money/views/imports/import_transfer_panel.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';

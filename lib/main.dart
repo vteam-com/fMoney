@@ -15,13 +15,12 @@ import 'package:money/shared/presentation/app_scope.dart';
 import 'package:money/shared/presentation/provider_data_file_controller.dart';
 import 'package:money/views/imports/import_transactions_from_text.dart';
 import 'package:money/views/pages/about_page.dart';
+import 'package:money/views/pages/home_page.dart';
 import 'package:money/views/pages/platforms_page.dart';
 import 'package:money/views/pages/policy_page.dart';
 import 'package:money/views/pages/settings_page.dart';
 import 'package:money/views/pages/splash_page.dart';
-import 'package:money/views/pages/view_welcome.dart';
 import 'package:money/views/pages/welcome_page.dart';
-import 'package:money/views/shell/home_page.dart';
 import 'package:money/widgets/pure/scale_down.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
@@ -182,7 +181,7 @@ class MyApp extends StatelessWidget {
     } else if (routeName == Constants.routeAboutPage) {
       page = const AboutPage();
     } else {
-      page = const WelcomeScreen();
+      page = const WelcomePage();
     }
 
     return MaterialPageRoute<dynamic>(

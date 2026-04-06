@@ -8,9 +8,9 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/providers/ollama_service.dart';
 import 'package:money/shared/domain/account_domain.dart';
 import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/shared/domain/ollama_service.dart';
 import 'package:money/shared/domain/transaction_domain.dart';
 import 'package:money/views/home/ai/view_ai_chat_message.dart';
 import 'package:money/views/home/ai/view_ai_header.dart';
@@ -21,6 +21,8 @@ import 'package:money/widgets/pure/chat_input_area.dart';
 import 'package:money/widgets/pure/my_svg.dart';
 import 'package:money/widgets/pure/view_widget.dart';
 import 'package:money/widgets/pure/working.dart';
+
+// ignore: fcheck_one_class_per_file
 
 const double _checkingSpacing = 32.0;
 const double _checkingIconSize = 64.0;
