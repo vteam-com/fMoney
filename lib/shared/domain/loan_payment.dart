@@ -5,7 +5,7 @@ import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/account.dart';
+import 'package:money/shared/domain/account_domain.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/field_definition_cache.dart';
 import 'package:money/widgets/list/list_item_card.dart';

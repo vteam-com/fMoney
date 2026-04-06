@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/investment_types.dart';
+import 'package:money/data/models/transaction_types.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/investment_types.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/helpers/transaction_types.dart';
 import 'package:money/shared/domain/data_abstract.dart';
-import 'package:money/shared/domain/investment.dart';
+import 'package:money/shared/domain/investment_domain.dart';
 import 'package:money/shared/domain/transaction_split.dart';
-import 'package:money/shared/domain/transfer.dart';
+import 'package:money/shared/domain/transfer_domain.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/state/selection_controller.dart';

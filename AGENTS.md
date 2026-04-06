@@ -21,5 +21,11 @@
   - `flutter gen-l10n`
   - `flutter analyze`
   - `fcheck --list full .`
-- Before finishing, explicitly scan for probable missed display literals:
-  - `rg -n "label:\\s*'|tooltip:\\s*'|Text\\('\\w|SnackBar\\(content:\\s*Text\\('|AppBar\\(title:\\s*Text\\('" lib`
+ - Before finishing, explicitly scan for probable missed display literals:
+   - `rg -n "label:\\s*'|tooltip:\\s*'|Text\\('\\w|SnackBar\\(content:\\s*Text\\('|AppBar\\(title:\\s*Text\\('" lib`
+
+## File Naming
+
+- Use `snake_case` for *every* Dart file and include a suffix that reflects its primary role (`_view.dart`, `_screen.dart`, `_widget.dart`, `_panel.dart`, `_dialog.dart`, `_card.dart`, `_chart.dart`, `_service.dart`, `_controller.dart`, `_provider.dart`, `_repository.dart`, `_domain.dart`, `_model.dart`, `_helper.dart`, `_utils.dart`, `_state.dart`, `_data.dart`, `_test.dart`, etc.).
+- Avoid generic filenames—constantly prefer `[feature]_[role].dart` (for example, `merge_payees_dialog.dart` instead of `merge_payees.dart`) so teammates see the intent without opening the file.
+- When renaming to meet this convention, update all import/usage sites and rerun `flutter analyze` or `fcheck` to ensure the tree rebuilds cleanly.

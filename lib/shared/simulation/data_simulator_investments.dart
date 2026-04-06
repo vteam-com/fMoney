@@ -1,14 +1,14 @@
 import 'package:money/data/models/data_simulator_constants.dart';
-import 'package:money/helpers/investment_types.dart';
+import 'package:money/data/models/investment_types.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/account.dart';
-import 'package:money/shared/domain/category.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/account_domain.dart';
+import 'package:money/shared/domain/category_domain.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/domain/loan_payment.dart';
-import 'package:money/shared/domain/security.dart';
+import 'package:money/shared/domain/security_domain.dart';
 import 'package:money/shared/domain/stock_split.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 
 /// Callback for creating an investment transaction entry.
 typedef AddInvestmentCallback =

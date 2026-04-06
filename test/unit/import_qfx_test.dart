@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/presentation/provider_data_file_controller.dart';
-import 'package:money/views/imports/core/import_data.dart';
-import 'package:money/views/imports/core/import_qfx.dart';
+import 'package:money/views/imports/import_data.dart';
+import 'package:money/views/imports/import_qfx.dart';
 
 // Mock classes for dependencies
 

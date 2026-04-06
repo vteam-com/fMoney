@@ -4,7 +4,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants.dart';
-import 'package:money/widgets/dialogs/dialog.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pickers/picker_letter.dart';
 import 'package:money/widgets/pickers/token_text.dart';
 import 'package:money/widgets/pure/gaps.dart';

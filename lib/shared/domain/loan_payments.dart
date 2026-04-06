@@ -2,11 +2,11 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/account.dart';
+import 'package:money/shared/domain/account_domain.dart';
 import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/loan_payment.dart';
 import 'package:money/shared/domain/money_objects.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 
 const int _unsetId = -1;
 const int _fakeIdStart = 10000000;

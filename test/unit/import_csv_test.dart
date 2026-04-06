@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/imports/core/import_csv.dart';
-import 'package:money/views/imports/core/import_data.dart';
+import 'package:money/views/imports/import_csv.dart';
+import 'package:money/views/imports/import_data.dart';
 
 void main() {
   group('loadCSV Tests', () {

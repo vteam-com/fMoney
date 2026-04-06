@@ -1,5 +1,5 @@
-import 'package:money/shared/domain/account.dart';
-import 'package:money/shared/domain/category.dart';
+import 'package:money/shared/domain/account_domain.dart';
+import 'package:money/shared/domain/category_domain.dart';
 
 /// Represents import fields for transfer.
 class ImportFieldsForTransfer {

@@ -9,7 +9,7 @@ import 'package:money/helpers/file_systems.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/widgets/pure/snack_bar.dart';
 import 'package:money/widgets/widgets_domain/data_access.dart';
 import 'package:money/widgets/widgets_domain/data_source.dart';

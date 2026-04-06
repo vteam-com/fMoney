@@ -1,12 +1,12 @@
 import 'package:money/data/models/alias_types.dart';
+import 'package:money/data/models/category_types.dart';
 import 'package:money/data/models/data_simulator_constants.dart';
-import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
 import 'package:money/shared/domain/account_alias.dart';
-import 'package:money/shared/domain/alias.dart';
-import 'package:money/shared/domain/currency.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/alias_domain.dart';
+import 'package:money/shared/domain/currency_domain.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/domain/online_account.dart';
 
 /// Generates static reference data entities used by the simulator.

@@ -1,24 +1,24 @@
 // Imports
 // The following lines import necessary libraries and packages for the file.
 import 'package:money/shared/domain/account_aliases.dart';
-import 'package:money/shared/domain/accounts.dart';
-import 'package:money/shared/domain/aliases.dart';
-import 'package:money/shared/domain/categories.dart';
-import 'package:money/shared/domain/currencies.dart';
+import 'package:money/shared/domain/accounts_domain.dart';
+import 'package:money/shared/domain/aliases_domain.dart';
+import 'package:money/shared/domain/categories_domain.dart';
+import 'package:money/shared/domain/currencies_domain.dart';
 import 'package:money/shared/domain/data_abstract.dart';
-import 'package:money/shared/domain/events.dart';
-import 'package:money/shared/domain/investments.dart';
+import 'package:money/shared/domain/events_domain.dart';
+import 'package:money/shared/domain/investments_domain.dart';
 import 'package:money/shared/domain/loan_payments.dart';
 import 'package:money/shared/domain/money_objects.dart';
 import 'package:money/shared/domain/online_accounts.dart';
-import 'package:money/shared/domain/payees.dart';
+import 'package:money/shared/domain/payees_domain.dart';
 import 'package:money/shared/domain/rent_buildings.dart';
 import 'package:money/shared/domain/rental_units.dart';
-import 'package:money/shared/domain/securities.dart';
-import 'package:money/shared/domain/splits.dart';
+import 'package:money/shared/domain/securities_domain.dart';
+import 'package:money/shared/domain/splits_domain.dart';
 import 'package:money/shared/domain/stock_splits.dart';
 import 'package:money/shared/domain/transaction_extras.dart';
-import 'package:money/shared/domain/transactions.dart';
+import 'package:money/shared/domain/transactions_domain.dart';
 
 /// Owns all MoneyObjects managers, their table ordering, and the dependency injection
 /// that wires each manager to the active [DataAbstract] implementation.

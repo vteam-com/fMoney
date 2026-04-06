@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/category_types.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/category_types.dart';
 import 'package:money/widgets/pickers/picker_edit_box.dart';
 
 // Exports

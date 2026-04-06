@@ -4,7 +4,7 @@ import 'package:money/shared/domain/data_abstract.dart';
 import 'package:money/shared/domain/money_objects.dart';
 import 'package:money/shared/domain/rent_building.dart';
 import 'package:money/shared/domain/rental_unit.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 import 'package:money/widgets/components/rental_pnl.dart';
 
 /// Represents rent buildings.

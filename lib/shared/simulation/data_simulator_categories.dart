@@ -1,8 +1,8 @@
+import 'package:money/data/models/category_types.dart';
 import 'package:money/data/models/data_simulator_constants.dart';
-import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/category.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/category_domain.dart';
+import 'package:money/shared/domain/data_domain.dart';
 
 /// Holds category references generated for simulator domains.
 class DataSimulatorCategoriesBundle {

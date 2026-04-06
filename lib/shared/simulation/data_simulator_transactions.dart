@@ -1,12 +1,12 @@
+import 'package:money/data/models/category_types.dart';
 import 'package:money/data/models/data_simulator_constants.dart';
-import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/account.dart';
-import 'package:money/shared/domain/category.dart';
-import 'package:money/shared/domain/data.dart';
-import 'package:money/shared/domain/payee.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/account_domain.dart';
+import 'package:money/shared/domain/category_domain.dart';
+import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/shared/domain/payee_domain.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 import 'package:money/shared/domain/transaction_split.dart';
 
 /// Callback for generating evenly spaced monthly expenses.

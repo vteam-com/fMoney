@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 
 void main() {
   test('test_should_round_positive_decimal_value', () {

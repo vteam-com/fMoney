@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/accounts.dart';
+import 'package:money/shared/domain/accounts_domain.dart';
 
 void main() {
   group('getLinesFromTextBlob', () {

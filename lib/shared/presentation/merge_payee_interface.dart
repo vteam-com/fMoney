@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/models/mergeable_item.dart';
 import 'package:money/shared/domain/data_abstract.dart';
-import 'package:money/shared/domain/payee.dart';
+import 'package:money/shared/domain/payee_domain.dart';
 
 /// Abstract interface for providing merge payee functionality
 /// This allows decoupling Transaction from specific merge implementations

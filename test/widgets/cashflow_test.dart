@@ -6,8 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/shared/domain/data.dart';
-import 'package:money/views/screens/home/view_cashflow.dart';
+import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/views/home/view_cashflow.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
 

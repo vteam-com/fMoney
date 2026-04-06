@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/helpers/account_types_enum.dart';
-import 'package:money/views/imports/core/import_data.dart';
-import 'package:money/views/imports/core/import_qif.dart';
+import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/views/imports/import_data.dart';
+import 'package:money/views/imports/import_qif.dart';
 
 void main() {
   group('loadQIF', () {

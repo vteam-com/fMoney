@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_picker/src/platform/file_picker_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/imports/core/import_wizard.dart';
+import 'package:money/views/imports/import_wizard.dart';
 import 'package:money/widgets/components/wizard_choice.dart';
 
 /// A mock used in tests for test mock file picker.

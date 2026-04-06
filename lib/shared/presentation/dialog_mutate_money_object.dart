@@ -4,11 +4,11 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 import 'package:money/shared/presentation/dialog_mutate_shared.dart';
-import 'package:money/widgets/dialogs/dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/dialogs/message_box.dart';
 import 'package:money/widgets/widgets_domain/data_object.dart';
 

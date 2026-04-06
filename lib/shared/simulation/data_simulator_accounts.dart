@@ -1,11 +1,11 @@
+import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/category_types.dart';
 import 'package:money/data/models/data_simulator_constants.dart';
-import 'package:money/helpers/account_types_enum.dart';
-import 'package:money/helpers/category_types.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/account.dart';
-import 'package:money/shared/domain/category.dart';
-import 'package:money/shared/domain/data.dart';
-import 'package:money/shared/domain/transaction.dart';
+import 'package:money/shared/domain/account_domain.dart';
+import 'package:money/shared/domain/category_domain.dart';
+import 'package:money/shared/domain/data_domain.dart';
+import 'package:money/shared/domain/transaction_domain.dart';
 
 /// Holds generated account references for simulator flows.
 class DataSimulatorAccountsBundle {

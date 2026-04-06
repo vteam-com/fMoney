@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/domain/transaction_split.dart';
 import 'package:money/shared/presentation/list_view_transaction_splits.dart';
 import 'package:money/widgets/pure/gaps.dart';

@@ -2,7 +2,7 @@ import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants.dart';
 import 'package:money/helpers/shared_strings.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/domain/transaction_split.dart';
 import 'package:money/shared/presentation/dialog_mutate_shared.dart';
 import 'package:money/widgets/dialogs/confirmation_dialog.dart';

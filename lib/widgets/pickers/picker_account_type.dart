@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money/helpers/account_types.dart';
-import 'package:money/helpers/account_types_enum.dart';
+import 'package:money/data/models/account_types.dart';
+import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/helpers/app_l10n.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/pickers/picker_edit_box.dart';

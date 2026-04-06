@@ -1,6 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/shared/domain/data.dart';
+import 'package:money/shared/domain/data_domain.dart';
 import 'package:money/shared/presentation/service_money_data_io.dart';
 
 void main() {

@@ -1,6 +1,6 @@
-import 'package:money/helpers/investment_types.dart';
-import 'package:money/shared/domain/account.dart';
-import 'package:money/shared/domain/category.dart';
+import 'package:money/data/models/investment_types.dart';
+import 'package:money/shared/domain/account_domain.dart';
+import 'package:money/shared/domain/category_domain.dart';
 
 /// Represents investment import fields.
 class InvestmentImportFields {
