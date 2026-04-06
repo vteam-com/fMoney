@@ -1,6 +1,6 @@
 // ignore: fcheck_dead_code
 import 'package:intl/intl.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 
 // Exports
 export 'package:intl/intl.dart';

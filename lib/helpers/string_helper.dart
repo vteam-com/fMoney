@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:path_provider/path_provider.dart';
 
 const int _singleCharLength = 1;

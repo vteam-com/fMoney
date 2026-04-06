@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/shared_strings.dart';
-import 'package:money/widgets/columns/column_content_center.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/columns/column_content_center_widget.dart';
 
 const double _headerHorizontalPadding = 3;
 const double _sortIconSize = 20;

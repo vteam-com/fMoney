@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/pairs.dart';
+import 'package:money/helpers/pairs_model.dart';
 
 void main() {
   group('contrastColor Function Tests', () {

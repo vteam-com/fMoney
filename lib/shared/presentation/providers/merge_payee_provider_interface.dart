@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:money/data/models/mergeable_item_interface.dart';
+import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/payee_entity.dart';
+
+/// Abstract interface for providing merge payee functionality
+/// This allows decoupling Transaction from specific merge implementations
+abstract class MergePayeeProvider {
+  /// Shows the merge payee dialog for the given transactions
+  void showMergePayee<T extends MergeableItem>(
+    BuildContext context,
+    Payee payee,
+    Iterable<T> transactions,
+    DataAbstract data,
+  );
+}

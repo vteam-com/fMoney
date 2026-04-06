@@ -1,12 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/chart_helper.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/charts/chart.dart';
+import 'package:money/widgets/charts/chart_widget.dart';
 
 const double _defaultMarginLeft = 80;
 const double _defaultMarginBottom = 50;

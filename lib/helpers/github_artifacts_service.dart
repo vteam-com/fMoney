@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 
 /// Service to fetch latest GitHub release artifacts
 class GitHubArtifactsService {

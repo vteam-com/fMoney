@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/constants_helper.dart';
 
 /// Wraps action buttons in a row with end alignment.
 Widget dialogActionButtons(final List<Widget> actionsButtons) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/views/home/ai/view_ai_header.dart';
+import 'package:money/views/home/ai/ai_header_widget.dart';
 
 /// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatelessWidget {

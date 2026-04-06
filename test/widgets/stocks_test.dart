@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
-import 'package:money/data/models/dividend.dart';
-import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/ranges.dart';
-import 'package:money/shared/domain/data_domain.dart';
-import 'package:money/shared/domain/security_domain.dart';
-import 'package:money/shared/domain/stock_split.dart';
-import 'package:money/shared/presentation/provider_data_file_controller.dart';
-import 'package:money/shared/presentation/service_stock_cache_lookup.dart';
-import 'package:money/views/panels/stock_chart.dart';
-import 'package:money/widgets/charts/chart_event.dart';
-import 'package:money/widgets/pure/center_message.dart';
+import 'package:money/data/models/dividend_model.dart';
+import 'package:money/data/models/ranges_model.dart';
+import 'package:money/helpers/constants_helper.dart';
+import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/security_entity.dart';
+import 'package:money/shared/domain/stock_split_entity.dart';
+import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
+import 'package:money/shared/presentation/services/stock_cache_lookup_service.dart';
+import 'package:money/views/panels/charts/stock_chart.dart';
+import 'package:money/widgets/charts/chart_event_model.dart';
+import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 // Mock the SharedPreference
 /// A mock used in tests for mock preference controller.

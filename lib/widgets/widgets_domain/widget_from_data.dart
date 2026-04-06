@@ -1,10 +1,10 @@
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
-import 'package:money/helpers/locale.dart';
+import 'package:money/helpers/locale_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/widgets/pure/currency_label.dart';
-import 'package:money/widgets/pure/theme_custom.dart';
+import 'package:money/widgets/pure/currency_label_widget.dart';
+import 'package:money/widgets/pure/theme_custom_model.dart';
 
 const double _currencySpacing = 10;
 const double _decimalFontScale = 0.8;

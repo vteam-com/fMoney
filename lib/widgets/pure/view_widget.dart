@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 
 // Exports

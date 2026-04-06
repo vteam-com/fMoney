@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/shared/domain/data_domain.dart';
-import 'package:money/shared/presentation/service_money_data_io.dart';
+import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/services/money_data_io_service.dart';
 
 void main() {
   // Mark todo as partially completed - basic round-trip test created

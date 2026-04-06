@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/helpers/ranges.dart';
+import 'package:money/data/models/ranges_model.dart';
 import 'package:money/widgets/columns/value_parser.dart';
 import 'package:money/widgets/columns/value_quality.dart';
 

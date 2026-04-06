@@ -2,13 +2,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/ranges.dart';
 import 'package:money/widgets/list/list_item.dart';
-import 'package:money/widgets/widgets_domain/data_object.dart';
-import 'package:money/widgets/widgets_domain/field.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _rowHeightColumn = 30;
 const double _rowHeightCard = 85;

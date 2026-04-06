@@ -1,4 +1,4 @@
-import 'package:money/widgets/components/app_scaffold.dart';
+import 'package:money/widgets/components/app_scaffold_widget.dart';
 
 const double _actionButtonSpacing = 8;
 const double _actionButtonOverflowSpacing = 0;

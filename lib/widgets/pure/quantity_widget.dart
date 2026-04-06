@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/pure/theme_custom.dart';
+import 'package:money/widgets/pure/theme_custom_model.dart';
 
 const double _quantityFractionalFontSize = 11.0;
 

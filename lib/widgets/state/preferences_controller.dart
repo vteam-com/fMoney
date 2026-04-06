@@ -1,12 +1,12 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/widgets.dart';
-import 'package:money/data/models/field_filter.dart';
-import 'package:money/helpers/app_router.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/helpers/app_router_service.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/helpers/shared_strings.dart';
-import 'package:money/widgets/widgets_domain/data_access.dart';
-import 'package:money/widgets/widgets_domain/field_filters.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/widgets_domain/data_access_model.dart';
+import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const int _defaultCashflowRecurringOccurrences = 12;

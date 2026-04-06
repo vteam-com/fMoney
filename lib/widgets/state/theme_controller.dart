@@ -1,12 +1,12 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/material.dart';
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/my_window_manager.dart';
-import 'package:money/widgets/pure/theme_custom.dart';
+import 'package:money/helpers/window_manager_service.dart';
+import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
 /// Represents themes.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/helpers/pairs.dart';
+import 'package:money/helpers/pairs_model.dart';
 
 // Exports
 export 'package:flutter/material.dart';

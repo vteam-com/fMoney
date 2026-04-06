@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/constants_helper.dart';
 
 /// Builds a column footer button with alignment and callbacks.
 Widget buildColumnFooterButton({

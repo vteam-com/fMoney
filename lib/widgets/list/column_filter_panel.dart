@@ -1,13 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/gaps_helper.dart';
 
 // Exports
 export 'package:flutter/material.dart';
-export 'package:money/widgets/pure/scale_down.dart';
+export 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _columnFilterPanelWidth = 300;
 

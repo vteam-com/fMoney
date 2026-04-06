@@ -3,7 +3,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:money/widgets/sankey/sankey_entry.dart';
+import 'package:money/widgets/sankey/sankey_entry_model.dart';
 
 const double _defaultFontSize = 12;
 const double _defaultRotation = 0;

@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_this
 import 'dart:math';
 
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/data/models/ranges_model.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/ranges.dart';
 
 const double _sliderHeight = 58;
 const double _sliderEdgePadding = 20;

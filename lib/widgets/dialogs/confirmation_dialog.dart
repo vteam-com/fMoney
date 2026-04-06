@@ -1,8 +1,8 @@
-import 'package:money/helpers/app_l10n.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/pure/gaps.dart';
+import 'package:money/widgets/pure/gaps_helper.dart';
 
 /// Shows a confirmation dialog with a single action button.
 void showConfirmationDialog({

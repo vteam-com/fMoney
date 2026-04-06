@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 
 /// Utility functions for currency formatting that don't depend on MoneyObject.

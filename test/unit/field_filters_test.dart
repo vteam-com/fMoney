@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/data/models/field_filter.dart';
-import 'package:money/widgets/widgets_domain/field_filters.dart';
+import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
 void main() {
   group('FieldFilters', () {

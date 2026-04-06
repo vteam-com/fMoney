@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/ranges.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/widgets/columns/value_quality.dart';
 
 const int _threeColumnSeparatorCount = 2;

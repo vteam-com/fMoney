@@ -1,6 +1,6 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/pairs.dart';
+import 'package:money/helpers/pairs_model.dart';
 
 const double _maxHue = 359.7;
 const double _hueMin = 0;

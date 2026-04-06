@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/data/models/ai_chat_types.dart';
-import 'package:money/views/home/ai/view_ai_chat_message_footer.dart';
+import 'package:money/data/models/ai_chat_model.dart';
+import 'package:money/views/home/ai/ai_chat_message_footer_widget.dart';
 
 /// A test host widget for dummy hosting app.
 class DummyHostingApp extends StatelessWidget {

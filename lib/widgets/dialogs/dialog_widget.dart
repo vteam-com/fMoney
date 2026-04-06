@@ -1,9 +1,9 @@
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/constants.dart';
-import 'package:money/helpers/shared_strings.dart';
+import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_full_screen.dart';
-import 'package:money/widgets/pure/scale_down.dart';
+import 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _dialogBorderRadius = 8;
 const double _dialogBorderAlpha = 0.3;

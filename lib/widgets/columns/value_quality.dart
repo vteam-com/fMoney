@@ -1,12 +1,12 @@
 // ignore: fcheck_one_class_per_file
 
 import 'package:flutter/material.dart';
+import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/constants.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/ranges.dart';
-import 'package:money/helpers/shared_strings.dart';
-import 'package:money/widgets/components/semantic_text.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/components/semantic_text_widget.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _sortByDate = 0;
