@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:money/data/models/ai_chat_model.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -174,10 +175,13 @@ class OllamaService {
 
         return availableModels;
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error loading models: $e');
-      }
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        module: 'ollama_service',
+        operation: 'loadAvailableModels',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
     return <Map<String, dynamic>>[];
   }

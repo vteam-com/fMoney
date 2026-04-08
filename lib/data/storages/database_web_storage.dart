@@ -1,10 +1,11 @@
-// ignore_for_file: avoid_web_libraries_in_flutter, avoid_print
+// ignore_for_file: avoid_web_libraries_in_flutter
 // ignore: fcheck_dead_code
 import 'dart:async';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 
@@ -38,10 +39,17 @@ class MyDatabaseImplementation {
         'loadDatabaseFromBinary',
         <JSAny?>[fileBytes.toList().jsify()],
       );
-    } catch (e) {
-      // Rollback the transaction if an error occurs
-      // _db.execute('ROLLBACK');
-      // print('Error loading database: $e');
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        module: 'database_web_storage',
+        operation: 'load',
+        error: e,
+        stackTrace: stackTrace,
+        context: <String, Object?>{
+          'fileToOpen': fileToOpen,
+          'bytesCount': fileBytes.length,
+        },
+      );
       rethrow;
     } finally {
       // Clean up the temporary table
@@ -59,15 +67,18 @@ class MyDatabaseImplementation {
       final Object? dartResult = jsObjectResult?.dartify();
 
       if (dartResult is! List<dynamic> || dartResult.isEmpty) {
-        // no results found from the query
-        // print('No results found');
         return <Map<String, dynamic>>[];
       }
 
       // Access the first result set, ensuring it's a map-like object.
       final dynamic firstResult = dartResult.first;
       if (firstResult is! Map<dynamic, dynamic>) {
-        print('Error: The result set structure is unexpected.');
+        AppLogger.warning(
+          module: 'database_web_storage',
+          operation: 'select',
+          message: 'Unexpected result set structure.',
+          context: <String, Object?>{'query': query},
+        );
         return <Map<String, dynamic>>[];
       }
       // Convert the first result map to List<Map<String, dynamic>>.
@@ -76,8 +87,14 @@ class MyDatabaseImplementation {
           (final dynamic key, final dynamic value) => MapEntry<String, dynamic>(key.toString(), value),
         ),
       );
-    } catch (e) {
-      print('Error executing query: $e');
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        module: 'database_web_storage',
+        operation: 'select',
+        error: e,
+        stackTrace: stackTrace,
+        context: <String, Object?>{'query': query},
+      );
       return <Map<String, dynamic>>[];
     }
   }
@@ -89,8 +106,14 @@ class MyDatabaseImplementation {
         SharedSqlStrings.sqlSelectTableNames,
       );
       return _listMapContains(list, SharedSqlStrings.columnName, tableName);
-    } catch (e) {
-      print('Error checking if table exists: $e');
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        module: 'database_web_storage',
+        operation: 'tableExists',
+        error: e,
+        stackTrace: stackTrace,
+        context: <String, Object?>{'tableName': tableName},
+      );
       return false;
     }
   }

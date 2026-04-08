@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,12 +30,14 @@ class MyWindowManager extends WindowListener {
         PlatformDispatcher.instance.onError =
             (
               final Object error,
-              final StackTrace _,
+              final StackTrace stackTrace,
             ) {
-              // Log any Impeller-related errors
-              if (kDebugMode) {
-                print('Unhandled error: $error');
-              }
+              AppLogger.error(
+                module: 'window_manager_service',
+                operation: 'platformDispatcher.onError',
+                error: error,
+                stackTrace: stackTrace,
+              );
               return true;
             };
         // Only enable system UI mode for iOS/Android.

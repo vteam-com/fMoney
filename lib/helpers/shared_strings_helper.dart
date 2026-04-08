@@ -682,6 +682,15 @@ abstract class SharedStrings {
   /// Prefix for unsupported file-type warning messages.
   static const String messageUnsupportedFileTypePrefix = 'Unsupported file type ';
 
+  /// Log level token used for error entries.
+  static const String logLevelError = 'ERROR';
+
+  /// Log level token used for warning entries.
+  static const String logLevelWarn = 'WARN';
+
+  /// Label token used before serialized log context.
+  static const String logContextPrefix = ' | context=';
+
   /// Table name for account aliases.
   static const String tableAccountAliases = 'AccountAliases';
 
