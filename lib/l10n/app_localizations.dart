@@ -609,6 +609,12 @@ abstract class AppLocalizations {
   /// **'CSV import cancelled.'**
   String get csvImportCancelled;
 
+  /// No description provided for @csvImportRowsImportedAndSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV import parsed {imported} entries and skipped {skipped} rows.'**
+  String csvImportRowsImportedAndSkipped(Object imported, Object skipped);
+
   /// No description provided for @dataPreviewFirst5Rows.
   ///
   /// In en, this message translates to:

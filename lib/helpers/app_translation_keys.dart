@@ -62,6 +62,7 @@ abstract class AppTranslationKeys {
   static const String csvFileEmpty = 'csvFileEmpty';
   static const String csvHeadersAreMissingOrEmpty = 'csvHeadersAreMissingOrEmpty';
   static const String csvImportCancelled = 'csvImportCancelled';
+  static const String csvImportRowsImportedAndSkipped = 'csvImportRowsImportedAndSkipped';
   static const String dataPreviewFirst5Rows = 'dataPreviewFirst5Rows';
   static const String debit = 'debit';
   static const String details = 'details';

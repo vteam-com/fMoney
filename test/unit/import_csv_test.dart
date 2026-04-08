@@ -4,6 +4,27 @@ import 'package:money/views/imports/shared/data_import_view.dart';
 
 void main() {
   group('loadCSV Tests', () {
+    test('parseCsvContent handles quoted commas correctly', () {
+      const String csvContent = 'Date,Description,Amount\n2023-01-15,"Groceries, market",50.25';
+
+      final CsvRowsData parsed = parseCsvContent(csvContent);
+      final ImportData result = loadCSV(
+        parsed.headers,
+        parsed.dataRows,
+        <String, String>{
+          'date': 'Date',
+          'description': 'Description',
+          'amount': 'Amount',
+        },
+      );
+
+      expect(result.entries.length, 1);
+      expect(result.entries[0].name, 'Groceries, market');
+      expect(result.entries[0].amount, 50.25);
+      expect(result.diagnostics.processedRows, 1);
+      expect(result.diagnostics.skippedRows, 0);
+    });
+
     test('Valid CSV data, standard column order', () {
       final List<String> headers = <String>['Date', 'Description', 'Amount'];
       final List<List<String>> dataRows = <List<String>>[
@@ -86,6 +107,9 @@ void main() {
       // Note: Current implementation prints to console, test output won't show that.
       expect(result.entries.length, 1);
       expect(result.entries[0].name, 'Valid Entry');
+      expect(result.diagnostics.processedRows, 2);
+      expect(result.diagnostics.skippedRows, 1);
+      expect(result.diagnostics.skippedByReason['invalidDate'], 1);
     });
 
     test('CSV data with non-numeric amount', () {
@@ -102,6 +126,9 @@ void main() {
       final ImportData result = loadCSV(headers, dataRows, columnMapping);
       expect(result.entries.length, 1);
       expect(result.entries[0].name, 'Valid Entry');
+      expect(result.diagnostics.processedRows, 2);
+      expect(result.diagnostics.skippedRows, 1);
+      expect(result.diagnostics.skippedByReason['invalidAmount'], 1);
     });
 
     test('CSV data with missing columns in a row', () {
@@ -121,6 +148,9 @@ void main() {
       expect(result.entries.length, 2);
       expect(result.entries[0].name, 'Valid Full');
       expect(result.entries[1].name, 'Valid Again');
+      expect(result.diagnostics.processedRows, 3);
+      expect(result.diagnostics.skippedRows, 1);
+      expect(result.diagnostics.skippedByReason['insufficientColumns'], 1);
     });
 
     test('Empty dataRows input', () {

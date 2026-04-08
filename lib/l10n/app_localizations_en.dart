@@ -282,6 +282,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get csvImportCancelled => 'CSV import cancelled.';
 
   @override
+  String csvImportRowsImportedAndSkipped(Object imported, Object skipped) {
+    return 'CSV import parsed $imported entries and skipped $skipped rows.';
+  }
+
+  @override
   String get dataPreviewFirst5Rows => 'Data Preview (First 5 rows):';
 
   @override

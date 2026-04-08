@@ -104,6 +104,11 @@ String resolveAppL10nKey(
       return l10n.csvHeadersAreMissingOrEmpty;
     case AppTranslationKeys.csvImportCancelled:
       return l10n.csvImportCancelled;
+    case AppTranslationKeys.csvImportRowsImportedAndSkipped:
+      return l10n.csvImportRowsImportedAndSkipped(
+        p['imported'] ?? '',
+        p['skipped'] ?? '',
+      );
     case AppTranslationKeys.dataPreviewFirst5Rows:
       return l10n.dataPreviewFirst5Rows;
     case AppTranslationKeys.debit:

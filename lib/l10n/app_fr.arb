@@ -155,6 +155,13 @@
   "csvFileEmpty": "Le fichier CSV est vide.",
   "csvHeadersAreMissingOrEmpty": "Les en-tetes CSV sont manquants ou vides.",
   "csvImportCancelled": "Import CSV annule.",
+  "csvImportRowsImportedAndSkipped": "Import CSV : {imported} entrees analysees et {skipped} lignes ignorees.",
+  "@csvImportRowsImportedAndSkipped": {
+    "placeholders": {
+      "imported": {},
+      "skipped": {}
+    }
+  },
   "dataPreviewFirst5Rows": "Apercu des donnees (5 premieres lignes) :",
   "date": "Date d'operation",
   "day": "Jour",

@@ -20,11 +20,38 @@ const double _previewHeight = 400.0;
 
 /// Represents import data.
 class ImportData {
+  /// Parsed entries that are eligible for import.
   List<ImportEntry> entries = <ImportEntry>[];
+
+  /// Source file type label (for example, CSV, QFX).
   String fileType = '';
 
+  /// Optional account associated with the imported file.
   Account? account;
+
+  /// Optional account type associated with the imported file.
   AccountType? accountType;
+
+  /// Diagnostics captured while parsing source rows.
+  final ImportDiagnostics diagnostics = ImportDiagnostics();
+}
+
+/// Captures import parsing counters and row skip reasons.
+class ImportDiagnostics {
+  /// Total number of source data rows examined (excluding header row).
+  int processedRows = 0;
+
+  /// Total number of rows skipped during parsing.
+  int skippedRows = 0;
+
+  /// Skipped-row counters grouped by a stable reason key.
+  final Map<String, int> skippedByReason = <String, int>{};
+
+  /// Increments the skipped counter for [reasonKey].
+  void incrementSkipped(final String reasonKey) {
+    skippedRows = skippedRows + 1;
+    skippedByReason[reasonKey] = (skippedByReason[reasonKey] ?? 0) + 1;
+  }
 }
 
 /// Represents import entry.

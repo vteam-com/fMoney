@@ -155,6 +155,13 @@
   "csvFileEmpty": "CSV file is empty.",
   "csvHeadersAreMissingOrEmpty": "CSV headers are missing or empty.",
   "csvImportCancelled": "CSV import cancelled.",
+  "csvImportRowsImportedAndSkipped": "CSV import parsed {imported} entries and skipped {skipped} rows.",
+  "@csvImportRowsImportedAndSkipped": {
+    "placeholders": {
+      "imported": {},
+      "skipped": {}
+    }
+  },
   "dataPreviewFirst5Rows": "Data Preview (First 5 rows):",
   "date": "Date",
   "day": "Day",
