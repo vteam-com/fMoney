@@ -9,7 +9,7 @@ FFMPEG_PID=$!
 
 # Run the Flutter integration test
 # sh/test_clean.sh
-flutter test integration_test -d macos
+flutter test integration_test -d macos --enable-impeller
 
 # Stop the ffmpeg recording
 kill $FFMPEG_PID

@@ -27,5 +27,5 @@ dart pub global activate fcheck 1.1.3 > /dev/null
 dart pub global run fcheck --fix --svg
 
 echo --------------- Format sources
-dart format . | sed 's/^/    /'
-dart fix --apply | sed 's/^/    /'
+dart format .
+dart fix --apply

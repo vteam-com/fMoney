@@ -40,7 +40,8 @@
             "program": "lib/main.dart",
             "args": [
                 "-d",
-                "macos"
+                "macos",
+                "--enable-impeller"
             ]
         },
         {
@@ -51,7 +52,8 @@
             "args": [
                 "-d",
                 "macos",
-                "--release"
+                "--release",
+                "--enable-impeller"
             ]
         }
     ]

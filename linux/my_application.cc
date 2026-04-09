@@ -1,5 +1,9 @@
 #include "my_application.h"
 
+#include <cstdlib>
+#include <cstring>
+#include <string>
+
 #include <flutter_linux/flutter_linux.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
@@ -12,6 +16,40 @@ struct _MyApplication {
   char** dart_entrypoint_arguments;
 };
 
+/// Ensures Impeller is enabled by injecting or overriding the engine switch.
+static void ensure_impeller_enabled_for_desktop() {
+  int switch_count = 0;
+  const char* switch_count_value = std::getenv("FLUTTER_ENGINE_SWITCHES");
+  if (switch_count_value != nullptr) {
+    switch_count = std::atoi(switch_count_value);
+  }
+
+  const char* impeller_switch_prefix = "enable-impeller=";
+  for (int switch_index = 1; switch_index <= switch_count; ++switch_index) {
+    const std::string switch_key =
+        "FLUTTER_ENGINE_SWITCH_" + std::to_string(switch_index);
+    const char* switch_value = std::getenv(switch_key.c_str());
+    if (switch_value == nullptr) {
+      continue;
+    }
+
+    if (std::strncmp(
+            switch_value, impeller_switch_prefix,
+            std::strlen(impeller_switch_prefix)) == 0) {
+      setenv(switch_key.c_str(), "enable-impeller=true", 1);
+      return;
+    }
+  }
+
+  const int next_switch_index = switch_count + 1;
+  const std::string next_switch_key =
+      "FLUTTER_ENGINE_SWITCH_" + std::to_string(next_switch_index);
+  const std::string next_switch_count = std::to_string(next_switch_index);
+
+  setenv(next_switch_key.c_str(), "enable-impeller=true", 1);
+  setenv("FLUTTER_ENGINE_SWITCHES", next_switch_count.c_str(), 1);
+}
+
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 
 // Implements GApplication::activate.
@@ -19,6 +57,8 @@ static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
+
+  ensure_impeller_enabled_for_desktop();
 
   // Use a header bar when running in GNOME as this is the common style used
   // by applications and is the setup most users will be using (e.g. Ubuntu
