@@ -2,11 +2,6 @@
 
 tool/clean.sh
 
-# Prefer Homebrew CocoaPods over potentially broken gem shim binaries.
-if [ -x /opt/homebrew/bin/pod ]; then
-  PATH="/opt/homebrew/bin:$PATH"
-fi
-
 flutter test integration_test --coverage --coverage-path=coverage/lcov_integration.info -d macos --enable-impeller || exit 1
 
 flutter test --coverage --coverage-path=coverage/lcov_units.info || exit 1
