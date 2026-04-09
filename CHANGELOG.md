@@ -1,5 +1,15 @@
 # Change Log
 
+## [version 1.17.03] 2026-04-09
+
+### Updated
+
+- **Rendering Engine**: Enabled Impeller rendering engine
+- **CSV Import**: Improved CSV file import handling
+- **Logging**: Adopted shared logger across the application
+- **Code Organization**: Major refactoring of folder structure and file naming conventions; removed legacy providers folder
+- **Code Quality**: Applied `avoid_void_async` lint rule and updated package dependencies
+
 ## [version 1.17.02] 2026-04-01
 
 ### Updated
