@@ -1,3 +1,6 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:money/data/models/navigation_item_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -151,11 +154,12 @@ class MyNavigationBar extends StatelessWidget {
           icon: ViewId.viewRentals.getIcon(),
         ),
 
-      MyNavigationItem(
-        label: AppL10n.tr(AppTranslationKeys.aiAssistant),
-        tooltip: AppL10n.tr(AppTranslationKeys.navAiAssistantTooltip),
-        icon: ViewId.viewAI.getIcon(),
-      ),
+      if (!kIsWeb && (Platform.isMacOS || Platform.isWindows))
+        MyNavigationItem(
+          label: AppL10n.tr(AppTranslationKeys.aiAssistant),
+          tooltip: AppL10n.tr(AppTranslationKeys.navAiAssistantTooltip),
+          icon: ViewId.viewAI.getIcon(),
+        ),
     ];
 
     return appBarDestinations;
