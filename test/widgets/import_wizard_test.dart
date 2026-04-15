@@ -75,8 +75,8 @@ void main() {
     await tester.pumpAndSettle(); // For dialog animation
 
     expect(find.text('Import transactions'), findsOneWidget); // Dialog title
-    expect(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV file'), findsOneWidget);
-    expect(find.text('Import transactions from a QFX, QIF, XLSX, or CSV file.'), findsOneWidget);
+    expect(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV|PDF file'), findsOneWidget);
+    expect(find.text('Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.'), findsOneWidget);
   });
 
   testWidgets('Tapping file import option and picking XLSX file calls importXLSX', (WidgetTester tester) async {
@@ -100,8 +100,8 @@ void main() {
     await tester.tap(find.text('Show Wizard'));
     await tester.pumpAndSettle();
 
-    // Tap the 'From QFX|QIF|XLSX|CSV file' option
-    await tester.tap(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV file'));
+    // Tap the 'From QFX|QIF|XLSX|CSV|PDF file' option
+    await tester.tap(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV|PDF file'));
 
     // Wait for dialog dismissal and FilePicker call
     await tester.pumpAndSettle();
@@ -145,8 +145,8 @@ void main() {
     // Expect the main wizard dialog
     expect(find.text('Import transactions'), findsOneWidget);
 
-    // Tap the 'From QFX|QIF|XLSX|CSV file' option
-    await tester.tap(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV file'));
+    // Tap the 'From QFX|QIF|XLSX|CSV|PDF file' option
+    await tester.tap(find.widgetWithText(WizardChoice, 'From QFX|QIF|XLSX|CSV|PDF file'));
 
     // The wizard dialog should pop, then onImportFromFile is called, which calls FilePicker.
     // Then, importCSV is called. importCSV will attempt to read the file, fail, and should show a SnackBar.

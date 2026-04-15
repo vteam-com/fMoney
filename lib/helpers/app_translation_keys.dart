@@ -221,6 +221,17 @@ abstract class AppTranslationKeys {
   static const String cash = 'cash';
   static const String noAccountSelectedPeriod = 'noAccountSelectedPeriod';
   static const String aiAssistant = 'aiAssistant';
+  static const String aiReadingPdfStatement = 'aiReadingPdfStatement';
+  static const String aiDropPdfFileOnly = 'aiDropPdfFileOnly';
+  static const String aiUnableToReadPdf = 'aiUnableToReadPdf';
+  static const String aiPdfNotBankStatement = 'aiPdfNotBankStatement';
+  static const String aiStatementBalance = 'aiStatementBalance';
+  static const String aiMatchedAccount = 'aiMatchedAccount';
+  static const String aiNoMatchingAccountFound = 'aiNoMatchingAccountFound';
+  static const String aiStatementAccountFoundLabel = 'aiStatementAccountFoundLabel';
+  static const String aiStatementAccountNotFoundSelectDestinationAccount =
+      'aiStatementAccountNotFoundSelectDestinationAccount';
+  static const String aiNoOpenAccountsAvailableForImport = 'aiNoOpenAccountsAvailableForImport';
   static const String navCashflow = 'navCashflow';
   static const String navCashflowTooltip = 'navCashflowTooltip';
   static const String navEvents = 'navEvents';

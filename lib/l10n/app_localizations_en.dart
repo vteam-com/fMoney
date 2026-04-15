@@ -60,9 +60,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiAssistant => 'AI Assistant';
 
   @override
+  String get aiDropPdfFileOnly => 'Please drop a PDF file.';
+
+  @override
   String aiLearnedAboutAccountsAndTransactions(String count) {
     return 'AI has learned about @count accounts and their transactions.';
   }
+
+  @override
+  String aiMatchedAccount(String account) {
+    return 'Matched account: @account';
+  }
+
+  @override
+  String get aiNoMatchingAccountFound => 'No matching account found. Select an account to continue.';
+
+  @override
+  String get aiNoOpenAccountsAvailableForImport => 'No open accounts are available for import.';
+
+  @override
+  String get aiPdfNotBankStatement => 'No bank statement transactions were detected in this PDF.';
+
+  @override
+  String get aiReadingPdfStatement => 'Reading PDF statement...';
+
+  @override
+  String get aiStatementAccountFoundLabel => 'Account found';
+
+  @override
+  String get aiStatementAccountNotFoundSelectDestinationAccount =>
+      'was not found in your accounts. Please select the destination account.';
+
+  @override
+  String get aiStatementBalance => 'Statement balance';
+
+  @override
+  String get aiUnableToReadPdf => 'Unable to read this PDF file.';
 
   @override
   String get alias => 'Alias';
@@ -444,10 +477,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, QIF, XLSX, or CSV file.';
+  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'From QFX|QIF|XLSX|CSV file';
+  String get importFromQfxQifXlsxCsvFile => 'From QFX|QIF|XLSX|CSV|PDF file';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {

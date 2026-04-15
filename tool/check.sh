@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 echo --------------- Pub Get
 flutter pub get > /dev/null || { echo "Pub get failed"; exit 1; }
 
@@ -23,8 +25,8 @@ export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
 
 # Install the pinned version into the isolated cache, then run it.
 # Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
-dart pub global activate fcheck 1.1.3 > /dev/null
-dart pub global run fcheck --fix --svg
+dart pub global activate fcheck 1.2.0 > /dev/null
+dart pub global run fcheck --fix --strict
 
 echo --------------- Format sources
 dart format .

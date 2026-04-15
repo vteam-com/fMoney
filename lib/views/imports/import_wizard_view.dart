@@ -14,8 +14,37 @@ import 'package:money/views/imports/transfer/transfer_import_view.dart';
 import 'package:money/widgets/components/wizard_choice_widget.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
+import 'package:path/path.dart' as path;
 
 const double _wizardSpacing = 40.0;
+
+/// Supported file extensions accepted by the transaction import file picker.
+const List<String> _supportedTransactionImportFileExtensions = <String>[
+  SharedStrings.fileExtensionQfx,
+  SharedStrings.fileExtensionQif,
+  SharedStrings.fileExtensionXlsx,
+  SharedStrings.fileExtensionCsv,
+  SharedStrings.fileExtensionPdf,
+];
+
+/// Resolves the selected file extension from picker metadata or falls back to its path.
+String _resolveSelectedFileExtension(final PlatformFile file) {
+  final String extensionFromMetadata = (file.extension ?? '').trim().toLowerCase();
+  if (extensionFromMetadata.isNotEmpty) {
+    return extensionFromMetadata.startsWith('.') ? extensionFromMetadata.substring(1) : extensionFromMetadata;
+  }
+
+  final String filePath = file.path ?? '';
+  if (filePath.isEmpty) {
+    return '';
+  }
+
+  final String extensionFromPath = path.extension(filePath).trim().toLowerCase();
+  if (extensionFromPath.isEmpty) {
+    return '';
+  }
+  return extensionFromPath.startsWith('.') ? extensionFromPath.substring(1) : extensionFromPath;
+}
 
 /// Shows wizard dialog for importing transactions from various sources.
 void showImportTransactionsWizard([BuildContext? context]) {
@@ -72,24 +101,38 @@ void showImportTransactionsWizard([BuildContext? context]) {
 /// Handles file selection and import from chosen file.
 Future<void> onImportFromFile(final BuildContext context) async {
   final FilePickerResult? pickerResult = await FilePicker.pickFiles(
-    type: FileType.any,
+    type: FileType.custom,
+    allowedExtensions: _supportedTransactionImportFileExtensions,
   );
-  if (pickerResult != null) {
-    if (context.mounted) {
-      switch (pickerResult.files.single.extension?.toLowerCase()) {
-        case SharedStrings.fileExtensionQif:
-          importQIF(context, pickerResult.files.single.path.toString());
-          break; // Added break
-        case SharedStrings.fileExtensionQfx:
-          importQFX(context, pickerResult.files.single.path.toString());
-          break; // Added break
-        case SharedStrings.fileExtensionXlsx:
-          importXLSX(context, pickerResult.files.single.path.toString());
-          break;
-        case SharedStrings.fileExtensionCsv:
-          importCSV(context, pickerResult.files.single.path.toString());
-          break;
-      }
-    }
+  if (pickerResult == null || !context.mounted) {
+    return;
+  }
+
+  final PlatformFile file = pickerResult.files.single;
+  final String? filePath = file.path;
+  if (filePath == null || filePath.isEmpty) {
+    return;
+  }
+
+  final String fileExtension = _resolveSelectedFileExtension(file);
+  switch (fileExtension) {
+    case SharedStrings.fileExtensionQif:
+      importQIF(context, filePath);
+      break;
+    case SharedStrings.fileExtensionQfx:
+      importQFX(context, filePath);
+      break;
+    case SharedStrings.fileExtensionXlsx:
+      importXLSX(context, filePath);
+      break;
+    case SharedStrings.fileExtensionCsv:
+      importCSV(context, filePath);
+      break;
+    case SharedStrings.fileExtensionPdf:
+      await showImportTransactionsFromPdfUsingAi(
+        context: context,
+        pdfFilePath: filePath,
+      );
+      break;
   }
 }

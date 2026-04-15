@@ -35,7 +35,11 @@
     "window.closeWhenEmpty": false,
     "workbench.editor.closeEmptyGroups": false,
     "cSpell.words": [
+        "dedupe",
+        "ENDESA",
+        "ENERGIA",
         "fcheck",
+        "IBAN",
         "svgfolder"
     ],
     // "files.exclude": {

@@ -60,9 +60,42 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aiAssistant => 'Asistente de IA';
 
   @override
+  String get aiDropPdfFileOnly => 'Suelta un archivo PDF.';
+
+  @override
   String aiLearnedAboutAccountsAndTransactions(String count) {
     return 'La IA ha aprendido sobre @count cuentas y sus transacciones.';
   }
+
+  @override
+  String aiMatchedAccount(String account) {
+    return 'Cuenta coincidente: @account';
+  }
+
+  @override
+  String get aiNoMatchingAccountFound => 'No se encontro una cuenta coincidente. Selecciona una cuenta para continuar.';
+
+  @override
+  String get aiNoOpenAccountsAvailableForImport => 'No hay cuentas abiertas disponibles para importar.';
+
+  @override
+  String get aiPdfNotBankStatement => 'No se detectaron transacciones de estado de cuenta bancario en este PDF.';
+
+  @override
+  String get aiReadingPdfStatement => 'Leyendo estado de cuenta PDF...';
+
+  @override
+  String get aiStatementAccountFoundLabel => 'Cuenta encontrada';
+
+  @override
+  String get aiStatementAccountNotFoundSelectDestinationAccount =>
+      'no se encontro en tus cuentas. Selecciona la cuenta de destino.';
+
+  @override
+  String get aiStatementBalance => 'Saldo del estado de cuenta';
+
+  @override
+  String get aiUnableToReadPdf => 'No se puede leer este archivo PDF.';
 
   @override
   String get alias => 'Seudonimo';
@@ -446,10 +479,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Importar transacciones desde un archivo QFX, QIF, XLSX o CSV.';
+  String get importFromQfxQifXlsxCsvDescription => 'Importar transacciones desde un archivo QFX, QIF, XLSX, CSV o PDF.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'Desde archivo QFX|QIF|XLSX|CSV';
+  String get importFromQfxQifXlsxCsvFile => 'Desde archivo QFX|QIF|XLSX|CSV|PDF';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {

@@ -16,6 +16,7 @@
   "addTransactionBetweenTwoAccounts": "Add a transaction between two accounts.",
   "addTransactionsMenuItem": "Add transactions...",
   "aiAssistant": "AI Assistant",
+  "aiDropPdfFileOnly": "Please drop a PDF file.",
   "aiLearnedAboutAccountsAndTransactions": "AI has learned about @count accounts and their transactions.",
   "@aiLearnedAboutAccountsAndTransactions": {
     "placeholders": {
@@ -24,6 +25,22 @@
       }
     }
   },
+  "aiMatchedAccount": "Matched account: @account",
+  "@aiMatchedAccount": {
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "aiNoMatchingAccountFound": "No matching account found. Select an account to continue.",
+  "aiNoOpenAccountsAvailableForImport": "No open accounts are available for import.",
+  "aiPdfNotBankStatement": "No bank statement transactions were detected in this PDF.",
+  "aiReadingPdfStatement": "Reading PDF statement...",
+  "aiStatementAccountFoundLabel": "Account found",
+  "aiStatementAccountNotFoundSelectDestinationAccount": "was not found in your accounts. Please select the destination account.",
+  "aiStatementBalance": "Statement balance",
+  "aiUnableToReadPdf": "Unable to read this PDF file.",
   "alias": "Alias",
   "aliases": "Aliases",
   "allLabel": "All",
@@ -280,8 +297,8 @@
       }
     }
   },
-  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, QIF, XLSX, or CSV file.",
-  "importFromQfxQifXlsxCsvFile": "From QFX|QIF|XLSX|CSV file",
+  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.",
+  "importFromQfxQifXlsxCsvFile": "From QFX|QIF|XLSX|CSV|PDF file",
   "importNoMatchingAccountsWithId": "Import - No matching \"{fileType}\" accounts with ID \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {

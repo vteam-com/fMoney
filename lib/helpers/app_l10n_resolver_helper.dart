@@ -435,6 +435,26 @@ String _resolveAppL10nKeyStageTwo(
       return l10n.smallScreenContentGoesHere;
     case AppTranslationKeys.aiAssistant:
       return l10n.aiAssistant;
+    case AppTranslationKeys.aiReadingPdfStatement:
+      return l10n.aiReadingPdfStatement;
+    case AppTranslationKeys.aiDropPdfFileOnly:
+      return l10n.aiDropPdfFileOnly;
+    case AppTranslationKeys.aiUnableToReadPdf:
+      return l10n.aiUnableToReadPdf;
+    case AppTranslationKeys.aiPdfNotBankStatement:
+      return l10n.aiPdfNotBankStatement;
+    case AppTranslationKeys.aiStatementBalance:
+      return l10n.aiStatementBalance;
+    case AppTranslationKeys.aiMatchedAccount:
+      return l10n.aiMatchedAccount(p['account'] ?? '');
+    case AppTranslationKeys.aiNoMatchingAccountFound:
+      return l10n.aiNoMatchingAccountFound;
+    case AppTranslationKeys.aiStatementAccountFoundLabel:
+      return l10n.aiStatementAccountFoundLabel;
+    case AppTranslationKeys.aiStatementAccountNotFoundSelectDestinationAccount:
+      return l10n.aiStatementAccountNotFoundSelectDestinationAccount;
+    case AppTranslationKeys.aiNoOpenAccountsAvailableForImport:
+      return l10n.aiNoOpenAccountsAvailableForImport;
     default:
       return _resolveAppL10nKeyStageThree(l10n, key, p);
   }

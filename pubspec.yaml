@@ -60,8 +60,9 @@ dependencies:
   path_provider: ^2.1.5
   shared_preferences: ^2.5.5
   sqlite3: ^3.3.0
-  textify: ^0.5.2
-  # path: "../textify"
+  syncfusion_flutter_pdf: ^31.2.5
+  textify:
+    path: "../textify"
   universal_io: ^2.3.1
   url_launcher: ^6.3.2
   uuid: ^4.5.3

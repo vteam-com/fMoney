@@ -361,6 +361,9 @@ abstract class SharedStrings {
   /// Supported file extension for CSV imports.
   static const String fileExtensionCsv = 'csv';
 
+  /// Supported file extension for PDF imports.
+  static const String fileExtensionPdf = 'pdf';
+
   /// Supported file extension for database files.
   static const String fileExtensionMmdb = '.mmdb';
 

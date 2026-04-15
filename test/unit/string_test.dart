@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -38,8 +36,6 @@ void main() {
     stopwatch.stop();
     time1 = stopwatch.elapsedMilliseconds;
 
-    print('Baseline (toUpperCase): $time1 ms');
-
     // Current implementation (Optimized)
     final Stopwatch stopwatch2 = Stopwatch()..start();
     for (int i = 0; i < 200000; i++) {
@@ -53,10 +49,9 @@ void main() {
     }
     stopwatch2.stop();
     time2 = stopwatch2.elapsedMilliseconds;
-    print('Current (stringCompareIgnoreCasing): $time2 ms');
 
     // We expect the optimized version to be faster or at least comparable
-    // Ideally time2 < time1
+    expect(time2, lessThanOrEqualTo(time1 * 2));
   });
 
   group('String getStringBetweenTwoTokens:', () {

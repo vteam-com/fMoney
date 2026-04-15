@@ -195,11 +195,71 @@ abstract class AppLocalizations {
   /// **'AI Assistant'**
   String get aiAssistant;
 
+  /// No description provided for @aiDropPdfFileOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Please drop a PDF file.'**
+  String get aiDropPdfFileOnly;
+
   /// No description provided for @aiLearnedAboutAccountsAndTransactions.
   ///
   /// In en, this message translates to:
   /// **'AI has learned about @count accounts and their transactions.'**
   String aiLearnedAboutAccountsAndTransactions(String count);
+
+  /// No description provided for @aiMatchedAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matched account: @account'**
+  String aiMatchedAccount(String account);
+
+  /// No description provided for @aiNoMatchingAccountFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching account found. Select an account to continue.'**
+  String get aiNoMatchingAccountFound;
+
+  /// No description provided for @aiNoOpenAccountsAvailableForImport.
+  ///
+  /// In en, this message translates to:
+  /// **'No open accounts are available for import.'**
+  String get aiNoOpenAccountsAvailableForImport;
+
+  /// No description provided for @aiPdfNotBankStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'No bank statement transactions were detected in this PDF.'**
+  String get aiPdfNotBankStatement;
+
+  /// No description provided for @aiReadingPdfStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading PDF statement...'**
+  String get aiReadingPdfStatement;
+
+  /// No description provided for @aiStatementAccountFoundLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Account found'**
+  String get aiStatementAccountFoundLabel;
+
+  /// No description provided for @aiStatementAccountNotFoundSelectDestinationAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'was not found in your accounts. Please select the destination account.'**
+  String get aiStatementAccountNotFoundSelectDestinationAccount;
+
+  /// No description provided for @aiStatementBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Statement balance'**
+  String get aiStatementBalance;
+
+  /// No description provided for @aiUnableToReadPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to read this PDF file.'**
+  String get aiUnableToReadPdf;
 
   /// No description provided for @alias.
   ///
@@ -900,13 +960,13 @@ abstract class AppLocalizations {
   /// No description provided for @importFromQfxQifXlsxCsvDescription.
   ///
   /// In en, this message translates to:
-  /// **'Import transactions from a QFX, QIF, XLSX, or CSV file.'**
+  /// **'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.'**
   String get importFromQfxQifXlsxCsvDescription;
 
   /// No description provided for @importFromQfxQifXlsxCsvFile.
   ///
   /// In en, this message translates to:
-  /// **'From QFX|QIF|XLSX|CSV file'**
+  /// **'From QFX|QIF|XLSX|CSV|PDF file'**
   String get importFromQfxQifXlsxCsvFile;
 
   /// No description provided for @importNoMatchingAccountsWithId.

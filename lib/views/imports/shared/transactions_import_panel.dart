@@ -28,14 +28,16 @@ class ImportTransactionsPanel extends StatefulWidget {
     required this.inputText,
     required this.onAccountChanged,
     required this.onTransactionsFound,
+    this.preferredCurrencyCode,
     super.key,
   });
-
   final Account account;
   final String inputText;
   final void Function(Account accountSelected) onAccountChanged;
   final void Function(ValuesParser parser) onTransactionsFound;
 
+  /// Optional ISO-4217 currency code used to initialize the import amount format toggle.
+  final String? preferredCurrencyCode;
   @override
   ImportTransactionsPanelState createState() => ImportTransactionsPanelState();
 }
@@ -43,9 +45,8 @@ class ImportTransactionsPanel extends StatefulWidget {
 /// State for import transactions panel.
 class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   late Account _account;
-
+  bool _allowCurrencyAutoDetection = true;
   final FocusNode _focusNode = FocusNode();
-
   final List<String> _possibleDateFormats = <String>[
     // Dash
     'yyyy-MM-dd',
@@ -66,22 +67,23 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     'dd/MM/yyyy',
     'dd/MM/yy',
   ];
-
   late String _textToParse;
-
   int _userChoiceDebitVsCredit = 0;
-
   int _userChoiceNativeVsUSD = 0;
-
   List<ValuesQuality> _values = <ValuesQuality>[];
-
   late String userChoiceOfDateFormat = _possibleDateFormats.first;
-
   @override
   void initState() {
     super.initState();
     _account = widget.account;
     _textToParse = widget.inputText;
+
+    final int? preferredCurrencyFormat = _resolvePreferredCurrencyFormat(widget.preferredCurrencyCode);
+    if (preferredCurrencyFormat != null) {
+      _userChoiceNativeVsUSD = preferredCurrencyFormat;
+      _allowCurrencyAutoDetection = false;
+    }
+
     convertAndNotify(context, _textToParse);
   }
 
@@ -179,10 +181,12 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
   /// Converts input text and notifies about detected currency format.
   void convertAndNotify(BuildContext context, String inputText) {
-    // Detect currency format from input text if any amounts exist
-    final int detectedFormat = detectCurrencyFormat(inputText);
-    if (detectedFormat != _unsetId) {
-      _userChoiceNativeVsUSD = detectedFormat;
+    if (_allowCurrencyAutoDetection) {
+      // Detect currency format from input text if any amounts exist
+      final int detectedFormat = detectCurrencyFormat(inputText);
+      if (detectedFormat != _unsetId) {
+        _userChoiceNativeVsUSD = detectedFormat;
+      }
     }
 
     final ValuesParser parser = ValuesParser(
@@ -362,5 +366,19 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         ),
       ],
     );
+  }
+
+  /// Resolves the initial currency format selector value from [preferredCurrencyCode].
+  int? _resolvePreferredCurrencyFormat(final String? preferredCurrencyCode) {
+    if (preferredCurrencyCode == null) {
+      return null;
+    }
+
+    final String normalizedCurrencyCode = preferredCurrencyCode.trim().toUpperCase();
+    if (normalizedCurrencyCode.isEmpty) {
+      return null;
+    }
+
+    return normalizedCurrencyCode == Constants.defaultCurrency ? _currencyFormatUsd : _currencyFormatNative;
   }
 }

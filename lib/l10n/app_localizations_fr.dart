@@ -60,9 +60,42 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiAssistant => 'Assistant IA';
 
   @override
+  String get aiDropPdfFileOnly => 'Veuillez deposer un fichier PDF.';
+
+  @override
   String aiLearnedAboutAccountsAndTransactions(String count) {
     return 'L\'IA a appris @count comptes et leurs transactions.';
   }
+
+  @override
+  String aiMatchedAccount(String account) {
+    return 'Compte correspondant : @account';
+  }
+
+  @override
+  String get aiNoMatchingAccountFound => 'Aucun compte correspondant trouve. Selectionnez un compte pour continuer.';
+
+  @override
+  String get aiNoOpenAccountsAvailableForImport => 'Aucun compte ouvert n\'est disponible pour l\'importation.';
+
+  @override
+  String get aiPdfNotBankStatement => 'Aucune transaction de releve bancaire n\'a ete detectee dans ce PDF.';
+
+  @override
+  String get aiReadingPdfStatement => 'Lecture du releve PDF...';
+
+  @override
+  String get aiStatementAccountFoundLabel => 'Compte trouve';
+
+  @override
+  String get aiStatementAccountNotFoundSelectDestinationAccount =>
+      'n\'a pas ete trouve dans vos comptes. Veuillez selectionner le compte de destination.';
+
+  @override
+  String get aiStatementBalance => 'Solde du releve';
+
+  @override
+  String get aiUnableToReadPdf => 'Impossible de lire ce fichier PDF.';
 
   @override
   String get alias => 'Surnom';
@@ -446,10 +479,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Importer des transactions depuis un fichier QFX, QIF, XLSX ou CSV.';
+  String get importFromQfxQifXlsxCsvDescription =>
+      'Importer des transactions depuis un fichier QFX, QIF, XLSX, CSV ou PDF.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'Depuis un fichier QFX|QIF|XLSX|CSV';
+  String get importFromQfxQifXlsxCsvFile => 'Depuis un fichier QFX|QIF|XLSX|CSV|PDF';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {

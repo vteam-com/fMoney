@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
@@ -17,6 +19,7 @@ import 'package:money/views/home/transactions/transactions_view.dart';
 import 'package:money/views/home/transfers/transfers_view.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/formats/qfx_import_view.dart';
+import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/views/shell/app_bar_widget.dart';
 import 'package:money/views/shell/navigation_bar_widget.dart';
 import 'package:money/widgets/components/app_scaffold_widget.dart';
@@ -24,6 +27,16 @@ import 'package:money/widgets/pure/drop_zone_widget.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:path/path.dart' as path;
+
+/// Returns the first dropped file path whose extension is `.pdf`.
+String? _pickFirstPdfPath(final List<String> filePaths) {
+  for (final String filePath in filePaths) {
+    if (path.extension(filePath).toLowerCase() == '.pdf') {
+      return filePath;
+    }
+  }
+  return null;
+}
 
 /// Represents home page.
 class HomePage extends StatelessWidget {
@@ -43,6 +56,17 @@ class HomePage extends StatelessWidget {
               ? const WorkingIndicator()
               : DropZone(
                   onFilesDropped: (List<String> filePaths) {
+                    final String? pdfPath = _pickFirstPdfPath(filePaths);
+                    if (pdfPath != null) {
+                      unawaited(
+                        showImportTransactionsFromPdfUsingAi(
+                          context: context,
+                          pdfFilePath: pdfPath,
+                        ),
+                      );
+                      return;
+                    }
+
                     for (final String filePath in filePaths) {
                       final String extension = path.extension(filePath).toLowerCase();
                       if (extension == '.csv') {

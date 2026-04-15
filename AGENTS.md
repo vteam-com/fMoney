@@ -3,6 +3,7 @@
 - Always document any new API you add (public or private). Every new function, method, class, and shared helper must include a concise doc comment at creation time.
 - avoid using "part" to break up files
 - always use type anonation, const and final when and where applicable
+- before marking work complete, run `tool/check.sh`; it must pass cleanly with zero warnings, zero errors, and a perfect score of `100%`
 
 ## Localization Guardrails
 
