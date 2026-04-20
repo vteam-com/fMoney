@@ -7,6 +7,7 @@ import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/widgets/pure/display_date.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 
@@ -34,8 +35,8 @@ Widget getFooterForDateRange(final DateRange dateRange) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (showDates) Text(dateToString(dateRange.min)),
-            if (showDates) Text(dateToString(dateRange.max)),
+            if (showDates) DisplayDate(date: dateRange.min),
+            if (showDates) DisplayDate(date: dateRange.max),
             Text(
               dateRange.toStringDuration().padLeft(_dateDurationPadWidth),
               softWrap: true,

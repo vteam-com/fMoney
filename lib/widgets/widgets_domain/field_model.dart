@@ -12,6 +12,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/widgets/pure/display_date.dart';
 import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
@@ -763,7 +764,7 @@ Widget buildWidgetFromTypeAndValue({
       }
       // Adapt to available space
       return scaleDown(
-        buildFieldWidgetForDate(date: value as DateTime?, align: align),
+        DisplayDate(date: value as DateTime?, align: align),
         Alignment.centerLeft,
       );
 
@@ -801,20 +802,6 @@ Widget buildFieldWidgetForAmount({
       ),
     ),
     textAlignToAlignment(align),
-  );
-}
-
-/// Builds a date widget for [date].
-Widget buildFieldWidgetForDate({
-  final DateTime? date,
-  final TextAlign align = TextAlign.left,
-}) {
-  return Text(
-    dateToString(date),
-    textAlign: align,
-    overflow: TextOverflow.ellipsis, // Clip with ellipsis
-    maxLines: 1, // Restrict to single line,
-    style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
   );
 }
 
