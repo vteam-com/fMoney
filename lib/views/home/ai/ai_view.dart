@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:money/data/models/ai_chat_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -235,7 +236,11 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
         // Handle errors gracefully by using empty/default values
         _conversationContext = null;
         _chatHistory = <ChatMessage>[];
-        debugPrint('Error loading chat history: $e');
+        AppLogger.error(
+          module: 'ai_view',
+          operation: 'initState',
+          error: e,
+        );
       }
       _checkOllamaStatus();
     });
@@ -494,7 +499,11 @@ Answer the question:''';
       _isOllamaInstalled = status.isInstalled;
       _isOllamaRunning = status.isRunning;
     } catch (e) {
-      debugPrint('Ollama check error: $e');
+      AppLogger.warning(
+        module: 'ai_view',
+        operation: '_checkOllamaStatus',
+        message: e.toString(),
+      );
       _isOllamaInstalled = false;
       _isOllamaRunning = false;
     }
@@ -559,7 +568,6 @@ Answer the question:''';
       return;
     }
 
-    int successCount = 0;
     bool failed = false;
 
     for (final Account account in accounts) {
@@ -607,12 +615,15 @@ TRANSACTIONS:${transactionsData.join(';')}
 
         if (response.containsKey(SharedStrings.payloadKeyContext)) {
           _conversationContext = (response[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
-          successCount++;
-          debugPrint('📚 Sent account $accountName ($successCount/${accounts.length})');
         }
       } catch (e) {
         failed = true;
-        debugPrint('📚 Error sending account $accountName: $e');
+        AppLogger.error(
+          module: 'ai_view',
+          operation: '_teachAiAboutAccounts',
+          error: e,
+          context: <String, Object?>{'account': accountName},
+        );
         break;
       }
     }
@@ -629,10 +640,6 @@ TRANSACTIONS:${transactionsData.join(';')}
       );
       await _ollamaService.saveChatHistory(_chatHistory);
     } else {
-      debugPrint(
-        '📚 Taught AI about all ${accounts.length} accounts (context saved: ${_conversationContext?.length ?? 0} tokens)',
-      );
-
       _appendChatHistory(
         AppL10n.tr(
           AppTranslationKeys.aiLearnedAboutAccountsAndTransactions,

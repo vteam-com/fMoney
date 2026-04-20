@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/models/database_interface.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -230,7 +231,11 @@ class MoneyObjects<T> {
           db.itemDelete(tableName, item.getWhereClause());
 
         default:
-          debugPrint('Unhandled change ${item.mutation}');
+          AppLogger.warning(
+            module: 'money_objects_collection_base',
+            operation: 'saveSql',
+            message: 'Unhandled change ${item.mutation}',
+          );
       }
       item.mutation = MutationType.none;
     }

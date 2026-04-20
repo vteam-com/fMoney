@@ -40,7 +40,8 @@
         "ENERGIA",
         "fcheck",
         "IBAN",
-        "svgfolder"
+        "svgfolder",
+        "syncfusion"
     ],
     // "files.exclude": {
     //     "android/": true,

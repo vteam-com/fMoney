@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:money/data/models/ai_chat_model.dart';
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -40,7 +39,11 @@ class OllamaService {
       );
       return installResult.exitCode == _exitCodeSuccess;
     } catch (e) {
-      debugPrint('Ollama check error: $e');
+      AppLogger.warning(
+        module: 'ollama_service',
+        operation: 'checkIfOllamaInstalled',
+        message: e.toString(),
+      );
       return false;
     }
   }
@@ -56,7 +59,11 @@ class OllamaService {
 
       return (response.statusCode == _httpOkStatus);
     } catch (e) {
-      debugPrint(e.toString());
+      AppLogger.warning(
+        module: 'ollama_service',
+        operation: 'checkIfOllamaRunning',
+        message: e.toString(),
+      );
       return false;
     }
   }
@@ -79,7 +86,6 @@ class OllamaService {
         final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
         final HttpClientResponse response = await request.close();
         if (response.statusCode == _httpOkStatus) {
-          debugPrint('Ollama is already running.');
           return;
         }
       } catch (_) {
@@ -91,12 +97,10 @@ class OllamaService {
       if (Platform.isMacOS) {
         await Process.start(
           SharedStrings.executableOllama,
-          <String>[SharedStrings.ollamaArgRun, selectedModel],
+          <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
           environment: Platform.environment,
         );
-
-        debugPrint('Launching Ollama silently on macOS...');
       } else if (Platform.isWindows) {
         await Process.start(
           SharedStrings.processCmd,
@@ -109,14 +113,12 @@ class OllamaService {
           ],
           mode: ProcessStartMode.detached,
         );
-        debugPrint('Launching Ollama silently on Windows...');
       } else if (Platform.isLinux) {
         await Process.start(
           SharedStrings.executableOllama,
           <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
         );
-        debugPrint('Launching Ollama silently on Linux...');
       } else {
         throw UnsupportedError('Unsupported platform');
       }
@@ -127,19 +129,21 @@ class OllamaService {
       final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
       final HttpClientResponse verifyResponse = await verifyRequest.close();
 
-      if (verifyResponse.statusCode == _httpOkStatus) {
-        if (kDebugMode) {
-          debugPrint('✅ Ollama started and responding.');
-        }
-      } else {
-        if (kDebugMode) {
-          debugPrint('⚠️ Ollama started but not responding correctly.');
-        }
+      if (verifyResponse.statusCode != _httpOkStatus) {
+        AppLogger.warning(
+          module: 'ollama_service',
+          operation: 'startOllama',
+          message: 'Ollama started but not responding correctly',
+        );
       }
 
       verifyClient.close();
     } catch (e) {
-      debugPrint('❌ Failed to start Ollama: $e');
+      AppLogger.error(
+        module: 'ollama_service',
+        operation: 'startOllama',
+        error: e,
+      );
     }
   }
 

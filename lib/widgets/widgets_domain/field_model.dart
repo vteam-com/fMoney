@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -97,8 +98,11 @@ class Field<T> {
         case FieldType.date:
           getValueForDisplay = (final DataInterface _) => dateToString(value as DateTime?);
         default:
-          //
-          debugPrint('No match');
+          AppLogger.warning(
+            module: 'field_model',
+            operation: 'FieldDefinition',
+            message: 'Unmatched FieldType: $type',
+          );
       }
     }
 

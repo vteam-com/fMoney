@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
@@ -19,8 +20,6 @@ const int _twoInt = 2;
 const int _threeInt = 3;
 const int _unsetIndex = -1;
 const double _zeroDouble = 0.0;
-const int _sharedStringsPreviewCount = 10;
-const int _worksheetPreviewCount = 5;
 const int _headerPreviewCount = 10;
 const int _previewRowLimit = 5;
 const int _datePadWidth = 2;
@@ -42,10 +41,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     final File file = File(filePath);
     final Uint8List bytes = await file.readAsBytes();
     final Archive archive = ZipDecoder().decodeBytes(bytes);
-
-    for (final ArchiveFile file in archive) {
-      debugPrint(file.name);
-    }
 
     // Extract sharedStrings.xml if available
     List<String> sharedStrings = <String>[];
@@ -79,13 +74,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
             return text.trim();
           })
           .toList();
-
-      debugPrint('Shared strings loaded: ${sharedStrings.length}');
-      if (sharedStrings.isNotEmpty) {
-        debugPrint('Example shared strings:\n${sharedStrings.take(_sharedStringsPreviewCount).join('\n')}');
-      }
-    } else {
-      debugPrint('Shared strings file not found');
     }
 
     // Extract first sheet*.xml
@@ -108,7 +96,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     final RegExp cellRegex = RegExp(r'<(?:\w+:)?c[^>]*?(?:t="(?<t>[^"]+)")?[^>]*?>(.*?)</(?:\w+:)?c>', dotAll: true);
     final RegExp valueRegex = RegExp(r'<(?:\w+:)?v[^>]*>(.*?)</(?:\w+:)?v>', dotAll: true);
 
-    debugPrint('Parsing worksheet XML...');
     final List<List<String>> worksheetData = <List<String>>[];
     for (final RegExpMatch rowMatch in rowRegex.allMatches(sheetXml)) {
       final String rowXml = rowMatch.group(_oneInt) ?? '';
@@ -129,9 +116,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
           final int? idx = int.tryParse(value);
           if (cellType == 's' || (idx != null && idx >= _zeroInt && idx < sharedStrings.length)) {
             value = sharedStrings[idx!];
-            debugPrint('Resolved shared string index $idx → "$value"');
-          } else {
-            debugPrint('Direct value: $value');
           }
         } else {
           // Handle inline strings: <is><t>Text</t></is>
@@ -141,9 +125,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
           ).firstMatch(cellXml);
           if (inlineMatch != null) {
             value = inlineMatch.group(_oneInt)?.trim() ?? '';
-            debugPrint('Found inline string: $value');
-          } else {
-            debugPrint('No value or inline string found');
           }
         }
 
@@ -169,7 +150,6 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
           final DateTime convertedDate = baseDate.add(Duration(days: excelDate.floor()));
           value =
               '${convertedDate.year}-${convertedDate.month.toString().padLeft(_datePadWidth, _datePadChar)}-${convertedDate.day.toString().padLeft(_datePadWidth, _datePadChar)}';
-          debugPrint('Converted Excel date $excelDate → $value');
         }
         rowData.add(value);
       }
@@ -178,26 +158,12 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       worksheetData.add(rowData);
     }
 
-    debugPrint('Before filtering: ${worksheetData.length} rows');
-    if (worksheetData.isNotEmpty) {
-      debugPrint('First few raw rows:');
-      for (int i = _zeroInt; i < worksheetData.length && i < _worksheetPreviewCount; i++) {
-        debugPrint('  Row $i: ${worksheetData[i]}');
-      }
-    }
-
     // Filter out completely empty rows, but keep rows that might be headers
     final List<List<String>> filteredData = worksheetData
         .where((List<String> row) => row.isNotEmpty && row.any((String cell) => cell.trim().isNotEmpty))
         .toList();
 
-    debugPrint('After filtering empty rows: ${filteredData.length} rows');
-    if (filteredData.length < worksheetData.length) {
-      debugPrint('Some rows were filtered out as empty');
-    }
-
     if (filteredData.isEmpty) {
-      debugPrint('ERROR: No valid data rows found after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoValidData))),
       );
@@ -208,17 +174,10 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     worksheetData.addAll(filteredData);
 
     if (worksheetData.isEmpty) {
-      debugPrint('ERROR: Worksheet data is empty after filtering');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows))),
       );
       return;
-    }
-
-    debugPrint('Final worksheet data: ${worksheetData.length} rows');
-    debugPrint('Preview of data:');
-    for (int i = _zeroInt; i < worksheetData.length && i < _worksheetPreviewCount; i++) {
-      debugPrint('  Row $i: ${worksheetData[i]}');
     }
 
     // Prompt user to select the header row
@@ -313,45 +272,32 @@ ImportData loadXLSX(
   final String descriptionColumnName = columnMapping['description']!;
   final String amountColumnName = columnMapping['amount']!;
 
-  debugPrint('Loading XLSX data...');
-  debugPrint('Headers: $headers');
-  debugPrint('Column mapping: $columnMapping');
-  debugPrint('Processing ${dataRows.length} data rows');
-
   final int dateIndex = headers.indexOf(dateColumnName);
   final int descriptionIndex = headers.indexOf(descriptionColumnName);
   final int amountIndex = headers.indexOf(amountColumnName);
 
-  debugPrint('Column indices: date=$dateIndex, description=$descriptionIndex, amount=$amountIndex');
-
   if (dateIndex == _unsetIndex || descriptionIndex == _unsetIndex || amountIndex == _unsetIndex) {
-    debugPrint('ERROR: Column mapping failed - could not find required columns');
+    AppLogger.warning(
+      module: 'xlsx_import_view',
+      operation: 'loadXLSX',
+      message: 'Column mapping failed - could not find required columns',
+      context: <String, Object?>{'columnMapping': columnMapping, 'headers': headers},
+    );
     return importData;
   }
 
-  int processedRows = _zeroInt;
-  int skippedRows = _zeroInt;
-  int validRows = _zeroInt;
-
   for (int i = _zeroInt; i < dataRows.length; i++) {
-    processedRows++;
     final List<String> row = dataRows[i];
 
     final int maxIndex = <int>[dateIndex, descriptionIndex, amountIndex].reduce((int a, int b) => a > b ? a : b);
     if (row.length <= maxIndex) {
-      debugPrint(
-        'Row ${i + _oneInt}: Skipped - insufficient columns (${row.length} vs required ${maxIndex + _oneInt})',
-      );
-      skippedRows++;
       continue;
     }
 
-    // Debug: Show values for this row
+    // Extract values for this row
     final String rawDate = row[dateIndex].trim();
     final String rawDescription = row[descriptionIndex].trim();
     final String rawAmount = row[amountIndex].trim();
-
-    debugPrint('Row ${i + _oneInt}: Date="$rawDate", Desc="$rawDescription", Amount="$rawAmount"');
 
     DateTime? date;
     try {
@@ -360,14 +306,10 @@ ImportData loadXLSX(
         throw const FormatException('Could not parse date');
       }
     } catch (_) {
-      debugPrint('Row ${i + _oneInt}: Skipped - invalid date format: "$rawDate"');
-      skippedRows++;
       continue;
     }
 
     if (rawDescription.isEmpty) {
-      debugPrint('Row ${i + _oneInt}: Skipped - empty description');
-      skippedRows++;
       continue;
     }
 
@@ -376,18 +318,11 @@ ImportData loadXLSX(
       final String amountStr = rawAmount.replaceAll(',', ''); // Handle common number formats
       amount = double.tryParse(amountStr);
       if (amount == null) {
-        debugPrint('Row ${i + _oneInt}: Skipped - invalid amount: "$rawAmount"');
-        skippedRows++;
         continue;
       }
     } catch (_) {
-      debugPrint('Row ${i + _oneInt}: Skipped - amount parsing error: "$rawAmount"');
-      skippedRows++;
       continue;
     }
-
-    debugPrint('Row ${i + _oneInt}: Successfully added entry - Date: ${date.toIso8601String()}, Amount: $amount');
-    validRows++;
 
     importData.entries.add(
       ImportEntry(
@@ -406,9 +341,6 @@ ImportData loadXLSX(
       ),
     );
   }
-
-  debugPrint('Processing summary: $processedRows total rows, $validRows valid, $skippedRows skipped');
-  debugPrint('Final: ${importData.entries.length} entries added to import data');
 
   return importData;
 }

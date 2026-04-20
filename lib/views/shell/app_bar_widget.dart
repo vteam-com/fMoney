@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -295,7 +296,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeWelcomePage);
         break;
       default:
-        debugPrint('Unhandled menu item: $index');
+        AppLogger.warning(
+          module: 'app_bar_widget',
+          operation: '_handleMenuSelection',
+          message: 'Unhandled menu item: $index',
+        );
     }
   }
 }
