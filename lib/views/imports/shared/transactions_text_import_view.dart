@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -42,7 +43,15 @@ Future<void> showImportTransactionsFromPdfUsingAi({
   BankStatementParseResult? statement;
   try {
     statement = await aiPdfImportService.parsePdfStatement(filePath: pdfFilePath);
-  } catch (_) {
+  } catch (e, stackTrace) {
+    AppLogger.error(
+      module: 'transactions_text_import_view',
+      operation: 'showImportTransactionsFromPdfUsingAi',
+      error: e,
+      stackTrace: stackTrace,
+    );
+    // ignore: avoid_print
+    print('PDF import error: $e\n$stackTrace');
     statement = null;
   } finally {
     _closePdfImportLoadingDialog(rootNavigator);

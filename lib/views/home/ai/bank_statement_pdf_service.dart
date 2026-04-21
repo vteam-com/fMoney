@@ -1,11 +1,8 @@
 // ignore: fcheck_one_class_per_file
 // ignore: fcheck_hardcoded_strings
 // ignore: fcheck_magic_numbers
-import 'dart:io';
-
 import 'package:path/path.dart' as path;
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-// import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 const int _minimumKeywordMatches = 2;
 const int _minimumTransactionsForStatement = 2;
@@ -136,22 +133,24 @@ class BankStatementPdfService {
     return null;
   }
 
-  /// Extracts plain text from all pages of the PDF at [filePath].
+  /// Extracts plain text from all pages of the PDF at [filePath] using pdfrx.
   Future<String> _extractTextFromPdf(final String filePath) async {
-    final File file = File(filePath);
-    final List<int> bytes = await file.readAsBytes();
-    final PdfDocument document = PdfDocument(inputBytes: bytes);
-
+    await pdfrxFlutterInitialize();
+    final PdfDocument document = await PdfDocument.openFile(filePath);
     try {
-      if (document.pages.count == 0) {
+      if (document.pages.isEmpty) {
         return '';
       }
 
-      final PdfTextExtractor extractor = PdfTextExtractor(document);
-      return extractor.extractText(
-        startPageIndex: 0,
-        endPageIndex: document.pages.count - 1,
-      );
+      final StringBuffer buffer = StringBuffer();
+      for (final PdfPage page in document.pages) {
+        final PdfPageText pageText = await page.loadStructuredText();
+        if (buffer.isNotEmpty) {
+          buffer.writeln();
+        }
+        buffer.write(pageText.fullText);
+      }
+      return buffer.toString();
     } finally {
       document.dispose();
     }

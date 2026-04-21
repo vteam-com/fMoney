@@ -79,12 +79,21 @@ class AiPdfImportService {
       return null;
     }
 
+    final String prompt = _buildPdfReviewPrompt(pdfText);
+
+    // ignore: avoid_print
+    print('=== AI PROMPT INPUT ===');
+    // ignore: avoid_print
+    print(prompt);
+    // ignore: avoid_print
+    print('=== END AI PROMPT INPUT ===');
+
     final Map<String, dynamic> payload = <String, dynamic>{
       'model': OllamaService.selectedModel,
       'messages': <Map<String, String>>[
         <String, String>{
           'role': SharedStrings.payloadRoleUser,
-          'content': _buildPdfReviewPrompt(pdfText),
+          'content': prompt,
         },
       ],
       'stream': false,
@@ -92,6 +101,13 @@ class AiPdfImportService {
 
     final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
     final dynamic rawResponse = response[SharedStrings.payloadKeyResponse];
+
+    // ignore: avoid_print
+    print('=== AI RESPONSE OUTPUT ===');
+    // ignore: avoid_print
+    print(rawResponse);
+    // ignore: avoid_print
+    print('=== END AI RESPONSE OUTPUT ===');
 
     if (rawResponse is! String || rawResponse.trim().isEmpty) {
       return null;
@@ -169,24 +185,30 @@ Output:
 A JSON array of objects with the following fields:
 - date: string (EXACTLY as printed in the statement, do NOT convert or reformat)
 - description: string
-- amount: string (EXACTLY as printed in the statement, do NOT convert or reformat)
+- amount: string (EXACTLY as printed in the statement, do NOT convert or reformat, but apply correct sign)
 
 Rules:
 1. Identify rows that contain a date + description + amount.
 2. Copy the date EXACTLY as it appears. Do NOT convert to any other format.
 3. Copy the amount EXACTLY as it appears. Do NOT convert number formats. Keep "1.234,56" as "1.234,56".
-4. If the amount appears in a "Debit" or "Debit (-)" column, prefix it with "-" if not already negative.
-5. If the amount appears in a "Credit" or "Credit (+)" column, prefix it with "+" if not already positive.
-6. Ignore:
+4. CRITICAL - Determine the correct sign of each amount:
+   - Many statements use separate columns for money going out vs money coming in.
+   - Column headers that mean MONEY OUT (make amount NEGATIVE with "-" prefix):
+     "Debit", "Débit", "Payment", "Paiement", "Withdrawal", "Retrait", "Charge", "Expense", "Sortie", "Débiteur"
+   - Column headers that mean MONEY IN (make amount POSITIVE with "+" prefix):
+     "Credit", "Crédit", "Deposit", "Dépôt", "Receipt", "Recette", "Entrée", "Créditeur"
+   - If a single "Amount" column contains both positive and negative values, keep the sign as-is.
+   - If unsure which column an amount belongs to, look at the column position relative to the headers.
+5. Ignore:
    - Balances (opening, closing, running)
    - Subtotals or totals
    - Category summaries
    - Graphs
    - Headers/footers
    - Page numbers
-7. Do NOT invent transactions.
-8. Do NOT summarize.
-9. Output ONLY the JSON array. No explanations.
+6. Do NOT invent transactions.
+7. Do NOT summarize.
+8. Output ONLY the JSON array. No explanations.
 
 Example output:
 [
@@ -194,6 +216,11 @@ Example output:
     "date": "02-10-24",
     "description": "DEBIT / ENDESA ENERGIA",
     "amount": "-15,95"
+  },
+  {
+    "date": "05-10-24",
+    "description": "SALARY DEPOSIT",
+    "amount": "+2.500,00"
   }
 ]
 
@@ -409,8 +436,10 @@ PDF_TEXT_END
   /// Splits packed PDF text into structured rows with tab-separated fields.
   ///
   /// Many PDF extractors concatenate all text without delimiters. This method
-  /// detects transaction rows by their date-ref-date prefix pattern and inserts
-  /// newlines and tab separators so the AI can parse individual fields.
+  /// detects transaction rows by their date prefix pattern and inserts
+  /// newlines so the AI can identify individual rows. Field separation
+  /// (description vs amount) is left to the AI, which handles digits in
+  /// descriptions far better than a regex can.
   String _preprocessPdfText(final String text) {
     String result = text;
 
@@ -423,21 +452,10 @@ PDF_TEXT_END
       (final Match _) => '\n',
     );
 
-    // Insert newline before each transaction row.
-    // Pattern: operationDate (8-10 chars) + ref (2-4 digits) + valueDate (8-10 chars).
+    // Insert newline before each date pattern that likely starts a transaction row.
     result = result.replaceAllMapped(
-      RegExp(r'(?=(\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))\d{2,4}\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))'),
+      RegExp(r'(?=\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))'),
       (final Match _) => '\n',
-    );
-
-    // Within each transaction line, separate fields with tabs:
-    // operationDate | ref | valueDate | description | amount | balance
-    result = result.replaceAllMapped(
-      RegExp(
-        r'^(\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))(\d{2,4})(\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))(.*?)(\d[\d.]*,\d{2})(\d[\d.]*,\d{2})$',
-        multiLine: true,
-      ),
-      (final Match m) => '${m[1]}\t${m[2]}\t${m[3]}\t${m[4]}\t${m[5]}\t${m[6]}',
     );
 
     // Collapse multiple blank lines into one.
