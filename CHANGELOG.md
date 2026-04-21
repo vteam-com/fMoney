@@ -1,5 +1,22 @@
 # Change Log
 
+## [version 1.17.05] 2026-04-21
+
+### Added
+
+- **AI PDF Import**: AI-powered PDF bank statement import using local Ollama LLM with heuristic fallback for transaction extraction, account matching, and currency detection
+- **PDF Extraction**: New `pdfrx`-based PDF text extraction service with layout-aware structured text parsing
+- **Structured Logging**: Added `AppLogger.debug()` method for debug-level structured logging with module/operation context
+
+### Updated
+
+- **PDF Library**: Replaced paid `syncfusion_flutter_pdf` with free `pdfrx` (MIT-licensed, PDFium-based)
+- **Logging Cleanup**: Converted all `debugPrint` calls to structured `AppLogger` methods or removed trace-only logging
+- **Logger Deduplication**: Extracted shared `_logWithLevel` helper to eliminate duplicate code in `AppLogger`
+- **Date Display**: Adopted `DisplayDate` widget for consistent monospace date rendering across tables and footers
+- **SDK**: Updated Flutter to 3.41.7 and Dart SDK to 3.11.5
+- **CI/CD**: Updated GitHub Actions workflow to Flutter 3.41.7
+
 ## [version 1.17.03] 2026-04-09
 
 ### Updated

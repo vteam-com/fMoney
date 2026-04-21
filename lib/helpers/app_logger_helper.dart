@@ -13,14 +13,13 @@ abstract class AppLogger {
     required final String message,
     final Map<String, Object?> context = const <String, Object?>{},
   }) {
-    logger.d(
-      _buildMessage(
-        level: SharedStrings.logLevelDebug,
-        module: module,
-        operation: operation,
-        message: message,
-        context: context,
-      ),
+    _logWithLevel(
+      logCall: logger.d,
+      level: SharedStrings.logLevelDebug,
+      module: module,
+      operation: operation,
+      message: message,
+      context: context,
     );
   }
 
@@ -51,9 +50,28 @@ abstract class AppLogger {
     required final String message,
     final Map<String, Object?> context = const <String, Object?>{},
   }) {
-    logger.w(
+    _logWithLevel(
+      logCall: logger.w,
+      level: SharedStrings.logLevelWarn,
+      module: module,
+      operation: operation,
+      message: message,
+      context: context,
+    );
+  }
+
+  /// Shared implementation for debug/warning-style log methods.
+  static void _logWithLevel({
+    required final void Function(dynamic message) logCall,
+    required final String level,
+    required final String module,
+    required final String operation,
+    required final String message,
+    final Map<String, Object?> context = const <String, Object?>{},
+  }) {
+    logCall(
       _buildMessage(
-        level: SharedStrings.logLevelWarn,
+        level: level,
         module: module,
         operation: operation,
         message: message,
