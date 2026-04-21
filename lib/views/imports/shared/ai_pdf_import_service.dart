@@ -3,6 +3,7 @@
 // ignore: fcheck_magic_numbers
 import 'dart:convert';
 
+import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/ollama_service.dart';
 import 'package:money/views/home/ai/bank_statement_pdf_service.dart';
@@ -81,12 +82,11 @@ class AiPdfImportService {
 
     final String prompt = _buildPdfReviewPrompt(pdfText);
 
-    // ignore: avoid_print
-    print('=== AI PROMPT INPUT ===');
-    // ignore: avoid_print
-    print(prompt);
-    // ignore: avoid_print
-    print('=== END AI PROMPT INPUT ===');
+    AppLogger.debug(
+      module: 'ai_pdf_import_service',
+      operation: '_reviewStatementWithOllama',
+      message: 'AI PROMPT INPUT:\n$prompt',
+    );
 
     final Map<String, dynamic> payload = <String, dynamic>{
       'model': OllamaService.selectedModel,
@@ -102,12 +102,11 @@ class AiPdfImportService {
     final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
     final dynamic rawResponse = response[SharedStrings.payloadKeyResponse];
 
-    // ignore: avoid_print
-    print('=== AI RESPONSE OUTPUT ===');
-    // ignore: avoid_print
-    print(rawResponse);
-    // ignore: avoid_print
-    print('=== END AI RESPONSE OUTPUT ===');
+    AppLogger.debug(
+      module: 'ai_pdf_import_service',
+      operation: '_reviewStatementWithOllama',
+      message: 'AI RESPONSE OUTPUT:\n$rawResponse',
+    );
 
     if (rawResponse is! String || rawResponse.trim().isEmpty) {
       return null;

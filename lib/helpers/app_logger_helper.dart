@@ -6,6 +6,24 @@ abstract class AppLogger {
   /// Prevents instantiation of the logger helper.
   AppLogger._();
 
+  /// Logs a debug message with required module and operation context.
+  static void debug({
+    required final String module,
+    required final String operation,
+    required final String message,
+    final Map<String, Object?> context = const <String, Object?>{},
+  }) {
+    logger.d(
+      _buildMessage(
+        level: SharedStrings.logLevelDebug,
+        module: module,
+        operation: operation,
+        message: message,
+        context: context,
+      ),
+    );
+  }
+
   /// Logs an error with required module and operation context.
   static void error({
     required final String module,

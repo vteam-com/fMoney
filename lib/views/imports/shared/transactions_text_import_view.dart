@@ -50,8 +50,6 @@ Future<void> showImportTransactionsFromPdfUsingAi({
       error: e,
       stackTrace: stackTrace,
     );
-    // ignore: avoid_print
-    print('PDF import error: $e\n$stackTrace');
     statement = null;
   } finally {
     _closePdfImportLoadingDialog(rootNavigator);

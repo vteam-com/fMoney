@@ -685,6 +685,9 @@ abstract class SharedStrings {
   /// Prefix for unsupported file-type warning messages.
   static const String messageUnsupportedFileTypePrefix = 'Unsupported file type ';
 
+  /// Log level token used for debug entries.
+  static const String logLevelDebug = 'DEBUG';
+
   /// Log level token used for error entries.
   static const String logLevelError = 'ERROR';
 
