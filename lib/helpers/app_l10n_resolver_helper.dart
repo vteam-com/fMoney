@@ -117,6 +117,13 @@ String resolveAppL10nKey(
       return l10n.details;
     case AppTranslationKeys.deleteSelectedItems:
       return l10n.deleteSelectedItems;
+    case AppTranslationKeys.deleteThisItemQuestion:
+      return l10n.deleteThisItemQuestion(p['item'] ?? '');
+    case AppTranslationKeys.deleteSelectedItemsQuestion:
+      return l10n.deleteSelectedItemsQuestion(
+        p['count'] ?? '',
+        p['items'] ?? '',
+      );
     case AppTranslationKeys.dropFilesHere:
       return l10n.dropFilesHere;
     case AppTranslationKeys.editedElapsed:
@@ -307,6 +314,8 @@ String _resolveAppL10nKeyStageTwo(
       return l10n.noNeedToMergeCategoryToItself;
     case AppTranslationKeys.noItemsToDelete:
       return l10n.noItemsToDelete;
+    case AppTranslationKeys.notFound:
+      return l10n.notFound;
     case AppTranslationKeys.noItemsWereTitle:
       return l10n.noItemsWereTitle(p['title'] ?? '');
     case AppTranslationKeys.noItems:

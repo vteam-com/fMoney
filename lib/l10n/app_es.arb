@@ -189,6 +189,25 @@
   "defaultListOfItems": "Lista predeterminada de elementos",
   "delete": "Eliminar",
   "deleteSelectedItems": "Eliminar elemento(s) seleccionado(s)",
+  "deleteSelectedItemsQuestion": "¿Seguro que deseas eliminar los {count} {items} seleccionados?",
+  "@deleteSelectedItemsQuestion": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteThisItemQuestion": "¿Seguro que deseas eliminar este {item}?",
+  "@deleteThisItemQuestion": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "description": "Descripcion",
   "descriptionPayee": "Descripcion/Beneficiario",
   "details": "Detalles",
@@ -535,6 +554,7 @@
   "noSecuritySelected": "Ningún valor seleccionado.",
   "noSheetXmlFoundInXlsxFile": "No se encontró XML de hoja en el archivo XLSX.",
   "noStockSelected": "Ninguna acción seleccionada",
+  "notFound": "- no encontrado -",
   "nothingToImport": "Nada para importar",
   "noTransactions": "Sin transacciones",
   "noTransactionsPeriod": "Sin transacciones.",

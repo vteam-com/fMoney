@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 
 const double _sidePanelTransactionsHorizontalPadding = 10.0;
@@ -61,7 +63,7 @@ class SidePanelSupport {
       /// Chart
       case SidePanelSubViewEnum.chart:
         if (onChart == null) {
-          return const Text('- empty -');
+          return Text(AppL10n.tr(AppTranslationKeys.noDataToDisplay));
         }
         return onChart!(
           selectedIds: selectedIds,
@@ -71,7 +73,7 @@ class SidePanelSupport {
       /// PnL
       case SidePanelSubViewEnum.pnl:
         if (onPnL == null) {
-          return const Text('- empty -');
+          return Text(AppL10n.tr(AppTranslationKeys.noDataToDisplay));
         }
         return onPnL!(
           selectedIds: selectedIds,

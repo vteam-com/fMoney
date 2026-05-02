@@ -67,6 +67,8 @@ abstract class AppTranslationKeys {
   static const String debit = 'debit';
   static const String details = 'details';
   static const String deleteSelectedItems = 'deleteSelectedItems';
+  static const String deleteThisItemQuestion = 'deleteThisItemQuestion';
+  static const String deleteSelectedItemsQuestion = 'deleteSelectedItemsQuestion';
   static const String dropFilesHere = 'dropFilesHere';
   static const String editedElapsed = 'editedElapsed';
   static const String elapsedElapsed = 'elapsedElapsed';
@@ -127,6 +129,7 @@ abstract class AppTranslationKeys {
   static const String noFieldsFoundForItem = 'noFieldsFoundForItem';
   static const String noHistoryInformationAboutSymbol = 'noHistoryInformationAboutSymbol';
   static const String noItemsToDelete = 'noItemsToDelete';
+  static const String notFound = 'notFound';
   static const String noNeedToMergeCategoryToItself = 'noNeedToMergeCategoryToItself';
   static const String noItemsWereTitle = 'noItemsWereTitle';
   static const String noPicker = 'noPicker';

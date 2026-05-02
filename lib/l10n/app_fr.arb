@@ -189,6 +189,25 @@
   "defaultListOfItems": "Liste par defaut des elements",
   "delete": "Supprimer",
   "deleteSelectedItems": "Supprimer les elements selectionnes",
+  "deleteSelectedItemsQuestion": "Voulez-vous vraiment supprimer les {count} {items} selectionnes ?",
+  "@deleteSelectedItemsQuestion": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteThisItemQuestion": "Voulez-vous vraiment supprimer ce {item} ?",
+  "@deleteThisItemQuestion": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "description": "Libelle",
   "descriptionPayee": "Description/Beneficiaire",
   "details": "Détails",
@@ -535,6 +554,7 @@
   "noSecuritySelected": "Aucun titre selectionne.",
   "noSheetXmlFoundInXlsxFile": "Aucun XML de feuille trouve dans le fichier XLSX.",
   "noStockSelected": "Aucune action selectionnee",
+  "notFound": "- introuvable -",
   "nothingToImport": "Rien a importer",
   "noTransactions": "Aucune transaction",
   "noTransactionsPeriod": "Aucune transaction.",

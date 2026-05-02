@@ -39,7 +39,7 @@ class MoneyObjectCard extends StatelessWidget {
 
     // Content
     if (moneyObject == null) {
-      widgets.add(const Text('- not found -'));
+      widgets.add(Text(AppL10n.tr(AppTranslationKeys.notFound)));
     } else {
       widgets.add(gapLarge());
       widgets.addAll(

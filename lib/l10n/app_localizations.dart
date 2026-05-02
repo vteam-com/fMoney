@@ -717,6 +717,18 @@ abstract class AppLocalizations {
   /// **'Delete selected item(s)'**
   String get deleteSelectedItems;
 
+  /// No description provided for @deleteSelectedItemsQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the {count} selected {items}?'**
+  String deleteSelectedItemsQuestion(String count, String items);
+
+  /// No description provided for @deleteThisItemQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this {item}?'**
+  String deleteThisItemQuestion(String item);
+
   /// No description provided for @description.
   ///
   /// In en, this message translates to:
@@ -1616,6 +1628,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No stock selected'**
   String get noStockSelected;
+
+  /// No description provided for @notFound.
+  ///
+  /// In en, this message translates to:
+  /// **'- not found -'**
+  String get notFound;
 
   /// No description provided for @nothingToImport.
   ///

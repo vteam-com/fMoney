@@ -341,6 +341,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteSelectedItems => 'Delete selected item(s)';
 
   @override
+  String deleteSelectedItemsQuestion(String count, String items) {
+    return 'Are you sure you want to delete the $count selected $items?';
+  }
+
+  @override
+  String deleteThisItemQuestion(String item) {
+    return 'Are you sure you want to delete this $item?';
+  }
+
+  @override
   String get description => 'Description';
 
   @override
@@ -829,6 +839,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noStockSelected => 'No stock selected';
+
+  @override
+  String get notFound => '- not found -';
 
   @override
   String get nothingToImport => 'Nothing to import';

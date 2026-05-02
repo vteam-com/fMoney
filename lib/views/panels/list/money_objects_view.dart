@@ -902,8 +902,11 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
 
     final String question = moneyObjects.length == 1
-        ? 'Are you sure you want to delete this $nameSingular?'
-        : 'Are you sure you want to delete the ${moneyObjects.length} selected $namePlural?';
+        ? AppL10n.tr(AppTranslationKeys.deleteThisItemQuestion, params: <String, String>{'item': nameSingular})
+        : AppL10n.tr(
+            AppTranslationKeys.deleteSelectedItemsQuestion,
+            params: <String, String>{'count': getIntAsText(moneyObjects.length), 'items': namePlural},
+          );
     final RenderObjectWidget content = moneyObjects.length == 1
         ? Column(
             children: moneyObjects.first.buildListOfNamesValuesWidgets(

@@ -189,6 +189,25 @@
   "defaultListOfItems": "Default list of items",
   "delete": "Delete",
   "deleteSelectedItems": "Delete selected item(s)",
+  "deleteSelectedItemsQuestion": "Are you sure you want to delete the {count} selected {items}?",
+  "@deleteSelectedItemsQuestion": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteThisItemQuestion": "Are you sure you want to delete this {item}?",
+  "@deleteThisItemQuestion": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "description": "Description",
   "descriptionPayee": "Description/Payee",
   "details": "Details",
@@ -535,6 +554,7 @@
   "noSecuritySelected": "No security selected.",
   "noSheetXmlFoundInXlsxFile": "No sheet XML found in XLSX file.",
   "noStockSelected": "No stock selected",
+  "notFound": "- not found -",
   "nothingToImport": "Nothing to import",
   "noTransactions": "No transactions",
   "noTransactionsPeriod": "No transactions.",
