@@ -6,6 +6,7 @@ import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -28,7 +29,15 @@ class MyListView<T> extends StatefulWidget {
     this.displayAsColumn = true,
     this.onSelectionChanged,
     this.isMultiSelectionOn = false,
+    this.columnWidths,
   });
+
+  /// Optional shared column-width notifier for pixel-aligned resizable layout.
+  ///
+  /// When provided the body rows use pixel widths derived from the notifier's
+  /// ratios and drag events update the notifier so the header stays in sync.
+  /// When omitted the body manages its own width state internally.
+  final ColumnWidthsNotifier? columnWidths;
 
   final bool displayAsColumn;
 
@@ -56,9 +65,34 @@ class MyListView<T> extends StatefulWidget {
 
 /// State for my list view.
 class MyListViewState<T> extends State<MyListView<T>> {
+  final List<double> _columnWidthRatios = <double>[];
   double _rowHeight = _rowHeightColumn;
-
+  final List<int> _visibleColumnIndexes = <int>[];
   double padding = 0;
+  @override
+  void initState() {
+    super.initState();
+    widget.columnWidths?.addListener(_onColumnWidthsChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.columnWidths?.removeListener(_onColumnWidthsChanged);
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant MyListView<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.columnWidths != widget.columnWidths) {
+      oldWidget.columnWidths?.removeListener(_onColumnWidthsChanged);
+      widget.columnWidths?.addListener(_onColumnWidthsChanged);
+    }
+    if (oldWidget.fields.length != widget.fields.length || oldWidget.displayAsColumn != widget.displayAsColumn) {
+      _visibleColumnIndexes.clear();
+      _columnWidthRatios.clear();
+    }
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -141,10 +175,15 @@ class MyListViewState<T> extends State<MyListView<T>> {
                   autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
                   adornmentColor: itemInstance.getMutationColor(),
-                  child: _buildListItemContent(
-                    isSelected,
-                    itemInstance,
-                    isLastItemOfTheList,
+                  child: LayoutBuilder(
+                    builder: (final BuildContext _, final BoxConstraints constraints) {
+                      return _buildListItemContent(
+                        isSelected,
+                        itemInstance,
+                        isLastItemOfTheList,
+                        constraints.maxWidth,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -367,9 +406,10 @@ class MyListViewState<T> extends State<MyListView<T>> {
     final bool isSelected,
     final DataObject itemInstance,
     final bool isLastItemOfTheList,
+    final double maxRowWidth,
   ) {
     return widget.displayAsColumn
-        ? Fields.getRowOfColumns(widget.fields, itemInstance)
+        ? _buildResizableColumnsRow(itemInstance, maxRowWidth)
         : Container(
             padding: const EdgeInsets.all(_rowHorizontalPadding),
             decoration: BoxDecoration(
@@ -383,5 +423,163 @@ class MyListViewState<T> extends State<MyListView<T>> {
             ),
             child: itemInstance.buildFieldsAsWidgetForSmallScreen(),
           );
+  }
+
+  /// Builds one table row with draggable separators between columns.
+  Widget _buildResizableColumnsRow(final DataObject itemInstance, final double maxRowWidth) {
+    _ensureResizableColumnsInitialized();
+
+    if (maxRowWidth <= 0) {
+      return Fields.getRowOfColumns(widget.fields, itemInstance);
+    }
+
+    if (_visibleColumnIndexes.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Use ratios from the shared notifier when available, otherwise the local copy.
+    final List<double> ratios = widget.columnWidths?.value ?? _columnWidthRatios;
+
+    final int handleCount = _visibleColumnIndexes.length - 1;
+    final double totalHandleWidth = handleCount * columnResizeHandleWidth;
+    final double contentWidth = (maxRowWidth - totalHandleWidth).clamp(0, double.infinity);
+    final List<Widget> rowChildren = <Widget>[];
+
+    for (int i = 0; i < _visibleColumnIndexes.length; i++) {
+      final int fieldIndex = _visibleColumnIndexes[i];
+      final Field<dynamic> fieldDefinition = widget.fields[fieldIndex];
+      final dynamic value = fieldDefinition.getValueForDisplay(itemInstance);
+
+      rowChildren.add(
+        SizedBox(
+          width: i < ratios.length ? contentWidth * ratios[i] : 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _rowHorizontalPadding),
+            child: buildWidgetFromTypeAndValue(
+              value: value,
+              type: fieldDefinition.type,
+              align: fieldDefinition.align,
+              fixedFont: fieldDefinition.fixedFont,
+            ),
+          ),
+        ),
+      );
+
+      if (i < _visibleColumnIndexes.length - 1) {
+        rowChildren.add(
+          MouseRegion(
+            cursor: SystemMouseCursors.resizeColumn,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onHorizontalDragUpdate: (final DragUpdateDetails details) {
+                _resizeColumnsAtBoundary(
+                  leftColumnPosition: i,
+                  dragDelta: details.delta.dx,
+                  contentWidth: contentWidth,
+                );
+              },
+              child: const SizedBox(width: columnResizeHandleWidth),
+            ),
+          ),
+        );
+      }
+    }
+
+    return Row(children: rowChildren);
+  }
+
+  /// Initializes visible column indexes and (when no external notifier) local ratios.
+  void _ensureResizableColumnsInitialized() {
+    final bool needsRatios = widget.columnWidths == null;
+    final bool alreadyDone = _visibleColumnIndexes.isNotEmpty && (!needsRatios || _columnWidthRatios.isNotEmpty);
+    if (alreadyDone) {
+      return;
+    }
+
+    _visibleColumnIndexes.clear();
+    _columnWidthRatios.clear();
+
+    for (int i = 0; i < widget.fields.length; i++) {
+      if (widget.fields[i].columnWidth != ColumnWidth.hidden) {
+        _visibleColumnIndexes.add(i);
+      }
+    }
+
+    if (_visibleColumnIndexes.isEmpty || !needsRatios) {
+      return;
+    }
+
+    final List<double> weights = _visibleColumnIndexes
+        .map((final int fieldIndex) => widget.fields[fieldIndex].columnWidth.index.toDouble())
+        .toList();
+    final double weightSum = weights.fold(0.0, (final double sum, final double value) => sum + value);
+
+    if (weightSum <= 0) {
+      final double equalRatio = 1 / _visibleColumnIndexes.length;
+      _columnWidthRatios.addAll(List<double>.filled(_visibleColumnIndexes.length, equalRatio));
+      return;
+    }
+
+    for (final double weight in weights) {
+      _columnWidthRatios.add(weight / weightSum);
+    }
+  }
+
+  /// Triggers a rebuild when the shared notifier emits a new value.
+  void _onColumnWidthsChanged() {
+    setState(() {});
+  }
+
+  /// Applies drag-based resize to two adjacent columns while preserving total width.
+  ///
+  /// When a shared [ColumnWidthsNotifier] is provided the update is forwarded to
+  /// it (which in turn triggers header and body rebuilds); otherwise the local
+  /// ratio list is updated directly.
+  void _resizeColumnsAtBoundary({
+    required final int leftColumnPosition,
+    required final double dragDelta,
+    required final double contentWidth,
+  }) {
+    if (contentWidth <= 0 || leftColumnPosition < 0 || leftColumnPosition >= _visibleColumnIndexes.length - 1) {
+      return;
+    }
+
+    final double minRatio = minimumColumnWidth / contentWidth;
+    final double deltaRatio = dragDelta / contentWidth;
+
+    if (widget.columnWidths != null) {
+      widget.columnWidths!.resizeAtBoundary(leftColumnPosition, deltaRatio, minRatio);
+      return;
+    }
+
+    if (leftColumnPosition >= _columnWidthRatios.length - 1) {
+      return;
+    }
+
+    final double leftRatio = _columnWidthRatios[leftColumnPosition];
+    final double rightRatio = _columnWidthRatios[leftColumnPosition + 1];
+    final double combinedRatio = leftRatio + rightRatio;
+
+    double resizedLeftRatio = leftRatio + deltaRatio;
+    final double minimumAllowedLeft = minRatio;
+    final double maximumAllowedLeft = combinedRatio - minRatio;
+
+    if (maximumAllowedLeft < minimumAllowedLeft) {
+      return;
+    }
+
+    if (resizedLeftRatio < minimumAllowedLeft) {
+      resizedLeftRatio = minimumAllowedLeft;
+    }
+    if (resizedLeftRatio > maximumAllowedLeft) {
+      resizedLeftRatio = maximumAllowedLeft;
+    }
+
+    final double resizedRightRatio = combinedRatio - resizedLeftRatio;
+
+    setState(() {
+      _columnWidthRatios[leftColumnPosition] = resizedLeftRatio;
+      _columnWidthRatios[leftColumnPosition + 1] = resizedRightRatio;
+    });
   }
 }

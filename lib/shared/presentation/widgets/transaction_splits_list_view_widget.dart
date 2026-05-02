@@ -5,6 +5,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_split_dialog.dart';
+import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
@@ -32,12 +33,20 @@ class ListViewTransactionSplits extends StatefulWidget {
 }
 
 class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
+  late ColumnWidthsNotifier _columnWidths;
   bool _sortAscending = true;
   late int _sortBy = widget.defaultSortingField;
 
   @override
   void initState() {
     super.initState();
+    _columnWidths = ColumnWidthsNotifier.fromFields(TransactionSplit.fields.definitions);
+  }
+
+  @override
+  void dispose() {
+    _columnWidths.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,6 +59,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
           filterOn: FieldFilters(),
           sortByColumn: _sortBy,
           sortAscending: _sortAscending,
+          columnWidths: _columnWidths,
           onTap: (final int index) {
             setState(() {
               if (_sortBy == index) {
@@ -68,6 +78,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
             list: widget.splits,
             selectedItemIds: ValueNotifier<List<int>>(<int>[]),
             onSelectionChanged: (int _) {},
+            columnWidths: _columnWidths,
             onLongPress: (final BuildContext context2, final int uniqueId) {
               final TransactionSplit? instance = widget.splits.firstWhereOrNull(
                 (TransactionSplit t) => t.uniqueId == uniqueId,

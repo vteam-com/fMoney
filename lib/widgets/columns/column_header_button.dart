@@ -8,6 +8,10 @@ const double _headerHorizontalPadding = 3;
 const double _sortIconSize = 20;
 
 /// Builds a column header button with optional sorting/filter indicators.
+///
+/// When [fixedWidth] is provided the button is wrapped in a [SizedBox] of that
+/// width (for pixel-aligned layout); otherwise it is wrapped in an
+/// [Expanded] with weight [flex] (for proportional flex layout).
 Widget buildColumnHeaderButton({
   required BuildContext context,
   required String text,
@@ -17,36 +21,38 @@ Widget buildColumnHeaderButton({
   bool hasFilters = false,
   VoidCallback? onPressed,
   VoidCallback? onLongPress,
+  double? fixedWidth,
 }) {
-  return Expanded(
-    flex: flex,
-    child: Tooltip(
-      message: '$text${SharedStrings.lineFeed}${_getTooltipText(sortIndicator, hasFilters)}'.trim(),
-      child: TextButton(
-        style: ButtonStyle(
-          shape: WidgetStateProperty.all<OutlinedBorder>(
-            const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero, // Remove rounded corners
-            ),
-          ),
-          padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(
-              horizontal: _headerHorizontalPadding, // Left and right padding
-            ),
+  final Widget inner = Tooltip(
+    message: '$text${SharedStrings.lineFeed}${_getTooltipText(sortIndicator, hasFilters)}'.trim(),
+    child: TextButton(
+      style: ButtonStyle(
+        shape: WidgetStateProperty.all<OutlinedBorder>(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero, // Remove rounded corners
           ),
         ),
-        onPressed: onPressed,
-        onLongPress: onLongPress,
-        // clipBehavior: Clip.hardEdge,
-        child: _buildTextAndSortAndFilter(
-          context,
-          textAlign,
-          text,
-          _buildAdorners(sortIndicator, hasFilters),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(
+            horizontal: _headerHorizontalPadding, // Left and right padding
+          ),
         ),
+      ),
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      // clipBehavior: Clip.hardEdge,
+      child: _buildTextAndSortAndFilter(
+        context,
+        textAlign,
+        text,
+        _buildAdorners(sortIndicator, hasFilters),
       ),
     ),
   );
+  if (fixedWidth != null) {
+    return SizedBox(width: fixedWidth, child: inner);
+  }
+  return Expanded(flex: flex, child: inner);
 }
 
 /// Builds the header content row with alignment and optional sort/filter adorners.

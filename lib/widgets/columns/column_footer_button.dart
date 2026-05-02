@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/constants_helper.dart';
 
 /// Builds a column footer button with alignment and callbacks.
+///
+/// When [fixedWidth] is provided the button is wrapped in a [SizedBox] of that
+/// width (for pixel-aligned layout); otherwise it is wrapped in an
+/// [Expanded] with weight [flex] (for proportional flex layout).
 Widget buildColumnFooterButton({
   required final BuildContext context,
   required final TextAlign textAlign,
@@ -9,28 +13,30 @@ Widget buildColumnFooterButton({
   required final VoidCallback? onPressed,
   required final VoidCallback? onLongPress,
   required final Widget? child,
+  final double? fixedWidth,
 }) {
-  return Expanded(
-    flex: flex,
-    child: TextButton(
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all<OutlinedBorder>(
-          const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero, // Remove rounded corners
-          ),
-        ),
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.symmetric(
-            horizontal: SizeForPadding.small, // Left and right padding
-          ),
+  final Widget inner = TextButton(
+    style: ButtonStyle(
+      shape: WidgetStateProperty.all<OutlinedBorder>(
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero, // Remove rounded corners
         ),
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      // clipBehavior: Clip.hardEdge,
-      child: _alignChild(context, textAlign, child ?? const SizedBox()),
+      padding: WidgetStateProperty.all(
+        const EdgeInsets.symmetric(
+          horizontal: SizeForPadding.small, // Left and right padding
+        ),
+      ),
     ),
+    onPressed: onPressed,
+    onLongPress: onLongPress,
+    // clipBehavior: Clip.hardEdge,
+    child: _alignChild(context, textAlign, child ?? const SizedBox()),
   );
+  if (fixedWidth != null) {
+    return SizedBox(width: fixedWidth, child: inner);
+  }
+  return Expanded(flex: flex, child: inner);
 }
 
 /// Aligns the footer cell content based on the requested [align] value.
