@@ -1,5 +1,18 @@
 # Change Log
 
+## [version 1.18.0] 2026-05-02
+
+### Added
+
+- **Column Width Controls**:  You can now resize the columns
+
+- **PNL Navigation**: Added jump from PNL rollup type/amount rows to the related Category view
+
+### Updated
+
+- **Localization**: more localized text
+- **Snackbar Code**: Refactored snackbar handling for cleaner structure and maintainability
+
 ## [version 1.17.05] 2026-04-21
 
 ### Added

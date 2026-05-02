@@ -5,8 +5,8 @@ import 'dart:convert';
 
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/shared/domain/bank_statement_pdf_service.dart';
 import 'package:money/shared/domain/ollama_service.dart';
-import 'package:money/views/home/ai/bank_statement_pdf_service.dart';
 import 'package:path/path.dart' as path;
 
 const int _maxPdfTextCharsForOllamaImport = 45000;
