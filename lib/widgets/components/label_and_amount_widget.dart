@@ -10,32 +10,49 @@ class LabelAndAmount extends StatelessWidget {
     required this.caption,
     required this.amount,
     this.currencyIso4217 = Constants.defaultCurrency,
+    this.onCaptionTap,
     this.small = false,
   });
 
   final double amount;
   final String caption;
   final String currencyIso4217;
+
+  /// Optional callback invoked when the caption label is tapped.
+  final VoidCallback? onCaptionTap;
   final bool small;
 
   @override
   Widget build(final BuildContext context) {
+    final Widget amountWidget = WidgetFromData(
+      amountModel: AmountModel(
+        amount: amount,
+        iso4217: currencyIso4217,
+        showCurrency: false,
+        autoColor: true,
+      ),
+    );
+
     return Row(
       children: <Widget>[
         Expanded(
-          child: Text(
-            caption,
-            style: small ? getTextTheme(context).bodySmall : getTextTheme(context).bodyMedium,
-          ),
+          child: onCaptionTap == null
+              ? Text(
+                  caption,
+                  style: small ? getTextTheme(context).bodySmall : getTextTheme(context).bodyMedium,
+                )
+              : MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: onCaptionTap,
+                    child: Text(
+                      caption,
+                      style: small ? getTextTheme(context).bodySmall : getTextTheme(context).bodyMedium,
+                    ),
+                  ),
+                ),
         ),
-        WidgetFromData(
-          amountModel: AmountModel(
-            amount: amount,
-            iso4217: currencyIso4217,
-            showCurrency: false,
-            autoColor: true,
-          ),
-        ),
+        amountWidget,
       ],
     );
   }

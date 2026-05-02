@@ -11,13 +11,27 @@ import 'package:money/widgets/pure/gaps_helper.dart';
 const double _headerPadding = 30.0;
 const double _percentageScale = 100.0;
 
+/// Identifies which rental PnL amount row was tapped.
+enum RentalPnLAmountType {
+  income,
+  interest,
+  maintenance,
+  management,
+  repairs,
+  taxes,
+}
+
 /// A stateless widget for rental pn l card.
 class RentalPnLCard extends StatelessWidget {
-  const RentalPnLCard({required this.pnl, super.key, this.customTitle});
-
+  const RentalPnLCard({
+    required this.pnl,
+    super.key,
+    this.customTitle,
+    this.onCaptionTap,
+  });
   final String? customTitle;
+  final void Function(RentalPnLAmountType amountType)? onCaptionTap;
   final RentalPnL pnl;
-
   @override
   Widget build(BuildContext context) {
     return BoxWithScrollingContent(
@@ -45,6 +59,7 @@ class RentalPnLCard extends StatelessWidget {
           caption: AppL10n.tr(AppTranslationKeys.incomeLabel),
           amount: pnl.income,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.income),
         ),
         gapLarge(),
         LabelAndAmount(
@@ -57,30 +72,35 @@ class RentalPnLCard extends StatelessWidget {
           caption: AppL10n.tr(AppTranslationKeys.interest),
           amount: pnl.expenseInterest,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.interest),
           small: true,
         ),
         LabelAndAmount(
           caption: AppL10n.tr(AppTranslationKeys.maintenance),
           amount: pnl.expenseMaintenance,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.maintenance),
           small: true,
         ),
         LabelAndAmount(
           caption: AppL10n.tr(AppTranslationKeys.management),
           amount: pnl.expenseManagement,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.management),
           small: true,
         ),
         LabelAndAmount(
           caption: AppL10n.tr(AppTranslationKeys.repairs),
           amount: pnl.expenseRepairs,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.repairs),
           small: true,
         ),
         LabelAndAmount(
           caption: AppL10n.tr(AppTranslationKeys.taxes),
           amount: pnl.expenseTaxes,
           currencyIso4217: pnl.currency,
+          onCaptionTap: _tapHandlerForAmountType(RentalPnLAmountType.taxes),
           small: true,
         ),
         gapLarge(),
@@ -113,5 +133,15 @@ class RentalPnLCard extends StatelessWidget {
     });
 
     return Column(children: widgets);
+  }
+
+  /// Returns a tap callback for the supplied amount row type when interactivity is enabled.
+  VoidCallback? _tapHandlerForAmountType(final RentalPnLAmountType type) {
+    if (onCaptionTap == null) {
+      return null;
+    }
+    return () {
+      onCaptionTap!(type);
+    };
   }
 }

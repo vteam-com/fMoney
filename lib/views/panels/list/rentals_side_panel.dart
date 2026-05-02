@@ -13,11 +13,49 @@ import 'package:money/views/panels/cards/rental_pnl_card.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/components/rental_pnl_widget.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.
 class ViewRentalsSidePanel {
+  /// Opens Categories view, selecting [categoryId].
+  static void openCategoriesForRentalCategory({
+    required final int categoryId,
+  }) {
+    if (categoryId < 0) {
+      return;
+    }
+
+    PreferenceController.to.jumpToView(
+      viewId: ViewId.viewCategories,
+      selectedId: categoryId,
+      textFilter: '',
+      columnFilters: null,
+    );
+  }
+
+  /// Resolves the rental category ID corresponding to the tapped PnL amount type.
+  static int getRentalCategoryIdForAmountType(
+    final RentBuilding rental,
+    final RentalPnLAmountType amountType,
+  ) {
+    switch (amountType) {
+      case RentalPnLAmountType.income:
+        return rental.categoryForIncome.value;
+      case RentalPnLAmountType.interest:
+        return rental.categoryForInterest.value;
+      case RentalPnLAmountType.maintenance:
+        return rental.categoryForMaintenance.value;
+      case RentalPnLAmountType.management:
+        return rental.categoryForManagement.value;
+      case RentalPnLAmountType.repairs:
+        return rental.categoryForRepairs.value;
+      case RentalPnLAmountType.taxes:
+        return rental.categoryForTaxes.value;
+    }
+  }
+
   /// Filters transactions based on whether their categories match the rental property's categories for income, management, repairs, maintenance, taxes or interest.
   ///
   /// Considers split transactions by checking each split individually.
@@ -109,7 +147,17 @@ class ViewRentalsSidePanel {
       for (int year = rental.dateRangeOfOperation.min!.year; year <= rental.dateRangeOfOperation.max!.year; year++) {
         RentalPnL? pnl = rental.pnlOverYears[year];
         pnl ??= RentalPnL(date: DateTime(year, 1, 1));
-        pnlCards.add(RentalPnLCard(pnl: pnl));
+        pnlCards.add(
+          RentalPnLCard(
+            pnl: pnl,
+            onCaptionTap: (final RentalPnLAmountType amountType) {
+              final int categoryId = getRentalCategoryIdForAmountType(rental, amountType);
+              openCategoriesForRentalCategory(
+                categoryId: categoryId,
+              );
+            },
+          ),
+        );
       }
     }
 
