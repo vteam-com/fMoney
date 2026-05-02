@@ -16,11 +16,53 @@ const double _snackBarBorderRadius = 8;
 const double _snackBarElevation = 6;
 const int _retryDelayMs = 100;
 
+/// Defines style variants for snackbar presentation.
+enum SnackBarVariant {
+  error,
+  success,
+  warning,
+  info,
+}
+
+/// Immutable style config associated with a snackbar variant.
+class _SnackBarVariantConfig {
+  /// Creates variant configuration with localized title key and theme color state.
+  const _SnackBarVariantConfig({
+    required this.titleKey,
+    required this.colorState,
+  });
+
+  /// Translation key used as the default snackbar title.
+  final String titleKey;
+
+  /// Theme color state used for snackbar background color.
+  final ColorState colorState;
+}
+
 /// Global snackbar service that works without BuildContext.
 /// Uses Flutter 3.38.0 Material snackbar improvements with custom overlay management.
 /// Supports multiple concurrent snackbars, better accessibility, and testability.
 class SnackBarService {
   static final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
+  static const Map<SnackBarVariant, _SnackBarVariantConfig> _variantConfigs = <SnackBarVariant, _SnackBarVariantConfig>{
+    SnackBarVariant.error: _SnackBarVariantConfig(
+      titleKey: AppTranslationKeys.error,
+      colorState: ColorState.error,
+    ),
+    SnackBarVariant.success: _SnackBarVariantConfig(
+      titleKey: AppTranslationKeys.success,
+      colorState: ColorState.success,
+    ),
+    SnackBarVariant.warning: _SnackBarVariantConfig(
+      titleKey: AppTranslationKeys.warning,
+      colorState: ColorState.warning,
+    ),
+    SnackBarVariant.info: _SnackBarVariantConfig(
+      titleKey: AppTranslationKeys.info,
+      colorState: ColorState.info,
+    ),
+  };
 
   // For testing: allow injection of custom scaffold messenger state
   static ScaffoldMessengerState? _testScaffoldMessengerState;
@@ -170,17 +212,34 @@ class SnackBarService {
     });
   }
 
+  /// Displays a snackbar using a typed [variant] with centralized style mapping.
+  static void displayVariant({
+    required SnackBarVariant variant,
+    required String message,
+    String? title,
+    bool autoDismiss = true,
+  }) {
+    final _SnackBarVariantConfig config = _variantConfigs[variant]!;
+    final MoneyThemeData themeData = Theme.of(AppRouter.context!).extension<MoneyThemeData>()!;
+    display(
+      title: title ?? AppL10n.tr(config.titleKey),
+      message: message,
+      autoDismiss: autoDismiss,
+      backgroundColor: themeData.getColorForState(config.colorState),
+    );
+  }
+
   /// Display error snackbar
   static void displayError({
     required String message,
     String? title,
     bool autoDismiss = true,
   }) {
-    display(
-      title: title ?? AppL10n.tr(AppTranslationKeys.error),
+    displayVariant(
+      variant: SnackBarVariant.error,
       message: message,
+      title: title,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error),
     );
   }
 
@@ -190,11 +249,11 @@ class SnackBarService {
     String? title,
     bool autoDismiss = true,
   }) {
-    display(
-      title: title ?? AppL10n.tr(AppTranslationKeys.success),
+    displayVariant(
+      variant: SnackBarVariant.success,
       message: message,
+      title: title,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success),
     );
   }
 
@@ -204,11 +263,11 @@ class SnackBarService {
     String? title,
     bool autoDismiss = true,
   }) {
-    display(
-      title: title ?? AppL10n.tr(AppTranslationKeys.warning),
+    displayVariant(
+      variant: SnackBarVariant.warning,
       message: message,
+      title: title,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning),
     );
   }
 
@@ -218,11 +277,11 @@ class SnackBarService {
     String? title,
     bool autoDismiss = true,
   }) {
-    display(
-      title: title ?? AppL10n.tr(AppTranslationKeys.info),
+    displayVariant(
+      variant: SnackBarVariant.info,
       message: message,
+      title: title,
       autoDismiss: autoDismiss,
-      backgroundColor: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.info),
     );
   }
 
