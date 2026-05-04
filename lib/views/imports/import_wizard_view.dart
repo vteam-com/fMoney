@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -5,6 +8,7 @@ import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
+import 'package:money/views/imports/formats/investment_csv_import_view.dart';
 import 'package:money/views/imports/formats/qfx_import_view.dart';
 import 'package:money/views/imports/formats/qif_import_view.dart';
 import 'package:money/views/imports/formats/xlsx_import_view.dart';
@@ -44,6 +48,40 @@ String _resolveSelectedFileExtension(final PlatformFile file) {
     return '';
   }
   return extensionFromPath.startsWith('.') ? extensionFromPath.substring(1) : extensionFromPath;
+}
+
+/// Checks if CSV file is an investment export by examining headers.
+Future<bool> _isInvestmentCSVFile(final String filePath) async {
+  try {
+    final File file = File(filePath);
+    if (!await file.exists()) {
+      return false;
+    }
+
+    final String csvContent = await file.readAsString();
+    if (csvContent.trim().isEmpty) {
+      return false;
+    }
+
+    // Parse first row to check headers
+    final List<List<dynamic>> csvTable = const CsvDecoder(
+      dynamicTyping: false,
+    ).convert(csvContent);
+
+    if (csvTable.isEmpty) {
+      return false;
+    }
+
+    final List<String> headers = csvTable.first
+        .map((final dynamic cell) => cell == null ? '' : cell.toString().trim())
+        .cast<String>()
+        .toList();
+
+    // Check for supported investment CSV headers
+    return isInvestmentCSV(headers);
+  } catch (_) {
+    return false;
+  }
 }
 
 /// Shows wizard dialog for importing transactions from various sources.
@@ -126,7 +164,17 @@ Future<void> onImportFromFile(final BuildContext context) async {
       importXLSX(context, filePath);
       break;
     case SharedStrings.fileExtensionCsv:
-      importCSV(context, filePath);
+      // Check if this is an investment CSV export
+      if (context.mounted) {
+        final bool isInvestmentCSVFile = await _isInvestmentCSVFile(filePath);
+        if (context.mounted) {
+          if (isInvestmentCSVFile) {
+            importInvestmentCSV(context, filePath);
+          } else {
+            importCSV(context, filePath);
+          }
+        }
+      }
       break;
     case SharedStrings.fileExtensionPdf:
       await showImportTransactionsFromPdfUsingAi(

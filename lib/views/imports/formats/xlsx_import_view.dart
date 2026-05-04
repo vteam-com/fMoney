@@ -301,7 +301,7 @@ ImportData loadXLSX(
 
     DateTime? date;
     try {
-      date = _parseFlexibleDate(rawDate);
+      date = parseFlexibleDate(rawDate);
       if (date == null) {
         throw const FormatException('Could not parse date');
       }
@@ -350,7 +350,7 @@ ImportData loadXLSX(
 /// - European format: DD/MM/YYYY (30/06/2025)
 /// - US format: MM/DD/YYYY (06/30/2025)
 /// - Short year formats: DD/MM/YY (30/06/25)
-DateTime? _parseFlexibleDate(String dateStr) {
+DateTime? parseFlexibleDate(String dateStr) {
   dateStr = dateStr.trim();
   if (dateStr.isEmpty) {
     return null;

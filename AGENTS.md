@@ -1,9 +1,13 @@
 # AGENTS Notes
 
 - Always document any new API you add (public or private). Every new function, method, class, and shared helper must include a concise doc comment at creation time.
-- avoid using "part" to break up files
-- always use type anonation, const and final when and where applicable
-- before marking work complete, run `tool/check.sh`; it must pass cleanly with zero warnings, zero errors, and a perfect score of `100%`
+- Avoid using "part" to break up files
+- Always use dart type annotation, const and final
+- Don’t assume. Don’t hide confusion. Surface tradeoffs.
+- Minimum code that solves the problem. Nothing speculative.
+- Touch only what you must. Clean up only your own mess.
+- Define success criteria. Loop until verified.
+- Before marking work complete, run `tool/check.sh`; it must pass cleanly with zero warnings, zero errors, and a perfect score of `100%`
 
 ## Localization Guardrails
 
@@ -22,8 +26,8 @@
   - `flutter gen-l10n`
   - `flutter analyze`
   - `fcheck --list full .`
- - Before finishing, explicitly scan for probable missed display literals:
-   - `rg -n "label:\\s*'|tooltip:\\s*'|Text\\('\\w|SnackBar\\(content:\\s*Text\\('|AppBar\\(title:\\s*Text\\('" lib`
+- Before finishing, explicitly scan for probable missed display literals:
+  - `rg -n "label:\\s*'|tooltip:\\s*'|Text\\('\\w|SnackBar\\(content:\\s*Text\\('|AppBar\\(title:\\s*Text\\('" lib`
 
 ## File Naming
 

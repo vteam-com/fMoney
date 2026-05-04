@@ -12,7 +12,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final Logger logger = Logger(
+Logger logger = Logger(
   filter: null, // Use the default LogFilter (-> only log in debug mode)
   output: null, // Use the default LogOutput (-> send everything to console)
 );
