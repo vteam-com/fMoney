@@ -22,6 +22,9 @@ const String settingKeySortAscending = 'sortAscending';
 const String settingKeySortBy = 'sortBy';
 const String settingKeyStockApiKey = 'stockServiceApiKey';
 const String settingKeyTextScale = 'textScale';
+
+/// Preference key suffix for persisted AI prompt draft text.
+const String settingKeyAiPromptDraftText = 'aiPromptDraftText';
 const String settingKeySidePanel = 'side_panel_';
 const String settingKeyDomainAccounts = 'accounts';
 const String settingKeyDomainCategories = 'categories';

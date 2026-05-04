@@ -2,6 +2,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:money/data/models/account_type_helper.dart';
+import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/ai_chat_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
@@ -22,11 +24,19 @@ import 'package:money/widgets/pure/chat_input_area_widget.dart';
 import 'package:money/widgets/pure/my_svg_widget.dart';
 import 'package:money/widgets/pure/view_widget.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
 
 // ignore: fcheck_one_class_per_file
 
 const double _checkingSpacing = 32.0;
 const double _checkingIconSize = 64.0;
+const String _promptAccountSectionHeader = 'Selected account context as JSON (use only this data in your answer):';
+const String _promptNoAccountDataLine = 'No selected account data is available.';
+const String _promptContextVersion = '1.0';
+const int _maxTransactionsPerAccountInPrompt = 250;
+final String _aiPromptDraftPreferenceKey = ViewId.viewAI.getViewPreferenceId(settingKeyAiPromptDraftText);
+final String _aiAllAccountsSelectedPreferenceKey = ViewId.viewAI.getViewPreferenceId('aiAllAccountsSelected');
+final String _aiSelectedAccountIdsPreferenceKey = ViewId.viewAI.getViewPreferenceId('aiSelectedAccountIds');
 
 /// ViewAI - AI-Powered Financial Assistant
 ///
@@ -216,6 +226,78 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   /// Stored as nullable to indicate when no context exists yet.
   List<int>? _conversationContext;
 
+  /// True when all available accounts are selected for chat context.
+  bool _allAccountsSelected = true;
+
+  /// Explicitly selected account ids when [_allAccountsSelected] is false.
+  final Set<int> _selectedAccountIds = <int>{};
+
+  /// Persists prompt draft text changes as the user types.
+  void _onPromptDraftChanged() {
+    unawaited(
+      PreferenceController.to.setString(
+        _aiPromptDraftPreferenceKey,
+        _textController.text,
+        true,
+      ),
+    );
+  }
+
+  /// Restores prompt draft text from preferences into the input field.
+  void _restorePromptDraft() {
+    final String draft = PreferenceController.to.getString(_aiPromptDraftPreferenceKey, '');
+    if (draft.isEmpty) {
+      return;
+    }
+
+    _textController
+      ..text = draft
+      ..selection = TextSelection.collapsed(offset: draft.length);
+  }
+
+  /// Persists account selection state used for AI prompt context.
+  void _persistPromptAccountSelection() {
+    final String selectedAccountIdsAsString = _selectedAccountIds.join(',');
+    unawaited(PreferenceController.to.setBool(_aiAllAccountsSelectedPreferenceKey, _allAccountsSelected));
+    unawaited(
+      PreferenceController.to.setString(
+        _aiSelectedAccountIdsPreferenceKey,
+        selectedAccountIdsAsString,
+        true,
+      ),
+    );
+  }
+
+  /// Restores account selection state from preferences for AI prompt context.
+  void _restorePromptAccountSelection() {
+    final bool storedAllAccountsSelected = PreferenceController.to.getBool(_aiAllAccountsSelectedPreferenceKey, true);
+    final String selectedAccountIdsAsString = PreferenceController.to.getString(
+      _aiSelectedAccountIdsPreferenceKey,
+      '',
+    );
+
+    final Set<int> availableAccountIds = _getSelectablePromptAccounts()
+        .map((final Account account) => account.uniqueId)
+        .toSet();
+    final Set<int> restoredSelectedIds = selectedAccountIdsAsString
+        .split(',')
+        .map((final String value) => int.tryParse(value))
+        .whereType<int>()
+        .where(availableAccountIds.contains)
+        .toSet();
+
+    _selectedAccountIds
+      ..clear()
+      ..addAll(restoredSelectedIds);
+
+    _allAccountsSelected = storedAllAccountsSelected || _selectedAccountIds.isEmpty;
+    if (_allAccountsSelected) {
+      _selectedAccountIds.clear();
+    }
+
+    _persistPromptAccountSelection();
+  }
+
   /// Initializes the AI assistant state.
   ///
   /// Loads the previously selected AI model from preferences and restores
@@ -225,6 +307,9 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   void initState() {
     super.initState();
     _ollamaService = widget.ollamaService ?? OllamaServiceImpl();
+    _restorePromptDraft();
+    _restorePromptAccountSelection();
+    _textController.addListener(_onPromptDraftChanged);
 
     // Load the selected model from preferences first
     _ollamaService.getLastUserSelectedModel().then((final _) async {
@@ -248,6 +333,8 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
 
   @override
   void dispose() {
+    _textController.removeListener(_onPromptDraftChanged);
+    _textController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -336,7 +423,6 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
           ),
           ChatInputArea(
             onSendPrompt: _submitPrompt,
-            onTeachAI: () async => await teachAIAboutAccounts(),
             isProcessing: _isProcessingPrompt,
             onCancel: () async {
               _cancelled = true;
@@ -347,6 +433,11 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
               });
             },
             inputController: _textController,
+            accountGroupsByLabel: _getPromptAccountGroups(),
+            selectedAccountIds: _selectedAccountIds,
+            selectAllAccounts: _allAccountsSelected,
+            onToggleAccountSelection: _toggleAccountSelection,
+            onToggleSelectAllAccounts: _selectAllAccounts,
           ),
         ],
       ),
@@ -361,6 +452,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     }
     // Clear input textfield
     _textController.clear();
+    await PreferenceController.to.remove(_aiPromptDraftPreferenceKey);
 
     String fullPrompt = promptAsked;
 
@@ -368,9 +460,15 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     fullPrompt = utf8.decode(utf8.encode(fullPrompt));
 
     // Create direct prompt combining context instructions + user question
+    final List<Account> selectedAccounts = _getSelectedPromptAccounts();
+    final String accountContextForPrompt = _buildPromptAccountContext(selectedAccounts);
+
     final String aiPrompt =
         '''
 You have been provided with financial data containing accounts and transactions (dates and amounts).
+
+  $_promptAccountSectionHeader
+  $accountContextForPrompt
 
 Answer this question directly using the financial data you learned: $fullPrompt
 
@@ -464,6 +562,153 @@ Answer the question:''';
     _cancelled = false;
   }
 
+  /// Returns sorted, open real accounts available for AI prompt context.
+  List<Account> _getSelectablePromptAccounts() {
+    final List<Account> accounts = Data().accounts.getOpenRealAccounts();
+    accounts.sort(
+      (final Account left, final Account right) =>
+          left.fieldName.value.toLowerCase().compareTo(right.fieldName.value.toLowerCase()),
+    );
+    return accounts;
+  }
+
+  /// Returns account options grouped by account type label.
+  Map<String, Map<int, String>> _getPromptAccountGroups() {
+    final List<Account> accounts = _getSelectablePromptAccounts();
+    final Map<AccountType, List<Account>> groupedAccounts = <AccountType, List<Account>>{};
+
+    for (final Account account in accounts) {
+      final List<Account> bucket = groupedAccounts.putIfAbsent(account.fieldType.value, () => <Account>[]);
+      bucket.add(account);
+    }
+
+    final List<AccountType> sortedTypes = groupedAccounts.keys.toList()
+      ..sort(
+        (final AccountType left, final AccountType right) =>
+            getTypeAsText(left).toLowerCase().compareTo(getTypeAsText(right).toLowerCase()),
+      );
+
+    return <String, Map<int, String>>{
+      for (final AccountType type in sortedTypes)
+        getTypeAsText(type): <int, String>{
+          for (final Account account in groupedAccounts[type]!) account.uniqueId: account.fieldName.value,
+        },
+    };
+  }
+
+  /// Returns accounts selected for inclusion in the AI prompt context.
+  List<Account> _getSelectedPromptAccounts() {
+    final List<Account> availableAccounts = _getSelectablePromptAccounts();
+    if (_allAccountsSelected) {
+      return availableAccounts;
+    }
+
+    final List<Account> selected = availableAccounts
+        .where((final Account account) => _selectedAccountIds.contains(account.uniqueId))
+        .toList();
+
+    // Keep context usable when stale selections no longer match current accounts.
+    if (selected.isEmpty) {
+      return availableAccounts;
+    }
+
+    return selected;
+  }
+
+  /// Marks all available accounts as selected for prompt context.
+  void _selectAllAccounts() {
+    setState(() {
+      _allAccountsSelected = true;
+      _selectedAccountIds.clear();
+    });
+    _persistPromptAccountSelection();
+  }
+
+  /// Toggles selection of a single account id for prompt context.
+  void _toggleAccountSelection(final int accountId) {
+    setState(() {
+      if (_allAccountsSelected) {
+        _allAccountsSelected = false;
+        _selectedAccountIds
+          ..clear()
+          ..add(accountId);
+        return;
+      }
+
+      if (_selectedAccountIds.contains(accountId)) {
+        _selectedAccountIds.remove(accountId);
+      } else {
+        _selectedAccountIds.add(accountId);
+      }
+
+      if (_selectedAccountIds.isEmpty) {
+        _allAccountsSelected = true;
+      }
+    });
+    _persistPromptAccountSelection();
+  }
+
+  /// Builds compact account and transaction context text for the current prompt.
+  String _buildPromptAccountContext(final List<Account> accounts) {
+    if (accounts.isEmpty) {
+      return _promptNoAccountDataLine;
+    }
+
+    final List<Map<String, Object>> accountsPayload = <Map<String, Object>>[];
+
+    for (final Account account in accounts) {
+      final List<Transaction> transactions = Data().accounts.getTransactions(account).toList()
+        ..sort(
+          (final Transaction left, final Transaction right) {
+            final DateTime leftDate = left.fieldDateTime.value ?? DateTime.fromMillisecondsSinceEpoch(0);
+            final DateTime rightDate = right.fieldDateTime.value ?? DateTime.fromMillisecondsSinceEpoch(0);
+            return leftDate.compareTo(rightDate);
+          },
+        );
+
+      final bool isTruncated = transactions.length > _maxTransactionsPerAccountInPrompt;
+      final List<Transaction> includedTransactions = isTruncated
+          ? transactions.sublist(transactions.length - _maxTransactionsPerAccountInPrompt)
+          : transactions;
+
+      final List<Map<String, Object?>> transactionsPayload = includedTransactions
+          .map(
+            (final Transaction transaction) => <String, Object?>{
+              'transaction_id': transaction.uniqueId,
+              'date': transaction.dateTimeAsString,
+              'amount': transaction.fieldAmount.value.asDouble(),
+              'amount_display': transaction.amountAsString,
+              'is_transfer': transaction.isTransfer,
+              'payee_name': transaction.payeeName,
+              'category_name': transaction.categoryName,
+              'memo': transaction.fieldMemo.value,
+              'description': transaction.oneLinePayeeAndDescription,
+            },
+          )
+          .toList();
+
+      accountsPayload.add(
+        <String, Object>{
+          'account_id': account.uniqueId,
+          'account_name': account.fieldName.value,
+          'account_type': getTypeAsText(account.fieldType.value),
+          'total_transactions': transactions.length,
+          'included_transactions': transactionsPayload.length,
+          'is_truncated': isTruncated,
+          'transactions': transactionsPayload,
+        },
+      );
+    }
+
+    final Map<String, Object> contextPayload = <String, Object>{
+      'context_version': _promptContextVersion,
+      'accounts_count': accountsPayload.length,
+      'accounts': accountsPayload,
+    };
+
+    return const JsonEncoder.withIndent('  ').convert(contextPayload);
+  }
+
   /// Appends a message to chat history and triggers UI update.
   ///
   /// [text] is the message text to append.
@@ -541,120 +786,5 @@ Answer the question:''';
         }
       },
     );
-  }
-
-  /// Teaches the AI about accounts by sending recent transactions as context.
-  Future<void> teachAIAboutAccounts() async {
-    if (mounted) {
-      setState(() {
-        _isProcessingPrompt = true;
-      });
-    }
-
-    final List<Account> accounts = Data().accounts
-        .getOpenRealAccounts()
-        .where((final Account account) {
-          return account.isActiveBankAccount();
-        })
-        // .take(3)
-        .toList();
-
-    if (accounts.isEmpty) {
-      if (mounted) {
-        setState(() {
-          _isProcessingPrompt = false;
-        });
-      }
-      return;
-    }
-
-    bool failed = false;
-
-    for (final Account account in accounts) {
-      if (_cancelled) {
-        break;
-      }
-
-      final String accountName = account.fieldName.value;
-      final List<Transaction> transactions = Data().accounts.getTransactions(account).toList();
-      final List<String> transactionsData = transactions
-          .where((final Transaction t) => t.dateTimeAsString.compareTo('2023-12-31') > -1)
-          .map((final Transaction t) => '${t.dateTimeAsString},${t.amountAsString}')
-          .toList();
-
-      final String accountData =
-          '''
-Here is account data in compact format. Memorize this for future calculations:
-
-ACCOUNT:$accountName
-TRANSACTIONS:${transactionsData.join(';')}
----''';
-
-      final Map<String, dynamic> payload = <String, dynamic>{
-        'model': _ollamaService.selectedModel,
-        'messages': <Map<String, String>>[
-          <String, String>{
-            'role': SharedStrings.payloadRoleUser,
-            'content': accountData,
-          },
-        ],
-        'stream': false,
-      };
-
-      // Add current context to payload if it exists
-      if (_conversationContext != null && _conversationContext!.isNotEmpty) {
-        payload[SharedStrings.payloadKeyContext] = _conversationContext;
-      }
-
-      try {
-        final String teachingMessage = 'account "$accountName" with ${transactionsData.length} transactions.';
-
-        _appendChatHistory(teachingMessage, ChatFrom.user, payload);
-
-        final Map<String, dynamic> response = await _ollamaService.sendPayload(payload);
-
-        if (response.containsKey(SharedStrings.payloadKeyContext)) {
-          _conversationContext = (response[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
-        }
-      } catch (e) {
-        failed = true;
-        AppLogger.error(
-          module: 'ai_view',
-          operation: '_teachAiAboutAccounts',
-          error: e,
-          context: <String, Object?>{'account': accountName},
-        );
-        break;
-      }
-    }
-
-    // Save the final context
-    await _ollamaService.saveConversationContext(_conversationContext);
-
-    if (failed || _cancelled) {
-      _appendChatHistory(
-        _cancelled
-            ? AppL10n.tr(AppTranslationKeys.teachingCancelled)
-            : AppL10n.tr(AppTranslationKeys.teachingFailedPartially),
-        ChatFrom.ai,
-      );
-      await _ollamaService.saveChatHistory(_chatHistory);
-    } else {
-      _appendChatHistory(
-        AppL10n.tr(
-          AppTranslationKeys.aiLearnedAboutAccountsAndTransactions,
-          params: <String, String>{'count': accounts.length.toString()},
-        ),
-        ChatFrom.ai,
-      );
-      await _ollamaService.saveChatHistory(_chatHistory);
-    }
-
-    // Final setState to update UI
-    if (mounted) {
-      setState(() {
-        _isProcessingPrompt = false;
-      });
-    }
   }
 }

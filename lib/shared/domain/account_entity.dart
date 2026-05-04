@@ -459,21 +459,9 @@ class Account extends DataObject {
     return instance == null ? '' : instance.fieldName.value;
   }
 
-  /// True if the account is an active bank account.
-  bool isActiveBankAccount() {
-    return isBankAccount() && isOpen;
-  }
-
   /// True if the account is an asset account.
   bool get isAssetAccount {
     return fieldType.value == AccountType.asset;
-  }
-
-  /// True if the account is a bank account.
-  bool isBankAccount() {
-    return fieldType.value == AccountType.savings ||
-        fieldType.value == AccountType.checking ||
-        fieldType.value == AccountType.cash;
   }
 
   /// Returns true if [bitIndex] is set in [value].

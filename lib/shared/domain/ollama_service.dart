@@ -13,6 +13,28 @@ import 'package:url_launcher/url_launcher.dart';
 const int _exitCodeSuccess = 0;
 const int _httpOkStatus = 200;
 const int _startupDelaySeconds = 5;
+const String _defaultPathEnvKey = 'PATH';
+const String _windowsPathEnvKey = 'Path';
+const String _windowsProgramsDirName = 'Programs';
+const String _windowsOllamaDirName = 'Ollama';
+const String _windowsOllamaExecutableName = 'ollama.exe';
+
+const List<String> _commonMacOsPaths = <String>[
+  '/opt/homebrew/bin',
+  '/usr/local/bin',
+  '/Applications/Ollama.app/Contents/Resources',
+];
+
+const List<String> _commonLinuxPaths = <String>[
+  '/usr/local/bin',
+  '/usr/bin',
+  '/snap/bin',
+];
+
+const List<String> _commonWindowsPaths = <String>[
+  r'C:\Program Files\Ollama',
+  r'C:\Program Files (x86)\Ollama',
+];
 
 /// Represents ollama status.
 class OllamaStatus {
@@ -33,11 +55,8 @@ class OllamaService {
   /// Returns true if the `ollama` executable is available on the system.
   static Future<bool> checkIfOllamaInstalled() async {
     try {
-      final ProcessResult installResult = await Process.run(
-        SharedStrings.processWhich,
-        <String>[SharedStrings.executableOllama],
-      );
-      return installResult.exitCode == _exitCodeSuccess;
+      final String? ollamaExecutablePath = await _resolveOllamaExecutablePath();
+      return ollamaExecutablePath != null;
     } catch (e) {
       AppLogger.warning(
         module: 'ollama_service',
@@ -94,30 +113,38 @@ class OllamaService {
         client.close();
       }
 
+      final String? ollamaExecutablePath = await _resolveOllamaExecutablePath();
+      if (ollamaExecutablePath == null) {
+        AppLogger.warning(
+          module: 'ollama_service',
+          operation: 'startOllama',
+          message: 'Ollama executable was not found on this machine',
+        );
+        return;
+      }
+
+      final Map<String, String> processEnvironment = _buildProcessEnvironment();
+
       if (Platform.isMacOS) {
         await Process.start(
-          SharedStrings.executableOllama,
+          ollamaExecutablePath,
           <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
-          environment: Platform.environment,
+          environment: processEnvironment,
         );
       } else if (Platform.isWindows) {
         await Process.start(
-          SharedStrings.processCmd,
-          <String>[
-            '/c',
-            SharedStrings.processStart,
-            '/min',
-            SharedStrings.executableOllama,
-            SharedStrings.ollamaArgServe,
-          ],
+          ollamaExecutablePath,
+          <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
+          environment: processEnvironment,
         );
       } else if (Platform.isLinux) {
         await Process.start(
-          SharedStrings.executableOllama,
+          ollamaExecutablePath,
           <String>[SharedStrings.ollamaArgServe],
           mode: ProcessStartMode.detached,
+          environment: processEnvironment,
         );
       } else {
         throw UnsupportedError('Unsupported platform');
@@ -321,5 +348,172 @@ class OllamaService {
     }
 
     return OllamaStatus(isInstalled: isInstalled, isRunning: isRunning);
+  }
+
+  /// Resolves the full executable path for Ollama across supported platforms.
+  static Future<String?> _resolveOllamaExecutablePath() async {
+    final Map<String, String> environment = _buildProcessEnvironment();
+
+    final String? fromLocator = await _resolveUsingSystemLocator(environment);
+    if (fromLocator != null) {
+      return fromLocator;
+    }
+
+    final String? fromPath = await _resolveUsingPathEntries(environment);
+    if (fromPath != null) {
+      return fromPath;
+    }
+
+    final String? fromCommonLocations = await _resolveFromCommonLocations();
+    if (fromCommonLocations != null) {
+      return fromCommonLocations;
+    }
+
+    return null;
+  }
+
+  /// Builds a process environment with augmented path entries for desktop app launches.
+  static Map<String, String> _buildProcessEnvironment() {
+    final Map<String, String> environment = Map<String, String>.from(Platform.environment);
+    final String pathKey = _resolvePathEnvironmentKey(environment);
+    final String currentPath = environment[pathKey] ?? SharedStrings.empty;
+    final String separator = Platform.isWindows ? ';' : ':';
+    final Set<String> pathEntries = currentPath
+        .split(separator)
+        .where((final String entry) => entry.trim().isNotEmpty)
+        .toSet();
+
+    final Iterable<String> fallbackEntries = _platformFallbackPathEntries(environment);
+    pathEntries.addAll(fallbackEntries.where((final String entry) => entry.trim().isNotEmpty));
+    environment[pathKey] = pathEntries.join(separator);
+    return environment;
+  }
+
+  /// Resolves which environment variable key stores PATH on the current platform.
+  static String _resolvePathEnvironmentKey(final Map<String, String> environment) {
+    if (Platform.isWindows) {
+      if (environment.containsKey(_windowsPathEnvKey)) {
+        return _windowsPathEnvKey;
+      }
+      for (final String key in environment.keys) {
+        if (key.toLowerCase() == _defaultPathEnvKey.toLowerCase()) {
+          return key;
+        }
+      }
+    }
+    return _defaultPathEnvKey;
+  }
+
+  /// Returns platform-specific fallback path entries used when PATH is minimal.
+  static Iterable<String> _platformFallbackPathEntries(final Map<String, String> environment) {
+    if (Platform.isMacOS) {
+      return _commonMacOsPaths;
+    }
+    if (Platform.isLinux) {
+      return _commonLinuxPaths;
+    }
+    if (Platform.isWindows) {
+      final String localAppData = environment['LOCALAPPDATA'] ?? SharedStrings.empty;
+      final List<String> entries = <String>[..._commonWindowsPaths];
+      if (localAppData.isNotEmpty) {
+        entries.add(
+          '$localAppData${Platform.pathSeparator}$_windowsProgramsDirName${Platform.pathSeparator}$_windowsOllamaDirName',
+        );
+      }
+      return entries;
+    }
+    return <String>[];
+  }
+
+  /// Tries to resolve Ollama using the platform command locator (`which` or `where`).
+  static Future<String?> _resolveUsingSystemLocator(final Map<String, String> environment) async {
+    final String locatorCommand = Platform.isWindows ? 'where' : SharedStrings.processWhich;
+    try {
+      final ProcessResult installResult = await Process.run(
+        locatorCommand,
+        <String>[SharedStrings.executableOllama],
+        environment: environment,
+      );
+      if (installResult.exitCode != _exitCodeSuccess) {
+        return null;
+      }
+      final String output = (installResult.stdout as Object? ?? SharedStrings.empty).toString().trim();
+      if (output.isEmpty) {
+        return null;
+      }
+      final List<String> candidates = output
+          .split(RegExp(r'[\r\n]+'))
+          .map((final String line) => line.trim())
+          .where((final String line) => line.isNotEmpty)
+          .toList();
+      return _firstExistingPath(candidates);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Tries to resolve Ollama by walking all PATH entries directly.
+  static Future<String?> _resolveUsingPathEntries(final Map<String, String> environment) async {
+    final String pathKey = _resolvePathEnvironmentKey(environment);
+    final String pathValue = environment[pathKey] ?? SharedStrings.empty;
+    if (pathValue.isEmpty) {
+      return null;
+    }
+    final String separator = Platform.isWindows ? ';' : ':';
+    final List<String> executableNames = Platform.isWindows
+        ? <String>[_windowsOllamaExecutableName, 'ollama.cmd', 'ollama.bat', SharedStrings.executableOllama]
+        : <String>[SharedStrings.executableOllama];
+
+    final List<String> candidates = <String>[];
+    for (final String entry in pathValue.split(separator)) {
+      final String trimmedEntry = entry.trim();
+      if (trimmedEntry.isEmpty) {
+        continue;
+      }
+      for (final String executableName in executableNames) {
+        candidates.add('$trimmedEntry${Platform.pathSeparator}$executableName');
+      }
+    }
+    return _firstExistingPath(candidates);
+  }
+
+  /// Tries to resolve Ollama from common installation directories for each OS.
+  static Future<String?> _resolveFromCommonLocations() async {
+    final List<String> candidates = <String>[];
+    if (Platform.isMacOS || Platform.isLinux) {
+      final List<String> roots = Platform.isMacOS ? _commonMacOsPaths : _commonLinuxPaths;
+      for (final String root in roots) {
+        candidates.add('$root${Platform.pathSeparator}${SharedStrings.executableOllama}');
+      }
+    } else if (Platform.isWindows) {
+      for (final String root in _commonWindowsPaths) {
+        candidates.add('$root${Platform.pathSeparator}$_windowsOllamaExecutableName');
+      }
+      final String localAppData = Platform.environment['LOCALAPPDATA'] ?? SharedStrings.empty;
+      if (localAppData.isNotEmpty) {
+        candidates.add(
+          '$localAppData${Platform.pathSeparator}$_windowsProgramsDirName${Platform.pathSeparator}$_windowsOllamaDirName${Platform.pathSeparator}$_windowsOllamaExecutableName',
+        );
+      }
+    }
+    return _firstExistingPath(candidates);
+  }
+
+  /// Returns the first candidate path that exists as a file.
+  static Future<String?> _firstExistingPath(final Iterable<String> candidates) async {
+    for (final String candidate in candidates) {
+      if (candidate.isEmpty) {
+        continue;
+      }
+      final String normalizedCandidate = candidate.trim().replaceAll('"', SharedStrings.empty);
+      if (normalizedCandidate.isEmpty) {
+        continue;
+      }
+      final File file = File(normalizedCandidate);
+      if (await file.exists()) {
+        return file.path;
+      }
+    }
+    return null;
   }
 }
