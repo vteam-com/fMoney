@@ -24,6 +24,7 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
     required this.selectedItemsByUniqueId,
     required this.displayAsColumns,
     required this.listController,
+    this.showRightAdornment = true,
     this.sortByFieldIndex = 0,
     this.sortAscending = true,
     this.isMultiSelectionOn = false,
@@ -36,41 +37,26 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
     this.getColumnFooterWidget,
     this.backgroundColorForHeaderFooter,
   });
-
   final Color? backgroundColorForHeaderFooter;
-
   final bool displayAsColumns;
-
   final FieldDefinitions fieldDefinitions;
-
   final FieldFilters filters;
-
   final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
-
   final bool isMultiSelectionOn;
-
   final List<DataObject> list;
-
   final ListController listController;
-
   final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
-
   final void Function(int columnHeaderIndex)? onColumnHeaderTap;
-
   final void Function()? onContextMenu;
-
   final void Function(BuildContext context, int itemId)? onItemLongPress;
-
   final void Function(BuildContext context, int itemId)? onItemTap;
-
   final void Function(int uniqueId)? onSelectionChanged;
-
   final ValueNotifier<List<int>> selectedItemsByUniqueId;
 
+  /// Controls whether right-side row adornments are rendered.
+  final bool showRightAdornment;
   final bool sortAscending;
-
   final int sortByFieldIndex;
-
   @override
   State<AdaptiveListColumnsOrRows> createState() => _AdaptiveListColumnsOrRowsState();
 }
@@ -136,6 +122,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
             list: widget.list,
             selectedItemIds: widget.selectedItemsByUniqueId,
             isMultiSelectionOn: widget.isMultiSelectionOn,
+            showRightAdornment: widget.showRightAdornment,
             onSelectionChanged: widget.onSelectionChanged,
             displayAsColumn: widget.displayAsColumns,
             onTap: widget.onItemTap,

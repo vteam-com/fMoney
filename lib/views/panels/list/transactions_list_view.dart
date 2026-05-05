@@ -23,6 +23,7 @@ class ListViewTransactions extends StatefulWidget {
     required this.selectionController,
     this.sortFieldIndex = 0,
     this.sortAscending = true,
+    this.showRightAdornment = false,
     this.onUserChoiceChanged,
   });
 
@@ -40,6 +41,9 @@ class ListViewTransactions extends StatefulWidget {
   onUserChoiceChanged;
 
   final SelectionController selectionController;
+
+  /// Controls whether right-side row adornments are rendered.
+  final bool showRightAdornment;
 
   final bool sortAscending;
 
@@ -73,6 +77,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
       list: transactions,
       fieldDefinitions: widget.columnsToInclude,
       filters: FieldFilters(),
+      showRightAdornment: widget.showRightAdornment,
       sortByFieldIndex: _sortBy,
       sortAscending: _sortAscending,
       selectedId: widget.selectionController.firstSelectedId,

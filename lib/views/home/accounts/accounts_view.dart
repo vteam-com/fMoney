@@ -769,6 +769,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
             'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
           ),
           columnsToInclude: columnsToDisplay,
+          showRightAdornment: account.fieldType.value == AccountType.credit,
           getList: () => getTransactionForLastSelectedAccount(account),
           sortFieldIndex: sortFieldIndex,
           sortAscending: sortAscending,

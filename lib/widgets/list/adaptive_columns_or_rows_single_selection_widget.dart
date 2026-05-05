@@ -18,6 +18,7 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
     required this.selectedId,
     required this.displayAsColumns,
     required this.listController,
+    this.showRightAdornment = true,
     this.sortByFieldIndex = 0,
     this.sortAscending = true,
     this.onSelectionChanged,
@@ -58,6 +59,9 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 
   final int selectedId;
 
+  /// Controls whether right-side row adornments are rendered.
+  final bool showRightAdornment;
+
   final bool sortAscending;
 
   final int sortByFieldIndex;
@@ -81,6 +85,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
       list: widget.list,
       fieldDefinitions: widget.fieldDefinitions,
       filters: widget.filters,
+      showRightAdornment: widget.showRightAdornment,
       sortByFieldIndex: widget.sortByFieldIndex,
       sortAscending: widget.sortAscending,
       listController: widget.listController,

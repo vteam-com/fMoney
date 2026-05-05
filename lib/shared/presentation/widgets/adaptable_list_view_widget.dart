@@ -37,46 +37,32 @@ class AdaptiveViewWithList extends StatefulWidget {
     this.sortByFieldIndex = 0,
     this.sortAscending = true,
     this.applySorting = true,
+    this.showRightAdornment = false,
     this.onItemTap,
     this.onColumnHeaderTap,
     this.onColumnHeaderLongPress,
     this.getColumnFooterWidget,
   });
-
   final bool applySorting;
-
   final Widget bottom;
-
   final FieldDefinitions fieldDefinitions;
-
   final FieldFilters filters;
-
   final int flexBottom;
-
   final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
-
   final bool isMultiSelectionOn;
-
   final List<DataObject> list;
-
   final ListController listController;
-
   final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
-
   final void Function(int columnHeaderIndex)? onColumnHeaderTap;
-
   final void Function(BuildContext, int)? onItemTap;
-
   final void Function(int) onSelectionChanged;
-
   final ValueNotifier<List<int>> selectedItemsByUniqueId;
 
+  /// Controls whether right-side row adornments are rendered in this list.
+  final bool showRightAdornment;
   final bool sortAscending;
-
   final int sortByFieldIndex;
-
   final Widget top;
-
   @override
   State<AdaptiveViewWithList> createState() => _AdaptiveViewWithListState();
 }
@@ -177,6 +163,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
             // Display as Cards or Columns
             // On small device you can display rows a Cards instead of Columns
             displayAsColumns: displayAsColumns,
+            showRightAdornment: widget.showRightAdornment,
             onColumnHeaderTap: widget.onColumnHeaderTap,
             onColumnHeaderLongPress: widget.onColumnHeaderLongPress,
             getColumnFooterWidget: widget.getColumnFooterWidget,

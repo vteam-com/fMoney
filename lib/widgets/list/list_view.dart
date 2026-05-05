@@ -27,6 +27,7 @@ class MyListView<T> extends StatefulWidget {
     this.onDoubleTap,
     this.onLongPress,
     this.displayAsColumn = true,
+    this.showRightAdornment = true,
     this.onSelectionChanged,
     this.isMultiSelectionOn = false,
     this.columnWidths,
@@ -38,27 +39,19 @@ class MyListView<T> extends StatefulWidget {
   /// ratios and drag events update the notifier so the header stays in sync.
   /// When omitted the body manages its own width state internally.
   final ColumnWidthsNotifier? columnWidths;
-
   final bool displayAsColumn;
-
   final FieldDefinitions fields;
-
   final bool isMultiSelectionOn;
-
   final List<T> list;
-
   final void Function(BuildContext, int uniqueId)? onDoubleTap;
-
   final void Function(BuildContext, int uniqueId)? onLongPress;
-
   final void Function(int /* uniqueId */)? onSelectionChanged;
-
   final void Function(BuildContext, int uniqueId)? onTap;
-
   final ScrollController scrollController;
-
   final ValueNotifier<List<int>> selectedItemIds;
 
+  /// Controls whether right-side row adornments are rendered.
+  final bool showRightAdornment;
   @override
   State<MyListView<T>> createState() => MyListViewState<T>();
 }
@@ -97,7 +90,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   @override
   Widget build(final BuildContext context) {
     final TextScaler textScaler = MediaQuery.textScalerOf(context);
-    final bool flipRightAdornmentCaps = _shouldFlipRightAdornmentCaps();
+    final bool flipRightAdornmentCaps = widget.showRightAdornment && _shouldFlipRightAdornmentCaps();
 
     if (widget.displayAsColumn) {
       _rowHeight = _rowHeightColumn;
@@ -119,9 +112,11 @@ class MyListViewState<T> extends State<MyListView<T>> {
         final bool isSelected = widget.selectedItemIds.value.contains(
           itemInstance.uniqueId,
         );
-        final Color rightAdornmentColor = itemInstance.getRightAdornmentColor();
-        final bool rawTopCap = itemInstance.getShowRightAdornmentTopCap();
-        final bool rawBottomCap = itemInstance.getShowRightAdornmentBottomCap();
+        final Color rightAdornmentColor = widget.showRightAdornment
+            ? itemInstance.getRightAdornmentColor()
+            : Colors.transparent;
+        final bool rawTopCap = widget.showRightAdornment && itemInstance.getShowRightAdornmentTopCap();
+        final bool rawBottomCap = widget.showRightAdornment && itemInstance.getShowRightAdornmentBottomCap();
         final bool showRightAdornmentTopCap = flipRightAdornmentCaps ? rawBottomCap : rawTopCap;
         final bool showRightAdornmentBottomCap = flipRightAdornmentCaps ? rawTopCap : rawBottomCap;
         return Padding(
