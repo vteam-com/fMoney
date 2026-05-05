@@ -760,7 +760,7 @@ Answer the question:''';
   Widget _chatListView() {
     return ListView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.all(SizeForPadding.xlarge),
+      padding: const EdgeInsets.all(SizeForPadding.large),
       reverse: false,
       itemCount: _chatHistory.length + (_isProcessingPrompt ? 1 : 0) + (_chatHistory.isEmpty ? 1 : 0),
       itemBuilder: (BuildContext _, int index) {

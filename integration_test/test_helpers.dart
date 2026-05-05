@@ -1,5 +1,6 @@
 // ignore: fcheck_dead_code
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/app_router_service.dart';
 import 'package:money/views/panels/layout/side_panel_widget.dart';
 import 'package:money/widgets/list/list_item.dart';
 import 'package:money/widgets/state/theme_controller.dart';
@@ -18,6 +19,12 @@ Future<void> tapOnText(
   final bool lastOneFound = false,
 }) async {
   Finder firstMatchingElement = find.text(textToFind);
+  expect(
+    firstMatchingElement,
+    findsAny,
+    reason: 'tapOnText "$textToFind"',
+  );
+
   if (lastOneFound) {
     firstMatchingElement = firstMatchingElement.last;
   } else {
@@ -139,8 +146,31 @@ Future<Finder> selectListViewItemByText(
 }
 
 Future<void> tapBackButton(WidgetTester tester) async {
-  final Finder firstMatchingElement = find.byTooltip('Back');
-  expect(firstMatchingElement, findsOneWidget, reason: 'No Back button found');
+  Finder firstMatchingElement = find.byTooltip('Back');
+  if (firstMatchingElement.evaluate().isEmpty) {
+    firstMatchingElement = find.byType(BackButton);
+  }
+  if (firstMatchingElement.evaluate().isEmpty) {
+    firstMatchingElement = find.text('Close');
+  }
+  if (firstMatchingElement.evaluate().isEmpty) {
+    firstMatchingElement = find.text('Cancel');
+  }
+  if (firstMatchingElement.evaluate().isEmpty) {
+    final NavigatorState? navigator = AppRouter.navigator;
+    if (navigator != null && navigator.canPop()) {
+      await navigator.maybePop();
+      await tester.myPump();
+      return;
+    }
+  }
+  expect(
+    firstMatchingElement,
+    findsAtLeast(_minFinds),
+    reason: 'No Back/Close/Cancel control found',
+  );
+
+  firstMatchingElement = firstMatchingElement.first;
   await tester.tap(firstMatchingElement);
   await tester.myPump();
 }

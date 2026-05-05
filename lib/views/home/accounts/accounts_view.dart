@@ -706,7 +706,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     }
   }
 
-  /// Builds the side panel transactions subview for the selected account.
+  /// Builds the side panel transactions sub-view for the selected account.
   Widget _getSidePanelViewTransactions({
     required final List<int> selectedIds,
     required final bool showAsNativeCurrency,

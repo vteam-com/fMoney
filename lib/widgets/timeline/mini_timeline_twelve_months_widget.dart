@@ -81,6 +81,6 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
   }
 
   Widget _buildMontLabel(final String text) {
-    return Text(text, style: const TextStyle(fontSize: SizeForText.nano));
+    return Text(text, style: const TextStyle(fontSize: SizeForText.small));
   }
 }

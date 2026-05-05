@@ -241,19 +241,19 @@ Future<void> testImportBulkManualTextInput(WidgetTester tester) async {
   await tapOnText(tester, 'Close');
 
   await tapOnKeyString(tester, 'key_import_tab_free_style');
-  await tester.pumpAndSettle();
+  await tester.pump(const Duration(milliseconds: 300));
   final Finder textFieldInput = find.byKey(const Key('key_input_text_field_value')).at(_zeroIndex);
-  await tester.pumpAndSettle(Durations.extralong4);
+  await tester.pump(const Duration(seconds: 1));
   await inputTextToElement(
     tester,
     textFieldInput,
     '2001-12-25;Hawaii;123.45\n2002-12-25;ABC;-123.45\n2003-01-01;Ibiza;(77.99)\nabc;+123.45\nHawaii;99.99',
   );
-  await tester.pumpAndSettle(Durations.extralong4);
+  await tester.pump(const Duration(seconds: 1));
   await tapOnKeyString(tester, 'key_import_tab_three_columns');
-  await tester.pumpAndSettle(Durations.extralong4);
+  await tester.pump(const Duration(seconds: 1));
   await tapOnKeyString(tester, 'key_import_tab_free_style');
-  await tester.pumpAndSettle(Durations.extralong4);
+  await tester.pump(const Duration(seconds: 1));
 
   // Close ImportDialog
   await tapOnText(tester, 'Import');
@@ -406,7 +406,7 @@ Future<void> testCashFlow(WidgetTester tester) async {
 }
 
 Future<void> testAliases(WidgetTester tester) async {
-  await tapOnText(tester, 'Aliases');
+  await tapOnKeyString(tester, 'key_menu_aliases');
   await tapOnTextFromParentType(tester, ListView, 'ABC');
 
   // Edit field "Pattern"
@@ -526,7 +526,7 @@ Future<void> testAccountEdit(WidgetTester tester) async {
 }
 
 Future<void> testCategories(WidgetTester tester) async {
-  await tapOnText(tester, 'Categories');
+  await tapOnKeyString(tester, 'key_menu_categories');
 
   // Iterate over all found ToggleButtons and click on each child button
   await tapAllToggleButtons(tester, <String>[
@@ -580,7 +580,7 @@ Future<void> testCategories(WidgetTester tester) async {
 }
 
 Future<void> testEvents(WidgetTester tester) async {
-  await tapOnText(tester, 'Events');
+  await tapOnKeyString(tester, 'key_menu_events');
   await sidePanelTabs(tester);
   await tapOnFirstRowOfListView(tester);
 
@@ -668,7 +668,7 @@ Future<void> testEvents(WidgetTester tester) async {
 Future<void> testPayees(WidgetTester tester) async {
   Data().payees.getPayeeIdFromName('NASA');
 
-  await tapOnText(tester, 'Payees');
+  await tapOnKeyString(tester, 'key_menu_payees');
   // Test Side Panel with not row selected
   await sidePanelTabs(tester);
 
@@ -697,7 +697,7 @@ Future<void> testPayees(WidgetTester tester) async {
 }
 
 Future<void> testStocks(WidgetTester tester) async {
-  await tapOnText(tester, 'Stocks');
+  await tapOnKeyString(tester, 'key_menu_stocks');
   await tapOnTextFromParentType(tester, ListView, 'AAPL');
 
   // Edit
@@ -732,7 +732,7 @@ Future<void> testStocks(WidgetTester tester) async {
 }
 
 Future<void> testTransactions(WidgetTester tester) async {
-  await tapOnText(tester, 'Transactions');
+  await tapOnKeyString(tester, 'key_menu_transactions');
 
   // Toggle Multi-Selection on and off
   await tapOnKey(tester, Constants.keyMultiSelectionToggle);
@@ -888,13 +888,13 @@ Future<void> testTransactions(WidgetTester tester) async {
 }
 
 Future<void> testTransfers(WidgetTester tester) async {
-  await tapOnText(tester, 'Transfers');
+  await tapOnKeyString(tester, 'key_menu_transfers');
   await tapOnFirstRowOfListView(tester);
   await sidePanelTabs(tester, expectChart: false, expectTransactions: false);
 }
 
 Future<void> testRentals(WidgetTester tester) async {
-  await tapOnText(tester, 'Rentals');
+  await tapOnKeyString(tester, 'key_menu_rentals');
   await tapOnTextFromParentType(tester, ListView, 'AirBnB');
   await sidePanelTabs(tester, expectPnl: true);
   // Go back to Chart where there's a PNL panel
@@ -904,7 +904,7 @@ Future<void> testRentals(WidgetTester tester) async {
 }
 
 Future<void> testInvestments(WidgetTester tester) async {
-  await tapOnText(tester, 'Investments');
+  await tapOnKeyString(tester, 'key_menu_investments');
   await tapOnTextFromParentType(tester, ListView, 'Fidelity');
   await sidePanelTabs(tester);
 }

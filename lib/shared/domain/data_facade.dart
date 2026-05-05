@@ -355,7 +355,12 @@ class Data implements DataAbstract {
     int maxResults = _potentialTransferDefaultMaxResults,
   }) {
     transaction = transaction as Transaction;
-    final DateTime sourceDate = transaction.fieldDateTime.value!.startOfDay;
+    final DateTime? sourceDateValue = transaction.fieldDateTime.value;
+    if (sourceDateValue == null) {
+      return <Transaction>[];
+    }
+
+    final DateTime sourceDate = sourceDateValue.startOfDay;
     final double sourceAmount = transaction.fieldAmount.value.asDouble();
     final List<Transaction> candidates = transactions.iterableList(includeDeleted: false).where((
       Transaction candidate,
@@ -369,14 +374,30 @@ class Data implements DataAbstract {
       if (!_isOppositeAmountWithinTolerance(sourceAmount, candidate.fieldAmount.value.asDouble())) {
         return false;
       }
-      final DateTime candidateDate = candidate.fieldDateTime.value!.startOfDay;
+      final DateTime? candidateDateValue = candidate.fieldDateTime.value;
+      if (candidateDateValue == null) {
+        return false;
+      }
+      final DateTime candidateDate = candidateDateValue.startOfDay;
       final int dayDifference = (candidateDate.difference(sourceDate).inHours / 24).abs().round();
       return dayDifference <= maxDays;
     }).toList();
 
     candidates.sort((Transaction a, Transaction b) {
-      final int aDelta = (a.fieldDateTime.value!.startOfDay.difference(sourceDate).inHours / 24).abs().round();
-      final int bDelta = (b.fieldDateTime.value!.startOfDay.difference(sourceDate).inHours / 24).abs().round();
+      final DateTime? aDateValue = a.fieldDateTime.value;
+      final DateTime? bDateValue = b.fieldDateTime.value;
+      if (aDateValue == null && bDateValue == null) {
+        return 0;
+      }
+      if (aDateValue == null) {
+        return 1;
+      }
+      if (bDateValue == null) {
+        return -1;
+      }
+
+      final int aDelta = (aDateValue.startOfDay.difference(sourceDate).inHours / 24).abs().round();
+      final int bDelta = (bDateValue.startOfDay.difference(sourceDate).inHours / 24).abs().round();
       if (aDelta != bDelta) {
         return aDelta.compareTo(bDelta);
       }

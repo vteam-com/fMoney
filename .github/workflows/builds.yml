@@ -153,7 +153,7 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           # Create release notes
-          cat > /tmp/release_notes.md << 'EOF'
+          cat > /tmp/release_notes.md << EOF
           ## fMoney Desktop Apps - ${RELEASE_NAME}
 
           ### Downloads

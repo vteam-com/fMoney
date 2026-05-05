@@ -10,7 +10,7 @@ void messageBox(final BuildContext context, final String message) {
       return SimpleDialog(
         children: <Widget>[
           gapLarge(),
-          Padding(padding: const EdgeInsets.all(SizeForPadding.xlarge), child: Text(message)),
+          Padding(padding: const EdgeInsets.all(SizeForPadding.large), child: Text(message)),
           gapLarge(),
         ],
       );

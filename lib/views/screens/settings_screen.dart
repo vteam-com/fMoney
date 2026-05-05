@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           ),
           body: ListView(
-            padding: const EdgeInsets.all(SizeForPadding.xlarge),
+            padding: const EdgeInsets.all(SizeForPadding.large),
             children: <Widget>[
               _buildClosedAccountsCard(preferenceController),
               const SizedBox(height: _settingsSectionSpacing),

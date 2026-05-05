@@ -68,7 +68,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(SizeForPadding.xlarge),
+            padding: const EdgeInsets.all(SizeForPadding.large),
             child: Chart(list: sumByPeriod),
           ),
         ),

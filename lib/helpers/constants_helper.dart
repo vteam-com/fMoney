@@ -129,20 +129,18 @@ class Constants {
 
 /// Represents size for padding.
 class SizeForPadding {
-  static const double huge = 21;
-  static const double xlarge = 16;
-  static const double large = 13;
-  static const double medium = 5;
-  static const double xsmall = 4;
   static const double nano = 2;
-  static const double normal = 8;
   static const double small = 3;
+  static const double medium = 5;
+  static const double normal = 8;
+  static const double large = 13;
+  static const double huge = 21;
 }
 
 /// Represents common corner radii.
 class SizeForRadius {
-  static const double normal = 8;
   static const double small = 4;
+  static const double normal = 8;
 }
 
 /// Represents common animation and delay durations in milliseconds.
@@ -160,20 +158,18 @@ class SizeForWindow {
 
 /// Represents size for text.
 class SizeForText {
-  static const double huge = 34;
-  static const double large = 21;
+  static const double small = 8;
   static const double medium = 13;
-  static const double nano = 8;
-  static const double normal = 18;
-  static const double small = 10;
+  static const double large = 21;
+  static const double huge = 34;
 }
 
 /// Represents size for icon.
 class SizeForIcon {
-  static const double huge = 55;
-  static const double large = 34;
-  static const double medium = 21;
   static const double small = 13;
+  static const double medium = 21;
+  static const double large = 34;
+  static const double huge = 55;
 }
 
 /// Represents int values.

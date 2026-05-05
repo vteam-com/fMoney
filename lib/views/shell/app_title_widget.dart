@@ -113,7 +113,7 @@ Widget _buildRevealContentOption(
 ) {
   final Color color = getColorTheme(context).onSurface;
   final TextStyle textStyle = TextStyle(
-    fontSize: SizeForText.normal,
+    fontSize: SizeForText.medium,
     color: color,
   );
 

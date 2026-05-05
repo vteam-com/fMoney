@@ -374,7 +374,7 @@ class MoneyObjects<T> {
                   opacity: _diffIdOpacity,
                   child: SelectableText(
                     moneyObject.uniqueId.toString(),
-                    style: const TextStyle(fontSize: SizeForText.nano),
+                    style: const TextStyle(fontSize: SizeForText.small),
                   ),
                 ),
               ],

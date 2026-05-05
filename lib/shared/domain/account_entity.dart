@@ -366,7 +366,7 @@ class Account extends DataObject {
                 iso4217code: fieldCurrency.value,
               ),
             ),
-            const SizedBox(width: SizeForPadding.xsmall),
+            const SizedBox(width: SizeForPadding.small),
             buildCurrencyWidget(fieldCurrency.value),
           ],
         ),
