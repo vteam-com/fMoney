@@ -11,6 +11,8 @@ import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
+const double _scrollRestoreTolerance = 0.5;
+
 /// A stateful widget for list view transactions.
 class ListViewTransactions extends StatefulWidget {
   const ListViewTransactions({
@@ -50,7 +52,6 @@ class ListViewTransactions extends StatefulWidget {
 class _ListViewTransactionsState extends State<ListViewTransactions> {
   late bool _sortAscending = widget.sortAscending;
   late int _sortBy = widget.sortFieldIndex;
-
   @override
   Widget build(final BuildContext context) {
     // get the list sorted
@@ -65,6 +66,8 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
       _sortBy,
       _sortAscending,
     );
+
+    _restoreScrollPositionIfNeeded();
 
     return AdaptiveListColumnsOrRowsSingleSelection(
       list: transactions,
@@ -112,6 +115,35 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
         });
       },
     );
+  }
+
+  /// Restores the previous scroll offset after rebuilds that recreate the list
+  /// viewport, such as inline item edits.
+  void _restoreScrollPositionIfNeeded() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !widget.listController.scrollController.hasClients) {
+        return;
+      }
+
+      final double rememberedOffset = widget.listController.scrollPosition.value > 0
+          ? widget.listController.scrollPosition.value
+          : widget.listController.bookmark;
+      if (rememberedOffset <= 0) {
+        return;
+      }
+
+      final ScrollPosition position = widget.listController.scrollController.position;
+      final double clampedOffset = rememberedOffset.clamp(
+        position.minScrollExtent,
+        position.maxScrollExtent,
+      );
+
+      if ((position.pixels - clampedOffset).abs() < _scrollRestoreTolerance) {
+        return;
+      }
+
+      widget.listController.scrollController.jumpTo(clampedOffset);
+    });
   }
 }
 
