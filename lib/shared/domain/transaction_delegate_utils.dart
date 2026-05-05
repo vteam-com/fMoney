@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -8,8 +9,10 @@ import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
+import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
+import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_access_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
@@ -17,6 +20,15 @@ import 'package:money/widgets/widgets_domain/data_object_model.dart';
 const int _transactionUnsetId = -1;
 const int _transactionZeroInt = 0;
 const double _transactionZeroDouble = 0.0;
+const int _potentialTransferHintPreviewCount = 1;
+const double _potentialTransferHintIconSize = 14.0;
+const double _potentialTransferHintIconButtonSize = 18.0;
+const double _potentialTransferSheetHeaderPadding = 12.0;
+const double _potentialTransferSheetMaxHeightFactor = 0.5;
+const double _potentialTransferSheetMaxWidth = 900.0;
+const int _potentialTransferSingleBestMatch = 1;
+const double _potentialTransferPreviewCardSpacing = 16.0;
+const double _potentialTransferPreviewCardPreferredWidth = 320.0;
 
 /// Checks transfer linkage consistency and adds invalid transactions to [dangling].
 void transactionCheckTransfers(
@@ -193,6 +205,204 @@ Widget transactionBuildStatusButtonToggle(dynamic transaction) {
       }
       SelectionController.to.select(transaction.uniqueId as int);
     },
+  );
+}
+
+/// Builds the Payee/Transfer cell widget and appends a transfer-hint icon when
+/// disconnected transfer candidates are available for [transaction].
+Widget transactionBuildPayeeOrTransferWidget(dynamic transaction) {
+  final String caption = transaction.getPayeeOrTransferCaption() as String;
+  final bool showHintIcon = _hasPotentialTransferMatch(transaction);
+
+  return Row(
+    children: <Widget>[
+      Expanded(
+        child: Text(
+          caption,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      if (showHintIcon)
+        Builder(
+          builder: (BuildContext context) {
+            final Color iconColor =
+                Theme.of(context).extension<MoneyThemeData>()?.getColorForState(ColorState.warning) ?? Colors.orange;
+            return IconButton(
+              tooltip: AppL10n.tr(AppTranslationKeys.matchingTransaction),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints.tightFor(
+                width: _potentialTransferHintIconButtonSize,
+                height: _potentialTransferHintIconButtonSize,
+              ),
+              iconSize: _potentialTransferHintIconSize,
+              color: iconColor,
+              icon: const Icon(Icons.lightbulb_outline),
+              onPressed: () => _showPotentialTransferMatchPanel(
+                context,
+                transaction,
+              ),
+            );
+          },
+        ),
+    ],
+  );
+}
+
+/// Returns true when [transaction] has at least one likely disconnected
+/// counterpart that can be converted into a transfer.
+bool _hasPotentialTransferMatch(dynamic transaction) {
+  if (transaction.isDeleted as bool || transaction.isTransfer as bool || transaction.isSplit as bool) {
+    return false;
+  }
+  final List<dynamic> matches = DataAbstract.instance.findPotentialTransferMatches(
+    transaction: transaction,
+    maxResults: _potentialTransferHintPreviewCount,
+  );
+  return matches.isNotEmpty;
+}
+
+/// Opens a side-panel style bottom sheet using the transfer sender/receiver
+/// cards and one primary action to convert two disconnected entries.
+void _showPotentialTransferMatchPanel(
+  BuildContext context,
+  dynamic transaction,
+) {
+  final List<dynamic> matches = DataAbstract.instance.findPotentialTransferMatches(
+    transaction: transaction,
+    maxResults: _potentialTransferSingleBestMatch,
+  );
+
+  if (matches.isEmpty) {
+    SnackBarService.displayWarning(
+      message: AppL10n.tr(AppTranslationKeys.noMatchingTransactions),
+    );
+    return;
+  }
+
+  final dynamic bestMatch = matches.first;
+  final Transfer previewTransfer = _buildPreviewTransfer(transaction, bestMatch);
+
+  showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    constraints: const BoxConstraints(
+      maxWidth: _potentialTransferSheetMaxWidth,
+    ),
+    builder: (BuildContext dialogContext) {
+      final double maxHeight = MediaQuery.of(dialogContext).size.height * _potentialTransferSheetMaxHeightFactor;
+      return SafeArea(
+        child: SizedBox(
+          height: maxHeight,
+          child: Column(
+            spacing: SizeForPadding.normal,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(_potentialTransferSheetHeaderPadding),
+                child: Text(
+                  AppL10n.tr(AppTranslationKeys.matchingTransaction),
+                  style: Theme.of(dialogContext).textTheme.titleMedium,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: _potentialTransferSheetHeaderPadding),
+                child: DialogActionButton(
+                  text: AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts),
+                  onPressed: () {
+                    final bool didConvert = DataAbstract.instance.convertDisconnectedTransactionsToTransfer(
+                      transaction: transaction,
+                      relatedTransaction: bestMatch,
+                    );
+                    if (didConvert) {
+                      Navigator.of(dialogContext).pop();
+                    }
+                  },
+                ),
+              ),
+
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: _potentialTransferSheetHeaderPadding),
+                  child: _buildTransferSenderReceiverPreview(previewTransfer),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+/// Builds a side-panel style preview with sender and receiver cards.
+Widget _buildTransferSenderReceiverPreview(Transfer transfer) {
+  return SingleChildScrollView(
+    child: Center(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: _potentialTransferPreviewCardSpacing,
+        runSpacing: _potentialTransferPreviewCardSpacing,
+        children: <Widget>[
+          SizedBox(
+            width: _potentialTransferPreviewCardPreferredWidth,
+            child: _buildTransferPreviewObjectCard(
+              title: AppL10n.tr(AppTranslationKeys.sender),
+              transaction: transfer.source,
+            ),
+          ),
+          SizedBox(
+            width: _potentialTransferPreviewCardPreferredWidth,
+            child: _buildTransferPreviewObjectCard(
+              title: AppL10n.tr(AppTranslationKeys.receiver),
+              transaction: transfer.relatedTransaction,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+/// Builds sender/receiver preview using local card content to avoid
+/// cross-layer dependencies from shared domain to shared presentation.
+Widget _buildTransferPreviewObjectCard({
+  required String title,
+  required dynamic transaction,
+}) {
+  final DataObject? moneyObject = transaction as DataObject?;
+  final List<Widget> details = moneyObject == null
+      ? <Widget>[Text(AppL10n.tr(AppTranslationKeys.notFound))]
+      : moneyObject.buildListOfNamesValuesWidgets(onEdit: null, compact: true);
+
+  return Card(
+    child: Padding(
+      padding: const EdgeInsets.all(_potentialTransferSheetHeaderPadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
+          const SizedBox(height: SizeForPadding.normal),
+          ...details,
+        ],
+      ),
+    ),
+  );
+}
+
+/// Creates a temporary transfer model used only for sender/receiver preview UI.
+Transfer _buildPreviewTransfer(dynamic transaction, dynamic relatedTransaction) {
+  if ((transaction.fieldAmount.value.asDouble() as double) < _transactionZeroDouble) {
+    return Transfer(
+      id: _transactionZeroInt,
+      source: transaction,
+      relatedTransaction: relatedTransaction,
+      isOrphan: false,
+    );
+  }
+  return Transfer(
+    id: _transactionZeroInt,
+    source: relatedTransaction,
+    relatedTransaction: transaction,
+    isOrphan: false,
   );
 }
 

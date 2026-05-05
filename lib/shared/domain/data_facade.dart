@@ -40,6 +40,10 @@ import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/widgets_domain/data_access_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
+const int _potentialTransferDefaultMaxDays = 3;
+const int _potentialTransferDefaultMaxResults = 5;
+const double _amountTolerance = 0.005;
+
 /// Represents data.
 ///
 /// This file used to have a single monolithic `Data` class that mixed:
@@ -337,6 +341,114 @@ class Data implements DataAbstract {
     // }
 
     return relatedTransaction;
+  }
+
+  /// Finds likely disconnected transactions that could be linked as a transfer
+  /// counterpart for [transaction].
+  ///
+  /// Candidates are constrained to other accounts, opposite-sign matching
+  /// amounts, and dates within [maxDays]. Results are sorted by closest date.
+  @override
+  List<Transaction> findPotentialTransferMatches({
+    required dynamic transaction,
+    int maxDays = _potentialTransferDefaultMaxDays,
+    int maxResults = _potentialTransferDefaultMaxResults,
+  }) {
+    transaction = transaction as Transaction;
+    final DateTime sourceDate = transaction.fieldDateTime.value!.startOfDay;
+    final double sourceAmount = transaction.fieldAmount.value.asDouble();
+    final List<Transaction> candidates = transactions.iterableList(includeDeleted: false).where((
+      Transaction candidate,
+    ) {
+      if (candidate.uniqueId == transaction.uniqueId || candidate.isDeleted || candidate.isTransfer) {
+        return false;
+      }
+      if (candidate.fieldAccountId.value == transaction.fieldAccountId.value) {
+        return false;
+      }
+      if (!_isOppositeAmountWithinTolerance(sourceAmount, candidate.fieldAmount.value.asDouble())) {
+        return false;
+      }
+      final DateTime candidateDate = candidate.fieldDateTime.value!.startOfDay;
+      final int dayDifference = (candidateDate.difference(sourceDate).inHours / 24).abs().round();
+      return dayDifference <= maxDays;
+    }).toList();
+
+    candidates.sort((Transaction a, Transaction b) {
+      final int aDelta = (a.fieldDateTime.value!.startOfDay.difference(sourceDate).inHours / 24).abs().round();
+      final int bDelta = (b.fieldDateTime.value!.startOfDay.difference(sourceDate).inHours / 24).abs().round();
+      if (aDelta != bDelta) {
+        return aDelta.compareTo(bDelta);
+      }
+      return b.uniqueId.compareTo(a.uniqueId);
+    });
+
+    if (candidates.length > maxResults) {
+      return candidates.sublist(0, maxResults);
+    }
+    return candidates;
+  }
+
+  /// Converts two existing disconnected transactions into one linked transfer
+  /// pair without creating a new mirror transaction.
+  @override
+  bool convertDisconnectedTransactionsToTransfer({
+    required dynamic transaction,
+    required dynamic relatedTransaction,
+  }) {
+    transaction = transaction as Transaction;
+    relatedTransaction = relatedTransaction as Transaction;
+    if (transaction.uniqueId == relatedTransaction.uniqueId) {
+      return false;
+    }
+    if (transaction.isDeleted || relatedTransaction.isDeleted) {
+      return false;
+    }
+    if (transaction.isTransfer || relatedTransaction.isTransfer) {
+      return false;
+    }
+    if (transaction.fieldAccountId.value == relatedTransaction.fieldAccountId.value) {
+      return false;
+    }
+    if (!_isOppositeAmountWithinTolerance(
+      transaction.fieldAmount.value.asDouble(),
+      relatedTransaction.fieldAmount.value.asDouble(),
+    )) {
+      return false;
+    }
+
+    transaction.stashValueBeforeEditing();
+    relatedTransaction.stashValueBeforeEditing();
+
+    final Transfer transfer = transaction.fieldAmount.value.asDouble() < 0
+        ? Transfer(id: 0, source: transaction, relatedTransaction: relatedTransaction, isOrphan: false)
+        : Transfer(id: 0, source: relatedTransaction, relatedTransaction: transaction, isOrphan: false);
+
+    transaction.fieldPayee.value = categories.transfer.uniqueId;
+    transaction.fieldTransfer.value = relatedTransaction.uniqueId;
+    transaction.instanceOfTransfer = transfer;
+
+    relatedTransaction.fieldPayee.value = categories.transfer.uniqueId;
+    relatedTransaction.fieldTransfer.value = transaction.uniqueId;
+    relatedTransaction.instanceOfTransfer = transfer;
+
+    notifyMutationChanged(
+      mutation: MutationType.changed,
+      moneyObject: transaction,
+      recalculateBalances: false,
+    );
+    notifyMutationChanged(
+      mutation: MutationType.changed,
+      moneyObject: relatedTransaction,
+      recalculateBalances: true,
+    );
+    updateAll();
+    return true;
+  }
+
+  /// Returns true when [a] and [b] have equal magnitudes and opposite signs.
+  bool _isOppositeAmountWithinTolerance(double a, double b) {
+    return (a + b).abs() < _amountTolerance && a.sign != b.sign;
   }
 
   /// Ensures transfer linkage exists or updates it for the given transaction.

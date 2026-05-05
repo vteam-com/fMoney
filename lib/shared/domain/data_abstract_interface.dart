@@ -186,6 +186,19 @@ abstract class DataAbstract {
   /// Changes the category for a transaction by category name.
   void changeCategoryFromCategoryName(dynamic t, String categoryName);
 
+  /// Finds likely disconnected transfer counterparts for a transaction.
+  List<dynamic> findPotentialTransferMatches({
+    required dynamic transaction,
+    int maxDays,
+    int maxResults,
+  });
+
+  /// Converts two existing disconnected transactions into a linked transfer pair.
+  bool convertDisconnectedTransactionsToTransfer({
+    required dynamic transaction,
+    required dynamic relatedTransaction,
+  });
+
   /// Returns the merge payee provider.
   dynamic get mergePayeeProvider;
 

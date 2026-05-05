@@ -607,7 +607,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get marketPrice => 'Prix du marche';
 
   @override
-  String get matchingTransaction => 'Transaction correspondante';
+  String get matchingTransaction => 'Transactions correspondantes trouvees';
 
   @override
   String get maxLabel => 'Max : ';
@@ -994,7 +994,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get receiver => 'Destinataire';
 
   @override
-  String get recordATransferBetweenTwoAccounts => 'Enregistrer un transfert entre deux comptes';
+  String get recordATransferBetweenTwoAccounts => 'Convertir en transfert';
 
   @override
   String get recordTransfer => 'Enregistrer un transfert';

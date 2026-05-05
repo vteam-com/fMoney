@@ -1194,7 +1194,7 @@ abstract class AppLocalizations {
   /// No description provided for @matchingTransaction.
   ///
   /// In en, this message translates to:
-  /// **'Matching Transaction'**
+  /// **'Found matching transactions'**
   String get matchingTransaction;
 
   /// No description provided for @maxLabel.
@@ -1914,7 +1914,7 @@ abstract class AppLocalizations {
   /// No description provided for @recordATransferBetweenTwoAccounts.
   ///
   /// In en, this message translates to:
-  /// **'Record a Transfer between two accounts'**
+  /// **'Convert as Transfer'**
   String get recordATransferBetweenTwoAccounts;
 
   /// No description provided for @recordTransfer.

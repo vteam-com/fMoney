@@ -471,7 +471,7 @@ class Transaction extends DataObject implements MergeableItem {
     name: 'Payee/Transfer',
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: _unsetId,
-    type: FieldType.text,
+    type: FieldType.widget,
     footer: FooterType.count,
     align: TextAlign.left,
     columnWidth: ColumnWidth.largest,
@@ -481,7 +481,7 @@ class Transaction extends DataObject implements MergeableItem {
       ascending,
     ),
     getValueForDisplay: (final DataInterface instance) {
-      return (instance as Transaction).getPayeeOrTransferCaption();
+      return transactionBuildPayeeOrTransferWidget(instance as Transaction);
     },
     getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldPayee.value,
     setValue: (DataInterface instance, dynamic newValue) {
