@@ -128,6 +128,25 @@ class Transaction extends DataObject implements MergeableItem {
   /// Balance native
   double balance = _zeroDouble;
 
+  /// Color used to visually link paired credit-card statement-close and payment rows.
+  /// Null means no pairing (no right-edge stripe).
+  Color? pairHighlightColor;
+
+  /// True when this row is the first row of a statement gradient region.
+  bool pairHighlightTopCap = false;
+
+  /// True when this row is the payment row ending a statement gradient region.
+  bool pairHighlightBottomCap = false;
+
+  @override
+  Color getRightAdornmentColor() => pairHighlightColor ?? Colors.transparent;
+
+  @override
+  bool getShowRightAdornmentTopCap() => pairHighlightTopCap;
+
+  @override
+  bool getShowRightAdornmentBottomCap() => pairHighlightBottomCap;
+
   /// Account Id
   /// SQLite  1|Account|INT|1||0
   FieldInt fieldAccountId = FieldInt(

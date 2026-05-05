@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart' show Color;
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -21,6 +22,12 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/securities_collection.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
+
+/// Statement segment gradient start color (accrual start).
+const Color _segmentGradientStart = Color.fromARGB(255, 249, 175, 4); // red
+
+/// Statement segment gradient end color (payment row).
+const Color _segmentGradientEnd = Color(0xFF43A047); // green
 
 const int _zeroInt = 0;
 const int _oneInt = 1;
@@ -253,6 +260,33 @@ class Accounts extends MoneyObjects<Account> {
     return null;
   }
 
+  /// Finds the transaction in [transactions] within the look-back window whose
+  /// running [balance] is closest to [amountToMatch].
+  ///
+  /// Used to produce a diagnostic hint when no exact statement-balance match
+  /// exists for a credit card payment, revealing missing or extra transactions.
+  Transaction? _findClosestMatchInWindow(
+    final List<Transaction> transactions,
+    final int indexStartingFrom,
+    final DateTime validDateInThePast,
+    final double amountToMatch,
+  ) {
+    Transaction? closest;
+    double smallestDelta = double.infinity;
+    for (int i = indexStartingFrom; i >= _zeroInt; i--) {
+      final Transaction t = transactions[i];
+      if (t.fieldDateTime.value!.isBefore(validDateInThePast)) {
+        break;
+      }
+      final double delta = (t.balance - amountToMatch).abs();
+      if (delta < smallestDelta) {
+        smallestDelta = delta;
+        closest = t;
+      }
+    }
+    return closest;
+  }
+
   /// Finds an account by ID and optional account type.
   Account? findByIdAndType(
     final String accountId,
@@ -430,14 +464,20 @@ class Accounts extends MoneyObjects<Account> {
       runningBalanceForThisAccount += t.fieldAmount.value.asDouble();
       t.balance = runningBalanceForThisAccount;
       t.fieldPaidOn.value = '';
+      t.pairHighlightColor = null;
+      t.pairHighlightTopCap = false;
+      t.pairHighlightBottomCap = false;
     }
 
     final int length = transactionForAccountSortedByDateAscending.length - _oneInt;
 
+    // Pass 2: walk backward, match payments to statement balances and assign
+    // fieldPaidOn text.  Color is stored on the payment row only — Pass 3 fills
+    // the full region.
     for (int i = length; i >= _zeroInt; i--) {
       final Transaction t = transactionForAccountSortedByDateAscending[i];
-      if (t.fieldAmount.value.asDouble() > _zeroDouble) {
-        // a payment or reimbursement was made
+      if (t.fieldAmount.value.asDouble() > _zeroDouble && t.isTransfer) {
+        // a credit card payment (transfer from another account)
 
         final DateTime maxDateToLookAt = t.fieldDateTime.value!.subtract(
           const Duration(days: _creditCardLookbackDays),
@@ -450,12 +490,51 @@ class Accounts extends MoneyObjects<Account> {
         );
 
         if (transactionWithMatchingBalance == null) {
-          // t.paidOn.value = doubleToCurrency(statementBalance, '');
+          // No exact match — find the closest balance to hint at the discrepancy.
+          final Transaction? closest = _findClosestMatchInWindow(
+            transactionForAccountSortedByDateAscending,
+            i - _oneInt,
+            maxDateToLookAt,
+            t.fieldAmount.value.asDouble() * _negativeMultiplier,
+          );
+          if (closest != null) {
+            final double target = t.fieldAmount.value.asDouble() * _negativeMultiplier;
+            final double delta = closest.balance - target;
+            final String sign = delta >= _zeroDouble ? '+' : '-';
+            final String deltaStr = sign + doubleToCurrency(delta.abs());
+            // Payment row is a transfer — it IS the payment, not "paid on" anything.
+            t.fieldPaidOn.value = '';
+            // Statement-close row: show approximate payment date + discrepancy.
+            closest.fieldPaidOn.value = '⚠ ${t.dateTimeAsString} $deltaStr';
+          }
         } else {
-          transactionWithMatchingBalance.fieldPaidOn.value = '${t.dateTimeAsString} ⤵';
-          t.fieldPaidOn.value =
-              '${transactionWithMatchingBalance.dateTimeAsString} ⤴${t.fieldPaidOn.value.isNotEmpty ? '⤵' : ''}';
+          // Statement-close row: show the date the balance was paid.
+          transactionWithMatchingBalance.fieldPaidOn.value = t.dateTimeAsString;
+          // Payment row is the transfer itself — clear its Paid On.
+          t.fieldPaidOn.value = '';
         }
+      }
+    }
+
+    // Pass 3: forward sweep — every transaction belongs to the statement period
+    // that ends at the next payment. Paint the full region with a linear
+    // gradient from accrual-start red to payment-row green.
+    int segmentStart = _zeroInt;
+    for (int i = _zeroInt; i <= length; i++) {
+      final Transaction t = transactionForAccountSortedByDateAscending[i];
+      if (t.fieldAmount.value.asDouble() > _zeroDouble && t.isTransfer) {
+        final int segmentLength = i - segmentStart;
+        for (int j = segmentStart; j <= i; j++) {
+          final double ratio = segmentLength == _zeroInt ? _oneInt.toDouble() : (j - segmentStart) / segmentLength;
+          final Transaction segmentRow = transactionForAccountSortedByDateAscending[j];
+          segmentRow.pairHighlightColor =
+              Color.lerp(_segmentGradientStart, _segmentGradientEnd, ratio) ?? _segmentGradientEnd;
+          segmentRow.pairHighlightTopCap = false;
+          segmentRow.pairHighlightBottomCap = false;
+        }
+        transactionForAccountSortedByDateAscending[segmentStart].pairHighlightTopCap = true;
+        transactionForAccountSortedByDateAscending[i].pairHighlightBottomCap = true;
+        segmentStart = i + _oneInt;
       }
     }
   }

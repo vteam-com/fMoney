@@ -258,6 +258,18 @@ class DataObject extends DataInterface {
     );
   }
 
+  /// Returns a color for the right-side adornment stripe of a list row.
+  /// Subclasses may override to provide per-row right-edge accent colors.
+  Color getRightAdornmentColor() => Colors.transparent;
+
+  /// Returns true when this row should display the top cap for the right
+  /// adornment stripe.
+  bool getShowRightAdornmentTopCap() => false;
+
+  /// Returns true when this row should display the bottom cap for the right
+  /// adornment stripe.
+  bool getShowRightAdornmentBottomCap() => false;
+
   /// Returns a color representing the current mutation state.
   Color getMutationColor() {
     switch (mutation) {

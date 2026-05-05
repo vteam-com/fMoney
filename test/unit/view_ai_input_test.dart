@@ -118,7 +118,12 @@ void main() {
           '${AppL10n.tr(AppTranslationKeys.allLabel)} ${AppL10n.tr(AppTranslationKeys.accounts).toLowerCase()}';
       await tester.tap(find.text(caption));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.allLabel)).last);
+
+      final Finder allMenuItem = find
+          .widgetWithText(CheckedPopupMenuItem<String>, AppL10n.tr(AppTranslationKeys.allLabel))
+          .last;
+      await tester.ensureVisible(allMenuItem);
+      await tester.tap(allMenuItem);
       await tester.pumpAndSettle();
 
       expect(onToggleSelectAllCalled, true);
@@ -141,7 +146,10 @@ void main() {
 
       await tester.tap(find.text('0 ${AppL10n.tr(AppTranslationKeys.accounts).toLowerCase()}'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Checking').last);
+
+      final Finder checkingMenuItem = find.widgetWithText(CheckedPopupMenuItem<String>, 'Checking').last;
+      await tester.ensureVisible(checkingMenuItem);
+      await tester.tap(checkingMenuItem);
       await tester.pumpAndSettle();
 
       expect(toggledAccountId, 1);

@@ -97,6 +97,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   @override
   Widget build(final BuildContext context) {
     final TextScaler textScaler = MediaQuery.textScalerOf(context);
+    final bool flipRightAdornmentCaps = _shouldFlipRightAdornmentCaps();
 
     if (widget.displayAsColumn) {
       _rowHeight = _rowHeightColumn;
@@ -118,6 +119,11 @@ class MyListViewState<T> extends State<MyListView<T>> {
         final bool isSelected = widget.selectedItemIds.value.contains(
           itemInstance.uniqueId,
         );
+        final Color rightAdornmentColor = itemInstance.getRightAdornmentColor();
+        final bool rawTopCap = itemInstance.getShowRightAdornmentTopCap();
+        final bool rawBottomCap = itemInstance.getShowRightAdornmentBottomCap();
+        final bool showRightAdornmentTopCap = flipRightAdornmentCaps ? rawBottomCap : rawTopCap;
+        final bool showRightAdornmentBottomCap = flipRightAdornmentCaps ? rawTopCap : rawBottomCap;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: padding),
           child: Row(
@@ -175,6 +181,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
                   autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
                   adornmentColor: itemInstance.getMutationColor(),
+                  rightAdornmentColor: rightAdornmentColor,
+                  showRightAdornmentTopCap: showRightAdornmentTopCap,
+                  showRightAdornmentBottomCap: showRightAdornmentBottomCap,
                   child: LayoutBuilder(
                     builder: (final BuildContext _, final BoxConstraints constraints) {
                       return _buildListItemContent(
@@ -581,5 +590,31 @@ class MyListViewState<T> extends State<MyListView<T>> {
       _columnWidthRatios[leftColumnPosition] = resizedLeftRatio;
       _columnWidthRatios[leftColumnPosition + 1] = resizedRightRatio;
     });
+  }
+
+  /// Returns true when right-adornment caps should be visually flipped.
+  ///
+  /// This happens when rows are shown in reverse chronological order: the
+  /// payment boundary appears above the segment start, so top/bottom cap
+  /// rendering must be swapped to keep markers anchored to visual boundaries.
+  bool _shouldFlipRightAdornmentCaps() {
+    int? firstTopCapIndex;
+    int? firstBottomCapIndex;
+    for (int i = 0; i < widget.list.length; i++) {
+      final DataObject row = getMoneyObjectFromIndex(i);
+      if (firstTopCapIndex == null && row.getShowRightAdornmentTopCap()) {
+        firstTopCapIndex = i;
+      }
+      if (firstBottomCapIndex == null && row.getShowRightAdornmentBottomCap()) {
+        firstBottomCapIndex = i;
+      }
+      if (firstTopCapIndex != null && firstBottomCapIndex != null) {
+        break;
+      }
+    }
+    if (firstTopCapIndex == null || firstBottomCapIndex == null) {
+      return false;
+    }
+    return firstBottomCapIndex < firstTopCapIndex;
   }
 }
