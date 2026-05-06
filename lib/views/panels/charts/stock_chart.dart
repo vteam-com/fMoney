@@ -31,6 +31,12 @@ import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
+/// Module-level cache of the most recently fetched stock prices per symbol.
+/// This persists across widget instances so that prices remain accurate even when
+/// widgets are recreated during navigation or Data().updateAll() operations.
+/// Key: symbol (lowercase), Value: most recently fetched price cache
+final Map<String, StockPriceHistoryCache> _recentlyFetchedPrices = <String, StockPriceHistoryCache>{};
+
 const int _httpOkStatus = 200;
 const int _httpUnauthorized = 401;
 const int _httpForbidden = 403;
@@ -299,12 +305,11 @@ class _StockChartWidgetState extends State<StockChartWidget> {
             setState(() {
               _refreshing = true;
             });
-            loadFomBackendAndSaveToCache(widget.symbol).then((
-              StockPriceHistoryCache result,
-            ) async {
-              fromPriceHistoryToChartDataPoints(
-                await loadFomBackendAndSaveToCache(widget.symbol),
-              );
+            try {
+              final StockPriceHistoryCache priceResult = await loadFomBackendAndSaveToCache(widget.symbol);
+              // Cache fresh price at module level so it survives widget recreation
+              _recentlyFetchedPrices[widget.symbol.toLowerCase()] = priceResult;
+              fromPriceHistoryToChartDataPoints(priceResult);
 
               // Fetch Historical Stock Splits
               List<StockSplit> splits = <StockSplit>[];
@@ -314,21 +319,27 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                 splits = await _fetchSplitsFromTwelveData(widget.symbol);
               }
               if (mounted) {
+                final bool shouldUpdateAll = DataFileController.to.trackMutations.isMutated();
                 setState(() {
                   _refreshing = false;
 
-                  fromPriceHistoryToChartDataPoints(result);
-
                   // update the data model
                   Data().stockSplits.setStockSplits(security!.uniqueId, splits);
+                });
 
-                  // refresh all of the UI part since if needed
-                  if (DataFileController.to.trackMutations.isMutated()) {
-                    Data().updateAll();
-                  }
+                // Call updateAll AFTER setState completes to avoid destroying widget mid-render
+                if (shouldUpdateAll) {
+                  Data().updateAll();
+                }
+              }
+            } catch (error) {
+              if (mounted) {
+                setState(() {
+                  _refreshing = false;
                 });
               }
-            });
+              logger.e('Failed to refresh stock price: $error');
+            }
           },
         ),
       ),
@@ -455,7 +466,19 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     return splitsFound;
   }
 
+  /// Loads stock historical price data from cache or backend.
+  /// Prioritizes recently fetched prices to avoid overwriting fresh data with stale cache.
+  /// Uses module-level cache first to handle widget recreation during navigation.
   Future<void> _getStockHistoricalData() async {
+    // Check module-level cache first for recently fetched prices across widget instances
+    // If found, use it and skip backend lookup to avoid stale data overwriting fresh data
+    final StockPriceHistoryCache? cachedFreshPrice = _recentlyFetchedPrices[widget.symbol.toLowerCase()];
+    if (cachedFreshPrice != null && cachedFreshPrice.prices.isNotEmpty) {
+      fromPriceHistoryToChartDataPoints(cachedFreshPrice);
+      return; // Don't call getFromCacheOrBackend - we have fresh data
+    }
+
+    // Fallback: load from SharedPreferences cache or backend
     final StockPriceHistoryCache priceCache = await getFromCacheOrBackend(
       widget.symbol,
     );

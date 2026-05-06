@@ -65,7 +65,7 @@ Future<StockPriceHistoryCache> loadFomBackendAndSaveToCache(
   }
   switch (result.status) {
     case StockLookupStatus.validSymbol:
-      _saveToCache(symbol, result.prices);
+      await _saveToCache(symbol, result.prices);
       return await _loadFromCache(symbol);
     case StockLookupStatus.invalidSymbol:
       _saveToCacheInvalidSymbol(symbol);
