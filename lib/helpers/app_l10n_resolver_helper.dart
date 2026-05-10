@@ -354,6 +354,8 @@ String _resolveAppL10nKeyStageTwo(
       return l10n.openMenuItem;
     case AppTranslationKeys.orChangeToCategory:
       return l10n.orChangeToCategory;
+    case AppTranslationKeys.optional:
+      return l10n.optional;
     case AppTranslationKeys.payee:
       return l10n.payee;
     case AppTranslationKeys.payeeMatch:
@@ -366,11 +368,15 @@ String _resolveAppL10nKeyStageTwo(
       return l10n.pnl;
     case AppTranslationKeys.privacyPolicy:
       return l10n.privacyPolicy;
+    case AppTranslationKeys.price:
+      return l10n.price;
     case AppTranslationKeys.questionsQuestioncountTokensTokencount:
       return l10n.questionsQuestioncountTokensTokencount(
         p['questionCount'] ?? '',
         p['tokenCount'] ?? '',
       );
+    case AppTranslationKeys.quantity:
+      return l10n.quantity;
     case AppTranslationKeys.recordATransferBetweenTwoAccounts:
       return l10n.recordATransferBetweenTwoAccounts;
     case AppTranslationKeys.rebalanceMenuItem:

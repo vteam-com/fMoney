@@ -92,6 +92,7 @@ Investment transactionGetOrCreateInvestment(dynamic transaction) {
         units: _transactionZeroDouble,
         investmentType: _transactionZeroInt,
         tradeType: _transactionZeroInt,
+        data: DataAbstract.instance,
       );
   return transaction.instanceOfInvestment as Investment;
 }

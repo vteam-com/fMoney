@@ -565,6 +565,36 @@ abstract class SharedStrings {
   /// Canonical investment-field name: activity amount.
   static const String investmentFieldActivityAmount = 'ActivityAmount';
 
+  /// Investment-action token used to detect dividend rows.
+  static const String investmentActionDividend = 'dividend';
+
+  /// Investment-action token used by some broker exports for dividend abbreviations.
+  static const String investmentActionDividendShort = 'div';
+
+  /// Investment-action token used to detect reinvested dividend rows.
+  static const String investmentActionReinvest = 'reinvest';
+
+  /// Investment-action token used to detect buy rows.
+  static const String investmentActionBuy = 'buy';
+
+  /// Investment-action token used by some broker exports for buy rows.
+  static const String investmentActionPurchase = 'purchase';
+
+  /// Investment-action token used by some broker exports for completed buy rows.
+  static const String investmentActionBought = 'bought';
+
+  /// Investment-action token used to detect sell rows.
+  static const String investmentActionSell = 'sell';
+
+  /// Investment-action token used by some broker exports for sell rows.
+  static const String investmentActionSale = 'sale';
+
+  /// Investment-action token used by some broker exports for completed sell rows.
+  static const String investmentActionSold = 'sold';
+
+  /// Investment-action token used by some broker exports for redemptions.
+  static const String investmentActionRedemption = 'redemption';
+
   /// Payload role token used for user messages in AI requests.
   static const String payloadRoleUser = 'user';
 

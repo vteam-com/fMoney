@@ -10,10 +10,17 @@ const double _dialogBorderAlpha = 0.3;
 const double _dialogBorderWidth = 1;
 const double _dialogMinSize = 500;
 const double _dialogMaxSize = 1000;
-const double _fullScreenPadding = 8;
+const double _fullScreenPadding = SizeForPadding.normal;
+const double _dialogOuterPadding = 24;
+const double _dialogInnerTopPadding = 16;
 const int _actionButtonInsertIndex = 0;
 
 /// A stateless widget for my alert dialog.
+///
+/// Uses [Dialog] (not [AlertDialog]) to avoid the framework-imposed
+/// [IntrinsicWidth] wrapper that [AlertDialog] always applies. That wrapper
+/// breaks any descendant that cannot provide intrinsic dimensions, such as
+/// [ListView] ([RenderViewport]) or [LayoutBuilder].
 class MyAlertDialog extends StatelessWidget {
   const MyAlertDialog({
     super.key,
@@ -21,41 +28,68 @@ class MyAlertDialog extends StatelessWidget {
     required this.child,
     this.icon,
     this.actions,
-    this.scrollable = false,
   });
 
   final List<Widget>? actions;
   final Widget child;
   final IconData? icon;
-  final bool scrollable;
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: title.isEmpty ? null : Text(title),
-      icon: icon == null ? null : Icon(icon!),
+    return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(
           Radius.circular(_dialogBorderRadius),
         ),
         side: BorderSide(
-          color: getColorTheme(
-            context,
-          ).primary.withValues(alpha: _dialogBorderAlpha),
+          color: getColorTheme(context).primary.withValues(alpha: _dialogBorderAlpha),
           width: _dialogBorderWidth,
         ),
       ),
-      content: Container(
+      child: ConstrainedBox(
         constraints: const BoxConstraints(
-          minHeight: _dialogMinSize,
-          maxHeight: _dialogMaxSize,
           minWidth: _dialogMinSize,
           maxWidth: _dialogMaxSize,
+          maxHeight: _dialogMaxSize,
         ),
-        child: child,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (title.isNotEmpty || icon != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(_dialogOuterPadding, _dialogOuterPadding, _dialogOuterPadding, 0),
+                child: icon != null ? Icon(icon) : Text(title, style: Theme.of(context).textTheme.headlineSmall),
+              ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  _dialogOuterPadding,
+                  _dialogInnerTopPadding,
+                  _dialogOuterPadding,
+                  _dialogOuterPadding,
+                ),
+                child: child,
+              ),
+            ),
+            if (actions != null && actions!.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  SizeForPadding.normal,
+                  0,
+                  SizeForPadding.normal,
+                  SizeForPadding.normal,
+                ),
+                child: OverflowBar(
+                  alignment: MainAxisAlignment.end,
+                  spacing: SizeForPadding.normal,
+                  children: actions!,
+                ),
+              ),
+          ],
+        ),
       ),
-      actions: actions,
     );
   }
 }
@@ -111,7 +145,6 @@ void adaptiveScreenSizeDialog({
     builder: (final BuildContext _) {
       return MyAlertDialog(
         title: title,
-        scrollable: true,
         actions: actionButtons,
         child: child,
       );

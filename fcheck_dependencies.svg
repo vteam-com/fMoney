@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="720.0" height="1972.0" viewBox="0 0 720.0 1972.0" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<defs>
+  <filter id="whiteShadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+    <feOffset dx="0" dy="0" result="offsetblur"/>
+    <feFlood flood-color="white" flood-opacity="1"/>
+    <feComposite in2="offsetblur" operator="in"/>
+    <feMerge>
+      <feMergeNode/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+  <filter id="hierarchicalShadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+    <feOffset dx="2" dy="2" result="offsetblur"/>
+    <feFlood flood-color="rgba(0,0,0,0.1)" flood-opacity="0.8"/>
+    <feComposite in2="offsetblur" operator="in"/>
+    <feMerge>
+      <feMergeNode/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+  <filter id="outlineWhite">
+    <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="2"/>
+    <feFlood flood-color="white" flood-opacity="0.5" result="WHITE"/>
+    <feComposite in="WHITE" in2="DILATED" operator="in" result="OUTLINE"/>
+    <feMerge>
+      <feMergeNode in="OUTLINE"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+  <linearGradient id="horizontalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#28a745"/>
+    <stop offset="100%" stop-color="#007bff"/>
+  </linearGradient>
+  <linearGradient id="horizontalGradientFlat" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="0">
+    <stop offset="0%" stop-color="#28a745"/>
+    <stop offset="100%" stop-color="#007bff"/>
+  </linearGradient>
+  <linearGradient id="verticalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#28a745"/>
+    <stop offset="100%" stop-color="#007bff"/>
+  </linearGradient>
+  <linearGradient id="warningNodeGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff6e8" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#f2a23a" stop-opacity="0.45"/>
+  </linearGradient>
+  <linearGradient id="errorNodeGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fdeeed" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#e05545" stop-opacity="0.5"/>
+  </linearGradient>
+</defs>
+<rect width="100%" height="100%" fill="#f8fafc"/>
+<text x="360.0" y="28.0" text-anchor="middle" fill="#0f172a" font-size="22.0" font-weight="700">Package Dependencies</text>
+<text x="360.0" y="50.0" text-anchor="middle" fill="#334155" font-size="14.0">money</text>
+<rect x="210.0" y="70.0" width="300.0" height="44.0" rx="8.0" ry="8.0" fill="#0f172a" opacity="0.92"/>
+<text x="360.0" y="98.0" text-anchor="middle" fill="#ffffff" font-size="13.0" font-weight="700">money</text>
+<text x="40.0" y="172.0" fill="#1e293b" font-size="15.0" font-weight="700">dependencies (30 items)</text>
+<line x1="40.0" y1="178.0" x2="300.0" y2="178.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<text x="420.0" y="172.0" fill="#1e293b" font-size="15.0" font-weight="700">dev_dependencies (7 items)</text>
+<line x1="420.0" y1="178.0" x2="680.0" y2="178.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="214.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> archive</title>
+</g>
+<rect x="40.0" y="192.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="219.0" text-anchor="middle" fill="#0f172a" font-size="13.0">archive</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="272.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> collection</title>
+</g>
+<rect x="40.0" y="250.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="277.0" text-anchor="middle" fill="#0f172a" font-size="13.0">collection</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="330.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> csv</title>
+</g>
+<rect x="40.0" y="308.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="335.0" text-anchor="middle" fill="#0f172a" font-size="13.0">csv</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="388.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> cupertino_icons</title>
+</g>
+<rect x="40.0" y="366.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="393.0" text-anchor="middle" fill="#0f172a" font-size="13.0">cupertino_icons</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="446.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> desktop_drop</title>
+</g>
+<rect x="40.0" y="424.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="451.0" text-anchor="middle" fill="#0f172a" font-size="13.0">desktop_drop</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="504.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> dotted_border</title>
+</g>
+<rect x="40.0" y="482.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="509.0" text-anchor="middle" fill="#0f172a" font-size="13.0">dotted_border</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="562.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> file_picker</title>
+</g>
+<rect x="40.0" y="540.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="567.0" text-anchor="middle" fill="#0f172a" font-size="13.0">file_picker</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="620.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> fl_chart</title>
+</g>
+<rect x="40.0" y="598.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="625.0" text-anchor="middle" fill="#0f172a" font-size="13.0">fl_chart</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="678.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter</title>
+</g>
+<rect x="40.0" y="656.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="683.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="736.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_localizations</title>
+</g>
+<rect x="40.0" y="714.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="741.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_localizations</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="794.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_markdown</title>
+</g>
+<rect x="40.0" y="772.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="799.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_markdown</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="852.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_svg</title>
+</g>
+<rect x="40.0" y="830.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="857.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_svg</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="910.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> http</title>
+</g>
+<rect x="40.0" y="888.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="915.0" text-anchor="middle" fill="#0f172a" font-size="13.0">http</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="968.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> intl</title>
+</g>
+<rect x="40.0" y="946.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="973.0" text-anchor="middle" fill="#0f172a" font-size="13.0">intl</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1026.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> js</title>
+</g>
+<rect x="40.0" y="1004.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1031.0" text-anchor="middle" fill="#0f172a" font-size="13.0">js</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1084.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> logger</title>
+</g>
+<rect x="40.0" y="1062.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1089.0" text-anchor="middle" fill="#0f172a" font-size="13.0">logger</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1142.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> markdown</title>
+</g>
+<rect x="40.0" y="1120.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1147.0" text-anchor="middle" fill="#0f172a" font-size="13.0">markdown</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1200.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> multi_split_view</title>
+</g>
+<rect x="40.0" y="1178.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1205.0" text-anchor="middle" fill="#0f172a" font-size="13.0">multi_split_view</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1258.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> package_info_plus</title>
+</g>
+<rect x="40.0" y="1236.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1263.0" text-anchor="middle" fill="#0f172a" font-size="13.0">package_info_plus</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1316.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> pasteboard</title>
+</g>
+<rect x="40.0" y="1294.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1321.0" text-anchor="middle" fill="#0f172a" font-size="13.0">pasteboard</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1374.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> path</title>
+</g>
+<rect x="40.0" y="1352.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1379.0" text-anchor="middle" fill="#0f172a" font-size="13.0">path</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1432.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> path_provider</title>
+</g>
+<rect x="40.0" y="1410.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1437.0" text-anchor="middle" fill="#0f172a" font-size="13.0">path_provider</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1490.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> pdfrx</title>
+</g>
+<rect x="40.0" y="1468.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1495.0" text-anchor="middle" fill="#0f172a" font-size="13.0">pdfrx</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1548.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> shared_preferences</title>
+</g>
+<rect x="40.0" y="1526.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1553.0" text-anchor="middle" fill="#0f172a" font-size="13.0">shared_preferences</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1606.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> sqlite3</title>
+</g>
+<rect x="40.0" y="1584.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1611.0" text-anchor="middle" fill="#0f172a" font-size="13.0">sqlite3</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1664.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> textify</title>
+</g>
+<rect x="40.0" y="1642.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1669.0" text-anchor="middle" fill="#0f172a" font-size="13.0">textify</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1722.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> universal_io</title>
+</g>
+<rect x="40.0" y="1700.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1727.0" text-anchor="middle" fill="#0f172a" font-size="13.0">universal_io</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1780.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> url_launcher</title>
+</g>
+<rect x="40.0" y="1758.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1785.0" text-anchor="middle" fill="#0f172a" font-size="13.0">url_launcher</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1838.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> uuid</title>
+</g>
+<rect x="40.0" y="1816.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1843.0" text-anchor="middle" fill="#0f172a" font-size="13.0">uuid</text>
+<g>
+<line x1="360.0" y1="114.0" x2="300.0" y2="1896.0" stroke="#1d4ed8" stroke-width="2.0" opacity="0.9"/>
+<title>money -> window_manager</title>
+</g>
+<rect x="40.0" y="1874.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+<text x="170.0" y="1901.0" text-anchor="middle" fill="#0f172a" font-size="13.0">window_manager</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="214.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> analyzer</title>
+</g>
+<rect x="420.0" y="192.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="219.0" text-anchor="middle" fill="#0f172a" font-size="13.0">analyzer</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="272.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_launcher_icons</title>
+</g>
+<rect x="420.0" y="250.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="277.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_launcher_icons</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="330.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_lints</title>
+</g>
+<rect x="420.0" y="308.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="335.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_lints</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="388.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> flutter_test</title>
+</g>
+<rect x="420.0" y="366.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="393.0" text-anchor="middle" fill="#0f172a" font-size="13.0">flutter_test</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="446.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> integration_test</title>
+</g>
+<rect x="420.0" y="424.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="451.0" text-anchor="middle" fill="#0f172a" font-size="13.0">integration_test</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="504.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> mockito</title>
+</g>
+<rect x="420.0" y="482.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="509.0" text-anchor="middle" fill="#0f172a" font-size="13.0">mockito</text>
+<g>
+<line x1="360.0" y1="114.0" x2="420.0" y2="562.0" stroke="#166534" stroke-width="2.0" opacity="0.9"/>
+<title>money -> plugin_platform_interface</title>
+</g>
+<rect x="420.0" y="540.0" width="260.0" height="44.0" rx="8.0" ry="8.0" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+<text x="550.0" y="567.0" text-anchor="middle" fill="#0f172a" font-size="13.0">plugin_platform_interface</text>
+</svg>

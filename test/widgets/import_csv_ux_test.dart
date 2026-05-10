@@ -53,8 +53,8 @@ void main() {
     // Verify dialog title
     expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsOneWidget);
 
-    // Verify presence of mapping dropdowns.
-    expect(find.byType(DropdownButtonFormField<String>), findsNWidgets(3));
+    // Verify presence of mapping dropdowns (Date, Description, Amount, Quantity, Price).
+    expect(find.byType(DropdownButtonFormField<String>), findsNWidgets(5));
 
     // Verify presence of preview table title
     expect(find.text(AppL10n.tr(AppTranslationKeys.dataPreviewFirst5Rows)), findsOneWidget);
@@ -140,6 +140,28 @@ void main() {
 
     // Dialog should close successfully with auto-detected mappings
     expect(find.text(AppL10n.tr(AppTranslationKeys.chooseColumns)), findsNothing);
+  });
+
+  testWidgets('Auto-detect prefers populated Run Date over empty Settlement Date', (WidgetTester tester) async {
+    const List<String> investmentHeaders = <String>[
+      'Run Date',
+      'Settlement Date',
+      'Description',
+      'Amount (\$)',
+    ];
+    const List<List<String>> investmentRows = <List<String>>[
+      <String>['12/31/2024', '', 'Dividend', '22.06'],
+      <String>['11/29/2024', '', 'Dividend', '21.94'],
+    ];
+
+    await pumpDialog(tester, headers: investmentHeaders, dataRows: investmentRows);
+
+    final Finder dateDropdownFinder = find.byType(DropdownButtonFormField<String>).at(0);
+    final DropdownButtonFormField<String> dateDropdownWidget = tester.widget<DropdownButtonFormField<String>>(
+      dateDropdownFinder,
+    );
+
+    expect(dateDropdownWidget.initialValue, 'Run Date');
   });
 
   testWidgets('User can clear auto-detected selections and get validation error', (WidgetTester tester) async {

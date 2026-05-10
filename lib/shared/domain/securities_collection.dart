@@ -76,13 +76,71 @@ class Securities extends MoneyObjects<Security> {
     );
   }
 
+  /// Retrieves a security by its display name (case-insensitive).
+  Security? getByName(final String nameToFind) {
+    return iterableList().firstWhereOrNull(
+      (Security item) => stringCompareIgnoreCasing(item.fieldName.value, nameToFind) == 0,
+    );
+  }
+
+  /// Normalizes a free-form investment input into a likely stock symbol.
+  ///
+  /// Examples:
+  /// - `Nokia (NOK)` -> `NOK`
+  /// - `NASDAQ:AAPL` -> `AAPL`
+  /// - `aapl` -> `AAPL`
+  String normalizeSymbolCandidate(final String symbolOrName) {
+    final String trimmed = symbolOrName.trim();
+    if (trimmed.isEmpty) {
+      return trimmed;
+    }
+
+    final RegExp symbolInParentheses = RegExp(r'\(([A-Za-z0-9._-]{1,20})\)');
+    final Match? parenthesesMatch = symbolInParentheses.firstMatch(trimmed);
+    if (parenthesesMatch != null) {
+      final String? insideParentheses = parenthesesMatch.group(1);
+      if (insideParentheses != null && insideParentheses.isNotEmpty) {
+        return insideParentheses.toUpperCase();
+      }
+    }
+
+    final int exchangeSeparatorIndex = trimmed.lastIndexOf(':');
+    if (exchangeSeparatorIndex > 0 && exchangeSeparatorIndex < trimmed.length - 1) {
+      return trimmed.substring(exchangeSeparatorIndex + 1).trim().toUpperCase();
+    }
+
+    return trimmed.toUpperCase();
+  }
+
+  /// Finds an existing security by symbol first, then by security name.
+  Security? getBySymbolOrName(final String symbolOrName) {
+    final String trimmed = symbolOrName.trim();
+    if (trimmed.isEmpty) {
+      return null;
+    }
+
+    final String normalizedSymbol = normalizeSymbolCandidate(trimmed);
+    return getBySymbol(normalizedSymbol) ?? getBySymbol(trimmed) ?? getByName(trimmed);
+  }
+
   /// Retrieves a security by symbol or creates a new one if missing.
-  Security getOrCreate(final String symbolToFind) {
-    Security? security = getBySymbol(symbolToFind);
+  ///
+  /// If [name] is provided, it will be stored as the security's name field
+  /// when creating a new security. Useful for preserving import descriptions.
+  Security getOrCreate(final String symbolToFind, {final String? name}) {
+    final String normalizedSymbol = normalizeSymbolCandidate(symbolToFind);
+    Security? security = getBySymbolOrName(symbolToFind);
     if (security == null) {
-      security = Security.fromJson(<String, dynamic>{
-        SharedDomainStrings.domainString131: symbolToFind,
-      }); // Creates a new Security if not found.
+      final Map<String, dynamic> json = <String, dynamic>{
+        SharedDomainStrings.domainString131: normalizedSymbol,
+      };
+
+      // If a name was provided, store it in the security
+      if (name != null && name.trim().isNotEmpty) {
+        json[SharedDomainStrings.domainString088] = name.trim();
+      }
+
+      security = Security.fromJson(json); // Creates a new Security if not found.
       appendNewMoneyObject(
         security,
         fireNotification: false,

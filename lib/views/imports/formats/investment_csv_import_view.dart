@@ -19,6 +19,15 @@ const String _investmentHeaderQuantity = 'Quantity';
 const String _investmentHeaderPrice = 'Price';
 const String _investmentHeaderAmount = 'Amount';
 const String _investmentHeaderCommission = 'Commission';
+const String _noDescriptionPlaceholder = 'no description';
+
+/// Finds a column index by matching header (handles variations like "Amount ($)").
+int _findColumnIndex(final List<String> headers, final String columnName) {
+  final String normalizedColumnName = columnName.trim().toLowerCase();
+  return headers.indexWhere(
+    (final String header) => header.trim().toLowerCase().startsWith(normalizedColumnName),
+  );
+}
 
 const int _datePartCount = 3;
 const int _datePartIndexYear = 2;
@@ -30,14 +39,10 @@ const String _skipReasonMissingRequiredColumns = 'missingRequiredColumns';
 
 /// Checks if CSV appears to be an investment CSV export by examining headers.
 bool isInvestmentCSV(final List<String> headers) {
-  final Set<String> headerSet = <String>{
-    for (final String header in headers) header.trim(),
-  };
-
-  // Baseline support: broker exports following the Fidelity-style investment schema.
-  return headerSet.contains(_investmentHeaderRunDate) &&
-      headerSet.contains(_investmentHeaderAccountNumber) &&
-      headerSet.contains(_investmentHeaderAmount);
+  // Support various broker export formats (Fidelity, etc.) that use suffixes such as "($)"
+  // for amount-related headers.
+  return _findColumnIndex(headers, _investmentHeaderRunDate) != -1 &&
+      _findColumnIndex(headers, _investmentHeaderAmount) != -1;
 }
 
 /// Imports investment CSV files and maps standard investment transaction fields.
@@ -154,6 +159,32 @@ double? _parseInvestmentAmount(final String rawValue) {
   return isParenthesisNegative ? -parsed : parsed;
 }
 
+/// Normalizes a description-like value for robust placeholder matching.
+String _normalizeForPlaceholderCheck(final String value) {
+  return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
+}
+
+/// Returns true when [descriptionValue] is considered a non-informative placeholder.
+bool _isDescriptionPlaceholder(final String descriptionValue) {
+  final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
+  if (normalized.isEmpty) {
+    return true;
+  }
+  return normalized == _noDescriptionPlaceholder;
+}
+
+/// Resolves the investment description, preferring [actionValue] for placeholders.
+String _resolveInvestmentDescription({
+  required final String descriptionValue,
+  required final String actionValue,
+}) {
+  final String trimmedDescription = descriptionValue.trim();
+  if (_isDescriptionPlaceholder(trimmedDescription)) {
+    return actionValue.trim();
+  }
+  return trimmedDescription;
+}
+
 /// Loads investment CSV data and creates import entries.
 ImportData loadInvestmentCSV(
   final List<String> headers,
@@ -163,24 +194,20 @@ ImportData loadInvestmentCSV(
   importData.fileType = SharedStrings.fileTypeCsv;
   importData.diagnostics.processedRows = dataRows.length;
 
-  // Find column indices
-  final int runDateIndex = headers.indexOf(_investmentHeaderRunDate);
-  final int accountIndex = headers.indexOf(_investmentHeaderAccount);
-  final int accountNumberIndex = headers.indexOf(_investmentHeaderAccountNumber);
-  final int actionIndex = headers.indexOf(_investmentHeaderAction);
-  final int descriptionIndex = headers.indexOf(_investmentHeaderDescription);
-  final int amountIndex = headers.indexOf(_investmentHeaderAmount);
-  final int symbolIndex = headers.indexOf(_investmentHeaderSymbol);
-  final int quantityIndex = headers.indexOf(_investmentHeaderQuantity);
-  final int priceIndex = headers.indexOf(_investmentHeaderPrice);
-  final int commissionIndex = headers.indexOf(_investmentHeaderCommission);
+  // Find column indices (flexible matching handles "($)" suffixes from brokers)
+  final int runDateIndex = _findColumnIndex(headers, _investmentHeaderRunDate);
+  final int accountIndex = _findColumnIndex(headers, _investmentHeaderAccount);
+  final int accountNumberIndex = _findColumnIndex(headers, _investmentHeaderAccountNumber);
+  final int actionIndex = _findColumnIndex(headers, _investmentHeaderAction);
+  final int descriptionIndex = _findColumnIndex(headers, _investmentHeaderDescription);
+  final int amountIndex = _findColumnIndex(headers, _investmentHeaderAmount);
+  final int symbolIndex = _findColumnIndex(headers, _investmentHeaderSymbol);
+  final int quantityIndex = _findColumnIndex(headers, _investmentHeaderQuantity);
+  final int priceIndex = _findColumnIndex(headers, _investmentHeaderPrice);
+  final int commissionIndex = _findColumnIndex(headers, _investmentHeaderCommission);
 
-  // Verify required columns exist
-  if (runDateIndex == -1 ||
-      accountIndex == -1 ||
-      accountNumberIndex == -1 ||
-      descriptionIndex == -1 ||
-      amountIndex == -1) {
+  // Verify required columns exist (Account & AccountNumber are optional for broker flexibility)
+  if (runDateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
     importData.diagnostics.incrementSkipped(_skipReasonMissingRequiredColumns);
     return importData;
   }
@@ -209,8 +236,13 @@ ImportData loadInvestmentCSV(
       continue;
     }
 
+    final String actionValue = actionIndex != -1 && row.length > actionIndex ? row[actionIndex].trim() : '';
+
     // Parse description
-    final String description = row[descriptionIndex].trim();
+    final String description = _resolveInvestmentDescription(
+      descriptionValue: row[descriptionIndex],
+      actionValue: actionValue,
+    );
     if (description.isEmpty) {
       importData.diagnostics.incrementSkipped(_skipReasonEmptyDescription);
       continue;
@@ -234,9 +266,7 @@ ImportData loadInvestmentCSV(
       stockSymbol = row[symbolIndex].trim();
     }
 
-    if (actionIndex != -1 && row.length > actionIndex) {
-      stockAction = row[actionIndex].trim();
-    }
+    stockAction = actionValue;
 
     if (quantityIndex != -1 && row.length > quantityIndex) {
       try {
@@ -278,7 +308,7 @@ ImportData loadInvestmentCSV(
       amount: amount,
       name: description,
       fitid: 'investment_csv_${date.millisecondsSinceEpoch}_$i',
-      memo: description,
+      memo: actionValue,
       number: '',
       stockAction: stockAction,
       stockSymbol: stockSymbol,

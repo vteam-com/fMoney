@@ -9,6 +9,8 @@ const double _previewSpacing = 20;
 const double _dropdownVerticalPadding = 8.0;
 const double _cellHorizontalPadding = 8;
 const double _cellVerticalPadding = 4;
+const int _exactHeaderMatchScoreBase = 1000;
+const int _nonEmptyCellScoreWeight = 10;
 const List<String> _amountColumnPatterns = <String>[
   'amount',
   'transaction amount',
@@ -29,23 +31,24 @@ const List<String> _amountColumnPatterns = <String>[
   'total',
 ];
 const List<String> _dateColumnPatterns = <String>[
-  'date',
+  'run date',
   'transaction date',
+  'date',
   'posting date',
   'value date',
   'check date',
   'deposit date',
   'withdrawal date',
-  'transfer date',
-  'settlement date',
   'effective date',
   'processed date',
+  'settlement date', // Last priority: often empty in investment exports
   'timestamp',
   'time',
 ];
 const List<String> _descriptionColumnPatterns = <String>[
   'description',
   'transaction description',
+  'action',
   'details',
   'memo',
   'reference',
@@ -60,6 +63,22 @@ const List<String> _descriptionColumnPatterns = <String>[
   'recipient',
   'supplier',
   'store',
+];
+const List<String> _quantityColumnPatterns = <String>[
+  'quantity',
+  'qty',
+  'shares',
+  'units',
+  'amount of shares',
+  'number of shares',
+];
+const List<String> _priceColumnPatterns = <String>[
+  'price',
+  'unit price',
+  'share price',
+  'value per share',
+  'cost per share',
+  'rate',
 ];
 
 /// A stateful widget for csv column mapper dialog.
@@ -81,17 +100,16 @@ class CsvColumnMapperDialog extends StatefulWidget {
 
 class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   String? _selectedAmountColumn;
-
   String? _selectedDateColumn;
-
   String? _selectedDescriptionColumn;
+  String? _selectedPriceColumn;
+  String? _selectedQuantityColumn;
 
   /// Map from unique identifier to display name
   late final Map<String, String> _uniqueIdToHeaderName;
 
   /// Unique identifiers for each header (handles duplicates)
   late final List<String> _uniqueIds;
-
   @override
   void initState() {
     super.initState();
@@ -162,6 +180,15 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
               'description': descriptionHeader,
               'amount': amountHeader,
             };
+
+            // Add optional fields if selected
+            if (_selectedQuantityColumn != null) {
+              mapping['quantity'] = _uniqueIdToHeaderName[_selectedQuantityColumn!] ?? _selectedQuantityColumn!;
+            }
+            if (_selectedPriceColumn != null) {
+              mapping['price'] = _uniqueIdToHeaderName[_selectedPriceColumn!] ?? _selectedPriceColumn!;
+            }
+
             Navigator.of(context).pop(mapping);
           },
         ),
@@ -176,9 +203,13 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     }
 
     // Find best matches for each required column type
-    _selectedDateColumn = _findBestMatchUniqueId(_dateColumnPatterns);
+    _selectedDateColumn = _findBestMatchUniqueId(_dateColumnPatterns, preferNonEmptyCells: true);
     _selectedDescriptionColumn = _findBestMatchUniqueId(_descriptionColumnPatterns);
     _selectedAmountColumn = _findBestMatchUniqueId(_amountColumnPatterns);
+
+    // Find best matches for optional columns
+    _selectedQuantityColumn = _findBestMatchUniqueId(_quantityColumnPatterns);
+    _selectedPriceColumn = _findBestMatchUniqueId(_priceColumnPatterns);
   }
 
   /// Builds a dropdown for selecting a unique header id for a required field.
@@ -204,8 +235,12 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     );
   }
 
-  /// Builds the mapping dropdowns for date, description, and amount.
+  /// Builds the mapping dropdowns for date, description, amount, and optional quantity/price.
   Widget _buildMappingDropdowns() {
+    final String quantityLabel =
+        '${AppL10n.tr(AppTranslationKeys.quantity)} (${AppL10n.tr(AppTranslationKeys.optional)})';
+    final String priceLabel = '${AppL10n.tr(AppTranslationKeys.price)} (${AppL10n.tr(AppTranslationKeys.optional)})';
+
     return Column(
       children: <Widget>[
         _buildDropdown(AppL10n.tr(AppTranslationKeys.date), _selectedDateColumn, (String? newValue) {
@@ -223,6 +258,24 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
             _selectedAmountColumn = newValue;
           });
         }),
+        _buildDropdown(
+          quantityLabel,
+          _selectedQuantityColumn,
+          (String? newValue) {
+            setState(() {
+              _selectedQuantityColumn = newValue;
+            });
+          },
+        ),
+        _buildDropdown(
+          priceLabel,
+          _selectedPriceColumn,
+          (String? newValue) {
+            setState(() {
+              _selectedPriceColumn = newValue;
+            });
+          },
+        ),
       ],
     );
   }
@@ -357,33 +410,62 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ); // End SingleChildScrollView
   }
 
+  /// Counts non-empty values in a preview column to avoid selecting empty defaults.
+  int _countNonEmptyValuesInColumn(final int columnIndex) {
+    int count = 0;
+    final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
+    for (int i = 0; i < previewRowCount; i++) {
+      final List<String> row = widget.dataRows[i];
+      if (columnIndex < row.length && row[columnIndex].trim().isNotEmpty) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   /// Finds the best matching header name for a list of expected patterns.
-  String? _findBestMatch(List<String> patterns) {
+  String? _findBestMatch(
+    List<String> patterns, {
+    bool preferNonEmptyCells = false,
+  }) {
     if (patterns.isEmpty) {
       return null;
     }
 
-    int bestScore = 0;
+    int bestScore = -1;
     String? bestMatch;
 
-    for (final String header in widget.headers) {
+    for (int headerIndex = 0; headerIndex < widget.headers.length; headerIndex++) {
+      final String header = widget.headers[headerIndex];
       final String headerLower = header.toLowerCase().trim();
 
       for (final String pattern in patterns) {
         final String patternLower = pattern.toLowerCase();
+        int score = -1;
 
-        // Exact match gets highest score
+        // Exact match gets highest base score.
         if (headerLower == patternLower) {
-          return header; // Perfect match, return immediately
+          score = _exactHeaderMatchScoreBase + patternLower.length;
         }
 
-        // Contains pattern gets points
-        if (headerLower.contains(patternLower)) {
-          final int score = patternLower.length; // Longer patterns get more points
-          if (score > bestScore) {
-            bestScore = score;
-            bestMatch = header;
-          }
+        // Contains pattern gets base points.
+        if (score < 0 && headerLower.contains(patternLower)) {
+          score = patternLower.length;
+        }
+
+        if (score < 0) {
+          continue;
+        }
+
+        if (preferNonEmptyCells) {
+          final int nonEmptyCount = _countNonEmptyValuesInColumn(headerIndex);
+          // Prefer populated columns over empty matches (e.g., Run Date over empty Settlement Date).
+          score += nonEmptyCount * _nonEmptyCellScoreWeight;
+        }
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = header;
         }
       }
     }
@@ -392,8 +474,14 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   }
 
   /// Finds the best matching unique header id for a list of expected patterns.
-  String? _findBestMatchUniqueId(List<String> patterns) {
-    final String? bestHeader = _findBestMatch(patterns);
+  String? _findBestMatchUniqueId(
+    List<String> patterns, {
+    bool preferNonEmptyCells = false,
+  }) {
+    final String? bestHeader = _findBestMatch(
+      patterns,
+      preferNonEmptyCells: preferNonEmptyCells,
+    );
     if (bestHeader == null) {
       return null;
     }

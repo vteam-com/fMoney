@@ -33,16 +33,16 @@ void main() {
       expect(isInvestmentCSV(_fullHeaders), isTrue);
     });
 
-    test('returns true for minimal required headers only', () {
-      expect(isInvestmentCSV(<String>['Run Date', 'Account Number', 'Amount']), isTrue);
+    test('returns true for minimal required headers (Run Date + Amount)', () {
+      expect(isInvestmentCSV(<String>['Run Date', 'Amount']), isTrue);
     });
 
     test('returns false when Run Date is missing', () {
       expect(isInvestmentCSV(<String>['Account Number', 'Amount', 'Description']), isFalse);
     });
 
-    test('returns false when Account Number is missing', () {
-      expect(isInvestmentCSV(<String>['Run Date', 'Amount', 'Description']), isFalse);
+    test('returns true when Account Number is missing (now optional)', () {
+      expect(isInvestmentCSV(<String>['Run Date', 'Amount', 'Description']), isTrue);
     });
 
     test('returns false when Amount is missing', () {
@@ -60,6 +60,13 @@ void main() {
     test('handles headers with surrounding whitespace', () {
       expect(
         isInvestmentCSV(<String>[' Run Date ', ' Account Number ', ' Amount ']),
+        isTrue,
+      );
+    });
+
+    test('returns true for Fidelity-style amount header with currency suffix', () {
+      expect(
+        isInvestmentCSV(<String>['Run Date', 'Action', 'Description', 'Amount (\$)']),
         isTrue,
       );
     });
@@ -140,6 +147,58 @@ void main() {
       expect(e.stockCommission, 0.0);
     });
 
+    test('uses Action when investment description is No Description', () {
+      final ImportData result = loadInvestmentCSV(
+        _fullHeaders,
+        <List<String>>[
+          <String>[
+            '2025-01-28',
+            'Acct',
+            '99999',
+            'DEBIT CARD PURCHASE POS0010 STREAMING SERVICE (Cash)',
+            '',
+            'No Description',
+            '0',
+            '',
+            '-17.09',
+            '',
+          ],
+        ],
+      );
+
+      expect(result.entries.length, 1);
+      final ImportEntry e = result.entries[0];
+      expect(e.name, 'DEBIT CARD PURCHASE POS0010 STREAMING SERVICE (Cash)');
+      expect(e.memo, 'DEBIT CARD PURCHASE POS0010 STREAMING SERVICE (Cash)');
+      expect(e.stockAction, 'DEBIT CARD PURCHASE POS0010 STREAMING SERVICE (Cash)');
+      expect(e.amount, -17.09);
+    });
+
+    test('uses Action when investment description placeholder has irregular spacing', () {
+      final ImportData result = loadInvestmentCSV(
+        _fullHeaders,
+        <List<String>>[
+          <String>[
+            '2025-01-28',
+            'Acct',
+            '99999',
+            'DEBIT CARD PURCHASE STREAMING SUBSCRIPTION',
+            '',
+            ' No   Description ',
+            '0',
+            '',
+            '-17.09',
+            '',
+          ],
+        ],
+      );
+
+      expect(result.entries.length, 1);
+      expect(result.entries[0].name, 'DEBIT CARD PURCHASE STREAMING SUBSCRIPTION');
+      expect(result.entries[0].memo, 'DEBIT CARD PURCHASE STREAMING SUBSCRIPTION');
+      expect(result.entries[0].amount, -17.09);
+    });
+
     test('parses stock commission correctly', () {
       final ImportData result = loadInvestmentCSV(
         _fullHeaders,
@@ -149,6 +208,44 @@ void main() {
       );
 
       expect(result.entries[0].stockCommission, 4.95);
+    });
+
+    test('parses Fidelity-style headers with currency suffixes', () {
+      final List<String> headers = <String>[
+        'Run Date',
+        'Action',
+        'Symbol',
+        'Description',
+        'Price (\$)',
+        'Quantity',
+        'Commission (\$)',
+        'Amount (\$)',
+      ];
+
+      final ImportData result = loadInvestmentCSV(
+        headers,
+        <List<String>>[
+          <String>[
+            '12/31/2024',
+            'DIVIDEND RECEIVED FIDELITY GOVERNMENT MONEY MARKET (SPAXX) (Cash)',
+            'SPAXX',
+            'FIDELITY GOVERNMENT MONEY MARKET',
+            '',
+            '0.000',
+            '',
+            '22.06',
+          ],
+        ],
+      );
+
+      expect(result.entries.length, 1);
+      expect(result.entries[0].date, DateTime(2024, 12, 31));
+      expect(result.entries[0].amount, 22.06);
+      expect(result.entries[0].stockSymbol, 'SPAXX');
+      expect(
+        result.entries[0].stockAction,
+        'DIVIDEND RECEIVED FIDELITY GOVERNMENT MONEY MARKET (SPAXX) (Cash)',
+      );
     });
 
     test('parses multiple rows and updates diagnostics', () {

@@ -1701,6 +1701,12 @@ abstract class AppLocalizations {
   /// **'Open...'**
   String get openMenuItem;
 
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get optional;
+
   /// No description provided for @orChangeToCategory.
   ///
   /// In en, this message translates to:
@@ -1851,6 +1857,12 @@ abstract class AppLocalizations {
   /// **'Preview'**
   String get preview;
 
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:
@@ -1874,6 +1886,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Properties to rent.'**
   String get propertiesToRentDescription;
+
+  /// No description provided for @quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantity;
 
   /// No description provided for @questionsQuestioncountTokensTokencount.
   ///

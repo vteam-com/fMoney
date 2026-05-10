@@ -569,6 +569,7 @@
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama is required to use the AI assistant. Click below to install it.",
   "openFile": "Open File ...",
   "openMenuItem": "Open...",
+  "optional": "optional",
   "orChangeToCategory": "or change to category",
   "packageNameLabel": "Package Name",
   "payee": "Payee",
@@ -622,6 +623,7 @@
   },
   "policy": "Policy",
   "preview": "Preview",
+  "price": "Price",
   "privacyPolicy": "Privacy Policy",
   "privacyPolicyMarkdown": "# Privacy Policy for fMoney App\n\n## 1. No Information Collected:\nfMoney does not collect any personal information from its users. We do not require users to provide any personal data such as name, email address, or any other identifying information.\n\n## 2. Information Usage:\nSince we do not collect any personal information, we do not use or share any information about our users.\n\n## 3. No Data Logged:\nfMoney does not log any data from its users.\n\n## 4. Contact Us:\nIf you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at questions@vteam.com.\n\n_________________\n\n\nBy using fMoney, you signify your acceptance of this Privacy Policy. If you do not agree to this policy, please do not use our application. Your continued use of the application following the posting of changes to this policy will be deemed your acceptance of those changes.\n",
   "profit": "Profit",
@@ -629,6 +631,7 @@
     "description": "REVIEWED"
   },
   "propertiesToRentDescription": "Properties to rent.",
+  "quantity": "Quantity",
   "questionsQuestioncountTokensTokencount": "Questions: {questionCount} | Tokens: {tokenCount}",
   "@questionsQuestioncountTokensTokencount": {
     "placeholders": {

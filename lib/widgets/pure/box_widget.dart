@@ -66,8 +66,10 @@ class Box extends StatelessWidget {
           height: height,
           margin: adjustedMargin,
           padding: EdgeInsets.all(padding),
+          // When width is double.infinity the box fills its parent;
+          // minWidth must not be infinity or Flutter asserts, so clamp to 0.
           constraints: BoxConstraints(
-            minWidth: width ?? _defaultBoxWidth,
+            minWidth: (width != null && !width!.isInfinite) ? width! : 0.0,
             maxWidth: width ?? _defaultBoxWidth,
           ),
           decoration: BoxDecoration(

@@ -357,6 +357,7 @@ abstract class AppTranslationKeys {
   static const String stock = 'stock';
   static const String stocks = 'stocks';
   static const String stocksTrackingDescription = 'stocksTrackingDescription';
+  static const String stockInformation = 'stockInformation';
   static const String switchToCategories = 'switchToCategories';
   static const String switchToPayees = 'switchToPayees';
   static const String switchToStocks = 'switchToStocks';
@@ -391,6 +392,9 @@ abstract class AppTranslationKeys {
   static const String entriesCount = 'entriesCount';
   static const String fromAccount = 'fromAccount';
   static const String dividend = 'dividend';
+  static const String optional = 'optional';
+  static const String price = 'price';
+  static const String quantity = 'quantity';
   static const String importFileType = 'importFileType';
   static const String importFromQfxQifXlsxCsvDescription = 'importFromQfxQifXlsxCsvDescription';
   static const String importFromQfxQifXlsxCsvFile = 'importFromQfxQifXlsxCsvFile';

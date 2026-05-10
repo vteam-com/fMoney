@@ -17,6 +17,19 @@ const String _skipReasonInvalidDate = 'invalidDate';
 const String _skipReasonEmptyDescription = 'emptyDescription';
 const String _skipReasonInvalidAmount = 'invalidAmount';
 const String _skipReasonMissingRequiredMapping = 'missingRequiredMapping';
+const String _noDescriptionPlaceholder = 'no description';
+const String _actionDescriptionSeparator = ' | ';
+const int _nearbyActionPrimaryOffset = 2;
+const int _nearbyActionSecondaryOffset = 1;
+const List<String> _fallbackActionHeaderAliases = <String>[
+  'action',
+  'activity',
+  'details',
+  'transaction',
+  'transaction details',
+  'narrative',
+  'memo',
+];
 
 /// Represents parsed CSV headers and data rows.
 class CsvRowsData {
@@ -142,6 +155,150 @@ List<String> _rowToTrimmedStringList(final List<dynamic> row) {
       .toList();
 }
 
+/// Returns a case-insensitive header index or -1 if the header is absent.
+int _indexOfHeaderIgnoreCase(final List<String> headers, final String targetHeader) {
+  for (int i = 0; i < headers.length; i++) {
+    if (headers[i].trim().toLowerCase() == targetHeader.toLowerCase()) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+/// Returns the first matching index among common action-like header aliases.
+int _findActionHeaderIndex(final List<String> headers) {
+  for (final String alias in _fallbackActionHeaderAliases) {
+    final int index = _indexOfHeaderIgnoreCase(headers, alias);
+    if (index >= 0) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+/// Normalizes a description-like value for robust placeholder matching.
+String _normalizeForPlaceholderCheck(final String value) {
+  return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
+}
+
+/// Returns true when [descriptionValue] is considered a non-informative placeholder.
+bool _isDescriptionPlaceholder(final String descriptionValue) {
+  final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
+  if (normalized.isEmpty) {
+    return true;
+  }
+  return normalized == _noDescriptionPlaceholder;
+}
+
+/// Returns true when [candidate] can be used as an Action fallback for [descriptionValue].
+bool _isValidActionCandidate(final String candidate, final String descriptionValue) {
+  final String trimmed = candidate.trim();
+  if (trimmed.isEmpty) {
+    return false;
+  }
+
+  final String normalizedCandidate = _normalizeForPlaceholderCheck(trimmed);
+  if (normalizedCandidate.isEmpty || normalizedCandidate == _noDescriptionPlaceholder) {
+    return false;
+  }
+
+  final String normalizedDescription = _normalizeForPlaceholderCheck(descriptionValue);
+  return normalizedCandidate != normalizedDescription;
+}
+
+/// Returns true when [headerValue] semantically represents action/details text.
+bool _isActionLikeHeader(final String headerValue) {
+  final String normalizedHeader = _normalizeForPlaceholderCheck(headerValue);
+  for (final String headerAlias in _fallbackActionHeaderAliases) {
+    final String normalizedAlias = _normalizeForPlaceholderCheck(headerAlias);
+    if (normalizedHeader.contains(normalizedAlias)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/// Resolves Action text from known headers or nearby columns for placeholder descriptions.
+String _resolveActionValue({
+  required final List<String> headers,
+  required final List<String> row,
+  required final int actionIndex,
+  required final int descriptionIndex,
+  required final String descriptionValue,
+}) {
+  final bool placeholderDescription = _isDescriptionPlaceholder(descriptionValue);
+
+  if (actionIndex >= 0 && actionIndex < row.length) {
+    final String actionFromHeader = row[actionIndex].trim();
+    if (_isValidActionCandidate(actionFromHeader, descriptionValue)) {
+      return actionFromHeader;
+    }
+  }
+
+  // Only use positional heuristics when description is clearly a placeholder.
+  if (!placeholderDescription) {
+    return '';
+  }
+
+  final List<int> nearbyCandidateIndices = <int>[
+    descriptionIndex - _nearbyActionPrimaryOffset,
+    descriptionIndex - _nearbyActionSecondaryOffset,
+  ];
+  for (final int index in nearbyCandidateIndices) {
+    if (index < 0 || index >= row.length) {
+      continue;
+    }
+    if (index >= headers.length || !_isActionLikeHeader(headers[index])) {
+      continue;
+    }
+    final String candidate = row[index].trim();
+    if (_isValidActionCandidate(candidate, descriptionValue)) {
+      return candidate;
+    }
+  }
+
+  for (int i = 0; i < headers.length && i < row.length; i++) {
+    if (!_isActionLikeHeader(headers[i])) {
+      continue;
+    }
+
+    final String candidate = row[i].trim();
+    if (_isValidActionCandidate(candidate, descriptionValue)) {
+      return candidate;
+    }
+  }
+
+  return '';
+}
+
+/// Builds the final import description from [descriptionValue] and [actionValue].
+///
+/// Rules:
+/// - If [descriptionValue] is empty/placeholder, use [actionValue].
+/// - If [actionValue] is empty, use [descriptionValue].
+/// - If [actionValue] already contains [descriptionValue], use [actionValue].
+/// - Otherwise combine both values for better traceability.
+String _resolveDescription(final String descriptionValue, final String actionValue) {
+  final String trimmedAction = actionValue.trim();
+  final String trimmedDescription = descriptionValue.trim();
+
+  if (_isDescriptionPlaceholder(trimmedDescription)) {
+    return trimmedAction;
+  }
+
+  if (trimmedAction.isEmpty) {
+    return trimmedDescription;
+  }
+
+  final String actionLower = trimmedAction.toLowerCase();
+  final String descriptionLower = trimmedDescription.toLowerCase();
+  if (actionLower.contains(descriptionLower)) {
+    return trimmedAction;
+  }
+
+  return '$trimmedAction$_actionDescriptionSeparator$trimmedDescription';
+}
+
 /// Loads CSV data from headers, rows, and column mapping into ImportData.
 ImportData loadCSV(
   List<String> headers,
@@ -163,16 +320,31 @@ ImportData loadCSV(
   final int dateIndex = headers.indexOf(dateColumnName);
   final int descriptionIndex = headers.indexOf(descriptionColumnName);
   final int amountIndex = headers.indexOf(amountColumnName);
+  final int actionIndex = _findActionHeaderIndex(headers);
 
   if (dateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
     importData.diagnostics.incrementSkipped(_skipReasonMissingMappedColumns);
     return importData;
   }
 
+  // Optional fields for investment/stock transactions
+  final String? quantityColumnName = columnMapping['quantity'];
+  final String? priceColumnName = columnMapping['price'];
+  final int quantityIndex = quantityColumnName != null ? headers.indexOf(quantityColumnName) : -1;
+  final int priceIndex = priceColumnName != null ? headers.indexOf(priceColumnName) : -1;
+
   for (int i = 0; i < dataRows.length; i++) {
     final List<String> row = dataRows[i];
 
-    final int maxIndex = <int>[dateIndex, descriptionIndex, amountIndex].reduce((int a, int b) => a > b ? a : b);
+    final List<int> requiredIndices = <int>[dateIndex, descriptionIndex, amountIndex];
+    if (quantityIndex >= 0) {
+      requiredIndices.add(quantityIndex);
+    }
+    if (priceIndex >= 0) {
+      requiredIndices.add(priceIndex);
+    }
+
+    final int maxIndex = requiredIndices.reduce((int a, int b) => a > b ? a : b);
     if (row.length <= maxIndex) {
       importData.diagnostics.incrementSkipped(_skipReasonInsufficientColumns);
       continue;
@@ -186,7 +358,14 @@ ImportData loadCSV(
       continue;
     }
 
-    final String description = row[descriptionIndex].trim();
+    final String actionValue = _resolveActionValue(
+      headers: headers,
+      row: row,
+      actionIndex: actionIndex,
+      descriptionIndex: descriptionIndex,
+      descriptionValue: row[descriptionIndex],
+    );
+    final String description = _resolveDescription(row[descriptionIndex], actionValue);
     if (description.isEmpty) {
       importData.diagnostics.incrementSkipped(_skipReasonEmptyDescription);
       continue;
@@ -204,6 +383,32 @@ ImportData loadCSV(
       continue;
     }
 
+    // Parse optional quantity and price fields
+    double stockQuantity = 0.0;
+    double stockPrice = 0.0;
+
+    if (quantityIndex >= 0 && quantityIndex < row.length) {
+      try {
+        final String quantityStr = row[quantityIndex].trim();
+        if (quantityStr.isNotEmpty) {
+          stockQuantity = double.tryParse(quantityStr) ?? 0.0;
+        }
+      } catch (_) {
+        // Ignore parse errors for optional fields
+      }
+    }
+
+    if (priceIndex >= 0 && priceIndex < row.length) {
+      try {
+        final String priceStr = row[priceIndex].trim();
+        if (priceStr.isNotEmpty) {
+          stockPrice = double.tryParse(priceStr) ?? 0.0;
+        }
+      } catch (_) {
+        // Ignore parse errors for optional fields
+      }
+    }
+
     importData.entries.add(
       ImportEntry(
         date: date,
@@ -211,12 +416,12 @@ ImportData loadCSV(
         amount: amount,
         type: SharedStrings.importTypeCsv,
         fitid: 'csv_row_${i + 1}_${date.millisecondsSinceEpoch}',
-        memo: '',
+        memo: actionValue,
         number: '',
         stockAction: '',
         stockSymbol: '',
-        stockQuantity: 0.0,
-        stockPrice: 0.0,
+        stockQuantity: stockQuantity,
+        stockPrice: stockPrice,
         stockCommission: 0.0,
       ),
     );

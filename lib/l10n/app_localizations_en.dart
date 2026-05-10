@@ -878,6 +878,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openMenuItem => 'Open...';
 
   @override
+  String get optional => 'optional';
+
+  @override
   String get orChangeToCategory => 'or change to category';
 
   @override
@@ -955,6 +958,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get preview => 'Preview';
 
   @override
+  String get price => 'Price';
+
+  @override
   String get privacyPolicy => 'Privacy Policy';
 
   @override
@@ -966,6 +972,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get propertiesToRentDescription => 'Properties to rent.';
+
+  @override
+  String get quantity => 'Quantity';
 
   @override
   String questionsQuestioncountTokensTokencount(String questionCount, String tokenCount) {

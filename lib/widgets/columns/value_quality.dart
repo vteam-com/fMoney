@@ -99,6 +99,10 @@ class ValuesQuality {
     required this.description,
     required this.amount,
     this.reverseAmountValue = false,
+    this.stockSymbol = '',
+    this.stockAction = '',
+    this.stockQuantity = 0.0,
+    this.stockPrice = 0.0,
   });
 
   factory ValuesQuality.empty() => ValuesQuality(
@@ -111,11 +115,20 @@ class ValuesQuality {
   final ValueQuality date;
   final ValueQuality description;
   final bool reverseAmountValue;
+  final String stockSymbol;
+  final String stockAction;
+  final double stockQuantity;
+  final double stockPrice;
 
   bool exist = false;
 
   @override
   String toString() => '$date; $description; $amount';
+
+  /// Returns whether this entry has stock/investment information.
+  bool hasStockInfo() {
+    return stockSymbol.isNotEmpty || stockAction.isNotEmpty || stockQuantity != 0 || stockPrice > 0;
+  }
 
   /// Checks whether this value set already exists as a transaction for the given account.
   bool checkIfExistAlready({

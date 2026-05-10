@@ -86,6 +86,7 @@ List<Widget> getActionButtons(
           unitPrice: inputData.amountPerUnit,
           investmentType: inputData.investmentType.index,
           tradeType: fromInvestmentType(inputData.investmentType).index,
+          data: Data(),
         );
 
         Data().investments.appendNewMoneyObject(

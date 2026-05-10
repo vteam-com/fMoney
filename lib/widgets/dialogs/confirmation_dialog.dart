@@ -50,21 +50,21 @@ class ConfirmationDialog extends StatelessWidget {
   final String question;
 
   /// Builds the confirmation dialog content.
+  ///
+  /// Uses [Flexible] (not [Expanded]) and avoids [IntrinsicHeight] so that
+  /// descendants such as [ListView] are never asked for intrinsic dimensions.
   @override
   Widget build(final BuildContext context) {
-    return Center(
-      child: IntrinsicHeight(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(question, style: Theme.of(context).textTheme.titleMedium),
-            gapLarge(),
-            // optional Content
-            if (content != null) Expanded(child: content!),
-          ],
-        ),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Text(question, style: Theme.of(context).textTheme.titleMedium),
+        gapLarge(),
+        // optional Content
+        if (content != null) Flexible(child: content!),
+      ],
     );
   }
 }

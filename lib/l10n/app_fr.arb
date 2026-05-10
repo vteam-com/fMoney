@@ -569,6 +569,7 @@
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Ollama est requis pour utiliser l'assistant IA. Cliquez ci-dessous pour l'installer.",
   "openFile": "Ouvrir un fichier ...",
   "openMenuItem": "Ouvrir...",
+  "optional": "optionnel",
   "orChangeToCategory": "ou changer vers la categorie",
   "packageNameLabel": "Nom du package",
   "payee": "Beneficiaire",
@@ -622,6 +623,7 @@
   },
   "policy": "Politique",
   "preview": "Apercu",
+  "price": "Prix",
   "privacyPolicy": "Politique de confidentialite",
   "privacyPolicyMarkdown": "# Politique de confidentialite de l'application fMoney\n\n## 1. Aucune information collectee :\nfMoney ne collecte aucune information personnelle de ses utilisateurs. Nous ne demandons pas aux utilisateurs de fournir des donnees personnelles telles que le nom, l'adresse e-mail ou toute autre information d'identification.\n\n## 2. Utilisation des informations :\nPuisque nous ne collectons aucune information personnelle, nous n'utilisons ni ne partageons aucune information sur nos utilisateurs.\n\n## 3. Aucune donnee enregistree :\nfMoney n'enregistre aucune donnee de ses utilisateurs.\n\n## 4. Nous contacter :\nSi vous avez des questions ou des suggestions concernant notre politique de confidentialite, n'hesitez pas a nous contacter a questions@vteam.com.\n\n_________________\n\n\nEn utilisant fMoney, vous signifiez votre acceptation de cette politique de confidentialite. Si vous n'acceptez pas cette politique, veuillez ne pas utiliser notre application. Votre utilisation continue de l'application apres la publication des modifications de cette politique sera consideree comme votre acceptation de ces modifications.\n",
   "profit": "Profit",
@@ -629,6 +631,7 @@
     "description": "REVIEWED"
   },
   "propertiesToRentDescription": "Proprietes a louer.",
+  "quantity": "Quantite",
   "questionsQuestioncountTokensTokencount": "Questions : {questionCount} | Tokens : {tokenCount}",
   "@questionsQuestioncountTokensTokencount": {
     "placeholders": {

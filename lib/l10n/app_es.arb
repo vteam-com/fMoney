@@ -569,6 +569,7 @@
   "ollamaIsRequiredToUseTheAiAssistantClickBelowToInstallIt": "Se requiere Ollama para usar el asistente de IA. Haz clic abajo para instalarlo.",
   "openFile": "Abrir archivo...",
   "openMenuItem": "Abrir...",
+  "optional": "opcional",
   "orChangeToCategory": "o cambiar a categoría",
   "packageNameLabel": "Nombre del paquete",
   "payee": "Beneficiario",
@@ -622,6 +623,7 @@
   },
   "policy": "Política",
   "preview": "Vista previa",
+  "price": "Precio",
   "privacyPolicy": "Política de privacidad",
   "privacyPolicyMarkdown": "# Politica de privacidad de la aplicacion fMoney\n\n## 1. No se recopila informacion:\nfMoney no recopila ninguna informacion personal de sus usuarios. No requerimos que los usuarios proporcionen datos personales como nombre, direccion de correo electronico u otra informacion identificativa.\n\n## 2. Uso de la informacion:\nComo no recopilamos informacion personal, no usamos ni compartimos informacion sobre nuestros usuarios.\n\n## 3. No se registran datos:\nfMoney no registra ningun dato de sus usuarios.\n\n## 4. Contacto:\nSi tienes preguntas o sugerencias sobre nuestra politica de privacidad, no dudes en contactarnos en questions@vteam.com.\n\n_________________\n\n\nAl usar fMoney, aceptas esta politica de privacidad. Si no estas de acuerdo con esta politica, no utilices nuestra aplicacion. El uso continuado de la aplicacion despues de publicar cambios en esta politica se considerara como aceptacion de dichos cambios.\n",
   "profit": "Ganancia",
@@ -629,6 +631,7 @@
     "description": "REVIEWED"
   },
   "propertiesToRentDescription": "Propiedades para alquilar.",
+  "quantity": "Cantidad",
   "questionsQuestioncountTokensTokencount": "Preguntas: {questionCount} | Tokens: {tokenCount}",
   "@questionsQuestioncountTokensTokencount": {
     "placeholders": {

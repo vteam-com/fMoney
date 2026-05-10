@@ -36,6 +36,7 @@ void importQfxFromString(final BuildContext? context, final String text) {
     bankInfo.accountId,
     accountType,
   );
+  importData.accountType = accountType;
   importData.entries = getTransactionFromOFX(ofx);
   importData.fileType = SharedStrings.fileTypeQfx;
   if (context != null) {
