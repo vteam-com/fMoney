@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
+import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -55,17 +56,21 @@ Future<void> showImportTransactionsFromPdfUsingAi({
     _closePdfImportLoadingDialog(rootNavigator);
   }
 
-  if (!context.mounted) {
-    return;
-  }
-
   if (statement == null) {
-    SnackBarService.displayError(message: AppL10n.tr(AppTranslationKeys.aiUnableToReadPdf));
+    _showPdfImportMessageDialog(
+      message: AppL10n.tr(AppTranslationKeys.aiUnableToReadPdf),
+    );
     return;
   }
 
   if (!statement.isBankStatement || statement.transactions.isEmpty) {
-    SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.aiPdfNotBankStatement));
+    _showPdfImportMessageDialog(
+      message: AppL10n.tr(AppTranslationKeys.aiPdfNotBankStatement),
+    );
+    return;
+  }
+
+  if (!context.mounted) {
     return;
   }
 
@@ -130,6 +135,23 @@ void _closePdfImportLoadingDialog(final NavigatorState rootNavigator) {
   if (rootNavigator.canPop()) {
     rootNavigator.pop();
   }
+}
+
+/// Shows a guaranteed modal feedback message for PDF import outcomes.
+void _showPdfImportMessageDialog({
+  required final String message,
+}) {
+  final BuildContext? routerContext = AppRouter.context;
+  if (routerContext == null) {
+    AppLogger.debug(
+      module: 'transactions_text_import_view',
+      operation: '_showPdfImportMessageDialog',
+      message: 'Unable to show PDF import dialog because AppRouter context is null.',
+    );
+    return;
+  }
+
+  messageBox(routerContext, message);
 }
 
 /// Converts parsed statement transactions into semicolon-delimited text for [ImportTransactionsPanel].
