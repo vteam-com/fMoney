@@ -43,6 +43,19 @@ import 'package:money/widgets/widgets_domain/data_object_model.dart';
 const int _potentialTransferDefaultMaxDays = 3;
 const int _potentialTransferDefaultMaxResults = 5;
 const double _amountTolerance = 0.005;
+const int _millisecondsPerDay = Duration.millisecondsPerDay;
+
+/// Lightweight index entry used by opposite-match precomputation.
+class _SignedAmountEntry {
+  /// Creates a compact entry with transaction id and signed amount.
+  const _SignedAmountEntry({required this.transactionId, required this.amount});
+
+  /// Unique id of the transaction represented by this entry.
+  final int transactionId;
+
+  /// Signed amount for precise tolerance checks.
+  final double amount;
+}
 
 /// Represents data.
 ///
@@ -355,20 +368,31 @@ class Data implements DataAbstract {
     int maxResults = _potentialTransferDefaultMaxResults,
   }) {
     transaction = transaction as Transaction;
+    final List<Transaction> eligibleTransactions = transactions
+        .iterableList(includeDeleted: false)
+        .where((Transaction t) => !t.isDeleted && !t.isTransfer)
+        .toList();
+
+    final Set<int> sameAccountOppositeMatchIds = _buildSameAccountOppositeMatchIds(
+      transactionsToCheck: eligibleTransactions,
+      maxDays: maxDays,
+    );
+
     final DateTime? sourceDateValue = transaction.fieldDateTime.value;
-    if (sourceDateValue == null) {
+    if (sourceDateValue == null || sameAccountOppositeMatchIds.contains(transaction.uniqueId)) {
       return <Transaction>[];
     }
 
     final DateTime sourceDate = sourceDateValue.startOfDay;
     final double sourceAmount = transaction.fieldAmount.value.asDouble();
-    final List<Transaction> candidates = transactions.iterableList(includeDeleted: false).where((
-      Transaction candidate,
-    ) {
-      if (candidate.uniqueId == transaction.uniqueId || candidate.isDeleted || candidate.isTransfer) {
+    final List<Transaction> candidates = eligibleTransactions.where((Transaction candidate) {
+      if (candidate.uniqueId == transaction.uniqueId) {
         return false;
       }
       if (candidate.fieldAccountId.value == transaction.fieldAccountId.value) {
+        return false;
+      }
+      if (sameAccountOppositeMatchIds.contains(candidate.uniqueId)) {
         return false;
       }
       if (!_isOppositeAmountWithinTolerance(sourceAmount, candidate.fieldAmount.value.asDouble())) {
@@ -409,6 +433,102 @@ class Data implements DataAbstract {
     }
     return candidates;
   }
+
+  /// Builds the set of transaction ids that have opposite-sign counterparts in
+  /// the same account within [maxDays].
+  Set<int> _buildSameAccountOppositeMatchIds({
+    required List<Transaction> transactionsToCheck,
+    required int maxDays,
+  }) {
+    final Set<int> matchedIds = <int>{};
+
+    final Map<int, Map<bool, Map<int, Map<int, List<_SignedAmountEntry>>>>> index =
+        <int, Map<bool, Map<int, Map<int, List<_SignedAmountEntry>>>>>{};
+
+    for (final Transaction tx in transactionsToCheck) {
+      final DateTime? dateValue = tx.fieldDateTime.value;
+      if (dateValue == null) {
+        continue;
+      }
+
+      final int accountId = tx.fieldAccountId.value;
+      final double amount = tx.fieldAmount.value.asDouble();
+      final bool isPositive = amount.isNegative == false;
+      final int dayKey = dateValue.startOfDay.millisecondsSinceEpoch ~/ _millisecondsPerDay;
+      final int bucketKey = _amountBucketKey(amount.abs());
+
+      final Map<bool, Map<int, Map<int, List<_SignedAmountEntry>>>> accountIndex = index.putIfAbsent(
+        accountId,
+        () => <bool, Map<int, Map<int, List<_SignedAmountEntry>>>>{},
+      );
+      final Map<int, Map<int, List<_SignedAmountEntry>>> signIndex = accountIndex.putIfAbsent(
+        isPositive,
+        () => <int, Map<int, List<_SignedAmountEntry>>>{},
+      );
+      final Map<int, List<_SignedAmountEntry>> dayIndex = signIndex.putIfAbsent(
+        dayKey,
+        () => <int, List<_SignedAmountEntry>>{},
+      );
+      final List<_SignedAmountEntry> bucketEntries = dayIndex.putIfAbsent(bucketKey, () => <_SignedAmountEntry>[]);
+
+      bucketEntries.add(_SignedAmountEntry(transactionId: tx.uniqueId, amount: amount));
+    }
+
+    for (final Transaction tx in transactionsToCheck) {
+      final DateTime? dateValue = tx.fieldDateTime.value;
+      if (dateValue == null) {
+        continue;
+      }
+
+      final int accountId = tx.fieldAccountId.value;
+      final double amount = tx.fieldAmount.value.asDouble();
+      final bool isPositive = amount.isNegative == false;
+      final int dayKey = dateValue.startOfDay.millisecondsSinceEpoch ~/ _millisecondsPerDay;
+      final int bucketKey = _amountBucketKey(amount.abs());
+
+      final Map<bool, Map<int, Map<int, List<_SignedAmountEntry>>>>? accountIndex = index[accountId];
+      if (accountIndex == null) {
+        continue;
+      }
+
+      final Map<int, Map<int, List<_SignedAmountEntry>>>? oppositeSignIndex = accountIndex[!isPositive];
+      if (oppositeSignIndex == null) {
+        continue;
+      }
+
+      bool foundMatch = false;
+      for (int day = dayKey - maxDays; day <= dayKey + maxDays && !foundMatch; day++) {
+        final Map<int, List<_SignedAmountEntry>>? dayIndex = oppositeSignIndex[day];
+        if (dayIndex == null) {
+          continue;
+        }
+
+        for (int bucket = bucketKey - 1; bucket <= bucketKey + 1 && !foundMatch; bucket++) {
+          final List<_SignedAmountEntry>? entries = dayIndex[bucket];
+          if (entries == null) {
+            continue;
+          }
+
+          for (final _SignedAmountEntry entry in entries) {
+            if (entry.transactionId == tx.uniqueId) {
+              continue;
+            }
+            if (_isOppositeAmountWithinTolerance(amount, entry.amount)) {
+              matchedIds.add(tx.uniqueId);
+              matchedIds.add(entry.transactionId);
+              foundMatch = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    return matchedIds;
+  }
+
+  /// Returns an integer bucket key for amount indexing by tolerance.
+  int _amountBucketKey(double absoluteAmount) => (absoluteAmount / _amountTolerance).round();
 
   /// Converts two existing disconnected transactions into one linked transfer
   /// pair without creating a new mirror transaction.

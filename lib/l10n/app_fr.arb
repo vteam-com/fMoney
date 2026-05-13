@@ -279,6 +279,7 @@
   "fileLocationNotSupportedOnMobile": "L'ouverture de l'emplacement du fichier est prise en charge uniquement sur les plateformes de bureau.",
   "fileMenuTooltip": "Menu fichier",
   "filter": "filtre",
+  "findMissingTransfers": "Trouver les transferts manquants",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -333,6 +334,7 @@
   "importTransactionToAccount": "Importer la transaction vers le compte",
   "importWord": "Importer",
   "includeAssetAccounts": "Inclure les comptes d'actifs",
+  "includeClosedAccountsInFinder": "Inclure les comptes fermes",
   "incomeLabel": "Revenu",
   "incomes": "Revenus",
   "info": "Infos",
@@ -375,6 +377,7 @@
   "@loss": {
     "description": "REVIEWED"
   },
+  "magicWand": "Baguette magique",
   "maintenance": "Entretien",
   "@maintenance": {
     "description": "REVIEWED"
@@ -540,7 +543,7 @@
     "description": "REVIEWED"
   },
   "noneLabel": "Aucun",
-  "noneWithTitle": "Aucun @title",
+  "noneWithTitle": "Aucun {title}",
   "@noneWithTitle": {
     "placeholders": {
       "title": {
@@ -572,6 +575,7 @@
   "optional": "optionnel",
   "orChangeToCategory": "ou changer vers la categorie",
   "packageNameLabel": "Nom du package",
+  "pauseSearch": "Mettre en pause",
   "payee": "Beneficiaire",
   "payeeAliasesDescription": "Alias de beneficiaire.",
   "payeeMatch": "Correspondance beneficiaire",
@@ -622,6 +626,7 @@
     "description": "REVIEWED"
   },
   "policy": "Politique",
+  "possibleTransferMatches": "Correspondances possibles de transferts",
   "preview": "Apercu",
   "price": "Prix",
   "privacyPolicy": "Politique de confidentialite",
@@ -664,6 +669,7 @@
     "description": "REVIEWED"
   },
   "requestWasCancelled": "La requete a ete annulee.",
+  "resumeSearch": "Reprendre",
   "rowIndex": "Ligne {index}",
   "@rowIndex": {
     "placeholders": {
@@ -681,6 +687,7 @@
   "saveToSql": "Enregistrer en SQL",
   "savingLabel": "Epargne",
   "searchForPayee": "Rechercher un beneficiaire",
+  "searchingTransferMatches": "Recherche des correspondances de transferts...",
   "securitySymbolInvalid": "Le titre \"{symbol}\" n'est pas valide",
   "@securitySymbolInvalid": {
     "placeholders": {
@@ -847,6 +854,19 @@
   "transfer": "Transfert",
   "transfers": "Transferts",
   "transfersBetweenAccountsDescription": "Transferts entre comptes.",
+  "transferScanPaused": "Recherche de transferts en pause",
+  "transferScanReady": "Demarrer la recherche de transferts quand vous etes pret",
+  "transferScanSummary": "{candidates} transferts possibles trouves dans {accounts} transactions",
+  "@transferScanSummary": {
+    "placeholders": {
+      "candidates": {
+        "type": "String"
+      },
+      "accounts": {
+        "type": "String"
+      }
+    }
+  },
   "trend": "Tendance",
   "units": "Unites",
   "unknown": "Inconnu",

@@ -279,6 +279,7 @@
   "fileLocationNotSupportedOnMobile": "Abrir la ubicación del archivo solo está disponible en plataformas de escritorio.",
   "fileMenuTooltip": "Menú de archivo",
   "filter": "Filtro",
+  "findMissingTransfers": "Encontrar transferencias faltantes",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -333,6 +334,7 @@
   "importTransactionToAccount": "Importar transacción a cuenta",
   "importWord": "Importar",
   "includeAssetAccounts": "Incluir cuentas de activos",
+  "includeClosedAccountsInFinder": "Incluir cuentas cerradas",
   "incomeLabel": "Ingreso",
   "incomes": "Ingresos",
   "info": "Información",
@@ -375,6 +377,7 @@
   "@loss": {
     "description": "REVIEWED"
   },
+  "magicWand": "Varita magica",
   "maintenance": "Mantenimiento",
   "@maintenance": {
     "description": "REVIEWED"
@@ -540,7 +543,7 @@
     "description": "REVIEWED"
   },
   "noneLabel": "Ninguno",
-  "noneWithTitle": "Ninguno @title",
+  "noneWithTitle": "Ninguno {title}",
   "@noneWithTitle": {
     "placeholders": {
       "title": {
@@ -572,6 +575,7 @@
   "optional": "opcional",
   "orChangeToCategory": "o cambiar a categoría",
   "packageNameLabel": "Nombre del paquete",
+  "pauseSearch": "Pausar",
   "payee": "Beneficiario",
   "payeeAliasesDescription": "Alias de beneficiario.",
   "payeeMatch": "Coincidencia de beneficiario",
@@ -622,6 +626,7 @@
     "description": "REVIEWED"
   },
   "policy": "Política",
+  "possibleTransferMatches": "Posibles coincidencias de transferencias",
   "preview": "Vista previa",
   "price": "Precio",
   "privacyPolicy": "Política de privacidad",
@@ -664,6 +669,7 @@
     "description": "REVIEWED"
   },
   "requestWasCancelled": "La solicitud fue cancelada.",
+  "resumeSearch": "Reanudar",
   "rowIndex": "Fila {index}",
   "@rowIndex": {
     "placeholders": {
@@ -681,6 +687,7 @@
   "saveToSql": "Guardar en SQL",
   "savingLabel": "Ahorro",
   "searchForPayee": "Buscar beneficiario",
+  "searchingTransferMatches": "Buscando coincidencias de transferencias...",
   "securitySymbolInvalid": "El simbolo \"{symbol}\" no es valido",
   "@securitySymbolInvalid": {
     "placeholders": {
@@ -847,6 +854,19 @@
   "transfer": "Transferencia",
   "transfers": "Transferencias",
   "transfersBetweenAccountsDescription": "Transferencias entre cuentas.",
+  "transferScanPaused": "Busqueda de transferencias en pausa",
+  "transferScanReady": "Inicia la busqueda de transferencias cuando estes listo",
+  "transferScanSummary": "Se encontraron {candidates} posibles transferencias en {accounts} transacciones",
+  "@transferScanSummary": {
+    "placeholders": {
+      "candidates": {
+        "type": "String"
+      },
+      "accounts": {
+        "type": "String"
+      }
+    }
+  },
   "trend": "Tendencia",
   "units": "Unidades",
   "unknown": "Desconocido",

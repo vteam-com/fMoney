@@ -1,12 +1,11 @@
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/l10n/app_localizations.dart';
 
+typedef L10n = AppLocalizations;
+typedef L10nParams = Map<String, String>;
+
 /// Resolves translation [key] values for [AppL10n] in staged batches.
-String resolveAppL10nKey(
-  final AppLocalizations l10n,
-  final String key,
-  final Map<String, String> p,
-) {
+String resolveAppL10nKey(final L10n l10n, final String key, final L10nParams p) {
   switch (key) {
     case AppTranslationKeys.accountNames:
       return l10n.accountNames;
@@ -226,11 +225,7 @@ String resolveAppL10nKey(
 }
 
 /// Resolves the second batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageTwo(
-  final AppLocalizations l10n,
-  final String key,
-  final Map<String, String> p,
-) {
+String _resolveAppL10nKeyStageTwo(final L10n l10n, final String key, final L10nParams p) {
   switch (key) {
     case AppTranslationKeys.navInvestmentsTooltip:
       return l10n.navInvestmentsTooltip;
@@ -476,11 +471,7 @@ String _resolveAppL10nKeyStageTwo(
 }
 
 /// Resolves the third batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageThree(
-  final AppLocalizations l10n,
-  final String key,
-  final Map<String, String> p,
-) {
+String _resolveAppL10nKeyStageThree(final L10n l10n, final String key, final L10nParams p) {
   switch (key) {
     case AppTranslationKeys.ollamaAiAssistant:
       return l10n.ollamaAiAssistant;
@@ -658,6 +649,8 @@ String _resolveAppL10nKeyStageThree(
       return l10n.marketPrice;
     case AppTranslationKeys.matchingTransaction:
       return l10n.matchingTransaction;
+    case AppTranslationKeys.magicWand:
+      return l10n.magicWand;
     case AppTranslationKeys.moveCategory:
       return l10n.moveCategory;
     case AppTranslationKeys.moveCategoryAsChild:
@@ -666,8 +659,26 @@ String _resolveAppL10nKeyStageThree(
       return l10n.newBankAccount;
     case AppTranslationKeys.newItemLabel:
       return l10n.newItemLabel(p['item'] ?? '');
+    case AppTranslationKeys.findMissingTransfers:
+      return l10n.findMissingTransfers;
+    case AppTranslationKeys.searchingTransferMatches:
+      return l10n.searchingTransferMatches;
+    case AppTranslationKeys.transferScanPaused:
+      return l10n.transferScanPaused;
+    case AppTranslationKeys.transferScanReady:
+      return l10n.transferScanReady;
+    case AppTranslationKeys.transferScanSummary:
+      return l10n.transferScanSummary(p['candidates'] ?? '', p['accounts'] ?? '');
+    case AppTranslationKeys.includeClosedAccountsInFinder:
+      return l10n.includeClosedAccountsInFinder;
+    case AppTranslationKeys.pauseSearch:
+      return l10n.pauseSearch;
+    case AppTranslationKeys.resumeSearch:
+      return l10n.resumeSearch;
     case AppTranslationKeys.noMatchingTransactions:
       return l10n.noMatchingTransactions;
+    case AppTranslationKeys.possibleTransferMatches:
+      return l10n.possibleTransferMatches;
     case AppTranslationKeys.noneLabel:
       return l10n.noneLabel;
     case AppTranslationKeys.noneWithTitle:
@@ -688,11 +699,7 @@ String _resolveAppL10nKeyStageThree(
 }
 
 /// Resolves the final batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageFour(
-  final AppLocalizations l10n,
-  final String key,
-  final Map<String, String> p,
-) {
+String _resolveAppL10nKeyStageFour(final L10n l10n, final String key, final L10nParams p) {
   switch (key) {
     case AppTranslationKeys.platformDesktopIntelSiliconSoftware:
       return l10n.platformDesktopIntelSiliconSoftware;

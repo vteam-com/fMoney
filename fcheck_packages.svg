@@ -391,7 +391,7 @@
   <path d="M 280.0 857.0 C 190.0 873.0, 370.0 4904.0, 460.0 4888.0" class="edgeVertical"/>
   <title> ▶ </title>
 </g>
-<title>flutter_svg -> vector_graphics v1.2.0</title>
+<title>flutter_svg -> vector_graphics v1.2.1</title>
 <g>
   <path d="M 280.0 857.0 C 190.0 873.0, 370.0 4944.0, 460.0 4928.0" class="edgeVertical"/>
   <title> ▶ </title>
@@ -401,7 +401,7 @@
   <path d="M 280.0 857.0 C 190.0 873.0, 370.0 4984.0, 460.0 4968.0" class="edgeVertical"/>
   <title> ▶ </title>
 </g>
-<title>flutter_svg -> vector_graphics_compiler v1.2.1</title>
+<title>flutter_svg -> vector_graphics_compiler v1.2.2</title>
 <g>
   <path d="M 280.0 923.0 C 190.0 939.0, 370.0 2264.0, 460.0 2248.0" class="edgeVertical"/>
   <title> ▶ </title>
@@ -1502,7 +1502,7 @@
   <text x="455.68" y="4849.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text></g>
 <rect x="460.0" y="4874.0" width="280.0" height="28.0" rx="8.0" ry="8.0" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
 <text x="468.0" y="4892.0" text-anchor="start" fill="#0f172a" font-size="12.0">vector_graphics</text>
-<text x="732.0" y="4892.0" text-anchor="end" fill="#334155" font-size="12.0">^1.2.0</text>
+<text x="732.0" y="4892.0" text-anchor="end" fill="#334155" font-size="12.0">^1.2.1</text>
 <g class="badge incomingBadge">
   <path d="M 466.0,4888.0 L 454.0,4881.0 Q 451.0,4881.0 451.0,4884.0 L 451.0,4892.0 Q 451.0,4895.0 454.0,4895.0 Z" fill="#3b82f6"/>
   <text x="455.68" y="4889.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text></g>
@@ -1514,7 +1514,7 @@
   <text x="455.68" y="4929.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text></g>
 <rect x="460.0" y="4954.0" width="280.0" height="28.0" rx="8.0" ry="8.0" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
 <text x="468.0" y="4972.0" text-anchor="start" fill="#0f172a" font-size="12.0">vector_graphics_compiler</text>
-<text x="732.0" y="4972.0" text-anchor="end" fill="#334155" font-size="12.0">^1.2.1</text>
+<text x="732.0" y="4972.0" text-anchor="end" fill="#334155" font-size="12.0">^1.2.2</text>
 <g class="badge incomingBadge">
   <path d="M 466.0,4968.0 L 454.0,4961.0 Q 451.0,4961.0 451.0,4964.0 L 451.0,4972.0 Q 451.0,4975.0 454.0,4975.0 Z" fill="#3b82f6"/>
   <text x="455.68" y="4969.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text></g>

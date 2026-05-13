@@ -441,6 +441,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filter => 'filter';
 
   @override
+  String get findMissingTransfers => 'Find missing transfers';
+
+  @override
   String get fmoney => 'fMoney';
 
   @override
@@ -508,6 +511,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get includeAssetAccounts => 'Include Asset Accounts';
+
+  @override
+  String get includeClosedAccountsInFinder => 'Include closed accounts';
 
   @override
   String get incomeLabel => 'Income';
@@ -581,6 +587,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loss => 'Loss';
+
+  @override
+  String get magicWand => 'Magic wand';
 
   @override
   String get maintenance => 'Maintenance';
@@ -819,7 +828,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String noneWithTitle(String title) {
-    return 'None @title';
+    return 'None $title';
   }
 
   @override
@@ -885,6 +894,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageNameLabel => 'Package Name';
+
+  @override
+  String get pauseSearch => 'Pause';
 
   @override
   String get payee => 'Payee';
@@ -953,6 +965,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get policy => 'Policy';
+
+  @override
+  String get possibleTransferMatches => 'Possible transfer matches';
 
   @override
   String get preview => 'Preview';
@@ -1027,6 +1042,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requestWasCancelled => 'Request was cancelled.';
 
   @override
+  String get resumeSearch => 'Resume';
+
+  @override
   String rowIndex(String index) {
     return 'Row $index';
   }
@@ -1048,6 +1066,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchForPayee => 'Search for Payee';
+
+  @override
+  String get searchingTransferMatches => 'Searching transfer matches...';
 
   @override
   String securitySymbolInvalid(String symbol) {
@@ -1269,6 +1290,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get transfersBetweenAccountsDescription => 'Transfers between accounts.';
+
+  @override
+  String get transferScanPaused => 'Transfer search paused';
+
+  @override
+  String get transferScanReady => 'Start transfer matching when ready';
+
+  @override
+  String transferScanSummary(String candidates, String accounts) {
+    return 'Found $candidates possible transfer in $accounts transactions';
+  }
 
   @override
   String get trend => 'Trend';

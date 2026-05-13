@@ -885,6 +885,12 @@ abstract class AppLocalizations {
   /// **'filter'**
   String get filter;
 
+  /// No description provided for @findMissingTransfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Find missing transfers'**
+  String get findMissingTransfers;
+
   /// REVIEWED
   ///
   /// In en, this message translates to:
@@ -1010,6 +1016,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Include Asset Accounts'**
   String get includeAssetAccounts;
+
+  /// No description provided for @includeClosedAccountsInFinder.
+  ///
+  /// In en, this message translates to:
+  /// **'Include closed accounts'**
+  String get includeClosedAccountsInFinder;
 
   /// No description provided for @incomeLabel.
   ///
@@ -1154,6 +1166,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loss'**
   String get loss;
+
+  /// No description provided for @magicWand.
+  ///
+  /// In en, this message translates to:
+  /// **'Magic wand'**
+  String get magicWand;
 
   /// REVIEWED
   ///
@@ -1590,7 +1608,7 @@ abstract class AppLocalizations {
   /// No description provided for @noneWithTitle.
   ///
   /// In en, this message translates to:
-  /// **'None @title'**
+  /// **'None {title}'**
   String noneWithTitle(String title);
 
   /// No description provided for @noPicker.
@@ -1718,6 +1736,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Package Name'**
   String get packageNameLabel;
+
+  /// No description provided for @pauseSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pauseSearch;
 
   /// No description provided for @payee.
   ///
@@ -1850,6 +1874,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Policy'**
   String get policy;
+
+  /// No description provided for @possibleTransferMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible transfer matches'**
+  String get possibleTransferMatches;
 
   /// No description provided for @preview.
   ///
@@ -1989,6 +2019,12 @@ abstract class AppLocalizations {
   /// **'Request was cancelled.'**
   String get requestWasCancelled;
 
+  /// No description provided for @resumeSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resumeSearch;
+
   /// No description provided for @rowIndex.
   ///
   /// In en, this message translates to:
@@ -2030,6 +2066,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for Payee'**
   String get searchForPayee;
+
+  /// No description provided for @searchingTransferMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching transfer matches...'**
+  String get searchingTransferMatches;
 
   /// No description provided for @securitySymbolInvalid.
   ///
@@ -2438,6 +2480,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transfers between accounts.'**
   String get transfersBetweenAccountsDescription;
+
+  /// No description provided for @transferScanPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer search paused'**
+  String get transferScanPaused;
+
+  /// No description provided for @transferScanReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Start transfer matching when ready'**
+  String get transferScanReady;
+
+  /// No description provided for @transferScanSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Found {candidates} possible transfer in {accounts} transactions'**
+  String transferScanSummary(String candidates, String accounts);
 
   /// No description provided for @trend.
   ///

@@ -443,6 +443,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get filter => 'Filtro';
 
   @override
+  String get findMissingTransfers => 'Encontrar transferencias faltantes';
+
+  @override
   String get fmoney => 'fMoney';
 
   @override
@@ -510,6 +513,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get includeAssetAccounts => 'Incluir cuentas de activos';
+
+  @override
+  String get includeClosedAccountsInFinder => 'Incluir cuentas cerradas';
 
   @override
   String get incomeLabel => 'Ingreso';
@@ -584,6 +590,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get loss => 'Perdida';
+
+  @override
+  String get magicWand => 'Varita magica';
 
   @override
   String get maintenance => 'Mantenimiento';
@@ -824,7 +833,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String noneWithTitle(String title) {
-    return 'Ninguno @title';
+    return 'Ninguno $title';
   }
 
   @override
@@ -890,6 +899,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get packageNameLabel => 'Nombre del paquete';
+
+  @override
+  String get pauseSearch => 'Pausar';
 
   @override
   String get payee => 'Beneficiario';
@@ -958,6 +970,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get policy => 'Política';
+
+  @override
+  String get possibleTransferMatches => 'Posibles coincidencias de transferencias';
 
   @override
   String get preview => 'Vista previa';
@@ -1032,6 +1047,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get requestWasCancelled => 'La solicitud fue cancelada.';
 
   @override
+  String get resumeSearch => 'Reanudar';
+
+  @override
   String rowIndex(String index) {
     return 'Fila $index';
   }
@@ -1053,6 +1071,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get searchForPayee => 'Buscar beneficiario';
+
+  @override
+  String get searchingTransferMatches => 'Buscando coincidencias de transferencias...';
 
   @override
   String securitySymbolInvalid(String symbol) {
@@ -1275,6 +1296,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get transfersBetweenAccountsDescription => 'Transferencias entre cuentas.';
+
+  @override
+  String get transferScanPaused => 'Busqueda de transferencias en pausa';
+
+  @override
+  String get transferScanReady => 'Inicia la busqueda de transferencias cuando estes listo';
+
+  @override
+  String transferScanSummary(String candidates, String accounts) {
+    return 'Se encontraron $candidates posibles transferencias en $accounts transacciones';
+  }
 
   @override
   String get trend => 'Tendencia';

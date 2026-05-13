@@ -279,6 +279,7 @@
   "fileLocationNotSupportedOnMobile": "Opening the file location is only supported on desktop platforms.",
   "fileMenuTooltip": "File menu",
   "filter": "filter",
+  "findMissingTransfers": "Find missing transfers",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -333,6 +334,7 @@
   "importTransactionToAccount": "Import transaction to account",
   "importWord": "Import",
   "includeAssetAccounts": "Include Asset Accounts",
+  "includeClosedAccountsInFinder": "Include closed accounts",
   "incomeLabel": "Income",
   "incomes": "Incomes",
   "info": "Info",
@@ -375,6 +377,7 @@
   "@loss": {
     "description": "REVIEWED"
   },
+  "magicWand": "Magic wand",
   "maintenance": "Maintenance",
   "@maintenance": {
     "description": "REVIEWED"
@@ -540,7 +543,7 @@
     "description": "REVIEWED"
   },
   "noneLabel": "None",
-  "noneWithTitle": "None @title",
+  "noneWithTitle": "None {title}",
   "@noneWithTitle": {
     "placeholders": {
       "title": {
@@ -572,6 +575,7 @@
   "optional": "optional",
   "orChangeToCategory": "or change to category",
   "packageNameLabel": "Package Name",
+  "pauseSearch": "Pause",
   "payee": "Payee",
   "payeeAliasesDescription": "Payee aliases.",
   "payeeMatch": "Payee Match",
@@ -622,6 +626,7 @@
     "description": "REVIEWED"
   },
   "policy": "Policy",
+  "possibleTransferMatches": "Possible transfer matches",
   "preview": "Preview",
   "price": "Price",
   "privacyPolicy": "Privacy Policy",
@@ -664,6 +669,7 @@
     "description": "REVIEWED"
   },
   "requestWasCancelled": "Request was cancelled.",
+  "resumeSearch": "Resume",
   "rowIndex": "Row {index}",
   "@rowIndex": {
     "placeholders": {
@@ -681,6 +687,7 @@
   "saveToSql": "Save to SQL",
   "savingLabel": "Saving",
   "searchForPayee": "Search for Payee",
+  "searchingTransferMatches": "Searching transfer matches...",
   "securitySymbolInvalid": "Security \"{symbol}\" is not valid",
   "@securitySymbolInvalid": {
     "placeholders": {
@@ -847,6 +854,19 @@
   "transfer": "Transfer",
   "transfers": "Transfers",
   "transfersBetweenAccountsDescription": "Transfers between accounts.",
+  "transferScanPaused": "Transfer search paused",
+  "transferScanReady": "Start transfer matching when ready",
+  "transferScanSummary": "Found {candidates} possible transfer in {accounts} transactions",
+  "@transferScanSummary": {
+    "placeholders": {
+      "candidates": {
+        "type": "String"
+      },
+      "accounts": {
+        "type": "String"
+      }
+    }
+  },
   "trend": "Trend",
   "units": "Units",
   "unknown": "Unknown",

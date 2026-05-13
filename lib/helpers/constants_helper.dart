@@ -52,6 +52,7 @@ class Constants {
   static const int commandInstallPlatforms = 1300;
   static const int commandTextZoom = 1000;
   static const int commandAbout = 1600;
+  static const int flex2x = 2;
 
   static const int sidePanelHeightCollapsedDefault = 52;
   static const int sidePanelHeightExpandedDefault = 380;
