@@ -303,6 +303,85 @@ class BankStatementPdfService {
       );
     }
 
+    final List<BankStatementTransactionRecord> multilineRecords = _extractTransactionsFromSplitRows(
+      lines: lines,
+      fallbackYear: fallbackYear,
+      dedupeKeys: dedupeKeys,
+    );
+    records.addAll(multilineRecords);
+
+    return records;
+  }
+
+  /// Extracts transactions from statements that split rows into two lines: posting date/ref then value-date/details.
+  List<BankStatementTransactionRecord> _extractTransactionsFromSplitRows({
+    required final List<String> lines,
+    required final int fallbackYear,
+    required final Set<String> dedupeKeys,
+  }) {
+    final RegExp postingDateRefPattern = RegExp(r'^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s+\d+\s*$');
+    final RegExp leadingDatePattern = RegExp(r'^(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\s+');
+    final RegExp amountPattern = RegExp(r'[+\-]?\$?(?:\d{1,3}(?:[.,]\d{3})+|\d+)(?:[.,]\d{2,3})');
+
+    final List<BankStatementTransactionRecord> records = <BankStatementTransactionRecord>[];
+
+    for (int lineIndex = 0; lineIndex < lines.length - 1; lineIndex = lineIndex + 1) {
+      final String postingLine = lines[lineIndex].replaceAll(RegExp(r'\s+'), ' ').trim();
+      final String detailsLine = lines[lineIndex + 1].replaceAll(RegExp(r'\s+'), ' ').trim();
+
+      if (!postingDateRefPattern.hasMatch(postingLine)) {
+        continue;
+      }
+
+      final RegExpMatch? dateMatch = leadingDatePattern.firstMatch(detailsLine);
+      if (dateMatch == null) {
+        continue;
+      }
+
+      final String dateToken = dateMatch.group(1) ?? '';
+      final DateTime? date = _parseDateToken(dateToken, fallbackYear);
+      if (date == null) {
+        continue;
+      }
+
+      final List<RegExpMatch> amountMatches = amountPattern.allMatches(detailsLine).toList();
+      if (amountMatches.length < 2) {
+        continue;
+      }
+
+      // Last amount is usually running balance; second to last is transaction amount.
+      final RegExpMatch transactionAmountMatch = amountMatches[amountMatches.length - 2];
+      final String amountToken = transactionAmountMatch.group(0) ?? '';
+      if (_parseAmountToken(amountToken) == null) {
+        continue;
+      }
+
+      final int descriptionStart = dateMatch.end;
+      final int descriptionEnd = transactionAmountMatch.start;
+      if (descriptionEnd <= descriptionStart) {
+        continue;
+      }
+
+      final String description = detailsLine.substring(descriptionStart, descriptionEnd).trim();
+      if (description.isEmpty || _isSummaryDescription(description)) {
+        continue;
+      }
+
+      final String dedupeKey = '${date.toIso8601String()}|${description.toLowerCase()}|$amountToken';
+      if (dedupeKeys.contains(dedupeKey)) {
+        continue;
+      }
+
+      dedupeKeys.add(dedupeKey);
+      records.add(
+        BankStatementTransactionRecord(
+          date: date,
+          description: description,
+          amount: amountToken,
+        ),
+      );
+    }
+
     return records;
   }
 

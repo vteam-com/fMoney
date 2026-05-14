@@ -995,7 +995,7 @@
   <text x="284.32" y="1518.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text></g>
 <rect x="280.0" y="1560.0" width="200.0" height="46.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
 <text x="380.0" y="1580.0" text-anchor="middle" fill="#0f172a" font-size="13.0">pdfrx</text>
-<text x="380.0" y="1593.0" text-anchor="middle" fill="#334155" font-size="10.0">v2.3.3</text>
+<text x="380.0" y="1593.0" text-anchor="middle" fill="#334155" font-size="10.0">v2.3.4</text>
 <g class="badge outgoingBadge">
   <path d="M 274.0,1583.0 L 286.0,1576.0 Q 289.0,1576.0 289.0,1579.0 L 289.0,1587.0 Q 289.0,1590.0 286.0,1590.0 Z" fill="#10b981"/>
   <text x="284.32" y="1584.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text></g>

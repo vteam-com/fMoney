@@ -327,12 +327,59 @@ PDF_TEXT_END
         return _parseTransactionsFromOllama(transactions);
       }
 
+      final List<BankStatementTransactionRecord> parallelArrayTransactions = _parseTransactionsFromParallelArrays(
+        decoded,
+      );
+      if (parallelArrayTransactions.isNotEmpty) {
+        return parallelArrayTransactions;
+      }
+
       if (decoded.containsKey('date') || decoded.containsKey('description') || decoded.containsKey('amount')) {
         return _parseTransactionsFromOllama(<dynamic>[decoded]);
       }
     }
 
     return <BankStatementTransactionRecord>[];
+  }
+
+  /// Parses Ollama responses where fields are returned as parallel arrays (date[], description[], amount[]).
+  List<BankStatementTransactionRecord> _parseTransactionsFromParallelArrays(final Map<String, dynamic> decoded) {
+    final dynamic rawDates = decoded['date'];
+    final dynamic rawDescriptions = decoded['description'];
+    final dynamic rawAmounts = decoded['amount'];
+
+    if (rawDates is! List<dynamic> || rawDescriptions is! List<dynamic> || rawAmounts is! List<dynamic>) {
+      return <BankStatementTransactionRecord>[];
+    }
+
+    final int rowCount = <int>[
+      rawDates.length,
+      rawDescriptions.length,
+      rawAmounts.length,
+    ].reduce((final int a, final int b) => a < b ? a : b);
+    if (rowCount == 0) {
+      return <BankStatementTransactionRecord>[];
+    }
+
+    final List<BankStatementTransactionRecord> transactions = <BankStatementTransactionRecord>[];
+    for (int index = 0; index < rowCount; index = index + 1) {
+      final DateTime? date = _parseDateFromDynamic(rawDates[index]);
+      final String description = rawDescriptions[index].toString().trim();
+      final String amountText = rawAmounts[index].toString().trim();
+      if (date == null || description.isEmpty || amountText.isEmpty) {
+        continue;
+      }
+
+      transactions.add(
+        BankStatementTransactionRecord(
+          date: date,
+          description: description,
+          amount: amountText,
+        ),
+      );
+    }
+
+    return transactions;
   }
 
   /// Extracts a likely ISO-4217 currency code from decoded Ollama payload [decoded].

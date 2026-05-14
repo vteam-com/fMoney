@@ -76,6 +76,33 @@ Date Ref Value Dat. Description Debit (-)
       expect(result.transactions[4].amount, '74,974');
     });
 
+    test('parses Bankinter-style two-line rows with posting line and details line', () {
+      const BankStatementPdfService service = BankStatementPdfService();
+
+      final BankStatementParseResult result = service.parseExtractedText(
+        rawText: '''
+Date Ref Value Dat. Description Debit (-) Credit (+) Balance
+03-03-25 824
+01-03-25 VISA CLASSIC BILL 322,32 355.958,36
+03-03-25 825
+01-03-25 VISA CLASSIC BILL 1.795,33 354.163,03
+04-03-25 611
+04-03-25 DEBIT /O2 FIBRA 97,28 354.065,75
+26-03-25 150
+26-03-25 TRANS OTH COMP Rent Matosinhos 1.550,00 322.031,36
+''',
+        filePath: '/tmp/statement.pdf',
+      );
+
+      expect(result.transactions.length, 4);
+      expect(result.transactions[0].description, 'VISA CLASSIC BILL');
+      expect(result.transactions[0].amount, '322,32');
+      expect(result.transactions[1].amount, '1.795,33');
+      expect(result.transactions[2].description, 'DEBIT /O2 FIBRA');
+      expect(result.transactions[3].description, 'TRANS OTH COMP Rent Matosinhos');
+      expect(result.transactions[3].amount, '1.550,00');
+    });
+
     group('dot-separated dates', () {
       test('YYYY-MM-DD with spaced thousands not matched by fallback regex', () {
         const BankStatementPdfService service = BankStatementPdfService();
