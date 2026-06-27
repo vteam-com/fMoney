@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:money/helpers/generated_app_version_data.dart';
 
 const String _appIconAssetPath = 'assets/main_icon.png';
 
@@ -15,13 +15,6 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  PackageInfo? _packageInfo;
-  @override
-  void initState() {
-    super.initState();
-    _loadPackageInfo();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,17 +133,8 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   /// Builds the version information section displaying app version,
-  /// build number, and package name. Shows a loading indicator
-  /// when package information is not yet available.
+  /// build number, and package name.
   Widget _buildVersionInfo() {
-    if (_packageInfo == null) {
-      return _buildSectionCard(
-        children: const <Widget>[
-          CircularProgressIndicator(),
-        ],
-      );
-    }
-
     return _buildSectionCard(
       children: <Widget>[
         Text(
@@ -158,18 +142,17 @@ class _AboutPageState extends State<AboutPage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: Constants.aboutVersionSpacing),
-        _buildInfoRow(AppL10n.tr(AppTranslationKeys.versionLabel), _packageInfo!.version),
-        _buildInfoRow(AppL10n.tr(AppTranslationKeys.buildNumberLabel), _packageInfo!.buildNumber),
-        _buildInfoRow(AppL10n.tr(AppTranslationKeys.packageNameLabel), _packageInfo!.packageName),
+        _buildInfoRow(AppL10n.tr(AppTranslationKeys.versionLabel), GeneratedAppVersionData.version),
+        _buildInfoRow(
+          AppL10n.tr(AppTranslationKeys.buildNumberLabel),
+          GeneratedAppVersionData.buildNumber,
+        ),
+        _buildInfoRow(
+          AppL10n.tr(AppTranslationKeys.packageNameLabel),
+          GeneratedAppVersionData.packageName,
+        ),
       ],
     );
-  }
-
-  Future<void> _loadPackageInfo() async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
   }
 
   /// Dislay the 3rd party dependencies
@@ -177,7 +160,7 @@ class _AboutPageState extends State<AboutPage> {
     showLicensePage(
       context: context,
       applicationName: AppL10n.tr(AppTranslationKeys.appName),
-      applicationVersion: _packageInfo?.version ?? AppL10n.tr(AppTranslationKeys.unknown),
+      applicationVersion: GeneratedAppVersionData.version,
       applicationIcon: Image.asset(
         _appIconAssetPath,
         width: Constants.aboutLicenseIconSize,

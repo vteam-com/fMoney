@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/views/screens/about_screen.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 void main() {
   group('About Page Tests', () {
-    setUp(() async {
-      // Mock package info
-      PackageInfo.setMockInitialValues(
-        appName: 'fMoney',
-        packageName: 'com.example.fmoney',
-        version: '1.16.02',
-        buildNumber: '1',
-        buildSignature: '',
-      );
-    });
-
     testWidgets('About page renders without crashing', (WidgetTester tester) async {
       // Build the about page
       await tester.pumpWidget(
@@ -33,26 +21,24 @@ void main() {
       expect(find.byType(SingleChildScrollView), findsOneWidget, reason: 'Should be scrollable');
     });
 
-    testWidgets('About page shows loading indicator initially', (WidgetTester tester) async {
-      // Don't set mock package info to test loading state
+    testWidgets('About page shows static version information immediately', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: AboutPage(),
         ),
       );
 
-      // Should show loading indicator initially
+      // Static version data should render without async loading.
       expect(
         find.byType(CircularProgressIndicator),
-        findsOneWidget,
-        reason: 'Should show loading indicator before package info loads',
+        findsNothing,
+        reason: 'Should not show loading indicator when version data is generated at build time',
       );
 
-      // Wait for package info to load
+      // Wait for frame completion.
       await tester.pumpAndSettle();
 
-      // Should still render without crashing
-      expect(find.byType(AboutPage), findsOneWidget, reason: 'About page should render after loading');
+      expect(find.byType(AboutPage), findsOneWidget, reason: 'About page should render');
     });
 
     testWidgets('About page has correct structure with cards', (WidgetTester tester) async {
@@ -110,7 +96,7 @@ void main() {
       expect(appBar.title, isNotNull, reason: 'AppBar should have a title');
     });
 
-    testWidgets('About page handles package info correctly', (WidgetTester tester) async {
+    testWidgets('About page renders version information card', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: AboutPage(),
@@ -119,11 +105,11 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Should not show loading indicator after package info loads
+      // Static data should never show an async loading indicator.
       expect(
         find.byType(CircularProgressIndicator),
         findsNothing,
-        reason: 'Should not show loading indicator after package info loads',
+        reason: 'Should not show loading indicator',
       );
 
       // Should render version information section
