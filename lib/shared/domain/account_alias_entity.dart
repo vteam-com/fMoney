@@ -21,7 +21,6 @@ class AccountAlias extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  @override
   factory AccountAlias.fromJson(final MyJson row) {
     return AccountAlias()
       ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
