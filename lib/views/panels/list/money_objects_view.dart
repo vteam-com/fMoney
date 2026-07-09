@@ -22,6 +22,8 @@ import 'package:money/shared/presentation/widgets/money_object_card_widget.dart'
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/layout/side_panel_widget.dart';
 import 'package:money/views/panels/list/money_objects_footer_helper.dart';
+import 'package:money/views/panels/list/money_objects_view_builders_helper.dart';
+import 'package:money/views/panels/list/money_objects_view_selection_helper.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/confirmation_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
@@ -31,7 +33,6 @@ import 'package:money/widgets/list/column_filter_panel.dart';
 import 'package:money/widgets/list/multiple_selection_context_model.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/pure/working_indicator_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
@@ -304,9 +305,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         getPreferenceKey(settingKeyFiltersColumns),
       );
       _filterByFieldsValue = FieldFilters.fromJsonString(filtersAsJSonString);
-    } catch (error) {
+    } catch (error, stackTrace) {
       if (kDebugMode) {
-        print(error.toString());
+        debugPrint('Failed to restore column filters: $error');
+        debugPrintStack(stackTrace: stackTrace);
       }
     }
 
@@ -425,15 +427,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Returns the first selected item from the selected items list.
   DataObject? getFirstSelectedItem() {
-    if (_selectedItemsByUniqueId.value.isNotEmpty) {
-      final int? firstId = _selectedItemsByUniqueId.value.firstOrNull;
-      if (firstId != null) {
-        return list.firstWhereOrNull(
-          (DataObject moneyObject) => moneyObject.uniqueId == firstId,
-        );
-      }
-    }
-    return null;
+    return getFirstSelectedMoneyObject<DataObject>(
+      _selectedItemsByUniqueId.value,
+      list,
+    );
   }
 
   /// Returns the first selected item from a specific selected list.
@@ -461,16 +458,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   List<DataObject> getSelectedItemsFromSelectedList(
     final List<int> selectedList,
   ) {
-    if (selectedList.isEmpty) {
-      return <DataObject>[];
-    }
-
-    final Set<int> selectedIds = selectedList.toSet();
-    return list
-        .where(
-          (DataObject moneyObject) => selectedIds.contains(moneyObject.uniqueId),
-        )
-        .toList();
+    return getSelectedMoneyObjectsFromIds(selectedList, list);
   }
 
   /// Returns the last selected item from the side panel list.
@@ -542,20 +530,18 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Returns the unique ID of the first selected item.
   int? getUniqueIdOfFirstSelectedItem() {
-    return _selectedItemsByUniqueId.value.firstOrNull;
+    return getFirstSelectedMoneyObjectId(_selectedItemsByUniqueId.value);
   }
 
   /// Returns true if the data instance matches current filters.
   bool isMatchingFilters(final DataInterface instance) {
-    if (areFiltersOn()) {
-      // apply filtering
-      return _fieldToDisplay.applyFilters(
-        instance,
-        _filterByText,
-        _filterByFieldsValue,
-      );
-    }
-    return true;
+    return isMoneyObjectMatchingFilters(
+      areFiltersOn: areFiltersOn(),
+      fieldToDisplay: _fieldToDisplay,
+      instance: instance,
+      filterByText: _filterByText,
+      filterByFieldsValue: _filterByFieldsValue,
+    );
   }
 
   /// Copies the main view list to clipboard as CSV.
@@ -729,15 +715,21 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     preferenceController.setString(
       getPreferenceKey(settingKeyFilterText),
       _filterByText,
+      true,
     );
+
+    final String serializedColumnFilters = _filterByFieldsValue.isEmpty ? '' : _filterByFieldsValue.toJsonString();
     preferenceController.setString(
       getPreferenceKey(settingKeyFiltersColumns),
-      _filterByFieldsValue.toJsonString(),
+      serializedColumnFilters,
+      true,
     );
   }
 
   /// Sets the selected item by unique ID and updates UI state.
   void setSelectedItem(final int uniqueId) {
+    _lastSelectedItemId = uniqueId;
+
     // This will cause a UI update and the bottom details will get rendered if its expanded
     setState(() {
       //
@@ -783,50 +775,22 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     });
   }
 
-  Widget _buildCenterMessageForEmptyList(final Key key) {
-    return buildCenterMessageForEmptyListUi(
+  /// Builds the empty-state UI for this view.
+  Widget _buildInformUserOfEmptyList(final Key key) {
+    return buildMoneyObjectsEmptyState(
       key: key,
       classNamePlural: getClassNamePlural(),
-    );
-  }
-
-  /// Builds a message explaining that filters resulted in an empty list.
-  Widget _buildCenterMessageForEmptyListDueToFilters(final Key key) {
-    return buildCenterMessageForEmptyListDueToFiltersUi(
-      key: key,
-      classNamePlural: getClassNamePlural(),
+      areFiltersOn: areFiltersOn(),
       filterByText: _filterByText,
       filterByFieldsValue: _filterByFieldsValue,
-      onClearFilters: () {
-        setState(() {
-          _resetFiltersAndGetList();
-        });
-      },
-    );
-  }
-
-  /// Builds the empty-state UI for this view.
-  Widget _buildInformUserOfEmptyList(Key key) {
-    return Column(
-      children: <Widget>[
-        buildHeader(),
-        Expanded(
-          child: areFiltersOn()
-              ? _buildCenterMessageForEmptyListDueToFilters(key)
-              : _buildCenterMessageForEmptyList(key),
-        ),
-      ],
+      onClearFilters: _clearFiltersFromEmptyState,
+      header: buildHeader(),
     );
   }
 
   /// Builds the loading state UI for this view.
   Widget _buildLoadingScreen() {
-    return Column(
-      children: <Widget>[
-        buildHeader(),
-        const Expanded(child: WorkingIndicator()),
-      ],
-    );
+    return buildMoneyObjectsLoadingScreen(header: buildHeader());
   }
 
   /// Changes sort order based on the tapped column and persists the choice.
@@ -841,6 +805,13 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
       // Persist users choice
       saveLastUserChoicesOfView();
+    });
+  }
+
+  /// Clears filters from empty-state UI action and refreshes the list.
+  void _clearFiltersFromEmptyState() {
+    setState(() {
+      _resetFiltersAndGetList();
     });
   }
 
@@ -948,12 +919,5 @@ T? getMoneyObjectFromFirstSelectedId<T>(
   final List<int> selectedIds,
   final List<dynamic> listOfItems,
 ) {
-  if (selectedIds.isNotEmpty) {
-    final int id = selectedIds.first;
-    return listOfItems.firstWhereOrNull(
-          (final dynamic element) => (element as DataObject).uniqueId == id,
-        )
-        as T?;
-  }
-  return null;
+  return getMoneyObjectFromFirstSelectedIdInList<T>(selectedIds, listOfItems);
 }

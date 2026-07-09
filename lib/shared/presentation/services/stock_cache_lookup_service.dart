@@ -229,14 +229,17 @@ Future<void> _saveToCache(final String symbol, List<StockDatePrice> prices) asyn
 
   // Also save to the last price to the Security table
   final Security? security = Data().securities.getBySymbol(symbol);
-  if (security != null) {
-    if (security.fieldPriceDate.value == null || prices.first.date.isAfter(security.fieldPriceDate.value!)) {
+  if (security != null && prices.isNotEmpty) {
+    final StockDatePrice latestPrice = prices.reduce(
+      (StockDatePrice a, StockDatePrice b) => a.date.isAfter(b.date) ? a : b,
+    );
+    if (security.fieldPriceDate.value == null || latestPrice.date.isAfter(security.fieldPriceDate.value!)) {
       // update to the last known stock price
 
       security.stashValueBeforeEditing();
-      security.fieldPrice.setValue!(security, prices.first.price);
-      security.fieldLastPrice.setValue!(security, prices.first.price);
-      security.fieldPriceDate.setValue!(security, prices.first.date);
+      security.fieldPrice.setValue!(security, latestPrice.price);
+      security.fieldLastPrice.setValue!(security, latestPrice.price);
+      security.fieldPriceDate.setValue!(security, latestPrice.date);
       Data().notifyMutationChanged(
         mutation: MutationType.changed,
         moneyObject: security,

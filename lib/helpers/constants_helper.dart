@@ -187,7 +187,7 @@ class IntValues {
   /// Returns minimum signed integer value for specified bit count.
   static int minSigned(int bitCount) {
     RangeError.checkValueInInterval(bitCount, minBitCount, maxBitCount);
-    return (-1 << (bitCount - 1)) - 1;
+    return -1 << (bitCount - 1);
   }
 }
 

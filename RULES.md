@@ -10,6 +10,11 @@ Use named constants in `lib/helpers/constants.dart` or a dedicated size/const cl
 
 Prefer one primary class per file.
 
+## Avoid extensions
+
+Prefer top-level helpers, dedicated helper classes, or clearly-scoped instance methods over extension methods.
+Do not use extensions to split large files; move shared behavior into subfiles instead.
+
 ### Class for stateful Widget should use a private _ prefix
 
 - MyWidget
