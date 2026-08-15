@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -19,6 +21,9 @@ import 'package:window_manager/window_manager.dart';
 
 /// Represents my window manager.
 class MyWindowManager extends WindowListener {
+  /// Keeps the exit-request lifecycle listener alive for the app's lifetime.
+  static AppLifecycleListener? _lifecycleListener;
+
   /// Sets up main window with platform-specific optimizations.
   static Future<void> setupMainWindow() async {
     if (!kIsWeb) {
@@ -49,6 +54,11 @@ class MyWindowManager extends WindowListener {
         await windowManager.setPreventClose(true);
 
         windowManager.addListener(MyWindowManager());
+
+        // Handle Cmd-Q / OS-initiated quit through Flutter's cooperative exit
+        // handshake: save state while the engine is still alive, then let the
+        // termination proceed normally.
+        _lifecycleListener ??= AppLifecycleListener(onExitRequested: _onExitRequested);
 
         await MyWindowManager.restoreWindowState();
       }
@@ -119,9 +129,25 @@ class MyWindowManager extends WindowListener {
       // Prevent the close, do your save logic first
       await saveWindowState();
 
+      // Stop intercepting so the terminate-driven window close proceeds
+      // without re-entering this handler on an engine that is shutting down.
+      await windowManager.setPreventClose(false);
+
       // Then actually destroy the window
       await windowManager.destroy();
     }
+  }
+
+  /// Saves window state during the app-exit handshake (Cmd-Q, OS quit) while
+  /// the engine is still alive, then allows the termination to proceed.
+  static Future<AppExitResponse> _onExitRequested() async {
+    await saveWindowState();
+
+    // Let the OS close the window during termination without the
+    // prevent-close interception firing on a dying engine.
+    await windowManager.setPreventClose(false);
+
+    return AppExitResponse.exit;
   }
 
   /// Sets the application window size.
