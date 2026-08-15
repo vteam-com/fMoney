@@ -109,7 +109,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
     _configureSplitPanelAreas();
 
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints _) {
+      builder: (BuildContext context, BoxConstraints _) {
         final bool displayAsColumns = context.isWidthSmall == false;
 
         return Focus(
@@ -122,9 +122,9 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
             valueListenable: widget.selectedItemsByUniqueId,
             builder:
                 (
-                  final BuildContext _,
-                  final List<int> selectedItems,
-                  final _,
+                  BuildContext _,
+                  List<int> selectedItems,
+                  _,
                 ) {
                   keepUnused(selectedItems);
                   return MultiSplitView(
@@ -143,7 +143,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
   }
 
   /// Builds the top section widget containing title and content.
-  Widget topSection(final bool displayAsColumns) {
+  Widget topSection(bool displayAsColumns) {
     return Column(
       children: <Widget>[
         // Top - Title area

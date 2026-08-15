@@ -29,7 +29,7 @@ class AppTitle extends StatelessWidget {
     final DataFileController dataController = DataFileController.to;
 
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints _) {
+      builder: (BuildContext context, BoxConstraints _) {
         if (context.isWidthSmall) {
           return _buildCompactTitle(context, dataController);
         }
@@ -64,8 +64,8 @@ class AppTitle extends StatelessWidget {
 
   /// Builds the compact app title layout for small-width surfaces.
   Widget _buildCompactTitle(
-    final BuildContext context,
-    final DataFileController dataController,
+    BuildContext context,
+    DataFileController dataController,
   ) {
     return Row(
       children: <Widget>[
@@ -93,7 +93,7 @@ class AppTitle extends StatelessWidget {
   }
 
   /// Builds the net worth reveal/toggle widget.
-  Widget _buildNetWorthToggle(final BuildContext context) {
+  Widget _buildNetWorthToggle(BuildContext context) {
     return RevealContent(
       textForClipboard: netWorth.toString(),
       widgets: <Widget>[
@@ -107,9 +107,9 @@ class AppTitle extends StatelessWidget {
 
 /// Builds a single reveal option row for [RevealContent].
 Widget _buildRevealContentOption(
-  final BuildContext context,
+  BuildContext context,
   String text,
-  final bool hidden,
+  bool hidden,
 ) {
   final Color color = getColorTheme(context).onSurface;
   final TextStyle textStyle = TextStyle(

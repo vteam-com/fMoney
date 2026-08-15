@@ -22,22 +22,22 @@ enum InvestmentType {
 }
 
 /// Returns investment type text as uppercase string.
-String getInvestmentTypeText(final InvestmentType type) {
+String getInvestmentTypeText(InvestmentType type) {
   return type.name.toUpperCase();
 }
 
 /// Returns investment type text from integer value.
-String getInvestmentTypeTextFromValue(final int value) {
+String getInvestmentTypeTextFromValue(int value) {
   return getInvestmentTypeText(getInvestmentTypeFromValue(value));
 }
 
 /// Returns InvestmentType from integer value.
-InvestmentType getInvestmentTypeFromValue(final int value) {
+InvestmentType getInvestmentTypeFromValue(int value) {
   return InvestmentType.values[value];
 }
 
 /// Returns InvestmentType from string name.
-InvestmentType getInvestmentTypeFromText(final String name) {
+InvestmentType getInvestmentTypeFromText(String name) {
   return InvestmentType.values.byName(name);
 }
 
@@ -57,17 +57,17 @@ enum InvestmentTradeType {
 }
 
 /// Returns investment trade type text as uppercase string.
-String getInvestmentTradeTypeText(final InvestmentTradeType type) {
+String getInvestmentTradeTypeText(InvestmentTradeType type) {
   return type.name.toUpperCase();
 }
 
 /// Returns InvestmentTradeType from integer value.
-InvestmentTradeType getInvestmentTradeTypeFromValue(final int value) {
+InvestmentTradeType getInvestmentTradeTypeFromValue(int value) {
   return InvestmentTradeType.values[value];
 }
 
 /// Returns InvestmentTradeType from string name.
-InvestmentTradeType getInvestmentTradeTypeFromText(final String name) {
+InvestmentTradeType getInvestmentTradeTypeFromText(String name) {
   return InvestmentTradeType.values.byName(name);
 }
 
@@ -77,7 +77,7 @@ List<String> getInvestmentTradeTypeNames() {
 }
 
 /// Converts InvestmentType to InvestmentTradeType.
-InvestmentTradeType fromInvestmentType(final InvestmentType type) {
+InvestmentTradeType fromInvestmentType(InvestmentType type) {
   switch (type) {
     case InvestmentType.buy:
     case InvestmentType.add:

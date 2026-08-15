@@ -17,7 +17,7 @@ class MyCircle extends StatelessWidget {
   final double size;
 
   @override
-  Widget build(final BuildContext context) => MyRectangle(
+  Widget build(BuildContext context) => MyRectangle(
     key: key,
     shape: BoxShape.circle,
     colorFill: colorFill,

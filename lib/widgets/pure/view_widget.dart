@@ -25,9 +25,9 @@ abstract class ViewWidget extends StatefulWidget {
 /// Base state class for [ViewWidget] providing common layout structure.
 abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (final BuildContext _, final BoxConstraints _) {
+      builder: (BuildContext _, BoxConstraints _) {
         return Column(
           children: <Widget>[
             buildHeader(),
@@ -39,8 +39,8 @@ abstract class ViewWidgetState<T extends ViewWidget> extends State<T> {
   }
 
   /// Builds the header widget with optional child.
-  Widget buildHeader([final Widget? child]);
+  Widget buildHeader([Widget? child]);
 
   /// Builds the main view content widget.
-  Widget buildViewContent(final Widget child);
+  Widget buildViewContent(Widget child);
 }

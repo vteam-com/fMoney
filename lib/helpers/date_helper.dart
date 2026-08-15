@@ -96,7 +96,7 @@ bool doesDateFormatWorkOnThisString(String format, String dateString) {
 }
 
 /// Attempts to parse DateTime from dynamic value.
-DateTime? attemptToGetDateFromDynamic(final dynamic value) {
+DateTime? attemptToGetDateFromDynamic(dynamic value) {
   if (value is DateTime) {
     return value;
   } else if (value is String) {
@@ -131,7 +131,7 @@ DateTime? attemptToGetDateFromDynamic(final dynamic value) {
 ///
 /// @param text The date string to be parsed.
 /// @return The parsed [DateTime] object, or `null` if no valid date is found.
-DateTime? attemptToGetDateFromText(final String text) {
+DateTime? attemptToGetDateFromText(String text) {
   // Define a list of date formats to try
   final List<String> dateFormats = <String>[
     'yyyy-MM-dd HH:mm:ss', // ISO8601
@@ -160,7 +160,7 @@ DateTime? attemptToGetDateFromText(final String text) {
 }
 
 /// Converts DateTime to ISO 8601 string format with space instead of T.
-String dateToDateTimeString(final DateTime? dateTime) {
+String dateToDateTimeString(DateTime? dateTime) {
   String dateTimeAsText = '';
   if (dateTime != null) {
     dateTimeAsText += dateTime.toIso8601String().replaceAll(SharedStrings.dateTimeIsoSeparator, SharedStrings.space);
@@ -185,8 +185,8 @@ String dateToDateTimeString(final DateTime? dateTime) {
 /// - If `value` is not null, the ISO8601 string representation of the date and time.
 /// - If `value` is null, the `defaultValueIfNull` value.
 String dateToIso8601OrDefaultString(
-  final DateTime? value, {
-  final String defaultValueIfNull = '',
+  DateTime? value, {
+  String defaultValueIfNull = '',
 }) {
   if (value == null) {
     return defaultValueIfNull;
@@ -203,7 +203,7 @@ String dateToSqliteFormat(DateTime? dateTime) {
 }
 
 /// Converts DateTime to formatted date string.
-String dateToString(final DateTime? date) {
+String dateToString(DateTime? date) {
   if (date == null) {
     return '____-__-__';
   }
@@ -221,7 +221,7 @@ String dateToString(final DateTime? date) {
 ///
 /// Returns:
 /// - If `dateTime` is not null, a string representing a date
-String dateToYearString(final DateTime? dateTime) {
+String dateToYearString(DateTime? dateTime) {
   if (dateTime == null) {
     return '____';
   }
@@ -238,7 +238,7 @@ String dateToYearString(final DateTime? dateTime) {
 /// @param a The first [DateTime] object to compare.
 /// @param b The second [DateTime] object to compare.
 /// @return The newest [DateTime] object, or `null` if both inputs are `null`.
-DateTime? newestDate(final DateTime? a, final DateTime? b) {
+DateTime? newestDate(DateTime? a, DateTime? b) {
   if (a == null) {
     return b;
   }
@@ -257,7 +257,7 @@ DateTime? newestDate(final DateTime? a, final DateTime? b) {
 /// @param a The first [DateTime] object to compare.
 /// @param b The second [DateTime] object to compare.
 /// @return The oldest [DateTime] object, or `null` if both inputs are `null`.
-DateTime? oldestDate(final DateTime? a, final DateTime? b) {
+DateTime? oldestDate(DateTime? a, DateTime? b) {
   if (a == null) {
     return b;
   }
@@ -281,7 +281,7 @@ DateTime? oldestDate(final DateTime? a, final DateTime? b) {
 /// Input will look like this ```20240103120000.000[-5:EST]```
 ///                           ```01234567890123456789012345```
 ///                           ```0........10--------20_____```
-DateTime? parseQfxDataFormat(final String qfxDate) {
+DateTime? parseQfxDataFormat(String qfxDate) {
   // Extract date components
   try {
     // Extract date and time components
@@ -362,7 +362,7 @@ String getElapsedTime(DateTime? dateTime, {DateTime? relativeTo}) {
   }
 }
 
-String _formatElapsedUnit(final int value, final String unit) {
+String _formatElapsedUnit(int value, String unit) {
   return '$value $unit${value > _singularCount ? 's' : SharedStrings.empty}';
 }
 
@@ -392,7 +392,7 @@ extension DateTimeExtension on DateTime {
 }
 
 /// Compares two DateTime objects ignoring time component.
-bool isSameDateWithoutTime(final DateTime? a, final DateTime? b) {
+bool isSameDateWithoutTime(DateTime? a, DateTime? b) {
   if (a == null && b == null) {
     return true;
   }

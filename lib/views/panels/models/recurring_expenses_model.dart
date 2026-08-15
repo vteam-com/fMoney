@@ -29,11 +29,11 @@ class RecurringExpenses {
 
   /// Returns budgeted recurring expenses for the specified year range.
   static List<RecurringExpenses> getBudgetedTransactions(
-    final int minYear,
-    final int maxYear,
-    final bool onlyNonZeroBudget,
-    final List<CategoryType> categoryTypes,
-    final double multiplier,
+    int minYear,
+    int maxYear,
+    bool onlyNonZeroBudget,
+    List<CategoryType> categoryTypes,
+    double multiplier,
   ) {
     if (multiplier == 0) {
       // Reserved for future budget scaling.

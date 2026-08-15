@@ -10,7 +10,7 @@ class OnlineAccounts extends MoneyObjects<OnlineAccount> {
   }
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       appendMoneyObject(OnlineAccount.fromJson(row));

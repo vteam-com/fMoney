@@ -53,7 +53,7 @@ class Security extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Security.fromJson(final MyJson row) {
+  factory Security.fromJson(MyJson row) {
     return Security(
       // 0
       id: row.getInt(SharedDomainStrings.domainString057, -1),
@@ -78,37 +78,37 @@ class Security extends DataObject {
 
   final FieldMoney fieldHoldingValue = FieldMoney(
     name: 'HoldingsValue',
-    getValueForDisplay: (final DataInterface instance) => AmountModel(amount: (instance as Security).holdingValue),
+    getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Security).holdingValue),
   );
 
   List<Dividend> dividends = <Dividend>[];
   FieldMoney fieldActivityDividend = FieldMoney(
     name: 'Dividend',
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldActivityDividend.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldActivityDividend.value,
   );
 
   FieldMoney fieldActivityProfit = FieldMoney(
     name: 'ActivityProfit',
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldActivityProfit.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldActivityProfit.value,
   );
 
   // 5
   FieldString fieldCuspid = FieldString(
     name: SharedDomainStrings.domainString027,
     serializeName: SharedDomainStrings.domainString027,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldCuspid.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldCuspid.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldCuspid.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldCuspid.value,
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
     name: 'Holding',
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldHoldingShares.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldHoldingShares.value,
   );
 
   // 0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).uniqueId,
   );
 
   // 4
@@ -116,9 +116,9 @@ class Security extends DataObject {
     name: 'Last Price',
     serializeName: SharedDomainStrings.domainString079,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldLastPrice.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldLastPrice.value.asDouble(),
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldLastPrice.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldLastPrice.value.asDouble(),
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldLastPrice.value.setAmount(value);
     },
   );
@@ -128,9 +128,9 @@ class Security extends DataObject {
     name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldName.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldName.value,
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldName.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldName.value,
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldName.value = value as String;
     },
   );
@@ -140,7 +140,7 @@ class Security extends DataObject {
   FieldInt fieldNumberOfTrades = FieldInt(
     name: 'Trades',
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldNumberOfTrades.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldNumberOfTrades.value,
   );
 
   // 3
@@ -148,19 +148,19 @@ class Security extends DataObject {
     name: SharedDomainStrings.domainString108,
     columnWidth: ColumnWidth.small,
     serializeName: SharedDomainStrings.domainString108,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldPrice.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldPrice.value.asDouble(),
-    setValue: (final DataInterface instance, dynamic value) => (instance as Security).fieldPrice.value.setAmount(value),
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldPrice.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldPrice.value.asDouble(),
+    setValue: (DataInterface instance, dynamic value) => (instance as Security).fieldPrice.value.setAmount(value),
   );
 
   // 8
   FieldDate fieldPriceDate = FieldDate(
     name: 'LatestPrice',
     serializeName: SharedDomainStrings.domainString109,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldPriceDate.value,
-    getValueForSerialization: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldPriceDate.value,
+    getValueForSerialization: (DataInterface instance) =>
         dateToSqliteFormat((instance as Security).fieldPriceDate.value),
-    setValue: (final DataInterface instance, dynamic value) {
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldPriceDate.value = attemptToGetDateFromDynamic(
         value,
       );
@@ -172,7 +172,7 @@ class Security extends DataObject {
       this.fieldActivityProfit.value.asDouble() + this.fieldActivityDividend.value.asDouble() + this.holdingValue;
   FieldMoney fieldProfit = FieldMoney(
     name: 'Profit',
-    getValueForDisplay: (final DataInterface instance) => AmountModel(amount: (instance as Security).profit),
+    getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Security).profit),
   );
 
   /* 
@@ -195,28 +195,28 @@ class Security extends DataObject {
     columnWidth: ColumnWidth.tiny,
     type: FieldType.text,
     align: TextAlign.center,
-    getValueForDisplay: (final DataInterface instance) => getSecurityTypeFromInt(
+    getValueForDisplay: (DataInterface instance) => getSecurityTypeFromInt(
       (instance as Security).fieldSecurityType.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldSecurityType.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSecurityType.value,
     getEditWidget:
         (
           DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
-          instance = instance as Security;
+          final Security security = instance as Security;
           return pickerSecurityType(
-            itemSelected: SecurityType.values[instance.fieldSecurityType.value],
-            onSelected: (final SecurityType? newSecurityType) {
+            itemSelected: SecurityType.values[security.fieldSecurityType.value],
+            onSelected: (SecurityType? newSecurityType) {
               if (newSecurityType != null) {
-                (instance as Security).fieldSecurityType.value = newSecurityType.index;
+                security.fieldSecurityType.value = newSecurityType.index;
                 // notify container
                 onEdited(true);
               }
             },
           );
         },
-    setValue: (final DataInterface instance, dynamic value) {
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSecurityType.value = value as int;
     },
   );
@@ -225,9 +225,9 @@ class Security extends DataObject {
   FieldString fieldSymbol = FieldString(
     name: SharedDomainStrings.domainString131,
     serializeName: SharedDomainStrings.domainString131,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).fieldSymbol.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).fieldSymbol.value,
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Security).fieldSymbol.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSymbol.value,
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSymbol.value = value as String;
     },
   );
@@ -237,8 +237,8 @@ class Security extends DataObject {
     defaultValue: DateRange(),
     type: FieldType.dateRange,
     footer: FooterType.range,
-    getValue: (final DataInterface instance) => (instance as Security).fieldTransactionDateRange.value,
-    getValueForDisplay: (final DataInterface instance) =>
+    getValue: (DataInterface instance) => (instance as Security).fieldTransactionDateRange.value,
+    getValueForDisplay: (DataInterface instance) =>
         (instance as Security).fieldTransactionDateRange.value.toStringYears(),
   );
 
@@ -247,8 +247,8 @@ class Security extends DataObject {
   FieldInt taxable = FieldInt(
     name: SharedDomainStrings.domainString137,
     serializeName: SharedDomainStrings.domainString137,
-    getValueForDisplay: (final DataInterface instance) => (instance as Security).taxable.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Security).taxable.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Security).taxable.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Security).taxable.value,
   );
 
   @override
@@ -272,7 +272,7 @@ class Security extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Security> _fields = Fields<Security>();
   static final Fields<Security> _fieldsForColumns = Fields<Security>();
@@ -331,7 +331,7 @@ class Security extends DataObject {
   );
 
   /// Returns a display string for the security type index.
-  static String getSecurityTypeFromInt(final int index) {
+  static String getSecurityTypeFromInt(int index) {
     if (isIndexInRange(SecurityType.values, index)) {
       return SecurityType.values[index].name;
     }

@@ -40,7 +40,7 @@ String getCountryFromCurrencyIso4217(String iso4217code) {
 }
 
 /// Returns currency symbol string from three-letter currency code.
-String getCurrencyAsString(final String threeLetterCurrencySymbol) {
+String getCurrencyAsString(String threeLetterCurrencySymbol) {
   if (threeLetterCurrencySymbol.isEmpty) {
     return Constants.defaultCurrency;
   }

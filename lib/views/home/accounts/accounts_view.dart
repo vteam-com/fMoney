@@ -98,7 +98,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   final List<bool> _selectedPivot = <bool>[false, false, false, false, true];
 
   @override
-  Widget buildHeader([final Widget? child]) {
+  Widget buildHeader([Widget? child]) {
     return super.buildHeader(_renderToggles());
   }
 
@@ -112,7 +112,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
 
     if (forSidePanelTransactions) {
@@ -210,8 +210,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   // default currency for this view
   @override
   List<String> getCurrencyChoices(
-    final SidePanelSubViewEnum subViewId,
-    final List<int> selectedItems,
+    SidePanelSubViewEnum subViewId,
+    List<int> selectedItems,
   ) {
     switch (subViewId) {
       case SidePanelSubViewEnum.chart: // Chart
@@ -254,7 +254,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     );
 
     if (applyFilter) {
-      list = list.where((final Account instance) => isMatchingFilters(instance)).toList();
+      list = list.where((Account instance) => isMatchingFilters(instance)).toList();
     } else {
       list = list.toList();
     }
@@ -351,18 +351,18 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   /// Calculates the total balance of the specified account types.
-  double getTotalBalanceOfAccounts(final List<AccountType> types) {
+  double getTotalBalanceOfAccounts(List<AccountType> types) {
     double total = _zeroDouble;
     Data().accounts
         .activeAccounts(types)
         .forEach(
-          (final Account x) => total += (x.fieldBalanceNormalized.getValueForDisplay(x) as AmountModel).asDouble(),
+          (Account x) => total += (x.fieldBalanceNormalized.getValueForDisplay(x) as AmountModel).asDouble(),
         );
     return total;
   }
 
   /// Filters a [Transaction] by the specified [accountId].
-  bool filterByAccountId(final Transaction t, final num accountId) {
+  bool filterByAccountId(Transaction t, num accountId) {
     return t.fieldAccountId.value == accountId;
   }
 
@@ -388,7 +388,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   /// Returns a list of [AccountType] based on the provided [index].
-  List<AccountType> getSelectedAccountTypesByIndex(final int index) {
+  List<AccountType> getSelectedAccountTypesByIndex(int index) {
     switch (index) {
       case _accountTypeIndexBank:
         return <AccountType>[AccountType.checking, AccountType.savings];
@@ -429,7 +429,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel details view for the currently selected account.
   Widget _getSidePanelViewDetails({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
   }) {
     keepUnused(selectedIds);
     final Account? selectedAccount = getFirstSelectedItem() as Account?;
@@ -473,7 +473,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   }
 
   /// Builds holding summary cards for an investment account grouped by stock symbol.
-  List<Widget> _buildStockHoldingCards(final Account account) {
+  List<Widget> _buildStockHoldingCards(Account account) {
     final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
     Accounts.groupAccountStockSymbols(account, groupBySymbol, Data());
 
@@ -654,8 +654,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Details panels Chart panel for Accounts
   Widget _getSubViewContentForChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     final List<PairXYY> listOfPairXY = <PairXYY>[];
 
@@ -696,7 +696,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       }
 
       listOfPairXY.sort(
-        (final PairXYY a, final PairXYY b) => (b.yValue1.abs() - a.yValue1.abs()).toInt(),
+        (PairXYY a, PairXYY b) => (b.yValue1.abs() - a.yValue1.abs()).toInt(),
       );
 
       return Chart(
@@ -708,8 +708,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel transactions sub-view for the selected account.
   Widget _getSidePanelViewTransactions({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds);
     final Account? account = getFirstSelectedItem() as Account?;
@@ -733,8 +733,8 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   // Details Panel for Transactions
   Widget _getSubViewContentForTransactions({
-    required final Account account,
-    required final bool showAsNativeCurrency,
+    required Account account,
+    required bool showAsNativeCurrency,
   }) {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
@@ -763,7 +763,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
     return ListenableBuilder(
       listenable: DataFileController.to,
-      builder: (final BuildContext _, final Widget? _) {
+      builder: (BuildContext _, Widget? _) {
         return ListViewTransactions(
           key: Key(
             'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
@@ -779,11 +779,10 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               (
                 int sortByFieldIndex,
                 bool sortAscending,
-                final int selectedTransactionId,
+                int selectedTransactionId,
               ) {
                 // keep track of user choice
                 sortFieldIndex = sortByFieldIndex;
-                sortAscending = sortAscending;
 
                 // Save user choices
 
@@ -802,9 +801,9 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   // Details Panel for Transactions
   Widget _getSubViewContentForTransactionsForLoans({
-    required final Account account,
-    required final bool showAsNativeCurrency,
-    required final DataAbstract data,
+    required Account account,
+    required bool showAsNativeCurrency,
+    required DataAbstract data,
   }) {
     int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
     final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
@@ -817,7 +816,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
     return ListenableBuilder(
       listenable: DataFileController.to,
-      builder: (final BuildContext _, final Widget? _) {
+      builder: (BuildContext _, Widget? _) {
         final List<LoanPayment> aggregatedList = getAccountLoanPayments(account, data);
 
         MoneyObjects.sortList(
@@ -873,7 +872,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Returns transactions for the last selected account with optional filtering.
   List<Transaction> getTransactionForLastSelectedAccount(
-    final Account account,
+    Account account,
   ) {
     return getTransactions(
       filter: (Transaction transaction) {

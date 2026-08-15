@@ -63,7 +63,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   Security? _lastSecuritySelected;
 
   @override
-  Widget buildHeader([final Widget? child]) {
+  Widget buildHeader([Widget? child]) {
     final List<Security> list = getList(
       includeDeleted: false,
       applyFilter: false,
@@ -116,7 +116,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// add more top menu or Side panel action buttons
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (forSidePanelTransactions) {
       final Investment? selectedInvestment = getSidePanelLastSelectedItem<Investment>(Data().investments);
@@ -177,7 +177,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
     if (applyFilter) {
       list = list
           .where(
-            (final Security instance) => isMatchingFilters(instance) && isMatchingPivot(instance),
+            (Security instance) => isMatchingFilters(instance) && isMatchingPivot(instance),
           )
           .toList();
     }
@@ -200,7 +200,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   }
 
   @override
-  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
+  Widget getSidePanelViewDetails({required List<int> selectedIds}) {
     keepUnused(selectedIds);
     final Security? selectedSecurity = getFirstSelectedItem() as Security?;
     return buildStandardSidePanelDetailsWrap<Security>(
@@ -226,7 +226,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
   }
 
   /// Returns true if the security holding matches the selected pivot for closed status.
-  bool isMatchingPivot(final Security instance) {
+  bool isMatchingPivot(Security instance) {
     if (_selectedPivot[_pivotIndexClosed]) {
       // No holding of stock
       return isConsideredZero(instance.fieldHoldingShares.value);
@@ -243,8 +243,8 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the dividend panel showing all dividend payments for the selected security.
   Widget _buildPanelForDividend(
-    final BuildContext context,
-    final Security security,
+    BuildContext context,
+    Security security,
   ) {
     final double totalDividend = security.dividends.fold(
       _zeroDouble,
@@ -279,8 +279,8 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the stock split history panel for the selected security.
   Widget _buildPanelForSplits(
-    final BuildContext context,
-    final Security security,
+    BuildContext context,
+    Security security,
   ) {
     final List<StockSplit> splits = security.splitsHistory;
 
@@ -335,8 +335,8 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel chart subview for the selected security.
   Widget _getSidePanelViewChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     final Security? security = getFirstSelectedItem() as Security?;
@@ -376,8 +376,8 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel transactions subview for the selected security.
   Widget _getSidePanelViewTransactions({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     _lastSecuritySelected = getFirstSelectedItem() as Security?;

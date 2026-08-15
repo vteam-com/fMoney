@@ -95,7 +95,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
   }
 
   /// Builds a single action offering with its button and explanatory text.
-  Widget _buildActionOffering(final String text, Widget action) {
+  Widget _buildActionOffering(String text, Widget action) {
     return SizedBox(
       width: _actionOfferingWidth,
       child: Column(
@@ -206,8 +206,8 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
 
 /// Moves a list of transactions to the specified category, updating data.
 void moveTransactionsToCategory(
-  final List<Transaction> transactions,
-  final Category moveToCategory,
+  List<Transaction> transactions,
+  Category moveToCategory,
 ) {
   for (final Transaction t in transactions) {
     t.stashValueBeforeEditing();

@@ -49,7 +49,7 @@ class Block {
   static const double minBlockHeight = 20.0;
 
   /// Draws the block rectangle and centered text onto the canvas.
-  void draw(final Canvas canvas) {
+  void draw(Canvas canvas) {
     if (!rect.hasNaN) {
       // Rectangle
       final ui.Paint paint = Paint();
@@ -71,9 +71,9 @@ class Block {
 
 /// Renders source blocks and percentage-based channels to a target block.
 void renderSourcesToTargetAsPercentage(
-  final ui.Canvas canvas,
-  final List<Block> list,
-  final Block target,
+  ui.Canvas canvas,
+  List<Block> list,
+  Block target,
 ) {
   final double sumOfHeight = sumHeight(list);
 
@@ -112,13 +112,13 @@ void renderSourcesToTargetAsPercentage(
 
 /// Draws centered text inside a rectangle with optional rotation.
 void drawTextInRect(
-  final Canvas context,
-  final String name,
-  final Rect rect, {
-  final TextAlign textAlign = TextAlign.left,
-  final Color color = Colors.black,
-  final double fontSize = _defaultFontSize,
-  final double angleRotationInRadians = _defaultRotation,
+  Canvas context,
+  String name,
+  Rect rect, {
+  TextAlign textAlign = TextAlign.left,
+  Color color = Colors.black,
+  double fontSize = _defaultFontSize,
+  double angleRotationInRadians = _defaultRotation,
 }) {
   context.save();
   context.translate(rect.left, rect.top);
@@ -153,10 +153,10 @@ void drawTextInRect(
 
 /// Draws a curved channel between two vertical points.
 void drawChanel({
-  required final ui.Canvas canvas,
-  required final ChannelPoint start,
-  required final ChannelPoint end,
-  final Color color = _defaultChannelColor,
+  required ui.Canvas canvas,
+  required ChannelPoint start,
+  required ChannelPoint end,
+  Color color = _defaultChannelColor,
 }) {
   // We render left to right, so lets see what channel goes on the left and the one that goes on the right
   final ChannelPoint channelPointLeft = (start.x < end.x) ? start : end;
@@ -215,19 +215,19 @@ void drawChanel({
 }
 
 /// Sums the heights of a list of blocks.
-double sumHeight(final List<Block> list) {
+double sumHeight(List<Block> list) {
   final double sumOfHeight = list.fold(
     0.0,
-    (final double previousValue, final Block element) => previousValue + element.rect.height,
+    (double previousValue, Block element) => previousValue + element.rect.height,
   );
   return sumOfHeight;
 }
 
 /// Sums the values of a list of SanKeyEntry items.
-double sumValue(final List<SanKeyEntry> list) {
+double sumValue(List<SanKeyEntry> list) {
   final double sumOfHeight = list.fold(
     0.0,
-    (final double previousValue, final SanKeyEntry element) => previousValue + element.value,
+    (double previousValue, SanKeyEntry element) => previousValue + element.value,
   );
   return sumOfHeight;
 }

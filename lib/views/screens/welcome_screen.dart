@@ -33,7 +33,7 @@ class WelcomePage extends StatelessWidget {
   }
 
   /// Builds the column of welcome actions shown below the app bar.
-  Widget _buildWelcomeContent(final BuildContext context) {
+  Widget _buildWelcomeContent(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

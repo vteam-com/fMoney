@@ -12,8 +12,8 @@ import 'package:money/helpers/amount_model.dart';
 /// bool isEnabled = valueOrDefaultBool(false); // isEnabled = false
 /// ```
 bool valueOrDefaultBool(
-  final bool? value, {
-  final bool defaultValueIfNull = false,
+  bool? value, {
+  bool defaultValueIfNull = false,
 }) {
   return value ?? defaultValueIfNull;
 }
@@ -30,8 +30,8 @@ bool valueOrDefaultBool(
 /// DateTime currentDate = valueOrDefaultDate(null); // currentDate = DateTime.now()
 /// ```
 DateTime valueOrDefaultDate(
-  final DateTime? value, {
-  final DateTime? defaultValueIfNull,
+  DateTime? value, {
+  DateTime? defaultValueIfNull,
 }) {
   return value ?? defaultValueIfNull ?? DateTime.now();
 }
@@ -47,8 +47,8 @@ DateTime valueOrDefaultDate(
 /// double amount = valueOrDefaultDouble(10.5); // amount = 10.5
 /// ```
 double valueOrDefaultDouble(
-  final double? value, {
-  final double defaultValueIfNull = 0,
+  double? value, {
+  double defaultValueIfNull = 0,
 }) {
   return value ?? defaultValueIfNull;
 }
@@ -63,7 +63,7 @@ double valueOrDefaultDouble(
 /// int count = valueOrDefaultInt(null, defaultValueIfNull: 10); // count = 10
 /// int age = valueOrDefaultInt(25); // age = 25
 /// ```
-int valueOrDefaultInt(final int? value, {final int defaultValueIfNull = 0}) {
+int valueOrDefaultInt(int? value, {int defaultValueIfNull = 0}) {
   return value ?? defaultValueIfNull;
 }
 
@@ -77,7 +77,7 @@ int valueOrDefaultInt(final int? value, {final int defaultValueIfNull = 0}) {
 /// num quantity = numValueOrDefault(null, defaultValueIfNull: 5); // quantity = 5
 /// num price = numValueOrDefault(10.99); // price = 10.99
 /// ```
-num numValueOrDefault(final num? value, {final num defaultValueIfNull = 0}) {
+num numValueOrDefault(num? value, {num defaultValueIfNull = 0}) {
   return value ?? defaultValueIfNull;
 }
 
@@ -92,14 +92,14 @@ num numValueOrDefault(final num? value, {final num defaultValueIfNull = 0}) {
 /// String description = valueOrDefaultString('This is a description'); // description = 'This is a description'
 /// ```
 String valueOrDefaultString(
-  final String? value, {
-  final String defaultValueIfNull = '',
+  String? value, {
+  String defaultValueIfNull = '',
 }) {
   return value ?? defaultValueIfNull;
 }
 
 /// Safely converts dynamic input to double with fallback.
-double smartToDouble(final dynamic value) {
+double smartToDouble(dynamic value) {
   if (value is double) {
     return value;
   }

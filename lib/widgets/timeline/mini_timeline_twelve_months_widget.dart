@@ -23,7 +23,7 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (final BuildContext _, final BoxConstraints constraints) {
+      builder: (BuildContext _, BoxConstraints constraints) {
         final List<Widget> bars = <Widget>[];
         final String locale = Localizations.localeOf(context).toLanguageTag();
         final DateFormat formatter = DateFormat.MMM(locale);
@@ -80,7 +80,7 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
     );
   }
 
-  Widget _buildMontLabel(final String text) {
+  Widget _buildMontLabel(String text) {
     return Text(text, style: const TextStyle(fontSize: SizeForText.small));
   }
 }

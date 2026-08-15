@@ -49,7 +49,7 @@ class ColorPalette extends StatelessWidget {
   const ColorPalette({super.key});
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         const Divider(),
@@ -125,11 +125,11 @@ class ColorPalette extends StatelessWidget {
 
   /// Builds a single labeled color swatch showing foreground-on-background contrast.
   Widget _buildColorBar(
-    final BuildContext context,
-    final Color foreground,
-    final Color background,
-    final String colorNameForeground,
-    final String colorNameBackground,
+    BuildContext context,
+    Color foreground,
+    Color background,
+    String colorNameForeground,
+    String colorNameBackground,
   ) {
     return Container(
       margin: const EdgeInsets.all(_colorBarMargin),

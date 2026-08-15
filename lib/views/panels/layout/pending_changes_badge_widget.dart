@@ -28,7 +28,7 @@ class BadgePendingChanges extends StatelessWidget {
   final int itemsDeleted;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (itemsAdded == _zeroInt && itemsChanged == _zeroInt && itemsDeleted == _zeroInt) {
       // not change to report
       return const SizedBox();
@@ -55,9 +55,9 @@ class BadgePendingChanges extends StatelessWidget {
 
   /// Builds a counter widget with prefix, value, and text style.
   Widget buildCounter(
-    final String prefix,
-    final int value,
-    final TextStyle textStyle,
+    String prefix,
+    int value,
+    TextStyle textStyle,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: _counterPadding),
@@ -66,7 +66,7 @@ class BadgePendingChanges extends StatelessWidget {
   }
 
   /// Returns a label widget indicating the type of pending changes.
-  Widget getChangeLabel(final BuildContext context) {
+  Widget getChangeLabel(BuildContext context) {
     final List<Widget> widgets = <Widget>[];
     final TextStyle textStyle = Theme.of(
       context,

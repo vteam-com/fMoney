@@ -52,7 +52,7 @@ class TransactionSplit extends DataObject {
     this.fieldFlags.value = flags;
     this.fieldBudgetBalanceDate.value = budgetBalanceDate;
   }
-  factory TransactionSplit.fromJson(final MyJson row, final DataAbstract data) {
+  factory TransactionSplit.fromJson(MyJson row, DataAbstract data) {
     return TransactionSplit(
       // 0
       transactionId: row.getInt(SharedDomainStrings.domainString141, _unsetId),
@@ -115,9 +115,8 @@ class TransactionSplit extends DataObject {
   FieldMoney fieldAmount = FieldMoney(
     name: SharedDomainStrings.domainString017,
     serializeName: SharedDomainStrings.domainString017,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldAmount.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as TransactionSplit).fieldAmount.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldAmount.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldAmount.value.asDouble(),
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldAmount.value.setAmount(newValue),
   );
@@ -127,8 +126,8 @@ class TransactionSplit extends DataObject {
     name: 'Budgeted Date',
     serializeName: SharedDomainStrings.domainString025,
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldBudgetBalanceDate.value,
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldBudgetBalanceDate.value,
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as TransactionSplit).fieldBudgetBalanceDate.value,
     ),
   );
@@ -139,14 +138,14 @@ class TransactionSplit extends DataObject {
     serializeName: SharedDomainStrings.domainString029,
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).categoryName,
-    getValueForReading: (final DataInterface instance) => (instance as TransactionSplit).categoryName,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldCategoryId.value,
-    setValue: (final DataInterface instance, dynamic newValue) =>
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).categoryName,
+    getValueForReading: (DataInterface instance) => (instance as TransactionSplit).categoryName,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldCategoryId.value,
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           (instance as TransactionSplit);
@@ -178,20 +177,20 @@ class TransactionSplit extends DataObject {
     serializeName: SharedDomainStrings.domainString055,
     columnWidth: ColumnWidth.hidden,
     align: TextAlign.center,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldFlags.value,
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldFlags.value,
   );
 
   // 1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).uniqueId,
   );
 
   // 6
   FieldString fieldMemo = FieldString(
     name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldMemo.value = newValue as String,
   );
@@ -202,9 +201,9 @@ class TransactionSplit extends DataObject {
     serializeName: SharedDomainStrings.domainString105,
     type: FieldType.text,
     align: TextAlign.left,
-    getValueForDisplay: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) =>
         (instance as TransactionSplit).data.getPayeeName(instance.fieldPayeeId.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldPayeeId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldPayeeId.value,
   );
 
   // 0
@@ -212,8 +211,8 @@ class TransactionSplit extends DataObject {
     name: SharedDomainStrings.domainString141,
     serializeName: SharedDomainStrings.domainString141,
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
   );
 
   // 5
@@ -221,8 +220,8 @@ class TransactionSplit extends DataObject {
     name: SharedDomainStrings.domainString144,
     serializeName: SharedDomainStrings.domainString144,
     columnWidth: ColumnWidth.hidden,
-    getValueForDisplay: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
+    getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
   );
 
   // Fields for this instance
@@ -239,7 +238,7 @@ class TransactionSplit extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<TransactionSplit> _fields = Fields<TransactionSplit>();
 

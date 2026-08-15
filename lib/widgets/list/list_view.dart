@@ -88,7 +88,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final TextScaler textScaler = MediaQuery.textScalerOf(context);
     final bool flipRightAdornmentCaps = widget.showRightAdornment && _shouldFlipRightAdornmentCaps();
 
@@ -106,7 +106,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
       controller: widget.scrollController,
       itemCount: widget.list.length,
       itemExtent: textScaler.scale(_rowHeight),
-      itemBuilder: (final BuildContext context, final int index) {
+      itemBuilder: (BuildContext context, int index) {
         final DataObject itemInstance = getMoneyObjectFromIndex(index);
         final bool isLastItemOfTheList = (index == widget.list.length - 1);
         final bool isSelected = widget.selectedItemIds.value.contains(
@@ -180,7 +180,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
                   showRightAdornmentTopCap: showRightAdornmentTopCap,
                   showRightAdornmentBottomCap: showRightAdornmentBottomCap,
                   child: LayoutBuilder(
-                    builder: (final BuildContext _, final BoxConstraints constraints) {
+                    builder: (BuildContext _, BoxConstraints constraints) {
                       return _buildListItemContent(
                         isSelected,
                         itemInstance,
@@ -199,14 +199,14 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// return -1 if not found
-  int getListIndexFromUniqueId(final int uniqueId) {
+  int getListIndexFromUniqueId(int uniqueId) {
     return widget.list.indexWhere(
-      (final T element) => (element as DataObject).uniqueId == uniqueId,
+      (T element) => (element as DataObject).uniqueId == uniqueId,
     );
   }
 
   /// don't make it flush to the top, we do this in order to give some clue that there's other item above,
-  double getListOffsetOfItemIndex(final int index) => index * _rowHeight;
+  double getListOffsetOfItemIndex(int index) => index * _rowHeight;
 
   /// Returns the DataObject at the specified [index].
   DataObject getMoneyObjectFromIndex(int index) {
@@ -234,7 +234,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Returns true if the item at [index] is currently visible.
-  bool isIndexInView(final int index) {
+  bool isIndexInView(int index) {
     if (index != -1) {
       final NumRange viewingIndexRange = indexOfItemsInView();
       if (index.isBetween(viewingIndexRange.min, viewingIndexRange.max)) {
@@ -245,7 +245,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Moves the current selection by [incrementBy] and updates selection state.
-  int moveCurrentSelection(final int incrementBy) {
+  int moveCurrentSelection(int incrementBy) {
     int itemIdToSelect = -1;
     final int firstSelectedIndex = getListIndexFromUniqueId(
       widget.selectedItemIds.value.first,
@@ -273,8 +273,8 @@ class MyListViewState<T> extends State<MyListView<T>> {
 
   /// Handles key events for list navigation and selection.
   KeyEventResult onListViewKeyEvent(
-    final FocusNode _,
-    final KeyEvent event,
+    FocusNode _,
+    KeyEvent event,
   ) {
     if (event is KeyDownEvent || event is KeyRepeatEvent) {
       switch (event.logicalKey) {
@@ -332,7 +332,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// if the item is not in view
   /// then and only then we scroll the item into view
   /// Scrolls to the item with the given [uniqueId] if valid.
-  void scrollToId(final int uniqueId) {
+  void scrollToId(int uniqueId) {
     if (-1 != uniqueId) {
       final int index = getListIndexFromUniqueId(uniqueId);
       scrollToIndex(index);
@@ -340,7 +340,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Scrolls to the item at the specified [index] if in range.
-  void scrollToIndex(final int index) {
+  void scrollToIndex(int index) {
     if (!widget.scrollController.hasClients) {
       // not yet attached to a list
       return;
@@ -382,7 +382,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Selects the item with the given [uniqueId] and updates callbacks.
-  void selectedItem(final int uniqueId) {
+  void selectedItem(int uniqueId) {
     if (widget.isMultiSelectionOn == false) {
       // single selection so remove any other selection before selecting an item
       widget.selectedItemIds.value.clear();
@@ -396,7 +396,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Returns the offset of the selected item within the list.
-  void selectedItemOffset(final int delta) {
+  void selectedItemOffset(int delta) {
     int newPosition = 0;
     if (widget.selectedItemIds.value.isNotEmpty) {
       newPosition = widget.selectedItemIds.value[0] + delta;
@@ -407,10 +407,10 @@ class MyListViewState<T> extends State<MyListView<T>> {
 
   /// Builds the list row content for either column view or compact small-screen view.
   Widget _buildListItemContent(
-    final bool isSelected,
-    final DataObject itemInstance,
-    final bool isLastItemOfTheList,
-    final double maxRowWidth,
+    bool isSelected,
+    DataObject itemInstance,
+    bool isLastItemOfTheList,
+    double maxRowWidth,
   ) {
     return widget.displayAsColumn
         ? _buildResizableColumnsRow(itemInstance, maxRowWidth)
@@ -430,7 +430,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// Builds one table row with draggable separators between columns.
-  Widget _buildResizableColumnsRow(final DataObject itemInstance, final double maxRowWidth) {
+  Widget _buildResizableColumnsRow(DataObject itemInstance, double maxRowWidth) {
     _ensureResizableColumnsInitialized();
 
     if (maxRowWidth <= 0) {
@@ -475,7 +475,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
             cursor: SystemMouseCursors.resizeColumn,
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onHorizontalDragUpdate: (final DragUpdateDetails details) {
+              onHorizontalDragUpdate: (DragUpdateDetails details) {
                 _resizeColumnsAtBoundary(
                   leftColumnPosition: i,
                   dragDelta: details.delta.dx,
@@ -514,9 +514,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
     }
 
     final List<double> weights = _visibleColumnIndexes
-        .map((final int fieldIndex) => widget.fields[fieldIndex].columnWidth.index.toDouble())
+        .map((int fieldIndex) => widget.fields[fieldIndex].columnWidth.index.toDouble())
         .toList();
-    final double weightSum = weights.fold(0.0, (final double sum, final double value) => sum + value);
+    final double weightSum = weights.fold(0.0, (double sum, double value) => sum + value);
 
     if (weightSum <= 0) {
       final double equalRatio = 1 / _visibleColumnIndexes.length;
@@ -540,9 +540,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// it (which in turn triggers header and body rebuilds); otherwise the local
   /// ratio list is updated directly.
   void _resizeColumnsAtBoundary({
-    required final int leftColumnPosition,
-    required final double dragDelta,
-    required final double contentWidth,
+    required int leftColumnPosition,
+    required double dragDelta,
+    required double contentWidth,
   }) {
     if (contentWidth <= 0 || leftColumnPosition < 0 || leftColumnPosition >= _visibleColumnIndexes.length - 1) {
       return;

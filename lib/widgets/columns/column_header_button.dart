@@ -59,8 +59,8 @@ Widget buildColumnHeaderButton({
 Widget _buildTextAndSortAndFilter(
   BuildContext context,
   TextAlign align,
-  final String text,
-  final Widget adorner,
+  String text,
+  Widget adorner,
 ) {
   switch (align) {
     case TextAlign.center:
@@ -109,8 +109,8 @@ Widget _buildTextAndSortAndFilter(
 
 /// Builds the trailing adorners for a header cell.
 Widget _buildAdorners(
-  final SortIndicator sortIndicator,
-  final bool hasFilters,
+  SortIndicator sortIndicator,
+  bool hasFilters,
 ) {
   return Row(
     children: <Widget>[
@@ -121,7 +121,7 @@ Widget _buildAdorners(
 }
 
 /// Builds a sort icon widget with optional rotation for ascending state.
-Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
+Widget buildSortIconNameWidget(SortIndicator sortIndicator) {
   switch (sortIndicator) {
     case SortIndicator.sortAscending:
       return Transform(
@@ -140,7 +140,7 @@ Widget buildSortIconNameWidget(final SortIndicator sortIndicator) {
 }
 
 /// Builds the filter icon adorner when filtering is active.
-Widget _buildAdornerFoFilter(final bool filterOn) {
+Widget _buildAdornerFoFilter(bool filterOn) {
   if (filterOn) {
     return const Icon(Icons.filter_alt_outlined, size: _sortIconSize);
   }
@@ -148,7 +148,7 @@ Widget _buildAdornerFoFilter(final bool filterOn) {
 }
 
 /// Builds tooltip text describing the current sorting and filtering state.
-String _getTooltipText(final SortIndicator sortIndicator, final bool filterOn) {
+String _getTooltipText(SortIndicator sortIndicator, bool filterOn) {
   String tooltip = filterOn ? '${SharedStrings.labelFiltering}${SharedStrings.lineFeed}' : '';
 
   switch (sortIndicator) {
@@ -166,9 +166,9 @@ enum SortIndicator { none, sortAscending, sortDescending }
 
 /// Returns a SortIndicator based on current sort and target column.
 SortIndicator getSortIndicator(
-  final int currentSort,
-  final int sortToMatch,
-  final bool ascending,
+  int currentSort,
+  int sortToMatch,
+  bool ascending,
 ) {
   if (sortToMatch == currentSort) {
     return ascending ? SortIndicator.sortAscending : SortIndicator.sortDescending;

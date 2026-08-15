@@ -6,7 +6,7 @@ enum AliasType {
 }
 
 /// Returns a short display string for the given alias [type].
-String getAliasTypeAsString(final AliasType type) {
+String getAliasTypeAsString(AliasType type) {
   switch (type) {
     case AliasType.none:
       return '=';

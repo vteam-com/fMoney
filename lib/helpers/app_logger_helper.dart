@@ -8,10 +8,10 @@ abstract class AppLogger {
 
   /// Logs a debug message with required module and operation context.
   static void debug({
-    required final String module,
-    required final String operation,
-    required final String message,
-    final Map<String, Object?> context = const <String, Object?>{},
+    required String module,
+    required String operation,
+    required String message,
+    Map<String, Object?> context = const <String, Object?>{},
   }) {
     _logWithLevel(
       logCall: logger.d,
@@ -25,11 +25,11 @@ abstract class AppLogger {
 
   /// Logs an error with required module and operation context.
   static void error({
-    required final String module,
-    required final String operation,
-    required final Object error,
-    final StackTrace? stackTrace,
-    final Map<String, Object?> context = const <String, Object?>{},
+    required String module,
+    required String operation,
+    required Object error,
+    StackTrace? stackTrace,
+    Map<String, Object?> context = const <String, Object?>{},
   }) {
     logger.e(
       _buildMessage(
@@ -45,10 +45,10 @@ abstract class AppLogger {
 
   /// Logs a warning with required module and operation context.
   static void warning({
-    required final String module,
-    required final String operation,
-    required final String message,
-    final Map<String, Object?> context = const <String, Object?>{},
+    required String module,
+    required String operation,
+    required String message,
+    Map<String, Object?> context = const <String, Object?>{},
   }) {
     _logWithLevel(
       logCall: logger.w,
@@ -62,12 +62,12 @@ abstract class AppLogger {
 
   /// Shared implementation for debug/warning-style log methods.
   static void _logWithLevel({
-    required final void Function(dynamic message) logCall,
-    required final String level,
-    required final String module,
-    required final String operation,
-    required final String message,
-    final Map<String, Object?> context = const <String, Object?>{},
+    required void Function(dynamic message) logCall,
+    required String level,
+    required String module,
+    required String operation,
+    required String message,
+    Map<String, Object?> context = const <String, Object?>{},
   }) {
     logCall(
       _buildMessage(
@@ -82,11 +82,11 @@ abstract class AppLogger {
 
   /// Builds a normalized, context-rich log message payload.
   static String _buildMessage({
-    required final String level,
-    required final String module,
-    required final String operation,
-    final String message = '',
-    final Map<String, Object?> context = const <String, Object?>{},
+    required String level,
+    required String module,
+    required String operation,
+    String message = '',
+    Map<String, Object?> context = const <String, Object?>{},
   }) {
     final StringBuffer buffer = StringBuffer()
       ..write('[')
@@ -109,8 +109,8 @@ abstract class AppLogger {
   }
 
   /// Converts context map to a deterministic key/value string.
-  static String _formatContext(final Map<String, Object?> context) {
+  static String _formatContext(Map<String, Object?> context) {
     final List<String> keys = context.keys.toList()..sort();
-    return keys.map((final String key) => '$key=${context[key]}').join(', ');
+    return keys.map((String key) => '$key=${context[key]}').join(', ');
   }
 }

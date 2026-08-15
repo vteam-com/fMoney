@@ -10,7 +10,7 @@ class TransactionExtras extends MoneyObjects<TransactionExtra> {
   }
 
   @override
-  TransactionExtra instanceFromJson(final MyJson json) {
+  TransactionExtra instanceFromJson(MyJson json) {
     return TransactionExtra.fromJson(json);
   }
 }

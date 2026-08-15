@@ -29,19 +29,19 @@ const int _negativeMultiplier = -1;
 /// Represents investment.
 class Investment extends DataObject {
   Investment({
-    required final int id, // 1
-    required final int security, // 1
-    required final double unitPrice, // 2
-    required final double units, // 3
-    required final int investmentType, // 9
-    required final int tradeType, // 10
-    final double commission = _zeroDouble, // 4
-    final double markUpDown = _zeroDouble, // 5
-    final double taxes = _zeroDouble, // 6
-    final double fees = _zeroDouble, // 7
-    final double load = _zeroDouble, // 8
-    final int taxExempt = _zeroInt, // 11
-    final double withholding = _zeroDouble, // 12
+    required int id, // 1
+    required int security, // 1
+    required double unitPrice, // 2
+    required double units, // 3
+    required int investmentType, // 9
+    required int tradeType, // 10
+    double commission = _zeroDouble, // 4
+    double markUpDown = _zeroDouble, // 5
+    double taxes = _zeroDouble, // 6
+    double fees = _zeroDouble, // 7
+    double load = _zeroDouble, // 8
+    int taxExempt = _zeroInt, // 11
+    double withholding = _zeroDouble, // 12
     this.data,
   }) {
     this.fieldId.value = id;
@@ -60,7 +60,7 @@ class Investment extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Investment.fromJson(final MyJson row, [DataAbstract? data]) {
+  factory Investment.fromJson(MyJson row, [DataAbstract? data]) {
     return Investment(
       // 1
       id: row.getInt(SharedDomainStrings.domainString057, _unsetId),
@@ -95,42 +95,40 @@ class Investment extends DataObject {
 
   FieldMoney fieldActivityDividend = FieldMoney(
     name: 'ActivityDividend',
-    getValueForDisplay: (final DataInterface instance) =>
-        AmountModel(amount: (instance as Investment).activityDividend),
+    getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Investment).activityDividend),
   );
 
   FieldMoney fieldActivityAmount = FieldMoney(
     name: 'ActivityAmount',
-    getValueForDisplay: (final DataInterface instance) => AmountModel(amount: (instance as Investment).activityAmount),
+    getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Investment).activityAmount),
   );
 
   /// 4    Commission      money   0                    0
   FieldMoney fieldCommission = FieldMoney(
     name: SharedDomainStrings.domainString039,
     serializeName: SharedDomainStrings.domainString039,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldCommission.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Investment).fieldCommission.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldCommission.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldCommission.value.asDouble(),
   );
 
   /// 7    Fees            money   0                    0
   FieldMoney fieldFees = FieldMoney(
     name: SharedDomainStrings.domainString053,
     serializeName: SharedDomainStrings.domainString053,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldFees.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldFees.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
     name: 'Holding',
     footer: FooterType.average,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldHoldingShares.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldHoldingShares.value,
   );
 
   FieldMoney fieldHoldingSharesValue = FieldMoney(
     name: 'HoldingValue',
     footer: FooterType.average,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       return AmountModel(
         amount: (instance as Investment).fieldHoldingShares.value * instance.unitPriceAdjusted,
       );
@@ -140,7 +138,7 @@ class Investment extends DataObject {
   /// Id
   //// 0    Id              bigint  0                    1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).uniqueId,
   );
 
   /// 9    InvestmentType  INT     1                    0
@@ -151,17 +149,17 @@ class Investment extends DataObject {
     columnWidth: ColumnWidth.tiny,
     type: FieldType.text,
     footer: FooterType.count,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment)._investmentTypeAsString,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldInvestmentType.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Investment)._investmentTypeAsString,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldInvestmentType.value,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ??
               Text(AppL10n.tr(AppTranslationKeys.noPicker));
         },
-    setValue: (final DataInterface instance, dynamic value) {
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldInvestmentType.value = getInvestmentTypeFromValue(value as int).index;
     },
@@ -171,23 +169,22 @@ class Investment extends DataObject {
   FieldMoney fieldLoad = FieldMoney(
     name: SharedDomainStrings.domainString082,
     serializeName: SharedDomainStrings.domainString082,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldLoad.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldLoad.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
   );
 
   /// 5    MarkUpDown      money   0                    0
   FieldMoney fieldMarkUpDown = FieldMoney(
     name: SharedDomainStrings.domainString085,
     serializeName: SharedDomainStrings.domainString085,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Investment).fieldMarkUpDown.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
   );
 
   FieldMoney fieldNetValueOfEvent = FieldMoney(
     name: 'NetValue',
     footer: FooterType.average,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       return AmountModel(amount: (instance as Investment).transactionNetValue);
     },
   );
@@ -196,16 +193,16 @@ class Investment extends DataObject {
   FieldInt fieldSecurity = FieldInt(
     name: SharedDomainStrings.domainString125,
     serializeName: SharedDomainStrings.domainString125,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecurity.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
   );
 
   FieldString fieldSecuritySymbol = FieldString(
     name: SharedDomainStrings.domainString131,
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).symbol,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).symbol,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldSecuritySymbol.value = value as String;
     },
@@ -216,7 +213,7 @@ class Investment extends DataObject {
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
-    getValueForDisplay: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) =>
         '${SharedDomainStrings.domainString159}${formatDoubleTrimZeros((instance as Investment)._splitRatio)}',
   );
 
@@ -227,18 +224,18 @@ class Investment extends DataObject {
     columnWidth: ColumnWidth.nano,
     align: TextAlign.center,
     type: FieldType.text,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value == _oneInt
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldTaxExempt.value == _oneInt
         ? SharedDomainStrings.domainString090
         : SharedDomainStrings.domainString156,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxExempt.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTaxExempt.value,
   );
 
   /// 6    Taxes           money   0                    0
   FieldMoney fieldTaxes = FieldMoney(
     name: SharedDomainStrings.domainString138,
     serializeName: SharedDomainStrings.domainString138,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldTaxes.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldTaxes.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
   );
 
   /// 10   TradeType       INT     0                    0
@@ -246,18 +243,18 @@ class Investment extends DataObject {
     name: SharedDomainStrings.domainString140,
     serializeName: SharedDomainStrings.domainString140,
     type: FieldType.text,
-    getValueForDisplay: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) =>
         InvestmentTradeType.values[(instance as Investment).fieldTradeType.value].name.toUpperCase(),
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldTradeType.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTradeType.value,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ??
               Text(AppL10n.tr(AppTranslationKeys.noPicker));
         },
-    setValue: (final DataInterface instance, dynamic value) {
+    setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldTradeType.value = value as int;
     },
@@ -266,7 +263,7 @@ class Investment extends DataObject {
   FieldString fieldTransactionAccountName = FieldString(
     name: SharedDomainStrings.domainString011,
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       final dynamic transaction = (instance as Investment).transactionInstance;
       if (transaction != null) {
         return transaction.accountName;
@@ -278,8 +275,8 @@ class Investment extends DataObject {
   FieldDate fieldTransactionDate = FieldDate(
     name: SharedDomainStrings.domainString044,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).date,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) =>
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).date,
+    sort: (DataInterface a, DataInterface b, bool ascending) =>
         sortByDateAndInvestmentType(a as Investment, b as Investment, ascending),
   );
 
@@ -288,10 +285,9 @@ class Investment extends DataObject {
     name: SharedDomainStrings.domainString108,
     serializeName: SharedDomainStrings.domainString148,
     footer: FooterType.average,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldUnitPrice.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Investment).fieldUnitPrice.value.asDouble(),
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldUnitPrice.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldUnitPrice.value.asDouble(),
+    setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldUnitPrice.value.setAmount(value);
     },
@@ -300,17 +296,16 @@ class Investment extends DataObject {
   FieldMoney fieldUnitPriceAdjusted = FieldMoney(
     name: 'Price A.S.',
     footer: FooterType.average,
-    getValueForDisplay: (final DataInterface instance) =>
-        AmountModel(amount: (instance as Investment).unitPriceAdjusted),
+    getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Investment).unitPriceAdjusted),
   );
 
   /// 3    Units           money   0                    0
   FieldQuantity fieldUnits = FieldQuantity(
     name: SharedDomainStrings.domainString149,
     serializeName: SharedDomainStrings.domainString149,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).effectiveUnits,
-    getValueForSerialization: (final DataInterface instance) => (instance as Investment).fieldUnits.value,
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).effectiveUnits,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldUnits.value,
+    setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldUnits.value = getDoubleFromDynamic(value);
     },
@@ -318,16 +313,15 @@ class Investment extends DataObject {
 
   FieldQuantity fieldUnitsAdjusted = FieldQuantity(
     name: 'Units A.S.',
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).effectiveUnitsAdjusted,
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).effectiveUnitsAdjusted,
   );
 
   /// 12   Withholding     money   0                    0
   FieldMoney fieldWithholding = FieldMoney(
     name: SharedDomainStrings.domainString153,
     serializeName: SharedDomainStrings.domainString153,
-    getValueForDisplay: (final DataInterface instance) => (instance as Investment).fieldWithholding.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Investment).fieldWithholding.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldWithholding.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldWithholding.value.asDouble(),
   );
 
   double _splitRatio = _oneDouble;
@@ -362,7 +356,7 @@ class Investment extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Investment> _fields = Fields<Investment>();
   static final Fields<Investment> _fieldsForColumns = Fields<Investment>();
@@ -541,7 +535,7 @@ class Investment extends DataObject {
   }
 
   /// Sorts investments by date, then by investment type.
-  static int sortByDateAndInvestmentType(final Investment a, final Investment b, final bool ascending) {
+  static int sortByDateAndInvestmentType(Investment a, Investment b, bool ascending) {
     int result = sortByDate(a.date, b.date, ascending);
 
     if (result == _zeroInt) {

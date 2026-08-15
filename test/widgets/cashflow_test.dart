@@ -39,7 +39,7 @@ class DummyHostingAppState extends State<DummyHostingApp> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     Data().recalculateBalances();
     return const MaterialApp(
       home: SizedBox(
@@ -52,7 +52,7 @@ class DummyHostingAppState extends State<DummyHostingApp> {
 }
 
 void main() {
-  testWidgets('Cash Flow widget', (final WidgetTester tester) async {
+  testWidgets('Cash Flow widget', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const DummyHostingApp());
     expect(find.text('Cash Flow', skipOffstage: false), findsOneWidget);

@@ -49,7 +49,7 @@ class Accounts extends MoneyObjects<Account> {
   late DataAbstract data;
 
   @override
-  Account instanceFromJson(final MyJson json) {
+  Account instanceFromJson(MyJson json) {
     return Account.fromJson(json);
   }
 
@@ -197,10 +197,10 @@ class Accounts extends MoneyObjects<Account> {
 
   /// Returns active accounts filtered by [types] and optional [isActive] status.
   List<Account> activeAccounts(
-    final List<AccountType> types, {
-    final bool? isActive = true,
+    List<AccountType> types, {
+    bool? isActive = true,
   }) {
-    return iterableList().where((final Account item) {
+    return iterableList().where((Account item) {
       if (!item.matchType(types)) {
         return false;
       }
@@ -212,7 +212,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   /// Creates and adds a new account with a unique name derived from [accountName].
-  Account addNewAccount(final String accountName) {
+  Account addNewAccount(String accountName) {
     // find next available name
     String nextAvailableName = accountName;
     int next = _oneInt;
@@ -240,10 +240,10 @@ class Accounts extends MoneyObjects<Account> {
 
   /// Find a transaction that has a date in the future but not more than 2 months and has inverse amount
   Transaction? findBackwardInTimeForTransactionBalanceThatMatchThisAmount(
-    final List<Transaction> transactionForAccountSortedByDateAscending,
-    final int indexStartingFrom,
-    final DateTime validDateInThePast,
-    final double amountToMatch,
+    List<Transaction> transactionForAccountSortedByDateAscending,
+    int indexStartingFrom,
+    DateTime validDateInThePast,
+    double amountToMatch,
   ) {
     for (int i = indexStartingFrom; i >= _zeroInt; i--) {
       final Transaction t = transactionForAccountSortedByDateAscending[i];
@@ -266,10 +266,10 @@ class Accounts extends MoneyObjects<Account> {
   /// Used to produce a diagnostic hint when no exact statement-balance match
   /// exists for a credit card payment, revealing missing or extra transactions.
   Transaction? _findClosestMatchInWindow(
-    final List<Transaction> transactions,
-    final int indexStartingFrom,
-    final DateTime validDateInThePast,
-    final double amountToMatch,
+    List<Transaction> transactions,
+    int indexStartingFrom,
+    DateTime validDateInThePast,
+    double amountToMatch,
   ) {
     Transaction? closest;
     double smallestDelta = double.infinity;
@@ -289,18 +289,18 @@ class Accounts extends MoneyObjects<Account> {
 
   /// Finds an account by ID and optional account type.
   Account? findByIdAndType(
-    final String accountId,
-    final AccountType? accountType,
+    String accountId,
+    AccountType? accountType,
   ) {
-    return iterableList().firstWhereOrNull((final Account account) {
+    return iterableList().firstWhereOrNull((Account account) {
       return account.fieldAccountId.value == accountId &&
           (accountType == null || account.fieldType.value == accountType);
     });
   }
 
   /// Finds an account by name (case-insensitive).
-  Account? getByName(final String name) {
-    return iterableList().firstWhereOrNull((final Account item) {
+  Account? getByName(String name) {
+    return iterableList().firstWhereOrNull((Account item) {
       return stringCompareIgnoreCasing(item.fieldName.value, name) == _zeroInt;
     });
   }
@@ -341,7 +341,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   /// Gets the account name for the given [id]; returns the ID as string if not found.
-  String getNameFromId(final int id) {
+  String getNameFromId(int id) {
     final Account? account = get(id);
     if (account == null) {
       return id.toString();
@@ -351,14 +351,14 @@ class Accounts extends MoneyObjects<Account> {
 
   /// Returns all open accounts.
   List<Account> getOpenAccounts() {
-    return iterableList().where((final Account account) => account.isOpen).toList();
+    return iterableList().where((Account account) => account.isOpen).toList();
   }
 
   /// Returns open, non-fake (real) accounts only.
   List<Account> getOpenRealAccounts() {
     return iterableList()
         .where(
-          (final Account account) => !account.isFakeAccount() && account.isOpen,
+          (Account account) => !account.isFakeAccount() && account.isOpen,
         )
         .toList();
   }
@@ -376,7 +376,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   /// Returns all transactions associated with the given [account].
-  Iterable<Transaction> getTransactions(final Account account) {
+  Iterable<Transaction> getTransactions(Account account) {
     return this.data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
@@ -400,11 +400,9 @@ class Accounts extends MoneyObjects<Account> {
     );
 
     for (final Investment investment in investments) {
-      final Security? security =
-          data.getSecurity(
-                investment.fieldSecurity.value,
-              )
-              as Security?;
+      final Security? security = data.getSecurity(
+        investment.fieldSecurity.value,
+      ) as Security?;
       if (security != null) {
         final String stockSymbol = security.fieldSymbol.value;
         groupBySymbol.cumulate('${account.uniqueId}|$stockSymbol', investment);
@@ -445,7 +443,7 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   /// Updates the `paidOn` markers for credit card transactions based on matching statement payments.
-  void _updateCreditCardPaidOn(final Account account) {
+  void _updateCreditCardPaidOn(Account account) {
     final List<Transaction> transactionForAccountSortedByDateAscending = this.data
         .getTransactions()
         .cast<Transaction>()

@@ -63,7 +63,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
           .map((
             String text,
           ) {
-            text = text
+            final String unescapedText = text
                 .replaceAll('\r', '')
                 .replaceAll('\n', '')
                 .replaceAll(SharedStrings.xmlEntityAmp, '&')
@@ -71,7 +71,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
                 .replaceAll(SharedStrings.xmlEntityGt, '>')
                 .replaceAll(SharedStrings.xmlEntityQuot, '"')
                 .replaceAll(SharedStrings.xmlEntityApos, "'");
-            return text.trim();
+            return unescapedText.trim();
           })
           .toList();
     }
@@ -351,14 +351,14 @@ ImportData loadXLSX(
 /// - US format: MM/DD/YYYY (06/30/2025)
 /// - Short year formats: DD/MM/YY (30/06/25)
 DateTime? parseFlexibleDate(String dateStr) {
-  dateStr = dateStr.trim();
-  if (dateStr.isEmpty) {
+  final String trimmedDate = dateStr.trim();
+  if (trimmedDate.isEmpty) {
     return null;
   }
 
   // Try ISO format first (Dart's native format)
   try {
-    return DateTime.parse(dateStr);
+    return DateTime.parse(trimmedDate);
   } catch (_) {
     // Continue to other formats
   }

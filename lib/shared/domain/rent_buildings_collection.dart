@@ -15,7 +15,7 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
 
     for (final MyJson row in rows) {
@@ -46,7 +46,7 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   ///
   /// Iterates through all transactions and uses the `cumulatePnL` method
   /// of the provided `rental` object to aggregate profit and loss data.
-  void cumulateTransactions(final RentBuilding rental) {
+  void cumulateTransactions(RentBuilding rental) {
     // Reset the accumulated P&L data for the rental.
     rental.pnlOverYears = <int, RentalPnL>{};
 

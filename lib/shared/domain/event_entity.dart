@@ -22,13 +22,13 @@ import 'package:money/widgets/widgets_domain/field_model.dart';
 class Event extends DataObject {
   /// Private constructor for static fields only
   Event._static({
-    required final int id,
-    required final String name,
-    final int categoryId = -1,
-    required final DateTime? dateBegin,
-    required final DateTime? dateEnd,
-    required final String people,
-    required final String memo,
+    required int id,
+    required String name,
+    int categoryId = -1,
+    required DateTime? dateBegin,
+    required DateTime? dateEnd,
+    required String people,
+    required String memo,
   }) : data = null {
     this.fieldId.value = id;
     this.fieldName.value = name;
@@ -40,13 +40,13 @@ class Event extends DataObject {
   }
 
   Event({
-    required final int id,
-    required final String name,
-    final int categoryId = -1,
-    required final DateTime? dateBegin,
-    required final DateTime? dateEnd,
-    required final String people,
-    required final String memo,
+    required int id,
+    required String name,
+    int categoryId = -1,
+    required DateTime? dateBegin,
+    required DateTime? dateEnd,
+    required String people,
+    required String memo,
     required this.data,
   }) {
     this.fieldId.value = id;
@@ -59,7 +59,7 @@ class Event extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Event.fromJson(final MyJson row, final DataAbstract data) {
+  factory Event.fromJson(MyJson row, DataAbstract data) {
     return Event(
       id: row.getInt(SharedDomainStrings.domainString057, -1),
       name: row.getString(SharedDomainStrings.domainString088),
@@ -80,24 +80,23 @@ class Event extends DataObject {
     name: SharedDomainStrings.domainString029,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: -1,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       final Event event = instance as Event;
       return event.data!.getCategoryWidget(event.fieldCategoryId.value);
     },
 
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Event).categoryName,
       (b as Event).categoryName,
       ascending,
     ),
 
-    getValueForReading: (final DataInterface instance) => (instance as Event).categoryName,
-    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldCategoryId.value,
-    setValue: (final DataInterface instance, dynamic newValue) =>
-        (instance as Event).fieldCategoryId.value = newValue as int,
+    getValueForReading: (DataInterface instance) => (instance as Event).categoryName,
+    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldCategoryId.value,
+    setValue: (DataInterface instance, dynamic newValue) => (instance as Event).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           final Event event = instance as Event;
@@ -135,8 +134,8 @@ class Event extends DataObject {
     name: 'Duration',
     align: TextAlign.center,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Event).durationAsString,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    getValueForDisplay: (DataInterface instance) => (instance as Event).durationAsString,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Event).durationInDays,
       (b as Event).durationInDays,
       ascending,
@@ -145,7 +144,7 @@ class Event extends DataObject {
 
   /// ID
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Event).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Event).uniqueId,
   );
 
   /// Memo
@@ -153,8 +152,8 @@ class Event extends DataObject {
     name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
     columnWidth: ColumnWidth.large,
-    getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldMemo.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldMemo.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Event).fieldMemo.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldMemo.value,
   );
 
   /// Name
@@ -162,10 +161,10 @@ class Event extends DataObject {
     name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
-    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Event).eventName),
-    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldName.value,
-    setValue: (final DataInterface instance, dynamic value) => (instance as Event).fieldName.value = value as String,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    getValueForDisplay: (DataInterface instance) => TokenText((instance as Event).eventName),
+    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldName.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Event).fieldName.value = value as String,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Event).fieldName.value,
       (b as Event).fieldName.value,
       ascending,
@@ -176,8 +175,8 @@ class Event extends DataObject {
   FieldString fieldPeople = FieldString(
     name: SharedDomainStrings.domainString107,
     serializeName: SharedDomainStrings.domainString107,
-    getValueForDisplay: (final DataInterface instance) => (instance as Event).fieldPeople.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Event).fieldPeople.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Event).fieldPeople.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldPeople.value,
   );
 
   int possibleMatchingCategoryId = -1;
@@ -206,7 +205,7 @@ class Event extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Event> _fields = Fields<Event>();
   static final Fields<Event> _fieldsForColumnView = Fields<Event>();
@@ -246,7 +245,7 @@ class Event extends DataObject {
   String get categoryName => data!.getCategoryNameFromId(this.fieldCategoryId.value);
 
   /// Updates the category for an event and notifies listeners.
-  static void changeCategory(Event item, final int categoryId) {
+  static void changeCategory(Event item, int categoryId) {
     // record the change
     item.stashValueBeforeEditing();
 
@@ -315,10 +314,10 @@ class Event extends DataObject {
       name: name,
       serializeName: serializeName,
       columnWidth: ColumnWidth.small,
-      getValueForDisplay: (final DataInterface instance) => getField(instance as Event).value,
+      getValueForDisplay: (DataInterface instance) => getField(instance as Event).value,
       getEditWidget:
           (
-            final DataInterface instance,
+            DataInterface instance,
             void Function(bool /* wasModified */) onEdited,
           ) {
             return PickerEditBoxDate(
@@ -338,7 +337,7 @@ class Event extends DataObject {
           getField(instance as Event).value = attemptToGetDateFromText(
             newValue as String,
           ),
-      getValueForSerialization: (final DataInterface instance) =>
+      getValueForSerialization: (DataInterface instance) =>
           dateToIso8601OrDefaultString(getField(instance as Event).value),
     );
   }

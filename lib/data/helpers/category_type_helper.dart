@@ -14,7 +14,7 @@ enum CategoryType {
 
 extension CategoryTypeExtension on CategoryType {
   /// Returns CategoryType from integer index, with bounds checking.
-  static CategoryType fromInt(final int index) {
+  static CategoryType fromInt(int index) {
     if (isBetween(index, -1, CategoryType.values.length)) {
       return CategoryType.values[index];
     }
@@ -22,7 +22,7 @@ extension CategoryTypeExtension on CategoryType {
   }
 
   /// Returns CategoryType from string name, case-insensitive.
-  static CategoryType fromName(final String categoryTypeName) {
+  static CategoryType fromName(String categoryTypeName) {
     switch (categoryTypeName.toLowerCase()) {
       case SharedStrings.categoryTypeIncomeToken:
         return CategoryType.income;

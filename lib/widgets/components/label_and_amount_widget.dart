@@ -23,7 +23,7 @@ class LabelAndAmount extends StatelessWidget {
   final bool small;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final Widget amountWidget = WidgetFromData(
       amountModel: AmountModel(
         amount: amount,

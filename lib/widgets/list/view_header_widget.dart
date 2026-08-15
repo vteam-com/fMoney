@@ -83,14 +83,14 @@ class ViewHeader extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return ValueListenableBuilder<List<int>>(
       valueListenable: selectedItems,
       builder:
           (
-            final BuildContext context,
-            final List<int> _,
-            final _,
+            BuildContext context,
+            List<int> _,
+            _,
             /*widget*/
           ) {
             return buildViewHeaderContainer(context, _buildContent(context));
@@ -108,7 +108,7 @@ class ViewHeader extends StatelessWidget {
   }
 
   /// Builds the header content including title, action buttons, filters, and optional child.
-  Widget _buildContent(final BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     final List<Widget> widgets = <Widget>[];
 
     widgets.add(
@@ -191,7 +191,7 @@ class ViewHeader extends StatelessWidget {
             hintText: AppL10n.tr(AppTranslationKeys.filter),
             initialValue: textFilter,
             autoSubmitAfterSeconds: _autoSubmitDisabled,
-            onChanged: (final String text) {
+            onChanged: (String text) {
               onTextFilterChanged!(text);
             },
           ),

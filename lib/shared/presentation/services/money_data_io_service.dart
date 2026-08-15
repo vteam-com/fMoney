@@ -17,7 +17,7 @@ import 'package:money/widgets/widgets_domain/data_source_model.dart';
 /// Represents money data io.
 class MoneyDataIO {
   /// Loads data from file path based on file extension.
-  Future<bool> loadFromPath(final Data data, final DataSource dateSource) async {
+  Future<bool> loadFromPath(Data data, DataSource dateSource) async {
     try {
       final String fileExtension = MyFileSystems.getFileExtension(
         dateSource.filePath,
@@ -60,9 +60,9 @@ class MoneyDataIO {
 
   /// Loads data from SQLite database file.
   Future<bool> loadFromSql(
-    final Data data, {
-    required final String filePath,
-    required final Uint8List fileBytes,
+    Data data, {
+    required String filePath,
+    required Uint8List fileBytes,
   }) async {
     // Load from SQLite
     final String? pathToDatabaseFile = await validateDataBasePathIsValidAndExist(filePath, fileBytes);
@@ -112,8 +112,8 @@ class MoneyDataIO {
 
   /// Validates database file path and returns valid path or null.
   Future<String?> validateDataBasePathIsValidAndExist(
-    final String? filePath,
-    final Uint8List fileBytes,
+    String? filePath,
+    Uint8List fileBytes,
   ) async {
     try {
       if (filePath != null) {
@@ -132,9 +132,9 @@ class MoneyDataIO {
 
   /// Saves data to SQLite database file with completion callback.
   Future<bool> saveToSql(
-    final Data data, {
-    required final String filePath,
-    required final void Function(
+    Data data, {
+    required String filePath,
+    required void Function(
       bool _, // success
       String _, //errorMessage
     )
@@ -185,9 +185,9 @@ class MoneyDataIO {
 
   /// Loads data from zipped CSV archive file.
   Future<void> loadFromZippedCsv(
-    final Data data,
+    Data data,
     String filePathToLoad,
-    final Uint8List fileBytes,
+    Uint8List fileBytes,
   ) async {
     // Decode the ZIP file
     late Archive archive;
@@ -202,7 +202,7 @@ class MoneyDataIO {
   }
 
   /// Loads data from archive containing multiple CSV files.
-  void loadFromArchive(final Data data, final Archive archive) {
+  void loadFromArchive(Data data, Archive archive) {
     // Extract the files and read the content
     for (ArchiveFile file in archive) {
       if (file.isFile) {
@@ -295,7 +295,7 @@ class MoneyDataIO {
   }
 
   /// Saves data to CSV format and returns the file path.
-  Future<String> saveToCsv(final Data data) async {
+  Future<String> saveToCsv(Data data) async {
     final String destinationFolder = await DataAccess.generateNextFolderToSaveTo();
     if (destinationFolder.isEmpty) {
       throw Exception('No container folder give for saving');
@@ -354,9 +354,9 @@ class MoneyDataIO {
 
   /// Adds CSV content as file to the archive.
   void addCsvToArchive(
-    final Archive archive,
-    final String filename,
-    final String textContent,
+    Archive archive,
+    String filename,
+    String textContent,
   ) {
     final List<int> bytes = utf8.encode(textContent);
     archive.addFile(ArchiveFile(filename, bytes.length, bytes));

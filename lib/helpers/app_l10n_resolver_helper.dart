@@ -5,7 +5,7 @@ typedef L10n = AppLocalizations;
 typedef L10nParams = Map<String, String>;
 
 /// Resolves translation [key] values for [AppL10n] in staged batches.
-String resolveAppL10nKey(final L10n l10n, final String key, final L10nParams p) {
+String resolveAppL10nKey(L10n l10n, String key, L10nParams p) {
   switch (key) {
     case AppTranslationKeys.accountNames:
       return l10n.accountNames;
@@ -225,7 +225,7 @@ String resolveAppL10nKey(final L10n l10n, final String key, final L10nParams p) 
 }
 
 /// Resolves the second batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageTwo(final L10n l10n, final String key, final L10nParams p) {
+String _resolveAppL10nKeyStageTwo(L10n l10n, String key, L10nParams p) {
   switch (key) {
     case AppTranslationKeys.navInvestmentsTooltip:
       return l10n.navInvestmentsTooltip;
@@ -471,7 +471,7 @@ String _resolveAppL10nKeyStageTwo(final L10n l10n, final String key, final L10nP
 }
 
 /// Resolves the third batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageThree(final L10n l10n, final String key, final L10nParams p) {
+String _resolveAppL10nKeyStageThree(L10n l10n, String key, L10nParams p) {
   switch (key) {
     case AppTranslationKeys.ollamaAiAssistant:
       return l10n.ollamaAiAssistant;
@@ -699,7 +699,7 @@ String _resolveAppL10nKeyStageThree(final L10n l10n, final String key, final L10
 }
 
 /// Resolves the final batch of translation keys for [AppL10n].
-String _resolveAppL10nKeyStageFour(final L10n l10n, final String key, final L10nParams p) {
+String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
   switch (key) {
     case AppTranslationKeys.platformDesktopIntelSiliconSoftware:
       return l10n.platformDesktopIntelSiliconSoftware;

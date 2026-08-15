@@ -20,7 +20,7 @@ const int _gradientBottomAlpha = 10;
 /// - Red if trending downward
 /// - Grey otherwise
 LineChartBarData getLineChartBarData(
-  final List<FlSpot> dataPoints, {
+  List<FlSpot> dataPoints, {
   bool showDots = false,
 }) {
   dataPoints.sort((FlSpot a, FlSpot b) => a.x.compareTo(b.x));

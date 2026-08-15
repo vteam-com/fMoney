@@ -24,11 +24,11 @@ class SankeyPanel extends StatelessWidget {
   final int minYear;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final ({List<SanKeyEntry> incomes, List<SanKeyEntry> expenses}) sankeyData = _transformData();
     final ThemeController themeController = AppScope.of(context).themeController;
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (BuildContext context, BoxConstraints constraints) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -94,18 +94,18 @@ class SankeyPanel extends StatelessWidget {
     }
 
     // Clean up the Incomes, drop 0.00
-    mapOfIncomes.removeWhere((final Category _, final double v) => v <= _zeroDouble);
+    mapOfIncomes.removeWhere((Category _, double v) => v <= _zeroDouble);
     // Sort Descending
     final Map<Category, double> sortedIncomes = Map<Category, double>.fromEntries(
       mapOfIncomes.entries.toList()..sort(
         (
-          final MapEntry<Category, double> e1,
-          final MapEntry<Category, double> e2,
+          MapEntry<Category, double> e1,
+          MapEntry<Category, double> e2,
         ) => (e2.value - e1.value).toInt(),
       ),
     );
 
-    sortedIncomes.forEach((final Category key, final double value) {
+    sortedIncomes.forEach((Category key, double value) {
       sanKeyListOfIncomes.add(
         SanKeyEntry()
           ..name = key.fieldName.value
@@ -114,19 +114,19 @@ class SankeyPanel extends StatelessWidget {
     });
 
     // Clean up the Expenses, drop 0.00
-    mapOfExpenses.removeWhere((final Category _, final double v) => v == _zeroDouble);
+    mapOfExpenses.removeWhere((Category _, double v) => v == _zeroDouble);
 
     // Sort Ascending, in the case of expenses that means the largest negative number to the least negative number
     final Map<Category, double> sortedExpenses = Map<Category, double>.fromEntries(
       mapOfExpenses.entries.toList()..sort(
         (
-          final MapEntry<Category, double> e1,
-          final MapEntry<Category, double> e2,
+          MapEntry<Category, double> e1,
+          MapEntry<Category, double> e2,
         ) => (e1.value - e2.value).toInt(),
       ),
     );
 
-    sortedExpenses.forEach((final Category key, final double value) {
+    sortedExpenses.forEach((Category key, double value) {
       sanKeyListOfExpenses.add(
         SanKeyEntry()
           ..name = key.fieldName.value

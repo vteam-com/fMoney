@@ -20,15 +20,15 @@ class MenuEntry {
   MenuEntry({required this.icon, required this.title, required this.onPressed});
 
   factory MenuEntry.customAction({
-    required final IconData icon,
-    required final String text,
-    required final void Function() onPressed,
+    required IconData icon,
+    required String text,
+    required void Function() onPressed,
   }) {
     return MenuEntry(icon: icon, title: text, onPressed: onPressed);
   }
 
   factory MenuEntry.editCategory({
-    required final Category category,
+    required Category category,
     Function? onApplyChange,
   }) {
     return MenuEntry(
@@ -46,7 +46,7 @@ class MenuEntry {
     );
   }
 
-  factory MenuEntry.toAccounts({required final int accountId}) {
+  factory MenuEntry.toAccounts({required int accountId}) {
     return MenuEntry(
       icon: ViewId.viewAccounts.getIconData(),
       title: AppL10n.tr(AppTranslationKeys.navAccounts),
@@ -72,7 +72,7 @@ class MenuEntry {
     );
   }
 
-  factory MenuEntry.toCategory({required final Category category}) {
+  factory MenuEntry.toCategory({required Category category}) {
     return MenuEntry(
       icon: ViewId.viewCategories.getIconData(),
       title: AppL10n.tr(AppTranslationKeys.navCategories),
@@ -87,8 +87,8 @@ class MenuEntry {
   }
 
   factory MenuEntry.toInvestments({
-    final String symbol = '',
-    final String accountName = '',
+    String symbol = '',
+    String accountName = '',
   }) {
     final List<FieldFilter> filters = <FieldFilter>[];
 
@@ -124,7 +124,7 @@ class MenuEntry {
     );
   }
 
-  factory MenuEntry.toStocks({final String symbol = ''}) {
+  factory MenuEntry.toStocks({String symbol = ''}) {
     late FieldFilter fieldFilterToUse;
     if (symbol.isNotEmpty) {
       fieldFilterToUse = FieldFilter(
@@ -149,9 +149,9 @@ class MenuEntry {
   }
 
   factory MenuEntry.toTransactions({
-    required final int transactionId,
-    final FieldFilters? filters,
-    final String filterText = '',
+    required int transactionId,
+    FieldFilters? filters,
+    String filterText = '',
   }) {
     return MenuEntry(
       icon: ViewId.viewTransactions.getIconData(),
@@ -168,7 +168,7 @@ class MenuEntry {
     );
   }
 
-  factory MenuEntry.toWeb({required final String url}) {
+  factory MenuEntry.toWeb({required String url}) {
     return MenuEntry(
       icon: Icons.web_asset_outlined,
       title: SharedStrings.labelYahooFinance,
@@ -190,8 +190,8 @@ class MenuEntry {
 
 /// Builds a menu button with a dropdown of menu items.
 Widget buildMenuButton(
-  final BuildContext context,
-  final List<MenuEntry> menuItems, {
+  BuildContext context,
+  List<MenuEntry> menuItems, {
   IconData icon = Icons.more_horiz,
   String tooltip = SharedStrings.labelSwitchView,
 }) {
@@ -216,7 +216,7 @@ Widget buildMenuButton(
     icon: icon,
     tooltip: tooltip,
     list: list,
-    onSelected: (final int index) {
+    onSelected: (int index) {
       menuItems[index].onPressed();
     },
   );
@@ -224,8 +224,8 @@ Widget buildMenuButton(
 
 /// Builds a button for jumping between different views.
 Widget buildJumpToButton(
-  final BuildContext context,
-  final List<MenuEntry> listOfViewToJumpTo,
+  BuildContext context,
+  List<MenuEntry> listOfViewToJumpTo,
 ) {
   return buildMenuButton(
     context,

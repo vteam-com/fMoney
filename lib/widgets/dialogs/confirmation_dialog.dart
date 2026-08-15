@@ -6,10 +6,10 @@ import 'package:money/widgets/pure/gaps_helper.dart';
 
 /// Shows a confirmation dialog with a single action button.
 void showConfirmationDialog({
-  required final BuildContext context,
-  required final String title,
-  required final String buttonText,
-  required final void Function() onConfirmation,
+  required BuildContext context,
+  required String title,
+  required String buttonText,
+  required void Function() onConfirmation,
   String question = '',
   Widget? content,
 }) {
@@ -54,7 +54,7 @@ class ConfirmationDialog extends StatelessWidget {
   /// Uses [Flexible] (not [Expanded]) and avoids [IntrinsicHeight] so that
   /// descendants such as [ListView] are never asked for intrinsic dimensions.
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,

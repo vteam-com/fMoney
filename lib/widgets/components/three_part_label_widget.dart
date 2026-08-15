@@ -21,7 +21,7 @@ class ThreePartLabel extends StatelessWidget {
   final String text2;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return isVertical
         ? Column(children: <Widget>[renderText1(context), renderText2(context)])
         : Row(
@@ -38,7 +38,7 @@ class ThreePartLabel extends StatelessWidget {
   }
 
   /// Renders the first text block with size-dependent styling.
-  Widget renderText1(final BuildContext context) {
+  Widget renderText1(BuildContext context) {
     if (small) {
       return Text(text1, style: getTextTheme(context).labelLarge);
     } else {
@@ -47,7 +47,7 @@ class ThreePartLabel extends StatelessWidget {
   }
 
   /// Renders the second text block with bodySmall styling.
-  Widget renderText2(final BuildContext context) {
+  Widget renderText2(BuildContext context) {
     return Text(text2, style: getTextTheme(context).bodySmall);
   }
 }

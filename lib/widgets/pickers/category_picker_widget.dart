@@ -6,9 +6,9 @@ import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 /// Shows a picker for selecting a category name.
 Widget pickerCategory({
   Key? key,
-  required final List<String> categoryNames,
-  required final String? selectedName,
-  required final void Function(String?) onSelected,
+  required List<String> categoryNames,
+  required String? selectedName,
+  required void Function(String?) onSelected,
 }) {
   return PickerEditBox(
     key: key,

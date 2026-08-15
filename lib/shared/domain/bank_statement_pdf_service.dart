@@ -71,20 +71,20 @@ class BankStatementPdfService {
   const BankStatementPdfService();
 
   /// Extracts raw text from a PDF file at [filePath].
-  Future<String> extractTextFromPdfFile(final String filePath) async {
+  Future<String> extractTextFromPdfFile(String filePath) async {
     return _extractTextFromPdf(filePath);
   }
 
   /// Parses statement content from pre-extracted [rawText].
   BankStatementParseResult parseExtractedText({
-    required final String rawText,
-    required final String filePath,
+    required String rawText,
+    required String filePath,
   }) {
     final String normalizedText = rawText.replaceAll('\r', '\n');
     final List<String> lines = normalizedText
         .split('\n')
-        .map((final String line) => line.trim())
-        .where((final String line) => line.isNotEmpty)
+        .map((String line) => line.trim())
+        .where((String line) => line.isNotEmpty)
         .toList();
 
     final int fallbackYear = _resolveFallbackYear(lines);
@@ -111,7 +111,7 @@ class BankStatementPdfService {
   }
 
   /// Extracts a likely ISO-4217 currency code from [lowercaseText].
-  String? _extractDetectedCurrencyCode(final String lowercaseText) {
+  String? _extractDetectedCurrencyCode(String lowercaseText) {
     if (lowercaseText.contains('€') ||
         lowercaseText.contains(' eur ') ||
         lowercaseText.contains(' euro ') ||
@@ -134,7 +134,7 @@ class BankStatementPdfService {
   }
 
   /// Extracts plain text from all pages of the PDF at [filePath] using pdfrx.
-  Future<String> _extractTextFromPdf(final String filePath) async {
+  Future<String> _extractTextFromPdf(String filePath) async {
     await pdfrxFlutterInitialize();
     final PdfDocument document = await PdfDocument.openFile(filePath);
     try {
@@ -157,7 +157,7 @@ class BankStatementPdfService {
   }
 
   /// Counts how many bank statement keywords appear in [lowercaseText].
-  int _countBankStatementKeywords(final String lowercaseText) {
+  int _countBankStatementKeywords(String lowercaseText) {
     const List<String> keywords = <String>[
       'bank statement',
       'statement period',
@@ -182,7 +182,7 @@ class BankStatementPdfService {
   }
 
   /// Extracts candidate account identifier hints from [lines].
-  List<String> _extractAccountHints(final List<String> lines) {
+  List<String> _extractAccountHints(List<String> lines) {
     final Set<String> hints = <String>{};
 
     final RegExp accountPattern = RegExp(
@@ -219,7 +219,7 @@ class BankStatementPdfService {
   }
 
   /// Extracts a likely ending/closing balance from [lines].
-  double? _extractStatementBalance(final List<String> lines) {
+  double? _extractStatementBalance(List<String> lines) {
     final RegExp amountPattern = RegExp(
       r'([+\-]?\(?\$?\s*\d[\d,.\s]*\)?(?:\s*(?:CR|DR))?)',
       caseSensitive: false,
@@ -245,7 +245,7 @@ class BankStatementPdfService {
   }
 
   /// Returns true when [lowercaseLine] likely describes a balance field.
-  bool _isBalanceLine(final String lowercaseLine) {
+  bool _isBalanceLine(String lowercaseLine) {
     return lowercaseLine.contains('ending balance') ||
         lowercaseLine.contains('closing balance') ||
         lowercaseLine.contains('available balance') ||
@@ -255,8 +255,8 @@ class BankStatementPdfService {
 
   /// Extracts transaction rows from [lines], applying [fallbackYear] when needed.
   List<BankStatementTransactionRecord> _extractTransactions(
-    final List<String> lines,
-    final int fallbackYear,
+    List<String> lines,
+    int fallbackYear,
   ) {
     final RegExp transactionPattern = RegExp(
       r'^(\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)\s+(.+?)\s+([+\-]?\(?\$?\s*\d[\d,.\s]*\)?(?:\s*(?:CR|DR))?)$',
@@ -315,9 +315,9 @@ class BankStatementPdfService {
 
   /// Extracts transactions from statements that split rows into two lines: posting date/ref then value-date/details.
   List<BankStatementTransactionRecord> _extractTransactionsFromSplitRows({
-    required final List<String> lines,
-    required final int fallbackYear,
-    required final Set<String> dedupeKeys,
+    required List<String> lines,
+    required int fallbackYear,
+    required Set<String> dedupeKeys,
   }) {
     final RegExp postingDateRefPattern = RegExp(r'^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s+\d+\s*$');
     final RegExp leadingDatePattern = RegExp(r'^(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\s+');
@@ -386,7 +386,7 @@ class BankStatementPdfService {
   }
 
   /// Returns true when [description] appears to be a statement summary row.
-  bool _isSummaryDescription(final String description) {
+  bool _isSummaryDescription(String description) {
     final String lowered = description.toLowerCase();
     return lowered.contains('opening balance') ||
         lowered.contains('beginning balance') ||
@@ -399,7 +399,7 @@ class BankStatementPdfService {
   }
 
   /// Resolves the most likely statement year from explicit dates present in [lines].
-  int _resolveFallbackYear(final List<String> lines) {
+  int _resolveFallbackYear(List<String> lines) {
     final RegExp dateWithYearPattern = RegExp(r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}');
 
     DateTime? latestDate;
@@ -419,7 +419,7 @@ class BankStatementPdfService {
   }
 
   /// Parses [token] into a concrete date, using [fallbackYear] when year is missing.
-  DateTime? _parseDateToken(final String token, final int fallbackYear) {
+  DateTime? _parseDateToken(String token, int fallbackYear) {
     final List<String> parts = token.replaceAll('-', '/').split('/');
     if (parts.length < 2 || parts.length > 3) {
       return null;
@@ -464,7 +464,7 @@ class BankStatementPdfService {
   }
 
   /// Returns true when [month] and [day] represent a valid calendar day.
-  bool _isValidMonthDay(final int month, final int day) {
+  bool _isValidMonthDay(int month, int day) {
     if (month < 1 || month > 12) {
       return false;
     }
@@ -475,7 +475,7 @@ class BankStatementPdfService {
   }
 
   /// Parses [rawAmountToken] into a signed decimal amount.
-  double? _parseAmountToken(final String rawAmountToken) {
+  double? _parseAmountToken(String rawAmountToken) {
     String token = rawAmountToken.trim().toUpperCase();
     if (token.isEmpty) {
       return null;
@@ -511,7 +511,7 @@ class BankStatementPdfService {
   }
 
   /// Normalizes decimal/thousands separators in [token] to standard dot notation.
-  String _normalizeNumberSeparators(final String token) {
+  String _normalizeNumberSeparators(String token) {
     String normalized = token;
     final int commaIndex = normalized.lastIndexOf(',');
     final int dotIndex = normalized.lastIndexOf('.');
@@ -549,12 +549,12 @@ class BankStatementPdfService {
   }
 
   /// Normalizes [token] to uppercase alphanumeric characters plus `*`.
-  String _normalizeToken(final String token) {
+  String _normalizeToken(String token) {
     return token.replaceAll(RegExp(r'[^A-Za-z0-9*]'), '').toUpperCase();
   }
 
   /// Extracts only digit characters from [token].
-  String _digitsOnly(final String token) {
+  String _digitsOnly(String token) {
     return token.replaceAll(RegExp(r'[^0-9]'), '');
   }
 }

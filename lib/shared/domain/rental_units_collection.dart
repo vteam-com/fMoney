@@ -10,7 +10,7 @@ class RentUnits extends MoneyObjects<RentUnit> {
   }
 
   @override
-  RentUnit instanceFromJson(final MyJson json) {
+  RentUnit instanceFromJson(MyJson json) {
     return RentUnit.fromJson(json);
   }
 }

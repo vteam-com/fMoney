@@ -26,7 +26,7 @@ class Transfer extends DataObject {
     // body of constructor
   }
 
-  factory Transfer.fromJson(final MyJson _ /* json */) {
+  factory Transfer.fromJson(MyJson _ /* json */) {
     return Transfer(id: _unsetId, source: null, isOrphan: true);
   }
 
@@ -42,7 +42,7 @@ class Transfer extends DataObject {
     name: 'RS',
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final DataInterface instance) => transactionStatusToLetter(
+    getValueForDisplay: (DataInterface instance) => transactionStatusToLetter(
       (instance as Transfer).relatedTransaction!.fieldStatus.value as TransactionStatus,
     ),
   );
@@ -51,7 +51,7 @@ class Transfer extends DataObject {
   FieldString fieldMemoDestination = FieldString(
     name: 'Recipient memo',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getMemoDestination(),
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).getMemoDestination(),
   );
 
   /// Account
@@ -59,7 +59,7 @@ class Transfer extends DataObject {
     type: FieldType.text,
     name: 'Recipient account',
     defaultValue: _unsetId,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).receiverAccountName,
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).receiverAccountName,
   );
 
   //
@@ -69,7 +69,7 @@ class Transfer extends DataObject {
   /// Date received
   FieldDate fieldReceiverTransactionDate = FieldDate(
     name: 'Date Received',
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).receiverTransactionDate,
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).receiverTransactionDate,
   );
 
   /// Account
@@ -77,7 +77,7 @@ class Transfer extends DataObject {
     type: FieldType.text,
     name: 'Sender',
     defaultValue: _unsetId,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).senderAccountName,
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).senderAccountName,
   );
 
   //
@@ -85,14 +85,14 @@ class Transfer extends DataObject {
   //
   FieldDate fieldSenderTransactionDate = FieldDate(
     name: 'Sent on',
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).geSenderTransactionDate(),
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).geSenderTransactionDate(),
   );
 
   /// memo
   FieldString fieldSenderTransactionMemo = FieldString(
     name: 'Sender memo',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getMemoSource(),
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).getMemoSource(),
   );
 
   /// Status
@@ -100,7 +100,7 @@ class Transfer extends DataObject {
     name: 'SS',
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final DataInterface instance) => transactionStatusToLetter(
+    getValueForDisplay: (DataInterface instance) => transactionStatusToLetter(
       (instance as Transfer).source!.fieldStatus.value as TransactionStatus,
     ),
   );
@@ -109,7 +109,7 @@ class Transfer extends DataObject {
   FieldMoney fieldTransactionAmount = FieldMoney(
     name: SharedDomainStrings.domainString017,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).source!.fieldAmount.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).source!.fieldAmount.value,
   );
 
   ///
@@ -119,7 +119,7 @@ class Transfer extends DataObject {
   /// Troubleshoot
   FieldString fieldTroubleshoot = FieldString(
     name: 'Troubleshoot',
-    getValueForDisplay: (final DataInterface instance) => (instance as Transfer).getTroubleshoot(),
+    getValueForDisplay: (DataInterface instance) => (instance as Transfer).getTroubleshoot(),
   );
 
   @override

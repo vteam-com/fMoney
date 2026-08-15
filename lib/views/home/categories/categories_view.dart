@@ -66,13 +66,13 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
   ];
 
   @override
-  Widget buildHeader([final Widget? child]) {
+  Widget buildHeader([Widget? child]) {
     return super.buildHeader(_buildToggles());
   }
 
   /// add more top level action buttons
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       // Add a new Category, place this at the top of the list
@@ -170,7 +170,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     final List<Category> list = Data().categories
         .iterableList(includeDeleted: includeDeleted)
         .where(
-          (final Category instance) =>
+          (Category instance) =>
               (filterType.isEmpty || filterType.contains(instance.fieldType.value)) &&
               (applyFilter == false || isMatchingFilters(instance)),
         )
@@ -299,9 +299,9 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
   }
 
   /// Sums balances across the currently listed categories, optionally filtered by type.
-  double _getTotalBalanceOfAccounts(final List<CategoryType> types) {
+  double _getTotalBalanceOfAccounts(List<CategoryType> types) {
     double total = _zeroDouble;
-    getList().forEach((final Category category) {
+    getList().forEach((Category category) {
       if (types.isEmpty || category.fieldType.value == types.first) {
         total += category.fieldSum.value.asDouble();
       }
@@ -311,7 +311,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   /// Returns transactions whose categories fall within the selected category subtree.
   List<Transaction> _getTransactionsFromSelectedIds(
-    final List<int> selectedIds,
+    List<int> selectedIds,
   ) {
     final Category? category = getMoneyObjectFromFirstSelectedId<Category>(
       selectedIds,
@@ -325,8 +325,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
       );
       return getTransactions(
         flattenSplits: true,
-        filter: (final Transaction transaction) =>
-            listOfDescendentCategories.contains(transaction.fieldCategoryId.value),
+        filter: (Transaction transaction) => listOfDescendentCategories.contains(transaction.fieldCategoryId.value),
       );
     }
     return <Transaction>[];
@@ -334,8 +333,8 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   /// Details panels Chart panel for Categories
   Widget _getSubViewContentForChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
@@ -351,11 +350,11 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
         }
       }
       final List<PairXYY> listChart = <PairXYY>[];
-      map.forEach((final String key, final num value) {
+      map.forEach((String key, num value) {
         listChart.add(PairXYY(key, value));
       });
 
-      listChart.sort((final PairXYY a, final PairXYY b) {
+      listChart.sort((PairXYY a, PairXYY b) {
         return (b.yValue1.abs() - a.yValue1.abs()).toInt();
       });
 
@@ -372,7 +371,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
 
   // Details Panel for Transactions Categories
   Widget _getSubViewContentForTransactions({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);

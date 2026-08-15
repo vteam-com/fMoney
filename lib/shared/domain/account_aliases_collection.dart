@@ -10,7 +10,7 @@ class AccountAliases extends MoneyObjects<AccountAlias> {
   }
 
   @override
-  AccountAlias instanceFromJson(final MyJson json) {
+  AccountAlias instanceFromJson(MyJson json) {
     return AccountAlias.fromJson(json);
   }
 }

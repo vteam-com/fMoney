@@ -6,9 +6,9 @@ export 'package:flutter/material.dart';
 
 /// Builds the app scaffold with global text scaling applied.
 Widget myScaffold(
-  final BuildContext context,
-  final PreferredSizeWidget? appBar,
-  final Widget body,
+  BuildContext context,
+  PreferredSizeWidget? appBar,
+  Widget body,
 ) {
   final MediaQueryData data = MediaQuery.of(
     context,

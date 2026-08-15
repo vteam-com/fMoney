@@ -25,7 +25,7 @@ class FilterInput extends StatelessWidget {
   final void Function(String) onChanged;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return MyTextInput(
       initialValue: initialValue,
       icon: Icons.search,
@@ -34,7 +34,7 @@ class FilterInput extends StatelessWidget {
       onFieldSubmitted: (String text) {
         onChanged(text);
       },
-      onChanged: (final String text) {
+      onChanged: (String text) {
         // optional auto submit
         if (autoSubmitAfterSeconds != -1) {
           _debouncerForFilterText.run(() {

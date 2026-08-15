@@ -23,14 +23,14 @@ const int _rangeStep = 1;
 class DateRange {
   DateRange({this.min, this.max});
 
-  factory DateRange.fromStarEndYears(final int yearStart, final int yearEnd) => DateRange(
+  factory DateRange.fromStarEndYears(int yearStart, int yearEnd) => DateRange(
     min: DateTime(yearStart, _firstMonth, _firstDayOfMonth),
     max: DateTime(yearEnd + _oneYearOffset).subtract(const Duration(microseconds: _microsecondPadding)),
   );
 
   factory DateRange.fromText(
-    final String minDateAsText,
-    final String maxDateAsText,
+    String minDateAsText,
+    String maxDateAsText,
   ) => DateRange(
     min: DateTime.parse(minDateAsText),
     max: DateTime.parse(maxDateAsText),
@@ -150,7 +150,7 @@ class DateRange {
   bool get hasNullDates => min == null || max == null;
 
   /// Expands the date range to include the specified date.
-  void inflate(final DateTime? dateTime) {
+  void inflate(DateTime? dateTime) {
     if (dateTime != null) {
       min ??= dateTime;
       max ??= dateTime;
@@ -166,10 +166,10 @@ class DateRange {
   }
 
   /// Returns true if date is strictly between min and max (exclusive).
-  bool isBetween(final DateTime date) => min!.isBefore(date) && max!.isAfter(date);
+  bool isBetween(DateTime date) => min!.isBefore(date) && max!.isAfter(date);
 
   /// Returns true if date is between or equal to min and max (inclusive).
-  bool isBetweenEqual(final DateTime? date) {
+  bool isBetweenEqual(DateTime? date) {
     if (date == null) {
       return false;
     }
@@ -194,7 +194,7 @@ class DateRange {
   String toStringYears() => '${dateToYearString(min)} ($durationInYearsText) ${dateToYearString(max)}';
 
   /// Returns [value] or zero if it is null.
-  int _valueOrZeroIfNull(final int? value) {
+  int _valueOrZeroIfNull(int? value) {
     if (value == null) {
       return _zeroInt;
     }
@@ -256,18 +256,18 @@ class NumRange {
     max = newMax;
   }
 
-  String _getDescription(final String min, final String max) =>
+  String _getDescription(String min, String max) =>
       min + SharedStrings.rangeMinInfix + max + SharedStrings.rangeMaxSuffix;
 }
 
 extension Range on num {
   /// Returns true if number is strictly between from and to (exclusive).
-  bool isBetween(final num from, final num to) {
+  bool isBetween(num from, num to) {
     return from < this && this < to;
   }
 
   /// Returns true if number is between or equal to from and to (inclusive).
-  bool isBetweenOrEqual(final num from, final num to) {
+  bool isBetweenOrEqual(num from, num to) {
     return from < this && this < to;
   }
 }

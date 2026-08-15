@@ -21,7 +21,7 @@ import 'package:money/widgets/widgets_domain/field_model.dart';
 class ViewRentalsSidePanel {
   /// Opens Categories view, selecting [categoryId].
   static void openCategoriesForRentalCategory({
-    required final int categoryId,
+    required int categoryId,
   }) {
     if (categoryId < 0) {
       return;
@@ -37,8 +37,8 @@ class ViewRentalsSidePanel {
 
   /// Resolves the rental category ID corresponding to the tapped PnL amount type.
   static int getRentalCategoryIdForAmountType(
-    final RentBuilding rental,
-    final RentalPnLAmountType amountType,
+    RentBuilding rental,
+    RentalPnLAmountType amountType,
   ) {
     switch (amountType) {
       case RentalPnLAmountType.income:
@@ -60,8 +60,8 @@ class ViewRentalsSidePanel {
   ///
   /// Considers split transactions by checking each split individually.
   static bool filterByRentalCategories(
-    final Transaction t,
-    final RentBuilding rental,
+    Transaction t,
+    RentBuilding rental,
   ) {
     final num categoryIdToMatch = t.fieldCategoryId.value;
 
@@ -86,8 +86,8 @@ class ViewRentalsSidePanel {
   /// Displays either a chart of lifetime P&L for all rentals (if no rental is selected)
   /// or a chart of cumulative profit over time for the selected rental.
   static Widget getSubViewContentForChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency, // Currently unused
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency, // Currently unused
   }) {
     keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
@@ -126,8 +126,8 @@ class ViewRentalsSidePanel {
   /// Displays a message to select a rental if none is selected, otherwise displays
   /// a horizontal scrollable list of yearly and lifetime P&L cards for the selected rental.
   static Widget getSubViewContentForPnL({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency, // Currently unused
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency, // Currently unused
   }) {
     keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
@@ -150,7 +150,7 @@ class ViewRentalsSidePanel {
         pnlCards.add(
           RentalPnLCard(
             pnl: pnl,
-            onCaptionTap: (final RentalPnLAmountType amountType) {
+            onCaptionTap: (RentalPnLAmountType amountType) {
               final int categoryId = getRentalCategoryIdForAmountType(rental, amountType);
               openCategoriesForRentalCategory(
                 categoryId: categoryId,
@@ -178,7 +178,7 @@ class ViewRentalsSidePanel {
   /// Returns the content for the transactions sub-view in the details panel.
   /// Displays a list of transactions associated with the selected rental property.
   static Widget getSubViewContentForTransactions({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
     required bool showAsNativeCurrency, // Currently unused
   }) {
     keepUnused(showAsNativeCurrency);
@@ -207,14 +207,14 @@ class ViewRentalsSidePanel {
     RentBuilding rentBuildings,
   ) {
     return getTransactions(
-      filter: (final Transaction transaction) => filterByRentalCategories(transaction, rentBuildings),
+      filter: (Transaction transaction) => filterByRentalCategories(transaction, rentBuildings),
     );
   }
 
   /// Checks if a given category ID is part of the rental's relevant category trees (income, management, repairs, etc.).
   static bool isMatchingCategories(
-    final num categoryIdToMatch,
-    final RentBuilding rental,
+    num categoryIdToMatch,
+    RentBuilding rental,
   ) {
     Data().categories.getTreeIds(rental.categoryForIncome.value);
 

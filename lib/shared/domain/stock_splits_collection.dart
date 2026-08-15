@@ -16,12 +16,12 @@ class StockSplits extends MoneyObjects<StockSplit> {
   late DataAbstract data;
 
   @override
-  StockSplit instanceFromJson(final MyJson json) {
+  StockSplit instanceFromJson(MyJson json) {
     return StockSplit.fromJson(json, data);
   }
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       appendMoneyObject(instanceFromJson(row));
@@ -34,14 +34,14 @@ class StockSplits extends MoneyObjects<StockSplit> {
   }
 
   /// Returns all stock splits for a security, sorted by date.
-  List<StockSplit> getStockSplitsForSecurity(final Security s) {
+  List<StockSplit> getStockSplitsForSecurity(Security s) {
     final List<StockSplit> list = <StockSplit>[];
     for (StockSplit split in iterableList()) {
       if (!s.isDeleted && split.fieldSecurity.value == s.uniqueId) {
         list.add(split);
       }
     }
-    list.sort((final StockSplit a, final StockSplit b) {
+    list.sort((StockSplit a, StockSplit b) {
       return a.fieldDate.value!.compareTo(b.fieldDate.value!);
     });
 
@@ -49,7 +49,7 @@ class StockSplits extends MoneyObjects<StockSplit> {
   }
 
   /// Only add, no removal of existing splits
-  void setStockSplits(final int securityId, final List<StockSplit> values) {
+  void setStockSplits(int securityId, List<StockSplit> values) {
     final List<StockSplit> listOfSplitsFound = iterableList()
         .where(
           (StockSplit split) => split.fieldSecurity.value == securityId,

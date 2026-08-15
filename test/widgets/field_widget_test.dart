@@ -47,7 +47,7 @@ void main() {
     PreferenceController.instance = null;
   });
 
-  testWidgets('Is Mobile', (final WidgetTester tester) async {
+  testWidgets('Is Mobile', (WidgetTester tester) async {
     expect(isPlatformMobile(), false);
   });
 

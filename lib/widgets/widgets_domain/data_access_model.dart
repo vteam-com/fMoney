@@ -4,12 +4,11 @@ import 'package:money/widgets/widgets_domain/data_mutations_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
-typedef NotifyMutationChanged =
-    void Function({
-      required MutationType mutation,
-      required DataObject moneyObject,
-      bool recalculateBalances,
-    });
+typedef NotifyMutationChanged = void Function({
+  required MutationType mutation,
+  required DataObject moneyObject,
+  bool recalculateBalances,
+});
 
 typedef GetCategoryName = String Function(int id);
 typedef GetCurrencyRatio = double Function(String symbol);

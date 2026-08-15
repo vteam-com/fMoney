@@ -72,7 +72,7 @@ class _SankeyPainter extends CustomPainter {
   double topOfCenters = Constants.gapBetweenChannels * _topCenterGapMultiplier;
 
   @override
-  void paint(final Canvas canvas, final Size size) {
+  void paint(Canvas canvas, Size size) {
     columnWidth = size.width / _columnWidthDivisor;
 
     final double maxWidth = size.width;
@@ -82,12 +82,12 @@ class _SankeyPainter extends CustomPainter {
 
     final double totalIncome = leftEntries.fold(
       0.00,
-      (final double sum, final SanKeyEntry item) => sum + item.value,
+      (double sum, SanKeyEntry item) => sum + item.value,
     );
     final double totalExpense = rightEntries
         .fold(
           0.00,
-          (final double sum, final SanKeyEntry item) => sum + item.value,
+          (double sum, SanKeyEntry item) => sum + item.value,
         )
         .abs();
 
@@ -181,7 +181,6 @@ class _SankeyPainter extends CustomPainter {
     final double netAmount = totalIncome - totalExpense;
     renderNetProfitOrLost(
       netAmount,
-      lastHeight,
       ratioIncomeToExpense,
       horizontalCenter,
       targetRevenues,
@@ -192,10 +191,10 @@ class _SankeyPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRebuildSemantics(final _SankeyPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(_SankeyPainter oldDelegate) => false;
 
   @override
-  bool shouldRepaint(final _SankeyPainter oldDelegate) => true;
+  bool shouldRepaint(_SankeyPainter oldDelegate) => true;
 
   // Box for "Net Profit/Lost"
   // The box may show on both side
@@ -205,14 +204,12 @@ class _SankeyPainter extends CustomPainter {
   /// Builds the net profit/loss block positioned left or right of center.
   Block buildSegmentForNetProfitLost(
     double netAmount,
-    double lastHeight,
     double ratioIncomeToExpense,
     double horizontalCenter,
     Block targetRevenues,
     Block targetExpenses,
   ) {
-    lastHeight = ratioIncomeToExpense * netAmount.abs();
-    lastHeight = max(Block.minBlockHeight, lastHeight);
+    final double netBlockHeight = max(Block.minBlockHeight, ratioIncomeToExpense * netAmount.abs());
 
     String text = SharedStrings.empty;
 
@@ -232,7 +229,7 @@ class _SankeyPainter extends CustomPainter {
       netRectTop = targetExpenses.rect.bottom + gap;
     }
 
-    rect = ui.Rect.fromLTWH(netRectLeft, netRectTop, columnWidth, lastHeight);
+    rect = ui.Rect.fromLTWH(netRectLeft, netRectTop, columnWidth, netBlockHeight);
 
     text += getAmountAsShorthandText(netAmount);
 
@@ -256,7 +253,6 @@ class _SankeyPainter extends CustomPainter {
   /// Renders the net profit/loss block and its connecting channels.
   void renderNetProfitOrLost(
     double netAmount,
-    double lastHeight,
     double ratioIncomeToExpense,
     double horizontalCenter,
     Block targetRevenues,
@@ -266,7 +262,6 @@ class _SankeyPainter extends CustomPainter {
   ) {
     final Block targetNet = buildSegmentForNetProfitLost(
       netAmount,
-      lastHeight,
       ratioIncomeToExpense,
       horizontalCenter,
       targetRevenues,
@@ -310,13 +305,13 @@ class _SankeyPainter extends CustomPainter {
 
   /// Renders a list of source blocks and channels to a target block.
   double renderSourcesToTarget(
-    final ui.Canvas canvas,
-    final List<SanKeyEntry> list,
-    final double left,
-    final double top,
-    final Block target,
-    final Color color,
-    final Color textColor,
+    ui.Canvas canvas,
+    List<SanKeyEntry> list,
+    double left,
+    double top,
+    Block target,
+    Color color,
+    Color textColor,
   ) {
     final double sumOfHeight = sumValue(list);
 

@@ -49,7 +49,7 @@ class MyListItemAsCard extends StatelessWidget {
   final Widget? rightTopAsWidget;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Expanded(
@@ -98,10 +98,10 @@ class MyListItemAsCard extends StatelessWidget {
 
   /// Returns widget [a] if condition is true, otherwise returns [b].
   Widget either(
-    final Widget? a,
-    final String? b,
-    final TextStyle? style,
-    final TextAlign? align,
+    Widget? a,
+    String? b,
+    TextStyle? style,
+    TextAlign? align,
   ) {
     if (a != null) {
       return a;

@@ -76,7 +76,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
 
     // Step 1: Group transactions by payeeId and record transaction months
     for (final Transaction transaction in transactions.where(
-      (final Transaction t) =>
+      (Transaction t) =>
           (isIncomeTransaction && t.fieldAmount.value.asDouble() > 0) ||
           (isIncomeTransaction == false && t.fieldAmount.value.asDouble() <= 0),
     )) {
@@ -108,7 +108,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
   }
 
   /// Initializes recurring transactions filtered by income/expense type.
-  void initRecurringTransactions({required final bool forIncome}) {
+  void initRecurringTransactions({required bool forIncome}) {
     // get all transactions meeting the request of date and type
     bool whereClause(Transaction t) {
       return isBetweenOrEqual(

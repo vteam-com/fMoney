@@ -91,7 +91,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
       listController: widget.listController,
       isMultiSelectionOn: false,
       selectedItemsByUniqueId: selectionCollectionOfOnlyOneItem,
-      onSelectionChanged: (final int selectedId) {
+      onSelectionChanged: (int selectedId) {
         widget.listController.bookmark = widget.listController.scrollController.offset;
         setState(() {
           selectionCollectionOfOnlyOneItem.value = <int>[selectedId];
@@ -197,7 +197,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
   }
 
   /// Use the field FooterType to decide how to render the bottom button of each columns
-  Widget getColumnFooterWidget(final Field<dynamic> field) {
+  Widget getColumnFooterWidget(Field<dynamic> field) {
     return _footerAccumulators.buildWidget(field);
   }
 }

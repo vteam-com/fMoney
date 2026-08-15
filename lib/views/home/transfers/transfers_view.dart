@@ -126,7 +126,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> widgets = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       widgets.add(_buildMagicWandButton());
@@ -150,7 +150,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
     final List<Transaction> listOfTransactionsUseForTransfer = Data().transactions
         .getListFlattenSplits()
         .where(
-          (final Transaction transaction) => transaction.fieldTransfer.value != -1,
+          (Transaction transaction) => transaction.fieldTransfer.value != -1,
         )
         .toList();
 
@@ -197,7 +197,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
     // Apply filters if enabled.
     if (applyFilter) {
-      listOfTransfers = listOfTransfers.where((final Transfer instance) => isMatchingFilters(instance)).toList();
+      listOfTransfers = listOfTransfers.where((Transfer instance) => isMatchingFilters(instance)).toList();
     }
 
     return listOfTransfers;
@@ -210,7 +210,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Adds a transfer to the list if the accounts are available and not excluded by filters.
   void _addTransferToList({
-    required final List<Transfer> list,
+    required List<Transfer> list,
     required Transaction transactionSender,
     required Transaction? transactionReceiver,
     required bool isOrphan,
@@ -236,7 +236,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Returns the side panel view details for a selected transfer.
   Widget _getSidePanelViewDetails({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
   }) {
     if (selectedIds.isNotEmpty) {
       final int id = selectedIds.first;
@@ -282,10 +282,10 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Finds candidate disconnected transaction pairs that can become transfers.
   Future<List<_PotentialTransferSuggestion>> _findPotentialTransferSuggestions({
-    required final bool includeClosedAccounts,
+    required bool includeClosedAccounts,
   }) async {
     final List<Transaction> disconnectedTransactions = Data().transactions.iterableList(includeDeleted: false).where((
-      final Transaction transaction,
+      Transaction transaction,
     ) {
       if (!includeClosedAccounts && _isTransactionInClosedAccount(transaction)) {
         return false;
@@ -372,7 +372,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   /// Builds scan indexes in one pass, then computes same-account exclusions.
-  _TransferScanIndex _buildTransferScanIndex(final List<Transaction> transactions) {
+  _TransferScanIndex _buildTransferScanIndex(List<Transaction> transactions) {
     final Map<bool, Map<int, Map<int, List<Transaction>>>> candidatesBySignDayAmount =
         <bool, Map<int, Map<int, List<Transaction>>>>{};
     final Map<int, Map<bool, Map<int, Map<int, List<Transaction>>>>> byAccountSignDayAmount =
@@ -427,8 +427,8 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Collects opposite-sign candidates for [source] from nearby days.
   List<Transaction> _collectOppositeCandidatesForSource({
-    required final Transaction source,
-    required final Map<bool, Map<int, Map<int, List<Transaction>>>> candidatesBySignDayAmount,
+    required Transaction source,
+    required Map<bool, Map<int, Map<int, List<Transaction>>>> candidatesBySignDayAmount,
   }) {
     final DateTime? sourceDateValue = source.fieldDateTime.value;
     if (sourceDateValue == null) {
@@ -462,8 +462,8 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Returns transaction IDs that have an opposite-sign counterpart in same account.
   Set<int> _buildSameAccountOppositeIds({
-    required final List<Transaction> transactions,
-    required final Map<int, Map<bool, Map<int, Map<int, List<Transaction>>>>> byAccountSignDayAmount,
+    required List<Transaction> transactions,
+    required Map<int, Map<bool, Map<int, Map<int, List<Transaction>>>>> byAccountSignDayAmount,
   }) {
     final Set<int> excludedIds = <int>{};
 
@@ -524,10 +524,10 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Finds the best candidate for [source] from [candidates] using date proximity.
   Transaction? _findBestCandidate({
-    required final Transaction source,
-    required final List<Transaction> candidates,
-    required final Set<int> alreadyPairedIds,
-    required final Set<int> sameAccountOppositeIds,
+    required Transaction source,
+    required List<Transaction> candidates,
+    required Set<int> alreadyPairedIds,
+    required Set<int> sameAccountOppositeIds,
   }) {
     final DateTime? sourceDateValue = source.fieldDateTime.value;
     if (sourceDateValue == null) {
@@ -594,13 +594,13 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   /// Converts an amount to an absolute cents bucket for fast grouping.
-  int _toAmountBucket(final double amount) {
+  int _toAmountBucket(double amount) {
     return (amount.abs() * _amountBucketMultiplier).round();
   }
 
   /// Returns true when both transactions are categorized as opposite
   /// income/expense entries, which are unlikely to be real transfers.
-  bool _isLikelyIncomeExpensePair(final Transaction a, final Transaction b) {
+  bool _isLikelyIncomeExpensePair(Transaction a, Transaction b) {
     final int transferCategoryId = Data().categories.transfer.uniqueId;
     final int splitCategoryId = Data().categories.split.uniqueId;
 
@@ -625,12 +625,12 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   /// Returns true when amounts are opposite in sign and non-zero.
-  bool _hasOppositeSign(final double a, final double b) {
+  bool _hasOppositeSign(double a, double b) {
     return a != 0 && b != 0 && ((a < 0 && b > 0) || (a > 0 && b < 0));
   }
 
   /// Returns true when [accountType] represents a credit/charge account.
-  bool _isCreditAccountType(final AccountType accountType) {
+  bool _isCreditAccountType(AccountType accountType) {
     return accountType == AccountType.credit || accountType == AccountType.creditLine;
   }
 
@@ -640,7 +640,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   /// A legitimate credit-card payment goes bank(-) → credit(+).
   /// The invalid case is credit(-) paired with bank(+): the negative leg is a
   /// purchase, not a transfer out.
-  bool _isInvalidCreditCardDirection(final Transaction a, final Transaction b) {
+  bool _isInvalidCreditCardDirection(Transaction a, Transaction b) {
     final Account? accountA = a.instanceOfAccount;
     final Account? accountB = b.instanceOfAccount;
     if (accountA == null || accountB == null) {
@@ -665,18 +665,18 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   /// Returns absolute day difference between two dates.
-  int _getDayDifference(final DateTime first, final DateTime second) {
+  int _getDayDifference(DateTime first, DateTime second) {
     return (second.difference(first).inHours / _hoursPerDay).abs().round();
   }
 
   /// Returns true when [transaction] belongs to a closed account.
-  bool _isTransactionInClosedAccount(final Transaction transaction) {
+  bool _isTransactionInClosedAccount(Transaction transaction) {
     final Account? account = transaction.instanceOfAccount;
     return account != null && account.isClosed();
   }
 
   /// Updates transfer finder scope and invalidates cached suggestions.
-  void _setIncludeClosedAccountsInFinder(final bool value) {
+  void _setIncludeClosedAccountsInFinder(bool value) {
     if (_isScanningPotentialTransfers || _includeClosedAccountsInFinder == value) {
       return;
     }
@@ -715,7 +715,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   }
 
   /// Builds text for the badge with an upper bound to keep the header compact.
-  String _getBadgeLabelText(final int count) {
+  String _getBadgeLabelText(int count) {
     if (count > _badgeLimit) {
       return '$_badgeLimit+';
     }
@@ -759,10 +759,10 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
       ),
       clipBehavior: Clip.antiAlias,
       isDismissible: true,
-      builder: (final BuildContext dialogContext) {
+      builder: (BuildContext dialogContext) {
         final double maxHeight = MediaQuery.of(dialogContext).size.height * _potentialTransferSheetMaxHeightFactor;
         return StatefulBuilder(
-          builder: (final BuildContext context, final StateSetter setPanelState) {
+          builder: (BuildContext context, StateSetter setPanelState) {
             _potentialTransferSheetSetState = setPanelState;
             return SafeArea(
               child: SizedBox(
@@ -803,7 +803,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
                             : ListView.separated(
                                 itemCount: _cachedSuggestions.length,
                                 separatorBuilder: (_, _) => const SizedBox(height: _potentialTransferSuggestionListGap),
-                                itemBuilder: (final BuildContext _, final int index) {
+                                itemBuilder: (BuildContext _, int index) {
                                   final _PotentialTransferSuggestion suggestion = _cachedSuggestions[index];
                                   final Transfer preview = suggestion.toPreviewTransfer();
 
@@ -863,7 +863,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
   /// Builds text for the scan progress row.
   /// Formats an integer with locale-specific thousand separators.
-  String _formatNumber(final int value) {
+  String _formatNumber(int value) {
     final NumberFormat formatter = NumberFormat.decimalPattern();
     return formatter.format(value);
   }

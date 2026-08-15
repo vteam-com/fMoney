@@ -20,7 +20,7 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       appendMoneyObject(LoanPayment.fromJson(row, data));

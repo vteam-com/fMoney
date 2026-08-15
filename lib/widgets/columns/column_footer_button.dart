@@ -7,13 +7,13 @@ import 'package:money/helpers/constants_helper.dart';
 /// width (for pixel-aligned layout); otherwise it is wrapped in an
 /// [Expanded] with weight [flex] (for proportional flex layout).
 Widget buildColumnFooterButton({
-  required final BuildContext context,
-  required final TextAlign textAlign,
-  required final int flex,
-  required final VoidCallback? onPressed,
-  required final VoidCallback? onLongPress,
-  required final Widget? child,
-  final double? fixedWidth,
+  required BuildContext context,
+  required TextAlign textAlign,
+  required int flex,
+  required VoidCallback? onPressed,
+  required VoidCallback? onLongPress,
+  required Widget? child,
+  double? fixedWidth,
 }) {
   final Widget inner = TextButton(
     style: ButtonStyle(

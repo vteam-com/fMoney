@@ -124,7 +124,7 @@ class AccumulatorSum<K, V> {
   }
 
   /// Returns the accumulated value for the specified key, or 0 if not found.
-  dynamic getValue(final K key) => values[key] ?? 0;
+  dynamic getValue(K key) => values[key] ?? 0;
 
   // Replace this function with your specific logic for accumulating values of type T
   dynamic _accumulate(V existingValue, V value) => (existingValue as num) + (value as num);
@@ -144,10 +144,10 @@ class AccumulatorDateRange<K> {
   }
 
   /// Returns true if the accumulator contains the specified key.
-  bool containsKey(final K key) => values.containsKey(key);
+  bool containsKey(K key) => values.containsKey(key);
 
   /// Accumulates the date value for the specified key, expanding the date range.
-  void cumulate(final K key, final DateTime value) {
+  void cumulate(K key, DateTime value) {
     if (values.containsKey(key)) {
       values[key]!.inflate(value);
     } else {
@@ -159,7 +159,7 @@ class AccumulatorDateRange<K> {
   List<MapEntry<K, DateRange>> getEntries() => values.entries.toList();
 
   /// Returns the date range for the specified key, or null if not found.
-  DateRange? getValue(final K key) => values[key];
+  DateRange? getValue(K key) => values[key];
 }
 
 /// Calculates running averages for values by key.
@@ -176,16 +176,16 @@ class AccumulatorAverage<K> {
   }
 
   /// Returns true if the accumulator contains the specified key.
-  bool containsKey(final K key) => values.containsKey(key);
+  bool containsKey(K key) => values.containsKey(key);
 
   /// Accumulates the value for the specified key, updating the running average.
-  void cumulate(final K key, final num value) {
+  void cumulate(K key, num value) {
     final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
     average.addValue(value);
   }
 
   /// Returns the running average for the specified key, or null if not found.
-  RunningAverage? getValue(final K key) => values[key];
+  RunningAverage? getValue(K key) => values[key];
 }
 
 /// Calculates running range for values by key.
@@ -207,10 +207,10 @@ class AccumulatorRange<K> {
   }
 
   /// Returns true if the accumulator contains the specified key.
-  bool containsKey(final K key) => values.containsKey(key);
+  bool containsKey(K key) => values.containsKey(key);
 
   /// Accumulates the value for the specified key, updating range and watermarks.
-  void cumulate(final K key, final num value) {
+  void cumulate(K key, num value) {
     final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
     average.addValue(value);
 
@@ -224,13 +224,13 @@ class AccumulatorRange<K> {
   }
 
   /// Returns the running average for the specified key, or null if not found.
-  RunningAverage? getValue(final K key) => values[key];
+  RunningAverage? getValue(K key) => values[key];
 
   /// Returns the high watermark value for the specified key, or null if not found.
-  num? getHighWatermark(final K key) => highWatermark[key];
+  num? getHighWatermark(K key) => highWatermark[key];
 
   /// Returns the low watermark value for the specified key, or null if not found.
-  num? getLowWatermark(final K key) => lowWatermark[key];
+  num? getLowWatermark(K key) => lowWatermark[key];
 }
 
 /// Two-level accumulator mapping keys to sums.
@@ -271,13 +271,13 @@ class MapAccumulatorSet<K, I, V> {
 
   /// Retrieves the set of values [V] associated with the given keys [K] and [I].
   /// If no values are found for the given keys, an empty set is returned.
-  Set<V> find(final K key1, final I key2) {
+  Set<V> find(K key1, I key2) {
     final AccumulatorList<I, V>? foundInLevel1 = map[key1];
     return foundInLevel1?.getValue(key2) ?? <V>{};
   }
 
   /// Returns the level-1 accumulator for the specified key, or null if not found.
-  AccumulatorList<I, V>? getLevel1(final K key1) => map[key1];
+  AccumulatorList<I, V>? getLevel1(K key1) => map[key1];
 }
 
 /// Tracks running statistics for numeric values.
@@ -326,7 +326,7 @@ class RunningAverage {
   }
 
   /// Returns the calculated average, optionally including zero values.
-  double getAverage({final bool includingZeros = false}) {
+  double getAverage({bool includingZeros = false}) {
     if (_count == 0) {
       return 0.0; // Handle case where no values have been added yet
     }

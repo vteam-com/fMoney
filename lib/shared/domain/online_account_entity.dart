@@ -50,7 +50,7 @@ class OnlineAccount extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory OnlineAccount.fromJson(final MyJson row) {
+  factory OnlineAccount.fromJson(MyJson row) {
     return OnlineAccount(
       // 1
       name: row.getString(SharedDomainStrings.domainString088),
@@ -93,13 +93,13 @@ class OnlineAccount extends DataObject {
 
   // 0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as OnlineAccount).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as OnlineAccount).uniqueId,
   );
 
   // 1
   FieldString fieldName = FieldString(
     serializeName: SharedDomainStrings.domainString088,
-    getValueForSerialization: (final DataInterface instance) => (instance as OnlineAccount).fieldName.value,
+    getValueForSerialization: (DataInterface instance) => (instance as OnlineAccount).fieldName.value,
   );
 
   // 2
@@ -143,5 +143,5 @@ class OnlineAccount extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 }

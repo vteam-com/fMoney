@@ -30,15 +30,15 @@ class ValuesParser {
   List<ValuesQuality> _values = <ValuesQuality>[];
 
   /// Adds a parsed [ValuesQuality] item to the internal list.
-  void add(final ValuesQuality item) {
+  void add(ValuesQuality item) {
     _values.add(item);
   }
 
   /// Interleaves three column strings into a single semicolon-separated buffer.
   static String assembleIntoSingleTextBuffer(
-    final String multiStringDates,
-    final String multiStringDescriptions,
-    final String multiStringAmounts,
+    String multiStringDates,
+    String multiStringDescriptions,
+    String multiStringAmounts,
   ) {
     int maxLines = 0;
     List<String> dates = multiStringDates.split('\n');
@@ -116,16 +116,16 @@ class ValuesParser {
 
   /// Parses raw input text into a list of ValuesQuality transactions.
   void convertInputTextToTransactionList(
-    final BuildContext? _,
+    BuildContext? _,
     String inputString,
   ) {
     // start by fresh
     _values.clear();
 
-    inputString = inputString.trim();
+    final String trimmedInput = inputString.trim();
 
     final List<String> lines = getLinesOfText(
-      inputString,
+      trimmedInput,
       includeEmptyLines: false,
     );
 
@@ -139,7 +139,7 @@ class ValuesParser {
       // Date ; Description ; Amount
       //
       final List<String> lines = getLinesOfText(
-        inputString,
+        trimmedInput,
         includeEmptyLines: false,
       );
       if (lines.isNotEmpty) {
@@ -152,7 +152,7 @@ class ValuesParser {
       // CSV like text but use space as separator ' ', instead of ',' this is necessary because some currency use comma in the Amount value
       //
       final List<List<String>> lines = getLinesFromRawTextWithSeparator(
-        inputString,
+        trimmedInput,
         ' ',
       );
       if (lines.isNotEmpty) {
@@ -167,8 +167,8 @@ class ValuesParser {
 
   /// Checks each parsed value against existing transactions for the account.
   static void evaluateExistence({
-    required final int accountId,
-    required final List<ValuesQuality> values,
+    required int accountId,
+    required List<ValuesQuality> values,
     required TransactionExistsCallback transactionExistsCallback,
   }) {
     for (final ValuesQuality vq in values) {

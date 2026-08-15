@@ -58,7 +58,7 @@ class MruDropdown extends StatelessWidget {
                     selectedItem: '',
                     onSelected:
                         (
-                          final String selectedTextRepresentingFileNamePath,
+                          String selectedTextRepresentingFileNamePath,
                         ) async {
                           final DataSource dataSource = DataSource(
                             filePath: selectedTextRepresentingFileNamePath,
@@ -89,7 +89,7 @@ class MruDropdown extends StatelessWidget {
   }
 
   /// Builds a relative timestamp label for the currently loaded file.
-  Widget _buildTimeStampOfFile(final DateTime? dataSourceTimeStamp) {
+  Widget _buildTimeStampOfFile(DateTime? dataSourceTimeStamp) {
     if (dataSourceTimeStamp == null) {
       return const SizedBox();
     } else {

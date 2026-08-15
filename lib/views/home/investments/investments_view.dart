@@ -36,7 +36,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
   /// add more top level action buttons
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       final Investment? selectedInvestment = getFirstSelectedItem() as Investment?;
@@ -66,12 +66,9 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
               onPressed: () {
                 // Prepare the Stocks view
                 // Filter by Stock Symbol
-                final String symbol =
-                    (selectedInvestment.fieldSecuritySymbol.getValueForDisplay(
-                              selectedInvestment,
-                            )
-                            as String)
-                        .toLowerCase();
+                final String symbol = (selectedInvestment.fieldSecuritySymbol.getValueForDisplay(
+                  selectedInvestment,
+                ) as String).toLowerCase();
                 final Security? securityFound = Data().securities.getBySymbol(
                   symbol,
                 );
@@ -139,8 +136,8 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
   /// Details panels Chart panel for Payees
   Widget _getSubViewContentForChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     double balance = 0.00;
@@ -166,7 +163,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
   }
 
   /// Returns the account id associated with the transaction backing the given investment.
-  int _getAccountIdForInvestment(final int investmentTransactionId) {
+  int _getAccountIdForInvestment(int investmentTransactionId) {
     final Transaction? transactionFound = Data().transactions.get(
       investmentTransactionId,
     );
@@ -178,8 +175,8 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
   /// Checks whether an investment belongs to the given security and to the same account.
   bool _isSameSecurityFromTheSameAccount(
-    final Investment investment,
-    final int securityId,
+    Investment investment,
+    int securityId,
     int accountId,
   ) {
     if (investment.fieldSecurity.value != securityId) {
@@ -193,7 +190,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
 
   // Details Panel for Transactions Payees
   Widget _getSubViewContentForTransactions({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
@@ -220,7 +217,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
         .toList();
 
     final List<Transaction> listOfTransactions = getTransactions(
-      filter: (final Transaction transaction) => listOfInvestmentIdForThisSecurityAndAccount.contains(
+      filter: (Transaction transaction) => listOfInvestmentIdForThisSecurityAndAccount.contains(
         transaction.uniqueId,
       ),
     );

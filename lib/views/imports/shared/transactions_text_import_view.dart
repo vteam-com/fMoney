@@ -30,9 +30,9 @@ const double _pdfImportLoadingPadding = 18.0;
 
 /// Shows a loading dialog, parses [pdfFilePath] with AI, and opens the regular transaction import panel pre-filled.
 Future<void> showImportTransactionsFromPdfUsingAi({
-  required final BuildContext context,
-  required final String pdfFilePath,
-  final AiPdfImportService aiPdfImportService = const AiPdfImportService(),
+  required BuildContext context,
+  required String pdfFilePath,
+  AiPdfImportService aiPdfImportService = const AiPdfImportService(),
 }) async {
   if (pdfFilePath.isEmpty) {
     return;
@@ -102,12 +102,12 @@ Future<void> showImportTransactionsFromPdfUsingAi({
 }
 
 /// Shows a non-dismissible loading dialog used while AI is starting and parsing the PDF.
-void _showPdfImportLoadingDialog(final NavigatorState rootNavigator) {
+void _showPdfImportLoadingDialog(NavigatorState rootNavigator) {
   unawaited(
     showDialog<void>(
       context: rootNavigator.context,
       barrierDismissible: false,
-      builder: (final BuildContext _) {
+      builder: (BuildContext _) {
         return PopScope(
           canPop: false,
           child: AlertDialog(
@@ -131,7 +131,7 @@ void _showPdfImportLoadingDialog(final NavigatorState rootNavigator) {
 }
 
 /// Closes the loading dialog shown by [_showPdfImportLoadingDialog] if it is still visible.
-void _closePdfImportLoadingDialog(final NavigatorState rootNavigator) {
+void _closePdfImportLoadingDialog(NavigatorState rootNavigator) {
   if (rootNavigator.canPop()) {
     rootNavigator.pop();
   }
@@ -139,7 +139,7 @@ void _closePdfImportLoadingDialog(final NavigatorState rootNavigator) {
 
 /// Shows a guaranteed modal feedback message for PDF import outcomes.
 void _showPdfImportMessageDialog({
-  required final String message,
+  required String message,
 }) {
   final BuildContext? routerContext = AppRouter.context;
   if (routerContext == null) {
@@ -155,8 +155,8 @@ void _showPdfImportMessageDialog({
 }
 
 /// Converts parsed statement transactions into semicolon-delimited text for [ImportTransactionsPanel].
-String _buildImportTextFromStatement(final BankStatementParseResult statement) {
-  final List<String> lines = statement.transactions.map((final BankStatementTransactionRecord record) {
+String _buildImportTextFromStatement(BankStatementParseResult statement) {
+  final List<String> lines = statement.transactions.map((BankStatementTransactionRecord record) {
     final String dateText = _formatStatementDateForImport(record.date);
     final String description = _sanitizeStatementDescription(record.description);
     final String amount = record.amount;
@@ -169,7 +169,7 @@ String _buildImportTextFromStatement(final BankStatementParseResult statement) {
 }
 
 /// Formats a [date] into an ISO-like day token accepted by the import panel parsers.
-String _formatStatementDateForImport(final DateTime date) {
+String _formatStatementDateForImport(DateTime date) {
   final String isoDate = date.toIso8601String();
   if (isoDate.length <= _isoDateLength) {
     return isoDate;
@@ -178,19 +178,19 @@ String _formatStatementDateForImport(final DateTime date) {
 }
 
 /// Sanitizes statement [description] to avoid delimiter collisions in semicolon-delimited import text.
-String _sanitizeStatementDescription(final String description) {
+String _sanitizeStatementDescription(String description) {
   return description.replaceAll(';', ' ').replaceAll('\n', ' ').replaceAll('\r', ' ').trim();
 }
 
 /// Finds the best matching local account for [statement] using extracted account hints.
-Account? _findMatchingAccountForStatement(final BankStatementParseResult statement) {
+Account? _findMatchingAccountForStatement(BankStatementParseResult statement) {
   if (statement.accountHints.isEmpty) {
     return null;
   }
 
   final List<Account> accounts = Data().accounts
       .getOpenRealAccounts()
-      .where((final Account account) => !account.isFakeAccount())
+      .where((Account account) => !account.isFakeAccount())
       .toList();
 
   Account? bestAccount;
@@ -208,8 +208,8 @@ Account? _findMatchingAccountForStatement(final BankStatementParseResult stateme
 
 /// Calculates a matching score between [account] and [accountHints].
 int _calculateAccountMatchScore({
-  required final Account account,
-  required final List<String> accountHints,
+  required Account account,
+  required List<String> accountHints,
 }) {
   int score = 0;
 
@@ -251,17 +251,17 @@ int _calculateAccountMatchScore({
 }
 
 /// Normalizes account match tokens by removing non-alphanumeric characters and uppercasing.
-String _normalizeMatchToken(final String token) {
+String _normalizeMatchToken(String token) {
   return token.replaceAll(RegExp(r'[^A-Za-z0-9]'), '').toUpperCase();
 }
 
 /// Extracts only digits from [token].
-String _extractDigits(final String token) {
+String _extractDigits(String token) {
   return token.replaceAll(RegExp(r'[^0-9]'), '');
 }
 
 /// Returns the first account identifier hint with at least four digits, when present.
-String? _findUnmatchedAccountIdentifier(final BankStatementParseResult statement) {
+String? _findUnmatchedAccountIdentifier(BankStatementParseResult statement) {
   for (final String hint in statement.accountHints) {
     final String trimmedHint = hint.trim();
     if (trimmedHint.isEmpty) {
@@ -277,7 +277,7 @@ String? _findUnmatchedAccountIdentifier(final BankStatementParseResult statement
 }
 
 /// Resolves a normalized preferred import currency code from [statement].
-String? _resolvePreferredCurrencyCode(final BankStatementParseResult statement) {
+String? _resolvePreferredCurrencyCode(BankStatementParseResult statement) {
   final String? detectedCurrencyCode = statement.detectedCurrencyCode;
   if (detectedCurrencyCode == null) {
     return null;
@@ -297,13 +297,13 @@ String? _resolvePreferredCurrencyCode(final BankStatementParseResult statement) 
 
 /// Shows a dialog notifying that [accountIdentifier] could not be matched to any local account.
 Future<void> _showUnmatchedAccountDialog({
-  required final BuildContext context,
-  required final String accountIdentifier,
+  required BuildContext context,
+  required String accountIdentifier,
 }) async {
   await showDialog<void>(
     context: context,
     barrierDismissible: false,
-    builder: (final BuildContext dialogContext) {
+    builder: (BuildContext dialogContext) {
       return AlertDialog(
         title: Text(AppL10n.tr(AppTranslationKeys.aiNoMatchingAccountFound)),
         content: Column(
@@ -332,7 +332,7 @@ Future<void> _showUnmatchedAccountDialog({
 
 /// Shows dialog for importing transactions from text input with optional [preferredCurrencyCode].
 void showImportTransactionsFromTextInput(
-  final BuildContext context, [
+  BuildContext context, [
   String? initialText,
   String? preferredCurrencyCode,
 ]) {
@@ -398,7 +398,7 @@ void showImportTransactionsFromTextInput(
               account = accountSelected;
               Data().accounts.setMostRecentUsedAccount(accountSelected);
             },
-            onTransactionsFound: (final ValuesParser newParser) {
+            onTransactionsFound: (ValuesParser newParser) {
               parser.lines = newParser.lines;
             },
           ),

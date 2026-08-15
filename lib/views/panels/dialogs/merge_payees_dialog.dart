@@ -21,7 +21,7 @@ const double _categoryChoicesHeight = 400.0;
 
 /// Shows a dialog to merge a set of transactions from one payee to another.
 void showMergePayee<T extends MergeableItem>(
-  final BuildContext context,
+  BuildContext context,
   Payee payee,
   Iterable<T> transactions,
   DataAbstract data,
@@ -245,10 +245,10 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
 
 /// Mutates a list of mergeable items to assign them to a target payee.
 void mutateMergeableItemsToPayee<T extends MergeableItem>(
-  final List<T> items,
-  final int toPayeeId,
-  final int? categoryId,
-  final DataAbstract data,
+  List<T> items,
+  int toPayeeId,
+  int? categoryId,
+  DataAbstract data,
 ) {
   final Set<int> fromPayeeIds = <int>{};
 

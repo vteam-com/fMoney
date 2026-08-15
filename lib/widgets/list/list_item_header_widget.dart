@@ -44,7 +44,7 @@ class MyListItemHeader<T> extends StatelessWidget {
   final bool sortAscending;
   final int sortByColumn;
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (columnWidths != null) {
       return _buildPixelLayout(context);
     }
@@ -56,15 +56,15 @@ class MyListItemHeader<T> extends StatelessWidget {
   /// The handle shows a thin visible divider and changes the mouse cursor to
   /// [SystemMouseCursors.resizeColumn] on hover.
   Widget _buildDragHandle(
-    final BuildContext context,
-    final int leftColumnPos,
-    final double contentWidth,
+    BuildContext context,
+    int leftColumnPos,
+    double contentWidth,
   ) {
     return MouseRegion(
       cursor: SystemMouseCursors.resizeColumn,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onHorizontalDragUpdate: (final DragUpdateDetails details) {
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
           if (contentWidth > 0) {
             columnWidths!.resizeAtBoundary(
               leftColumnPos,
@@ -90,7 +90,7 @@ class MyListItemHeader<T> extends StatelessWidget {
   }
 
   /// Builds the header using the legacy proportional flex layout.
-  Widget _buildFlexLayout(final BuildContext context) {
+  Widget _buildFlexLayout(BuildContext context) {
     final List<Widget> headers = <Widget>[];
     if (onSelectAll != null) {
       headers.add(
@@ -139,10 +139,10 @@ class MyListItemHeader<T> extends StatelessWidget {
   ///
   /// The cell widths mirror those used by the list body so header and body
   /// columns stay in sync after resizing.
-  Widget _buildPixelLayout(final BuildContext context) {
+  Widget _buildPixelLayout(BuildContext context) {
     return ListenableBuilder(
       listenable: columnWidths!,
-      builder: (final BuildContext _, final Widget? _) {
+      builder: (BuildContext _, Widget? _) {
         final List<double> ratios = columnWidths!.value;
 
         return Container(
@@ -160,7 +160,7 @@ class MyListItemHeader<T> extends StatelessWidget {
                 ),
               Expanded(
                 child: LayoutBuilder(
-                  builder: (final BuildContext layoutCtx, final BoxConstraints constraints) {
+                  builder: (BuildContext layoutCtx, BoxConstraints constraints) {
                     if (ratios.isEmpty) {
                       return const SizedBox.shrink();
                     }

@@ -22,9 +22,9 @@ version: 1.18.0
 
 environment:
   # This is the dart constraint
-  sdk: ">=3.11.5 <4.0.0"
+  sdk: ">=3.13.0"
   # This is the Flutter SDK
-  flutter: ">=3.41.7"
+  flutter: ">=3.47.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -48,7 +48,7 @@ dependencies:
   flutter_markdown: 0.7.7+1
   flutter_svg: 2.3.0
   http: 1.6.0
-  intl: 0.20.2
+  intl: 0.20.3
   js: 0.7.2
   logger: 2.7.0
   markdown: 7.3.1
@@ -58,11 +58,11 @@ dependencies:
   path_provider: 2.1.6
   pdfrx: 2.4.7
   shared_preferences: 2.5.5
-  sqlite3: 3.3.4
+  sqlite3: 3.5.1
   textify: 0.5.4 # path: "../textify"
   universal_io: 2.3.1
   url_launcher: 6.3.2
-  uuid: 4.5.3
+  uuid: 4.6.0
   window_manager: 0.5.2
 
 dev_dependencies:

@@ -101,7 +101,7 @@ class Box extends StatelessWidget {
   }
 
   /// Builds a footer Card with selectable text.
-  static Widget buildFooter(final String text) => Card(
+  static Widget buildFooter(String text) => Card(
     elevation: 1,
     shadowColor: Colors.transparent,
     child: Padding(
@@ -110,7 +110,7 @@ class Box extends StatelessWidget {
     ),
   );
 
-  Widget _buildBoxHeader(final BuildContext context) => Padding(
+  Widget _buildBoxHeader(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.normal),
     child: IntrinsicWidth(
       child: Card(
@@ -140,9 +140,9 @@ class Box extends StatelessWidget {
 
 /// Builds a header widget with title and optional badge counter.
 Widget buildHeaderTitleAndCounter(
-  final BuildContext context,
-  final String title,
-  final String badgeText,
+  BuildContext context,
+  String title,
+  String badgeText,
 ) {
   final Widget boxHeader = Badge(
     isLabelVisible: badgeText.isNotEmpty,
@@ -156,9 +156,9 @@ Widget buildHeaderTitleAndCounter(
 
 /// Builds a selectable title text with optional large size.
 Widget headerText(
-  final BuildContext context,
-  final String title, {
-  final bool large = false,
+  BuildContext context,
+  String title, {
+  bool large = false,
 }) => SelectableText(
   title,
   style: large ? getTextTheme(context).titleLarge : getTextTheme(context).titleSmall,
@@ -166,7 +166,7 @@ Widget headerText(
 );
 
 /// Builds a padded Text widget for badge content.
-Widget getBadgeText(final String text) => Padding(
+Widget getBadgeText(String text) => Padding(
   padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.small),
   child: Text(text, style: const TextStyle(fontSize: SizeForText.small)),
 );

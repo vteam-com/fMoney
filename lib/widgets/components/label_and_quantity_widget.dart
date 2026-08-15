@@ -15,7 +15,7 @@ class LabelAndQuantity extends StatelessWidget {
   final bool small;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Expanded(

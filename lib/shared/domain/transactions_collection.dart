@@ -35,7 +35,7 @@ class Transactions extends MoneyObjects<Transaction> {
   double runningBalance = _zeroDouble;
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
 
     runningBalance = _zeroDouble;
@@ -170,7 +170,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
   /// Cumulates transactions per year/month for charting.
   static List<FlSpot> cumulateTransactionPerYearMonth(
-    final List<Transaction> transactions,
+    List<Transaction> transactions,
     DataAbstract data,
   ) {
     final AccumulatorSum<String, double> cumulateYearMonthBalance = AccumulatorSum<String, double>();
@@ -218,9 +218,9 @@ class Transactions extends MoneyObjects<Transaction> {
 
   /// match amount and date YYYY,MM,DD, optionally restrict to a specific account by passing -1
   Transaction? findExistingTransaction({
-    required final int accountId,
-    required final DateRange dateRange,
-    required final double amount,
+    required int accountId,
+    required DateRange dateRange,
+    required double amount,
   }) {
     return iterableList(includeDeleted: true).firstWhereOrNull((
       Transaction transaction,
@@ -236,7 +236,7 @@ class Transactions extends MoneyObjects<Transaction> {
   }
 
   /// Returns transfers that point to the given account.
-  Iterable<Transaction> findTransfersToAccount(final Account a) {
+  Iterable<Transaction> findTransfersToAccount(Account a) {
     final List<Transaction> view = <Transaction>[];
     for (Transaction t in iterableList()) {
       if (t.isDeleted) {
@@ -253,7 +253,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
   /// Flattens split transactions into individual entries.
   static List<Transaction> flatTransactions(
-    final Iterable<Transaction> transactions,
+    Iterable<Transaction> transactions,
   ) {
     final List<Transaction> flatList = <Transaction>[];
     for (final Transaction t in transactions) {
@@ -278,7 +278,7 @@ class Transactions extends MoneyObjects<Transaction> {
   }
 
   /// Returns all unique transaction dates for a given year.
-  List<DateTime> getAllTransactionDatesForYear(final int year) {
+  List<DateTime> getAllTransactionDatesForYear(int year) {
     final Iterable<Transaction> transactions = transactionInYearRange(
       minYear: year,
       maxYear: year,
@@ -295,7 +295,7 @@ class Transactions extends MoneyObjects<Transaction> {
 
   /// Returns transactions with splits flattened; optional filter.
   List<Transaction> getListFlattenSplits({
-    final bool Function(Transaction)? whereClause,
+    bool Function(Transaction)? whereClause,
   }) {
     final List<Transaction> flattenList = <Transaction>[];
     for (final Transaction t in iterableList()) {
@@ -325,9 +325,9 @@ class Transactions extends MoneyObjects<Transaction> {
 
   /// Filters transactions within a year range and optional income/expense.
   Iterable<Transaction> transactionInYearRange({
-    required final int minYear,
-    required final int maxYear,
-    required final bool? incomesOrExpenses,
+    required int minYear,
+    required int maxYear,
+    required bool? incomesOrExpenses,
   }) {
     return iterableList(includeDeleted: true).where(
       (Transaction element) =>
@@ -364,8 +364,8 @@ class Transactions extends MoneyObjects<Transaction> {
   /// );
   /// ```
   static List<PairXYY> transactionSumBy(
-    final List<Transaction> transactions,
-    final String Function(DateTime) keyGenerator,
+    List<Transaction> transactions,
+    String Function(DateTime) keyGenerator,
   ) {
     final Map<String, double> sums = <String, double>{};
 

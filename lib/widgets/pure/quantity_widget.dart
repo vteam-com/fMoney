@@ -19,7 +19,7 @@ class QuantityWidget extends StatelessWidget {
   final double quantity;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final TextStyle style = TextStyle(
       fontFamily: 'RobotoMono',
       color: context.colorTheme.getTextColorToUseQuantity(quantity),

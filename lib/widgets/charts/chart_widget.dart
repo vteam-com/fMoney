@@ -41,7 +41,7 @@ class Chart extends StatelessWidget {
   final List<PairXYY> list;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (list.isEmpty) {
       return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noChartToDisplay));
     }
@@ -125,8 +125,8 @@ class Chart extends StatelessWidget {
 
   /// Returns BarTouchData with tooltip rendering for bar charts.
   static BarTouchData getBarTouchedData(
-    final BuildContext context,
-    final String Function(BarChartGroupData, BarChartRodData) renderTooltip,
+    BuildContext context,
+    String Function(BarChartGroupData, BarChartRodData) renderTooltip,
   ) => BarTouchData(
     enabled: true,
     touchTooltipData: BarTouchTooltipData(
@@ -136,10 +136,10 @@ class Chart extends StatelessWidget {
 
       getTooltipItem:
           (
-            final BarChartGroupData group,
-            final int groupIndex,
-            final BarChartRodData rod,
-            final int rodIndex,
+            BarChartGroupData group,
+            int groupIndex,
+            BarChartRodData rod,
+            int rodIndex,
           ) {
             keepUnused(groupIndex, rodIndex);
             return BarTooltipItem(
@@ -151,8 +151,8 @@ class Chart extends StatelessWidget {
     ),
     touchCallback:
         (
-          final FlTouchEvent event,
-          final BarTouchResponse? barTouchResponse,
+          FlTouchEvent event,
+          BarTouchResponse? barTouchResponse,
         ) {
           if (event is FlLongPressStart) {
             if (barTouchResponse != null) {
@@ -174,7 +174,7 @@ class Chart extends StatelessWidget {
   /// Calculates the bar width based on constraints and number of bars.
   static double getBarWidth(
     BoxConstraints constraints,
-    final int numberOfBars,
+    int numberOfBars,
   ) {
     // 1. Calculate available width:
     const double margins = _barWidthMargins;
@@ -198,7 +198,7 @@ class Chart extends StatelessWidget {
   /// Returns FlGridData with optional horizontal grid lines.
   static FlGridData getChartGridData() => FlGridData(
     drawVerticalLine: false,
-    getDrawingHorizontalLine: (final double value) => FlLine(
+    getDrawingHorizontalLine: (double value) => FlLine(
       color: getHorizontalLineColorBasedOnValue(value),
       strokeWidth: _gridLineWidth, // Set the thickness of the grid lines
     ),
@@ -208,7 +208,7 @@ class Chart extends StatelessWidget {
   String getTooltipText(BarChartGroupData group, BarChartRodData rod) =>
       '${list[group.x].xText}${SharedStrings.lineFeed}${getAmountAsStringUsingCurrency(rod.toY, iso4217code: currency)}';
 
-  Widget _buildLegendBottom(final double value, final TitleMeta _) => Container(
+  Widget _buildLegendBottom(double value, TitleMeta _) => Container(
     padding: const EdgeInsets.only(top: _legendPaddingTop),
     constraints: const BoxConstraints(maxWidth: _legendMaxWidth),
     child: Text(
@@ -221,7 +221,7 @@ class Chart extends StatelessWidget {
 }
 
 /// Returns FlBorderData with themed top/bottom borders for the given range.
-FlBorderData getBorders(final double min, final double max) => FlBorderData(
+FlBorderData getBorders(double min, double max) => FlBorderData(
   show: true,
   border: Border(
     top: BorderSide(color: getHorizontalLineColorBasedOnValue(max)),
@@ -230,12 +230,12 @@ FlBorderData getBorders(final double min, final double max) => FlBorderData(
 );
 
 /// Returns a themed horizontal line color based on the numeric value.
-Color getHorizontalLineColorBasedOnValue(final double value) => Theme.of(
+Color getHorizontalLineColorBasedOnValue(double value) => Theme.of(
   AppRouter.context!,
 ).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
 /// Builds a currency-formatted widget for chart axis labels.
-Widget getWidgetChartAmount(final double value, final TitleMeta meta) {
+Widget getWidgetChartAmount(double value, TitleMeta meta) {
   final Widget widget = Text(
     getAmountAsStringUsingCurrency(value, decimalDigits: 0),
     textAlign: TextAlign.end,

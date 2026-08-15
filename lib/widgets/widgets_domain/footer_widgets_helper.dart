@@ -21,7 +21,7 @@ const int _numericFooterMaxLines = 1;
 const num _smallValueThreshold = 10000;
 
 /// Builds a footer widget for a [DateRange] (min/max plus duration).
-Widget getFooterForDateRange(final DateRange dateRange) {
+Widget getFooterForDateRange(DateRange dateRange) {
   return LayoutBuilder(
     builder: (BuildContext _, BoxConstraints constraints) {
       final bool showDates = constraints.maxWidth > _dateFooterMinWidth;
@@ -50,7 +50,7 @@ Widget getFooterForDateRange(final DateRange dateRange) {
 }
 
 /// Builds a footer widget for a monetary [amount].
-Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
+Widget getFooterForAmount(double amount, {String prefix = ''}) {
   final TextStyle style = TextStyle(
     color: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
     fontFamily: 'RobotoMono',
@@ -71,9 +71,9 @@ Widget getFooterForAmount(final double amount, {final String prefix = ''}) {
 
 /// Builds a footer widget for an integer-like numeric [value].
 Widget getFooterForInt(
-  final num value, {
-  final bool applyColorBasedOnValue = true,
-  final String prefix = '',
+  num value, {
+  bool applyColorBasedOnValue = true,
+  String prefix = '',
 }) {
   final TextStyle style = TextStyle(
     color: applyColorBasedOnValue
@@ -89,7 +89,7 @@ Widget getFooterForInt(
 }
 
 /// Builds a footer widget that displays min/avg/max for a numeric [range].
-Widget getFooterForNumericRange(final RunningAverage range, final FieldType fieldType) {
+Widget getFooterForNumericRange(RunningAverage range, FieldType fieldType) {
   return LayoutBuilder(
     builder: (BuildContext _, BoxConstraints constraints) {
       final bool showLabels = constraints.maxWidth > _numericFooterMinWidth;
@@ -175,6 +175,6 @@ String _formatValue(double value, FieldType fieldType) {
 }
 
 /// Returns true if [value] is small enough to display without shorthand formatting.
-bool isSmallValue(final num value) {
+bool isSmallValue(num value) {
   return isBetween(value, -_smallValueThreshold, _smallValueThreshold);
 }

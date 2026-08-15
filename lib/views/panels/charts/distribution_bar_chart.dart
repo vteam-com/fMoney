@@ -76,9 +76,9 @@ class _DistributionBarState extends State<DistributionBar> {
 
   /// Builds a single detail row showing category name, amount, and recurring toggle.
   Widget _buildDetailRow(
-    final BuildContext _,
-    final Category category,
-    final double value,
+    BuildContext _,
+    Category category,
+    double value,
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -130,7 +130,7 @@ class _DistributionBarState extends State<DistributionBar> {
   }
 
   /// Builds the segment widgets and detail rows for the current segments.
-  void _buildWidgets(final BuildContext context) {
+  void _buildWidgets(BuildContext context) {
     for (final Distribution segment in widget.segments) {
       Color backgroundColorOfSegment = segment.category.getColorOrAncestorsColor();
       Color foregroundColorOfSegment = contrastColor(backgroundColorOfSegment);
@@ -168,7 +168,7 @@ class _DistributionBarState extends State<DistributionBar> {
   }
 
   /// Builds the percentage overlay text for a segment.
-  Widget _builtSegmentOverlayText(final double percentage, final Color color) {
+  Widget _builtSegmentOverlayText(double percentage, Color color) {
     final int value = (percentage * _percentageScale).toInt();
     if (value <= _zeroInt) {
       return const SizedBox();

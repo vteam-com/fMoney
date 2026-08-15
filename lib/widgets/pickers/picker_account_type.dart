@@ -7,8 +7,8 @@ import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
 /// Shows a picker for selecting an account type.
 Widget pickerAccountType({
-  required final AccountType itemSelected,
-  required final void Function(AccountType) onSelected,
+  required AccountType itemSelected,
+  required void Function(AccountType) onSelected,
 }) {
   final String selectedName = getTypeAsText(itemSelected);
 

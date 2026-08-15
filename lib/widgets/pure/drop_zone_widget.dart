@@ -28,7 +28,7 @@ class DropZoneState extends State<DropZone> {
   @override
   Widget build(BuildContext context) {
     return DropTarget(
-      onDragDone: (final DropDoneDetails detail) {
+      onDragDone: (DropDoneDetails detail) {
         widget.onFilesDropped(
           detail.files.map((DropItem x) => x.path).toList(),
         );

@@ -15,7 +15,7 @@ class MyDatabaseImplementation {
   }
 
   /// Executes SQL command on the database.
-  void execute(final String command) {
+  void execute(String command) {
     _db.execute(command);
   }
 
@@ -26,7 +26,7 @@ class MyDatabaseImplementation {
   }
 
   /// SQL Delete
-  void itemDelete(final String tableName, final String whereClause) {
+  void itemDelete(String tableName, String whereClause) {
     final String statement = SharedSqlStrings.sqlDeleteTemplate
         .replaceAll(SharedSqlStrings.sqlPlaceholderTable, tableName)
         .replaceAll(SharedSqlStrings.sqlPlaceholderWhere, whereClause);
@@ -34,9 +34,9 @@ class MyDatabaseImplementation {
   }
 
   /// SQL Insert
-  void itemInsert(final String tableName, final MyJson data) {
-    final String columnNames = data.keys.map((final String key) => '"$key"').join(', ');
-    final String columnValues = data.values.map((final dynamic value) => encodeValueWrapStringTypes(value)).join(', ');
+  void itemInsert(String tableName, MyJson data) {
+    final String columnNames = data.keys.map((String key) => '"$key"').join(', ');
+    final String columnValues = data.values.map((dynamic value) => encodeValueWrapStringTypes(value)).join(', ');
     final String statement = SharedSqlStrings.sqlInsertTemplate
         .replaceAll(SharedSqlStrings.sqlPlaceholderTable, tableName)
         .replaceAll(SharedSqlStrings.sqlPlaceholderColumns, columnNames)
@@ -46,9 +46,9 @@ class MyDatabaseImplementation {
 
   /// SQL Update
   void itemUpdate(
-    final String tableName,
-    final MyJson jsonMap,
-    final String whereClause,
+    String tableName,
+    MyJson jsonMap,
+    String whereClause,
   ) {
     final List<String> setStatements = jsonMap.keys
         .map(
@@ -65,7 +65,7 @@ class MyDatabaseImplementation {
   }
 
   /// Loads database from file path.
-  Future<void> load(final String fileToOpen, final Uint8List _ /* fileBytes */) async {
+  Future<void> load(String fileToOpen, Uint8List _ /* fileBytes */) async {
     if (File(fileToOpen).existsSync()) {
       _db = sqlite3.open(fileToOpen);
     } else {
@@ -80,7 +80,7 @@ class MyDatabaseImplementation {
   }
 
   /// Executes SELECT query and returns results as list of MyJson.
-  Future<List<MyJson>> select(final String query) async {
+  Future<List<MyJson>> select(String query) async {
     return _db.select(query);
   }
 

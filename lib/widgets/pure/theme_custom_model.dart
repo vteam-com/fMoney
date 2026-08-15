@@ -69,7 +69,7 @@ class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
 
   // Helper methods to replace ThemeController logic
   /// Returns the theme color associated with a [ColorState].
-  Color getColorForState(final ColorState state) {
+  Color getColorForState(ColorState state) {
     switch (state) {
       case ColorState.success:
         return success;
@@ -89,7 +89,7 @@ class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
   }
 
   /// Returns a color based on whether a numeric value is positive/negative/zero.
-  Color colorBasedOnValue(final num value) {
+  Color colorBasedOnValue(num value) {
     if (value > 0) {
       return success;
     }
@@ -101,7 +101,7 @@ class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
   }
 
   /// Returns a text color based on numeric value and optional auto coloring.
-  Color? getTextColorToUse(final num value, [final bool autoColor = true]) {
+  Color? getTextColorToUse(num value, [bool autoColor = true]) {
     if (autoColor) {
       if (isConsideredZero(value)) {
         return disabled;
@@ -116,7 +116,7 @@ class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
   }
 
   /// Returns a quantity-specific text color based on numeric value.
-  Color? getTextColorToUseQuantity(final num value) {
+  Color? getTextColorToUseQuantity(num value) {
     if (isConsideredZero(value)) {
       return disabled;
     }

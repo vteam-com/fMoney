@@ -14,16 +14,16 @@ const int _minimumAccountHintLength = 3;
 
 /// Service that extracts and normalizes bank statement transactions from a PDF using Ollama when available.
 class AiPdfImportService {
-  /// Creates a PDF import service with an optional [bankStatementPdfService] override for testing.
+  /// Creates a PDF import service with an optional [_bankStatementPdfService] override for testing.
   const AiPdfImportService({
-    BankStatementPdfService bankStatementPdfService = const BankStatementPdfService(),
-  }) : _bankStatementPdfService = bankStatementPdfService;
+    this._bankStatementPdfService = const BankStatementPdfService(),
+  });
 
   final BankStatementPdfService _bankStatementPdfService;
 
   /// Parses [filePath] into a normalized bank statement result, using AI first and heuristic parsing as fallback.
   Future<BankStatementParseResult> parsePdfStatement({
-    required final String filePath,
+    required String filePath,
   }) async {
     final String extractedText = await _bankStatementPdfService.extractTextFromPdfFile(filePath);
     final BankStatementParseResult fallbackStatement = _bankStatementPdfService.parseExtractedText(
@@ -72,9 +72,9 @@ class AiPdfImportService {
 
   /// Sends the extracted PDF text to Ollama and parses transaction rows from the structured response.
   Future<BankStatementParseResult?> _reviewStatementWithOllama({
-    required final String filePath,
-    required final String pdfText,
-    required final bool ollamaReady,
+    required String filePath,
+    required String pdfText,
+    required bool ollamaReady,
   }) async {
     if (!ollamaReady) {
       return null;
@@ -134,8 +134,8 @@ class AiPdfImportService {
 
   /// Extracts account hints from PDF text using Ollama.
   Future<List<String>> _extractAccountHintsWithOllama({
-    required final String pdfText,
-    required final bool ollamaReady,
+    required String pdfText,
+    required bool ollamaReady,
   }) async {
     if (!ollamaReady) {
       return <String>[];
@@ -168,7 +168,7 @@ class AiPdfImportService {
   }
 
   /// Builds the prompt instructing Ollama to return only transaction rows as JSON array.
-  String _buildPdfReviewPrompt(final String pdfText) {
+  String _buildPdfReviewPrompt(String pdfText) {
     final String preprocessed = _preprocessPdfText(pdfText);
     final String normalizedText = preprocessed.length > _maxPdfTextCharsForOllamaImport
         ? preprocessed.substring(0, _maxPdfTextCharsForOllamaImport)
@@ -230,7 +230,7 @@ PDF_TEXT_END
   }
 
   /// Builds the prompt instructing Ollama to extract account identifiers for matching local accounts.
-  String _buildAccountHintsPrompt(final String pdfText) {
+  String _buildAccountHintsPrompt(String pdfText) {
     final String normalizedText = pdfText.length > _maxPdfTextCharsForOllamaImport
         ? pdfText.substring(0, _maxPdfTextCharsForOllamaImport)
         : pdfText;
@@ -264,7 +264,7 @@ PDF_TEXT_END
   }
 
   /// Extracts the first JSON payload (array preferred, object fallback) found inside [responseText].
-  String _extractJsonPayloadFromResponse(final String responseText) {
+  String _extractJsonPayloadFromResponse(String responseText) {
     String sanitized = responseText.trim();
     sanitized = sanitized.replaceAll(RegExp(r'```json', caseSensitive: false), '').replaceAll('```', '').trim();
 
@@ -288,7 +288,7 @@ PDF_TEXT_END
   }
 
   /// Normalizes account hints from decoded JSON payload [decoded].
-  List<String> _normalizeAccountHintsFromDecoded(final dynamic decoded) {
+  List<String> _normalizeAccountHintsFromDecoded(dynamic decoded) {
     if (decoded is List<dynamic>) {
       return _normalizeAccountHints(decoded);
     }
@@ -304,7 +304,7 @@ PDF_TEXT_END
   }
 
   /// Returns deduplicated account hints from [rawHints].
-  List<String> _normalizeAccountHints(final List<dynamic> rawHints) {
+  List<String> _normalizeAccountHints(List<dynamic> rawHints) {
     final Set<String> uniqueHints = <String>{};
     for (final dynamic rawHint in rawHints) {
       final String hint = rawHint.toString().trim();
@@ -316,7 +316,7 @@ PDF_TEXT_END
   }
 
   /// Extracts transaction rows from decoded Ollama JSON [decoded].
-  List<BankStatementTransactionRecord> _extractTransactionsFromDecoded(final dynamic decoded) {
+  List<BankStatementTransactionRecord> _extractTransactionsFromDecoded(dynamic decoded) {
     if (decoded is List<dynamic>) {
       return _parseTransactionsFromOllama(decoded);
     }
@@ -343,7 +343,7 @@ PDF_TEXT_END
   }
 
   /// Parses Ollama responses where fields are returned as parallel arrays (date[], description[], amount[]).
-  List<BankStatementTransactionRecord> _parseTransactionsFromParallelArrays(final Map<String, dynamic> decoded) {
+  List<BankStatementTransactionRecord> _parseTransactionsFromParallelArrays(Map<String, dynamic> decoded) {
     final dynamic rawDates = decoded['date'];
     final dynamic rawDescriptions = decoded['description'];
     final dynamic rawAmounts = decoded['amount'];
@@ -356,7 +356,7 @@ PDF_TEXT_END
       rawDates.length,
       rawDescriptions.length,
       rawAmounts.length,
-    ].reduce((final int a, final int b) => a < b ? a : b);
+    ].reduce((int a, int b) => a < b ? a : b);
     if (rowCount == 0) {
       return <BankStatementTransactionRecord>[];
     }
@@ -383,7 +383,7 @@ PDF_TEXT_END
   }
 
   /// Extracts a likely ISO-4217 currency code from decoded Ollama payload [decoded].
-  String? _extractDetectedCurrencyCodeFromDecoded(final dynamic decoded) {
+  String? _extractDetectedCurrencyCodeFromDecoded(dynamic decoded) {
     if (decoded is List<dynamic>) {
       return _extractMostFrequentCurrencyCode(decoded);
     }
@@ -401,7 +401,7 @@ PDF_TEXT_END
   }
 
   /// Returns the most frequent normalized currency code from [rawTransactions].
-  String? _extractMostFrequentCurrencyCode(final List<dynamic> rawTransactions) {
+  String? _extractMostFrequentCurrencyCode(List<dynamic> rawTransactions) {
     final Map<String, int> frequency = <String, int>{};
 
     for (final dynamic item in rawTransactions) {
@@ -435,7 +435,7 @@ PDF_TEXT_END
   }
 
   /// Normalizes a currency token from [value] into uppercase 3-letter ISO code.
-  String? _normalizeCurrencyCodeFromDynamic(final dynamic value) {
+  String? _normalizeCurrencyCodeFromDynamic(dynamic value) {
     if (value == null) {
       return null;
     }
@@ -450,9 +450,9 @@ PDF_TEXT_END
 
   /// Returns a copy of [statement] with merged account hints.
   BankStatementParseResult _copyStatementWithMergedAccountHints({
-    required final BankStatementParseResult statement,
-    required final List<String> extraAccountHints,
-    final String? preferredDetectedCurrencyCode,
+    required BankStatementParseResult statement,
+    required List<String> extraAccountHints,
+    String? preferredDetectedCurrencyCode,
   }) {
     if (extraAccountHints.isEmpty && (preferredDetectedCurrencyCode == null || preferredDetectedCurrencyCode.isEmpty)) {
       return statement;
@@ -486,7 +486,7 @@ PDF_TEXT_END
   /// newlines so the AI can identify individual rows. Field separation
   /// (description vs amount) is left to the AI, which handles digits in
   /// descriptions far better than a regex can.
-  String _preprocessPdfText(final String text) {
+  String _preprocessPdfText(String text) {
     String result = text;
 
     // Insert newlines before section keywords to separate header/footer from data.
@@ -495,13 +495,13 @@ PDF_TEXT_END
         r'(?=(?:PREVIOUS BALANCE|FINAL BALANCE|DEPOSITS AT SIGHT|Account movements|BROKEN DOWN REPORT))',
         caseSensitive: false,
       ),
-      (final Match _) => '\n',
+      (Match _) => '\n',
     );
 
     // Insert newline before each date pattern that likely starts a transaction row.
     result = result.replaceAllMapped(
       RegExp(r'(?=\d{2}[-/]\d{2}[-/](?:\d{4}|\d{2}))'),
-      (final Match _) => '\n',
+      (Match _) => '\n',
     );
 
     // Collapse multiple blank lines into one.
@@ -512,10 +512,10 @@ PDF_TEXT_END
 
   /// Creates a [BankStatementParseResult] from normalized [transactions] returned by Ollama.
   BankStatementParseResult _buildStatementFromOllamaTransactions({
-    required final String filePath,
-    required final String pdfText,
-    required final List<BankStatementTransactionRecord> transactions,
-    required final String? detectedCurrencyCode,
+    required String filePath,
+    required String pdfText,
+    required List<BankStatementTransactionRecord> transactions,
+    required String? detectedCurrencyCode,
   }) {
     return BankStatementParseResult(
       filePath: filePath,
@@ -530,7 +530,7 @@ PDF_TEXT_END
   }
 
   /// Parses normalized transaction objects from Ollama response data.
-  List<BankStatementTransactionRecord> _parseTransactionsFromOllama(final dynamic rawTransactions) {
+  List<BankStatementTransactionRecord> _parseTransactionsFromOllama(dynamic rawTransactions) {
     if (rawTransactions is! List<dynamic>) {
       return <BankStatementTransactionRecord>[];
     }
@@ -561,7 +561,7 @@ PDF_TEXT_END
   }
 
   /// Parses a date from [value], supporting DD-MM-YY, DD-MM-YYYY, DD/MM/YY, DD/MM/YYYY, and YYYY-MM-DD formats.
-  DateTime? _parseDateFromDynamic(final dynamic value) {
+  DateTime? _parseDateFromDynamic(dynamic value) {
     if (value == null) {
       return null;
     }

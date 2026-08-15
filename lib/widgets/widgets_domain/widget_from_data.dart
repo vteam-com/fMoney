@@ -23,8 +23,8 @@ class WidgetFromData extends StatelessWidget {
   });
 
   factory WidgetFromData.fromDouble(
-    final double amount, [
-    final DataWidgetSize size = DataWidgetSize.body,
+    double amount, [
+    DataWidgetSize size = DataWidgetSize.body,
   ]) {
     return WidgetFromData(
       amountModel: AmountModel(amount: amount),
@@ -38,7 +38,7 @@ class WidgetFromData extends StatelessWidget {
   final DataWidgetSize size;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (amountModel.showCurrency) {
       return Row(
         children: <Widget>[
@@ -53,7 +53,7 @@ class WidgetFromData extends StatelessWidget {
   }
 
   /// Builds the formatted amount text using monospaced font and scaled decimals.
-  Widget _amountAsText(final BuildContext context) {
+  Widget _amountAsText(BuildContext context) {
     double value = amountModel.asDouble();
     if (!value.isFinite) {
       value = 0.00;

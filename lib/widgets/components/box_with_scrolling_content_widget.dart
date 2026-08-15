@@ -16,7 +16,7 @@ class BoxWithScrollingContent extends StatelessWidget {
   final double? height;
 
   @override
-  Widget build(final BuildContext context) => Box(
+  Widget build(BuildContext context) => Box(
     color: getColorTheme(context).surface,
     width: _boxWidth,
     height: height,

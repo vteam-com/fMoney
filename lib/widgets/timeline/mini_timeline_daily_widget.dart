@@ -43,7 +43,7 @@ class MiniTimelineDaily extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (BuildContext context, BoxConstraints constraints) {
         final int numberOfYears = yearEnd - yearStart + _inclusiveYearOffset;
 
         // X Ratio

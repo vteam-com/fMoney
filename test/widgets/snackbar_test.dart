@@ -95,7 +95,7 @@ void main() {
           ),
           home: Scaffold(
             body: Builder(
-              builder: (final BuildContext context) => ElevatedButton(
+              builder: (BuildContext context) => ElevatedButton(
                 onPressed: () => SnackBarService.display(
                   title: 'Test Title',
                   message: 'Test message',
@@ -135,7 +135,7 @@ void main() {
           ),
           home: Scaffold(
             body: Builder(
-              builder: (final BuildContext context) => ElevatedButton(
+              builder: (BuildContext context) => ElevatedButton(
                 onPressed: () => SnackBarService.display(
                   title: 'Test',
                   message: 'Test message',
@@ -168,7 +168,7 @@ void main() {
           scaffoldMessengerKey: SnackBarService.scaffoldKey,
           home: Scaffold(
             body: Builder(
-              builder: (final BuildContext context) => ElevatedButton(
+              builder: (BuildContext context) => ElevatedButton(
                 onPressed: () => SnackBarService.display(
                   title: 'Hidden',
                   message: 'This should not appear',
@@ -212,7 +212,7 @@ void main() {
           ),
           home: Scaffold(
             body: Builder(
-              builder: (final BuildContext context) => ElevatedButton(
+              builder: (BuildContext context) => ElevatedButton(
                 onPressed: () => SnackBarService.display(
                   title: 'Custom',
                   message: 'Custom message',

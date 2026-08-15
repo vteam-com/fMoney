@@ -22,10 +22,10 @@ const String _investmentHeaderCommission = 'Commission';
 const String _noDescriptionPlaceholder = 'no description';
 
 /// Finds a column index by matching header (handles variations like "Amount ($)").
-int _findColumnIndex(final List<String> headers, final String columnName) {
+int _findColumnIndex(List<String> headers, String columnName) {
   final String normalizedColumnName = columnName.trim().toLowerCase();
   return headers.indexWhere(
-    (final String header) => header.trim().toLowerCase().startsWith(normalizedColumnName),
+    (String header) => header.trim().toLowerCase().startsWith(normalizedColumnName),
   );
 }
 
@@ -38,7 +38,7 @@ const String _skipReasonInvalidAmount = 'invalidAmount';
 const String _skipReasonMissingRequiredColumns = 'missingRequiredColumns';
 
 /// Checks if CSV appears to be an investment CSV export by examining headers.
-bool isInvestmentCSV(final List<String> headers) {
+bool isInvestmentCSV(List<String> headers) {
   // Support various broker export formats (Fidelity, etc.) that use suffixes such as "($)"
   // for amount-related headers.
   return _findColumnIndex(headers, _investmentHeaderRunDate) != -1 &&
@@ -46,7 +46,7 @@ bool isInvestmentCSV(final List<String> headers) {
 }
 
 /// Imports investment CSV files and maps standard investment transaction fields.
-Future<void> importInvestmentCSV(final BuildContext context, final String filePath) async {
+Future<void> importInvestmentCSV(BuildContext context, String filePath) async {
   try {
     final File file = File(filePath);
     final String csvContent = await file.readAsString();
@@ -114,7 +114,7 @@ Future<void> importInvestmentCSV(final BuildContext context, final String filePa
 }
 
 /// Parses investment dates supporting both ISO and common broker formats.
-DateTime? _parseInvestmentDate(final String rawValue) {
+DateTime? _parseInvestmentDate(String rawValue) {
   final String trimmed = rawValue.trim();
   if (trimmed.isEmpty) {
     return null;
@@ -139,7 +139,7 @@ DateTime? _parseInvestmentDate(final String rawValue) {
 }
 
 /// Parses investment amounts supporting symbols, commas, and parentheses negatives.
-double? _parseInvestmentAmount(final String rawValue) {
+double? _parseInvestmentAmount(String rawValue) {
   final String trimmed = rawValue.trim();
   if (trimmed.isEmpty) {
     return null;
@@ -160,12 +160,12 @@ double? _parseInvestmentAmount(final String rawValue) {
 }
 
 /// Normalizes a description-like value for robust placeholder matching.
-String _normalizeForPlaceholderCheck(final String value) {
+String _normalizeForPlaceholderCheck(String value) {
   return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
 }
 
 /// Returns true when [descriptionValue] is considered a non-informative placeholder.
-bool _isDescriptionPlaceholder(final String descriptionValue) {
+bool _isDescriptionPlaceholder(String descriptionValue) {
   final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
   if (normalized.isEmpty) {
     return true;
@@ -175,8 +175,8 @@ bool _isDescriptionPlaceholder(final String descriptionValue) {
 
 /// Resolves the investment description, preferring [actionValue] for placeholders.
 String _resolveInvestmentDescription({
-  required final String descriptionValue,
-  required final String actionValue,
+  required String descriptionValue,
+  required String actionValue,
 }) {
   final String trimmedDescription = descriptionValue.trim();
   if (_isDescriptionPlaceholder(trimmedDescription)) {
@@ -187,8 +187,8 @@ String _resolveInvestmentDescription({
 
 /// Loads investment CSV data and creates import entries.
 ImportData loadInvestmentCSV(
-  final List<String> headers,
-  final List<List<String>> dataRows,
+  List<String> headers,
+  List<List<String>> dataRows,
 ) {
   final ImportData importData = ImportData();
   importData.fileType = SharedStrings.fileTypeCsv;
@@ -222,7 +222,7 @@ ImportData loadInvestmentCSV(
       accountNumberIndex,
       descriptionIndex,
       amountIndex,
-    ].reduce((final int a, final int b) => a > b ? a : b);
+    ].reduce((int a, int b) => a > b ? a : b);
 
     if (row.length <= maxIndex) {
       importData.diagnostics.incrementSkipped(_skipReasonMissingRequiredColumns);

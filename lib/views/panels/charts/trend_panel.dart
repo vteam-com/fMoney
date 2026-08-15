@@ -211,7 +211,7 @@ class _PanelTrendState extends State<PanelTrend> {
   }
 
   /// Returns border data with themed top/bottom colors for the trend chart.
-  FlBorderData getBorders(final double min, final double max) {
+  FlBorderData getBorders(double min, double max) {
     return FlBorderData(
       show: true,
       border: Border(
@@ -222,7 +222,7 @@ class _PanelTrendState extends State<PanelTrend> {
   }
 
   /// Returns a themed horizontal line color based on the numeric value.
-  Color getHorizontalLineColorBasedOnValue(final double value) {
+  Color getHorizontalLineColorBasedOnValue(double value) {
     return context.colorTheme.colorBasedOnValue(value).withValues(alpha: _lineAlpha);
   }
 
@@ -286,7 +286,7 @@ class _PanelTrendState extends State<PanelTrend> {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: _axisReservedBottom,
-          getTitlesWidget: (final double value, final TitleMeta _) {
+          getTitlesWidget: (double value, TitleMeta _) {
             final List<int> years = yearCategoryIncomeExpenseSums.keys.toList()..sort();
             if (value.toInt() >= years.length) {
               return const Text('');

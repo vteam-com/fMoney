@@ -42,7 +42,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
 
   /// add more top level action buttons
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       // Add a new Category, place this at the top of the list
@@ -135,8 +135,8 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
   ///
   /// @return The chart widget for this view.
   Widget _getSidePanelViewChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     // get net worth over time
@@ -212,8 +212,8 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
   ///
   /// @return The view widget for this view.
   Widget _getSidePanelViewTransactions({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     final SelectionController selectionController = SelectionController(

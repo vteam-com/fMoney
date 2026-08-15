@@ -21,7 +21,7 @@ const double _labelPaddingRight = 10;
 
 /// Represents data object.
 class DataObject extends DataInterface {
-  factory DataObject.fromJSon(final MyJson json, final double runningBalance) {
+  factory DataObject.fromJSon(MyJson json, double runningBalance) {
     keepUnused(json, runningBalance);
     return DataObject();
   }
@@ -125,12 +125,12 @@ class DataObject extends DataInterface {
 
   /// Builds a name/value widget for a specific [fieldDefinition] on [objectInstance].
   Widget buildWidgetNameValueFromFieldDefinition({
-    required final DataObject objectInstance,
-    required final Field<dynamic> fieldDefinition,
-    required final bool singleLineNameValue,
-    required final void Function(bool)? onEdited,
-    final bool isFirstItem = false,
-    final bool isLastItem = false,
+    required DataObject objectInstance,
+    required Field<dynamic> fieldDefinition,
+    required bool singleLineNameValue,
+    required void Function(bool)? onEdited,
+    bool isFirstItem = false,
+    bool isLastItem = false,
   }) {
     keepUnused(isFirstItem, isLastItem);
     final dynamic fieldValue = fieldDefinition.getValueForDisplay(
@@ -168,7 +168,7 @@ class DataObject extends DataInterface {
             title: fieldDefinition.name,
             valueAsText: fieldDefinition.getValueForDisplay(objectInstance).toString(),
             isReadOnly: true,
-            onChanged: (final String _) {},
+            onChanged: (String _) {},
           );
         }
         return InputDecorator(
@@ -199,7 +199,7 @@ class DataObject extends DataInterface {
             title: fieldDefinition.name,
             valueAsText: valueAsString,
             isReadOnly: isReadOnly,
-            onChanged: (final String value) {
+            onChanged: (String value) {
               fieldDefinition.setValue?.call(objectInstance, value);
               onEdited?.call(false);
             },
@@ -330,9 +330,9 @@ class DataObject extends DataInterface {
 
   /// Mutates a field by name and optionally triggers balance recalculation.
   void mutateField(
-    final String fieldName,
-    final dynamic newValue,
-    final bool rebalance,
+    String fieldName,
+    dynamic newValue,
+    bool rebalance,
   ) {
     stashValueBeforeEditing();
     final Field<dynamic>? field = getFieldDefinitionByName(
@@ -411,7 +411,7 @@ class DataObject extends DataInterface {
   /// Builds a compact name/value row used by detail panels.
   Widget _buildNameValuePair(
     Field<dynamic> fieldDefinition,
-    final dynamic fieldValue,
+    dynamic fieldValue,
   ) {
     return DecoratedBox(
       decoration: BoxDecoration(

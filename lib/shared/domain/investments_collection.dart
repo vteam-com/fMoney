@@ -16,7 +16,7 @@ class Investments extends MoneyObjects<Investment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       appendMoneyObject(Investment.fromJson(row, data));
@@ -65,7 +65,7 @@ class Investments extends MoneyObjects<Investment> {
   }
 
   /// Returns all investments for a given security ID.
-  static List<Investment> getInvestmentsForThisSecurity(final int securityId, DataAbstract data) {
+  static List<Investment> getInvestmentsForThisSecurity(int securityId, DataAbstract data) {
     return data
         .getInvestments()
         .cast<Investment>()

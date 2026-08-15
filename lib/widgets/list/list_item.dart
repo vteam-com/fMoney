@@ -56,13 +56,13 @@ class MyListItemState extends State<MyListItem> {
   }
 
   @override
-  void didUpdateWidget(final MyListItem oldWidget) {
+  void didUpdateWidget(MyListItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     isSelected = widget.isSelected;
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final Color backgroundColor = isSelected
         ? getColorTheme(context).primaryContainer
         : _hovering
@@ -77,7 +77,7 @@ class MyListItemState extends State<MyListItem> {
         autofocus: !kIsWeb && widget.autoFocus,
         canRequestFocus: !kIsWeb,
         skipTraversal: kIsWeb,
-        onFocusChange: (final bool value) {
+        onFocusChange: (bool value) {
           if (value) {}
         },
         onKeyEvent: widget.onListViewKeyEvent,

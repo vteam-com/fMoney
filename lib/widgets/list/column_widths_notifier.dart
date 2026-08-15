@@ -14,13 +14,13 @@ const double minimumColumnWidth = 64;
 class ColumnWidthsNotifier extends ValueNotifier<List<double>> {
   /// Creates a notifier with the given initial width ratios.
   // ignore: use_super_parameters
-  ColumnWidthsNotifier(final List<double> value) : super(value);
+  ColumnWidthsNotifier(List<double> value) : super(value);
 
   /// Builds initial ratios from field column-width metadata, visible fields only.
   ///
   /// Hidden fields (i.e. [ColumnWidth.hidden]) are excluded. The resulting
   /// ratios are proportional to each field's [ColumnWidth.index] value.
-  static ColumnWidthsNotifier fromFields(final FieldDefinitions fields) {
+  static ColumnWidthsNotifier fromFields(FieldDefinitions fields) {
     final List<double> weights = <double>[];
     for (final Field<dynamic> field in fields) {
       if (field.columnWidth != ColumnWidth.hidden) {
@@ -42,9 +42,9 @@ class ColumnWidthsNotifier extends ValueNotifier<List<double>> {
   /// The combined ratio of the two columns is preserved. [minRatio] enforces a
   /// minimum share for either column to prevent total collapse.
   void resizeAtBoundary(
-    final int leftIndex,
-    final double deltaRatio,
-    final double minRatio,
+    int leftIndex,
+    double deltaRatio,
+    double minRatio,
   ) {
     if (leftIndex < 0 || leftIndex >= value.length - 1) {
       return;

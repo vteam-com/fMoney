@@ -9,7 +9,7 @@ enum AccountFlags {
 }
 
 /// Convert a text into a AccountType
-AccountType? getAccountTypeFromText(final String text) {
+AccountType? getAccountTypeFromText(String text) {
   switch (text) {
     case SharedStrings.accountTypeSavings:
       return AccountType.savings;
@@ -40,7 +40,7 @@ AccountType? getAccountTypeFromText(final String text) {
 }
 
 /// Convert a AccountType into a readable/localized String
-String getTypeAsText(final AccountType type) {
+String getTypeAsText(AccountType type) {
   switch (type) {
     case AccountType.savings:
       return SharedStrings.accountTypeSavings;

@@ -130,7 +130,7 @@ Future<void> importCSV(BuildContext context, String filePath) async {
 }
 
 /// Parses CSV [csvContent] into headers and data rows using RFC-compatible CSV rules.
-CsvRowsData parseCsvContent(final String csvContent) {
+CsvRowsData parseCsvContent(String csvContent) {
   final List<List<dynamic>> parsedRows = const CsvDecoder(
     dynamicTyping: false,
   ).convert(csvContent);
@@ -147,16 +147,16 @@ CsvRowsData parseCsvContent(final String csvContent) {
 }
 
 /// Converts dynamic CSV row values into a trimmed string list.
-List<String> _rowToTrimmedStringList(final List<dynamic> row) {
+List<String> _rowToTrimmedStringList(List<dynamic> row) {
   return row
       .map(
-        (final dynamic cell) => cell == null ? '' : cell.toString().trim(),
+        (dynamic cell) => cell == null ? '' : cell.toString().trim(),
       )
       .toList();
 }
 
 /// Returns a case-insensitive header index or -1 if the header is absent.
-int _indexOfHeaderIgnoreCase(final List<String> headers, final String targetHeader) {
+int _indexOfHeaderIgnoreCase(List<String> headers, String targetHeader) {
   for (int i = 0; i < headers.length; i++) {
     if (headers[i].trim().toLowerCase() == targetHeader.toLowerCase()) {
       return i;
@@ -166,7 +166,7 @@ int _indexOfHeaderIgnoreCase(final List<String> headers, final String targetHead
 }
 
 /// Returns the first matching index among common action-like header aliases.
-int _findActionHeaderIndex(final List<String> headers) {
+int _findActionHeaderIndex(List<String> headers) {
   for (final String alias in _fallbackActionHeaderAliases) {
     final int index = _indexOfHeaderIgnoreCase(headers, alias);
     if (index >= 0) {
@@ -177,12 +177,12 @@ int _findActionHeaderIndex(final List<String> headers) {
 }
 
 /// Normalizes a description-like value for robust placeholder matching.
-String _normalizeForPlaceholderCheck(final String value) {
+String _normalizeForPlaceholderCheck(String value) {
   return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
 }
 
 /// Returns true when [descriptionValue] is considered a non-informative placeholder.
-bool _isDescriptionPlaceholder(final String descriptionValue) {
+bool _isDescriptionPlaceholder(String descriptionValue) {
   final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
   if (normalized.isEmpty) {
     return true;
@@ -191,7 +191,7 @@ bool _isDescriptionPlaceholder(final String descriptionValue) {
 }
 
 /// Returns true when [candidate] can be used as an Action fallback for [descriptionValue].
-bool _isValidActionCandidate(final String candidate, final String descriptionValue) {
+bool _isValidActionCandidate(String candidate, String descriptionValue) {
   final String trimmed = candidate.trim();
   if (trimmed.isEmpty) {
     return false;
@@ -207,7 +207,7 @@ bool _isValidActionCandidate(final String candidate, final String descriptionVal
 }
 
 /// Returns true when [headerValue] semantically represents action/details text.
-bool _isActionLikeHeader(final String headerValue) {
+bool _isActionLikeHeader(String headerValue) {
   final String normalizedHeader = _normalizeForPlaceholderCheck(headerValue);
   for (final String headerAlias in _fallbackActionHeaderAliases) {
     final String normalizedAlias = _normalizeForPlaceholderCheck(headerAlias);
@@ -220,11 +220,11 @@ bool _isActionLikeHeader(final String headerValue) {
 
 /// Resolves Action text from known headers or nearby columns for placeholder descriptions.
 String _resolveActionValue({
-  required final List<String> headers,
-  required final List<String> row,
-  required final int actionIndex,
-  required final int descriptionIndex,
-  required final String descriptionValue,
+  required List<String> headers,
+  required List<String> row,
+  required int actionIndex,
+  required int descriptionIndex,
+  required String descriptionValue,
 }) {
   final bool placeholderDescription = _isDescriptionPlaceholder(descriptionValue);
 
@@ -278,7 +278,7 @@ String _resolveActionValue({
 /// - If [actionValue] is empty, use [descriptionValue].
 /// - If [actionValue] already contains [descriptionValue], use [actionValue].
 /// - Otherwise combine both values for better traceability.
-String _resolveDescription(final String descriptionValue, final String actionValue) {
+String _resolveDescription(String descriptionValue, String actionValue) {
   final String trimmedAction = actionValue.trim();
   final String trimmedDescription = descriptionValue.trim();
 

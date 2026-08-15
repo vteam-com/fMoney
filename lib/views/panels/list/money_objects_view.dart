@@ -84,7 +84,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     footerAccumulators();
 
     return buildViewContent(
@@ -93,7 +93,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
           preferenceController,
           dataController,
         ]),
-        builder: (final BuildContext _, final Widget? _) {
+        builder: (BuildContext _, Widget? _) {
           final Key key = Key(
             '${preferenceController.includeClosedAccounts}|${list.length}|${areFiltersOn()}|${dataController.lastUpdateAsString}|${sidePanelOptions.selectedCurrency}}',
           );
@@ -132,7 +132,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
                 '${settingKeySidePanel}currency|${sidePanelOptions.selectedCurrency}',
               ),
               isExpanded: preferenceController.isSidePanelExpanded,
-              onExpanded: (final bool isExpanded) {
+              onExpanded: (bool isExpanded) {
                 setState(() {
                   preferenceController.isSidePanelExpanded = isExpanded;
                 });
@@ -145,7 +145,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
               // Currency
               getCurrencyChoices: getCurrencyChoices,
               currencySelected: sidePanelOptions.selectedCurrency,
-              currencySelectionChanged: (final int selected) {
+              currencySelectionChanged: (int selected) {
                 setState(() {
                   sidePanelOptions.selectedCurrency = selected;
                 });
@@ -169,7 +169,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Allowed to be override by derived classes
-  Widget buildHeader([final Widget? child]) {
+  Widget buildHeader([Widget? child]) {
     ViewHeaderMultipleSelection? multipleSelectionOptions;
     if (supportsMultiSelection) {
       multipleSelectionOptions = ViewHeaderMultipleSelection(
@@ -264,7 +264,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Allowed to be override by derived classes
-  Widget buildViewContent(final Widget child) {
+  Widget buildViewContent(Widget child) {
     return Container(color: getColorTheme(context).surface, child: child);
   }
 
@@ -329,7 +329,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Allowed to be override by derived classes
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> widgets = <Widget>[];
 
     /// Info panel header
@@ -396,14 +396,14 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   /// Allowed to be override by derived classes
   /// to be overridden by derived class
   /// Use the field FooterType to decide how to render the bottom button of each columns
-  Widget getColumnFooterWidget(final Field<dynamic> field) {
+  Widget getColumnFooterWidget(Field<dynamic> field) {
     return _footerAccumulators.buildWidget(field);
   }
 
   /// Override in your view
   List<String> getCurrencyChoices(
-    final SidePanelSubViewEnum subViewId,
-    final List<int> selectedItems,
+    SidePanelSubViewEnum subViewId,
+    List<int> selectedItems,
   ) {
     keepUnused(selectedItems);
     switch (subViewId) {
@@ -435,7 +435,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Returns the first selected item from a specific selected list.
   DataObject? getFirstSelectedItemFromSelectedList(
-    final List<int> selectedList,
+    List<int> selectedList,
   ) {
     return getMoneyObjectFromFirstSelectedId<DataObject>(selectedList, list);
   }
@@ -450,19 +450,19 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Returns preference key for the current view with given suffix.
-  String getPreferenceKey(final String suffix) {
+  String getPreferenceKey(String suffix) {
     return viewId.getViewPreferenceId(suffix);
   }
 
   /// Returns list of selected data objects from selected list IDs.
   List<DataObject> getSelectedItemsFromSelectedList(
-    final List<int> selectedList,
+    List<int> selectedList,
   ) {
     return getSelectedMoneyObjectsFromIds(selectedList, list);
   }
 
   /// Returns the last selected item from the side panel list.
-  T? getSidePanelLastSelectedItem<T>(final MoneyObjects<T> list) {
+  T? getSidePanelLastSelectedItem<T>(MoneyObjects<T> list) {
     final int selectedItemId = getSidePanelLastSelectedItemId();
     if (selectedItemId == -1) {
       return null;
@@ -498,7 +498,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Builds side panel view details for the selected items.
-  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
+  Widget getSidePanelViewDetails({required List<int> selectedIds}) {
     if (selectedIds.length > 1) {
       return CenterMessage(
         message: AppL10n.tr(
@@ -534,7 +534,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Returns true if the data instance matches current filters.
-  bool isMatchingFilters(final DataInterface instance) {
+  bool isMatchingFilters(DataInterface instance) {
     return isMoneyObjectMatchingFilters(
       areFiltersOn: areFiltersOn(),
       fieldToDisplay: _fieldToDisplay,
@@ -562,7 +562,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Opens column customization dialog for the specified field.
-  void onCustomizeColumn(final Field<dynamic> fieldDefinition) {
+  void onCustomizeColumn(Field<dynamic> fieldDefinition) {
     Widget content;
     listOfValueSelected.clear();
 
@@ -727,7 +727,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Sets the selected item by unique ID and updates UI state.
-  void setSelectedItem(final int uniqueId) {
+  void setSelectedItem(int uniqueId) {
     _lastSelectedItemId = uniqueId;
 
     // This will cause a UI update and the bottom details will get rendered if its expanded
@@ -752,7 +752,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Updates the list data and selects the specified item.
-  void updateListAndSelect(final int uniqueId) {
+  void updateListAndSelect(int uniqueId) {
     setState(() {
       clearSelection();
       list = getList();
@@ -776,7 +776,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Builds the empty-state UI for this view.
-  Widget _buildInformUserOfEmptyList(final Key key) {
+  Widget _buildInformUserOfEmptyList(Key key) {
     return buildMoneyObjectsEmptyState(
       key: key,
       classNamePlural: getClassNamePlural(),
@@ -794,7 +794,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Changes sort order based on the tapped column and persists the choice.
-  void _changeListSortOrder(final int columnNumber) {
+  void _changeListSortOrder(int columnNumber) {
     setState(() {
       if (columnNumber == _sortByFieldIndex) {
         // toggle order
@@ -816,7 +816,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Updates the free-text filter and refreshes the list.
-  void _onFilterTextChanged(final String text) {
+  void _onFilterTextChanged(String text) {
     setState(() {
       _filterByText = text.toLowerCase();
       saveLastUserChoicesOfView();
@@ -825,7 +825,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Handles taps on list items on mobile by showing a details dialog.
-  void _onItemTap(final BuildContext context, final int uniqueId) {
+  void _onItemTap(BuildContext context, int uniqueId) {
     if (isPlatformMobile()) {
       adaptiveScreenSizeDialog(
         context: context,
@@ -838,8 +838,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Handles the user's request to edit the selected objects.
   void _onUserRequestToEdit(
-    final BuildContext _,
-    final List<DataObject> moneyObjects,
+    BuildContext _,
+    List<DataObject> moneyObjects,
   ) {
     myShowDialogAndActionsForMoneyObjects(
       title: getSingularPluralText(
@@ -854,8 +854,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Handles the user's request to delete the selected objects.
   void _onUserRequestedToDelete(
-    final BuildContext context,
-    final List<DataObject> moneyObjects,
+    BuildContext context,
+    List<DataObject> moneyObjects,
   ) {
     if (moneyObjects.isEmpty) {
       messageBox(context, AppL10n.tr(AppTranslationKeys.noItemsToDelete));
@@ -916,8 +916,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
 /// Return the first element of type T in a list given a list of possible index;
 T? getMoneyObjectFromFirstSelectedId<T>(
-  final List<int> selectedIds,
-  final List<dynamic> listOfItems,
+  List<int> selectedIds,
+  List<dynamic> listOfItems,
 ) {
   return getMoneyObjectFromFirstSelectedIdInList<T>(selectedIds, listOfItems);
 }

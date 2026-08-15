@@ -7,7 +7,7 @@ class FieldFilters {
   ///
   /// The JSON string is expected to be a valid JSON representation of a `FieldFilters` object.
   /// This method decodes the JSON string and uses `fromJson` to create a new `FieldFilters` instance.
-  factory FieldFilters.fromJsonString(final String jsonString) {
+  factory FieldFilters.fromJsonString(String jsonString) {
     if (jsonString.isEmpty) {
       return FieldFilters();
     }
@@ -24,7 +24,7 @@ class FieldFilters {
   /// objects representing `FieldFilter` instances. This method creates a new `FieldFilters`
   /// instance and populates its `list` with `FieldFilter` instances constructed from the
   /// JSON objects.
-  factory FieldFilters.fromJson(final Map<String, dynamic> json) {
+  factory FieldFilters.fromJson(Map<String, dynamic> json) {
     final List<dynamic> filters = json['filters'] as List<dynamic>;
     final List<FieldFilter> fieldFilters = filters
         .map(
@@ -44,7 +44,7 @@ class FieldFilters {
   List<FieldFilter> list = <FieldFilter>[];
 
   /// Adds a filter to this group.
-  void add(final FieldFilter ff) {
+  void add(FieldFilter ff) {
     list.add(ff);
   }
 

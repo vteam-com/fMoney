@@ -22,7 +22,7 @@ import 'package:money/widgets/pure/snack_bar_service.dart';
 const double _previewHeight = 400.0;
 
 /// Returns true when imported entries suggest investment/stock activity.
-bool _hasInvestmentEntryHints(final List<ImportEntry> entries) {
+bool _hasInvestmentEntryHints(List<ImportEntry> entries) {
   for (final ImportEntry entry in entries) {
     if (entry.stockSymbol.isNotEmpty ||
         entry.stockAction.isNotEmpty ||
@@ -35,14 +35,14 @@ bool _hasInvestmentEntryHints(final List<ImportEntry> entries) {
 }
 
 /// Returns true when import metadata indicates an investment-oriented import.
-bool _isInvestmentTypeHint(final AccountType? accountType) {
+bool _isInvestmentTypeHint(AccountType? accountType) {
   return accountType == AccountType.investment ||
       accountType == AccountType.retirement ||
       accountType == AccountType.moneyMarket;
 }
 
 /// Returns true if account picker should be limited to investment-capable accounts.
-bool _shouldFilterToInvestmentAccounts(final ImportData importData) {
+bool _shouldFilterToInvestmentAccounts(ImportData importData) {
   if (_isInvestmentTypeHint(importData.accountType)) {
     return true;
   }
@@ -79,7 +79,7 @@ class ImportDiagnostics {
   final Map<String, int> skippedByReason = <String, int>{};
 
   /// Increments the skipped counter for [reasonKey].
-  void incrementSkipped(final String reasonKey) {
+  void incrementSkipped(String reasonKey) {
     skippedRows = skippedRows + 1;
     skippedByReason[reasonKey] = (skippedByReason[reasonKey] ?? 0) + 1;
   }
@@ -141,13 +141,13 @@ class ImportEntry {
 
 /// Shows confirmation dialog for importing transactions from ImportData.
 void showAndConfirmTransactionToImport(
-  final BuildContext context,
-  final ImportData importData,
+  BuildContext context,
+  ImportData importData,
 ) {
   if (importData.account == null) {
     final bool onlyInvestmentAccounts = _shouldFilterToInvestmentAccounts(importData);
     final Iterable<Account> availableAccounts = onlyInvestmentAccounts
-        ? Data().accounts.getListSorted().where((final Account account) => account.isInvestmentAccount())
+        ? Data().accounts.getListSorted().where((Account account) => account.isInvestmentAccount())
         : Data().accounts.getListSorted();
     final List<String> activeAccountNames = availableAccounts
         .map((Account element) => element.fieldName.value)
@@ -166,7 +166,7 @@ void showAndConfirmTransactionToImport(
       context: context,
       items: activeAccountNames,
       selectedItem: '',
-      onSelected: (final String text) {
+      onSelected: (String text) {
         final Account? accountSelected = Data().accounts.getByName(text);
         if (accountSelected != null) {
           _showAndConfirmTransactionToImport(
@@ -202,10 +202,10 @@ void showAndConfirmTransactionToImport(
 
 /// Shows a preview dialog for imported entries and adds new transactions on confirmation.
 void _showAndConfirmTransactionToImport(
-  final BuildContext context,
-  final String fileType,
-  final List<ImportEntry> list,
-  final Account account,
+  BuildContext context,
+  String fileType,
+  List<ImportEntry> list,
+  Account account,
 ) {
   final List<ValuesQuality> valuesQuality = <ValuesQuality>[];
 
@@ -332,8 +332,8 @@ void _showAndConfirmTransactionToImport(
 
 /// Builds a transaction from an import [entry] for the selected [account].
 Transaction _buildTransactionFromImportEntry({
-  required final Account account,
-  required final ImportEntry entry,
+  required Account account,
+  required ImportEntry entry,
 }) {
   final Transaction transaction = Transaction.fromDateDescriptionAmount(
     account,
@@ -356,7 +356,7 @@ Transaction _buildTransactionFromImportEntry({
 }
 
 /// Returns `true` when [entry] represents a real investment position event.
-bool _isInvestmentPositionEvent(final ImportEntry entry) {
+bool _isInvestmentPositionEvent(ImportEntry entry) {
   final String symbol = entry.stockSymbol.trim();
   if (symbol.isEmpty) {
     return false;
@@ -367,7 +367,7 @@ bool _isInvestmentPositionEvent(final ImportEntry entry) {
 }
 
 /// Resolves the category ID for an imported investment [entry].
-int _resolveInvestmentCategoryId(final ImportEntry entry) {
+int _resolveInvestmentCategoryId(ImportEntry entry) {
   final InvestmentType investmentType = _resolveInvestmentTypeFromEntry(entry);
   switch (investmentType) {
     case InvestmentType.buy:
@@ -386,7 +386,7 @@ int _resolveInvestmentCategoryId(final ImportEntry entry) {
 }
 
 /// Builds an investment object from [entry] when stock symbol metadata is available.
-Investment? _buildInvestmentFromImportEntry(final ImportEntry entry) {
+Investment? _buildInvestmentFromImportEntry(ImportEntry entry) {
   final String symbol = entry.stockSymbol.trim();
   if (symbol.isEmpty) {
     return null;
@@ -412,7 +412,7 @@ Investment? _buildInvestmentFromImportEntry(final ImportEntry entry) {
 }
 
 /// Maps broker action text in [entry] to a normalized [InvestmentType].
-InvestmentType _resolveInvestmentTypeFromEntry(final ImportEntry entry) {
+InvestmentType _resolveInvestmentTypeFromEntry(ImportEntry entry) {
   final String action = entry.stockAction.trim().toLowerCase();
   if (action.isNotEmpty) {
     if (action.contains(SharedStrings.investmentActionDividend) ||

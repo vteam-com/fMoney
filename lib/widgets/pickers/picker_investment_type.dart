@@ -6,8 +6,8 @@ import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
 /// Shows a picker for selecting an investment type.
 Widget pickerInvestmentType({
-  required final InvestmentType itemSelected,
-  required final void Function(InvestmentType) onSelected,
+  required InvestmentType itemSelected,
+  required void Function(InvestmentType) onSelected,
 }) {
   final String selectedName = getInvestmentTypeText(itemSelected);
 

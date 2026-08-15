@@ -26,25 +26,23 @@ class DataSimulatorAccountsBundle {
 }
 
 /// Callback for adding a new account instance.
-typedef AddNewAccountCallback =
-    Account Function(
-      int id,
-      String name,
-      String accountId,
-      int type,
-      String currency,
-    );
+typedef AddNewAccountCallback = Account Function(
+  int id,
+  String name,
+  String accountId,
+  int type,
+  String currency,
+);
 
 /// Callback for adding an account transaction with optional attributes.
-typedef AddTransactionForAccountCallback =
-    Transaction Function({
-      required Account account,
-      required DateTime date,
-      int payeeId,
-      int categoryId,
-      double amount,
-      String memo,
-    });
+typedef AddTransactionForAccountCallback = Transaction Function({
+  required Account account,
+  required DateTime date,
+  int payeeId,
+  int categoryId,
+  double amount,
+  String memo,
+});
 
 /// Callback for deriving a date by shifting the current year.
 ///

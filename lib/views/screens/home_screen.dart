@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
   /// Builds the large-screen layout with a vertical navigation bar.
   ///
   /// This method returns a `SafeArea` widget with a `Row` child, containing the vertical navigation bar and the main content area.
-  Widget _buildContentForLargeSurface(final BuildContext context) {
+  Widget _buildContentForLargeSurface(BuildContext context) {
     return SafeArea(
       bottom: false,
       top: false,
@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
   }
 
   /// Builds the small-screen layout with a bottom navigation bar.
-  Widget _buildContentForSmallSurface(final BuildContext _) {
+  Widget _buildContentForSmallSurface(BuildContext _) {
     return Column(
       children: <Widget>[
         Expanded(child: _getSubView()),
@@ -158,7 +158,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  void _handleSubViewSelectionChanged(final int selectedIndex) {
+  void _handleSubViewSelectionChanged(int selectedIndex) {
     PreferenceController.to.setView(ViewId.values[selectedIndex]);
   }
 }

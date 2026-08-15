@@ -10,7 +10,11 @@ class AmountModel {
     this.iso4217 = Constants.defaultCurrency,
     this.showCurrency = false,
     this.autoColor = true,
-  }) : _amount = amount;
+  })
+    // An initializing formal would rename the public `amount:` argument
+    // to `_amount:`, breaking every call site.
+    // ignore: prefer_initializing_formals
+    : _amount = amount;
 
   bool autoColor;
 
@@ -32,7 +36,7 @@ class AmountModel {
   }
 
   /// Add operator
-  AmountModel operator +(final dynamic value) {
+  AmountModel operator +(dynamic value) {
     if (value is AmountModel) {
       _amount += value.asDouble();
     } else {
@@ -42,7 +46,7 @@ class AmountModel {
   }
 
   /// Subtracting operator
-  AmountModel operator -(final dynamic value) {
+  AmountModel operator -(dynamic value) {
     if (value is AmountModel) {
       _amount -= value.asDouble();
     } else {
@@ -54,7 +58,7 @@ class AmountModel {
   /// Sets the _amount property of the MoneyModel instance based on the provided input.
   /// If the input is a String, it attempts to parse it as a double using the attemptToGetDoubleFromText function.
   /// If the input is not a String, it calls the toDouble() method on the input to convert it to a double.
-  void setAmount(final dynamic newValueToSet) {
+  void setAmount(dynamic newValueToSet) {
     _amount =
         newValueToSet
             is String // Check if the input is a String
@@ -76,7 +80,7 @@ class AmountModel {
 }
 
 /// Sorts AmountModel objects by amount value.
-int sortByAmount(final AmountModel a, final AmountModel b, final bool ascending) {
+int sortByAmount(AmountModel a, AmountModel b, bool ascending) {
   if (ascending) {
     return a.asDouble().compareTo(b.asDouble());
   } else {

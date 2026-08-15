@@ -25,7 +25,7 @@ class Categories extends MoneyObjects<Category> {
   Category? _split;
 
   @override
-  Category instanceFromJson(final MyJson json) {
+  Category instanceFromJson(MyJson json) {
     return Category.fromJson(json, data);
   }
 
@@ -75,11 +75,11 @@ class Categories extends MoneyObjects<Category> {
 
   /// Add a new Category ensure that the name is unique under the parent or root
   Category addNewCategory({
-    final int parentId = -1,
-    final String name = SharedDomainStrings.domainString089,
-    final CategoryType? type,
-    final String color = '',
-    final String description = '',
+    int parentId = -1,
+    String name = SharedDomainStrings.domainString089,
+    CategoryType? type,
+    String color = '',
+    String description = '',
   }) {
     assert(
       name.contains(':') && parentId == -1 || !name.contains(':'),
@@ -128,7 +128,7 @@ class Categories extends MoneyObjects<Category> {
   Category appendNewCategory({
     required int parentId,
     required String name,
-    required final CategoryType type,
+    required CategoryType type,
     bool fireNotification = false,
   }) {
     final Category category = Category(
@@ -144,8 +144,8 @@ class Categories extends MoneyObjects<Category> {
 
   /// Ensures ancestor categories exist for a colon-separated [name]; creates missing ones.
   Category ensureAncestorExist({
-    required final String name,
-    final CategoryType? overrideTypeOfParent,
+    required String name,
+    CategoryType? overrideTypeOfParent,
   }) {
     final List<String> categoryNameParts = name.split(':');
 
@@ -186,16 +186,16 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Finds a category by exact name.
-  Category? getByName(final String name) {
+  Category? getByName(String name) {
     return iterableList().firstWhereOrNull(
-      (final Category category) => category.fieldName.value == name,
+      (Category category) => category.fieldName.value == name,
     );
   }
 
   /// Returns the ID for a category by name; -1 if not found.
-  int? getIdByName(final String name) {
+  int? getIdByName(String name) {
     final Category? found = iterableList().firstWhereOrNull(
-      (final Category category) => category.fieldName.value == name,
+      (Category category) => category.fieldName.value == name,
     );
     return found?.uniqueId ?? -1;
   }
@@ -206,7 +206,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Returns direct child categories of the given [parentId].
-  List<Category> getCategoriesWithThisParent(final int parentId) {
+  List<Category> getCategoriesWithThisParent(int parentId) {
     final List<Category> list = <Category>[];
     for (final Category item in iterableList()) {
       if (item.fieldParentId.value == parentId) {
@@ -217,7 +217,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Returns a widget representing the category for the given [id].
-  Widget getCategoryWidget(final int id) {
+  Widget getCategoryWidget(int id) {
     if (id == -1) {
       return const Text('?');
     }
@@ -239,7 +239,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Gets the category name for the given [id]; handles special cases.
-  String getNameFromId(final int id) {
+  String getNameFromId(int id) {
     if (id == -1) {
       return '';
     }
@@ -251,7 +251,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Gets or creates a category by [name] and [type]; restores if deleted.
-  Category getOrCreate(final String name, final CategoryType type) {
+  Category getOrCreate(String name, CategoryType type) {
     Category? category = getByName(name);
 
     if (category == null) {
@@ -266,7 +266,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Walks up the hierarchy to return the top-level ancestor category.
-  Category getTopAncestor(final Category category) {
+  Category getTopAncestor(Category category) {
     if (category.fieldParentId.value == -1) {
       return category; // this is the top
     }
@@ -278,7 +278,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Returns all descendant IDs in the tree starting from [rootIdToStartFrom].
-  List<int> getTreeIds(final int rootIdToStartFrom) {
+  List<int> getTreeIds(int rootIdToStartFrom) {
     final List<int> list = <int>[];
     if (rootIdToStartFrom > 0) {
       getTreeIdsRecursive(rootIdToStartFrom, list);
@@ -287,7 +287,7 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Recursive helper to collect descendant category IDs.
-  void getTreeIdsRecursive(final int categoryId, final List<int> list) {
+  void getTreeIdsRecursive(int categoryId, List<int> list) {
     if (categoryId > 0) {
       list.add(categoryId);
       final List<Category> descendants = getCategoriesWithThisParent(
@@ -386,15 +386,15 @@ class Categories extends MoneyObjects<Category> {
   }
 
   /// Returns `true` if the category with [categoryId] is an expense category.
-  bool isCategoryAnExpense(final int categoryId) => get(categoryId)?.isExpense ?? false;
+  bool isCategoryAnExpense(int categoryId) => get(categoryId)?.isExpense ?? false;
 
   /// Returns `true` if the category with [categoryId] is an income category.
-  bool isCategoryAnIncome(final int categoryId) => get(categoryId)?.isIncome ?? false;
+  bool isCategoryAnIncome(int categoryId) => get(categoryId)?.isIncome ?? false;
 
   /// Moves [categoryToReparent] under [newParentCategory] and updates descendants' names.
   void reparentCategory(
-    final Category categoryToReparent,
-    final Category newParentCategory,
+    Category categoryToReparent,
+    Category newParentCategory,
   ) {
     categoryToReparent.stashValueBeforeEditing();
     categoryToReparent.fieldParentId.value = newParentCategory.uniqueId;

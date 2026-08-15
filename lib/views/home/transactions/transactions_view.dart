@@ -71,7 +71,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   final List<bool> _selectedPivot = <bool>[false, false, true];
 
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
 
     if (!forSidePanelTransactions && getFirstSelectedItem() != null) {
@@ -166,14 +166,14 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     final List<Transaction> list = Data().transactions
         .iterableList(includeDeleted: includeDeleted)
         .where(
-          (final Transaction transaction) =>
+          (Transaction transaction) =>
               isMatchingIncomeExpense(transaction) && (applyFilter == false || isMatchingFilters(transaction)),
         )
         .toList();
 
     if (!balanceDone) {
       list.sort(
-        (final Transaction a, final Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value),
+        (Transaction a, Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value),
       );
 
       double runningNativeBalance = 0.0;
@@ -210,7 +210,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           Data().transactions
               .iterableList()
               .where(
-                (final Transaction element) => element.fieldAmount.value.asDouble() > 0,
+                (Transaction element) => element.fieldAmount.value.asDouble() > 0,
               )
               .length,
         ),
@@ -225,7 +225,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
           Data().transactions
               .iterableList()
               .where(
-                (final Transaction element) => element.fieldAmount.value.asDouble() < 0,
+                (Transaction element) => element.fieldAmount.value.asDouble() < 0,
               )
               .length,
         ),
@@ -242,7 +242,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   }
 
   /// Returns true if the transaction matches the current income/expense pivot.
-  bool isMatchingIncomeExpense(final Transaction transaction) {
+  bool isMatchingIncomeExpense(Transaction transaction) {
     if (_selectedPivot[_pivotIndexAll]) {
       return true;
     }
@@ -261,13 +261,13 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel chart subview showing totals per top-level category.
   Widget _getSidePanelViewChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     final Map<String, num> tallyPerCategory = <String, num>{};
 
-    getList().forEach((final Transaction transaction) {
+    getList().forEach((Transaction transaction) {
       final num value = transaction.fieldAmount.value.asDouble();
       final int categoryId = transaction.fieldCategoryId.value;
       Category? category = Data().categories.get(categoryId);
@@ -279,18 +279,18 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
       // Update the map or add a new entry
       tallyPerCategory.update(
         parentCategory.name,
-        (final num total) => total + value,
+        (num total) => total + value,
         ifAbsent: () => value,
       );
     });
 
     final List<PairXYY> list = <PairXYY>[];
-    tallyPerCategory.forEach((final String key, final num value) {
+    tallyPerCategory.forEach((String key, num value) {
       list.add(PairXYY(key, value));
     });
 
     list.sort(
-      (final PairXYY a, final PairXYY b) => a.yValue1.compareTo(b.yValue1),
+      (PairXYY a, PairXYY b) => a.yValue1.compareTo(b.yValue1),
     );
 
     return Chart(list: list);
@@ -298,8 +298,8 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel transactions subview showing related details for the selection.
   Widget _getSidePanelViewTransactions({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(selectedIds, showAsNativeCurrency);
     final Transaction? transaction = getFirstSelectedItem() as Transaction?;

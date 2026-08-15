@@ -13,8 +13,8 @@ import 'package:money/views/imports/shared/data_import_view.dart';
 
 /// Imports QFX file and processes transactions from file path.
 Future<bool> importQFX(
-  final BuildContext context,
-  final String filePath,
+  BuildContext context,
+  String filePath,
 ) async {
   final File file = File(filePath);
 
@@ -24,7 +24,7 @@ Future<bool> importQFX(
 }
 
 /// Processes QFX data from string content and imports transactions.
-void importQfxFromString(final BuildContext? context, final String text) {
+void importQfxFromString(BuildContext? context, String text) {
   final String ofx = getStringDelimitedStartEndTokens(text, '<OFX>', '</OFX>');
 
   final OfxBankInfo bankInfo = OfxBankInfo.fromOfx(ofx);
@@ -51,7 +51,7 @@ class OfxBankInfo {
   String id = '';
 
   /// Parses OFX bank information from OFX string content.
-  static OfxBankInfo fromOfx(final String ofx) {
+  static OfxBankInfo fromOfx(String ofx) {
     // start with this
     // <BANKACCTFROM><BANKID>123456<ACCTID>00001 99-55555<ACCTTYPE>SAVINGS</BANKACCTFROM>
     // final String bankInfoText = getStringContentBetweenTwoTokens(
@@ -76,7 +76,7 @@ class OfxBankInfo {
 
 // ignore: fcheck_dead_code
 /// Returns investment category ID based on OFX transaction type.
-int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
+int getInvestmentCategoryFromOfxType(ImportEntry ofxTransaction) {
   int categoryId = -1;
   switch (ofxTransaction.type) {
     case SharedStrings.ofxTypeCredit:
@@ -119,7 +119,7 @@ int getInvestmentCategoryFromOfxType(final ImportEntry ofxTransaction) {
 }
 
 /// Parses OFX string content and returns list of transaction entries.
-List<ImportEntry> getTransactionFromOFX(final String rawOfx) {
+List<ImportEntry> getTransactionFromOFX(String rawOfx) {
   if (rawOfx.isNotEmpty) {
     // Remove all LN/CR
     final String ofx = getNormalizedValue(rawOfx);
@@ -144,7 +144,7 @@ List<ImportEntry> getTransactionFromOFX(final String rawOfx) {
 }
 
 /// Parses QFX transaction lines into ImportEntry objects.
-List<ImportEntry> parseQFXTransactions(final List<String> lines) {
+List<ImportEntry> parseQFXTransactions(List<String> lines) {
   final List<ImportEntry> transactions = <ImportEntry>[];
 
   for (String line in lines) {
@@ -181,9 +181,9 @@ List<ImportEntry> parseQFXTransactions(final List<String> lines) {
 
 /// Finds and returns value between token and closing tag, or default if not found.
 String findAndGetValueOf(
-  final String line,
-  final String tokenTextToFind,
-  final String valueIfNotFound,
+  String line,
+  String tokenTextToFind,
+  String valueIfNotFound,
 ) {
   final int position = line.indexOf(tokenTextToFind);
   if (position != -1) {
@@ -194,7 +194,7 @@ String findAndGetValueOf(
 }
 
 /// Extracts value portion from line starting after '>' character.
-String getValuePortion(final String line) {
+String getValuePortion(String line) {
   final int startIndexOfValue = line.indexOf('>') + 1;
   String lineContent = line.substring(startIndexOfValue);
 

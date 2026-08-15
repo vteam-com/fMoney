@@ -29,7 +29,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
   TimelineScale _selectedScale = TimelineScale.yearly;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.transactions.isEmpty) {
       return Center(child: Text(AppL10n.tr(AppTranslationKeys.noTransactions)));
     }

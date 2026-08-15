@@ -11,12 +11,20 @@ analyzer:
     - "**/*.graphql.dart"
     - "**/*.mocks.dart"
     - "**/generated/**"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
   errors:
     todo: ignore
     unnecessary_this: ignore
     avoid_empty_else: error
     avoid_function_literals_in_foreach_calls: ignore
+    parameter_assignments: error
 
   language:
     strict-casts: true
@@ -40,6 +48,8 @@ linter:
     close_sinks: true
     directives_ordering: true
     matching_super_parameters: true
+    # Dart 3.13 removed `final` on parameters; this enforces the same intent.
+    parameter_assignments: true
     prefer_const_constructors: true
     prefer_expression_function_bodies: false
     prefer_final_fields: true

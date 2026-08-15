@@ -45,7 +45,7 @@ class ViewAiHeader extends StatelessWidget {
   final String selectedModel;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(_headerPadding),
       child: Row(
@@ -60,8 +60,8 @@ class ViewAiHeader extends StatelessWidget {
                 PopupMenuButton<String>(
                   constraints: const BoxConstraints(minWidth: _modelMenuMinWidth),
                   onSelected: onModelSelected,
-                  itemBuilder: (final BuildContext context) => availableModels.map<PopupMenuEntry<String>>((
-                    final Map<String, dynamic> model,
+                  itemBuilder: (BuildContext context) => availableModels.map<PopupMenuEntry<String>>((
+                    Map<String, dynamic> model,
                   ) {
                     final String modelName = model['name'] as String;
                     final String size = formatByteSize(model['size'] as int);

@@ -20,9 +20,9 @@ class MultipleSelectionToggle extends StatelessWidget {
       valueListenable: multipleSelection!.selectedItems,
       builder:
           (
-            final BuildContext context,
-            final List<int> _,
-            final _,
+            BuildContext context,
+            List<int> _,
+            _,
           ) {
             return Tooltip(
               message: SharedStrings.tooltipToggleMultiSelection,

@@ -108,7 +108,7 @@ class ThemeController extends ChangeNotifier {
   void setAppSizeToLarge() => MyWindowManager.setAppWindowSize(Constants.screenWidthLarge, _appWindowHeight);
 
   /// Attempts to set the global font scale to [newScale] and persists it.
-  bool setFontScaleTo(final double newScale) {
+  bool setFontScaleTo(double newScale) {
     final int cleanValue = (newScale * _fontScalePercentFactor).round();
     if (isBetweenOrEqual(cleanValue, _fontScaleMinPercent, _fontScaleMaxPercent)) {
       PreferenceController.to.textScale = cleanValue / _fontScalePercentDivisor;
@@ -119,7 +119,7 @@ class ThemeController extends ChangeNotifier {
   }
 
   /// Sets the active theme color by [index] and persists the choice.
-  void setThemeColor(final int index) {
+  void setThemeColor(int index) {
     colorSelected = index;
     primaryColor = themeData.colorScheme.primary;
     saveThemeToPreferences();
@@ -163,8 +163,8 @@ class ThemeController extends ChangeNotifier {
   ];
 
   /// Builds popup menu items for selecting the current theme color.
-  List<PopupMenuItem<int>> buildThemeColorMenuItems(final BuildContext context) {
-    return List<PopupMenuItem<int>>.generate(_Themes.themeAsColors.length, (final int index) {
+  List<PopupMenuItem<int>> buildThemeColorMenuItems(BuildContext context) {
+    return List<PopupMenuItem<int>>.generate(_Themes.themeAsColors.length, (int index) {
       final bool isSelected = index == colorSelected;
       final String themeColorName = themeColorNames[index];
 

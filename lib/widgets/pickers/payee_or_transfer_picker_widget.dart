@@ -83,7 +83,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
         ),
       ],
       selectedId: _choice.index,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         setState(() {
           _choice = TransactionFlavor.values[newSelection];
         });
@@ -128,7 +128,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
   }
 
   /// Presents an input row with optional caption and widget.
-  Widget presentInput(final String caption, final Widget widget) {
+  Widget presentInput(String caption, Widget widget) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

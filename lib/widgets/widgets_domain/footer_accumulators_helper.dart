@@ -21,7 +21,7 @@ class FooterAccumulators {
 
   /// Allowed  to be overridden by derived class
   /// Use the field FooterType to decide how to render the bottom button of each columns
-  Widget buildWidget(final Field<dynamic> field) {
+  Widget buildWidget(Field<dynamic> field) {
     switch (field.footer) {
       case FooterType.range:
         if (field.type == FieldType.date) {

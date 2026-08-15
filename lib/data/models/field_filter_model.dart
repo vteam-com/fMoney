@@ -66,7 +66,7 @@ class FieldFilter {
   /// Checks if the given [value] is contained in the [strings] list, ignoring case.
   ///
   /// Returns `true` if a string in the [strings] list matches the [value], ignoring case.
-  bool contains(final dynamic value) {
+  bool contains(dynamic value) {
     if (value is! String) {
       return false;
     }

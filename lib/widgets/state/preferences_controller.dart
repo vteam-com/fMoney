@@ -63,7 +63,7 @@ class PreferenceController extends ChangeNotifier {
   bool get isSidePanelExpanded => _isSidePanelExpanded;
 
   /// SET
-  set isSidePanelExpanded(final bool value) {
+  set isSidePanelExpanded(bool value) {
     _isSidePanelExpanded = value;
 
     // persist
@@ -81,7 +81,7 @@ class PreferenceController extends ChangeNotifier {
   int get sidePanelHeight => _sidePanelHeight;
 
   /// SET
-  set sidePanelHeight(final int value) {
+  set sidePanelHeight(int value) {
     _sidePanelHeight = value;
 
     // persist
@@ -149,7 +149,7 @@ class PreferenceController extends ChangeNotifier {
   }
 
   /// Adds an item to the MRU (most recently used) list.
-  void addToMRU(final String filePathAndName) {
+  void addToMRU(String filePathAndName) {
     if (filePathAndName.isNotEmpty) {
       // load and place on top
       mru.remove(filePathAndName);
@@ -171,7 +171,7 @@ class PreferenceController extends ChangeNotifier {
   String get localeCode => _localeCode;
 
   /// Sets app locale, persists it.
-  set localeCode(final String value) {
+  set localeCode(String value) {
     final String sanitized = switch (value) {
       'es' => 'es',
       'fr' => 'fr',
@@ -183,7 +183,7 @@ class PreferenceController extends ChangeNotifier {
   }
 
   ///---------------------------------
-  set apiKeyForStocks(final String value) {
+  set apiKeyForStocks(String value) {
     _apiKeyForStocks = value;
     setString(settingKeyStockApiKey, value);
     notifyListeners();
@@ -244,7 +244,7 @@ class PreferenceController extends ChangeNotifier {
   bool get includeRentalManagement => _includeRentalManagement;
 
   /// Sets whether rental management should be included in views.
-  set includeRentalManagement(final bool value) {
+  set includeRentalManagement(bool value) {
     _includeRentalManagement = value;
     setBool(settingKeyRentalsSupport, value);
     notifyListeners();
@@ -260,10 +260,10 @@ class PreferenceController extends ChangeNotifier {
 
   /// Navigates to specified view with selected item ID.
   Future<void> jumpToView({
-    required final ViewId viewId,
-    required final int selectedId,
-    final String textFilter = '',
-    final FieldFilters? columnFilters,
+    required ViewId viewId,
+    required int selectedId,
+    String textFilter = '',
+    FieldFilters? columnFilters,
   }) async {
     // First set all filters on the destination view
     await setString(
@@ -447,7 +447,7 @@ class PreferenceController extends ChangeNotifier {
 
 /// Navigation helpers
 
-Future<void> switchViewTransactionForPayee(final String payeeName) async {
+Future<void> switchViewTransactionForPayee(String payeeName) async {
   final FieldFilters fieldFilters = FieldFilters();
   fieldFilters.add(
     FieldFilter(

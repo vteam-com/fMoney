@@ -5,12 +5,12 @@ const double _popupMenuBorderRadius = 8;
 
 /// Creates a PopupMenuButton with themed styling and icon.
 PopupMenuButton<int> myPopupMenuIconButton({
-  final Key? key,
-  required final BuildContext context,
-  required final IconData icon,
-  required final String tooltip,
-  required final List<PopupMenuItem<int>> list,
-  required final void Function(int) onSelected,
+  Key? key,
+  required BuildContext context,
+  required IconData icon,
+  required String tooltip,
+  required List<PopupMenuItem<int>> list,
+  required void Function(int) onSelected,
 }) {
   return PopupMenuButton<int>(
     key: key,
@@ -26,7 +26,7 @@ PopupMenuButton<int> myPopupMenuIconButton({
         _popupMenuBorderRadius,
       ), // Set the border radius
     ),
-    itemBuilder: (final BuildContext _) {
+    itemBuilder: (BuildContext _) {
       return list;
     },
     onSelected: onSelected,

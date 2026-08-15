@@ -32,7 +32,7 @@ class TransactionExtra extends DataObject {
     this.fieldTaxDate.value = taxDate;
   }
 
-  factory TransactionExtra.fromJson(final MyJson row) {
+  factory TransactionExtra.fromJson(MyJson row) {
     final TransactionExtra t = TransactionExtra(
       // id
       id: row.getInt(SharedDomainStrings.domainString057, -1),
@@ -50,25 +50,25 @@ class TransactionExtra extends DataObject {
   /// ID
   /// SQLite  0|Id|bigint|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionExtra).uniqueId,
   );
 
   // 4
   FieldDate fieldTaxDate = FieldDate(
     serializeName: SharedDomainStrings.domainString133,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTaxDate.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionExtra).fieldTaxDate.value,
   );
 
   // 2
   FieldInt fieldTaxYear = FieldInt(
     serializeName: SharedDomainStrings.domainString136,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTaxYear.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionExtra).fieldTaxYear.value,
   );
 
   // 1
   FieldInt fieldTransaction = FieldInt(
     serializeName: SharedDomainStrings.domainString141,
-    getValueForSerialization: (final DataInterface instance) => (instance as TransactionExtra).fieldTransaction.value,
+    getValueForSerialization: (DataInterface instance) => (instance as TransactionExtra).fieldTransaction.value,
   );
 
   // Fields for this instance
@@ -79,12 +79,12 @@ class TransactionExtra extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<TransactionExtra> _fields = Fields<TransactionExtra>();
 
   /// Builds [TransactionExtra] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(final TransactionExtra tmp) => <Field<dynamic>>[
+  static FieldDefinitions _buildFieldDefinitions(TransactionExtra tmp) => <Field<dynamic>>[
     tmp.fieldId,
     tmp.fieldTaxDate,
     tmp.fieldTaxYear,

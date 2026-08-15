@@ -25,7 +25,7 @@ class MyRectangle extends StatelessWidget {
   final double size;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return DottedBorder(
       options: CircularDottedBorderOptions(
         padding: EdgeInsets.zero,

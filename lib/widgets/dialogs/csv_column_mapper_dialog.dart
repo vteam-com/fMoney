@@ -411,7 +411,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   }
 
   /// Counts non-empty values in a preview column to avoid selecting empty defaults.
-  int _countNonEmptyValuesInColumn(final int columnIndex) {
+  int _countNonEmptyValuesInColumn(int columnIndex) {
     int count = 0;
     final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
     for (int i = 0; i < previewRowCount; i++) {

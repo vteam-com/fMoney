@@ -6,7 +6,7 @@ const double _gapLarge = 21;
 const double _gapHuge = 55;
 
 /// Returns a SizedBox square of the given [size].
-Widget gap(final double size) {
+Widget gap(double size) {
   return SizedBox(width: size, height: size);
 }
 

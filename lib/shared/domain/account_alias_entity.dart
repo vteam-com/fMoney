@@ -21,7 +21,7 @@ class AccountAlias extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory AccountAlias.fromJson(final MyJson row) {
+  factory AccountAlias.fromJson(MyJson row) {
     return AccountAlias()
       ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
       ..fieldPattern.value = row.getString(SharedDomainStrings.domainString104)
@@ -34,7 +34,7 @@ class AccountAlias extends DataObject {
   FieldInt fieldFlags = FieldInt(serializeName: SharedDomainStrings.domainString055, defaultValue: 0);
 
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as AccountAlias).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as AccountAlias).uniqueId,
   );
 
   FieldString fieldPattern = FieldString(serializeName: SharedDomainStrings.domainString104);
@@ -52,12 +52,12 @@ class AccountAlias extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<AccountAlias> _fields = Fields<AccountAlias>();
 
   /// Builds [AccountAlias] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(final AccountAlias tmp) => <Field<dynamic>>[
+  static FieldDefinitions _buildFieldDefinitions(AccountAlias tmp) => <Field<dynamic>>[
     tmp.fieldId,
     tmp.fieldPattern,
     tmp.fieldFlags,

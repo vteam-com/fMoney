@@ -38,7 +38,7 @@ class _ZoomIncreaseDecreaseState extends State<ZoomIncreaseDecrease> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

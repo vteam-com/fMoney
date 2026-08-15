@@ -80,7 +80,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Returns default folder path for saving files with given name.
-  Future<String> defaultFolderToSaveTo(final String defaultFileName) async {
+  Future<String> defaultFolderToSaveTo(String defaultFileName) async {
     return MyFileSystems.append('.', defaultFileName);
   }
 
@@ -109,7 +109,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Loads data file from specified data source.
-  Future<bool> loadFile(final DataSource dataSource) async {
+  Future<bool> loadFile(DataSource dataSource) async {
     this.closeFile(false); // ensure that we closed current file and state
 
     try {
@@ -121,7 +121,7 @@ class DataFileController extends ChangeNotifier {
           dataSource.filePath,
         );
         notifyListeners();
-        SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
+        SchedulerBinding.instance.addPostFrameCallback((Duration _) {
           AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeHomePage);
         });
       }
@@ -136,7 +136,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Loads data file from specified data source path.
-  Future<bool> loadFileFromPath(final DataSource dataSource) async {
+  Future<bool> loadFileFromPath(DataSource dataSource) async {
     return await loadFile(dataSource);
   }
 
@@ -149,7 +149,7 @@ class DataFileController extends ChangeNotifier {
       if (DataAccess.getMRU().isNotEmpty) {
         final bool loaded = await loadFile(DataSource(filePath: DataAccess.getMRU().first));
         if (!loaded) {
-          SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
+          SchedulerBinding.instance.addPostFrameCallback((Duration _) {
             AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
           });
         }
@@ -159,7 +159,7 @@ class DataFileController extends ChangeNotifier {
         isLoading.value = false;
         notifyListeners();
 
-        SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
+        SchedulerBinding.instance.addPostFrameCallback((Duration _) {
           AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
         });
       }
@@ -168,7 +168,7 @@ class DataFileController extends ChangeNotifier {
       logger.e('Error fetching data', error: e, stackTrace: stackTrace);
       isLoading.value = false;
       notifyListeners();
-      SchedulerBinding.instance.addPostFrameCallback((final Duration _) {
+      SchedulerBinding.instance.addPostFrameCallback((Duration _) {
         AppRouter.pushReplacementNamed<dynamic, dynamic>(Constants.routeWelcomePage);
       });
     }
@@ -276,7 +276,7 @@ class DataFileController extends ChangeNotifier {
     final bool result = await MoneyDataIO().saveToSql(
       Data(),
       filePath: fileNameAndPath,
-      onSaveCompleted: (final bool success, final String message) {
+      onSaveCompleted: (bool success, String message) {
         if (success) {
           trackMutations.reset();
         } else {
@@ -302,7 +302,7 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Sets the current loaded file name and updates MRU list.
-  void setCurrentFileName(final String filenameLoaded) {
+  void setCurrentFileName(String filenameLoaded) {
     currentLoadedFileName.value = filenameLoaded;
     DataAccess.addToMRU(filenameLoaded);
     notifyListeners();

@@ -9,8 +9,8 @@ export 'package:money/data/helpers/investment_type_helper.dart';
 
 /// Shows a picker for selecting a security type.
 Widget pickerSecurityType({
-  required final SecurityType itemSelected,
-  required final void Function(SecurityType?) onSelected,
+  required SecurityType itemSelected,
+  required void Function(SecurityType?) onSelected,
 }) {
   final List<String> options = enumToStringList(SecurityType.values);
 

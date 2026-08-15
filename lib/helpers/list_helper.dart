@@ -129,7 +129,7 @@ List<PairStringDouble> convertToPercentages(
 }
 
 /// Returns list with min and max values from the input list.
-List<num> getMinMaxValues(final List<double> list) {
+List<num> getMinMaxValues(List<double> list) {
   if (list.isEmpty) {
     return <num>[0, 0];
   }
@@ -173,9 +173,9 @@ List<String> padList(List<String> list, int length, String padding) {
 
 /// Sorts items by date comparison.
 int sortByDate(
-  final DateTime? a,
-  final DateTime? b, [
-  final bool ascending = true,
+  DateTime? a,
+  DateTime? b, [
+  bool ascending = true,
 ]) {
   if (a == null && b == null) {
     return 0;
@@ -201,7 +201,7 @@ int sortByDate(
 }
 
 /// Sorts items by string comparison.
-int sortByString(final dynamic a, final dynamic b, final bool ascending) {
+int sortByString(dynamic a, dynamic b, bool ascending) {
   if (ascending) {
     return stringCompareIgnoreCasing(a.toString(), b.toString());
   } else {
@@ -210,7 +210,7 @@ int sortByString(final dynamic a, final dynamic b, final bool ascending) {
 }
 
 /// Sorts items by numeric value comparison.
-int sortByValue(final num a, final num b, final bool ascending) {
+int sortByValue(num a, num b, bool ascending) {
   if (ascending) {
     return a.compareTo(b);
   } else {
@@ -220,7 +220,7 @@ int sortByValue(final num a, final num b, final bool ascending) {
 
 /// Converts enum values to list of strings.
 List<String> enumToStringList<T>(List<T> enumValues) {
-  return enumValues.map((final T e) => e.toString().split('.').last).toList();
+  return enumValues.map((T e) => e.toString().split('.').last).toList();
 }
 
 extension RandomItemExtension<T> on List<T> {

@@ -57,7 +57,7 @@ class MoneyObjectCard extends StatelessWidget {
   }
 
   /// Header Object [Name, Id, Actions]
-  Widget _buildCardHeader(final BuildContext context) {
+  Widget _buildCardHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -106,11 +106,11 @@ class MoneyObjectCard extends StatelessWidget {
 
 /// Builds an adaptive box with title, count, and content.
 Widget buildAdaptiveBox({
-  required final BuildContext context,
-  required final String title,
-  required final int count,
-  required final Widget content,
-  final Widget? footer,
+  required BuildContext context,
+  required String title,
+  required int count,
+  required Widget content,
+  Widget? footer,
 }) {
   return Box(
     height: _adaptiveBoxHeight,

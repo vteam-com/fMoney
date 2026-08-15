@@ -28,7 +28,7 @@ class ChatMessageFooter extends StatelessWidget {
   final bool shouldTruncate;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final bool isUser = message.type == ChatFrom.user;
 
     return Row(

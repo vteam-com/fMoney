@@ -9,8 +9,8 @@ export 'package:flutter/material.dart';
 
 /// Shows a picker for selecting a category type.
 Widget pickerCategoryType({
-  required final CategoryType itemSelected,
-  required final void Function(CategoryType) onSelected,
+  required CategoryType itemSelected,
+  required void Function(CategoryType) onSelected,
 }) {
   return PickerEditBox(
     title: AppL10n.tr(AppTranslationKeys.category),

@@ -5,13 +5,13 @@ import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
 /// Builds the empty-state UI for money-object list views.
 Widget buildMoneyObjectsEmptyState({
-  required final Key key,
-  required final String classNamePlural,
-  required final bool areFiltersOn,
-  required final String filterByText,
-  required final FieldFilters filterByFieldsValue,
-  required final VoidCallback onClearFilters,
-  required final Widget header,
+  required Key key,
+  required String classNamePlural,
+  required bool areFiltersOn,
+  required String filterByText,
+  required FieldFilters filterByFieldsValue,
+  required VoidCallback onClearFilters,
+  required Widget header,
 }) {
   return Column(
     children: <Widget>[
@@ -36,7 +36,7 @@ Widget buildMoneyObjectsEmptyState({
 
 /// Builds the loading-state UI for money-object list views.
 Widget buildMoneyObjectsLoadingScreen({
-  required final Widget header,
+  required Widget header,
 }) {
   return Column(
     children: <Widget>[
@@ -48,8 +48,8 @@ Widget buildMoneyObjectsLoadingScreen({
 
 /// Builds the generic empty-list center message.
 Widget _buildCenterMessageForEmptyList({
-  required final Key key,
-  required final String classNamePlural,
+  required Key key,
+  required String classNamePlural,
 }) {
   return buildCenterMessageForEmptyListUi(
     key: key,
@@ -59,11 +59,11 @@ Widget _buildCenterMessageForEmptyList({
 
 /// Builds a message explaining that filters resulted in an empty list.
 Widget _buildCenterMessageForEmptyListDueToFilters({
-  required final Key key,
-  required final String classNamePlural,
-  required final String filterByText,
-  required final FieldFilters filterByFieldsValue,
-  required final VoidCallback onClearFilters,
+  required Key key,
+  required String classNamePlural,
+  required String filterByText,
+  required FieldFilters filterByFieldsValue,
+  required VoidCallback onClearFilters,
 }) {
   return buildCenterMessageForEmptyListDueToFiltersUi(
     key: key,

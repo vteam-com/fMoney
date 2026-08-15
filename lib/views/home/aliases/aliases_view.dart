@@ -68,8 +68,8 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel view for transactions with selection and currency options.
   Widget getSidePanelViewTransactions({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
     final SelectionController selectionController = SelectionController(
@@ -93,7 +93,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
         ],
         getList: () => getTransactions(
           flattenSplits: true,
-          filter: (final Transaction transaction) => transaction.fieldPayee.value == alias.fieldPayeeId.value,
+          filter: (Transaction transaction) => transaction.fieldPayee.value == alias.fieldPayeeId.value,
         ),
         selectionController: selectionController,
       );

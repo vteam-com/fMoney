@@ -16,13 +16,12 @@ import 'package:money/widgets/pure/mutation_types.dart';
 /// - `transaction`: Current transaction being displayed/edited.
 /// - `editMode`: Whether the dialog is currently in edit mode.
 /// - `dataWasModified`: Whether transaction data changed in the dialog.
-typedef MutationActionButtonsBuilder =
-    List<Widget> Function({
-      required BuildContext context,
-      required Transaction transaction,
-      required bool editMode,
-      required bool dataWasModified,
-    });
+typedef MutationActionButtonsBuilder = List<Widget> Function({
+  required BuildContext context,
+  required Transaction transaction,
+  required bool editMode,
+  required bool dataWasModified,
+});
 
 /// Shows a dialog that allows the user to mutate a transaction.
 ///
@@ -35,12 +34,12 @@ typedef MutationActionButtonsBuilder =
 /// Returns:
 /// A `Future` that completes when the dialog is closed, with the result of the user's actions.
 Future<dynamic> showTransactionAndActions({
-  required final BuildContext context,
-  required final Transaction transaction,
+  required BuildContext context,
+  required Transaction transaction,
 }) {
   return showDialog(
     context: context,
-    builder: (final BuildContext _) {
+    builder: (BuildContext _) {
       return DialogMutateTransaction(transaction: transaction);
     },
   );
@@ -107,7 +106,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return buildTrackedTransactionDialogBody(
       context: context,
       transaction: _transaction,
@@ -124,10 +123,10 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
 
   /// Builds action buttons for the transaction dialog.
   List<Widget> getActionButtons({
-    required final BuildContext context,
-    required final Transaction transaction,
-    required final bool editMode,
-    required final bool dataWasModified,
+    required BuildContext context,
+    required Transaction transaction,
+    required bool editMode,
+    required bool dataWasModified,
   }) {
     if (editMode) {
       return <Widget>[

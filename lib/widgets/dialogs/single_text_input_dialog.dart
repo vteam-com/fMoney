@@ -14,9 +14,9 @@ const double _dialogHeight = 200;
 Future<void> showTextInputDialog({
   required BuildContext context,
   required void Function(String) onContinue,
-  final String title = SharedStrings.inputTitle,
-  final String subTitle = '',
-  final String initialValue = '',
+  String title = SharedStrings.inputTitle,
+  String subTitle = '',
+  String initialValue = '',
   void Function()? onCancel,
 }) async {
   return showDialog(

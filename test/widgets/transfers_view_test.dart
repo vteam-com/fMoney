@@ -30,7 +30,7 @@ class TransfersTestHost extends StatelessWidget {
   final AppServices services;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return AppScope(
       services: services,
       child: MaterialApp(
@@ -50,9 +50,9 @@ class TransfersTestHost extends StatelessWidget {
 
 /// Creates and appends an account fixture.
 Account _createAccount({
-  required final String name,
-  required final bool isOpen,
-  final AccountType type = AccountType.checking,
+  required String name,
+  required bool isOpen,
+  AccountType type = AccountType.checking,
 }) {
   final Account account = Account();
   account.fieldName.value = name;
@@ -64,10 +64,10 @@ Account _createAccount({
 
 /// Creates and appends a transaction fixture.
 Transaction _createTransaction({
-  required final Account account,
-  required final double amount,
-  required final DateTime date,
-  final int transferId = -1,
+  required Account account,
+  required double amount,
+  required DateTime date,
+  int transferId = -1,
 }) {
   final Transaction transaction = Transaction(date: date);
   transaction.fieldAccountId.value = account.uniqueId;
@@ -81,8 +81,8 @@ Transaction _createTransaction({
 
 /// Pumps the transfers view and returns its state.
 Future<ViewForMoneyObjectsState> _pumpTransfers(
-  final WidgetTester tester,
-  final AppServices services,
+  WidgetTester tester,
+  AppServices services,
 ) async {
   await tester.pumpWidget(TransfersTestHost(services: services));
   await tester.pumpAndSettle();
@@ -123,7 +123,7 @@ void main() {
     DataFileController.instance = null;
   });
 
-  testWidgets('getList returns one transfer for a valid sender/receiver pair', (final WidgetTester tester) async {
+  testWidgets('getList returns one transfer for a valid sender/receiver pair', (WidgetTester tester) async {
     final ViewForMoneyObjectsState state = await _pumpTransfers(tester, services);
 
     final Account senderAccount = _createAccount(name: 'Checking', isOpen: true);
@@ -151,7 +151,7 @@ void main() {
   });
 
   testWidgets('getList excludes closed account transfers unless includeClosedAccounts is enabled', (
-    final WidgetTester tester,
+    WidgetTester tester,
   ) async {
     final ViewForMoneyObjectsState state = await _pumpTransfers(tester, services);
 
@@ -179,7 +179,7 @@ void main() {
   });
 
   testWidgets('side panel details returns empty message and transfer details widget for selection', (
-    final WidgetTester tester,
+    WidgetTester tester,
   ) async {
     final ViewForMoneyObjectsState state = await _pumpTransfers(tester, services);
 
@@ -215,7 +215,7 @@ void main() {
   });
 
   testWidgets('magic wand scan finds disconnected transfer candidates', (
-    final WidgetTester tester,
+    WidgetTester tester,
   ) async {
     await _pumpTransfers(tester, services);
 

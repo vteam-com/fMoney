@@ -28,7 +28,7 @@ class Alias extends DataObject {
   }
 
   /// Factory method for static fields
-  factory Alias._fromJsonStatic(final MyJson row) {
+  factory Alias._fromJsonStatic(MyJson row) {
     return Alias._legacy(
       id: row.getInt(SharedDomainStrings.domainString057, -1),
       pattern: row.getString(SharedDomainStrings.domainString104),
@@ -38,7 +38,7 @@ class Alias extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Alias.fromJson(final MyJson row, final DataAbstract data) {
+  factory Alias.fromJson(MyJson row, DataAbstract data) {
     return Alias(
       id: row.getInt(SharedDomainStrings.domainString057, -1),
       pattern: row.getString(SharedDomainStrings.domainString104),
@@ -48,10 +48,10 @@ class Alias extends DataObject {
     );
   }
   Alias({
-    required final int id,
-    required final String pattern,
-    required final int flags,
-    required final int payeeId,
+    required int id,
+    required String pattern,
+    required int flags,
+    required int payeeId,
     required this.data,
   }) {
     this.fieldId.value = id;
@@ -70,14 +70,14 @@ class Alias extends DataObject {
     serializeName: SharedDomainStrings.domainString055,
     defaultValue: 0,
     footer: FooterType.count,
-    getValueForDisplay: (final DataInterface instance) => getAliasTypeAsString((instance as Alias).type),
-    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldFlags.value,
+    getValueForDisplay: (DataInterface instance) => getAliasTypeAsString((instance as Alias).type),
+    getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldFlags.value,
   );
 
   /// ID
   /// 0    Id       INT            0                 1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Alias).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Alias).uniqueId,
   );
 
   /// Pattern
@@ -86,9 +86,9 @@ class Alias extends DataObject {
     type: FieldType.text,
     name: SharedDomainStrings.domainString104,
     serializeName: SharedDomainStrings.domainString104,
-    getValueForDisplay: (final DataInterface instance) => (instance as Alias).fieldPattern.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPattern.value,
-    setValue: (final DataInterface instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
+    getValueForDisplay: (DataInterface instance) => (instance as Alias).fieldPattern.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPattern.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
   );
 
   /// Payee
@@ -99,9 +99,8 @@ class Alias extends DataObject {
     name: SharedDomainStrings.domainString105,
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: 0,
-    getValueForDisplay: (final DataInterface instance) =>
-        (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as Alias).fieldPayeeId.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
+    getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPayeeId.value,
   );
 
   RegExp? regex;
@@ -128,7 +127,7 @@ class Alias extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Alias> _fields = Fields<Alias>();
   static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
@@ -156,7 +155,7 @@ class Alias extends DataObject {
   );
 
   /// Checks if the given [text] matches this alias (regex or exact).
-  bool isMatch(final String text) {
+  bool isMatch(String text) {
     if (type == AliasType.regex) {
       // just in time creation of RegEx property
       regex ??= RegExp(fieldPattern.value);

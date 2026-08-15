@@ -58,7 +58,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
     final bool validAccounts = widget.inputFields.validAccounts;
 
     return Focus(
-      onFocusChange: (final bool _) {},
+      onFocusChange: (bool _) {},
       child: KeyboardListener(
         focusNode: _focusNode,
         child: Center(

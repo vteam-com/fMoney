@@ -14,9 +14,9 @@ const int _minFinds = 1;
 const double _scrollDeltaY = -100.0;
 
 Future<void> tapOnText(
-  final WidgetTester tester,
-  final String textToFind, {
-  final bool lastOneFound = false,
+  WidgetTester tester,
+  String textToFind, {
+  bool lastOneFound = false,
 }) async {
   Finder firstMatchingElement = find.text(textToFind);
   expect(
@@ -36,29 +36,29 @@ Future<void> tapOnText(
   await tester.pumpAndSettle(const Duration(milliseconds: _shortPumpMs));
 }
 
-Finder findByKeyString(final String keyString) {
+Finder findByKeyString(String keyString) {
   final Finder firstMatchingElement = find.byKey(Key(keyString)).at(_zeroIndex);
   expect(firstMatchingElement, findsOneWidget);
   return firstMatchingElement;
 }
 
 Future<void> tapOnKeyString(
-  final WidgetTester tester,
-  final String keyString,
+  WidgetTester tester,
+  String keyString,
 ) async {
   final Finder firstMatchingElement = findByKeyString(keyString);
   await tester.tap(firstMatchingElement, warnIfMissed: false);
   await tester.pumpAndSettle(const Duration(milliseconds: _shortPumpMs));
 }
 
-Future<void> tapOnKey(final WidgetTester tester, final Key key) async {
+Future<void> tapOnKey(WidgetTester tester, Key key) async {
   final Finder firstMatchingElement = find.byKey(key).at(_zeroIndex);
   expect(firstMatchingElement, findsOneWidget, reason: key.toString());
   await tester.tap(firstMatchingElement, warnIfMissed: false);
   await tester.pumpAndSettle();
 }
 
-Future<void> tapOnWidgetType(final WidgetTester tester, final Type type) async {
+Future<void> tapOnWidgetType(WidgetTester tester, Type type) async {
   final Finder firstMatchingElement = find.byElementType(type).at(_zeroIndex);
   expect(firstMatchingElement, findsOneWidget);
   await tester.tap(firstMatchingElement, warnIfMissed: false);
@@ -66,9 +66,9 @@ Future<void> tapOnWidgetType(final WidgetTester tester, final Type type) async {
 }
 
 Future<void> tapOnTextFromParentType(
-  final WidgetTester tester,
-  final Type type,
-  final String textToFind,
+  WidgetTester tester,
+  Type type,
+  String textToFind,
 ) async {
   Finder firstMatchingElement = find.descendant(
     of: find.byType(type),
@@ -90,12 +90,12 @@ Future<void> tapOnTextFromParentType(
   await tester.myPump();
 }
 
-Future<Finder> tapOnFirstRowOfListView(final WidgetTester tester) async {
+Future<Finder> tapOnFirstRowOfListView(WidgetTester tester) async {
   return await tapOnFirstRowOfListViewFirstOrLast(tester, true);
 }
 
 Future<Finder> tapOnFirstRowOfListViewFirstOrLast(
-  final WidgetTester tester,
+  WidgetTester tester,
   bool first,
 ) async {
   Finder firstMatchingElement = find.descendant(
@@ -116,8 +116,8 @@ Future<Finder> tapOnFirstRowOfListViewFirstOrLast(
 }
 
 Future<Finder> selectListViewItemByText(
-  final WidgetTester tester,
-  final String text,
+  WidgetTester tester,
+  String text,
 ) async {
   final Finder listFinder = find.byType(ListView);
   final Finder itemFinder = find.text(text);
@@ -175,7 +175,7 @@ Future<void> tapBackButton(WidgetTester tester) async {
   await tester.myPump();
 }
 
-Future<void> pump(final WidgetTester tester, [int milliseconds = _defaultPumpMs]) async {
+Future<void> pump(WidgetTester tester, [int milliseconds = _defaultPumpMs]) async {
   await tester.pumpAndSettle(Duration(milliseconds: milliseconds));
 }
 
@@ -185,17 +185,17 @@ extension WidgetTesterExtension on WidgetTester {
   }
 }
 
-Future<void> switchToSmall(final WidgetTester tester) async {
+Future<void> switchToSmall(WidgetTester tester) async {
   ThemeController.to.setAppSizeToSmall();
   await tester.pumpAndSettle();
 }
 
-Future<void> switchToMedium(final WidgetTester tester) async {
+Future<void> switchToMedium(WidgetTester tester) async {
   ThemeController.to.setAppSizeToMedium();
   await tester.pumpAndSettle();
 }
 
-Future<void> switchToLarge(final WidgetTester tester) async {
+Future<void> switchToLarge(WidgetTester tester) async {
   ThemeController.to.setAppSizeToLarge();
   await tester.pumpAndSettle();
 }
@@ -246,7 +246,7 @@ Future<Finder> getFirstItemOfList(
   return firstMatchingElement;
 }
 
-Future<void> inputText(WidgetTester tester, final String textToEnter) async {
+Future<void> inputText(WidgetTester tester, String textToEnter) async {
   final Finder filterInput = find.byType(TextField).at(_zeroIndex);
   await inputTextToElement(tester, filterInput, textToEnter);
 }
@@ -273,8 +273,8 @@ Future<void> inputTextToElementByKey(
 }
 
 Future<void> tapAllToggleButtons(
-  final WidgetTester tester,
-  final List<String> keys,
+  WidgetTester tester,
+  List<String> keys,
 ) async {
   for (final String key in keys) {
     await tapOnKeyString(tester, key);
@@ -283,8 +283,8 @@ Future<void> tapAllToggleButtons(
 
 Future<void> inputTextToTextFieldWithThisLabel(
   WidgetTester tester,
-  final String labelToFind,
-  final String textToInput,
+  String labelToFind,
+  String textToInput,
 ) async {
   final Finder textFieldFinder = findTextFieldByLabel(
     labelToFind,
@@ -297,7 +297,7 @@ Future<void> inputTextToTextFieldWithThisLabel(
   await inputTextToElement(tester, textFieldFinder, textToInput);
 }
 
-Finder findTextFieldByLabel(final String labelToFind) {
+Finder findTextFieldByLabel(String labelToFind) {
   final Finder textFieldFinder = find.byWidgetPredicate(
     (Widget widget) => widget is TextField && widget.decoration?.labelText == labelToFind,
   );

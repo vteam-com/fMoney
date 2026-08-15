@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+
 export 'dart:convert';
 
 /// Compares two JSON objects and generates a new JSON object containing only the common key-value pairs.
@@ -94,7 +95,7 @@ extension MyJsonExtensions on MyJson {
   /// @param key The key to retrieve the boolean value for.
   /// @param defaultIfNotFound The default value to return if the key is not found or the value cannot be parsed as a boolean. Defaults to `false`.
   /// @return The boolean value associated with the key, or the default value if the key is not found or the value is not a boolean.
-  bool getBool(final String key, [final bool defaultIfNotFound = false]) {
+  bool getBool(String key, [bool defaultIfNotFound = false]) {
     final dynamic value = this[key];
     if (value == null) {
       return defaultIfNotFound;
@@ -114,7 +115,7 @@ extension MyJsonExtensions on MyJson {
   /// '1999-12-25T00:00:00.000'
   /// or
   /// '1999-12-25'
-  DateTime? getDate(final String key, {final DateTime? defaultIfNotFound}) {
+  DateTime? getDate(String key, {DateTime? defaultIfNotFound}) {
     final dynamic value = this[key];
 
     if (value == null || value.toString().isEmpty) {
@@ -138,7 +139,7 @@ extension MyJsonExtensions on MyJson {
   /// @param key The key to retrieve the double value for.
   /// @param defaultIfNotFound The default value to return if the key is not found or the value cannot be parsed as a double. Defaults to `0.0`.
   /// @return The double value associated with the key, or the default value if the key is not found or the value cannot be parsed as a double.
-  double getDouble(final String key, [final double defaultIfNotFound = 0.0]) {
+  double getDouble(String key, [double defaultIfNotFound = 0.0]) {
     final dynamic value = this[key];
     if (value == null) {
       return defaultIfNotFound;
@@ -165,7 +166,7 @@ extension MyJsonExtensions on MyJson {
   /// @param key The key to retrieve the integer value for.
   /// @param defaultIfNotFound The default value to return if the key is not found or the value cannot be parsed as an integer. Defaults to `0`.
   /// @return The integer value associated with the key, or the default value if the key is not found or the value cannot be parsed as an integer.
-  int getInt(final String key, [final int defaultIfNotFound = 0]) {
+  int getInt(String key, [int defaultIfNotFound = 0]) {
     final dynamic value = this[key];
     if (value == null) {
       return defaultIfNotFound;
@@ -188,7 +189,7 @@ extension MyJsonExtensions on MyJson {
   /// @param key The key to retrieve the string value for.
   /// @param defaultIfNotFound The default value to return if the key is not found or the value cannot be parsed as a string. Defaults to an empty string.
   /// @return The string value associated with the key, or the default value if the key is not found or the value cannot be parsed as a string.
-  String getString(final String key, [final String defaultIfNotFound = '']) {
+  String getString(String key, [String defaultIfNotFound = '']) {
     final dynamic value = this[key];
     if (value == null) {
       return defaultIfNotFound;
@@ -202,7 +203,7 @@ extension MyJsonExtensions on MyJson {
 
   /// Generic converter the caller is responsible
   /// This may throw an exception
-  T? getValue<T>(final String key, {final T? defaultValue}) {
+  T? getValue<T>(String key, {T? defaultValue}) {
     if (containsKey(key)) {
       return this[key] as T;
     }
@@ -219,12 +220,12 @@ extension MyJsonExtensions on MyJson {
   ///
   /// ```final myObject = JsonHelper.fromJson<MyClass>('{"key":"value"}');```
   ///
-  static T fromJson<T>(final String jsonString) {
+  static T fromJson<T>(String jsonString) {
     return jsonDecode(jsonString) as T;
   }
 
   /// Converts object to JSON string.
-  static String toJson(final dynamic object) {
+  static String toJson(dynamic object) {
     return jsonEncode(object);
   }
 }
@@ -271,14 +272,14 @@ List<MyJson> convertFromRawCsvTextToListOfJSonObject(String fileContent) {
 }
 
 /// Returns true when every cell in [row] is empty or whitespace.
-bool _isEmptyCsvRow(final List<String> row) {
+bool _isEmptyCsvRow(List<String> row) {
   return row.every((String value) => value.trim().isEmpty);
 }
 
 /// Normalizes [row] so it matches [expectedColumnCount] by trimming extras and padding missing values.
 List<String> _normalizeCsvRowValues(
-  final List<String> row,
-  final int expectedColumnCount,
+  List<String> row,
+  int expectedColumnCount,
 ) {
   final List<String> normalizedValues = List<String>.filled(
     expectedColumnCount,

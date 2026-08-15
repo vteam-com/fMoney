@@ -14,8 +14,8 @@ import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 /// Shows dialog for editing a single money object with action buttons.
 void myShowDialogAndActionsForMoneyObject({
-  required final String title,
-  required final DataObject moneyObject,
+  required String title,
+  required DataObject moneyObject,
   void Function()? onApplyChange,
 }) {
   myShowDialogAndActionsForMoneyObjects(
@@ -27,8 +27,8 @@ void myShowDialogAndActionsForMoneyObject({
 
 /// Shows dialog for editing multiple money objects with action buttons.
 void myShowDialogAndActionsForMoneyObjects({
-  required final String title,
-  required final List<DataObject> moneyObjects,
+  required String title,
+  required List<DataObject> moneyObjects,
   void Function()? onApplyChange,
 }) {
   final BuildContext context = AppRouter.context!;
@@ -110,7 +110,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return buildMutationDialogBody(
       moneyObject: _moneyObject,
       isInEditingMode: true,

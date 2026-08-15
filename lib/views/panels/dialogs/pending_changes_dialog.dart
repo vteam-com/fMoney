@@ -35,7 +35,7 @@ class PendingChangesDialog extends StatefulWidget {
   /// Shows the pending changes dialog.
   ///
   /// [context] The build context to use.
-  static void show(final BuildContext context) {
+  static void show(BuildContext context) {
     adaptiveScreenSizeDialog(
       context: context,
       title: AppL10n.tr(AppTranslationKeys.pendingChanges),
@@ -129,7 +129,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
           _buildSegment(_secondIndex, _data[_secondIndex]),
         ],
         selectedId: _displayMutationType,
-        onSelectionChanged: (final int newSelection) {
+        onSelectionChanged: (int newSelection) {
           setState(() {
             _displayMutationType = newSelection;
           });
@@ -162,7 +162,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
   }
 
   /// Builds a segment button for a specific mutation type.
-  ButtonSegment<int> _buildSegment(final int id, Mutations mutations) {
+  ButtonSegment<int> _buildSegment(int id, Mutations mutations) {
     return ButtonSegment<int>(
       value: id,
       label: SizedBox(

@@ -136,7 +136,7 @@ class RentalPnLCard extends StatelessWidget {
   }
 
   /// Returns a tap callback for the supplied amount row type when interactivity is enabled.
-  VoidCallback? _tapHandlerForAmountType(final RentalPnLAmountType type) {
+  VoidCallback? _tapHandlerForAmountType(RentalPnLAmountType type) {
     if (onCaptionTap == null) {
       return null;
     }

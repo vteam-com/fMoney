@@ -6,9 +6,9 @@ import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
 /// Shows a picker for selecting an account name.
 Widget pickerAccount({
-  required final List<String> accountNames,
-  required final String? selectedName,
-  required final void Function(String?) onSelected,
+  required List<String> accountNames,
+  required String? selectedName,
+  required void Function(String?) onSelected,
 }) {
   return PickerEditBox(
     key: Constants.keyAccountPicker,

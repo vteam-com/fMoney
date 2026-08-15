@@ -32,7 +32,7 @@ const List<String> _supportedTransactionImportFileExtensions = <String>[
 ];
 
 /// Resolves the selected file extension from picker metadata or falls back to its path.
-String _resolveSelectedFileExtension(final PlatformFile file) {
+String _resolveSelectedFileExtension(PlatformFile file) {
   final String extensionFromMetadata = (file.extension ?? '').trim().toLowerCase();
   if (extensionFromMetadata.isNotEmpty) {
     return extensionFromMetadata.startsWith('.') ? extensionFromMetadata.substring(1) : extensionFromMetadata;
@@ -51,7 +51,7 @@ String _resolveSelectedFileExtension(final PlatformFile file) {
 }
 
 /// Checks if CSV file is an investment export by examining headers.
-Future<bool> _isInvestmentCSVFile(final String filePath) async {
+Future<bool> _isInvestmentCSVFile(String filePath) async {
   try {
     final File file = File(filePath);
     if (!await file.exists()) {
@@ -73,7 +73,7 @@ Future<bool> _isInvestmentCSVFile(final String filePath) async {
     }
 
     final List<String> headers = csvTable.first
-        .map((final dynamic cell) => cell == null ? '' : cell.toString().trim())
+        .map((dynamic cell) => cell == null ? '' : cell.toString().trim())
         .cast<String>()
         .toList();
 
@@ -137,7 +137,7 @@ void showImportTransactionsWizard([BuildContext? context]) {
 }
 
 /// Handles file selection and import from chosen file.
-Future<void> onImportFromFile(final BuildContext context) async {
+Future<void> onImportFromFile(BuildContext context) async {
   final FilePickerResult? pickerResult = await FilePicker.pickFiles(
     type: FileType.custom,
     allowedExtensions: _supportedTransactionImportFileExtensions,

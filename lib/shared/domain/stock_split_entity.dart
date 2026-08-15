@@ -33,7 +33,7 @@ class StockSplit extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory StockSplit.fromJson(final MyJson row, final DataAbstract data) {
+  factory StockSplit.fromJson(MyJson row, DataAbstract data) {
     return StockSplit(
       date: row.getDate(SharedDomainStrings.domainString044),
       security: row.getInt(SharedDomainStrings.domainString125),
@@ -60,35 +60,34 @@ class StockSplit extends DataObject {
   FieldDate fieldDate = FieldDate(
     name: SharedDomainStrings.domainString044,
     serializeName: SharedDomainStrings.domainString044,
-    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDate.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        dateToSqliteFormat((instance as StockSplit).fieldDate.value),
+    getValueForDisplay: (DataInterface instance) => (instance as StockSplit).fieldDate.value,
+    getValueForSerialization: (DataInterface instance) => dateToSqliteFormat((instance as StockSplit).fieldDate.value),
   );
 
   FieldInt fieldDenominator = FieldInt(
     name: SharedDomainStrings.domainString045,
     serializeName: SharedDomainStrings.domainString045,
-    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
+    getValueForDisplay: (DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
+    getValueForSerialization: (DataInterface instance) => (instance as StockSplit).fieldDenominator.value,
   );
 
   FieldId fieldId = FieldId(
-    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).uniqueId,
-    getValueForSerialization: (final DataInterface instance) => instance.uniqueId,
+    getValueForDisplay: (DataInterface instance) => (instance as StockSplit).uniqueId,
+    getValueForSerialization: (DataInterface instance) => instance.uniqueId,
   );
 
   FieldInt fieldNumerator = FieldInt(
     name: SharedDomainStrings.domainString093,
     serializeName: SharedDomainStrings.domainString093,
-    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
+    getValueForDisplay: (DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
+    getValueForSerialization: (DataInterface instance) => (instance as StockSplit).fieldNumerator.value,
   );
 
   FieldInt fieldSecurity = FieldInt(
     name: SharedDomainStrings.domainString125,
     serializeName: SharedDomainStrings.domainString125,
-    getValueForDisplay: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
+    getValueForDisplay: (DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
+    getValueForSerialization: (DataInterface instance) => (instance as StockSplit).fieldSecurity.value,
   );
 
   // Fields for this instance
@@ -112,7 +111,7 @@ class StockSplit extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<StockSplit> _fields = Fields<StockSplit>();
 

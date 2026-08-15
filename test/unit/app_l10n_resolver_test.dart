@@ -9,14 +9,14 @@ void main() {
       final RegExp keyPattern = RegExp(r"static const String (\\w+) = '[^']+';");
       final Set<String> declaredKeys = keyPattern
           .allMatches(keyFileSource)
-          .map((final RegExpMatch match) => match.group(1)!)
+          .map((RegExpMatch match) => match.group(1)!)
           .toSet();
 
       final String resolverSource = File('lib/helpers/app_l10n_resolver_helper.dart').readAsStringSync();
       final RegExp resolverPattern = RegExp(r'AppTranslationKeys\\.(\\w+)');
       final Set<String> mappedKeys = resolverPattern
           .allMatches(resolverSource)
-          .map((final RegExpMatch match) => match.group(1)!)
+          .map((RegExpMatch match) => match.group(1)!)
           .toSet();
 
       final List<String> missingKeys = declaredKeys.difference(mappedKeys).toList()..sort();

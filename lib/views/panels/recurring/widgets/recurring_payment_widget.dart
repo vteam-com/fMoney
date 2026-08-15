@@ -109,7 +109,7 @@ class RecurringPayment {
   late double total;
 
   /// Returns the average of two numbers with special handling for negative values.
-  double averageTwoNumbers(final double a, final double b) {
+  double averageTwoNumbers(double a, double b) {
     // (-10 - -20) = -30 / 2 = -15
     if (a < 0 && b < 0) {
       return (a.abs() + b.abs()) / -_twoInt;

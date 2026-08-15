@@ -119,7 +119,7 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
                   title: AppL10n.tr(AppTranslationKeys.investmentType),
                   child: pickerInvestmentType(
                     itemSelected: widget.inputFields.investmentType,
-                    onSelected: (final InvestmentType newSelection) {
+                    onSelected: (InvestmentType newSelection) {
                       widget.inputFields.investmentType = newSelection;
                     },
                   ),

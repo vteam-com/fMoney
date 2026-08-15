@@ -258,7 +258,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
   }
 
   /// Updates all text controllers with initial or new input text
-  void _updateAllTextControllerContentFromRawText(final String inputText) {
+  void _updateAllTextControllerContentFromRawText(String inputText) {
     _controllerSingleColumn.text = inputText;
 
     final ValuesParser parser = ValuesParser(

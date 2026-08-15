@@ -192,7 +192,7 @@ Future<void> stepImportWizardOptions(WidgetTester tester) async {
   await testImportWizardRecordTransfer(tester);
 }
 
-Future<void> bringUpImportWizard(final WidgetTester tester) async {
+Future<void> bringUpImportWizard(WidgetTester tester) async {
   // Import Wizard
   await tapOnKeyString(tester, 'key_menu_button');
   await tapOnText(tester, 'Add transactions...');

@@ -12,7 +12,7 @@ class Currencies extends MoneyObjects<Currency> {
   }
 
   @override
-  Currency instanceFromJson(final MyJson json) {
+  Currency instanceFromJson(MyJson json) {
     return Currency.fromJson(json);
   }
 
@@ -22,14 +22,14 @@ class Currencies extends MoneyObjects<Currency> {
   }
 
   /// Finds a currency by its symbol.
-  Currency? getCurrencyFromSymbol(final String symbolToMatch) {
+  Currency? getCurrencyFromSymbol(String symbolToMatch) {
     return iterableList().firstWhereOrNull(
       (Currency currency) => currency.fieldSymbol.value == symbolToMatch,
     );
   }
 
   /// Returns the exchange ratio for a currency symbol; defaults to 1 if not found.
-  double getRatioFromSymbol(final String symbol) {
+  double getRatioFromSymbol(String symbol) {
     final Currency? currency = getCurrencyFromSymbol(symbol);
     if (currency == null) {
       return 1;

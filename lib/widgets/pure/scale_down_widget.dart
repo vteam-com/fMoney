@@ -3,8 +3,8 @@ import 'package:money/helpers/constants_helper.dart';
 
 /// If the space for rendering the widget is too small this will scale the widget to fit
 Widget scaleDown(
-  final Widget child, [
-  final AlignmentGeometry alignment = Alignment.center,
+  Widget child, [
+  AlignmentGeometry alignment = Alignment.center,
 ]) {
   return FittedBox(fit: BoxFit.scaleDown, alignment: alignment, child: child);
 }

@@ -215,7 +215,7 @@ enum BudgetViewAs { list, chart, recurrences, suggestions }
 
 extension ViewExtension on ViewId {
   /// Returns preference ID for the view with specified suffix.
-  String getViewPreferenceId(final String suffix) {
+  String getViewPreferenceId(String suffix) {
     // ignore: unnecessary_this
     return '${this.name.toLowerCase()}_$suffix';
   }

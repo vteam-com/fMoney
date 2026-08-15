@@ -186,17 +186,17 @@ class OllamaService {
         final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
         availableModels.clear();
         availableModels.addAll(
-          models.map((final dynamic model) => model as Map<String, dynamic>),
+          models.map((dynamic model) => model as Map<String, dynamic>),
         );
         // Sort models by name
         availableModels.sort(
-          (final Map<String, dynamic> a, final Map<String, dynamic> b) =>
+          (Map<String, dynamic> a, Map<String, dynamic> b) =>
               sortByString(a['name'] as String, b['name'] as String, true),
         );
 
         // Verify that the selected model is still available, otherwise use the first one
         if (selectedModel.isNotEmpty &&
-            !availableModels.any((final Map<String, dynamic> model) => model['name'] == selectedModel)) {
+            !availableModels.any((Map<String, dynamic> model) => model['name'] == selectedModel)) {
           // User's selected model is no longer available, reset to first available
           selectedModel = models.isNotEmpty ? models.first['name'] as String : '';
         } else if (selectedModel.isEmpty && models.isNotEmpty) {
@@ -225,13 +225,13 @@ class OllamaService {
   }
 
   /// Persists the selected model to preferences.
-  static Future<void> saveSelectedModel(final String model) async {
+  static Future<void> saveSelectedModel(String model) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selected_ollama_model', model);
   }
 
   /// Persists the conversation context token list for the current model.
-  static Future<void> saveConversationContext(final List<int>? context) async {
+  static Future<void> saveConversationContext(List<int>? context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (context != null) {
       await prefs.setString('ollama_context_$selectedModel', jsonEncode(context));
@@ -252,7 +252,7 @@ class OllamaService {
   }
 
   /// Persists chat history for the current model.
-  static Future<void> saveChatHistory(final List<ChatMessage> chatHistory) async {
+  static Future<void> saveChatHistory(List<ChatMessage> chatHistory) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (chatHistory.isNotEmpty) {
       final List<Map<String, dynamic>> serializedHistory = chatHistory.map((ChatMessage msg) => msg.toJson()).toList();
@@ -275,7 +275,7 @@ class OllamaService {
   }
 
   /// Sends a payload to the local Ollama API and returns the decoded JSON response.
-  static Future<Map<String, dynamic>> sendPayload(final Map<String, dynamic> payload) async {
+  static Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) async {
     const String endpoint = 'generate'; // Use /api/generate for context support instead of /api/chat
     final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
     final HttpClient client = HttpClient();
@@ -380,17 +380,17 @@ class OllamaService {
     final String separator = Platform.isWindows ? ';' : ':';
     final Set<String> pathEntries = currentPath
         .split(separator)
-        .where((final String entry) => entry.trim().isNotEmpty)
+        .where((String entry) => entry.trim().isNotEmpty)
         .toSet();
 
     final Iterable<String> fallbackEntries = _platformFallbackPathEntries(environment);
-    pathEntries.addAll(fallbackEntries.where((final String entry) => entry.trim().isNotEmpty));
+    pathEntries.addAll(fallbackEntries.where((String entry) => entry.trim().isNotEmpty));
     environment[pathKey] = pathEntries.join(separator);
     return environment;
   }
 
   /// Resolves which environment variable key stores PATH on the current platform.
-  static String _resolvePathEnvironmentKey(final Map<String, String> environment) {
+  static String _resolvePathEnvironmentKey(Map<String, String> environment) {
     if (Platform.isWindows) {
       if (environment.containsKey(_windowsPathEnvKey)) {
         return _windowsPathEnvKey;
@@ -405,7 +405,7 @@ class OllamaService {
   }
 
   /// Returns platform-specific fallback path entries used when PATH is minimal.
-  static Iterable<String> _platformFallbackPathEntries(final Map<String, String> environment) {
+  static Iterable<String> _platformFallbackPathEntries(Map<String, String> environment) {
     if (Platform.isMacOS) {
       return _commonMacOsPaths;
     }
@@ -426,7 +426,7 @@ class OllamaService {
   }
 
   /// Tries to resolve Ollama using the platform command locator (`which` or `where`).
-  static Future<String?> _resolveUsingSystemLocator(final Map<String, String> environment) async {
+  static Future<String?> _resolveUsingSystemLocator(Map<String, String> environment) async {
     final String locatorCommand = Platform.isWindows ? 'where' : SharedStrings.processWhich;
     try {
       final ProcessResult installResult = await Process.run(
@@ -443,17 +443,17 @@ class OllamaService {
       }
       final List<String> candidates = output
           .split(RegExp(r'[\r\n]+'))
-          .map((final String line) => line.trim())
-          .where((final String line) => line.isNotEmpty)
+          .map((String line) => line.trim())
+          .where((String line) => line.isNotEmpty)
           .toList();
-      return _firstExistingPath(candidates);
+      return await _firstExistingPath(candidates);
     } catch (_) {
       return null;
     }
   }
 
   /// Tries to resolve Ollama by walking all PATH entries directly.
-  static Future<String?> _resolveUsingPathEntries(final Map<String, String> environment) async {
+  static Future<String?> _resolveUsingPathEntries(Map<String, String> environment) async {
     final String pathKey = _resolvePathEnvironmentKey(environment);
     final String pathValue = environment[pathKey] ?? SharedStrings.empty;
     if (pathValue.isEmpty) {
@@ -500,7 +500,7 @@ class OllamaService {
   }
 
   /// Returns the first candidate path that exists as a file.
-  static Future<String?> _firstExistingPath(final Iterable<String> candidates) async {
+  static Future<String?> _firstExistingPath(Iterable<String> candidates) async {
     for (final String candidate in candidates) {
       if (candidate.isEmpty) {
         continue;

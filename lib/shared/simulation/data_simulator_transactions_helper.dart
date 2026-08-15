@@ -10,38 +10,35 @@ import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/simulation/data_simulator_constants.dart';
 
 /// Callback for generating evenly spaced monthly expenses.
-typedef GenerateMonthlyExpensesCallback =
-    void Function({
-      required Account account,
-      required String payeeName,
-      required Category category,
-      required double amount,
-      required int yearMin,
-      required int yearMax,
-      required int dayOfTheMonth,
-    });
+typedef GenerateMonthlyExpensesCallback = void Function({
+  required Account account,
+  required String payeeName,
+  required Category category,
+  required double amount,
+  required int yearMin,
+  required int yearMax,
+  required int dayOfTheMonth,
+});
 
 /// Callback for adding a transaction with account/date/payee/category details.
-typedef AddTransactionCallback =
-    Transaction Function({
-      required Account account,
-      required DateTime date,
-      int payeeId,
-      int categoryId,
-      double amount,
-      String memo,
-    });
+typedef AddTransactionCallback = Transaction Function({
+  required Account account,
+  required DateTime date,
+  int payeeId,
+  int categoryId,
+  double amount,
+  String memo,
+});
 
 /// Callback for creating linked transfer transactions.
-typedef CreateTransferTransactionCallback =
-    Transaction Function({
-      required Account accountSource,
-      required Account accountDestination,
-      required DateTime date,
-      required double amount,
-      required String memo,
-      int categoryId,
-    });
+typedef CreateTransferTransactionCallback = Transaction Function({
+  required Account accountSource,
+  required Account accountDestination,
+  required DateTime date,
+  required double amount,
+  required String memo,
+  int categoryId,
+});
 
 /// Callback for buying a home and creating initial related entries.
 typedef BuyHomeCallback = void Function(Payee payeeForHomeLoan, DateTime date);
@@ -64,11 +61,10 @@ typedef RandomAmountCallback = double Function(int maxValue);
 /// Arguments:
 /// - `year`: Number of years in the past to generate dates for.
 /// - `howManyPerMonths`: Number of random dates generated per month.
-typedef GenerateListOfDatesRandomCallback =
-    List<DateTime> Function({
-      required int year,
-      required int howManyPerMonths,
-    });
+typedef GenerateListOfDatesRandomCallback = List<DateTime> Function({
+  required int year,
+  required int howManyPerMonths,
+});
 
 /// Callback for creating scheduled dates at fixed frequency.
 ///
@@ -77,13 +73,12 @@ typedef GenerateListOfDatesRandomCallback =
 /// - `stopDate`: Optional upper date boundary; if omitted, generation uses current date.
 /// - `howManyPerYear`: Number of generated dates per year.
 /// - `dayOfTheMonth`: Day-of-month to use for generated entries.
-typedef GenerateListOfDatesCallback =
-    List<DateTime> Function({
-      required int yearInThePast,
-      DateTime? stopDate,
-      required int howManyPerYear,
-      required int dayOfTheMonth,
-    });
+typedef GenerateListOfDatesCallback = List<DateTime> Function({
+  required int yearInThePast,
+  DateTime? stopDate,
+  required int howManyPerYear,
+  required int dayOfTheMonth,
+});
 
 /// Transaction/subscription data generator domain for the simulator.
 class DataSimulatorTransactionsDomain {

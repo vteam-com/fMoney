@@ -14,7 +14,7 @@ class Splits extends MoneyObjects<TransactionSplit> {
   late DataAbstract data;
 
   @override
-  void appendMoneyObject(final DataObject moneyObject) {
+  void appendMoneyObject(DataObject moneyObject) {
     super.appendMoneyObject(moneyObject);
 
     // Attach the split back to the their  container Transaction
@@ -28,7 +28,7 @@ class Splits extends MoneyObjects<TransactionSplit> {
   }
 
   @override
-  List<TransactionSplit> loadFromJson(final List<MyJson> rows) {
+  List<TransactionSplit> loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       appendMoneyObject(

@@ -97,7 +97,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Box(
       margin: _panelMargin,
       width: double.infinity,
@@ -187,7 +187,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   bool get isListEmpty => items.isEmpty;
 
   /// Builds a section header widget with title and controls.
-  Widget sectionHeader(final BuildContext context) {
+  Widget sectionHeader(BuildContext context) {
     return Row(
       children: <Widget>[
         Padding(
@@ -212,7 +212,7 @@ class _PanelBudgetState extends State<PanelBudget> {
             ButtonSegment<int>(value: _suggestionSegmentValue, label: Text(AppL10n.tr(AppTranslationKeys.suggestion))),
           ],
           selectedId: panelType.index,
-          onSelectionChanged: (final int newSelection) {
+          onSelectionChanged: (int newSelection) {
             setState(() {
               panelType = BudgetViewAs.values[newSelection];
               if (isForIncome) {
@@ -354,7 +354,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   /// Builds the summary footer row for the budget table.
-  Widget _buildListFooter(final Color dividersColor) {
+  Widget _buildListFooter(Color dividersColor) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -398,7 +398,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   /// Builds the header row for the scrollable budget table.
-  Widget _buildListHeader(final Color dividersColor) {
+  Widget _buildListHeader(Color dividersColor) {
     return Container(
       color: getColorTheme(context).surfaceContainer,
       padding: const EdgeInsets.all(_headerPadding),
@@ -492,9 +492,9 @@ class _PanelBudgetState extends State<PanelBudget> {
 
   /// Builds a single scrollable budget data row.
   Widget _buildListRow(
-    final RecurringExpenses item,
-    final Color dividersColor,
-    final double adjustValue,
+    RecurringExpenses item,
+    Color dividersColor,
+    double adjustValue,
   ) {
     return Row(
       children: <Widget>[
@@ -618,7 +618,7 @@ class _PanelBudgetState extends State<PanelBudget> {
   }
 
   /// Builds the context menu for a category row.
-  Widget _categoryContextMenu(final Category category) {
+  Widget _categoryContextMenu(Category category) {
     return buildMenuButton(context, <MenuEntry>[
       // View - Transactions
       MenuEntry.toTransactions(

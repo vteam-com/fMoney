@@ -11,7 +11,7 @@ class AppL10n {
   AppL10n._();
 
   /// Returns a localized string for [key] with optional [params].
-  static String tr(final String key, {final Map<String, String>? params}) {
+  static String tr(String key, {Map<String, String>? params}) {
     final AppLocalizations l10n = _localizations;
     final Map<String, String> p = params ?? <String, String>{};
     return resolveAppL10nKey(l10n, key, p);

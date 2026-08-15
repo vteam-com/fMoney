@@ -27,7 +27,7 @@ class ListController {
   }
 
   /// Returns scroll offset for the specified index.
-  double getOffsetOfIndex(final int index, final int numberOfItems) {
+  double getOffsetOfIndex(int index, int numberOfItems) {
     final double itemHeight = scrollController.position.maxScrollExtent / numberOfItems;
     return itemHeight * index;
   }
@@ -42,12 +42,12 @@ class ListController {
   }
 
   /// Scrolls to the specified index.
-  void scrollToIndex(final int index, final int numberOfItems) {
+  void scrollToIndex(int index, int numberOfItems) {
     scrollToOffSet(getOffsetOfIndex(index, numberOfItems));
   }
 
   /// Scrolls to the specified offset.
-  void scrollToOffSet(final double offset) {
+  void scrollToOffSet(double offset) {
     scrollController.animateTo(
       offset,
       duration: const Duration(milliseconds: DurationInMs.normal),

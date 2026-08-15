@@ -65,12 +65,12 @@ class _ViewCashFlowState extends ViewWidgetState {
   final Debouncer _debouncer = Debouncer();
 
   @override
-  Widget buildHeader([final Widget? child]) {
+  Widget buildHeader([Widget? child]) {
     return const SizedBox();
   }
 
   @override
-  Widget buildViewContent(final Widget child) => const SizedBox();
+  Widget buildViewContent(Widget child) => const SizedBox();
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _ViewCashFlowState extends ViewWidgetState {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: PreferenceController.to,
       builder: (BuildContext context, Widget? _) {
@@ -187,7 +187,7 @@ class _ViewCashFlowState extends ViewWidgetState {
                 min: dateRangeTransactions.min!.year,
                 max: dateRangeTransactions.max!.year,
               ),
-              onChanged: (final NumRange updateRange) {
+              onChanged: (NumRange updateRange) {
                 _debouncer.run(() {
                   if (mounted) {
                     setState(() {
@@ -226,7 +226,7 @@ class _ViewCashFlowState extends ViewWidgetState {
         ),
       ],
       selectedId: PreferenceController.to.cashflowViewAs.index,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         PreferenceController.to.setCashflowViewAs(CashflowViewAs.values[newSelection]);
       },
     );

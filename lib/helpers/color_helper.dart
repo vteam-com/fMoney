@@ -28,13 +28,13 @@ const double _luminanceThreshold = 0.5;
 /// Adjusts the brightness of the input color to the specified value within the valid range (0.0 - 1.0).
 Color adjustBrightness(Color color, double brightness) {
   // Ensure brightness is within valid range
-  brightness = brightness.clamp(_minUnit, _maxUnit);
+  final double clampedBrightness = brightness.clamp(_minUnit, _maxUnit);
 
   // Convert color to HSL
   HSLColor hslColor = HSLColor.fromColor(color);
 
   // Adjust lightness component
-  hslColor = hslColor.withLightness(brightness);
+  hslColor = hslColor.withLightness(clampedBrightness);
 
   // Convert back to RGB
   return hslColor.toColor();
@@ -51,8 +51,8 @@ Color adjustBrightness(Color color, double brightness) {
 /// All other properties of the [textStyle] are preserved in the new [TextStyle] object.
 ///
 TextStyle adjustOpacityOfTextStyle(
-  final TextStyle textStyle, [
-  final double opacity = _defaultTextOpacity,
+  TextStyle textStyle, [
+  double opacity = _defaultTextOpacity,
 ]) {
   return textStyle.copyWith(color: textStyle.color!.withValues(alpha: opacity));
 }
@@ -69,7 +69,7 @@ TextStyle adjustOpacityOfTextStyle(
 /// Otherwise, the returned string will have the RGB values followed by the alpha value.
 ///
 String colorToHexString(
-  final Color color, {
+  Color color, {
   bool alphaFirst = false,
   bool includeAlpha = true,
 }) {
@@ -118,7 +118,7 @@ Color contrastColor(Color color) {
 /// @param hexColor The hexadecimal color string to convert to a Color object.
 /// @return The Color object representing the given hexadecimal color string, or Colors.transparent if the string is not in a valid format.
 ///
-Color getColorFromString(final String hexColor) {
+Color getColorFromString(String hexColor) {
   String newHexColor = hexColor.trim().replaceAll('#', '');
   if (newHexColor.length == _hexLengthRgb) {
     newHexColor = '$_opaqueAlphaHex$newHexColor';
@@ -130,7 +130,7 @@ Color getColorFromString(final String hexColor) {
 }
 
 /// Returns the color scheme from the current theme.
-ColorScheme getColorTheme(final BuildContext context) {
+ColorScheme getColorTheme(BuildContext context) {
   return getTheme(context).colorScheme;
 }
 
@@ -147,12 +147,12 @@ Pair<double, double> getHueAndBrightnessFromColor(Color color) {
 }
 
 /// Returns the text theme from the current theme.
-TextTheme getTextTheme(final BuildContext context) {
+TextTheme getTextTheme(BuildContext context) {
   return getTheme(context).textTheme;
 }
 
 /// Returns the current theme data.
-ThemeData getTheme(final BuildContext context) {
+ThemeData getTheme(BuildContext context) {
   return Theme.of(context);
 }
 

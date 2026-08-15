@@ -14,7 +14,7 @@ class Aliases extends MoneyObjects<Alias> {
   late DataAbstract data;
 
   @override
-  Alias instanceFromJson(final MyJson json) {
+  Alias instanceFromJson(MyJson json) {
     return Alias.fromJson(json, data);
   }
 
@@ -24,9 +24,9 @@ class Aliases extends MoneyObjects<Alias> {
   }
 
   /// Finds a payee by matching the given [text] via aliases.
-  Payee? findByMatch(final String text) {
+  Payee? findByMatch(String text) {
     final Alias? aliasFound = iterableList().firstWhereOrNull(
-      (final Alias item) => item.isMatch(text),
+      (Alias item) => item.isMatch(text),
     );
     if (aliasFound == null) {
       return null;
@@ -36,16 +36,14 @@ class Aliases extends MoneyObjects<Alias> {
 
   /// Finds an existing payee by alias match or creates a new one for [text].
   Payee? findOrCreateNewPayee(
-    final String text, {
+    String text, {
     bool fireNotification = true,
   }) {
     Payee? payee = findByMatch(text);
-    payee ??=
-        data.getOrCreatePayee(
-              text,
-              fireNotification: fireNotification,
-            )
-            as Payee?;
+    payee ??= data.getOrCreatePayee(
+      text,
+      fireNotification: fireNotification,
+    ) as Payee?;
     return payee;
   }
 }

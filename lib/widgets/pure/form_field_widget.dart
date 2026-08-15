@@ -6,9 +6,9 @@ const double _editableOpacity = 1.0;
 
 /// Builds a form field wrapper with optional read-only styling.
 Widget myFormField({
-  required final String title,
-  required final Widget child,
-  final bool isReadOnly = false,
+  required String title,
+  required Widget child,
+  bool isReadOnly = false,
 }) {
   return InputDecorator(
     decoration: myFormFieldDecoration(fieldName: title, isReadOnly: isReadOnly),
@@ -18,8 +18,8 @@ Widget myFormField({
 
 /// Creates InputDecoration with optional read-only appearance.
 InputDecoration myFormFieldDecoration({
-  required final String fieldName,
-  required final bool isReadOnly,
+  required String fieldName,
+  required bool isReadOnly,
 }) {
   return InputDecoration(
     labelText: fieldName,
@@ -60,7 +60,7 @@ class MyFormFieldForWidgetState extends State<MyFormFieldForWidget> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Opacity(
       opacity: widget.isReadOnly ? _readOnlyOpacity : _editableOpacity,
       child: TextFormField(
@@ -69,7 +69,7 @@ class MyFormFieldForWidgetState extends State<MyFormFieldForWidget> {
           fieldName: widget.title,
           isReadOnly: widget.isReadOnly,
         ),
-        onChanged: (final String value) {
+        onChanged: (String value) {
           setState(() {
             widget.onChanged(value);
           });

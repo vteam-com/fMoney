@@ -46,9 +46,9 @@ int countOccurrences(String input, String char) {
 
 /// Converts double value to formatted currency string.
 String doubleToCurrency(
-  final double value, {
-  final String symbol = '\$',
-  final bool showPlusSign = false,
+  double value, {
+  String symbol = '\$',
+  bool showPlusSign = false,
 }) {
   final NumberFormat currencyFormatter = NumberFormat.currency(
     locale: 'en_US',
@@ -62,7 +62,7 @@ String doubleToCurrency(
 ///
 /// @param value The value to check.
 /// @returns '+' if value is positive, otherwise an empty string.
-String getPlusSignIfPositive(final num value) {
+String getPlusSignIfPositive(num value) {
   if (value > _zeroInt) {
     return '+';
   }
@@ -93,16 +93,16 @@ String formatDoubleTrimZeros(double value) {
 
 /// Converts amount to shorthand text (K, M, B suffixes).
 String getAmountAsShorthandText(
-  final num value, {
-  final int decimalDigits = _defaultDecimalDigits,
-  final String symbol = '',
+  num value, {
+  int decimalDigits = _defaultDecimalDigits,
+  String symbol = '',
 }) => NumberFormat.compactCurrency(
   decimalDigits: decimalDigits,
   symbol: symbol, // if you want to add currency symbol then pass that in this else leave it empty.
 ).format(value);
 
 /// Parses CSV line into list of columns, handling quoted fields.
-List<String> getColumnInCsvLine(final String csvLine) {
+List<String> getColumnInCsvLine(String csvLine) {
   List<String> items = csvLine.split(RegExp(r',|;(?=(?:[^"]*"[^"]*")*[^"]*$)'));
   // remove quotes around elements
   items = items.map((String item) => item.replaceAll('"', '')).toList();
@@ -110,7 +110,7 @@ List<String> getColumnInCsvLine(final String csvLine) {
 }
 
 /// return a ISO 3166-1 Alpha2  US | CA | ES
-String getCountryFromLocale(final String locale) {
+String getCountryFromLocale(String locale) {
   if (locale.isEmpty) {
     return SharedStrings.countryCodeUs; // default to US
   }
@@ -131,13 +131,13 @@ Future<String> getDocumentDirectory() async {
 String getInitials(String fullName) => fullName.split(' ').map((String word) => word[_zeroInt].toUpperCase()).join('');
 
 /// Converts integer to formatted string with optional plus sign.
-String getIntAsText(final int value, {final bool showPlusSign = false}) =>
+String getIntAsText(int value, {bool showPlusSign = false}) =>
     getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + NumberFormat.decimalPattern().format(value);
 
 /// Returns plus sign prefix if needed for positive values.
 String getPrefixPlusSignIfNeeded(
-  final num value, {
-  final bool showPlusSign = false,
+  num value, {
+  bool showPlusSign = false,
 }) => (showPlusSign ? getPlusSignIfPositive(value) : '');
 
 /// Parses a raw text string and splits it into rows and columns based on a specified separator character.
@@ -150,8 +150,8 @@ String getPrefixPlusSignIfNeeded(
 ///
 /// Returns a `List<List<String>>` representing the parsed rows and fields.
 List<List<String>> getLinesFromRawTextWithSeparator(
-  final String content, [
-  final String separator = ',',
+  String content, [
+  String separator = ',',
 ]) {
   final List<List<String>> rows = <List<String>>[];
   List<String> currentRow = <String>[];
@@ -195,7 +195,7 @@ List<List<String>> getLinesFromRawTextWithSeparator(
 }
 
 /// Clean up input string by removing "white noise"
-String getNormalizedValue(final String? s) {
+String getNormalizedValue(String? s) {
   if (s == null) {
     return '';
   }
@@ -204,21 +204,21 @@ String getNormalizedValue(final String? s) {
 }
 
 /// Converts number to shorthand text (K, M, B suffixes).
-String getNumberShorthandText(final num value) => NumberFormat.compact().format(value);
+String getNumberShorthandText(num value) => NumberFormat.compact().format(value);
 
 /// Returns singular or plural text based on quantity.
 String getSingularPluralText(
-  final String title,
-  final int quantity,
-  final String singular,
-  final String plural,
+  String title,
+  int quantity,
+  String singular,
+  String plural,
 ) => '$title ${quantity == _singularCount ? singular : plural}';
 
 /// Extracts content between two tokens from string.
 String getStringContentBetweenTwoTokens(
-  final String input,
-  final String start,
-  final String end,
+  String input,
+  String start,
+  String end,
 ) {
   final int indexStart = input.indexOf(start);
   if (indexStart != _notFoundIndex) {
@@ -232,16 +232,16 @@ String getStringContentBetweenTwoTokens(
 
 /// Returns string delimited by start and end tokens.
 String getStringDelimitedStartEndTokens(
-  final String input,
-  final String start,
-  final String end,
+  String input,
+  String start,
+  String end,
 ) {
   final String content = getStringContentBetweenTwoTokens(input, start, end);
   return start + content + end;
 }
 
 /// Returns the number of lines in the text.
-int getLineCount(final String text) {
+int getLineCount(String text) {
   if (text.trim().isEmpty) {
     return _zeroInt;
   }
@@ -250,7 +250,7 @@ int getLineCount(final String text) {
 
 /// Split the text into lines
 List<String> getLinesOfText(
-  final String inputText, {
+  String inputText, {
   bool includeEmptyLines = true,
 }) {
   final List<String> lines = inputText.split('\n');
@@ -297,7 +297,7 @@ String shortenLongText(String fullName, [int maxLength = _defaultMaxLength]) {
 /// approach, as verified by benchmarks.
 ///
 /// **optimization**: avoiding memory allocation for new String objects from `toUpperCase()`.
-int stringCompareIgnoreCasing(final String textA, final String textB) {
+int stringCompareIgnoreCasing(String textA, String textB) {
   if (textA == textB) {
     return _zeroInt;
   }
@@ -340,7 +340,7 @@ int stringCompareIgnoreCasing(final String textA, final String textB) {
 }
 
 /// Compares two strings as numbers (by length first, then lexicographically).
-int compareStringsAsNumbers(final String a, final String b) {
+int compareStringsAsNumbers(String a, String b) {
   if (a.length == b.length) {
     return a.compareTo(b);
   }
@@ -348,7 +348,7 @@ int compareStringsAsNumbers(final String a, final String b) {
 }
 
 /// Compares two strings as monetary amounts.
-int compareStringsAsAmount(final String a, final String b) {
+int compareStringsAsAmount(String a, String b) {
   final double valueA = attemptToGetDoubleFromText(a) ?? _zeroDouble;
   final double valueB = attemptToGetDoubleFromText(b) ?? _zeroDouble;
 
@@ -357,9 +357,9 @@ int compareStringsAsAmount(final String a, final String b) {
 
 /// Concatenates two strings with optional separator and deduplication.
 String concat(
-  final String existingValue,
-  final String valueToConcat, [
-  final String separatorIfNeeded = '; ',
+  String existingValue,
+  String valueToConcat, [
+  String separatorIfNeeded = '; ',
   bool doNotConcatIfPresent = false,
 ]) {
   if (valueToConcat.isEmpty) {
@@ -388,17 +388,16 @@ String removeUtf8Bom(String text) {
 
 /// Parses USD amount string and returns double value.
 double? parseUSDAmount(String input) {
-  input = input.replaceAll('\$', '');
-  input = input.replaceAll(SharedStrings.currencyUsd, SharedStrings.empty);
+  final String normalizedInput = input.replaceAll('\$', '').replaceAll(SharedStrings.currencyUsd, SharedStrings.empty);
   final RegExp usdPattern = RegExp(
     r'^[+-]?(\d+(\,\d{3})*(\.\d+)?|\.\d+)(\s*USD)?$',
   );
-  final RegExpMatch? match = usdPattern.firstMatch(input);
+  final RegExpMatch? match = usdPattern.firstMatch(normalizedInput);
 
   if (match != null) {
     final String? numericPart = match.group(_regexGroupMain)?.replaceAll(',', '');
     if (numericPart != null) {
-      final double sign = input.startsWith('-') ? _negativeSign : _positiveSign;
+      final double sign = normalizedInput.startsWith('-') ? _negativeSign : _positiveSign;
       return double.parse(numericPart) * sign;
     }
   }
@@ -428,25 +427,25 @@ double? parseEuroAmount(String input) {
 
 /// Converts parentheses notation to negative string (e.g., (100) -> -100).
 String convertParenthesesToNegativeString(String amountText) {
-  amountText = amountText.trim();
-  if (amountText.contains('(') && amountText.contains(')')) {
-    amountText = amountText.replaceAll('(', '');
-    amountText = amountText.replaceAll(')', '');
-    amountText = '-$amountText';
+  String result = amountText.trim();
+  if (result.contains('(') && result.contains(')')) {
+    result = result.replaceAll('(', '');
+    result = result.replaceAll(')', '');
+    result = '-$result';
   }
-  return amountText;
+  return result;
 }
 
 /// Parses amount string based on currency type.
-double? parseAmount(String amountAsText, final String currency) {
-  amountAsText = convertParenthesesToNegativeString(amountAsText);
+double? parseAmount(String amountAsText, String currency) {
+  final String normalizedAmount = convertParenthesesToNegativeString(amountAsText);
   switch (currency.toLowerCase()) {
     case SharedStrings.currencyCodeEurLower:
-      return parseEuroAmount(amountAsText);
+      return parseEuroAmount(normalizedAmount);
     case SharedStrings.currencyCodeUsdLower:
     case SharedStrings.currencyCodeCadLower:
     default:
-      return parseUSDAmount(amountAsText);
+      return parseUSDAmount(normalizedAmount);
   }
 }
 
@@ -455,11 +454,10 @@ String cleanString(String inputStr, String allowedChars) =>
     inputStr.split('').where((String char) => allowedChars.contains(char)).join();
 
 /// Converts valid number to currency string with plus sign.
-String validIntToCurrency(final num value) =>
-    getIntAsText(isNumber(value) ? value.toInt() : _zeroInt, showPlusSign: true);
+String validIntToCurrency(num value) => getIntAsText(isNumber(value) ? value.toInt() : _zeroInt, showPlusSign: true);
 
 /// Converts valid double to currency string with plus sign.
-String validDoubleToCurrency(final num value) => doubleToCurrency(
+String validDoubleToCurrency(num value) => doubleToCurrency(
   isNumber(value) ? value.toDouble() : _zeroDouble,
   showPlusSign: true,
 );
@@ -468,7 +466,7 @@ String validDoubleToCurrency(final num value) => doubleToCurrency(
 bool isNumber(num value) => value.isFinite && !value.isNaN;
 
 /// Formats byte size into human readable string (B, KB, MB, GB).
-String formatByteSize(final int bytes) {
+String formatByteSize(int bytes) {
   if (bytes >= _bytesPerGigabyte) {
     return '${(bytes / _bytesPerGigabyte).toStringAsFixed(_byteSizePrecision)}${SharedStrings.byteUnitGigabytes}';
   } else if (bytes >= _bytesPerMegabyte) {

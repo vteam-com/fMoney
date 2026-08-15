@@ -20,7 +20,7 @@ class CenterMessage extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(final BuildContext context) => Center(
+  Widget build(BuildContext context) => Center(
     child: Box(
       width: _messageBoxWidth,
       height: _messageBoxHeight,

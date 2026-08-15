@@ -16,7 +16,7 @@ import 'package:money/widgets/widgets_domain/field_model.dart';
 /// Represents loan payment.
 class LoanPayment extends DataObject {
   /// Constructor from a SQLite row
-  factory LoanPayment.fromJson(final MyJson row, final DataAbstract data) {
+  factory LoanPayment.fromJson(MyJson row, DataAbstract data) {
     return LoanPayment(
       // 0
       id: row.getInt(SharedDomainStrings.domainString057, -1),
@@ -34,13 +34,13 @@ class LoanPayment extends DataObject {
     );
   }
   LoanPayment({
-    required final int id,
-    required final int accountId,
-    required final DateTime? date,
-    required final String memo,
-    required final double principal,
-    required final double interest,
-    final String reference = '',
+    required int id,
+    required int accountId,
+    required DateTime? date,
+    required String memo,
+    required double principal,
+    required double interest,
+    String reference = '',
     DataAbstract? data,
   }) {
     if (data != null) {
@@ -67,23 +67,23 @@ class LoanPayment extends DataObject {
     serializeName: SharedDomainStrings.domainString013,
     defaultValue: -1,
     type: FieldType.text,
-    getValueForDisplay: (final DataInterface instance) => Account.getName((instance as LoanPayment).accountInstance),
-    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldAccountId.value,
+    getValueForDisplay: (DataInterface instance) => Account.getName((instance as LoanPayment).accountInstance),
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldAccountId.value,
   );
 
   FieldMoney fieldBalance = FieldMoney(
     name: SharedDomainStrings.domainString019,
     footer: FooterType.range,
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
-    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
   );
 
   /// Date
   /// 2|Date|datetime|1||0
   FieldDate fieldDate = FieldDate(
     serializeName: SharedDomainStrings.domainString044,
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldDate.value,
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldDate.value,
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as LoanPayment).fieldDate.value,
     ),
   );
@@ -91,7 +91,7 @@ class LoanPayment extends DataObject {
   /// ID
   /// 0|Id|INT|1||0
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).uniqueId,
   );
 
   /// Interest
@@ -99,9 +99,8 @@ class LoanPayment extends DataObject {
   FieldMoney fieldInterest = FieldMoney(
     name: SharedDomainStrings.domainString059,
     serializeName: SharedDomainStrings.domainString059,
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldInterest.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as LoanPayment).fieldInterest.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldInterest.value,
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldInterest.value.asDouble(),
   );
 
   // 5
@@ -111,8 +110,8 @@ class LoanPayment extends DataObject {
     name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
     defaultValue: '',
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
   );
 
   /// 3
@@ -120,25 +119,24 @@ class LoanPayment extends DataObject {
   FieldMoney fieldPrincipal = FieldMoney(
     name: SharedDomainStrings.domainString110,
     serializeName: SharedDomainStrings.domainString110,
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as LoanPayment).fieldPrincipal.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value,
+    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value.asDouble(),
   );
 
   FieldPercentage fieldRate = FieldPercentage(
     name: 'Rate %',
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).getRate(),
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).getRate(),
   );
 
   FieldString fieldReference = FieldString(
     name: 'Reference',
     columnWidth: ColumnWidth.largest,
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment).fieldReference.value,
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldReference.value,
   );
 
   FieldMoney payment = FieldMoney(
     name: 'Payment',
-    getValueForDisplay: (final DataInterface instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
+    getValueForDisplay: (DataInterface instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
   );
 
   @override
@@ -166,7 +164,7 @@ class LoanPayment extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<LoanPayment> _fields = Fields<LoanPayment>();
   static final Fields<LoanPayment> _fieldsForColumns = Fields<LoanPayment>();

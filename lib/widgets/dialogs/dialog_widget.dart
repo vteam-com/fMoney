@@ -96,11 +96,11 @@ class MyAlertDialog extends StatelessWidget {
 
 /// Shows a responsive dialog with adaptive sizing and optional actions.
 void adaptiveScreenSizeDialog({
-  required final BuildContext context,
-  final String title = '',
-  required final Widget child,
+  required BuildContext context,
+  String title = '',
+  required Widget child,
   List<Widget>? actionButtons,
-  final String? captionForClose = SharedStrings.labelClose,
+  String? captionForClose = SharedStrings.labelClose,
 }) {
   actionButtons ??= <Widget>[];
 
@@ -142,7 +142,7 @@ void adaptiveScreenSizeDialog({
   showDialog<dynamic>(
     context: context,
     barrierDismissible: false,
-    builder: (final BuildContext _) {
+    builder: (BuildContext _) {
       return MyAlertDialog(
         title: title,
         actions: actionButtons,

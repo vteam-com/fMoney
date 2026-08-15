@@ -14,26 +14,26 @@ const int _minFieldLength = 2;
 ///
 /// schema https://www.w3.org/2000/10/swap/pim/qif-doc/QIF-doc.htm
 ///
-void importQIF(final BuildContext context, final String filePath) {
+void importQIF(BuildContext context, String filePath) {
   final File file = File(filePath);
 
   file
       .readAsLines()
-      .then((final List<String> lines) {
+      .then((List<String> lines) {
         final ImportData importData = loadQIF(lines);
         importData.fileType = SharedStrings.fileTypeQif;
         if (context.mounted) {
           showAndConfirmTransactionToImport(context, importData);
         }
       })
-      .catchError((final dynamic e) {
+      .catchError((dynamic e) {
         logger.e('Error reading file: $e');
         SnackBarService.displayError(message: e.toString(), autoDismiss: false);
       });
 }
 
 /// Loads QIF data from lines and returns ImportData with parsed entries.
-ImportData loadQIF(final List<String> lines) {
+ImportData loadQIF(List<String> lines) {
   final ImportData importData = ImportData();
 
   ImportEntry currentEntry = ImportEntry.blank();

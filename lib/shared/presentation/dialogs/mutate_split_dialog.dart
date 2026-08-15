@@ -11,12 +11,12 @@ import 'package:money/widgets/pure/mutation_types.dart';
 
 /// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
-  required final BuildContext context,
-  required final TransactionSplit split,
+  required BuildContext context,
+  required TransactionSplit split,
 }) {
   return showDialog(
     context: context,
-    builder: (final BuildContext _) {
+    builder: (BuildContext _) {
       return DialogMutateSplit(split: split);
     },
   );
@@ -46,7 +46,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return buildMutationDialogBodyWithTrackedChanges<TransactionSplit>(
       context: context,
       moneyObject: _split,
@@ -76,10 +76,10 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
 
   /// Builds action buttons for the split dialog.
   List<Widget> getActionButtons({
-    required final BuildContext context,
-    required final TransactionSplit split,
-    required final bool editMode,
-    required final bool dataWasModified,
+    required BuildContext context,
+    required TransactionSplit split,
+    required bool editMode,
+    required bool dataWasModified,
   }) {
     if (editMode) {
       return <Widget>[

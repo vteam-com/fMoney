@@ -42,7 +42,7 @@ class SidePanel extends StatefulWidget {
 
 class _SidePanelState extends State<SidePanel> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final SidePanelSubViewEnum effectiveSubView = _getEffectiveSelectedSubView();
     _syncSelectedSubViewIfNeeded(effectiveSubView);
 
@@ -64,13 +64,13 @@ class _SidePanelState extends State<SidePanel> {
         valueListenable: widget.selectedItems,
         builder:
             (
-              final BuildContext _,
-              final List<int> listOfSelectedItemIndex,
-              final _,
+              BuildContext _,
+              List<int> listOfSelectedItemIndex,
+              _,
             ) {
               return ListenableBuilder(
                 listenable: PreferenceController.to,
-                builder: (final BuildContext _, final Widget? _) {
+                builder: (BuildContext _, Widget? _) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -83,7 +83,7 @@ class _SidePanelState extends State<SidePanel> {
                         subViewSelected: effectiveSubView,
                         subViewSelectionChanged:
                             (
-                              final SidePanelSubViewEnum selected,
+                              SidePanelSubViewEnum selected,
                             ) {
                               PreferenceController.to.selectedSidePanelTabId = selected;
                             },
@@ -125,7 +125,7 @@ class _SidePanelState extends State<SidePanel> {
   }
 
   /// Schedules persistence of the effective side-panel tab when needed.
-  void _syncSelectedSubViewIfNeeded(final SidePanelSubViewEnum effectiveSubView) {
+  void _syncSelectedSubViewIfNeeded(SidePanelSubViewEnum effectiveSubView) {
     if (PreferenceController.to.selectedSidePanelTabId == effectiveSubView) {
       return;
     }

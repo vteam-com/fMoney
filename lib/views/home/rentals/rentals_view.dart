@@ -81,7 +81,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
   }
 
   @override
-  Widget getSidePanelViewDetails({required final List<int> selectedIds}) {
+  Widget getSidePanelViewDetails({required List<int> selectedIds}) {
     keepUnused(selectedIds);
     final RentBuilding? selectedItem = getFirstSelectedItem() as RentBuilding?;
     return buildStandardSidePanelDetailsWrap<RentBuilding>(
@@ -94,7 +94,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
   }
 
   /// Builds a renters list for the given building.
-  Widget buildRenters(final BuildContext context, final RentBuilding building) {
+  Widget buildRenters(BuildContext context, RentBuilding building) {
     final List<RentUnit> rentersInThisBuilding = Data().rentUnits
         .iterableList()
         .where(

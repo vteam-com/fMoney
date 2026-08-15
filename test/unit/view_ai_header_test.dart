@@ -9,7 +9,7 @@ class DummyHostingApp extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
@@ -48,13 +48,13 @@ void main() {
   });
 
   group('ViewAiHeader Widget Tests', () {
-    testWidgets('displays AI Assistant title', (final WidgetTester tester) async {
+    testWidgets('displays AI Assistant title', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -65,13 +65,13 @@ void main() {
       expect(find.text('AI Assistant'), findsOneWidget);
     });
 
-    testWidgets('displays selected model name', (final WidgetTester tester) async {
+    testWidgets('displays selected model name', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -82,13 +82,13 @@ void main() {
       expect(find.text('llama3.2:3b'), findsOneWidget);
     });
 
-    testWidgets('displays question count and tokens', (final WidgetTester tester) async {
+    testWidgets('displays question count and tokens', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -99,13 +99,13 @@ void main() {
       expect(find.text('Questions: 5 | Tokens: 1.5 KB'), findsOneWidget);
     });
 
-    testWidgets('hides question count and tokens when both are zero', (final WidgetTester tester) async {
+    testWidgets('hides question count and tokens when both are zero', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: 0,
             contextTokensCount: 0,
@@ -117,13 +117,13 @@ void main() {
       expect(find.textContaining('Tokens:'), findsNothing);
     });
 
-    testWidgets('displays question count when tokens are zero', (final WidgetTester tester) async {
+    testWidgets('displays question count when tokens are zero', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: 3,
             contextTokensCount: 0,
@@ -134,13 +134,13 @@ void main() {
       expect(find.text('Questions: 3 | Tokens: 0 B'), findsOneWidget);
     });
 
-    testWidgets('displays tokens when question count is zero', (final WidgetTester tester) async {
+    testWidgets('displays tokens when question count is zero', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: 0,
             contextTokensCount: 2048,
@@ -151,13 +151,13 @@ void main() {
       expect(find.text('Questions: 0 | Tokens: 2.0 KB'), findsOneWidget);
     });
 
-    testWidgets('hides model selector when availableModels is empty', (final WidgetTester tester) async {
+    testWidgets('hides model selector when availableModels is empty', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: <Map<String, dynamic>>[],
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -170,13 +170,13 @@ void main() {
       expect(find.text('llama3.2:3b'), findsNothing);
     });
 
-    testWidgets('contains clear chat button', (final WidgetTester tester) async {
+    testWidgets('contains clear chat button', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -187,13 +187,13 @@ void main() {
       expect(find.byIcon(Icons.delete_sweep_outlined), findsOneWidget);
     });
 
-    testWidgets('opens model selector popup when tapped', (final WidgetTester tester) async {
+    testWidgets('opens model selector popup when tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -209,13 +209,13 @@ void main() {
       expect(find.text('llama3.2:1b'), findsOneWidget);
     });
 
-    testWidgets('shows check icon next to selected model in popup', (final WidgetTester tester) async {
+    testWidgets('shows check icon next to selected model in popup', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,
@@ -239,13 +239,13 @@ void main() {
       );
     });
 
-    testWidgets('calls onModelSelected when model is selected from popup', (final WidgetTester tester) async {
+    testWidgets('calls onModelSelected when model is selected from popup', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {
+            onModelSelected: (String model) {
               onModelSelectedCalled = true;
               selectedModelValue = model;
             },
@@ -267,13 +267,13 @@ void main() {
       expect(selectedModelValue, 'llama3.2:1b');
     });
 
-    testWidgets('displays model size in chips', (final WidgetTester tester) async {
+    testWidgets('displays model size in chips', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAiHeader(
             availableModels: mockModels,
             selectedModel: selectedModel,
-            onModelSelected: (final String model) {},
+            onModelSelected: (String model) {},
             onClearChat: () {},
             questionCount: questionCount,
             contextTokensCount: contextTokensCount,

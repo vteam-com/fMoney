@@ -67,7 +67,7 @@ class RentalPnL {
   double get profit => income + expenses; // since Expense is stored as a negative value we use a [+]
 
   /// Formats a labeled amount string with padding for column alignment.
-  String textAmount(final String text, final double amount) {
+  String textAmount(String text, double amount) {
     final String textPadded = '$text:'.padRight(_textPaddingWidth);
     final String amountPadded = getAmountAsStringUsingCurrency(
       amount,

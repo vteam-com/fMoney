@@ -52,9 +52,9 @@ class SidePanelHeader extends StatelessWidget {
   final void Function(SidePanelSubViewEnum) subViewSelectionChanged;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (final BuildContext context, final BoxConstraints constraints) {
+      builder: (BuildContext context, BoxConstraints constraints) {
         return InkWell(
           onTap: () {
             onExpanded(!isExpanded);
@@ -79,7 +79,7 @@ class SidePanelHeader extends StatelessWidget {
   }
 
   /// Builds the currency selector used by side panel chart/transaction subviews.
-  Widget _buildCurrencySelections(final BuildContext context, final BoxConstraints constraints) {
+  Widget _buildCurrencySelections(BuildContext context, BoxConstraints constraints) {
     final bool smallDevice = constraints.maxWidth < _smallDeviceMaxWidth;
 
     // this feature is only valid for SubView [Chart|Transaction]
@@ -108,7 +108,7 @@ class SidePanelHeader extends StatelessWidget {
         ),
       ],
       selectedId: currencySelected,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         currentSelectionChanged(newSelection);
       },
     );
@@ -127,7 +127,7 @@ class SidePanelHeader extends StatelessWidget {
   }
 
   /// Builds the segmented selector used to switch between supported side panel subviews.
-  Widget _buildViewSelections(final BuildContext context, final BoxConstraints _) {
+  Widget _buildViewSelections(BuildContext context, BoxConstraints _) {
     if (sidePanelSupport.supportedSubViews.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -171,7 +171,7 @@ class SidePanelHeader extends StatelessWidget {
           ),
       ],
       selectedId: subViewSelected.index,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         if (!isExpanded) {
           onExpanded(true);
         }

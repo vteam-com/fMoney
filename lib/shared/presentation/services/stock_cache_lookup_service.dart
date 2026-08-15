@@ -40,13 +40,13 @@ class StockPriceHistoryCache {
 
 /// Loads stock price history from the local cache and falls back to the backend if needed.
 Future<StockPriceHistoryCache> getFromCacheOrBackend(String symbol) async {
-  symbol = symbol.toLowerCase();
+  final String normalizedSymbol = symbol.toLowerCase();
 
-  StockPriceHistoryCache result = await _loadFromCache(symbol);
+  StockPriceHistoryCache result = await _loadFromCache(normalizedSymbol);
 
   if (result.status != StockLookupStatus.foundInCache) {
     // Try to load from the cloud service
-    result = await loadFomBackendAndSaveToCache(symbol);
+    result = await loadFomBackendAndSaveToCache(normalizedSymbol);
   }
 
   return result;
@@ -84,7 +84,7 @@ enum StockLookupStatus {
 }
 
 /// Loads stock price history for [symbol] from local preferences cache.
-Future<StockPriceHistoryCache> _loadFromCache(final String symbol) async {
+Future<StockPriceHistoryCache> _loadFromCache(String symbol) async {
   final StockPriceHistoryCache stockPriceHistoryCache = StockPriceHistoryCache(
     symbol,
     StockLookupStatus.foundInCache,
@@ -211,7 +211,7 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
 }
 
 /// Saves stock price history for [symbol] to local preferences cache.
-Future<void> _saveToCache(final String symbol, List<StockDatePrice> prices) async {
+Future<void> _saveToCache(String symbol, List<StockDatePrice> prices) async {
   // CSV Header
   String csvContent = '"date","price"\n';
 
@@ -250,6 +250,6 @@ Future<void> _saveToCache(final String symbol, List<StockDatePrice> prices) asyn
 }
 
 /// Marks [symbol] as an invalid stock symbol in the local cache.
-Future<void> _saveToCacheInvalidSymbol(final String symbol) async {
+Future<void> _saveToCacheInvalidSymbol(String symbol) async {
   await PreferenceController.to.setString('stock-$symbol', flagAsInvalidSymbol);
 }

@@ -68,12 +68,12 @@ const String _menuSelectAllValue = '__all_accounts__';
 class _ChatInputAreaState extends State<ChatInputArea> {
   /// Builds the input area with quick prompts and send/cancel actions.
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final List<MapEntry<String, Map<int, String>>> nonEmptyAccountGroups = widget.accountGroupsByLabel.entries
-        .where((final MapEntry<String, Map<int, String>> group) => group.value.isNotEmpty)
+        .where((MapEntry<String, Map<int, String>> group) => group.value.isNotEmpty)
         .toList();
     final Set<int> availableAccountIds = nonEmptyAccountGroups
-        .expand((final MapEntry<String, Map<int, String>> group) => group.value.keys)
+        .expand((MapEntry<String, Map<int, String>> group) => group.value.keys)
         .toSet();
     final int totalAccountCount = availableAccountIds.length;
     final int selectedAccountCount = widget.selectAllAccounts
@@ -128,7 +128,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
             spacing: _inputSpacing,
             children: <Widget>[
               PopupMenuButton<String>(
-                onSelected: (final String selectedValue) {
+                onSelected: (String selectedValue) {
                   if (selectedValue == _menuSelectAllValue) {
                     widget.onToggleSelectAllAccounts();
                     return;
@@ -139,7 +139,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
                     widget.onToggleAccountSelection(accountId);
                   }
                 },
-                itemBuilder: (final BuildContext _) {
+                itemBuilder: (BuildContext _) {
                   final List<PopupMenuEntry<String>> items = <PopupMenuEntry<String>>[
                     CheckedPopupMenuItem<String>(
                       value: _menuSelectAllValue,
@@ -170,7 +170,7 @@ class _ChatInputAreaState extends State<ChatInputArea> {
 
                     items.addAll(
                       group.value.entries.map(
-                        (final MapEntry<int, String> option) => CheckedPopupMenuItem<String>(
+                        (MapEntry<int, String> option) => CheckedPopupMenuItem<String>(
                           value: option.key.toString(),
                           checked: widget.selectAllAccounts || widget.selectedAccountIds.contains(option.key),
                           child: Text(option.value),

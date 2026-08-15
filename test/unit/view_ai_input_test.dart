@@ -12,7 +12,7 @@ class DummyHostingApp extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: child,
@@ -44,8 +44,8 @@ void main() {
 
   /// Creates the chat input area under test with overridable callbacks and state.
   Widget buildWidget({
-    final bool processing = false,
-    final Map<String, Map<int, String>> accountGroupsByLabel = const <String, Map<int, String>>{
+    bool processing = false,
+    Map<String, Map<int, String>> accountGroupsByLabel = const <String, Map<int, String>>{
       'Banking': <int, String>{
         1: 'Checking',
         2: 'Savings',
@@ -54,13 +54,13 @@ void main() {
         3: 'Visa',
       },
     },
-    final Set<int> selectedAccountIds = const <int>{},
-    final bool selectAllAccounts = true,
+    Set<int> selectedAccountIds = const <int>{},
+    bool selectAllAccounts = true,
   }) {
     return DummyHostingApp(
       child: ChatInputArea(
         inputController: inputController,
-        onSendPrompt: (final String prompt) {
+        onSendPrompt: (String prompt) {
           onSendPromptCalled = true;
           sentPromptText = prompt;
         },
@@ -71,7 +71,7 @@ void main() {
         accountGroupsByLabel: accountGroupsByLabel,
         selectedAccountIds: selectedAccountIds,
         selectAllAccounts: selectAllAccounts,
-        onToggleAccountSelection: (final int accountId) {
+        onToggleAccountSelection: (int accountId) {
           toggledAccountId = accountId;
         },
         onToggleSelectAllAccounts: () {
@@ -82,7 +82,7 @@ void main() {
   }
 
   group('ChatInputArea Widget Tests', () {
-    testWidgets('displays preset buttons', (final WidgetTester tester) async {
+    testWidgets('displays preset buttons', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       expect(find.text(AppL10n.tr(AppTranslationKeys.accountNames)), findsOneWidget);
@@ -91,7 +91,7 @@ void main() {
       expect(find.text(AppL10n.tr(AppTranslationKeys.expensePredictions)), findsOneWidget);
     });
 
-    testWidgets('displays all accounts in dropdown caption when selecting all', (final WidgetTester tester) async {
+    testWidgets('displays all accounts in dropdown caption when selecting all', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       final String caption =
@@ -99,7 +99,7 @@ void main() {
       expect(find.text(caption), findsOneWidget);
     });
 
-    testWidgets('displays selected account count in dropdown caption', (final WidgetTester tester) async {
+    testWidgets('displays selected account count in dropdown caption', (WidgetTester tester) async {
       await tester.pumpWidget(
         buildWidget(
           selectAllAccounts: false,
@@ -111,7 +111,7 @@ void main() {
       expect(find.text(caption), findsOneWidget);
     });
 
-    testWidgets('opens account menu and selects all', (final WidgetTester tester) async {
+    testWidgets('opens account menu and selects all', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       final String caption =
@@ -129,7 +129,7 @@ void main() {
       expect(onToggleSelectAllCalled, true);
     });
 
-    testWidgets('opens account menu and shows grouped account headings', (final WidgetTester tester) async {
+    testWidgets('opens account menu and shows grouped account headings', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       final String caption =
@@ -141,7 +141,7 @@ void main() {
       expect(find.text('Credit').last, findsOneWidget);
     });
 
-    testWidgets('opens account menu and selects one account', (final WidgetTester tester) async {
+    testWidgets('opens account menu and selects one account', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget(selectAllAccounts: false));
 
       await tester.tap(find.text('0 ${AppL10n.tr(AppTranslationKeys.accounts).toLowerCase()}'));
@@ -155,28 +155,28 @@ void main() {
       expect(toggledAccountId, 1);
     });
 
-    testWidgets('displays text input field with proper hint', (final WidgetTester tester) async {
+    testWidgets('displays text input field with proper hint', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       expect(find.byType(TextField), findsOneWidget);
       expect(find.text(SharedStrings.aiAssistantHint), findsOneWidget);
     });
 
-    testWidgets('shows send button when not processing', (final WidgetTester tester) async {
+    testWidgets('shows send button when not processing', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget(processing: false));
 
       expect(find.byIcon(Icons.send), findsOneWidget);
       expect(find.byIcon(Icons.cancel), findsNothing);
     });
 
-    testWidgets('shows cancel button when processing', (final WidgetTester tester) async {
+    testWidgets('shows cancel button when processing', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget(processing: true));
 
       expect(find.byIcon(Icons.cancel), findsOneWidget);
       expect(find.byIcon(Icons.send), findsNothing);
     });
 
-    testWidgets('calls onSendPrompt when account names button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onSendPrompt when account names button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.accountNames)));
@@ -186,7 +186,7 @@ void main() {
       expect(sentPromptText, AppL10n.tr(AppTranslationKeys.accountNames));
     });
 
-    testWidgets('calls onSendPrompt when largest transactions button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onSendPrompt when largest transactions button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget());
 
       await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.largestTransactions)));
@@ -197,7 +197,7 @@ void main() {
     });
 
     testWidgets('calls onSendPrompt with text field content when send button is tapped', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       const String testText = 'Test prompt';
       await tester.pumpWidget(buildWidget());
@@ -211,7 +211,7 @@ void main() {
     });
 
     testWidgets('does not call onSendPrompt when send button is tapped with empty text', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       await tester.pumpWidget(buildWidget());
 
@@ -221,7 +221,7 @@ void main() {
       expect(onSendPromptCalled, false);
     });
 
-    testWidgets('calls onSendPrompt when enter is pressed in text field', (final WidgetTester tester) async {
+    testWidgets('calls onSendPrompt when enter is pressed in text field', (WidgetTester tester) async {
       const String testText = 'Test prompt from enter';
       await tester.pumpWidget(buildWidget());
 
@@ -233,7 +233,7 @@ void main() {
       expect(sentPromptText, testText);
     });
 
-    testWidgets('calls onCancel when cancel button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onCancel when cancel button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(buildWidget(processing: true));
 
       await tester.tap(find.byIcon(Icons.cancel));
@@ -243,7 +243,7 @@ void main() {
     });
 
     testWidgets('shows no-account message in menu when there are no account options', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       await tester.pumpWidget(
         buildWidget(

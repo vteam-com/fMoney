@@ -52,7 +52,7 @@ class PickerEditBoxState extends State<PickerEditBox> {
             child: MyTextInput(
               border: false,
               controller: _textController,
-              onChanged: (final String value) {
+              onChanged: (String value) {
                 setState(() {
                   widget.onChanged(value);
                 });
@@ -91,7 +91,7 @@ class PickerEditBoxState extends State<PickerEditBox> {
           context: context,
           items: widget.items,
           selectedItem: _textController.text,
-          onSelected: (final String text) {
+          onSelected: (String text) {
             setState(() {
               _textController.text = text;
               widget.onChanged(text);

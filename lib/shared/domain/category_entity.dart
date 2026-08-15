@@ -32,7 +32,7 @@ const double _colorSwatchSizeLarge = 40.0;
 
 /// Represents category.
 class Category extends DataObject {
-  factory Category.fromJson(final MyJson row, [final DataAbstract? data]) {
+  factory Category.fromJson(MyJson row, [DataAbstract? data]) {
     return Category(
       id: row.getInt(SharedDomainStrings.domainString057, _unsetId),
       parentId: row.getInt(SharedDomainStrings.domainString102, _unsetId),
@@ -48,16 +48,16 @@ class Category extends DataObject {
     );
   }
   Category({
-    required final int id,
-    required final String name,
-    required final CategoryType type,
-    final int parentId = _unsetId,
-    final String description = '',
-    final String color = '',
-    final double budget = _zeroDouble,
-    final double budgetBalance = _zeroDouble,
-    final int frequency = _zeroInt,
-    final int taxRefNum = _zeroInt,
+    required int id,
+    required String name,
+    required CategoryType type,
+    int parentId = _unsetId,
+    String description = '',
+    String color = '',
+    double budget = _zeroDouble,
+    double budgetBalance = _zeroDouble,
+    int frequency = _zeroInt,
+    int taxRefNum = _zeroInt,
     this.data,
   }) {
     this.fieldId.value = id;
@@ -79,9 +79,9 @@ class Category extends DataObject {
   FieldMoney fieldBudget = FieldMoney(
     name: SharedDomainStrings.domainString024,
     serializeName: SharedDomainStrings.domainString024,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldBudget.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
-    setValue: (final DataInterface instance, final dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldBudget.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Category).fieldBudget.value.setAmount(value);
     },
   );
@@ -90,9 +90,8 @@ class Category extends DataObject {
   /// 7|Balance|money|0||0
   FieldMoney fieldBudgetBalance = FieldMoney(
     name: 'BudgetBalance',
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldBudgetBalance.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Category).fieldBudgetBalance.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldBudgetBalance.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldBudgetBalance.value.asDouble(),
   );
 
   /// Color
@@ -103,14 +102,14 @@ class Category extends DataObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     defaultValue: '',
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).getColorWidget(),
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldColor.value,
-    setValue: (final DataInterface instance, final dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Category).getColorWidget(),
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldColor.value,
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Category).fieldColor.value = value as String;
     },
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           return MutateFieldColor(
@@ -126,7 +125,7 @@ class Category extends DataObject {
             },
           );
         },
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Category).getColorOrAncestorsColor().computeLuminance(),
       (b as Category).getColorOrAncestorsColor().computeLuminance(),
       ascending,
@@ -139,9 +138,9 @@ class Category extends DataObject {
     columnWidth: ColumnWidth.large,
     name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldDescription.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldDescription.value,
-    setValue: (final DataInterface instance, dynamic value) =>
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldDescription.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldDescription.value,
+    setValue: (DataInterface instance, dynamic value) =>
         (instance as Category).fieldDescription.value = value as String,
   );
 
@@ -149,13 +148,13 @@ class Category extends DataObject {
   FieldInt fieldFrequency = FieldInt(
     serializeName: SharedDomainStrings.domainString056,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldFrequency.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldFrequency.value,
   );
 
   /// Id
   /// 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).uniqueId,
   );
 
   //-----------------------------------
@@ -168,7 +167,7 @@ class Category extends DataObject {
     columnWidth: ColumnWidth.nano,
     type: FieldType.text,
     footer: FooterType.count,
-    getValueForDisplay: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) =>
         (countOccurrences((instance as Category).fieldName.value, ':') + _levelStep).toString(),
   );
 
@@ -179,10 +178,10 @@ class Category extends DataObject {
     name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
-    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Category).fieldName.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldName.value,
-    setValue: (final DataInterface instance, dynamic value) => (instance as Category).fieldName.value = value as String,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    getValueForDisplay: (DataInterface instance) => TokenText((instance as Category).fieldName.value),
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldName.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Category).fieldName.value = value as String,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Category).fieldName.value,
       (b as Category).fieldName.value,
       ascending,
@@ -193,41 +192,41 @@ class Category extends DataObject {
   FieldInt fieldParentId = FieldInt(
     name: SharedDomainStrings.domainString102,
     serializeName: SharedDomainStrings.domainString102,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldParentId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldParentId.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldParentId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldParentId.value,
   );
 
   /// Running Balance
   FieldMoney fieldSum = FieldMoney(
     name: 'Sum',
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldSum.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldSum.value,
   );
 
   /// Running Balance
   FieldMoney fieldSumRollup = FieldMoney(
     name: 'Sum~',
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldSumRollup.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldSumRollup.value,
   );
 
   /// 9|TaxRefNum|INT|0||0
   FieldInt fieldTaxRefNum = FieldInt(
     serializeName: SharedDomainStrings.domainString135,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldTaxRefNum.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldTaxRefNum.value,
   );
 
   /// Count
   FieldInt fieldTransactionCount = FieldInt(
     name: '#T',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldTransactionCount.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldTransactionCount.value,
   );
 
   /// Count
   FieldInt fieldTransactionCountRollup = FieldInt(
     name: '#T~',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).fieldTransactionCountRollup.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldTransactionCountRollup.value,
   );
 
   /// Type
@@ -238,14 +237,14 @@ class Category extends DataObject {
     serializeName: SharedDomainStrings.domainString146,
     defaultValue: CategoryType.none,
     footer: FooterType.count,
-    getValueForDisplay: (final DataInterface instance) => (instance as Category).getTypeAsText(),
-    getValueForSerialization: (final DataInterface instance) => (instance as Category).fieldType.value.index,
-    setValue: (final DataInterface instance, final dynamic value) {
+    getValueForDisplay: (DataInterface instance) => (instance as Category).getTypeAsText(),
+    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldType.value.index,
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Category).fieldType.value = CategoryTypeExtension.fromInt(value as int);
     },
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           final Category i = instance as Category;
@@ -302,7 +301,7 @@ class Category extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Category> _fields = Fields<Category>();
   static final Fields<Category> _fieldsForColumns = Fields<Category>();
@@ -421,7 +420,7 @@ class Category extends DataObject {
   }
 
   /// Returns the category name; empty string if null.
-  static String getName(final Category? instance) {
+  static String getName(Category? instance) {
     return instance == null ? '' : instance.fieldName.value;
   }
 

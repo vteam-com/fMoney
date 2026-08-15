@@ -4,7 +4,7 @@ import 'package:money/views/imports/transfer/transfer_import_fields_model.dart';
 
 void main() {
   group('ImportFieldsForTransfer', () {
-    Account makeAccount(final String name) {
+    Account makeAccount(String name) {
       final Account account = Account();
       account.fieldName.value = name;
       return account;

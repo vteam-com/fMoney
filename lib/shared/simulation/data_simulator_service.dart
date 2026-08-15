@@ -161,7 +161,7 @@ class DataSimulator {
   }
 
   /// Generates a random amount between a minimum and maximum value.
-  double getAmount(final int minValue, final int maxValue) {
+  double getAmount(int minValue, int maxValue) {
     return simulator_utils.getAmount(minValue, maxValue);
   }
 
@@ -176,7 +176,7 @@ class DataSimulator {
   }
 
   /// Generates random amount up to specified maximum value.
-  double getRandomAmount(final int maxValue) {
+  double getRandomAmount(int maxValue) {
     return simulator_utils.getRandomAmount(maxValue);
   }
 
@@ -187,12 +187,12 @@ class DataSimulator {
 
   /// Adds an investment transaction to the account.
   void _addInvestment(
-    final Account account,
-    final String dateAsString,
-    final int stockId,
-    final InvestmentType activity,
-    final double quantity,
-    final double tradePrice,
+    Account account,
+    String dateAsString,
+    int stockId,
+    InvestmentType activity,
+    double quantity,
+    double tradePrice,
   ) {
     final DateTime date = DateTime.parse(dateAsString);
     double transactionAmount = tradePrice * quantity;
@@ -229,11 +229,11 @@ class DataSimulator {
 
   /// Adds a new account to the data.
   Account _addNewAccount(
-    final int id,
-    final String name,
-    final String accountId,
-    final int type,
-    final String currency,
+    int id,
+    String name,
+    String accountId,
+    int type,
+    String currency,
   ) {
     final Account account = Account.fromJson(<String, dynamic>{
       'Id': id,
@@ -267,9 +267,7 @@ class DataSimulator {
       maxValue = DataSimulatorConstants.maxRandomExpenseAmount;
     }
 
-    if (amount == DataSimulatorConstants.zeroAmount) {
-      amount = getRandomAmount(maxValue);
-    }
+    final double resolvedAmount = amount == DataSimulatorConstants.zeroAmount ? getRandomAmount(maxValue) : amount;
 
     final MyJson demoJson = <String, dynamic>{
       'Id': DataSimulatorConstants.unsetId,
@@ -277,7 +275,7 @@ class DataSimulator {
       'Date': date,
       'Payee': payeeId,
       'Category': categoryId,
-      'Amount': amount,
+      'Amount': resolvedAmount,
       'Memo': memo,
     };
 
@@ -288,7 +286,7 @@ class DataSimulator {
   }
 
   /// Buys a home and adds related transactions.
-  void _buyHome(final Payee payeeForHomeLoan, final DateTime date) {
+  void _buyHome(Payee payeeForHomeLoan, DateTime date) {
     final Account accountAssetHome = _addNewAccount(
       DataSimulatorConstants.unsetId,
       SharedSimulationStrings.simAccountMainHome,
@@ -322,11 +320,11 @@ class DataSimulator {
 
   /// Creates a transfer between two accounts by creating a source transaction and linking the related transaction.
   Transaction _createTransferTransaction({
-    required final Account accountSource,
-    required final Account accountDestination,
-    required final DateTime date,
-    required final double amount,
-    required final String memo,
+    required Account accountSource,
+    required Account accountDestination,
+    required DateTime date,
+    required double amount,
+    required String memo,
     int categoryId = DataSimulatorConstants.unsetId,
   }) {
     final Transaction source = _addTransactionAccountDatePayeeCategory(

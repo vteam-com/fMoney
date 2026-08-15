@@ -7,7 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens local folder in system file explorer.
-Future<void> showLocalFolder(final String folderPath) async {
+Future<void> showLocalFolder(String folderPath) async {
   final Uri url = Uri.parse('${SharedStrings.fileUriScheme}$folderPath');
 
   if (!await launchUrl(url)) {
@@ -21,12 +21,12 @@ const String localFilename = 'myMoney.json';
 /// Represents my file systems.
 class MyFileSystems {
   /// Appends path separator between folder path and file name.
-  static String append(final String folderPath, final String toAppend) {
+  static String append(String folderPath, String toAppend) {
     return '$folderPath${p.separator}$toAppend';
   }
 
   /// Checks if file exists at the specified path.
-  static Future<bool> doesFileExist(final String pathToFile) async {
+  static Future<bool> doesFileExist(String pathToFile) async {
     final File file = File(pathToFile);
     return await file.exists();
   }
@@ -34,7 +34,7 @@ class MyFileSystems {
   /// Initially check if there is already a local file.
   /// If not, create one
   static Future<File> ensureFileIsExistOrCreateIt(
-    final String pathToFile,
+    String pathToFile,
   ) async {
     final String containerFolder = p.dirname(pathToFile);
     await MyFileSystems.ensureFolderExist(containerFolder);
@@ -50,12 +50,12 @@ class MyFileSystems {
   }
 
   /// Ensures folder exists at the specified path, creates if necessary.
-  static Future<Directory> ensureFolderExist(final String fullPath) async {
+  static Future<Directory> ensureFolderExist(String fullPath) async {
     return await Directory(fullPath).create(recursive: true);
   }
 
   /// Returns file extension from file path.
-  static String getFileExtension(final String filePath) {
+  static String getFileExtension(String filePath) {
     return p.extension(filePath);
   }
 
@@ -74,12 +74,12 @@ class MyFileSystems {
   }
 
   /// Returns file name from file path.
-  static String getFileName(final String filePath) {
+  static String getFileName(String filePath) {
     return p.basename(filePath);
   }
 
   /// Returns folder path from file path.
-  static String getFolderFromFilePath(final String filePath) {
+  static String getFolderFromFilePath(String filePath) {
     return p.dirname(filePath);
   }
 
@@ -87,7 +87,7 @@ class MyFileSystems {
   static String get pathSeparator => p.separator;
 
   /// Reads file content as string from the specified path.
-  static Future<String> readFile(final String pathToFile) async {
+  static Future<String> readFile(String pathToFile) async {
     if (await MyFileSystems.doesFileExist(pathToFile)) {
       final File file = File(pathToFile);
       return await file.readAsString();
@@ -97,9 +97,9 @@ class MyFileSystems {
 
   /// Writes content to a file in the specified folder.
   static Future<void> writeFileContentIntoFolder(
-    final String folder,
-    final String fileName,
-    final String content,
+    String folder,
+    String fileName,
+    String content,
   ) {
     final String fullPathToFile = MyFileSystems.append(folder, fileName);
     return MyFileSystems.writeToFile(fullPathToFile, content);
@@ -107,8 +107,8 @@ class MyFileSystems {
 
   /// Generic text file write
   static Future<void> writeToFile(
-    final String pathToFile,
-    final String data,
+    String pathToFile,
+    String data,
   ) async {
     final File file = File(pathToFile);
 

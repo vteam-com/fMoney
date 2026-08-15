@@ -18,7 +18,7 @@ import 'package:money/widgets/widgets_domain/field_model.dart';
 class RentUnit extends DataObject {
   RentUnit();
 
-  factory RentUnit.fromJson(final MyJson row) {
+  factory RentUnit.fromJson(MyJson row) {
     return RentUnit()
       ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
       ..fieldName.value = row.getString(SharedDomainStrings.domainString088)
@@ -36,13 +36,13 @@ class RentUnit extends DataObject {
   FieldInt fieldBuilding = FieldInt(
     name: SharedDomainStrings.domainString026,
     serializeName: SharedDomainStrings.domainString026,
-    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldBuilding.value,
+    getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldBuilding.value,
   );
 
   /// Id
   /// 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => instance.uniqueId,
+    getValueForSerialization: (DataInterface instance) => instance.uniqueId,
   );
 
   /// 2
@@ -50,7 +50,7 @@ class RentUnit extends DataObject {
   FieldString fieldName = FieldString(
     name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
-    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldName.value,
+    getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldName.value,
   );
 
   /// 4
@@ -58,7 +58,7 @@ class RentUnit extends DataObject {
   FieldString fieldNote = FieldString(
     name: SharedDomainStrings.domainString091,
     serializeName: SharedDomainStrings.domainString091,
-    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldNote.value,
+    getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldNote.value,
   );
 
   /// 3
@@ -66,7 +66,7 @@ class RentUnit extends DataObject {
   FieldString fieldRenter = FieldString(
     name: SharedDomainStrings.domainString119,
     serializeName: SharedDomainStrings.domainString119,
-    getValueForSerialization: (final DataInterface instance) => (instance as RentUnit).fieldRenter.value,
+    getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldRenter.value,
   );
 
   // Fields for this instance
@@ -77,12 +77,12 @@ class RentUnit extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<RentUnit> _fields = Fields<RentUnit>();
 
   /// Builds [RentUnit] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(final RentUnit tmp) => <Field<dynamic>>[
+  static FieldDefinitions _buildFieldDefinitions(RentUnit tmp) => <Field<dynamic>>[
     tmp.fieldId,
     tmp.fieldBuilding,
     tmp.fieldName,

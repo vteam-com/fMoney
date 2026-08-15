@@ -57,7 +57,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
   late bool _sortAscending = widget.sortAscending;
   late int _sortBy = widget.sortFieldIndex;
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     // get the list sorted
     final List<Transaction> transactions = widget.getList();
     if (transactions.isEmpty) {
@@ -90,7 +90,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
         widget.onUserChoiceChanged?.call(_sortBy, _sortAscending, uniqueId);
         widget.selectionController.select(uniqueId);
       },
-      onColumnHeaderTap: (final int index) {
+      onColumnHeaderTap: (int index) {
         setState(() {
           if (_sortBy == index) {
             // same column tap/click again, change the sort order
@@ -105,12 +105,12 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
           );
         });
       },
-      onItemLongPress: (final BuildContext context2, final int uniqueId) {
+      onItemLongPress: (BuildContext context2, int uniqueId) {
         final Transaction instance = findObjectById(uniqueId, transactions) as Transaction;
         showTransactionAndActions(
           context: context2,
           transaction: instance,
-        ).then((final dynamic _) {
+        ).then((dynamic _) {
           widget.selectionController.select(uniqueId);
           widget.onUserChoiceChanged?.call(
             _sortBy,
@@ -165,10 +165,10 @@ List<Transaction> getTransactions({
     // Flatten the splits
     list = Transactions.flatTransactions(
       Data().transactions.iterableList(),
-    ).where((final Transaction transaction) => filter!(transaction)).toList();
+    ).where((Transaction transaction) => filter!(transaction)).toList();
   } else {
     // No flattening of splits
-    list = Data().transactions.iterableList().where((final Transaction transaction) => filter!(transaction)).toList();
+    list = Data().transactions.iterableList().where((Transaction transaction) => filter!(transaction)).toList();
   }
 
   list.sort(

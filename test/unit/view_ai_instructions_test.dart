@@ -9,7 +9,7 @@ class DummyHostingApp extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: child,
@@ -32,7 +32,7 @@ void main() {
   });
 
   group('ViewAIInstructions Widget Tests', () {
-    testWidgets('displays Ollama icon', (final WidgetTester tester) async {
+    testWidgets('displays Ollama icon', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -49,7 +49,7 @@ void main() {
       expect(find.byType(Column), findsOneWidget); // MySvg is part of the column
     });
 
-    testWidgets('displays title "Ollama AI Assistant"', (final WidgetTester tester) async {
+    testWidgets('displays title "Ollama AI Assistant"', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -64,7 +64,7 @@ void main() {
       expect(find.text('Ollama AI Assistant'), findsOneWidget);
     });
 
-    testWidgets('displays instruction text', (final WidgetTester tester) async {
+    testWidgets('displays instruction text', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -79,7 +79,7 @@ void main() {
       expect(find.text('Ollama is required to use the AI assistant. Click below to install it.'), findsOneWidget);
     });
 
-    testWidgets('shows install button when Ollama is not installed', (final WidgetTester tester) async {
+    testWidgets('shows install button when Ollama is not installed', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -95,7 +95,7 @@ void main() {
       expect(find.widgetWithText(ElevatedButton, 'Install Ollama now'), findsOneWidget);
     });
 
-    testWidgets('shows run button when Ollama is installed but not running', (final WidgetTester tester) async {
+    testWidgets('shows run button when Ollama is installed but not running', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -112,7 +112,7 @@ void main() {
     });
 
     testWidgets('shows both install and run buttons when Ollama is not installed and not running', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       await tester.pumpWidget(
         DummyHostingApp(
@@ -130,7 +130,7 @@ void main() {
       expect(find.byType(ElevatedButton), findsNWidgets(2));
     });
 
-    testWidgets('hides run button when Ollama is running', (final WidgetTester tester) async {
+    testWidgets('hides run button when Ollama is running', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -147,7 +147,7 @@ void main() {
       expect(find.byType(ElevatedButton), findsNothing);
     });
 
-    testWidgets('calls onInstall when install button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onInstall when install button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -167,7 +167,7 @@ void main() {
       expect(onInstallCalled, true);
     });
 
-    testWidgets('calls onCheckStatus when run button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onCheckStatus when run button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -187,7 +187,7 @@ void main() {
       expect(onCheckStatusCalled, true);
     });
 
-    testWidgets('handles null callbacks gracefully', (final WidgetTester tester) async {
+    testWidgets('handles null callbacks gracefully', (WidgetTester tester) async {
       await tester.pumpWidget(
         const DummyHostingApp(
           child: ViewAIInstructions(
@@ -205,7 +205,7 @@ void main() {
       expect(find.text('Run Ollama'), findsOneWidget);
     });
 
-    testWidgets('is centered on screen', (final WidgetTester tester) async {
+    testWidgets('is centered on screen', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -221,7 +221,7 @@ void main() {
       expect(find.byType(Center), findsOneWidget);
     });
 
-    testWidgets('contains Box widget with proper padding', (final WidgetTester tester) async {
+    testWidgets('contains Box widget with proper padding', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(
@@ -237,7 +237,7 @@ void main() {
       expect(find.byType(Column), findsOneWidget); // The main column inside Box
     });
 
-    testWidgets('shows instruction when Ollama is installed but not running', (final WidgetTester tester) async {
+    testWidgets('shows instruction when Ollama is installed but not running', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ViewAIInstructions(

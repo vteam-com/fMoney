@@ -40,7 +40,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
   /// add more top level action buttons
   @override
-  List<Widget> getActionsButtons(final bool forSidePanelTransactions) {
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
       /// Merge
@@ -126,7 +126,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     final Payee? payee = getFirstSelectedItem() as Payee?;
     if (payee != null && payee.fieldId.value > _unsetId) {
       return getTransactions(
-        filter: (final Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
+        filter: (Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
       );
     }
     return <DataObject>[];
@@ -134,8 +134,8 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
   /// Details panels Chart panel for Payees
   Widget _getSubViewContentForChart({
-    required final List<int> selectedIds,
-    required final bool showAsNativeCurrency,
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
     if (selectedIds.isEmpty) {
@@ -146,7 +146,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
         }
       }
 
-      listChart.sort((final PairXYY a, final PairXYY b) {
+      listChart.sort((PairXYY a, PairXYY b) {
         return (b.yValue1.abs() - a.yValue1.abs()).toInt();
       });
 
@@ -167,7 +167,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
   // Details Panel for Transactions Payees
   Widget _getSubViewContentForTransactions({
-    required final List<int> selectedIds,
+    required List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
     keepUnused(showAsNativeCurrency);
@@ -189,7 +189,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
         ],
         getList: () => getTransactions(
           flattenSplits: true,
-          filter: (final Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
+          filter: (Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
         ),
         selectionController: selectionController,
       );

@@ -277,11 +277,11 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     );
 
     final Set<int> availableAccountIds = _getSelectablePromptAccounts()
-        .map((final Account account) => account.uniqueId)
+        .map((Account account) => account.uniqueId)
         .toSet();
     final Set<int> restoredSelectedIds = selectedAccountIdsAsString
         .split(',')
-        .map((final String value) => int.tryParse(value))
+        .map((String value) => int.tryParse(value))
         .whereType<int>()
         .where(availableAccountIds.contains)
         .toSet();
@@ -312,7 +312,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     _textController.addListener(_onPromptDraftChanged);
 
     // Load the selected model from preferences first
-    _ollamaService.getLastUserSelectedModel().then((final _) async {
+    _ollamaService.getLastUserSelectedModel().then((_) async {
       try {
         // Load conversation context and chat history for the selected model
         _conversationContext = await _ollamaService.loadConversationContext();
@@ -341,7 +341,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
 
   /// Scrolls the chat list to the bottom after the next frame.
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((final _) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -353,14 +353,14 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   }
 
   @override
-  Widget buildHeader([final Widget? child]) {
-    final int questionCount = _chatHistory.where((final ChatMessage message) => message.type == ChatFrom.user).length;
+  Widget buildHeader([Widget? child]) {
+    final int questionCount = _chatHistory.where((ChatMessage message) => message.type == ChatFrom.user).length;
     final int contextTokensCount = _conversationContext?.length ?? 0;
 
     return ViewAiHeader(
       availableModels: _ollamaService.availableModels,
       selectedModel: _ollamaService.selectedModel,
-      onModelSelected: (final String selectedModel) async {
+      onModelSelected: (String selectedModel) async {
         setState(() {}); // Refresh to update the selected model display
         _ollamaService.selectedModel = selectedModel;
         await _ollamaService.saveSelectedModel(selectedModel);
@@ -383,7 +383,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   }
 
   @override
-  Widget buildViewContent(final Widget child) {
+  Widget buildViewContent(Widget child) {
     if (_isChecking) {
       return Center(
         child: Column(
@@ -445,7 +445,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   }
 
   /// Submits a user prompt to Ollama and appends responses to chat history.
-  Future<void> _submitPrompt(final String promptAsked) async {
+  Future<void> _submitPrompt(String promptAsked) async {
     if (!_isOllamaRunning) {
       setState(() {});
       return;
@@ -566,7 +566,7 @@ Answer the question:''';
   List<Account> _getSelectablePromptAccounts() {
     final List<Account> accounts = Data().accounts.getOpenRealAccounts();
     accounts.sort(
-      (final Account left, final Account right) =>
+      (Account left, Account right) =>
           left.fieldName.value.toLowerCase().compareTo(right.fieldName.value.toLowerCase()),
     );
     return accounts;
@@ -584,7 +584,7 @@ Answer the question:''';
 
     final List<AccountType> sortedTypes = groupedAccounts.keys.toList()
       ..sort(
-        (final AccountType left, final AccountType right) =>
+        (AccountType left, AccountType right) =>
             getTypeAsText(left).toLowerCase().compareTo(getTypeAsText(right).toLowerCase()),
       );
 
@@ -604,7 +604,7 @@ Answer the question:''';
     }
 
     final List<Account> selected = availableAccounts
-        .where((final Account account) => _selectedAccountIds.contains(account.uniqueId))
+        .where((Account account) => _selectedAccountIds.contains(account.uniqueId))
         .toList();
 
     // Keep context usable when stale selections no longer match current accounts.
@@ -625,7 +625,7 @@ Answer the question:''';
   }
 
   /// Toggles selection of a single account id for prompt context.
-  void _toggleAccountSelection(final int accountId) {
+  void _toggleAccountSelection(int accountId) {
     setState(() {
       if (_allAccountsSelected) {
         _allAccountsSelected = false;
@@ -649,7 +649,7 @@ Answer the question:''';
   }
 
   /// Builds compact account and transaction context text for the current prompt.
-  String _buildPromptAccountContext(final List<Account> accounts) {
+  String _buildPromptAccountContext(List<Account> accounts) {
     if (accounts.isEmpty) {
       return _promptNoAccountDataLine;
     }
@@ -659,7 +659,7 @@ Answer the question:''';
     for (final Account account in accounts) {
       final List<Transaction> transactions = Data().accounts.getTransactions(account).toList()
         ..sort(
-          (final Transaction left, final Transaction right) {
+          (Transaction left, Transaction right) {
             final DateTime leftDate = left.fieldDateTime.value ?? DateTime.fromMillisecondsSinceEpoch(0);
             final DateTime rightDate = right.fieldDateTime.value ?? DateTime.fromMillisecondsSinceEpoch(0);
             return leftDate.compareTo(rightDate);
@@ -673,7 +673,7 @@ Answer the question:''';
 
       final List<Map<String, Object?>> transactionsPayload = includedTransactions
           .map(
-            (final Transaction transaction) => <String, Object?>{
+            (Transaction transaction) => <String, Object?>{
               'transaction_id': transaction.uniqueId,
               'date': transaction.dateTimeAsString,
               'amount': transaction.fieldAmount.value.asDouble(),
@@ -715,7 +715,7 @@ Answer the question:''';
   /// [source] is the source of the message (user or AI).
   /// [payload] is the payload sent to Ollama, if any.
   void _appendChatHistory(
-    final String text,
+    String text,
     ChatFrom source, [
     Map<String, dynamic>? payload,
   ]) {

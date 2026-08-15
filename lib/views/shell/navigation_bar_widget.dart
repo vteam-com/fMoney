@@ -45,7 +45,7 @@ class MyNavigationBar extends StatelessWidget {
               labelType: context.isWidthLarge ? NavigationRailLabelType.all : NavigationRailLabelType.none,
               indicatorColor: getColorTheme(context).onSecondary,
               backgroundColor: getColorTheme(context).secondaryContainer,
-              onDestinationSelected: (final int index) {
+              onDestinationSelected: (int index) {
                 onSelected(index);
               },
             ),
@@ -55,7 +55,7 @@ class MyNavigationBar extends StatelessWidget {
     }
     return NavigationBar(
       selectedIndex: selectedIndex,
-      onDestinationSelected: (final int index) {
+      onDestinationSelected: (int index) {
         onSelected(index);
       },
       destinations: geMenuItemsFortNavBar(),
@@ -70,7 +70,7 @@ class MyNavigationBar extends StatelessWidget {
   List<NavigationDestination> geMenuItemsFortNavBar() {
     return getAppBarDestinations()
         .map(
-          (final MyNavigationItem item) => NavigationDestination(
+          (MyNavigationItem item) => NavigationDestination(
             key: item.key,
             label: item.label,
             tooltip: AppL10n.tr(AppTranslationKeys.navShowLabel, params: <String, String>{'label': item.label}),
@@ -85,7 +85,7 @@ class MyNavigationBar extends StatelessWidget {
   List<NavigationRailDestination> geMenuItemsFortNavRail() {
     return getAppBarDestinations()
         .map(
-          (final MyNavigationItem item) => NavigationRailDestination(
+          (MyNavigationItem item) => NavigationRailDestination(
             icon: Tooltip(message: item.label, child: item.icon),
             selectedIcon: Tooltip(message: item.label, child: item.icon),
             label: Text(key: item.key, item.label),

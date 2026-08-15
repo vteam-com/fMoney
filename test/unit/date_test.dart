@@ -25,7 +25,7 @@ void main() {
   });
 
   test('attempt to parse date formats', () {
-    void expectParsedDate(final DateTime? parsed, final int y, final int m, final int d) {
+    void expectParsedDate(DateTime? parsed, int y, int m, int d) {
       expect(parsed, isNotNull);
       expect(parsed!.year, y);
       expect(parsed.month, m);

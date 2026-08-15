@@ -125,7 +125,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                 title: AppL10n.tr(AppTranslationKeys.setApiKey),
                 subTitle: AppL10n.tr(AppTranslationKeys.forAccessingTwelveData),
                 initialValue: PreferenceController.to.apiKeyForStocks,
-                onContinue: (final String text) {
+                onContinue: (String text) {
                   PreferenceController.to.apiKeyForStocks = text;
                 },
               );

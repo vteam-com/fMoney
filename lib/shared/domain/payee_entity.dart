@@ -21,39 +21,39 @@ const int _doubleCategoryCount = 2;
 class Payee extends DataObject {
   Payee();
 
-  factory Payee.fromJson(final MyJson _ /* json */) {
+  factory Payee.fromJson(MyJson _ /* json */) {
     return Payee();
   }
 
   Set<String> categories = <String>{};
   FieldString fieldCategoriesAsText = FieldString(
     name: SharedDomainStrings.domainString028,
-    getValueForDisplay: (final DataInterface instance) => (instance as Payee).getCategoriesAsString(),
+    getValueForDisplay: (DataInterface instance) => (instance as Payee).getCategoriesAsString(),
   );
 
   FieldInt fieldCount = FieldInt(
     name: SharedDomainStrings.domainString143,
     columnWidth: ColumnWidth.small,
-    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldCount.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Payee).fieldCount.value,
   );
 
   // 0 - ID
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Payee).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Payee).uniqueId,
   );
 
   // 1
   FieldString fieldName = FieldString(
     name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
-    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldName.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Payee).fieldName.value,
-    setValue: (final DataInterface instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
+    getValueForDisplay: (DataInterface instance) => (instance as Payee).fieldName.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Payee).fieldName.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
   );
 
   FieldMoney fieldSum = FieldMoney(
     name: 'Sum',
-    getValueForDisplay: (final DataInterface instance) => (instance as Payee).fieldSum.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Payee).fieldSum.value,
   );
 
   @override
@@ -81,7 +81,7 @@ class Payee extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Payee> _fields = Fields<Payee>();
   static final Fields<Payee> _fieldsForColumns = Fields<Payee>();
@@ -132,7 +132,7 @@ class Payee extends DataObject {
   }
 
   /// Returns the name of the [Payee] object, or an empty string if the [Payee] is null.
-  static String getName(final Payee? payee) {
+  static String getName(Payee? payee) {
     return payee == null ? '' : payee.fieldName.value;
   }
 }

@@ -65,7 +65,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     }
 
     return LayoutBuilder(
-      builder: (BuildContext context, final BoxConstraints constraints) {
+      builder: (BuildContext context, BoxConstraints constraints) {
         final double visualWidthOfSlider = constraints.maxWidth - (sliderEdgePadding * 2);
         final double eachYearInPixel = visualWidthOfSlider / widget.yearRange.span;
 
@@ -89,7 +89,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
                   _selectedYearRange.max.toString(),
                 ),
                 divisions: widget.yearRange.span.toInt(),
-                onChanged: (final RangeValues values) {
+                onChanged: (RangeValues values) {
                   setState(() {
                     _selectedYearRange.update(
                       values.start.round(),
@@ -100,7 +100,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
                 },
               ),
               GestureDetector(
-                onHorizontalDragUpdate: (final DragUpdateDetails details) {
+                onHorizontalDragUpdate: (DragUpdateDetails details) {
                   setState(() {
                     _handleDragUpdate(details, constraints.maxWidth);
                     widget.onChanged(_selectedYearRange);
@@ -121,7 +121,7 @@ class YearRangeSliderState extends State<YearRangeSlider> {
   /// Builds the drag button that displays the selected year range and allows dragging.
   ///
   /// [context] is the build context used to retrieve theme information.
-  Widget _buildDragButton(final BuildContext context) {
+  Widget _buildDragButton(BuildContext context) {
     final String spanAsText = getSingularPluralText(
       _selectedYearRange.span.toString(),
       _selectedYearRange.span.toInt(),

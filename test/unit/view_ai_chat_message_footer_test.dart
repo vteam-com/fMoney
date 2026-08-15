@@ -10,7 +10,7 @@ class DummyHostingApp extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
@@ -51,7 +51,7 @@ void main() {
 
   group('ChatMessageFooter Widget Tests', () {
     testWidgets('displays read more button when shouldTruncate is true and not expanded', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       await tester.pumpWidget(
         DummyHostingApp(
@@ -73,7 +73,7 @@ void main() {
     });
 
     testWidgets('displays read less button when shouldTruncate is true and expanded', (
-      final WidgetTester tester,
+      WidgetTester tester,
     ) async {
       final ChatMessage expandedMessage = ChatMessage(
         message: 'Long message',
@@ -102,7 +102,7 @@ void main() {
       expect(find.text('Read More'), findsNothing);
     });
 
-    testWidgets('hides read button when shouldTruncate is false', (final WidgetTester tester) async {
+    testWidgets('hides read button when shouldTruncate is false', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -122,7 +122,7 @@ void main() {
       expect(find.text('Read Less'), findsNothing);
     });
 
-    testWidgets('calls onToggleExpanded when read button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onToggleExpanded when read button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -144,7 +144,7 @@ void main() {
       expect(onToggleExpandedCalled, true);
     });
 
-    testWidgets('displays elapsed time', (final WidgetTester tester) async {
+    testWidgets('displays elapsed time', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -164,7 +164,7 @@ void main() {
       expect(find.text('Just now'), findsOneWidget);
     });
 
-    testWidgets('contains copy button with clipboard icon', (final WidgetTester tester) async {
+    testWidgets('contains copy button with clipboard icon', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -179,7 +179,7 @@ void main() {
       expect(find.byIcon(Icons.copy), findsOneWidget);
     });
 
-    testWidgets('contains view details button with comment icon for user message', (final WidgetTester tester) async {
+    testWidgets('contains view details button with comment icon for user message', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -195,7 +195,7 @@ void main() {
       expect(find.byIcon(Icons.info), findsNothing);
     });
 
-    testWidgets('contains view details button with info icon for AI message', (final WidgetTester tester) async {
+    testWidgets('contains view details button with info icon for AI message', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -211,7 +211,7 @@ void main() {
       expect(find.byIcon(Icons.comment), findsNothing);
     });
 
-    testWidgets('calls onViewDetails when view details button is tapped', (final WidgetTester tester) async {
+    testWidgets('calls onViewDetails when view details button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -231,7 +231,7 @@ void main() {
       expect(onViewDetailsCalled, true);
     });
 
-    testWidgets('copies message to clipboard when copy button is tapped', (final WidgetTester tester) async {
+    testWidgets('copies message to clipboard when copy button is tapped', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -251,7 +251,7 @@ void main() {
       expect(find.byIcon(Icons.copy), findsOneWidget);
     });
 
-    testWidgets('has proper tooltips', (final WidgetTester tester) async {
+    testWidgets('has proper tooltips', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -270,7 +270,7 @@ void main() {
       expect(find.byTooltip('View prompt details'), findsOneWidget);
     });
 
-    testWidgets('uses proper layout structure', (final WidgetTester tester) async {
+    testWidgets('uses proper layout structure', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(
@@ -289,7 +289,7 @@ void main() {
       expect(find.byType(IconButton), findsNWidgets(2)); // Copy and view details
     });
 
-    testWidgets('displays elapsed time with proper opacity', (final WidgetTester tester) async {
+    testWidgets('displays elapsed time with proper opacity', (WidgetTester tester) async {
       await tester.pumpWidget(
         DummyHostingApp(
           child: ChatMessageFooter(

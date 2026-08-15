@@ -82,7 +82,7 @@ class RecurringCard extends StatelessWidget {
   }
 
   /// Builds the averages box showing yearly, monthly, and daily averages.
-  Widget _buildBoxAverages(final BuildContext context) {
+  Widget _buildBoxAverages(BuildContext context) {
     return Box(
       title: AppL10n.tr(AppTranslationKeys.averages),
       padding: _cardSpacing,
@@ -122,7 +122,7 @@ class RecurringCard extends StatelessWidget {
   }
 
   /// Builds the category distribution box for the payment's category breakdown.
-  Widget _buildBoxDistribution(final BuildContext _) {
+  Widget _buildBoxDistribution(BuildContext _) {
     return Box(
       title: AppL10n.tr(AppTranslationKeys.categories),
       padding: _cardSpacing,
@@ -131,7 +131,7 @@ class RecurringCard extends StatelessWidget {
   }
 
   /// Builds the timeline box showing daily sums over the searched date range.
-  Widget _buildBoxTimelinePerDayOverYears(final BuildContext context) {
+  Widget _buildBoxTimelinePerDayOverYears(BuildContext context) {
     final List<Pair<int, double>> sumByDays = Transactions.transactionSumByTime(
       payment.transactions,
     );
@@ -172,10 +172,10 @@ class RecurringCard extends StatelessWidget {
 
   /// Builds a date range timeline row for the given [dateRange].
   Widget _buildDateRangeRow(
-    final DateRange dateRange,
-    final double paddingLeft,
-    final double paddingRight,
-    final bool showTicks,
+    DateRange dateRange,
+    double paddingLeft,
+    double paddingRight,
+    bool showTicks,
   ) {
     return Padding(
       padding: EdgeInsets.only(left: paddingLeft, right: paddingRight),
@@ -188,7 +188,7 @@ class RecurringCard extends StatelessWidget {
   }
 
   /// Builds the card header with payee name and total amount.
-  Widget _buildHeader(final BuildContext context) {
+  Widget _buildHeader(BuildContext context) {
     final TextTheme textTheme = getTextTheme(context);
     final String payeeName = Data().payees.getNameFromId(payment.payeeId);
     return Row(
@@ -222,9 +222,9 @@ class RecurringCard extends StatelessWidget {
 
 /// Builds a label/value row for an amount.
 Widget _buildTextAmountRow(
-  final BuildContext context,
-  final String title,
-  final double amount,
+  BuildContext context,
+  String title,
+  double amount,
 ) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

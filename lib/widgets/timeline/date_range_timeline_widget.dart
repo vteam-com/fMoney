@@ -55,7 +55,7 @@ class DateRangeTimeline extends StatelessWidget {
 }
 
 /// Builds a list of tick widgets for the timeline ruler.
-List<Widget> ticks(final int numberOfTicks) {
+List<Widget> ticks(int numberOfTicks) {
   final List<Widget> widgets = <Widget>[];
 
   for (int tick = 0; tick < numberOfTicks; tick++) {

@@ -22,7 +22,7 @@ class Securities extends MoneyObjects<Security> {
 
   // Loads data from a list of JSON objects into the collection of Security objects.
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear(); // Clears the current collection.
     for (final MyJson row in rows) {
       appendMoneyObject(
@@ -70,14 +70,14 @@ class Securities extends MoneyObjects<Security> {
   }
 
   /// Retrieves a security by its symbol (case-insensitive).
-  Security? getBySymbol(final String symbolToFind) {
+  Security? getBySymbol(String symbolToFind) {
     return iterableList().firstWhereOrNull(
       (Security item) => stringCompareIgnoreCasing(item.fieldSymbol.value, symbolToFind) == 0,
     );
   }
 
   /// Retrieves a security by its display name (case-insensitive).
-  Security? getByName(final String nameToFind) {
+  Security? getByName(String nameToFind) {
     return iterableList().firstWhereOrNull(
       (Security item) => stringCompareIgnoreCasing(item.fieldName.value, nameToFind) == 0,
     );
@@ -89,7 +89,7 @@ class Securities extends MoneyObjects<Security> {
   /// - `Nokia (NOK)` -> `NOK`
   /// - `NASDAQ:AAPL` -> `AAPL`
   /// - `aapl` -> `AAPL`
-  String normalizeSymbolCandidate(final String symbolOrName) {
+  String normalizeSymbolCandidate(String symbolOrName) {
     final String trimmed = symbolOrName.trim();
     if (trimmed.isEmpty) {
       return trimmed;
@@ -113,7 +113,7 @@ class Securities extends MoneyObjects<Security> {
   }
 
   /// Finds an existing security by symbol first, then by security name.
-  Security? getBySymbolOrName(final String symbolOrName) {
+  Security? getBySymbolOrName(String symbolOrName) {
     final String trimmed = symbolOrName.trim();
     if (trimmed.isEmpty) {
       return null;
@@ -127,7 +127,7 @@ class Securities extends MoneyObjects<Security> {
   ///
   /// If [name] is provided, it will be stored as the security's name field
   /// when creating a new security. Useful for preserving import descriptions.
-  Security getOrCreate(final String symbolToFind, {final String? name}) {
+  Security getOrCreate(String symbolToFind, {String? name}) {
     final String normalizedSymbol = normalizeSymbolCandidate(symbolToFind);
     Security? security = getBySymbolOrName(symbolToFind);
     if (security == null) {
@@ -151,7 +151,7 @@ class Securities extends MoneyObjects<Security> {
 
   // Retrieves the symbol of a Security object by its ID.
   /// Retrieves the symbol for a security by its ID; returns '(?)' if not found.
-  String getSymbolFromId(final int securityId) {
+  String getSymbolFromId(int securityId) {
     final Security? security = get(securityId);
     if (security == null) {
       return '(?)'; // Returns '(?)' if the Security is not found.

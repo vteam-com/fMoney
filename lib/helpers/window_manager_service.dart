@@ -29,8 +29,8 @@ class MyWindowManager extends WindowListener {
         // For Android, we need to opt-in
         PlatformDispatcher.instance.onError =
             (
-              final Object error,
-              final StackTrace stackTrace,
+              Object error,
+              StackTrace stackTrace,
             ) {
               AppLogger.error(
                 module: 'window_manager_service',
@@ -100,8 +100,8 @@ class MyWindowManager extends WindowListener {
 
   /// Safely gets double value from shared preferences.
   static double? getSafeDouble(
-    final SharedPreferences prefs,
-    final String key,
+    SharedPreferences prefs,
+    String key,
   ) {
     final Object? value = prefs.get(key);
     if (value is double) {
@@ -125,7 +125,7 @@ class MyWindowManager extends WindowListener {
   }
 
   /// Sets the application window size.
-  static void setAppWindowSize(final double width, final double height) {
+  static void setAppWindowSize(double width, double height) {
     windowManager.ensureInitialized().then((void _) {
       final WindowOptions windowOptions = WindowOptions(
         size: Size(width, height),

@@ -38,9 +38,9 @@ const double _transferPickerHeight = 80.0;
 /// All transactions are loaded in this class [Transaction] and [Split]
 class Transaction extends DataObject implements MergeableItem {
   Transaction({
-    final TransactionStatus status = TransactionStatus.none,
-    final int accountId = _unsetId,
-    required final DateTime? date,
+    TransactionStatus status = TransactionStatus.none,
+    int accountId = _unsetId,
+    required DateTime? date,
   }) {
     // assert(date != null);
     this.fieldAccountId.value = accountId;
@@ -50,10 +50,10 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   factory Transaction.fromDateDescriptionAmount(
-    final dynamic account,
-    final DateTime date,
-    final String description,
-    final double amount,
+    dynamic account,
+    DateTime date,
+    String description,
+    double amount,
   ) {
     final dynamic payee = DataAbstract.instance.findOrCreateNewPayee(
       description,
@@ -69,7 +69,7 @@ class Transaction extends DataObject implements MergeableItem {
     return t;
   }
 
-  factory Transaction.fromJSon(final MyJson json, final double runningBalance) {
+  factory Transaction.fromJSon(MyJson json, double runningBalance) {
     final Transaction t = Transaction(date: json.getDate(SharedDomainStrings.domainString044));
     // 0 ID
     t.fieldId.value = json.getInt(SharedDomainStrings.domainString057, _unsetId);
@@ -156,10 +156,10 @@ class Transaction extends DataObject implements MergeableItem {
     align: TextAlign.left,
     footer: FooterType.count,
     defaultValue: _unsetId,
-    getValueForDisplay: (final DataInterface instance) => DataAbstract.instance.getAccountName(
+    getValueForDisplay: (DataInterface instance) => DataAbstract.instance.getAccountName(
       (instance as Transaction).fieldAccountId.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldAccountId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldAccountId.value,
     // setValue: (MoneyObject instance, dynamic newValue) => (instance as Transaction).fieldAccountId.value = newValue,
   );
 
@@ -168,14 +168,14 @@ class Transaction extends DataObject implements MergeableItem {
   FieldMoney fieldAmount = FieldMoney(
     name: columnIdAmount,
     serializeName: SharedDomainStrings.domainString017,
-    getValueForDisplay: (final DataInterface instance) => AmountModel(
+    getValueForDisplay: (DataInterface instance) => AmountModel(
       amount: (instance as Transaction).fieldAmount.value.asDouble(),
       iso4217: instance.currency,
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldAmount.value.asDouble(),
-    setValue: (final DataInterface instance, dynamic newValue) =>
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldAmount.value.asDouble(),
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldAmount.value.setAmount(newValue),
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Transaction).fieldAmount.value.asDouble(),
       (b as Transaction).fieldAmount.value.asDouble(),
       ascending,
@@ -191,13 +191,13 @@ class Transaction extends DataObject implements MergeableItem {
     name: columnIdAmountNormalized,
     columnWidth: ColumnWidth.small,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => AmountModel(
+    getValueForDisplay: (DataInterface instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.fieldAmount.value.asDouble(),
       ),
       iso4217: Constants.defaultCurrency,
     ),
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Transaction).fieldAmount.value.asDouble(),
       (b as Transaction).fieldAmount.value.asDouble(),
       ascending,
@@ -210,7 +210,7 @@ class Transaction extends DataObject implements MergeableItem {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => AmountModel(
+    getValueForDisplay: (DataInterface instance) => AmountModel(
       amount: (instance as Transaction).balance,
       iso4217: instance.currency,
     ),
@@ -222,13 +222,13 @@ class Transaction extends DataObject implements MergeableItem {
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => AmountModel(
+    getValueForDisplay: (DataInterface instance) => AmountModel(
       amount: (instance as Transaction).getNormalizedAmount(
         instance.balance,
       ),
       iso4217: Constants.defaultCurrency,
     ),
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Transaction).balance,
       (b as Transaction).balance,
       ascending,
@@ -240,10 +240,10 @@ class Transaction extends DataObject implements MergeableItem {
   FieldDate fieldBudgetBalanceDate = FieldDate(
     name: SharedDomainStrings.domainString116,
     serializeName: SharedDomainStrings.domainString116,
-    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
   );
@@ -258,7 +258,7 @@ class Transaction extends DataObject implements MergeableItem {
     name: SharedDomainStrings.domainString029,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: _unsetId,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       final Transaction t = instance as Transaction;
 
       final int effectiveCategoryId = t.possibleMatchingCategoryId == _unsetId
@@ -279,14 +279,14 @@ class Transaction extends DataObject implements MergeableItem {
                 changeCategory(t, t.possibleMatchingCategoryId);
               },
         onChooseCategory: t.fieldCategoryId.value == _unsetId
-            ? (final BuildContext context) {
+            ? (BuildContext context) {
                 t.possibleMatchingCategoryId = _unsetId;
                 showPopupSelection(
                   title: SharedDomainStrings.domainString029,
                   context: context,
                   items: DataAbstract.instance.getCategoriesAsStrings(),
                   selectedItem: '',
-                  onSelected: (final String text) {
+                  onSelected: (String text) {
                     DataAbstract.instance.changeCategoryFromCategoryName(t, text);
                   },
                 );
@@ -300,18 +300,18 @@ class Transaction extends DataObject implements MergeableItem {
         child: Tooltip(message: categoryName, child: categoryWidget),
       );
     },
-    getValueForReading: (final DataInterface instance) => (instance as Transaction).categoryName,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    getValueForReading: (DataInterface instance) => (instance as Transaction).categoryName,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Transaction).categoryName,
       (b as Transaction).categoryName,
       ascending,
     ),
-    setValue: (final DataInterface instance, dynamic newValue) =>
+    setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldCategoryId.value = newValue as int,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           (instance as Transaction);
@@ -349,8 +349,8 @@ class Transaction extends DataObject implements MergeableItem {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.count,
-    getValueForReading: (final DataInterface instance) => (instance as Transaction).currency,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForReading: (DataInterface instance) => (instance as Transaction).currency,
+    getValueForDisplay: (DataInterface instance) {
       return buildCurrencyWidget((instance as Transaction).currency);
     },
   );
@@ -360,12 +360,12 @@ class Transaction extends DataObject implements MergeableItem {
   FieldDate fieldDateTime = FieldDate(
     name: SharedDomainStrings.domainString044,
     serializeName: SharedDomainStrings.domainString044,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldDateTime.value,
-    getValueForSerialization: (final DataInterface instance) =>
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldDateTime.value,
+    getValueForSerialization: (DataInterface instance) =>
         dateToSqliteFormat((instance as Transaction).fieldDateTime.value),
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           return PickerEditBoxDate(
@@ -383,7 +383,7 @@ class Transaction extends DataObject implements MergeableItem {
         },
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldDateTime.value = attemptToGetDateFromText(newValue as String),
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) =>
+    sort: (DataInterface a, DataInterface b, bool ascending) =>
         sortByDateTime(a as Transaction, b as Transaction, ascending),
   );
 
@@ -392,8 +392,8 @@ class Transaction extends DataObject implements MergeableItem {
   FieldString fieldFitid = FieldString(
     name: SharedDomainStrings.domainString051,
     serializeName: SharedDomainStrings.domainString051,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFitid.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldFitid.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldFitid.value,
   );
 
   /// Flags
@@ -402,14 +402,14 @@ class Transaction extends DataObject implements MergeableItem {
     name: SharedDomainStrings.domainString055,
     serializeName: SharedDomainStrings.domainString055,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldFlags.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldFlags.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldFlags.value,
   );
 
   /// ID
   /// SQLite  0|Id|bigint|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).uniqueId,
   );
 
   /// Memo
@@ -417,8 +417,8 @@ class Transaction extends DataObject implements MergeableItem {
   FieldString fieldMemo = FieldString(
     name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldMemo.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldMemo.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldMemo.value = newValue as String,
   );
@@ -429,7 +429,7 @@ class Transaction extends DataObject implements MergeableItem {
     name: 'Merge Date',
     serializeName: SharedDomainStrings.domainString087,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldMergeDate.value,
     ),
   );
@@ -440,8 +440,8 @@ class Transaction extends DataObject implements MergeableItem {
     name: 'Ref',
     serializeName: SharedDomainStrings.domainString092,
     columnWidth: ColumnWidth.nano,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldNumber.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldNumber.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldNumber.value,
   );
 
   /// OriginalPayee
@@ -450,8 +450,8 @@ class Transaction extends DataObject implements MergeableItem {
   FieldString fieldOriginalPayee = FieldString(
     name: 'Original Payee',
     serializeName: SharedDomainStrings.domainString100,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldOriginalPayee.value,
   );
 
   FieldString fieldPaidOn = FieldString(
@@ -460,7 +460,7 @@ class Transaction extends DataObject implements MergeableItem {
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       return (instance as Transaction).fieldPaidOn.value;
     },
   );
@@ -475,26 +475,26 @@ class Transaction extends DataObject implements MergeableItem {
     footer: FooterType.count,
     align: TextAlign.left,
     columnWidth: ColumnWidth.largest,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Transaction).payeeName,
       (b as Transaction).payeeName,
       ascending,
     ),
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       return transactionBuildPayeeOrTransferWidget(instance as Transaction);
     },
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldPayee.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldPayee.value,
     setValue: (DataInterface instance, dynamic newValue) {
-      instance = instance as Transaction;
-      instance.stashOriginalPayee();
+      final Transaction transaction = instance as Transaction;
+      transaction.stashOriginalPayee();
       if (newValue == _unsetId || newValue == DataAbstract.instance.getTransferCategoryId()) {
         // -1 means no payee, this is a Transfer?
         // TODO - implement was solution given that the call back here only has one value use for the Payee ID
       } else {
         // Payee
-        instance.fieldPayee.value = newValue as int; // Payee Id
-        instance.fieldTransfer.value = _unsetId;
-        instance.instanceOfTransfer = null;
+        transaction.fieldPayee.value = newValue as int; // Payee Id
+        transaction.fieldTransfer.value = _unsetId;
+        transaction.instanceOfTransfer = null;
       }
     },
     getEditWidget:
@@ -583,10 +583,10 @@ class Transaction extends DataObject implements MergeableItem {
   FieldDate fieldReconciledDate = FieldDate(
     name: SharedDomainStrings.domainString116,
     serializeName: SharedDomainStrings.domainString116,
-    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
   );
@@ -596,10 +596,9 @@ class Transaction extends DataObject implements MergeableItem {
   FieldMoney fieldSalesTax = FieldMoney(
     name: 'Sales Tax',
     serializeName: SharedDomainStrings.domainString121,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldSalesTax.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Transaction).fieldSalesTax.value.asDouble(),
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByValue(
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldSalesTax.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldSalesTax.value.asDouble(),
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Transaction).fieldSalesTax.value.asDouble(),
       (b as Transaction).fieldSalesTax.value.asDouble(),
       ascending,
@@ -616,11 +615,11 @@ class Transaction extends DataObject implements MergeableItem {
     useAsDetailPanels: defaultCallbackValueFalse,
     name: columnIdStatus,
     serializeName: SharedDomainStrings.domainString128,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction)._buildStatusButtonToggle(),
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldStatus.value.index,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction)._buildStatusButtonToggle(),
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldStatus.value.index,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldStatus.value = newValue as TransactionStatus,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       transactionStatusToLetter((a as Transaction).fieldStatus.value),
       transactionStatusToLetter((b as Transaction).fieldStatus.value),
       ascending,
@@ -634,8 +633,8 @@ class Transaction extends DataObject implements MergeableItem {
     serializeName: SharedDomainStrings.domainString144,
     defaultValue: _unsetId,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransfer.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldTransfer.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldTransfer.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldTransfer.value,
   );
 
   /// Transfer Split
@@ -644,8 +643,8 @@ class Transaction extends DataObject implements MergeableItem {
     name: SharedDomainStrings.domainString145,
     serializeName: SharedDomainStrings.domainString145,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldTransferSplit.value,
   );
 
   /// cache instances of related MoneyObjects
@@ -713,7 +712,7 @@ class Transaction extends DataObject implements MergeableItem {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Transaction> _fields = Fields<Transaction>();
   static final Fields<Transaction> _fieldsForColumns = Fields<Transaction>();
@@ -779,7 +778,7 @@ class Transaction extends DataObject implements MergeableItem {
   String get categoryName => DataAbstract.instance.getCategoryNameFromId(this.fieldCategoryId.value);
 
   /// Changes the category for the given transaction and notifies listeners.
-  static void changeCategory(dynamic t, final int categoryId) {
+  static void changeCategory(dynamic t, int categoryId) {
     // record the change
     (t as Transaction).stashValueBeforeEditing();
 
@@ -847,7 +846,7 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   /// Returns payee or transfer caption text for UI display.
-  String getPayeeOrTransferCaption({final bool showAccount = false}) {
+  String getPayeeOrTransferCaption({bool showAccount = false}) {
     return transactionGetPayeeOrTransferCaption(this, showAccount: showAccount);
   }
 
@@ -909,9 +908,9 @@ class Transaction extends DataObject implements MergeableItem {
 
   /// Sorts by date first, then unique id as deterministic tie-breaker.
   static int sortByDateTime(
-    final dynamic a,
-    final dynamic b,
-    final bool ascending,
+    dynamic a,
+    dynamic b,
+    bool ascending,
   ) {
     return transactionSortByDateTime(a as Transaction, b as Transaction, ascending);
   }

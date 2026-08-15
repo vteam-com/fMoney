@@ -45,7 +45,7 @@ class ChatMessageWidget extends StatefulWidget {
 class _ChatMessageWidgetState extends State<ChatMessageWidget> {
   /// Builds the chat message bubble with footer actions.
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final ChatMessage message = widget.message;
     final bool isUser = message.type == ChatFrom.user;
 
@@ -186,7 +186,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
   }
 
   /// Shows a popup with the full JSON prompt payload sent to the AI.
-  void _showPromptPopup(final Map<String, dynamic> jsonAsTextPayloadSentToOllama) {
+  void _showPromptPopup(Map<String, dynamic> jsonAsTextPayloadSentToOllama) {
     final String jsonAsText = const JsonEncoder.withIndent('  ').convert(jsonAsTextPayloadSentToOllama);
 
     showDialog<void>(

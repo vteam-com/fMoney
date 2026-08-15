@@ -3,7 +3,7 @@ import 'package:money/helpers/constants_helper.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 /// Display a message to the user
-void messageBox(final BuildContext context, final String message) {
+void messageBox(BuildContext context, String message) {
   showDialog<dynamic>(
     context: context,
     builder: (BuildContext _) {

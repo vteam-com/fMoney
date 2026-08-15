@@ -260,7 +260,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         ),
       ],
       selectedId: _userChoiceNativeVsUSD,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         setState(() {
           _userChoiceNativeVsUSD = newSelection;
           convertAndNotify(context, _textToParse);
@@ -311,7 +311,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
             ),
           )
           .toList(),
-      onChanged: (final String? value) {
+      onChanged: (String? value) {
         setState(() {
           userChoiceOfDateFormat = value!;
           convertAndNotify(context, _textToParse);
@@ -329,7 +329,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         ButtonSegment<int>(value: 1, label: Text(AppL10n.tr(AppTranslationKeys.debit))),
       ],
       selectedId: _userChoiceDebitVsCredit,
-      onSelectionChanged: (final int newSelection) {
+      onSelectionChanged: (int newSelection) {
         setState(() {
           _userChoiceDebitVsCredit = newSelection;
           convertAndNotify(context, _textToParse);
@@ -369,7 +369,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   }
 
   /// Resolves the initial currency format selector value from [preferredCurrencyCode].
-  int? _resolvePreferredCurrencyFormat(final String? preferredCurrencyCode) {
+  int? _resolvePreferredCurrencyFormat(String? preferredCurrencyCode) {
     if (preferredCurrencyCode == null) {
       return null;
     }

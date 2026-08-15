@@ -50,7 +50,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         // Table Header
@@ -60,7 +60,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
           sortByColumn: _sortBy,
           sortAscending: _sortAscending,
           columnWidths: _columnWidths,
-          onTap: (final int index) {
+          onTap: (int index) {
             setState(() {
               if (_sortBy == index) {
                 // same column tap/click again, change the sort order
@@ -79,7 +79,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
             selectedItemIds: ValueNotifier<List<int>>(<int>[]),
             onSelectionChanged: (int _) {},
             columnWidths: _columnWidths,
-            onLongPress: (final BuildContext context2, final int uniqueId) {
+            onLongPress: (BuildContext context2, int uniqueId) {
               final TransactionSplit? instance = widget.splits.firstWhereOrNull(
                 (TransactionSplit t) => t.uniqueId == uniqueId,
               );

@@ -16,7 +16,7 @@ import 'package:path/path.dart' as path;
 /// Searches through the provided file paths and returns the path of the first
 /// file with a `.pdf` extension (case-insensitive). Returns `null` if no PDF
 /// file is found.
-String? pickFirstPdfPath(final List<String> filePaths) {
+String? pickFirstPdfPath(List<String> filePaths) {
   for (final String filePath in filePaths) {
     if (path.extension(filePath).toLowerCase() == '.pdf') {
       return filePath;
@@ -33,7 +33,7 @@ String? pickFirstPdfPath(final List<String> filePaths) {
 ///
 /// Returns `true` if the file appears to be an investment CSV export,
 /// `false` otherwise or if an error occurs during reading/parsing.
-Future<bool> isInvestmentCSVFile(final String filePath) async {
+Future<bool> isInvestmentCSVFile(String filePath) async {
   try {
     final File file = File(filePath);
     if (!await file.exists()) {
@@ -53,7 +53,7 @@ Future<bool> isInvestmentCSVFile(final String filePath) async {
     }
 
     final List<String> headers = csvTable.first
-        .map((final dynamic cell) => cell == null ? '' : cell.toString().trim())
+        .map((dynamic cell) => cell == null ? '' : cell.toString().trim())
         .cast<String>()
         .toList();
     if (headers.isNotEmpty) {
@@ -85,8 +85,8 @@ Future<bool> isInvestmentCSVFile(final String filePath) async {
 /// )
 /// ```
 Future<void> handleDroppedFiles(
-  final BuildContext context,
-  final List<String> filePaths,
+  BuildContext context,
+  List<String> filePaths,
 ) async {
   final String? pdfPath = pickFirstPdfPath(filePaths);
   if (pdfPath != null) {

@@ -30,7 +30,7 @@ class MoneyObjects<T> {
   final Map<num, DataObject> _map = <num, DataObject>{};
 
   /// Appends an existing money object to the collection.
-  void appendMoneyObject(final DataObject moneyObject) {
+  void appendMoneyObject(DataObject moneyObject) {
     // assert(moneyObject.uniqueId != -1);
 
     _list.add(moneyObject);
@@ -39,7 +39,7 @@ class MoneyObjects<T> {
 
   /// Appends a new money object, assigns it a unique ID, and optionally fires notifications.
   DataObject appendNewMoneyObject(
-    final DataObject moneyObject, {
+    DataObject moneyObject, {
     bool fireNotification = true,
   }) {
     assert(moneyObject.uniqueId == _unsetId);
@@ -64,12 +64,12 @@ class MoneyObjects<T> {
   }
 
   /// Returns true if an object with [id] exists in the collection.
-  bool containsKey(final int id) {
+  bool containsKey(int id) {
     return _map.containsKey(id);
   }
 
   /// Remove/tag a Transaction instance from the list in memory
-  void deleteItem(final DataObject itemToDelete) {
+  void deleteItem(DataObject itemToDelete) {
     DataObject.onMutationChanged?.call(
       mutation: MutationType.deleted,
       moneyObject: itemToDelete,
@@ -87,7 +87,7 @@ class MoneyObjects<T> {
   }
 
   /// Returns the item with [id], or null if not found.
-  T? get(final int id) {
+  T? get(int id) {
     if (_map.containsKey(id)) {
       return _map[id] as T;
     }
@@ -96,8 +96,8 @@ class MoneyObjects<T> {
 
   /// Builds a CSV document from a list of money objects.
   static String getCsvFromList(
-    final List<DataObject> moneyObjects, {
-    final String valueSeparator = ',',
+    List<DataObject> moneyObjects, {
+    String valueSeparator = ',',
     bool forSerialization = true,
   }) {
     final StringBuffer csv = StringBuffer();
@@ -130,8 +130,8 @@ class MoneyObjects<T> {
 
   /// Returns the CSV header row for the given [declarations].
   static String getCsvHeader(
-    final FieldDefinitions declarations,
-    final bool forSerialization,
+    FieldDefinitions declarations,
+    bool forSerialization,
   ) {
     final List<String> headerList = <String>[];
 
@@ -145,15 +145,15 @@ class MoneyObjects<T> {
 
   /// Returns the internal list sorted by unique ID.
   List<DataObject> getListSortedById() {
-    _list.sort((final DataObject a, final DataObject b) {
+    _list.sort((DataObject a, DataObject b) {
       return sortByValue(a.uniqueId, b.uniqueId, true);
     });
     return _list;
   }
 
   /// Returns objects that have the given mutation type.
-  List<DataObject> getMutatedObjects(final MutationType typeOfMutation) {
-    return _list.where((final DataObject element) => element.mutation == typeOfMutation).toList();
+  List<DataObject> getMutatedObjects(MutationType typeOfMutation) {
+    return _list.where((DataObject element) => element.mutation == typeOfMutation).toList();
   }
 
   /// Returns the next available unique ID.
@@ -166,7 +166,7 @@ class MoneyObjects<T> {
   }
 
   /// Must be override by derived class
-  DataObject instanceFromJson(final MyJson _ /* json */) {
+  DataObject instanceFromJson(MyJson _ /* json */) {
     assert(false, SharedDomainStrings.domainString157);
     return DataObject();
   }
@@ -178,8 +178,8 @@ class MoneyObjects<T> {
 
   /// Returns true if [field] should be included based on serialization mode.
   static bool isFieldMatchingCondition(
-    final Field<dynamic> field,
-    final bool forSerialization,
+    Field<dynamic> field,
+    bool forSerialization,
   ) {
     return !forSerialization || field.serializeName.isNotEmpty;
   }
@@ -198,7 +198,7 @@ class MoneyObjects<T> {
   }
 
   /// Loads objects from JSON rows, replacing any existing content.
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     for (final MyJson row in rows) {
       final DataObject moneyObject = instanceFromJson(row);
@@ -212,7 +212,7 @@ class MoneyObjects<T> {
   }
 
   /// Saves mutated objects to SQL via the provided database interface.
-  bool saveSql(final DatabaseInterface db, final String tableName) {
+  bool saveSql(DatabaseInterface db, String tableName) {
     for (final DataObject item in _iterableListOfMoneyObject(true)) {
       switch (item.mutation) {
         case MutationType.none:
@@ -245,9 +245,9 @@ class MoneyObjects<T> {
   /// If the field is found and has a sort function then use it, else default to sortByString
   static List<DataObject> sortList(
     List<DataObject> list,
-    final FieldDefinitions fieldDefinitions,
-    final int sortBy,
-    final bool sortAscending,
+    FieldDefinitions fieldDefinitions,
+    int sortBy,
+    bool sortAscending,
   ) {
     final Field<dynamic>? fieldDefinition = isIndexInRange(fieldDefinitions, sortBy) ? fieldDefinitions[sortBy] : null;
 
@@ -266,7 +266,7 @@ class MoneyObjects<T> {
     int Function(DataObject, DataObject, bool) sortWith,
     bool ascending,
   ) {
-    list.sort((final DataObject a, final DataObject b) {
+    list.sort((DataObject a, DataObject b) {
       int result = sortWith(a, b, ascending);
       if (result == _zeroInt) {
         result = a.uniqueId.compareTo(b.uniqueId);
@@ -282,14 +282,14 @@ class MoneyObjects<T> {
 
   /// Returns the field values for [item] as a single separated-values row.
   static String toStringAsSeparatedValues(
-    final FieldDefinitions fieldDefinitions,
-    final DataObject item, [
-    final String valueSeparator = ',',
-    final bool forSerialization = true,
+    FieldDefinitions fieldDefinitions,
+    DataObject item, [
+    String valueSeparator = ',',
+    bool forSerialization = true,
   ]) {
     return fieldDefinitions
-        .where((final Field<dynamic> field) => isFieldMatchingCondition(field, forSerialization))
-        .map((final Field<dynamic> field) {
+        .where((Field<dynamic> field) => isFieldMatchingCondition(field, forSerialization))
+        .map((Field<dynamic> field) {
           final dynamic value = field.getValueForSerialization == defaultCallbackValue || !forSerialization
               ? item.toReadableString(field)
               : field.getValueForSerialization(item);
@@ -299,7 +299,7 @@ class MoneyObjects<T> {
   }
 
   /// Escapes a single CSV field value by doubling embedded quote characters.
-  static String _escapeCsvValue(final Object? value) {
+  static String _escapeCsvValue(Object? value) {
     final String text = value?.toString() ?? SharedStrings.empty;
     return text.replaceAll('"', '""');
   }
@@ -404,15 +404,15 @@ class MoneyObjects<T> {
       return _list;
     }
     return _list.where(
-      (final DataObject item) => item.mutation != MutationType.deleted,
+      (DataObject item) => item.mutation != MutationType.deleted,
     );
   }
 }
 
 /// Finds the first object with [uniqueId] in [listToSearch].
 DataObject? findObjectById(
-  final int? uniqueId,
-  final List<DataObject> listToSearch,
+  int? uniqueId,
+  List<DataObject> listToSearch,
 ) {
   if (uniqueId == null) {
     return null;

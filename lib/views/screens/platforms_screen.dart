@@ -30,7 +30,7 @@ class _PlatformsPageState extends State<PlatformsPage> {
   }
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: Text(AppL10n.tr(AppTranslationKeys.availableOn))),
     body: Center(
       child: SizedBox(
@@ -97,10 +97,10 @@ class _PlatformsPageState extends State<PlatformsPage> {
 
   /// Builds a platform item widget with name, image, description, and URL.
   Widget _buildPlatformItem(
-    final String name,
-    final String image,
-    final String description,
-    final String url,
+    String name,
+    String image,
+    String description,
+    String url,
   ) => MaterialButton(
     key: ValueKey<String>(name),
     elevation: _platformButtonElevation.toDouble(),

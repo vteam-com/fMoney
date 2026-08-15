@@ -16,23 +16,23 @@ class MyDatabaseImplementation {
   void dispose() {}
 
   /// No-op execute method for web environment.
-  void execute(final String query) {}
+  void execute(String query) {}
 
   /// SQL Delete
-  void itemDelete(final String tableName, final String whereClause) {}
+  void itemDelete(String tableName, String whereClause) {}
 
   /// SQL Insert
-  void itemInsert(final String tableName, final MyJson data) {}
+  void itemInsert(String tableName, MyJson data) {}
 
   /// SQL Update
   void itemUpdate(
-    final String tableName,
-    final MyJson jsonMap,
-    final String whereClause,
+    String tableName,
+    MyJson jsonMap,
+    String whereClause,
   ) {}
 
   /// Loads database from file bytes in web environment using JavaScript.
-  Future<void> load(final String fileToOpen, final Uint8List fileBytes) async {
+  Future<void> load(String fileToOpen, Uint8List fileBytes) async {
     try {
       // Pass byte array to JavaScript function to load the database.
       await _callJsPromise(
@@ -58,7 +58,7 @@ class MyDatabaseImplementation {
   }
 
   /// Executes SQL query and returns results as list of maps in web environment.
-  Future<List<Map<String, dynamic>>> select(final String query) async {
+  Future<List<Map<String, dynamic>>> select(String query) async {
     try {
       final JSAny? jsObjectResult = await _callJsPromise(
         'executeSql',
@@ -84,7 +84,7 @@ class MyDatabaseImplementation {
       // Convert the first result map to List<Map<String, dynamic>>.
       return _convertJsResultToList(
         firstResult.map(
-          (final dynamic key, final dynamic value) => MapEntry<String, dynamic>(key.toString(), value),
+          (dynamic key, dynamic value) => MapEntry<String, dynamic>(key.toString(), value),
         ),
       );
     } catch (e, stackTrace) {
@@ -100,7 +100,7 @@ class MyDatabaseImplementation {
   }
 
   /// Check if a table exists in the database
-  Future<bool> tableExists(final String tableName) async {
+  Future<bool> tableExists(String tableName) async {
     try {
       final List<Map<String, dynamic>> list = await select(
         SharedSqlStrings.sqlSelectTableNames,
@@ -120,8 +120,8 @@ class MyDatabaseImplementation {
 
   /// Calls a JavaScript function on `globalThis` and awaits its Promise result.
   Future<JSAny?> _callJsPromise(
-    final String method,
-    final List<JSAny?> arguments,
+    String method,
+    List<JSAny?> arguments,
   ) async {
     final JSAny? result = globalContext.callMethodVarArgs<JSAny?>(
       method.toJS,
@@ -138,7 +138,7 @@ class MyDatabaseImplementation {
 
   /// Converts SQL.js result map to a typed list of row maps.
   List<Map<String, dynamic>> _convertJsResultToList(
-    final Map<String, dynamic> jsResult,
+    Map<String, dynamic> jsResult,
   ) {
     final List<String> columns = List<String>.from(
       jsResult['columns'] as List<dynamic>,

@@ -5,7 +5,7 @@ const double _diffPadding = 2;
 const double _diffFontSize = 10;
 
 /// Wraps text in a red background to indicate an old value.
-Widget diffTextOldValue(final String text) {
+Widget diffTextOldValue(String text) {
   return diffText(
     text,
     Colors.red.withValues(alpha: _diffBackgroundAlpha), // Transparent red background color
@@ -15,7 +15,7 @@ Widget diffTextOldValue(final String text) {
 }
 
 /// Wraps text in a green background to indicate a new value.
-Widget diffTextNewValue(final String text) {
+Widget diffTextNewValue(String text) {
   return diffText(
     text,
     Colors.green.withValues(alpha: _diffBackgroundAlpha), // Transparent red background color
@@ -26,10 +26,10 @@ Widget diffTextNewValue(final String text) {
 
 /// Wraps text in a colored background for diff display.
 Widget diffText(
-  final String text,
-  final Color backgroundColor,
-  final Color _, // textColor,
-  final bool _, // lineTrough,
+  String text,
+  Color backgroundColor,
+  Color _, // textColor,
+  bool _, // lineTrough,
 ) {
   return Container(
     padding: const EdgeInsets.all(_diffPadding),

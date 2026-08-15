@@ -26,7 +26,7 @@ class Account extends DataObject {
   Account();
 
   /// Constructor from a SQLite row
-  factory Account.fromJson(final MyJson row) {
+  factory Account.fromJson(MyJson row) {
     return Account()
       ..fieldId.value = row.getInt(SharedDomainStrings.domainString057)
       ..fieldAccountId.value = row.getString(SharedDomainStrings.domainString013)
@@ -64,17 +64,16 @@ class Account extends DataObject {
   FieldString fieldAccountId = FieldString(
     name: 'Account ID',
     serializeName: SharedDomainStrings.domainString013,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldAccountId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldAccountId.value,
-    setValue: (final DataInterface instance, dynamic value) =>
-        (instance as Account).fieldAccountId.value = value as String,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldAccountId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldAccountId.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldAccountId.value = value as String,
   );
 
   /// Balance in Native currency
   FieldMoney fieldBalanceNative = FieldMoney(
     name: 'BalanceN',
     footer: FooterType.range,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       final Account accountInstance = instance as Account;
       return AmountModel(
         amount: accountInstance.balance,
@@ -88,7 +87,7 @@ class Account extends DataObject {
     name: 'Balance(USD)',
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       final Account accountInstance = instance as Account;
       return AmountModel(
         amount: accountInstance.getCurrencyRatio() * accountInstance.balance,
@@ -104,11 +103,11 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString036,
     type: FieldType.text,
     defaultValue: 0,
-    useAsDetailPanels: (final DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final DataInterface instance) => DataObject.getCategoryName(
+    useAsDetailPanels: (DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
+    getValueForDisplay: (DataInterface instance) => DataObject.getCategoryName(
       (instance as Account).fieldCategoryIdForInterest.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldCategoryIdForInterest.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldCategoryIdForInterest.value,
   );
 
   /// categoryIdForPrincipal
@@ -118,11 +117,11 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString037,
     type: FieldType.text,
     defaultValue: 0,
-    useAsDetailPanels: (final DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
-    getValueForDisplay: (final DataInterface instance) => DataObject.getCategoryName(
+    useAsDetailPanels: (DataInterface instance) => (instance as Account).fieldType.value == AccountType.loan,
+    getValueForDisplay: (DataInterface instance) => DataObject.getCategoryName(
       (instance as Account).fieldCategoryIdForPrincipal.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldCategoryIdForPrincipal.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldCategoryIdForPrincipal.value,
   );
 
   // ------------------------------------------------
@@ -133,7 +132,7 @@ class Account extends DataObject {
     name: SharedDomainStrings.domainString143,
     columnWidth: ColumnWidth.tiny,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldCount.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldCount.value,
   );
 
   /// Currency
@@ -144,13 +143,12 @@ class Account extends DataObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
-    getValueForDisplay: (final DataInterface instance) => buildCurrencyWidget(
+    getValueForDisplay: (DataInterface instance) => buildCurrencyWidget(
       (instance as Account).getAccountCurrencyAsText(),
     ),
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
-    setValue: (final DataInterface instance, dynamic value) =>
-        (instance as Account).fieldCurrency.value = value as String,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    getValueForSerialization: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
+    setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldCurrency.value = value as String,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Account).getAccountCurrencyAsText(),
       (b as Account).getAccountCurrencyAsText(),
       ascending,
@@ -162,10 +160,9 @@ class Account extends DataObject {
   FieldString fieldDescription = FieldString(
     name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
-    setValue: (final DataInterface instance, dynamic value) =>
-        (instance as Account).fieldDescription.value = value as String,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldDescription.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldDescription.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldDescription.value = value as String,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldDescription.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldDescription.value,
   );
 
   /// Flags
@@ -173,14 +170,14 @@ class Account extends DataObject {
   FieldInt fieldFlags = FieldInt(
     serializeName: SharedDomainStrings.domainString055,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldFlags.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldFlags.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldFlags.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldFlags.value,
   );
 
   // Id
   // 0|Id|INT|0||1
   FieldId fieldId = FieldId(
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).uniqueId,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).uniqueId,
   );
 
   Field<bool> fieldIsAccountOpen = Field<bool>(
@@ -188,8 +185,8 @@ class Account extends DataObject {
     defaultValue: false,
     useAsDetailPanels: defaultCallbackValueTrue,
     type: FieldType.toggle,
-    getValueForDisplay: (final DataInterface instance) => !(instance as Account).isClosed(),
-    setValue: (final DataInterface instance, dynamic value) {
+    getValueForDisplay: (DataInterface instance) => !(instance as Account).isClosed(),
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Account).isOpen = value as bool;
       DataObject.onMutationChanged?.call(
         mutation: MutationType.changed,
@@ -202,10 +199,10 @@ class Account extends DataObject {
   /// 14|LastBalance|datetime|0||0
   FieldDate fieldLastBalance = FieldDate(
     serializeName: SharedDomainStrings.domainString078,
-    getValueForDisplay: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
   );
@@ -214,8 +211,8 @@ class Account extends DataObject {
   /// 11|LastSync|datetime|0||0
   FieldDate fieldLastSync = FieldDate(
     serializeName: SharedDomainStrings.domainString081,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldLastSync.value,
-    getValueForSerialization: (final DataInterface instance) => dateToIso8601OrDefaultString(
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldLastSync.value,
+    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastSync.value,
     ),
   );
@@ -227,10 +224,10 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.large,
     type: FieldType.widget,
-    getValueForDisplay: (final DataInterface instance) => TokenText((instance as Account).fieldName.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldName.value,
-    setValue: (final DataInterface instance, dynamic value) => (instance as Account).fieldName.value = value as String,
-    sort: (final DataInterface a, final DataInterface b, final bool ascending) => sortByString(
+    getValueForDisplay: (DataInterface instance) => TokenText((instance as Account).fieldName.value),
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldName.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldName.value = value as String,
+    sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Account).fieldName.value,
       (b as Account).fieldName.value,
       ascending,
@@ -242,9 +239,9 @@ class Account extends DataObject {
   FieldString fieldOfxAccountId = FieldString(
     name: SharedDomainStrings.domainString095,
     serializeName: SharedDomainStrings.domainString095,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
-    setValue: (final DataInterface instance, dynamic value) =>
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
+    setValue: (DataInterface instance, dynamic value) =>
         (instance as Account).fieldOfxAccountId.value = value as String,
   );
 
@@ -253,7 +250,7 @@ class Account extends DataObject {
   FieldInt fieldOnlineAccount = FieldInt(
     name: SharedDomainStrings.domainString098,
     serializeName: SharedDomainStrings.domainString098,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldOnlineAccount.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOnlineAccount.value,
   );
 
   // 6 Open Balance
@@ -261,9 +258,8 @@ class Account extends DataObject {
   FieldMoney fieldOpeningBalance = FieldMoney(
     name: 'Opening Balance',
     serializeName: SharedDomainStrings.domainString099,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldOpeningBalance.value,
-    getValueForSerialization: (final DataInterface instance) =>
-        (instance as Account).fieldOpeningBalance.value.asDouble(),
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldOpeningBalance.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOpeningBalance.value.asDouble(),
   );
 
   /// ReconcileWarning
@@ -271,12 +267,12 @@ class Account extends DataObject {
   FieldInt fieldReconcileWarning = FieldInt(
     serializeName: SharedDomainStrings.domainString115,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldReconcileWarning.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldReconcileWarning.value,
   );
 
   FieldMoney fieldStockHoldingEstimation = FieldMoney(
     name: 'StockValue',
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldStockHoldingEstimation.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldStockHoldingEstimation.value,
   );
 
   /// SyncGuid
@@ -284,7 +280,7 @@ class Account extends DataObject {
   FieldString fieldSyncGuid = FieldString(
     serializeName: SharedDomainStrings.domainString132,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (final DataInterface instance) =>
+    getValueForSerialization: (DataInterface instance) =>
         // this field can not be blank, it needs to be a valid GUID or Null
         (instance as Account).fieldSyncGuid.value.isEmpty ? null : instance.fieldSyncGuid.value.isEmpty,
   );
@@ -298,11 +294,11 @@ class Account extends DataObject {
     name: SharedDomainStrings.domainString146,
     serializeName: SharedDomainStrings.domainString146,
     defaultValue: AccountType.checking,
-    getValueForDisplay: (final DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldType.value.index,
+    getValueForDisplay: (DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldType.value.index,
     getEditWidget:
         (
-          final DataInterface instance,
+          DataInterface instance,
           void Function(bool /* wasModified */) onEdited,
         ) {
           return pickerAccountType(
@@ -313,7 +309,7 @@ class Account extends DataObject {
             },
           );
         },
-    setValue: (final DataInterface instance, dynamic value) {
+    setValue: (DataInterface instance, dynamic value) {
       (instance as Account).fieldType.value = AccountType.values[value as int];
     },
   );
@@ -321,7 +317,7 @@ class Account extends DataObject {
   FieldDate fieldUpdatedOn = FieldDate(
     name: 'Updated',
     columnWidth: ColumnWidth.tiny,
-    getValueForDisplay: (final DataInterface instance) {
+    getValueForDisplay: (DataInterface instance) {
       if ((instance as Account).fieldLastSync.value == null) {
         return instance.fieldUpdatedOn.value;
       }
@@ -337,8 +333,8 @@ class Account extends DataObject {
   FieldString fieldWebSite = FieldString(
     name: SharedDomainStrings.domainString152,
     serializeName: SharedDomainStrings.domainString152,
-    getValueForDisplay: (final DataInterface instance) => (instance as Account).fieldWebSite.value,
-    getValueForSerialization: (final DataInterface instance) => (instance as Account).fieldWebSite.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldWebSite.value,
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldWebSite.value,
   );
 
   Map</*year */ int, /*balance*/ double> maxBalancePerYears = <int, double>{};
@@ -394,7 +390,7 @@ class Account extends DataObject {
   int get uniqueId => fieldId.value;
 
   @override
-  set uniqueId(final int value) => fieldId.value = value;
+  set uniqueId(int value) => fieldId.value = value;
 
   static final Fields<Account> _fields = Fields<Account>();
   static final Fields<Account> _fieldsForColumns = Fields<Account>();
@@ -455,7 +451,7 @@ class Account extends DataObject {
   }
 
   /// Returns the account name; empty string if null.
-  static String getName(final Account? instance) {
+  static String getName(Account? instance) {
     return instance == null ? '' : instance.fieldName.value;
   }
 
@@ -465,7 +461,7 @@ class Account extends DataObject {
   }
 
   /// Returns true if [bitIndex] is set in [value].
-  bool isBitOn(final int value, final int bitIndex) {
+  bool isBitOn(int value, int bitIndex) {
     return (value & bitIndex) == bitIndex;
   }
 
@@ -509,7 +505,7 @@ class Account extends DataObject {
   }
 
   /// Returns true if the account type matches any of the given [types].
-  bool matchType(final List<AccountType> types) {
+  bool matchType(List<AccountType> types) {
     if (types.isEmpty) {
       // All accounts except the fake ones
       return !isFakeAccount();

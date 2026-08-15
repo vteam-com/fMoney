@@ -240,7 +240,7 @@ class Data implements DataAbstract {
   }
 
   /// Deletes the given items and triggers mutation notifications.
-  void deleteItems(final List<DataObject> itemsToDelete) {
+  void deleteItems(List<DataObject> itemsToDelete) {
     for (final DataObject item in itemsToDelete) {
       notifyMutationChanged(
         mutation: MutationType.deleted,
@@ -263,7 +263,7 @@ class Data implements DataAbstract {
   }
 
   /// Groups mutated objects by type for pending changes UI.
-  List<MutationGroup> getMutationGroups(final MutationType typeOfMutation) {
+  List<MutationGroup> getMutationGroups(MutationType typeOfMutation) {
     final List<MutationGroup> allMutationGroups = <MutationGroup>[];
 
     for (final MoneyObjects<dynamic> moneyObjects in tables) {
@@ -367,7 +367,7 @@ class Data implements DataAbstract {
     int maxDays = _potentialTransferDefaultMaxDays,
     int maxResults = _potentialTransferDefaultMaxResults,
   }) {
-    transaction = transaction as Transaction;
+    final Transaction sourceTransaction = transaction as Transaction;
     final List<Transaction> eligibleTransactions = transactions
         .iterableList(includeDeleted: false)
         .where((Transaction t) => !t.isDeleted && !t.isTransfer)
@@ -378,18 +378,18 @@ class Data implements DataAbstract {
       maxDays: maxDays,
     );
 
-    final DateTime? sourceDateValue = transaction.fieldDateTime.value;
-    if (sourceDateValue == null || sameAccountOppositeMatchIds.contains(transaction.uniqueId)) {
+    final DateTime? sourceDateValue = sourceTransaction.fieldDateTime.value;
+    if (sourceDateValue == null || sameAccountOppositeMatchIds.contains(sourceTransaction.uniqueId)) {
       return <Transaction>[];
     }
 
     final DateTime sourceDate = sourceDateValue.startOfDay;
-    final double sourceAmount = transaction.fieldAmount.value.asDouble();
+    final double sourceAmount = sourceTransaction.fieldAmount.value.asDouble();
     final List<Transaction> candidates = eligibleTransactions.where((Transaction candidate) {
-      if (candidate.uniqueId == transaction.uniqueId) {
+      if (candidate.uniqueId == sourceTransaction.uniqueId) {
         return false;
       }
-      if (candidate.fieldAccountId.value == transaction.fieldAccountId.value) {
+      if (candidate.fieldAccountId.value == sourceTransaction.fieldAccountId.value) {
         return false;
       }
       if (sameAccountOppositeMatchIds.contains(candidate.uniqueId)) {
@@ -537,50 +537,50 @@ class Data implements DataAbstract {
     required dynamic transaction,
     required dynamic relatedTransaction,
   }) {
-    transaction = transaction as Transaction;
-    relatedTransaction = relatedTransaction as Transaction;
-    if (transaction.uniqueId == relatedTransaction.uniqueId) {
+    final Transaction sourceTransaction = transaction as Transaction;
+    final Transaction targetTransaction = relatedTransaction as Transaction;
+    if (sourceTransaction.uniqueId == targetTransaction.uniqueId) {
       return false;
     }
-    if (transaction.isDeleted || relatedTransaction.isDeleted) {
+    if (sourceTransaction.isDeleted || targetTransaction.isDeleted) {
       return false;
     }
-    if (transaction.isTransfer || relatedTransaction.isTransfer) {
+    if (sourceTransaction.isTransfer || targetTransaction.isTransfer) {
       return false;
     }
-    if (transaction.fieldAccountId.value == relatedTransaction.fieldAccountId.value) {
+    if (sourceTransaction.fieldAccountId.value == targetTransaction.fieldAccountId.value) {
       return false;
     }
     if (!_isOppositeAmountWithinTolerance(
-      transaction.fieldAmount.value.asDouble(),
-      relatedTransaction.fieldAmount.value.asDouble(),
+      sourceTransaction.fieldAmount.value.asDouble(),
+      targetTransaction.fieldAmount.value.asDouble(),
     )) {
       return false;
     }
 
-    transaction.stashValueBeforeEditing();
-    relatedTransaction.stashValueBeforeEditing();
+    sourceTransaction.stashValueBeforeEditing();
+    targetTransaction.stashValueBeforeEditing();
 
-    final Transfer transfer = transaction.fieldAmount.value.asDouble() < 0
-        ? Transfer(id: 0, source: transaction, relatedTransaction: relatedTransaction, isOrphan: false)
-        : Transfer(id: 0, source: relatedTransaction, relatedTransaction: transaction, isOrphan: false);
+    final Transfer transfer = sourceTransaction.fieldAmount.value.asDouble() < 0
+        ? Transfer(id: 0, source: sourceTransaction, relatedTransaction: targetTransaction, isOrphan: false)
+        : Transfer(id: 0, source: targetTransaction, relatedTransaction: sourceTransaction, isOrphan: false);
 
-    transaction.fieldPayee.value = categories.transfer.uniqueId;
-    transaction.fieldTransfer.value = relatedTransaction.uniqueId;
-    transaction.instanceOfTransfer = transfer;
+    sourceTransaction.fieldPayee.value = categories.transfer.uniqueId;
+    sourceTransaction.fieldTransfer.value = targetTransaction.uniqueId;
+    sourceTransaction.instanceOfTransfer = transfer;
 
-    relatedTransaction.fieldPayee.value = categories.transfer.uniqueId;
-    relatedTransaction.fieldTransfer.value = transaction.uniqueId;
-    relatedTransaction.instanceOfTransfer = transfer;
+    targetTransaction.fieldPayee.value = categories.transfer.uniqueId;
+    targetTransaction.fieldTransfer.value = sourceTransaction.uniqueId;
+    targetTransaction.instanceOfTransfer = transfer;
 
     notifyMutationChanged(
       mutation: MutationType.changed,
-      moneyObject: transaction,
+      moneyObject: sourceTransaction,
       recalculateBalances: false,
     );
     notifyMutationChanged(
       mutation: MutationType.changed,
-      moneyObject: relatedTransaction,
+      moneyObject: targetTransaction,
       recalculateBalances: true,
     );
     updateAll();
@@ -594,8 +594,8 @@ class Data implements DataAbstract {
 
   /// Ensures transfer linkage exists or updates it for the given transaction.
   void verifyApplyTransfer({
-    required final Transaction transaction,
-    required final Account? relatedAccount,
+    required Transaction transaction,
+    required Account? relatedAccount,
   }) {
     if (relatedAccount == null) {
       return; // nothing to check

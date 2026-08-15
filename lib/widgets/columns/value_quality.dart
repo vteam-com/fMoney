@@ -15,12 +15,11 @@ const int _sortByAmount = 2;
 
 /// Callback function type for checking if a transaction already exists in the system.
 /// This allows the value_parser.dart to be decoupled from data.dart dependencies.
-typedef TransactionExistsCallback =
-    bool Function({
-      required int accountId,
-      required DateTime dateTime,
-      required double amount,
-    });
+typedef TransactionExistsCallback = bool Function({
+  required int accountId,
+  required DateTime dateTime,
+  required double amount,
+});
 
 /// Represents value quality.
 class ValueQuality {
@@ -54,7 +53,7 @@ class ValueQuality {
   String asString() => valueAsString;
 
   /// Builds a styled amount widget or warning if parsing fails.
-  Widget valueAsAmountWidget(final BuildContext? context) {
+  Widget valueAsAmountWidget(BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, SharedStrings.placeholderNoAmount);
     }
@@ -69,7 +68,7 @@ class ValueQuality {
   }
 
   /// Builds a styled date widget or warning if parsing fails.
-  Widget valueAsDateWidget(final BuildContext? context) {
+  Widget valueAsDateWidget(BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, SharedStrings.placeholderNoDate);
     }
@@ -84,7 +83,7 @@ class ValueQuality {
   }
 
   /// Builds a selectable text widget for the value, or a warning if empty.
-  Widget valueAsTextWidget(final BuildContext? context) {
+  Widget valueAsTextWidget(BuildContext? context) {
     if (valueAsString.isEmpty) {
       return buildWarning(context, SharedStrings.placeholderNoDescription);
     }
@@ -132,7 +131,7 @@ class ValuesQuality {
 
   /// Checks whether this value set already exists as a transaction for the given account.
   bool checkIfExistAlready({
-    required final int accountId,
+    required int accountId,
     required TransactionExistsCallback transactionExistsCallback,
   }) {
     exist = isTransactionAlreadyInTheSystem(
@@ -145,7 +144,7 @@ class ValuesQuality {
   }
 
   /// Returns the date range covered by a list of values.
-  static DateRange getDateRange(final List<ValuesQuality> list) {
+  static DateRange getDateRange(List<ValuesQuality> list) {
     final DateRange range = DateRange();
     for (final ValuesQuality v in list) {
       range.inflate(v.date.asDate());
@@ -155,9 +154,9 @@ class ValuesQuality {
 
   /// Sorts a list of values by date, description, or amount.
   static void sort(
-    final List<ValuesQuality> list,
-    final int sortBy,
-    final bool ascending,
+    List<ValuesQuality> list,
+    int sortBy,
+    bool ascending,
   ) {
     list.sort((ValuesQuality a, ValuesQuality b) {
       switch (sortBy) {
@@ -183,9 +182,9 @@ class ValuesQuality {
 
 /// Delegates to [transactionExistsCallback] to check whether a transaction exists.
 bool isTransactionAlreadyInTheSystem({
-  required final int accountId,
-  required final DateTime dateTime,
-  required final double amount,
+  required int accountId,
+  required DateTime dateTime,
+  required double amount,
   required TransactionExistsCallback transactionExistsCallback,
 }) => transactionExistsCallback(
   accountId: accountId,

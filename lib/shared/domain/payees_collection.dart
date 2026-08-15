@@ -16,7 +16,7 @@ class Payees extends MoneyObjects<Payee> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(final List<MyJson> rows) {
+  void loadFromJson(List<MyJson> rows) {
     clear();
     /*
      */
@@ -59,12 +59,12 @@ class Payees extends MoneyObjects<Payee> {
   }
 
   /// Finds a payee by exact name.
-  Payee? getByName(final String name) {
+  Payee? getByName(String name) {
     if (name.isEmpty) {
       return null;
     }
     return iterableList().firstWhereOrNull(
-      (final Payee payee) => payee.fieldName.value == name,
+      (Payee payee) => payee.fieldName.value == name,
     );
   }
 
@@ -83,7 +83,7 @@ class Payees extends MoneyObjects<Payee> {
   }
 
   /// Gets the payee name for the given [id]; returns placeholder if not found.
-  String getNameFromId(final int id) {
+  String getNameFromId(int id) {
     if (id == -1) {
       return '';
     }
@@ -98,7 +98,7 @@ class Payees extends MoneyObjects<Payee> {
 
   /// Attempts to find payee wih the given name
   /// if not found create a new payee and return that instance
-  Payee getOrCreate(final String name, {bool fireNotification = true}) {
+  Payee getOrCreate(String name, {bool fireNotification = true}) {
     // find or add account of given name
     Payee? payee = getByName(name);
 
@@ -116,7 +116,7 @@ class Payees extends MoneyObjects<Payee> {
   }
 
   /// if not found returns -1
-  int getPayeeIdFromName(final String name) {
+  int getPayeeIdFromName(String name) {
     final Payee? payee = getByName(name);
     if (payee == null) {
       return -1;

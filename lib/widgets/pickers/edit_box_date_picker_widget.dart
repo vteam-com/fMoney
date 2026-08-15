@@ -40,7 +40,7 @@ class PickerEditBoxDateState extends State<PickerEditBoxDate> {
           child: MyTextInput(
             controller: _textController,
             border: false,
-            onChanged: (final String value) {
+            onChanged: (String value) {
               setState(() {
                 widget.onChanged(value);
               });

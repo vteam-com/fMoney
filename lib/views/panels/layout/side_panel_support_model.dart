@@ -52,8 +52,8 @@ class SidePanelSupport {
 
   /// Returns the side panel content widget for the given sub-view.
   Widget getSidePanelContent(
-    final SidePanelSubViewEnum subViewId,
-    final List<int> selectedIds,
+    SidePanelSubViewEnum subViewId,
+    List<int> selectedIds,
   ) {
     switch (subViewId) {
       /// Details

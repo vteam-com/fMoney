@@ -17,7 +17,7 @@ class ProcessingIndicator extends StatelessWidget {
 
   /// Builds the processing indicator bubble.
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(

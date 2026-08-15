@@ -38,7 +38,7 @@ const List<int> _naturalFitDivisors = <int>[
 ];
 
 /// Converts dynamic value to double if possible.
-double getDoubleFromDynamic(final dynamic value) {
+double getDoubleFromDynamic(dynamic value) {
   if (value is double) {
     return value;
   }
@@ -53,14 +53,14 @@ double getDoubleFromDynamic(final dynamic value) {
 
 /// Remove non-numeric characters from the currency text
 double? attemptToGetDoubleFromText(String text) {
-  text = text.trim();
-  final double? firstSimpleCase = double.tryParse(text);
+  final String trimmedText = text.trim();
+  final double? firstSimpleCase = double.tryParse(trimmedText);
   if (firstSimpleCase != null) {
     return firstSimpleCase;
   }
 
   // Remove non-numeric characters except for periods and commas
-  String cleanedText = text.replaceAll(RegExp(r'[^\d.,]'), '');
+  String cleanedText = trimmedText.replaceAll(RegExp(r'[^\d.,]'), '');
 
   // Replace commas with periods for consistent parsing
   cleanedText = cleanedText.replaceAll(',', '.');
@@ -94,8 +94,8 @@ double? attemptToGetDoubleFromText(String text) {
 /// @param context The [BuildContext] used to display the snackbar.
 /// @param textToCopy The text to be copied to the clipboard.
 void copyToClipboardAndInformUser(
-  final BuildContext context,
-  final String textToCopy,
+  BuildContext context,
+  String textToCopy,
 ) {
   Clipboard.setData(ClipboardData(text: textToCopy)).then((_) {
     if (context.mounted) {
@@ -108,12 +108,12 @@ void copyToClipboardAndInformUser(
 }
 
 /// Checks if value is strictly between min and max (exclusive).
-bool isBetween(final num value, final num min, final num max) {
+bool isBetween(num value, num min, num max) {
   return value > min && value < max;
 }
 
 /// Checks if value is between or equal to min and max (inclusive).
-bool isBetweenOrEqual(final num value, final num min, final num max) {
+bool isBetweenOrEqual(num value, num min, num max) {
   return value >= min && value <= max;
 }
 
@@ -124,7 +124,7 @@ bool isPlatformMobile() {
 }
 
 /// Rounds double to specified number of decimal places.
-double roundDouble(final double value, final int places) {
+double roundDouble(double value, int places) {
   final num mod = pow(_baseTen, places);
   return (value * mod).round().toDouble() / mod;
 }
@@ -145,7 +145,7 @@ double roundToDecimalPlaces(double value, int places) {
 }
 
 /// Round up to next divisor level
-int roundToNextNaturalFit(final int number, final int divisor) {
+int roundToNextNaturalFit(int number, int divisor) {
   if (number % divisor == _zeroInt) {
     // already at the nature next fit
     return number;
@@ -161,7 +161,7 @@ int roundToNextNaturalFit(final int number, final int divisor) {
 /// 777 > 1000
 /// 34 > 100
 /// 5 > 10
-int roundToTheNextNaturalFit(final int value) {
+int roundToTheNextNaturalFit(int value) {
   for (final int divisor in _naturalFitDivisors) {
     if (value > divisor) {
       return roundToNextNaturalFit(value, divisor);
@@ -171,7 +171,7 @@ int roundToTheNextNaturalFit(final int value) {
 }
 
 /// Shows a snackbar with the specified message.
-void showSnackBar(final BuildContext context, final String message) {
+void showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(message),

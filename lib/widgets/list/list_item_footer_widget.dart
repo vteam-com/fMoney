@@ -34,7 +34,7 @@ class MyListItemFooter<T> extends StatelessWidget {
   final void Function(Field<dynamic>)? onLongPress;
   final void Function(int columnIndex) onTap;
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (columnWidths != null) {
       return _buildPixelLayout(context);
     }
@@ -42,7 +42,7 @@ class MyListItemFooter<T> extends StatelessWidget {
   }
 
   /// Builds the footer using the legacy proportional flex layout.
-  Widget _buildFlexLayout(final BuildContext context) {
+  Widget _buildFlexLayout(BuildContext context) {
     final List<Widget> footerWidgets = <Widget>[];
     if (multiSelectionOn) {
       footerWidgets.add(
@@ -75,10 +75,10 @@ class MyListItemFooter<T> extends StatelessWidget {
   }
 
   /// Builds the footer using a pixel-aligned layout that matches the body.
-  Widget _buildPixelLayout(final BuildContext context) {
+  Widget _buildPixelLayout(BuildContext context) {
     return ListenableBuilder(
       listenable: columnWidths!,
-      builder: (final BuildContext _, final Widget? _) {
+      builder: (BuildContext _, Widget? _) {
         final List<double> ratios = columnWidths!.value;
 
         return Container(
@@ -93,7 +93,7 @@ class MyListItemFooter<T> extends StatelessWidget {
                 ),
               Expanded(
                 child: LayoutBuilder(
-                  builder: (final BuildContext _, final BoxConstraints constraints) {
+                  builder: (BuildContext _, BoxConstraints constraints) {
                     if (ratios.isEmpty) {
                       return const SizedBox.shrink();
                     }
