@@ -228,10 +228,7 @@ class DataFileController extends ChangeNotifier {
 
     if (pickedFile != null) {
       try {
-        final String fileExtension = p
-            .extension(pickedFile.name)
-            .replaceFirst('.', '')
-            .toLowerCase();
+        final String fileExtension = p.extension(pickedFile.name).replaceFirst('.', '').toLowerCase();
 
         if (fileExtension == 'mmdb' || fileExtension == 'mmcsv') {
           late DataSource dataSource;

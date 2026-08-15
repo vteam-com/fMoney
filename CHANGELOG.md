@@ -1,5 +1,33 @@
 # Change Log
 
+## [version 1.19.0] 2026-08-15
+
+### SDK Requirement
+
+- **Flutter 3.47.0 / Dart 3.13.0**: Upgraded to Flutter 3.47.0 and Dart 3.13.0 — this SDK version is now the minimum required to build the app (`flutter >=3.47.0`, `sdk >=3.13.0` in `pubspec.yaml`)
+
+### Added
+
+- **Investment CSV Import**: Import investment transactions from CSV files
+- **Find Possible Transfers**: Detect transactions that likely match as transfers, with Intellisense-style transfer matching
+- **Credit Card Payment Cycle**: Payment-cycle visualization for Credit Card accounts with gradient transaction highlights; adorner lines now apply only to Credit Card accounts
+- **Scroll Position Memory**: Lists now remember their scroll position
+
+### Updated
+
+- **PDF Import**: Improved AI-powered PDF import and updated `pdfrx` to 2.3.3
+- **Ollama Service**: Resolves the Ollama executable path across platforms
+- **Performance**: Faster Transactions list rendering
+- **Desktop**: Improved application shutdown behavior
+- **Dependencies**: Removed `package_info_plus` (version info is now generated from `pubspec.yaml`) and removed CocoaPods from the build
+- **Packages**: Updated `file_picker` to 12.0.0, fCheck to 1.4.1, and other package upgrades
+- **CI/CD**: Updated GitHub Actions workflow to Flutter 3.47.0
+- **UI**: Cleaned up font sizes
+
+### Fixed
+
+- **Stock Prices**: Fixed one-click stock price update
+
 ## [version 1.18.0] 2026-05-02
 
 ### Added
