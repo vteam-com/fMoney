@@ -19,7 +19,6 @@ import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
 import 'package:money/widgets/pickers/payee_or_transfer_picker_widget.dart';
-import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
@@ -258,48 +257,7 @@ class Transaction extends DataObject implements MergeableItem {
     name: SharedDomainStrings.domainString029,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: _unsetId,
-    getValueForDisplay: (DataInterface instance) {
-      final Transaction t = instance as Transaction;
-
-      final int effectiveCategoryId = t.possibleMatchingCategoryId == _unsetId
-          ? t.fieldCategoryId.value
-          : t.possibleMatchingCategoryId;
-      final String categoryName = DataAbstract.instance.getCategoryNameFromId(
-        effectiveCategoryId,
-      );
-      final Widget categoryWidget = DataAbstract.instance.getCategoryWidget(
-        effectiveCategoryId,
-      );
-
-      return DataAbstract.instance.categorySuggestionProvider.buildSuggestionWidget(
-        onApproved: t.possibleMatchingCategoryId == _unsetId
-            ? null
-            : () {
-                // record the change
-                changeCategory(t, t.possibleMatchingCategoryId);
-              },
-        onChooseCategory: t.fieldCategoryId.value == _unsetId
-            ? (BuildContext context) {
-                t.possibleMatchingCategoryId = _unsetId;
-                showPopupSelection(
-                  title: SharedDomainStrings.domainString029,
-                  context: context,
-                  items: DataAbstract.instance.getCategoriesAsStrings(),
-                  selectedItem: '',
-                  onSelected: (String text) {
-                    DataAbstract.instance.changeCategoryFromCategoryName(t, text);
-                  },
-                );
-              }
-            : null,
-        isSplit: t.isSplit,
-        transactionString: t.toString(),
-        splits: t.splits,
-        uniqueId: t.uniqueId,
-        totalAmount: t.fieldAmount.value.asDouble(),
-        child: Tooltip(message: categoryName, child: categoryWidget),
-      );
-    },
+    getValueForDisplay: (DataInterface instance) => transactionBuildCategoryCellWidget(instance as Transaction),
     getValueForReading: (DataInterface instance) => (instance as Transaction).categoryName,
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(

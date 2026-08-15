@@ -59,6 +59,9 @@ class MyListView<T> extends StatefulWidget {
 /// State for my list view.
 class MyListViewState<T> extends State<MyListView<T>> {
   final List<double> _columnWidthRatios = <double>[];
+
+  /// Cached result of the cap-flip scan; valid for the current list instance.
+  bool? _flipRightAdornmentCapsCache;
   double _rowHeight = _rowHeightColumn;
   final List<int> _visibleColumnIndexes = <int>[];
   double padding = 0;
@@ -84,6 +87,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
     if (oldWidget.fields.length != widget.fields.length || oldWidget.displayAsColumn != widget.displayAsColumn) {
       _visibleColumnIndexes.clear();
       _columnWidthRatios.clear();
+    }
+    if (!identical(oldWidget.list, widget.list)) {
+      _flipRightAdornmentCapsCache = null;
     }
   }
 
@@ -492,6 +498,32 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return Row(children: rowChildren);
   }
 
+  /// Scans the list for the first top/bottom cap rows to decide cap flipping.
+  ///
+  /// Flipping happens when rows are shown in reverse chronological order: the
+  /// payment boundary appears above the segment start, so top/bottom cap
+  /// rendering must be swapped to keep markers anchored to visual boundaries.
+  bool _computeShouldFlipRightAdornmentCaps() {
+    int? firstTopCapIndex;
+    int? firstBottomCapIndex;
+    for (int i = 0; i < widget.list.length; i++) {
+      final DataObject row = getMoneyObjectFromIndex(i);
+      if (firstTopCapIndex == null && row.getShowRightAdornmentTopCap()) {
+        firstTopCapIndex = i;
+      }
+      if (firstBottomCapIndex == null && row.getShowRightAdornmentBottomCap()) {
+        firstBottomCapIndex = i;
+      }
+      if (firstTopCapIndex != null && firstBottomCapIndex != null) {
+        break;
+      }
+    }
+    if (firstTopCapIndex == null || firstBottomCapIndex == null) {
+      return false;
+    }
+    return firstBottomCapIndex < firstTopCapIndex;
+  }
+
   /// Initializes visible column indexes and (when no external notifier) local ratios.
   void _ensureResizableColumnsInitialized() {
     final bool needsRatios = widget.columnWidths == null;
@@ -589,27 +621,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
 
   /// Returns true when right-adornment caps should be visually flipped.
   ///
-  /// This happens when rows are shown in reverse chronological order: the
-  /// payment boundary appears above the segment start, so top/bottom cap
-  /// rendering must be swapped to keep markers anchored to visual boundaries.
+  /// The O(n) scan result is cached per list instance so repeated rebuilds do
+  /// not re-walk the whole list.
   bool _shouldFlipRightAdornmentCaps() {
-    int? firstTopCapIndex;
-    int? firstBottomCapIndex;
-    for (int i = 0; i < widget.list.length; i++) {
-      final DataObject row = getMoneyObjectFromIndex(i);
-      if (firstTopCapIndex == null && row.getShowRightAdornmentTopCap()) {
-        firstTopCapIndex = i;
-      }
-      if (firstBottomCapIndex == null && row.getShowRightAdornmentBottomCap()) {
-        firstBottomCapIndex = i;
-      }
-      if (firstTopCapIndex != null && firstBottomCapIndex != null) {
-        break;
-      }
-    }
-    if (firstTopCapIndex == null || firstBottomCapIndex == null) {
-      return false;
-    }
-    return firstBottomCapIndex < firstTopCapIndex;
+    return _flipRightAdornmentCapsCache ??= _computeShouldFlipRightAdornmentCaps();
   }
 }

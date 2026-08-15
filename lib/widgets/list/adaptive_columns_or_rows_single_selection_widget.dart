@@ -73,6 +73,9 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListColumnsOrRowsSingleSelection> {
   final FooterAccumulators _footerAccumulators = FooterAccumulators();
 
+  /// List instance the footer accumulators were last computed for.
+  List<DataObject>? _footerAccumulatorsComputedForList;
+
   late final ValueNotifier<List<int>> selectionCollectionOfOnlyOneItem = ValueNotifier<List<int>>(<int>[
     widget.selectedId,
   ]);
@@ -110,7 +113,16 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
   }
 
   /// Updates footer accumulators with counts from the filtered list.
+  ///
+  /// Recomputes only when the list instance changed; data mutations always
+  /// reach this widget as a freshly built list, so unrelated rebuilds such as
+  /// selection changes skip the full re-scan.
   void footerAccumulators() {
+    if (identical(widget.list, _footerAccumulatorsComputedForList)) {
+      return;
+    }
+    _footerAccumulatorsComputedForList = widget.list;
+
     _footerAccumulators.clear();
 
     for (final DataObject item in widget.list) {

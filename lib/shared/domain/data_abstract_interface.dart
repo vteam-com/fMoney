@@ -193,6 +193,10 @@ abstract class DataAbstract {
     int maxResults,
   });
 
+  /// Returns true when a transaction has at least one likely disconnected
+  /// transfer counterpart; cached per data version so it is cheap per row.
+  bool hasPotentialTransferMatch(dynamic transaction);
+
   /// Converts two existing disconnected transactions into a linked transfer pair.
   bool convertDisconnectedTransactionsToTransfer({
     required dynamic transaction,

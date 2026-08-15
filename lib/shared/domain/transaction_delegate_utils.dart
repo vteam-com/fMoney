@@ -10,6 +10,7 @@ import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
+import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
@@ -20,7 +21,6 @@ import 'package:money/widgets/widgets_domain/data_object_model.dart';
 const int _transactionUnsetId = -1;
 const int _transactionZeroInt = 0;
 const double _transactionZeroDouble = 0.0;
-const int _potentialTransferHintPreviewCount = 1;
 const double _potentialTransferHintIconSize = 14.0;
 const double _potentialTransferHintIconButtonSize = 18.0;
 const double _potentialTransferSheetHeaderPadding = 12.0;
@@ -209,6 +209,75 @@ Widget transactionBuildStatusButtonToggle(dynamic transaction) {
   );
 }
 
+/// Builds the Category cell widget for [transaction].
+///
+/// The common row (no pending suggestion to approve, category already set, no
+/// splits to inspect) takes a fast path that skips the stateful suggestion
+/// wrapper (animation controller, gesture handling) and the eager toString()
+/// so list scrolling stays cheap, while keeping the same scale-down layout as
+/// the wrapper.
+Widget transactionBuildCategoryCellWidget(dynamic transaction) {
+  final int effectiveCategoryId = transaction.possibleMatchingCategoryId == _transactionUnsetId
+      ? transaction.fieldCategoryId.value as int
+      : transaction.possibleMatchingCategoryId as int;
+  final String categoryName = DataAbstract.instance.getCategoryNameFromId(
+    effectiveCategoryId,
+  );
+  final Widget categoryWidget = DataAbstract.instance.getCategoryWidget(
+    effectiveCategoryId,
+  );
+
+  if (transaction.possibleMatchingCategoryId == _transactionUnsetId &&
+      transaction.fieldCategoryId.value != _transactionUnsetId &&
+      transaction.isSplit == false) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: IntrinsicWidth(
+              child: Tooltip(message: categoryName, child: categoryWidget),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  return DataAbstract.instance.categorySuggestionProvider.buildSuggestionWidget(
+    onApproved: transaction.possibleMatchingCategoryId == _transactionUnsetId
+        ? null
+        : () {
+            // record the change
+            DataAbstract.instance.changeCategory(
+              transaction,
+              transaction.possibleMatchingCategoryId as int,
+            );
+          },
+    onChooseCategory: transaction.fieldCategoryId.value == _transactionUnsetId
+        ? (BuildContext context) {
+            transaction.possibleMatchingCategoryId = _transactionUnsetId;
+            showPopupSelection(
+              title: SharedDomainStrings.domainString029,
+              context: context,
+              items: DataAbstract.instance.getCategoriesAsStrings(),
+              selectedItem: '',
+              onSelected: (String text) {
+                DataAbstract.instance.changeCategoryFromCategoryName(transaction, text);
+              },
+            );
+          }
+        : null,
+    isSplit: transaction.isSplit,
+    transactionString: transaction.toString(),
+    splits: transaction.splits,
+    uniqueId: transaction.uniqueId,
+    totalAmount: transaction.fieldAmount.value.asDouble(),
+    child: Tooltip(message: categoryName, child: categoryWidget),
+  ) as Widget;
+}
+
 /// Builds the Payee/Transfer cell widget and appends a transfer-hint icon when
 /// disconnected transfer candidates are available for [transaction].
 Widget transactionBuildPayeeOrTransferWidget(dynamic transaction) {
@@ -251,15 +320,14 @@ Widget transactionBuildPayeeOrTransferWidget(dynamic transaction) {
 
 /// Returns true when [transaction] has at least one likely disconnected
 /// counterpart that can be converted into a transfer.
+///
+/// Uses the cached per-data-version lookup so it stays cheap when called for
+/// every row while scrolling.
 bool _hasPotentialTransferMatch(dynamic transaction) {
   if (transaction.isDeleted as bool || transaction.isTransfer as bool || transaction.isSplit as bool) {
     return false;
   }
-  final List<dynamic> matches = DataAbstract.instance.findPotentialTransferMatches(
-    transaction: transaction,
-    maxResults: _potentialTransferHintPreviewCount,
-  );
-  return matches.isNotEmpty;
+  return DataAbstract.instance.hasPotentialTransferMatch(transaction);
 }
 
 /// Opens a side-panel style bottom sheet using the transfer sender/receiver

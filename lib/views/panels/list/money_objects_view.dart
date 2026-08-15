@@ -56,6 +56,12 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   FieldFilters _filterByFieldsValue = FieldFilters();
   String _filterByText = '';
   final FooterAccumulators _footerAccumulators = FooterAccumulators();
+
+  /// List instance the footer accumulators were last computed for.
+  List<DataObject>? _footerAccumulatorsComputedForList;
+
+  /// Data-version stamp of the last footer accumulator computation.
+  String _footerAccumulatorsDataVersion = '';
   bool _isMultiSelectionOn = false;
   int _lastSelectedItemId = -1;
   final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
@@ -320,7 +326,17 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   }
 
   /// Calculates footer accumulators for the current list data.
+  ///
+  /// Recomputes only when the list instance or the data version changed, so
+  /// unrelated rebuilds (selection, hover, scroll restore) stay cheap.
   void footerAccumulators() {
+    final String dataVersion = dataController.lastUpdateAsString;
+    if (identical(list, _footerAccumulatorsComputedForList) && dataVersion == _footerAccumulatorsDataVersion) {
+      return;
+    }
+    _footerAccumulatorsComputedForList = list;
+    _footerAccumulatorsDataVersion = dataVersion;
+
     recomputeFooterAccumulators(
       footerAccumulators: _footerAccumulators,
       items: list,
