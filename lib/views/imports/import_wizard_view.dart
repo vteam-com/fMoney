@@ -31,11 +31,11 @@ const List<String> _supportedTransactionImportFileExtensions = <String>[
   SharedStrings.fileExtensionPdf,
 ];
 
-/// Resolves the selected file extension from picker metadata or falls back to its path.
+/// Resolves the selected file extension from its name or falls back to its path.
 String _resolveSelectedFileExtension(PlatformFile file) {
-  final String extensionFromMetadata = (file.extension ?? '').trim().toLowerCase();
-  if (extensionFromMetadata.isNotEmpty) {
-    return extensionFromMetadata.startsWith('.') ? extensionFromMetadata.substring(1) : extensionFromMetadata;
+  final String extensionFromName = path.extension(file.name).trim().toLowerCase();
+  if (extensionFromName.isNotEmpty) {
+    return extensionFromName.startsWith('.') ? extensionFromName.substring(1) : extensionFromName;
   }
 
   final String filePath = file.path ?? '';
@@ -138,15 +138,14 @@ void showImportTransactionsWizard([BuildContext? context]) {
 
 /// Handles file selection and import from chosen file.
 Future<void> onImportFromFile(BuildContext context) async {
-  final FilePickerResult? pickerResult = await FilePicker.pickFiles(
+  final PlatformFile? file = await FilePicker.pickFile(
     type: FileType.custom,
     allowedExtensions: _supportedTransactionImportFileExtensions,
   );
-  if (pickerResult == null || !context.mounted) {
+  if (file == null || !context.mounted) {
     return;
   }
 
-  final PlatformFile file = pickerResult.files.single;
   final String? filePath = file.path;
   if (filePath == null || filePath.isEmpty) {
     return;

@@ -1,36 +1,73 @@
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
-import 'package:file_picker/src/platform/file_picker_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/views/imports/import_wizard_view.dart';
 import 'package:money/widgets/components/wizard_choice_widget.dart';
 
+/// A fake picked file used in tests, backed only by a name and a local path.
+final class TestPlatformFile extends PlatformFile {
+  TestPlatformFile({required this.name, required String path}) : uri = Uri.file(path);
+
+  @override
+  final String name;
+
+  @override
+  final Uri uri;
+
+  @override
+  Never get xFile => throw UnimplementedError('xFile is not used in these tests');
+
+  @override
+  Future<int> length() async => 0;
+
+  @override
+  Future<Uint8List> readAsBytes() async => Uint8List(0);
+
+  @override
+  Stream<Uint8List> readAsByteStream() => const Stream<Uint8List>.empty();
+}
+
 /// A mock used in tests for test mock file picker.
 class TestMockFilePicker extends FilePickerPlatform {
-  FilePickerResult? _pickerResult;
+  PlatformFile? _pickedFile;
 
-  void setPickerResult(FilePickerResult? result) {
-    _pickerResult = result;
+  void setPickedFile(PlatformFile? file) {
+    _pickedFile = file;
   }
 
   @override
-  Future<FilePickerResult?> pickFiles({
+  Future<PlatformFile?> pickFile({
     String? dialogTitle,
     String? initialDirectory,
     FileType type = FileType.any,
     List<String>? allowedExtensions,
-    void Function(FilePickerStatus)? onFileLoading,
-    // ignore: deprecated_member_use
-    bool allowCompression = false,
+    dynamic Function(FilePickerStatus)? onFileLoading,
     int compressionQuality = 0,
-    bool allowMultiple = false,
-    bool withData = false,
-    bool withReadStream = false,
-    bool lockParentWindow = false,
-    bool readSequential = false,
-    bool cancelUploadOnWindowBlur = true,
+    AndroidOptions androidOptions = const AndroidOptions(),
+    WindowsOptions windowsOptions = const WindowsOptions(),
+    LinuxOptions linuxOptions = const LinuxOptions(),
+    WebOptions webOptions = const WebOptions(),
   }) async {
-    return _pickerResult;
+    return _pickedFile;
+  }
+
+  @override
+  Future<List<PlatformFile>> pickFiles({
+    String? dialogTitle,
+    String? initialDirectory,
+    FileType type = FileType.any,
+    List<String>? allowedExtensions,
+    dynamic Function(FilePickerStatus)? onFileLoading,
+    int compressionQuality = 0,
+    AndroidOptions androidOptions = const AndroidOptions(),
+    WindowsOptions windowsOptions = const WindowsOptions(),
+    LinuxOptions linuxOptions = const LinuxOptions(),
+    WebOptions webOptions = const WebOptions(),
+  }) async {
+    final PlatformFile? file = _pickedFile;
+    return file == null ? <PlatformFile>[] : <PlatformFile>[file];
   }
 }
 
@@ -80,8 +117,8 @@ void main() {
   });
 
   testWidgets('Tapping file import option and picking XLSX file calls importXLSX', (WidgetTester tester) async {
-    final PlatformFile mockFile = PlatformFile(name: 'test.xlsx', size: 100, path: '/dummy/path/to/test.xlsx');
-    mockFilePicker.setPickerResult(FilePickerResult(<PlatformFile>[mockFile]));
+    final PlatformFile mockFile = TestPlatformFile(name: 'test.xlsx', path: '/dummy/path/to/test.xlsx');
+    mockFilePicker.setPickedFile(mockFile);
 
     await tester.pumpWidget(
       MaterialApp(
@@ -118,8 +155,8 @@ void main() {
     // If that dialog appears, it's a strong indication importCSV was called.
     // This is an indirect way of testing due to limitations on mocking top-level functions easily.
 
-    final PlatformFile mockFile = PlatformFile(name: 'test.csv', size: 100, path: '/dummy/path/to/test.csv');
-    mockFilePicker.setPickerResult(FilePickerResult(<PlatformFile>[mockFile]));
+    final PlatformFile mockFile = TestPlatformFile(name: 'test.csv', path: '/dummy/path/to/test.csv');
+    mockFilePicker.setPickedFile(mockFile);
 
     // The navigator observer will help us see if new routes (dialogs) are pushed.
     final MockNavigatorObserver mockObserver = MockNavigatorObserver();

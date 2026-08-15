@@ -192,7 +192,7 @@ class DataFileController extends ChangeNotifier {
 
   /// Opens file picker to select and load a data file.
   Future<bool> onFileOpen() async {
-    FilePickerResult? pickerResult;
+    PlatformFile? pickedFile;
 
     const List<String> supportedFileTypes = <String>[
       'mmdb',
@@ -206,16 +206,16 @@ class DataFileController extends ChangeNotifier {
     try {
       // WEB
       if (kIsWeb) {
-        pickerResult = await FilePicker.pickFiles(type: FileType.any);
+        pickedFile = await FilePicker.pickFile(type: FileType.any);
       } else
       // Mobile
       if (Platform.isAndroid || Platform.isIOS) {
         // See https://github.com/miguelpruivo/flutter_file_picker/issues/729
-        pickerResult = await FilePicker.pickFiles(type: FileType.any);
+        pickedFile = await FilePicker.pickFile(type: FileType.any);
       } else
       // Desktop
       {
-        pickerResult = await FilePicker.pickFiles(
+        pickedFile = await FilePicker.pickFile(
           type: FileType.custom,
           allowedExtensions: supportedFileTypes,
         );
@@ -226,21 +226,23 @@ class DataFileController extends ChangeNotifier {
       return false;
     }
 
-    if (pickerResult != null && pickerResult.files.isNotEmpty) {
+    if (pickedFile != null) {
       try {
-        final String? fileExtension = pickerResult.files.single.extension;
+        final String fileExtension = p
+            .extension(pickedFile.name)
+            .replaceFirst('.', '')
+            .toLowerCase();
 
         if (fileExtension == 'mmdb' || fileExtension == 'mmcsv') {
           late DataSource dataSource;
           if (kIsWeb) {
-            final PlatformFile file = pickerResult.files.first;
             dataSource = DataSource(
-              filePath: file.name,
-              fileBytes: file.bytes!,
+              filePath: pickedFile.name,
+              fileBytes: await pickedFile.readAsBytes(),
             );
           } else {
             dataSource = DataSource(
-              filePath: pickerResult.files.single.path ?? '',
+              filePath: pickedFile.path ?? '',
             );
           }
 
