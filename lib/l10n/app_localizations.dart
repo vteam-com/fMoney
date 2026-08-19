@@ -462,7 +462,7 @@ abstract class AppLocalizations {
   /// No description provided for @buildNumberLabel.
   ///
   /// In en, this message translates to:
-  /// **'Build Number'**
+  /// **'Build Number:'**
   String get buildNumberLabel;
 
   /// No description provided for @buySellDividend.
@@ -1734,7 +1734,7 @@ abstract class AppLocalizations {
   /// No description provided for @packageNameLabel.
   ///
   /// In en, this message translates to:
-  /// **'Package Name'**
+  /// **'Package Name:'**
   String get packageNameLabel;
 
   /// No description provided for @pauseSearch.
@@ -2538,7 +2538,7 @@ abstract class AppLocalizations {
   /// No description provided for @versionLabel.
   ///
   /// In en, this message translates to:
-  /// **'Version'**
+  /// **'Version:'**
   String get versionLabel;
 
   /// No description provided for @viewClosedAccounts.

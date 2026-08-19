@@ -109,7 +109,7 @@
   "@budgetVarianceUndefined": {
     "description": "REVIEWED"
   },
-  "buildNumberLabel": "Numero de compilacion",
+  "buildNumberLabel": "Numero de compilacion:",
   "buySellDividend": "Compra/Venta/Dividendo.",
   "cancel": "Cancelar",
   "cash": "Efectivo",
@@ -574,7 +574,7 @@
   "openMenuItem": "Abrir...",
   "optional": "opcional",
   "orChangeToCategory": "o cambiar a categoría",
-  "packageNameLabel": "Nombre del paquete",
+  "packageNameLabel": "Nombre del paquete:",
   "pauseSearch": "Pausar",
   "payee": "Beneficiario",
   "payeeAliasesDescription": "Alias de beneficiario.",
@@ -873,7 +873,7 @@
   "useDemoData": "Usar datos de demostración",
   "value": "Valor",
   "versionInformation": "Información de Versión",
-  "versionLabel": "Version de la app",
+  "versionLabel": "Version de la app:",
   "viewClosedAccounts": "Ver cuentas cerradas",
   "viewLicenses": "Ver Licencias",
   "viewMessageDetails": "Ver detalles del mensaje",

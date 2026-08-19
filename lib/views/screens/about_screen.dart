@@ -4,17 +4,12 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/generated_app_version_data.dart';
 
-const String _appIconAssetPath = 'assets/main_icon.png';
-
 /// A page displaying app version information and licenses.
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
+  static const String _appIconAssetPath = 'assets/main_icon.png';
 
-class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +22,11 @@ class _AboutPageState extends State<AboutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildAppInfo(),
+            _buildAppInfo(context),
             const SizedBox(height: Constants.aboutSectionSpacing),
-            _buildVersionInfo(),
+            _buildVersionInfo(context),
             const SizedBox(height: Constants.aboutSectionSpacing),
-            _buildLicenseSection(),
+            _buildLicenseSection(context),
           ],
         ),
       ),
@@ -40,22 +35,23 @@ class _AboutPageState extends State<AboutPage> {
 
   /// Builds the app information section displaying the app name,
   /// description, and long description in a styled card.
-  Widget _buildAppInfo() {
+  Widget _buildAppInfo(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return _buildSectionCard(
       children: <Widget>[
         Text(
           AppL10n.tr(AppTranslationKeys.appName),
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: textTheme.headlineMedium,
         ),
-        const SizedBox(height: Constants.aboutIconSize),
+        const SizedBox(height: Constants.aboutTextSpacing),
         Text(
           AppL10n.tr(AppTranslationKeys.appDescription),
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: textTheme.bodyLarge,
         ),
-        const SizedBox(height: Constants.aboutIconSize),
+        const SizedBox(height: Constants.aboutTextSpacing),
         Text(
           AppL10n.tr(AppTranslationKeys.appLongDescription),
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: textTheme.bodyMedium,
         ),
       ],
     );
@@ -64,10 +60,10 @@ class _AboutPageState extends State<AboutPage> {
   /// Builds a row displaying a label-value pair with consistent styling.
   /// Used in the version information section to show version details.
   ///
-  /// Parameters:
-  /// - [label]: The label text (e.g., "Version", "Build Number")
-  /// - [value]: The corresponding value to display
-  Widget _buildInfoRow(String label, String value) {
+  /// [bodyStyle] is the base text style applied to both label and value.
+  /// [label] is the descriptor text (e.g., "Version", "Build Number").
+  /// [value] is the corresponding value to display.
+  Widget _buildInfoRow(TextStyle? bodyStyle, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Constants.aboutInfoRowSpacing),
       child: Row(
@@ -76,16 +72,14 @@ class _AboutPageState extends State<AboutPage> {
           SizedBox(
             width: Constants.aboutInfoLabelWidth,
             child: Text(
-              '$label:',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              label,
+              style: bodyStyle?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
-            child: Text(
+            child: SelectableText(
               value,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: bodyStyle,
             ),
           ),
         ],
@@ -95,21 +89,22 @@ class _AboutPageState extends State<AboutPage> {
 
   /// Builds the licenses section with license information
   /// and a button to view detailed licenses for all dependencies.
-  Widget _buildLicenseSection() {
+  Widget _buildLicenseSection(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return _buildSectionCard(
       children: <Widget>[
         Text(
           AppL10n.tr(AppTranslationKeys.licenses),
-          style: Theme.of(context).textTheme.titleLarge,
+          style: textTheme.titleLarge,
         ),
         const SizedBox(height: Constants.aboutVersionSpacing),
         Text(
           AppL10n.tr(AppTranslationKeys.licensesDescription),
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: textTheme.bodyMedium,
         ),
         const SizedBox(height: Constants.aboutSectionSpacing),
         ElevatedButton.icon(
-          onPressed: _showLicensePage,
+          onPressed: () => _showLicensePage(context),
           icon: const Icon(Icons.description),
           label: Text(AppL10n.tr(AppTranslationKeys.viewLicenses)),
         ),
@@ -134,20 +129,27 @@ class _AboutPageState extends State<AboutPage> {
 
   /// Builds the version information section displaying app version,
   /// build number, and package name.
-  Widget _buildVersionInfo() {
+  Widget _buildVersionInfo(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return _buildSectionCard(
       children: <Widget>[
         Text(
           AppL10n.tr(AppTranslationKeys.versionInformation),
-          style: Theme.of(context).textTheme.titleLarge,
+          style: textTheme.titleLarge,
         ),
         const SizedBox(height: Constants.aboutVersionSpacing),
-        _buildInfoRow(AppL10n.tr(AppTranslationKeys.versionLabel), GeneratedAppVersionData.version),
         _buildInfoRow(
+          textTheme.bodyMedium,
+          AppL10n.tr(AppTranslationKeys.versionLabel),
+          GeneratedAppVersionData.version,
+        ),
+        _buildInfoRow(
+          textTheme.bodyMedium,
           AppL10n.tr(AppTranslationKeys.buildNumberLabel),
           GeneratedAppVersionData.buildNumber,
         ),
         _buildInfoRow(
+          textTheme.bodyMedium,
           AppL10n.tr(AppTranslationKeys.packageNameLabel),
           GeneratedAppVersionData.packageName,
         ),
@@ -155,8 +157,8 @@ class _AboutPageState extends State<AboutPage> {
     );
   }
 
-  /// Dislay the 3rd party dependencies
-  void _showLicensePage() {
+  /// Display the 3rd party dependencies
+  void _showLicensePage(BuildContext context) {
     showLicensePage(
       context: context,
       applicationName: AppL10n.tr(AppTranslationKeys.appName),

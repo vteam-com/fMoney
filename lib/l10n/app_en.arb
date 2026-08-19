@@ -109,7 +109,7 @@
   "@budgetVarianceUndefined": {
     "description": "REVIEWED"
   },
-  "buildNumberLabel": "Build Number",
+  "buildNumberLabel": "Build Number:",
   "buySellDividend": "Buy/Sell/Dividend.",
   "cancel": "Cancel",
   "cash": "Cash",
@@ -574,7 +574,7 @@
   "openMenuItem": "Open...",
   "optional": "optional",
   "orChangeToCategory": "or change to category",
-  "packageNameLabel": "Package Name",
+  "packageNameLabel": "Package Name:",
   "pauseSearch": "Pause",
   "payee": "Payee",
   "payeeAliasesDescription": "Payee aliases.",
@@ -873,7 +873,7 @@
   "useDemoData": "Use Demo Data",
   "value": "Value",
   "versionInformation": "Version Information",
-  "versionLabel": "Version",
+  "versionLabel": "Version:",
   "viewClosedAccounts": "View closed accounts",
   "viewLicenses": "View Licenses",
   "viewMessageDetails": "View message details",

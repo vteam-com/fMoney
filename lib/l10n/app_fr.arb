@@ -109,7 +109,7 @@
   "@budgetVarianceUndefined": {
     "description": "REVIEWED"
   },
-  "buildNumberLabel": "Numero de build",
+  "buildNumberLabel": "Numero de build :",
   "buySellDividend": "Achat/Vente/Dividende.",
   "cancel": "Annuler",
   "cash": "Liquidites",
@@ -574,7 +574,7 @@
   "openMenuItem": "Ouvrir...",
   "optional": "optionnel",
   "orChangeToCategory": "ou changer vers la categorie",
-  "packageNameLabel": "Nom du package",
+  "packageNameLabel": "Nom du package :",
   "pauseSearch": "Mettre en pause",
   "payee": "Beneficiaire",
   "payeeAliasesDescription": "Alias de beneficiaire.",
@@ -873,7 +873,7 @@
   "useDemoData": "Utiliser des donnees de demonstration",
   "value": "Valeur",
   "versionInformation": "Informations de version",
-  "versionLabel": "Version de l'application",
+  "versionLabel": "Version de l'application :",
   "viewClosedAccounts": "Voir les comptes fermes",
   "viewLicenses": "Voir les licences",
   "viewMessageDetails": "Voir les details du message",

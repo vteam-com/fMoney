@@ -203,7 +203,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get budgetVarianceUndefined => 'Budgeted amount is zero. Variance is undefined.';
 
   @override
-  String get buildNumberLabel => 'Build Number';
+  String get buildNumberLabel => 'Build Number:';
 
   @override
   String get buySellDividend => 'Buy/Sell/Dividend.';
@@ -894,7 +894,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orChangeToCategory => 'or change to category';
 
   @override
-  String get packageNameLabel => 'Package Name';
+  String get packageNameLabel => 'Package Name:';
 
   @override
   String get pauseSearch => 'Pause';
@@ -1322,7 +1322,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get versionInformation => 'Version Information';
 
   @override
-  String get versionLabel => 'Version';
+  String get versionLabel => 'Version:';
 
   @override
   String get viewClosedAccounts => 'View closed accounts';

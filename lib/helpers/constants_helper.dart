@@ -113,7 +113,7 @@ class Constants {
   static const double loadingPadding = 16.0;
   static const double aboutPagePadding = 16.0;
   static const double aboutSectionSpacing = 24.0;
-  static const double aboutIconSize = 8.0;
+  static const double aboutTextSpacing = 8.0;
   static const double aboutInfoRowSpacing = 4.0;
   static const double aboutInfoLabelWidth = 120.0;
   static const double aboutVersionSpacing = 12.0;
