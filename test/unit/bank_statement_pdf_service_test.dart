@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/shared/domain/bank_statement_pdf_service.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 void main() {
   group('BankStatementPdfService', () {
@@ -19,7 +20,7 @@ PREVIOUS BALANCE IN EUR 433.584,71
       expect(result.detectedCurrencyCode, 'EUR');
     });
 
-    test('parses debit-column euro statement rows with ambiguous dates as MM-DD', () {
+    test('parses debit-column euro statement rows with ambiguous dates as DD-MM when a peer date is day-first', () {
       const BankStatementPdfService service = BankStatementPdfService();
 
       final BankStatementParseResult result = service.parseExtractedText(
@@ -35,14 +36,13 @@ Date Ref Value Dat. Description Debit (-)
       );
 
       expect(result.transactions.length, 5);
-      // Ambiguous dates (both parts <= 12): first=month, second=day.
-      expect(result.transactions[0].date, DateTime(2025, 3, 2));
+      // 17-02-25 only fits DD-MM, so ambiguous dates in the same document are read as DD-MM.
+      expect(result.transactions[0].date, DateTime(2025, 2, 3));
       expect(result.transactions[0].amount, '32,67');
       expect(result.transactions[1].amount, '411,14');
       expect(result.transactions[2].amount, '3.092,78');
-      expect(result.transactions[3].date, DateTime(2025, 4, 2));
+      expect(result.transactions[3].date, DateTime(2025, 2, 4));
       expect(result.transactions[3].amount, '2,58');
-      // 17 > 12, so parser flips to DD-MM.
       expect(result.transactions[4].date, DateTime(2025, 2, 17));
       expect(result.transactions[4].amount, '43,64');
     });
@@ -267,6 +267,115 @@ ____-__-__ (0 days) ____-__-__Total €0281.573.602.024.110.489.600.000
       );
 
       expect(result.transactions, isEmpty);
+    });
+
+    test('detects credit card statements as bank statements', () {
+      const BankStatementPdfService service = BankStatementPdfService();
+
+      final BankStatementParseResult result = service.parseExtractedText(
+        rawText: '''
+Card Statement
+Card number: 450619XXXXXXX633
+Charge period: 28/04/2026 to 27/05/2026
+29/04/2026 3633 MERCADONA, MATOSINHOS 24,40
+03/05/2026 3633 FUCHSIA VINTAGE, 4450-078 MATO 35,25
+07/05/2026 3633 PIZZERIA LAMANA, Porto 63,40
+10/04/2026 3633 YE S, NIF 508896223 7,00
+''',
+        filePath: '/tmp/card_statement.pdf',
+      );
+
+      expect(result.isBankStatement, isTrue);
+      expect(result.transactions.length, 4);
+      expect(result.transactions[0].date, DateTime(2026, 4, 29));
+      expect(result.transactions[0].amount, '24,40');
+      expect(result.transactions[0].description, 'MERCADONA, MATOSINHOS');
+      expect(result.transactions[1].description, 'FUCHSIA VINTAGE, 4450-078 MATO');
+      // 29/04/2026 only fits DD/MM, so 10/04/2026 is April 10.
+      expect(result.transactions[3].date, DateTime(2026, 4, 10));
+      // Digits inside the description must not be merged into the amount.
+      expect(result.transactions[3].description, 'YE S, NIF 508896223');
+      expect(result.transactions[3].amount, '7,00');
+    });
+
+    test('detects a card statement with a single transaction', () {
+      const BankStatementPdfService service = BankStatementPdfService();
+
+      final BankStatementParseResult result = service.parseExtractedText(
+        rawText: '''
+Card Statement
+Card number: 450619XXXXXXX633
+Charge period: 27/08/2026 to 28/09/2026
+03/09/2026 3633 Amazon Prime*NV4937LM4, amazon.es/prm -49,90
+Total Amount 49,90
+''',
+        filePath: '/tmp/card_statement.pdf',
+      );
+
+      expect(result.isBankStatement, isTrue);
+      expect(result.transactions.length, 1);
+      expect(result.transactions[0].date, DateTime(2026, 9, 3));
+      expect(result.transactions[0].description, 'Amazon Prime*NV4937LM4, amazon.es/prm');
+      expect(result.transactions[0].amount, '-49,90');
+    });
+
+    test('keeps identical transactions on the same day as separate rows', () {
+      const BankStatementPdfService service = BankStatementPdfService();
+
+      final BankStatementParseResult result = service.parseExtractedText(
+        rawText: '''
+Card Statement
+Card number: 450619XXXXXXX633
+15/06/2025 3633 LE WALLACE, 75PARIS 15 -10,80
+16/06/2025 3633 SERVICE NAVIGO, 75PARIS -2,50
+16/06/2025 3633 SERVICE NAVIGO, 75PARIS -2,50
+16/06/2025 3633 AU FIN GOURMET, PARIS -115,00
+''',
+        filePath: '/tmp/card_statement.pdf',
+      );
+
+      expect(result.transactions.length, 4);
+      expect(result.transactions[1].description, 'SERVICE NAVIGO, 75PARIS');
+      expect(result.transactions[2].description, 'SERVICE NAVIGO, 75PARIS');
+      expect(result.transactions[2].amount, '-2,50');
+    });
+
+    group('signAmountsByColumn', () {
+      /// Lays out [text] as a monospaced page (10pt per character) and returns one rect per character.
+      List<PdfRect> monospacedCharRects(String text) {
+        final List<PdfRect> rects = <PdfRect>[];
+        int column = 0;
+        for (int index = 0; index < text.length; index = index + 1) {
+          rects.add(PdfRect(column * 10.0, 10, column * 10.0 + 10, 0));
+          column = text[index] == '\n' ? 0 : column + 1;
+        }
+        return rects;
+      }
+
+      test('negates debit column amounts and keeps payment column amounts positive', () {
+        const BankStatementPdfService service = BankStatementPdfService();
+        const String text =
+            'Card Statement\n'
+            '                                        Debits (€)     Payments (€)\n'
+            '29/04/2026 3633 MERCADONA, MATOSINHOS        24,40\n'
+            '18/05/2026 3633 ANUL. WWW.AMAZON, amzn.com/bill               20,00\n'
+            'Total Amount 1.028,93 20,00';
+
+        final String signed = service.signAmountsByColumn(text, monospacedCharRects(text));
+
+        expect(signed, contains('MATOSINHOS        -24,40'));
+        expect(signed, contains('amzn.com/bill               20,00'));
+        expect(signed, contains('Total Amount 1.028,93 20,00'));
+      });
+
+      test('leaves text unchanged without a debits/payments header line', () {
+        const BankStatementPdfService service = BankStatementPdfService();
+        const String text =
+            'Current month debits and payments with your card\n'
+            '29/04/2026 3633 MERCADONA, MATOSINHOS 24,40';
+
+        expect(service.signAmountsByColumn(text, monospacedCharRects(text)), text);
+      });
     });
   });
 }

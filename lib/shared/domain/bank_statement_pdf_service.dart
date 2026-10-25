@@ -1,11 +1,12 @@
 // ignore: fcheck_one_class_per_file
 // ignore: fcheck_hardcoded_strings
 // ignore: fcheck_magic_numbers
+import 'package:money/helpers/date_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:pdfrx/pdfrx.dart';
 
 const int _minimumKeywordMatches = 2;
-const int _minimumTransactionsForStatement = 2;
+const int _minimumTransactionsForStatement = 1;
 
 /// Represents a single normalized transaction extracted from a PDF statement.
 class BankStatementTransactionRecord {
@@ -88,7 +89,8 @@ class BankStatementPdfService {
         .toList();
 
     final int fallbackYear = _resolveFallbackYear(lines);
-    final List<BankStatementTransactionRecord> transactions = _extractTransactions(lines, fallbackYear);
+    final bool isDayFirst = _isDocumentDayFirst(lines);
+    final List<BankStatementTransactionRecord> transactions = _extractTransactions(lines, fallbackYear, isDayFirst);
     final List<String> accountHints = _extractAccountHints(lines);
     final double? statementBalance = _extractStatementBalance(lines);
     final String? detectedCurrencyCode = _extractDetectedCurrencyCode(normalizedText.toLowerCase());
@@ -148,12 +150,71 @@ class BankStatementPdfService {
         if (buffer.isNotEmpty) {
           buffer.writeln();
         }
-        buffer.write(pageText.fullText);
+        buffer.write(signAmountsByColumn(pageText.fullText, pageText.charRects));
       }
       return buffer.toString();
     } finally {
       document.dispose();
     }
+  }
+
+  /// Signs the trailing amount of each dated row in [fullText] using its horizontal position in [charRects].
+  ///
+  /// Applies only when the page has a header line made of just a "Debits" and a "Payments"/"Credits" column
+  /// (e.g. "Debits (€) Payments (€)"): amounts left of the midpoint between both headers are prefixed with `-`,
+  /// amounts right of it are kept positive. Returns [fullText] unchanged otherwise.
+  String signAmountsByColumn(String fullText, List<PdfRect> charRects) {
+    if (charRects.length != fullText.length) {
+      return fullText;
+    }
+
+    final RegExp headerLinePattern = RegExp(
+      r'^[ \t]*(debits?)(?:[ \t]*\([^)\n]*\))?[ \t]+(payments?|credits?)(?:[ \t]*\([^)\n]*\))?[ \t]*$',
+      caseSensitive: false,
+      multiLine: true,
+    );
+    final RegExpMatch? header = headerLinePattern.firstMatch(fullText);
+    if (header == null) {
+      return fullText;
+    }
+
+    final double debitsCenterX = _centerX(charRects, header.start + header[0]!.indexOf(header[1]!), header[1]!.length);
+    final double paymentsCenterX = _centerX(
+      charRects,
+      header.start + header[0]!.lastIndexOf(header[2]!),
+      header[2]!.length,
+    );
+    if (paymentsCenterX <= debitsCenterX) {
+      return fullText;
+    }
+    final double columnBoundaryX = (debitsCenterX + paymentsCenterX) / 2;
+
+    final RegExp datedRowAmountPattern = RegExp(
+      r'^[ \t]*\d{1,2}[/-]\d{1,2}[/-]\d{2,4}[ \t].*[ \t](\d[\d.,]*[.,]\d{2})[ \t]*$',
+      multiLine: true,
+    );
+    final List<int> debitAmountStarts = <int>[
+      for (final RegExpMatch row in datedRowAmountPattern.allMatches(fullText))
+        if (row.start > header.end &&
+            _centerX(charRects, row.start + row[0]!.lastIndexOf(row[1]!), row[1]!.length) < columnBoundaryX)
+          row.start + row[0]!.lastIndexOf(row[1]!),
+    ];
+
+    final StringBuffer signed = StringBuffer();
+    int copiedUpTo = 0;
+    for (final int amountStart in debitAmountStarts) {
+      signed
+        ..write(fullText.substring(copiedUpTo, amountStart))
+        ..write('-');
+      copiedUpTo = amountStart;
+    }
+    signed.write(fullText.substring(copiedUpTo));
+    return signed.toString();
+  }
+
+  /// Returns the horizontal center of the [length] characters starting at [start] in [charRects].
+  double _centerX(List<PdfRect> charRects, int start, int length) {
+    return (charRects[start].left + charRects[start + length - 1].right) / 2;
   }
 
   /// Counts how many bank statement keywords appear in [lowercaseText].
@@ -170,6 +231,9 @@ class BankStatementPdfService {
       'transaction date',
       'withdrawal',
       'deposit',
+      'card statement',
+      'card number',
+      'charge period',
     ];
 
     int matches = 0;
@@ -253,16 +317,21 @@ class BankStatementPdfService {
         lowercaseLine.contains('new balance');
   }
 
-  /// Extracts transaction rows from [lines], applying [fallbackYear] when needed.
+  /// Extracts transaction rows from [lines], applying [fallbackYear] when needed and
+  /// reading ambiguous dates day-first when [isDayFirst] is true.
   List<BankStatementTransactionRecord> _extractTransactions(
     List<String> lines,
     int fallbackYear,
+    bool isDayFirst,
   ) {
     final RegExp transactionPattern = RegExp(
-      r'^(\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)\s+(.+?)\s+([+\-]?\(?\$?\s*\d[\d,.\s]*\)?(?:\s*(?:CR|DR))?)$',
+      r'^(\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)\s+(.+?)\s+([+\-]?\(?\$?\s*\d[\d,.]*\)?(?:\s*(?:CR|DR))?)$',
       caseSensitive: false,
     );
 
+    // A description ending in a decimal amount means the row carries amount + running balance;
+    // those rows are left to the split-row extractor.
+    final RegExp trailingAmountPattern = RegExp(r'(?:^|\s)[+\-]?\$?\d[\d.,]*[.,]\d{2}$');
     final Set<String> dedupeKeys = <String>{};
     final List<BankStatementTransactionRecord> records = <BankStatementTransactionRecord>[];
 
@@ -277,23 +346,20 @@ class BankStatementPdfService {
       final String description = (match.group(2) ?? '').trim();
       final String amountToken = (match.group(3) ?? '').trim();
 
-      if (_isSummaryDescription(description)) {
+      if (_isSummaryDescription(description) || trailingAmountPattern.hasMatch(description)) {
         continue;
       }
 
-      final DateTime? date = _parseDateToken(dateToken, fallbackYear);
+      final DateTime? date = _parseDateToken(dateToken, fallbackYear, isDayFirst: isDayFirst);
       final double? amount = _parseAmountToken(amountToken);
 
       if (date == null || amount == null || description.isEmpty) {
         continue;
       }
 
-      final String dedupeKey = '${date.toIso8601String()}|${description.toLowerCase()}|$amountToken';
-      if (dedupeKeys.contains(dedupeKey)) {
-        continue;
-      }
-
-      dedupeKeys.add(dedupeKey);
+      // Identical rows within this pass are distinct transactions (e.g. two equal charges on the same day);
+      // the keys only stop the split-row pass from re-adding a row already found here.
+      dedupeKeys.add('${date.toIso8601String()}|${description.toLowerCase()}|$amountToken');
       records.add(
         BankStatementTransactionRecord(
           date: date,
@@ -306,17 +372,42 @@ class BankStatementPdfService {
     final List<BankStatementTransactionRecord> multilineRecords = _extractTransactionsFromSplitRows(
       lines: lines,
       fallbackYear: fallbackYear,
+      isDayFirst: isDayFirst,
       dedupeKeys: dedupeKeys,
     );
     records.addAll(multilineRecords);
 
-    return records;
+    return _stripLeadingCardDigitsColumn(records);
+  }
+
+  /// Removes a leading 4-digit token (e.g. a "card number, last 4 digits" column) from every
+  /// description in [records], but only when all records start with one.
+  List<BankStatementTransactionRecord> _stripLeadingCardDigitsColumn(List<BankStatementTransactionRecord> records) {
+    final RegExp leadingCardDigitsPattern = RegExp(r'^\d{4}\s+(?=\S)');
+    if (records.isEmpty ||
+        !records.every(
+          (BankStatementTransactionRecord record) => leadingCardDigitsPattern.hasMatch(record.description),
+        )) {
+      return records;
+    }
+
+    return records
+        .map(
+          (BankStatementTransactionRecord record) => BankStatementTransactionRecord(
+            date: record.date,
+            description: record.description.replaceFirst(leadingCardDigitsPattern, ''),
+            amount: record.amount,
+          ),
+        )
+        .toList();
   }
 
   /// Extracts transactions from statements that split rows into two lines: posting date/ref then value-date/details.
+  /// Rows whose key is already in [dedupeKeys] (found by the single-line pass) are skipped.
   List<BankStatementTransactionRecord> _extractTransactionsFromSplitRows({
     required List<String> lines,
     required int fallbackYear,
+    required bool isDayFirst,
     required Set<String> dedupeKeys,
   }) {
     final RegExp postingDateRefPattern = RegExp(r'^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s+\d+\s*$');
@@ -339,7 +430,7 @@ class BankStatementPdfService {
       }
 
       final String dateToken = dateMatch.group(1) ?? '';
-      final DateTime? date = _parseDateToken(dateToken, fallbackYear);
+      final DateTime? date = _parseDateToken(dateToken, fallbackYear, isDayFirst: isDayFirst);
       if (date == null) {
         continue;
       }
@@ -367,12 +458,10 @@ class BankStatementPdfService {
         continue;
       }
 
-      final String dedupeKey = '${date.toIso8601String()}|${description.toLowerCase()}|$amountToken';
-      if (dedupeKeys.contains(dedupeKey)) {
+      if (dedupeKeys.contains('${date.toIso8601String()}|${description.toLowerCase()}|$amountToken')) {
         continue;
       }
 
-      dedupeKeys.add(dedupeKey);
       records.add(
         BankStatementTransactionRecord(
           date: date,
@@ -398,6 +487,24 @@ class BankStatementPdfService {
         lowered == 'subtotal';
   }
 
+  /// Returns true when the full dates in [lines] only fit day-first formats (e.g. a peer row
+  /// dated 14-12-2026), so ambiguous dates such as 10-04-2026 should be read as DD-MM.
+  bool _isDocumentDayFirst(List<String> lines) {
+    final RegExp dateWithYearPattern = RegExp(r'\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b');
+    final List<String> dateTokens = <String>[
+      for (final String line in lines)
+        for (final RegExpMatch match in dateWithYearPattern.allMatches(line)) match.group(0) ?? '',
+    ];
+    if (dateTokens.isEmpty) {
+      return false;
+    }
+
+    final List<String> formats = getPossibleDateFormatsForAllValues(dateTokens);
+    final bool fitsDayFirst = formats.any((String format) => format.startsWith('d'));
+    final bool fitsMonthFirst = formats.any((String format) => format.startsWith('M'));
+    return fitsDayFirst && !fitsMonthFirst;
+  }
+
   /// Resolves the most likely statement year from explicit dates present in [lines].
   int _resolveFallbackYear(List<String> lines) {
     final RegExp dateWithYearPattern = RegExp(r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}');
@@ -419,7 +526,8 @@ class BankStatementPdfService {
   }
 
   /// Parses [token] into a concrete date, using [fallbackYear] when year is missing.
-  DateTime? _parseDateToken(String token, int fallbackYear) {
+  /// Ambiguous tokens (both parts <= 12) are read as DD-MM when [isDayFirst], otherwise MM-DD.
+  DateTime? _parseDateToken(String token, int fallbackYear, {bool isDayFirst = false}) {
     final List<String> parts = token.replaceAll('-', '/').split('/');
     if (parts.length < 2 || parts.length > 3) {
       return null;
@@ -440,8 +548,8 @@ class BankStatementPdfService {
       year = parsedYear < 100 ? (parsedYear >= 70 ? 1900 + parsedYear : 2000 + parsedYear) : parsedYear;
     }
 
-    int month = first;
-    int day = second;
+    int month = isDayFirst ? second : first;
+    int day = isDayFirst ? first : second;
 
     if (first > 12 && second <= 12) {
       day = first;
