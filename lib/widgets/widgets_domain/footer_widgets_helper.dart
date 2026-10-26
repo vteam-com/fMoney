@@ -52,7 +52,7 @@ Widget getFooterForDateRange(DateRange dateRange) {
 /// Builds a footer widget for a monetary [amount].
 Widget getFooterForAmount(double amount, {String prefix = ''}) {
   final TextStyle style = TextStyle(
-    color: Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.colorBasedOnValue(amount),
+    color: AppRouter.context!.colorTheme.colorBasedOnValue(amount),
     fontFamily: 'RobotoMono',
   );
 
@@ -76,9 +76,7 @@ Widget getFooterForInt(
   String prefix = '',
 }) {
   final TextStyle style = TextStyle(
-    color: applyColorBasedOnValue
-        ? Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.colorBasedOnValue(value)
-        : null,
+    color: applyColorBasedOnValue ? AppRouter.context!.colorTheme.colorBasedOnValue(value) : null,
     fontFamily: 'RobotoMono',
   );
 

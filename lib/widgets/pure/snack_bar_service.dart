@@ -220,7 +220,7 @@ class SnackBarService {
     bool autoDismiss = true,
   }) {
     final _SnackBarVariantConfig config = _variantConfigs[variant]!;
-    final MoneyThemeData themeData = Theme.of(AppRouter.context!).extension<MoneyThemeData>()!;
+    final MoneyThemeData themeData = AppRouter.context!.colorTheme;
     display(
       title: title ?? AppL10n.tr(config.titleKey),
       message: message,
