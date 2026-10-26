@@ -1,5 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -10,7 +9,6 @@ import 'package:money/shared/domain/investments_collection.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
@@ -18,7 +16,7 @@ import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Represents view investments.
@@ -203,6 +201,16 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
       return CenterMessage.noTransaction();
     }
 
+    return buildSidePanelTransactionsList(key: Key(instance.uniqueId.toString()));
+  }
+
+  @override
+  List<DataObject> getSidePanelTransactions() {
+    final Investment? instance = getFirstSelectedItem() as Investment?;
+    if (instance == null) {
+      return <DataObject>[];
+    }
+
     // get the related Transaction in order to get the associated Account
     final List<int> listOfInvestmentIdForThisSecurityAndAccount = Data().investments
         .iterableList()
@@ -216,25 +224,10 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
         .map((Investment i) => i.uniqueId)
         .toList();
 
-    final List<Transaction> listOfTransactions = getTransactions(
+    return getTransactions(
       filter: (Transaction transaction) => listOfInvestmentIdForThisSecurityAndAccount.contains(
         transaction.uniqueId,
       ),
-    );
-    final SelectionController selectionController = SelectionController();
-    return ListViewTransactions(
-      key: Key(instance.uniqueId.toString()),
-      listController: AppScope.instance.listControllerSidePanel,
-      columnsToInclude: <Field<dynamic>>[
-        Transaction.fields.getFieldByName(columnIdDate),
-        Transaction.fields.getFieldByName(columnIdAccount),
-        Transaction.fields.getFieldByName(columnIdPayee),
-        Transaction.fields.getFieldByName(columnIdCategory),
-        Transaction.fields.getFieldByName(columnIdMemo),
-        Transaction.fields.getFieldByName(columnIdAmount),
-      ],
-      getList: () => listOfTransactions,
-      selectionController: selectionController,
     );
   }
 }

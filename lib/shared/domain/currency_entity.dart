@@ -56,7 +56,6 @@ class Currency extends DataObject {
     name: 'Culture Code',
     serializeName: SharedDomainStrings.domainString040,
     getValueForDisplay: (DataInterface instance) => (instance as Currency).fieldCultureCode.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Currency).fieldCultureCode.value,
   );
 
   // 0
@@ -66,35 +65,27 @@ class Currency extends DataObject {
 
   // 4
   FieldDouble fieldLastRatio = FieldDouble(
-    name: SharedDomainStrings.domainString080,
     serializeName: SharedDomainStrings.domainString080,
     getValueForDisplay: (DataInterface instance) => (instance as Currency).fieldLastRatio.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Currency).fieldLastRatio.value,
   );
 
   /// 2
   /// 2    name       nchar(20)
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     getValueForDisplay: (DataInterface instance) => (instance as Currency).fieldName.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Currency).fieldName.value,
   );
 
   /// 3    Ratio        money
   FieldDouble fieldRatio = FieldDouble(
-    name: SharedDomainStrings.domainString113,
     serializeName: SharedDomainStrings.domainString113,
     getValueForDisplay: (DataInterface instance) => (instance as Currency).fieldRatio.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Currency).fieldRatio.value,
   );
 
   /// 1    Symbol       nchar(20)
   FieldString fieldSymbol = FieldString(
-    name: SharedDomainStrings.domainString131,
     serializeName: SharedDomainStrings.domainString131,
     getValueForDisplay: (DataInterface instance) => (instance as Currency).fieldSymbol.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Currency).fieldSymbol.value,
   );
 
   // Fields for this instance

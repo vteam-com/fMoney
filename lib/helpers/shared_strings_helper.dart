@@ -265,30 +265,6 @@ abstract class SharedStrings {
   /// Prefix used for unknown account type fallback rendering.
   static const String accountTypeOtherPrefix = 'other ';
 
-  /// Category type lookup token for income.
-  static const String categoryTypeIncomeToken = 'income';
-
-  /// Category type lookup token for expense.
-  static const String categoryTypeExpenseToken = 'expense';
-
-  /// Category type lookup token for recurring expense.
-  static const String categoryTypeRecurringExpenseToken = 'recurringexpense';
-
-  /// Category type lookup token for alternate recurring expense spelling.
-  static const String categoryTypeExpenseRecurringToken = 'expenserecurring';
-
-  /// Category type lookup token for saving.
-  static const String categoryTypeSavingToken = 'saving';
-
-  /// Category type lookup token for reserved.
-  static const String categoryTypeReservedToken = 'reserved';
-
-  /// Category type lookup token for transfer.
-  static const String categoryTypeTransferToken = 'transfer';
-
-  /// Category type lookup token for investment.
-  static const String categoryTypeInvestmentToken = 'investment';
-
   /// Category display label for income.
   static const String categoryTypeIncomeLabel = 'Income';
 
@@ -354,6 +330,9 @@ abstract class SharedStrings {
 
   /// Supported file extension for QFX imports.
   static const String fileExtensionQfx = 'qfx';
+
+  /// Supported file extension for OFX imports (parsed by the QFX importer).
+  static const String fileExtensionOfx = 'ofx';
 
   /// Supported file extension for XLSX imports.
   static const String fileExtensionXlsx = 'xlsx';

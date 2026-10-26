@@ -44,10 +44,8 @@ class Payee extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     getValueForDisplay: (DataInterface instance) => (instance as Payee).fieldName.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Payee).fieldName.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Payee).fieldName.value = value as String,
   );
 

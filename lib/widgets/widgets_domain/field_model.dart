@@ -796,9 +796,7 @@ Widget buildFieldWidgetForAmount({
       textAlign: align,
       style: TextStyle(
         fontFamily: SharedStrings.fontRobotoMono,
-        color: AppRouter.context == null
-            ? null
-            : Theme.of(AppRouter.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
+        color: AppRouter.context?.colorTheme.getTextColorToUse(value as num),
       ),
     ),
     textAlignToAlignment(align),

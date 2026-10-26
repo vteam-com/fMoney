@@ -274,11 +274,11 @@ class DataObject extends DataInterface {
   Color getMutationColor() {
     switch (mutation) {
       case MutationType.inserted:
-        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.success);
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.success);
       case MutationType.changed:
-        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.warning);
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.warning);
       case MutationType.deleted:
-        return Theme.of(AppRouter.context!).extension<MoneyThemeData>()!.getColorForState(ColorState.error);
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.error);
       default:
         return Colors.transparent;
     }

@@ -295,8 +295,7 @@ Widget transactionBuildPayeeOrTransferWidget(dynamic transaction) {
       if (showHintIcon)
         Builder(
           builder: (BuildContext context) {
-            final Color iconColor =
-                Theme.of(context).extension<MoneyThemeData>()?.getColorForState(ColorState.warning) ?? Colors.orange;
+            final Color iconColor = context.colorTheme.getColorForState(ColorState.warning);
             return IconButton(
               tooltip: AppL10n.tr(AppTranslationKeys.matchingTransaction),
               padding: EdgeInsets.zero,

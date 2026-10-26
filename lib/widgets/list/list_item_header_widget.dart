@@ -14,9 +14,8 @@ const double _dragDividerAlpha = 0.6;
 
 /// A Row for a Table view.
 ///
-/// When [columnWidths] is provided the header uses a pixel-aligned layout with
-/// visible drag handles so columns stay synchronized with the list body. When
-/// omitted the header falls back to proportional flex layout.
+/// The header uses a pixel-aligned layout driven by [columnWidths] with visible
+/// drag handles so columns stay synchronized with the list body.
 class MyListItemHeader<T> extends StatelessWidget {
   const MyListItemHeader({
     required this.columns,
@@ -24,17 +23,17 @@ class MyListItemHeader<T> extends StatelessWidget {
     required this.sortByColumn,
     required this.sortAscending,
     required this.onTap,
+    required this.columnWidths,
     super.key,
     this.backgroundColor = Colors.transparent,
     this.itemsAreAllSelected = false,
     this.onSelectAll,
     this.onLongPress,
-    this.columnWidths,
   });
   final Color backgroundColor;
 
-  /// Optional shared column-width notifier for pixel-aligned resizable layout.
-  final ColumnWidthsNotifier? columnWidths;
+  /// Shared column-width notifier for pixel-aligned resizable layout.
+  final ColumnWidthsNotifier columnWidths;
   final FieldDefinitions columns;
   final FieldFilters filterOn;
   final bool itemsAreAllSelected;
@@ -43,107 +42,17 @@ class MyListItemHeader<T> extends StatelessWidget {
   final void Function(int columnIndex) onTap;
   final bool sortAscending;
   final int sortByColumn;
-  @override
-  Widget build(BuildContext context) {
-    if (columnWidths != null) {
-      return _buildPixelLayout(context);
-    }
-    return _buildFlexLayout(context);
-  }
-
-  /// Builds a drag handle between two adjacent header columns.
-  ///
-  /// The handle shows a thin visible divider and changes the mouse cursor to
-  /// [SystemMouseCursors.resizeColumn] on hover.
-  Widget _buildDragHandle(
-    BuildContext context,
-    int leftColumnPos,
-    double contentWidth,
-  ) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.resizeColumn,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onHorizontalDragUpdate: (DragUpdateDetails details) {
-          if (contentWidth > 0) {
-            columnWidths!.resizeAtBoundary(
-              leftColumnPos,
-              details.delta.dx / contentWidth,
-              minimumColumnWidth / contentWidth,
-            );
-          }
-        },
-        child: SizedBox(
-          width: columnResizeHandleWidth,
-          child: VerticalDivider(
-            width: columnResizeHandleWidth,
-            thickness: _dragDividerWidth,
-            indent: 0,
-            endIndent: 0,
-            color: Theme.of(context).dividerColor.withValues(
-              alpha: _dragDividerAlpha,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Builds the header using the legacy proportional flex layout.
-  Widget _buildFlexLayout(BuildContext context) {
-    final List<Widget> headers = <Widget>[];
-    if (onSelectAll != null) {
-      headers.add(
-        Checkbox(
-          key: Constants.keyCheckboxToggleSelectAll,
-          value: itemsAreAllSelected,
-          onChanged: (bool? selected) {
-            onSelectAll!(selected == true);
-          },
-        ),
-      );
-    }
-    for (int i = 0; i < columns.length; i++) {
-      final Field<dynamic> columnDefinition = columns[i];
-      if (columnDefinition.columnWidth != ColumnWidth.hidden) {
-        headers.add(
-          buildColumnHeaderButton(
-            context: context,
-            text: columnDefinition.name,
-            textAlign: columnDefinition.align,
-            flex: columnDefinition.columnWidth.index,
-            sortIndicator: getSortIndicator(sortByColumn, i, sortAscending),
-            hasFilters:
-                filterOn.list.firstWhereOrNull(
-                  (FieldFilter item) => item.fieldName == columnDefinition.name,
-                ) !=
-                null,
-            onPressed: () {
-              onTap(i);
-            },
-            onLongPress: () {
-              onLongPress?.call(columnDefinition);
-            },
-          ),
-        );
-      }
-    }
-    return Container(
-      color: backgroundColor,
-      padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.normal),
-      child: Row(children: headers),
-    );
-  }
 
   /// Builds the header using a pixel-aligned layout with visible drag handles.
   ///
   /// The cell widths mirror those used by the list body so header and body
   /// columns stay in sync after resizing.
-  Widget _buildPixelLayout(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: columnWidths!,
+      listenable: columnWidths,
       builder: (BuildContext _, Widget? _) {
-        final List<double> ratios = columnWidths!.value;
+        final List<double> ratios = columnWidths.value;
 
         return Container(
           color: backgroundColor,
@@ -215,6 +124,44 @@ class MyListItemHeader<T> extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  /// Builds a drag handle between two adjacent header columns.
+  ///
+  /// The handle shows a thin visible divider and changes the mouse cursor to
+  /// [SystemMouseCursors.resizeColumn] on hover.
+  Widget _buildDragHandle(
+    BuildContext context,
+    int leftColumnPos,
+    double contentWidth,
+  ) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.resizeColumn,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
+          if (contentWidth > 0) {
+            columnWidths.resizeAtBoundary(
+              leftColumnPos,
+              details.delta.dx / contentWidth,
+              minimumColumnWidth / contentWidth,
+            );
+          }
+        },
+        child: SizedBox(
+          width: columnResizeHandleWidth,
+          child: VerticalDivider(
+            width: columnResizeHandleWidth,
+            thickness: _dragDividerWidth,
+            indent: 0,
+            endIndent: 0,
+            color: Theme.of(context).dividerColor.withValues(
+              alpha: _dragDividerAlpha,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

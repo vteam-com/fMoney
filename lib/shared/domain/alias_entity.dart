@@ -66,7 +66,6 @@ class Alias extends DataObject {
   FieldInt fieldFlags = FieldInt(
     type: FieldType.text,
     align: TextAlign.center,
-    name: SharedDomainStrings.domainString055,
     serializeName: SharedDomainStrings.domainString055,
     defaultValue: 0,
     footer: FooterType.count,
@@ -84,10 +83,8 @@ class Alias extends DataObject {
   /// SQL[1] "Pattern"  nvarchar(255)
   FieldString fieldPattern = FieldString(
     type: FieldType.text,
-    name: SharedDomainStrings.domainString104,
     serializeName: SharedDomainStrings.domainString104,
     getValueForDisplay: (DataInterface instance) => (instance as Alias).fieldPattern.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPattern.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
   );
 
@@ -96,7 +93,6 @@ class Alias extends DataObject {
   FieldInt fieldPayeeId = FieldInt(
     type: FieldType.text,
     footer: FooterType.count,
-    name: SharedDomainStrings.domainString105,
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: 0,
     getValueForDisplay: (DataInterface instance) => (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),

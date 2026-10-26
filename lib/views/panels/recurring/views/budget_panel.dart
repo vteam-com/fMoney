@@ -656,11 +656,8 @@ class _PanelBudgetState extends State<PanelBudget> {
   /// Updates the active sort column and direction, then re-sorts the list.
   void _onColumnSort(int columnIndex) {
     setState(() {
-      if (columnIndex == _sortColumnIndex) {
-        _sortAscending = !_sortAscending;
-      } else {
-        _sortColumnIndex = columnIndex;
-      }
+      _sortAscending = sortAscendingAfterColumnTap(columnIndex, _sortColumnIndex, _sortAscending);
+      _sortColumnIndex = columnIndex;
       _sort();
     });
   }

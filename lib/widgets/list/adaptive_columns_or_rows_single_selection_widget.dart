@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/default_values_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
@@ -123,89 +121,10 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
     }
     _footerAccumulatorsComputedForList = widget.list;
 
-    _footerAccumulators.clear();
-
-    for (final DataObject item in widget.list) {
-      for (final Field<dynamic> field in widget.fieldDefinitions) {
-        switch (field.type) {
-          case FieldType.text:
-            _footerAccumulators.accumulatorListOfText.cumulate(
-              field,
-              field.getValueForDisplay(item) as String,
-            );
-
-          case FieldType.date:
-            _footerAccumulators.accumulatorDateRange.cumulate(
-              field,
-              field.getValueForDisplay(item) as DateTime,
-            );
-
-          case FieldType.dateRange:
-            if (field.value.min != null) {
-              _footerAccumulators.accumulatorDateRange.cumulate(
-                field,
-                field.value.min as DateTime,
-              );
-            }
-            if (field.value.max != null) {
-              _footerAccumulators.accumulatorDateRange.cumulate(
-                field,
-                field.value.max as DateTime,
-              );
-            }
-
-          case FieldType.amount:
-            final double value = smartToDouble(field.getValueForDisplay(item));
-            _footerAccumulators.accumulatorSumAmount.cumulate(field, value);
-            if (field.footer == FooterType.average) {
-              _footerAccumulators.accumulatorForAverage.cumulate(
-                field,
-                value as num,
-              );
-            }
-            if (field.footer == FooterType.range) {
-              _footerAccumulators.accumulatorNumericRange.cumulate(
-                field,
-                value as num,
-              );
-            }
-
-          case FieldType.widget:
-            if (field.getValueForReading != null) {
-              _footerAccumulators.accumulatorListOfText.cumulate(
-                field,
-                field.getValueForReading?.call(item)!.toString() ?? '',
-              );
-            }
-
-          case FieldType.numeric:
-          case FieldType.amountShorthand:
-          case FieldType.numericShorthand:
-          case FieldType.quantity:
-            final dynamic value = field.getValueForDisplay(item);
-            if (value is num) {
-              _footerAccumulators.accumulatorSumNumber.cumulate(
-                field,
-                value.toDouble(),
-              );
-              if (field.footer == FooterType.average) {
-                _footerAccumulators.accumulatorForAverage.cumulate(
-                  field,
-                  value,
-                );
-              }
-              if (field.footer == FooterType.range) {
-                _footerAccumulators.accumulatorNumericRange.cumulate(
-                  field,
-                  value,
-                );
-              }
-            }
-          default:
-            break;
-        }
-      }
-    }
+    _footerAccumulators.recompute(
+      items: widget.list,
+      definitions: widget.fieldDefinitions,
+    );
   }
 
   /// Use the field FooterType to decide how to render the bottom button of each columns

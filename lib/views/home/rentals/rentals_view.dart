@@ -67,7 +67,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       onDetails: getSidePanelViewDetails,
       onChart: ViewRentalsSidePanel.getSubViewContentForChart,
       onPnL: ViewRentalsSidePanel.getSubViewContentForPnL,
-      onTransactions: ViewRentalsSidePanel.getSubViewContentForTransactions,
+      onTransactions: _getSidePanelViewTransactions,
     );
   }
 
@@ -78,6 +78,18 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       return <DataObject>[];
     }
     return ViewRentalsSidePanel.getTransactionLastSelectedItem(item);
+  }
+
+  /// Builds the side panel transactions list for the selected rental property.
+  Widget _getSidePanelViewTransactions({
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
+  }) {
+    keepUnused(showAsNativeCurrency);
+    if (Data().rentBuildings.get(selectedIds.first) == null) {
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
+    }
+    return buildSidePanelTransactionsList();
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -9,7 +8,6 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/event_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/charts/stock_chart.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
@@ -19,6 +17,7 @@ import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/state/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
@@ -220,19 +219,16 @@ class _ViewEventsState extends ViewForMoneyObjectsState {
       getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
     );
 
-    return ListViewTransactions(
-      listController: AppScope.instance.listControllerSidePanel,
-      columnsToInclude: <Field<dynamic>>[
-        Transaction.fields.getFieldByName(columnIdDate),
-        Transaction.fields.getFieldByName(columnIdAccount),
-        Transaction.fields.getFieldByName(columnIdCategory),
-        Transaction.fields.getFieldByName(columnIdMemo),
-        Transaction.fields.getFieldByName(columnIdAmount),
-      ],
-      getList: () => getTransactions(
-        // filter: (final Transaction transaction) => transaction.fieldDateTime.value == DateTime.now(),
-      ),
+    return buildSidePanelTransactionsList(
+      columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
       selectionController: selectionController,
+    );
+  }
+
+  @override
+  List<DataObject> getSidePanelTransactions() {
+    return getTransactions(
+      // filter: (final Transaction transaction) => transaction.fieldDateTime.value == DateTime.now(),
     );
   }
 }

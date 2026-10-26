@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/selection_controller.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Represents view aliases.
@@ -66,6 +65,18 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
     );
   }
 
+  @override
+  List<DataObject> getSidePanelTransactions() {
+    final Alias? alias = getFirstSelectedItem() as Alias?;
+    if (alias != null && alias.fieldId.value > -1) {
+      return getTransactions(
+        flattenSplits: true,
+        filter: (Transaction transaction) => transaction.fieldPayee.value == alias.fieldPayeeId.value,
+      );
+    }
+    return <DataObject>[];
+  }
+
   /// Builds the side panel view for transactions with selection and currency options.
   Widget getSidePanelViewTransactions({
     required List<int> selectedIds,
@@ -81,20 +92,9 @@ class _ViewAliasesState extends ViewForMoneyObjectsState {
       list,
     );
     if (alias != null && alias.fieldId.value > -1) {
-      return ListViewTransactions(
+      return buildSidePanelTransactionsList(
         key: Key(alias.uniqueId.toString()),
-        listController: AppScope.instance.listControllerSidePanel,
-        columnsToInclude: <Field<dynamic>>[
-          Transaction.fields.getFieldByName(columnIdDate),
-          Transaction.fields.getFieldByName(columnIdAccount),
-          Transaction.fields.getFieldByName(columnIdCategory),
-          Transaction.fields.getFieldByName(columnIdMemo),
-          Transaction.fields.getFieldByName(columnIdAmount),
-        ],
-        getList: () => getTransactions(
-          flattenSplits: true,
-          filter: (Transaction transaction) => transaction.fieldPayee.value == alias.fieldPayeeId.value,
-        ),
+        columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
         selectionController: selectionController,
       );
     }
