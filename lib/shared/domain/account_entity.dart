@@ -461,11 +461,7 @@ class Account extends DataObject {
   }
 
   /// True if the account is an investment account.
-  bool isInvestmentAccount() {
-    return fieldType.value == AccountType.investment ||
-        fieldType.value == AccountType.retirement ||
-        fieldType.value == AccountType.moneyMarket;
-  }
+  bool isInvestmentAccount() => isInvestmentAccountType(fieldType.value);
 
   /// True if the account matches the user's filter choices (including closed).
   bool get isMatchingUserChoiceIncludingClosedAccount {

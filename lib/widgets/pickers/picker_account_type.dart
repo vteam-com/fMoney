@@ -10,14 +10,11 @@ Widget pickerAccountType({
   required AccountType itemSelected,
   required void Function(AccountType) onSelected,
 }) {
-  final String selectedName = getTypeAsText(itemSelected);
-
-  return PickerEditBox(
+  return pickerEnum<AccountType>(
     title: AppL10n.tr(AppTranslationKeys.accounts),
-    items: getAccountTypeAsText(),
-    initialValue: selectedName,
-    onChanged: (String newSelection) {
-      onSelected(getAccountTypeFromText(newSelection)!);
-    },
+    values: selectableAccountTypes,
+    selected: itemSelected,
+    toText: getTypeAsText,
+    onSelected: onSelected,
   );
 }

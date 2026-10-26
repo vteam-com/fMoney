@@ -127,12 +127,7 @@ class Accounts extends MoneyObjects<Account> {
     // Increase the balance of any investment account with the current Stock value
     final List<Account> investmentAccounts = this
         .iterableList()
-        .where(
-          (Account account) =>
-              account.fieldType.value == AccountType.moneyMarket ||
-              account.fieldType.value == AccountType.investment ||
-              account.fieldType.value == AccountType.retirement,
-        )
+        .where((Account account) => account.isInvestmentAccount())
         .toList();
 
     final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
