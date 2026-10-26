@@ -5,6 +5,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
@@ -426,20 +427,16 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       backgroundColorForHeaderFooter: Colors.transparent,
       onColumnHeaderTap: (int columnHeaderIndex) {
         setState(() {
-          if (columnHeaderIndex == sortByFieldIndex) {
-            // toggle order
-            sortAscending = !sortAscending;
-            PreferenceController.to.setBool(
-              getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-              sortAscending,
-            );
-          } else {
-            sortByFieldIndex = columnHeaderIndex;
-            PreferenceController.to.setInt(
-              getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-              sortByFieldIndex,
-            );
-          }
+          sortAscending = sortAscendingAfterColumnTap(columnHeaderIndex, sortByFieldIndex, sortAscending);
+          sortByFieldIndex = columnHeaderIndex;
+          PreferenceController.to.setBool(
+            getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
+            sortAscending,
+          );
+          PreferenceController.to.setInt(
+            getPreferenceKey(settingKeySidePanel + settingKeySortBy),
+            sortByFieldIndex,
+          );
         });
       },
       onSelectionChanged: (int uniqueId) {

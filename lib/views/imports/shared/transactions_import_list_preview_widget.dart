@@ -4,6 +4,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -326,11 +327,8 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
   /// Updates the sort selection and re-sorts the preview list.
   void _updateSortChoice(int columnIndex) {
     setState(() {
-      if (columnIndex == _sortColumnIndex) {
-        _sortAscending = !_sortAscending;
-      } else {
-        _sortColumnIndex = columnIndex;
-      }
+      _sortAscending = sortAscendingAfterColumnTap(columnIndex, _sortColumnIndex, _sortAscending);
+      _sortColumnIndex = columnIndex;
       _sortValues();
     });
   }

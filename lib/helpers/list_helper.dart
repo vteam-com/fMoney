@@ -4,6 +4,12 @@ import 'dart:math';
 import 'package:money/helpers/pairs_model.dart';
 import 'package:money/helpers/string_helper.dart';
 
+/// Returns the sort direction after the user taps the header of [tappedColumn]:
+/// tapping the column already sorted on ([sortedColumn]) flips [ascending],
+/// tapping another column keeps it. The tapped column becomes the sorted column.
+bool sortAscendingAfterColumnTap(int tappedColumn, int sortedColumn, bool ascending) =>
+    tappedColumn == sortedColumn ? !ascending : ascending;
+
 /// Calculates a list of evenly spaced values between a start and end value.
 ///
 /// This function takes a start value, an end value, and the desired number of

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_split_dialog.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
@@ -62,12 +63,8 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
           columnWidths: _columnWidths,
           onTap: (int index) {
             setState(() {
-              if (_sortBy == index) {
-                // same column tap/click again, change the sort order
-                _sortAscending = !_sortAscending;
-              } else {
-                _sortBy = index;
-              }
+              _sortAscending = sortAscendingAfterColumnTap(index, _sortBy, _sortAscending);
+              _sortBy = index;
             });
           },
         ),

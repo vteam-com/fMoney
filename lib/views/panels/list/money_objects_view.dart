@@ -8,6 +8,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
@@ -832,12 +833,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   /// Changes sort order based on the tapped column and persists the choice.
   void _changeListSortOrder(int columnNumber) {
     setState(() {
-      if (columnNumber == _sortByFieldIndex) {
-        // toggle order
-        _sortAscending = !_sortAscending;
-      } else {
-        _sortByFieldIndex = columnNumber;
-      }
+      _sortAscending = sortAscendingAfterColumnTap(columnNumber, _sortByFieldIndex, _sortAscending);
+      _sortByFieldIndex = columnNumber;
 
       // Persist users choice
       saveLastUserChoicesOfView();

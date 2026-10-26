@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
@@ -92,12 +93,8 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
       },
       onColumnHeaderTap: (int index) {
         setState(() {
-          if (_sortBy == index) {
-            // same column tap/click again, change the sort order
-            _sortAscending = !_sortAscending;
-          } else {
-            _sortBy = index;
-          }
+          _sortAscending = sortAscendingAfterColumnTap(index, _sortBy, _sortAscending);
+          _sortBy = index;
           widget.onUserChoiceChanged?.call(
             _sortBy,
             _sortAscending,
