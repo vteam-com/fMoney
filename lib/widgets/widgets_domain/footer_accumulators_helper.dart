@@ -4,7 +4,9 @@ import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/default_values_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_widgets_helper.dart';
 
@@ -113,5 +115,108 @@ class FooterAccumulators {
     accumulatorNumericRange.clear();
     accumulatorDateRange.clear();
     accumulatorListOfText.clear();
+  }
+
+  /// Clears and recomputes all footer accumulators from [items] using the
+  /// field [definitions].
+  void recompute({
+    required List<DataObject> items,
+    required FieldDefinitions definitions,
+  }) {
+    clear();
+
+    for (final DataObject item in items) {
+      for (final Field<dynamic> field in definitions) {
+        switch (field.type) {
+          case FieldType.text:
+            accumulatorListOfText.cumulate(
+              field,
+              field.getValueForDisplay(item).toString(),
+            );
+
+          case FieldType.date:
+            final dynamic dateTime = field.getValueForDisplay(item);
+            if (dateTime != null) {
+              accumulatorDateRange.cumulate(
+                field,
+                dateTime as DateTime,
+              );
+            }
+          case FieldType.dateRange:
+            final dynamic dateRangeValue = field.getValue(item);
+            if (dateRangeValue.min != null) {
+              accumulatorDateRange.cumulate(
+                field,
+                dateRangeValue.min as DateTime,
+              );
+            }
+            if (dateRangeValue.max != null) {
+              accumulatorDateRange.cumulate(
+                field,
+                dateRangeValue.max as DateTime,
+              );
+            }
+
+          case FieldType.widget:
+            if (field.getValueForReading != null) {
+              accumulatorListOfText.cumulate(
+                field,
+                field.getValueForReading?.call(item)!.toString() ?? '',
+              );
+            }
+
+          case FieldType.amount:
+            final double value = smartToDouble(field.getValueForDisplay(item));
+            if (isNumber(value)) {
+              accumulatorSumAmount.cumulate(field, value);
+              if (field.footer == FooterType.average) {
+                accumulatorForAverage.cumulate(
+                  field,
+                  value,
+                );
+              }
+              if (field.footer == FooterType.range) {
+                accumulatorNumericRange.cumulate(
+                  field,
+                  value,
+                );
+              }
+            }
+
+          case FieldType.numeric:
+          case FieldType.amountShorthand:
+          case FieldType.numericShorthand:
+          case FieldType.quantity:
+            final dynamic value = field.getValueForDisplay(item);
+            if (field.footer == FooterType.count) {
+              accumulatorListOfText.cumulate(
+                field,
+                getIntAsText(value as int),
+              );
+            } else {
+              if (value is num) {
+                accumulatorSumNumber.cumulate(
+                  field,
+                  value.toDouble(),
+                );
+                if (field.footer == FooterType.average) {
+                  accumulatorForAverage.cumulate(
+                    field,
+                    value,
+                  );
+                }
+                if (field.footer == FooterType.range) {
+                  accumulatorNumericRange.cumulate(
+                    field,
+                    value,
+                  );
+                }
+              }
+            }
+          default:
+            break;
+        }
+      }
+    }
   }
 }

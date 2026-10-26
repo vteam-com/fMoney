@@ -355,6 +355,9 @@ abstract class SharedStrings {
   /// Supported file extension for QFX imports.
   static const String fileExtensionQfx = 'qfx';
 
+  /// Supported file extension for OFX imports (parsed by the QFX importer).
+  static const String fileExtensionOfx = 'ofx';
+
   /// Supported file extension for XLSX imports.
   static const String fileExtensionXlsx = 'xlsx';
 

@@ -34,7 +34,6 @@ class RentUnit extends DataObject {
   /// Building Id
   /// 1|Building|INT|1||0
   FieldInt fieldBuilding = FieldInt(
-    name: SharedDomainStrings.domainString026,
     serializeName: SharedDomainStrings.domainString026,
     getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldBuilding.value,
   );
@@ -48,7 +47,6 @@ class RentUnit extends DataObject {
   /// 2
   /// 2|Name|nvarchar(255)|1||0
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldName.value,
   );
@@ -56,7 +54,6 @@ class RentUnit extends DataObject {
   /// 4
   /// 4|Note|nvarchar(255)|0||0
   FieldString fieldNote = FieldString(
-    name: SharedDomainStrings.domainString091,
     serializeName: SharedDomainStrings.domainString091,
     getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldNote.value,
   );
@@ -64,7 +61,6 @@ class RentUnit extends DataObject {
   /// 3
   /// 3|Renter|nvarchar(255)|0||0
   FieldString fieldRenter = FieldString(
-    name: SharedDomainStrings.domainString119,
     serializeName: SharedDomainStrings.domainString119,
     getValueForSerialization: (DataInterface instance) => (instance as RentUnit).fieldRenter.value,
   );

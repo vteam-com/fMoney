@@ -1,4 +1,3 @@
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -7,7 +6,6 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/charts/transaction_timeline_chart.dart';
 import 'package:money/views/panels/dialogs/merge_payees_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
@@ -18,7 +16,6 @@ import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
@@ -126,6 +123,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     final Payee? payee = getFirstSelectedItem() as Payee?;
     if (payee != null && payee.fieldId.value > _unsetId) {
       return getTransactions(
+        flattenSplits: true,
         filter: (Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
       );
     }
@@ -176,22 +174,9 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
       list,
     );
     if (payee != null && payee.fieldId.value > _unsetId) {
-      final SelectionController selectionController = SelectionController();
-      return ListViewTransactions(
+      return buildSidePanelTransactionsList(
         key: Key(payee.uniqueId.toString()),
-        listController: AppScope.instance.listControllerSidePanel,
-        columnsToInclude: <Field<dynamic>>[
-          Transaction.fields.getFieldByName(columnIdDate),
-          Transaction.fields.getFieldByName(columnIdAccount),
-          Transaction.fields.getFieldByName(columnIdCategory),
-          Transaction.fields.getFieldByName(columnIdMemo),
-          Transaction.fields.getFieldByName(columnIdAmount),
-        ],
-        getList: () => getTransactions(
-          flattenSplits: true,
-          filter: (Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
-        ),
-        selectionController: selectionController,
+        columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
       );
     }
     return CenterMessage.noTransaction();

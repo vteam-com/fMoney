@@ -745,35 +745,29 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
     selectionController.load();
 
-    final FieldDefinitions columnsToDisplay = <Field<dynamic>>[
-      Transaction.fields.getFieldByName(columnIdDate),
-      Transaction.fields.getFieldByName(columnIdPayee),
-      Transaction.fields.getFieldByName(columnIdCategory),
-      Transaction.fields.getFieldByName(columnIdMemo),
-      Transaction.fields.getFieldByName(columnIdStatus),
-      Transaction.fields.getFieldByName(
-        showAsNativeCurrency ? columnIdAmount : columnIdAmountNormalized,
-      ),
-      Transaction.fields.getFieldByName(
-        showAsNativeCurrency ? columnIdBalance : columnIdBalanceNormalized,
-      ),
+    final List<String> columnsToDisplay = <String>[
+      columnIdDate,
+      columnIdPayee,
+      columnIdCategory,
+      columnIdMemo,
+      columnIdStatus,
+      showAsNativeCurrency ? columnIdAmount : columnIdAmountNormalized,
+      showAsNativeCurrency ? columnIdBalance : columnIdBalanceNormalized,
       // Credit Card account has a PaidOn column to help with balancing Statements
-      if (account.fieldType.value == AccountType.credit) Transaction.fields.getFieldByName(columnIdPaidOn),
+      if (account.fieldType.value == AccountType.credit) columnIdPaidOn,
     ];
 
     return ListenableBuilder(
       listenable: DataFileController.to,
       builder: (BuildContext _, Widget? _) {
-        return ListViewTransactions(
+        return buildSidePanelTransactionsList(
           key: Key(
             'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
           ),
-          columnsToInclude: columnsToDisplay,
+          columnNames: columnsToDisplay,
           showRightAdornment: account.fieldType.value == AccountType.credit,
-          getList: () => getTransactionForLastSelectedAccount(account),
           sortFieldIndex: sortFieldIndex,
           sortAscending: sortAscending,
-          listController: AppScope.instance.listControllerSidePanel,
           selectionController: selectionController,
           onUserChoiceChanged:
               (

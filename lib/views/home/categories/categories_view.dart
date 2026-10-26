@@ -1,5 +1,4 @@
 import 'package:money/data/helpers/category_type_helper.dart';
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -12,7 +11,6 @@ import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/charts/transaction_timeline_chart.dart';
 import 'package:money/views/panels/dialogs/merge_categories_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
@@ -23,7 +21,6 @@ import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -374,21 +371,15 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     required List<int> selectedIds,
     required bool showAsNativeCurrency,
   }) {
-    keepUnused(showAsNativeCurrency);
-    final SelectionController selectionController = SelectionController();
+    keepUnused(selectedIds, showAsNativeCurrency);
+    return buildSidePanelTransactionsList();
+  }
 
-    return ListViewTransactions(
-      listController: AppScope.instance.listControllerSidePanel,
-      columnsToInclude: <Field<dynamic>>[
-        Transaction.fields.getFieldByName(columnIdDate),
-        Transaction.fields.getFieldByName(columnIdAccount),
-        Transaction.fields.getFieldByName(columnIdPayee),
-        Transaction.fields.getFieldByName(columnIdCategory),
-        Transaction.fields.getFieldByName(columnIdMemo),
-        Transaction.fields.getFieldByName(columnIdAmount),
-      ],
-      getList: () => _getTransactionsFromSelectedIds(selectedIds),
-      selectionController: selectionController,
+  @override
+  List<DataObject> getSidePanelTransactions() {
+    final int? firstSelectedId = getUniqueIdOfFirstSelectedItem();
+    return _getTransactionsFromSelectedIds(
+      firstSelectedId == null ? <int>[] : <int>[firstSelectedId],
     );
   }
 }

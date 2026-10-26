@@ -77,7 +77,6 @@ class Event extends DataObject {
     type: FieldType.widget,
     align: TextAlign.left,
     footer: FooterType.count,
-    name: SharedDomainStrings.domainString029,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: -1,
     getValueForDisplay: (DataInterface instance) {
@@ -149,16 +148,13 @@ class Event extends DataObject {
 
   /// Memo
   FieldString fieldMemo = FieldString(
-    name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
     columnWidth: ColumnWidth.large,
     getValueForDisplay: (DataInterface instance) => (instance as Event).fieldMemo.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldMemo.value,
   );
 
   /// Name
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
     getValueForDisplay: (DataInterface instance) => TokenText((instance as Event).eventName),
@@ -173,10 +169,8 @@ class Event extends DataObject {
 
   /// People
   FieldString fieldPeople = FieldString(
-    name: SharedDomainStrings.domainString107,
     serializeName: SharedDomainStrings.domainString107,
     getValueForDisplay: (DataInterface instance) => (instance as Event).fieldPeople.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Event).fieldPeople.value,
   );
 
   int possibleMatchingCategoryId = -1;

@@ -59,11 +59,6 @@ class Categories extends MoneyObjects<Category> {
     }
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   static Widget categoryWidgetForSplit = DottedBorder(
     options: RoundedRectDottedBorderOptions(
       color: Colors.grey.shade600,

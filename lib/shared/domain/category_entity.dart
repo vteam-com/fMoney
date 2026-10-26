@@ -77,7 +77,6 @@ class Category extends DataObject {
   /// Budget
   /// 6|Budget|money|0||0
   FieldMoney fieldBudget = FieldMoney(
-    name: SharedDomainStrings.domainString024,
     serializeName: SharedDomainStrings.domainString024,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldBudget.value,
     getValueForSerialization: (DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
@@ -136,10 +135,8 @@ class Category extends DataObject {
   /// 3|Description|nvarchar(255)|0||0
   FieldString fieldDescription = FieldString(
     columnWidth: ColumnWidth.large,
-    name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldDescription.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldDescription.value,
     setValue: (DataInterface instance, dynamic value) =>
         (instance as Category).fieldDescription.value = value as String,
   );
@@ -175,7 +172,6 @@ class Category extends DataObject {
   /// 2|Name|nvarchar(80)|1||0
   FieldString fieldName = FieldString(
     columnWidth: ColumnWidth.largest,
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
     getValueForDisplay: (DataInterface instance) => TokenText((instance as Category).fieldName.value),
@@ -190,10 +186,8 @@ class Category extends DataObject {
 
   /// 1|ParentId|INT|0||0
   FieldInt fieldParentId = FieldInt(
-    name: SharedDomainStrings.domainString102,
     serializeName: SharedDomainStrings.domainString102,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldParentId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldParentId.value,
   );
 
   /// Running Balance

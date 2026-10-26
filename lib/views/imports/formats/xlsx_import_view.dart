@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
@@ -17,7 +19,6 @@ import 'package:money/widgets/dialogs/xlsx_header_row_selector_dialog.dart';
 const int _zeroInt = 0;
 const int _oneInt = 1;
 const int _twoInt = 2;
-const int _threeInt = 3;
 const int _unsetIndex = -1;
 const double _zeroDouble = 0.0;
 const int _headerPreviewCount = 10;
@@ -29,10 +30,6 @@ const int _excelDateMax = 60000;
 const int _excelBaseYear = 1899;
 const int _excelBaseMonth = 12;
 const int _excelBaseDay = 30;
-const int _twoDigitYearMax = 100;
-const int _twoDigitYearPivot = 50;
-const int _yearBaseRecent = 2000;
-const int _yearBasePast = 1900;
 
 // Simple, dependency-free XLSX parser (only one sheet, static values)
 /// Imports XLSX file and parses transaction data from Excel format.
@@ -286,6 +283,7 @@ ImportData loadXLSX(
     return importData;
   }
 
+  final DateFieldOrder dateOrder = dateFieldOrderForLocale();
   for (int i = _zeroInt; i < dataRows.length; i++) {
     final List<String> row = dataRows[i];
 
@@ -299,13 +297,8 @@ ImportData loadXLSX(
     final String rawDescription = row[descriptionIndex].trim();
     final String rawAmount = row[amountIndex].trim();
 
-    DateTime? date;
-    try {
-      date = parseFlexibleDate(rawDate);
-      if (date == null) {
-        throw const FormatException('Could not parse date');
-      }
-    } catch (_) {
+    final DateTime? date = parseDateFlexible(rawDate, order: dateOrder);
+    if (date == null) {
       continue;
     }
 
@@ -313,14 +306,8 @@ ImportData loadXLSX(
       continue;
     }
 
-    double? amount;
-    try {
-      final String amountStr = rawAmount.replaceAll(',', ''); // Handle common number formats
-      amount = double.tryParse(amountStr);
-      if (amount == null) {
-        continue;
-      }
-    } catch (_) {
+    final double? amount = parseAmountFlexible(rawAmount);
+    if (amount == null) {
       continue;
     }
 
@@ -343,84 +330,4 @@ ImportData loadXLSX(
   }
 
   return importData;
-}
-
-/// Parses dates in multiple common formats:
-/// - ISO format: YYYY-MM-DD (2023-01-01)
-/// - European format: DD/MM/YYYY (30/06/2025)
-/// - US format: MM/DD/YYYY (06/30/2025)
-/// - Short year formats: DD/MM/YY (30/06/25)
-DateTime? parseFlexibleDate(String dateStr) {
-  final String trimmedDate = dateStr.trim();
-  if (trimmedDate.isEmpty) {
-    return null;
-  }
-
-  // Try ISO format first (Dart's native format)
-  try {
-    return DateTime.parse(trimmedDate);
-  } catch (_) {
-    // Continue to other formats
-  }
-
-  // Try European format: DD/MM/YYYY or DD/MM/YY
-  final RegExp euroFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
-  final RegExpMatch? euroMatch = euroFormat.firstMatch(dateStr);
-  if (euroMatch != null) {
-    final int day = int.parse(euroMatch.group(_oneInt)!);
-    final int month = int.parse(euroMatch.group(_twoInt)!);
-    final int yearStr = int.parse(euroMatch.group(_threeInt)!);
-
-    // Handle 2-digit years
-    final int year = yearStr < _twoDigitYearMax
-        ? (yearStr < _twoDigitYearPivot ? _yearBaseRecent + yearStr : _yearBasePast + yearStr)
-        : yearStr;
-
-    try {
-      return DateTime(year, month, day);
-    } catch (_) {
-      // Invalid date
-      return null;
-    }
-  }
-
-  // Try US format: MM/DD/YYYY or MM/DD/YY
-  final RegExp usFormat = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$');
-  final RegExpMatch? usMatch = usFormat.firstMatch(dateStr);
-  if (usMatch != null) {
-    final int month = int.parse(usMatch.group(_oneInt)!);
-    final int day = int.parse(usMatch.group(_twoInt)!);
-    final int yearStr = int.parse(usMatch.group(_threeInt)!);
-
-    // Handle 2-digit years
-    final int year = yearStr < _twoDigitYearMax
-        ? (yearStr < _twoDigitYearPivot ? _yearBaseRecent + yearStr : _yearBasePast + yearStr)
-        : yearStr;
-
-    try {
-      return DateTime(year, month, day);
-    } catch (_) {
-      // Invalid date
-      return null;
-    }
-  }
-
-  // Try YYYY/MM/DD format (sometimes used internationally)
-  final RegExp ymdFormat = RegExp(r'^(\d{4})/(\d{1,2})/(\d{1,2})$');
-  final RegExpMatch? ymdMatch = ymdFormat.firstMatch(dateStr);
-  if (ymdMatch != null) {
-    final int year = int.parse(ymdMatch.group(_oneInt)!);
-    final int month = int.parse(ymdMatch.group(_twoInt)!);
-    final int day = int.parse(ymdMatch.group(_threeInt)!);
-
-    try {
-      return DateTime(year, month, day);
-    } catch (_) {
-      // Invalid date
-      return null;
-    }
-  }
-
-  // No valid format found
-  return null;
 }

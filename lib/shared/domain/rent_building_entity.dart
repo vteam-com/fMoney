@@ -147,7 +147,6 @@ class RentBuilding extends DataObject {
   /// CategoryForIncome
   // 13    CategoryForIncome          money
   FieldInt categoryForIncome = FieldInt(
-    name: SharedDomainStrings.domainString030,
     serializeName: SharedDomainStrings.domainString030,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForIncome.value),
@@ -159,7 +158,6 @@ class RentBuilding extends DataObject {
   /// CategoryForInterest
   // 14    CategoryForInterest          money
   FieldInt categoryForInterest = FieldInt(
-    name: SharedDomainStrings.domainString031,
     serializeName: SharedDomainStrings.domainString031,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForInterest.value),
@@ -171,7 +169,6 @@ class RentBuilding extends DataObject {
   /// CategoryForMaintenance
   // 16    CategoryForMaintenance          money
   FieldInt categoryForMaintenance = FieldInt(
-    name: SharedDomainStrings.domainString032,
     serializeName: SharedDomainStrings.domainString032,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForMaintenance.value),
@@ -183,7 +180,6 @@ class RentBuilding extends DataObject {
   /// CategoryForManagement
   // 17    CategoryForManagement          money
   FieldInt categoryForManagement = FieldInt(
-    name: SharedDomainStrings.domainString033,
     serializeName: SharedDomainStrings.domainString033,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForManagement.value),
@@ -195,7 +191,6 @@ class RentBuilding extends DataObject {
   /// CategoryForRepairs
   // 15    CategoryForRepairs          money
   FieldInt categoryForRepairs = FieldInt(
-    name: SharedDomainStrings.domainString034,
     serializeName: SharedDomainStrings.domainString034,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForRepairs.value),
@@ -207,7 +202,6 @@ class RentBuilding extends DataObject {
   /// CategoryForTaxes
   // 12    CategoryForTaxes          money
   FieldInt categoryForTaxes = FieldInt(
-    name: SharedDomainStrings.domainString035,
     serializeName: SharedDomainStrings.domainString035,
     getValueForDisplay: (DataInterface instance) =>
         (instance as RentBuilding).getCategoryName(instance.categoryForTaxes.value),
@@ -220,10 +214,8 @@ class RentBuilding extends DataObject {
   /// Address
   // 2    Address                 nvarchar(255)  0                    0
   FieldString fieldAddress = FieldString(
-    name: SharedDomainStrings.domainString015,
     serializeName: SharedDomainStrings.domainString015,
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldAddress.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldAddress.value,
   );
 
   /// Currency
@@ -241,7 +233,6 @@ class RentBuilding extends DataObject {
   /// EstimatedValue
   // 6    EstimatedValue          money
   FieldMoney fieldEstimatedValue = FieldMoney(
-    name: SharedDomainStrings.domainString049,
     serializeName: SharedDomainStrings.domainString049,
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldEstimatedValue.value,
     getValueForSerialization: (DataInterface instance) =>
@@ -266,7 +257,6 @@ class RentBuilding extends DataObject {
   /// LandValue
   // 5    LandValue          money
   FieldMoney fieldLandValue = FieldMoney(
-    name: SharedDomainStrings.domainString077,
     serializeName: SharedDomainStrings.domainString077,
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldLandValue.value,
     getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldLandValue.value.asDouble(),
@@ -316,46 +306,36 @@ class RentBuilding extends DataObject {
   /// Name
   // 1    Name                    nvarchar(255)  1                    0
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldName.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldName.value,
   );
 
   /// OwnershipName1
   // 7    OwnershipName1          money
   FieldString fieldOwnershipName1 = FieldString(
-    name: 'OwnershipName1',
     serializeName: 'OwnershipName1',
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipName1.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipName1.value,
   );
 
   /// OwnershipName2
   // 8    OwnershipName2          money
   FieldString fieldOwnershipName2 = FieldString(
-    name: 'OwnershipName2',
     serializeName: 'OwnershipName2',
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipName2.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipName2.value,
   );
 
   /// OwnershipPercentage1
   // 9    OwnershipPercentage1          money
   FieldDouble fieldOwnershipPercentage1 = FieldDouble(
-    name: 'OwnershipPercentage1',
     serializeName: 'OwnershipPercentage1',
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage1.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage1.value,
   );
 
   /// OwnershipPercentage2
   // 10    OwnershipPercentage2          money
   FieldDouble fieldOwnershipPercentage2 = FieldDouble(
-    name: 'OwnershipPercentage2',
     serializeName: 'OwnershipPercentage2',
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage2.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).fieldOwnershipPercentage2.value,
   );
 
   /// Profit
@@ -370,9 +350,6 @@ class RentBuilding extends DataObject {
     name: 'Purchased Date',
     serializeName: SharedDomainStrings.domainString111,
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as RentBuilding).fieldPurchasedDate.value,
-    ),
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as RentBuilding).fieldPurchasedDate.value,
     ),
   );
@@ -409,10 +386,8 @@ class RentBuilding extends DataObject {
   /// Note
   // 11    Note          money
   FieldString note = FieldString(
-    name: SharedDomainStrings.domainString091,
     serializeName: SharedDomainStrings.domainString091,
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).note.value,
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).note.value,
   );
 
   Map<int, RentalPnL> pnlOverYears = <int, RentalPnL>{};

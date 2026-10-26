@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -21,9 +22,9 @@ import 'package:money/shared/presentation/widgets/adaptable_list_view_widget.dar
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/layout/side_panel_widget.dart';
-import 'package:money/views/panels/list/money_objects_footer_helper.dart';
 import 'package:money/views/panels/list/money_objects_view_builders_helper.dart';
 import 'package:money/views/panels/list/money_objects_view_selection_helper.dart';
+import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/confirmation_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
@@ -34,11 +35,31 @@ import 'package:money/widgets/list/multiple_selection_context_model.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
+import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
+
+/// Default transaction columns shown in the side panel "Transactions" list.
+const List<String> sidePanelTransactionsColumnNames = <String>[
+  columnIdDate,
+  columnIdAccount,
+  columnIdPayee,
+  columnIdCategory,
+  columnIdMemo,
+  columnIdAmount,
+];
+
+/// Side panel transaction columns for views already scoped to a single payee.
+const List<String> sidePanelTransactionsColumnNamesWithoutPayee = <String>[
+  columnIdDate,
+  columnIdAccount,
+  columnIdCategory,
+  columnIdMemo,
+  columnIdAmount,
+];
 
 /// A stateful widget for view for money objects.
 class ViewForMoneyObjects extends StatefulWidget {
@@ -337,8 +358,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     _footerAccumulatorsComputedForList = list;
     _footerAccumulatorsDataVersion = dataVersion;
 
-    recomputeFooterAccumulators(
-      footerAccumulators: _footerAccumulators,
+    _footerAccumulators.recompute(
       items: list,
       definitions: _fieldToDisplay.definitions,
     );
@@ -936,4 +956,33 @@ T? getMoneyObjectFromFirstSelectedId<T>(
   List<dynamic> listOfItems,
 ) {
   return getMoneyObjectFromFirstSelectedIdInList<T>(selectedIds, listOfItems);
+}
+
+/// Side panel "Transactions" list shared by the money object views.
+extension SidePanelTransactionsListExtension on ViewForMoneyObjectsState {
+  /// Builds the side panel "Transactions" list backed by [ViewForMoneyObjectsState.getSidePanelTransactions],
+  /// so the displayed rows and the side panel Copy action always match.
+  Widget buildSidePanelTransactionsList({
+    Key? key,
+    List<String> columnNames = sidePanelTransactionsColumnNames,
+    SelectionController? selectionController,
+    int sortFieldIndex = 0,
+    bool sortAscending = true,
+    bool showRightAdornment = false,
+    void Function(int, bool, int)? onUserChoiceChanged,
+  }) {
+    return ListViewTransactions(
+      key: key,
+      listController: AppScope.instance.listControllerSidePanel,
+      columnsToInclude: <Field<dynamic>>[
+        for (final String columnName in columnNames) Transaction.fields.getFieldByName(columnName),
+      ],
+      getList: () => List<Transaction>.from(getSidePanelTransactions()),
+      selectionController: selectionController ?? SelectionController(),
+      sortFieldIndex: sortFieldIndex,
+      sortAscending: sortAscending,
+      showRightAdornment: showRightAdornment,
+      onUserChoiceChanged: onUserChoiceChanged,
+    );
+  }
 }

@@ -16,11 +16,6 @@ class Currencies extends MoneyObjects<Currency> {
     return Currency.fromJson(json);
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Finds a currency by its symbol.
   Currency? getCurrencyFromSymbol(String symbolToMatch) {
     return iterableList().firstWhereOrNull(

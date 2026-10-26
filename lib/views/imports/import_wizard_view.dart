@@ -1,17 +1,10 @@
-import 'dart:io';
-
-import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/views/imports/formats/csv_import_view.dart';
-import 'package:money/views/imports/formats/investment_csv_import_view.dart';
-import 'package:money/views/imports/formats/qfx_import_view.dart';
-import 'package:money/views/imports/formats/qif_import_view.dart';
-import 'package:money/views/imports/formats/xlsx_import_view.dart';
+import 'package:money/views/imports/import_file_dispatcher.dart';
 import 'package:money/views/imports/investment/investment_import_view.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/views/imports/transfer/transfer_import_view.dart';
@@ -25,6 +18,7 @@ const double _wizardSpacing = 40.0;
 /// Supported file extensions accepted by the transaction import file picker.
 const List<String> _supportedTransactionImportFileExtensions = <String>[
   SharedStrings.fileExtensionQfx,
+  SharedStrings.fileExtensionOfx,
   SharedStrings.fileExtensionQif,
   SharedStrings.fileExtensionXlsx,
   SharedStrings.fileExtensionCsv,
@@ -48,40 +42,6 @@ String _resolveSelectedFileExtension(PlatformFile file) {
     return '';
   }
   return extensionFromPath.startsWith('.') ? extensionFromPath.substring(1) : extensionFromPath;
-}
-
-/// Checks if CSV file is an investment export by examining headers.
-Future<bool> _isInvestmentCSVFile(String filePath) async {
-  try {
-    final File file = File(filePath);
-    if (!await file.exists()) {
-      return false;
-    }
-
-    final String csvContent = await file.readAsString();
-    if (csvContent.trim().isEmpty) {
-      return false;
-    }
-
-    // Parse first row to check headers
-    final List<List<dynamic>> csvTable = const CsvDecoder(
-      dynamicTyping: false,
-    ).convert(csvContent);
-
-    if (csvTable.isEmpty) {
-      return false;
-    }
-
-    final List<String> headers = csvTable.first
-        .map((dynamic cell) => cell == null ? '' : cell.toString().trim())
-        .cast<String>()
-        .toList();
-
-    // Check for supported investment CSV headers
-    return isInvestmentCSV(headers);
-  } catch (_) {
-    return false;
-  }
 }
 
 /// Shows wizard dialog for importing transactions from various sources.
@@ -151,35 +111,9 @@ Future<void> onImportFromFile(BuildContext context) async {
     return;
   }
 
-  final String fileExtension = _resolveSelectedFileExtension(file);
-  switch (fileExtension) {
-    case SharedStrings.fileExtensionQif:
-      importQIF(context, filePath);
-      break;
-    case SharedStrings.fileExtensionQfx:
-      importQFX(context, filePath);
-      break;
-    case SharedStrings.fileExtensionXlsx:
-      importXLSX(context, filePath);
-      break;
-    case SharedStrings.fileExtensionCsv:
-      // Check if this is an investment CSV export
-      if (context.mounted) {
-        final bool isInvestmentCSVFile = await _isInvestmentCSVFile(filePath);
-        if (context.mounted) {
-          if (isInvestmentCSVFile) {
-            importInvestmentCSV(context, filePath);
-          } else {
-            importCSV(context, filePath);
-          }
-        }
-      }
-      break;
-    case SharedStrings.fileExtensionPdf:
-      await showImportTransactionsFromPdfUsingAi(
-        context: context,
-        pdfFilePath: filePath,
-      );
-      break;
-  }
+  await importFileByPath(
+    context,
+    filePath,
+    fileExtension: _resolveSelectedFileExtension(file),
+  );
 }

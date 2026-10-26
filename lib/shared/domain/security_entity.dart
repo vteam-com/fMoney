@@ -94,10 +94,8 @@ class Security extends DataObject {
 
   // 5
   FieldString fieldCuspid = FieldString(
-    name: SharedDomainStrings.domainString027,
     serializeName: SharedDomainStrings.domainString027,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldCuspid.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldCuspid.value,
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
@@ -125,11 +123,9 @@ class Security extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldName.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldName.value,
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldName.value = value as String;
     },
@@ -145,7 +141,6 @@ class Security extends DataObject {
 
   // 3
   FieldMoney fieldPrice = FieldMoney(
-    name: SharedDomainStrings.domainString108,
     columnWidth: ColumnWidth.small,
     serializeName: SharedDomainStrings.domainString108,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldPrice.value,
@@ -223,10 +218,8 @@ class Security extends DataObject {
 
   // 2
   FieldString fieldSymbol = FieldString(
-    name: SharedDomainStrings.domainString131,
     serializeName: SharedDomainStrings.domainString131,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldSymbol.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSymbol.value,
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSymbol.value = value as String;
     },
@@ -245,10 +238,8 @@ class Security extends DataObject {
   List<StockSplit> splitsHistory = <StockSplit>[];
   // 7
   FieldInt taxable = FieldInt(
-    name: SharedDomainStrings.domainString137,
     serializeName: SharedDomainStrings.domainString137,
     getValueForDisplay: (DataInterface instance) => (instance as Security).taxable.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).taxable.value,
   );
 
   @override

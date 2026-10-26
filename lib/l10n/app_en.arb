@@ -317,8 +317,8 @@
       }
     }
   },
-  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.",
-  "importFromQfxQifXlsxCsvFile": "From QFX|QIF|XLSX|CSV|PDF file",
+  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.",
+  "importFromQfxQifXlsxCsvFile": "From QFX|OFX|QIF|XLSX|CSV|PDF file",
   "importNoMatchingAccountsWithId": "Import - No matching \"{fileType}\" accounts with ID \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {

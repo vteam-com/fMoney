@@ -493,10 +493,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Importar transacciones desde un archivo QFX, QIF, XLSX, CSV o PDF.';
+  String get importFromQfxQifXlsxCsvDescription =>
+      'Importar transacciones desde un archivo QFX, OFX, QIF, XLSX, CSV o PDF.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'Desde archivo QFX|QIF|XLSX|CSV|PDF';
+  String get importFromQfxQifXlsxCsvFile => 'Desde archivo QFX|OFX|QIF|XLSX|CSV|PDF';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {

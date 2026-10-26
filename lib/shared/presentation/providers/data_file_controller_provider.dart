@@ -198,8 +198,6 @@ class DataFileController extends ChangeNotifier {
       'mmdb',
       'mmcsv',
       'sdf',
-      'qfx',
-      'ofx',
       'json',
     ];
 

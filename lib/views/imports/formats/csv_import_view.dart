@@ -6,6 +6,8 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart'; // Import the dialog
@@ -332,6 +334,7 @@ ImportData loadCSV(
   final String? priceColumnName = columnMapping['price'];
   final int quantityIndex = quantityColumnName != null ? headers.indexOf(quantityColumnName) : -1;
   final int priceIndex = priceColumnName != null ? headers.indexOf(priceColumnName) : -1;
+  final DateFieldOrder dateOrder = dateFieldOrderForLocale();
 
   for (int i = 0; i < dataRows.length; i++) {
     final List<String> row = dataRows[i];
@@ -350,10 +353,8 @@ ImportData loadCSV(
       continue;
     }
 
-    DateTime? date;
-    try {
-      date = DateTime.parse(row[dateIndex].trim());
-    } catch (_) {
+    final DateTime? date = parseDateFlexible(row[dateIndex], order: dateOrder);
+    if (date == null) {
       importData.diagnostics.incrementSkipped(_skipReasonInvalidDate);
       continue;
     }
@@ -371,14 +372,8 @@ ImportData loadCSV(
       continue;
     }
 
-    double? amount;
-    try {
-      amount = double.tryParse(row[amountIndex].trim());
-      if (amount == null) {
-        importData.diagnostics.incrementSkipped(_skipReasonInvalidAmount);
-        continue;
-      }
-    } catch (_) {
+    final double? amount = parseAmountFlexible(row[amountIndex]);
+    if (amount == null) {
       importData.diagnostics.incrementSkipped(_skipReasonInvalidAmount);
       continue;
     }
@@ -388,25 +383,11 @@ ImportData loadCSV(
     double stockPrice = 0.0;
 
     if (quantityIndex >= 0 && quantityIndex < row.length) {
-      try {
-        final String quantityStr = row[quantityIndex].trim();
-        if (quantityStr.isNotEmpty) {
-          stockQuantity = double.tryParse(quantityStr) ?? 0.0;
-        }
-      } catch (_) {
-        // Ignore parse errors for optional fields
-      }
+      stockQuantity = parseAmountFlexible(row[quantityIndex]) ?? 0.0;
     }
 
     if (priceIndex >= 0 && priceIndex < row.length) {
-      try {
-        final String priceStr = row[priceIndex].trim();
-        if (priceStr.isNotEmpty) {
-          stockPrice = double.tryParse(priceStr) ?? 0.0;
-        }
-      } catch (_) {
-        // Ignore parse errors for optional fields
-      }
+      stockPrice = parseAmountFlexible(row[priceIndex]) ?? 0.0;
     }
 
     importData.entries.add(

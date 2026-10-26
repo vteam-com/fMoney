@@ -491,10 +491,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.';
+  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'From QFX|QIF|XLSX|CSV|PDF file';
+  String get importFromQfxQifXlsxCsvFile => 'From QFX|OFX|QIF|XLSX|CSV|PDF file';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {

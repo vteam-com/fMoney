@@ -65,7 +65,6 @@ class Account extends DataObject {
     name: 'Account ID',
     serializeName: SharedDomainStrings.domainString013,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldAccountId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldAccountId.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldAccountId.value = value as String,
   );
 
@@ -138,7 +137,6 @@ class Account extends DataObject {
   /// Currency
   /// 7|Currency|nchar(3)|0||0
   FieldString fieldCurrency = FieldString(
-    name: SharedDomainStrings.domainString042,
     serializeName: SharedDomainStrings.domainString042,
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
@@ -158,11 +156,9 @@ class Account extends DataObject {
   // Description
   // 4|Description|nvarchar(255)|0||0
   FieldString fieldDescription = FieldString(
-    name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldDescription.value = value as String,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldDescription.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldDescription.value,
   );
 
   /// Flags
@@ -171,7 +167,6 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString055,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldFlags.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldFlags.value,
   );
 
   // Id
@@ -202,9 +197,6 @@ class Account extends DataObject {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as Account).fieldLastBalance.value,
-    ),
   );
 
   /// LastSync Date & Time
@@ -220,7 +212,6 @@ class Account extends DataObject {
   // Name
   // 3|Name|nvarchar(80)|1||0
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.large,
     type: FieldType.widget,
@@ -237,10 +228,8 @@ class Account extends DataObject {
   // OFX Account Id
   // 2|OfxAccountId|nvarchar(50)|0||0
   FieldString fieldOfxAccountId = FieldString(
-    name: SharedDomainStrings.domainString095,
     serializeName: SharedDomainStrings.domainString095,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
     setValue: (DataInterface instance, dynamic value) =>
         (instance as Account).fieldOfxAccountId.value = value as String,
   );
@@ -248,7 +237,6 @@ class Account extends DataObject {
   /// OnlineAccount
   /// 8|OnlineAccount|INT|0||0
   FieldInt fieldOnlineAccount = FieldInt(
-    name: SharedDomainStrings.domainString098,
     serializeName: SharedDomainStrings.domainString098,
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOnlineAccount.value,
   );
@@ -291,7 +279,6 @@ class Account extends DataObject {
     type: FieldType.text,
     align: TextAlign.center,
     columnWidth: ColumnWidth.small,
-    name: SharedDomainStrings.domainString146,
     serializeName: SharedDomainStrings.domainString146,
     defaultValue: AccountType.checking,
     getValueForDisplay: (DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
@@ -331,10 +318,8 @@ class Account extends DataObject {
   /// WebSite
   /// 9|WebSite|nvarchar(512)|0||0
   FieldString fieldWebSite = FieldString(
-    name: SharedDomainStrings.domainString152,
     serializeName: SharedDomainStrings.domainString152,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldWebSite.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldWebSite.value,
   );
 
   Map</*year */ int, /*balance*/ double> maxBalancePerYears = <int, double>{};

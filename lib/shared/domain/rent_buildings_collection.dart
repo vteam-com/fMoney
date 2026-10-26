@@ -15,12 +15,8 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-
-    for (final MyJson row in rows) {
-      appendMoneyObject(RentBuilding.fromJson(row, data));
-    }
+  RentBuilding instanceFromJson(MyJson json) {
+    return RentBuilding.fromJson(json, data);
   }
 
   @override
@@ -35,11 +31,6 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
         }
       }
     }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Accumulates transaction data for a given rental building.

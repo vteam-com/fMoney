@@ -105,7 +105,6 @@ class Investment extends DataObject {
 
   /// 4    Commission      money   0                    0
   FieldMoney fieldCommission = FieldMoney(
-    name: SharedDomainStrings.domainString039,
     serializeName: SharedDomainStrings.domainString039,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldCommission.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldCommission.value.asDouble(),
@@ -113,7 +112,6 @@ class Investment extends DataObject {
 
   /// 7    Fees            money   0                    0
   FieldMoney fieldFees = FieldMoney(
-    name: SharedDomainStrings.domainString053,
     serializeName: SharedDomainStrings.domainString053,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldFees.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
@@ -167,7 +165,6 @@ class Investment extends DataObject {
 
   /// 8    Load            money   0                    0
   FieldMoney fieldLoad = FieldMoney(
-    name: SharedDomainStrings.domainString082,
     serializeName: SharedDomainStrings.domainString082,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldLoad.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
@@ -175,10 +172,8 @@ class Investment extends DataObject {
 
   /// 5    MarkUpDown      money   0                    0
   FieldMoney fieldMarkUpDown = FieldMoney(
-    name: SharedDomainStrings.domainString085,
     serializeName: SharedDomainStrings.domainString085,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
-    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
   );
 
   FieldMoney fieldNetValueOfEvent = FieldMoney(
@@ -191,10 +186,8 @@ class Investment extends DataObject {
 
   /// 1    Security        INT     1                    0
   FieldInt fieldSecurity = FieldInt(
-    name: SharedDomainStrings.domainString125,
     serializeName: SharedDomainStrings.domainString125,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
   );
 
   FieldString fieldSecuritySymbol = FieldString(
@@ -232,7 +225,6 @@ class Investment extends DataObject {
 
   /// 6    Taxes           money   0                    0
   FieldMoney fieldTaxes = FieldMoney(
-    name: SharedDomainStrings.domainString138,
     serializeName: SharedDomainStrings.domainString138,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldTaxes.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
@@ -240,7 +232,6 @@ class Investment extends DataObject {
 
   /// 10   TradeType       INT     0                    0
   FieldInt fieldTradeType = FieldInt(
-    name: SharedDomainStrings.domainString140,
     serializeName: SharedDomainStrings.domainString140,
     type: FieldType.text,
     getValueForDisplay: (DataInterface instance) =>
@@ -301,7 +292,6 @@ class Investment extends DataObject {
 
   /// 3    Units           money   0                    0
   FieldQuantity fieldUnits = FieldQuantity(
-    name: SharedDomainStrings.domainString149,
     serializeName: SharedDomainStrings.domainString149,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).effectiveUnits,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldUnits.value,
@@ -318,7 +308,6 @@ class Investment extends DataObject {
 
   /// 12   Withholding     money   0                    0
   FieldMoney fieldWithholding = FieldMoney(
-    name: SharedDomainStrings.domainString153,
     serializeName: SharedDomainStrings.domainString153,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldWithholding.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldWithholding.value.asDouble(),

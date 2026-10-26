@@ -10,76 +10,36 @@ const double _footerBorderWidth = 1;
 
 /// A Row for a Table view.
 ///
-/// When [columnWidths] is provided the footer uses a pixel-aligned layout that
-/// matches the list body and header widths. When omitted the footer falls back
-/// to proportional flex layout.
+/// The footer uses a pixel-aligned layout driven by [columnWidths] that matches
+/// the list body and header widths.
 class MyListItemFooter<T> extends StatelessWidget {
   const MyListItemFooter({
     required this.columns,
     required this.multiSelectionOn,
     required this.getColumnFooterWidget,
     required this.onTap,
+    required this.columnWidths,
     super.key,
     this.backgroundColor = Colors.transparent,
     this.onLongPress,
-    this.columnWidths,
   });
   final Color backgroundColor;
 
-  /// Optional shared column-width notifier for pixel-aligned layout.
-  final ColumnWidthsNotifier? columnWidths;
+  /// Shared column-width notifier for pixel-aligned layout.
+  final ColumnWidthsNotifier columnWidths;
   final FieldDefinitions columns;
   final Widget? Function(Field<dynamic> field) getColumnFooterWidget;
   final bool multiSelectionOn;
   final void Function(Field<dynamic>)? onLongPress;
   final void Function(int columnIndex) onTap;
-  @override
-  Widget build(BuildContext context) {
-    if (columnWidths != null) {
-      return _buildPixelLayout(context);
-    }
-    return _buildFlexLayout(context);
-  }
-
-  /// Builds the footer using the legacy proportional flex layout.
-  Widget _buildFlexLayout(BuildContext context) {
-    final List<Widget> footerWidgets = <Widget>[];
-    if (multiSelectionOn) {
-      footerWidgets.add(
-        Opacity(
-          opacity: _hiddenCheckboxOpacity,
-          child: Checkbox(value: false, onChanged: (bool? _) {}),
-        ),
-      );
-    }
-    for (int i = 0; i < columns.length; i++) {
-      final Field<dynamic> columnDefinition = columns[i];
-      if (columnDefinition.columnWidth != ColumnWidth.hidden) {
-        footerWidgets.add(
-          buildColumnFooterButton(
-            context: context,
-            textAlign: columnDefinition.align,
-            flex: columnDefinition.columnWidth.index,
-            onPressed: () => onTap(i),
-            onLongPress: () => onLongPress?.call(columnDefinition),
-            child: getColumnFooterWidget(columnDefinition),
-          ),
-        );
-      }
-    }
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: _footerPaddingHorizontal),
-      decoration: _decoration,
-      child: Row(children: footerWidgets),
-    );
-  }
 
   /// Builds the footer using a pixel-aligned layout that matches the body.
-  Widget _buildPixelLayout(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: columnWidths!,
+      listenable: columnWidths,
       builder: (BuildContext _, Widget? _) {
-        final List<double> ratios = columnWidths!.value;
+        final List<double> ratios = columnWidths.value;
 
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: _footerPaddingHorizontal),
@@ -144,7 +104,7 @@ class MyListItemFooter<T> extends StatelessWidget {
     );
   }
 
-  /// Decoration shared by both layout paths.
+  /// Decoration for the footer container.
   BoxDecoration get _decoration => BoxDecoration(
     color: backgroundColor,
     border: Border(

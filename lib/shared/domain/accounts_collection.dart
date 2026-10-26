@@ -190,11 +190,6 @@ class Accounts extends MoneyObjects<Account> {
     }
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Returns active accounts filtered by [types] and optional [isActive] status.
   List<Account> activeAccounts(
     List<AccountType> types, {

@@ -20,19 +20,8 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(LoanPayment.fromJson(row, data));
-    }
-  }
-
-  @override
-  void onAllDataLoaded() {}
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
+  LoanPayment instanceFromJson(MyJson json) {
+    return LoanPayment.fromJson(json, data);
   }
 }
 

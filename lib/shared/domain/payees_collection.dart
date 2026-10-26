@@ -53,11 +53,6 @@ class Payees extends MoneyObjects<Payee> {
     }
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Finds a payee by exact name.
   Payee? getByName(String name) {
     if (name.isEmpty) {

@@ -6,6 +6,7 @@ import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
@@ -164,9 +165,9 @@ List<ImportEntry> parseQFXTransactions(List<String> lines) {
               findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, ''),
             ) ??
             DateTime.now(),
-        amount: double.parse(
-          findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionAmount, '0.00'),
-        ),
+        amount:
+            parseAmountFlexible(findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionAmount, '0.00')) ??
+            0.0,
         name: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagName, ''),
         fitid: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagFitId, ''),
         memo: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagMemo, ''),

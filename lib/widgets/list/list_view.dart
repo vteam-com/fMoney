@@ -22,6 +22,7 @@ class MyListView<T> extends StatefulWidget {
     required this.list,
     required this.selectedItemIds,
     required this.scrollController,
+    required this.columnWidths,
     super.key,
     this.onTap,
     this.onDoubleTap,
@@ -30,15 +31,13 @@ class MyListView<T> extends StatefulWidget {
     this.showRightAdornment = true,
     this.onSelectionChanged,
     this.isMultiSelectionOn = false,
-    this.columnWidths,
   });
 
-  /// Optional shared column-width notifier for pixel-aligned resizable layout.
+  /// Shared column-width notifier for pixel-aligned resizable layout.
   ///
-  /// When provided the body rows use pixel widths derived from the notifier's
-  /// ratios and drag events update the notifier so the header stays in sync.
-  /// When omitted the body manages its own width state internally.
-  final ColumnWidthsNotifier? columnWidths;
+  /// The body rows use pixel widths derived from the notifier's ratios and
+  /// drag events update the notifier so the header stays in sync.
+  final ColumnWidthsNotifier columnWidths;
   final bool displayAsColumn;
   final FieldDefinitions fields;
   final bool isMultiSelectionOn;
@@ -58,8 +57,6 @@ class MyListView<T> extends StatefulWidget {
 
 /// State for my list view.
 class MyListViewState<T> extends State<MyListView<T>> {
-  final List<double> _columnWidthRatios = <double>[];
-
   /// Cached result of the cap-flip scan; valid for the current list instance.
   bool? _flipRightAdornmentCapsCache;
   double _rowHeight = _rowHeightColumn;
@@ -68,12 +65,12 @@ class MyListViewState<T> extends State<MyListView<T>> {
   @override
   void initState() {
     super.initState();
-    widget.columnWidths?.addListener(_onColumnWidthsChanged);
+    widget.columnWidths.addListener(_onColumnWidthsChanged);
   }
 
   @override
   void dispose() {
-    widget.columnWidths?.removeListener(_onColumnWidthsChanged);
+    widget.columnWidths.removeListener(_onColumnWidthsChanged);
     super.dispose();
   }
 
@@ -81,12 +78,11 @@ class MyListViewState<T> extends State<MyListView<T>> {
   void didUpdateWidget(covariant MyListView<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.columnWidths != widget.columnWidths) {
-      oldWidget.columnWidths?.removeListener(_onColumnWidthsChanged);
-      widget.columnWidths?.addListener(_onColumnWidthsChanged);
+      oldWidget.columnWidths.removeListener(_onColumnWidthsChanged);
+      widget.columnWidths.addListener(_onColumnWidthsChanged);
     }
     if (oldWidget.fields.length != widget.fields.length || oldWidget.displayAsColumn != widget.displayAsColumn) {
       _visibleColumnIndexes.clear();
-      _columnWidthRatios.clear();
     }
     if (!identical(oldWidget.list, widget.list)) {
       _flipRightAdornmentCapsCache = null;
@@ -447,8 +443,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
       return const SizedBox.shrink();
     }
 
-    // Use ratios from the shared notifier when available, otherwise the local copy.
-    final List<double> ratios = widget.columnWidths?.value ?? _columnWidthRatios;
+    final List<double> ratios = widget.columnWidths.value;
 
     final int handleCount = _visibleColumnIndexes.length - 1;
     final double totalHandleWidth = handleCount * columnResizeHandleWidth;
@@ -524,40 +519,15 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return firstBottomCapIndex < firstTopCapIndex;
   }
 
-  /// Initializes visible column indexes and (when no external notifier) local ratios.
+  /// Initializes the indexes of visible (non-hidden) columns.
   void _ensureResizableColumnsInitialized() {
-    final bool needsRatios = widget.columnWidths == null;
-    final bool alreadyDone = _visibleColumnIndexes.isNotEmpty && (!needsRatios || _columnWidthRatios.isNotEmpty);
-    if (alreadyDone) {
+    if (_visibleColumnIndexes.isNotEmpty) {
       return;
     }
-
-    _visibleColumnIndexes.clear();
-    _columnWidthRatios.clear();
-
     for (int i = 0; i < widget.fields.length; i++) {
       if (widget.fields[i].columnWidth != ColumnWidth.hidden) {
         _visibleColumnIndexes.add(i);
       }
-    }
-
-    if (_visibleColumnIndexes.isEmpty || !needsRatios) {
-      return;
-    }
-
-    final List<double> weights = _visibleColumnIndexes
-        .map((int fieldIndex) => widget.fields[fieldIndex].columnWidth.index.toDouble())
-        .toList();
-    final double weightSum = weights.fold(0.0, (double sum, double value) => sum + value);
-
-    if (weightSum <= 0) {
-      final double equalRatio = 1 / _visibleColumnIndexes.length;
-      _columnWidthRatios.addAll(List<double>.filled(_visibleColumnIndexes.length, equalRatio));
-      return;
-    }
-
-    for (final double weight in weights) {
-      _columnWidthRatios.add(weight / weightSum);
     }
   }
 
@@ -566,57 +536,20 @@ class MyListViewState<T> extends State<MyListView<T>> {
     setState(() {});
   }
 
-  /// Applies drag-based resize to two adjacent columns while preserving total width.
-  ///
-  /// When a shared [ColumnWidthsNotifier] is provided the update is forwarded to
-  /// it (which in turn triggers header and body rebuilds); otherwise the local
-  /// ratio list is updated directly.
+  /// Forwards a drag-based resize of two adjacent columns to [MyListView.columnWidths].
   void _resizeColumnsAtBoundary({
     required int leftColumnPosition,
     required double dragDelta,
     required double contentWidth,
   }) {
-    if (contentWidth <= 0 || leftColumnPosition < 0 || leftColumnPosition >= _visibleColumnIndexes.length - 1) {
+    if (contentWidth <= 0) {
       return;
     }
-
-    final double minRatio = minimumColumnWidth / contentWidth;
-    final double deltaRatio = dragDelta / contentWidth;
-
-    if (widget.columnWidths != null) {
-      widget.columnWidths!.resizeAtBoundary(leftColumnPosition, deltaRatio, minRatio);
-      return;
-    }
-
-    if (leftColumnPosition >= _columnWidthRatios.length - 1) {
-      return;
-    }
-
-    final double leftRatio = _columnWidthRatios[leftColumnPosition];
-    final double rightRatio = _columnWidthRatios[leftColumnPosition + 1];
-    final double combinedRatio = leftRatio + rightRatio;
-
-    double resizedLeftRatio = leftRatio + deltaRatio;
-    final double minimumAllowedLeft = minRatio;
-    final double maximumAllowedLeft = combinedRatio - minRatio;
-
-    if (maximumAllowedLeft < minimumAllowedLeft) {
-      return;
-    }
-
-    if (resizedLeftRatio < minimumAllowedLeft) {
-      resizedLeftRatio = minimumAllowedLeft;
-    }
-    if (resizedLeftRatio > maximumAllowedLeft) {
-      resizedLeftRatio = maximumAllowedLeft;
-    }
-
-    final double resizedRightRatio = combinedRatio - resizedLeftRatio;
-
-    setState(() {
-      _columnWidthRatios[leftColumnPosition] = resizedLeftRatio;
-      _columnWidthRatios[leftColumnPosition + 1] = resizedRightRatio;
-    });
+    widget.columnWidths.resizeAtBoundary(
+      leftColumnPosition,
+      dragDelta / contentWidth,
+      minimumColumnWidth / contentWidth,
+    );
   }
 
   /// Returns true when right-adornment caps should be visually flipped.

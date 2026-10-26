@@ -978,13 +978,13 @@ abstract class AppLocalizations {
   /// No description provided for @importFromQfxQifXlsxCsvDescription.
   ///
   /// In en, this message translates to:
-  /// **'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.'**
+  /// **'Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.'**
   String get importFromQfxQifXlsxCsvDescription;
 
   /// No description provided for @importFromQfxQifXlsxCsvFile.
   ///
   /// In en, this message translates to:
-  /// **'From QFX|QIF|XLSX|CSV|PDF file'**
+  /// **'From QFX|OFX|QIF|XLSX|CSV|PDF file'**
   String get importFromQfxQifXlsxCsvFile;
 
   /// No description provided for @importNoMatchingAccountsWithId.

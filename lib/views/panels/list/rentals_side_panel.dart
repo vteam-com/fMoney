@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -8,14 +7,11 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/panels/cards/rental_pnl_card.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/components/rental_pnl_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.
 class ViewRentalsSidePanel {
@@ -172,33 +168,6 @@ class ViewRentalsSidePanel {
       scrollDirection: Axis.horizontal,
       reverse: true,
       child: Row(children: pnlCards),
-    );
-  }
-
-  /// Returns the content for the transactions sub-view in the details panel.
-  /// Displays a list of transactions associated with the selected rental property.
-  static Widget getSubViewContentForTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency, // Currently unused
-  }) {
-    keepUnused(showAsNativeCurrency);
-    final RentBuilding? rental = Data().rentBuildings.get(selectedIds.first);
-    if (rental == null) {
-      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
-    }
-    final SelectionController selectionController = SelectionController();
-    return ListViewTransactions(
-      listController: AppScope.instance.listControllerSidePanel,
-      columnsToInclude: <Field<dynamic>>[
-        Transaction.fields.getFieldByName(columnIdDate),
-        Transaction.fields.getFieldByName(columnIdAccount),
-        Transaction.fields.getFieldByName(columnIdPayee),
-        Transaction.fields.getFieldByName(columnIdCategory),
-        Transaction.fields.getFieldByName(columnIdMemo),
-        Transaction.fields.getFieldByName(columnIdAmount),
-      ],
-      getList: () => getTransactionLastSelectedItem(rental),
-      selectionController: selectionController,
     );
   }
 

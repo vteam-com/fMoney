@@ -153,11 +153,6 @@ class Transactions extends MoneyObjects<Transaction> {
     dateRangeActiveAccount.ensureNoNullDates();
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Checks all transactions for dangling transfers and populates collections.
   void checkTransfers(
     Set<Transaction> dangling,

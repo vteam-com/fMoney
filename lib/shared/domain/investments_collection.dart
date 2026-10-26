@@ -16,11 +16,8 @@ class Investments extends MoneyObjects<Investment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(Investment.fromJson(row, data));
-    }
+  Investment instanceFromJson(MyJson json) {
+    return Investment.fromJson(json, data);
   }
 
   @override
@@ -34,11 +31,6 @@ class Investments extends MoneyObjects<Investment> {
 
       investment.applySplits();
     }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Applies holding shares adjusted for stock splits across investments.

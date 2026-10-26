@@ -1,9 +1,9 @@
-// ignore: fcheck_duplicate_code
 // ignore: fcheck_hardcoded_strings
 // ignore: fcheck_magic_numbers
 import 'dart:convert';
 
 import 'package:money/helpers/app_logger_helper.dart';
+import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/bank_statement_pdf_service.dart';
 import 'package:money/shared/domain/ollama_service.dart';
@@ -80,44 +80,14 @@ class AiPdfImportService {
       return null;
     }
 
-    final String prompt = _buildPdfReviewPrompt(pdfText);
-
-    AppLogger.debug(
-      module: 'ai_pdf_import_service',
+    final dynamic decoded = await _sendPromptExpectingJson(
+      prompt: _buildPdfReviewPrompt(pdfText),
       operation: '_reviewStatementWithOllama',
-      message: 'AI PROMPT INPUT:\n$prompt',
     );
-
-    final Map<String, dynamic> payload = <String, dynamic>{
-      'model': OllamaService.selectedModel,
-      'messages': <Map<String, String>>[
-        <String, String>{
-          'role': SharedStrings.payloadRoleUser,
-          'content': prompt,
-        },
-      ],
-      'stream': false,
-    };
-
-    final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
-    final dynamic rawResponse = response[SharedStrings.payloadKeyResponse];
-
-    AppLogger.debug(
-      module: 'ai_pdf_import_service',
-      operation: '_reviewStatementWithOllama',
-      message: 'AI RESPONSE OUTPUT:\n$rawResponse',
-    );
-
-    if (rawResponse is! String || rawResponse.trim().isEmpty) {
+    if (decoded == null) {
       return null;
     }
 
-    final String jsonPayload = _extractJsonPayloadFromResponse(rawResponse);
-    if (jsonPayload.isEmpty) {
-      return null;
-    }
-
-    final dynamic decoded = json.decode(jsonPayload);
     final List<BankStatementTransactionRecord> transactions = _extractTransactionsFromDecoded(decoded);
     if (transactions.isEmpty) {
       return null;
@@ -141,12 +111,36 @@ class AiPdfImportService {
       return <String>[];
     }
 
+    final dynamic decoded = await _sendPromptExpectingJson(
+      prompt: _buildAccountHintsPrompt(pdfText),
+      operation: '_extractAccountHintsWithOllama',
+    );
+    if (decoded == null) {
+      return <String>[];
+    }
+
+    return _normalizeAccountHintsFromDecoded(decoded);
+  }
+
+  /// Sends [prompt] to the selected Ollama model and returns the decoded JSON payload, or null when none is found.
+  ///
+  /// [operation] identifies the caller in debug logs.
+  Future<dynamic> _sendPromptExpectingJson({
+    required String prompt,
+    required String operation,
+  }) async {
+    AppLogger.debug(
+      module: 'ai_pdf_import_service',
+      operation: operation,
+      message: 'AI PROMPT INPUT:\n$prompt',
+    );
+
     final Map<String, dynamic> payload = <String, dynamic>{
       'model': OllamaService.selectedModel,
       'messages': <Map<String, String>>[
         <String, String>{
           'role': SharedStrings.payloadRoleUser,
-          'content': _buildAccountHintsPrompt(pdfText),
+          'content': prompt,
         },
       ],
       'stream': false,
@@ -154,25 +148,33 @@ class AiPdfImportService {
 
     final Map<String, dynamic> response = await OllamaService.sendPayload(payload);
     final dynamic rawResponse = response[SharedStrings.payloadKeyResponse];
+
+    AppLogger.debug(
+      module: 'ai_pdf_import_service',
+      operation: operation,
+      message: 'AI RESPONSE OUTPUT:\n$rawResponse',
+    );
+
     if (rawResponse is! String || rawResponse.trim().isEmpty) {
-      return <String>[];
+      return null;
     }
 
     final String jsonPayload = _extractJsonPayloadFromResponse(rawResponse);
     if (jsonPayload.isEmpty) {
-      return <String>[];
+      return null;
     }
 
-    final dynamic decoded = json.decode(jsonPayload);
-    return _normalizeAccountHintsFromDecoded(decoded);
+    return json.decode(jsonPayload);
+  }
+
+  /// Truncates [text] to the maximum number of characters sent to Ollama for PDF import.
+  String _truncateForOllama(String text) {
+    return text.length > _maxPdfTextCharsForOllamaImport ? text.substring(0, _maxPdfTextCharsForOllamaImport) : text;
   }
 
   /// Builds the prompt instructing Ollama to return only transaction rows as JSON array.
   String _buildPdfReviewPrompt(String pdfText) {
-    final String preprocessed = _preprocessPdfText(pdfText);
-    final String normalizedText = preprocessed.length > _maxPdfTextCharsForOllamaImport
-        ? preprocessed.substring(0, _maxPdfTextCharsForOllamaImport)
-        : preprocessed;
+    final String normalizedText = _truncateForOllama(_preprocessPdfText(pdfText));
 
     return '''
 You are a financial transaction extraction engine.
@@ -231,9 +233,7 @@ PDF_TEXT_END
 
   /// Builds the prompt instructing Ollama to extract account identifiers for matching local accounts.
   String _buildAccountHintsPrompt(String pdfText) {
-    final String normalizedText = pdfText.length > _maxPdfTextCharsForOllamaImport
-        ? pdfText.substring(0, _maxPdfTextCharsForOllamaImport)
-        : pdfText;
+    final String normalizedText = _truncateForOllama(pdfText);
 
     return '''
 You are a financial document parser.
@@ -560,41 +560,9 @@ PDF_TEXT_END
     return transactions;
   }
 
-  /// Parses a date from [value], supporting DD-MM-YY, DD-MM-YYYY, DD/MM/YY, DD/MM/YYYY, and YYYY-MM-DD formats.
+  /// Parses a date from [value] as printed on the statement, reading numeric
+  /// dates in the operating system locale order (see [parseDateFlexible]).
   DateTime? _parseDateFromDynamic(dynamic value) {
-    if (value == null) {
-      return null;
-    }
-    final String text = value.toString().trim();
-    if (text.isEmpty) {
-      return null;
-    }
-
-    // Try ISO format first (YYYY-MM-DD).
-    final DateTime? iso = DateTime.tryParse(text);
-    if (iso != null) {
-      return iso;
-    }
-
-    // Try European formats: DD-MM-YY, DD-MM-YYYY, DD/MM/YY, DD/MM/YYYY.
-    final RegExp europeanDate = RegExp(r'^(\d{2})[-/](\d{2})[-/](\d{2,4})$');
-    final RegExpMatch? match = europeanDate.firstMatch(text);
-    if (match != null) {
-      final int? day = int.tryParse(match.group(1)!);
-      final int? month = int.tryParse(match.group(2)!);
-      int? year = int.tryParse(match.group(3)!);
-      if (day == null || month == null || year == null) {
-        return null;
-      }
-      if (year < 100) {
-        year += 2000;
-      }
-      if (month < 1 || month > 12 || day < 1 || day > 31) {
-        return null;
-      }
-      return DateTime(year, month, day);
-    }
-
-    return null;
+    return value == null ? null : parseDateFlexible(value.toString());
   }
 }

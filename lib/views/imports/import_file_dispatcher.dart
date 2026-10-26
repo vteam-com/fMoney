@@ -5,9 +5,12 @@ import 'dart:io';
 
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/formats/investment_csv_import_view.dart';
 import 'package:money/views/imports/formats/qfx_import_view.dart';
+import 'package:money/views/imports/formats/qif_import_view.dart';
+import 'package:money/views/imports/formats/xlsx_import_view.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:path/path.dart' as path;
 
@@ -66,13 +69,52 @@ Future<bool> isInvestmentCSVFile(String filePath) async {
   }
 }
 
+/// Imports the file at [filePath] using the importer matching its extension.
+///
+/// The extension is read from [filePath] unless [fileExtension] is provided
+/// (lower-case, without leading dot), which lets callers such as the file
+/// picker resolve it from the original file name. Supports qif, qfx/ofx, xlsx,
+/// csv (investment or generic, auto-detected from headers) and pdf (AI
+/// import). Unknown extensions are ignored.
+Future<void> importFileByPath(
+  BuildContext context,
+  String filePath, {
+  String? fileExtension,
+}) async {
+  final String extension = (fileExtension ?? path.extension(filePath)).trim().toLowerCase().replaceFirst('.', '');
+  switch (extension) {
+    case SharedStrings.fileExtensionQif:
+      importQIF(context, filePath);
+    case SharedStrings.fileExtensionQfx:
+    case SharedStrings.fileExtensionOfx:
+      await importQFX(context, filePath);
+    case SharedStrings.fileExtensionXlsx:
+      await importXLSX(context, filePath);
+    case SharedStrings.fileExtensionCsv:
+      final bool isInvCSV = await isInvestmentCSVFile(filePath);
+      if (!context.mounted) {
+        return;
+      }
+      if (isInvCSV) {
+        await importInvestmentCSV(context, filePath);
+      } else {
+        await importCSV(context, filePath);
+      }
+    case SharedStrings.fileExtensionPdf:
+      await showImportTransactionsFromPdfUsingAi(
+        context: context,
+        pdfFilePath: filePath,
+      );
+  }
+}
+
 /// Handles dropped files by detecting their type and routing to appropriate importers.
 ///
 /// This function processes a list of dropped file paths and routes each file to the
 /// appropriate import handler based on file type detection:
 /// - PDFs are handled first (if present) via PDF-to-AI import
-/// - CSVs are auto-detected as either investment CSVs or generic CSVs
-/// - Other supported formats (QFX) are routed to their respective importers
+/// - Otherwise each file is imported in order via [importFileByPath]
+///   (qif, qfx/ofx, xlsx, csv; unknown extensions are ignored)
 ///
 /// The [context] parameter must be mounted for the duration of the import operation.
 /// If the context becomes unmounted during processing, the operation is aborted gracefully.
@@ -102,20 +144,10 @@ Future<void> handleDroppedFiles(
   unawaited(
     () async {
       for (final String filePath in filePaths) {
-        final String extension = path.extension(filePath).toLowerCase();
-        if (extension == '.csv') {
-          final bool isInvCSV = await isInvestmentCSVFile(filePath);
-          if (!context.mounted) {
-            return;
-          }
-          if (isInvCSV) {
-            await importInvestmentCSV(context, filePath);
-          } else {
-            await importCSV(context, filePath);
-          }
-        } else {
-          await importQFX(context, filePath);
+        if (!context.mounted) {
+          return;
         }
+        await importFileByPath(context, filePath);
       }
     }(),
   );
