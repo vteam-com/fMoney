@@ -152,7 +152,7 @@ class TransactionSplit extends DataObject {
               Expanded(
                 child: pickerCategory(
                   key: const Key('key_pick_category'),
-                  categoryNames: instance.data.getCategoryNames(),
+                  categoryNames: instance.data.getCategoriesAsStrings(),
                   selectedName: instance.data.getCategoryNameFromId(instance.fieldCategoryId.value),
                   onSelected: (String? name) {
                     final int? id = name != null ? instance.data.getCategoryIdFromName(name) : null;

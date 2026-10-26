@@ -100,7 +100,7 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
                 child: Box(
                   child: PickerEditBox(
                     title: AppL10n.tr(AppTranslationKeys.payee),
-                    items: widget.data.getPayeeNames(),
+                    items: widget.data.getPayeeNamesSorted(),
                     initialValue: widget.currentPayee.fieldName.value,
                     onChanged: (String? name) {
                       final Payee? payee = name != null ? widget.data.getPayeeByName(name) as Payee? : null;

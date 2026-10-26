@@ -638,9 +638,6 @@ class Data implements DataAbstract {
   }
 
   @override
-  List<String> getPayeeNames() => payees.getSortedPayeeNames();
-
-  @override
   Payee? getPayee(int id) => payees.get(id);
 
   @override
@@ -700,9 +697,6 @@ class Data implements DataAbstract {
   @override
   Payee? findOrCreateNewPayee(String name, {bool fireNotification = true}) =>
       aliases.findOrCreateNewPayee(name, fireNotification: fireNotification);
-
-  @override
-  List<String> getCategoryNames() => categories.getCategoriesAsStrings();
 
   @override
   String getCategoryNameFromId(int id) => categories.getNameFromId(id);

@@ -49,9 +49,6 @@ abstract class DataAbstract {
   dynamic findOrCreateNewPayee(String name, {bool fireNotification = true});
 
   // Payees
-  /// Returns all payee names.
-  List<String> getPayeeNames();
-
   /// Returns a payee by ID.
   dynamic getPayee(int id);
 
@@ -77,9 +74,6 @@ abstract class DataAbstract {
   void deletePayee(dynamic payee);
 
   // Categories
-  /// Returns all category names.
-  List<String> getCategoryNames();
-
   /// Returns the name of a category by ID.
   String getCategoryNameFromId(int id);
 
