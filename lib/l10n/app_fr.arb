@@ -696,6 +696,14 @@
       }
     }
   },
+  "selectAllCount": "Tout sélectionner {count}",
+  "@selectAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "selectARentalPropertyToSeeItsPL": "Selectionnez une propriete locative pour voir son P&L",
   "selectCategory": "Selectionner une categorie",
   "selectColumn": "Selectionner une colonne",
@@ -870,6 +878,14 @@
   "trend": "Tendance",
   "units": "Unites",
   "unknown": "Inconnu",
+  "unselectAllCount": "Tout désélectionner {count}",
+  "@unselectAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "useDemoData": "Utiliser des donnees de demonstration",
   "value": "Valeur",
   "versionInformation": "Informations de version",
@@ -889,6 +905,8 @@
   "@year": {
     "description": "REVIEWED"
   },
+  "yearsUnit": "ans",
+  "yearUnit": "an",
   "zoom": "Zoom",
   "@zoom": {
     "description": "REVIEWED"

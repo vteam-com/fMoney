@@ -1083,6 +1083,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String selectAllCount(String count) {
+    return 'Tout sélectionner $count';
+  }
+
+  @override
   String get selectARentalPropertyToSeeItsPL => 'Selectionnez une propriete locative pour voir son P&L';
 
   @override
@@ -1320,6 +1325,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknown => 'Inconnu';
 
   @override
+  String unselectAllCount(String count) {
+    return 'Tout désélectionner $count';
+  }
+
+  @override
   String get useDemoData => 'Utiliser des donnees de demonstration';
 
   @override
@@ -1366,6 +1376,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get year => 'Annee';
+
+  @override
+  String get yearsUnit => 'ans';
+
+  @override
+  String get yearUnit => 'an';
 
   @override
   String get zoom => 'Zoom';
