@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -12,7 +13,6 @@ import 'package:money/widgets/pickers/picker_category_type.dart';
 import 'package:money/widgets/pickers/token_text_widget.dart';
 import 'package:money/widgets/pure/circle_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 

@@ -5,7 +5,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
-import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/account_operations_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
@@ -14,7 +14,7 @@ import 'package:money/widgets/widgets_domain/field_model.dart';
 /// Represents loan payment.
 class LoanPayment extends DataObject {
   /// Constructor from a SQLite row
-  factory LoanPayment.fromJson(MyJson row, DataAbstract data) {
+  factory LoanPayment.fromJson(MyJson row, AccountOperations data) {
     return LoanPayment(
       // 0
       id: row.getInt(SharedDomainStrings.domainString057, -1),
@@ -39,7 +39,7 @@ class LoanPayment extends DataObject {
     required double principal,
     required double interest,
     String reference = '',
-    DataAbstract? data,
+    AccountOperations? data,
   }) {
     if (data != null) {
       this.data = data;
@@ -54,7 +54,7 @@ class LoanPayment extends DataObject {
     this.fieldReference.value = reference;
   }
 
-  late DataAbstract data;
+  late AccountOperations data;
 
   // Not persisted
   Account? accountInstance;

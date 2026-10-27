@@ -7,8 +7,8 @@ import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
+import 'package:money/shared/domain/payee_operations_interface.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -39,7 +39,7 @@ class Alias extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Alias.fromJson(MyJson row, DataAbstract data) {
+  factory Alias.fromJson(MyJson row, PayeeOperations data) {
     return Alias(
       id: row.getInt(SharedDomainStrings.domainString057, -1),
       pattern: row.getString(SharedDomainStrings.domainString104),
@@ -61,7 +61,7 @@ class Alias extends DataObject {
     this.fieldPayeeId.value = payeeId;
   }
 
-  final DataAbstract? data;
+  final PayeeOperations? data;
 
   /// SQL [2] SharedDomainStrings.domainString055 INT
   FieldInt fieldFlags = FieldInt(

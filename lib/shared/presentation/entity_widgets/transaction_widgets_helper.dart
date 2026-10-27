@@ -1,4 +1,5 @@
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -6,9 +7,11 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/category_widgets_helper.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widget_providers_model.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
@@ -16,7 +19,6 @@ import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
 import 'package:money/widgets/pickers/payee_or_transfer_picker_widget.dart';
 import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pure/icon_button.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/state/selection_controller.dart';
@@ -155,10 +157,10 @@ Widget transactionBuildStatusButtonToggle(dynamic transaction) {
 /// wrapper (animation controller, gesture handling) and the eager toString()
 /// so list scrolling stays cheap, while keeping the same scale-down layout as
 /// the wrapper.
-Widget transactionBuildCategoryCellWidget(dynamic transaction) {
+Widget transactionBuildCategoryCellWidget(Transaction transaction) {
   final int effectiveCategoryId = transaction.possibleMatchingCategoryId == _transactionUnsetId
-      ? transaction.fieldCategoryId.value as int
-      : transaction.possibleMatchingCategoryId as int;
+      ? transaction.fieldCategoryId.value
+      : transaction.possibleMatchingCategoryId;
   final String categoryName = DataAbstract.instance.getCategoryNameFromId(
     effectiveCategoryId,
   );
@@ -184,14 +186,14 @@ Widget transactionBuildCategoryCellWidget(dynamic transaction) {
     );
   }
 
-  return DataAbstract.instance.categorySuggestionProvider.buildSuggestionWidget(
+  return EntityWidgetProviders.categorySuggestion!.buildSuggestionWidget(
     onApproved: transaction.possibleMatchingCategoryId == _transactionUnsetId
         ? null
         : () {
             // record the change
             DataAbstract.instance.changeCategory(
               transaction,
-              transaction.possibleMatchingCategoryId as int,
+              transaction.possibleMatchingCategoryId,
             );
           },
     onChooseCategory: transaction.fieldCategoryId.value == _transactionUnsetId
@@ -214,13 +216,13 @@ Widget transactionBuildCategoryCellWidget(dynamic transaction) {
     uniqueId: transaction.uniqueId,
     totalAmount: transaction.fieldAmount.value.asDouble(),
     child: Tooltip(message: categoryName, child: categoryWidget),
-  ) as Widget;
+  );
 }
 
 /// Builds the Payee/Transfer cell widget and appends a transfer-hint icon when
 /// disconnected transfer candidates are available for [transaction].
-Widget transactionBuildPayeeOrTransferWidget(dynamic transaction) {
-  final String caption = transaction.getPayeeOrTransferCaption() as String;
+Widget transactionBuildPayeeOrTransferWidget(Transaction transaction) {
+  final String caption = transaction.getPayeeOrTransferCaption();
   final bool showHintIcon = _hasPotentialTransferMatch(transaction);
 
   return Row(
@@ -340,15 +342,16 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
             onEdited(wasModified); // notify container
           },
       onMergePayee: (String payeeName, BuildContext context) {
-        final dynamic payee = DataAbstract.instance.getPayeeByName(payeeName);
+        final Payee? payee = DataAbstract.instance.getPayeeByName(payeeName) as Payee?;
         if (payee != null) {
-          final Iterable<dynamic> transactions = DataAbstract.instance
+          final Iterable<Transaction> transactions = DataAbstract.instance
               .getTransactions(
                 includeDeleted: true,
               )
-              .where((dynamic t) => (t as Transaction).fieldPayee.value == (payee as dynamic).uniqueId);
+              .cast<Transaction>()
+              .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
           Navigator.of(context).pop(false);
-          DataAbstract.instance.mergePayeeProvider.showMergePayee(
+          EntityWidgetProviders.mergePayee!.showMergePayee<Transaction>(
             context,
             payee,
             transactions,
@@ -365,8 +368,8 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
 ///
 /// Uses the cached per-data-version lookup so it stays cheap when called for
 /// every row while scrolling.
-bool _hasPotentialTransferMatch(dynamic transaction) {
-  if (transaction.isDeleted as bool || transaction.isTransfer as bool || transaction.isSplit as bool) {
+bool _hasPotentialTransferMatch(Transaction transaction) {
+  if (transaction.isDeleted || transaction.isTransfer || transaction.isSplit) {
     return false;
   }
   return DataAbstract.instance.hasPotentialTransferMatch(transaction);
@@ -376,9 +379,9 @@ bool _hasPotentialTransferMatch(dynamic transaction) {
 /// cards and one primary action to convert two disconnected entries.
 void _showPotentialTransferMatchPanel(
   BuildContext context,
-  dynamic transaction,
+  Transaction transaction,
 ) {
-  final List<dynamic> matches = DataAbstract.instance.findPotentialTransferMatches(
+  final List<DataObject> matches = DataAbstract.instance.findPotentialTransferMatches(
     transaction: transaction,
     maxResults: _potentialTransferSingleBestMatch,
   );
@@ -390,7 +393,7 @@ void _showPotentialTransferMatchPanel(
     return;
   }
 
-  final dynamic bestMatch = matches.first;
+  final Transaction bestMatch = matches.first as Transaction;
   final Transfer previewTransfer = _buildPreviewTransfer(transaction, bestMatch);
 
   showModalBottomSheet<void>(
@@ -504,8 +507,8 @@ Widget _buildTransferPreviewObjectCard({
 }
 
 /// Creates a temporary transfer model used only for sender/receiver preview UI.
-Transfer _buildPreviewTransfer(dynamic transaction, dynamic relatedTransaction) {
-  if ((transaction.fieldAmount.value.asDouble() as double) < _transactionZeroDouble) {
+Transfer _buildPreviewTransfer(Transaction transaction, Transaction relatedTransaction) {
+  if (transaction.fieldAmount.value.asDouble() < _transactionZeroDouble) {
     return Transfer(
       id: _transactionZeroInt,
       source: transaction,

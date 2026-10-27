@@ -1,9 +1,7 @@
-import 'dart:async';
-
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_aliases_collection.dart';
@@ -27,6 +25,7 @@ import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/payees_collection.dart';
 import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/rent_buildings_collection.dart';
+import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/rental_units_collection.dart';
 import 'package:money/shared/domain/securities_collection.dart';
 import 'package:money/shared/domain/splits_collection.dart';
@@ -35,8 +34,6 @@ import 'package:money/shared/domain/stock_splits_collection.dart';
 import 'package:money/shared/domain/transaction_extras_collection.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/widgets_domain/data_access_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
@@ -128,15 +125,6 @@ class Data implements DataAbstract {
   /// 16 All Transactions in the Money file
   Transactions get transactions => collections.transactions;
 
-  /// Provider for category suggestion widgets
-  /// Must be set by upper view layers (home view or main app) before use
-  @override
-  dynamic categorySuggestionProvider;
-
-  /// Provider for merge payee functionality
-  /// Must be set by upper view layers (home view or main app) before use
-  dynamic _mergePayeeProvider;
-
   /// Cached ids of transactions that currently have at least one potential
   /// cross-account transfer counterpart; rebuilt lazily when data mutates.
   Set<int>? _potentialTransferMatchIdsCache;
@@ -144,24 +132,14 @@ class Data implements DataAbstract {
   /// Data-version stamp used to invalidate [_potentialTransferMatchIdsCache].
   DateTime? _potentialTransferMatchIdsCacheStamp;
 
-  @override
-  dynamic get mergePayeeProvider => _mergePayeeProvider;
+  /// Called with the number of dangling transfers found by [checkTransfers]; bound by the presentation layer.
+  void Function(int danglingCount)? onDanglingTransfersFound;
 
-  @override
-  set mergePayeeProvider(dynamic value) => _mergePayeeProvider = value;
-
-  /// Checks for dangling transfers and shows a warning if any are found.
+  /// Checks for dangling transfers and reports them through [onDanglingTransfersFound].
   void checkTransfers() {
     final Set<Transaction> dangling = getDanglingTransfers();
     if (dangling.isNotEmpty) {
-      Timer(
-        const Duration(milliseconds: DurationInMs.quick),
-        () => SnackBarService.displayWarning(
-          message: '${dangling.length}${SharedDomainStrings.domainString001}',
-          title: SharedDomainStrings.domainString043,
-          autoDismiss: false,
-        ),
-      );
+      onDanglingTransfersFound?.call(dangling.length);
     }
   }
 
@@ -184,7 +162,7 @@ class Data implements DataAbstract {
   }
 
   @override
-  void clearTransferToAccount(int transactionId, dynamic a) {
+  void clearTransferToAccount(int transactionId, DataObject account) {
     final Transaction? t = transactions.get(transactionId);
     if (t == null) {
       return; // Transaction not found
@@ -250,26 +228,6 @@ class Data implements DataAbstract {
       accounts.removeAccount(a);
     }
     return dangling;
-  }
-
-  /// Groups mutated objects by type for pending changes UI.
-  List<MutationGroup> getMutationGroups(MutationType typeOfMutation) {
-    final List<MutationGroup> allMutationGroups = <MutationGroup>[];
-
-    for (final MoneyObjects<dynamic> moneyObjects in tables) {
-      final List<DataObject> mutatedInstances = moneyObjects.getMutatedObjects(
-        typeOfMutation,
-      );
-      if (mutatedInstances.isNotEmpty) {
-        final MutationGroup mutationGroup = MutationGroup();
-        mutationGroup.title = moneyObjects.collectionName;
-        mutationGroup.whatWasMutated = moneyObjects.whatWasMutated(
-          mutatedInstances,
-        );
-        allMutationGroups.add(mutationGroup);
-      }
-    }
-    return allMutationGroups;
   }
 
   /// Calculates net worth across all accounts.
@@ -353,7 +311,7 @@ class Data implements DataAbstract {
   /// amounts, and dates within [maxDays]. Results are sorted by closest date.
   @override
   List<Transaction> findPotentialTransferMatches({
-    required dynamic transaction,
+    required DataObject transaction,
     int maxDays = potentialTransferDefaultMaxDays,
     int maxResults = potentialTransferDefaultMaxResults,
   }) {
@@ -372,7 +330,7 @@ class Data implements DataAbstract {
   /// set is computed once and cached until the data version changes, making it
   /// safe to call from list row builders during scrolling.
   @override
-  bool hasPotentialTransferMatch(dynamic transaction) {
+  bool hasPotentialTransferMatch(DataObject transaction) {
     final Transaction sourceTransaction = transaction as Transaction;
     if (sourceTransaction.isDeleted || sourceTransaction.isTransfer) {
       return false;
@@ -401,8 +359,8 @@ class Data implements DataAbstract {
   /// pair without creating a new mirror transaction.
   @override
   bool convertDisconnectedTransactionsToTransfer({
-    required dynamic transaction,
-    required dynamic relatedTransaction,
+    required DataObject transaction,
+    required DataObject relatedTransaction,
   }) {
     final Transaction sourceTransaction = transaction as Transaction;
     final Transaction targetTransaction = relatedTransaction as Transaction;
@@ -659,7 +617,7 @@ class Data implements DataAbstract {
   List<String> getPayeeNamesSorted() => payees.getSortedPayeeNames();
 
   @override
-  void deletePayee(dynamic payee) => payees.deleteItem(payee as Payee);
+  void deletePayee(DataObject payee) => payees.deleteItem(payee as Payee);
 
   // Accounts
   @override
@@ -749,17 +707,17 @@ class Data implements DataAbstract {
   List<int> getCategoryTreeIds(int categoryId) => categories.getTreeIds(categoryId);
 
   @override
-  void appendNewCategory(dynamic category) => categories.appendNewMoneyObject(category as Category);
+  void appendNewCategory(DataObject category) => categories.appendNewMoneyObject(category as Category);
 
   @override
-  void deleteCategory(dynamic category) => categories.deleteItem(category as Category);
+  void deleteCategory(DataObject category) => categories.deleteItem(category as Category);
 
   @override
   List<Category> getCategories({bool includeDeleted = false}) =>
       categories.iterableList(includeDeleted: includeDeleted).toList();
 
   @override
-  List<StockSplit> getStockSplitsForSecurity(dynamic security) =>
+  List<StockSplit> getStockSplitsForSecurity(DataObject security) =>
       stockSplits.getStockSplitsForSecurity(security as Security);
 
   @override
@@ -791,25 +749,25 @@ class Data implements DataAbstract {
       transactions.iterableList(includeDeleted: includeDeleted);
 
   @override
-  void appendTransaction(dynamic t) => transactions.appendMoneyObject(t as Transaction);
+  void appendTransaction(DataObject t) => transactions.appendMoneyObject(t as Transaction);
 
   @override
-  void appendNewTransaction(dynamic t, {bool fireNotification = true}) =>
+  void appendNewTransaction(DataObject t, {bool fireNotification = true}) =>
       transactions.appendNewMoneyObject(t as Transaction, fireNotification: fireNotification);
 
   @override
-  List<Transaction> getTransactionsFlattenSplits({bool Function(dynamic)? whereClause}) =>
+  List<Transaction> getTransactionsFlattenSplits({bool Function(Transaction)? whereClause}) =>
       transactions.getListFlattenSplits(whereClause: (Transaction t) => whereClause == null || whereClause(t));
 
   @override
-  Iterable<Transaction> findTransfersToAccount(dynamic account) =>
+  Iterable<Transaction> findTransfersToAccount(DataObject account) =>
       transactions.findTransfersToAccount(account as Account);
 
   @override
-  void changeCategory(dynamic t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);
+  void changeCategory(DataObject t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);
 
   @override
-  void changeCategoryFromCategoryName(dynamic t, String categoryName) {
+  void changeCategoryFromCategoryName(DataObject t, String categoryName) {
     final int categoryId = getCategoryIdFromName(categoryName) ?? -1;
     if (categoryId != -1) {
       Transaction.changeCategory(t as Transaction, categoryId);
@@ -835,7 +793,7 @@ class Data implements DataAbstract {
   }
 
   @override
-  dynamic getRentUnits() => rentUnits;
+  List<RentUnit> getRentUnits() => rentUnits.iterableList().toList();
 
   @override
   Iterable<DateTime> getEventDates() {

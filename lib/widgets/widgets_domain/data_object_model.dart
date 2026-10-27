@@ -2,10 +2,9 @@
 import 'dart:ui' show Color;
 
 import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/constants_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
@@ -13,10 +12,6 @@ const Color _transparent = Color(0x00000000);
 
 /// Represents data object.
 abstract class DataObject extends DataInterface {
-  factory DataObject.fromJSon(MyJson json, double runningBalance) {
-    keepUnused(json, runningBalance);
-    return EmptyDataObject();
-  }
   DataObject();
 
   static void Function({
@@ -143,23 +138,15 @@ abstract class DataObject extends DataInterface {
   }
 
   /// Returns a rollup object with fields common across [moneyObjectInstances].
+  ///
+  /// Rolling up several items needs an entity-specific factory, so only subclasses that
+  /// override this (e.g. Transaction) support it; the base version handles a single item.
   DataObject rollup(List<DataObject> moneyObjectInstances) {
-    if (moneyObjectInstances.isEmpty) {
-      return EmptyDataObject();
-    }
     if (moneyObjectInstances.length == 1) {
       return moneyObjectInstances.first;
     }
-
-    MyJson commonJson = moneyObjectInstances.first.getPersistableJSon();
-
-    for (DataObject t in moneyObjectInstances.skip(1)) {
-      commonJson = compareAndGenerateCommonJson(
-        commonJson,
-        t.getPersistableJSon(),
-      );
-    }
-    return DataObject.fromJSon(commonJson, 0);
+    assert(moneyObjectInstances.isEmpty, SharedStrings.errorRollupNeedsEntityOverride);
+    return EmptyDataObject();
   }
 
   /// Stashes current persisted values as the baseline for mutation tracking.
@@ -201,7 +188,7 @@ abstract class DataObject extends DataInterface {
 }
 
 /// Placeholder [DataObject] with no fields, used where a concrete entity
-/// cannot be built (e.g. the base [DataObject.rollup] of mixed instances).
+/// cannot be built (e.g. the base [DataObject.rollup] of several instances).
 class EmptyDataObject extends DataObject {
   /// Creates an empty placeholder whose [uniqueId] starts unset.
   EmptyDataObject();

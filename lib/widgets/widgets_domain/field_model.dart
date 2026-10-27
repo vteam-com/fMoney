@@ -81,10 +81,6 @@ class Field<T> {
         );
       } else {
         getValueForDisplay = (DataInterface _) => defaultDisplay(value);
-        // Existing behavior kept as-is: numeric and quantity also replace any custom serialization.
-        if (type == FieldType.numeric || type == FieldType.quantity) {
-          getValueForSerialization = getValueForDisplay;
-        }
       }
     }
 

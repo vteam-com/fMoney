@@ -1,3 +1,4 @@
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/shared/presentation/dialogs/mutate_shared_dialog.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/dialogs/confirmation_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 /// Builds action buttons for the transaction mutation dialog.

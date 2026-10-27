@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_this
+import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -10,8 +11,10 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/file_systems_service.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widget_providers_model.dart';
 import 'package:money/shared/presentation/providers/merge_payee_provider.dart';
 import 'package:money/shared/presentation/providers/suggestion_approval_provider.dart';
 import 'package:money/shared/presentation/services/money_data_io_service.dart';
@@ -39,10 +42,13 @@ class DataFileController extends ChangeNotifier {
     DataAccess.loadLastFileSaved = loadLastFileSaved;
 
     // Bind the category suggestion provider
-    Data().categorySuggestionProvider = SuggestionApprovalProvider();
+    EntityWidgetProviders.categorySuggestion = SuggestionApprovalProvider();
 
     // Bind the merge payee provider
-    Data().mergePayeeProvider = DefaultMergePayeeProvider();
+    EntityWidgetProviders.mergePayee = DefaultMergePayeeProvider();
+
+    // Warn the user about transfers that lost their counterpart
+    Data().onDanglingTransfersFound = _warnAboutDanglingTransfers;
   }
   final ValueNotifier<DateTime?> currentLoadedFileDateTime = ValueNotifier<DateTime?>(null);
   final ValueNotifier<String> currentLoadedFileName = ValueNotifier<String>(Constants.untitledFileName);
@@ -307,4 +313,16 @@ class DataFileController extends ChangeNotifier {
 
   /// Returns the singleton DataFileController instance.
   static DataFileController get to => instance ??= DataFileController();
+
+  /// Shows a non-dismissing warning listing how many transfers are dangling.
+  void _warnAboutDanglingTransfers(int danglingCount) {
+    Timer(
+      const Duration(milliseconds: DurationInMs.quick),
+      () => SnackBarService.displayWarning(
+        message: '$danglingCount${SharedDomainStrings.domainString001}',
+        title: SharedDomainStrings.domainString043,
+        autoDismiss: false,
+      ),
+    );
+  }
 }

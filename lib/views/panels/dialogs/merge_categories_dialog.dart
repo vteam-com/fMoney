@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -10,7 +11,6 @@ import 'package:money/widgets/components/info_banner_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 
 const double _categoryLabelWidth = 100.0;
 const double _actionPadding = 8.0;

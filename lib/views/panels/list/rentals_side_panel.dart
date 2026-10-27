@@ -5,12 +5,12 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
+import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/views/panels/cards/rental_pnl_card.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
-import 'package:money/widgets/components/rental_pnl_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
 /// Contains the logic for the side panel in the View Rentals screen.

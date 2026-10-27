@@ -1,23 +1,18 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:money/data/models/database_interface.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_logger_helper.dart';
-import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/pure/diff_widget.dart';
-import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
 const int _nextIdIncrement = 1;
-const double _diffIdOpacity = 0.5;
 
 /// Collection of MoneyObject as both List and Map
 class MoneyObjects<T> {
@@ -302,97 +297,6 @@ class MoneyObjects<T> {
   static String _escapeCsvValue(Object? value) {
     final String text = value?.toString() ?? SharedStrings.empty;
     return text.replaceAll('"', '""');
-  }
-
-  /// Builds UI widgets describing what fields changed for the given objects.
-  List<Widget> whatWasMutated(List<DataObject> objects) {
-    final List<Widget> widgets = <Widget>[];
-    for (final DataObject moneyObject in objects) {
-      final MyJson jsonDelta = moneyObject.getMutatedDiff<T>();
-
-      final List<Widget> diffWidgets = <Widget>[];
-
-      jsonDelta.forEach((String key, dynamic value) {
-        // Field Name
-        final Widget instanceName = Text(
-          key,
-          style: const TextStyle(fontSize: SizeForText.small),
-        );
-
-        switch (moneyObject.mutation) {
-          case MutationType.inserted:
-            final String valueToAddAsString = value['after'].toString();
-            if (valueToAddAsString.isNotEmpty) {
-              diffWidgets.add(
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    instanceName,
-                    diffTextNewValue(valueToAddAsString),
-                  ],
-                ),
-              );
-            }
-
-          case MutationType.deleted:
-            diffWidgets.add(
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  instanceName,
-                  diffTextOldValue(value['after'].toString()),
-                ],
-              ),
-            );
-          case MutationType.changed:
-          default:
-            diffWidgets.add(
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  instanceName,
-                  diffTextOldValue(value['before'].toString()),
-                  diffTextNewValue(value['after'].toString()),
-                ],
-              ),
-            );
-        }
-      });
-
-      widgets.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  moneyObject.getRepresentation(),
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-                Opacity(
-                  opacity: _diffIdOpacity,
-                  child: SelectableText(
-                    moneyObject.uniqueId.toString(),
-                    style: const TextStyle(fontSize: SizeForText.small),
-                  ),
-                ),
-              ],
-            ),
-            gapSmall(),
-            Padding(
-              padding: const EdgeInsets.only(left: SizeForPadding.normal),
-              child: Wrap(
-                spacing: SizeForPadding.large,
-                runSpacing: SizeForPadding.large,
-                children: diffWidgets,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return widgets;
   }
 
   /// Returns an iterable view of the collection, optionally including deleted items.

@@ -1,6 +1,7 @@
 // ignore: fcheck_dead_code
 import 'package:collection/collection.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 
 /// Represents categories.
 class Categories extends MoneyObjects<Category> {

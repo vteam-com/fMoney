@@ -1,5 +1,5 @@
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_mutations_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';

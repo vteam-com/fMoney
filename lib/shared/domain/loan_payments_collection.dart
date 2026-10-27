@@ -7,6 +7,7 @@ import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 const int _unsetId = -1;
 const int _fakeIdStart = 10000000;
@@ -50,7 +51,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
   // include the bank transactions matching the Account Categories for Principal and Interest
   final List<Transaction> listOfTransactions = data
       .getTransactionsFlattenSplits(
-        whereClause: (dynamic t) => (t as Transaction).isMatchingAnyOfTheseCategories(categoriesToMatch),
+        whereClause: (DataObject t) => (t as Transaction).isMatchingAnyOfTheseCategories(categoriesToMatch),
       )
       .cast<Transaction>();
 

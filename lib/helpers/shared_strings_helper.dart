@@ -190,6 +190,9 @@ abstract class SharedStrings {
   /// Error message used when assigning `uniqueId` on a transfer, whose id is derived from its source.
   static const String errorTransferUniqueIdIsDerived = 'transfer uniqueId is derived from its source';
 
+  /// Error message used when several items of an entity without a rollup override are edited together.
+  static const String errorRollupNeedsEntityOverride = 'rollup of several items needs an entity override';
+
   /// Field identifier serialize name.
   static const String fieldId = 'Id';
 

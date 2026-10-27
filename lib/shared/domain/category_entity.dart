@@ -3,6 +3,7 @@ import 'dart:ui' show Color, TextAlign;
 
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/color_helper.dart' show getColorFromString;
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
@@ -11,7 +12,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';

@@ -3,9 +3,9 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/widgets/components/box_with_scrolling_content_widget.dart';
 import 'package:money/widgets/components/label_and_amount_widget.dart';
-import 'package:money/widgets/components/rental_pnl_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 const double _headerPadding = 30.0;
