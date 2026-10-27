@@ -664,7 +664,13 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
         }
 
       case FieldType.text:
-      default:
+      case FieldType.numeric:
+      case FieldType.numericShorthand:
+      case FieldType.percentage:
+      case FieldType.amount:
+      case FieldType.amountShorthand:
+      case FieldType.dateRange:
+      case FieldType.toggle:
         {
           listOfUniqueString = collectUniqueStringValues(
             getList(applyFilter: false),

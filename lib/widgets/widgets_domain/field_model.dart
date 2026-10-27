@@ -6,7 +6,6 @@ import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_logger_helper.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -73,23 +72,19 @@ class Field<T> {
     ///----------------------------------------------
     /// How to get the value of this field
     if (getValueForDisplay == defaultCallbackValue) {
-      switch (this.type) {
-        case FieldType.numeric:
-        case FieldType.quantity:
-          getValueForDisplay = (DataInterface _) => value as num;
+      final dynamic Function(dynamic)? defaultDisplay = type.defaultDisplayConverter;
+      if (defaultDisplay == null) {
+        AppLogger.warning(
+          module: 'field_model',
+          operation: 'FieldDefinition',
+          message: 'Unmatched FieldType: $type',
+        );
+      } else {
+        getValueForDisplay = (DataInterface _) => defaultDisplay(value);
+        // Existing behavior kept as-is: numeric and quantity also replace any custom serialization.
+        if (type == FieldType.numeric || type == FieldType.quantity) {
           getValueForSerialization = getValueForDisplay;
-        case FieldType.text:
-          getValueForDisplay = (DataInterface _) => value.toString();
-        case FieldType.amount:
-          getValueForDisplay = (DataInterface _) => value as AmountModel;
-        case FieldType.date:
-          getValueForDisplay = (DataInterface _) => dateToString(value as DateTime?);
-        default:
-          AppLogger.warning(
-            module: 'field_model',
-            operation: 'FieldDefinition',
-            message: 'Unmatched FieldType: $type',
-          );
+        }
       }
     }
 
@@ -105,56 +100,9 @@ class Field<T> {
     /// How to Sort on this field
     if (sort == null) {
       // if no override on sorting fallback to type sorting
-      switch (this.type) {
-        case FieldType.numeric:
-        case FieldType.numericShorthand:
-        case FieldType.quantity:
-        case FieldType.amountShorthand:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByValue(
-                (getValueForDisplay(a) ?? 0) as num,
-                (getValueForDisplay(b) ?? 0) as num,
-                ascending,
-              );
-        case FieldType.amount:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByAmount(
-                getValueForDisplay(a) as AmountModel,
-                getValueForDisplay(b) as AmountModel,
-                ascending,
-              );
-        case FieldType.date:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByDate(
-                getValueForDisplay(a) as DateTime?,
-                getValueForDisplay(b) as DateTime?,
-                ascending,
-              );
-        case FieldType.text:
-        default:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByString(
-                getValueForDisplay(a).toString(),
-                getValueForDisplay(b).toString(),
-                ascending,
-              );
-      }
+      final FieldType sortType = type;
+      sort = (DataInterface a, DataInterface b, bool ascending) =>
+          sortType.compareDisplayValues(getValueForDisplay(a), getValueForDisplay(b), ascending);
     }
   }
 
@@ -206,32 +154,7 @@ class Field<T> {
   bool isSameDefinition(Field<dynamic> other) => name == other.name && serializeName == other.serializeName;
 
   /// Returns a string representation for [value] based on this field's type.
-  String getString(dynamic value) {
-    switch (type) {
-      case FieldType.numeric:
-        return value.toString();
-      case FieldType.numericShorthand:
-        return getAmountAsShorthandText(value as num);
-      case FieldType.quantity:
-      case FieldType.percentage:
-        return formatDoubleUpToFiveZero(value as double);
-      case FieldType.amount:
-        if (type is AmountModel) {
-          return (value as AmountModel).toString();
-        }
-        if (value is double) {
-          return getAmountAsStringUsingCurrency(value);
-        }
-        return value.toString();
-      case FieldType.amountShorthand:
-        return getAmountAsShorthandText(value as double);
-      case FieldType.widget:
-        return value as String;
-      case FieldType.text:
-      default:
-        return value.toString();
-    }
-  }
+  String getString(dynamic value) => type.formatValue(value);
 
   /// Sets the amount model value for money fields.
   void setAmount(dynamic newValue) {
@@ -550,7 +473,14 @@ class Fields<T> {
           return fieldValue.toString();
         }
 
-      default:
+      case FieldType.text:
+      case FieldType.numeric:
+      case FieldType.numericShorthand:
+      case FieldType.percentage:
+      case FieldType.amount:
+      case FieldType.amountShorthand:
+      case FieldType.dateRange:
+      case FieldType.toggle:
         final dynamic fieldValue = fieldDefinition.getValueForDisplay(
           objectInstance,
         );

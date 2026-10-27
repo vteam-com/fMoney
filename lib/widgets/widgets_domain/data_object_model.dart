@@ -186,7 +186,15 @@ abstract class DataObject extends DataInterface {
           return field.getValueForReading!(this).toString();
         }
       case FieldType.text:
-      default:
+      case FieldType.numeric:
+      case FieldType.numericShorthand:
+      case FieldType.quantity:
+      case FieldType.percentage:
+      case FieldType.amount:
+      case FieldType.amountShorthand:
+      case FieldType.date:
+      case FieldType.dateRange:
+      case FieldType.toggle:
         return field.getValueForDisplay(this).toString();
     }
   }

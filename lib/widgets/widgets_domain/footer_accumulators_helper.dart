@@ -213,7 +213,8 @@ class FooterAccumulators {
                 }
               }
             }
-          default:
+          case FieldType.percentage:
+          case FieldType.toggle:
             break;
         }
       }

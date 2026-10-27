@@ -167,7 +167,14 @@ String _formatValue(double value, FieldType fieldType) {
     case FieldType.quantity:
       return formatDoubleUpToFiveZero(value);
     case FieldType.numeric:
-    default:
+    case FieldType.text:
+    case FieldType.numericShorthand:
+    case FieldType.percentage:
+    case FieldType.amountShorthand:
+    case FieldType.date:
+    case FieldType.dateRange:
+    case FieldType.toggle:
+    case FieldType.widget:
       return isSmallValue(value) ? getIntAsText(value.toInt()) : getNumberShorthandText(value);
   }
 }

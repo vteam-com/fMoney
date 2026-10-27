@@ -162,7 +162,15 @@ Widget _buildWidgetNameValueFromFieldDefinition({
       );
 
     // all others will be a normal text input
-    default:
+    case FieldType.text:
+    case FieldType.numeric:
+    case FieldType.numericShorthand:
+    case FieldType.quantity:
+    case FieldType.percentage:
+    case FieldType.amount:
+    case FieldType.amountShorthand:
+    case FieldType.date:
+    case FieldType.dateRange:
       String value = fieldDefinition.getString(fieldValue);
       if (value.isEmpty && isReadOnly) {
         value = '';

@@ -170,7 +170,8 @@ Widget buildWidgetFromTypeAndValue({
       );
 
     case FieldType.text:
-    default:
+    case FieldType.dateRange:
+    case FieldType.toggle:
       return buildFieldWidgetForText(
         text: value.toString(),
         align: align,
