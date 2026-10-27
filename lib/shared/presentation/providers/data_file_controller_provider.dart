@@ -5,6 +5,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:money/data/models/data_access_model.dart';
+import 'package:money/data/models/data_mutations_model.dart';
+import 'package:money/data/models/data_source_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -21,9 +24,6 @@ import 'package:money/shared/presentation/services/money_data_io_service.dart';
 import 'package:money/shared/simulation/data_simulator_service.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_access_model.dart';
-import 'package:money/widgets/widgets_domain/data_mutations_model.dart';
-import 'package:money/widgets/widgets_domain/data_source_model.dart';
 import 'package:path/path.dart' as p;
 
 /// Controller for managing data file operations.

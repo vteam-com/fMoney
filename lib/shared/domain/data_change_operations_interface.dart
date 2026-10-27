@@ -1,5 +1,5 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 /// Change notification and cross-table maintenance operations.
 abstract class DataChangeOperations {

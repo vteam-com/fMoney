@@ -1,4 +1,4 @@
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/data/models/data_object_model.dart';
 
 /// Account lookups.
 abstract class AccountOperations {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -9,8 +11,6 @@ import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/pivot_toggle_row_widget.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
 /// Builds the standardized pivot toggle row layout.
 Widget buildStandardPivotToggleRowUi({

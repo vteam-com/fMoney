@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_router_service.dart';
@@ -10,10 +13,7 @@ import 'package:money/widgets/pure/display_date.dart';
 import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _percentZeroOpacity = 0.4;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/account_entity.dart';
@@ -23,9 +25,7 @@ import 'package:money/shared/presentation/entity_widgets/rent_building_widgets_h
 import 'package:money/shared/presentation/entity_widgets/security_widgets_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/transaction_split_widgets_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/transaction_widgets_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Widget builders for every entity type, for use by generic list and detail widgets.
 const DataObjectWidgetBuilders entityWidgetBuilders = DataObjectWidgetBuilders(

@@ -1,4 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -17,8 +19,6 @@ import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
 class ViewEvents extends ViewForMoneyObjects {

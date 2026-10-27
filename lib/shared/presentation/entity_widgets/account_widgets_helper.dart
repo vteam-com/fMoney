@@ -1,12 +1,12 @@
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/picker_account_type.dart';
 import 'package:money/widgets/pickers/token_text_widget.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Returns the [Account]-specific display widget for [field], or null for the generic one.

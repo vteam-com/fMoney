@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/list_controller.dart';
@@ -10,8 +12,6 @@ import 'package:money/shared/presentation/dialogs/mutate_transaction_dialog.dart
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_single_selection_widget.dart';
 import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _scrollRestoreTolerance = 0.5;
 

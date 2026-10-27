@@ -1,4 +1,6 @@
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/data_access_model.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -34,8 +36,6 @@ import 'package:money/shared/domain/stock_splits_collection.dart';
 import 'package:money/shared/domain/transaction_extras_collection.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
-import 'package:money/widgets/widgets_domain/data_access_model.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 /// Represents data.
 ///

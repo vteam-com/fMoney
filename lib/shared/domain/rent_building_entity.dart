@@ -2,6 +2,9 @@
 import 'dart:ui' show TextAlign;
 
 import 'package:collection/collection.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -15,9 +18,6 @@ import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /*
     SQLite table definition

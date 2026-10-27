@@ -1,3 +1,5 @@
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -10,8 +12,6 @@ import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/rentals_side_panel.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _panelSpacing = 30.0;
 const int _dividerAlpha = 100;

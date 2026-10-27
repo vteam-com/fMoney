@@ -1,3 +1,6 @@
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
@@ -5,10 +8,7 @@ import 'package:money/widgets/list/list_item_footer_widget.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _minColumnLayoutWidth = 1500;
 

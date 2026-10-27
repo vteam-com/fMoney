@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/shared/presentation/helpers/money_objects_ui_helper.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
 /// Builds the empty-state UI for money-object list views.
 Widget buildMoneyObjectsEmptyState({

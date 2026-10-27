@@ -1,3 +1,4 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.d
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 const double _adaptiveBoxHeight = 300.0;

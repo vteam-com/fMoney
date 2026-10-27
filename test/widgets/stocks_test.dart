@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/dividend_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -16,7 +17,6 @@ import 'package:money/views/panels/charts/stock_chart.dart';
 import 'package:money/widgets/charts/chart_event_model.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 // Mock the SharedPreference
 /// A mock used in tests for mock preference controller.

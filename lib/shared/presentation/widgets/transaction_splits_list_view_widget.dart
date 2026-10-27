@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -11,7 +12,6 @@ import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// A stateful widget for list view transaction splits.

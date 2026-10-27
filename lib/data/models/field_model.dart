@@ -2,7 +2,9 @@
 
 import 'dart:ui' show TextAlign;
 
+import 'package:money/data/models/data_interface.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_logger_helper.dart';
@@ -10,8 +12,6 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 
 /// Default callback that returns an empty string.
 dynamic defaultCallbackValue(DataInterface _) => '';

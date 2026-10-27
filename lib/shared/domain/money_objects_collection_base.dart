@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/database_interface.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;

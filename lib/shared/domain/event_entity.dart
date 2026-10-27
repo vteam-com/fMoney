@@ -1,6 +1,9 @@
 // ignore_for_file: unnecessary_this
 import 'dart:ui' show TextAlign;
 
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
@@ -9,9 +12,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Represents event.
 class Event extends DataObject {

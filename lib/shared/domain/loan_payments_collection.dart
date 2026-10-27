@@ -1,3 +1,4 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -7,7 +8,6 @@ import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 const int _unsetId = -1;
 const int _fakeIdStart = 10000000;

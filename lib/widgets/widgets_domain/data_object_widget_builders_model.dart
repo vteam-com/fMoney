@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 
 /// Returns an entity-specific display widget for [field] of [instance], or null to use the generic one.
 typedef FieldWidgetOverrideBuilder = Widget? Function(DataObject instance, Field<dynamic> field);

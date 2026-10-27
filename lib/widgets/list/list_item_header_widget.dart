@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 // Width of the visible divider line drawn inside the drag-handle zone.
 const double _dragDividerWidth = 2;

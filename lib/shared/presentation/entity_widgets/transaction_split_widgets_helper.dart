@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Returns the [TransactionSplit]-specific editor for [field], or null for the generic one.
 Widget? buildTransactionSplitFieldEditWidget(

@@ -1,4 +1,7 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/dividend_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -28,9 +31,6 @@ import 'package:money/widgets/list/adaptive_columns_or_rows_single_selection_wid
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 export 'package:money/views/panels/charts/stock_chart.dart';
 

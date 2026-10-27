@@ -1,7 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -38,11 +42,7 @@ import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
 
 /// Default transaction columns shown in the side panel "Transactions" list.

@@ -2,12 +2,12 @@
 // domain-side switches (default display, default sort, getString, filtering,
 // readable text and footer accumulation) so they can be refactored safely.
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
 
 /// Minimal [DataObject] carrying one arbitrary value [v] for field callbacks.

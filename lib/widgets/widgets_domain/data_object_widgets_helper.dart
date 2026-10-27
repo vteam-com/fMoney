@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/widgets/pure/form_field_switch_widget.dart';
 import 'package:money/widgets/pure/form_field_widget.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 
 const double _readOnlyOpacity = 0.5;

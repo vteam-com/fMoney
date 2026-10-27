@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/widgets/columns/column_footer_button.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _hiddenCheckboxOpacity = 0;
 const double _footerPaddingHorizontal = 8;

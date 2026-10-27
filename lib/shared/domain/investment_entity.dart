@@ -3,6 +3,9 @@
 import 'dart:ui' show TextAlign;
 
 import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -13,9 +16,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;

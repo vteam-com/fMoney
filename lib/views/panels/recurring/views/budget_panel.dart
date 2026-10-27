@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -25,7 +26,6 @@ import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _minYears = 1;

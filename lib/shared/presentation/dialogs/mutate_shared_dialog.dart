@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/dialogs/auto_size_dialog.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 /// Shared content layout for mutation dialogs.

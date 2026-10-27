@@ -2,6 +2,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_router_service.dart';
@@ -11,9 +13,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 
 const double _rowHeightColumn = 30;

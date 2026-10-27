@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -7,7 +8,6 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/presentation/helpers/mutation_group_model.dart';
 import 'package:money/widgets/pure/diff_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
 const double _diffIdOpacity = 0.5;
 

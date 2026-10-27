@@ -1,4 +1,4 @@
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/data/models/data_object_model.dart';
 
 /// Security and stock split lookups.
 abstract class SecurityOperations {

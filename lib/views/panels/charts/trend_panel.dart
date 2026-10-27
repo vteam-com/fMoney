@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -14,7 +15,6 @@ import 'package:money/views/panels/models/recurring_expenses_model.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _unsetId = -1;

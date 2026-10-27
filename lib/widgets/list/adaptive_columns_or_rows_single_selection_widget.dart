@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
 
 /// A stateful widget for adaptive list columns or rows single selection.

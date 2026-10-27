@@ -1,15 +1,15 @@
 import 'dart:ui' show TextAlign;
 
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _dateSpreadThresholdDays = 2;

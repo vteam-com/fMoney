@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:money/data/helpers/accumulator_helper.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/default_values_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_widgets_helper.dart';
 
 const int _sampleLimit = 10;

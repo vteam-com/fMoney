@@ -1,4 +1,4 @@
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/data/models/field_model.dart';
 
 /// Selects a [Field] from a lightweight model instance.
 typedef FieldSelector<T> = Field<dynamic> Function(T instance);

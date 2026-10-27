@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/investment_entity.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Returns the [Investment]-specific editor for [field], or null for the generic one.
 ///

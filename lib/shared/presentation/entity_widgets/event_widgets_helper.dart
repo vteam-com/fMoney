@@ -1,3 +1,4 @@
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
@@ -8,7 +9,6 @@ import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
 import 'package:money/widgets/pickers/token_text_widget.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Returns the [Event]-specific display widget for [field], or null for the generic one.
 Widget? buildEventFieldDisplayWidget(Event event, Field<dynamic> field) {

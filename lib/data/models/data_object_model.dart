@@ -1,12 +1,12 @@
 // ignore: fcheck_one_class_per_file
 import 'dart:ui' show Color;
 
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const Color _transparent = Color(0x00000000);
 

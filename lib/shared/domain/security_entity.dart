@@ -1,7 +1,10 @@
 import 'dart:ui' show TextAlign;
 
 import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/dividend_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -10,9 +13,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /*
   cid  name          type          notnull  dflt_value  pk

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/data_source_model.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -9,7 +10,6 @@ import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pickers/token_text_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_source_model.dart';
 
 const double _mruDropdownWidth = 600.0;
 const double _timestampOpacity = 0.5;
