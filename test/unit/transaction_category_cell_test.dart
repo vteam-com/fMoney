@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
-import 'package:money/shared/domain/transaction_delegate_utils.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/transaction_widgets_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 
 void main() {

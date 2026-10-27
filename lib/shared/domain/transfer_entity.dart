@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';

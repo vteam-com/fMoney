@@ -5,6 +5,7 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/entity_widgets/account_widgets_helper.dart';
 import 'package:money/views/imports/shared/transactions_import_list_preview_widget.dart';
 import 'package:money/widgets/columns/columns_input_widget.dart';
 import 'package:money/widgets/columns/value_parser.dart';
@@ -252,7 +253,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       segments: <ButtonSegment<int>>[
         ButtonSegment<int>(
           value: 0,
-          label: _account.getAccountCurrencyAsWidget(),
+          label: buildAccountCurrencyWidget(_account),
         ),
         ButtonSegment<int>(
           value: 1,

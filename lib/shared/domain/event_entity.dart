@@ -1,18 +1,13 @@
 // ignore_for_file: unnecessary_this
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/category_picker_widget.dart';
-import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
-import 'package:money/widgets/pickers/token_text_widget.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
@@ -79,10 +74,7 @@ class Event extends DataObject {
     footer: FooterType.count,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: -1,
-    getValueForDisplay: (DataInterface instance) {
-      final Event event = instance as Event;
-      return event.data!.getCategoryWidget(event.fieldCategoryId.value);
-    },
+    getValueForDisplay: (DataInterface instance) => (instance as Event).categoryName,
 
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Event).categoryName,
@@ -93,26 +85,6 @@ class Event extends DataObject {
     getValueForReading: (DataInterface instance) => (instance as Event).categoryName,
     getValueForSerialization: (DataInterface instance) => (instance as Event).fieldCategoryId.value,
     setValue: (DataInterface instance, dynamic newValue) => (instance as Event).fieldCategoryId.value = newValue as int,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          final Event event = instance as Event;
-          return pickerCategory(
-            key: const Key('key_pick_category'),
-            categoryNames: event.data!.getCategoriesAsStrings(),
-            selectedName: event.data!.getCategoryNameFromId(event.fieldCategoryId.value),
-            onSelected: (String? name) {
-              final int? newId = event.data!.getCategoryIdFromName(name!);
-              if (newId != null) {
-                instance.fieldCategoryId.value = newId;
-                // notify container
-                onEdited(true);
-              }
-            },
-          );
-        },
   );
 
   /// Date Begin
@@ -157,7 +129,7 @@ class Event extends DataObject {
   FieldString fieldName = FieldString(
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => TokenText((instance as Event).eventName),
+    getValueForDisplay: (DataInterface instance) => (instance as Event).eventName,
     getValueForSerialization: (DataInterface instance) => (instance as Event).fieldName.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Event).fieldName.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -176,15 +148,6 @@ class Event extends DataObject {
   int possibleMatchingCategoryId = -1;
 
   final DataAbstract? data;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: AppL10n.tr(AppTranslationKeys.begin),
-      rightTopAsString: AppL10n.tr(AppTranslationKeys.end),
-      rightBottomAsString: AppL10n.tr(AppTranslationKeys.memo),
-    );
-  }
 
   // Fields for this instance
   @override
@@ -309,24 +272,6 @@ class Event extends DataObject {
       serializeName: serializeName,
       columnWidth: ColumnWidth.small,
       getValueForDisplay: (DataInterface instance) => getField(instance as Event).value,
-      getEditWidget:
-          (
-            DataInterface instance,
-            void Function(bool /* wasModified */) onEdited,
-          ) {
-            return PickerEditBoxDate(
-              key: Constants.keyDatePicker,
-              initialValue: dateToDateTimeString(getField(instance as Event).value),
-              onChanged: (String? newDateSelected) {
-                if (newDateSelected != null) {
-                  getField(instance).value = attemptToGetDateFromText(
-                    newDateSelected,
-                  );
-                  onEdited(true);
-                }
-              },
-            );
-          },
       setValue: (DataInterface instance, dynamic newValue) =>
           getField(instance as Event).value = attemptToGetDateFromText(
             newValue as String,

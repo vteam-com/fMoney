@@ -1,12 +1,11 @@
 // ignore_for_file: unnecessary_this
 // ignore: fcheck_dead_code
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -149,14 +148,6 @@ class Investment extends DataObject {
     footer: FooterType.count,
     getValueForDisplay: (DataInterface instance) => (instance as Investment)._investmentTypeAsString,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldInvestmentType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ??
-              Text(AppL10n.tr(AppTranslationKeys.noPicker));
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldInvestmentType.value = getInvestmentTypeFromValue(value as int).index;
@@ -237,14 +228,6 @@ class Investment extends DataObject {
     getValueForDisplay: (DataInterface instance) =>
         InvestmentTradeType.values[(instance as Investment).fieldTradeType.value].name.toUpperCase(),
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTradeType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ??
-              Text(AppL10n.tr(AppTranslationKeys.noPicker));
-        },
     setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldTradeType.value = value as int;
@@ -317,12 +300,6 @@ class Investment extends DataObject {
 
   /// The actual transaction date.
   dynamic _transactionInstance;
-
-  /// Builds a compact widget representation for small screens.
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return buildSmallScreenWidget?.call(this) ?? Text(AppL10n.tr(AppTranslationKeys.noUi));
-  }
 
   // Fields for this instance
   /// Returns field definitions for this instance.
@@ -590,10 +567,4 @@ class Investment extends DataObject {
 
   /// Returns the unit price adjusted for stock splits.
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
-
-  static Widget Function(Investment instance)? buildSmallScreenWidget;
-  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
-  pickerInvestmentTypeWidget;
-  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
-  pickerInvestmentTradeTypeWidget;
 }

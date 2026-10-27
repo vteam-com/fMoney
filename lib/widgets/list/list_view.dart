@@ -3,13 +3,18 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/data/models/ranges_model.dart';
+import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item.dart';
+import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 
 const double _rowHeightColumn = 30;
 const double _rowHeightCard = 85;
@@ -23,6 +28,7 @@ class MyListView<T> extends StatefulWidget {
     required this.selectedItemIds,
     required this.scrollController,
     required this.columnWidths,
+    required this.widgetBuilders,
     super.key,
     this.onTap,
     this.onDoubleTap,
@@ -51,6 +57,9 @@ class MyListView<T> extends StatefulWidget {
 
   /// Controls whether right-side row adornments are rendered.
   final bool showRightAdornment;
+
+  /// Entity-specific cell and small-screen widget builders.
+  final DataObjectWidgetBuilders widgetBuilders;
   @override
   State<MyListView<T>> createState() => MyListViewState<T>();
 }
@@ -177,7 +186,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
                   },
                   autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
-                  adornmentColor: itemInstance.getMutationColor(),
+                  adornmentColor: _getMutationColor(itemInstance),
                   rightAdornmentColor: rightAdornmentColor,
                   showRightAdornmentTopCap: showRightAdornmentTopCap,
                   showRightAdornmentBottomCap: showRightAdornmentBottomCap,
@@ -427,7 +436,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
                 ),
               ),
             ),
-            child: itemInstance.buildFieldsAsWidgetForSmallScreen(),
+            child: widget.widgetBuilders.buildSmallScreen(itemInstance),
           );
   }
 
@@ -436,7 +445,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
     _ensureResizableColumnsInitialized();
 
     if (maxRowWidth <= 0) {
-      return Fields.getRowOfColumns(widget.fields, itemInstance);
+      return buildRowOfColumns(widget.fields, itemInstance, widget.widgetBuilders);
     }
 
     if (_visibleColumnIndexes.isEmpty) {
@@ -453,19 +462,13 @@ class MyListViewState<T> extends State<MyListView<T>> {
     for (int i = 0; i < _visibleColumnIndexes.length; i++) {
       final int fieldIndex = _visibleColumnIndexes[i];
       final Field<dynamic> fieldDefinition = widget.fields[fieldIndex];
-      final dynamic value = fieldDefinition.getValueForDisplay(itemInstance);
 
       rowChildren.add(
         SizedBox(
           width: i < ratios.length ? contentWidth * ratios[i] : 0,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: _rowHorizontalPadding),
-            child: buildWidgetFromTypeAndValue(
-              value: value,
-              type: fieldDefinition.type,
-              align: fieldDefinition.align,
-              fixedFont: fieldDefinition.fixedFont,
-            ),
+            child: buildFieldCellWidget(itemInstance, fieldDefinition, widget.widgetBuilders),
           ),
         ),
       );
@@ -528,6 +531,20 @@ class MyListViewState<T> extends State<MyListView<T>> {
       if (widget.fields[i].columnWidth != ColumnWidth.hidden) {
         _visibleColumnIndexes.add(i);
       }
+    }
+  }
+
+  /// Returns a color representing the mutation state of [instance].
+  Color _getMutationColor(DataObject instance) {
+    switch (instance.mutation) {
+      case MutationType.inserted:
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.success);
+      case MutationType.changed:
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.warning);
+      case MutationType.deleted:
+        return AppRouter.context!.colorTheme.getColorForState(ColorState.error);
+      default:
+        return Colors.transparent;
     }
   }
 

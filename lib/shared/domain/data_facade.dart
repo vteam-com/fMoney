@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -730,9 +729,6 @@ class Data implements DataAbstract {
 
   @override
   int? getCategoryIdFromName(String name) => categories.getIdByName(name);
-
-  @override
-  Widget getCategoryWidget(int id) => categories.getCategoryWidget(id);
 
   @override
   List<String> getCategoriesAsStrings() => categories.getCategoriesAsStrings();

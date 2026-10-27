@@ -9,7 +9,7 @@ import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// A mock used in tests for mock theme controller.

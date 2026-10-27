@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
@@ -16,6 +17,7 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
     required this.selectedId,
     required this.displayAsColumns,
     required this.listController,
+    required this.widgetBuilders,
     this.showRightAdornment = true,
     this.sortByFieldIndex = 0,
     this.sortAscending = true,
@@ -64,6 +66,9 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 
   final int sortByFieldIndex;
 
+  /// Entity-specific cell and small-screen widget builders.
+  final DataObjectWidgetBuilders widgetBuilders;
+
   @override
   State<AdaptiveListColumnsOrRowsSingleSelection> createState() => _AdaptiveListColumnsOrRowsSingleSelectionState();
 }
@@ -90,6 +95,7 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
       sortByFieldIndex: widget.sortByFieldIndex,
       sortAscending: widget.sortAscending,
       listController: widget.listController,
+      widgetBuilders: widget.widgetBuilders,
       isMultiSelectionOn: false,
       selectedItemsByUniqueId: selectionCollectionOfOnlyOneItem,
       onSelectionChanged: (int selectedId) {

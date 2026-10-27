@@ -1,3 +1,5 @@
+import 'dart:ui' show Color, TextAlign;
+
 import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/mergeable_item_interface.dart';
@@ -15,23 +17,15 @@ import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/transaction_delegate_utils.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/category_picker_widget.dart';
-import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
-import 'package:money/widgets/pickers/payee_or_transfer_picker_widget.dart';
-import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
 const int _oneInt = 1;
 const double _zeroDouble = 0.0;
-const double _transferPickerWidth = 300.0;
-const double _transferPickerHeight = 80.0;
 
 /// Main source of information for this App
 /// All transactions are loaded in this class [Transaction] and [Split]
@@ -138,7 +132,7 @@ class Transaction extends DataObject implements MergeableItem {
   bool pairHighlightBottomCap = false;
 
   @override
-  Color getRightAdornmentColor() => pairHighlightColor ?? Colors.transparent;
+  Color getRightAdornmentColor() => pairHighlightColor ?? super.getRightAdornmentColor();
 
   @override
   bool getShowRightAdornmentTopCap() => pairHighlightTopCap;
@@ -251,7 +245,7 @@ class Transaction extends DataObject implements MergeableItem {
     footer: FooterType.count,
     serializeName: SharedDomainStrings.domainString029,
     defaultValue: _unsetId,
-    getValueForDisplay: (DataInterface instance) => transactionBuildCategoryCellWidget(instance as Transaction),
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).categoryName,
     getValueForReading: (DataInterface instance) => (instance as Transaction).categoryName,
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -261,38 +255,6 @@ class Transaction extends DataObject implements MergeableItem {
     ),
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldCategoryId.value = newValue as int,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          (instance as Transaction);
-          return Row(
-            children: <Widget>[
-              Expanded(
-                child: pickerCategory(
-                  key: const Key('key_pick_category'),
-                  categoryNames: DataAbstract.instance.getCategoriesAsStrings(),
-                  selectedName: DataAbstract.instance.getCategoryNameFromId(instance.fieldCategoryId.value),
-                  onSelected: (String? name) {
-                    if (name != null) {
-                      DataAbstract.instance.changeCategoryFromCategoryName(instance, name);
-                      onEdited(true);
-                    }
-                  },
-                ),
-              ),
-              if (instance.fieldCategoryId.value == DataAbstract.instance.getSplitCategoryId())
-                MyIconButton(
-                  icon: Icons.arrow_forward_ios,
-                  onPressed: () {
-                    // Split editing is now handled by SuggestionApproval widget
-                    // when the category widget is tapped for split transactions
-                  },
-                ),
-            ],
-          );
-        },
   );
 
   FieldString fieldCurrency = FieldString(
@@ -302,9 +264,7 @@ class Transaction extends DataObject implements MergeableItem {
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.count,
     getValueForReading: (DataInterface instance) => (instance as Transaction).currency,
-    getValueForDisplay: (DataInterface instance) {
-      return buildCurrencyWidget((instance as Transaction).currency);
-    },
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).currency,
   );
 
   /// Date
@@ -314,24 +274,6 @@ class Transaction extends DataObject implements MergeableItem {
     getValueForDisplay: (DataInterface instance) => (instance as Transaction).fieldDateTime.value,
     getValueForSerialization: (DataInterface instance) =>
         dateToSqliteFormat((instance as Transaction).fieldDateTime.value),
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return PickerEditBoxDate(
-            key: Constants.keyDatePicker,
-            initialValue: (instance as Transaction).dateTimeAsString,
-            onChanged: (String? newDateSelected) {
-              if (newDateSelected != null) {
-                instance.fieldDateTime.value = attemptToGetDateFromText(
-                  newDateSelected,
-                );
-                onEdited(true);
-              }
-            },
-          );
-        },
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldDateTime.value = attemptToGetDateFromText(newValue as String),
     sort: (DataInterface a, DataInterface b, bool ascending) =>
@@ -423,9 +365,7 @@ class Transaction extends DataObject implements MergeableItem {
       (b as Transaction).payeeName,
       ascending,
     ),
-    getValueForDisplay: (DataInterface instance) {
-      return transactionBuildPayeeOrTransferWidget(instance as Transaction);
-    },
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).getPayeeOrTransferCaption(),
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldPayee.value,
     setValue: (DataInterface instance, dynamic newValue) {
       final Transaction transaction = instance as Transaction;
@@ -440,83 +380,6 @@ class Transaction extends DataObject implements MergeableItem {
         transaction.instanceOfTransfer = null;
       }
     },
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return SizedBox(
-            width: _transferPickerWidth,
-            height: _transferPickerHeight,
-            child: PickPayeeOrTransfer(
-              choice: (instance as Transaction).fieldTransfer.value == _unsetId
-                  ? TransactionFlavor.payee
-                  : TransactionFlavor.transfer,
-              selectedPayeeName: DataAbstract.instance.getPayeeName(instance.fieldPayee.value),
-              selectedAccountName: instance.instanceOfTransfer?.receiverAccount?.fieldName.value,
-              amount: instance.fieldAmount.value.asDouble(),
-              payeeNames: DataAbstract.instance.getPayeeNamesSorted(),
-              accountNames: DataAbstract.instance.getAccountNamesSorted(),
-              onSelected:
-                  (
-                    TransactionFlavor choice,
-                    String? selectedPayeeName,
-                    String? selectedAccountName,
-                  ) {
-                    bool wasModified = false;
-
-                    switch (choice) {
-                      case TransactionFlavor.payee:
-                        if (selectedPayeeName != null) {
-                          final dynamic selectedPayee = DataAbstract.instance.getPayeeByName(selectedPayeeName);
-                          if (selectedPayee != null) {
-                            instance.fieldPayee.value = (selectedPayee as dynamic).uniqueId as int;
-                            instance.fieldTransfer.value = _unsetId;
-                            instance.instanceOfTransfer = null;
-                            wasModified = true;
-                          }
-                        }
-                      case TransactionFlavor.transfer:
-                        // this is used to let the dialog Apply code what account should be
-                        // used when for transfer with.
-                        final dynamic transferAccount = selectedAccountName != null
-                            ? DataAbstract.instance.getAccountByName(selectedAccountName)
-                            : null;
-                        instance.editingTransferAccount = transferAccount as Account?;
-                        instance.fieldTransfer.value = _unsetId; // this will cause a reevaluation of the transfer
-
-                        if (transferAccount == null) {
-                          // No account has been selected yet by the users
-                          // do nothing since this is just the user taping between Payee | Transfer
-                          instance.fieldPayee.value = _unsetId;
-                        } else {
-                          // mark as Transfer
-                          instance.fieldPayee.value = DataAbstract.instance.getTransferCategoryId();
-                        }
-                        wasModified = true;
-                    }
-                    onEdited(wasModified); // notify container
-                  },
-              onMergePayee: (String payeeName, BuildContext context) {
-                final dynamic payee = DataAbstract.instance.getPayeeByName(payeeName);
-                if (payee != null) {
-                  final Iterable<dynamic> transactions = DataAbstract.instance
-                      .getTransactions(
-                        includeDeleted: true,
-                      )
-                      .where((dynamic t) => (t as Transaction).fieldPayee.value == (payee as dynamic).uniqueId);
-                  Navigator.of(context).pop(false);
-                  DataAbstract.instance.mergePayeeProvider.showMergePayee(
-                    context,
-                    payee,
-                    transactions,
-                    DataAbstract.instance,
-                  );
-                }
-              },
-            ),
-          );
-        },
   );
 
   Account? editingTransferAccount;
@@ -554,7 +417,8 @@ class Transaction extends DataObject implements MergeableItem {
     useAsDetailPanels: defaultCallbackValueFalse,
     name: columnIdStatus,
     serializeName: SharedDomainStrings.domainString128,
-    getValueForDisplay: (DataInterface instance) => (instance as Transaction)._buildStatusButtonToggle(),
+    getValueForDisplay: (DataInterface instance) =>
+        transactionStatusToLetter((instance as Transaction).fieldStatus.value),
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldStatus.value.index,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as Transaction).fieldStatus.value = newValue as TransactionStatus,
@@ -593,21 +457,6 @@ class Transaction extends DataObject implements MergeableItem {
 
   // Instance of Transfer
   Transfer? cachedTransfer;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: payeeName,
-      leftBottomAsString:
-          '${DataAbstract.instance.getCategoryNameFromId(fieldCategoryId.value)}${SharedDomainStrings.domainString158}${fieldMemo.value}',
-      rightTopAsWidget: WidgetFromData(
-        amountModel: fieldAmount.value,
-        size: DataWidgetSize.title,
-      ),
-      rightBottomAsString:
-          '$dateTimeAsString${SharedDomainStrings.domainString158}${DataAbstract.instance.getAccountName(fieldAccountId.value)}',
-    );
-  }
 
   // Fields for this instance
   @override
@@ -853,10 +702,6 @@ class Transaction extends DataObject implements MergeableItem {
   /// Stores current payee/transfer caption into original-payee when empty.
   void stashOriginalPayee() {
     transactionStashOriginalPayee(this);
-  }
-
-  Widget _buildStatusButtonToggle() {
-    return transactionBuildStatusButtonToggle(this);
   }
 }
 

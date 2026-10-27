@@ -1,24 +1,15 @@
 // ignore: fcheck_one_class_per_file
-import 'package:flutter/material.dart';
+import 'dart:ui' show Color;
+
 import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_router_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/pure/form_field_switch_widget.dart';
-import 'package:money/widgets/pure/form_field_widget.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 
-const double _readOnlyOpacity = 0.5;
-const double _editableOpacity = 1.0;
-const double _dividerAlpha = 0.5;
-const int _valueFlex = 2;
-const double _labelPaddingRight = 10;
+const Color _transparent = Color(0x00000000);
 
 /// Represents data object.
 abstract class DataObject extends DataInterface {
@@ -57,191 +48,6 @@ abstract class DataObject extends DataInterface {
     return fieldsAsText.join('|');
   }
 
-  ///
-  /// Title       |
-  /// ------------+ Right
-  /// SubTitle    |
-  ///
-  /// Expect this to be override by the derived domain classes
-  Widget buildFieldsAsWidgetForSmallScreen() => Text(AppL10n.tr(AppTranslationKeys.smallScreenContentGoesHere));
-
-  ///
-  /// Name: Bob
-  /// Date: 2020-12-31
-  List<Widget> buildListOfNamesValuesWidgets({
-    void Function(bool /* wasModified */)? onEdit,
-    bool compact = false,
-  }) {
-    if (fieldDefinitions.isEmpty) {
-      return <Widget>[
-        Center(
-          child: Text(
-            AppL10n.tr(AppTranslationKeys.noFieldsFoundForItem, params: <String, String>{'item': toString()}),
-          ),
-        ),
-      ];
-    }
-    final List<Widget> widgets = <Widget>[];
-
-    {
-      final FieldDefinitions definitions = getFieldDefinitionsForPanel();
-
-      for (final Field<dynamic> fieldDefinition in definitions) {
-        final Widget widget = buildWidgetNameValueFromFieldDefinition(
-          objectInstance: this,
-          fieldDefinition: fieldDefinition,
-          singleLineNameValue: compact, // when passing true, the onEdit is ignored
-          onEdited: onEdit,
-          isFirstItem: fieldDefinition == definitions.first,
-          isLastItem: fieldDefinition == definitions.last,
-        );
-        widgets.add(
-          Padding(
-            padding: compact ? const EdgeInsets.all(0) : const EdgeInsets.all(SizeForPadding.normal),
-            child: widget,
-          ),
-        );
-      }
-    }
-
-    // Also add the MoneyObject ID
-    widgets.add(
-      Padding(
-        padding: const EdgeInsets.all(SizeForPadding.medium),
-        child: Opacity(
-          opacity: _readOnlyOpacity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(AppL10n.tr(AppTranslationKeys.idLabel)),
-              SelectableText(uniqueId.toString()),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    return widgets;
-  }
-
-  /// Builds a name/value widget for a specific [fieldDefinition] on [objectInstance].
-  Widget buildWidgetNameValueFromFieldDefinition({
-    required DataObject objectInstance,
-    required Field<dynamic> fieldDefinition,
-    required bool singleLineNameValue,
-    required void Function(bool)? onEdited,
-    bool isFirstItem = false,
-    bool isLastItem = false,
-  }) {
-    keepUnused(isFirstItem, isLastItem);
-    final dynamic fieldValue = fieldDefinition.getValueForDisplay(
-      objectInstance,
-    );
-
-    if (singleLineNameValue) {
-      // simple [Name  Value] pair
-      return _buildNameValuePair(fieldDefinition, fieldValue);
-    }
-    final bool isReadOnly = onEdited == null || fieldDefinition.setValue == null;
-
-    final InputDecoration decoration = myFormFieldDecoration(
-      fieldName: fieldDefinition.name,
-      isReadOnly: isReadOnly,
-    );
-
-    // Editing Field
-    if (!isReadOnly && fieldDefinition.getEditWidget != null) {
-      // Editing mode and the MoneyObject has a custom edit widget
-      return InputDecorator(
-        decoration: InputDecoration(
-          labelText: fieldDefinition.name,
-          border: const OutlineInputBorder(),
-        ),
-        child: fieldDefinition.getEditWidget!(objectInstance, onEdited),
-      );
-    }
-
-    // Read only
-    switch (fieldDefinition.type) {
-      case FieldType.toggle:
-        if (isReadOnly) {
-          return MyFormFieldForWidget(
-            title: fieldDefinition.name,
-            valueAsText: fieldDefinition.getValueForDisplay(objectInstance).toString(),
-            isReadOnly: true,
-            onChanged: (String _) {},
-          );
-        }
-        return InputDecorator(
-          decoration: InputDecoration(
-            labelText: fieldDefinition.name,
-            border: const OutlineInputBorder(),
-          ),
-          child: SwitchFormField(
-            title: fieldDefinition.name,
-            initialValue: fieldDefinition.getValueForDisplay(objectInstance) as bool,
-            isReadOnly: isReadOnly,
-            validator: (bool? _) {
-              /// Todo
-              return null;
-            },
-            onSaved: (bool? value) {
-              fieldDefinition.setValue?.call(objectInstance, value);
-              onEdited(true);
-            },
-          ),
-        );
-
-      case FieldType.widget:
-        final String valueAsString = fieldDefinition.getValueForSerialization(objectInstance).toString();
-        return Opacity(
-          opacity: isReadOnly ? _readOnlyOpacity : _editableOpacity,
-          child: MyFormFieldForWidget(
-            title: fieldDefinition.name,
-            valueAsText: valueAsString,
-            isReadOnly: isReadOnly,
-            onChanged: (String value) {
-              fieldDefinition.setValue?.call(objectInstance, value);
-              onEdited?.call(false);
-            },
-          ),
-        );
-
-      // all others will be a normal text input
-      default:
-        String value = fieldDefinition.getString(fieldValue);
-        if (value.isEmpty && isReadOnly) {
-          value = '';
-        }
-        return Row(
-          children: <Widget>[
-            Expanded(
-              child: Opacity(
-                opacity: isReadOnly ? _readOnlyOpacity : _editableOpacity,
-                child: TextFormField(
-                  initialValue: value,
-                  decoration: decoration,
-                  // allow mutation of the value
-                  readOnly: isReadOnly,
-
-                  onFieldSubmitted: (String _) {
-                    onEdited?.call(false);
-                  },
-                  onEditingComplete: () {
-                    onEdited?.call(false);
-                  },
-                  onChanged: (String newValue) {
-                    fieldDefinition.setValue!(objectInstance, newValue);
-                    onEdited?.call(false);
-                  },
-                ),
-              ),
-            ),
-          ],
-        );
-    }
-  }
-
   /// Returns the field definitions for this object instance.
   FieldDefinitions get fieldDefinitions => <Field<dynamic>>[];
 
@@ -261,7 +67,7 @@ abstract class DataObject extends DataInterface {
 
   /// Returns a color for the right-side adornment stripe of a list row.
   /// Subclasses may override to provide per-row right-edge accent colors.
-  Color getRightAdornmentColor() => Colors.transparent;
+  Color getRightAdornmentColor() => _transparent;
 
   /// Returns true when this row should display the top cap for the right
   /// adornment stripe.
@@ -270,20 +76,6 @@ abstract class DataObject extends DataInterface {
   /// Returns true when this row should display the bottom cap for the right
   /// adornment stripe.
   bool getShowRightAdornmentBottomCap() => false;
-
-  /// Returns a color representing the current mutation state.
-  Color getMutationColor() {
-    switch (mutation) {
-      case MutationType.inserted:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.success);
-      case MutationType.changed:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.warning);
-      case MutationType.deleted:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.error);
-      default:
-        return Colors.transparent;
-    }
-  }
 
   /// Serialize object instance to a JSon format
   MyJson getPersistableJSon() {
@@ -397,46 +189,6 @@ abstract class DataObject extends DataInterface {
       default:
         return field.getValueForDisplay(this).toString();
     }
-  }
-
-  /// Builds a compact name/value row used by detail panels.
-  Widget _buildNameValuePair(
-    Field<dynamic> fieldDefinition,
-    dynamic fieldValue,
-  ) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.withValues(alpha: _dividerAlpha),
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                0,
-                0,
-                _labelPaddingRight,
-                0,
-              ),
-              child: Text(fieldDefinition.name),
-            ),
-          ),
-          Expanded(
-            flex: _valueFlex,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: fieldDefinition.getValueWidgetForDetailView(fieldValue),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

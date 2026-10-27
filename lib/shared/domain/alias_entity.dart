@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_this
 
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -7,7 +9,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -100,15 +101,6 @@ class Alias extends DataObject {
   );
 
   RegExp? regex;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: this.data!.getPayeeName(this.fieldPayeeId.value),
-      leftBottomAsString: fieldPattern.value,
-      rightBottomAsString: '${getAliasTypeAsString(type)}${SharedDomainStrings.domainString158}',
-    );
-  }
 
   // Fields for this instance
   @override

@@ -6,6 +6,7 @@ import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_split_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
@@ -76,6 +77,7 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
             selectedItemIds: ValueNotifier<List<int>>(<int>[]),
             onSelectionChanged: (int _) {},
             columnWidths: _columnWidths,
+            widgetBuilders: entityWidgetBuilders,
             onLongPress: (BuildContext context2, int uniqueId) {
               final TransactionSplit? instance = widget.splits.firstWhereOrNull(
                 (TransactionSplit t) => t.uniqueId == uniqueId,

@@ -1,14 +1,12 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -133,17 +131,6 @@ class LoanPayment extends DataObject {
     name: 'Payment',
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: Account.getName(accountInstance),
-      rightTopAsString: getAmountAsStringUsingCurrency(fieldPrincipal),
-      rightBottomAsString: getAmountAsStringUsingCurrency(
-        fieldInterest,
-      ),
-    );
-  }
 
   // Fields for this instance
   @override

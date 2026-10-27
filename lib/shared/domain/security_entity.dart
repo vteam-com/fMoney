@@ -1,3 +1,6 @@
+import 'dart:ui' show TextAlign;
+
+import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/models/dividend_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
@@ -7,9 +10,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/picker_security_type.dart';
-import 'package:money/widgets/pure/quantity_widget.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -194,23 +194,6 @@ class Security extends DataObject {
       (instance as Security).fieldSecurityType.value,
     ),
     getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSecurityType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          final Security security = instance as Security;
-          return pickerSecurityType(
-            itemSelected: SecurityType.values[security.fieldSecurityType.value],
-            onSelected: (SecurityType? newSecurityType) {
-              if (newSecurityType != null) {
-                security.fieldSecurityType.value = newSecurityType.index;
-                // notify container
-                onEdited(true);
-              }
-            },
-          );
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSecurityType.value = value as int;
     },
@@ -241,19 +224,6 @@ class Security extends DataObject {
     serializeName: SharedDomainStrings.domainString137,
     getValueForDisplay: (DataInterface instance) => (instance as Security).taxable.value,
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: fieldSymbol.value,
-      leftBottomAsWidget: QuantityWidget(
-        quantity: fieldHoldingShares.value.toDouble(),
-        align: TextAlign.left,
-      ),
-      rightTopAsWidget: fieldProfit.getValueAsWidget(this),
-      rightBottomAsWidget: fieldHoldingValue.getValueAsWidget(this),
-    );
-  }
 
   // Fields for this instance
   @override

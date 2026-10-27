@@ -1,24 +1,21 @@
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/locale_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/picker_account_type.dart';
-import 'package:money/widgets/pickers/token_text_widget.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Accounts like Banks
 class Account extends DataObject {
@@ -141,9 +138,7 @@ class Account extends DataObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => buildCurrencyWidget(
-      (instance as Account).getAccountCurrencyAsText(),
-    ),
+    getValueForDisplay: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
     getValueForSerialization: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldCurrency.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -215,7 +210,7 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.large,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => TokenText((instance as Account).fieldName.value),
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldName.value,
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldName.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldName.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -283,19 +278,6 @@ class Account extends DataObject {
     defaultValue: AccountType.checking,
     getValueForDisplay: (DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldType.value.index,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerAccountType(
-            itemSelected: (instance as Account).fieldType.value,
-            onSelected: (AccountType newSelection) {
-              instance.fieldType.value = newSelection;
-              onEdited(true); // notify container
-            },
-          );
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Account).fieldType.value = AccountType.values[value as int];
     },
@@ -326,41 +308,6 @@ class Account extends DataObject {
   Map</*year */ int, /*balance*/ double> minBalancePerYears = <int, double>{};
   // cache the currency ratio
   double? ratio;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    Widget? originalCurrencyAndValue;
-
-    if (fieldCurrency.value == Constants.defaultCurrency) {
-      originalCurrencyAndValue = buildCurrencyWidget(
-        fieldCurrency.value,
-      );
-    } else {
-      final double ratioCurrency = getCurrencyRatio();
-      originalCurrencyAndValue = Tooltip(
-        message: ratioCurrency.toString(),
-        child: Row(
-          children: <Widget>[
-            Text(
-              getAmountAsStringUsingCurrency(
-                balance / ratioCurrency,
-                iso4217code: fieldCurrency.value,
-              ),
-            ),
-            const SizedBox(width: SizeForPadding.small),
-            buildCurrencyWidget(fieldCurrency.value),
-          ],
-        ),
-      );
-    }
-
-    return MyListItemAsCard(
-      leftTopAsString: fieldName.value,
-      leftBottomAsString: getTypeAsText(fieldType.value),
-      rightTopAsString: getAmountAsStringUsingCurrency(balance),
-      rightBottomAsWidget: originalCurrencyAndValue,
-    );
-  }
 
   // Fields for this instance
   @override
@@ -423,11 +370,6 @@ class Account extends DataObject {
   /// Returns the account currency as a display string.
   String getAccountCurrencyAsText() {
     return getCurrencyAsString(fieldCurrency.value);
-  }
-
-  /// Returns a widget displaying the account currency.
-  Widget getAccountCurrencyAsWidget() {
-    return buildCurrencyWidget(getAccountCurrencyAsText());
   }
 
   /// Returns the currency ratio for the account's currency.

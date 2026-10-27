@@ -5,9 +5,11 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_shared_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/dialogs/confirmation_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
+import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 /// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
@@ -119,7 +121,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
             title: SharedStrings.labelDeleteSplit,
             question: SharedStrings.questionDeleteSplit,
             content: Column(
-              children: split.buildListOfNamesValuesWidgets(compact: true),
+              children: buildListOfNamesValuesWidgets(split, builders: entityWidgetBuilders, compact: true),
             ),
             buttonText: AppL10n.tr(AppTranslationKeys.delete),
             onConfirmation: () {

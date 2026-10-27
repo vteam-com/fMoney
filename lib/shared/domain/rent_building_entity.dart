@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_this
+import 'dart:ui' show TextAlign;
+
 import 'package:collection/collection.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
@@ -13,11 +15,9 @@ import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/widgets/components/rental_pnl_widget.dart';
-import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /*
     SQLite table definition
@@ -225,9 +225,7 @@ class RentBuilding extends DataObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     getValueForReading: (DataInterface instance) => (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
-    getValueForDisplay: (DataInterface instance) => buildCurrencyWidget(
-      (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
-    ),
+    getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).getCurrencyOfAssociatedAccount(),
   );
 
   /// EstimatedValue
@@ -394,18 +392,6 @@ class RentBuilding extends DataObject {
   List<RentUnit> units = <RentUnit>[];
 
   Account? account;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: fieldName.value,
-      leftBottomAsString: fieldAddress.value,
-      rightTopAsWidget: WidgetFromData(
-        amountModel: AmountModel(amount: lifeTimePnL.profit),
-        size: DataWidgetSize.title,
-      ),
-    );
-  }
 
   // Fields for this instance
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 
@@ -79,9 +78,6 @@ abstract class DataAbstract {
 
   /// Returns a category by ID.
   dynamic getCategory(int id);
-
-  /// Returns a category widget for the given ID.
-  Widget getCategoryWidget(int id);
 
   /// Returns all categories as strings.
   List<String> getCategoriesAsStrings();

@@ -4,10 +4,12 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 const double _adaptiveBoxHeight = 300.0;
 
@@ -43,7 +45,7 @@ class MoneyObjectCard extends StatelessWidget {
     } else {
       widgets.add(gapLarge());
       widgets.addAll(
-        moneyObject!.buildListOfNamesValuesWidgets(onEdit: null, compact: true),
+        buildListOfNamesValuesWidgets(moneyObject!, builders: entityWidgetBuilders, onEdit: null, compact: true),
       );
     }
 

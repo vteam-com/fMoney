@@ -14,6 +14,7 @@ import 'package:money/shared/domain/budget_analyzer_service.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/category_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/models/recurring_expenses_model.dart';
 import 'package:money/views/panels/recurring/views/recurring_panel.dart';
@@ -503,7 +504,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           child: Row(
             children: <Widget>[
               _categoryContextMenu(item.category),
-              Expanded(child: item.category.getNameAsWidget()),
+              Expanded(child: buildCategoryNameWidget(item.category)),
             ],
           ),
         ),

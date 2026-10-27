@@ -2,11 +2,9 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _singleCategoryCount = 1;
 const int _doubleCategoryCount = 2;
@@ -53,18 +51,6 @@ class Payee extends DataObject {
     name: 'Sum',
     getValueForDisplay: (DataInterface instance) => (instance as Payee).fieldSum.value,
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: fieldName.value,
-      rightTopAsWidget: WidgetFromData(
-        amountModel: fieldSum.value,
-        size: DataWidgetSize.title,
-      ),
-      rightBottomAsString: getAmountAsShorthandText(fieldCount.value),
-    );
-  }
 
   // Fields for this instance
   @override

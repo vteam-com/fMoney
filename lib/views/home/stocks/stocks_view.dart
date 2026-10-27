@@ -15,6 +15,7 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
@@ -421,6 +422,7 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       sortByFieldIndex: sortByFieldIndex,
       sortAscending: sortAscending,
       listController: AppScope.instance.listControllerMain,
+      widgetBuilders: entityWidgetBuilders,
       selectedId: getSidePanelLastSelectedItemId(),
       // Field & Columns related
       displayAsColumns: true,

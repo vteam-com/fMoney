@@ -1,11 +1,11 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
-import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -141,32 +141,6 @@ class TransactionSplit extends DataObject {
     getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldCategoryId.value,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldCategoryId.value = newValue as int,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          (instance as TransactionSplit);
-          return Row(
-            children: <Widget>[
-              Expanded(
-                child: pickerCategory(
-                  key: const Key('key_pick_category'),
-                  categoryNames: instance.data.getCategoriesAsStrings(),
-                  selectedName: instance.data.getCategoryNameFromId(instance.fieldCategoryId.value),
-                  onSelected: (String? name) {
-                    final int? id = name != null ? instance.data.getCategoryIdFromName(name) : null;
-                    if (id != null) {
-                      instance.fieldCategoryId.value = id;
-                      // notify container
-                      onEdited(true);
-                    }
-                  },
-                ),
-              ),
-            ],
-          );
-        },
   );
 
   // 7

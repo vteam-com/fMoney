@@ -15,6 +15,7 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/money_objects_filter_helper.dart';
 import 'package:money/shared/presentation/helpers/money_objects_ui_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
@@ -39,6 +40,7 @@ import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
@@ -913,7 +915,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
           );
     final RenderObjectWidget content = moneyObjects.length == 1
         ? Column(
-            children: moneyObjects.first.buildListOfNamesValuesWidgets(
+            children: buildListOfNamesValuesWidgets(
+              moneyObjects.first,
+              builders: entityWidgetBuilders,
               onEdit: null,
               compact: true,
             ),
