@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:money/shared/domain/bank_statement_pdf_service.dart';
+import 'package:money/data/services/bank_statement_pdf_service.dart';
 import 'package:pdfrx/pdfrx.dart';
 
 void main() {

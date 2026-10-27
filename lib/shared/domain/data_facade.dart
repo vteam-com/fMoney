@@ -58,8 +58,6 @@ class Data implements DataAbstract {
     collections = DataCollections(data: this);
 
     // Wire global callbacks.
-    DataAccess.notifyMutationChanged = notifyMutationChanged;
-    DataAccess.getCategoryName = categories.getNameFromId;
     DataObject.onMutationChanged = notifyMutationChanged;
     DataObject.getCategoryName = categories.getNameFromId;
     DataObject.getCurrencyRatio = currencies.getRatioFromSymbol;

@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:money/data/services/bank_statement_pdf_service.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_router_service.dart';
@@ -9,7 +10,6 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
-import 'package:money/shared/domain/bank_statement_pdf_service.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';

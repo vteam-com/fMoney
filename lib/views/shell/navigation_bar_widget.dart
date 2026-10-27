@@ -1,11 +1,11 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:money/data/models/navigation_item_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/views/shell/navigation_item_model.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
