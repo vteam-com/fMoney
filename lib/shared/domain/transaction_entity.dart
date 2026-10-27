@@ -236,7 +236,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// Budget Balance Date
   /// 10|BudgetBalanceDate|datetime|0||0
   FieldDate fieldBudgetBalanceDate = FieldDate(
-    serializeName: SharedDomainStrings.domainString116,
+    serializeName: SharedDomainStrings.domainString025,
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
