@@ -20,6 +20,7 @@ import 'package:money/shared/presentation/providers/suggestion_approval_provider
 import 'package:money/shared/presentation/services/money_data_io_service.dart';
 import 'package:money/shared/simulation/data_simulator_service.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/data_access_model.dart';
 import 'package:money/widgets/widgets_domain/data_mutations_model.dart';
 import 'package:money/widgets/widgets_domain/data_source_model.dart';
@@ -46,6 +47,9 @@ class DataFileController extends ChangeNotifier {
 
     // Bind the merge payee provider
     EntityWidgetProviders.mergePayee = DefaultMergePayeeProvider();
+
+    // Account lists follow the user's "include closed accounts" preference
+    Data().accounts.isIncludingClosedAccounts = () => PreferenceController.to.includeClosedAccounts;
 
     // Warn the user about transfers that lost their counterpart
     Data().onDanglingTransfersFound = _warnAboutDanglingTransfers;

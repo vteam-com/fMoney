@@ -8,6 +8,7 @@ import 'package:money/shared/domain/investment_import_fields_helper.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/investment/investment_import_panel.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
@@ -16,7 +17,7 @@ import 'package:money/widgets/pure/gaps_helper.dart';
 /// Shows dialog for importing investment transactions.
 void showImportInvestment({InvestmentImportFields? inputData}) {
   inputData ??= InvestmentImportFields(
-    account: Data().accounts.getMostRecentlySelectedAccount(),
+    account: getMostRecentlySelectedAccount(),
     date: DateTime.now(),
     investmentType: InvestmentType.buy,
     category: Data().categories.investmentOther,

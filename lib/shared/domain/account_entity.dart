@@ -12,7 +12,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/locale_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/widgets_domain/data_interface.dart';
 import 'package:money/widgets/widgets_domain/data_object_model.dart';
 import 'package:money/widgets/widgets_domain/field_model.dart';
@@ -404,14 +403,6 @@ class Account extends DataObject {
 
   /// True if the account is an investment account.
   bool isInvestmentAccount() => isInvestmentAccountType(fieldType.value);
-
-  /// True if the account matches the user's filter choices (including closed).
-  bool get isMatchingUserChoiceIncludingClosedAccount {
-    if (PreferenceController.to.includeClosedAccounts) {
-      return true;
-    }
-    return isOpen;
-  }
 
   /// True if the account is open.
   bool get isOpen {

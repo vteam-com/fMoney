@@ -12,6 +12,7 @@ import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/bank_statement_pdf_service.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/shared/ai_pdf_import_service.dart';
 import 'package:money/views/imports/shared/transactions_import_panel.dart';
 import 'package:money/widgets/columns/value_parser.dart';
@@ -76,7 +77,7 @@ Future<void> showImportTransactionsFromPdfUsingAi({
 
   final Account? matchedAccount = _findMatchingAccountForStatement(statement);
   if (matchedAccount != null) {
-    Data().accounts.setMostRecentUsedAccount(matchedAccount);
+    setMostRecentUsedAccount(matchedAccount);
   } else {
     final String? unmatchedAccountIdentifier = _findUnmatchedAccountIdentifier(statement);
     if (unmatchedAccountIdentifier != null) {
@@ -92,8 +93,7 @@ Future<void> showImportTransactionsFromPdfUsingAi({
 
   final String initialText = _buildImportTextFromStatement(statement);
   final String preferredCurrencyCode =
-      _resolvePreferredCurrencyCode(statement) ??
-      Data().accounts.getMostRecentlySelectedAccount().getAccountCurrencyAsText();
+      _resolvePreferredCurrencyCode(statement) ?? getMostRecentlySelectedAccount().getAccountCurrencyAsText();
   showImportTransactionsFromTextInput(
     context,
     initialText,
@@ -338,7 +338,7 @@ void showImportTransactionsFromTextInput(
 ]) {
   initialText ??= '';
 
-  Account account = Data().accounts.getMostRecentlySelectedAccount();
+  Account account = getMostRecentlySelectedAccount();
 
   final ValuesParser parser = ValuesParser(
     dateFormat: 'MM/dd/yyyy',
@@ -396,7 +396,7 @@ void showImportTransactionsFromTextInput(
             preferredCurrencyCode: preferredCurrencyCode,
             onAccountChanged: (Account accountSelected) {
               account = accountSelected;
-              Data().accounts.setMostRecentUsedAccount(accountSelected);
+              setMostRecentUsedAccount(accountSelected);
             },
             onTransactionsFound: (ValuesParser newParser) {
               parser.lines = newParser.lines;
