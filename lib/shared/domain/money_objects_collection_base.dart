@@ -168,7 +168,7 @@ class MoneyObjects<T> {
   /// Must be override by derived class
   DataObject instanceFromJson(MyJson _ /* json */) {
     assert(false, SharedDomainStrings.domainString157);
-    return DataObject();
+    return EmptyDataObject();
   }
 
   /// Returns true if the collection is empty.

@@ -1,3 +1,4 @@
+// ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -20,10 +21,10 @@ const int _valueFlex = 2;
 const double _labelPaddingRight = 10;
 
 /// Represents data object.
-class DataObject extends DataInterface {
+abstract class DataObject extends DataInterface {
   factory DataObject.fromJSon(MyJson json, double runningBalance) {
     keepUnused(json, runningBalance);
-    return DataObject();
+    return EmptyDataObject();
   }
   DataObject();
 
@@ -352,7 +353,7 @@ class DataObject extends DataInterface {
   /// Returns a rollup object with fields common across [moneyObjectInstances].
   DataObject rollup(List<DataObject> moneyObjectInstances) {
     if (moneyObjectInstances.isEmpty) {
-      return DataObject();
+      return EmptyDataObject();
     }
     if (moneyObjectInstances.length == 1) {
       return moneyObjectInstances.first;
@@ -398,16 +399,6 @@ class DataObject extends DataInterface {
     }
   }
 
-  /// All object must have a unique identified
-  @override
-  int get uniqueId => -1;
-
-  // must be implemented by derived classes
-  @override
-  set uniqueId(int value) {
-    assert(false, SharedStrings.errorDerivedClassMustImplementUniqueId);
-  }
-
   /// Builds a compact name/value row used by detail panels.
   Widget _buildNameValuePair(
     Field<dynamic> fieldDefinition,
@@ -447,4 +438,19 @@ class DataObject extends DataInterface {
       ),
     );
   }
+}
+
+/// Placeholder [DataObject] with no fields, used where a concrete entity
+/// cannot be built (e.g. the base [DataObject.rollup] of mixed instances).
+class EmptyDataObject extends DataObject {
+  /// Creates an empty placeholder whose [uniqueId] starts unset.
+  EmptyDataObject();
+
+  int _uniqueId = -1;
+
+  @override
+  int get uniqueId => _uniqueId;
+
+  @override
+  set uniqueId(int value) => _uniqueId = value;
 }

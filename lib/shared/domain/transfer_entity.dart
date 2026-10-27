@@ -125,6 +125,10 @@ class Transfer extends DataObject {
   @override
   int get uniqueId => source!.uniqueId as int;
 
+  /// Transfers derive their id from [source] and cannot be re-identified.
+  @override
+  set uniqueId(int value) => throw UnsupportedError(SharedStrings.errorTransferUniqueIdIsDerived);
+
   static final Fields<Transfer> _fieldsForColumns = Fields<Transfer>();
   static final List<FieldBlueprint<Transfer>> _fieldBlueprints = <FieldBlueprint<Transfer>>[
     FieldBlueprint<Transfer>(

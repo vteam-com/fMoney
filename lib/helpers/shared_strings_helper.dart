@@ -187,8 +187,8 @@ abstract class SharedStrings {
   /// Text prefix for SQL-style where clause IDs.
   static const String idPrefixWhere = 'Id=';
 
-  /// Error message used when derived classes skip implementing `uniqueId`.
-  static const String errorDerivedClassMustImplementUniqueId = 'derived class must implement uniqueId';
+  /// Error message used when assigning `uniqueId` on a transfer, whose id is derived from its source.
+  static const String errorTransferUniqueIdIsDerived = 'transfer uniqueId is derived from its source';
 
   /// Field identifier serialize name.
   static const String fieldId = 'Id';
