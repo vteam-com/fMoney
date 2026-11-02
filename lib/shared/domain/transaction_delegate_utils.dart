@@ -64,8 +64,9 @@ double transactionGetNormalizedAmount(dynamic transaction, double nativeValue) {
 
 /// Returns existing investment for a transaction or creates a default one.
 Investment transactionGetOrCreateInvestment(dynamic transaction) {
+  final DataAbstract data = transaction.data as DataAbstract;
   transaction.instanceOfInvestment ??=
-      DataAbstract.instance.getInvestment((transaction.uniqueId as num).toInt()) as Investment? ??
+      data.getInvestment((transaction.uniqueId as num).toInt()) as Investment? ??
       Investment(
         id: (transaction.uniqueId as num).toInt(),
         security: _transactionUnsetId,
@@ -73,7 +74,7 @@ Investment transactionGetOrCreateInvestment(dynamic transaction) {
         units: _transactionZeroDouble,
         investmentType: _transactionZeroInt,
         tradeType: _transactionZeroInt,
-        data: DataAbstract.instance,
+        data: data,
       );
   return transaction.instanceOfInvestment as Investment;
 }
@@ -104,7 +105,7 @@ String transactionGetPayeeOrTransferCaption(
       showAccount: showAccount,
     );
   } else {
-    displayName = DataAbstract.instance.getPayeeName((transaction.fieldPayee.value as num).toInt());
+    displayName = (transaction.data as DataAbstract).getPayeeName((transaction.fieldPayee.value as num).toInt());
   }
   return displayName.isEmpty ? SharedDomainStrings.domainString007 : displayName;
 }
@@ -173,7 +174,7 @@ bool transactionIsMatchingAnyOfTheseCategories(
 /// Lazily resolves and wires transfer linkage for a transaction.
 Transfer? transactionResolveInstanceOfTransfer(dynamic transaction) {
   if (transaction.cachedTransfer == null && (transaction.isTransfer as bool)) {
-    final dynamic relatedTransaction = DataAbstract.instance.getTransaction(
+    final dynamic relatedTransaction = (transaction.data as DataAbstract).getTransaction(
       transaction.fieldTransfer.value as int,
     );
     if (relatedTransaction != null) {

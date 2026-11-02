@@ -41,7 +41,7 @@ class Transactions extends MoneyObjects<Transaction> {
     runningBalance = _zeroDouble;
 
     for (final MyJson row in rows) {
-      final Transaction t = Transaction.fromJSon(row, runningBalance);
+      final Transaction t = Transaction.fromJSon(row, runningBalance, data: data);
       runningBalance += t.balance;
       appendMoneyObject(t);
     }

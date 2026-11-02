@@ -34,6 +34,7 @@ class Transaction extends DataObject implements MergeableItem {
     TransactionStatus status = TransactionStatus.none,
     int accountId = _unsetId,
     required DateTime? date,
+    this._data,
   }) {
     // assert(date != null);
     this.fieldAccountId.value = accountId;
@@ -48,12 +49,12 @@ class Transaction extends DataObject implements MergeableItem {
     String description,
     double amount,
   ) {
-    final dynamic payee = DataAbstract.instance.findOrCreateNewPayee(
+    final Transaction t = Transaction(date: date);
+    final dynamic payee = t.data.findOrCreateNewPayee(
       description,
       fireNotification: false,
     );
 
-    final Transaction t = Transaction(date: date);
     t.fieldId.value = _unsetId;
     t.fieldAccountId.value = account is int ? account : ((account as dynamic).uniqueId as num).toInt();
     t.fieldPayee.value = payee == null ? _unsetId : ((payee as dynamic).uniqueId as num).toInt();
@@ -62,13 +63,13 @@ class Transaction extends DataObject implements MergeableItem {
     return t;
   }
 
-  factory Transaction.fromJSon(MyJson json, double runningBalance) {
-    final Transaction t = Transaction(date: json.getDate(SharedDomainStrings.domainString044));
+  factory Transaction.fromJSon(MyJson json, double runningBalance, {DataAbstract? data}) {
+    final Transaction t = Transaction(date: json.getDate(SharedDomainStrings.domainString044), data: data);
     // 0 ID
     t.fieldId.value = json.getInt(SharedDomainStrings.domainString057, _unsetId);
     // 1 Account ID
     t.fieldAccountId.value = json.getInt(SharedDomainStrings.domainString011, _unsetId);
-    t.instanceOfAccount = DataAbstract.instance.getAccount(t.fieldAccountId.value) as Account?;
+    t.instanceOfAccount = t.data.getAccount(t.fieldAccountId.value) as Account?;
     // 3 Status
     t.fieldStatus.value = TransactionStatus.values[json.getInt(SharedDomainStrings.domainString128)];
     // 4 Payee ID
@@ -148,8 +149,8 @@ class Transaction extends DataObject implements MergeableItem {
     align: TextAlign.left,
     footer: FooterType.count,
     defaultValue: _unsetId,
-    getValueForDisplay: (DataInterface instance) => DataAbstract.instance.getAccountName(
-      (instance as Transaction).fieldAccountId.value,
+    getValueForDisplay: (DataInterface instance) => (instance as Transaction).data.getAccountName(
+      instance.fieldAccountId.value,
     ),
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldAccountId.value,
     // setValue: (MoneyObject instance, dynamic newValue) => (instance as Transaction).fieldAccountId.value = newValue,
@@ -370,7 +371,7 @@ class Transaction extends DataObject implements MergeableItem {
     setValue: (DataInterface instance, dynamic newValue) {
       final Transaction transaction = instance as Transaction;
       transaction.stashOriginalPayee();
-      if (newValue == _unsetId || newValue == DataAbstract.instance.getTransferCategoryId()) {
+      if (newValue == _unsetId || newValue == transaction.data.getTransferCategoryId()) {
         // -1 means no payee, this is a Transfer?
         // TODO - implement was solution given that the call back here only has one value use for the Payee ID
       } else {
@@ -383,6 +384,12 @@ class Transaction extends DataObject implements MergeableItem {
   );
 
   Account? editingTransferAccount;
+
+  /// Data access injected at construction; null means use the app-wide [DataAbstract.instance].
+  final DataAbstract? _data;
+
+  /// Data access used to resolve related accounts, categories, payees and transfers.
+  DataAbstract get data => _data ?? DataAbstract.instance;
 
   /// Reconciled Date
   /// 9|ReconciledDate|datetime|0||0
@@ -556,10 +563,10 @@ class Transaction extends DataObject implements MergeableItem {
   String get amountAsString => fieldAmount.value.toString();
 
   /// Returns the resolved category object for this transaction, if any.
-  Category? get category => DataAbstract.instance.getCategory(this.fieldCategoryId.value) as Category?;
+  Category? get category => data.getCategory(this.fieldCategoryId.value) as Category?;
 
   /// Returns the resolved category name for this transaction.
-  String get categoryName => DataAbstract.instance.getCategoryNameFromId(this.fieldCategoryId.value);
+  String get categoryName => data.getCategoryNameFromId(this.fieldCategoryId.value);
 
   /// Changes the category for the given transaction and notifies listeners.
   static void changeCategory(dynamic t, int categoryId) {
@@ -571,7 +578,7 @@ class Transaction extends DataObject implements MergeableItem {
     t.possibleMatchingCategoryId = _unsetId;
 
     // inform of changes
-    DataAbstract.instance.notifyMutationChanged(
+    t.data.notifyMutationChanged(
       mutation: MutationType.changed,
       moneyObject: t,
       recalculateBalances: true,
@@ -637,7 +644,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// Returns cached account instance associated with this transaction.
   Account? get instanceOfAccount {
     /// cache instances of related MoneyObjects
-    _instanceOfAccount ??= DataAbstract.instance.getAccount(this.fieldAccountId.value) as Account?;
+    _instanceOfAccount ??= data.getAccount(this.fieldAccountId.value) as Account?;
     return _instanceOfAccount as Account?;
   }
 
@@ -657,16 +664,16 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   /// Returns true when the linked account type is asset.
-  bool get isAssetAccount => DataAbstract.instance.isAccountAsset(fieldAccountId.value);
+  bool get isAssetAccount => data.isAccountAsset(fieldAccountId.value);
 
   /// Returns true when category type makes this transaction budget-eligible.
   bool get isCandidateForBudget => this.fieldCategoryId.value != _unsetId && (this.isExpense || this.isIncome);
 
   /// Returns true when this transaction category is an expense.
-  bool get isExpense => DataAbstract.instance.isCategoryExpense(fieldCategoryId.value);
+  bool get isExpense => data.isCategoryExpense(fieldCategoryId.value);
 
   /// Returns true when this transaction category is an income.
-  bool get isIncome => DataAbstract.instance.isCategoryIncome(fieldCategoryId.value);
+  bool get isIncome => data.isCategoryIncome(fieldCategoryId.value);
 
   /// Returns true if this transaction or any split matches a category in [categoriesToMatch].
   bool isMatchingAnyOfTheseCategories(List<int> categoriesToMatch) {
@@ -685,7 +692,7 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   /// Returns the resolved payee name for this transaction.
-  String get payeeName => DataAbstract.instance.getPayeeName(fieldPayee.value);
+  String get payeeName => data.getPayeeName(fieldPayee.value);
 
   /// Returns related account for transfer transactions.
   dynamic get relatedAccount => (instanceOfTransfer?.relatedTransaction as dynamic)?.instanceOfAccount;
