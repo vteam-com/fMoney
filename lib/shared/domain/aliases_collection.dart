@@ -18,11 +18,6 @@ class Aliases extends MoneyObjects<Alias> {
     return Alias.fromJson(json, data);
   }
 
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Finds a payee by matching the given [text] via aliases.
   Payee? findByMatch(String text) {
     final Alias? aliasFound = iterableList().firstWhereOrNull(

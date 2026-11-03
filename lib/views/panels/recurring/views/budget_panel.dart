@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -14,6 +15,7 @@ import 'package:money/shared/domain/budget_analyzer_service.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/category_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/models/recurring_expenses_model.dart';
 import 'package:money/views/panels/recurring/views/recurring_panel.dart';
@@ -24,7 +26,6 @@ import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _minYears = 1;
@@ -503,7 +504,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           child: Row(
             children: <Widget>[
               _categoryContextMenu(item.category),
-              Expanded(child: item.category.getNameAsWidget()),
+              Expanded(child: buildCategoryNameWidget(item.category)),
             ],
           ),
         ),
@@ -656,11 +657,8 @@ class _PanelBudgetState extends State<PanelBudget> {
   /// Updates the active sort column and direction, then re-sorts the list.
   void _onColumnSort(int columnIndex) {
     setState(() {
-      if (columnIndex == _sortColumnIndex) {
-        _sortAscending = !_sortAscending;
-      } else {
-        _sortColumnIndex = columnIndex;
-      }
+      _sortAscending = sortAscendingAfterColumnTap(columnIndex, _sortColumnIndex, _sortAscending);
+      _sortColumnIndex = columnIndex;
       _sort();
     });
   }

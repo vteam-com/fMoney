@@ -1,14 +1,16 @@
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/helpers/mutation_group_model.dart';
+import 'package:money/shared/presentation/helpers/mutation_groups_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/widgets/components/my_segment_widget.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
 
 const double _dialogWidth = 600.0;
@@ -268,7 +270,7 @@ class Mutations {
   /// Initializes the list of mutations.
   void initMutationList() {
     count = 0;
-    mutationGroups = Data().getMutationGroups(typeOfMutation);
+    mutationGroups = getMutationGroups(Data(), typeOfMutation);
 
     for (final MutationGroup m in mutationGroups) {
       count += m.whatWasMutated.length;

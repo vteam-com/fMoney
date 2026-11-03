@@ -410,6 +410,8 @@ String _resolveAppL10nKeyStageTwo(L10n l10n, String key, L10nParams p) {
       return l10n.selectARentalPropertyToSeeItsPL;
     case AppTranslationKeys.selectCategory:
       return l10n.selectCategory;
+    case AppTranslationKeys.selectAllCount:
+      return l10n.selectAllCount(p['count'] ?? '');
     case AppTranslationKeys.selectColumn:
       return l10n.selectColumn;
     case AppTranslationKeys.selectHeaderRow:
@@ -807,6 +809,12 @@ String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
       return l10n.whoIsGettingYourMoney;
     case AppTranslationKeys.year:
       return l10n.year;
+    case AppTranslationKeys.yearUnit:
+      return l10n.yearUnit;
+    case AppTranslationKeys.yearsUnit:
+      return l10n.yearsUnit;
+    case AppTranslationKeys.unselectAllCount:
+      return l10n.unselectAllCount(p['count'] ?? '');
     case AppTranslationKeys.allTime:
       return l10n.allTime;
     case AppTranslationKeys.account:

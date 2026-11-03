@@ -4,7 +4,7 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
-import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/simulation/data_simulator_callbacks_helper.dart';
 import 'package:money/shared/simulation/data_simulator_constants.dart';
 
 /// Holds generated account references for simulator flows.
@@ -34,28 +34,10 @@ typedef AddNewAccountCallback = Account Function(
   String currency,
 );
 
-/// Callback for adding an account transaction with optional attributes.
-typedef AddTransactionForAccountCallback = Transaction Function({
-  required Account account,
-  required DateTime date,
-  int payeeId,
-  int categoryId,
-  double amount,
-  String memo,
-});
-
-/// Callback for deriving a date by shifting the current year.
-///
-/// Arguments:
-/// - `yearsToShift`: Number of years to subtract from the current year.
-/// - `month`: Month for the resulting date (`DateTime.january` to `DateTime.december`).
-/// - `day`: Day of month for the resulting date.
-typedef ShiftedDateCallback = DateTime Function(int yearsToShift, int month, int day);
-
 /// Generates simulator accounts and returns required references.
 DataSimulatorAccountsBundle generateSimulatorAccounts({
   required AddNewAccountCallback addNewAccount,
-  required AddTransactionForAccountCallback addTransaction,
+  required AddTransactionCallback addTransaction,
   required ShiftedDateCallback getDateShiftedByYears,
 }) {
   final Account accountBankUSA = addNewAccount(

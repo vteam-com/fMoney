@@ -1,12 +1,8 @@
-import 'dart:async';
-
-import 'package:flutter/widgets.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
-import 'package:money/data/models/ranges_model.dart';
+import 'package:money/data/models/data_access_model.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_aliases_collection.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/accounts_collection.dart';
@@ -28,6 +24,7 @@ import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/payees_collection.dart';
 import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/rent_buildings_collection.dart';
+import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/rental_units_collection.dart';
 import 'package:money/shared/domain/securities_collection.dart';
 import 'package:money/shared/domain/splits_collection.dart';
@@ -35,11 +32,7 @@ import 'package:money/shared/domain/stock_split_entity.dart';
 import 'package:money/shared/domain/stock_splits_collection.dart';
 import 'package:money/shared/domain/transaction_extras_collection.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/shared/domain/transfer_entity.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
-import 'package:money/widgets/widgets_domain/data_access_model.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
+import 'package:money/shared/domain/transfer_linkage_service.dart';
 
 /// Represents data.
 ///
@@ -60,10 +53,13 @@ class Data implements DataAbstract {
 
     // Collection/table wiring and DI live in DataCollections.
     collections = DataCollections(data: this);
+    _transferLinkage = TransferLinkageService(
+      collections: collections,
+      notifyMutationChanged: notifyMutationChanged,
+      updateAll: updateAll,
+    );
 
     // Wire global callbacks.
-    DataAccess.notifyMutationChanged = notifyMutationChanged;
-    DataAccess.getCategoryName = categories.getNameFromId;
     DataObject.onMutationChanged = notifyMutationChanged;
     DataObject.getCategoryName = categories.getNameFromId;
     DataObject.getCurrencyRatio = currencies.getRatioFromSymbol;
@@ -129,40 +125,17 @@ class Data implements DataAbstract {
   /// 16 All Transactions in the Money file
   Transactions get transactions => collections.transactions;
 
-  /// Provider for category suggestion widgets
-  /// Must be set by upper view layers (home view or main app) before use
-  @override
-  dynamic categorySuggestionProvider;
+  /// Transfer linking and potential-match lookups, delegated to keep this facade thin.
+  late final TransferLinkageService _transferLinkage;
 
-  /// Provider for merge payee functionality
-  /// Must be set by upper view layers (home view or main app) before use
-  dynamic _mergePayeeProvider;
+  /// Called with the number of dangling transfers found by [checkTransfers]; bound by the presentation layer.
+  void Function(int danglingCount)? onDanglingTransfersFound;
 
-  /// Cached ids of transactions that currently have at least one potential
-  /// cross-account transfer counterpart; rebuilt lazily when data mutates.
-  Set<int>? _potentialTransferMatchIdsCache;
-
-  /// Data-version stamp used to invalidate [_potentialTransferMatchIdsCache].
-  DateTime? _potentialTransferMatchIdsCacheStamp;
-
-  @override
-  dynamic get mergePayeeProvider => _mergePayeeProvider;
-
-  @override
-  set mergePayeeProvider(dynamic value) => _mergePayeeProvider = value;
-
-  /// Checks for dangling transfers and shows a warning if any are found.
+  /// Checks for dangling transfers and reports them through [onDanglingTransfersFound].
   void checkTransfers() {
     final Set<Transaction> dangling = getDanglingTransfers();
     if (dangling.isNotEmpty) {
-      Timer(
-        const Duration(milliseconds: DurationInMs.quick),
-        () => SnackBarService.displayWarning(
-          message: '${dangling.length}${SharedDomainStrings.domainString001}',
-          title: SharedDomainStrings.domainString043,
-          autoDismiss: false,
-        ),
-      );
+      onDanglingTransfersFound?.call(dangling.length);
     }
   }
 
@@ -185,7 +158,7 @@ class Data implements DataAbstract {
   }
 
   @override
-  void clearTransferToAccount(int transactionId, dynamic a) {
+  void clearTransferToAccount(int transactionId, DataObject account) {
     final Transaction? t = transactions.get(transactionId);
     if (t == null) {
       return; // Transaction not found
@@ -253,300 +226,55 @@ class Data implements DataAbstract {
     return dangling;
   }
 
-  /// Groups mutated objects by type for pending changes UI.
-  List<MutationGroup> getMutationGroups(MutationType typeOfMutation) {
-    final List<MutationGroup> allMutationGroups = <MutationGroup>[];
-
-    for (final MoneyObjects<dynamic> moneyObjects in tables) {
-      final List<DataObject> mutatedInstances = moneyObjects.getMutatedObjects(
-        typeOfMutation,
-      );
-      if (mutatedInstances.isNotEmpty) {
-        final MutationGroup mutationGroup = MutationGroup();
-        mutationGroup.title = moneyObjects.collectionName;
-        mutationGroup.whatWasMutated = moneyObjects.whatWasMutated(
-          mutatedInstances,
-        );
-        allMutationGroups.add(mutationGroup);
-      }
-    }
-    return allMutationGroups;
-  }
-
   /// Calculates net worth across all accounts.
   AmountModel getNetWorth() {
     final double sum = accounts.getSumOfAccountBalances();
     return AmountModel(amount: sum);
   }
 
-  /// Finds or creates the related transfer transaction for a destination account.
-  Transaction? getOrCreateRelatedTransaction({
-    required Transaction transactionSource,
-    required Account destinationAccount,
-  }) {
-    if (transactionSource.fieldAccountId.value == destinationAccount.uniqueId) {
-      logger.e('Cannot transfer to same account');
-      return null;
-    }
-
-    final double destinationAmount = transactionSource.fieldAmount.value.asDouble() * -1;
-
-    Transaction? relatedTransaction;
-    try {
-      relatedTransaction = this.transactions.findExistingTransaction(
-        accountId: destinationAccount.uniqueId,
-        dateRange: DateRange(
-          min: transactionSource.fieldDateTime.value!.startOfDay,
-          max: transactionSource.fieldDateTime.value!.endOfDay,
-        ),
-        amount: destinationAmount,
-      );
-    } catch (_) {
-      // something went wrong, assume no match found
-    }
-
-    if (relatedTransaction == null) {
-      relatedTransaction = Transaction(
-        accountId: destinationAccount.uniqueId,
-        date: transactionSource.fieldDateTime.value,
-      );
-
-      // flip the sign on the amount
-      relatedTransaction.fieldAmount.value.setAmount(destinationAmount);
-      relatedTransaction.fieldCategoryId.value = transactionSource.fieldCategoryId.value;
-      relatedTransaction.fieldFitid.value = transactionSource.fieldFitid.value;
-      relatedTransaction.fieldNumber.value = transactionSource.fieldNumber.value;
-      relatedTransaction.fieldMemo.value = transactionSource.fieldMemo.value;
-      //u.Status = t.Status; no !!!
-    }
-
-    // Investment? i = relatedTransaction.investmentInstance;
-    // if (i != null) {
-    //   Investment j = transactionSource.getOrCreateInvestment();
-    //   j.units = i.units;
-    //   j.unitPrice = i.unitPrice;
-    //   j.security = i.security;
-    //   //   switch (i.Type) {
-    //   //     case InvestmentType.Add:
-    //   //       j.Type = InvestmentType.Remove;
-    //   //       break;
-    //   //     case InvestmentType.Remove:
-    //   //       j.Type = InvestmentType.Add;
-    //   //       break;
-    //   //     case InvestmentType.None: // assume it's a remove
-    //   //       i.Type = InvestmentType.Remove;
-    //   //       j.Type = InvestmentType.Add;
-    //   //       break;
-    //   //     case InvestmentType.Buy:
-    //   //     case InvestmentType.Sell:
-    //   //       throw new MoneyException("Transfer must be of type 'Add' or 'Remove'.");
-    //   //   }
-    //   //   u.Investment = j;
-    // }
-
-    return relatedTransaction;
-  }
-
   /// Finds likely disconnected transactions that could be linked as a transfer
   /// counterpart for [transaction].
-  ///
-  /// Candidates are constrained to other accounts, opposite-sign matching
-  /// amounts, and dates within [maxDays]. Results are sorted by closest date.
   @override
   List<Transaction> findPotentialTransferMatches({
-    required dynamic transaction,
+    required DataObject transaction,
     int maxDays = potentialTransferDefaultMaxDays,
     int maxResults = potentialTransferDefaultMaxResults,
-  }) {
-    return findPotentialTransferMatchesForTransaction(
-      transaction: transaction as Transaction,
-      eligibleTransactions: _eligibleTransferMatchTransactions(),
-      maxDays: maxDays,
-      maxResults: maxResults,
-    );
-  }
+  }) => _transferLinkage.findPotentialTransferMatches(
+    transaction: transaction as Transaction,
+    maxDays: maxDays,
+    maxResults: maxResults,
+  );
 
   /// Returns true when [transaction] has at least one likely disconnected
-  /// counterpart that could be linked as a transfer.
-  ///
-  /// Unlike [findPotentialTransferMatches] this is O(1) per call: the full id
-  /// set is computed once and cached until the data version changes, making it
-  /// safe to call from list row builders during scrolling.
+  /// counterpart that could be linked as a transfer (cached, O(1) per call).
   @override
-  bool hasPotentialTransferMatch(dynamic transaction) {
-    final Transaction sourceTransaction = transaction as Transaction;
-    if (sourceTransaction.isDeleted || sourceTransaction.isTransfer) {
-      return false;
-    }
+  bool hasPotentialTransferMatch(DataObject transaction) =>
+      _transferLinkage.hasPotentialTransferMatch(transaction as Transaction);
 
-    final DateTime dataVersion = DataAccess.trackMutations.lastDateTimeChanged;
-    if (_potentialTransferMatchIdsCache == null || _potentialTransferMatchIdsCacheStamp != dataVersion) {
-      _potentialTransferMatchIdsCache = computeAllPotentialTransferMatchIds(
-        eligibleTransactions: _eligibleTransferMatchTransactions(),
-        maxDays: potentialTransferDefaultMaxDays,
-      );
-      _potentialTransferMatchIdsCacheStamp = dataVersion;
-    }
-    return _potentialTransferMatchIdsCache!.contains(sourceTransaction.uniqueId);
-  }
-
-  /// Returns the transactions eligible as transfer-match sources or candidates.
-  List<Transaction> _eligibleTransferMatchTransactions() {
-    return transactions
-        .iterableList(includeDeleted: false)
-        .where((Transaction t) => !t.isDeleted && !t.isTransfer)
-        .toList();
-  }
-
-  /// Converts two existing disconnected transactions into one linked transfer
-  /// pair without creating a new mirror transaction.
+  /// Converts two existing disconnected transactions into one linked transfer pair.
   @override
   bool convertDisconnectedTransactionsToTransfer({
-    required dynamic transaction,
-    required dynamic relatedTransaction,
-  }) {
-    final Transaction sourceTransaction = transaction as Transaction;
-    final Transaction targetTransaction = relatedTransaction as Transaction;
-    if (sourceTransaction.uniqueId == targetTransaction.uniqueId) {
-      return false;
-    }
-    if (sourceTransaction.isDeleted || targetTransaction.isDeleted) {
-      return false;
-    }
-    if (sourceTransaction.isTransfer || targetTransaction.isTransfer) {
-      return false;
-    }
-    if (sourceTransaction.fieldAccountId.value == targetTransaction.fieldAccountId.value) {
-      return false;
-    }
-    if (!isOppositeAmountWithinTolerance(
-      sourceTransaction.fieldAmount.value.asDouble(),
-      targetTransaction.fieldAmount.value.asDouble(),
-    )) {
-      return false;
-    }
-
-    sourceTransaction.stashValueBeforeEditing();
-    targetTransaction.stashValueBeforeEditing();
-
-    final Transfer transfer = sourceTransaction.fieldAmount.value.asDouble() < 0
-        ? Transfer(id: 0, source: sourceTransaction, relatedTransaction: targetTransaction, isOrphan: false)
-        : Transfer(id: 0, source: targetTransaction, relatedTransaction: sourceTransaction, isOrphan: false);
-
-    sourceTransaction.fieldPayee.value = categories.transfer.uniqueId;
-    sourceTransaction.fieldTransfer.value = targetTransaction.uniqueId;
-    sourceTransaction.instanceOfTransfer = transfer;
-
-    targetTransaction.fieldPayee.value = categories.transfer.uniqueId;
-    targetTransaction.fieldTransfer.value = sourceTransaction.uniqueId;
-    targetTransaction.instanceOfTransfer = transfer;
-
-    notifyMutationChanged(
-      mutation: MutationType.changed,
-      moneyObject: sourceTransaction,
-      recalculateBalances: false,
-    );
-    notifyMutationChanged(
-      mutation: MutationType.changed,
-      moneyObject: targetTransaction,
-      recalculateBalances: true,
-    );
-    updateAll();
-    return true;
-  }
+    required DataObject transaction,
+    required DataObject relatedTransaction,
+  }) => _transferLinkage.convertDisconnectedTransactionsToTransfer(
+    sourceTransaction: transaction as Transaction,
+    targetTransaction: relatedTransaction as Transaction,
+  );
 
   /// Ensures transfer linkage exists or updates it for the given transaction.
   void verifyApplyTransfer({
     required Transaction transaction,
     required Account? relatedAccount,
-  }) {
-    if (relatedAccount == null) {
-      return; // nothing to check
-    }
-    if (transaction.instanceOfTransfer != null) {
-      // this was already a transfer, lets see if the destination account has changed
-      if (transaction.instanceOfTransfer?.receiverAccount?.uniqueId == relatedAccount.uniqueId) {
-        // same account do noting
-      } else {
-        // use the new account destination
-        final Transaction relatedTransaction = transaction.instanceOfTransfer!.relatedTransaction! as Transaction;
-        transaction.instanceOfTransfer!.relatedTransaction!.instanceOfAccount = accounts.get(
-          relatedAccount.uniqueId,
-        );
-        relatedTransaction.mutateField(
-          SharedDomainStrings.domainString011,
-          relatedAccount.uniqueId,
-          false,
-        );
-      }
-    } else {
-      makeTransferLinkage(
-        transactionSource: transaction,
-        destinationAccount: relatedAccount,
-      );
-    }
-  }
+  }) => _transferLinkage.verifyApplyTransfer(transaction: transaction, relatedAccount: relatedAccount);
 
   /// Creates a transfer linkage between source and destination transactions.
   Transaction makeTransferLinkage({
     required Transaction transactionSource,
     required Account destinationAccount,
-  }) {
-    final Transaction? relatedTransaction = getOrCreateRelatedTransaction(
-      transactionSource: transactionSource,
-      destinationAccount: destinationAccount,
-    );
-
-    if (relatedTransaction != null) {
-      final Transfer transfer;
-
-      if (transactionSource.fieldAmount.value.asDouble() < 0) {
-        // transfer TO
-        transfer = Transfer(
-          id: 0,
-          source: transactionSource,
-          relatedTransaction: relatedTransaction,
-          isOrphan: false,
-        );
-      } else {
-        // transfer FROM
-        transfer = Transfer(
-          id: 0,
-          source: relatedTransaction,
-          relatedTransaction: transactionSource,
-          isOrphan: false,
-        );
-      }
-
-      // Keep track changes done
-      relatedTransaction.stashValueBeforeEditing();
-
-      relatedTransaction.fieldPayee.value = this.categories.transfer.uniqueId;
-      relatedTransaction.fieldTransfer.value = transactionSource.fieldId.value;
-      relatedTransaction.instanceOfTransfer = transfer;
-
-      if (relatedTransaction.uniqueId == -1) {
-        // This is a new related transaction Append and get a new UniqueID
-        transactions.appendNewMoneyObject(
-          relatedTransaction,
-          fireNotification: false,
-        );
-      } else {
-        this.notifyMutationChanged(
-          mutation: MutationType.changed,
-          moneyObject: relatedTransaction,
-          recalculateBalances: false,
-        );
-      }
-
-      // this needs to happen last since the ID for a new Relation Transaction will be establish in the above
-      transactionSource.fieldPayee.value = this.categories.transfer.uniqueId;
-      transactionSource.fieldTransfer.value = relatedTransaction.uniqueId;
-      transactionSource.instanceOfTransfer = transfer;
-    }
-
-    return relatedTransaction!;
-  }
+  }) => _transferLinkage.makeTransferLinkage(
+    transactionSource: transactionSource,
+    destinationAccount: destinationAccount,
+  );
 
   /// let the app know that something has changed
   @override
@@ -638,9 +366,6 @@ class Data implements DataAbstract {
   }
 
   @override
-  List<String> getPayeeNames() => payees.getSortedPayeeNames();
-
-  @override
   Payee? getPayee(int id) => payees.get(id);
 
   @override
@@ -663,7 +388,7 @@ class Data implements DataAbstract {
   List<String> getPayeeNamesSorted() => payees.getSortedPayeeNames();
 
   @override
-  void deletePayee(dynamic payee) => payees.deleteItem(payee as Payee);
+  void deletePayee(DataObject payee) => payees.deleteItem(payee as Payee);
 
   // Accounts
   @override
@@ -702,9 +427,6 @@ class Data implements DataAbstract {
       aliases.findOrCreateNewPayee(name, fireNotification: fireNotification);
 
   @override
-  List<String> getCategoryNames() => categories.getCategoriesAsStrings();
-
-  @override
   String getCategoryNameFromId(int id) => categories.getNameFromId(id);
 
   @override
@@ -738,9 +460,6 @@ class Data implements DataAbstract {
   int? getCategoryIdFromName(String name) => categories.getIdByName(name);
 
   @override
-  Widget getCategoryWidget(int id) => categories.getCategoryWidget(id);
-
-  @override
   List<String> getCategoriesAsStrings() => categories.getCategoriesAsStrings();
 
   @override
@@ -759,17 +478,17 @@ class Data implements DataAbstract {
   List<int> getCategoryTreeIds(int categoryId) => categories.getTreeIds(categoryId);
 
   @override
-  void appendNewCategory(dynamic category) => categories.appendNewMoneyObject(category as Category);
+  void appendNewCategory(DataObject category) => categories.appendNewMoneyObject(category as Category);
 
   @override
-  void deleteCategory(dynamic category) => categories.deleteItem(category as Category);
+  void deleteCategory(DataObject category) => categories.deleteItem(category as Category);
 
   @override
   List<Category> getCategories({bool includeDeleted = false}) =>
       categories.iterableList(includeDeleted: includeDeleted).toList();
 
   @override
-  List<StockSplit> getStockSplitsForSecurity(dynamic security) =>
+  List<StockSplit> getStockSplitsForSecurity(DataObject security) =>
       stockSplits.getStockSplitsForSecurity(security as Security);
 
   @override
@@ -801,25 +520,25 @@ class Data implements DataAbstract {
       transactions.iterableList(includeDeleted: includeDeleted);
 
   @override
-  void appendTransaction(dynamic t) => transactions.appendMoneyObject(t as Transaction);
+  void appendTransaction(DataObject t) => transactions.appendMoneyObject(t as Transaction);
 
   @override
-  void appendNewTransaction(dynamic t, {bool fireNotification = true}) =>
+  void appendNewTransaction(DataObject t, {bool fireNotification = true}) =>
       transactions.appendNewMoneyObject(t as Transaction, fireNotification: fireNotification);
 
   @override
-  List<Transaction> getTransactionsFlattenSplits({bool Function(dynamic)? whereClause}) =>
+  List<Transaction> getTransactionsFlattenSplits({bool Function(Transaction)? whereClause}) =>
       transactions.getListFlattenSplits(whereClause: (Transaction t) => whereClause == null || whereClause(t));
 
   @override
-  Iterable<Transaction> findTransfersToAccount(dynamic account) =>
+  Iterable<Transaction> findTransfersToAccount(DataObject account) =>
       transactions.findTransfersToAccount(account as Account);
 
   @override
-  void changeCategory(dynamic t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);
+  void changeCategory(DataObject t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);
 
   @override
-  void changeCategoryFromCategoryName(dynamic t, String categoryName) {
+  void changeCategoryFromCategoryName(DataObject t, String categoryName) {
     final int categoryId = getCategoryIdFromName(categoryName) ?? -1;
     if (categoryId != -1) {
       Transaction.changeCategory(t as Transaction, categoryId);
@@ -845,7 +564,7 @@ class Data implements DataAbstract {
   }
 
   @override
-  dynamic getRentUnits() => rentUnits;
+  List<RentUnit> getRentUnits() => rentUnits.iterableList().toList();
 
   @override
   Iterable<DateTime> getEventDates() {

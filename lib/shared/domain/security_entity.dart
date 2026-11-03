@@ -1,4 +1,10 @@
+import 'dart:ui' show TextAlign;
+
+import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/dividend_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -7,12 +13,6 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/picker_security_type.dart';
-import 'package:money/widgets/pure/quantity_widget.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /*
   cid  name          type          notnull  dflt_value  pk
@@ -94,10 +94,8 @@ class Security extends DataObject {
 
   // 5
   FieldString fieldCuspid = FieldString(
-    name: SharedDomainStrings.domainString027,
     serializeName: SharedDomainStrings.domainString027,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldCuspid.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldCuspid.value,
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
@@ -125,11 +123,9 @@ class Security extends DataObject {
 
   // 1
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldName.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldName.value,
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldName.value = value as String;
     },
@@ -145,7 +141,6 @@ class Security extends DataObject {
 
   // 3
   FieldMoney fieldPrice = FieldMoney(
-    name: SharedDomainStrings.domainString108,
     columnWidth: ColumnWidth.small,
     serializeName: SharedDomainStrings.domainString108,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldPrice.value,
@@ -199,23 +194,6 @@ class Security extends DataObject {
       (instance as Security).fieldSecurityType.value,
     ),
     getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSecurityType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          final Security security = instance as Security;
-          return pickerSecurityType(
-            itemSelected: SecurityType.values[security.fieldSecurityType.value],
-            onSelected: (SecurityType? newSecurityType) {
-              if (newSecurityType != null) {
-                security.fieldSecurityType.value = newSecurityType.index;
-                // notify container
-                onEdited(true);
-              }
-            },
-          );
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSecurityType.value = value as int;
     },
@@ -223,10 +201,8 @@ class Security extends DataObject {
 
   // 2
   FieldString fieldSymbol = FieldString(
-    name: SharedDomainStrings.domainString131,
     serializeName: SharedDomainStrings.domainString131,
     getValueForDisplay: (DataInterface instance) => (instance as Security).fieldSymbol.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).fieldSymbol.value,
     setValue: (DataInterface instance, dynamic value) {
       (instance as Security).fieldSymbol.value = value as String;
     },
@@ -245,24 +221,9 @@ class Security extends DataObject {
   List<StockSplit> splitsHistory = <StockSplit>[];
   // 7
   FieldInt taxable = FieldInt(
-    name: SharedDomainStrings.domainString137,
     serializeName: SharedDomainStrings.domainString137,
     getValueForDisplay: (DataInterface instance) => (instance as Security).taxable.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Security).taxable.value,
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: fieldSymbol.value,
-      leftBottomAsWidget: QuantityWidget(
-        quantity: fieldHoldingShares.value.toDouble(),
-        align: TextAlign.left,
-      ),
-      rightTopAsWidget: fieldProfit.getValueAsWidget(this),
-      rightBottomAsWidget: fieldHoldingValue.getValueAsWidget(this),
-    );
-  }
 
   // Fields for this instance
   @override

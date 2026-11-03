@@ -1,12 +1,13 @@
+import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/investment_entity.dart';
+import 'package:money/shared/domain/investment_operations_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/widgets/pickers/picker_security_type.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Represents investments.
 class Investments extends MoneyObjects<Investment> {
@@ -16,11 +17,8 @@ class Investments extends MoneyObjects<Investment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(Investment.fromJson(row, data));
-    }
+  Investment instanceFromJson(MyJson json) {
+    return Investment.fromJson(json, data);
   }
 
   @override
@@ -34,11 +32,6 @@ class Investments extends MoneyObjects<Investment> {
 
       investment.applySplits();
     }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Applies holding shares adjusted for stock splits across investments.
@@ -65,7 +58,7 @@ class Investments extends MoneyObjects<Investment> {
   }
 
   /// Returns all investments for a given security ID.
-  static List<Investment> getInvestmentsForThisSecurity(int securityId, DataAbstract data) {
+  static List<Investment> getInvestmentsForThisSecurity(int securityId, InvestmentOperations data) {
     return data
         .getInvestments()
         .cast<Investment>()

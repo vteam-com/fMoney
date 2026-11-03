@@ -2,17 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/components/app_scaffold_widget.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
 export 'package:flutter/material.dart';
@@ -159,6 +160,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
             sortByFieldIndex: widget.sortByFieldIndex,
             sortAscending: widget.sortAscending,
             listController: widget.listController,
+            widgetBuilders: entityWidgetBuilders,
 
             // Display as Cards or Columns
             // On small device you can display rows a Cards instead of Columns

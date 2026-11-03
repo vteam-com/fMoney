@@ -2,6 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pure/my_text_input_widget.dart';
 
+/// Builds a [PickerEditBox] for choosing one of [values].
+///
+/// The box starts with [toText] of [selected], and the drop-down lists [toText]
+/// of each value in order, so the current value is always highlighted.
+/// [onSelected] runs only when the text matches a listed value exactly;
+/// partially typed text is ignored.
+Widget pickerEnum<T>({
+  required String title,
+  required List<T> values,
+  required T selected,
+  required String Function(T) toText,
+  required void Function(T) onSelected,
+}) {
+  final Map<String, T> valueByText = <String, T>{for (final T value in values) toText(value): value};
+  return PickerEditBox(
+    title: title,
+    items: valueByText.keys.toList(),
+    initialValue: toText(selected),
+    onChanged: (String text) {
+      if (valueByText.containsKey(text)) {
+        onSelected(valueByText[text] as T);
+      }
+    },
+  );
+}
+
 /// A stateful widget for picker edit box.
 class PickerEditBox extends StatefulWidget {
   const PickerEditBox({

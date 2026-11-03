@@ -1,10 +1,14 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/dividend_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
@@ -14,6 +18,7 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
@@ -26,9 +31,6 @@ import 'package:money/widgets/list/adaptive_columns_or_rows_single_selection_wid
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 export 'package:money/views/panels/charts/stock_chart.dart';
 
@@ -420,26 +422,23 @@ class _ViewStocksState extends ViewForMoneyObjectsState {
       sortByFieldIndex: sortByFieldIndex,
       sortAscending: sortAscending,
       listController: AppScope.instance.listControllerMain,
+      widgetBuilders: entityWidgetBuilders,
       selectedId: getSidePanelLastSelectedItemId(),
       // Field & Columns related
       displayAsColumns: true,
       backgroundColorForHeaderFooter: Colors.transparent,
       onColumnHeaderTap: (int columnHeaderIndex) {
         setState(() {
-          if (columnHeaderIndex == sortByFieldIndex) {
-            // toggle order
-            sortAscending = !sortAscending;
-            PreferenceController.to.setBool(
-              getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
-              sortAscending,
-            );
-          } else {
-            sortByFieldIndex = columnHeaderIndex;
-            PreferenceController.to.setInt(
-              getPreferenceKey(settingKeySidePanel + settingKeySortBy),
-              sortByFieldIndex,
-            );
-          }
+          sortAscending = sortAscendingAfterColumnTap(columnHeaderIndex, sortByFieldIndex, sortAscending);
+          sortByFieldIndex = columnHeaderIndex;
+          PreferenceController.to.setBool(
+            getPreferenceKey(settingKeySidePanel + settingKeySortAscending),
+            sortAscending,
+          );
+          PreferenceController.to.setInt(
+            getPreferenceKey(settingKeySidePanel + settingKeySortBy),
+            sortByFieldIndex,
+          );
         });
       },
       onSelectionChanged: (int uniqueId) {

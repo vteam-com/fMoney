@@ -491,10 +491,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.';
+  String get importFromQfxQifXlsxCsvDescription => 'Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.';
 
   @override
-  String get importFromQfxQifXlsxCsvFile => 'From QFX|QIF|XLSX|CSV|PDF file';
+  String get importFromQfxQifXlsxCsvFile => 'From QFX|OFX|QIF|XLSX|CSV|PDF file';
 
   @override
   String importNoMatchingAccountsWithId(String fileType, String id) {
@@ -1077,6 +1077,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String selectAllCount(String count) {
+    return 'Select all $count';
+  }
+
+  @override
   String get selectARentalPropertyToSeeItsPL => 'Select a Rental property to see its P&L';
 
   @override
@@ -1313,6 +1318,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unknown => 'Unknown';
 
   @override
+  String unselectAllCount(String count) {
+    return 'Unselect all $count';
+  }
+
+  @override
   String get useDemoData => 'Use Demo Data';
 
   @override
@@ -1359,6 +1369,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get year => 'Year';
+
+  @override
+  String get yearsUnit => 'years';
+
+  @override
+  String get yearUnit => 'year';
 
   @override
   String get zoom => 'Zoom';

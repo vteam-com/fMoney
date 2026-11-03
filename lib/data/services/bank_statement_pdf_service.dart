@@ -2,6 +2,7 @@
 // ignore: fcheck_hardcoded_strings
 // ignore: fcheck_magic_numbers
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:path/path.dart' as path;
 import 'package:pdfrx/pdfrx.dart';
 
@@ -298,7 +299,7 @@ class BankStatementPdfService {
 
       for (final RegExpMatch match in amountPattern.allMatches(line)) {
         final String token = match.group(1) ?? '';
-        final double? amount = _parseAmountToken(token);
+        final double? amount = parseAmountFlexible(token);
         if (amount != null) {
           detectedBalance = amount;
         }
@@ -351,7 +352,7 @@ class BankStatementPdfService {
       }
 
       final DateTime? date = _parseDateToken(dateToken, fallbackYear, isDayFirst: isDayFirst);
-      final double? amount = _parseAmountToken(amountToken);
+      final double? amount = parseAmountFlexible(amountToken);
 
       if (date == null || amount == null || description.isEmpty) {
         continue;
@@ -443,7 +444,7 @@ class BankStatementPdfService {
       // Last amount is usually running balance; second to last is transaction amount.
       final RegExpMatch transactionAmountMatch = amountMatches[amountMatches.length - 2];
       final String amountToken = transactionAmountMatch.group(0) ?? '';
-      if (_parseAmountToken(amountToken) == null) {
+      if (parseAmountFlexible(amountToken) == null) {
         continue;
       }
 
@@ -528,132 +529,11 @@ class BankStatementPdfService {
   /// Parses [token] into a concrete date, using [fallbackYear] when year is missing.
   /// Ambiguous tokens (both parts <= 12) are read as DD-MM when [isDayFirst], otherwise MM-DD.
   DateTime? _parseDateToken(String token, int fallbackYear, {bool isDayFirst = false}) {
-    final List<String> parts = token.replaceAll('-', '/').split('/');
-    if (parts.length < 2 || parts.length > 3) {
-      return null;
-    }
-
-    final int? first = int.tryParse(parts[0]);
-    final int? second = int.tryParse(parts[1]);
-    if (first == null || second == null) {
-      return null;
-    }
-
-    int year = fallbackYear;
-    if (parts.length == 3) {
-      final int? parsedYear = int.tryParse(parts[2]);
-      if (parsedYear == null) {
-        return null;
-      }
-      year = parsedYear < 100 ? (parsedYear >= 70 ? 1900 + parsedYear : 2000 + parsedYear) : parsedYear;
-    }
-
-    int month = isDayFirst ? second : first;
-    int day = isDayFirst ? first : second;
-
-    if (first > 12 && second <= 12) {
-      day = first;
-      month = second;
-    } else if (second > 12 && first <= 12) {
-      day = second;
-      month = first;
-    }
-
-    if (!_isValidMonthDay(month, day)) {
-      return null;
-    }
-
-    final DateTime candidate = DateTime(year, month, day);
-    if (candidate.year != year || candidate.month != month || candidate.day != day) {
-      return null;
-    }
-
-    return candidate;
-  }
-
-  /// Returns true when [month] and [day] represent a valid calendar day.
-  bool _isValidMonthDay(int month, int day) {
-    if (month < 1 || month > 12) {
-      return false;
-    }
-    if (day < 1 || day > 31) {
-      return false;
-    }
-    return true;
-  }
-
-  /// Parses [rawAmountToken] into a signed decimal amount.
-  double? _parseAmountToken(String rawAmountToken) {
-    String token = rawAmountToken.trim().toUpperCase();
-    if (token.isEmpty) {
-      return null;
-    }
-
-    final bool isDebit = token.contains('DR');
-    final bool isCredit = token.contains('CR');
-    final bool hasParentheses = token.contains('(') && token.contains(')');
-    final bool hasLeadingMinus = token.startsWith('-');
-    final bool hasTrailingMinus = token.endsWith('-');
-
-    token = token.replaceAll('CR', '').replaceAll('DR', '').replaceAll(RegExp(r'[^0-9,.-]'), '');
-
-    token = token.replaceAll('-', '');
-    if (token.isEmpty) {
-      return null;
-    }
-
-    final String normalized = _normalizeNumberSeparators(token);
-    final double? parsed = double.tryParse(normalized);
-    if (parsed == null) {
-      return null;
-    }
-
-    double amount = parsed;
-    if (hasParentheses || hasLeadingMinus || hasTrailingMinus || isDebit) {
-      amount = -amount.abs();
-    } else if (isCredit) {
-      amount = amount.abs();
-    }
-
-    return amount;
-  }
-
-  /// Normalizes decimal/thousands separators in [token] to standard dot notation.
-  String _normalizeNumberSeparators(String token) {
-    String normalized = token;
-    final int commaIndex = normalized.lastIndexOf(',');
-    final int dotIndex = normalized.lastIndexOf('.');
-
-    if (commaIndex != -1 && dotIndex != -1) {
-      if (commaIndex > dotIndex) {
-        normalized = normalized.replaceAll('.', '');
-        normalized = normalized.replaceAll(',', '.');
-      } else {
-        normalized = normalized.replaceAll(',', '');
-      }
-      return normalized;
-    }
-
-    if (commaIndex != -1) {
-      final bool commaAsDecimal = RegExp(r',\d{1,2}$').hasMatch(normalized);
-      if (commaAsDecimal) {
-        normalized = normalized.replaceAll('.', '');
-        normalized = normalized.replaceAll(',', '.');
-      } else {
-        normalized = normalized.replaceAll(',', '');
-      }
-      return normalized;
-    }
-
-    final int dotCount = '.'.allMatches(normalized).length;
-    if (dotCount > 1) {
-      final int lastDotIndex = normalized.lastIndexOf('.');
-      final String beforeLastDot = normalized.substring(0, lastDotIndex).replaceAll('.', '');
-      final String afterLastDot = normalized.substring(lastDotIndex + 1);
-      normalized = '$beforeLastDot.$afterLastDot';
-    }
-
-    return normalized;
+    return parseDateFlexible(
+      token,
+      fallbackYear: fallbackYear,
+      order: isDayFirst ? DateFieldOrder.dayMonthYear : DateFieldOrder.monthDayYear,
+    );
   }
 
   /// Normalizes [token] to uppercase alphanumeric characters plus `*`.

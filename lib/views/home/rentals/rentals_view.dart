@@ -1,3 +1,5 @@
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -10,8 +12,6 @@ import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/rentals_side_panel.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _panelSpacing = 30.0;
 const int _dividerAlpha = 100;
@@ -67,7 +67,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       onDetails: getSidePanelViewDetails,
       onChart: ViewRentalsSidePanel.getSubViewContentForChart,
       onPnL: ViewRentalsSidePanel.getSubViewContentForPnL,
-      onTransactions: ViewRentalsSidePanel.getSubViewContentForTransactions,
+      onTransactions: _getSidePanelViewTransactions,
     );
   }
 
@@ -78,6 +78,18 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       return <DataObject>[];
     }
     return ViewRentalsSidePanel.getTransactionLastSelectedItem(item);
+  }
+
+  /// Builds the side panel transactions list for the selected rental property.
+  Widget _getSidePanelViewTransactions({
+    required List<int> selectedIds,
+    required bool showAsNativeCurrency,
+  }) {
+    keepUnused(showAsNativeCurrency);
+    if (Data().rentBuildings.get(selectedIds.first) == null) {
+      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
+    }
+    return buildSidePanelTransactionsList();
   }
 
   @override

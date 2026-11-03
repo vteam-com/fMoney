@@ -1,3 +1,6 @@
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
@@ -5,9 +8,7 @@ import 'package:money/widgets/list/list_item_footer_widget.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 
 const double _minColumnLayoutWidth = 1500;
 
@@ -24,6 +25,7 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
     required this.selectedItemsByUniqueId,
     required this.displayAsColumns,
     required this.listController,
+    required this.widgetBuilders,
     this.showRightAdornment = true,
     this.sortByFieldIndex = 0,
     this.sortAscending = true,
@@ -57,6 +59,9 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
   final bool showRightAdornment;
   final bool sortAscending;
   final int sortByFieldIndex;
+
+  /// Entity-specific cell and small-screen widget builders.
+  final DataObjectWidgetBuilders widgetBuilders;
   @override
   State<AdaptiveListColumnsOrRows> createState() => _AdaptiveListColumnsOrRowsState();
 }
@@ -129,6 +134,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
             onLongPress: widget.onItemLongPress,
             scrollController: widget.listController.scrollController,
             columnWidths: _columnWidths,
+            widgetBuilders: widget.widgetBuilders,
           ),
         ),
 

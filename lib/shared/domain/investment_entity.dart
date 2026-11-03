@@ -1,12 +1,14 @@
 // ignore_for_file: unnecessary_this
 // ignore: fcheck_dead_code
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/amount_model.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -14,9 +16,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
@@ -105,7 +104,6 @@ class Investment extends DataObject {
 
   /// 4    Commission      money   0                    0
   FieldMoney fieldCommission = FieldMoney(
-    name: SharedDomainStrings.domainString039,
     serializeName: SharedDomainStrings.domainString039,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldCommission.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldCommission.value.asDouble(),
@@ -113,7 +111,6 @@ class Investment extends DataObject {
 
   /// 7    Fees            money   0                    0
   FieldMoney fieldFees = FieldMoney(
-    name: SharedDomainStrings.domainString053,
     serializeName: SharedDomainStrings.domainString053,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldFees.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldFees.value.asDouble(),
@@ -151,14 +148,6 @@ class Investment extends DataObject {
     footer: FooterType.count,
     getValueForDisplay: (DataInterface instance) => (instance as Investment)._investmentTypeAsString,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldInvestmentType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerInvestmentTypeWidget?.call(instance as Investment, onEdited) ??
-              Text(AppL10n.tr(AppTranslationKeys.noPicker));
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Investment).stashValueBeforeEditing();
       instance.fieldInvestmentType.value = getInvestmentTypeFromValue(value as int).index;
@@ -167,7 +156,6 @@ class Investment extends DataObject {
 
   /// 8    Load            money   0                    0
   FieldMoney fieldLoad = FieldMoney(
-    name: SharedDomainStrings.domainString082,
     serializeName: SharedDomainStrings.domainString082,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldLoad.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldLoad.value.asDouble(),
@@ -175,10 +163,8 @@ class Investment extends DataObject {
 
   /// 5    MarkUpDown      money   0                    0
   FieldMoney fieldMarkUpDown = FieldMoney(
-    name: SharedDomainStrings.domainString085,
     serializeName: SharedDomainStrings.domainString085,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
-    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldMarkUpDown.value.asDouble(),
   );
 
   FieldMoney fieldNetValueOfEvent = FieldMoney(
@@ -191,10 +177,8 @@ class Investment extends DataObject {
 
   /// 1    Security        INT     1                    0
   FieldInt fieldSecurity = FieldInt(
-    name: SharedDomainStrings.domainString125,
     serializeName: SharedDomainStrings.domainString125,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecurity.value,
   );
 
   FieldString fieldSecuritySymbol = FieldString(
@@ -232,7 +216,6 @@ class Investment extends DataObject {
 
   /// 6    Taxes           money   0                    0
   FieldMoney fieldTaxes = FieldMoney(
-    name: SharedDomainStrings.domainString138,
     serializeName: SharedDomainStrings.domainString138,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldTaxes.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTaxes.value.asDouble(),
@@ -240,20 +223,11 @@ class Investment extends DataObject {
 
   /// 10   TradeType       INT     0                    0
   FieldInt fieldTradeType = FieldInt(
-    name: SharedDomainStrings.domainString140,
     serializeName: SharedDomainStrings.domainString140,
     type: FieldType.text,
     getValueForDisplay: (DataInterface instance) =>
         InvestmentTradeType.values[(instance as Investment).fieldTradeType.value].name.toUpperCase(),
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldTradeType.value,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerInvestmentTradeTypeWidget?.call(instance as Investment, onEdited) ??
-              Text(AppL10n.tr(AppTranslationKeys.noPicker));
-        },
     setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
       (instance as Investment).fieldTradeType.value = value as int;
@@ -301,7 +275,6 @@ class Investment extends DataObject {
 
   /// 3    Units           money   0                    0
   FieldQuantity fieldUnits = FieldQuantity(
-    name: SharedDomainStrings.domainString149,
     serializeName: SharedDomainStrings.domainString149,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).effectiveUnits,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldUnits.value,
@@ -318,7 +291,6 @@ class Investment extends DataObject {
 
   /// 12   Withholding     money   0                    0
   FieldMoney fieldWithholding = FieldMoney(
-    name: SharedDomainStrings.domainString153,
     serializeName: SharedDomainStrings.domainString153,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldWithholding.value,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldWithholding.value.asDouble(),
@@ -328,12 +300,6 @@ class Investment extends DataObject {
 
   /// The actual transaction date.
   dynamic _transactionInstance;
-
-  /// Builds a compact widget representation for small screens.
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return buildSmallScreenWidget?.call(this) ?? Text(AppL10n.tr(AppTranslationKeys.noUi));
-  }
 
   // Fields for this instance
   /// Returns field definitions for this instance.
@@ -601,10 +567,4 @@ class Investment extends DataObject {
 
   /// Returns the unit price adjusted for stock splits.
   double get unitPriceAdjusted => this.fieldUnitPrice.value.asDouble() / this._splitRatio;
-
-  static Widget Function(Investment instance)? buildSmallScreenWidget;
-  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
-  pickerInvestmentTypeWidget;
-  static Widget Function(Investment instance, void Function(bool /* wasModified */) onEdited)?
-  pickerInvestmentTradeTypeWidget;
 }

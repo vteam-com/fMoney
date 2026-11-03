@@ -1,24 +1,9 @@
+import 'package:money/data/models/data_mutations_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/widgets_domain/data_mutations_model.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-
-typedef NotifyMutationChanged = void Function({
-  required MutationType mutation,
-  required DataObject moneyObject,
-  bool recalculateBalances,
-});
-
-typedef GetCategoryName = String Function(int id);
-typedef GetCurrencyRatio = double Function(String symbol);
 
 /// Represents data access.
 class DataAccess {
-  static late NotifyMutationChanged notifyMutationChanged;
-  static late GetCategoryName getCategoryName;
-  static late GetCurrencyRatio getCurrencyRatio;
-
   // breaking dependency with DataController
   static late DataMutations trackMutations;
   static late void Function() onDataChanged;

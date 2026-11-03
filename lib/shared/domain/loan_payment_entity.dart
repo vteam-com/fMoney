@@ -1,22 +1,20 @@
 // ignore_for_file: unnecessary_this
 
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
-import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/account_operations_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 /// Represents loan payment.
 class LoanPayment extends DataObject {
   /// Constructor from a SQLite row
-  factory LoanPayment.fromJson(MyJson row, DataAbstract data) {
+  factory LoanPayment.fromJson(MyJson row, AccountOperations data) {
     return LoanPayment(
       // 0
       id: row.getInt(SharedDomainStrings.domainString057, -1),
@@ -41,7 +39,7 @@ class LoanPayment extends DataObject {
     required double principal,
     required double interest,
     String reference = '',
-    DataAbstract? data,
+    AccountOperations? data,
   }) {
     if (data != null) {
       this.data = data;
@@ -56,7 +54,7 @@ class LoanPayment extends DataObject {
     this.fieldReference.value = reference;
   }
 
-  late DataAbstract data;
+  late AccountOperations data;
 
   // Not persisted
   Account? accountInstance;
@@ -75,7 +73,6 @@ class LoanPayment extends DataObject {
     name: SharedDomainStrings.domainString019,
     footer: FooterType.range,
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
-    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldBalance.value.asDouble(),
   );
 
   /// Date
@@ -97,7 +94,6 @@ class LoanPayment extends DataObject {
   /// Interest
   /// 4|Interest|money|0||0
   FieldMoney fieldInterest = FieldMoney(
-    name: SharedDomainStrings.domainString059,
     serializeName: SharedDomainStrings.domainString059,
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldInterest.value,
     getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldInterest.value.asDouble(),
@@ -107,17 +103,14 @@ class LoanPayment extends DataObject {
   // 5|Memo|nvarchar(255)|0||0
   Field<String> fieldMemo = Field<String>(
     type: FieldType.text,
-    name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
     defaultValue: '',
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
-    getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldMemo.value,
   );
 
   /// 3
   /// 3|Principal|money|0||0
   FieldMoney fieldPrincipal = FieldMoney(
-    name: SharedDomainStrings.domainString110,
     serializeName: SharedDomainStrings.domainString110,
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value,
     getValueForSerialization: (DataInterface instance) => (instance as LoanPayment).fieldPrincipal.value.asDouble(),
@@ -138,17 +131,6 @@ class LoanPayment extends DataObject {
     name: 'Payment',
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment)._totalPrincipalAndInterest,
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: Account.getName(accountInstance),
-      rightTopAsString: getAmountAsStringUsingCurrency(fieldPrincipal),
-      rightBottomAsString: getAmountAsStringUsingCurrency(
-        fieldInterest,
-      ),
-    );
-  }
 
   // Fields for this instance
   @override

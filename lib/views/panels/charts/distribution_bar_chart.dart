@@ -3,6 +3,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/category_widgets_helper.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
@@ -85,7 +86,7 @@ class _DistributionBarState extends State<DistributionBar> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         gapSmall(),
-        Expanded(flex: _detailFlex, child: category.getColorAndNameWidget()),
+        Expanded(flex: _detailFlex, child: buildCategoryColorAndNameWidget(category)),
         Expanded(
           child: WidgetFromData(amountModel: AmountModel(amount: value)),
         ),

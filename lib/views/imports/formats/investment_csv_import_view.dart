@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
@@ -28,9 +30,6 @@ int _findColumnIndex(List<String> headers, String columnName) {
     (String header) => header.trim().toLowerCase().startsWith(normalizedColumnName),
   );
 }
-
-const int _datePartCount = 3;
-const int _datePartIndexYear = 2;
 
 const String _skipReasonInvalidDate = 'invalidDate';
 const String _skipReasonEmptyDescription = 'emptyDescription';
@@ -113,52 +112,6 @@ Future<void> importInvestmentCSV(BuildContext context, String filePath) async {
   }
 }
 
-/// Parses investment dates supporting both ISO and common broker formats.
-DateTime? _parseInvestmentDate(String rawValue) {
-  final String trimmed = rawValue.trim();
-  if (trimmed.isEmpty) {
-    return null;
-  }
-
-  final DateTime? isoParsed = DateTime.tryParse(trimmed);
-  if (isoParsed != null) {
-    return isoParsed;
-  }
-
-  final List<String> parts = trimmed.split('/');
-  if (parts.length == _datePartCount) {
-    final int? month = int.tryParse(parts[0]);
-    final int? day = int.tryParse(parts[1]);
-    final int? year = int.tryParse(parts[_datePartIndexYear]);
-    if (month != null && day != null && year != null) {
-      return DateTime(year, month, day);
-    }
-  }
-
-  return null;
-}
-
-/// Parses investment amounts supporting symbols, commas, and parentheses negatives.
-double? _parseInvestmentAmount(String rawValue) {
-  final String trimmed = rawValue.trim();
-  if (trimmed.isEmpty) {
-    return null;
-  }
-
-  final bool isParenthesisNegative = trimmed.startsWith('(') && trimmed.endsWith(')');
-  String normalized = trimmed.replaceAll(r'$', '').replaceAll(',', '').replaceAll('(', '').replaceAll(')', '');
-
-  if (normalized.startsWith('+')) {
-    normalized = normalized.substring(1);
-  }
-
-  final double? parsed = double.tryParse(normalized);
-  if (parsed == null) {
-    return null;
-  }
-  return isParenthesisNegative ? -parsed : parsed;
-}
-
 /// Normalizes a description-like value for robust placeholder matching.
 String _normalizeForPlaceholderCheck(String value) {
   return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
@@ -230,7 +183,7 @@ ImportData loadInvestmentCSV(
     }
 
     // Parse date
-    final DateTime? date = _parseInvestmentDate(row[runDateIndex]);
+    final DateTime? date = parseDateFlexible(row[runDateIndex], order: DateFieldOrder.monthDayYear);
     if (date == null) {
       importData.diagnostics.incrementSkipped(_skipReasonInvalidDate);
       continue;
@@ -249,7 +202,7 @@ ImportData loadInvestmentCSV(
     }
 
     // Parse amount
-    final double? amount = _parseInvestmentAmount(row[amountIndex]);
+    final double? amount = parseAmountFlexible(row[amountIndex]);
     if (amount == null) {
       importData.diagnostics.incrementSkipped(_skipReasonInvalidAmount);
       continue;
@@ -269,36 +222,15 @@ ImportData loadInvestmentCSV(
     stockAction = actionValue;
 
     if (quantityIndex != -1 && row.length > quantityIndex) {
-      try {
-        final String qtyStr = row[quantityIndex].trim();
-        if (qtyStr.isNotEmpty) {
-          stockQuantity = double.parse(qtyStr);
-        }
-      } catch (_) {
-        // Ignore parse errors
-      }
+      stockQuantity = parseAmountFlexible(row[quantityIndex]) ?? 0.0;
     }
 
     if (priceIndex != -1 && row.length > priceIndex) {
-      try {
-        final String priceStr = row[priceIndex].trim();
-        if (priceStr.isNotEmpty) {
-          stockPrice = double.parse(priceStr);
-        }
-      } catch (_) {
-        // Ignore parse errors
-      }
+      stockPrice = parseAmountFlexible(row[priceIndex]) ?? 0.0;
     }
 
     if (commissionIndex != -1 && row.length > commissionIndex) {
-      try {
-        final String commStr = row[commissionIndex].trim();
-        if (commStr.isNotEmpty) {
-          stockCommission = double.parse(commStr);
-        }
-      } catch (_) {
-        // Ignore parse errors
-      }
+      stockCommission = parseAmountFlexible(row[commissionIndex]) ?? 0.0;
     }
 
     // Create entry

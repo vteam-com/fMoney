@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/stock_date_price_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -9,7 +10,6 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/security_entity.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 

@@ -20,15 +20,9 @@ class Securities extends MoneyObjects<Security> {
   }
   late DataAbstract data;
 
-  // Loads data from a list of JSON objects into the collection of Security objects.
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear(); // Clears the current collection.
-    for (final MyJson row in rows) {
-      appendMoneyObject(
-        Security.fromJson(row),
-      ); // Converts each JSON object to a Security and appends it to the collection.
-    }
+  Security instanceFromJson(MyJson json) {
+    return Security.fromJson(json);
   }
 
   // Processes all Security objects after all data has been loaded.
@@ -59,14 +53,6 @@ class Securities extends MoneyObjects<Security> {
       security.fieldActivityDividend.value.setAmount(cumulative.dividendsSum);
       security.dividends = cumulative.dividends;
     }
-  }
-
-  // Converts the collection of Security objects to a CSV string.
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(
-      getListSortedById(), // Gets the list of Security objects sorted by ID.
-    );
   }
 
   /// Retrieves a security by its symbol (case-insensitive).

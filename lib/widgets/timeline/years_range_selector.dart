@@ -125,8 +125,8 @@ class YearRangeSliderState extends State<YearRangeSlider> {
     final String spanAsText = getSingularPluralText(
       _selectedYearRange.span.toString(),
       _selectedYearRange.span.toInt(),
-      'years',
-      'year',
+      AppL10n.tr(AppTranslationKeys.yearUnit),
+      AppL10n.tr(AppTranslationKeys.yearsUnit),
     );
     final bool canBeDragged =
         _selectedYearRange.min != widget.yearRange.min || _selectedYearRange.max != widget.yearRange.max;

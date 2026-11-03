@@ -3,7 +3,10 @@ import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/data/models/stock_summary_model.dart';
@@ -26,6 +29,8 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
+import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
@@ -51,9 +56,6 @@ import 'package:money/widgets/pure/pivot_toggle_row_widget.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _zeroInt = 0;
@@ -554,7 +556,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
                       onPressed: () async {
                         showImportInvestment(
                           inputData: InvestmentImportFields(
-                            account: Data().accounts.getMostRecentlySelectedAccount(),
+                            account: getMostRecentlySelectedAccount(),
                             date: DateTime.now(),
                             // inverse the position
                             investmentType: summary.shares > 0 ? InvestmentType.sell : InvestmentType.buy,
@@ -745,35 +747,29 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
     selectionController.load();
 
-    final FieldDefinitions columnsToDisplay = <Field<dynamic>>[
-      Transaction.fields.getFieldByName(columnIdDate),
-      Transaction.fields.getFieldByName(columnIdPayee),
-      Transaction.fields.getFieldByName(columnIdCategory),
-      Transaction.fields.getFieldByName(columnIdMemo),
-      Transaction.fields.getFieldByName(columnIdStatus),
-      Transaction.fields.getFieldByName(
-        showAsNativeCurrency ? columnIdAmount : columnIdAmountNormalized,
-      ),
-      Transaction.fields.getFieldByName(
-        showAsNativeCurrency ? columnIdBalance : columnIdBalanceNormalized,
-      ),
+    final List<String> columnsToDisplay = <String>[
+      columnIdDate,
+      columnIdPayee,
+      columnIdCategory,
+      columnIdMemo,
+      columnIdStatus,
+      showAsNativeCurrency ? columnIdAmount : columnIdAmountNormalized,
+      showAsNativeCurrency ? columnIdBalance : columnIdBalanceNormalized,
       // Credit Card account has a PaidOn column to help with balancing Statements
-      if (account.fieldType.value == AccountType.credit) Transaction.fields.getFieldByName(columnIdPaidOn),
+      if (account.fieldType.value == AccountType.credit) columnIdPaidOn,
     ];
 
     return ListenableBuilder(
       listenable: DataFileController.to,
       builder: (BuildContext _, Widget? _) {
-        return ListViewTransactions(
+        return buildSidePanelTransactionsList(
           key: Key(
             'transaction_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
           ),
-          columnsToInclude: columnsToDisplay,
+          columnNames: columnsToDisplay,
           showRightAdornment: account.fieldType.value == AccountType.credit,
-          getList: () => getTransactionForLastSelectedAccount(account),
           sortFieldIndex: sortFieldIndex,
           sortAscending: sortAscending,
-          listController: AppScope.instance.listControllerSidePanel,
           selectionController: selectionController,
           onUserChoiceChanged:
               (
@@ -837,6 +833,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           sortAscending: sortAscending,
           selectedId: selectionController.firstSelectedId,
           listController: AppScope.instance.listControllerSidePanel,
+          widgetBuilders: entityWidgetBuilders,
           displayAsColumns: true,
           backgroundColorForHeaderFooter: Colors.transparent,
           onSelectionChanged: (int uniqueId) {

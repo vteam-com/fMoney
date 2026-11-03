@@ -13,80 +13,71 @@ Widget dialogActionButtons(List<Widget> actionsButtons) {
   );
 }
 
-/// Builds an IconButton for merging items with a key and tooltip.
-Widget buildMergeButton(void Function() callback) {
+/// Builds an [IconButton] with a test [key], an [icon] and a [tooltip] that runs [onPressed].
+Widget _keyedIconButton({
+  required Key key,
+  required IconData icon,
+  required String tooltip,
+  required void Function() onPressed,
+}) {
   return IconButton(
-    key: Constants.keyMergeButton,
-    onPressed: () {
-      callback();
-    },
-    icon: const Icon(Icons.merge_outlined),
-    tooltip: AppL10n.tr(AppTranslationKeys.mergeItems),
+    key: key,
+    onPressed: onPressed,
+    icon: Icon(icon),
+    tooltip: tooltip,
   );
 }
+
+/// Builds an IconButton for merging items with a key and tooltip.
+Widget buildMergeButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyMergeButton,
+  icon: Icons.merge_outlined,
+  tooltip: AppL10n.tr(AppTranslationKeys.mergeItems),
+  onPressed: callback,
+);
 
 /// Builds an IconButton for adding a new item with a key and tooltip.
 Widget buildAddItemButton(
   void Function() callback,
   String tooltip,
-) {
-  return IconButton(
-    key: Constants.keyAddNewItem,
-    onPressed: () {
-      callback();
-    },
-    icon: const Icon(Icons.add_circle_outline),
-    tooltip: tooltip,
-  );
-}
+) => _keyedIconButton(
+  key: Constants.keyAddNewItem,
+  icon: Icons.add_circle_outline,
+  tooltip: tooltip,
+  onPressed: callback,
+);
 
 /// Builds an IconButton for adding new transactions with a key and tooltip.
-Widget buildAddTransactionsButton(void Function() callback) {
-  return IconButton(
-    key: Constants.keyButtonAddTransactions,
-    onPressed: () {
-      callback();
-    },
-    icon: const Icon(Icons.post_add_outlined),
-    tooltip: AppL10n.tr(AppTranslationKeys.addNewTransactions),
-  );
-}
+Widget buildAddTransactionsButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyButtonAddTransactions,
+  icon: Icons.post_add_outlined,
+  tooltip: AppL10n.tr(AppTranslationKeys.addNewTransactions),
+  onPressed: callback,
+);
 
 /// Builds an IconButton for editing selected items with a key and tooltip.
-Widget buildEditButton(void Function() callback) {
-  return IconButton(
-    key: Constants.keyEditSelectedItems,
-    onPressed: () {
-      callback.call();
-    },
-    icon: const Icon(Icons.edit_outlined),
-    tooltip: AppL10n.tr(AppTranslationKeys.editSelectedItems),
-  );
-}
+Widget buildEditButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyEditSelectedItems,
+  icon: Icons.edit_outlined,
+  tooltip: AppL10n.tr(AppTranslationKeys.editSelectedItems),
+  onPressed: callback,
+);
 
 /// Builds an IconButton for deleting selected items with a key and tooltip.
-Widget buildDeleteButton(void Function() callback) {
-  return IconButton(
-    key: Constants.keyDeleteSelectedItems,
-    onPressed: () {
-      callback.call();
-    },
-    icon: const Icon(Icons.delete_outline),
-    tooltip: AppL10n.tr(AppTranslationKeys.deleteSelectedItems),
-  );
-}
+Widget buildDeleteButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyDeleteSelectedItems,
+  icon: Icons.delete_outline,
+  tooltip: AppL10n.tr(AppTranslationKeys.deleteSelectedItems),
+  onPressed: callback,
+);
 
 /// Builds an IconButton for copying selected items to clipboard with a key.
 Widget buildCopyButton(
   void Function() callback, [
   Key key = Constants.keyCopyListToClipboardHeaderMain,
-]) {
-  return IconButton(
-    key: key,
-    onPressed: () {
-      callback.call();
-    },
-    icon: const Icon(Icons.copy_all),
-    tooltip: AppL10n.tr(AppTranslationKeys.copyListToClipboard),
-  );
-}
+]) => _keyedIconButton(
+  key: key,
+  icon: Icons.copy_all,
+  tooltip: AppL10n.tr(AppTranslationKeys.copyListToClipboard),
+  onPressed: callback,
+);

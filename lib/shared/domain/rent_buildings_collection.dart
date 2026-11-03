@@ -3,9 +3,9 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
+import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/widgets/components/rental_pnl_widget.dart';
 
 /// Represents rent buildings.
 class RentBuildings extends MoneyObjects<RentBuilding> {
@@ -15,12 +15,8 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-
-    for (final MyJson row in rows) {
-      appendMoneyObject(RentBuilding.fromJson(row, data));
-    }
+  RentBuilding instanceFromJson(MyJson json) {
+    return RentBuilding.fromJson(json, data);
   }
 
   @override
@@ -29,17 +25,12 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
       rental.associateAccountToBuilding();
       cumulateTransactions(rental);
 
-      for (final RentUnit unit in (data.getRentUnits() as MoneyObjects<RentUnit>).iterableList()) {
+      for (final RentUnit unit in data.getRentUnits().cast<RentUnit>()) {
         if (unit.fieldBuilding.value == rental.fieldId.value) {
           rental.units.add(unit);
         }
       }
     }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Accumulates transaction data for a given rental building.

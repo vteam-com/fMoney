@@ -22,6 +22,7 @@ const double _defaultEpsilon = 0.009;
 const double _baseTen = 10.0;
 const int _baseTenInt = 10;
 const int _zeroInt = 0;
+const int _oneInt = 1;
 const int _notFoundIndex = -1;
 const int _minDecimalPlaces = 0;
 const int _snackBarDurationSeconds = 1;
@@ -51,40 +52,79 @@ double getDoubleFromDynamic(dynamic value) {
   return _zeroDouble;
 }
 
-/// Remove non-numeric characters from the currency text
-double? attemptToGetDoubleFromText(String text) {
-  final String trimmedText = text.trim();
-  final double? firstSimpleCase = double.tryParse(trimmedText);
-  if (firstSimpleCase != null) {
-    return firstSimpleCase;
+/// Matches any digit.
+final RegExp _digitPattern = RegExp(r'\d');
+
+/// Matches a standalone `DR` (debit) marker such as in `123.45 DR` or `123.45DR`.
+final RegExp _debitMarkerPattern = RegExp('(?<![A-Z])DR(?![A-Z])');
+
+/// Matches every character that is not a digit or a number separator.
+final RegExp _nonNumberCharactersPattern = RegExp(r'[^0-9,.]');
+
+/// Matches a comma followed by one or two final digits, such as `12,5` or `12,50`.
+final RegExp _decimalCommaPattern = RegExp(r',\d{1,2}$');
+
+/// Parses a money amount written in common bank, spreadsheet and statement styles.
+///
+/// Ignores currency symbols, codes and any text around the number, and detects
+/// the decimal separator: `1,234.56` and `1.234,56` both give 1234.56, and a
+/// single comma followed by one or two digits is a decimal comma (`12,50`).
+/// The result is negative when a minus sign comes before or after the number
+/// (`-12`, `$-12`, `12-`), when parentheses surround it (`(12.00)`), or when a
+/// standalone `DR` marker is present. Returns null when [text] has no number.
+double? parseAmountFlexible(String text) {
+  final String upperText = text.trim().toUpperCase();
+  int numberStart = upperText.indexOf(_digitPattern);
+  if (numberStart == _notFoundIndex) {
+    return null;
+  }
+  final int numberEnd = upperText.lastIndexOf(_digitPattern) + _oneInt;
+  if (numberStart > _zeroInt && ',.'.contains(upperText[numberStart - _oneInt])) {
+    numberStart--;
   }
 
-  // Remove non-numeric characters except for periods and commas
-  String cleanedText = trimmedText.replaceAll(RegExp(r'[^\d.,]'), '');
+  final String beforeNumber = upperText.substring(_zeroInt, numberStart);
+  final String afterNumber = upperText.substring(numberEnd);
+  final bool isNegative =
+      beforeNumber.contains('-') ||
+      afterNumber.contains('-') ||
+      (beforeNumber.contains('(') && afterNumber.contains(')')) ||
+      _debitMarkerPattern.hasMatch(upperText);
 
-  // Replace commas with periods for consistent parsing
-  cleanedText = cleanedText.replaceAll(',', '.');
-
-  // Remove any leading/trailing periods
-  cleanedText = cleanedText.replaceAll(RegExp(r'^\.+|\.+$'), '');
-
-  // If there are multiple periods, keep only the last one
-  final int lastIndex = cleanedText.lastIndexOf('.');
-  if (lastIndex != _notFoundIndex) {
-    String beforeDecimal = cleanedText.substring(_zeroInt, lastIndex);
-    beforeDecimal = beforeDecimal.replaceAll('.', '');
-    cleanedText = beforeDecimal + cleanedText.substring(lastIndex);
-  }
-
-  // Parse the cleaned text into a double
-  final double? amount = double.tryParse(cleanedText);
+  final String digits = upperText.substring(numberStart, numberEnd).replaceAll(_nonNumberCharactersPattern, '');
+  final double? amount = double.tryParse(_normalizeNumberSeparators(digits));
   if (amount == null) {
     return null;
   }
-  if (text.startsWith('-')) {
-    return -amount;
+  return isNegative ? -amount : amount;
+}
+
+/// Rewrites [number] (digits, commas and dots only) with a dot as the decimal
+/// separator and no thousands separators.
+String _normalizeNumberSeparators(String number) {
+  final int commaIndex = number.lastIndexOf(',');
+  final int dotIndex = number.lastIndexOf('.');
+
+  if (commaIndex != _notFoundIndex && dotIndex != _notFoundIndex) {
+    return commaIndex > dotIndex ? number.replaceAll('.', '').replaceAll(',', '.') : number.replaceAll(',', '');
   }
-  return amount;
+
+  if (commaIndex != _notFoundIndex) {
+    return _decimalCommaPattern.hasMatch(number) ? number.replaceAll(',', '.') : number.replaceAll(',', '');
+  }
+
+  final int lastDotIndex = number.lastIndexOf('.');
+  if (lastDotIndex != number.indexOf('.')) {
+    return '${number.substring(_zeroInt, lastDotIndex).replaceAll('.', '')}${number.substring(lastDotIndex)}';
+  }
+  return number;
+}
+
+/// Extracts a number from [text], such as `123.45`, `\$1,234.56` or `€1.234,56`.
+/// Plain numbers are parsed directly; anything else goes through [parseAmountFlexible].
+double? attemptToGetDoubleFromText(String text) {
+  final String trimmedText = text.trim();
+  return double.tryParse(trimmedText) ?? parseAmountFlexible(trimmedText);
 }
 
 /// Copies the provided text to the system clipboard and displays a snackbar to inform the user.

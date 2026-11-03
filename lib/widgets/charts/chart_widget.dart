@@ -230,9 +230,8 @@ FlBorderData getBorders(double min, double max) => FlBorderData(
 );
 
 /// Returns a themed horizontal line color based on the numeric value.
-Color getHorizontalLineColorBasedOnValue(double value) => Theme.of(
-  AppRouter.context!,
-).extension<MoneyThemeData>()!.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
+Color getHorizontalLineColorBasedOnValue(double value) =>
+    AppRouter.context!.colorTheme.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
 /// Builds a currency-formatted widget for chart axis labels.
 Widget getWidgetChartAmount(double value, TitleMeta meta) {

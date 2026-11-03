@@ -4,64 +4,6 @@ import 'package:money/views/imports/shared/data_import_view.dart';
 
 void main() {
   // ---------------------------------------------------------------------------
-  // parseFlexibleDate
-  // ---------------------------------------------------------------------------
-  group('parseFlexibleDate', () {
-    test('parses ISO format YYYY-MM-DD', () {
-      expect(parseFlexibleDate('2024-06-15'), DateTime(2024, 6, 15));
-    });
-
-    test('parses ISO format with time component', () {
-      final DateTime? result = parseFlexibleDate('2024-06-15T00:00:00');
-      expect(result, isNotNull);
-      expect(result!.year, 2024);
-      expect(result.month, 6);
-      expect(result.day, 15);
-    });
-
-    test('parses European format DD/MM/YYYY', () {
-      // Day=30 means it can only be European (month 30 is invalid)
-      expect(parseFlexibleDate('30/06/2025'), DateTime(2025, 6, 30));
-    });
-
-    test('parses US format MM/DD/YYYY', () {
-      // Both European and US regex match; the first branch tried is European.
-      // For 01/15/2024: Euro → month=01, day=15, year=2024 → valid DateTime
-      expect(parseFlexibleDate('01/15/2024'), isNotNull);
-    });
-
-    test('parses 2-digit year below pivot as 2000+', () {
-      // DD/MM/YY where YY=24 → 2024
-      final DateTime? result = parseFlexibleDate('15/06/24');
-      expect(result, isNotNull);
-      expect(result!.year, 2024);
-    });
-
-    test('parses 2-digit year at or above pivot as 1900+', () {
-      // DD/MM/YY where YY=55 → 1955
-      final DateTime? result = parseFlexibleDate('15/06/55');
-      expect(result, isNotNull);
-      expect(result!.year, 1955);
-    });
-
-    test('returns null for empty string', () {
-      expect(parseFlexibleDate(''), isNull);
-    });
-
-    test('returns null for whitespace-only string', () {
-      expect(parseFlexibleDate('   '), isNull);
-    });
-
-    test('returns null for completely invalid input', () {
-      expect(parseFlexibleDate('not-a-date'), isNull);
-    });
-
-    test('returns null for partial date', () {
-      expect(parseFlexibleDate('2024-06'), isNull);
-    });
-  });
-
-  // ---------------------------------------------------------------------------
   // loadXLSX
   // ---------------------------------------------------------------------------
   group('loadXLSX', () {

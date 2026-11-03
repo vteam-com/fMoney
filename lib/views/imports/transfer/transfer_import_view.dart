@@ -3,6 +3,7 @@ import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/transfer/transfer_import_fields_model.dart';
 import 'package:money/views/imports/transfer/transfer_import_panel.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
@@ -16,8 +17,8 @@ const int _snackDurationSeconds = 5;
 /// Shows dialog for importing transfer transactions.
 void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   inputData ??= ImportFieldsForTransfer(
-    accountFrom: Data().accounts.getMostRecentlySelectedAccount(),
-    accountTo: Data().accounts.getMostRecentlySelectedAccount(),
+    accountFrom: getMostRecentlySelectedAccount(),
+    accountTo: getMostRecentlySelectedAccount(),
     date: DateTime.now(),
     category: null,
     amount: 0,

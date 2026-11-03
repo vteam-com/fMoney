@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:money/data/models/data_access_model.dart';
+import 'package:money/data/models/data_source_model.dart';
 import 'package:money/data/storages/database_storage.dart';
 import 'package:money/helpers/file_systems_service.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -11,8 +13,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
-import 'package:money/widgets/widgets_domain/data_access_model.dart';
-import 'package:money/widgets/widgets_domain/data_source_model.dart';
 
 /// Represents money data io.
 class MoneyDataIO {

@@ -1,3 +1,4 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -20,19 +21,8 @@ class LoanPayments extends MoneyObjects<LoanPayment> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(LoanPayment.fromJson(row, data));
-    }
-  }
-
-  @override
-  void onAllDataLoaded() {}
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
+  LoanPayment instanceFromJson(MyJson json) {
+    return LoanPayment.fromJson(json, data);
   }
 }
 
@@ -61,7 +51,7 @@ List<LoanPayment> getAccountLoanPayments(Account account, DataAbstract data) {
   // include the bank transactions matching the Account Categories for Principal and Interest
   final List<Transaction> listOfTransactions = data
       .getTransactionsFlattenSplits(
-        whereClause: (dynamic t) => (t as Transaction).isMatchingAnyOfTheseCategories(categoriesToMatch),
+        whereClause: (DataObject t) => (t as Transaction).isMatchingAnyOfTheseCategories(categoriesToMatch),
       )
       .cast<Transaction>();
 

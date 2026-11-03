@@ -161,4 +161,45 @@ void main() {
     expect(formatDoubleUpToFiveZero(0.0000000123), equals('0'));
     expect(formatDoubleUpToFiveZero(0.0000123), equals('0.00001'));
   });
+
+  group('parseAmountFlexible', () {
+    test('parses plain and grouped numbers in both separator styles', () {
+      expect(parseAmountFlexible('1234.56'), 1234.56);
+      expect(parseAmountFlexible('1,234.56'), 1234.56);
+      expect(parseAmountFlexible('1.234,56'), 1234.56);
+      expect(parseAmountFlexible('1 234,56'), 1234.56);
+      expect(parseAmountFlexible('12,50'), 12.5);
+      expect(parseAmountFlexible('1,234'), 1234);
+      expect(parseAmountFlexible('1.234.567'), 1234.567);
+      expect(parseAmountFlexible('\$.99'), 0.99);
+    });
+
+    test('ignores currency symbols and codes', () {
+      expect(parseAmountFlexible('\$1,234.56'), 1234.56);
+      expect(parseAmountFlexible('1 234,56 €'), 1234.56);
+      expect(parseAmountFlexible('USD 12.00'), 12.0);
+    });
+
+    test('detects negative amounts', () {
+      expect(parseAmountFlexible('-12.00'), -12.0);
+      expect(parseAmountFlexible('\$-12.00'), -12.0);
+      expect(parseAmountFlexible('-\$12.00'), -12.0);
+      expect(parseAmountFlexible('12.00-'), -12.0);
+      expect(parseAmountFlexible('(12.00)'), -12.0);
+      expect(parseAmountFlexible('\$(1,234.56)'), -1234.56);
+      expect(parseAmountFlexible('123.45 DR'), -123.45);
+      expect(parseAmountFlexible('123.45DR'), -123.45);
+      expect(parseAmountFlexible('123.45 CR'), 123.45);
+    });
+
+    test('does not treat surrounding words as sign markers', () {
+      expect(parseAmountFlexible('Amount (USD): 12'), 12.0);
+      expect(parseAmountFlexible('ADDRESS 12'), 12.0);
+    });
+
+    test('returns null without a number', () {
+      expect(parseAmountFlexible(''), isNull);
+      expect(parseAmountFlexible('ABC'), isNull);
+    });
+  });
 }

@@ -20,19 +20,6 @@ class StockSplits extends MoneyObjects<StockSplit> {
     return StockSplit.fromJson(json, data);
   }
 
-  @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(instanceFromJson(row));
-    }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
   /// Returns all stock splits for a security, sorted by date.
   List<StockSplit> getStockSplitsForSecurity(Security s) {
     final List<StockSplit> list = <StockSplit>[];

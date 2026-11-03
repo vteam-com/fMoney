@@ -10,15 +10,7 @@ class OnlineAccounts extends MoneyObjects<OnlineAccount> {
   }
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(OnlineAccount.fromJson(row));
-    }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
+  OnlineAccount instanceFromJson(MyJson json) {
+    return OnlineAccount.fromJson(json);
   }
 }

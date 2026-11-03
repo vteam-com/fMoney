@@ -75,7 +75,10 @@ class _ColumnFilterPanelState extends State<ColumnFilterPanel> {
             });
           },
           child: Text(
-            '${areAllItemSelected() ? 'Unselect all' : 'Select all'} ${getItemCounts()}',
+            AppL10n.tr(
+              areAllItemSelected() ? AppTranslationKeys.unselectAllCount : AppTranslationKeys.selectAllCount,
+              params: <String, String>{'count': getItemCounts()},
+            ),
           ),
         ),
         Expanded(

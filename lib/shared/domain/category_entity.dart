@@ -1,8 +1,13 @@
 // Imports
+import 'dart:ui' show Color, TextAlign;
+
 import 'package:money/data/helpers/category_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
-import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/constants_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
+import 'package:money/helpers/color_helper.dart' show getColorFromString;
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/pairs_model.dart';
@@ -10,25 +15,12 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/color_picker.dart';
-import 'package:money/widgets/pickers/picker_category_type.dart';
-import 'package:money/widgets/pickers/token_text_widget.dart';
-import 'package:money/widgets/pure/circle_widget.dart';
-import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/pure/my_text_input_widget.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
 const int _levelStep = 1;
 const double _zeroDouble = 0.0;
-const double _colorSwatchSizeSmall = 12.0;
-const double _colorSwatchSizeLarge = 40.0;
+const Color _transparent = Color(0x00000000);
 
 /// Represents category.
 class Category extends DataObject {
@@ -77,7 +69,6 @@ class Category extends DataObject {
   /// Budget
   /// 6|Budget|money|0||0
   FieldMoney fieldBudget = FieldMoney(
-    name: SharedDomainStrings.domainString024,
     serializeName: SharedDomainStrings.domainString024,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldBudget.value,
     getValueForSerialization: (DataInterface instance) => (instance as Category).fieldBudget.value.asDouble(),
@@ -102,29 +93,11 @@ class Category extends DataObject {
     align: TextAlign.center,
     columnWidth: ColumnWidth.nano,
     defaultValue: '',
-    getValueForDisplay: (DataInterface instance) => (instance as Category).getColorWidget(),
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldColor.value,
     getValueForSerialization: (DataInterface instance) => (instance as Category).fieldColor.value,
     setValue: (DataInterface instance, dynamic value) {
       (instance as Category).fieldColor.value = value as String;
     },
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return MutateFieldColor(
-            colorAsHex: (instance as Category).fieldColor.value,
-            onEdited: (String newValue) {
-              instance.fieldColor.value = newValue;
-              instance.data!.notifyMutationChanged(
-                mutation: MutationType.changed,
-                moneyObject: instance,
-                recalculateBalances: false,
-              );
-              onEdited(true);
-            },
-          );
-        },
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByValue(
       (a as Category).getColorOrAncestorsColor().computeLuminance(),
       (b as Category).getColorOrAncestorsColor().computeLuminance(),
@@ -136,10 +109,8 @@ class Category extends DataObject {
   /// 3|Description|nvarchar(255)|0||0
   FieldString fieldDescription = FieldString(
     columnWidth: ColumnWidth.large,
-    name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldDescription.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldDescription.value,
     setValue: (DataInterface instance, dynamic value) =>
         (instance as Category).fieldDescription.value = value as String,
   );
@@ -175,10 +146,9 @@ class Category extends DataObject {
   /// 2|Name|nvarchar(80)|1||0
   FieldString fieldName = FieldString(
     columnWidth: ColumnWidth.largest,
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => TokenText((instance as Category).fieldName.value),
+    getValueForDisplay: (DataInterface instance) => (instance as Category).fieldName.value,
     getValueForSerialization: (DataInterface instance) => (instance as Category).fieldName.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Category).fieldName.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -190,10 +160,8 @@ class Category extends DataObject {
 
   /// 1|ParentId|INT|0||0
   FieldInt fieldParentId = FieldInt(
-    name: SharedDomainStrings.domainString102,
     serializeName: SharedDomainStrings.domainString102,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldParentId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Category).fieldParentId.value,
   );
 
   /// Running Balance
@@ -242,51 +210,7 @@ class Category extends DataObject {
     setValue: (DataInterface instance, dynamic value) {
       (instance as Category).fieldType.value = CategoryTypeExtension.fromInt(value as int);
     },
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          final Category i = instance as Category;
-          return pickerCategoryType(
-            itemSelected: i.fieldType.value,
-            onSelected: (CategoryType selectedType) {
-              i.fieldType.value = selectedType;
-              onEdited(true);
-            },
-          );
-        },
   );
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    String top = '';
-    String bottom = '';
-
-    if (this.fieldParentId.value == _unsetId) {
-      top = this.fieldName.value;
-      bottom = '';
-    } else {
-      top = this.leafName;
-      bottom = getName(parentCategory);
-    }
-
-    return MyListItemAsCard(
-      leftTopAsString: top,
-      leftBottomAsString: bottom,
-      rightTopAsWidget: WidgetFromData(
-        amountModel: fieldSum.value,
-        size: DataWidgetSize.title,
-      ),
-      rightBottomAsWidget: Row(
-        children: <Widget>[
-          Text(getTypeAsText()),
-          gapMedium(),
-          getColorWidget(),
-        ],
-      ),
-    );
-  }
 
   // Fields for this instance
   @override
@@ -370,42 +294,13 @@ class Category extends DataObject {
     }
 
     // reach the top
-    return Pair<Color, int>(Colors.transparent, _zeroInt);
-  }
-
-  /// Returns a widget showing color swatch and category name.
-  Widget getColorAndNameWidget() {
-    return Row(
-      children: <Widget>[
-        getColorWidget(),
-        gapMedium(),
-        Expanded(child: getNameAsWidget()),
-      ],
-    );
+    return Pair<Color, int>(_transparent, _zeroInt);
   }
 
   /// Returns this category's color or inherits from ancestors.
   Color getColorOrAncestorsColor() {
     final Pair<Color, int> pair = getColorAndLevel(_zeroInt);
     return pair.first;
-  }
-
-  /// Returns a color swatch widget with optional level indicator.
-  Widget getColorWidget() {
-    final Color fillColor = getColorOrAncestorsColor();
-    final Color textColor = fillColor.a == _zeroInt ? Colors.grey : contrastColor(fillColor);
-
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        MyCircle(colorFill: fillColor, size: _colorSwatchSizeSmall),
-        if (this.fieldColor.value.isNotEmpty && this.fieldLevel.getValueForDisplay(this) != '1')
-          Text(
-            '#',
-            style: TextStyle(fontSize: SizeForText.small, color: textColor),
-          ),
-      ],
-    );
   }
 
   /// Populates [list] with all descendant categories recursively.
@@ -422,11 +317,6 @@ class Category extends DataObject {
   /// Returns the category name; empty string if null.
   static String getName(Category? instance) {
     return instance == null ? '' : instance.fieldName.value;
-  }
-
-  /// Returns the category name as a widget.
-  Widget getNameAsWidget() {
-    return TokenText(this.fieldName.value);
   }
 
   /// Returns the category type as a display string.
@@ -478,64 +368,5 @@ class Category extends DataObject {
         recalculateBalances: false,
       );
     }
-  }
-}
-
-/// A stateful widget for mutate field color.
-class MutateFieldColor extends StatefulWidget {
-  const MutateFieldColor({
-    required this.colorAsHex,
-    required this.onEdited,
-    super.key,
-  });
-
-  final String colorAsHex;
-  final void Function(String) onEdited;
-
-  @override
-  State<MutateFieldColor> createState() => _MutateFieldColorState();
-}
-
-class _MutateFieldColorState extends State<MutateFieldColor> {
-  late TextEditingController controllerForText = TextEditingController(
-    text: widget.colorAsHex,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    late Color color = getColorFromString(controllerForText.text);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          child: MyTextInput(
-            controller: controllerForText,
-            onChanged: (String colorText) {
-              setState(() {
-                color = getColorFromString(colorText);
-                widget.onEdited(controllerForText.text);
-              });
-            },
-          ),
-        ),
-        gapLarge(),
-        MyCircle(colorFill: color, colorBorder: Colors.grey, size: _colorSwatchSizeLarge),
-        gapLarge(),
-        Expanded(
-          child: ColorPicker(
-            color: color,
-            onColorChanged: (Color color) {
-              setState(() {
-                controllerForText.text = colorToHexString(
-                  color,
-                  includeAlpha: false,
-                );
-                widget.onEdited(controllerForText.text);
-              });
-            },
-          ),
-        ),
-      ],
-    );
   }
 }

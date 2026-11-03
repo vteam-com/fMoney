@@ -9,14 +9,11 @@ Widget pickerInvestmentType({
   required InvestmentType itemSelected,
   required void Function(InvestmentType) onSelected,
 }) {
-  final String selectedName = getInvestmentTypeText(itemSelected);
-
-  return PickerEditBox(
+  return pickerEnum<InvestmentType>(
     title: AppL10n.tr(AppTranslationKeys.investmentType),
-    items: getInvestmentTypeNames(),
-    initialValue: selectedName,
-    onChanged: (String newSelection) {
-      onSelected(getInvestmentTypeFromText(newSelection));
-    },
+    values: InvestmentType.values,
+    selected: itemSelected,
+    toText: getInvestmentTypeText,
+    onSelected: onSelected,
   );
 }

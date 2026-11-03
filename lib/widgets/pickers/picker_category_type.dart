@@ -12,12 +12,11 @@ Widget pickerCategoryType({
   required CategoryType itemSelected,
   required void Function(CategoryType) onSelected,
 }) {
-  return PickerEditBox(
+  return pickerEnum<CategoryType>(
     title: AppL10n.tr(AppTranslationKeys.category),
-    items: CategoryTypeExtension.getNames(),
-    initialValue: itemSelected.asString(),
-    onChanged: (String newSelection) {
-      onSelected(CategoryTypeExtension.fromName(newSelection));
-    },
+    values: CategoryTypeExtension.valuesInDisplayOrder,
+    selected: itemSelected,
+    toText: (CategoryType type) => type.asString(),
+    onSelected: onSelected,
   );
 }

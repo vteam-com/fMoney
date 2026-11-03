@@ -317,8 +317,8 @@
       }
     }
   },
-  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.",
-  "importFromQfxQifXlsxCsvFile": "From QFX|QIF|XLSX|CSV|PDF file",
+  "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.",
+  "importFromQfxQifXlsxCsvFile": "From QFX|OFX|QIF|XLSX|CSV|PDF file",
   "importNoMatchingAccountsWithId": "Import - No matching \"{fileType}\" accounts with ID \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {
@@ -696,6 +696,14 @@
       }
     }
   },
+  "selectAllCount": "Select all {count}",
+  "@selectAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "selectARentalPropertyToSeeItsPL": "Select a Rental property to see its P&L",
   "selectCategory": "Select a category",
   "selectColumn": "Select column",
@@ -870,6 +878,14 @@
   "trend": "Trend",
   "units": "Units",
   "unknown": "Unknown",
+  "unselectAllCount": "Unselect all {count}",
+  "@unselectAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "useDemoData": "Use Demo Data",
   "value": "Value",
   "versionInformation": "Version Information",
@@ -889,6 +905,8 @@
   "@year": {
     "description": "REVIEWED"
   },
+  "yearsUnit": "years",
+  "yearUnit": "year",
   "zoom": "Zoom",
   "@zoom": {
     "description": "REVIEWED"

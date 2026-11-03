@@ -1,6 +1,7 @@
 // ignore: fcheck_one_class_per_file
 import 'package:flutter/material.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
+import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -34,16 +35,9 @@ bool _hasInvestmentEntryHints(List<ImportEntry> entries) {
   return false;
 }
 
-/// Returns true when import metadata indicates an investment-oriented import.
-bool _isInvestmentTypeHint(AccountType? accountType) {
-  return accountType == AccountType.investment ||
-      accountType == AccountType.retirement ||
-      accountType == AccountType.moneyMarket;
-}
-
 /// Returns true if account picker should be limited to investment-capable accounts.
 bool _shouldFilterToInvestmentAccounts(ImportData importData) {
-  if (_isInvestmentTypeHint(importData.accountType)) {
+  if (isInvestmentAccountType(importData.accountType)) {
     return true;
   }
   return _hasInvestmentEntryHints(importData.entries);

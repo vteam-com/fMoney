@@ -1,24 +1,20 @@
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/locale_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/pickers/picker_account_type.dart';
-import 'package:money/widgets/pickers/token_text_widget.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// Accounts like Banks
 class Account extends DataObject {
@@ -65,7 +61,6 @@ class Account extends DataObject {
     name: 'Account ID',
     serializeName: SharedDomainStrings.domainString013,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldAccountId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldAccountId.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldAccountId.value = value as String,
   );
 
@@ -138,14 +133,11 @@ class Account extends DataObject {
   /// Currency
   /// 7|Currency|nchar(3)|0||0
   FieldString fieldCurrency = FieldString(
-    name: SharedDomainStrings.domainString042,
     serializeName: SharedDomainStrings.domainString042,
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => buildCurrencyWidget(
-      (instance as Account).getAccountCurrencyAsText(),
-    ),
+    getValueForDisplay: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
     getValueForSerialization: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldCurrency.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -158,11 +150,9 @@ class Account extends DataObject {
   // Description
   // 4|Description|nvarchar(255)|0||0
   FieldString fieldDescription = FieldString(
-    name: SharedDomainStrings.domainString046,
     serializeName: SharedDomainStrings.domainString046,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldDescription.value = value as String,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldDescription.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldDescription.value,
   );
 
   /// Flags
@@ -171,7 +161,6 @@ class Account extends DataObject {
     serializeName: SharedDomainStrings.domainString055,
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldFlags.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldFlags.value,
   );
 
   // Id
@@ -202,9 +191,6 @@ class Account extends DataObject {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as Account).fieldLastBalance.value,
-    ),
   );
 
   /// LastSync Date & Time
@@ -220,11 +206,10 @@ class Account extends DataObject {
   // Name
   // 3|Name|nvarchar(80)|1||0
   FieldString fieldName = FieldString(
-    name: SharedDomainStrings.domainString088,
     serializeName: SharedDomainStrings.domainString088,
     columnWidth: ColumnWidth.large,
     type: FieldType.widget,
-    getValueForDisplay: (DataInterface instance) => TokenText((instance as Account).fieldName.value),
+    getValueForDisplay: (DataInterface instance) => (instance as Account).fieldName.value,
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldName.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldName.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
@@ -237,10 +222,8 @@ class Account extends DataObject {
   // OFX Account Id
   // 2|OfxAccountId|nvarchar(50)|0||0
   FieldString fieldOfxAccountId = FieldString(
-    name: SharedDomainStrings.domainString095,
     serializeName: SharedDomainStrings.domainString095,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOfxAccountId.value,
     setValue: (DataInterface instance, dynamic value) =>
         (instance as Account).fieldOfxAccountId.value = value as String,
   );
@@ -248,7 +231,6 @@ class Account extends DataObject {
   /// OnlineAccount
   /// 8|OnlineAccount|INT|0||0
   FieldInt fieldOnlineAccount = FieldInt(
-    name: SharedDomainStrings.domainString098,
     serializeName: SharedDomainStrings.domainString098,
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldOnlineAccount.value,
   );
@@ -291,24 +273,10 @@ class Account extends DataObject {
     type: FieldType.text,
     align: TextAlign.center,
     columnWidth: ColumnWidth.small,
-    name: SharedDomainStrings.domainString146,
     serializeName: SharedDomainStrings.domainString146,
     defaultValue: AccountType.checking,
     getValueForDisplay: (DataInterface instance) => getTypeAsText((instance as Account).fieldType.value),
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldType.value.index,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          return pickerAccountType(
-            itemSelected: (instance as Account).fieldType.value,
-            onSelected: (AccountType newSelection) {
-              instance.fieldType.value = newSelection;
-              onEdited(true); // notify container
-            },
-          );
-        },
     setValue: (DataInterface instance, dynamic value) {
       (instance as Account).fieldType.value = AccountType.values[value as int];
     },
@@ -331,51 +299,14 @@ class Account extends DataObject {
   /// WebSite
   /// 9|WebSite|nvarchar(512)|0||0
   FieldString fieldWebSite = FieldString(
-    name: SharedDomainStrings.domainString152,
     serializeName: SharedDomainStrings.domainString152,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldWebSite.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldWebSite.value,
   );
 
   Map</*year */ int, /*balance*/ double> maxBalancePerYears = <int, double>{};
   Map</*year */ int, /*balance*/ double> minBalancePerYears = <int, double>{};
   // cache the currency ratio
   double? ratio;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    Widget? originalCurrencyAndValue;
-
-    if (fieldCurrency.value == Constants.defaultCurrency) {
-      originalCurrencyAndValue = buildCurrencyWidget(
-        fieldCurrency.value,
-      );
-    } else {
-      final double ratioCurrency = getCurrencyRatio();
-      originalCurrencyAndValue = Tooltip(
-        message: ratioCurrency.toString(),
-        child: Row(
-          children: <Widget>[
-            Text(
-              getAmountAsStringUsingCurrency(
-                balance / ratioCurrency,
-                iso4217code: fieldCurrency.value,
-              ),
-            ),
-            const SizedBox(width: SizeForPadding.small),
-            buildCurrencyWidget(fieldCurrency.value),
-          ],
-        ),
-      );
-    }
-
-    return MyListItemAsCard(
-      leftTopAsString: fieldName.value,
-      leftBottomAsString: getTypeAsText(fieldType.value),
-      rightTopAsString: getAmountAsStringUsingCurrency(balance),
-      rightBottomAsWidget: originalCurrencyAndValue,
-    );
-  }
 
   // Fields for this instance
   @override
@@ -440,11 +371,6 @@ class Account extends DataObject {
     return getCurrencyAsString(fieldCurrency.value);
   }
 
-  /// Returns a widget displaying the account currency.
-  Widget getAccountCurrencyAsWidget() {
-    return buildCurrencyWidget(getAccountCurrencyAsText());
-  }
-
   /// Returns the currency ratio for the account's currency.
   double getCurrencyRatio() {
     return DataObject.getCurrencyRatio(fieldCurrency.value);
@@ -476,19 +402,7 @@ class Account extends DataObject {
   }
 
   /// True if the account is an investment account.
-  bool isInvestmentAccount() {
-    return fieldType.value == AccountType.investment ||
-        fieldType.value == AccountType.retirement ||
-        fieldType.value == AccountType.moneyMarket;
-  }
-
-  /// True if the account matches the user's filter choices (including closed).
-  bool get isMatchingUserChoiceIncludingClosedAccount {
-    if (PreferenceController.to.includeClosedAccounts) {
-      return true;
-    }
-    return isOpen;
-  }
+  bool isInvestmentAccount() => isInvestmentAccountType(fieldType.value);
 
   /// True if the account is open.
   bool get isOpen {

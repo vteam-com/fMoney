@@ -1,31 +1,17 @@
 // ignore: fcheck_one_class_per_file
 
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
+import 'package:money/data/models/data_interface.dart';
 import 'package:money/data/models/field_filter_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_logger_helper.dart';
-import 'package:money/helpers/app_router_service.dart';
-import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/widgets/pure/display_date.dart';
-import 'package:money/widgets/pure/quantity_widget.dart';
-import 'package:money/widgets/pure/scale_down_widget.dart';
-import 'package:money/widgets/pure/theme_custom_model.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/widget_from_data.dart';
-
-const double _percentZeroOpacity = 0.4;
-const double _percentNonZeroOpacity = 1.0;
-const double _percentSymbolOpacity = 0.8;
-const int _percentValueScale = 100;
-const int _percentDecimalPlaces = 3;
-const double _percentSymbolFontSize = 9;
 
 /// Default callback that returns an empty string.
 dynamic defaultCallbackValue(DataInterface _) => '';
@@ -70,7 +56,6 @@ class Field<T> {
     // ignore: avoid_init_to_null
     this.getValueForReading = null,
     this.getValueForSerialization = defaultCallbackValue,
-    this.getEditWidget,
     this.setValue,
     this.sort,
   }) {
@@ -87,23 +72,15 @@ class Field<T> {
     ///----------------------------------------------
     /// How to get the value of this field
     if (getValueForDisplay == defaultCallbackValue) {
-      switch (this.type) {
-        case FieldType.numeric:
-        case FieldType.quantity:
-          getValueForDisplay = (DataInterface _) => value as num;
-          getValueForSerialization = getValueForDisplay;
-        case FieldType.text:
-          getValueForDisplay = (DataInterface _) => value.toString();
-        case FieldType.amount:
-          getValueForDisplay = (DataInterface _) => WidgetFromData(amountModel: value as AmountModel);
-        case FieldType.date:
-          getValueForDisplay = (DataInterface _) => dateToString(value as DateTime?);
-        default:
-          AppLogger.warning(
-            module: 'field_model',
-            operation: 'FieldDefinition',
-            message: 'Unmatched FieldType: $type',
-          );
+      final dynamic Function(dynamic)? defaultDisplay = type.defaultDisplayConverter;
+      if (defaultDisplay == null) {
+        AppLogger.warning(
+          module: 'field_model',
+          operation: 'FieldDefinition',
+          message: 'Unmatched FieldType: $type',
+        );
+      } else {
+        getValueForDisplay = (DataInterface _) => defaultDisplay(value);
       }
     }
 
@@ -119,61 +96,11 @@ class Field<T> {
     /// How to Sort on this field
     if (sort == null) {
       // if no override on sorting fallback to type sorting
-      switch (this.type) {
-        case FieldType.numeric:
-        case FieldType.numericShorthand:
-        case FieldType.quantity:
-        case FieldType.amountShorthand:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByValue(
-                (getValueForDisplay(a) ?? 0) as num,
-                (getValueForDisplay(b) ?? 0) as num,
-                ascending,
-              );
-        case FieldType.amount:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByAmount(
-                getValueForDisplay(a) as AmountModel,
-                getValueForDisplay(b) as AmountModel,
-                ascending,
-              );
-        case FieldType.date:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByDate(
-                getValueForDisplay(a) as DateTime?,
-                getValueForDisplay(b) as DateTime?,
-                ascending,
-              );
-        case FieldType.text:
-        default:
-          sort =
-              (
-                DataInterface a,
-                DataInterface b,
-                bool ascending,
-              ) => sortByString(
-                getValueForDisplay(a).toString(),
-                getValueForDisplay(b).toString(),
-                ascending,
-              );
-      }
+      final FieldType sortType = type;
+      sort = (DataInterface a, DataInterface b, bool ascending) =>
+          sortType.compareDisplayValues(getValueForDisplay(a), getValueForDisplay(b), ascending);
     }
   }
-
-  /// Customize/override the edit widget
-  Widget Function(DataInterface, void Function(bool /* wasModified */) onEdited)? getEditWidget;
 
   /// override the value edited
   dynamic Function(DataInterface, dynamic)? setValue;
@@ -219,63 +146,11 @@ class Field<T> {
     return T.toString();
   }
 
+  /// Returns true when [other] was declared with the same name and serialize name as this field.
+  bool isSameDefinition(Field<dynamic> other) => name == other.name && serializeName == other.serializeName;
+
   /// Returns a string representation for [value] based on this field's type.
-  String getString(dynamic value) {
-    switch (type) {
-      case FieldType.numeric:
-        return value.toString();
-      case FieldType.numericShorthand:
-        return getAmountAsShorthandText(value as num);
-      case FieldType.quantity:
-      case FieldType.percentage:
-        return formatDoubleUpToFiveZero(value as double);
-      case FieldType.amount:
-        if (type is AmountModel) {
-          return (value as AmountModel).toString();
-        }
-        if (value is double) {
-          return getAmountAsStringUsingCurrency(value);
-        }
-        return value.toString();
-      case FieldType.amountShorthand:
-        return getAmountAsShorthandText(value as double);
-      case FieldType.widget:
-        return value as String;
-      case FieldType.text:
-      default:
-        return value.toString();
-    }
-  }
-
-  /// Returns the field value rendered as a widget for the given [instance].
-  Widget getValueAsWidget(DataInterface instance) {
-    final dynamic value = this.getValueForDisplay(instance);
-    if (value is Widget) {
-      return value;
-    }
-
-    return buildWidgetFromTypeAndValue(
-      value: value,
-      type: type,
-      align: align,
-      fixedFont: fixedFont,
-    );
-  }
-
-  /// Builds a widget suitable for detail view display for [value].
-  Widget getValueWidgetForDetailView(dynamic value) {
-    if (type == FieldType.widget) {
-      return value as Widget;
-    } else {
-      return SelectableText(
-        textAlign: TextAlign.right,
-        getString(value),
-        maxLines: 1,
-        // overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      );
-    }
-  }
+  String getString(dynamic value) => type.formatValue(value);
 
   /// Sets the amount model value for money fields.
   void setAmount(dynamic newValue) {
@@ -305,7 +180,6 @@ class FieldDate extends Field<DateTime?> {
     super.useAsDetailPanels,
     super.sort,
     super.columnWidth = ColumnWidth.tiny,
-    super.getEditWidget,
   }) : super(
          defaultValue: null,
          align: TextAlign.left,
@@ -367,7 +241,6 @@ class FieldInt extends Field<int> {
     super.useAsDetailPanels,
     super.defaultValue = -1,
     super.setValue,
-    super.getEditWidget,
     super.sort,
     super.align = TextAlign.right,
     super.type = FieldType.numeric,
@@ -424,7 +297,6 @@ class FieldString extends Field<String> {
     super.useAsDetailPanels = defaultCallbackValueTrue,
     super.align = TextAlign.left,
     super.fixedFont = false,
-    super.getEditWidget,
     super.setValue,
     super.type = FieldType.text,
     super.footer = FooterType.count,
@@ -487,38 +359,6 @@ class Fields<T> {
   /// Returns the field definition with the given [name].
   Field<dynamic> getFieldByName(String name) {
     return definitions.firstWhere((Field<dynamic> field) => field.name == name);
-  }
-
-  /// Used in table view
-  static Widget getRowOfColumns(
-    FieldDefinitions definitions,
-    DataInterface objectInstance,
-  ) {
-    final List<Widget> cells = <Widget>[];
-
-    for (final Field<dynamic> fieldDefinition in definitions) {
-      if (fieldDefinition.columnWidth != ColumnWidth.hidden) {
-        final dynamic value = fieldDefinition.getValueForDisplay(
-          objectInstance,
-        );
-        cells.add(
-          Expanded(
-            flex: fieldDefinition.columnWidth.index,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(SizeForPadding.nano, 0, SizeForPadding.nano, 0),
-              child: buildWidgetFromTypeAndValue(
-                value: value,
-                type: fieldDefinition.type,
-                align: fieldDefinition.align,
-                fixedFont: fieldDefinition.fixedFont,
-              ),
-            ),
-          ),
-        );
-      }
-    }
-
-    return Row(children: cells);
   }
 
   /// Returns true if this field definition list has no entries.
@@ -629,7 +469,14 @@ class Fields<T> {
           return fieldValue.toString();
         }
 
-      default:
+      case FieldType.text:
+      case FieldType.numeric:
+      case FieldType.numericShorthand:
+      case FieldType.percentage:
+      case FieldType.amount:
+      case FieldType.amountShorthand:
+      case FieldType.dateRange:
+      case FieldType.toggle:
         final dynamic fieldValue = fieldDefinition.getValueForDisplay(
           objectInstance,
         );
@@ -677,200 +524,4 @@ Field<dynamic>? getFieldDefinitionByName(
     }
   }
   return null;
-}
-
-/// Builds a display widget for a field [value] based on [type].
-Widget buildWidgetFromTypeAndValue({
-  required dynamic value,
-  required FieldType type,
-  required TextAlign align,
-  required bool fixedFont,
-  String currency = Constants.defaultCurrency,
-}) {
-  keepUnused(currency);
-  switch (type) {
-    // Numeric
-    case FieldType.numeric:
-      if (value is String) {
-        return buildFieldWidgetForText(
-          text: value,
-          align: align,
-          fixedFont: true,
-        );
-      }
-      return buildFieldWidgetForNumber(
-        value: value as num,
-        shorthand: false,
-        align: align,
-      );
-
-    // Numeric shorthand  12K
-    case FieldType.numericShorthand:
-      return buildFieldWidgetForNumber(
-        value: value as num,
-        shorthand: true,
-        align: align,
-      );
-
-    // Quantity
-    case FieldType.quantity:
-      return Row(
-        children: <Widget>[
-          Expanded(
-            child: (value is num)
-                ? QuantityWidget(quantity: value.toDouble(), align: align)
-                : Text(value.toString(), textAlign: align),
-          ),
-        ],
-      );
-
-    case FieldType.percentage:
-      return buildFieldWidgetForPercentage(value: value as double);
-
-    // Amount
-    case FieldType.amount:
-      if (value is String) {
-        return buildFieldWidgetForText(
-          text: value,
-          align: align,
-          fixedFont: true,
-        );
-      }
-      if (value is AmountModel) {
-        return WidgetFromData(amountModel: value);
-      }
-      return WidgetFromData(amountModel: AmountModel(amount: value as double));
-
-    // Amount short hand
-    case FieldType.amountShorthand:
-      return buildFieldWidgetForAmount(
-        value: value,
-        shorthand: true,
-        align: align,
-      );
-
-    // Widget
-    case FieldType.widget:
-      return value as Widget;
-
-    // Date
-    case FieldType.date:
-      if (value is String) {
-        return buildFieldWidgetForText(
-          text: value,
-          align: align,
-          fixedFont: true,
-        );
-      }
-      // Adapt to available space
-      return scaleDown(
-        DisplayDate(date: value as DateTime?, align: align),
-        Alignment.centerLeft,
-      );
-
-    case FieldType.text:
-    default:
-      return buildFieldWidgetForText(
-        text: value.toString(),
-        align: align,
-        fixedFont: fixedFont,
-      );
-  }
-}
-
-/// Builds an amount widget, optionally using shorthand formatting.
-Widget buildFieldWidgetForAmount({
-  dynamic value = 0,
-  String currency = Constants.defaultCurrency,
-  bool shorthand = false,
-  TextAlign align = TextAlign.right,
-}) {
-  return scaleDown(
-    Text(
-      shorthand
-          ? getAmountAsShorthandText(value as num)
-          : getAmountAsStringUsingCurrency(
-              value,
-              iso4217code: currency,
-            ),
-      textAlign: align,
-      style: TextStyle(
-        fontFamily: SharedStrings.fontRobotoMono,
-        color: AppRouter.context == null
-            ? null
-            : Theme.of(AppRouter.context!).extension<MoneyThemeData>()?.getTextColorToUse(value as num),
-      ),
-    ),
-    textAlignToAlignment(align),
-  );
-}
-
-/// Builds a numeric widget for [value], optionally using shorthand formatting.
-Widget buildFieldWidgetForNumber({
-  num value = 0,
-  bool shorthand = false,
-  TextAlign align = TextAlign.right,
-}) {
-  return scaleDown(
-    Text(
-      shorthand
-          ? (value is double ? getAmountAsShorthandText(value) : getNumberShorthandText(value))
-          : value.toString(),
-      textAlign: align,
-      style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
-    ),
-    textAlignToAlignment(align),
-  );
-}
-
-/// Builds a percentage widget using an opacity style for zero vs non-zero values.
-Widget buildFieldWidgetForPercentage({double value = 0}) {
-  // 0.000 to 100.000%
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: <Widget>[
-      Opacity(
-        opacity: value == 0 ? _percentZeroOpacity : _percentNonZeroOpacity,
-        child: Text(
-          (value * _percentValueScale).toStringAsFixed(_percentDecimalPlaces),
-          textAlign: TextAlign.right,
-          style: const TextStyle(fontFamily: SharedStrings.fontRobotoMono),
-        ),
-      ),
-      const Opacity(
-        opacity: _percentSymbolOpacity,
-        child: Text(' %', style: TextStyle(fontSize: _percentSymbolFontSize)),
-      ),
-    ],
-  );
-}
-
-/// Builds a text widget using either fixed-width or proportional font.
-Widget buildFieldWidgetForText({
-  String text = '',
-  TextAlign align = TextAlign.left,
-  bool fixedFont = false,
-}) {
-  return Text(
-    text,
-    textAlign: align,
-    overflow: TextOverflow.ellipsis, // Clip with ellipsis
-    maxLines: 1, // Restrict to single line,
-    style: TextStyle(
-      fontFamily: fixedFont ? SharedStrings.fontRobotoMono : SharedStrings.fontRobotoFlex,
-    ),
-  );
-}
-
-/// Converts a [TextAlign] to a corresponding [Alignment].
-Alignment textAlignToAlignment(TextAlign textAlign) {
-  switch (textAlign) {
-    case TextAlign.left:
-      return Alignment.centerLeft;
-    case TextAlign.center:
-      return Alignment.center;
-    case TextAlign.right:
-    default:
-      return Alignment.centerRight;
-  }
 }

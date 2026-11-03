@@ -12,6 +12,19 @@ enum CategoryType {
   recurringExpense, // 7 so you can clearly mark bills that are repeatable.
 }
 
+/// Display label of each category type, in picker order; the single source for
+/// [CategoryTypeExtension.asString] and [CategoryTypeExtension.valuesInDisplayOrder].
+const Map<CategoryType, String> _categoryTypeLabels = <CategoryType, String>{
+  CategoryType.income: SharedStrings.categoryTypeIncomeLabel,
+  CategoryType.expense: SharedStrings.categoryTypeExpenseLabel,
+  CategoryType.recurringExpense: SharedStrings.categoryTypeExpenseRecurringLabel,
+  CategoryType.saving: SharedStrings.categoryTypeSavingLabel,
+  CategoryType.reserved: SharedStrings.categoryTypeReservedLabel,
+  CategoryType.transfer: SharedStrings.categoryTypeTransferLabel,
+  CategoryType.investment: SharedStrings.categoryTypeInvestmentLabel,
+  CategoryType.none: SharedStrings.categoryTypeNoneLabel,
+};
+
 extension CategoryTypeExtension on CategoryType {
   /// Returns CategoryType from integer index, with bounds checking.
   static CategoryType fromInt(int index) {
@@ -21,62 +34,9 @@ extension CategoryTypeExtension on CategoryType {
     return CategoryType.none;
   }
 
-  /// Returns CategoryType from string name, case-insensitive.
-  static CategoryType fromName(String categoryTypeName) {
-    switch (categoryTypeName.toLowerCase()) {
-      case SharedStrings.categoryTypeIncomeToken:
-        return CategoryType.income;
-      case SharedStrings.categoryTypeExpenseToken:
-        return CategoryType.expense;
-      case SharedStrings.categoryTypeRecurringExpenseToken:
-      case SharedStrings.categoryTypeExpenseRecurringToken:
-        return CategoryType.recurringExpense;
-      case SharedStrings.categoryTypeSavingToken:
-        return CategoryType.saving;
-      case SharedStrings.categoryTypeReservedToken:
-        return CategoryType.reserved;
-      case SharedStrings.categoryTypeTransferToken:
-        return CategoryType.transfer;
-      case SharedStrings.categoryTypeInvestmentToken:
-        return CategoryType.investment;
-      default:
-        return CategoryType.none;
-    }
-  }
-
-  /// Returns list of all category type names as strings.
-  static List<String> getNames() {
-    return <String>[
-      CategoryType.income.asString(),
-      CategoryType.expense.asString(),
-      CategoryType.recurringExpense.asString(),
-      CategoryType.saving.asString(),
-      CategoryType.reserved.asString(),
-      CategoryType.transfer.asString(),
-      CategoryType.investment.asString(),
-      CategoryType.none.asString(),
-    ];
-  }
+  /// Category types in the order they are offered to the user.
+  static List<CategoryType> get valuesInDisplayOrder => _categoryTypeLabels.keys.toList();
 
   /// Returns the category type as a formatted string.
-  String asString() {
-    switch (this) {
-      case CategoryType.income:
-        return SharedStrings.categoryTypeIncomeLabel;
-      case CategoryType.expense:
-        return SharedStrings.categoryTypeExpenseLabel;
-      case CategoryType.recurringExpense:
-        return SharedStrings.categoryTypeExpenseRecurringLabel;
-      case CategoryType.saving:
-        return SharedStrings.categoryTypeSavingLabel;
-      case CategoryType.reserved:
-        return SharedStrings.categoryTypeReservedLabel;
-      case CategoryType.transfer:
-        return SharedStrings.categoryTypeTransferLabel;
-      case CategoryType.investment:
-        return SharedStrings.categoryTypeInvestmentLabel;
-      case CategoryType.none:
-        return SharedStrings.categoryTypeNoneLabel;
-    }
-  }
+  String asString() => _categoryTypeLabels[this]!;
 }

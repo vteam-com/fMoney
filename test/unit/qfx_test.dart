@@ -25,6 +25,18 @@ void main() {
       expect(list[1].amount, -2373.71);
       expect(list[1].memo, 'Thank You for Paying');
     });
+
+    test('skips transactions with a malformed amount', () {
+      final String ofxString = getStringDelimitedStartEndTokens(
+        getQfxSample().replaceFirst('<TRNAMT>2.09', '<TRNAMT>garbage'),
+        '<OFX>',
+        '</OFX>',
+      );
+
+      final List<ImportEntry> list = getTransactionFromOFX(ofxString);
+      expect(list.length, 1);
+      expect(list[0].amount, -2373.71);
+    });
   });
 }
 

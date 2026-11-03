@@ -7,7 +7,7 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
-import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/simulation/data_simulator_callbacks_helper.dart';
 import 'package:money/shared/simulation/data_simulator_constants.dart';
 
 /// Callback for creating an investment transaction entry.
@@ -19,37 +19,6 @@ typedef AddInvestmentCallback = void Function(
   double quantity,
   double tradePrice,
 );
-
-/// Callback for creating account-linked transaction entries.
-typedef AddTransactionGenericCallback = Transaction Function({
-  required Account account,
-  required DateTime date,
-  int payeeId,
-  int categoryId,
-  double amount,
-  String memo,
-});
-
-/// Callback for creating a transfer transaction pair.
-typedef CreateTransferGenericCallback = Transaction Function({
-  required Account accountSource,
-  required Account accountDestination,
-  required DateTime date,
-  required double amount,
-  required String memo,
-  int categoryId,
-});
-
-/// Callback to generate recurring dates.
-typedef GenerateDatesCallback = List<DateTime> Function({
-  required int yearInThePast,
-  DateTime? stopDate,
-  required int howManyPerYear,
-  required int dayOfTheMonth,
-});
-
-/// Callback to compute shifted dates by years.
-typedef ShiftedDateCallback = DateTime Function(int yearsToShift, int month, int day);
 
 /// Generates investment, stock, and loan domain data.
 class DataSimulatorInvestmentsDomain {
@@ -176,10 +145,10 @@ class DataSimulatorInvestmentsDomain {
 
   /// Generates sample loan transfer and repayment activity.
   void generateLoans({
-    required CreateTransferGenericCallback createTransferTransaction,
+    required CreateTransferTransactionCallback createTransferTransaction,
     required ShiftedDateCallback getDateShiftedByYears,
-    required GenerateDatesCallback generateListOfDates,
-    required AddTransactionGenericCallback addTransaction,
+    required GenerateListOfDatesCallback generateListOfDates,
+    required AddTransactionCallback addTransaction,
   }) {
     double loanAmount = DataSimulatorConstants.loanInitialAmount;
     final double loanRate = DataSimulatorConstants.loanRatePercent / DataSimulatorConstants.inflationPercentDivisor;

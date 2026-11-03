@@ -41,7 +41,7 @@ class Transactions extends MoneyObjects<Transaction> {
     runningBalance = _zeroDouble;
 
     for (final MyJson row in rows) {
-      final Transaction t = Transaction.fromJSon(row, runningBalance);
+      final Transaction t = Transaction.fromJSon(row, runningBalance, data: data);
       runningBalance += t.balance;
       appendMoneyObject(t);
     }
@@ -151,11 +151,6 @@ class Transactions extends MoneyObjects<Transaction> {
     // make sure that we have valid min max dates
     dateRangeIncludingClosedAccount.ensureNoNullDates();
     dateRangeActiveAccount.ensureNoNullDates();
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Checks all transactions for dangling transfers and populates collections.

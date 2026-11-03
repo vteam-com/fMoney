@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/dialogs/mutate_transaction_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_single_selection_widget.dart';
 import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const double _scrollRestoreTolerance = 0.5;
 
@@ -82,6 +84,7 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
       sortAscending: _sortAscending,
       selectedId: widget.selectionController.firstSelectedId,
       listController: widget.listController,
+      widgetBuilders: entityWidgetBuilders,
 
       // Field & Columns
       displayAsColumns: true,
@@ -92,12 +95,8 @@ class _ListViewTransactionsState extends State<ListViewTransactions> {
       },
       onColumnHeaderTap: (int index) {
         setState(() {
-          if (_sortBy == index) {
-            // same column tap/click again, change the sort order
-            _sortAscending = !_sortAscending;
-          } else {
-            _sortBy = index;
-          }
+          _sortAscending = sortAscendingAfterColumnTap(index, _sortBy, _sortAscending);
+          _sortBy = index;
           widget.onUserChoiceChanged?.call(
             _sortBy,
             _sortAscending,

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/data/models/field_model.dart';
 
 /// Width of the drag-handle zone between resizable columns, in logical pixels.
 const double columnResizeHandleWidth = 6;

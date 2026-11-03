@@ -1,16 +1,17 @@
 // ignore_for_file: unnecessary_this
 
+import 'dart:ui' show TextAlign;
+
 import 'package:money/data/helpers/alias_type_helper.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
-import 'package:money/widgets/list/list_item_card.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/shared/domain/payee_operations_interface.dart';
 
 /// Represents alias.
 class Alias extends DataObject {
@@ -38,7 +39,7 @@ class Alias extends DataObject {
   }
 
   /// Constructor from a SQLite row
-  factory Alias.fromJson(MyJson row, DataAbstract data) {
+  factory Alias.fromJson(MyJson row, PayeeOperations data) {
     return Alias(
       id: row.getInt(SharedDomainStrings.domainString057, -1),
       pattern: row.getString(SharedDomainStrings.domainString104),
@@ -60,13 +61,12 @@ class Alias extends DataObject {
     this.fieldPayeeId.value = payeeId;
   }
 
-  final DataAbstract? data;
+  final PayeeOperations? data;
 
   /// SQL [2] SharedDomainStrings.domainString055 INT
   FieldInt fieldFlags = FieldInt(
     type: FieldType.text,
     align: TextAlign.center,
-    name: SharedDomainStrings.domainString055,
     serializeName: SharedDomainStrings.domainString055,
     defaultValue: 0,
     footer: FooterType.count,
@@ -84,10 +84,8 @@ class Alias extends DataObject {
   /// SQL[1] "Pattern"  nvarchar(255)
   FieldString fieldPattern = FieldString(
     type: FieldType.text,
-    name: SharedDomainStrings.domainString104,
     serializeName: SharedDomainStrings.domainString104,
     getValueForDisplay: (DataInterface instance) => (instance as Alias).fieldPattern.value,
-    getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPattern.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldPattern.value = value as String,
   );
 
@@ -96,7 +94,6 @@ class Alias extends DataObject {
   FieldInt fieldPayeeId = FieldInt(
     type: FieldType.text,
     footer: FooterType.count,
-    name: SharedDomainStrings.domainString105,
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: 0,
     getValueForDisplay: (DataInterface instance) => (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
@@ -104,15 +101,6 @@ class Alias extends DataObject {
   );
 
   RegExp? regex;
-
-  @override
-  Widget buildFieldsAsWidgetForSmallScreen() {
-    return MyListItemAsCard(
-      leftTopAsString: this.data!.getPayeeName(this.fieldPayeeId.value),
-      leftBottomAsString: fieldPattern.value,
-      rightBottomAsString: '${getAliasTypeAsString(type)}${SharedDomainStrings.domainString158}',
-    );
-  }
 
   // Fields for this instance
   @override

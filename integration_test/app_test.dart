@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/data/models/data_source_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/main.dart' as app;
 import 'package:money/shared/domain/data_facade.dart';
@@ -14,7 +15,6 @@ import 'package:money/views/imports/formats/qfx_import_view.dart';
 import 'package:money/views/panels/layout/side_panel_header_widget.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/widgets_domain/data_source_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_helpers.dart';

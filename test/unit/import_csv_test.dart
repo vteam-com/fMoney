@@ -93,7 +93,7 @@ void main() {
     test('CSV data with invalid date format', () {
       final List<String> headers = <String>['Date', 'Description', 'Amount'];
       final List<List<String>> dataRows = <List<String>>[
-        <String>['15/01/2023', 'Invalid Date', '10.00'], // DateTime.parse will fail
+        <String>['31/02/2023', 'Invalid Date', '10.00'], // February 31 does not exist
         <String>['2023-01-16', 'Valid Entry', '20.00'],
       ];
       final Map<String, String> columnMapping = <String, String>{
@@ -103,13 +103,31 @@ void main() {
       };
 
       final ImportData result = loadCSV(headers, dataRows, columnMapping);
-      // Expects DateTime.parse to throw, so the line is skipped.
-      // Note: Current implementation prints to console, test output won't show that.
       expect(result.entries.length, 1);
       expect(result.entries[0].name, 'Valid Entry');
       expect(result.diagnostics.processedRows, 2);
       expect(result.diagnostics.skippedRows, 1);
       expect(result.diagnostics.skippedByReason['invalidDate'], 1);
+    });
+
+    test('CSV data with non-ISO dates and formatted amounts', () {
+      final List<String> headers = <String>['Date', 'Description', 'Amount'];
+      final List<List<String>> dataRows = <List<String>>[
+        <String>['15/01/2023', 'Day first', r'$1,234.56'],
+        <String>['01/16/2023', 'Month first', '(12.00)'],
+      ];
+      final Map<String, String> columnMapping = <String, String>{
+        'date': 'Date',
+        'description': 'Description',
+        'amount': 'Amount',
+      };
+
+      final ImportData result = loadCSV(headers, dataRows, columnMapping);
+      expect(result.diagnostics.skippedRows, 0);
+      expect(result.entries[0].date, DateTime(2023, 1, 15));
+      expect(result.entries[0].amount, 1234.56);
+      expect(result.entries[1].date, DateTime(2023, 1, 16));
+      expect(result.entries[1].amount, -12.0);
     });
 
     test('CSV data with non-numeric amount', () {

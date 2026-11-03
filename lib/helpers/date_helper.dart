@@ -1,4 +1,7 @@
 // ignore: fcheck_dead_code
+import 'dart:ui' show PlatformDispatcher;
+
+import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 
@@ -32,6 +35,42 @@ const int _endOfDayMinute = 59;
 const int _endOfDaySecond = 59;
 const int _endOfDayMillisecond = 999;
 const int _endOfDayMicrosecond = 999;
+const int _yearsPerCentury = 100;
+const int _twoDigitYearFutureWindow = 20;
+const int _maxTwoDigitYearLength = 2;
+const int _fourDigitYearLength = 4;
+const int _minDatePartCount = 2;
+const int _maxDatePartCount = 3;
+const int _lastDatePartIndex = _maxDatePartCount - 1;
+
+/// Pattern letters for the year, month and day in an intl date pattern.
+const String _patternYearLetter = 'y';
+const String _patternMonthLetter = 'M';
+const String _patternDayLetter = 'd';
+
+/// Intl skeleton for a numeric year-month-day date (for example `M/d/y` in en_US).
+const String _numericDateSkeleton = 'yMd';
+
+/// Numeric date pattern used when the locale is unknown to intl.
+const String _defaultNumericDatePattern = 'M/d/y';
+
+/// Separators accepted between the parts of a numeric date.
+final RegExp _datePartSeparators = RegExp(r'[/.\-]');
+
+/// Date patterns for every locale known to intl, keyed by locale name.
+final Map<String, Map<String, String>> _datePatternsByLocale = dateTimePatternMap();
+
+/// Order of the day, month and year parts in a numeric date such as `03/04/2024`.
+enum DateFieldOrder {
+  /// Month first, as in the United States (`03/04/2024` is March 4).
+  monthDayYear,
+
+  /// Day first, as in most of Europe (`03/04/2024` is April 3).
+  dayMonthYear,
+
+  /// Year first, as in East Asia (`24/03/04` is March 4, 2024).
+  yearMonthDay,
+}
 
 /// Generates all possible date format combinations.
 List<String> generateAllDateFormats() {
@@ -157,6 +196,113 @@ DateTime? attemptToGetDateFromText(String text) {
     }
   }
   return parsedDate;
+}
+
+/// Returns the numeric date order used by [localeName] (for example `en_US`
+/// or `fr`), or by the operating system locale when [localeName] is omitted.
+/// Unknown locales fall back to [DateFieldOrder.monthDayYear].
+DateFieldOrder dateFieldOrderForLocale([String? localeName]) {
+  final String? verifiedLocale = Intl.verifiedLocale(
+    localeName ?? PlatformDispatcher.instance.locale.toString(),
+    _datePatternsByLocale.containsKey,
+    onFailure: (String _) => null,
+  );
+  final String pattern = _datePatternsByLocale[verifiedLocale]?[_numericDateSkeleton] ?? _defaultNumericDatePattern;
+  final int monthIndex = pattern.indexOf(_patternMonthLetter);
+  if (pattern.indexOf(_patternYearLetter) < monthIndex) {
+    return DateFieldOrder.yearMonthDay;
+  }
+  if (pattern.indexOf(_patternDayLetter) < monthIndex) {
+    return DateFieldOrder.dayMonthYear;
+  }
+  return DateFieldOrder.monthDayYear;
+}
+
+/// Expands a two-digit [year] to the century that keeps it within the window
+/// of 79 years before and [_twoDigitYearFutureWindow] years after [now]
+/// (default: today). In 2026, `46` becomes 2046 and `47` becomes 1947.
+int expandTwoDigitYear(int year, {DateTime? now}) {
+  final int currentYear = (now ?? DateTime.now()).year;
+  final int windowEnd = currentYear + _twoDigitYearFutureWindow;
+  final int expanded = currentYear - currentYear % _yearsPerCentury + year;
+  if (expanded > windowEnd) {
+    return expanded - _yearsPerCentury;
+  }
+  if (expanded <= windowEnd - _yearsPerCentury) {
+    return expanded + _yearsPerCentury;
+  }
+  return expanded;
+}
+
+/// Parses [text] written as ISO 8601 or as numbers separated by `/`, `-` or `.`.
+///
+/// Numeric dates follow [order] (default: the operating system locale, see
+/// [dateFieldOrderForLocale]), except that a four-digit first part is always the
+/// year and a part greater than 12 is always the day. Two-digit years are
+/// expanded with [expandTwoDigitYear]. Text with only a day and a month uses
+/// [fallbackYear], and is rejected when it is null.
+/// Returns null for empty, malformed or impossible dates such as `31/02/2024`.
+DateTime? parseDateFlexible(String text, {DateFieldOrder? order, int? fallbackYear}) {
+  final String trimmed = text.trim();
+  if (trimmed.isEmpty) {
+    return null;
+  }
+
+  final DateTime? isoDate = DateTime.tryParse(trimmed);
+  if (isoDate != null) {
+    return isoDate;
+  }
+
+  final List<String> parts = trimmed.split(_datePartSeparators);
+  if (parts.length < _minDatePartCount || parts.length > _maxDatePartCount) {
+    return null;
+  }
+  final List<int?> numbers = parts.map(int.tryParse).toList();
+  if (numbers.contains(null)) {
+    return null;
+  }
+
+  final DateFieldOrder effectiveOrder = order ?? dateFieldOrderForLocale();
+  final bool hasYear = parts.length == _maxDatePartCount;
+  final bool isYearFirst =
+      hasYear &&
+      (parts.first.length == _fourDigitYearLength ||
+          (effectiveOrder == DateFieldOrder.yearMonthDay && parts.last.length <= _maxTwoDigitYearLength));
+
+  int year;
+  int month;
+  int day;
+  if (isYearFirst) {
+    year = numbers[0]!;
+    month = numbers[1]!;
+    day = numbers[_lastDatePartIndex]!;
+  } else {
+    final int? yearOrFallback = hasYear ? numbers[_lastDatePartIndex] : fallbackYear;
+    if (yearOrFallback == null) {
+      return null;
+    }
+    year = yearOrFallback;
+    final int first = numbers[0]!;
+    final int second = numbers[1]!;
+    final bool isDayFirst =
+        first > _maxValidMonth || (second <= _maxValidMonth && effectiveOrder == DateFieldOrder.dayMonthYear);
+    day = isDayFirst ? first : second;
+    month = isDayFirst ? second : first;
+  }
+
+  final String yearText = isYearFirst ? parts.first : (hasYear ? parts.last : '');
+  if (hasYear && yearText.length <= _maxTwoDigitYearLength) {
+    year = expandTwoDigitYear(year);
+  }
+
+  if (month < _minValidMonth || month > _maxValidMonth || day < _minValidDay || day > _maxValidDay) {
+    return null;
+  }
+  final DateTime candidate = DateTime(year, month, day);
+  if (candidate.year != year || candidate.month != month || candidate.day != day) {
+    return null;
+  }
+  return candidate;
 }
 
 /// Converts DateTime to ISO 8601 string format with space instead of T.

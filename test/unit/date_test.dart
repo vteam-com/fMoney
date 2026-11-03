@@ -255,4 +255,83 @@ void main() {
       }
     });
   });
+
+  group('expandTwoDigitYear', () {
+    final DateTime now = DateTime(2026, 10, 26);
+
+    test('keeps years up to 20 years ahead in the current century', () {
+      expect(expandTwoDigitYear(24, now: now), 2024);
+      expect(expandTwoDigitYear(0, now: now), 2000);
+      expect(expandTwoDigitYear(46, now: now), 2046);
+    });
+
+    test('moves years more than 20 years ahead to the previous century', () {
+      expect(expandTwoDigitYear(47, now: now), 1947);
+      expect(expandTwoDigitYear(55, now: now), 1955);
+      expect(expandTwoDigitYear(99, now: now), 1999);
+    });
+
+    test('moves years too far in the past to the next century', () {
+      final DateTime later = DateTime(2090, 1, 1);
+      expect(expandTwoDigitYear(5, now: later), 2105);
+      expect(expandTwoDigitYear(15, now: later), 2015);
+    });
+  });
+
+  group('dateFieldOrderForLocale', () {
+    test('reads the numeric date order from the locale', () {
+      expect(dateFieldOrderForLocale('en_US'), DateFieldOrder.monthDayYear);
+      expect(dateFieldOrderForLocale('en_GB'), DateFieldOrder.dayMonthYear);
+      expect(dateFieldOrderForLocale('fr_FR'), DateFieldOrder.dayMonthYear);
+      expect(dateFieldOrderForLocale('de'), DateFieldOrder.dayMonthYear);
+      expect(dateFieldOrderForLocale('ja'), DateFieldOrder.yearMonthDay);
+    });
+
+    test('falls back to month first for unknown locales', () {
+      expect(dateFieldOrderForLocale('xx_YY'), DateFieldOrder.monthDayYear);
+    });
+  });
+
+  group('parseDateFlexible', () {
+    test('parses ISO dates with or without time', () {
+      expect(parseDateFlexible('2024-06-15'), DateTime(2024, 6, 15));
+      expect(parseDateFlexible('2024-06-15T00:00:00'), DateTime(2024, 6, 15));
+      expect(parseDateFlexible('2024/06/15', order: DateFieldOrder.dayMonthYear), DateTime(2024, 6, 15));
+    });
+
+    test('follows the given order for ambiguous dates', () {
+      expect(parseDateFlexible('03/04/2024', order: DateFieldOrder.monthDayYear), DateTime(2024, 3, 4));
+      expect(parseDateFlexible('03/04/2024', order: DateFieldOrder.dayMonthYear), DateTime(2024, 4, 3));
+      expect(parseDateFlexible('03.04.2024', order: DateFieldOrder.dayMonthYear), DateTime(2024, 4, 3));
+      expect(parseDateFlexible('24/03/04', order: DateFieldOrder.yearMonthDay), DateTime(2024, 3, 4));
+    });
+
+    test('places an unambiguous day correctly whatever the order', () {
+      expect(parseDateFlexible('30/06/2025', order: DateFieldOrder.monthDayYear), DateTime(2025, 6, 30));
+      expect(parseDateFlexible('01/15/2024', order: DateFieldOrder.dayMonthYear), DateTime(2024, 1, 15));
+      expect(parseDateFlexible('01/15/2024', order: DateFieldOrder.yearMonthDay), DateTime(2024, 1, 15));
+    });
+
+    test('expands two-digit years', () {
+      expect(parseDateFlexible('15/06/24', order: DateFieldOrder.dayMonthYear), DateTime(2024, 6, 15));
+      expect(parseDateFlexible('02-10-24', order: DateFieldOrder.dayMonthYear), DateTime(2024, 10, 2));
+    });
+
+    test('uses the fallback year when only day and month are present', () {
+      expect(
+        parseDateFlexible('12/25', order: DateFieldOrder.monthDayYear, fallbackYear: 2023),
+        DateTime(2023, 12, 25),
+      );
+      expect(parseDateFlexible('12/25', order: DateFieldOrder.monthDayYear), isNull);
+      expect(parseDateFlexible('2024-06'), isNull);
+    });
+
+    test('rejects empty, malformed and impossible dates', () {
+      expect(parseDateFlexible(''), isNull);
+      expect(parseDateFlexible('   '), isNull);
+      expect(parseDateFlexible('not-a-date'), isNull);
+      expect(parseDateFlexible('31/02/2024', order: DateFieldOrder.dayMonthYear), isNull);
+      expect(parseDateFlexible('13/13/2024'), isNull);
+    });
+  });
 }

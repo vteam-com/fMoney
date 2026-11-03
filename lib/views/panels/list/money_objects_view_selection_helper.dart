@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_filters_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_filters_model.dart';
+import 'package:money/data/models/field_model.dart';
 
 /// Returns the first selected item ID from [selectedIds], or null when empty.
 int? getFirstSelectedMoneyObjectId(List<int> selectedIds) {

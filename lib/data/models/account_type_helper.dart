@@ -8,81 +8,56 @@ enum AccountFlags {
   taxDeferred, // 3
 }
 
+/// True if [type] holds investments (investment, retirement or money market).
+bool isInvestmentAccountType(AccountType? type) {
+  return type == AccountType.investment || type == AccountType.retirement || type == AccountType.moneyMarket;
+}
+
+/// Display text of each account type; the single source for [getTypeAsText]
+/// and [getAccountTypeFromText].
+const Map<AccountType, String> _accountTypeTexts = <AccountType, String>{
+  AccountType.savings: SharedStrings.accountTypeSavings,
+  AccountType.checking: SharedStrings.accountTypeChecking,
+  AccountType.moneyMarket: SharedStrings.accountTypeMoneyMarket,
+  AccountType.cash: SharedStrings.accountTypeCash,
+  AccountType.credit: SharedStrings.accountTypeCredit,
+  AccountType.creditLine: SharedStrings.accountTypeCreditLine,
+  AccountType.investment: SharedStrings.accountTypeInvestment,
+  AccountType.retirement: SharedStrings.accountTypeRetirement,
+  AccountType.asset: SharedStrings.accountTypeAsset,
+  AccountType.categoryFund: SharedStrings.accountTypeFund,
+  AccountType.loan: SharedStrings.accountTypeLoan,
+};
+
+/// Account types offered to the user, in display order.
+const List<AccountType> selectableAccountTypes = <AccountType>[
+  AccountType.checking,
+  AccountType.savings,
+  AccountType.retirement,
+  AccountType.cash,
+  AccountType.credit,
+  AccountType.creditLine,
+  AccountType.investment,
+  AccountType.moneyMarket,
+  AccountType.asset,
+  AccountType.loan,
+];
+
 /// Convert a text into a AccountType
 AccountType? getAccountTypeFromText(String text) {
-  switch (text) {
-    case SharedStrings.accountTypeSavings:
-      return AccountType.savings;
-    case SharedStrings.accountTypeChecking:
-      return AccountType.checking;
-    case SharedStrings.accountTypeMoneyMarket:
-      return AccountType.moneyMarket;
-    case SharedStrings.accountTypeCash:
-      return AccountType.cash;
-    case SharedStrings.accountTypeCredit:
-    case SharedStrings.accountTypeCreditCard: // as seen in OFX <ACCTTYPE>
-      return AccountType.credit;
-    case SharedStrings.accountTypeCreditLine:
-      return AccountType.creditLine;
-    case SharedStrings.accountTypeInvestment:
-      return AccountType.investment;
-    case SharedStrings.accountTypeRetirement:
-      return AccountType.retirement;
-    case SharedStrings.accountTypeAsset:
-      return AccountType.asset;
-    case SharedStrings.accountTypeFund:
-      return AccountType.categoryFund;
-    case SharedStrings.accountTypeLoan:
-      return AccountType.loan;
-    default:
-      return null;
+  if (text == SharedStrings.accountTypeCreditCard) {
+    // as seen in OFX <ACCTTYPE>
+    return AccountType.credit;
   }
+  for (final MapEntry<AccountType, String> entry in _accountTypeTexts.entries) {
+    if (entry.value == text) {
+      return entry.key;
+    }
+  }
+  return null;
 }
 
 /// Convert a AccountType into a readable/localized String
 String getTypeAsText(AccountType type) {
-  switch (type) {
-    case AccountType.savings:
-      return SharedStrings.accountTypeSavings;
-    case AccountType.checking:
-      return SharedStrings.accountTypeChecking;
-    case AccountType.moneyMarket:
-      return SharedStrings.accountTypeMoneyMarket;
-    case AccountType.cash:
-      return SharedStrings.accountTypeCash;
-    case AccountType.credit:
-      return SharedStrings.accountTypeCredit;
-    case AccountType.investment:
-      return SharedStrings.accountTypeInvestment;
-    case AccountType.retirement:
-      return SharedStrings.accountTypeRetirement;
-    case AccountType.asset:
-      return SharedStrings.accountTypeAsset;
-    case AccountType.categoryFund:
-      return SharedStrings.accountTypeFund;
-    case AccountType.loan:
-      return SharedStrings.accountTypeLoan;
-    case AccountType.creditLine:
-      return SharedStrings.accountTypeCreditLine;
-    default:
-      break;
-  }
-
-  return '${SharedStrings.accountTypeOtherPrefix}$type';
-}
-
-/// Returns list of account type names as strings.
-List<String> getAccountTypeAsText() {
-  return <String>[
-    getTypeAsText(AccountType.checking),
-    getTypeAsText(AccountType.savings),
-    getTypeAsText(AccountType.retirement),
-    getTypeAsText(AccountType.cash),
-    getTypeAsText(AccountType.credit),
-    getTypeAsText(AccountType.creditLine),
-    getTypeAsText(AccountType.investment),
-    getTypeAsText(AccountType.moneyMarket),
-    getTypeAsText(AccountType.asset),
-    getTypeAsText(AccountType.loan),
-  ];
+  return _accountTypeTexts[type] ?? '${SharedStrings.accountTypeOtherPrefix}$type';
 }

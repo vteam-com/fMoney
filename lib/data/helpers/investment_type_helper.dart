@@ -1,4 +1,6 @@
 // ignore: fcheck_dead_code
+import 'package:money/helpers/list_helper.dart';
+
 enum SecurityType {
   none,
   bond, // Bonds
@@ -36,16 +38,6 @@ InvestmentType getInvestmentTypeFromValue(int value) {
   return InvestmentType.values[value];
 }
 
-/// Returns InvestmentType from string name.
-InvestmentType getInvestmentTypeFromText(String name) {
-  return InvestmentType.values.byName(name);
-}
-
-/// Returns list of all investment type names.
-List<String> getInvestmentTypeNames() {
-  return InvestmentType.values.map((InvestmentType item) => item.toString().split('.').last).toList();
-}
-
 enum InvestmentTradeType {
   none, // 0
   buy, // 1
@@ -73,7 +65,7 @@ InvestmentTradeType getInvestmentTradeTypeFromText(String name) {
 
 /// Returns list of all investment trade type names.
 List<String> getInvestmentTradeTypeNames() {
-  return InvestmentTradeType.values.map((InvestmentTradeType item) => item.toString().split('.').last).toList();
+  return enumToStringList(InvestmentTradeType.values);
 }
 
 /// Converts InvestmentType to InvestmentTradeType.

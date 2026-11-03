@@ -978,13 +978,13 @@ abstract class AppLocalizations {
   /// No description provided for @importFromQfxQifXlsxCsvDescription.
   ///
   /// In en, this message translates to:
-  /// **'Import transactions from a QFX, QIF, XLSX, CSV, or PDF file.'**
+  /// **'Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.'**
   String get importFromQfxQifXlsxCsvDescription;
 
   /// No description provided for @importFromQfxQifXlsxCsvFile.
   ///
   /// In en, this message translates to:
-  /// **'From QFX|QIF|XLSX|CSV|PDF file'**
+  /// **'From QFX|OFX|QIF|XLSX|CSV|PDF file'**
   String get importFromQfxQifXlsxCsvFile;
 
   /// No description provided for @importNoMatchingAccountsWithId.
@@ -2079,6 +2079,12 @@ abstract class AppLocalizations {
   /// **'Security \"{symbol}\" is not valid'**
   String securitySymbolInvalid(String symbol);
 
+  /// No description provided for @selectAllCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all {count}'**
+  String selectAllCount(String count);
+
   /// No description provided for @selectARentalPropertyToSeeItsPL.
   ///
   /// In en, this message translates to:
@@ -2517,6 +2523,12 @@ abstract class AppLocalizations {
   /// **'Unknown'**
   String get unknown;
 
+  /// No description provided for @unselectAllCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Unselect all {count}'**
+  String unselectAllCount(String count);
+
   /// No description provided for @useDemoData.
   ///
   /// In en, this message translates to:
@@ -2612,6 +2624,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Year'**
   String get year;
+
+  /// No description provided for @yearsUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'years'**
+  String get yearsUnit;
+
+  /// No description provided for @yearUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'year'**
+  String get yearUnit;
 
   /// REVIEWED
   ///

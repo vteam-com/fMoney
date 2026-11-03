@@ -1,14 +1,14 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_this
-import 'package:flutter/material.dart';
+import 'dart:ui' show TextAlign;
+
+import 'package:money/data/models/data_interface.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
-import 'package:money/widgets/pickers/category_picker_widget.dart';
-import 'package:money/widgets/widgets_domain/data_interface.dart';
-import 'package:money/widgets/widgets_domain/data_object_model.dart';
-import 'package:money/widgets/widgets_domain/field_model.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
@@ -113,7 +113,6 @@ class TransactionSplit extends DataObject {
 
   // 4
   FieldMoney fieldAmount = FieldMoney(
-    name: SharedDomainStrings.domainString017,
     serializeName: SharedDomainStrings.domainString017,
     getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldAmount.value,
     getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldAmount.value.asDouble(),
@@ -134,7 +133,6 @@ class TransactionSplit extends DataObject {
 
   // 2
   FieldInt fieldCategoryId = FieldInt(
-    name: SharedDomainStrings.domainString029,
     serializeName: SharedDomainStrings.domainString029,
     type: FieldType.text,
     align: TextAlign.left,
@@ -143,37 +141,10 @@ class TransactionSplit extends DataObject {
     getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldCategoryId.value,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldCategoryId.value = newValue as int,
-    getEditWidget:
-        (
-          DataInterface instance,
-          void Function(bool /* wasModified */) onEdited,
-        ) {
-          (instance as TransactionSplit);
-          return Row(
-            children: <Widget>[
-              Expanded(
-                child: pickerCategory(
-                  key: const Key('key_pick_category'),
-                  categoryNames: instance.data.getCategoryNames(),
-                  selectedName: instance.data.getCategoryNameFromId(instance.fieldCategoryId.value),
-                  onSelected: (String? name) {
-                    final int? id = name != null ? instance.data.getCategoryIdFromName(name) : null;
-                    if (id != null) {
-                      instance.fieldCategoryId.value = id;
-                      // notify container
-                      onEdited(true);
-                    }
-                  },
-                ),
-              ),
-            ],
-          );
-        },
   );
 
   // 7
   FieldInt fieldFlags = FieldInt(
-    name: SharedDomainStrings.domainString055,
     serializeName: SharedDomainStrings.domainString055,
     columnWidth: ColumnWidth.hidden,
     align: TextAlign.center,
@@ -187,17 +158,14 @@ class TransactionSplit extends DataObject {
 
   // 6
   FieldString fieldMemo = FieldString(
-    name: SharedDomainStrings.domainString086,
     serializeName: SharedDomainStrings.domainString086,
     getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
-    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldMemo.value,
     setValue: (DataInterface instance, dynamic newValue) =>
         (instance as TransactionSplit).fieldMemo.value = newValue as String,
   );
 
   // 3
   FieldInt fieldPayeeId = FieldInt(
-    name: SharedDomainStrings.domainString105,
     serializeName: SharedDomainStrings.domainString105,
     type: FieldType.text,
     align: TextAlign.left,
@@ -208,20 +176,16 @@ class TransactionSplit extends DataObject {
 
   // 0
   FieldInt fieldTransactionId = FieldInt(
-    name: SharedDomainStrings.domainString141,
     serializeName: SharedDomainStrings.domainString141,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldTransactionId.value,
   );
 
   // 5
   FieldInt fieldTransferId = FieldInt(
-    name: SharedDomainStrings.domainString144,
     serializeName: SharedDomainStrings.domainString144,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
-    getValueForSerialization: (DataInterface instance) => (instance as TransactionSplit).fieldTransferId.value,
   );
 
   // Fields for this instance

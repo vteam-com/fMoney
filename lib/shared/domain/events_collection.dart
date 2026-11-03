@@ -12,19 +12,8 @@ class Events extends MoneyObjects<Event> {
   late DataAbstract data;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-    for (final MyJson row in rows) {
-      appendMoneyObject(Event.fromJson(row, data));
-    }
-  }
-
-  @override
-  void onAllDataLoaded() {}
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
+  Event instanceFromJson(MyJson json) {
+    return Event.fromJson(json, data);
   }
 
   /// Creates and adds a new event with default values.

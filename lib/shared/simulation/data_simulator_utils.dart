@@ -1,14 +1,11 @@
 import 'dart:math';
 
-const int monthsPerYear = 12;
-const int firstDayOfMonth = 1;
+import 'package:money/shared/simulation/data_simulator_constants.dart';
+
 const int oneMonthOffset = 1;
 const int lastDayOfPreviousMonth = 0;
 const int maxDaysInMonth = 31;
-const int daysPerYear = 365;
-const double averageDaysPerYear = 365.25;
 const int currencyRoundingDecimals = 2;
-const int zeroInt = 0;
 
 /// Generates list of dates for specified years and frequency.
 List<DateTime> generateListOfDates({
@@ -20,7 +17,7 @@ List<DateTime> generateListOfDates({
   final List<DateTime> dates = <DateTime>[];
   final DateTime whenToStop = stopDate ?? DateTime.now();
 
-  for (int i = yearInThePast * howManyPerYear; i >= zeroInt; i--) {
+  for (int i = yearInThePast * howManyPerYear; i >= DataSimulatorConstants.zeroInt; i--) {
     dates.add(DateTime(whenToStop.year, whenToStop.month - i, dayOfTheMonth));
   }
   return dates;
@@ -34,9 +31,9 @@ List<DateTime> generateListOfDatesRandom({
   final List<DateTime> dates = <DateTime>[];
   final DateTime today = DateTime.now();
 
-  for (int i = year * monthsPerYear; i >= zeroInt; i--) {
-    DateTime date = DateTime(today.year, today.month - i, firstDayOfMonth);
-    for (int event = zeroInt; event < howManyPerMonths; event++) {
+  for (int i = year * DataSimulatorConstants.monthsPerYear; i >= DataSimulatorConstants.zeroInt; i--) {
+    DateTime date = DateTime(today.year, today.month - i, DataSimulatorConstants.firstDayOfMonth);
+    for (int event = DataSimulatorConstants.zeroInt; event < howManyPerMonths; event++) {
       date = DateTime(date.year, date.month, Random().nextInt(maxDaysInMonth) + 1);
       dates.add(date);
     }

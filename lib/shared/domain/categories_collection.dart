@@ -1,11 +1,7 @@
 // ignore: fcheck_dead_code
 import 'package:collection/collection.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/constants_helper.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -13,7 +9,6 @@ import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/widgets/pure/mutation_types.dart';
 
 /// Represents categories.
 class Categories extends MoneyObjects<Category> {
@@ -58,20 +53,6 @@ class Categories extends MoneyObjects<Category> {
       }
     }
   }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
-  }
-
-  static Widget categoryWidgetForSplit = DottedBorder(
-    options: RoundedRectDottedBorderOptions(
-      color: Colors.grey.shade600,
-      padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.medium),
-      radius: const Radius.circular(SizeForPadding.small),
-    ),
-    child: Text(AppL10n.tr(AppTranslationKeys.split)),
-  );
 
   /// Add a new Category ensure that the name is unique under the parent or root
   Category addNewCategory({
@@ -214,19 +195,6 @@ class Categories extends MoneyObjects<Category> {
       }
     }
     return list;
-  }
-
-  /// Returns a widget representing the category for the given [id].
-  Widget getCategoryWidget(int id) {
-    if (id == -1) {
-      return const Text('?');
-    }
-
-    if (id == splitCategoryId()) {
-      return categoryWidgetForSplit;
-    }
-
-    return get(id)?.getColorAndNameWidget() ?? Text(AppL10n.tr(AppTranslationKeys.unknown));
   }
 
   /// Returns a sorted list of all categories by name.

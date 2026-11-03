@@ -1,7 +1,6 @@
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
-import 'package:money/helpers/data_simulator_utils.dart' as simulator_utils;
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -19,6 +18,7 @@ import 'package:money/shared/simulation/data_simulator_constants.dart';
 import 'package:money/shared/simulation/data_simulator_investments_helper.dart';
 import 'package:money/shared/simulation/data_simulator_reference_data_helper.dart';
 import 'package:money/shared/simulation/data_simulator_transactions_helper.dart';
+import 'package:money/shared/simulation/data_simulator_utils.dart' as simulator_utils;
 
 /// Generates sample data for the MoneyFlutter app.
 class DataSimulator {

@@ -170,6 +170,7 @@ abstract class AppTranslationKeys {
   static const String sidePanelExpandCollapseTooltip = 'sidePanelExpandCollapseTooltip';
   static const String selectARentalPropertyToSeeItsPL = 'selectARentalPropertyToSeeItsPL';
   static const String selectCategory = 'selectCategory';
+  static const String selectAllCount = 'selectAllCount';
   static const String selectColumn = 'selectColumn';
   static const String selectHeaderRow = 'selectHeaderRow';
   static const String selectTheRowThatContainsTheColumnHeadersAutomaticallySelectedBasedOnContent =
@@ -201,6 +202,7 @@ abstract class AppTranslationKeys {
   static const String timeline = 'timeline';
   static const String trend = 'trend';
   static const String unknown = 'unknown';
+  static const String unselectAllCount = 'unselectAllCount';
   static const String useDemoData = 'useDemoData';
   static const String viewClosedAccounts = 'viewClosedAccounts';
   static const String warning = 'warning';
@@ -387,6 +389,8 @@ abstract class AppTranslationKeys {
   static const String welcomeToYourAiAccountant = 'welcomeToYourAiAccountant';
   static const String whoIsGettingYourMoney = 'whoIsGettingYourMoney';
   static const String year = 'year';
+  static const String yearUnit = 'yearUnit';
+  static const String yearsUnit = 'yearsUnit';
   static const String allTime = 'allTime';
   static const String account = 'account';
   static const String accounts = 'accounts';

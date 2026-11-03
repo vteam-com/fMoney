@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_this
 
 import 'dart:math';
+import 'dart:ui' show Color;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart' show Color;
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/helpers/amount_model.dart';
@@ -21,7 +21,6 @@ import 'package:money/shared/domain/loan_payments_collection.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/securities_collection.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 
 /// Statement segment gradient start color (accrual start).
 const Color _segmentGradientStart = Color.fromARGB(255, 249, 175, 4); // red
@@ -31,7 +30,6 @@ const Color _segmentGradientEnd = Color(0xFF43A047); // green
 
 const int _zeroInt = 0;
 const int _oneInt = 1;
-const int _unsetId = -1;
 const double _zeroDouble = 0.0;
 const double _negativeMultiplier = -1.0;
 const int _decimalBase = 10;
@@ -47,6 +45,9 @@ class Accounts extends MoneyObjects<Account> {
     collectionName = SharedDomainStrings.domainString014;
   }
   late DataAbstract data;
+
+  /// Returns whether account lists include closed accounts; bound to the user preference by the presentation layer.
+  bool Function() isIncludingClosedAccounts = () => false;
 
   @override
   Account instanceFromJson(MyJson json) {
@@ -127,12 +128,7 @@ class Accounts extends MoneyObjects<Account> {
     // Increase the balance of any investment account with the current Stock value
     final List<Account> investmentAccounts = this
         .iterableList()
-        .where(
-          (Account account) =>
-              account.fieldType.value == AccountType.moneyMarket ||
-              account.fieldType.value == AccountType.investment ||
-              account.fieldType.value == AccountType.retirement,
-        )
+        .where((Account account) => account.isInvestmentAccount())
         .toList();
 
     final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
@@ -188,11 +184,6 @@ class Accounts extends MoneyObjects<Account> {
     )) {
       _updateCreditCardPaidOn(account);
     }
-  }
-
-  @override
-  String toCSV() {
-    return MoneyObjects.getCsvFromList(getListSortedById());
   }
 
   /// Returns active accounts filtered by [types] and optional [isActive] status.
@@ -310,7 +301,8 @@ class Accounts extends MoneyObjects<Account> {
     final List<Account> list = iterableList()
         .where(
           (Account account) =>
-              account.isMatchingUserChoiceIncludingClosedAccount && account.fieldType.value != AccountType.categoryFund,
+              _isMatchingUserChoiceIncludingClosedAccount(account) &&
+              account.fieldType.value != AccountType.categoryFund,
         )
         .toList();
     list.sort(
@@ -322,22 +314,6 @@ class Accounts extends MoneyObjects<Account> {
   /// Returns sorted account names for display.
   List<String> getSortedAccountNames() {
     return getListSorted().map((Account a) => a.fieldName.value).toList();
-  }
-
-  /// Returns the most recently selected account, or the first account if none selected.
-  Account getMostRecentlySelectedAccount() {
-    final int lastSelectionId = PreferenceController.to.getInt(
-      getViewPreferenceIdAccountLastSelected(),
-      _unsetId,
-    );
-    if (lastSelectionId != _unsetId) {
-      final Account? accountExist = get(lastSelectionId);
-      if (accountExist != null) {
-        return accountExist;
-      }
-    }
-
-    return firstItem()!;
   }
 
   /// Gets the account name for the given [id]; returns the ID as string if not found.
@@ -368,7 +344,7 @@ class Accounts extends MoneyObjects<Account> {
     double sum = _zeroDouble;
 
     for (final Account account in iterableList()) {
-      if (account.isMatchingUserChoiceIncludingClosedAccount) {
+      if (_isMatchingUserChoiceIncludingClosedAccount(account)) {
         sum += (account.fieldBalanceNormalized.getValueForDisplay(account) as AmountModel).asDouble();
       }
     }
@@ -379,13 +355,6 @@ class Accounts extends MoneyObjects<Account> {
   Iterable<Transaction> getTransactions(Account account) {
     return this.data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
-    );
-  }
-
-  /// Preference key for the last selected account in the accounts view.
-  String getViewPreferenceIdAccountLastSelected() {
-    return ViewId.viewAccounts.getViewPreferenceId(
-      settingKeySelectedListItemId,
     );
   }
 
@@ -432,14 +401,6 @@ class Accounts extends MoneyObjects<Account> {
       this.data.removeTransaction(t.uniqueId);
     }
     return true;
-  }
-
-  /// Sets the most recently used account preference.
-  void setMostRecentUsedAccount(Account account) {
-    PreferenceController.to.setInt(
-      getViewPreferenceIdAccountLastSelected(),
-      account.fieldId.value,
-    );
   }
 
   /// Updates the `paidOn` markers for credit card transactions based on matching statement payments.
@@ -535,5 +496,10 @@ class Accounts extends MoneyObjects<Account> {
         segmentStart = i + _oneInt;
       }
     }
+  }
+
+  /// True if [account] is open, or closed accounts are included by the user's choice.
+  bool _isMatchingUserChoiceIncludingClosedAccount(Account account) {
+    return isIncludingClosedAccounts() || account.isOpen;
   }
 }
