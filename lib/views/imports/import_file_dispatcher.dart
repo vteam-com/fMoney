@@ -84,7 +84,7 @@ Future<void> importFileByPath(
   final String extension = (fileExtension ?? path.extension(filePath)).trim().toLowerCase().replaceFirst('.', '');
   switch (extension) {
     case SharedStrings.fileExtensionQif:
-      importQIF(context, filePath);
+      await importQIF(context, filePath);
     case SharedStrings.fileExtensionQfx:
     case SharedStrings.fileExtensionOfx:
       await importQFX(context, filePath);

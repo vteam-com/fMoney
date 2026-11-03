@@ -14,10 +14,10 @@ const int _minFieldLength = 2;
 ///
 /// schema https://www.w3.org/2000/10/swap/pim/qif-doc/QIF-doc.htm
 ///
-void importQIF(BuildContext context, String filePath) {
+Future<void> importQIF(BuildContext context, String filePath) {
   final File file = File(filePath);
 
-  file
+  return file
       .readAsLines()
       .then((List<String> lines) {
         final ImportData importData = loadQIF(lines);

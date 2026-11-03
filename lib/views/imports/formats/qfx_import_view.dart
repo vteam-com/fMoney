@@ -158,6 +158,12 @@ List<ImportEntry> parseQFXTransactions(List<String> lines) {
     );
 
     if (rawTransactionText.isNotEmpty) {
+      final String rawAmount = findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionAmount, '0.00');
+      final double? amount = parseAmountFlexible(rawAmount);
+      if (amount == null) {
+        logger.w('Skipping QFX transaction with malformed amount: $rawAmount');
+        continue;
+      }
       final ImportEntry currentTransaction = ImportEntry(
         type: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionType, ''),
         date:
@@ -165,9 +171,7 @@ List<ImportEntry> parseQFXTransactions(List<String> lines) {
               findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, ''),
             ) ??
             DateTime.now(),
-        amount:
-            parseAmountFlexible(findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionAmount, '0.00')) ??
-            0.0,
+        amount: amount,
         name: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagName, ''),
         fitid: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagFitId, ''),
         memo: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagMemo, ''),

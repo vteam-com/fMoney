@@ -38,7 +38,10 @@ enum FieldType {
     FieldType.numericShorthand ||
     FieldType.quantity ||
     FieldType.amountShorthand => sortByValue((a ?? 0) as num, (b ?? 0) as num, ascending),
-    FieldType.amount => sortByAmount(a as AmountModel, b as AmountModel, ascending),
+    FieldType.amount =>
+      a is AmountModel && b is AmountModel
+          ? sortByAmount(a, b, ascending)
+          : sortByValue(_amountAsNum(a), _amountAsNum(b), ascending),
     FieldType.date => sortByDate(a as DateTime?, b as DateTime?, ascending),
     FieldType.text ||
     FieldType.percentage ||
@@ -57,4 +60,7 @@ enum FieldType {
     FieldType.widget => value as String,
     FieldType.text || FieldType.date || FieldType.dateRange || FieldType.toggle => value.toString(),
   };
+
+  /// Returns the numeric value of an amount display value, which may be an [AmountModel] or a raw number.
+  static num _amountAsNum(dynamic value) => value is AmountModel ? value.asDouble() : (value ?? 0) as num;
 }

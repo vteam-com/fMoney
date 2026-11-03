@@ -106,6 +106,11 @@ void main() {
       expect(_sortSign(FieldType.amount, AmountModel(amount: 1), AmountModel(amount: 2)), -1);
     });
 
+    test('amount sorts raw numeric display values', () {
+      expect(_sortSign(FieldType.amount, 3.0, 2.0), 1);
+      expect(_sortSign(FieldType.amount, AmountModel(amount: 1), 2.0), -1);
+    });
+
     test('date sorts by date', () {
       expect(_sortSign(FieldType.date, DateTime(2024), DateTime(2023)), 1);
     });
