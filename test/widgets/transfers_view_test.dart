@@ -7,6 +7,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
@@ -244,5 +245,37 @@ void main() {
 
     expect(find.text(AppL10n.tr(AppTranslationKeys.possibleTransferMatches)), findsOneWidget);
     expect(find.text(AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts)), findsOneWidget);
+  });
+
+  /// Pumps the transfers view, adds a -[sourceAmount] / +[receivedAmount] pair
+  /// [daysApart] days apart, then runs the magic wand scan.
+  Future<void> scanPair(WidgetTester tester, double sourceAmount, double receivedAmount, int daysApart) async {
+    await _pumpTransfers(tester, services);
+    final Account fromAccount = _createAccount(name: 'Main Checking', isOpen: true);
+    final Account toAccount = _createAccount(name: 'Savings', isOpen: true);
+    _createTransaction(account: fromAccount, amount: -sourceAmount, date: DateTime(2025, 1, 10), transferId: -1);
+    _createTransaction(
+      account: toAccount,
+      amount: receivedAmount,
+      date: DateTime(2025, 1, 10 + daysApart),
+      transferId: -1,
+    );
+
+    await tester.tap(find.byTooltip(AppL10n.tr(AppTranslationKeys.findMissingTransfers)));
+    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('magic wand scan matches amounts within tolerance across a cent boundary', (
+    WidgetTester tester,
+  ) async {
+    await scanPair(tester, 10.004, 10.006, 1);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts)), findsOneWidget);
+  });
+
+  testWidgets('magic wand scan uses the shared day window', (WidgetTester tester) async {
+    await scanPair(tester, 50, 50, potentialTransferDefaultMaxDays + 1);
+    expect(find.text(AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts)), findsNothing);
   });
 }

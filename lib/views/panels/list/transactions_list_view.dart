@@ -170,14 +170,6 @@ List<Transaction> getTransactions({
     list = Data().transactions.iterableList().where((Transaction transaction) => filter!(transaction)).toList();
   }
 
-  list.sort(
-    (Transaction a, Transaction b) => Transaction.sortByDateTime(a, b, true),
-  );
-
-  double runningBalance = 0.0;
-  for (Transaction transaction in list) {
-    runningBalance += transaction.fieldAmount.value.asDouble();
-    transaction.balance = runningBalance;
-  }
+  Transactions.applyRunningBalance(list);
   return list;
 }

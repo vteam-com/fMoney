@@ -72,7 +72,12 @@ final RegExp _decimalCommaPattern = RegExp(r',\d{1,2}$');
 /// The result is negative when a minus sign comes before or after the number
 /// (`-12`, `$-12`, `12-`), when parentheses surround it (`(12.00)`), or when a
 /// standalone `DR` marker is present. Returns null when [text] has no number.
-double? parseAmountFlexible(String text) {
+///
+/// Pass [decimalSeparator] (`,` or `.`) when the source format is known: when only
+/// one kind of separator appears, a single occurrence of [decimalSeparator] is the
+/// decimal point and any other separator is a thousands separator, so `1,234`
+/// with `,` gives 1.234 and `1.234` with `,` gives 1234.
+double? parseAmountFlexible(String text, {String? decimalSeparator}) {
   final String upperText = text.trim().toUpperCase();
   int numberStart = upperText.indexOf(_digitPattern);
   if (numberStart == _notFoundIndex) {
@@ -92,7 +97,7 @@ double? parseAmountFlexible(String text) {
       _debitMarkerPattern.hasMatch(upperText);
 
   final String digits = upperText.substring(numberStart, numberEnd).replaceAll(_nonNumberCharactersPattern, '');
-  final double? amount = double.tryParse(_normalizeNumberSeparators(digits));
+  final double? amount = double.tryParse(_normalizeNumberSeparators(digits, decimalSeparator));
   if (amount == null) {
     return null;
   }
@@ -100,13 +105,20 @@ double? parseAmountFlexible(String text) {
 }
 
 /// Rewrites [number] (digits, commas and dots only) with a dot as the decimal
-/// separator and no thousands separators.
-String _normalizeNumberSeparators(String number) {
+/// separator and no thousands separators. See [parseAmountFlexible] for [decimalSeparator].
+String _normalizeNumberSeparators(String number, String? decimalSeparator) {
   final int commaIndex = number.lastIndexOf(',');
   final int dotIndex = number.lastIndexOf('.');
 
   if (commaIndex != _notFoundIndex && dotIndex != _notFoundIndex) {
     return commaIndex > dotIndex ? number.replaceAll('.', '').replaceAll(',', '.') : number.replaceAll(',', '');
+  }
+
+  if (decimalSeparator != null && (commaIndex != _notFoundIndex || dotIndex != _notFoundIndex)) {
+    final String separator = commaIndex != _notFoundIndex ? ',' : '.';
+    final bool isSingleDecimal =
+        separator == decimalSeparator && number.indexOf(separator) == number.lastIndexOf(separator);
+    return isSingleDecimal ? number.replaceAll(separator, '.') : number.replaceAll(separator, '');
   }
 
   if (commaIndex != _notFoundIndex) {

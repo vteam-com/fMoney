@@ -26,21 +26,10 @@ class QuantityWidget extends StatelessWidget {
       fontWeight: FontWeight.w900,
     );
 
-    final String originalString = formatDoubleUpToFiveZero(
-      quantity,
-      showPlusSign: true,
-    );
-
-    final int leftSideOfDecimalPoint = quantity.truncate();
-    String leftSideOfDecimalPointAsString = '';
-    if (leftSideOfDecimalPoint != 0) {
-      leftSideOfDecimalPointAsString = formatDoubleUpToFiveZero(
-        leftSideOfDecimalPoint.toDouble(),
-        showPlusSign: true,
-      );
-    }
-    final String rightOfDecimalPoint = originalString.substring(
-      leftSideOfDecimalPointAsString.length,
+    // formatDoubleUpToFiveZero always formats with the en_US '.' decimal separator
+    final (String leftSideOfDecimalPointAsString, String rightOfDecimalPoint) = splitAtDecimalSeparator(
+      formatDoubleUpToFiveZero(quantity, showPlusSign: true),
+      '.',
     );
 
     return SelectableText.rich(

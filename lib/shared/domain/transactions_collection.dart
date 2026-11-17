@@ -246,30 +246,44 @@ class Transactions extends MoneyObjects<Transaction> {
     return view;
   }
 
-  /// Flattens split transactions into individual entries.
+  /// Sorts [list] by date (then id, so same-day order is stable) and stores the
+  /// running total of the amounts in each [Transaction.balance].
+  static void applyRunningBalance(List<Transaction> list) {
+    list.sort((Transaction a, Transaction b) => Transaction.sortByDateTime(a, b, true));
+    double runningBalance = _zeroDouble;
+    for (final Transaction transaction in list) {
+      runningBalance += transaction.fieldAmount.value.asDouble();
+      transaction.balance = runningBalance;
+    }
+  }
+
+  /// Flattens split transactions into individual entries, see [_flattenSplits].
   static List<Transaction> flatTransactions(
     Iterable<Transaction> transactions,
   ) {
-    final List<Transaction> flatList = <Transaction>[];
-    for (final Transaction t in transactions) {
-      if (t.isSplit) {
-        for (final TransactionSplit s in t.splits) {
-          final Transaction fakeTransaction = Transaction(
-            date: t.fieldDateTime.value,
-            status: t.fieldStatus.value,
-          );
-          fakeTransaction.fieldAccountId.value = t.fieldAccountId.value;
-          fakeTransaction.fieldPayee.value = t.fieldPayee.value;
-          fakeTransaction.fieldCategoryId.value = s.fieldCategoryId.value;
-          fakeTransaction.fieldMemo.value = s.fieldMemo.value;
-          fakeTransaction.fieldAmount.value = s.fieldAmount.value;
-          flatList.add(fakeTransaction);
-        }
-      } else {
-        flatList.add(t);
-      }
+    return transactions.expand(_flattenSplits).toList();
+  }
+
+  /// Returns [t] itself, or one stand-in transaction per split row when [t] has splits.
+  ///
+  /// Each stand-in keeps the parent's date, status and account, takes the split's
+  /// category, memo and amount, and uses the split's payee when it has one.
+  static Iterable<Transaction> _flattenSplits(Transaction t) {
+    if (!t.isSplit) {
+      return <Transaction>[t];
     }
-    return flatList;
+    return t.splits.map(
+      (TransactionSplit s) =>
+          Transaction(
+              date: t.fieldDateTime.value,
+              status: t.fieldStatus.value,
+            )
+            ..fieldAccountId.value = t.fieldAccountId.value
+            ..fieldPayee.value = s.fieldPayeeId.value == _unsetId ? t.fieldPayee.value : s.fieldPayeeId.value
+            ..fieldCategoryId.value = s.fieldCategoryId.value
+            ..fieldMemo.value = s.fieldMemo.value
+            ..fieldAmount.value = s.fieldAmount.value,
+    );
   }
 
   /// Returns all unique transaction dates for a given year.
@@ -292,30 +306,9 @@ class Transactions extends MoneyObjects<Transaction> {
   List<Transaction> getListFlattenSplits({
     bool Function(Transaction)? whereClause,
   }) {
-    final List<Transaction> flattenList = <Transaction>[];
-    for (final Transaction t in iterableList()) {
-      if (whereClause == null || whereClause(t)) {
-        if (t.fieldCategoryId.value == data.getSplitCategoryId()) {
-          for (final TransactionSplit s in t.splits) {
-            final Transaction fakeT =
-                Transaction(
-                    date: t.fieldDateTime.value,
-                    status: t.fieldStatus.value,
-                  )
-                  ..fieldAccountId.value = t.fieldAccountId.value
-                  ..fieldPayee.value = s.fieldPayeeId.value == _unsetId ? t.fieldPayee.value : s.fieldPayeeId.value
-                  ..fieldCategoryId.value = s.fieldCategoryId.value
-                  ..fieldMemo.value = s.fieldMemo.value
-                  ..fieldAmount.value = s.fieldAmount.value;
-
-            flattenList.add(fakeT);
-          }
-        } else {
-          flattenList.add(t);
-        }
-      }
-    }
-    return flattenList;
+    return flatTransactions(
+      iterableList().where((Transaction t) => whereClause == null || whereClause(t)),
+    );
   }
 
   /// Filters transactions within a year range and optional income/expense.

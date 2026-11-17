@@ -46,6 +46,17 @@ void main() {
 
     // Europe dd/MM/yyyy
     expectParsedDate(DateFormat('dd/MM/yyyy').tryParse('27/01/2024'), 2024, 1, 27);
+    expectParsedDate(attemptToGetDateFromText('27/01/2024'), 2024, 1, 27);
+
+    // ISO with time
+    expectParsedDate(attemptToGetDateFromText('2024-01-02 10:11:12'), 2024, 1, 2);
+  });
+
+  test('attemptToGetDateFromText rejects impossible dates instead of rolling them over', () {
+    expect(attemptToGetDateFromText('31/02/2024'), isNull);
+    expect(attemptToGetDateFromText('13/25/2024'), isNull);
+    expect(attemptToGetDateFromText('2024-02-31'), isNull);
+    expect(attemptToGetDateFromText('1/1/1800'), isNull);
   });
 
   group('getPossibleDateFormats', () {

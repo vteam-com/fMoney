@@ -125,13 +125,13 @@ class MenuEntry {
   }
 
   factory MenuEntry.toStocks({String symbol = ''}) {
-    late FieldFilter fieldFilterToUse;
-    if (symbol.isNotEmpty) {
-      fieldFilterToUse = FieldFilter(
-        fieldName: Constants.viewStockFieldNameSymbol,
-        strings: <String>[symbol],
-      );
-    }
+    final List<FieldFilter> filters = <FieldFilter>[
+      if (symbol.isNotEmpty)
+        FieldFilter(
+          fieldName: Constants.viewStockFieldNameSymbol,
+          strings: <String>[symbol],
+        ),
+    ];
 
     // Jump to Stock view
     return MenuEntry(
@@ -141,7 +141,7 @@ class MenuEntry {
         PreferenceController.to.jumpToView(
           viewId: ViewId.viewStocks,
           selectedId: -1,
-          columnFilters: FieldFilters(<FieldFilter>[fieldFilterToUse]),
+          columnFilters: FieldFilters(filters),
           textFilter: '',
         );
       },

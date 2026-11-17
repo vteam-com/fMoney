@@ -18,7 +18,8 @@ void main() {
         'NInvest',
         'QSome Quantity',
         'YStock Symbol',
-        'P100.00',
+        'I100.00',
+        'PBroker Inc',
         '^',
       ];
 
@@ -32,7 +33,9 @@ void main() {
       final ImportEntry entry1 = importData.entries[0];
       expect(entry1.date, DateTime(2023, 1, 30));
       expect(entry1.amount, -100.00);
-      expect(entry1.name, 'Expense Transaction');
+      expect(entry1.name, '');
+      expect(entry1.memo, 'Expense Transaction');
+      expect(entry1.getDescription(), 'Expense Transaction');
 
       final ImportEntry entry2 = importData.entries[1];
       expect(entry2.date, DateTime(2023, 2, 15));
@@ -41,6 +44,7 @@ void main() {
       expect(entry2.stockQuantity, 0.0);
       expect(entry2.stockSymbol, 'Stock Symbol');
       expect(entry2.stockPrice, 100.00);
+      expect(entry2.name, 'Broker Inc');
     });
 
     test('should handle invalid QIF data', () {

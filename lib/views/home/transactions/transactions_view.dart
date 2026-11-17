@@ -4,13 +4,12 @@ import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_entity.dart';
-import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/shared/presentation/widgets/transaction_splits_list_view_widget.dart';
@@ -172,17 +171,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
         .toList();
 
     if (!balanceDone) {
-      list.sort(
-        (Transaction a, Transaction b) => sortByDate(a.fieldDateTime.value, b.fieldDateTime.value),
-      );
-
-      double runningNativeBalance = 0.0;
-
-      for (Transaction transaction in list) {
-        runningNativeBalance += transaction.fieldAmount.value.asDouble();
-        transaction.balance = runningNativeBalance;
-      }
-
+      Transactions.applyRunningBalance(list);
       balanceDone = true;
     }
     return list;

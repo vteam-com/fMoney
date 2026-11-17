@@ -17,6 +17,27 @@ String getAmountAsStringUsingCurrency(
     return amount; // its already a string
   }
 
+  return _currencyFormat(iso4217code, decimalDigits).format(
+    isConsideredZero(amount as num) ? 0.00 : amount,
+  );
+}
+
+/// Formats [amount] like [getAmountAsStringUsingCurrency], then splits it at the decimal separator.
+///
+/// For example `1234.5` in USD returns `('$1,234', '.50')`. See [splitAtDecimalSeparator].
+(String, String) getAmountAsStringPartsUsingCurrency(
+  num amount, {
+  String iso4217code = Constants.defaultCurrency,
+}) {
+  final NumberFormat currencyFormat = _currencyFormat(iso4217code, null);
+  return splitAtDecimalSeparator(
+    currencyFormat.format(isConsideredZero(amount) ? 0.00 : amount),
+    currencyFormat.symbols.DECIMAL_SEP,
+  );
+}
+
+/// Builds the amount formatter for [iso4217code], with the currency symbol on the left.
+NumberFormat _currencyFormat(String iso4217code, int? decimalDigits) {
   // determining the locale to be used when formatting the currency amount
   final String localeToUse = iso4217code == Constants.defaultCurrency || iso4217code.isEmpty
       ? 'en_US'
@@ -29,15 +50,11 @@ String getAmountAsStringUsingCurrency(
   final String currencySymbol = tempFormat.currencySymbol;
 
   // Create a NumberFormat instance with a custom pattern using the currency constructor
-  final NumberFormat currencyFormat = NumberFormat.currency(
+  return NumberFormat.currency(
     locale: localeToUse,
     symbol: currencySymbol, // Euro symbol
     decimalDigits: decimalDigits, // Number of decimal places
     customPattern: SharedStrings.currencyPatternSymbolLeft, // Pattern to place the symbol on the left
-  );
-
-  return currencyFormat.format(
-    isConsideredZero(amount as num) ? 0.00 : amount,
   );
 }
 

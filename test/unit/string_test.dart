@@ -1,8 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 
 void main() {
+  group('splitAtDecimalSeparator', () {
+    test('splits the formatted text, so rounding never drops the carried unit', () {
+      // 1.999 formats as $2.00, the whole part must be $2 (not the truncated $1)
+      expect(getAmountAsStringPartsUsingCurrency(1.999), ('\$2', '.00'));
+      expect(getAmountAsStringPartsUsingCurrency(-1234.5), ('-\$1,234', '.50'));
+      expect(splitAtDecimalSeparator(formatDoubleUpToFiveZero(1.999999, showPlusSign: true), '.'), ('+2', ''));
+      expect(splitAtDecimalSeparator('+1.5', '.'), ('+1', '.5'));
+    });
+
+    test('leaves the whole part empty when it is zero', () {
+      expect(getAmountAsStringPartsUsingCurrency(0.5), ('', '\$0.50'));
+      expect(splitAtDecimalSeparator('+0.5', '.'), ('', '+0.5'));
+    });
+  });
+
   group('String Comparison:', () {
     test('Case-Insensitive String Comparison', () {
       expect(stringCompareIgnoreCasing('Hello', 'hello'), 0);

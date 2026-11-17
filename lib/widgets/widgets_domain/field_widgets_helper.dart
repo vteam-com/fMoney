@@ -266,11 +266,13 @@ Widget buildFieldWidgetForText({
 Alignment textAlignToAlignment(TextAlign textAlign) {
   switch (textAlign) {
     case TextAlign.left:
+    case TextAlign.start:
+    case TextAlign.justify:
       return Alignment.centerLeft;
     case TextAlign.center:
       return Alignment.center;
     case TextAlign.right:
-    default:
+    case TextAlign.end:
       return Alignment.centerRight;
   }
 }

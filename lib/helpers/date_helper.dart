@@ -57,6 +57,12 @@ const String _defaultNumericDatePattern = 'M/d/y';
 /// Separators accepted between the parts of a numeric date.
 final RegExp _datePartSeparators = RegExp(r'[/.\-]');
 
+/// Year, month and day at the start of an ISO 8601 text (`2024-02-31` or `20240231`).
+final RegExp _isoDatePrefix = RegExp(r'^[+-]?(\d{4,6})-?(\d{2})-?(\d{2})');
+const int _isoYearGroup = 1;
+const int _isoMonthGroup = 2;
+const int _isoDayGroup = 3;
+
 /// Date patterns for every locale known to intl, keyed by locale name.
 final Map<String, Map<String, String>> _datePatternsByLocale = dateTimePatternMap();
 
@@ -144,56 +150,15 @@ DateTime? attemptToGetDateFromDynamic(dynamic value) {
   return null;
 }
 
-/// Attempts to parse a date string using a list of common date formats.
+/// Parses [text] as ISO 8601 (optionally with a time) or as a numeric date.
 ///
-/// This function tries to parse the provided [text] string using a list of
-/// predefined date formats. It returns the first valid [DateTime] object
-/// found, or `null` if no valid date is found.
-///
-/// The supported date formats are:
-/// - 'yyyy-MM-dd' (ISO8601)
-/// - 'MM/dd/yyyy' (USA)
-/// - 'dd/MM/yyyy' (Europe)
-/// - 'dd/MM/yy' (Europe)
-/// - 'dd-MM-yy' (Europe)
-///
-/// Example usage:
-/// ```dart
-/// final dateString = '2023-04-15';
-/// final parsedDate = attemptToGetDateFromText(dateString);
-/// if (parsedDate != null) {
-///   print('Parsed date: $parsedDate');
-/// } else {
-///   print('Failed to parse date');
-/// }
-/// ```
-///
-/// @param text The date string to be parsed.
-/// @return The parsed [DateTime] object, or `null` if no valid date is found.
+/// Delegates to [parseDateFlexible] with US month-first order, so `2/3/2000` is
+/// February 3, while `27/01/2024` is read day-first because 27 cannot be a month.
+/// Returns null for impossible dates (`31/02/2024`) and years outside 1900-2099.
 DateTime? attemptToGetDateFromText(String text) {
-  // Define a list of date formats to try
-  final List<String> dateFormats = <String>[
-    'yyyy-MM-dd HH:mm:ss', // ISO8601
-    'yyyy-MM-dd', // ISO8601
-    'MM/dd/yyyy', // USA format 4 digit year
-    'MM/dd/yy', // USA format 2 digit year
-    'dd/MM/yyyy', // European format with full year
-    'dd/MM/yy', // European format 2 digit year
-    // Add more formats as needed...
-  ];
-
-  DateTime? parsedDate;
-  for (String format in dateFormats) {
-    parsedDate = DateFormat(format).tryParse(text);
-    if (parsedDate != null &&
-        parsedDate.year >= _minValidYear &&
-        parsedDate.year <= _maxValidYear &&
-        parsedDate.month >= _minValidMonth &&
-        parsedDate.month <= _maxValidMonth &&
-        parsedDate.day >= _minValidDay &&
-        parsedDate.day <= _maxValidDay) {
-      break; // Stop parsing if a valid date is found
-    }
+  final DateTime? parsedDate = parseDateFlexible(text, order: DateFieldOrder.monthDayYear);
+  if (parsedDate == null || parsedDate.year < _minValidYear || parsedDate.year > _maxValidYear) {
+    return null;
   }
   return parsedDate;
 }
@@ -250,7 +215,7 @@ DateTime? parseDateFlexible(String text, {DateFieldOrder? order, int? fallbackYe
 
   final DateTime? isoDate = DateTime.tryParse(trimmed);
   if (isoDate != null) {
-    return isoDate;
+    return _isExistingIsoCalendarDate(trimmed) ? isoDate : null;
   }
 
   final List<String> parts = trimmed.split(_datePartSeparators);
@@ -303,6 +268,19 @@ DateTime? parseDateFlexible(String text, {DateFieldOrder? order, int? fallbackYe
     return null;
   }
   return candidate;
+}
+
+/// Returns false when the calendar date written at the start of ISO [text] does not exist,
+/// such as `2024-02-31`, which [DateTime.tryParse] silently rolls over to March 2.
+bool _isExistingIsoCalendarDate(String text) {
+  final RegExpMatch? match = _isoDatePrefix.firstMatch(text);
+  if (match == null) {
+    return true;
+  }
+  final int month = int.parse(match.group(_isoMonthGroup)!);
+  final int day = int.parse(match.group(_isoDayGroup)!);
+  final DateTime date = DateTime(int.parse(match.group(_isoYearGroup)!), month, day);
+  return date.month == month && date.day == day;
 }
 
 /// Converts DateTime to ISO 8601 string format with space instead of T.

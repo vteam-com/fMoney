@@ -11,6 +11,7 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
@@ -25,7 +26,6 @@ const int _unlinkedTransferId = -1;
 const int _previewTransferId = 0;
 const int _potentialTransferProgressUpdateFrequency = 512;
 const int _potentialTransferPausePollMilliseconds = 100;
-const int _potentialTransferMaxDays = 5;
 const int _hoursPerDay = 24;
 const int _millisecondsPerDay = Duration.millisecondsPerDay;
 const int _amountBucketMultiplier = 100;
@@ -446,15 +446,16 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
     }
 
     final List<Transaction> candidates = <Transaction>[];
-    for (int day = sourceDayKey - _potentialTransferMaxDays; day <= sourceDayKey + _potentialTransferMaxDays; day++) {
+    for (
+      int day = sourceDayKey - potentialTransferDefaultMaxDays;
+      day <= sourceDayKey + potentialTransferDefaultMaxDays;
+      day++
+    ) {
       final Map<int, List<Transaction>>? dayIndex = oppositeSignIndex[day];
       if (dayIndex == null) {
         continue;
       }
-      final List<Transaction>? bucket = dayIndex[sourceAmountBucket];
-      if (bucket != null && bucket.isNotEmpty) {
-        candidates.addAll(bucket);
-      }
+      candidates.addAll(_inNearbyAmountBuckets(dayIndex, sourceAmountBucket));
     }
 
     return candidates;
@@ -491,8 +492,8 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
 
       bool foundMatch = false;
       for (
-        int day = dayKey - _potentialTransferMaxDays;
-        day <= dayKey + _potentialTransferMaxDays && !foundMatch;
+        int day = dayKey - potentialTransferDefaultMaxDays;
+        day <= dayKey + potentialTransferDefaultMaxDays && !foundMatch;
         day++
       ) {
         final Map<int, List<Transaction>>? dayIndex = oppositeSignIndex[day];
@@ -500,16 +501,11 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
           continue;
         }
 
-        final List<Transaction>? entries = dayIndex[amountBucket];
-        if (entries == null) {
-          continue;
-        }
-
-        for (final Transaction candidate in entries) {
+        for (final Transaction candidate in _inNearbyAmountBuckets(dayIndex, amountBucket)) {
           if (candidate.uniqueId == transaction.uniqueId) {
             continue;
           }
-          if (_hasOppositeSign(amount, candidate.fieldAmount.value.asDouble())) {
+          if (_isOppositeAmount(amount, candidate.fieldAmount.value.asDouble())) {
             excludedIds.add(transaction.uniqueId);
             excludedIds.add(candidate.uniqueId);
             foundMatch = true;
@@ -568,7 +564,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
       }
 
       final double candidateAmount = candidate.fieldAmount.value.asDouble();
-      if (!_hasOppositeSign(sourceAmount, candidateAmount)) {
+      if (!_isOppositeAmount(sourceAmount, candidateAmount)) {
         continue;
       }
 
@@ -578,7 +574,7 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
       }
 
       final int delta = _getDayDifference(sourceDate, candidateDateValue.startOfDay);
-      if (delta > _potentialTransferMaxDays) {
+      if (delta > potentialTransferDefaultMaxDays) {
         continue;
       }
 
@@ -596,6 +592,14 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
   /// Converts an amount to an absolute cents bucket for fast grouping.
   int _toAmountBucket(double amount) {
     return (amount.abs() * _amountBucketMultiplier).round();
+  }
+
+  /// Returns the transactions in [dayIndex] whose amount bucket is [bucket] or a
+  /// neighbour, so amounts within the shared tolerance match across a cent boundary.
+  Iterable<Transaction> _inNearbyAmountBuckets(Map<int, List<Transaction>> dayIndex, int bucket) sync* {
+    for (int nearBucket = bucket - 1; nearBucket <= bucket + 1; nearBucket++) {
+      yield* dayIndex[nearBucket] ?? const <Transaction>[];
+    }
   }
 
   /// Returns true when both transactions are categorized as opposite
@@ -624,9 +628,9 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
     return aExpenseBIncome || aIncomeBExpense;
   }
 
-  /// Returns true when amounts are opposite in sign and non-zero.
-  bool _hasOppositeSign(double a, double b) {
-    return a != 0 && b != 0 && ((a < 0 && b > 0) || (a > 0 && b < 0));
+  /// Returns true when amounts are non-zero and opposite within the shared transfer tolerance.
+  bool _isOppositeAmount(double a, double b) {
+    return a != 0 && b != 0 && isOppositeAmountWithinTolerance(a, b);
   }
 
   /// Returns true when [accountType] represents a credit/charge account.

@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/payee_entity.dart';
@@ -53,13 +54,13 @@ class Payees extends MoneyObjects<Payee> {
     }
   }
 
-  /// Finds a payee by exact name.
+  /// Finds a payee by name (case-insensitive), like accounts and securities.
   Payee? getByName(String name) {
     if (name.isEmpty) {
       return null;
     }
     return iterableList().firstWhereOrNull(
-      (Payee payee) => payee.fieldName.value == name,
+      (Payee payee) => stringCompareIgnoreCasing(payee.fieldName.value, name) == 0,
     );
   }
 

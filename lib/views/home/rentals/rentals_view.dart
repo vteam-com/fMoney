@@ -56,9 +56,12 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
     bool includeDeleted = false,
     bool applyFilter = true,
   }) {
-    final List<RentBuilding> list = Data().rentBuildings.iterableList(includeDeleted: includeDeleted).toList();
-
-    return list;
+    return Data().rentBuildings
+        .iterableList(includeDeleted: includeDeleted)
+        .where(
+          (RentBuilding instance) => applyFilter == false || isMatchingFilters(instance),
+        )
+        .toList();
   }
 
   @override

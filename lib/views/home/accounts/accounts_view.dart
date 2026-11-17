@@ -15,6 +15,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/accounts_collection.dart';
@@ -844,12 +845,10 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           onColumnHeaderTap: (int columnHeaderIndex) {
             // ignore: invalid_use_of_protected_member
             setState(() {
-              if (columnHeaderIndex == sortFieldIndex) {
-                // toggle order
-                sortFieldIndex = sortFieldIndex;
-              } else {
-                sortFieldIndex = columnHeaderIndex;
-              }
+              PreferenceController.to.setSidePanelSortAscending(
+                sortAscendingAfterColumnTap(columnHeaderIndex, sortFieldIndex, sortAscending),
+              );
+              sortFieldIndex = columnHeaderIndex;
               PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
             });
           },

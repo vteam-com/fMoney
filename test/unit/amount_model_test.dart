@@ -45,6 +45,20 @@ void main() {
     test('returns null for invalid formats', () {
       expect(parseAmount('hello', 'USD'), isNull);
     });
+
+    test('parses bank styles the old USD/EUR regexes rejected', () {
+      expect(parseAmount('12-', 'USD'), -12);
+      expect(parseAmount(r'$ 1,234.56', 'USD'), 1234.56);
+      expect(parseAmount('CAD 5.00', 'CAD'), 5);
+      expect(parseAmount('1.234,56', 'USD'), 1234.56);
+      expect(parseAmount('1 234,56', 'EUR'), 1234.56);
+    });
+
+    test('EUR keeps a lone comma as the decimal separator', () {
+      expect(parseAmount('1,234', 'EUR'), 1.234);
+      expect(parseAmount('1.234', 'EUR'), 1234);
+      expect(parseAmount('1,234', 'USD'), 1234);
+    });
   });
 
   test('TransactionExtra', () {

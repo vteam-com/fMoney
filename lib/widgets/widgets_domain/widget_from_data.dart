@@ -2,7 +2,6 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/locale_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/pure/currency_label_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 
@@ -77,22 +76,9 @@ class WidgetFromData extends StatelessWidget {
       fontWeight: FontWeight.w900,
     );
 
-    final String valueAsString = getAmountAsStringUsingCurrency(
-      isConsideredZero(value) ? 0.00 : value,
+    final (String leftSideOfDecimalPointAsString, String rightOfDecimalPoint) = getAmountAsStringPartsUsingCurrency(
+      value,
       iso4217code: amountModel.iso4217,
-    );
-
-    final int leftSideOfDecimalPoint = value.truncate();
-    final String leftSideOfDecimalPointAsString = leftSideOfDecimalPoint.abs() == 0
-        ? '' // No need to show leading zero
-        : getAmountAsStringUsingCurrency(
-            leftSideOfDecimalPoint,
-            iso4217code: amountModel.iso4217,
-            decimalDigits: 0,
-          );
-
-    final String rightOfDecimalPoint = valueAsString.substring(
-      leftSideOfDecimalPointAsString.length,
     );
 
     return SelectableText.rich(

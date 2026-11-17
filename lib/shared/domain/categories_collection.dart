@@ -5,6 +5,7 @@ import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
@@ -79,7 +80,7 @@ class Categories extends MoneyObjects<Category> {
     int next = 1;
     while (getByName(nextAvailableName) != null) {
       // already taken
-      nextAvailableName = '$name $next';
+      nextAvailableName = '$prefixName $next';
       // the the next one
       next++;
     }
@@ -166,19 +167,16 @@ class Categories extends MoneyObjects<Category> {
     return iterableList().where((Category category) => category.isIncome).toList();
   }
 
-  /// Finds a category by exact name.
+  /// Finds a category by full name (case-insensitive), like accounts and securities.
   Category? getByName(String name) {
     return iterableList().firstWhereOrNull(
-      (Category category) => category.fieldName.value == name,
+      (Category category) => stringCompareIgnoreCasing(category.fieldName.value, name) == 0,
     );
   }
 
   /// Returns the ID for a category by name; -1 if not found.
   int? getIdByName(String name) {
-    final Category? found = iterableList().firstWhereOrNull(
-      (Category category) => category.fieldName.value == name,
-    );
-    return found?.uniqueId ?? -1;
+    return getByName(name)?.uniqueId ?? -1;
   }
 
   /// Returns all category names as strings.

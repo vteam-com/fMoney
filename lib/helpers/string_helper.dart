@@ -16,10 +16,6 @@ const int _defaultMaxLength = 5;
 const int _minWordsForInitials = 2;
 const int _notFoundIndex = -1;
 const int _singularCount = 1;
-const double _negativeSign = -1.0;
-const double _positiveSign = 1.0;
-const int _regexGroupMain = 1;
-const int _regexGroupDecimal = 2;
 const int _bytesPerKilobyte = 1024;
 const int _bytesPerMegabyte = _bytesPerKilobyte * _bytesPerKilobyte;
 const int _bytesPerGigabyte = _bytesPerMegabyte * _bytesPerKilobyte;
@@ -83,6 +79,20 @@ String escapeString(String input) => input.replaceAll("'", "''");
 String formatDoubleUpToFiveZero(double value, {bool showPlusSign = false}) {
   final NumberFormat formatter = NumberFormat(SharedStrings.numberFormatUpToFiveDecimals, 'en_US');
   return getPrefixPlusSignIfNeeded(value, showPlusSign: showPlusSign) + formatter.format(value);
+}
+
+/// Splits an already [formatted] number into its whole part and its fractional part.
+///
+/// The fractional part starts at the last [decimalSeparator], e.g. `'$1,234.56'` gives
+/// `('$1,234', '.56')`. When the whole part is zero (`'$0.50'`, `'+0.5'`) the whole part is
+/// empty and the fractional part holds the full text, so no leading zero is emphasised.
+(String, String) splitAtDecimalSeparator(String formatted, String decimalSeparator) {
+  final int index = formatted.lastIndexOf(decimalSeparator);
+  final String whole = index == -1 ? formatted : formatted.substring(0, index);
+  if (!RegExp('[1-9]').hasMatch(whole)) {
+    return ('', formatted);
+  }
+  return (whole, formatted.substring(whole.length));
 }
 
 /// Formats double with trimmed trailing zeros.
@@ -386,67 +396,15 @@ String removeUtf8Bom(String text) {
   return text;
 }
 
-/// Parses USD amount string and returns double value.
-double? parseUSDAmount(String input) {
-  final String normalizedInput = input.replaceAll('\$', '').replaceAll(SharedStrings.currencyUsd, SharedStrings.empty);
-  final RegExp usdPattern = RegExp(
-    r'^[+-]?(\d+(\,\d{3})*(\.\d+)?|\.\d+)(\s*USD)?$',
-  );
-  final RegExpMatch? match = usdPattern.firstMatch(normalizedInput);
-
-  if (match != null) {
-    final String? numericPart = match.group(_regexGroupMain)?.replaceAll(',', '');
-    if (numericPart != null) {
-      final double sign = normalizedInput.startsWith('-') ? _negativeSign : _positiveSign;
-      return double.parse(numericPart) * sign;
-    }
-  }
-
-  return null;
-}
-
-/// Parses Euro amount string and returns double value.
-double? parseEuroAmount(String input) {
-  final RegExp euroPattern = RegExp(
-    r'^([+-]?(?:\d+(?:\.\d{3})*|\d+))(,\d+)?\s*€?$',
-  );
-  final RegExpMatch? match = euroPattern.firstMatch(input);
-
-  if (match != null) {
-    final String? integerPart = match.group(_regexGroupMain)?.replaceAll('.', '');
-    final String? decimalPart = match.group(_regexGroupDecimal)?.replaceAll(',', '.');
-
-    if (integerPart != null) {
-      final String numericPart = integerPart + (decimalPart ?? '');
-      return double.parse(numericPart);
-    }
-  }
-
-  return null;
-}
-
-/// Converts parentheses notation to negative string (e.g., (100) -> -100).
-String convertParenthesesToNegativeString(String amountText) {
-  String result = amountText.trim();
-  if (result.contains('(') && result.contains(')')) {
-    result = result.replaceAll('(', '');
-    result = result.replaceAll(')', '');
-    result = '-$result';
-  }
-  return result;
-}
-
-/// Parses amount string based on currency type.
+/// Parses an amount written in [currency]'s usual style, using [parseAmountFlexible].
+///
+/// For EUR a lone comma is the decimal separator (`1,234` is 1.234); for other
+/// currencies the separator is detected from the text.
 double? parseAmount(String amountAsText, String currency) {
-  final String normalizedAmount = convertParenthesesToNegativeString(amountAsText);
-  switch (currency.toLowerCase()) {
-    case SharedStrings.currencyCodeEurLower:
-      return parseEuroAmount(normalizedAmount);
-    case SharedStrings.currencyCodeUsdLower:
-    case SharedStrings.currencyCodeCadLower:
-    default:
-      return parseUSDAmount(normalizedAmount);
-  }
+  return parseAmountFlexible(
+    amountAsText,
+    decimalSeparator: currency.toLowerCase() == SharedStrings.currencyCodeEurLower ? ',' : null,
+  );
 }
 
 /// Remove any characters not in the allowedChars argument

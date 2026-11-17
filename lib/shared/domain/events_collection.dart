@@ -7,7 +7,7 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 /// Represents events.
 class Events extends MoneyObjects<Event> {
   Events() {
-    collectionName = SharedDomainStrings.domainString084;
+    collectionName = SharedStrings.tableEvents;
   }
   late DataAbstract data;
 

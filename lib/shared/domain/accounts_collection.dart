@@ -153,7 +153,7 @@ class Accounts extends MoneyObjects<Account> {
         final Security? security = this.data.getSecurityBySymbol(symbol) as Security?;
         if (security != null) {
           account.fieldStockHoldingEstimation.value.setAmount(
-            totalAdjustedShareForThisStockInThisAccount * security.fieldLastPrice.value.asDouble(),
+            totalAdjustedShareForThisStockInThisAccount * security.fieldPrice.value.asDouble(),
           );
           if (account.fieldStockHoldingEstimation.value.asDouble() != _zeroDouble) {
             account.balance += account.fieldStockHoldingEstimation.value.asDouble();

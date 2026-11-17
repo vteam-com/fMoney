@@ -12,6 +12,7 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 
 /// Represents money data io.
@@ -202,80 +203,21 @@ class MoneyDataIO {
   }
 
   /// Loads data from archive containing multiple CSV files.
+  ///
+  /// Files are loaded in [_csvTables] order (not archive order) so that splits
+  /// are attached to transactions that are already loaded.
   void loadFromArchive(Data data, Archive archive) {
-    // Extract the files and read the content
-    for (ArchiveFile file in archive) {
+    final Map<String, String> contentByFileName = <String, String>{};
+    for (final ArchiveFile file in archive) {
       if (file.isFile) {
-        final String fileContent = getZipSingleFileContent(file);
+        contentByFileName[MyFileSystems.getFileName(file.name).toLowerCase()] = getZipSingleFileContent(file);
+      }
+    }
 
-        final String fileNameInLowercase = MyFileSystems.getFileName(file.name).toLowerCase();
-
-        switch (fileNameInLowercase) {
-          case 'account_aliases.csv':
-            data.accountAliases.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'accounts.csv':
-            data.accounts.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'aliases.csv':
-            data.aliases.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'categories.csv':
-            data.categories.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'investments.csv':
-            data.investments.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'loan_payments.csv':
-            data.loanPayments.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'online_accounts.csv':
-            data.onlineAccounts.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'payees.csv':
-            data.payees.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'rent_buildings.csv':
-            data.rentBuildings.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'rent_units.csv':
-            data.rentUnits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'securities.csv':
-            data.securities.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'splits.csv':
-            data.splits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'stock_splits.csv':
-            data.stockSplits.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'transaction_extras.csv':
-            data.transactionExtras.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'transactions.csv':
-            data.transactions.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-          case 'events.csv':
-            data.events.loadFromJson(
-              convertFromRawCsvTextToListOfJSonObject(fileContent),
-            );
-        }
+    for (final (String fileName, MoneyObjects<dynamic> collection) in _csvTables(data)) {
+      final String? fileContent = contentByFileName[fileName];
+      if (fileContent != null) {
+        collection.loadFromJson(convertFromRawCsvTextToListOfJSonObject(fileContent));
       }
     }
   }
@@ -329,27 +271,9 @@ class MoneyDataIO {
 
   /// Writes each data collection as CSV file to the archive.
   void writeEachFiles(Data data, Archive archive) {
-    addCsvToArchive(archive, 'account_aliases.csv', data.accountAliases.toCSV());
-    addCsvToArchive(archive, 'accounts.csv', data.accounts.toCSV());
-    addCsvToArchive(archive, 'aliases.csv', data.aliases.toCSV());
-    addCsvToArchive(archive, 'categories.csv', data.categories.toCSV());
-    addCsvToArchive(archive, 'currencies.csv', data.currencies.toCSV());
-    addCsvToArchive(archive, 'investments.csv', data.investments.toCSV());
-    addCsvToArchive(archive, 'loan_payments.csv', data.loanPayments.toCSV());
-    addCsvToArchive(archive, 'online_accounts.csv', data.onlineAccounts.toCSV());
-    addCsvToArchive(archive, 'payees.csv', data.payees.toCSV());
-    addCsvToArchive(archive, 'securities.csv', data.securities.toCSV());
-    addCsvToArchive(archive, 'splits.csv', data.splits.toCSV());
-    addCsvToArchive(archive, 'stock_splits.csv', data.stockSplits.toCSV());
-    addCsvToArchive(archive, 'rent_units.csv', data.rentUnits.toCSV());
-    addCsvToArchive(archive, 'rent_buildings.csv', data.rentBuildings.toCSV());
-    addCsvToArchive(archive, 'events.csv', data.events.toCSV());
-    addCsvToArchive(
-      archive,
-      'transaction_extras.csv',
-      data.transactionExtras.toCSV(),
-    );
-    addCsvToArchive(archive, 'transactions.csv', data.transactions.toCSV());
+    for (final (String fileName, MoneyObjects<dynamic> collection) in _csvTables(data)) {
+      addCsvToArchive(archive, fileName, collection.toCSV());
+    }
   }
 
   /// Adds CSV content as file to the archive.
@@ -361,6 +285,31 @@ class MoneyDataIO {
     final List<int> bytes = utf8.encode(textContent);
     archive.addFile(ArchiveFile(filename, bytes.length, bytes));
   }
+}
+
+/// Returns each CSV archive file name paired with its collection, in load order.
+///
+/// Mirrors [MoneyDataIO.loadFromSql]: splits must come after transactions.
+List<(String, MoneyObjects<dynamic>)> _csvTables(Data data) {
+  return <(String, MoneyObjects<dynamic>)>[
+    ('account_aliases.csv', data.accountAliases),
+    ('accounts.csv', data.accounts),
+    ('aliases.csv', data.aliases),
+    ('categories.csv', data.categories),
+    ('currencies.csv', data.currencies),
+    ('investments.csv', data.investments),
+    ('loan_payments.csv', data.loanPayments),
+    ('online_accounts.csv', data.onlineAccounts),
+    ('payees.csv', data.payees),
+    ('rent_buildings.csv', data.rentBuildings),
+    ('rent_units.csv', data.rentUnits),
+    ('securities.csv', data.securities),
+    ('stock_splits.csv', data.stockSplits),
+    ('events.csv', data.events),
+    ('transactions.csv', data.transactions),
+    ('transaction_extras.csv', data.transactionExtras),
+    ('splits.csv', data.splits),
+  ];
 }
 
 Future<List<Map<String, dynamic>>> _selectAll(MyDatabase db, String tableName) async {

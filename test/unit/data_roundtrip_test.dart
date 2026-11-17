@@ -3,7 +3,10 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/shared/domain/currency_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/services/money_data_io_service.dart';
 
 void main() {
@@ -101,6 +104,40 @@ void main() {
         isTrue,
         reason: 'Should contain at least 3 CSV files (accounts, transactions, categories)',
       );
+    });
+
+    test('CSV round-trip restores currencies and re-attaches splits to their transaction', () async {
+      final Data data = Data();
+      data.clearExistingData();
+
+      data.currencies.appendMoneyObject(
+        Currency(id: 1, symbol: 'EUR', name: 'Euro', ratio: 1.1, cultureCode: 'fr-FR', lastRatio: 1.0),
+      );
+      final Transaction transaction = Transaction(date: DateTime(2024, 1, 15))..uniqueId = 10;
+      data.transactions.appendMoneyObject(transaction);
+      data.splits.appendMoneyObject(
+        TransactionSplit(
+          id: 20,
+          transactionId: 10,
+          categoryId: -1,
+          payeeId: -1,
+          amount: 12.5,
+          transferId: -1,
+          memo: 'split',
+          flags: 0,
+          budgetBalanceDate: null,
+          data: data,
+        ),
+      );
+      expect(transaction.splits.length, 1);
+
+      final List<int> csvZipBytes = MoneyDataIO().getCsvZipAchieveListOfInt(data);
+      data.clearExistingData();
+      await MoneyDataIO().loadFromZippedCsv(data, '', Uint8List.fromList(csvZipBytes));
+
+      expect(data.currencies.length, 1);
+      expect(data.splits.length, 1);
+      expect(data.transactions.get(10)!.splits.length, 1);
     });
 
     test('Multiple round-trip operations maintain data integrity', () async {

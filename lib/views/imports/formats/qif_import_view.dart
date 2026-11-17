@@ -68,10 +68,14 @@ ImportData loadQIF(List<String> lines) {
         case SharedStrings.qifFieldAmount:
         case SharedStrings.qifFieldAmountAlt:
           // Amount
-          currentEntry.amount = parseUSDAmount(fieldData) ?? 0.00;
+          currentEntry.amount = parseAmountFlexible(fieldData) ?? 0.00;
 
         case SharedStrings.qifFieldMemo:
           // Memo
+          currentEntry.memo = getNormalizedValue(fieldData);
+
+        case SharedStrings.qifFieldPayee:
+          // Payee
           currentEntry.name = getNormalizedValue(fieldData);
 
         case SharedStrings.qifFieldAction:
@@ -80,15 +84,14 @@ ImportData loadQIF(List<String> lines) {
 
         case SharedStrings.qifFieldQuantity:
           // Quantity - We use Amount parser because quantity can have fraction
-          currentEntry.stockQuantity = parseUSDAmount(fieldData) ?? 0.0;
+          currentEntry.stockQuantity = parseAmountFlexible(fieldData) ?? 0.0;
 
         case SharedStrings.qifFieldSecurity:
           // Security
           currentEntry.stockSymbol = getNormalizedValue(fieldData);
 
-        case SharedStrings.qifFieldPayee:
         case SharedStrings.qifFieldPrice:
-          currentEntry.stockPrice = parseUSDAmount(fieldData) ?? 0.00;
+          currentEntry.stockPrice = parseAmountFlexible(fieldData) ?? 0.00;
       }
     }
   }
