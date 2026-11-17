@@ -10,7 +10,7 @@ import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
 // Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _navRailMinWidth = 50.0;

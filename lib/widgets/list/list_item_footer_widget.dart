@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/widgets/columns/column_footer_button.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';

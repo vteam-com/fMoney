@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 // Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _columnFilterPanelWidth = 300;

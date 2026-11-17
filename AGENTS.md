@@ -9,6 +9,12 @@
 - Define success criteria. Loop until verified.
 - Before marking work complete, run `tool/check.sh`; it must pass cleanly with zero warnings, zero errors, and a perfect score of `100%`
 
+## Git
+
+- Never run `git commit` or `git push`; the user reviews and commits changes themselves.
+- After completing any code change, end the reply with a suggested commit message (short subject line, optional body with key points).
+- Never add attribution lines (for example `Co-Authored-By:`) to suggested commit messages or PR descriptions.
+
 ## Localization Guardrails
 
 - Never ship user-facing display text as inline string literals in widgets or view models.

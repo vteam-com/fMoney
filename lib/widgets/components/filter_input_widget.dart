@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/pure/my_text_input_widget.dart';
 

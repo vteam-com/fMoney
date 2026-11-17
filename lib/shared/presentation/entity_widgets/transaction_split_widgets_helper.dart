@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';

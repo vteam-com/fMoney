@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 
 // Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 
 /// Builds the app scaffold with global text scaling applied.
 Widget myScaffold(

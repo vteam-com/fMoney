@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/views/home/ai/ai_instructions_widget.dart';
 
 /// A test host widget for dummy hosting app.

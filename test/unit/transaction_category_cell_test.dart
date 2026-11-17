@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_intents_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_router_service.dart';
@@ -128,12 +127,16 @@ class MyApp extends StatelessWidget {
                 supportedLocales: AppLocalizations.supportedLocales,
                 localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
                   AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
+                  ...GlobalMaterialLocalizations.delegates,
                 ],
                 initialRoute: '/',
                 onGenerateRoute: _onGenerateRoute,
+                // Map the material_ui theme and localizations for packages that
+                // still build on the SDK's deprecated material library.
+                // Remove once fl_chart, flutter_markdown, multi_split_view,
+                // dotted_border and desktop_drop move to package:material_ui.
+                // ignore: deprecated_member_use
+                builder: (BuildContext _, Widget? child) => MaterialUiCompatibilityBridge(child: child!),
               ),
             ),
           );

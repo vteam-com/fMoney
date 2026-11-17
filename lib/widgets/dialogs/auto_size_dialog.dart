@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _dialogBorderRadius = 8;

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';

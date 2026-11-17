@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/category_suggestion_provider_interface.dart';
 import 'package:money/shared/presentation/widgets/suggestion_approval_widget.dart';

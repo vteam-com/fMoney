@@ -1,5 +1,5 @@
 // ignore: fcheck_one_class_per_file
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const String settingKeyCashflowRecurringOccurrences = 'keyCashflowOccurrences';
 const String settingKeyCashflowView = 'keyCashflowView';

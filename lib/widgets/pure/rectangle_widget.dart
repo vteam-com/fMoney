@@ -1,5 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const double _defaultBorderSize = 2;
 const List<double> _transparentDashPattern = <double>[4.0, 2.0];

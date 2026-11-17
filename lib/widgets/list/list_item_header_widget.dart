@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';

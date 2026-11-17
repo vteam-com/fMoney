@@ -15,14 +15,20 @@ import 'package:window_manager/window_manager.dart';
 
   dependencies:
     shared_preferences: ^2.5.3
-    window_manager: ^0.5.0
+    window_manager: ^0.7.0
 
 */
 
 /// Represents my window manager.
-class MyWindowManager extends WindowListener {
+abstract final class MyWindowManager {
   /// Keeps the exit-request lifecycle listener alive for the app's lifetime.
   static AppLifecycleListener? _lifecycleListener;
+
+  /// True once the app-exit handshake has saved state and approved termination.
+  static bool _isExiting = false;
+
+  /// The app's native window, or null when the platform has none yet.
+  static Window? get _window => WindowManager.instance.getCurrent();
 
   /// Sets up main window with platform-specific optimizations.
   static Future<void> setupMainWindow() async {
@@ -48,12 +54,8 @@ class MyWindowManager extends WindowListener {
         // Only enable system UI mode for iOS/Android.
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       } else {
-        await windowManager.ensureInitialized();
-
-        // Tell window_manager we want to intercept close
-        await windowManager.setPreventClose(true);
-
-        windowManager.addListener(MyWindowManager());
+        // Intercept close requests so the window bounds are saved first.
+        _window?.addListener(_onWindowEvent);
 
         // Handle Cmd-Q / OS-initiated quit through Flutter's cooperative exit
         // handshake: save state while the engine is still alive, then let the
@@ -68,7 +70,11 @@ class MyWindowManager extends WindowListener {
   /// Saves current window state to shared preferences.
   static Future<void> saveWindowState() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final Rect bounds = await windowManager.getBounds();
+    final Window? window = _window;
+    if (window == null) {
+      return;
+    }
+    final Rect bounds = window.bounds.toRect();
 
     await prefs.setDouble('window_x', bounds.left);
     await prefs.setDouble('window_y', bounds.top);
@@ -78,6 +84,10 @@ class MyWindowManager extends WindowListener {
 
   /// Restores window state from shared preferences.
   static Future<void> restoreWindowState() async {
+    final Window? window = _window;
+    if (window == null) {
+      return;
+    }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final bool hasData =
@@ -92,20 +102,21 @@ class MyWindowManager extends WindowListener {
       final double width = MyWindowManager.getSafeDouble(prefs, 'window_width')!;
       final double height = MyWindowManager.getSafeDouble(prefs, 'window_height')!;
 
-      await windowManager.setBounds(Rect.fromLTWH(x, y, width, height));
+      window.bounds = Rect.fromLTWH(x, y, width, height).toNative();
     } else {
       // Optional: set a default window size
-      await windowManager.setSize(
+      window.setSize(
         const Size(
           SizeForWindow.desktopWidth,
           SizeForWindow.desktopHeight,
-        ),
+        ).toNative(),
+        false,
       );
-      await windowManager.center();
+      window.center();
     }
 
-    await windowManager.show();
-    await windowManager.focus();
+    window.show();
+    window.focus();
   }
 
   /// Safely gets double value from shared preferences.
@@ -122,20 +133,17 @@ class MyWindowManager extends WindowListener {
     return null;
   }
 
-  @override
-  Future<void> onWindowClose() async {
-    final bool isPreventClose = await windowManager.isPreventClose();
-    if (isPreventClose) {
-      // Prevent the close, do your save logic first
-      await saveWindowState();
-
-      // Stop intercepting so the terminate-driven window close proceeds
-      // without re-entering this handler on an engine that is shutting down.
-      await windowManager.setPreventClose(false);
-
-      // Then actually destroy the window
-      await windowManager.destroy();
+  /// Holds a close request open until the window state is saved, then lets
+  /// the window close.
+  static Future<void> _onWindowEvent(WindowEvent event) async {
+    // Once the exit handshake has saved state, let the terminate-driven close
+    // proceed without touching an engine that is shutting down.
+    if (event is! WindowCloseRequestedEvent || _isExiting) {
+      return;
     }
+    final EventDecision? decision = event.request.defer();
+    await saveWindowState();
+    decision?.accept();
   }
 
   /// Saves window state during the app-exit handshake (Cmd-Q, OS quit) while
@@ -144,27 +152,27 @@ class MyWindowManager extends WindowListener {
     await saveWindowState();
 
     // Let the OS close the window during termination without the
-    // prevent-close interception firing on a dying engine.
-    await windowManager.setPreventClose(false);
+    // close interception firing on a dying engine.
+    _isExiting = true;
 
     return AppExitResponse.exit;
   }
 
   /// Sets the application window size.
   static void setAppWindowSize(double width, double height) {
-    windowManager.ensureInitialized().then((void _) {
-      final WindowOptions windowOptions = WindowOptions(
-        size: Size(width, height),
-        maximumSize: Size(width, height),
-        center: true,
-        skipTaskbar: false,
-        titleBarStyle: TitleBarStyle.normal,
-        title: SharedStrings.appWindowTitle,
-      );
-      windowManager.waitUntilReadyToShow(windowOptions, () async {
-        await windowManager.show();
-        await windowManager.focus();
-      });
-    });
+    final Window? window = _window;
+    if (window == null) {
+      return;
+    }
+    final Size size = Size(width, height);
+    window
+      ..setSize(size.toNative(), false)
+      ..maximumSize = size.toNative()
+      ..center()
+      ..isVisibleInTaskbar = true
+      ..titleBarStyle = TitleBarStyle.normal
+      ..title = SharedStrings.appWindowTitle
+      ..show()
+      ..focus();
   }
 }

@@ -1,5 +1,5 @@
 // ignore: fcheck_dead_code
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/ranges_model.dart';
 
 /// Represents chart event.

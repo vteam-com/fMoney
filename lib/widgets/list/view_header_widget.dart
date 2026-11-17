@@ -9,7 +9,7 @@ import 'package:money/widgets/list/multiple_selection_toggle_widget.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 
 /// Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'package:money/widgets/pure/scale_down_widget.dart';
 
 const int _zeroInt = 0;

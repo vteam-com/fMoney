@@ -2,8 +2,8 @@
 // ignore: fcheck_one_class_per_file
 import 'dart:ui' as ui;
 
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:money/data/models/dividend_model.dart';
 import 'package:money/data/models/stock_date_price_model.dart';

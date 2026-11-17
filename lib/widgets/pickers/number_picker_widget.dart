@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 const int _defaultMinValue = 1;

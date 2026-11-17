@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 
 const double _bannerBorderRadius = 4;

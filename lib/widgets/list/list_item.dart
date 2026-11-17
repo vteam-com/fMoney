@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:money/helpers/color_helper.dart';
 
 // Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'package:money/widgets/pure/scale_down_widget.dart';
 
 const double _hoveredBackgroundAlpha = 0.3;

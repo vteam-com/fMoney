@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/constants_helper.dart';
 
 /// If the space for rendering the widget is too small this will scale the widget to fit

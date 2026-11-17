@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const double _readOnlyHorizontalPadding = 12;
 const double _readOnlyOpacity = 0.5;

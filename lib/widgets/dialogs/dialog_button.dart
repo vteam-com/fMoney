@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 
 const double _iconOpacity = 0.5;
 

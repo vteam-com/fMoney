@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/pure/rectangle_widget.dart';
 
 /// A stateless widget for my circle.

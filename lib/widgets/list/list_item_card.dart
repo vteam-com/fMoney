@@ -1,7 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 
 /// A stateless widget for my list item as card.
 class MyListItemAsCard extends StatelessWidget {

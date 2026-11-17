@@ -1,7 +1,7 @@
 // ignore_for_file: always_specify_types
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';

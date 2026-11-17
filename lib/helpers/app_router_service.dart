@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Centralizes app-wide navigator access using Flutter's standard navigator key.
 class AppRouter {

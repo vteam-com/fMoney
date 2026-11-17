@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/pairs_model.dart';
 
 // Exports
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 
 const double _minUnit = 0.0;
 const double _maxUnit = 1.0;

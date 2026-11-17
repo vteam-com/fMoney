@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Builds a horizontally scrollable row of [ToggleButtons] used by pivot filters.
 Widget buildPivotToggleRow({
