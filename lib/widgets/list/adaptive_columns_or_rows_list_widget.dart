@@ -49,7 +49,7 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
   final ListController listController;
   final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
   final void Function(int columnHeaderIndex)? onColumnHeaderTap;
-  final void Function()? onContextMenu;
+  final ListItemContextMenuCallback? onContextMenu;
   final void Function(BuildContext context, int itemId)? onItemLongPress;
   final void Function(BuildContext context, int itemId)? onItemTap;
   final void Function(int uniqueId)? onSelectionChanged;
@@ -132,6 +132,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
             displayAsColumn: widget.displayAsColumns,
             onTap: widget.onItemTap,
             onLongPress: widget.onItemLongPress,
+            onContextMenu: widget.onContextMenu,
             scrollController: widget.listController.scrollController,
             columnWidths: _columnWidths,
             widgetBuilders: widget.widgetBuilders,

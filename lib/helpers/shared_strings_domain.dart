@@ -464,4 +464,7 @@ abstract class SharedDomainStrings {
 
   /// Domain string token.
   static const String domainString163 = '>';
+
+  /// Column name for how many alias patterns map to the same payee.
+  static const String domainString164 = 'Patterns';
 }

@@ -526,6 +526,18 @@ abstract class AppLocalizations {
   /// **'Category'**
   String get category;
 
+  /// No description provided for @changeCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Change category'**
+  String get changeCategory;
+
+  /// No description provided for @changePayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Change payee'**
+  String get changePayee;
+
   /// No description provided for @chart.
   ///
   /// In en, this message translates to:
@@ -669,6 +681,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'@count years'**
   String countYears(String count);
+
+  /// No description provided for @createAlias.
+  ///
+  /// In en, this message translates to:
+  /// **'Create alias'**
+  String get createAlias;
 
   /// No description provided for @credit.
   ///
@@ -957,6 +975,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Find missing transfers'**
   String get findMissingTransfers;
+
+  /// No description provided for @findSimilarPayees.
+  ///
+  /// In en, this message translates to:
+  /// **'Find similar payees'**
+  String get findSimilarPayees;
 
   /// No description provided for @finish.
   ///
@@ -1708,6 +1732,12 @@ abstract class AppLocalizations {
   /// **'No items were @title'**
   String noItemsWereTitle(String title);
 
+  /// No description provided for @noMatchingAliases.
+  ///
+  /// In en, this message translates to:
+  /// **'No alias matches the selected transactions'**
+  String get noMatchingAliases;
+
   /// No description provided for @noMatchingTransactions.
   ///
   /// In en, this message translates to:
@@ -1761,6 +1791,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sheet XML found in XLSX file.'**
   String get noSheetXmlFoundInXlsxFile;
+
+  /// No description provided for @noSimilarPayeesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No similar payees found'**
+  String get noSimilarPayeesFound;
 
   /// No description provided for @noStockSelected.
   ///
@@ -1887,6 +1923,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payees'**
   String get payees;
+
+  /// No description provided for @payeesSimilarTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Payees similar to \"{payee}\"'**
+  String payeesSimilarTo(String payee);
 
   /// REVIEWED
   ///
@@ -2356,6 +2398,12 @@ abstract class AppLocalizations {
   /// **'Show closed accounts'**
   String get showClosedAccounts;
 
+  /// No description provided for @showEveryPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Show every pattern'**
+  String get showEveryPattern;
+
   /// No description provided for @showingFirstMaxrowsOfRowcountEligibleRows.
   ///
   /// In en, this message translates to:
@@ -2367,6 +2415,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Showing {rowCount} eligible rows (excluded rows with < 3 columns)'**
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount);
+
+  /// No description provided for @showOneRowPerPayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Show one row per payee'**
+  String get showOneRowPerPayee;
 
   /// No description provided for @sidePanelExpandCollapseTooltip.
   ///

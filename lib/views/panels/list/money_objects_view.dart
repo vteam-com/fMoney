@@ -37,6 +37,7 @@ import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/dialogs/message_box_dialog.dart';
 import 'package:money/widgets/list/column_filter_panel.dart';
+import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/list/multiple_selection_context_model.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
@@ -101,6 +102,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   void Function()? onAddTransaction;
   VoidCallback? onDeleteItems;
   VoidCallback? onEditItems;
+
+  /// Called when the user right-clicks a row of the main list; null shows no menu.
+  ListItemContextMenuCallback? onItemContextMenu;
   VoidCallback? onMultiSelect;
   PreferenceController preferenceController = AppScope.instance.preferenceController;
   late final SidePanelSupport sidePanelOptions;
@@ -157,6 +161,7 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
               saveLastUserChoicesOfView();
             },
             onItemTap: _onItemTap,
+            onItemContextMenu: onItemContextMenu,
             flexBottom: preferenceController.isSidePanelExpanded ? 1 : 0,
             bottom: SidePanel(
               key: Key(
@@ -445,14 +450,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     SidePanelSubViewEnum subViewId,
     List<int> selectedItems,
   ) {
-    keepUnused(selectedItems);
-    switch (subViewId) {
-      case SidePanelSubViewEnum.details:
-      case SidePanelSubViewEnum.chart:
-      case SidePanelSubViewEnum.transactions:
-      default:
-        return <String>[];
-    }
+    keepUnused(subViewId, selectedItems);
+    return <String>[];
   }
 
   /// Allowed to be override by derived classes
@@ -771,6 +770,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       true,
     );
   }
+
+  /// Ids of the items selected in the main list.
+  List<int> get selectedIds => _selectedItemsByUniqueId.value;
 
   /// Sets the selected item by unique ID and updates UI state.
   void setSelectedItem(int uniqueId) {

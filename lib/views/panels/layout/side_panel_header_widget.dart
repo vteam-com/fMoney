@@ -16,6 +16,7 @@ const int _subViewIndexDetails = 0;
 const int _subViewIndexChart = 1;
 const int _subViewIndexTransactions = 2;
 const int _subViewIndexPnl = 3;
+const int _subViewIndexAliases = 4;
 
 /// A stateless widget for side panel header.
 class SidePanelHeader extends StatelessWidget {
@@ -168,6 +169,14 @@ class SidePanelHeader extends StatelessWidget {
             value: _subViewIndexPnl,
             label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.pnl)),
             icon: const Icon(Icons.calendar_view_day),
+          ),
+        if (sidePanelSupport.supportedSubViews.contains(
+          SidePanelSubViewEnum.aliases,
+        ))
+          ButtonSegment<int>(
+            value: _subViewIndexAliases,
+            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.aliases)),
+            icon: Icon(ViewId.viewAliases.getIconData()),
           ),
       ],
       selectedId: subViewSelected.index,

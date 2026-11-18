@@ -5,15 +5,16 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
+import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/helpers/transactions_updated_snack_bar_helper.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 
 /// Represents view aliases.
@@ -35,15 +36,34 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
   @override
   DataObject createNewItem() => Data().aliases.addNewAlias();
 
-  /// Adds the "apply to existing transactions" button when an alias is selected.
+  /// True while each payee shows as a single row, its other patterns collapsed.
+  bool _showOneRowPerPayee = false;
+
+  /// Adds the collapse/expand toggle, and "apply to existing transactions" when an alias is selected.
   @override
   List<Widget> getActionsButtons(bool forSidePanelTransactions) {
-    final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
-    final Alias? alias = getFirstSelectedItem() as Alias?;
-    if (!forSidePanelTransactions && alias != null) {
-      list.add(buildApplyAliasButton(() => _applyAlias(alias)));
+    final List<Widget> buttons = super.getActionsButtons(forSidePanelTransactions);
+    if (forSidePanelTransactions) {
+      return buttons;
     }
-    return list;
+    buttons.add(
+      IconButton(
+        key: const Key('key_toggle_alias_rows'),
+        icon: Icon(_showOneRowPerPayee ? Icons.unfold_more : Icons.unfold_less),
+        tooltip: AppL10n.tr(
+          _showOneRowPerPayee ? AppTranslationKeys.showEveryPattern : AppTranslationKeys.showOneRowPerPayee,
+        ),
+        onPressed: () => setState(() {
+          _showOneRowPerPayee = !_showOneRowPerPayee;
+          list = getList();
+        }),
+      ),
+    );
+    final Alias? alias = getFirstSelectedItem() as Alias?;
+    if (alias != null) {
+      buttons.add(buildApplyAliasButton(() => _applyAlias(alias)));
+    }
+    return buttons;
   }
 
   /// Re-assigns the transactions [alias] matches to its payee and tells the user how many changed.
@@ -52,12 +72,7 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
     if (count > 0) {
       Data().updateAll();
     }
-    SnackBarService.displayInfo(
-      message: AppL10n.tr(
-        AppTranslationKeys.transactionsUpdatedCount,
-        params: <String, String>{'count': count.toString()},
-      ),
-    );
+    displayTransactionsUpdated(count);
   }
 
   @override
@@ -80,14 +95,17 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
     return Alias.fieldsForColumnView;
   }
 
+  /// Returns the aliases to list, one per payee while the patterns are collapsed.
   @override
   List<Alias> getList({bool includeDeleted = false, bool applyFilter = true}) {
-    return Data().aliases
+    Data().aliases.updatePatternCounts();
+    final List<Alias> aliases = Data().aliases
         .iterableList(includeDeleted: includeDeleted)
         .where(
           (Alias instance) => applyFilter == false || isMatchingFilters(instance),
         )
         .toList();
+    return _showOneRowPerPayee ? Aliases.firstPerPayee(aliases) : aliases;
   }
 
   @override

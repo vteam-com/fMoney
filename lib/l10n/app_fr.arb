@@ -120,6 +120,8 @@
   "categories": "Categories financieres",
   "categoriesDescription": "Classification de vos transactions d'argent.",
   "category": "Categorie",
+  "changeCategory": "Changer la catégorie",
+  "changePayee": "Changer le bénéficiaire",
   "chart": "Graphique",
   "chartUpperSpacer": "GRAPHIQUE ",
   "chatTruncatedSuffix": "\n(suite...)",
@@ -172,6 +174,7 @@
       }
     }
   },
+  "createAlias": "Créer un alias",
   "credit": "Crédit",
   "csvFileEmpty": "Le fichier CSV est vide.",
   "csvHeadersAreMissingOrEmpty": "Les en-tetes CSV sont manquants ou vides.",
@@ -319,6 +322,7 @@
   },
   "filter": "filtre",
   "findMissingTransfers": "Trouver les transferts manquants",
+  "findSimilarPayees": "Trouver des bénéficiaires similaires",
   "finish": "Terminer",
   "fmoney": "fMoney",
   "@fmoney": {
@@ -615,6 +619,7 @@
       }
     }
   },
+  "noMatchingAliases": "Aucun alias ne correspond aux transactions sélectionnées",
   "noMatchingTransactions": "Aucune transaction correspondante",
   "noNeedToMergeCategoryToItself": "Pas besoin de fusionner une categorie avec elle-meme, selectionnez une categorie differente.",
   "@noNeedToMergeCategoryToItself": {
@@ -634,6 +639,7 @@
   "noRowsFoundWith3OrMoreColumns": "Aucune ligne avec 3 colonnes ou plus.",
   "noSecuritySelected": "Aucun titre selectionne.",
   "noSheetXmlFoundInXlsxFile": "Aucun XML de feuille trouve dans le fichier XLSX.",
+  "noSimilarPayeesFound": "Aucun bénéficiaire similaire trouvé",
   "noStockSelected": "Aucune action selectionnee",
   "notFound": "- introuvable -",
   "nothingToImport": "Rien a importer",
@@ -658,6 +664,14 @@
   "payeeAliasesDescription": "Alias de beneficiaire.",
   "payeeMatch": "Correspondance beneficiaire",
   "payees": "Beneficiaires",
+  "payeesSimilarTo": "Bénéficiaires similaires à \"{payee}\"",
+  "@payeesSimilarTo": {
+    "placeholders": {
+      "payee": {
+        "type": "String"
+      }
+    }
+  },
   "pendingChanges": "Changements en attente",
   "@pendingChanges": {
     "description": "REVIEWED"
@@ -826,6 +840,7 @@
   "shortcutZoomIncrease": "Commande/Ctrl +",
   "shortcutZoomReset": "Commande/Ctrl 0",
   "showClosedAccounts": "Afficher les comptes fermes",
+  "showEveryPattern": "Afficher tous les motifs",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Affichage des {maxRows} premieres lignes sur {rowCount} lignes eligibles",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
     "placeholders": {
@@ -845,6 +860,7 @@
       }
     }
   },
+  "showOneRowPerPayee": "Afficher une ligne par bénéficiaire",
   "sidePanelExpandCollapseTooltip": "Developper/reduire le panneau",
   "skippingDuplicate": " Doublon ignore ",
   "smallScreenContentGoesHere": "Le contenu pour petit ecran apparait ici",

@@ -4,6 +4,7 @@ import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/list_controller.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
+import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
 
@@ -49,7 +50,7 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 
   final void Function(int columnHeaderIndex)? onColumnHeaderTap;
 
-  final void Function()? onContextMenu;
+  final ListItemContextMenuCallback? onContextMenu;
 
   final void Function(BuildContext context, int itemId)? onItemLongPress;
 

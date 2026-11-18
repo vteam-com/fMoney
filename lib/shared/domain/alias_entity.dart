@@ -8,6 +8,7 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
@@ -97,10 +98,25 @@ class Alias extends DataObject {
     footer: FooterType.count,
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: 0,
-    getValueForDisplay: (DataInterface instance) => (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
+    getValueForDisplay: (DataInterface instance) => (instance as Alias).payeeName,
     getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPayeeId.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldPayeeId.value = value as int,
+    // By payee name, then pattern, so each payee's patterns stay together.
+    sort: (DataInterface a, DataInterface b, bool ascending) {
+      final int byPayee = sortByString((a as Alias).payeeName, (b as Alias).payeeName, ascending);
+      return byPayee != 0 ? byPayee : sortByString(a.fieldPattern.value, b.fieldPattern.value, true);
+    },
   );
+
+  /// How many aliases map to this alias's payee; computed by [Aliases.updatePatternCounts], not stored.
+  FieldInt fieldPatternCount = FieldInt(
+    name: SharedDomainStrings.domainString164,
+    columnWidth: ColumnWidth.small,
+    getValueForDisplay: (DataInterface instance) => (instance as Alias).fieldPatternCount.value,
+  );
+
+  /// Name of the payee this alias maps to.
+  String get payeeName => data!.getPayeeName(fieldPayeeId.value);
 
   /// Compiled regex for [_regexPattern]; null when that pattern is not a valid regex.
   RegExp? _regex;
@@ -127,9 +143,17 @@ class Alias extends DataObject {
   static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
   static final List<FieldBlueprint<Alias>> _fieldBlueprints = <FieldBlueprint<Alias>>[
     FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldId),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId),
+  ];
+
+  /// Columns of the Aliases view: the payee first, so its patterns read together under it.
+  static final List<FieldBlueprint<Alias>> _columnBlueprints = <FieldBlueprint<Alias>>[
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId, includeInColumnView: true),
     FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern, includeInColumnView: true),
     FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags, includeInColumnView: true),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId, includeInColumnView: true),
+    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPatternCount, includeInColumnView: true),
   ];
 
   /// Returns the field definitions for Alias entities.
@@ -144,7 +168,7 @@ class Alias extends DataObject {
   static Fields<Alias> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Alias>(
     cache: _fieldsForColumns,
     instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
+    blueprints: _columnBlueprints,
     forColumnView: true,
   );
 

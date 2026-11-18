@@ -120,6 +120,8 @@
   "categories": "Categories",
   "categoriesDescription": "Classification of your money transactions.",
   "category": "Category",
+  "changeCategory": "Change category",
+  "changePayee": "Change payee",
   "chart": "Chart",
   "chartUpperSpacer": "CHART ",
   "chatTruncatedSuffix": "\n...",
@@ -172,6 +174,7 @@
       }
     }
   },
+  "createAlias": "Create alias",
   "credit": "Credit",
   "csvFileEmpty": "CSV file is empty.",
   "csvHeadersAreMissingOrEmpty": "CSV headers are missing or empty.",
@@ -319,6 +322,7 @@
   },
   "filter": "filter",
   "findMissingTransfers": "Find missing transfers",
+  "findSimilarPayees": "Find similar payees",
   "finish": "Finish",
   "fmoney": "fMoney",
   "@fmoney": {
@@ -615,6 +619,7 @@
       }
     }
   },
+  "noMatchingAliases": "No alias matches the selected transactions",
   "noMatchingTransactions": "No matching transactions",
   "noNeedToMergeCategoryToItself": "No need to merge to itself, select a different category.",
   "@noNeedToMergeCategoryToItself": {
@@ -634,6 +639,7 @@
   "noRowsFoundWith3OrMoreColumns": "No rows found with 3 or more columns.",
   "noSecuritySelected": "No security selected.",
   "noSheetXmlFoundInXlsxFile": "No sheet XML found in XLSX file.",
+  "noSimilarPayeesFound": "No similar payees found",
   "noStockSelected": "No stock selected",
   "notFound": "- not found -",
   "nothingToImport": "Nothing to import",
@@ -658,6 +664,14 @@
   "payeeAliasesDescription": "Payee aliases.",
   "payeeMatch": "Payee Match",
   "payees": "Payees",
+  "payeesSimilarTo": "Payees similar to \"{payee}\"",
+  "@payeesSimilarTo": {
+    "placeholders": {
+      "payee": {
+        "type": "String"
+      }
+    }
+  },
   "pendingChanges": "Pending Changes",
   "@pendingChanges": {
     "description": "REVIEWED"
@@ -826,6 +840,7 @@
   "shortcutZoomIncrease": "Cmd/Ctrl +",
   "shortcutZoomReset": "Cmd/Ctrl 0",
   "showClosedAccounts": "Show closed accounts",
+  "showEveryPattern": "Show every pattern",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Showing first {maxRows} of {rowCount} eligible rows",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
     "placeholders": {
@@ -845,6 +860,7 @@
       }
     }
   },
+  "showOneRowPerPayee": "Show one row per payee",
   "sidePanelExpandCollapseTooltip": "Expand/collapse panel",
   "skippingDuplicate": " Skipping Duplicate ",
   "smallScreenContentGoesHere": "Small screen content goes here",

@@ -12,24 +12,32 @@ import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/dialogs/message_box_dialog.dart';
 
-/// Shows dialog for editing a single money object with action buttons.
+/// Shows dialog for editing a single money object with action buttons; [onCancel] runs when it closes without Apply.
+/// [isNew] offers Apply right away, for an item just created with usable values.
 void myShowDialogAndActionsForMoneyObject({
   required String title,
   required DataObject moneyObject,
   void Function()? onApplyChange,
+  void Function()? onCancel,
+  bool isNew = false,
 }) {
   myShowDialogAndActionsForMoneyObjects(
     title: title,
     moneyObjects: <DataObject>[moneyObject],
     onApplyChange: onApplyChange,
+    onCancel: onCancel,
+    isNew: isNew,
   );
 }
 
-/// Shows dialog for editing multiple money objects with action buttons.
+/// Shows dialog for editing multiple money objects with action buttons; [onCancel] runs when it closes without Apply.
+/// [isNew] offers Apply right away, for an item just created with usable values.
 void myShowDialogAndActionsForMoneyObjects({
   required String title,
   required List<DataObject> moneyObjects,
   void Function()? onApplyChange,
+  void Function()? onCancel,
+  bool isNew = false,
 }) {
   final BuildContext context = AppRouter.context!;
 
@@ -55,6 +63,7 @@ void myShowDialogAndActionsForMoneyObjects({
     captionForClose: null, // this will hide the close button
     child: DialogMutateMoneyObject(
       moneyObject: rollup,
+      isNew: isNew,
       onApplyChange: (DataObject _) {
         final MyJson afterEditing = rollup.getPersistableJSon();
         final MyJson diff = myJsonDiff(
@@ -86,10 +95,11 @@ void myShowDialogAndActionsForMoneyObjects({
         onApplyChange?.call();
       },
       onCancel: snapshot == null
-          ? null
+          ? onCancel
           : () {
               snapshot.restore();
               Data().updateAll();
+              onCancel?.call();
             },
     ),
   );
@@ -102,14 +112,16 @@ class DialogMutateMoneyObject extends StatefulWidget {
     required this.moneyObject,
     required this.onApplyChange,
     this.onCancel,
+    this.isNew = false,
   });
 
+  /// True for an item just created with usable values, so Apply is offered before any edit.
+  final bool isNew;
   final DataObject moneyObject;
   final void Function(DataObject) onApplyChange;
 
   /// Called after the dialog closes without Apply (Cancel or dismiss).
   final VoidCallback? onCancel;
-
   @override
   State<DialogMutateMoneyObject> createState() => _DialogMutateMoneyObjectState();
 }
@@ -126,6 +138,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
   void initState() {
     super.initState();
     _moneyObject = widget.moneyObject;
+    dataWasModified = widget.isNew;
   }
 
   @override

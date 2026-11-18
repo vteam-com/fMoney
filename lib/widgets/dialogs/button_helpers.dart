@@ -36,6 +36,14 @@ Widget buildApplyAliasButton(void Function() callback) => _keyedIconButton(
   onPressed: callback,
 );
 
+/// Builds an IconButton that lists the payees similar to the selected one.
+Widget buildFindSimilarPayeesButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyFindSimilarPayeesButton,
+  icon: Icons.manage_search,
+  tooltip: AppL10n.tr(AppTranslationKeys.findSimilarPayees),
+  onPressed: callback,
+);
+
 /// Builds an IconButton for merging items with a key and tooltip.
 Widget buildMergeButton(void Function() callback) => _keyedIconButton(
   key: Constants.keyMergeButton,

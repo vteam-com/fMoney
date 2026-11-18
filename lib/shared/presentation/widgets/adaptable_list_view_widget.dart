@@ -11,6 +11,7 @@ import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/widgets/components/app_scaffold_widget.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
+import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
@@ -40,6 +41,7 @@ class AdaptiveViewWithList extends StatefulWidget {
     this.applySorting = true,
     this.showRightAdornment = false,
     this.onItemTap,
+    this.onItemContextMenu,
     this.onColumnHeaderTap,
     this.onColumnHeaderLongPress,
     this.getColumnFooterWidget,
@@ -55,6 +57,9 @@ class AdaptiveViewWithList extends StatefulWidget {
   final ListController listController;
   final void Function(Field<dynamic> field)? onColumnHeaderLongPress;
   final void Function(int columnHeaderIndex)? onColumnHeaderTap;
+
+  /// Called when the user right-clicks a row.
+  final ListItemContextMenuCallback? onItemContextMenu;
   final void Function(BuildContext, int)? onItemTap;
   final void Function(int) onSelectionChanged;
   final ValueNotifier<List<int>> selectedItemsByUniqueId;
@@ -175,7 +180,7 @@ class _AdaptiveViewWithListState extends State<AdaptiveViewWithList> {
             selectedItemsByUniqueId: widget.selectedItemsByUniqueId,
             isMultiSelectionOn: widget.isMultiSelectionOn,
             onSelectionChanged: widget.onSelectionChanged,
-            onContextMenu: () {},
+            onContextMenu: widget.onItemContextMenu,
           ),
         ),
       ],

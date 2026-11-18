@@ -533,6 +533,7 @@ class Data implements DataAbstract {
         t.stashValueBeforeEditing();
         t.stashOriginalPayee();
         t.fieldPayee.value = toPayeeId;
+        t.applyCategoryFromPayeeHistory();
         notifyMutationChanged(mutation: MutationType.changed, moneyObject: t, recalculateBalances: false);
         count++;
       }
@@ -636,6 +637,23 @@ class Data implements DataAbstract {
 
   @override
   int getSplitCategoryId() => categories.splitCategoryId();
+
+  @override
+  List<int> getCategoryIdsUsedByPayee(int payeeId) {
+    final Map<int, int> countByCategoryId = <int, int>{};
+    if (payeeId == -1) {
+      return <int>[];
+    }
+    final int splitCategoryId = categories.splitCategoryId();
+    for (final Transaction t in transactions.iterableList()) {
+      final int categoryId = t.fieldCategoryId.value;
+      if (t.fieldPayee.value == payeeId && !t.isTransfer && categoryId != -1 && categoryId != splitCategoryId) {
+        countByCategoryId[categoryId] = (countByCategoryId[categoryId] ?? 0) + 1;
+      }
+    }
+    return countByCategoryId.keys.toList()
+      ..sort((int a, int b) => countByCategoryId[b]!.compareTo(countByCategoryId[a]!));
+  }
 
   @override
   Category getTransferCategory() => categories.transfer;

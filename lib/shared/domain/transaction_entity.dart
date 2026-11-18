@@ -62,6 +62,7 @@ class Transaction extends DataObject implements MergeableItem {
     if (t.payeeName != description) {
       t.fieldOriginalPayee.value = description;
     }
+    t.applyCategoryFromPayeeHistory();
     t.fieldMemo.value = description;
     t.fieldAmount.value.setAmount(amount);
     return t;
@@ -752,6 +753,20 @@ class Transaction extends DataObject implements MergeableItem {
   /// Stores current payee/transfer caption into original-payee when empty.
   void stashOriginalPayee() {
     transactionStashOriginalPayee(this);
+  }
+
+  /// Gives this uncategorized transaction its payee's category when every categorized transaction
+  /// of that payee uses the same one; returns true when it did.
+  bool applyCategoryFromPayeeHistory() {
+    if (fieldCategoryId.value != _unsetId) {
+      return false;
+    }
+    final List<int> categoryIds = data.getCategoryIdsUsedByPayee(fieldPayee.value);
+    if (categoryIds.length != _oneInt) {
+      return false;
+    }
+    fieldCategoryId.value = categoryIds.first;
+    return true;
   }
 }
 

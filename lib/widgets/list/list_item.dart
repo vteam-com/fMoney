@@ -23,6 +23,7 @@ class MyListItem extends StatefulWidget {
     this.onTap,
     this.onDoubleTap,
     this.onLongPress,
+    this.onContextMenu,
     this.adornmentColor = Colors.transparent,
     this.rightAdornmentColor = Colors.transparent,
     this.showRightAdornmentTopCap = false,
@@ -32,6 +33,9 @@ class MyListItem extends StatefulWidget {
   final bool autoFocus;
   final Widget child;
   final bool isSelected;
+
+  /// Called on a right-click (secondary tap) with its screen position.
+  final void Function(Offset globalPosition)? onContextMenu;
   final GestureTapCallback? onDoubleTap;
   final KeyEventResult Function(FocusNode, KeyEvent) onListViewKeyEvent;
   final GestureTapCallback? onLongPress;
@@ -93,6 +97,9 @@ class MyListItemState extends State<MyListItem> {
             },
             onDoubleTap: widget.onDoubleTap,
             onLongPress: widget.onLongPress,
+            onSecondaryTapUp: widget.onContextMenu == null
+                ? null
+                : (TapUpDetails details) => widget.onContextMenu!(details.globalPosition),
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[

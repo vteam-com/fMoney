@@ -472,4 +472,13 @@ abstract class AppTranslationKeys {
   static const String updateAvailableMessage = 'updateAvailableMessage';
   static const String updateCannotInstallHere = 'updateCannotInstallHere';
   static const String updateFailed = 'updateFailed';
+  static const String createAlias = 'createAlias';
+  static const String findSimilarPayees = 'findSimilarPayees';
+  static const String noSimilarPayeesFound = 'noSimilarPayeesFound';
+  static const String payeesSimilarTo = 'payeesSimilarTo';
+  static const String noMatchingAliases = 'noMatchingAliases';
+  static const String changeCategory = 'changeCategory';
+  static const String changePayee = 'changePayee';
+  static const String showOneRowPerPayee = 'showOneRowPerPayee';
+  static const String showEveryPattern = 'showEveryPattern';
 }

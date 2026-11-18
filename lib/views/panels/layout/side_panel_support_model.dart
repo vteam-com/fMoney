@@ -12,6 +12,7 @@ class SidePanelSupport {
     this.onChart,
     this.onTransactions,
     this.onPnL,
+    this.onAliases,
     this.onCopyToClipboard,
   });
 
@@ -20,6 +21,7 @@ class SidePanelSupport {
     if (onChart != null) SidePanelSubViewEnum.chart,
     if (onTransactions != null) SidePanelSubViewEnum.transactions,
     if (onPnL != null) SidePanelSubViewEnum.pnl,
+    if (onAliases != null) SidePanelSubViewEnum.aliases,
   ];
 
   int selectedCurrency = 0;
@@ -47,6 +49,9 @@ class SidePanelSupport {
     required bool showAsNativeCurrency,
   })?
   onPnL;
+
+  /// Aliases
+  Widget Function({required List<int> selectedIds})? onAliases;
 
   Function? onCopyToClipboard;
 
@@ -79,6 +84,10 @@ class SidePanelSupport {
           selectedIds: selectedIds,
           showAsNativeCurrency: selectedCurrency == 0,
         );
+
+      /// Aliases
+      case SidePanelSubViewEnum.aliases:
+        return onAliases!(selectedIds: selectedIds);
 
       /// Transactions
       case SidePanelSubViewEnum.transactions:

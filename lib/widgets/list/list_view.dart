@@ -20,6 +20,9 @@ const double _rowHeightColumn = 30;
 const double _rowHeightCard = 85;
 const double _rowHorizontalPadding = 8;
 
+/// Called when the user right-clicks the row of [uniqueId] at [globalPosition], after it got selected.
+typedef ListItemContextMenuCallback = void Function(BuildContext context, int uniqueId, Offset globalPosition);
+
 /// A stateful widget for my list view.
 class MyListView<T> extends StatefulWidget {
   const MyListView({
@@ -33,6 +36,7 @@ class MyListView<T> extends StatefulWidget {
     this.onTap,
     this.onDoubleTap,
     this.onLongPress,
+    this.onContextMenu,
     this.displayAsColumn = true,
     this.showRightAdornment = true,
     this.onSelectionChanged,
@@ -48,6 +52,7 @@ class MyListView<T> extends StatefulWidget {
   final FieldDefinitions fields;
   final bool isMultiSelectionOn;
   final List<T> list;
+  final ListItemContextMenuCallback? onContextMenu;
   final void Function(BuildContext, int uniqueId)? onDoubleTap;
   final void Function(BuildContext, int uniqueId)? onLongPress;
   final void Function(int /* uniqueId */)? onSelectionChanged;
@@ -185,6 +190,14 @@ class MyListViewState<T> extends State<MyListView<T>> {
                       FocusScope.of(context).requestFocus();
                     }
                   },
+                  onContextMenu: widget.onContextMenu == null
+                      ? null
+                      : (Offset position) {
+                          if (!widget.selectedItemIds.value.contains(itemInstance.uniqueId)) {
+                            selectedItem(itemInstance.uniqueId);
+                          }
+                          widget.onContextMenu!(context, itemInstance.uniqueId, position);
+                        },
                   autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
                   adornmentColor: _getMutationColor(itemInstance),

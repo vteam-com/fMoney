@@ -34,6 +34,7 @@ const int _transactionZeroInt = 0;
 const double _transactionZeroDouble = 0.0;
 const double _transferPickerWidth = 300.0;
 const double _transferPickerHeight = 80.0;
+const int _maxCategorySuggestions = 3;
 const double _potentialTransferHintIconSize = 14.0;
 const double _potentialTransferHintIconButtonSize = 18.0;
 const double _potentialTransferSheetHeaderPadding = 12.0;
@@ -260,31 +261,59 @@ Widget transactionBuildPayeeOrTransferWidget(Transaction transaction) {
 
 /// Builds the category picker editor, with a split shortcut when [transaction] is a split.
 Widget _buildCategoryEditWidget(Transaction transaction, void Function(bool /* wasModified */) onEdited) {
-  return Row(
+  final List<String> suggestions = suggestedCategoryNamesForPayee(
+    transaction.fieldPayee.value,
+    excludeCategoryId: transaction.fieldCategoryId.value,
+  );
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Expanded(
-        child: pickerCategory(
-          key: const Key('key_pick_category'),
-          categoryNames: DataAbstract.instance.getCategoriesAsStrings(),
-          selectedName: DataAbstract.instance.getCategoryNameFromId(transaction.fieldCategoryId.value),
-          onSelected: (String? name) {
-            if (name != null) {
-              DataAbstract.instance.changeCategoryFromCategoryName(transaction, name);
-              onEdited(true);
-            }
-          },
-        ),
+      Row(
+        children: <Widget>[
+          Expanded(
+            child: pickerCategory(
+              key: const Key('key_pick_category'),
+              categoryNames: DataAbstract.instance.getCategoriesAsStrings(),
+              selectedName: DataAbstract.instance.getCategoryNameFromId(transaction.fieldCategoryId.value),
+              onSelected: (String? name) {
+                if (name != null) {
+                  DataAbstract.instance.changeCategoryFromCategoryName(transaction, name);
+                  onEdited(true);
+                }
+              },
+            ),
+          ),
+          if (transaction.fieldCategoryId.value == DataAbstract.instance.getSplitCategoryId())
+            MyIconButton(
+              icon: Icons.arrow_forward_ios,
+              onPressed: () {
+                // Split editing is now handled by SuggestionApproval widget
+                // when the category widget is tapped for split transactions
+              },
+            ),
+        ],
       ),
-      if (transaction.fieldCategoryId.value == DataAbstract.instance.getSplitCategoryId())
-        MyIconButton(
-          icon: Icons.arrow_forward_ios,
-          onPressed: () {
-            // Split editing is now handled by SuggestionApproval widget
-            // when the category widget is tapped for split transactions
+      if (suggestions.isNotEmpty)
+        categorySuggestions(
+          categoryNames: suggestions,
+          onSelected: (String name) {
+            DataAbstract.instance.changeCategoryFromCategoryName(transaction, name);
+            onEdited(true);
           },
         ),
     ],
   );
+}
+
+/// Returns the names of up to three categories [payeeId] uses most, leaving out [excludeCategoryId].
+List<String> suggestedCategoryNamesForPayee(int payeeId, {int excludeCategoryId = _transactionUnsetId}) {
+  return DataAbstract.instance
+      .getCategoryIdsUsedByPayee(payeeId)
+      .where((int id) => id != excludeCategoryId)
+      .take(_maxCategorySuggestions)
+      .map(DataAbstract.instance.getCategoryNameFromId)
+      .toList();
 }
 
 /// Builds the payee-or-transfer picker editor for [transaction].
@@ -319,6 +348,7 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
                     transaction.fieldPayee.value = (selectedPayee as dynamic).uniqueId as int;
                     transaction.fieldTransfer.value = _transactionUnsetId;
                     transaction.editingTransferAccount = null;
+                    transaction.applyCategoryFromPayeeHistory();
                     wasModified = true;
                   }
                 }

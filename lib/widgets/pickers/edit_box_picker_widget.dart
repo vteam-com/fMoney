@@ -56,7 +56,6 @@ class PickerEditBox extends StatefulWidget {
 /// State for picker edit box.
 class PickerEditBoxState extends State<PickerEditBox> {
   final TextEditingController _textController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -68,6 +67,19 @@ class PickerEditBoxState extends State<PickerEditBox> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  /// Shows a value the owner changed from outside (for example a tapped suggestion).
+  @override
+  void didUpdateWidget(PickerEditBox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final String value = widget.initialValue ?? '';
+    if (widget.initialValue != oldWidget.initialValue && value != _textController.text) {
+      _textController.value = TextEditingValue(
+        text: value,
+        selection: TextSelection.collapsed(offset: value.length),
+      );
+    }
   }
 
   @override

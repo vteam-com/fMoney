@@ -240,6 +240,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get category => 'Categoria';
 
   @override
+  String get changeCategory => 'Cambiar categoría';
+
+  @override
+  String get changePayee => 'Cambiar beneficiario';
+
+  @override
   String get chart => 'Gráfico';
 
   @override
@@ -318,6 +324,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String countYears(String count) {
     return '@count año(s)';
   }
+
+  @override
+  String get createAlias => 'Crear alias';
 
   @override
   String get credit => 'Crédito';
@@ -489,6 +498,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get findMissingTransfers => 'Encontrar transferencias faltantes';
+
+  @override
+  String get findSimilarPayees => 'Buscar beneficiarios similares';
 
   @override
   String get finish => 'Finalizar';
@@ -901,6 +913,9 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get noMatchingAliases => 'Ningún alias coincide con las transacciones seleccionadas';
+
+  @override
   String get noMatchingTransactions => 'No hay transacciones coincidentes';
 
   @override
@@ -929,6 +944,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noSheetXmlFoundInXlsxFile => 'No se encontró XML de hoja en el archivo XLSX.';
+
+  @override
+  String get noSimilarPayeesFound => 'No se encontraron beneficiarios similares';
 
   @override
   String get noStockSelected => 'Ninguna acción seleccionada';
@@ -993,6 +1011,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get payees => 'Beneficiarios';
+
+  @override
+  String payeesSimilarTo(String payee) {
+    return 'Beneficiarios similares a \"$payee\"';
+  }
 
   @override
   String get pendingChanges => 'Cambios pendientes';
@@ -1243,6 +1266,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get showClosedAccounts => 'Mostrar cuentas cerradas';
 
   @override
+  String get showEveryPattern => 'Mostrar todos los patrones';
+
+  @override
   String showingFirstMaxrowsOfRowcountEligibleRows(String maxRows, String rowCount) {
     return 'Mostrando las primeras $maxRows de $rowCount filas elegibles';
   }
@@ -1251,6 +1277,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount) {
     return 'Mostrando $rowCount filas elegibles (excluidas filas con < 3 columnas)';
   }
+
+  @override
+  String get showOneRowPerPayee => 'Mostrar una fila por beneficiario';
 
   @override
   String get sidePanelExpandCollapseTooltip => 'Expandir/contraer panel';

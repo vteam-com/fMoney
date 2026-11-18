@@ -120,6 +120,8 @@
   "categories": "Categorias",
   "categoriesDescription": "Clasificacion de tus transacciones de dinero.",
   "category": "Categoria",
+  "changeCategory": "Cambiar categoría",
+  "changePayee": "Cambiar beneficiario",
   "chart": "Gráfico",
   "chartUpperSpacer": "GRÁFICO",
   "chatTruncatedSuffix": "\n(...)",
@@ -172,6 +174,7 @@
       }
     }
   },
+  "createAlias": "Crear alias",
   "credit": "Crédito",
   "csvFileEmpty": "El archivo CSV está vacío.",
   "csvHeadersAreMissingOrEmpty": "Los encabezados CSV faltan o están vacíos.",
@@ -319,6 +322,7 @@
   },
   "filter": "Filtro",
   "findMissingTransfers": "Encontrar transferencias faltantes",
+  "findSimilarPayees": "Buscar beneficiarios similares",
   "finish": "Finalizar",
   "fmoney": "fMoney",
   "@fmoney": {
@@ -615,6 +619,7 @@
       }
     }
   },
+  "noMatchingAliases": "Ningún alias coincide con las transacciones seleccionadas",
   "noMatchingTransactions": "No hay transacciones coincidentes",
   "noNeedToMergeCategoryToItself": "No es necesario combinar una categoria consigo misma, selecciona una categoria diferente.",
   "@noNeedToMergeCategoryToItself": {
@@ -634,6 +639,7 @@
   "noRowsFoundWith3OrMoreColumns": "No se encontraron filas con 3 o más columnas.",
   "noSecuritySelected": "Ningún valor seleccionado.",
   "noSheetXmlFoundInXlsxFile": "No se encontró XML de hoja en el archivo XLSX.",
+  "noSimilarPayeesFound": "No se encontraron beneficiarios similares",
   "noStockSelected": "Ninguna acción seleccionada",
   "notFound": "- no encontrado -",
   "nothingToImport": "Nada para importar",
@@ -658,6 +664,14 @@
   "payeeAliasesDescription": "Alias de beneficiario.",
   "payeeMatch": "Coincidencia de beneficiario",
   "payees": "Beneficiarios",
+  "payeesSimilarTo": "Beneficiarios similares a \"{payee}\"",
+  "@payeesSimilarTo": {
+    "placeholders": {
+      "payee": {
+        "type": "String"
+      }
+    }
+  },
   "pendingChanges": "Cambios pendientes",
   "@pendingChanges": {
     "description": "REVIEWED"
@@ -826,6 +840,7 @@
   "shortcutZoomIncrease": "Comando/Ctrl +",
   "shortcutZoomReset": "Comando/Ctrl 0",
   "showClosedAccounts": "Mostrar cuentas cerradas",
+  "showEveryPattern": "Mostrar todos los patrones",
   "showingFirstMaxrowsOfRowcountEligibleRows": "Mostrando las primeras {maxRows} de {rowCount} filas elegibles",
   "@showingFirstMaxrowsOfRowcountEligibleRows": {
     "placeholders": {
@@ -845,6 +860,7 @@
       }
     }
   },
+  "showOneRowPerPayee": "Mostrar una fila por beneficiario",
   "sidePanelExpandCollapseTooltip": "Expandir/contraer panel",
   "skippingDuplicate": " Omitiendo duplicado ",
   "smallScreenContentGoesHere": "El contenido de pantalla pequeña va aquí",

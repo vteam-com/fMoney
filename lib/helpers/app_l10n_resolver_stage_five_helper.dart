@@ -67,6 +67,24 @@ String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String,
       return l10n.updateCannotInstallHere;
     case AppTranslationKeys.updateFailed:
       return l10n.updateFailed(p['error'] ?? '');
+    case AppTranslationKeys.createAlias:
+      return l10n.createAlias;
+    case AppTranslationKeys.findSimilarPayees:
+      return l10n.findSimilarPayees;
+    case AppTranslationKeys.noSimilarPayeesFound:
+      return l10n.noSimilarPayeesFound;
+    case AppTranslationKeys.payeesSimilarTo:
+      return l10n.payeesSimilarTo(p['payee'] ?? '');
+    case AppTranslationKeys.noMatchingAliases:
+      return l10n.noMatchingAliases;
+    case AppTranslationKeys.changeCategory:
+      return l10n.changeCategory;
+    case AppTranslationKeys.changePayee:
+      return l10n.changePayee;
+    case AppTranslationKeys.showOneRowPerPayee:
+      return l10n.showOneRowPerPayee;
+    case AppTranslationKeys.showEveryPattern:
+      return l10n.showEveryPattern;
     default:
       return key;
   }

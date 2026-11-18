@@ -238,6 +238,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get category => 'Category';
 
   @override
+  String get changeCategory => 'Change category';
+
+  @override
+  String get changePayee => 'Change payee';
+
+  @override
   String get chart => 'Chart';
 
   @override
@@ -316,6 +322,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String countYears(String count) {
     return '@count years';
   }
+
+  @override
+  String get createAlias => 'Create alias';
 
   @override
   String get credit => 'Credit';
@@ -486,6 +495,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get findMissingTransfers => 'Find missing transfers';
+
+  @override
+  String get findSimilarPayees => 'Find similar payees';
 
   @override
   String get finish => 'Finish';
@@ -895,6 +907,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get noMatchingAliases => 'No alias matches the selected transactions';
+
+  @override
   String get noMatchingTransactions => 'No matching transactions';
 
   @override
@@ -922,6 +937,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSheetXmlFoundInXlsxFile => 'No sheet XML found in XLSX file.';
+
+  @override
+  String get noSimilarPayeesFound => 'No similar payees found';
 
   @override
   String get noStockSelected => 'No stock selected';
@@ -986,6 +1004,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get payees => 'Payees';
+
+  @override
+  String payeesSimilarTo(String payee) {
+    return 'Payees similar to \"$payee\"';
+  }
 
   @override
   String get pendingChanges => 'Pending Changes';
@@ -1236,6 +1259,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showClosedAccounts => 'Show closed accounts';
 
   @override
+  String get showEveryPattern => 'Show every pattern';
+
+  @override
   String showingFirstMaxrowsOfRowcountEligibleRows(String maxRows, String rowCount) {
     return 'Showing first $maxRows of $rowCount eligible rows';
   }
@@ -1244,6 +1270,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String showingRowcountEligibleRowsExcludedRowsWith3Columns(String rowCount) {
     return 'Showing $rowCount eligible rows (excluded rows with < 3 columns)';
   }
+
+  @override
+  String get showOneRowPerPayee => 'Show one row per payee';
 
   @override
   String get sidePanelExpandCollapseTooltip => 'Expand/collapse panel';

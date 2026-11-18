@@ -10,6 +10,7 @@ import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/charts/transaction_timeline_chart.dart';
 import 'package:money/views/panels/dialogs/merge_payees_dialog.dart';
+import 'package:money/views/panels/dialogs/similar_payees_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
@@ -53,6 +54,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
             showMergePayee(context, payee, transactions, Data());
           }),
         );
+        list.add(buildFindSimilarPayeesButton(() => showSimilarPayees(context, moneyObject as Payee)));
       }
 
       // this can go last

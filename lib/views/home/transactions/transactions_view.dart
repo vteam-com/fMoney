@@ -13,9 +13,11 @@ import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/shared/presentation/widgets/transaction_splits_list_view_widget.dart';
+import 'package:money/views/home/transactions/transaction_actions_helper.dart';
 import 'package:money/views/panels/cards/transfer_sender_receiver_card.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/transaction_aliases_panel.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
@@ -57,7 +59,22 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   _ViewTransactionsState() {
     viewId = ViewId.viewTransactions;
     supportsMultiSelection = true;
+    onItemContextMenu = (BuildContext context, int _, Offset position) =>
+        showTransactionActionsMenu(context, position, _selectedTransactions());
   }
+
+  /// Adds the transaction action shortcuts (edit, change category or payee, create alias, similar payees).
+  @override
+  Widget build(BuildContext context) {
+    return CallbackShortcuts(
+      bindings: transactionActionShortcuts(context, _selectedTransactions),
+      child: super.build(context),
+    );
+  }
+
+  /// Returns the transactions selected in the main list.
+  List<Transaction> _selectedTransactions() =>
+      getSelectedItemsFromSelectedList(selectedIds).whereType<Transaction>().toList();
 
   final List<Widget> pivots = <Widget>[];
   final TextStyle styleHeader = const TextStyle(
@@ -183,7 +200,20 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
       onDetails: getSidePanelViewDetails,
       onChart: _getSidePanelViewChart,
       onTransactions: _getSidePanelViewTransactions,
+      onAliases: _getSidePanelViewAliases,
     );
+  }
+
+  /// Builds the side panel list of aliases related to the selected transactions.
+  Widget _getSidePanelViewAliases({required List<int> selectedIds}) {
+    final List<Transaction> transactions = selectedIds
+        .map((int id) => Data().transactions.get(id))
+        .whereType<Transaction>()
+        .toList();
+    if (transactions.isEmpty) {
+      return CenterMessage.noTransaction();
+    }
+    return TransactionAliasesPanel(key: Key(selectedIds.join(',')), transactions: transactions);
   }
 
   @override
