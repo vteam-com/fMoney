@@ -58,6 +58,10 @@ class Transaction extends DataObject implements MergeableItem {
     t.fieldId.value = _unsetId;
     t.fieldAccountId.value = account is int ? account : ((account as dynamic).uniqueId as num).toInt();
     t.fieldPayee.value = payee == null ? _unsetId : ((payee as dynamic).uniqueId as num).toInt();
+    // Like MyMoney.Net, keep the bank's text when an alias renamed it, so aliases can be re-applied later.
+    if (t.payeeName != description) {
+      t.fieldOriginalPayee.value = description;
+    }
     t.fieldMemo.value = description;
     t.fieldAmount.value.setAmount(amount);
     return t;

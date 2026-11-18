@@ -518,6 +518,38 @@ class Data implements DataAbstract {
     }
   }
 
+  /// Points every non-transfer transaction and split line that [alias] matches at the alias payee,
+  /// and returns how many changed. A transaction matches on its original bank text or its payee name.
+  int applyAlias(Alias alias) {
+    final int toPayeeId = alias.fieldPayeeId.value;
+    if (payees.get(toPayeeId) == null) {
+      return 0;
+    }
+    int count = 0;
+    for (final Transaction t in transactions.iterableList()) {
+      if (t.fieldPayee.value != toPayeeId &&
+          !t.isTransfer &&
+          (alias.isMatch(t.fieldOriginalPayee.value) || alias.isMatch(t.payeeName))) {
+        t.stashValueBeforeEditing();
+        t.stashOriginalPayee();
+        t.fieldPayee.value = toPayeeId;
+        notifyMutationChanged(mutation: MutationType.changed, moneyObject: t, recalculateBalances: false);
+        count++;
+      }
+    }
+    for (final TransactionSplit split in splits.iterableList()) {
+      if (split.fieldPayeeId.value != toPayeeId &&
+          split.fieldTransferId.value == -1 &&
+          alias.isMatch(getPayeeName(split.fieldPayeeId.value))) {
+        split.stashValueBeforeEditing();
+        split.fieldPayeeId.value = toPayeeId;
+        notifyMutationChanged(mutation: MutationType.changed, moneyObject: split, recalculateBalances: false);
+        count++;
+      }
+    }
+    return count;
+  }
+
   @override
   List<Payee> getPayees() => payees.iterableList().toList();
 

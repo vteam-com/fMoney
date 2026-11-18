@@ -40,6 +40,8 @@ String resolveAppL10nKey(L10n l10n, String key, L10nParams p) {
       return l10n.append;
     case AppTranslationKeys.apply:
       return l10n.apply;
+    case AppTranslationKeys.applyAliasToTransactions:
+      return l10n.applyAliasToTransactions;
     case AppTranslationKeys.availableOn:
       return l10n.availableOn;
     case AppTranslationKeys.avgLabel:
@@ -562,6 +564,8 @@ String _resolveAppL10nKeyStageThree(L10n l10n, String key, L10nParams p) {
       return l10n.addInvestment;
     case AppTranslationKeys.addNewAccount:
       return l10n.addNewAccount;
+    case AppTranslationKeys.addNewAlias:
+      return l10n.addNewAlias;
     case AppTranslationKeys.addNewCategory:
       return l10n.addNewCategory;
     case AppTranslationKeys.addNewEvent:
@@ -872,6 +876,8 @@ String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
       return l10n.totalTransactionAmount;
     case AppTranslationKeys.transactionsAddedCount:
       return l10n.transactionsAddedCount(p['count'] ?? '');
+    case AppTranslationKeys.transactionsUpdatedCount:
+      return l10n.transactionsUpdatedCount(p['count'] ?? '');
     case AppTranslationKeys.transactionsFoundInFileToImport:
       return l10n.transactionsFoundInFileToImport(p['count'] ?? '', p['fileType'] ?? '', p['account'] ?? '');
     case AppTranslationKeys.unableToOpenFile:

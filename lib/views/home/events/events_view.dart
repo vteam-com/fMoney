@@ -9,14 +9,13 @@ import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/event_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
 import 'package:money/views/panels/charts/stock_chart.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
+import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_event_model.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
-import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 
@@ -34,42 +33,16 @@ class ViewEvents extends ViewForMoneyObjects {
   State<ViewForMoneyObjects> createState() => _ViewEventsState();
 }
 
-class _ViewEventsState extends ViewForMoneyObjectsState {
+class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewEventsState() {
     viewId = ViewId.viewAliases;
   }
 
-  /// add more top level action buttons
   @override
-  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
-    final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
-    if (!forSidePanelTransactions) {
-      // Add a new Category, place this at the top of the list
-      list.insert(
-        0,
-        buildAddItemButton(() {
-          // add a new Event
-          final Event newItem = Data().events.addNewEvent();
-          updateListAndSelect(newItem.uniqueId);
+  String get addNewItemTooltip => AppL10n.tr(AppTranslationKeys.addNewEvent);
 
-          // Queue up the edit dialog
-          myShowDialogAndActionsForMoneyObject(
-            title: AppL10n.tr(
-              AppTranslationKeys.newItemLabel,
-              params: <String, String>{'item': getClassNameSingular()},
-            ),
-            moneyObject: newItem,
-            onApplyChange: () {
-              setState(() {
-                /// update
-              });
-            },
-          );
-        }, AppL10n.tr(AppTranslationKeys.addNewEvent)),
-      );
-    }
-    return list;
-  }
+  @override
+  DataObject createNewItem() => Data().events.addNewEvent();
 
   @override
   String getClassNamePlural() {

@@ -1,7 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:money/data/helpers/alias_type_helper.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/widgets/list/list_item_card.dart';
+import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
 /// Builds the small-screen card for [alias].
 Widget buildAliasSmallScreenWidget(Alias alias) {
@@ -10,4 +14,49 @@ Widget buildAliasSmallScreenWidget(Alias alias) {
     leftBottomAsString: alias.fieldPattern.value,
     rightBottomAsString: '${getAliasTypeAsString(alias.type)}${SharedDomainStrings.domainString158}',
   );
+}
+
+/// Returns the alias-specific editor for [field] of [alias] (payee and type pickers), or null for the generic one.
+Widget? buildAliasFieldEditWidget(
+  Alias alias,
+  Field<dynamic> field,
+  void Function(bool /* wasModified */) onEdited,
+) {
+  if (field.isSameDefinition(alias.fieldPayeeId)) {
+    return PickerEditBox(
+      key: const Key('key_pick_alias_payee'),
+      title: field.name,
+      items: alias.data!.getPayeeNamesSorted(),
+      initialValue: alias.data!.getPayeeName(alias.fieldPayeeId.value),
+      onChanged: (String name) {
+        final DataObject? payee = alias.data!.getPayeeByName(name);
+        if (payee != null) {
+          alias.fieldPayeeId.value = payee.uniqueId;
+          onEdited(true);
+        }
+      },
+      onAddNew: (String name) {
+        alias.fieldPayeeId.value = alias.data!.getOrCreatePayee(name).uniqueId;
+        onEdited(true);
+      },
+    );
+  }
+  if (field.isSameDefinition(alias.fieldFlags)) {
+    return PickerEditBox(
+      key: const Key('key_pick_alias_type'),
+      title: field.name,
+      items: AliasType.values.map(getAliasTypeAsString).toList(),
+      initialValue: getAliasTypeAsString(alias.type),
+      onChanged: (String text) {
+        final AliasType? type = AliasType.values.firstWhereOrNull(
+          (AliasType candidate) => getAliasTypeAsString(candidate) == text,
+        );
+        if (type != null) {
+          alias.fieldFlags.value = type.index;
+          onEdited(true);
+        }
+      },
+    );
+  }
+  return null;
 }

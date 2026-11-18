@@ -56,6 +56,7 @@ Widget? buildEntityFieldEditWidget(
     final Transaction transaction => buildTransactionFieldEditWidget(transaction, field, onEdited),
     final TransactionSplit split => buildTransactionSplitFieldEditWidget(split, field, onEdited),
     final Account account => buildAccountFieldEditWidget(account, field, onEdited),
+    final Alias alias => buildAliasFieldEditWidget(alias, field, onEdited),
     final Category category => buildCategoryFieldEditWidget(category, field, onEdited),
     final Event event => buildEventFieldEditWidget(event, field, onEdited),
     final Investment investment => buildInvestmentFieldEditWidget(investment, field, onEdited),

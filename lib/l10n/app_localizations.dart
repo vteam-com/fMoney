@@ -160,6 +160,12 @@ abstract class AppLocalizations {
   /// **'Add new account'**
   String get addNewAccount;
 
+  /// No description provided for @addNewAlias.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new alias'**
+  String get addNewAlias;
+
   /// No description provided for @addNewCategory.
   ///
   /// In en, this message translates to:
@@ -351,6 +357,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply'**
   String get apply;
+
+  /// No description provided for @applyAliasToTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply the alias to existing transactions'**
+  String get applyAliasToTransactions;
 
   /// REVIEWED
   ///
@@ -2625,6 +2637,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transaction split'**
   String get transactionSplit;
+
+  /// No description provided for @transactionsUpdatedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions updated'**
+  String transactionsUpdatedCount(String count);
 
   /// No description provided for @transfer.
   ///

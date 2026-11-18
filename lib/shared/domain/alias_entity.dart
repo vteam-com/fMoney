@@ -72,6 +72,7 @@ class Alias extends DataObject {
     footer: FooterType.count,
     getValueForDisplay: (DataInterface instance) => getAliasTypeAsString((instance as Alias).type),
     getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldFlags.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldFlags.value = value as int,
   );
 
   /// ID
@@ -98,9 +99,14 @@ class Alias extends DataObject {
     defaultValue: 0,
     getValueForDisplay: (DataInterface instance) => (instance as Alias).data!.getPayeeName(instance.fieldPayeeId.value),
     getValueForSerialization: (DataInterface instance) => (instance as Alias).fieldPayeeId.value,
+    setValue: (DataInterface instance, dynamic value) => (instance as Alias).fieldPayeeId.value = value as int,
   );
 
-  RegExp? regex;
+  /// Compiled regex for [_regexPattern]; null when that pattern is not a valid regex.
+  RegExp? _regex;
+
+  /// The pattern [_regex] was compiled from, so an edited pattern gets recompiled.
+  String? _regexPattern;
 
   // Fields for this instance
   @override
@@ -142,25 +148,46 @@ class Alias extends DataObject {
     forColumnView: true,
   );
 
-  /// Checks if the given [text] matches this alias (regex or exact).
+  /// Checks if the given [text] matches this alias, the way MyMoney.Net does:
+  /// a regex must cover the whole text, a plain pattern must equal it ignoring case.
   bool isMatch(String text) {
-    if (type == AliasType.regex) {
-      // just in time creation of RegEx property
-      regex ??= RegExp(fieldPattern.value);
-      final Match? matched = regex?.firstMatch(text);
-      if (matched != null) {
-        return true;
-      }
-    } else {
-      if (stringCompareIgnoreCasing(fieldPattern.value, text) == 0) {
-        return true;
-      }
+    if (text.trim().isEmpty) {
+      return false;
     }
-    return false;
+    if (type == AliasType.regex) {
+      final RegExp? regex = _compiledRegex();
+      final RegExpMatch? match = regex?.firstMatch(text);
+      return match != null && match.start == 0 && match.end == text.length;
+    }
+    return stringCompareIgnoreCasing(fieldPattern.value, text) == 0;
+  }
+
+  /// Returns the regex for the current pattern, recompiling it when the pattern was edited.
+  RegExp? _compiledRegex() {
+    final String pattern = fieldPattern.value;
+    if (_regexPattern != pattern) {
+      _regexPattern = pattern;
+      _regex = tryParseAliasRegex(pattern);
+    }
+    return _regex;
   }
 
   /// Returns the alias type based on flags.
   AliasType get type {
     return fieldFlags.value == 0 ? AliasType.none : AliasType.regex;
+  }
+}
+
+/// MyMoney.Net inline option that makes a whole pattern case-insensitive; Dart's RegExp rejects it.
+const String _caseInsensitivePrefix = '(?i)';
+
+/// Compiles an alias [pattern], honoring a leading `(?i)`; returns null when the pattern is not a valid regex.
+RegExp? tryParseAliasRegex(String pattern) {
+  final bool ignoreCase = pattern.startsWith(_caseInsensitivePrefix);
+  final String source = ignoreCase ? pattern.substring(_caseInsensitivePrefix.length) : pattern;
+  try {
+    return RegExp(source, caseSensitive: !ignoreCase);
+  } on FormatException {
+    return null;
   }
 }

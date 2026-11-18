@@ -37,6 +37,7 @@ abstract class AppTranslationKeys {
   static const String approveCategory = 'approveCategory';
   static const String append = 'append';
   static const String apply = 'apply';
+  static const String applyAliasToTransactions = 'applyAliasToTransactions';
   static const String availableOn = 'availableOn';
   static const String avgLabel = 'avgLabel';
   static const String badDateFormat = 'badDateFormat';
@@ -284,6 +285,7 @@ abstract class AppTranslationKeys {
   static const String activeLabel = 'activeLabel';
   static const String addInvestment = 'addInvestment';
   static const String addNewAccount = 'addNewAccount';
+  static const String addNewAlias = 'addNewAlias';
   static const String addNewCategory = 'addNewCategory';
   static const String addNewEvent = 'addNewEvent';
   static const String aiLearnedAboutAccountsAndTransactions = 'aiLearnedAboutAccountsAndTransactions';
@@ -444,6 +446,7 @@ abstract class AppTranslationKeys {
   static const String toAccount = 'toAccount';
   static const String totalTransactionAmount = 'totalTransactionAmount';
   static const String transactionsAddedCount = 'transactionsAddedCount';
+  static const String transactionsUpdatedCount = 'transactionsUpdatedCount';
   static const String transactionsFoundInFileToImport = 'transactionsFoundInFileToImport';
   static const String unableToOpenFile = 'unableToOpenFile';
   static const String units = 'units';

@@ -66,6 +66,7 @@ class Constants {
   static const Key keyAccountPicker = Key('key_account_picker');
   // Keys
   static const Key keyAddNewItem = Key('key_add_new_item');
+  static const Key keyApplyAliasButton = Key('key_apply_alias_button');
 
   static const Key keyButtonAddTransactions = Key(
     'key_button_add_transactions',

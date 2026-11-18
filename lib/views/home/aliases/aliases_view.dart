@@ -8,9 +8,12 @@ import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
+import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
+import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 
 /// Represents view aliases.
@@ -21,9 +24,40 @@ class ViewAliases extends ViewForMoneyObjects {
   State<ViewForMoneyObjects> createState() => _ViewAliasesState();
 }
 
-class _ViewAliasesState extends ViewForMoneyObjectsState {
+class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewAliasesState() {
     viewId = ViewId.viewAliases;
+  }
+
+  @override
+  String get addNewItemTooltip => AppL10n.tr(AppTranslationKeys.addNewAlias);
+
+  @override
+  DataObject createNewItem() => Data().aliases.addNewAlias();
+
+  /// Adds the "apply to existing transactions" button when an alias is selected.
+  @override
+  List<Widget> getActionsButtons(bool forSidePanelTransactions) {
+    final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
+    final Alias? alias = getFirstSelectedItem() as Alias?;
+    if (!forSidePanelTransactions && alias != null) {
+      list.add(buildApplyAliasButton(() => _applyAlias(alias)));
+    }
+    return list;
+  }
+
+  /// Re-assigns the transactions [alias] matches to its payee and tells the user how many changed.
+  void _applyAlias(Alias alias) {
+    final int count = Data().applyAlias(alias);
+    if (count > 0) {
+      Data().updateAll();
+    }
+    SnackBarService.displayInfo(
+      message: AppL10n.tr(
+        AppTranslationKeys.transactionsUpdatedCount,
+        params: <String, String>{'count': count.toString()},
+      ),
+    );
   }
 
   @override

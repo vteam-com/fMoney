@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
@@ -16,6 +17,13 @@ class Aliases extends MoneyObjects<Alias> {
   @override
   Alias instanceFromJson(MyJson json) {
     return Alias.fromJson(json, data);
+  }
+
+  /// Appends a new, empty plain alias for the user to fill in, and returns it.
+  Alias addNewAlias() {
+    final Alias alias = Alias(id: -1, pattern: '', flags: AliasType.none.index, payeeId: -1, data: data);
+    appendNewMoneyObject(alias);
+    return alias;
   }
 
   /// Finds a payee by matching the given [text] via aliases.

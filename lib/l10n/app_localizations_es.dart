@@ -45,6 +45,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addNewAccount => 'Agregar nueva cuenta';
 
   @override
+  String get addNewAlias => 'Agregar nuevo alias';
+
+  @override
   String get addNewCategory => 'Agregar nueva categoria';
 
   @override
@@ -145,6 +148,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get apply => 'Aplicar';
+
+  @override
+  String get applyAliasToTransactions => 'Aplicar el alias a las transacciones existentes';
 
   @override
   String get appName => 'fMoney';
@@ -1391,6 +1397,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get transactionSplit => 'División de transacción';
+
+  @override
+  String transactionsUpdatedCount(String count) {
+    return '$count transacciones actualizadas';
+  }
 
   @override
   String get transfer => 'Transferencia';

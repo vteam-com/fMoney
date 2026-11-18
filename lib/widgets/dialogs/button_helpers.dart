@@ -28,6 +28,14 @@ Widget _keyedIconButton({
   );
 }
 
+/// Builds an IconButton that applies the selected alias to existing transactions.
+Widget buildApplyAliasButton(void Function() callback) => _keyedIconButton(
+  key: Constants.keyApplyAliasButton,
+  icon: Icons.published_with_changes,
+  tooltip: AppL10n.tr(AppTranslationKeys.applyAliasToTransactions),
+  onPressed: callback,
+);
+
 /// Builds an IconButton for merging items with a key and tooltip.
 Widget buildMergeButton(void Function() callback) => _keyedIconButton(
   key: Constants.keyMergeButton,

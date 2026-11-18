@@ -10,6 +10,7 @@
   "addInvestment": "Add investment",
   "addInvestmentTransaction": "Add Investment Transaction",
   "addNewAccount": "Add new account",
+  "addNewAlias": "Add new alias",
   "addNewCategory": "Add new category",
   "addNewEvent": "Add new event",
   "addNewTransactions": "Add new transactions",
@@ -59,6 +60,7 @@
   "append": "Append",
   "appLongDescription": "A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.",
   "apply": "Apply",
+  "applyAliasToTransactions": "Apply the alias to existing transactions",
   "appName": "fMoney",
   "@appName": {
     "description": "REVIEWED"
@@ -950,6 +952,14 @@
     }
   },
   "transactionSplit": "Transaction split",
+  "transactionsUpdatedCount": "{count} transactions updated",
+  "@transactionsUpdatedCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "transfer": "Transfer",
   "transfers": "Transfers",
   "transfersBetweenAccountsDescription": "Transfers between accounts.",
