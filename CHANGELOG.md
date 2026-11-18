@@ -1,5 +1,11 @@
 # Change Log
 
+## [version 1.21.0] 2026-11-18
+
+- Add tool/release.sh to bump, check, commit and push a release
+- Add category suggestions, alias tools and transaction shortcuts
+- Fixes #55, #44, #43, #57
+
 ## [version 1.20.0] 2026-11-18
 
 ### SDK Requirement
