@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# shellcheck source=tool/fcheck.env
+. "$(dirname "$0")/fcheck.env"
+
 generate_app_version_data() {
 	APP_NAME=$(awk -F': *' '/^name:/{print $2; exit}' pubspec.yaml | tr -d '"' | xargs)
 	APP_VERSION_RAW=$(awk -F': *' '/^version:/{print $2; exit}' pubspec.yaml | tr -d '"' | xargs)
@@ -51,12 +54,12 @@ flutter test --reporter=compact --no-pub
 echo --------------- fCheck
 # Use an ephemeral private directory for this session's fcheck installation
 # (avoid contaminating the user's global pub cache and avoid version conflicts)
-mkdir -p "$PWD/.dart_tool/fcheck_pub_cache"
-export PUB_CACHE="$PWD/.dart_tool/fcheck_pub_cache"
+mkdir -p "$PWD/$FCHECK_PUB_CACHE"
+export PUB_CACHE="$PWD/$FCHECK_PUB_CACHE"
 
 # Install the pinned version into the isolated cache, then run it.
 # Note: `dart pub cache exec` doesn't exist on all Dart SDK versions; `pub global run` does.
-dart pub global activate fcheck 1.6.4 > /dev/null
+dart pub global activate fcheck "$FCHECK_VERSION" > /dev/null
 dart pub global run fcheck --svg --fix --strict
 
 echo --------------- Format sources
