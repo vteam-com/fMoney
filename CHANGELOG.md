@@ -1,5 +1,50 @@
 # Change Log
 
+## [version 1.20.0] 2026-11-18
+
+### SDK Requirement
+
+- **Flutter 3.50.0 / Dart 3.14.0**: Upgraded to Flutter 3.50.0 and Dart 3.14.0 — this SDK version is now the minimum required to build the app (`flutter >=3.50.0`, `sdk >=3.14.0` in `pubspec.yaml`)
+
+### Added
+
+- **Account Reconciliation**: Reconcile a bank or credit card account against its statement — enter the statement date and ending balance, mark each transaction on the statement as cleared until the difference is zero, then Finish to mark them reconciled
+- **Save As**: Save the current file under a new name; new files, `.mmcsv` files and files opened on mobile use it
+- **Unsaved Changes Prompt**: Asks to save, discard or cancel before quitting, closing the window, or creating, opening or closing a file; the web version warns before leaving the page
+- **App Icons**: App icon for Linux and Windows
+
+### Updated
+
+- **Safer Saving**: Saving to a database file is all-or-nothing and keeps a `.bak` backup; saving is refused when the file was deleted or changed on disk since it was opened
+- **Older Files**: Files from older versions get their missing columns added on save, and missing tables load empty
+- **MyMoney.Net Compatibility**: Dates are saved as `yyyy-MM-dd HH:mm:ss`, and missing dates as NULL
+- **CSV**: Saving to CSV is now an export through a save dialog
+- **Transfers**: Transfers no longer have a payee, and payee totals skip transfers
+- **Merges**: Payee and category merges also move splits, aliases and child categories
+- **Imports**: Duplicate detection prefers the bank's transaction ID (FITID) and ignores deleted rows; files with several accounts are refused; invalid rows are skipped; the column mapper no longer picks Balance as Amount
+- **PDF Import**: Signs amounts from the Debits and Credits columns, detects day-first dates, accepts single-transaction statements, and falls back to the built-in parser when Ollama fails
+- **About Box**: Clearer version, package and build labels
+- **Packages**: Moved to `material_ui` and `cupertino_ui`, `window_manager` 0.7.0, `pdfrx` 3.0.2, and other package upgrades
+- **CI/CD**: Updated GitHub Actions workflow to Flutter 3.50.0
+- **Code Quality**: Removed duplicated logic and moved widget building out of the data layer (DRY and SOLID review)
+
+### Fixed
+
+- **Saved Values**: Several fields were not saved or were saved with wrong values, including the OFX account ID, rental notes, security price date and taxable flag, category balance, account sync GUID and online account details
+- **Deleted Rows**: Deleted rows no longer reappear after saving, and their IDs are not reused
+- **Opening Files**: A file that fails to load reports "Unable to open" instead of opening empty data
+- **Edits**: Cancelling an edit restores the original values; an invalid date keeps the previous one
+- **Deletes**: Deleting a transaction also deletes its splits and investment details; items still in use cannot be deleted
+- **Transfers**: Creating a transfer never reuses a deleted, transfer or split row, and changing one side updates the other
+- **Crashes**: Fixed crashes in the Accounts chart, the Transfers list and the "jump to Stocks" menu entry
+- **QIF Import**: Payee, memo and price fields are read correctly
+- **XLSX Import**: Cells and dates are read correctly
+- **CSV Backup**: Restores currencies and keeps splits attached to their transactions
+- **Amounts**: Rounded amounts display correctly (1.999 shows $2.00)
+- **Search**: Free-text search and payee or category name lookups ignore case
+- **Transaction Status**: Clicking a status in an account's Transactions panel updates it on screen right away
+- **Text Zoom**: Text zoom is restored at launch
+
 ## [version 1.19.0] 2026-08-15
 
 ### SDK Requirement
