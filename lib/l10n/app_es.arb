@@ -224,6 +224,15 @@
   "difference": "Diferencia",
   "discardChanges": "Descartar",
   "dividend": "Dividendo",
+  "download": "Descargar",
+  "downloadingUpdate": "Descargando fMoney {version}...",
+  "@downloadingUpdate": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "dropFilesHere": "Arrastra archivos aquí",
   "edit": "Editar",
   "editedElapsed": "Editado {elapsed}",
@@ -401,6 +410,7 @@
   "incomeLabel": "Ingreso",
   "incomes": "Ingresos",
   "info": "Información",
+  "installAndRestart": "Instalar y reiniciar",
   "installAppMenuItem": "Instalar aplicación...",
   "installOllamaNow": "Instalar Ollama ahora",
   "interest": "Interes",
@@ -429,6 +439,7 @@
   },
   "largestTransactions": "Transacciones más grandes",
   "lastReconciled": "Última conciliación",
+  "later": "Más tarde",
   "licenses": "Licencias",
   "licensesDescription": "fMoney está construido con software de código abierto. Consulta las licencias de todos los paquetes utilizados en esta aplicación.",
   "lifeTimePnl": "P&L de por vida",
@@ -979,6 +990,26 @@
   "@unselectAllCount": {
     "placeholders": {
       "count": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAvailableMessage": "fMoney {version} está disponible (versión actual: {currentVersion}).",
+  "@updateAvailableMessage": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "currentVersion": {
+        "type": "String"
+      }
+    }
+  },
+  "updateCannotInstallHere": "Esta copia de fMoney no puede reemplazarse donde está instalada. Descargue la nueva versión y reemplace esta.",
+  "updateFailed": "No se pudo instalar la actualización: {error}",
+  "@updateFailed": {
+    "placeholders": {
+      "error": {
         "type": "String"
       }
     }

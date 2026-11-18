@@ -20,6 +20,7 @@ import 'package:money/views/screens/policy_screen.dart';
 import 'package:money/views/screens/settings_screen.dart';
 import 'package:money/views/screens/splash_screen.dart';
 import 'package:money/views/screens/welcome_screen.dart';
+import 'package:money/widgets/components/app_update_banner_widget.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
@@ -32,6 +33,9 @@ void main() {
   MyWindowManager.setupMainWindow();
 
   runApp(MyApp());
+
+  // once the first frame has built the ScaffoldMessenger that shows the update banner
+  WidgetsBinding.instance.addPostFrameCallback((Duration _) => checkForAppUpdate());
 }
 
 /// Root widget of the application.

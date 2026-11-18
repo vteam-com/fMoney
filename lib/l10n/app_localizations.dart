@@ -784,6 +784,18 @@ abstract class AppLocalizations {
   /// **'Dividend'**
   String get dividend;
 
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @downloadingUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading fMoney {version}...'**
+  String downloadingUpdate(String version);
+
   /// No description provided for @dropFilesHere.
   ///
   /// In en, this message translates to:
@@ -1114,6 +1126,12 @@ abstract class AppLocalizations {
   /// **'Info'**
   String get info;
 
+  /// No description provided for @installAndRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Install and Restart'**
+  String get installAndRestart;
+
   /// No description provided for @installAppMenuItem.
   ///
   /// In en, this message translates to:
@@ -1209,6 +1227,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last reconciled'**
   String get lastReconciled;
+
+  /// No description provided for @later.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get later;
 
   /// No description provided for @licenses.
   ///
@@ -2679,6 +2703,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unselect all {count}'**
   String unselectAllCount(String count);
+
+  /// No description provided for @updateAvailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'fMoney {version} is available (current version: {currentVersion}).'**
+  String updateAvailableMessage(String version, String currentVersion);
+
+  /// No description provided for @updateCannotInstallHere.
+  ///
+  /// In en, this message translates to:
+  /// **'This copy of fMoney can\'t replace itself where it is installed. Download the new version and replace this one.'**
+  String get updateCannotInstallHere;
+
+  /// No description provided for @updateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not install the update: {error}'**
+  String updateFailed(String error);
 
   /// No description provided for @useDemoData.
   ///

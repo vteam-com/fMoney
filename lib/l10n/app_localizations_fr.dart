@@ -385,6 +385,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dividend => 'Dividende';
 
   @override
+  String get download => 'Télécharger';
+
+  @override
+  String downloadingUpdate(String version) {
+    return 'Téléchargement de fMoney $version...';
+  }
+
+  @override
   String get dropFilesHere => 'Deposez les fichiers ici';
 
   @override
@@ -580,6 +588,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get info => 'Infos';
 
   @override
+  String get installAndRestart => 'Installer et redémarrer';
+
+  @override
   String get installAppMenuItem => 'Installer l\'application...';
 
   @override
@@ -627,6 +638,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get lastReconciled => 'Dernier rapprochement';
+
+  @override
+  String get later => 'Plus tard';
 
   @override
   String get licenses => 'Licences';
@@ -1423,6 +1437,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String unselectAllCount(String count) {
     return 'Tout désélectionner $count';
+  }
+
+  @override
+  String updateAvailableMessage(String version, String currentVersion) {
+    return 'fMoney $version est disponible (version actuelle : $currentVersion).';
+  }
+
+  @override
+  String get updateCannotInstallHere =>
+      'Cette copie de fMoney ne peut pas se remplacer là où elle est installée. Téléchargez la nouvelle version et remplacez celle-ci.';
+
+  @override
+  String updateFailed(String error) {
+    return 'Impossible d\'installer la mise à jour : $error';
   }
 
   @override

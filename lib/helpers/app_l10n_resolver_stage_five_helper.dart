@@ -1,7 +1,7 @@
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/l10n/app_localizations.dart';
 
-/// Last stage of [resolveAppL10nKey] (file safety, deletes, import and reconciliation messages);
+/// Last stage of [resolveAppL10nKey] (file safety, deletes, import, reconciliation and update messages);
 /// returns [key] itself when it is unknown.
 String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String, String> p) {
   switch (key) {
@@ -53,6 +53,20 @@ String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String,
       return l10n.start;
     case AppTranslationKeys.statementDate:
       return l10n.statementDate;
+    case AppTranslationKeys.download:
+      return l10n.download;
+    case AppTranslationKeys.downloadingUpdate:
+      return l10n.downloadingUpdate(p['version'] ?? '');
+    case AppTranslationKeys.installAndRestart:
+      return l10n.installAndRestart;
+    case AppTranslationKeys.later:
+      return l10n.later;
+    case AppTranslationKeys.updateAvailableMessage:
+      return l10n.updateAvailableMessage(p['version'] ?? '', p['currentVersion'] ?? '');
+    case AppTranslationKeys.updateCannotInstallHere:
+      return l10n.updateCannotInstallHere;
+    case AppTranslationKeys.updateFailed:
+      return l10n.updateFailed(p['error'] ?? '');
     default:
       return key;
   }

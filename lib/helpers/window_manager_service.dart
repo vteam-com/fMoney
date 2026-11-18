@@ -71,6 +71,21 @@ abstract final class MyWindowManager {
     }
   }
 
+  /// Quits the app as closing its window does: asks about unsaved changes, runs [beforeQuit],
+  /// saves the window state, then exits. Returns false, leaving the app open, when the user cancels.
+  /// If [beforeQuit] throws, the error propagates and the app stays open.
+  static Future<bool> quitApp({required Future<void> Function() beforeQuit}) async {
+    if (!await confirmClose()) {
+      return false;
+    }
+    await beforeQuit();
+    // already confirmed: the close and exit requests that follow must not ask again
+    _isExiting = true;
+    await saveWindowState();
+    await ServicesBinding.instance.exitApplication(AppExitType.required);
+    return true;
+  }
+
   /// Saves current window state to shared preferences.
   static Future<void> saveWindowState() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

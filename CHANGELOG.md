@@ -12,6 +12,7 @@
 - **Save As**: Save the current file under a new name; new files, `.mmcsv` files and files opened on mobile use it
 - **Unsaved Changes Prompt**: Asks to save, discard or cancel before quitting, closing the window, or creating, opening or closing a file; the web version warns before leaving the page
 - **App Icons**: App icon for Linux and Windows
+- **Desktop Auto Update**: At launch, the macOS, Windows and Linux apps check GitHub for a newer release and offer to install it and restart; a copy that can't replace itself (a macOS app never moved out of Downloads, a Windows app under Program Files) offers the download page instead
 
 ### Updated
 
@@ -25,7 +26,7 @@
 - **PDF Import**: Signs amounts from the Debits and Credits columns, detects day-first dates, accepts single-transaction statements, and falls back to the built-in parser when Ollama fails
 - **About Box**: Clearer version, package and build labels
 - **Packages**: Moved to `material_ui` and `cupertino_ui`, `window_manager` 0.7.0, `pdfrx` 3.0.2, and other package upgrades
-- **CI/CD**: Updated GitHub Actions workflow to Flutter 3.50.0
+- **CI/CD**: Updated GitHub Actions workflow to Flutter 3.50.0; desktop apps are built and published as the GitHub release `v<version>` only when the version changes, with this changelog as notes, and only the latest 3 versions are kept; the macOS archive keeps the app's framework links, so its code signature stays valid
 - **Code Quality**: Removed duplicated logic and moved widget building out of the data layer (DRY and SOLID review)
 
 ### Fixed

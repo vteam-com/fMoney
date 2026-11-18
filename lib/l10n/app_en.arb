@@ -224,6 +224,15 @@
   "difference": "Difference",
   "discardChanges": "Discard",
   "dividend": "Dividend",
+  "download": "Download",
+  "downloadingUpdate": "Downloading fMoney {version}...",
+  "@downloadingUpdate": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "dropFilesHere": "Drop files here",
   "edit": "Edit",
   "editedElapsed": "Edited {elapsed}",
@@ -401,6 +410,7 @@
   "incomeLabel": "Income",
   "incomes": "Incomes",
   "info": "Info",
+  "installAndRestart": "Install and Restart",
   "installAppMenuItem": "Install App...",
   "installOllamaNow": "Install Ollama now",
   "interest": "Interest",
@@ -429,6 +439,7 @@
   },
   "largestTransactions": "Largest transactions",
   "lastReconciled": "Last reconciled",
+  "later": "Later",
   "licenses": "Licenses",
   "licensesDescription": "fMoney is built using open-source software. View the licenses for all packages used in this application.",
   "lifeTimePnl": "Life Time P&L",
@@ -979,6 +990,26 @@
   "@unselectAllCount": {
     "placeholders": {
       "count": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAvailableMessage": "fMoney {version} is available (current version: {currentVersion}).",
+  "@updateAvailableMessage": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "currentVersion": {
+        "type": "String"
+      }
+    }
+  },
+  "updateCannotInstallHere": "This copy of fMoney can't replace itself where it is installed. Download the new version and replace this one.",
+  "updateFailed": "Could not install the update: {error}",
+  "@updateFailed": {
+    "placeholders": {
+      "error": {
         "type": "String"
       }
     }

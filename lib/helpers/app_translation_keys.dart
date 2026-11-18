@@ -460,4 +460,13 @@ abstract class AppTranslationKeys {
   static const String reconciledTransactionsCount = 'reconciledTransactionsCount';
   static const String start = 'start';
   static const String statementDate = 'statementDate';
+
+  /// Desktop auto update banner keys.
+  static const String download = 'download';
+  static const String downloadingUpdate = 'downloadingUpdate';
+  static const String installAndRestart = 'installAndRestart';
+  static const String later = 'later';
+  static const String updateAvailableMessage = 'updateAvailableMessage';
+  static const String updateCannotInstallHere = 'updateCannotInstallHere';
+  static const String updateFailed = 'updateFailed';
 }

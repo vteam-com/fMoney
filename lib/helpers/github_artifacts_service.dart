@@ -2,10 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/github_release_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 
 /// Service to fetch latest GitHub release artifacts
 class GitHubArtifactsService {
+  /// User-Agent sent with every request to GitHub, which rejects requests without one.
+  static const String userAgent = 'fMoney-App';
+
   static const String _repoOwner = 'vteam-com';
   static const String _repoName = 'fMoney';
   static const String _apiBaseUrl = 'https://api.github.com';
@@ -27,47 +31,31 @@ class GitHubArtifactsService {
     }
   }
 
-  /// Gets URLs from the latest GitHub release
-  static Future<Map<String, String>> _getLatestReleaseUrls() async {
+  /// Fetches the latest published release, or null when GitHub can't be reached or answers with an error.
+  static Future<GitHubRelease?> fetchLatestRelease() async {
     try {
       final http.Response response = await http
           .get(
             Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/releases/latest'),
             headers: <String, String>{
               'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': 'fMoney-App',
+              'User-Agent': userAgent,
             },
           )
           .timeout(Constants.httpRequestTimeout);
 
       if (response.statusCode != Constants.httpStatusOk) {
-        throw Exception('Failed to fetch latest release: ${response.statusCode}');
+        return null;
       }
-
-      final Map<String, dynamic> releaseData = json.decode(response.body) as Map<String, dynamic>;
-      final List<dynamic> assets = releaseData['assets'] as List<dynamic>? ?? <dynamic>[];
-
-      final Map<String, String> artifactUrls = <String, String>{};
-
-      for (final dynamic asset in assets) {
-        final String name = asset['name'] as String;
-        final String downloadUrl = asset['browser_download_url'] as String;
-
-        // Map asset names to platforms
-        if (name.contains(SharedStrings.platformKeyWindows)) {
-          artifactUrls[SharedStrings.platformKeyWindows] = downloadUrl;
-        } else if (name.contains(SharedStrings.platformKeyLinux)) {
-          artifactUrls[SharedStrings.platformKeyLinux] = downloadUrl;
-        } else if (name.contains(SharedStrings.platformKeyMacos)) {
-          artifactUrls[SharedStrings.platformKeyMacos] = downloadUrl;
-        }
-      }
-
-      return artifactUrls;
+      return GitHubRelease.fromJson(json.decode(response.body) as Map<String, dynamic>);
     } catch (_) {
-      return <String, String>{};
+      return null;
     }
   }
+
+  /// Gets URLs from the latest GitHub release
+  static Future<Map<String, String>> _getLatestReleaseUrls() async =>
+      (await fetchLatestRelease())?.assetUrls ?? <String, String>{};
 
   /// Gets URLs from workflow artifacts (fallback)
   static Future<Map<String, String>> _getWorkflowArtifactUrls() async {
@@ -80,7 +68,7 @@ class GitHubArtifactsService {
             ),
             headers: <String, String>{
               'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': 'fMoney-App',
+              'User-Agent': userAgent,
             },
           )
           .timeout(Constants.httpRequestTimeout);
@@ -105,7 +93,7 @@ class GitHubArtifactsService {
             Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/runs/$runId/artifacts'),
             headers: <String, String>{
               'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': 'fMoney-App',
+              'User-Agent': userAgent,
             },
           )
           .timeout(Constants.httpRequestTimeout);

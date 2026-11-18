@@ -1,23 +1,77 @@
 name: Flutter Desktop Build
 
+# A push to main that changes the version in pubspec.yaml builds the desktop apps and
+# publishes them as the GitHub release "v<version>"; pushes that keep an already released
+# version stop after reading it. The installed apps compare that tag with their own
+# version to offer updates.
 on:
   push:
     branches:
       - main
-  release:
-    types: [ published ]
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+# One run at a time, so two pushes never publish the same release at once
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 env:
   FLUTTER_VERSION: "3.50.0"
   NODE_VERSION: "current"
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  # Number of version releases kept on GitHub; older ones are deleted
+  RELEASES_TO_KEEP: 3
 
 jobs:
+  version:
+    name: Read Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      new_version: ${{ steps.released.outputs.new_version }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Read version from pubspec.yaml
+        id: version
+        run: |
+          VERSION_RAW=$(awk -F': *' '/^version:/{print $2; exit}' pubspec.yaml | tr -d '"' | xargs)
+          echo "version=${VERSION_RAW%%+*}" >> "$GITHUB_OUTPUT"
+
+      # A version with a release has shipped: nothing to build. A version without one
+      # (just bumped, or its last run failed) is built and released.
+      - name: Check whether this version is released
+        id: released
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: v${{ steps.version.outputs.version }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "${TAG} is already released; skipping the builds."
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # The app compares this generated version with the release tag to offer updates;
+      # a stale one would offer the same update again after every install.
+      - name: Check the app reports the same version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if ! grep -q "version = '${VERSION}';" lib/helpers/generated_app_version_data.dart; then
+            echo "::error file=lib/helpers/generated_app_version_data.dart::Not at version ${VERSION}; run tool/check.sh and commit the result."
+            exit 1
+          fi
+
   build-windows:
     name: Build Windows
+    needs: version
+    if: needs.version.outputs.new_version == 'true'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v5
@@ -48,9 +102,12 @@ jobs:
         with:
           name: mymoney-app-windows
           path: mymoney-app-windows.zip
+          retention-days: 1
 
   build-linux:
     name: Build Linux
+    needs: version
+    if: needs.version.outputs.new_version == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -86,9 +143,12 @@ jobs:
         with:
           name: mymoney-app-linux
           path: mymoney-app-linux.tar.gz
+          retention-days: 1
 
   build-macos:
     name: Build macOS
+    needs: version
+    if: needs.version.outputs.new_version == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v5
@@ -109,56 +169,56 @@ jobs:
       - name: Build macOS App
         run: flutter build macos
 
+      # ditto keeps the framework symlinks the code signature needs; leaving out
+      # resource forks and extended attributes keeps "._*" files out of the bundle
+      # when the app extracts its own updates.
       - name: Create macOS ZIP
         run: |
           cd build/macos/Build/Products/Release
-          zip -r ../../../../../mymoney-app-macos.zip .
+          ditto -c -k --norsrc --noextattr --noacl --keepParent money.app ../../../../../mymoney-app-macos.zip
 
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v7
         with:
           name: mymoney-app-macos
           path: mymoney-app-macos.zip
+          retention-days: 1
 
   create-release:
     name: Create Release
-    needs: [ build-windows, build-linux, build-macos ]
+    needs: [ version, build-windows, build-linux, build-macos ]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      VERSION: ${{ needs.version.outputs.version }}
+      TAG: v${{ needs.version.outputs.version }}
     steps:
       - uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ env.NODE_VERSION }}
 
       - name: Download all artifacts
         uses: actions/download-artifact@v8
         with:
           path: ./artifacts
+          merge-multiple: true
 
-      - name: Generate Release Tag
-        id: tag
+      - name: Write release notes
         run: |
-          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-          echo "tag=v${TIMESTAMP}" >> $GITHUB_OUTPUT
-          echo "name=Release ${TIMESTAMP}" >> $GITHUB_OUTPUT
+          # This version's section of CHANGELOG.md, without its heading
+          awk -v heading="## [version ${VERSION}]" '
+            index($0, heading) == 1 { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > changes.md
 
-      - name: Create Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ steps.tag.outputs.tag }}
-          RELEASE_NAME: ${{ steps.tag.outputs.name }}
-          COMMIT_SHA: ${{ github.sha }}
-        run: |
-          # Create release notes
-          cat > /tmp/release_notes.md << EOF
-          ## fMoney Desktop Apps - ${RELEASE_NAME}
+          cat > release_notes.md << EOF
+          ## fMoney ${VERSION}
+          $(cat changes.md)
 
           ### Downloads
           - **Windows**: mymoney-app-windows.zip
-          - **Linux**: mymoney-app-linux.tar.gz  
+          - **Linux**: mymoney-app-linux.tar.gz
           - **macOS**: mymoney-app-macos.zip
 
           ### Installation
@@ -166,134 +226,50 @@ jobs:
           2. Extract the archive
           3. Run the executable
 
+          The desktop app checks for a newer release at launch and offers to install it.
+
           ### Requirements
           - Windows 10+ (64-bit)
           - Linux with GTK3 support
-          - macOS 10.14+ (Intel & Silicon)
+          - macOS 12+ (Intel & Apple silicon)
 
-          Built from commit: ${COMMIT_SHA}
+          Built from commit: ${GITHUB_SHA}
           EOF
 
-          # Create the release with artifacts
-          gh release create "${TAG_NAME}" \
-            --title "${RELEASE_NAME}" \
-            --notes-file /tmp/release_notes.md \
-            ./artifacts/mymoney-app-windows/mymoney-app-windows.zip \
-            ./artifacts/mymoney-app-linux/mymoney-app-linux.tar.gz \
-            ./artifacts/mymoney-app-macos/mymoney-app-macos.zip
+      - name: Create the release
+        run: |
+          gh release create "$TAG" \
+            artifacts/mymoney-app-windows.zip \
+            artifacts/mymoney-app-linux.tar.gz \
+            artifacts/mymoney-app-macos.zip \
+            --title "fMoney ${VERSION}" \
+            --notes-file release_notes.md \
+            --target "$GITHUB_SHA"
 
   cleanup-old-releases:
     name: Cleanup Old Releases
     needs: create-release
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.x"
-
-      - name: Install Python dependencies
+      # Keeps the RELEASES_TO_KEEP highest versions and deletes every other release,
+      # including the old timestamp-named ones. Git tags are left in place.
+      - name: Keep only the latest releases
         run: |
-          pip install requests
-
-      - name: Keep only latest 3 releases
-        run: |
-          python3 << 'EOF'
-          import requests
-          import json
-          import os
-
-          # Get all releases
-          url = "https://api.github.com/repos/${{ github.repository }}/releases"
-          headers = {
-              "Authorization": "token ${{ secrets.GITHUB_TOKEN }}",
-              "Accept": "application/vnd.github.v3+json"
-          }
-
-          response = requests.get(url, headers=headers)
-          if response.status_code != 200:
-              print(f"Failed to fetch releases: {response.status_code}")
-              exit(1)
-
-          releases = response.json()
-
-          # Sort by creation date (newest first)
-          releases.sort(key=lambda x: x['created_at'], reverse=True)
-
-          # Keep only the latest 2 releases
-          releases_to_keep = releases[:2]
-          releases_to_delete = releases[2:]
-
-          print(f"Found {len(releases)} releases, keeping {len(releases_to_keep)}, deleting {len(releases_to_delete)}")
-
-          # Delete old releases
-          for release in releases_to_delete:
-              tag = release['tag_name']
-              delete_url = f"https://api.github.com/repos/${{ github.repository }}/releases/{release['id']}"
-              
-              print(f"Deleting release: {tag}")
-              delete_response = requests.delete(delete_url, headers=headers)
-              
-              if delete_response.status_code == 204:
-                  print(f"✅ Successfully deleted release: {tag}")
-              else:
-                  print(f"❌ Failed to delete release {tag}: {delete_response.status_code}")
-                  print(delete_response.text)
-
-          print("✅ Release cleanup completed")
-          EOF
-
-      - name: Cleanup old artifacts (keep latest 2 per platform)
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const artifactNames = ['mymoney-app-windows', 'mymoney-app-linux', 'mymoney-app-macos'];
-
-            for (const artifactName of artifactNames) {
-              console.log(`\n🔍 Cleaning up artifacts for: ${artifactName}`);
-              
-              // List all artifacts for this name
-              const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: artifactName,
-                per_page: 100,
-              });
-              
-              // Sort by creation date (newest first)
-              const sortedArtifacts = artifacts.artifacts.sort((a, b) => 
-                new Date(b.created_at) - new Date(a.created_at)
-              );
-              
-              // Keep only latest 2, delete the rest
-              const toKeep = sortedArtifacts.slice(0, 2);
-              const toDelete = sortedArtifacts.slice(2);
-              
-              console.log(`Found ${sortedArtifacts.length} artifacts, keeping ${toKeep.length}, deleting ${toDelete.length}`);
-              
-              // Delete old artifacts
-              for (const artifact of toDelete) {
-                try {
-                  await github.rest.actions.deleteArtifact({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    artifact_id: artifact.id,
-                  });
-                  console.log(`✅ Deleted artifact: ${artifact.id} (${artifact.created_at})`);
-                } catch (error) {
-                  console.log(`❌ Failed to delete artifact ${artifact.id}: ${error.message}`);
-                }
-              }
-            }
+          gh release list --limit 1000 --json tagName --jq '.[].tagName' > releases.txt
+          { grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' releases.txt || true; } | sort -V -r | sed -n "1,${RELEASES_TO_KEEP}p" > keep.txt
+          if [ ! -s keep.txt ]; then
+            echo "::error::No version release found; nothing deleted."
+            exit 1
+          fi
+          echo "Keeping: $(tr '\n' ' ' < keep.txt)"
+          for OLD_TAG in $(grep -v -x -F -f keep.txt releases.txt || true); do
+            echo "Deleting release ${OLD_TAG}"
+            gh release delete "$OLD_TAG" --yes
+          done
 
       - name: Cleanup old workflow runs
         uses: actions/github-script@v8
