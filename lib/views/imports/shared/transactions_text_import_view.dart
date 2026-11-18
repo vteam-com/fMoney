@@ -356,16 +356,15 @@ void showImportTransactionsFromTextInput(
           // Import
           final List<Transaction> transactionsToAdd = <Transaction>[];
 
-          for (final ValuesQuality singleTransactionInput in parser.lines) {
-            if (!singleTransactionInput.exist) {
-              final Transaction t = Transaction.fromDateDescriptionAmount(
-                account,
-                singleTransactionInput.date.asDate() ?? DateTime.now(),
-                singleTransactionInput.description.asString(),
-                singleTransactionInput.amount.asAmount(),
-              );
-              transactionsToAdd.add(t);
-            }
+          // Rows already present, or whose date, description or amount can't be read, are skipped.
+          for (final ValuesQuality singleTransactionInput in parser.onlyNewTransactions) {
+            final Transaction t = Transaction.fromDateDescriptionAmount(
+              account,
+              singleTransactionInput.date.asDate()!,
+              singleTransactionInput.description.asString(),
+              singleTransactionInput.amount.asAmount(),
+            );
+            transactionsToAdd.add(t);
           }
           addNewTransactions(
             transactionsToAdd,

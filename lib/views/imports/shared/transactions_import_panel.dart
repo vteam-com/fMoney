@@ -6,6 +6,7 @@ import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/presentation/entity_widgets/account_widgets_helper.dart';
+import 'package:money/views/imports/shared/import_duplicate_helper.dart';
 import 'package:money/views/imports/shared/transactions_import_list_preview_widget.dart';
 import 'package:money/widgets/columns/columns_input_widget.dart';
 import 'package:money/widgets/columns/value_parser.dart';
@@ -79,10 +80,10 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     _account = widget.account;
     _textToParse = widget.inputText;
 
+    // The preferred currency is only the starting choice: detection from the amounts still runs.
     final int? preferredCurrencyFormat = _resolvePreferredCurrencyFormat(widget.preferredCurrencyCode);
     if (preferredCurrencyFormat != null) {
       _userChoiceNativeVsUSD = preferredCurrencyFormat;
-      _allowCurrencyAutoDetection = false;
     }
 
     convertAndNotify(context, _textToParse);
@@ -95,22 +96,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
   @override
   Widget build(BuildContext context) {
-    ValuesParser.evaluateExistence(
-      accountId: _account.uniqueId,
-      values: _values,
-      transactionExistsCallback:
-          ({
-            required int accountId,
-            required DateTime dateTime,
-            required double amount,
-          }) =>
-              null !=
-              Data().transactions.findExistingTransaction(
-                accountId: accountId,
-                dateRange: DateRange(min: dateTime.startOfDay, max: dateTime.endOfDay),
-                amount: amount,
-              ),
-    );
+    markExistingImportValues(accountId: _account.uniqueId, values: _values);
 
     return Focus(
       onFocusChange: (bool _) {},
@@ -190,14 +176,15 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       }
     }
 
-    final ValuesParser parser = ValuesParser(
-      dateFormat: userChoiceOfDateFormat,
-      currency: _userChoiceNativeVsUSD == _currencyFormatNative
-          ? _account.getAccountCurrencyAsText()
-          : Constants.defaultCurrency,
-      reverseAmountValue: _userChoiceDebitVsCredit == _currencyFormatUsd,
-    );
-    parser.convertInputTextToTransactionList(context, inputText);
+    ValuesParser parser = _parseWithCurrentChoices(context, inputText);
+
+    // Keep the date format valid for the new text, and parse again with it when it changes.
+    final List<String> validDateFormats = _getValidDateFormats(parser.lines);
+    if (validDateFormats.isNotEmpty && !validDateFormats.contains(userChoiceOfDateFormat)) {
+      userChoiceOfDateFormat = validDateFormats.first;
+      parser = _parseWithCurrentChoices(context, inputText);
+    }
+
     _values = parser.lines;
     widget.onTransactionsFound(parser);
   }
@@ -263,6 +250,8 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       selectedId: _userChoiceNativeVsUSD,
       onSelectionChanged: (int newSelection) {
         setState(() {
+          // An explicit user choice wins over auto-detection from now on.
+          _allowCurrencyAutoDetection = false;
           _userChoiceNativeVsUSD = newSelection;
           convertAndNotify(context, _textToParse);
         });
@@ -276,11 +265,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       return const SizedBox();
     }
 
-    final List<String> listOfDateAsStrings = _values.map((ValuesQuality entry) => entry.date.asString()).toList();
-
-    final List<String> choiceOfDateFormat = getPossibleDateFormatsForAllValues(
-      listOfDateAsStrings,
-    );
+    final List<String> choiceOfDateFormat = _getValidDateFormats(_values);
 
     if (choiceOfDateFormat.isEmpty) {
       return Text(
@@ -291,9 +276,14 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
       );
     }
 
-    // make sure that the last choice is a valid one
+    // convertAndNotify keeps the choice valid; never switch it here without parsing again
     if (!choiceOfDateFormat.contains(userChoiceOfDateFormat)) {
-      userChoiceOfDateFormat = choiceOfDateFormat.first;
+      return Text(
+        AppL10n.tr(AppTranslationKeys.badDateFormat),
+        style: TextStyle(
+          color: context.colorTheme.getColorForState(ColorState.error),
+        ),
+      );
     }
 
     return DropdownButton<String>(
@@ -367,6 +357,28 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
         ),
       ],
     );
+  }
+
+  /// Returns the date formats that read every date of [values]; rows whose date has no digit (headers) are ignored.
+  List<String> _getValidDateFormats(List<ValuesQuality> values) {
+    final List<String> dates = values
+        .map((ValuesQuality entry) => entry.date.asString())
+        .where((String date) => date.contains(RegExp(r'\d')))
+        .toList();
+    return dates.isEmpty ? <String>[] : getPossibleDateFormatsForAllValues(dates);
+  }
+
+  /// Parses [inputText] with the current date format, currency and debit/credit choices.
+  ValuesParser _parseWithCurrentChoices(BuildContext context, String inputText) {
+    final ValuesParser parser = ValuesParser(
+      dateFormat: userChoiceOfDateFormat,
+      currency: _userChoiceNativeVsUSD == _currencyFormatNative
+          ? _account.getAccountCurrencyAsText()
+          : Constants.defaultCurrency,
+      reverseAmountValue: _userChoiceDebitVsCredit == _currencyFormatUsd,
+    );
+    parser.convertInputTextToTransactionList(context, inputText);
+    return parser;
   }
 
   /// Resolves the initial currency format selector value from [preferredCurrencyCode].

@@ -349,6 +349,9 @@ abstract class SharedStrings {
   /// Supported file extension for database files.
   static const String fileExtensionMmdb = '.mmdb';
 
+  /// URI scheme of a file on this computer.
+  static const String uriSchemeFile = 'file';
+
   /// Supported file extension for zipped CSV project files.
   static const String fileExtensionMmcsv = '.mmcsv';
 

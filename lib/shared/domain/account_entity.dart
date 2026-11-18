@@ -138,7 +138,8 @@ class Account extends DataObject {
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
     getValueForDisplay: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
-    getValueForSerialization: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
+    // save what was stored: a blank currency means "the default" and must stay blank
+    getValueForSerialization: (DataInterface instance) => (instance as Account).fieldCurrency.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldCurrency.value = value as String,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Account).getAccountCurrencyAsText(),
@@ -191,6 +192,8 @@ class Account extends DataObject {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Account).fieldLastBalance.value,
     ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as Account).fieldLastBalance.value),
   );
 
   /// LastSync Date & Time
@@ -198,9 +201,7 @@ class Account extends DataObject {
   FieldDate fieldLastSync = FieldDate(
     serializeName: SharedDomainStrings.domainString081,
     getValueForDisplay: (DataInterface instance) => (instance as Account).fieldLastSync.value,
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as Account).fieldLastSync.value,
-    ),
+    getValueForSerialization: (DataInterface instance) => dateToSqliteFormat((instance as Account).fieldLastSync.value),
   );
 
   // Name
@@ -329,6 +330,7 @@ class Account extends DataObject {
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldId),
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldName, includeInColumnView: true),
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldAccountId, includeInColumnView: true),
+    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOfxAccountId),
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldDescription, includeInColumnView: true),
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldType, includeInColumnView: true),
     FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOpeningBalance),

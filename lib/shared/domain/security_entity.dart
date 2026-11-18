@@ -250,6 +250,7 @@ class Security extends DataObject {
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldLastPrice, includeInColumnView: true),
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldCuspid),
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.taxable),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPriceDate),
     FieldBlueprint<Security>(
       selector: (Security tmp) => tmp.fieldSecurityType,
       includeInColumnView: true,

@@ -24,6 +24,10 @@ class MoneyObjects<T> {
   final List<DataObject> _list = <DataObject>[];
   final Map<num, DataObject> _map = <num, DataObject>{};
 
+  /// Lowest id [getNextId] may return, so ids of deleted rows dropped after a save are not reused
+  /// while something may still refer to them.
+  int _lowestNextId = 0;
+
   /// Appends an existing money object to the collection.
   void appendMoneyObject(DataObject moneyObject) {
     // assert(moneyObject.uniqueId != -1);
@@ -56,6 +60,7 @@ class MoneyObjects<T> {
   void clear() {
     _list.clear();
     _map.clear();
+    _lowestNextId = 0;
   }
 
   /// Returns true if an object with [id] exists in the collection.
@@ -157,7 +162,7 @@ class MoneyObjects<T> {
     for (DataObject moneyObject in _list) {
       nextId = max(nextId, moneyObject.uniqueId);
     }
-    return nextId + _nextIdIncrement;
+    return max(nextId + _nextIdIncrement, _lowestNextId);
   }
 
   /// Must be override by derived class
@@ -207,6 +212,9 @@ class MoneyObjects<T> {
   }
 
   /// Saves mutated objects to SQL via the provided database interface.
+  ///
+  /// Mutation flags are left as-is; call [onSaveCommitted] once the whole save succeeded,
+  /// so a failed save keeps every pending change.
   bool saveSql(DatabaseInterface db, String tableName) {
     for (final DataObject item in _iterableListOfMoneyObject(true)) {
       switch (item.mutation) {
@@ -232,9 +240,29 @@ class MoneyObjects<T> {
             message: 'Unhandled change ${item.mutation}',
           );
       }
-      item.mutation = MutationType.none;
     }
     return true;
+  }
+
+  /// Inserts every live (not deleted) object, ignoring mutation flags; used to write a new file.
+  void saveAllSql(DatabaseInterface db, String tableName) {
+    for (final DataObject item in _iterableListOfMoneyObject()) {
+      db.itemInsert(tableName, item.getPersistableJSon());
+    }
+  }
+
+  /// Marks the collection as matching the file after a successful save:
+  /// deleted objects are dropped from memory, other objects become unchanged with a fresh baseline.
+  void onSaveCommitted() {
+    _lowestNextId = getNextId();
+    for (final DataObject item in _list.where((DataObject item) => item.isDeleted).toList()) {
+      _list.remove(item);
+      _map.remove(item.uniqueId);
+    }
+    for (final DataObject item in _list) {
+      item.mutation = MutationType.none;
+      item.valueBeforeEdit = null;
+    }
   }
 
   /// If the field is found and has a sort function then use it, else default to sortByString
@@ -272,7 +300,7 @@ class MoneyObjects<T> {
 
   /// Returns a CSV representation of the collection.
   String toCSV() {
-    return getCsvFromList(getListSortedById());
+    return getCsvFromList(getListSortedById().where((DataObject item) => !item.isDeleted).toList());
   }
 
   /// Returns the field values for [item] as a single separated-values row.

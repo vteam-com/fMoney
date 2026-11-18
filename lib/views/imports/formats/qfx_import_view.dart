@@ -1,9 +1,12 @@
 // ignore: fcheck_dead_code
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -11,17 +14,50 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
+
+const String _skipReasonInvalidDate = 'invalidDate';
+const String _skipReasonInvalidAmount = 'invalidAmount';
 
 /// Imports QFX file and processes transactions from file path.
 Future<bool> importQFX(
   BuildContext context,
   String filePath,
 ) async {
-  final File file = File(filePath);
+  final String? text = await readImportFileAsText(filePath);
+  if (text == null) {
+    return false;
+  }
+  if (!context.mounted) {
+    return false;
+  }
 
-  importQfxFromString(context, file.readAsStringSync());
+  importQfxFromString(context, text);
 
   return true;
+}
+
+/// Reads [filePath] as UTF-8 text, falling back to Latin-1 for legacy bank files.
+/// Shows an error and returns null when the file cannot be read.
+Future<String?> readImportFileAsText(String filePath) async {
+  try {
+    final List<int> bytes = await File(filePath).readAsBytes();
+    try {
+      return utf8.decode(bytes);
+    } on FormatException {
+      return latin1.decode(bytes, allowInvalid: true);
+    }
+  } catch (error) {
+    logger.e('Error reading file: $error');
+    SnackBarService.displayError(
+      autoDismiss: false,
+      message: AppL10n.tr(
+        AppTranslationKeys.importUnableToReadFile,
+        params: <String, String>{'error': error.toString()},
+      ),
+    );
+    return null;
+  }
 }
 
 /// Processes QFX data from string content and imports transactions.
@@ -33,14 +69,18 @@ void importQfxFromString(BuildContext? context, String text) {
   final AccountType? accountType = getAccountTypeFromText(bankInfo.accountType);
 
   final ImportData importData = ImportData();
-  importData.account = Data().accounts.findByIdAndType(
-    bankInfo.accountId,
-    accountType,
-  );
+  // An empty ACCTID must not match an account without an account number; let the user pick instead.
+  importData.account = bankInfo.accountId.trim().isEmpty
+      ? null
+      : Data().accounts.findByIdAndType(
+          bankInfo.accountId,
+          accountType,
+        );
   importData.accountType = accountType;
-  importData.entries = getTransactionFromOFX(ofx);
+  importData.entries = getTransactionFromOFX(ofx, diagnostics: importData.diagnostics);
   importData.fileType = SharedStrings.fileTypeQfx;
   if (context != null) {
+    showImportSkippedRowsWarning(importData);
     showAndConfirmTransactionToImport(context, importData);
   }
 }
@@ -120,7 +160,8 @@ int getInvestmentCategoryFromOfxType(ImportEntry ofxTransaction) {
 }
 
 /// Parses OFX string content and returns list of transaction entries.
-List<ImportEntry> getTransactionFromOFX(String rawOfx) {
+/// Skipped transactions are counted in [diagnostics] when provided.
+List<ImportEntry> getTransactionFromOFX(String rawOfx, {ImportDiagnostics? diagnostics}) {
   if (rawOfx.isNotEmpty) {
     // Remove all LN/CR
     final String ofx = getNormalizedValue(rawOfx);
@@ -137,7 +178,7 @@ List<ImportEntry> getTransactionFromOFX(String rawOfx) {
     );
     final List<String> lines = LineSplitter.split(bankTransactionLit).toList();
 
-    final List<ImportEntry> qfxTransactions = parseQFXTransactions(lines);
+    final List<ImportEntry> qfxTransactions = parseQFXTransactions(lines, diagnostics: diagnostics);
     return qfxTransactions;
   }
 
@@ -145,7 +186,8 @@ List<ImportEntry> getTransactionFromOFX(String rawOfx) {
 }
 
 /// Parses QFX transaction lines into ImportEntry objects.
-List<ImportEntry> parseQFXTransactions(List<String> lines) {
+/// Transactions with an unreadable amount or date are skipped and counted in [diagnostics] when provided.
+List<ImportEntry> parseQFXTransactions(List<String> lines, {ImportDiagnostics? diagnostics}) {
   final List<ImportEntry> transactions = <ImportEntry>[];
 
   for (String line in lines) {
@@ -162,15 +204,19 @@ List<ImportEntry> parseQFXTransactions(List<String> lines) {
       final double? amount = parseAmountFlexible(rawAmount);
       if (amount == null) {
         logger.w('Skipping QFX transaction with malformed amount: $rawAmount');
+        diagnostics?.incrementSkipped(_skipReasonInvalidAmount);
+        continue;
+      }
+      final String rawDate = findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, '');
+      final DateTime? date = parseOfxDate(rawDate);
+      if (date == null) {
+        logger.w('Skipping QFX transaction with malformed date: $rawDate');
+        diagnostics?.incrementSkipped(_skipReasonInvalidDate);
         continue;
       }
       final ImportEntry currentTransaction = ImportEntry(
         type: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagTransactionType, ''),
-        date:
-            parseQfxDataFormat(
-              findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, ''),
-            ) ??
-            DateTime.now(),
+        date: date,
         amount: amount,
         name: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagName, ''),
         fitid: findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagFitId, ''),

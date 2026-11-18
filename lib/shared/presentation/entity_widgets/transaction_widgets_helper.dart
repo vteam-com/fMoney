@@ -82,10 +82,10 @@ Widget? buildTransactionFieldEditWidget(
       key: Constants.keyDatePicker,
       initialValue: transaction.dateTimeAsString,
       onChanged: (String? newDateSelected) {
-        if (newDateSelected != null) {
-          transaction.fieldDateTime.value = attemptToGetDateFromText(
-            newDateSelected,
-          );
+        // Text is parsed on every keystroke; keep the previous date until it parses.
+        final DateTime? parsedDate = newDateSelected == null ? null : attemptToGetDateFromText(newDateSelected);
+        if (parsedDate != null) {
+          transaction.fieldDateTime.value = parsedDate;
           onEdited(true);
         }
       },
@@ -314,9 +314,11 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
                 if (selectedPayeeName != null) {
                   final dynamic selectedPayee = DataAbstract.instance.getPayeeByName(selectedPayeeName);
                   if (selectedPayee != null) {
+                    // The cached transfer is kept so the former counterpart can be unlinked on Apply
+                    // (verifyApplyTransfer / Payee setValue); an abandoned edit never touches the other row.
                     transaction.fieldPayee.value = (selectedPayee as dynamic).uniqueId as int;
                     transaction.fieldTransfer.value = _transactionUnsetId;
-                    transaction.instanceOfTransfer = null;
+                    transaction.editingTransferAccount = null;
                     wasModified = true;
                   }
                 }

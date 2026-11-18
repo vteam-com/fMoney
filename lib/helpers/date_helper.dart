@@ -319,11 +319,11 @@ String dateToIso8601OrDefaultString(
 }
 
 /// Converts DateTime to SQLite datetime string format.
-String dateToSqliteFormat(DateTime? dateTime) {
+String? dateToSqliteFormat(DateTime? dateTime) {
   if (dateTime != null) {
     return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
-  return '';
+  return null; // stored as NULL, like MyMoney.Net does for a missing date
 }
 
 /// Converts DateTime to formatted date string.
@@ -527,4 +527,52 @@ bool isSameDateWithoutTime(DateTime? a, DateTime? b) {
     return false;
   }
   return a!.year == b!.year && a.month == b.month && a.day == b.day;
+}
+
+/// Matches the leading `YYYYMMDD[HHMM[SS]]` digits of an OFX/QFX date.
+final RegExp _ofxDatePattern = RegExp(r'^(\d{4})(\d{2})(\d{2})(?:(\d{2})(\d{2})(\d{2})?)?');
+
+/// Parses an OFX/QFX date such as `20240103`, `20240103120000` or
+/// `20240103120000.000[-5:EST]`. Fractional seconds and the time zone suffix
+/// are ignored. Returns null for malformed or impossible dates.
+DateTime? parseOfxDate(String text) {
+  final RegExpMatch? match = _ofxDatePattern.firstMatch(text.trim());
+  if (match == null) {
+    return null;
+  }
+
+  /// Reads capture group [index] as an int, defaulting to zero when absent.
+  int groupAsInt(int index) => int.tryParse(match.group(index) ?? '') ?? _zeroInt;
+
+  final int year = groupAsInt(_ofxGroupYear);
+  final int month = groupAsInt(_ofxGroupMonth);
+  final int day = groupAsInt(_ofxGroupDay);
+  final DateTime candidate = DateTime(
+    year,
+    month,
+    day,
+    groupAsInt(_ofxGroupHour),
+    groupAsInt(_ofxGroupMinute),
+    groupAsInt(_ofxGroupSecond),
+  );
+  if (candidate.year != year || candidate.month != month || candidate.day != day) {
+    return null;
+  }
+  return candidate;
+}
+
+const int _ofxGroupYear = 1;
+const int _ofxGroupMonth = 2;
+const int _ofxGroupDay = 3;
+const int _ofxGroupHour = 4;
+const int _ofxGroupMinute = 5;
+const int _ofxGroupSecond = 6;
+
+/// Parses a QIF date such as `01/30/2024`, `1/ 5'24` or `12/31'99`, where an
+/// apostrophe may separate the year and spaces may pad the parts.
+/// Numeric dates are read month first (see [parseDateFlexible]).
+/// Returns null when [text] is not a valid date.
+DateTime? parseQifDate(String text) {
+  final String normalized = text.replaceAll(' ', '').replaceAll("'", '/');
+  return parseDateFlexible(normalized, order: DateFieldOrder.monthDayYear);
 }

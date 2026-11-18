@@ -3,6 +3,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
@@ -13,6 +15,7 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/views/imports/shared/import_duplicate_helper.dart';
 import 'package:money/views/imports/shared/transactions_import_list_preview_widget.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/widgets/columns/value_quality.dart';
@@ -59,6 +62,9 @@ class ImportData {
 
   /// Diagnostics captured while parsing source rows.
   final ImportDiagnostics diagnostics = ImportDiagnostics();
+
+  /// Distinct source accounts named in the file; more than one cannot be imported into a single account.
+  final Set<String> sourceAccounts = <String>{};
 }
 
 /// Captures import parsing counters and row skip reasons.
@@ -138,6 +144,20 @@ void showAndConfirmTransactionToImport(
   BuildContext context,
   ImportData importData,
 ) {
+  if (importData.sourceAccounts.length > 1) {
+    SnackBarService.displayWarning(
+      autoDismiss: false,
+      message: AppL10n.tr(
+        AppTranslationKeys.importFileHasMultipleAccounts,
+        params: <String, String>{
+          'fileType': importData.fileType,
+          'count': importData.sourceAccounts.length.toString(),
+        },
+      ),
+    );
+    return;
+  }
+
   if (importData.account == null) {
     final bool onlyInvestmentAccounts = _shouldFilterToInvestmentAccounts(importData);
     final Iterable<Account> availableAccounts = onlyInvestmentAccounts
@@ -214,6 +234,7 @@ void _showAndConfirmTransactionToImport(
         stockAction: item.stockAction,
         stockQuantity: item.stockQuantity,
         stockPrice: item.stockPrice,
+        fitid: item.fitid,
       ),
     );
   }
@@ -246,6 +267,9 @@ void _showAndConfirmTransactionToImport(
     content: questionContent,
     buttonText: AppL10n.tr(AppTranslationKeys.importWord),
     onConfirmation: () {
+      // Re-check against the current data: another import may have been confirmed since the preview opened.
+      markExistingImportValues(accountId: account.uniqueId, values: valuesQuality);
+
       final List<Transaction> transactionsToAdd = <Transaction>[];
       final List<({Transaction transaction, Investment investment})> investmentsToAdd =
           <({Transaction transaction, Investment investment})>[];
@@ -269,7 +293,7 @@ void _showAndConfirmTransactionToImport(
         transactionsToAdd.add(transaction);
 
         if (hasInvestmentMetadata) {
-          final Investment? investment = _buildInvestmentFromImportEntry(entry);
+          final Investment? investment = buildInvestmentFromImportEntry(entry);
           if (investment != null) {
             investmentsToAdd.add((transaction: transaction, investment: investment));
           }
@@ -298,13 +322,7 @@ void _showAndConfirmTransactionToImport(
       }
 
       for (final ({Transaction transaction, Investment investment}) item in investmentsToAdd) {
-        Data().investments.appendNewMoneyObject(
-          item.investment,
-          fireNotification: false,
-        );
-
-        // Investment rows are keyed by the related transaction id.
-        item.investment.fieldId.value = item.transaction.uniqueId;
+        appendInvestmentForTransaction(item.investment, item.transaction);
       }
 
       Data().updateAll();
@@ -321,6 +339,36 @@ void _showAndConfirmTransactionToImport(
         ),
       );
     },
+  );
+}
+
+/// Adds [investment] to the investments, keyed by the id of its [transaction], and counts it as an unsaved insert.
+void appendInvestmentForTransaction(Investment investment, Transaction transaction) {
+  // Investment rows share the id of their transaction; set it before adding so the lookup key matches.
+  investment.uniqueId = transaction.uniqueId;
+  Data().investments.appendMoneyObject(investment);
+  DataObject.onMutationChanged?.call(
+    mutation: MutationType.inserted,
+    moneyObject: investment,
+    recalculateBalances: false,
+  );
+}
+
+/// Warns the user when rows of [importData] were skipped because they could not be read.
+void showImportSkippedRowsWarning(ImportData importData) {
+  if (importData.diagnostics.skippedRows == 0) {
+    return;
+  }
+  SnackBarService.displayWarning(
+    autoDismiss: true,
+    message: AppL10n.tr(
+      AppTranslationKeys.importRowsParsedAndSkipped,
+      params: <String, String>{
+        'fileType': importData.fileType,
+        'imported': importData.entries.length.toString(),
+        'skipped': importData.diagnostics.skippedRows.toString(),
+      },
+    ),
   );
 }
 
@@ -380,7 +428,8 @@ int _resolveInvestmentCategoryId(ImportEntry entry) {
 }
 
 /// Builds an investment object from [entry] when stock symbol metadata is available.
-Investment? _buildInvestmentFromImportEntry(ImportEntry entry) {
+@visibleForTesting
+Investment? buildInvestmentFromImportEntry(ImportEntry entry) {
   final String symbol = entry.stockSymbol.trim();
   if (symbol.isEmpty) {
     return null;
@@ -396,7 +445,8 @@ Investment? _buildInvestmentFromImportEntry(ImportEntry entry) {
   return Investment(
     id: -1,
     security: security.fieldId.value,
-    units: entry.stockQuantity,
+    // The investment type carries the direction; a sell exported as a negative quantity still removes shares.
+    units: entry.stockQuantity.abs(),
     unitPrice: entry.stockPrice,
     investmentType: investmentType.index,
     tradeType: fromInvestmentType(investmentType).index,

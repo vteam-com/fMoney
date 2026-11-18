@@ -37,6 +37,9 @@ abstract class TransactionOperations {
   /// transfer counterpart; cached per data version so it is cheap per row.
   bool hasPotentialTransferMatch(DataObject transaction);
 
+  /// Breaks the transfer link of [transaction], unlinking a counterpart that still points back at it.
+  void unlinkTransfer(DataObject transaction);
+
   /// Converts two existing disconnected transactions into a linked transfer pair.
   bool convertDisconnectedTransactionsToTransfer({
     required DataObject transaction,

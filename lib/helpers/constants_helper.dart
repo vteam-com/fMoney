@@ -46,6 +46,7 @@ class Constants {
   static const int commandFileOpen = 2001;
   static const int commandFileSaveCsv = 2004;
   static const int commandFileSaveSql = 2005;
+  static const int commandFileSaveAs = 2007;
   static const int commandRebalance = 1500;
   static const int commandSettings = 1100;
   static const int commandIncludeClosedAccount = 1200;

@@ -7,11 +7,9 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/date_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/dialogs/xlsx_header_row_selector_dialog.dart';
@@ -20,7 +18,6 @@ const int _zeroInt = 0;
 const int _oneInt = 1;
 const int _twoInt = 2;
 const int _unsetIndex = -1;
-const double _zeroDouble = 0.0;
 const int _headerPreviewCount = 10;
 const int _previewRowLimit = 5;
 const int _datePadWidth = 2;
@@ -30,6 +27,8 @@ const int _excelDateMax = 60000;
 const int _excelBaseYear = 1899;
 const int _excelBaseMonth = 12;
 const int _excelBaseDay = 30;
+const int _alphabetLength = 26;
+const int _letterACodeUnit = 0x41;
 
 // Simple, dependency-free XLSX parser (only one sheet, static values)
 /// Imports XLSX file and parses transaction data from Excel format.
@@ -49,28 +48,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       } catch (_) {
         xml = latin1.decode(sharedFile.content, allowInvalid: true);
       }
-      // Match both <t> and namespaced <x:t> or <r><t> etc.
-      final RegExp sharedStringRegex = RegExp(r'<(?:\w+:)?t[^>]*>(.*?)</(?:\w+:)?t>', dotAll: true);
-
-      // Extract text from all <t> tags, flattening nested ones
-      sharedStrings = sharedStringRegex
-          .allMatches(xml)
-          .map((RegExpMatch m) => m.group(_oneInt))
-          .whereType<String>()
-          .map((
-            String text,
-          ) {
-            final String unescapedText = text
-                .replaceAll('\r', '')
-                .replaceAll('\n', '')
-                .replaceAll(SharedStrings.xmlEntityAmp, '&')
-                .replaceAll(SharedStrings.xmlEntityLt, '<')
-                .replaceAll(SharedStrings.xmlEntityGt, '>')
-                .replaceAll(SharedStrings.xmlEntityQuot, '"')
-                .replaceAll(SharedStrings.xmlEntityApos, "'");
-            return unescapedText.trim();
-          })
-          .toList();
+      sharedStrings = parseXlsxSharedStrings(xml);
     }
 
     // Extract first sheet*.xml
@@ -87,73 +65,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     }
 
     final String sheetXml = utf8.decode(sheetFile.content, allowMalformed: true);
-
-    // Find all rows and process them
-    final RegExp rowRegex = RegExp(r'<(?:\w+:)?row[^>]*>(.*?)</(?:\w+:)?row>', dotAll: true);
-    final RegExp cellRegex = RegExp(r'<(?:\w+:)?c[^>]*?(?:t="(?<t>[^"]+)")?[^>]*?>(.*?)</(?:\w+:)?c>', dotAll: true);
-    final RegExp valueRegex = RegExp(r'<(?:\w+:)?v[^>]*>(.*?)</(?:\w+:)?v>', dotAll: true);
-
-    final List<List<String>> worksheetData = <List<String>>[];
-    for (final RegExpMatch rowMatch in rowRegex.allMatches(sheetXml)) {
-      final String rowXml = rowMatch.group(_oneInt) ?? '';
-      final List<String> rowData = <String>[];
-
-      // Parse each cell in this row
-      for (final RegExpMatch cellMatch in cellRegex.allMatches(rowXml)) {
-        final String? cellType = cellMatch.namedGroup('t');
-        final String cellXml = cellMatch.group(_twoInt) ?? '';
-        String value = '';
-
-        // Extract value from <v> tag
-        final RegExpMatch? vMatch = valueRegex.firstMatch(cellXml);
-        if (vMatch != null) {
-          value = vMatch.group(_oneInt)?.trim() ?? '';
-
-          // Try resolving shared string even when type is null but looks like an index
-          final int? idx = int.tryParse(value);
-          if (cellType == 's' || (idx != null && idx >= _zeroInt && idx < sharedStrings.length)) {
-            value = sharedStrings[idx!];
-          }
-        } else {
-          // Handle inline strings: <is><t>Text</t></is>
-          final RegExpMatch? inlineMatch = RegExp(
-            r'<(?:\w+:)?is[^>]*>.*?<(?:\w+:)?t[^>]*>(.*?)</(?:\w+:)?t>.*?</(?:\w+:)?is>',
-            dotAll: true,
-          ).firstMatch(cellXml);
-          if (inlineMatch != null) {
-            value = inlineMatch.group(_oneInt)?.trim() ?? '';
-          }
-        }
-
-        // Decode XML entities and Portuguese characters
-        value = value
-            .replaceAll(SharedStrings.xmlEntityAmp, '&')
-            .replaceAll(SharedStrings.xmlEntityLt, '<')
-            .replaceAll(SharedStrings.xmlEntityGt, '>')
-            .replaceAll(SharedStrings.xmlEntityQuot, '"')
-            .replaceAll(SharedStrings.xmlEntityApos, "'")
-            .replaceAll(SharedStrings.xmlEntityCedilla, 'ç')
-            .replaceAll(SharedStrings.xmlEntityATilde, 'ã')
-            .replaceAll(SharedStrings.xmlEntityEAcute, 'é')
-            .replaceAll(SharedStrings.xmlEntityECirc, 'ê')
-            .replaceAll(SharedStrings.xmlEntityOTilde, 'õ')
-            .replaceAll(SharedStrings.xmlEntityOAcute, 'ó');
-
-        // Convert Excel serial date to readable date if value looks like one
-        final double? excelDate = double.tryParse(value);
-        if (excelDate != null && excelDate > _excelDateMin && excelDate < _excelDateMax) {
-          // Excel’s day 1 = 1900-01-01 (Excel bug means 1900-02-29 exists)
-          final DateTime baseDate = DateTime(_excelBaseYear, _excelBaseMonth, _excelBaseDay);
-          final DateTime convertedDate = baseDate.add(Duration(days: excelDate.floor()));
-          value =
-              '${convertedDate.year}-${convertedDate.month.toString().padLeft(_datePadWidth, _datePadChar)}-${convertedDate.day.toString().padLeft(_datePadWidth, _datePadChar)}';
-        }
-        rowData.add(value);
-      }
-
-      // Add all rows, including potentially empty but positioned first rows
-      worksheetData.add(rowData);
-    }
+    final List<List<String>> worksheetData = parseXlsxSheetRows(sheetXml, sharedStrings);
 
     // Filter out completely empty rows, but keep rows that might be headers
     final List<List<String>> filteredData = worksheetData
@@ -234,6 +146,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     if (columnMapping != null) {
       final ImportData importData = loadXLSX(headers, dataRows, columnMapping);
       if (importData.entries.isNotEmpty) {
+        showImportSkippedRowsWarning(importData);
         showAndConfirmTransactionToImport(context, importData);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -257,77 +170,130 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
 }
 
 /// Loads XLSX data from headers, rows, and column mapping into ImportData.
+///
+/// Rows go through the CSV loader (same quantity/price mapping and skip diagnostics);
+/// Excel serial dates are converted to ISO dates in the mapped date column only.
 ImportData loadXLSX(
   List<String> headers,
   List<List<String>> dataRows,
   Map<String, String> columnMapping,
 ) {
-  final ImportData importData = ImportData();
+  final String? dateColumn = columnMapping['date'];
+  final int dateIndex = dateColumn == null ? _unsetIndex : indexOfMappedColumn(headers, dateColumn);
+  final List<List<String>> rows = dataRows.map((List<String> row) {
+    if (dateIndex < _zeroInt || dateIndex >= row.length) {
+      return row;
+    }
+    final List<String> converted = List<String>.of(row);
+    converted[dateIndex] = excelSerialDateToIso(row[dateIndex]);
+    return converted;
+  }).toList();
+
+  final ImportData importData = loadCSV(headers, rows, columnMapping);
   importData.fileType = SharedStrings.fileTypeXlsx;
-
-  final String dateColumnName = columnMapping['date']!;
-  final String descriptionColumnName = columnMapping['description']!;
-  final String amountColumnName = columnMapping['amount']!;
-
-  final int dateIndex = headers.indexOf(dateColumnName);
-  final int descriptionIndex = headers.indexOf(descriptionColumnName);
-  final int amountIndex = headers.indexOf(amountColumnName);
-
-  if (dateIndex == _unsetIndex || descriptionIndex == _unsetIndex || amountIndex == _unsetIndex) {
-    AppLogger.warning(
-      module: 'xlsx_import_view',
-      operation: 'loadXLSX',
-      message: 'Column mapping failed - could not find required columns',
-      context: <String, Object?>{'columnMapping': columnMapping, 'headers': headers},
-    );
-    return importData;
+  for (final ImportEntry entry in importData.entries) {
+    entry.type = SharedStrings.importTypeXlsx;
   }
-
-  final DateFieldOrder dateOrder = dateFieldOrderForLocale();
-  for (int i = _zeroInt; i < dataRows.length; i++) {
-    final List<String> row = dataRows[i];
-
-    final int maxIndex = <int>[dateIndex, descriptionIndex, amountIndex].reduce((int a, int b) => a > b ? a : b);
-    if (row.length <= maxIndex) {
-      continue;
-    }
-
-    // Extract values for this row
-    final String rawDate = row[dateIndex].trim();
-    final String rawDescription = row[descriptionIndex].trim();
-    final String rawAmount = row[amountIndex].trim();
-
-    final DateTime? date = parseDateFlexible(rawDate, order: dateOrder);
-    if (date == null) {
-      continue;
-    }
-
-    if (rawDescription.isEmpty) {
-      continue;
-    }
-
-    final double? amount = parseAmountFlexible(rawAmount);
-    if (amount == null) {
-      continue;
-    }
-
-    importData.entries.add(
-      ImportEntry(
-        date: date,
-        name: rawDescription,
-        amount: amount,
-        type: SharedStrings.importTypeXlsx,
-        fitid: 'xlsx_row_${i + _oneInt}_${date.millisecondsSinceEpoch}',
-        memo: '',
-        number: '',
-        stockAction: '',
-        stockSymbol: '',
-        stockQuantity: _zeroDouble,
-        stockPrice: _zeroDouble,
-        stockCommission: _zeroDouble,
-      ),
-    );
-  }
-
   return importData;
+}
+
+/// Converts an Excel serial date such as `45306` to `2024-01-15`; other text is returned unchanged.
+String excelSerialDateToIso(String value) {
+  final double? excelDate = double.tryParse(value.trim());
+  if (excelDate == null || excelDate <= _excelDateMin || excelDate >= _excelDateMax) {
+    return value;
+  }
+  // Excel's day 1 = 1900-01-01 (Excel bug means 1900-02-29 exists)
+  final DateTime baseDate = DateTime(_excelBaseYear, _excelBaseMonth, _excelBaseDay);
+  final DateTime convertedDate = baseDate.add(Duration(days: excelDate.floor()));
+  return '${convertedDate.year}-${convertedDate.month.toString().padLeft(_datePadWidth, _datePadChar)}-${convertedDate.day.toString().padLeft(_datePadWidth, _datePadChar)}';
+}
+
+/// Returns the text of each `<si>` entry of an XLSX sharedStrings.xml, joining rich-text runs.
+List<String> parseXlsxSharedStrings(String xml) {
+  final RegExp itemRegex = RegExp(r'<(?:\w+:)?si(?:\s[^>]*)?>(.*?)</(?:\w+:)?si>', dotAll: true);
+  final RegExp textRegex = RegExp(r'<(?:\w+:)?t(?:\s[^>]*)?>(.*?)</(?:\w+:)?t>', dotAll: true);
+  return itemRegex.allMatches(xml).map((RegExpMatch item) {
+    final String text = textRegex
+        .allMatches(item.group(_oneInt) ?? '')
+        .map((RegExpMatch m) => m.group(_oneInt) ?? '')
+        .join();
+    return _decodeXmlEntities(text.replaceAll('\r', '').replaceAll('\n', '')).trim();
+  }).toList();
+}
+
+/// Parses the rows of an XLSX worksheet into cell texts, placing each cell at
+/// the column given by its `r` reference (for example `C5`) so empty cells keep
+/// their position. Values of `t="s"` cells are looked up in [sharedStrings].
+List<List<String>> parseXlsxSheetRows(String sheetXml, List<String> sharedStrings) {
+  final RegExp rowRegex = RegExp(r'<(?:\w+:)?row(?:\s[^>]*)?>(.*?)</(?:\w+:)?row>', dotAll: true);
+  final RegExp cellRegex = RegExp(r'<(?:\w+:)?c(\s[^>]*?)?(?:/>|>(.*?)</(?:\w+:)?c>)', dotAll: true);
+  final RegExp referenceRegex = RegExp(r'\br="([A-Za-z]+)\d*"');
+  final RegExp typeRegex = RegExp(r'\bt="([^"]*)"');
+  final RegExp valueRegex = RegExp(r'<(?:\w+:)?v(?:\s[^>]*)?>(.*?)</(?:\w+:)?v>', dotAll: true);
+  final RegExp inlineRegex = RegExp(
+    r'<(?:\w+:)?is(?:\s[^>]*)?>.*?<(?:\w+:)?t(?:\s[^>]*)?>(.*?)</(?:\w+:)?t>.*?</(?:\w+:)?is>',
+    dotAll: true,
+  );
+
+  final List<List<String>> rows = <List<String>>[];
+  for (final RegExpMatch rowMatch in rowRegex.allMatches(sheetXml)) {
+    final List<String> rowData = <String>[];
+    for (final RegExpMatch cellMatch in cellRegex.allMatches(rowMatch.group(_oneInt) ?? '')) {
+      final String attributes = cellMatch.group(_oneInt) ?? '';
+      final String cellXml = cellMatch.group(_twoInt) ?? '';
+      final String? cellType = typeRegex.firstMatch(attributes)?.group(_oneInt);
+
+      String value = '';
+      final RegExpMatch? vMatch = valueRegex.firstMatch(cellXml);
+      if (vMatch != null) {
+        value = vMatch.group(_oneInt)?.trim() ?? '';
+        if (cellType == 's') {
+          final int? sharedIndex = int.tryParse(value);
+          value = sharedIndex != null && sharedIndex >= _zeroInt && sharedIndex < sharedStrings.length
+              ? sharedStrings[sharedIndex]
+              : '';
+        } else {
+          value = _decodeXmlEntities(value);
+        }
+      } else {
+        // Handle inline strings: <is><t>Text</t></is>
+        value = _decodeXmlEntities(inlineRegex.firstMatch(cellXml)?.group(_oneInt)?.trim() ?? '');
+      }
+
+      final String? reference = referenceRegex.firstMatch(attributes)?.group(_oneInt);
+      final int columnIndex = reference == null ? rowData.length : xlsxColumnLettersToIndex(reference);
+      while (rowData.length <= columnIndex) {
+        rowData.add('');
+      }
+      rowData[columnIndex] = value;
+    }
+    rows.add(rowData);
+  }
+  return rows;
+}
+
+/// Converts XLSX column letters to a zero-based index (`A` is 0, `Z` is 25, `AA` is 26).
+int xlsxColumnLettersToIndex(String letters) {
+  int index = _zeroInt;
+  for (final int codeUnit in letters.toUpperCase().codeUnits) {
+    index = index * _alphabetLength + (codeUnit - _letterACodeUnit + _oneInt);
+  }
+  return index - _oneInt;
+}
+
+/// Decodes the XML entities and accented characters found in XLSX cell text.
+String _decodeXmlEntities(String value) {
+  return value
+      .replaceAll(SharedStrings.xmlEntityLt, '<')
+      .replaceAll(SharedStrings.xmlEntityGt, '>')
+      .replaceAll(SharedStrings.xmlEntityQuot, '"')
+      .replaceAll(SharedStrings.xmlEntityApos, "'")
+      .replaceAll(SharedStrings.xmlEntityCedilla, 'ç')
+      .replaceAll(SharedStrings.xmlEntityATilde, 'ã')
+      .replaceAll(SharedStrings.xmlEntityEAcute, 'é')
+      .replaceAll(SharedStrings.xmlEntityECirc, 'ê')
+      .replaceAll(SharedStrings.xmlEntityOTilde, 'õ')
+      .replaceAll(SharedStrings.xmlEntityOAcute, 'ó')
+      .replaceAll(SharedStrings.xmlEntityAmp, '&');
 }

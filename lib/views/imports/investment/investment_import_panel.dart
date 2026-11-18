@@ -7,6 +7,7 @@ import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_import_fields_helper.dart';
+import 'package:money/views/imports/shared/import_number_input_helper.dart';
 import 'package:money/widgets/pickers/account_picker_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
@@ -185,9 +186,9 @@ class _ImportInvestmentPanelState extends State<ImportInvestmentPanel> {
   /// Updates the bound input fields model from the current text controller values.
   void _updateInputFields() {
     widget.inputFields.symbol = _controllerSymbol.text;
-    widget.inputFields.units = double.tryParse(_controllerUnites.text) ?? 0.0;
-    widget.inputFields.amountPerUnit = double.tryParse(_controllerAmount.text) ?? 0.0;
-    widget.inputFields.transactionAmount = double.tryParse(_controllerTransactionAmount.text) ?? 0.0;
+    widget.inputFields.units = parseImportNumberInput(_controllerUnites.text);
+    widget.inputFields.amountPerUnit = parseImportNumberInput(_controllerAmount.text);
+    widget.inputFields.transactionAmount = parseImportNumberInput(_controllerTransactionAmount.text);
     widget.inputFields.description = _controllerDescription.text;
   }
 }

@@ -22,8 +22,9 @@ void main() {
 
       final MyJson json = transaction.getPersistableJSon();
 
-      expect(json[SharedDomainStrings.domainString116], reconciled.toIso8601String());
-      expect(json[SharedDomainStrings.domainString025], budgetBalance.toIso8601String());
+      // same text format as MyMoney.Net writes
+      expect(json[SharedDomainStrings.domainString116], '2024-03-15 00:00:00');
+      expect(json[SharedDomainStrings.domainString025], '2024-04-01 00:00:00');
 
       final Transaction reloaded = Transaction.fromJSon(json, 0);
       expect(reloaded.fieldReconciledDate.value, reconciled);

@@ -46,6 +46,14 @@ void main() {
       expect(getLinesFromRawTextWithSeparator(input), expected);
     });
 
+    test('reads an empty quoted field as empty, not as a quote character', () {
+      const String input = '"1","","x",""';
+      final List<List<String>> expected = <List<String>>[
+        <String>['1', '', 'x', ''],
+      ];
+      expect(getLinesFromRawTextWithSeparator(input), expected);
+    });
+
     test('handles empty fields', () {
       const String input = 'field1,,field3';
       final List<List<String>> expected = <List<String>>[

@@ -171,8 +171,8 @@ List<List<String>> getLinesFromRawTextWithSeparator(
   for (int i = _zeroInt; i < content.length; i++) {
     final String char = content[i];
 
-    if (char == '"' && (i + _oneInt < content.length && content[i + _oneInt] == '"')) {
-      // Handle escaped quotes
+    if (inQuotes && char == '"' && (i + _oneInt < content.length && content[i + _oneInt] == '"')) {
+      // Handle escaped quotes; outside quotes `""` is an empty field, not a quote character
       currentField.write('"');
       i++; // Skip the next quote
     } else if (char == '"') {

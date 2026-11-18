@@ -214,6 +214,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
+  String get cannotMoveCategoryUnderItself => 'Cannot move a category under itself or one of its subcategories.';
+
+  @override
   String get cash => 'Cash';
 
   @override
@@ -341,6 +344,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get delete => 'Delete';
 
   @override
+  String deleteBlockedByReferences(String count) {
+    return 'Cannot delete: still used by $count record(s).';
+  }
+
+  @override
   String get deleteSelectedItems => 'Delete selected item(s)';
 
   @override
@@ -361,6 +369,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get details => 'Details';
+
+  @override
+  String get discardChanges => 'Discard';
 
   @override
   String get dividend => 'Dividend';
@@ -432,6 +443,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get expenses => 'Expenses';
 
   @override
+  String fileChangedOnDisk(String fileName) {
+    return '$fileName was changed by another app since it was opened. Use Save As to save your changes to a new file.';
+  }
+
+  @override
   String get fileLocationMenuItem => 'File location...';
 
   @override
@@ -439,6 +455,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fileMenuTooltip => 'File menu';
+
+  @override
+  String fileNoLongerExists(String fileName) {
+    return '$fileName no longer exists. Use Save As to save your changes to a new file.';
+  }
 
   @override
   String get filter => 'filter';
@@ -488,6 +509,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String importFileHasMultipleAccounts(String fileType, String count) {
+    return 'This $fileType file contains transactions for $count accounts. Export one file per account and import each one separately.';
+  }
+
+  @override
   String importFileType(String fileType) {
     return 'Import $fileType';
   }
@@ -499,8 +525,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get importFromQfxQifXlsxCsvFile => 'From QFX|OFX|QIF|XLSX|CSV|PDF file';
 
   @override
+  String get importInvalidNumberEntered => 'Enter valid numbers before recording.';
+
+  @override
   String importNoMatchingAccountsWithId(String fileType, String id) {
     return 'Import - No matching \"$fileType\" accounts with ID \"$id\"';
+  }
+
+  @override
+  String importRowsParsedAndSkipped(String fileType, String imported, String skipped) {
+    return '$fileType import parsed $imported entries and skipped $skipped unreadable rows.';
   }
 
   @override
@@ -508,6 +542,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get importTransactionToAccount => 'Import transaction to account';
+
+  @override
+  String importUnableToReadFile(String error) {
+    return 'Unable to read the file: $error';
+  }
 
   @override
   String get importWord => 'Import';
@@ -1059,6 +1098,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sankey => 'Sankey';
 
   @override
+  String get save => 'Save';
+
+  @override
+  String get saveAs => 'Save As…';
+
+  @override
   String get saveToCsv => 'Save to CSV';
 
   @override
@@ -1323,6 +1368,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unknown => 'Unknown';
+
+  @override
+  String get unsavedChanges => 'Unsaved changes';
+
+  @override
+  String unsavedChangesMessage(String count) {
+    return 'You have $count unsaved changes. Save them before continuing?';
+  }
 
   @override
   String unselectAllCount(String count) {

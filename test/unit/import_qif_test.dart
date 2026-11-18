@@ -54,8 +54,9 @@ void main() {
       // Act
       final ImportData importData = loadQIF(qifLines);
 
-      // Assert
-      expect(importData.entries.length, 1);
+      // Assert: an entry without a readable date is skipped, not imported dated today
+      expect(importData.entries.length, 0);
+      expect(importData.diagnostics.skippedRows, 1);
     });
   });
 }

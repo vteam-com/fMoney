@@ -112,6 +112,7 @@
   "buildNumberLabel": "Build Number:",
   "buySellDividend": "Buy/Sell/Dividend.",
   "cancel": "Cancel",
+  "cannotMoveCategoryUnderItself": "Cannot move a category under itself or one of its subcategories.",
   "cash": "Cash",
   "cashFlow": "Cash Flow",
   "categories": "Categories",
@@ -188,6 +189,14 @@
   "debit": "Debit",
   "defaultListOfItems": "Default list of items",
   "delete": "Delete",
+  "deleteBlockedByReferences": "Cannot delete: still used by {count} record(s).",
+  "@deleteBlockedByReferences": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "deleteSelectedItems": "Delete selected item(s)",
   "deleteSelectedItemsQuestion": "Are you sure you want to delete the {count} selected {items}?",
   "@deleteSelectedItemsQuestion": {
@@ -211,6 +220,7 @@
   "description": "Description",
   "descriptionPayee": "Description/Payee",
   "details": "Details",
+  "discardChanges": "Discard",
   "dividend": "Dividend",
   "dropFilesHere": "Drop files here",
   "edit": "Edit",
@@ -275,9 +285,25 @@
   "expenseLabel": "Expense",
   "expensePredictions": "Expense predictions",
   "expenses": "Expenses",
+  "fileChangedOnDisk": "{fileName} was changed by another app since it was opened. Use Save As to save your changes to a new file.",
+  "@fileChangedOnDisk": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "fileLocationMenuItem": "File location...",
   "fileLocationNotSupportedOnMobile": "Opening the file location is only supported on desktop platforms.",
   "fileMenuTooltip": "File menu",
+  "fileNoLongerExists": "{fileName} no longer exists. Use Save As to save your changes to a new file.",
+  "@fileNoLongerExists": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "filter": "filter",
   "findMissingTransfers": "Find missing transfers",
   "fmoney": "fMoney",
@@ -309,6 +335,17 @@
       }
     }
   },
+  "importFileHasMultipleAccounts": "This {fileType} file contains transactions for {count} accounts. Export one file per account and import each one separately.",
+  "@importFileHasMultipleAccounts": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "importFileType": "Import {fileType}",
   "@importFileType": {
     "placeholders": {
@@ -319,6 +356,7 @@
   },
   "importFromQfxQifXlsxCsvDescription": "Import transactions from a QFX, OFX, QIF, XLSX, CSV, or PDF file.",
   "importFromQfxQifXlsxCsvFile": "From QFX|OFX|QIF|XLSX|CSV|PDF file",
+  "importInvalidNumberEntered": "Enter valid numbers before recording.",
   "importNoMatchingAccountsWithId": "Import - No matching \"{fileType}\" accounts with ID \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {
@@ -330,8 +368,30 @@
       }
     }
   },
+  "importRowsParsedAndSkipped": "{fileType} import parsed {imported} entries and skipped {skipped} unreadable rows.",
+  "@importRowsParsedAndSkipped": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "imported": {
+        "type": "String"
+      },
+      "skipped": {
+        "type": "String"
+      }
+    }
+  },
   "importTransactions": "Import transactions",
   "importTransactionToAccount": "Import transaction to account",
+  "importUnableToReadFile": "Unable to read the file: {error}",
+  "@importUnableToReadFile": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "importWord": "Import",
   "includeAssetAccounts": "Include Asset Accounts",
   "includeClosedAccountsInFinder": "Include closed accounts",
@@ -683,6 +743,8 @@
   "@sankey": {
     "description": "REVIEWED"
   },
+  "save": "Save",
+  "saveAs": "Save As…",
   "saveToCsv": "Save to CSV",
   "saveToSql": "Save to SQL",
   "savingLabel": "Saving",
@@ -886,6 +948,15 @@
   },
   "units": "Units",
   "unknown": "Unknown",
+  "unsavedChanges": "Unsaved changes",
+  "unsavedChangesMessage": "You have {count} unsaved changes. Save them before continuing?",
+  "@unsavedChangesMessage": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "unselectAllCount": "Unselect all {count}",
   "@unselectAllCount": {
     "placeholders": {

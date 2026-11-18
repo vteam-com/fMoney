@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -188,7 +189,7 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
           TextButton(
             onPressed: () {
               final TransactionSplit newSplit = TransactionSplit(
-                id: widget.splits.length,
+                id: nextSplitIdForTransaction(Data().splits.iterableList(includeDeleted: true), widget.uniqueId),
                 transactionId: widget.uniqueId,
                 categoryId: _unsetId,
                 payeeId: _unsetId,
@@ -199,8 +200,13 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
                 budgetBalanceDate: null,
                 data: Data(),
               );
-              newSplit.mutation = MutationType.inserted;
               Data().splits.appendMoneyObject(newSplit);
+              // Count the new split as an unsaved insert, like appendNewMoneyObject does.
+              DataObject.onMutationChanged?.call(
+                mutation: MutationType.inserted,
+                moneyObject: newSplit,
+                recalculateBalances: false,
+              );
             },
             child: Text(AppL10n.tr(AppTranslationKeys.add)),
           ),
@@ -208,4 +214,15 @@ class SuggestionApprovalState extends State<SuggestionApproval> with SingleTicke
       ),
     );
   }
+}
+
+/// Returns the next free split id of [transactionId]: one more than the highest id among its [splits], or 0.
+int nextSplitIdForTransaction(Iterable<TransactionSplit> splits, int transactionId) {
+  int maxId = _unsetId;
+  for (final TransactionSplit split in splits) {
+    if (split.fieldTransactionId.value == transactionId && split.uniqueId > maxId) {
+      maxId = split.uniqueId;
+    }
+  }
+  return maxId + 1;
 }

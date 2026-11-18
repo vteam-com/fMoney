@@ -9,8 +9,8 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/views/imports/shared/import_duplicate_helper.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
-import 'package:money/widgets/columns/value_parser.dart';
 import 'package:money/widgets/columns/value_quality.dart';
 import 'package:money/widgets/components/my_banner_widget.dart';
 import 'package:money/widgets/components/semantic_text_widget.dart';
@@ -49,22 +49,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
   @override
   void initState() {
     super.initState();
-    ValuesParser.evaluateExistence(
-      accountId: widget.accountId,
-      values: widget.values,
-      transactionExistsCallback:
-          ({
-            required int accountId,
-            required DateTime dateTime,
-            required double amount,
-          }) =>
-              null !=
-              Data().transactions.findExistingTransaction(
-                accountId: accountId,
-                dateRange: DateRange(min: dateTime.startOfDay, max: dateTime.endOfDay),
-                amount: amount,
-              ),
-    );
+    markExistingImportValues(accountId: widget.accountId, values: widget.values);
   }
 
   @override
@@ -83,7 +68,9 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
       );
     }
 
-    _sortValues();
+    // Sort a copy so the caller's list keeps its order, and with it the pairing to its source rows.
+    final List<ValuesQuality> sortedValues = List<ValuesQuality>.of(widget.values);
+    ValuesQuality.sort(sortedValues, _sortColumnIndex, _sortAscending);
 
     return Box(
       width: boxWidth,
@@ -109,8 +96,8 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
           Expanded(
             child: ListView.separated(
               separatorBuilder: (BuildContext _, int _) => const Divider(),
-              itemCount: widget.values.length,
-              itemBuilder: (BuildContext _, int index) => _buildTransactionRow(widget.values[index]),
+              itemCount: sortedValues.length,
+              itemBuilder: (BuildContext _, int index) => _buildTransactionRow(sortedValues[index]),
             ),
           ),
 
@@ -151,7 +138,7 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
   /// Builds tally string showing items to import vs total items.
   String buildTallyOfItemsToImportOrSkip() {
     final int totalItems = widget.values.length;
-    final int itemsToImport = widget.values.where((ValuesQuality item) => !item.exist).length;
+    final int itemsToImport = widget.values.where((ValuesQuality item) => !item.exist && item.isValid).length;
     String text = getIntAsText(widget.values.length);
     if (totalItems != itemsToImport) {
       text = '${getIntAsText(itemsToImport)}/${getIntAsText(totalItems)}';
@@ -320,16 +307,11 @@ class _ImportTransactionsListPreviewState extends State<ImportTransactionsListPr
     return widget.values.any((ValuesQuality v) => v.hasStockInfo());
   }
 
-  void _sortValues() {
-    ValuesQuality.sort(widget.values, _sortColumnIndex, _sortAscending);
-  }
-
   /// Updates the sort selection and re-sorts the preview list.
   void _updateSortChoice(int columnIndex) {
     setState(() {
       _sortAscending = sortAscendingAfterColumnTap(columnIndex, _sortColumnIndex, _sortAscending);
       _sortColumnIndex = columnIndex;
-      _sortValues();
     });
   }
 }

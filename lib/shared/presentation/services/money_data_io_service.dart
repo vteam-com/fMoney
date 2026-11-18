@@ -19,6 +19,9 @@ import 'package:money/widgets/pure/snack_bar_service.dart';
 
 /// Represents money data io.
 class MoneyDataIO {
+  /// Suffix of the copy kept of a file before it is overwritten.
+  static const String _backupFileSuffix = '.bak';
+
   /// Loads data from file path based on file extension.
   Future<bool> loadFromPath(Data data, DataSource dateSource) async {
     try {
@@ -58,7 +61,8 @@ class MoneyDataIO {
           return false;
       }
     } catch (e) {
-      // logger.e(e.toString()); // Logger might need to be imported or removed if not accessible
+      // never leave a half-loaded file in memory, where it could be saved over the real one
+      data.clearExistingData();
       SnackBarService.displayError(autoDismiss: false, message: e.toString());
       return false;
     }
@@ -83,40 +87,18 @@ class MoneyDataIO {
       // Open or create the database
       final MyDatabase db = MyDatabase();
 
-      await db.load(filePath, fileBytes);
-      // Load
-      data.accountAliases.loadFromJson(await _selectAll(db, SharedStrings.tableAccountAliases));
-      data.accounts.loadFromJson(await _selectAll(db, SharedStrings.tableAccounts));
-      data.aliases.loadFromJson(await _selectAll(db, SharedStrings.tableAliases));
-      data.categories.loadFromJson(await _selectAll(db, SharedStrings.tableCategories));
-      data.currencies.loadFromJson(await _selectAll(db, SharedStrings.tableCurrencies));
-      data.investments.loadFromJson(await _selectAll(db, SharedStrings.tableInvestments));
-      data.loanPayments.loadFromJson(await _selectAll(db, SharedStrings.tableLoanPayments));
-      data.onlineAccounts.loadFromJson(
-        await _selectAll(db, SharedStrings.tableOnlineAccounts),
-      );
-      data.payees.loadFromJson(await _selectAll(db, SharedStrings.tablePayees));
-      data.rentBuildings.loadFromJson(
-        await _selectAll(db, SharedStrings.tableRentBuildings),
-      );
-      data.rentUnits.loadFromJson(await _selectAll(db, SharedStrings.tableRentUnits));
-      data.securities.loadFromJson(await _selectAll(db, SharedStrings.tableSecurities));
-      data.stockSplits.loadFromJson(await _selectAll(db, SharedStrings.tableStockSplits));
-
-      // Check if the Events table exists before loading it
-      if (await db.tableExists(SharedStrings.tableEvents)) {
-        data.events.loadFromJson(await _selectAll(db, SharedStrings.tableEvents));
+      try {
+        await db.load(filePath, fileBytes);
+        // Tables in dependency order (splits after transactions); a table missing from an older file loads empty
+        for (final _Table table in _tables(data)) {
+          if (await db.tableExists(table.tableName)) {
+            table.collection.loadFromJson(await _selectAll(db, table.tableName));
+          }
+        }
+      } finally {
+        // Close the database when done
+        db.dispose();
       }
-
-      data.transactions.loadFromJson(await _selectAll(db, SharedStrings.tableTransactions));
-      data.transactionExtras.loadFromJson(
-        await _selectAll(db, SharedStrings.tableTransactionExtras),
-      );
-      // Must come after Transactions are loaded
-      data.splits.loadFromJson(await _selectAll(db, SharedStrings.tableSplits));
-
-      // Close the database when done
-      db.dispose();
       return true;
     }
     return false;
@@ -142,7 +124,10 @@ class MoneyDataIO {
     return null;
   }
 
-  /// Saves data to SQLite database file with completion callback.
+  /// Saves the pending changes into the SQLite file at [filePath] with completion callback.
+  ///
+  /// The previous file is kept as `<file>.bak`, and all changes are written in one transaction:
+  /// on any error nothing is written and every pending change stays pending.
   Future<bool> saveToSql(
     Data data, {
     required String filePath,
@@ -152,48 +137,95 @@ class MoneyDataIO {
     )
     onSaveCompleted,
   }) async {
+    return _saveInTransaction(
+      data,
+      filePath: filePath,
+      onSaveCompleted: onSaveCompleted,
+      writeTable: (MyDatabase db, String tableName, MoneyObjects<dynamic> collection) =>
+          collection.saveSql(db, tableName),
+    );
+  }
+
+  /// Writes every live object into a brand-new SQLite file at [filePath] (used by Save As).
+  ///
+  /// Pending changes stay pending: call [markAllSaved] once the file reached its destination.
+  /// Returns null on success, else the error message.
+  Future<String?> writeAllToNewSqlFile(Data data, {required String filePath}) async {
+    final File file = File(filePath);
+    if (file.existsSync()) {
+      file.deleteSync();
+    }
+    String? errorMessage;
+    await _saveInTransaction(
+      data,
+      filePath: filePath,
+      commitState: false,
+      onSaveCompleted: (bool success, String message) => errorMessage = success ? null : message,
+      writeTable: (MyDatabase db, String tableName, MoneyObjects<dynamic> collection) =>
+          collection.saveAllSql(db, tableName),
+    );
+    return errorMessage;
+  }
+
+  /// Marks every collection as matching the saved file (see [MoneyObjects.onSaveCommitted]).
+  void markAllSaved(Data data) {
+    for (final _Table table in _tables(data)) {
+      table.collection.onSaveCommitted();
+    }
+  }
+
+  /// Runs [writeTable] for every table inside one SQL transaction, then (if [commitState]) marks the data as saved.
+  Future<bool> _saveInTransaction(
+    Data data, {
+    required String filePath,
+    required void Function(bool success, String errorMessage) onSaveCompleted,
+    required void Function(MyDatabase db, String tableName, MoneyObjects<dynamic> collection) writeTable,
+    bool commitState = true,
+  }) async {
+    final bool isExistingFile = File(filePath).existsSync();
+    final MyDatabase db = MyDatabase();
     try {
-      final MyDatabase db = MyDatabase();
-      db.load(filePath, Uint8List(0));
-
-      // Save transaction first
-      data.accountAliases.saveSql(db, SharedStrings.tableAccountAliases);
-      data.accounts.saveSql(db, SharedStrings.tableAccounts);
-      data.aliases.saveSql(db, SharedStrings.tableAliases);
-      data.categories.saveSql(db, SharedStrings.tableCategories);
-      data.currencies.saveSql(db, SharedStrings.tableCurrencies);
-      data.investments.saveSql(db, SharedStrings.tableInvestments);
-      data.loanPayments.saveSql(db, SharedStrings.tableLoanPayments);
-      data.onlineAccounts.saveSql(db, SharedStrings.tableOnlineAccounts);
-      data.payees.saveSql(db, SharedStrings.tablePayees);
-      data.rentBuildings.saveSql(db, SharedStrings.tableRentBuildings);
-      data.rentUnits.saveSql(db, SharedStrings.tableRentUnits);
-      data.securities.saveSql(db, SharedStrings.tableSecurities);
-      data.stockSplits.saveSql(db, SharedStrings.tableStockSplits);
-
-      if (!await db.tableExists(SharedStrings.tableEvents)) {
-        // Create the Events table if it doesn't exist
-        db.execute(SharedSqlStrings.sqlCreateEventsTable);
+      await db.load(filePath, Uint8List(0));
+      if (isExistingFile) {
+        _keepBackupOf(filePath);
       }
-      data.events.saveSql(db, SharedStrings.tableEvents);
-
-      data.transactions.saveSql(db, SharedStrings.tableTransactions);
-      data.transactionExtras.saveSql(db, SharedStrings.tableTransactionExtras);
-      data.splits.saveSql(db, SharedStrings.tableSplits);
-
-      db.dispose();
+      db.execute(SharedSqlStrings.sqlBeginTransaction);
+      try {
+        if (!await db.tableExists(SharedStrings.tableEvents)) {
+          // Create the Events table if it doesn't exist
+          db.execute(SharedSqlStrings.sqlCreateEventsTable);
+        }
+        for (final _Table table in _tables(data)) {
+          writeTable(db, table.tableName, table.collection);
+        }
+        db.execute(SharedSqlStrings.sqlCommitTransaction);
+      } catch (_) {
+        db.execute(SharedSqlStrings.sqlRollbackTransaction);
+        rethrow;
+      }
     } catch (e) {
       onSaveCompleted(false, e.toString());
       return false;
+    } finally {
+      db.dispose();
     }
 
+    if (commitState) {
+      markAllSaved(data);
+    }
     onSaveCompleted(true, '');
     return true;
   }
 
-  // --- CSV Extension Methods ---
+  /// Copies [filePath] to `<file>.bak` (replacing an older backup) before it gets overwritten.
+  void _keepBackupOf(String filePath) {
+    final File file = File(filePath);
+    if (file.existsSync()) {
+      file.copySync('$filePath$_backupFileSuffix');
+    }
+  }
 
-  static const String mainFileName = 'mymoney.mmcsv';
+  // --- CSV Extension Methods ---
 
   /// Loads data from zipped CSV archive file.
   Future<void> loadFromZippedCsv(
@@ -215,7 +247,7 @@ class MoneyDataIO {
 
   /// Loads data from archive containing multiple CSV files.
   ///
-  /// Files are loaded in [_csvTables] order (not archive order) so that splits
+  /// Files are loaded in [_tables] order (not archive order) so that splits
   /// are attached to transactions that are already loaded.
   void loadFromArchive(Data data, Archive archive) {
     final Map<String, String> contentByFileName = <String, String>{};
@@ -225,10 +257,10 @@ class MoneyDataIO {
       }
     }
 
-    for (final (String fileName, MoneyObjects<dynamic> collection) in _csvTables(data)) {
-      final String? fileContent = contentByFileName[fileName];
+    for (final _Table table in _tables(data)) {
+      final String? fileContent = contentByFileName[table.csvFileName];
       if (fileContent != null) {
-        collection.loadFromJson(convertFromRawCsvTextToListOfJSonObject(fileContent));
+        table.collection.loadFromJson(convertFromRawCsvTextToListOfJSonObject(fileContent));
       }
     }
   }
@@ -247,27 +279,6 @@ class MoneyDataIO {
     }
   }
 
-  /// Saves data to CSV format and returns the file path.
-  Future<String> saveToCsv(Data data) async {
-    final String destinationFolder = await DataAccess.generateNextFolderToSaveTo();
-    if (destinationFolder.isEmpty) {
-      throw Exception('No container folder give for saving');
-    }
-
-    // Define the path to the ZIP file
-    final String zipFileName = MyFileSystems.append(
-      destinationFolder,
-      mainFileName,
-    );
-    final File zipFile = File(zipFileName);
-
-    // Create the ZIP archive
-    final List<int> zipBytes = getCsvZipAchieveListOfInt(data);
-    // Write the ZIP file
-    await zipFile.writeAsBytes(zipBytes);
-    return zipFileName;
-  }
-
   /// Creates and returns CSV zip archive as list of integers.
   List<int> getCsvZipAchieveListOfInt(Data data) {
     // Create the ZIP archive
@@ -282,8 +293,8 @@ class MoneyDataIO {
 
   /// Writes each data collection as CSV file to the archive.
   void writeEachFiles(Data data, Archive archive) {
-    for (final (String fileName, MoneyObjects<dynamic> collection) in _csvTables(data)) {
-      addCsvToArchive(archive, fileName, collection.toCSV());
+    for (final _Table table in _tables(data)) {
+      addCsvToArchive(archive, table.csvFileName, table.collection.toCSV());
     }
   }
 
@@ -298,28 +309,35 @@ class MoneyDataIO {
   }
 }
 
-/// Returns each CSV archive file name paired with its collection, in load order.
+/// One persisted table: its SQL name, its file name in the CSV archive, and its collection.
+typedef _Table = ({String tableName, String csvFileName, MoneyObjects<dynamic> collection});
+
+/// Returns every persisted table in load/save order, shared by SQL and CSV.
 ///
-/// Mirrors [MoneyDataIO.loadFromSql]: splits must come after transactions.
-List<(String, MoneyObjects<dynamic>)> _csvTables(Data data) {
-  return <(String, MoneyObjects<dynamic>)>[
-    ('account_aliases.csv', data.accountAliases),
-    ('accounts.csv', data.accounts),
-    ('aliases.csv', data.aliases),
-    ('categories.csv', data.categories),
-    ('currencies.csv', data.currencies),
-    ('investments.csv', data.investments),
-    ('loan_payments.csv', data.loanPayments),
-    ('online_accounts.csv', data.onlineAccounts),
-    ('payees.csv', data.payees),
-    ('rent_buildings.csv', data.rentBuildings),
-    ('rent_units.csv', data.rentUnits),
-    ('securities.csv', data.securities),
-    ('stock_splits.csv', data.stockSplits),
-    ('events.csv', data.events),
-    ('transactions.csv', data.transactions),
-    ('transaction_extras.csv', data.transactionExtras),
-    ('splits.csv', data.splits),
+/// Splits must come after transactions so they attach to loaded transactions.
+List<_Table> _tables(Data data) {
+  return <_Table>[
+    (tableName: SharedStrings.tableAccountAliases, csvFileName: 'account_aliases.csv', collection: data.accountAliases),
+    (tableName: SharedStrings.tableAccounts, csvFileName: 'accounts.csv', collection: data.accounts),
+    (tableName: SharedStrings.tableAliases, csvFileName: 'aliases.csv', collection: data.aliases),
+    (tableName: SharedStrings.tableCategories, csvFileName: 'categories.csv', collection: data.categories),
+    (tableName: SharedStrings.tableCurrencies, csvFileName: 'currencies.csv', collection: data.currencies),
+    (tableName: SharedStrings.tableInvestments, csvFileName: 'investments.csv', collection: data.investments),
+    (tableName: SharedStrings.tableLoanPayments, csvFileName: 'loan_payments.csv', collection: data.loanPayments),
+    (tableName: SharedStrings.tableOnlineAccounts, csvFileName: 'online_accounts.csv', collection: data.onlineAccounts),
+    (tableName: SharedStrings.tablePayees, csvFileName: 'payees.csv', collection: data.payees),
+    (tableName: SharedStrings.tableRentBuildings, csvFileName: 'rent_buildings.csv', collection: data.rentBuildings),
+    (tableName: SharedStrings.tableRentUnits, csvFileName: 'rent_units.csv', collection: data.rentUnits),
+    (tableName: SharedStrings.tableSecurities, csvFileName: 'securities.csv', collection: data.securities),
+    (tableName: SharedStrings.tableStockSplits, csvFileName: 'stock_splits.csv', collection: data.stockSplits),
+    (tableName: SharedStrings.tableEvents, csvFileName: 'events.csv', collection: data.events),
+    (tableName: SharedStrings.tableTransactions, csvFileName: 'transactions.csv', collection: data.transactions),
+    (
+      tableName: SharedStrings.tableTransactionExtras,
+      csvFileName: 'transaction_extras.csv',
+      collection: data.transactionExtras,
+    ),
+    (tableName: SharedStrings.tableSplits, csvFileName: 'splits.csv', collection: data.splits),
   ];
 }
 

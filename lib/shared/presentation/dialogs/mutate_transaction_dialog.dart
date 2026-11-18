@@ -1,3 +1,4 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -95,6 +96,9 @@ class DialogMutateTransaction extends StatefulWidget {
 }
 
 class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
+  /// State of the live transaction when Edit was pressed; null once applied or when nothing to undo.
+  EditSnapshot? _editSnapshot;
+
   late Transaction _transaction;
 
   bool dataWasModified = false;
@@ -105,6 +109,19 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
   void initState() {
     super.initState();
     _transaction = widget.transaction;
+  }
+
+  @override
+  void dispose() {
+    final EditSnapshot? snapshot = _editSnapshot;
+    if (snapshot != null) {
+      // Closed while editing without Apply: roll back once the tree is no longer locked.
+      WidgetsBinding.instance.addPostFrameCallback((Duration _) {
+        snapshot.restore();
+        Data().updateAll();
+      });
+    }
+    super.dispose();
   }
 
   @override
@@ -136,8 +153,15 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
           key: Constants.keyButtonApplyOrDone,
           text: dataWasModified ? AppL10n.tr(AppTranslationKeys.apply) : SharedStrings.labelDone,
           onPressed: () {
+            _editSnapshot = null;
             // Changes were made
             if (dataWasModified) {
+              // Apply a Payee/Transfer change picked in the dialog to the counterpart transaction.
+              Data().verifyApplyTransfer(
+                transaction: transaction,
+                relatedAccount: transaction.editingTransferAccount,
+              );
+              transaction.editingTransferAccount = null;
               Data().notifyMutationChanged(
                 mutation: MutationType.changed,
                 moneyObject: transaction,
@@ -176,7 +200,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
             ),
             buttonText: AppL10n.tr(AppTranslationKeys.delete),
             onConfirmation: () {
-              Data().transactions.deleteItem(transaction);
+              Data().deleteItems(<DataObject>[transaction]);
               Navigator.of(context).pop(false);
             },
           );
@@ -187,14 +211,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
         icon: Icons.copy_outlined,
         text: SharedStrings.labelDuplicate,
         onPressed: () {
-          _transaction = Transaction(date: transaction.fieldDateTime.value)
-            ..fieldId.value = -1
-            ..fieldAccountId.value = transaction.fieldAccountId.value
-            ..fieldPayee.value = transaction.fieldPayee.value
-            ..fieldCategoryId.value = transaction.fieldCategoryId.value
-            ..fieldTransfer = transaction.fieldTransfer
-            ..fieldAmount.value = transaction.fieldAmount.value
-            ..fieldMemo.value = transaction.fieldMemo.value;
+          _transaction = transaction.createDuplicate();
 
           setState(() {
             // append to the list of transactions
@@ -209,6 +226,7 @@ class _DialogMutateTransactionState extends State<DialogMutateTransaction> {
         icon: Icons.edit_outlined,
         text: AppL10n.tr(AppTranslationKeys.edit),
         onPressed: () {
+          _editSnapshot = EditSnapshot(transaction);
           transaction.stashValueBeforeEditing();
           setState(() {
             isInEditingMode = true;

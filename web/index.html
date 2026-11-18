@@ -41,6 +41,7 @@
                 // console.log("Database loaded from Uint8Array.", db);
             } catch (e) {
                 console.error("Error initializing database:", e);
+                throw e; // let the app report it instead of opening an empty file
             }
         }
 

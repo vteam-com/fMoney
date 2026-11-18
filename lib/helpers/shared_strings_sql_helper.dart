@@ -272,6 +272,27 @@ CREATE TABLE IF NOT EXISTS [Currencies] (
   /// SQL query prefix for selecting all rows from a table.
   static const String sqlSelectAllPrefix = 'SELECT * FROM ';
 
+  /// Starts the transaction that makes a save all-or-nothing.
+  static const String sqlBeginTransaction = 'BEGIN TRANSACTION';
+
+  /// Commits a save.
+  static const String sqlCommitTransaction = 'COMMIT';
+
+  /// Undoes a failed save.
+  static const String sqlRollbackTransaction = 'ROLLBACK';
+
+  /// Lists the columns of a table.
+  static const String sqlTableInfoTemplate = 'PRAGMA table_info([{table}])';
+
+  /// Adds a column (no declared type, like SQLite allows) to a table.
+  static const String sqlAddColumnTemplate = 'ALTER TABLE [{table}] ADD COLUMN "{columns}"';
+
+  /// SQL literal for a missing value.
+  static const String sqlNull = 'NULL';
+
+  /// Waits up to 5 seconds for a file locked by another app.
+  static const String sqlBusyTimeout = 'PRAGMA busy_timeout = 5000';
+
   /// SQL statement for creating the Events table.
   static const String sqlCreateEventsTable = '''
           CREATE TABLE [Events] (

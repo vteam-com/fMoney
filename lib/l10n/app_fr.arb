@@ -112,6 +112,7 @@
   "buildNumberLabel": "Numero de build :",
   "buySellDividend": "Achat/Vente/Dividende.",
   "cancel": "Annuler",
+  "cannotMoveCategoryUnderItself": "Impossible de deplacer une categorie sous elle-meme ou sous une de ses sous-categories.",
   "cash": "Liquidites",
   "cashFlow": "Flux de tresorerie",
   "categories": "Categories financieres",
@@ -188,6 +189,14 @@
   "debit": "Débit",
   "defaultListOfItems": "Liste par defaut des elements",
   "delete": "Supprimer",
+  "deleteBlockedByReferences": "Suppression impossible : encore utilise par {count} enregistrement(s).",
+  "@deleteBlockedByReferences": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "deleteSelectedItems": "Supprimer les elements selectionnes",
   "deleteSelectedItemsQuestion": "Voulez-vous vraiment supprimer les {count} {items} selectionnes ?",
   "@deleteSelectedItemsQuestion": {
@@ -211,6 +220,7 @@
   "description": "Libelle",
   "descriptionPayee": "Description/Beneficiaire",
   "details": "Détails",
+  "discardChanges": "Ignorer",
   "dividend": "Dividende",
   "dropFilesHere": "Deposez les fichiers ici",
   "edit": "Modifier",
@@ -275,9 +285,25 @@
   "expenseLabel": "Depense",
   "expensePredictions": "Previsions de depenses",
   "expenses": "Depenses",
+  "fileChangedOnDisk": "{fileName} a été modifié par une autre application depuis son ouverture. Utilisez Enregistrer sous pour enregistrer vos modifications dans un nouveau fichier.",
+  "@fileChangedOnDisk": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "fileLocationMenuItem": "Emplacement du fichier...",
   "fileLocationNotSupportedOnMobile": "L'ouverture de l'emplacement du fichier est prise en charge uniquement sur les plateformes de bureau.",
   "fileMenuTooltip": "Menu fichier",
+  "fileNoLongerExists": "{fileName} n'existe plus. Utilisez Enregistrer sous pour enregistrer vos modifications dans un nouveau fichier.",
+  "@fileNoLongerExists": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "filter": "filtre",
   "findMissingTransfers": "Trouver les transferts manquants",
   "fmoney": "fMoney",
@@ -309,6 +335,17 @@
       }
     }
   },
+  "importFileHasMultipleAccounts": "Ce fichier {fileType} contient des transactions pour {count} comptes. Exportez un fichier par compte et importez-les séparément.",
+  "@importFileHasMultipleAccounts": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "importFileType": "Importer {fileType}",
   "@importFileType": {
     "placeholders": {
@@ -319,6 +356,7 @@
   },
   "importFromQfxQifXlsxCsvDescription": "Importer des transactions depuis un fichier QFX, OFX, QIF, XLSX, CSV ou PDF.",
   "importFromQfxQifXlsxCsvFile": "Depuis un fichier QFX|OFX|QIF|XLSX|CSV|PDF",
+  "importInvalidNumberEntered": "Saisissez des nombres valides avant d'enregistrer.",
   "importNoMatchingAccountsWithId": "Importation - Aucun compte \"{fileType}\" avec l'identifiant \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {
@@ -330,8 +368,30 @@
       }
     }
   },
+  "importRowsParsedAndSkipped": "Import {fileType} : {imported} entrées analysées et {skipped} lignes illisibles ignorées.",
+  "@importRowsParsedAndSkipped": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "imported": {
+        "type": "String"
+      },
+      "skipped": {
+        "type": "String"
+      }
+    }
+  },
   "importTransactions": "Importer des transactions",
   "importTransactionToAccount": "Importer la transaction vers le compte",
+  "importUnableToReadFile": "Impossible de lire le fichier : {error}",
+  "@importUnableToReadFile": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "importWord": "Importer",
   "includeAssetAccounts": "Inclure les comptes d'actifs",
   "includeClosedAccountsInFinder": "Inclure les comptes fermes",
@@ -683,6 +743,8 @@
   "@sankey": {
     "description": "REVIEWED"
   },
+  "save": "Enregistrer",
+  "saveAs": "Enregistrer sous…",
   "saveToCsv": "Enregistrer en CSV",
   "saveToSql": "Enregistrer en SQL",
   "savingLabel": "Epargne",
@@ -886,6 +948,15 @@
   },
   "units": "Unites",
   "unknown": "Inconnu",
+  "unsavedChanges": "Modifications non enregistrées",
+  "unsavedChangesMessage": "Vous avez {count} modifications non enregistrées. Les enregistrer avant de continuer ?",
+  "@unsavedChangesMessage": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "unselectAllCount": "Tout désélectionner {count}",
   "@unselectAllCount": {
     "placeholders": {

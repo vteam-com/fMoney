@@ -1,4 +1,5 @@
 import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
@@ -24,6 +25,47 @@ class Splits extends MoneyObjects<TransactionSplit> {
     );
     if (containerTransaction != null) {
       (containerTransaction as Transaction).splits.add(moneyObject);
+    }
+  }
+
+  /// Appends a new [moneyObject] split with an id unique within its parent transaction,
+  /// since splits are keyed by (Transaction, Id).
+  @override
+  DataObject appendNewMoneyObject(DataObject moneyObject, {bool fireNotification = true}) {
+    final TransactionSplit split = moneyObject as TransactionSplit;
+    split.uniqueId = getNextSplitIdForTransaction(split.fieldTransactionId.value);
+    appendMoneyObject(split);
+    DataObject.onMutationChanged?.call(
+      mutation: MutationType.inserted,
+      moneyObject: split,
+      recalculateBalances: fireNotification,
+    );
+    return split;
+  }
+
+  /// Returns the next split id for [transactionId]: one more than its highest existing split id.
+  int getNextSplitIdForTransaction(int transactionId) {
+    int maxId = -1;
+    for (final TransactionSplit split in iterableList(includeDeleted: true)) {
+      if (split.fieldTransactionId.value == transactionId && split.uniqueId > maxId) {
+        maxId = split.uniqueId;
+      }
+    }
+    return maxId + 1;
+  }
+
+  /// Marks [itemToDelete] deleted and removes it from its parent transaction's split list.
+  @override
+  void deleteItem(DataObject itemToDelete) {
+    detachFromTransaction(itemToDelete as TransactionSplit);
+    super.deleteItem(itemToDelete);
+  }
+
+  /// Removes [split] from its parent transaction's split list so it is no longer shown or counted.
+  void detachFromTransaction(TransactionSplit split) {
+    final DataObject? containerTransaction = data.getTransaction(split.fieldTransactionId.value);
+    if (containerTransaction is Transaction) {
+      containerTransaction.splits.remove(split);
     }
   }
 

@@ -112,6 +112,7 @@
   "buildNumberLabel": "Numero de compilacion:",
   "buySellDividend": "Compra/Venta/Dividendo.",
   "cancel": "Cancelar",
+  "cannotMoveCategoryUnderItself": "No se puede mover una categoria debajo de si misma o de una de sus subcategorias.",
   "cash": "Efectivo",
   "cashFlow": "Flujo de caja",
   "categories": "Categorias",
@@ -188,6 +189,14 @@
   "debit": "Débito",
   "defaultListOfItems": "Lista predeterminada de elementos",
   "delete": "Eliminar",
+  "deleteBlockedByReferences": "No se puede eliminar: todavia lo usan {count} registro(s).",
+  "@deleteBlockedByReferences": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "deleteSelectedItems": "Eliminar elemento(s) seleccionado(s)",
   "deleteSelectedItemsQuestion": "¿Seguro que deseas eliminar los {count} {items} seleccionados?",
   "@deleteSelectedItemsQuestion": {
@@ -211,6 +220,7 @@
   "description": "Descripcion",
   "descriptionPayee": "Descripcion/Beneficiario",
   "details": "Detalles",
+  "discardChanges": "Descartar",
   "dividend": "Dividendo",
   "dropFilesHere": "Arrastra archivos aquí",
   "edit": "Editar",
@@ -275,9 +285,25 @@
   "expenseLabel": "Gasto",
   "expensePredictions": "Predicciones de gastos",
   "expenses": "Gastos",
+  "fileChangedOnDisk": "{fileName} fue modificado por otra aplicación desde que se abrió. Use Guardar como para guardar sus cambios en un archivo nuevo.",
+  "@fileChangedOnDisk": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "fileLocationMenuItem": "Ubicación del archivo...",
   "fileLocationNotSupportedOnMobile": "Abrir la ubicación del archivo solo está disponible en plataformas de escritorio.",
   "fileMenuTooltip": "Menú de archivo",
+  "fileNoLongerExists": "{fileName} ya no existe. Use Guardar como para guardar sus cambios en un archivo nuevo.",
+  "@fileNoLongerExists": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "filter": "Filtro",
   "findMissingTransfers": "Encontrar transferencias faltantes",
   "fmoney": "fMoney",
@@ -309,6 +335,17 @@
       }
     }
   },
+  "importFileHasMultipleAccounts": "Este archivo {fileType} contiene transacciones de {count} cuentas. Exporte un archivo por cuenta e impórtelos por separado.",
+  "@importFileHasMultipleAccounts": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "importFileType": "Importar {fileType}",
   "@importFileType": {
     "placeholders": {
@@ -319,6 +356,7 @@
   },
   "importFromQfxQifXlsxCsvDescription": "Importar transacciones desde un archivo QFX, OFX, QIF, XLSX, CSV o PDF.",
   "importFromQfxQifXlsxCsvFile": "Desde archivo QFX|OFX|QIF|XLSX|CSV|PDF",
+  "importInvalidNumberEntered": "Introduzca números válidos antes de registrar.",
   "importNoMatchingAccountsWithId": "Importar - No hay cuentas \"{fileType}\" con ID \"{id}\"",
   "@importNoMatchingAccountsWithId": {
     "placeholders": {
@@ -330,8 +368,30 @@
       }
     }
   },
+  "importRowsParsedAndSkipped": "La importación {fileType} procesó {imported} entradas y omitió {skipped} filas ilegibles.",
+  "@importRowsParsedAndSkipped": {
+    "placeholders": {
+      "fileType": {
+        "type": "String"
+      },
+      "imported": {
+        "type": "String"
+      },
+      "skipped": {
+        "type": "String"
+      }
+    }
+  },
   "importTransactions": "Importar transacciones",
   "importTransactionToAccount": "Importar transacción a cuenta",
+  "importUnableToReadFile": "No se puede leer el archivo: {error}",
+  "@importUnableToReadFile": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "importWord": "Importar",
   "includeAssetAccounts": "Incluir cuentas de activos",
   "includeClosedAccountsInFinder": "Incluir cuentas cerradas",
@@ -683,6 +743,8 @@
   "@sankey": {
     "description": "REVIEWED"
   },
+  "save": "Guardar",
+  "saveAs": "Guardar como…",
   "saveToCsv": "Guardar en CSV",
   "saveToSql": "Guardar en SQL",
   "savingLabel": "Ahorro",
@@ -886,6 +948,15 @@
   },
   "units": "Unidades",
   "unknown": "Desconocido",
+  "unsavedChanges": "Cambios sin guardar",
+  "unsavedChangesMessage": "Tiene {count} cambios sin guardar. ¿Guardarlos antes de continuar?",
+  "@unsavedChangesMessage": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "unselectAllCount": "Deseleccionar todo {count}",
   "@unselectAllCount": {
     "placeholders": {

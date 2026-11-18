@@ -11,7 +11,10 @@ const double _cellHorizontalPadding = 8;
 const double _cellVerticalPadding = 4;
 const int _exactHeaderMatchScoreBase = 1000;
 const int _nonEmptyCellScoreWeight = 10;
-const List<String> _amountColumnPatterns = <String>[
+
+/// Header patterns for the Amount column, highest priority first.
+/// A running balance is never an amount, so 'balance' is intentionally absent.
+const List<String> csvAmountColumnPatterns = <String>[
   'amount',
   'transaction amount',
   'value',
@@ -23,7 +26,6 @@ const List<String> _amountColumnPatterns = <String>[
   'deposit',
   'payment',
   'transfer amount',
-  'balance',
   'charge',
   'fee',
   'cost',
@@ -105,9 +107,6 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   String? _selectedPriceColumn;
   String? _selectedQuantityColumn;
 
-  /// Map from unique identifier to display name
-  late final Map<String, String> _uniqueIdToHeaderName;
-
   /// Unique identifiers for each header (handles duplicates)
   late final List<String> _uniqueIds;
   @override
@@ -169,24 +168,19 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
               );
               return;
             }
-            // Convert unique IDs back to original header names for the result
-            final String dateHeader = _uniqueIdToHeaderName[_selectedDateColumn!] ?? _selectedDateColumn!;
-            final String descriptionHeader =
-                _uniqueIdToHeaderName[_selectedDescriptionColumn!] ?? _selectedDescriptionColumn!;
-            final String amountHeader = _uniqueIdToHeaderName[_selectedAmountColumn!] ?? _selectedAmountColumn!;
-
+            // Return unique IDs (the header name unless duplicated); resolve them with [indexOfMappedColumn].
             final Map<String, String> mapping = <String, String>{
-              'date': dateHeader,
-              'description': descriptionHeader,
-              'amount': amountHeader,
+              'date': _selectedDateColumn!,
+              'description': _selectedDescriptionColumn!,
+              'amount': _selectedAmountColumn!,
             };
 
             // Add optional fields if selected
             if (_selectedQuantityColumn != null) {
-              mapping['quantity'] = _uniqueIdToHeaderName[_selectedQuantityColumn!] ?? _selectedQuantityColumn!;
+              mapping['quantity'] = _selectedQuantityColumn!;
             }
             if (_selectedPriceColumn != null) {
-              mapping['price'] = _uniqueIdToHeaderName[_selectedPriceColumn!] ?? _selectedPriceColumn!;
+              mapping['price'] = _selectedPriceColumn!;
             }
 
             Navigator.of(context).pop(mapping);
@@ -205,7 +199,7 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     // Find best matches for each required column type
     _selectedDateColumn = _findBestMatchUniqueId(_dateColumnPatterns, preferNonEmptyCells: true);
     _selectedDescriptionColumn = _findBestMatchUniqueId(_descriptionColumnPatterns);
-    _selectedAmountColumn = _findBestMatchUniqueId(_amountColumnPatterns);
+    _selectedAmountColumn = _findBestMatchUniqueId(csvAmountColumnPatterns);
 
     // Find best matches for optional columns
     _selectedQuantityColumn = _findBestMatchUniqueId(_quantityColumnPatterns);
@@ -298,32 +292,10 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     final Color amountColumnColor = colorScheme.tertiary.withValues(alpha: _columnHighlightAlpha);
     final Color amountCellColor = colorScheme.tertiary.withValues(alpha: _cellHighlightAlpha);
 
-    // Create inverse map to find which header indices correspond to selected unique IDs
-    final Map<String, int> uniqueIdToIndexMap = <String, int>{};
-
-    // Build the complete mapping from unique IDs to indices using header positions
-    // Since headers may have duplicates, we need to find the correct position for each unique ID
-    final Map<String, int> headerNameUsageCount = <String, int>{};
-
-    for (int headerIndex = 0; headerIndex < widget.headers.length; headerIndex++) {
-      final String headerName = widget.headers[headerIndex];
-      final int usageCount = headerNameUsageCount[headerName] ?? 0;
-
-      // Find the matching unique ID based on usage count
-      final String uniqueId;
-      if (usageCount == 0) {
-        uniqueId = headerName;
-      } else {
-        uniqueId = '$headerName (${usageCount + 1})';
-      }
-
-      // Verify this uniqueId exists in our mapping
-      if (_uniqueIdToHeaderName.containsKey(uniqueId) && _uniqueIdToHeaderName[uniqueId] == headerName) {
-        uniqueIdToIndexMap[uniqueId] = headerIndex;
-      }
-
-      headerNameUsageCount[headerName] = usageCount + 1;
-    }
+    // Unique IDs are in header order, so their position is the column index
+    final Map<String, int> uniqueIdToIndexMap = <String, int>{
+      for (int i = 0; i < _uniqueIds.length; i++) _uniqueIds[i]: i,
+    };
 
     // Find which columns are selected for highlighting using unique IDs
     final int? dateColumnIndex = _selectedDateColumn != null ? uniqueIdToIndexMap[_selectedDateColumn!] : null;
@@ -410,113 +382,101 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     ); // End SingleChildScrollView
   }
 
-  /// Counts non-empty values in a preview column to avoid selecting empty defaults.
-  int _countNonEmptyValuesInColumn(int columnIndex) {
-    int count = 0;
-    final int previewRowCount = widget.dataRows.length > _previewRowLimit ? _previewRowLimit : widget.dataRows.length;
-    for (int i = 0; i < previewRowCount; i++) {
-      final List<String> row = widget.dataRows[i];
-      if (columnIndex < row.length && row[columnIndex].trim().isNotEmpty) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  /// Finds the best matching header name for a list of expected patterns.
-  String? _findBestMatch(
-    List<String> patterns, {
-    bool preferNonEmptyCells = false,
-  }) {
-    if (patterns.isEmpty) {
-      return null;
-    }
-
-    int bestScore = -1;
-    String? bestMatch;
-
-    for (int headerIndex = 0; headerIndex < widget.headers.length; headerIndex++) {
-      final String header = widget.headers[headerIndex];
-      final String headerLower = header.toLowerCase().trim();
-
-      for (final String pattern in patterns) {
-        final String patternLower = pattern.toLowerCase();
-        int score = -1;
-
-        // Exact match gets highest base score.
-        if (headerLower == patternLower) {
-          score = _exactHeaderMatchScoreBase + patternLower.length;
-        }
-
-        // Contains pattern gets base points.
-        if (score < 0 && headerLower.contains(patternLower)) {
-          score = patternLower.length;
-        }
-
-        if (score < 0) {
-          continue;
-        }
-
-        if (preferNonEmptyCells) {
-          final int nonEmptyCount = _countNonEmptyValuesInColumn(headerIndex);
-          // Prefer populated columns over empty matches (e.g., Run Date over empty Settlement Date).
-          score += nonEmptyCount * _nonEmptyCellScoreWeight;
-        }
-
-        if (score > bestScore) {
-          bestScore = score;
-          bestMatch = header;
-        }
-      }
-    }
-
-    return bestMatch;
-  }
-
   /// Finds the best matching unique header id for a list of expected patterns.
   String? _findBestMatchUniqueId(
     List<String> patterns, {
     bool preferNonEmptyCells = false,
   }) {
-    final String? bestHeader = _findBestMatch(
-      patterns,
+    final int bestIndex = findBestMatchingColumnIndex(
+      headers: widget.headers,
+      patterns: patterns,
+      dataRows: widget.dataRows,
       preferNonEmptyCells: preferNonEmptyCells,
     );
-    if (bestHeader == null) {
-      return null;
-    }
-
-    // Find the corresponding unique ID
-    return _uniqueIdToHeaderName.keys.firstWhere(
-      (String uniqueId) => _uniqueIdToHeaderName[uniqueId] == bestHeader,
-      orElse: () => bestHeader, // Fallback to just the header if not found (though this shouldn't happen)
-    );
+    return bestIndex < 0 ? null : _uniqueIds[bestIndex];
   }
 
   /// Initializes mappings from potentially duplicated header names to unique ids.
   void _initializeUniqueHeaderMappings() {
-    _uniqueIdToHeaderName = <String, String>{};
-    final Map<String, int> headerCounts = <String, int>{};
+    _uniqueIds = buildUniqueColumnIds(widget.headers);
+  }
+}
 
-    for (int i = 0; i < widget.headers.length; i++) {
-      final String header = widget.headers[i];
-      final String uniqueId;
+/// Returns one id per header: the header itself, or `Header (n)` for its n-th repeat.
+List<String> buildUniqueColumnIds(List<String> headers) {
+  final Map<String, int> headerCounts = <String, int>{};
+  return headers.map((String header) {
+    final int count = (headerCounts[header] ?? 0) + 1;
+    headerCounts[header] = count;
+    return count == 1 ? header : '$header ($count)';
+  }).toList();
+}
 
-      if (headerCounts.containsKey(header)) {
-        // Duplicate header, add index to make it unique
-        final int count = headerCounts[header]! + 1;
-        headerCounts[header] = count;
-        uniqueId = '$header ($count)';
-      } else {
-        headerCounts[header] = 1;
-        uniqueId = header;
+/// Returns the column index of [mappedId], a value returned by the column mapper
+/// (a unique id, so duplicated headers resolve to their own column), or -1.
+int indexOfMappedColumn(List<String> headers, String mappedId) {
+  final int uniqueIndex = buildUniqueColumnIds(headers).indexOf(mappedId);
+  return uniqueIndex >= 0 ? uniqueIndex : headers.indexOf(mappedId);
+}
+
+/// Returns the index of the header that best matches [patterns], or -1.
+///
+/// An exact match beats a partial (contains) match, and earlier patterns win
+/// over later ones. With [preferNonEmptyCells], columns populated in the first
+/// [dataRows] rank higher.
+int findBestMatchingColumnIndex({
+  required List<String> headers,
+  required List<String> patterns,
+  List<List<String>> dataRows = const <List<String>>[],
+  bool preferNonEmptyCells = false,
+}) {
+  int bestScore = -1;
+  int bestIndex = -1;
+
+  for (int headerIndex = 0; headerIndex < headers.length; headerIndex++) {
+    final String headerLower = headers[headerIndex].toLowerCase().trim();
+
+    for (int patternIndex = 0; patternIndex < patterns.length; patternIndex++) {
+      final String patternLower = patterns[patternIndex].toLowerCase();
+      final int priority = patterns.length - patternIndex;
+      int score = -1;
+
+      if (headerLower == patternLower) {
+        score = _exactHeaderMatchScoreBase + priority;
+      } else if (headerLower.contains(patternLower)) {
+        score = priority;
       }
 
-      _uniqueIdToHeaderName[uniqueId] = header;
-    }
+      if (score < 0) {
+        continue;
+      }
 
-    _uniqueIds = _uniqueIdToHeaderName.keys.toList();
+      if (preferNonEmptyCells) {
+        // Prefer populated columns over empty matches (e.g., Run Date over empty Settlement Date).
+        score += _countNonEmptyValuesInColumn(dataRows, headerIndex) * _nonEmptyCellScoreWeight;
+      }
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestIndex = headerIndex;
+      }
+    }
   }
+
+  return bestIndex;
+}
+
+/// Counts non-empty values of [columnIndex] in the preview rows of [dataRows].
+int _countNonEmptyValuesInColumn(List<List<String>> dataRows, int columnIndex) {
+  int count = 0;
+  final int previewRowCount = dataRows.length > _previewRowLimit ? _previewRowLimit : dataRows.length;
+  for (int i = 0; i < previewRowCount; i++) {
+    final List<String> row = dataRows[i];
+    if (columnIndex < row.length && row[columnIndex].trim().isNotEmpty) {
+      count++;
+    }
+  }
+  return count;
 }
 
 // Helper function to show the dialog (optional, but good practice)

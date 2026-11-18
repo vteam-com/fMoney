@@ -1,3 +1,4 @@
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -125,7 +126,7 @@ class _DialogMutateSplitState extends State<DialogMutateSplit> {
             ),
             buttonText: AppL10n.tr(AppTranslationKeys.delete),
             onConfirmation: () {
-              Data().splits.deleteItem(split);
+              Data().deleteItems(<DataObject>[split]);
               Navigator.of(context).pop(false);
             },
           );

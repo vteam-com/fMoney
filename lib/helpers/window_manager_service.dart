@@ -27,6 +27,10 @@ abstract final class MyWindowManager {
   /// True once the app-exit handshake has saved state and approved termination.
   static bool _isExiting = false;
 
+  /// Asked before the window closes or the app quits; returning false keeps the app open
+  /// (e.g. the user cancelled the unsaved-changes prompt).
+  static Future<bool> Function() confirmClose = () async => true;
+
   /// The app's native window, or null when the platform has none yet.
   static Window? get _window => WindowManager.instance.getCurrent();
 
@@ -142,6 +146,12 @@ abstract final class MyWindowManager {
       return;
     }
     final EventDecision? decision = event.request.defer();
+    if (!await confirmClose()) {
+      decision?.cancel();
+      return;
+    }
+    // already confirmed: the exit request that may follow must not ask again
+    _isExiting = true;
     await saveWindowState();
     decision?.accept();
   }
@@ -149,6 +159,9 @@ abstract final class MyWindowManager {
   /// Saves window state during the app-exit handshake (Cmd-Q, OS quit) while
   /// the engine is still alive, then allows the termination to proceed.
   static Future<AppExitResponse> _onExitRequested() async {
+    if (!_isExiting && !await confirmClose()) {
+      return AppExitResponse.cancel;
+    }
     await saveWindowState();
 
     // Let the OS close the window during termination without the

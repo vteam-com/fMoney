@@ -478,6 +478,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @cannotMoveCategoryUnderItself.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot move a category under itself or one of its subcategories.'**
+  String get cannotMoveCategoryUnderItself;
+
   /// No description provided for @cash.
   ///
   /// In en, this message translates to:
@@ -712,6 +718,12 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get delete;
 
+  /// No description provided for @deleteBlockedByReferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot delete: still used by {count} record(s).'**
+  String deleteBlockedByReferences(String count);
+
   /// No description provided for @deleteSelectedItems.
   ///
   /// In en, this message translates to:
@@ -747,6 +759,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Details'**
   String get details;
+
+  /// No description provided for @discardChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discardChanges;
 
   /// No description provided for @dividend.
   ///
@@ -862,6 +880,12 @@ abstract class AppLocalizations {
   /// **'Expenses'**
   String get expenses;
 
+  /// No description provided for @fileChangedOnDisk.
+  ///
+  /// In en, this message translates to:
+  /// **'{fileName} was changed by another app since it was opened. Use Save As to save your changes to a new file.'**
+  String fileChangedOnDisk(String fileName);
+
   /// No description provided for @fileLocationMenuItem.
   ///
   /// In en, this message translates to:
@@ -879,6 +903,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'File menu'**
   String get fileMenuTooltip;
+
+  /// No description provided for @fileNoLongerExists.
+  ///
+  /// In en, this message translates to:
+  /// **'{fileName} no longer exists. Use Save As to save your changes to a new file.'**
+  String fileNoLongerExists(String fileName);
 
   /// No description provided for @filter.
   ///
@@ -970,6 +1000,12 @@ abstract class AppLocalizations {
   /// **'Imported - {count} transactions into \"{account}\"'**
   String importedTransactionsIntoAccount(String count, String account);
 
+  /// No description provided for @importFileHasMultipleAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'This {fileType} file contains transactions for {count} accounts. Export one file per account and import each one separately.'**
+  String importFileHasMultipleAccounts(String fileType, String count);
+
   /// No description provided for @importFileType.
   ///
   /// In en, this message translates to:
@@ -988,11 +1024,23 @@ abstract class AppLocalizations {
   /// **'From QFX|OFX|QIF|XLSX|CSV|PDF file'**
   String get importFromQfxQifXlsxCsvFile;
 
+  /// No description provided for @importInvalidNumberEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter valid numbers before recording.'**
+  String get importInvalidNumberEntered;
+
   /// No description provided for @importNoMatchingAccountsWithId.
   ///
   /// In en, this message translates to:
   /// **'Import - No matching \"{fileType}\" accounts with ID \"{id}\"'**
   String importNoMatchingAccountsWithId(String fileType, String id);
+
+  /// No description provided for @importRowsParsedAndSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'{fileType} import parsed {imported} entries and skipped {skipped} unreadable rows.'**
+  String importRowsParsedAndSkipped(String fileType, String imported, String skipped);
 
   /// No description provided for @importTransactions.
   ///
@@ -1005,6 +1053,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Import transaction to account'**
   String get importTransactionToAccount;
+
+  /// No description provided for @importUnableToReadFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to read the file: {error}'**
+  String importUnableToReadFile(String error);
 
   /// No description provided for @importWord.
   ///
@@ -2044,6 +2098,18 @@ abstract class AppLocalizations {
   /// **'Sankey'**
   String get sankey;
 
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @saveAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Save As…'**
+  String get saveAs;
+
   /// No description provided for @saveToCsv.
   ///
   /// In en, this message translates to:
@@ -2529,6 +2595,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unknown'**
   String get unknown;
+
+  /// No description provided for @unsavedChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved changes'**
+  String get unsavedChanges;
+
+  /// No description provided for @unsavedChangesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {count} unsaved changes. Save them before continuing?'**
+  String unsavedChangesMessage(String count);
 
   /// No description provided for @unselectAllCount.
   ///

@@ -123,21 +123,4 @@ class Payees extends MoneyObjects<Payee> {
     }
     return payee.uniqueId;
   }
-
-  /// Removes payees that have no associated transactions.
-  static void removePayeesThatHaveNoTransactions(List<int> payeeIds, DataAbstract data) {
-    for (final int payeeId in payeeIds) {
-      final Payee? payeeToCheck = data.getPayee(payeeId) as Payee?;
-      if (payeeToCheck != null) {
-        final Iterable<Transaction> transactions = data.getTransactions().cast<Transaction>();
-        final Transaction? matchingTransaction = transactions.firstWhereOrNull(
-          (Transaction element) => element.fieldPayee.value == payeeToCheck.uniqueId,
-        );
-        if (matchingTransaction == null) {
-          // No transactions for this payee, we can delete it
-          data.deletePayee(payeeToCheck);
-        }
-      }
-    }
-  }
 }

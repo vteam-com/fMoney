@@ -134,6 +134,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       if (!kIsWeb) ...<PopupMenuItem<int>>[
         _buildMenuItem(Constants.commandFileSaveCsv, AppL10n.tr(AppTranslationKeys.saveToCsv), Icons.save),
         _buildMenuItem(Constants.commandFileSaveSql, AppL10n.tr(AppTranslationKeys.saveToSql), Icons.save),
+        _buildMenuItem(Constants.commandFileSaveAs, AppL10n.tr(AppTranslationKeys.saveAs), Icons.save_as),
       ],
       _buildMenuItem(Constants.commandFileClose, AppL10n.tr(AppTranslationKeys.closeFile), Icons.close),
     ];
@@ -268,12 +269,17 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   void _handleMenuSelection(int index) {
     switch (index) {
       case Constants.commandFileNew:
-        AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
-        DataFileController.to.onFileNew();
+        DataFileController.to.onFileNew().then((bool created) {
+          if (created) {
+            AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+          }
+        });
         break;
       case Constants.commandFileOpen:
-        DataFileController.to.onFileOpen().then((_) {
-          AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+        DataFileController.to.onFileOpen().then((bool opened) {
+          if (opened) {
+            AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+          }
         });
         break;
       case Constants.commandFileLocation:
@@ -291,9 +297,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       case Constants.commandFileSaveSql:
         DataFileController.to.onSaveToSql();
         break;
+      case Constants.commandFileSaveAs:
+        DataFileController.to.onSaveAs();
+        break;
       case Constants.commandFileClose:
-        DataFileController.to.closeFile();
-        AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeWelcomePage);
+        DataFileController.to.onFileClose().then((bool closed) {
+          if (closed) {
+            AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeWelcomePage);
+          }
+        });
         break;
       default:
         AppLogger.warning(

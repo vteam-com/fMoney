@@ -12,7 +12,10 @@ void main() {
           .map((RegExpMatch match) => match.group(1)!)
           .toSet();
 
-      final String resolverSource = File('lib/helpers/app_l10n_resolver_helper.dart').readAsStringSync();
+      // the resolver switch continues in a second file
+      final String resolverSource =
+          File('lib/helpers/app_l10n_resolver_helper.dart').readAsStringSync() +
+          File('lib/helpers/app_l10n_resolver_stage_five_helper.dart').readAsStringSync();
       final RegExp resolverPattern = RegExp(r'AppTranslationKeys\\.(\\w+)');
       final Set<String> mappedKeys = resolverPattern
           .allMatches(resolverSource)

@@ -57,6 +57,11 @@ List<Widget> getActionButtons(
             title: AppL10n.tr(AppTranslationKeys.transfer),
             duration: _snackDurationSeconds,
           );
+        } else if (inputData.amount.isNaN) {
+          SnackBarService.displayWarning(
+            autoDismiss: true,
+            message: AppL10n.tr(AppTranslationKeys.importInvalidNumberEntered),
+          );
         } else {
           // Add the main Transaction of the transfer
           final Transaction newTransactionFromAccount = Transaction(

@@ -6,6 +6,7 @@ import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/widgets/components/info_banner_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
@@ -31,21 +32,6 @@ class MergeCategoriesTransactionsDialog extends StatefulWidget {
 
 class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTransactionsDialog> {
   late Category _categoryPicked = widget.categoryToMove;
-
-  final List<Transaction> _transactions = <Transaction>[];
-
-  @override
-  void initState() {
-    super.initState();
-
-    for (final Transaction t in Data().transactions.iterableList(
-      includeDeleted: true,
-    )) {
-      if (t.fieldCategoryId.value == widget.categoryToMove.uniqueId) {
-        _transactions.add(t);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,13 +135,10 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
                     context,
                     AppL10n.tr(AppTranslationKeys.noNeedToMergeCategoryToItself),
                   );
-                } else {
-                  // reparent Category
-                  Data().categories.reparentCategory(
-                    widget.categoryToMove,
-                    _categoryPicked,
-                  );
+                } else if (Data().categories.reparentCategory(widget.categoryToMove, _categoryPicked)) {
                   Navigator.pop(context);
+                } else {
+                  showSnackBar(context, AppL10n.tr(AppTranslationKeys.cannotMoveCategoryUnderItself));
                 }
               },
               child: Text(AppL10n.tr(AppTranslationKeys.append)),
@@ -178,21 +161,10 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
                     context,
                     AppL10n.tr(AppTranslationKeys.noNeedToMergeCategoryToItself),
                   );
-                } else {
-                  // move to Transaction to the picked category
-                  moveTransactionsToCategory(_transactions, _categoryPicked);
-
-                  // we can now delete picked category
-                  widget.categoryToMove.stashValueBeforeEditing();
-                  Data().notifyMutationChanged(
-                    mutation: MutationType.deleted,
-                    moneyObject: widget.categoryToMove,
-                    recalculateBalances: false,
-                  );
-
-                  Data().updateAll();
-
+                } else if (mergeCategoryInto(widget.categoryToMove, _categoryPicked)) {
                   Navigator.pop(context);
+                } else {
+                  showSnackBar(context, AppL10n.tr(AppTranslationKeys.cannotMoveCategoryUnderItself));
                 }
               },
               child: Text(AppL10n.tr(AppTranslationKeys.merge)),
@@ -202,6 +174,41 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
       ),
     );
   }
+}
+
+/// Moves every transaction, split line and child category of [source] to [target], then deletes [source].
+///
+/// Returns false, changing nothing, when [target] is [source] or one of its subcategories.
+bool mergeCategoryInto(Category source, Category target) {
+  if (Data().categories.isSameOrDescendantOf(target, source)) {
+    return false;
+  }
+
+  moveTransactionsToCategory(
+    Data().transactions
+        .iterableList(includeDeleted: true)
+        .where((Transaction t) => t.fieldCategoryId.value == source.uniqueId)
+        .toList(),
+    target,
+  );
+
+  for (final TransactionSplit split in Data().splits.iterableList()) {
+    if (split.fieldCategoryId.value == source.uniqueId) {
+      split.stashValueBeforeEditing();
+      split.fieldCategoryId.value = target.uniqueId;
+      Data().notifyMutationChanged(mutation: MutationType.changed, moneyObject: split, recalculateBalances: false);
+    }
+  }
+
+  // Children keep their own subtree; reparenting renames them and marks them changed.
+  for (final Category child in Data().categories.getCategoriesWithThisParent(source.uniqueId)) {
+    Data().categories.reparentCategory(child, target);
+  }
+
+  source.stashValueBeforeEditing();
+  Data().notifyMutationChanged(mutation: MutationType.deleted, moneyObject: source, recalculateBalances: false);
+  Data().updateAll();
+  return true;
 }
 
 /// Moves a list of transactions to the specified category, updating data.

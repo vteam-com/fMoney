@@ -8,7 +8,6 @@ class DataAccess {
   static late DataMutations trackMutations;
   static late void Function() onDataChanged;
   static late void Function() onFileClosed;
-  static late Future<String> Function() generateNextFolderToSaveTo;
 
   // breaking dependency between PreferenceController and DataController
   static late List<String> Function() getMRU;

@@ -127,9 +127,8 @@ class TransactionSplit extends DataObject {
     serializeName: SharedDomainStrings.domainString025,
     columnWidth: ColumnWidth.hidden,
     getValueForDisplay: (DataInterface instance) => (instance as TransactionSplit).fieldBudgetBalanceDate.value,
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as TransactionSplit).fieldBudgetBalanceDate.value,
-    ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as TransactionSplit).fieldBudgetBalanceDate.value),
   );
 
   // 2

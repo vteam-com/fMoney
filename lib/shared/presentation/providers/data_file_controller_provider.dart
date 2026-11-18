@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_mutations_model.dart';
 import 'package:money/data/models/data_source_model.dart';
@@ -14,7 +15,10 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/file_systems_service.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/page_unload_guard_helper.dart'
+    if (dart.library.html) 'package:money/helpers/page_unload_guard_web_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/helpers/window_manager_service.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widget_providers_model.dart';
@@ -22,9 +26,11 @@ import 'package:money/shared/presentation/providers/merge_payee_provider.dart';
 import 'package:money/shared/presentation/providers/suggestion_approval_provider.dart';
 import 'package:money/shared/presentation/services/money_data_io_service.dart';
 import 'package:money/shared/simulation/data_simulator_service.dart';
+import 'package:money/widgets/dialogs/unsaved_changes_dialog.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 /// Controller for managing data file operations.
 /// Features:
@@ -39,7 +45,9 @@ class DataFileController extends ChangeNotifier {
     DataAccess.trackMutations = trackMutations;
     DataAccess.onDataChanged = update;
     DataAccess.onFileClosed = dataFileIsClosed;
-    DataAccess.generateNextFolderToSaveTo = generateNextFolderToSaveTo;
+    // Ask before quitting with unsaved changes
+    MyWindowManager.confirmClose = confirmUnsavedChanges;
+    installPageUnloadGuard(() => trackMutations.isMutated());
     DataAccess.loadLastFileSaved = loadLastFileSaved;
 
     // Bind the category suggestion provider
@@ -87,11 +95,6 @@ class DataFileController extends ChangeNotifier {
     currentLoadedFileName.value = Constants.untitledFileName;
     currentLoadedFileDateTime.value = null;
     notifyListeners();
-  }
-
-  /// Returns default folder path for saving files with given name.
-  Future<String> defaultFolderToSaveTo(String defaultFileName) async {
-    return MyFileSystems.append('.', defaultFileName);
   }
 
   /// True when the current data came from (or was saved to) a real file, not a new "Untitled" one.
@@ -149,9 +152,41 @@ class DataFileController extends ChangeNotifier {
     }
   }
 
-  /// Loads data file from specified data source path.
+  /// Loads data file from specified data source path (recent files), after asking about unsaved changes.
   Future<bool> loadFileFromPath(DataSource dataSource) async {
+    if (!await confirmUnsavedChanges()) {
+      return false;
+    }
     return await loadFile(dataSource);
+  }
+
+  /// Closes the current file after asking about unsaved changes; returns false if the user cancelled.
+  Future<bool> onFileClose() async {
+    if (!await confirmUnsavedChanges()) {
+      return false;
+    }
+    closeFile();
+    return true;
+  }
+
+  /// Returns true when the in-memory data can be dropped: nothing is unsaved,
+  /// or the user saved it or chose to discard it.
+  Future<bool> confirmUnsavedChanges() async {
+    if (!trackMutations.isMutated()) {
+      return true;
+    }
+    final BuildContext? context = AppRouter.context;
+    if (context == null) {
+      return false;
+    }
+    switch (await showUnsavedChangesDialog(context, trackMutations.numberOfChanges())) {
+      case UnsavedChangesChoice.save:
+        return onSaveToSql();
+      case UnsavedChangesChoice.discard:
+        return true;
+      case UnsavedChangesChoice.cancel:
+        return false;
+    }
   }
 
   /// Loads the last saved file from preferences.
@@ -189,7 +224,12 @@ class DataFileController extends ChangeNotifier {
   }
 
   /// Creates a new untitled data file with default account and navigates to the accounts view.
-  Future<void> onFileNew() {
+  ///
+  /// Returns false when the user chose to keep the current file (unsaved changes, Cancel).
+  Future<bool> onFileNew() async {
+    if (!await confirmUnsavedChanges()) {
+      return false;
+    }
     this.closeFile();
 
     final Account newAccount = Data().accounts.addNewAccount(
@@ -201,11 +241,14 @@ class DataFileController extends ChangeNotifier {
       textFilter: '',
       columnFilters: null,
     );
-    return Future<void>.value();
+    return true;
   }
 
   /// Opens file picker to select and load a data file.
   Future<bool> onFileOpen() async {
+    if (!await confirmUnsavedChanges()) {
+      return false;
+    }
     PlatformFile? pickedFile;
 
     const List<String> supportedFileTypes = <String>[
@@ -255,8 +298,8 @@ class DataFileController extends ChangeNotifier {
             );
           }
 
-          await loadFile(dataSource);
-          return true;
+          // a file that failed to load must not open as an empty "Untitled" file
+          return await loadFile(dataSource);
         }
       } catch (e) {
         logger.e(e.toString());
@@ -266,22 +309,56 @@ class DataFileController extends ChangeNotifier {
     return false;
   }
 
-  /// Saves current data to CSV file format.
-  Future<void> onSaveToCsv() async {
-    final String fullPathToFileName = await MoneyDataIO().saveToCsv(Data());
-
-    setCurrentFileName(fullPathToFileName);
-
-    trackMutations.reset();
+  /// Exports the data as a CSV archive to a location the user picks.
+  ///
+  /// This is an export: the current file and its pending changes are unchanged, unless the user
+  /// saved over the very archive that is currently open.
+  Future<bool> onSaveToCsv() async {
+    final String? savedPath = await _saveBytesWithDialog(
+      bytes: Uint8List.fromList(MoneyDataIO().getCsvZipAchieveListOfInt(Data())),
+      extension: SharedStrings.fileExtensionMmcsv,
+    );
+    if (savedPath == null) {
+      return false;
+    }
+    if (savedPath == currentLoadedFileName.value) {
+      MoneyDataIO().markAllSaved(Data());
+      trackMutations.reset();
+      currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(savedPath);
+    }
+    return true;
   }
 
-  /// Saves current data to SQL database file format.
+  /// Saves the pending changes into the open .mmdb file.
+  ///
+  /// New files, archives (.mmcsv) and copies that cannot be written back go through [onSaveAs].
+  /// Refuses (and suggests Save As) when the file vanished or another app changed it since it was opened.
   Future<bool> onSaveToSql() async {
-    String fileNameAndPath = currentLoadedFileName.value;
+    final String fileNameAndPath = currentLoadedFileName.value;
+    if (!_canSaveInPlace(fileNameAndPath)) {
+      return onSaveAs();
+    }
 
-    if (!hasRealFilePath) {
-      // this happens if the user started with a new file and click save to SQL
-      fileNameAndPath = await defaultFolderToSaveTo('mymoney.mmdb');
+    if (!File(fileNameAndPath).existsSync()) {
+      SnackBarService.displayError(
+        autoDismiss: false,
+        message: AppL10n.tr(
+          AppTranslationKeys.fileNoLongerExists,
+          params: <String, String>{'fileName': fileNameAndPath},
+        ),
+      );
+      return false;
+    }
+    final DateTime? modifiedOnDisk = await MyFileSystems.getFileModifiedTime(fileNameAndPath);
+    if (currentLoadedFileDateTime.value != null && modifiedOnDisk != currentLoadedFileDateTime.value) {
+      SnackBarService.displayError(
+        autoDismiss: false,
+        message: AppL10n.tr(
+          AppTranslationKeys.fileChangedOnDisk,
+          params: <String, String>{'fileName': fileNameAndPath},
+        ),
+      );
+      return false;
     }
 
     final bool result = await MoneyDataIO().saveToSql(
@@ -295,12 +372,74 @@ class DataFileController extends ChangeNotifier {
         }
       },
     );
-
     if (result) {
-      // a new file now has a real path; also records it in the recent files
-      setCurrentFileName(fileNameAndPath);
+      currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(fileNameAndPath);
+      notifyListeners();
     }
     return result;
+  }
+
+  /// Writes all the data as a new .mmdb file at a location the user picks, which becomes the open file.
+  Future<bool> onSaveAs() async {
+    final Directory temporaryFolder = await getTemporaryDirectory();
+    final String temporaryPath = p.join(
+      temporaryFolder.path,
+      'fmoney_${DateTime.now().millisecondsSinceEpoch}${SharedStrings.fileExtensionMmdb}',
+    );
+    final String? errorMessage = await MoneyDataIO().writeAllToNewSqlFile(Data(), filePath: temporaryPath);
+    if (errorMessage != null) {
+      SnackBarService.displayError(autoDismiss: false, message: errorMessage);
+      return false;
+    }
+    final File temporaryFile = File(temporaryPath);
+    final Uint8List bytes = temporaryFile.readAsBytesSync();
+    temporaryFile.deleteSync();
+
+    final String? savedPath = await _saveBytesWithDialog(bytes: bytes, extension: SharedStrings.fileExtensionMmdb);
+    if (savedPath == null) {
+      // cancelled: nothing was saved, every change is still pending
+      return false;
+    }
+    MoneyDataIO().markAllSaved(Data());
+    trackMutations.reset();
+    if (savedPath.isNotEmpty) {
+      setCurrentFileName(savedPath);
+      currentLoadedFileDateTime.value = await MyFileSystems.getFileModifiedTime(savedPath);
+    }
+    return true;
+  }
+
+  /// True when [filePath] is an .mmdb file on this computer that can be updated in place.
+  ///
+  /// On mobile the opened file is a cache copy the OS may purge, so it is never updated in place.
+  bool _canSaveInPlace(String filePath) {
+    return hasRealFilePath &&
+        !isPlatformMobile() &&
+        p.extension(filePath).toLowerCase() == SharedStrings.fileExtensionMmdb;
+  }
+
+  /// Lets the user pick where to save [bytes]; returns the saved file path, '' when the platform
+  /// saved it somewhere without a file path (e.g. a mobile document provider), or null if cancelled.
+  /// [extension] includes the leading dot.
+  Future<String?> _saveBytesWithDialog({required Uint8List bytes, required String extension}) async {
+    final String suggestedName = hasRealFilePath
+        ? '${p.basenameWithoutExtension(currentLoadedFileName.value)}$extension'
+        : 'mymoney$extension';
+    try {
+      final Uri? savedUri = await FilePicker.saveFile(
+        fileName: suggestedName,
+        bytes: bytes,
+        dialogTitle: AppL10n.tr(AppTranslationKeys.saveAs),
+        initialDirectory: hasRealFilePath ? p.dirname(currentLoadedFileName.value) : null,
+      );
+      if (savedUri == null) {
+        return null;
+      }
+      return savedUri.isScheme(SharedStrings.uriSchemeFile) ? savedUri.toFilePath() : '';
+    } catch (e) {
+      SnackBarService.displayError(autoDismiss: false, message: e.toString());
+      return null;
+    }
   }
 
   /// Shows the current file location in system file manager.

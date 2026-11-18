@@ -58,10 +58,8 @@ class TransactionExtra extends DataObject {
   FieldDate fieldTaxDate = FieldDate(
     serializeName: SharedDomainStrings.domainString133,
     // Text, like the other ISO dates, so SQL statements quote it; null stays NULL.
-    getValueForSerialization: (DataInterface instance) {
-      final DateTime? taxDate = (instance as TransactionExtra).fieldTaxDate.value;
-      return taxDate == null ? null : dateToIso8601OrDefaultString(taxDate);
-    },
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as TransactionExtra).fieldTaxDate.value),
   );
 
   // 2

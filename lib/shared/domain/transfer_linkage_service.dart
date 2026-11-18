@@ -1,7 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
-import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
@@ -12,6 +12,9 @@ import 'package:money/shared/domain/transfer_entity.dart';
 
 /// A transfer has no payee: its counterpart is the linked transaction's account.
 const int _noPayeeId = -1;
+
+/// Id meaning "none" for transactions and accounts.
+const int _unsetId = -1;
 
 /// Links transactions as transfers and answers "could this be a transfer?" queries.
 ///
@@ -58,19 +61,11 @@ class TransferLinkageService {
 
     final double destinationAmount = transactionSource.fieldAmount.value.asDouble() * -1;
 
-    Transaction? relatedTransaction;
-    try {
-      relatedTransaction = collections.transactions.findExistingTransaction(
-        accountId: destinationAccount.uniqueId,
-        dateRange: DateRange(
-          min: transactionSource.fieldDateTime.value!.startOfDay,
-          max: transactionSource.fieldDateTime.value!.endOfDay,
-        ),
-        amount: destinationAmount,
-      );
-    } catch (_) {
-      // something went wrong, assume no match found
-    }
+    Transaction? relatedTransaction = _findReusableCounterpart(
+      transactionSource: transactionSource,
+      accountId: destinationAccount.uniqueId,
+      amount: destinationAmount,
+    );
 
     if (relatedTransaction == null) {
       relatedTransaction = Transaction(
@@ -112,6 +107,94 @@ class TransferLinkageService {
     // }
 
     return relatedTransaction;
+  }
+
+  /// Returns an existing row of account [accountId] that can become the other side of a new
+  /// transfer from [transactionSource]: same day, exactly [amount], and not deleted, not already
+  /// a transfer and not a split parent, so linking never hijacks a row that has its own meaning.
+  Transaction? _findReusableCounterpart({
+    required Transaction transactionSource,
+    required int accountId,
+    required double amount,
+  }) {
+    final DateTime? date = transactionSource.fieldDateTime.value;
+    if (date == null) {
+      return null;
+    }
+    return collections.transactions.iterableList().firstWhereOrNull((Transaction candidate) {
+      final DateTime? candidateDate = candidate.fieldDateTime.value;
+      return !candidate.isDeleted &&
+          !candidate.isTransfer &&
+          !candidate.isSplit &&
+          candidate.fieldAccountId.value == accountId &&
+          candidate.fieldAmount.value.asDouble() == amount &&
+          candidateDate != null &&
+          candidateDate.year == date.year &&
+          candidateDate.month == date.month &&
+          candidateDate.day == date.day;
+    });
+  }
+
+  /// Returns the other side of [transaction]'s transfer, or null when it has none.
+  ///
+  /// A shared [Transfer] may list [transaction] as either its source or its related side,
+  /// so both are checked before falling back to the stored Transfer id.
+  Transaction? _counterpartOf(Transaction transaction) {
+    final Transfer? transfer = transaction.instanceOfTransfer;
+    if (transfer != null) {
+      for (final dynamic side in <dynamic>[transfer.source, transfer.relatedTransaction]) {
+        if (side is Transaction && !identical(side, transaction)) {
+          return side;
+        }
+      }
+    }
+    if (transaction.fieldTransfer.value == _unsetId) {
+      return null;
+    }
+    return collections.transactions.get(transaction.fieldTransfer.value);
+  }
+
+  /// Breaks the transfer link of [transaction].
+  ///
+  /// Every counterpart still pointing back at [transaction] (found through the cached transfer,
+  /// the Transfer id, or the Transfer id stashed before editing) is unlinked, stashed and marked
+  /// changed. [transaction]'s own link fields are cleared but it is not marked: callers record it.
+  void unlinkTransfer(Transaction transaction) {
+    final Set<Transaction> counterparts = <Transaction>{};
+    final Transaction? current = _counterpartOf(transaction);
+    if (current != null) {
+      counterparts.add(current);
+    }
+    final dynamic stashedTransferId = transaction.valueBeforeEdit?[SharedDomainStrings.domainString144];
+    if (stashedTransferId is int && stashedTransferId != _unsetId) {
+      final Transaction? former = collections.transactions.get(stashedTransferId);
+      if (former != null) {
+        counterparts.add(former);
+      }
+    }
+
+    final int transferMarkerPayeeId =
+        collections.categories.getIdByName(SharedDomainStrings.domainString144) ?? _unsetId;
+    for (final Transaction counterpart in counterparts) {
+      if (identical(counterpart, transaction) || counterpart.fieldTransfer.value != transaction.uniqueId) {
+        continue;
+      }
+      counterpart.stashValueBeforeEditing();
+      counterpart.fieldTransfer.value = _unsetId;
+      counterpart.instanceOfTransfer = null;
+      // Older files stored the Transfer category id in the Payee column as a marker; it is not a real payee.
+      if (transferMarkerPayeeId != _unsetId && counterpart.fieldPayee.value == transferMarkerPayeeId) {
+        counterpart.fieldPayee.value = _unsetId;
+      }
+      notifyMutationChanged(
+        mutation: MutationType.changed,
+        moneyObject: counterpart,
+        recalculateBalances: false,
+      );
+    }
+
+    transaction.fieldTransfer.value = _unsetId;
+    transaction.instanceOfTransfer = null;
   }
 
   /// Finds likely disconnected transactions that could be linked as a transfer
@@ -217,35 +300,49 @@ class TransferLinkageService {
   }
 
   /// Ensures transfer linkage exists or updates it for the given transaction.
+  ///
+  /// Without [relatedAccount], a [transaction] that is no longer a transfer has its former
+  /// counterpart unlinked. For an existing transfer, the counterpart is moved to [relatedAccount]
+  /// when it changed, and the Transfer id (cleared by the picker to force re-evaluation) is restored.
   void verifyApplyTransfer({
     required Transaction transaction,
     required Account? relatedAccount,
   }) {
     if (relatedAccount == null) {
-      return; // nothing to check
-    }
-    if (transaction.instanceOfTransfer != null) {
-      // this was already a transfer, lets see if the destination account has changed
-      if (transaction.instanceOfTransfer?.receiverAccount?.uniqueId == relatedAccount.uniqueId) {
-        // same account do noting
-      } else {
-        // use the new account destination
-        final Transaction relatedTransaction = transaction.instanceOfTransfer!.relatedTransaction! as Transaction;
-        transaction.instanceOfTransfer!.relatedTransaction!.instanceOfAccount = collections.accounts.get(
-          relatedAccount.uniqueId,
-        );
-        relatedTransaction.mutateField(
-          SharedDomainStrings.domainString011,
-          relatedAccount.uniqueId,
-          false,
-        );
+      if (!transaction.isTransfer) {
+        unlinkTransfer(transaction);
       }
-    } else {
+      return;
+    }
+
+    final Transaction? counterpart = _counterpartOf(transaction);
+    if (relatedAccount.uniqueId == transaction.fieldAccountId.value) {
+      logger.e('Cannot transfer to same account');
+      if (counterpart != null) {
+        transaction.fieldTransfer.value = counterpart.uniqueId;
+      }
+      return;
+    }
+
+    if (counterpart == null) {
       makeTransferLinkage(
         transactionSource: transaction,
         destinationAccount: relatedAccount,
       );
+      return;
     }
+
+    if (counterpart.fieldAccountId.value != relatedAccount.uniqueId) {
+      counterpart.stashValueBeforeEditing();
+      counterpart.fieldAccountId.value = relatedAccount.uniqueId;
+      counterpart.instanceOfAccount = relatedAccount;
+      notifyMutationChanged(
+        mutation: MutationType.changed,
+        moneyObject: counterpart,
+        recalculateBalances: false,
+      );
+    }
+    transaction.fieldTransfer.value = counterpart.uniqueId;
   }
 
   /// Creates a transfer linkage between source and destination transactions.

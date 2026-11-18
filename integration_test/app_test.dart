@@ -63,6 +63,11 @@ void main() {
       await tester.pumpAndSettle();
       await tapOnText(tester, 'Close file');
       await tester.pumpAndSettle();
+      // the import left unsaved changes: closing now asks first
+      if (find.text('Discard').evaluate().isNotEmpty) {
+        await tapOnText(tester, 'Discard');
+        await tester.pumpAndSettle();
+      }
 
       //*************************************************************************
       //
@@ -964,8 +969,8 @@ Future<void> testPendingChanges(WidgetTester tester) async {
 
   await tapOnText(tester, '3 deleted');
 
-  // close the panel
-  await tapOnText(tester, 'Save to CSV');
+  // close the panel (Save to CSV now opens the system save dialog)
+  await tapOnText(tester, 'Close');
 
   // Clean/Save/Load to SQL
   final String testFilename = './test_output_sqlite.MyMoney.mmdb';
@@ -981,6 +986,7 @@ Future<void> testPendingChanges(WidgetTester tester) async {
     onSaveCompleted: (bool success, String errorMessage) {
       // save completed
       expect(success, true, reason: errorMessage);
+      DataFileController.to.trackMutations.reset();
     },
   );
 

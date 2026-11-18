@@ -191,6 +191,12 @@ ImportData loadInvestmentCSV(
 
     final String actionValue = actionIndex != -1 && row.length > actionIndex ? row[actionIndex].trim() : '';
 
+    // Track the source account of each row; a file spanning several accounts is refused before import.
+    final String sourceAccount = <int>[
+      accountIndex,
+      accountNumberIndex,
+    ].where((int index) => index != -1).map((int index) => row[index].trim()).join(' ').trim();
+
     // Parse description
     final String description = _resolveInvestmentDescription(
       descriptionValue: row[descriptionIndex],
@@ -250,6 +256,9 @@ ImportData loadInvestmentCSV(
     );
 
     importData.entries.add(entry);
+    if (sourceAccount.isNotEmpty) {
+      importData.sourceAccounts.add(sourceAccount);
+    }
   }
 
   return importData;

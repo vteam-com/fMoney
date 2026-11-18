@@ -235,6 +235,8 @@ class Transaction extends DataObject implements MergeableItem {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldBudgetBalanceDate.value,
     ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as Transaction).fieldBudgetBalanceDate.value),
   );
 
   /// Category Id
@@ -317,9 +319,8 @@ class Transaction extends DataObject implements MergeableItem {
     name: 'Merge Date',
     serializeName: SharedDomainStrings.domainString087,
     useAsDetailPanels: defaultCallbackValueFalse,
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as Transaction).fieldMergeDate.value,
-    ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as Transaction).fieldMergeDate.value),
   );
 
   /// Number
@@ -375,10 +376,9 @@ class Transaction extends DataObject implements MergeableItem {
         // -1 means no payee, this is a Transfer?
         // TODO - implement was solution given that the call back here only has one value use for the Payee ID
       } else {
-        // Payee
+        // Payee: a transfer becomes a plain transaction, so its counterpart must stop pointing here
+        transaction.data.unlinkTransfer(transaction);
         transaction.fieldPayee.value = newValue as int; // Payee Id
-        transaction.fieldTransfer.value = _unsetId;
-        transaction.instanceOfTransfer = null;
       }
     },
   );
@@ -398,6 +398,8 @@ class Transaction extends DataObject implements MergeableItem {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as Transaction).fieldReconciledDate.value,
     ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as Transaction).fieldReconciledDate.value),
   );
 
   /// Sales Tax
@@ -583,6 +585,43 @@ class Transaction extends DataObject implements MergeableItem {
       moneyObject: t,
       recalculateBalances: true,
     );
+  }
+
+  /// Returns a new, unsaved copy of this transaction's account, date, payee, category, amount and memo.
+  ///
+  /// The transfer link is not copied: a duplicate of a transfer is a plain transaction.
+  Transaction createDuplicate() {
+    final Transaction duplicate = Transaction(
+      date: fieldDateTime.value,
+      accountId: fieldAccountId.value,
+      data: _data,
+    );
+    duplicate.fieldPayee.value = isTransfer ? _unsetId : fieldPayee.value;
+    duplicate.fieldCategoryId.value = fieldCategoryId.value;
+    duplicate.fieldAmount.value.setAmount(fieldAmount.value.asDouble());
+    duplicate.fieldMemo.value = fieldMemo.value;
+    return duplicate;
+  }
+
+  /// Returns a detached snapshot of the values the edit dialogs can change, for [restoreEditableValuesFrom].
+  Transaction snapshotEditableValues() {
+    return Transaction(date: null, accountId: fieldAccountId.value, data: _data)..restoreEditableValuesFrom(this);
+  }
+
+  /// Copies the values the edit dialogs can change (date, payee, transfer link, category, memo,
+  /// amount, status, original payee) from [snapshot], used to roll back an abandoned edit.
+  void restoreEditableValuesFrom(Transaction snapshot) {
+    fieldDateTime.value = snapshot.fieldDateTime.value;
+    fieldPayee.value = snapshot.fieldPayee.value;
+    fieldOriginalPayee.value = snapshot.fieldOriginalPayee.value;
+    fieldTransfer.value = snapshot.fieldTransfer.value;
+    cachedTransfer = snapshot.cachedTransfer;
+    editingTransferAccount = snapshot.editingTransferAccount;
+    fieldCategoryId.value = snapshot.fieldCategoryId.value;
+    possibleMatchingCategoryId = snapshot.possibleMatchingCategoryId;
+    fieldMemo.value = snapshot.fieldMemo.value;
+    fieldAmount.value.setAmount(snapshot.fieldAmount.value.asDouble());
+    fieldStatus.value = snapshot.fieldStatus.value;
   }
 
   /// Validates transfer linkage and appends broken links to [dangling].

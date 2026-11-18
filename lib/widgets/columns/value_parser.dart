@@ -166,15 +166,18 @@ class ValuesParser {
   }
 
   /// Checks each parsed value against existing transactions for the account.
+  /// Each existing transaction can mark at most one value as already present.
   static void evaluateExistence({
     required int accountId,
     required List<ValuesQuality> values,
     required TransactionExistsCallback transactionExistsCallback,
   }) {
+    final Set<Object> alreadyMatched = <Object>{};
     for (final ValuesQuality vq in values) {
       vq.checkIfExistAlready(
         accountId: accountId,
         transactionExistsCallback: transactionExistsCallback,
+        alreadyMatched: alreadyMatched,
       );
     }
   }
@@ -226,6 +229,7 @@ class ValuesParser {
     _values = value;
   }
 
-  /// Returns only those parsed items that are not already existing transactions.
-  List<ValuesQuality> get onlyNewTransactions => _values.where((ValuesQuality item) => !item.exist).toList();
+  /// Returns only the valid parsed items that are not already existing transactions.
+  List<ValuesQuality> get onlyNewTransactions =>
+      _values.where((ValuesQuality item) => !item.exist && item.isValid).toList();
 }

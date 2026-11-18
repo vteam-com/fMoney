@@ -13,7 +13,14 @@ abstract class AppTranslationKeys {
   static const String appName = 'appName';
   static const String appDescription = 'appDescription';
   static const String appLongDescription = 'appLongDescription';
+  static const String discardChanges = 'discardChanges';
+  static const String fileChangedOnDisk = 'fileChangedOnDisk';
+  static const String fileNoLongerExists = 'fileNoLongerExists';
   static const String licensesDescription = 'licensesDescription';
+  static const String save = 'save';
+  static const String saveAs = 'saveAs';
+  static const String unsavedChanges = 'unsavedChanges';
+  static const String unsavedChangesMessage = 'unsavedChangesMessage';
   static const String viewLicenses = 'viewLicenses';
   static const String versionInformation = 'versionInformation';
   static const String themeColorPurple = 'themeColorPurple';
@@ -68,6 +75,8 @@ abstract class AppTranslationKeys {
   static const String details = 'details';
   static const String deleteSelectedItems = 'deleteSelectedItems';
   static const String deleteThisItemQuestion = 'deleteThisItemQuestion';
+  static const String deleteBlockedByReferences = 'deleteBlockedByReferences';
+  static const String cannotMoveCategoryUnderItself = 'cannotMoveCategoryUnderItself';
   static const String deleteSelectedItemsQuestion = 'deleteSelectedItemsQuestion';
   static const String dropFilesHere = 'dropFilesHere';
   static const String editedElapsed = 'editedElapsed';
@@ -416,6 +425,10 @@ abstract class AppTranslationKeys {
   static const String errorInvalidResponseFromOllama = 'errorInvalidResponseFromOllama';
   static const String errorWithReason = 'errorWithReason';
   static const String importNoMatchingAccountsWithId = 'importNoMatchingAccountsWithId';
+  static const String importFileHasMultipleAccounts = 'importFileHasMultipleAccounts';
+  static const String importInvalidNumberEntered = 'importInvalidNumberEntered';
+  static const String importRowsParsedAndSkipped = 'importRowsParsedAndSkipped';
+  static const String importUnableToReadFile = 'importUnableToReadFile';
   static const String importTransactions = 'importTransactions';
   static const String importWord = 'importWord';
   static const String investmentTransaction = 'investmentTransaction';

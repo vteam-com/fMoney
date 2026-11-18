@@ -51,9 +51,10 @@ class WelcomePage extends StatelessWidget {
             runSpacing: _welcomeButtonSpacing,
             children: <Widget>[
               OutlinedButton(
-                onPressed: () {
-                  DataFileController.to.onFileNew();
-                  AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+                onPressed: () async {
+                  if (await DataFileController.to.onFileNew()) {
+                    AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+                  }
                 },
                 child: Text(AppL10n.tr(AppTranslationKeys.newFile)),
               ),
@@ -68,7 +69,9 @@ class WelcomePage extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () async {
-                  DataFileController.to.closeFile();
+                  if (!await DataFileController.to.onFileClose()) {
+                    return;
+                  }
                   await DataFileController.to.loadDemoData();
                   AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
                 },

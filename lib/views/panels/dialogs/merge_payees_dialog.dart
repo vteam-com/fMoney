@@ -1,5 +1,7 @@
 import 'package:money/data/helpers/accumulator_helper.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mergeable_item_interface.dart';
+import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
@@ -148,11 +150,11 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
     );
   }
 
-  /// Computes category counts for transactions matching the selected payee.
+  /// Computes category counts of the selected target payee's existing transactions.
   void getAssociatedCategories() {
     if (_selectedPayee != null) {
       categoryIdsFound.clear();
-      for (final T t in widget.transactions) {
+      for (final MergeableItem t in widget.data.getTransactions().whereType<MergeableItem>()) {
         if (t.payeeId == _selectedPayee!.uniqueId) {
           categoryIdsFound.cumulate(t.categoryId, _countIncrement);
         }
@@ -256,11 +258,16 @@ void mutateMergeableItemsToPayee<T extends MergeableItem>(
     // keep track of the payeeIds that we remove transactions from
     fromPayeeIds.add(item.payeeId);
 
+    final DataObject? row = item is DataObject ? item as DataObject : null;
+    row?.stashValueBeforeEditing();
     item.payeeId = toPayeeId;
     if (categoryId != null) {
       item.categoryId = categoryId;
     }
+    if (row != null) {
+      data.notifyMutationChanged(mutation: MutationType.changed, moneyObject: row, recalculateBalances: false);
+    }
   }
-  data.removePayeesWithNoTransactions(fromPayeeIds.toList());
+  data.mergePayeesWithNoTransactionsInto(fromPayeeIds.toList(), toPayeeId);
   data.updateAll();
 }

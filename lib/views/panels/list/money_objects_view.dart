@@ -40,6 +40,7 @@ import 'package:money/widgets/list/column_filter_panel.dart';
 import 'package:money/widgets/list/multiple_selection_context_model.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
@@ -900,6 +901,14 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   ) {
     if (moneyObjects.isEmpty) {
       messageBox(context, AppL10n.tr(AppTranslationKeys.noItemsToDelete));
+      return;
+    }
+
+    // Accounts, categories, payees and securities still in use cannot be deleted.
+    final int references = Data().countBlockingReferences(moneyObjects);
+    if (references > 0) {
+      final Map<String, String> params = <String, String>{'count': getIntAsText(references)};
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.deleteBlockedByReferences, params: params));
       return;
     }
 

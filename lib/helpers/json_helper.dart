@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 
 export 'dart:convert';
@@ -41,6 +42,9 @@ MyJson compareAndGenerateCommonJson(MyJson json1, MyJson json2) {
 String encodeValueWrapStringTypes(dynamic value) {
   if (value is String) {
     return "'${escapeString(value)}'";
+  } else if (value is double && !value.isFinite) {
+    // NaN/Infinity are not valid SQL literals
+    return SharedSqlStrings.sqlNull;
   } else {
     return value.toString();
   }

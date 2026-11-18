@@ -1,3 +1,4 @@
+import 'package:money/helpers/app_l10n_resolver_stage_five_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/l10n/app_localizations.dart';
 
@@ -104,10 +105,7 @@ String resolveAppL10nKey(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.csvImportCancelled:
       return l10n.csvImportCancelled;
     case AppTranslationKeys.csvImportRowsImportedAndSkipped:
-      return l10n.csvImportRowsImportedAndSkipped(
-        p['imported'] ?? '',
-        p['skipped'] ?? '',
-      );
+      return l10n.csvImportRowsImportedAndSkipped(p['imported'] ?? '', p['skipped'] ?? '');
     case AppTranslationKeys.dataPreviewFirst5Rows:
       return l10n.dataPreviewFirst5Rows;
     case AppTranslationKeys.debit:
@@ -119,10 +117,7 @@ String resolveAppL10nKey(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.deleteThisItemQuestion:
       return l10n.deleteThisItemQuestion(p['item'] ?? '');
     case AppTranslationKeys.deleteSelectedItemsQuestion:
-      return l10n.deleteSelectedItemsQuestion(
-        p['count'] ?? '',
-        p['items'] ?? '',
-      );
+      return l10n.deleteSelectedItemsQuestion(p['count'] ?? '', p['items'] ?? '');
     case AppTranslationKeys.dropFilesHere:
       return l10n.dropFilesHere;
     case AppTranslationKeys.editedElapsed:
@@ -366,10 +361,7 @@ String _resolveAppL10nKeyStageTwo(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.price:
       return l10n.price;
     case AppTranslationKeys.questionsQuestioncountTokensTokencount:
-      return l10n.questionsQuestioncountTokensTokencount(
-        p['questionCount'] ?? '',
-        p['tokenCount'] ?? '',
-      );
+      return l10n.questionsQuestioncountTokensTokencount(p['questionCount'] ?? '', p['tokenCount'] ?? '');
     case AppTranslationKeys.quantity:
       return l10n.quantity;
     case AppTranslationKeys.recordATransferBetweenTwoAccounts:
@@ -433,14 +425,9 @@ String _resolveAppL10nKeyStageTwo(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.filter:
       return l10n.filter;
     case AppTranslationKeys.showingFirstMaxrowsOfRowcountEligibleRows:
-      return l10n.showingFirstMaxrowsOfRowcountEligibleRows(
-        p['maxRows'] ?? '',
-        p['rowCount'] ?? '',
-      );
+      return l10n.showingFirstMaxrowsOfRowcountEligibleRows(p['maxRows'] ?? '', p['rowCount'] ?? '');
     case AppTranslationKeys.showingRowcountEligibleRowsExcludedRowsWith3Columns:
-      return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(
-        p['rowCount'] ?? '',
-      );
+      return l10n.showingRowcountEligibleRowsExcludedRowsWith3Columns(p['rowCount'] ?? '');
     case AppTranslationKeys.skippingDuplicate:
       return l10n.skippingDuplicate;
     case AppTranslationKeys.smallScreenContentGoesHere:
@@ -886,11 +873,7 @@ String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.transactionsAddedCount:
       return l10n.transactionsAddedCount(p['count'] ?? '');
     case AppTranslationKeys.transactionsFoundInFileToImport:
-      return l10n.transactionsFoundInFileToImport(
-        p['count'] ?? '',
-        p['fileType'] ?? '',
-        p['account'] ?? '',
-      );
+      return l10n.transactionsFoundInFileToImport(p['count'] ?? '', p['fileType'] ?? '', p['account'] ?? '');
     case AppTranslationKeys.unableToOpenFile:
       return l10n.unableToOpenFile(p['fileName'] ?? '');
     case AppTranslationKeys.units:
@@ -900,6 +883,6 @@ String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
     case AppTranslationKeys.errorWithReason:
       return l10n.errorWithReason(p['reason'] ?? '');
     default:
-      return key;
+      return resolveAppL10nKeyStageFive(l10n, key, p);
   }
 }

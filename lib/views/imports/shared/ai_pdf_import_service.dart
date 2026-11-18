@@ -4,13 +4,20 @@ import 'dart:convert';
 
 import 'package:money/data/services/bank_statement_pdf_service.dart';
 import 'package:money/data/services/ollama_service.dart';
+import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:path/path.dart' as path;
 
 const int _maxPdfTextCharsForOllamaImport = 45000;
 const int _minimumAccountHintLength = 3;
+const int _isoDateLength = 10;
+
+/// Matches text starting with an ISO `YYYY-MM-DD` date.
+final RegExp _isoDatePattern = RegExp(r'^\d{4}-\d{2}-\d{2}');
 
 /// Service that extracts and normalizes bank statement transactions from a PDF using Ollama when available.
 class AiPdfImportService {
@@ -101,6 +108,7 @@ class AiPdfImportService {
     }
 
     final List<BankStatementTransactionRecord> transactions = _extractTransactionsFromDecoded(decoded);
+    _reportDroppedRows(decoded: decoded, keptRows: transactions.length);
     if (transactions.isEmpty) {
       return null;
     }
@@ -196,13 +204,14 @@ Extract all bank transactions from the text exactly as provided, regardless of f
 
 Output:
 A JSON array of objects with the following fields:
-- date: string (EXACTLY as printed in the statement, do NOT convert or reformat)
+- date: string in ISO format YYYY-MM-DD (for example "2024-10-02")
 - description: string
 - amount: string (EXACTLY as printed in the statement, do NOT convert or reformat, but apply correct sign)
 
 Rules:
 1. Identify rows that contain a date + description + amount.
-2. Copy the date EXACTLY as it appears. Do NOT convert to any other format.
+2. Convert every date to ISO format YYYY-MM-DD. Read the day and month order from the statement itself
+   (its language, country and other dates), and when a date has no year, take the year from the statement period.
 3. Copy the amount EXACTLY as it appears. Do NOT convert number formats. Keep "1.234,56" as "1.234,56".
 4. CRITICAL - Determine the correct sign of each amount:
    - Many statements use separate columns for money going out vs money coming in.
@@ -226,12 +235,12 @@ Rules:
 Example output:
 [
   {
-    "date": "02-10-24",
+    "date": "2024-10-02",
     "description": "DEBIT / ENDESA ENERGIA",
     "amount": "-15,95"
   },
   {
-    "date": "05-10-24",
+    "date": "2024-10-05",
     "description": "SALARY DEPOSIT",
     "amount": "+2.500,00"
   }
@@ -572,9 +581,64 @@ PDF_TEXT_END
     return transactions;
   }
 
-  /// Parses a date from [value] as printed on the statement, reading numeric
-  /// dates in the operating system locale order (see [parseDateFlexible]).
+  /// Parses a date from [value], expected as ISO `YYYY-MM-DD`; other numeric
+  /// dates fall back to the operating system locale order (see [parseDateFlexible]).
   DateTime? _parseDateFromDynamic(dynamic value) {
-    return value == null ? null : parseDateFlexible(value.toString());
+    if (value == null) {
+      return null;
+    }
+    final String text = value.toString().trim();
+    if (!_isoDatePattern.hasMatch(text)) {
+      return parseDateFlexible(text);
+    }
+    final String isoDay = text.substring(0, _isoDateLength);
+    final DateTime? date = DateTime.tryParse(isoDay);
+    // DateTime.tryParse rolls impossible days over (2024-02-31 becomes March 2); reject them instead.
+    return date != null && dateToString(date) == isoDay ? date : null;
+  }
+
+  /// Logs and shows how many rows returned by the AI in [decoded] were dropped
+  /// because their date, description or amount was unusable, given [keptRows] were kept.
+  void _reportDroppedRows({required dynamic decoded, required int keptRows}) {
+    final int returnedRows = _countReturnedRows(decoded);
+    final int droppedRows = returnedRows - keptRows;
+    if (droppedRows <= 0) {
+      return;
+    }
+    AppLogger.warning(
+      module: 'ai_pdf_import_service',
+      operation: '_reportDroppedRows',
+      message: 'Dropped $droppedRows of $returnedRows AI rows with an unreadable date, description or amount.',
+    );
+    SnackBarService.displayWarning(
+      autoDismiss: false,
+      message: AppL10n.tr(
+        AppTranslationKeys.importRowsParsedAndSkipped,
+        params: <String, String>{
+          'fileType': SharedStrings.fileExtensionPdf.toUpperCase(),
+          'imported': keptRows.toString(),
+          'skipped': droppedRows.toString(),
+        },
+      ),
+    );
+  }
+
+  /// Returns the number of transaction rows the AI returned in [decoded], before validation.
+  int _countReturnedRows(dynamic decoded) {
+    if (decoded is List<dynamic>) {
+      return decoded.length;
+    }
+    if (decoded is Map<String, dynamic>) {
+      final dynamic transactions = decoded['transactions'];
+      if (transactions is List<dynamic>) {
+        return transactions.length;
+      }
+      final dynamic dates = decoded['date'];
+      if (dates is List<dynamic>) {
+        return dates.length;
+      }
+      return decoded.containsKey('date') ? 1 : 0;
+    }
+    return 0;
   }
 }

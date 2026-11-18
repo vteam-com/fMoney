@@ -65,6 +65,10 @@ class MyDatabaseImplementation {
         <JSAny?>[query.toJS],
       );
       final Object? dartResult = jsObjectResult?.dartify();
+      if (dartResult is String) {
+        // the JS bridge reports failures as an "Error: ..." string
+        throw StateError(dartResult);
+      }
 
       if (dartResult is! List<dynamic> || dartResult.isEmpty) {
         return <Map<String, dynamic>>[];
@@ -95,7 +99,8 @@ class MyDatabaseImplementation {
         stackTrace: stackTrace,
         context: <String, Object?>{'query': query},
       );
-      return <Map<String, dynamic>>[];
+      // a failed read must not look like an empty table
+      rethrow;
     }
   }
 
@@ -114,7 +119,7 @@ class MyDatabaseImplementation {
         stackTrace: stackTrace,
         context: <String, Object?>{'tableName': tableName},
       );
-      return false;
+      rethrow;
     }
   }
 

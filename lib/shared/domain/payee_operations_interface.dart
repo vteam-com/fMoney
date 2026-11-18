@@ -15,8 +15,9 @@ abstract class PayeeOperations {
   /// Finds or creates a payee by name.
   DataObject getOrCreatePayee(String name, {bool fireNotification = true});
 
-  /// Removes payees that have no transactions.
-  void removePayeesWithNoTransactions(List<int> payeeIds);
+  /// Re-points the split lines and aliases of each payee in [fromPayeeIds] that no longer has
+  /// transactions to [toPayeeId], then deletes that payee.
+  void mergePayeesWithNoTransactionsInto(List<int> fromPayeeIds, int toPayeeId);
 
   /// Returns the name of a payee by ID.
   String getPayeeName(int id);

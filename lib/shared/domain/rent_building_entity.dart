@@ -350,6 +350,8 @@ class RentBuilding extends DataObject {
     getValueForDisplay: (DataInterface instance) => dateToIso8601OrDefaultString(
       (instance as RentBuilding).fieldPurchasedDate.value,
     ),
+    getValueForSerialization: (DataInterface instance) =>
+        dateToSqliteFormat((instance as RentBuilding).fieldPurchasedDate.value),
   );
 
   /// PurchasedPrice
@@ -436,6 +438,7 @@ class RentBuilding extends DataObject {
     FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForMaintenance),
     FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForRepairs),
     FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForTaxes),
+    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.note),
     FieldBlueprint<RentBuilding>(
       selector: (RentBuilding tmp) => tmp.fieldTransactionsForIncomes,
       includeInColumnView: true,

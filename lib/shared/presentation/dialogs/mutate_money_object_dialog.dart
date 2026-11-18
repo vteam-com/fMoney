@@ -38,6 +38,9 @@ void myShowDialogAndActionsForMoneyObjects({
     return;
   }
 
+  // A single object is edited live (its rollup is itself), so remember how to undo an abandoned edit.
+  final EditSnapshot? snapshot = moneyObjects.length == 1 ? EditSnapshot(moneyObjects.first) : null;
+
   // Before we edit lets stash the current values of each objects
   for (final DataObject m in moneyObjects) {
     m.stashValueBeforeEditing();
@@ -76,9 +79,18 @@ void myShowDialogAndActionsForMoneyObjects({
             });
           }
         }
+        if (rollup is Transaction) {
+          rollup.editingTransferAccount = null;
+        }
         Data().updateAll();
         onApplyChange?.call();
       },
+      onCancel: snapshot == null
+          ? null
+          : () {
+              snapshot.restore();
+              Data().updateAll();
+            },
     ),
   );
 }
@@ -89,10 +101,14 @@ class DialogMutateMoneyObject extends StatefulWidget {
     super.key,
     required this.moneyObject,
     required this.onApplyChange,
+    this.onCancel,
   });
 
   final DataObject moneyObject;
   final void Function(DataObject) onApplyChange;
+
+  /// Called after the dialog closes without Apply (Cancel or dismiss).
+  final VoidCallback? onCancel;
 
   @override
   State<DialogMutateMoneyObject> createState() => _DialogMutateMoneyObjectState();
@@ -101,12 +117,25 @@ class DialogMutateMoneyObject extends StatefulWidget {
 class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
   late DataObject _moneyObject;
 
+  /// True once Apply ran, so closing the dialog must not roll the edit back.
+  bool _wasApplied = false;
+
   bool dataWasModified = false;
 
   @override
   void initState() {
     super.initState();
     _moneyObject = widget.moneyObject;
+  }
+
+  @override
+  void dispose() {
+    final VoidCallback? onCancel = widget.onCancel;
+    if (!_wasApplied && onCancel != null) {
+      // Data listeners rebuild widgets, which is not allowed while this tree is being torn down.
+      WidgetsBinding.instance.addPostFrameCallback((Duration _) => onCancel());
+    }
+    super.dispose();
   }
 
   @override
@@ -151,6 +180,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
           text: AppL10n.tr(AppTranslationKeys.apply),
           onPressed: () {
             // Changes were made
+            _wasApplied = true;
             if (dataWasModified) {
               widget.onApplyChange(moneyObject);
             }

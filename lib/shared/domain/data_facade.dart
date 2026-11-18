@@ -1,4 +1,5 @@
 import 'package:money/data/helpers/transaction_type_helper.dart';
+import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
@@ -6,6 +7,7 @@ import 'package:money/helpers/amount_model.dart';
 import 'package:money/shared/domain/account_aliases_collection.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/accounts_collection.dart';
+import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/categories_collection.dart';
 import 'package:money/shared/domain/category_entity.dart';
@@ -23,6 +25,7 @@ import 'package:money/shared/domain/online_accounts_collection.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/payees_collection.dart';
 import 'package:money/shared/domain/potential_transfer_match_service.dart';
+import 'package:money/shared/domain/rent_building_entity.dart';
 import 'package:money/shared/domain/rent_buildings_collection.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/rental_units_collection.dart';
@@ -31,6 +34,7 @@ import 'package:money/shared/domain/splits_collection.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
 import 'package:money/shared/domain/stock_splits_collection.dart';
 import 'package:money/shared/domain/transaction_extras_collection.dart';
+import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/shared/domain/transfer_linkage_service.dart';
 
@@ -203,9 +207,24 @@ class Data implements DataAbstract {
     }
   }
 
-  /// Deletes the given items and triggers mutation notifications.
-  void deleteItems(List<DataObject> itemsToDelete) {
+  /// Deletes [itemsToDelete] unless some are still referenced by rows outside the batch.
+  ///
+  /// Returns the number of blocking references; when it is not zero nothing is deleted.
+  /// Deleting a [Transaction] also deletes its investment row and splits and unlinks its
+  /// transfer counterpart (the counterpart itself is kept). Deleted splits leave their parent's list.
+  int deleteItems(List<DataObject> itemsToDelete) {
+    final int blockingReferences = countBlockingReferences(itemsToDelete);
+    if (blockingReferences > 0) {
+      return blockingReferences;
+    }
+
     for (final DataObject item in itemsToDelete) {
+      if (item is Transaction) {
+        _deleteTransactionDependents(item);
+      }
+      if (item is TransactionSplit) {
+        splits.detachFromTransaction(item);
+      }
       notifyMutationChanged(
         mutation: MutationType.deleted,
         moneyObject: item,
@@ -213,7 +232,101 @@ class Data implements DataAbstract {
       );
     }
     updateAll();
+    return 0;
   }
+
+  /// Deletes the investment row and splits owned by [transaction] and unlinks its transfer counterpart.
+  void _deleteTransactionDependents(Transaction transaction) {
+    final Investment? investment = investments.get(transaction.uniqueId);
+    if (investment != null && !investment.isDeleted) {
+      notifyMutationChanged(mutation: MutationType.deleted, moneyObject: investment, recalculateBalances: false);
+    }
+    for (final TransactionSplit split in List<TransactionSplit>.of(transaction.splits)) {
+      splits.detachFromTransaction(split);
+      notifyMutationChanged(mutation: MutationType.deleted, moneyObject: split, recalculateBalances: false);
+    }
+    _transferLinkage.unlinkTransfer(transaction);
+  }
+
+  /// Counts live rows outside [itemsToDelete] that still reference accounts, categories, payees
+  /// or securities in [itemsToDelete]; other item types never block a delete.
+  int countBlockingReferences(List<DataObject> itemsToDelete) {
+    final Set<DataObject> batch = itemsToDelete.toSet();
+    final Set<int> accountIds = _idsOf<Account>(itemsToDelete);
+    final Set<int> categoryIds = _idsOf<Category>(itemsToDelete);
+    final Set<int> payeeIds = _idsOf<Payee>(itemsToDelete);
+    final Set<int> securityIds = _idsOf<Security>(itemsToDelete);
+
+    int count = 0;
+
+    /// Adds one reference when [referrer] is live, outside the batch, and one of [ids] matches.
+    void tally(DataObject referrer, Set<int> ids, Iterable<int> referencedIds) {
+      if (ids.isEmpty || referrer.isDeleted || batch.contains(referrer)) {
+        return;
+      }
+      if (referencedIds.any(ids.contains)) {
+        count++;
+      }
+    }
+
+    if (accountIds.isNotEmpty || categoryIds.isNotEmpty || payeeIds.isNotEmpty) {
+      for (final Transaction t in transactions.iterableList()) {
+        tally(t, accountIds, <int>[t.fieldAccountId.value]);
+        tally(t, categoryIds, <int>[t.fieldCategoryId.value]);
+        tally(t, payeeIds, <int>[t.fieldPayee.value]);
+      }
+      for (final TransactionSplit split in splits.iterableList()) {
+        tally(split, categoryIds, <int>[split.fieldCategoryId.value]);
+        tally(split, payeeIds, <int>[split.fieldPayeeId.value]);
+      }
+    }
+    for (final LoanPayment payment in loanPayments.iterableList()) {
+      tally(payment, accountIds, <int>[payment.fieldAccountId.value]);
+    }
+    for (final Investment investment in investments.iterableList()) {
+      tally(investment, securityIds, <int>[investment.fieldSecurity.value]);
+      final Transaction? owner = transactions.get(investment.uniqueId);
+      // Investments of live transactions are already counted through those transactions.
+      if (owner != null && owner.isDeleted) {
+        tally(investment, accountIds, <int>[owner.fieldAccountId.value]);
+      }
+    }
+    for (final StockSplit stockSplit in stockSplits.iterableList()) {
+      tally(stockSplit, securityIds, <int>[stockSplit.fieldSecurity.value]);
+    }
+    for (final Category category in categories.iterableList()) {
+      tally(category, categoryIds, <int>[category.fieldParentId.value]);
+    }
+    // Only loan accounts use these; other accounts carry the 0 default, which is not a real reference.
+    for (final Account account in accounts.iterableList().where((Account a) => a.fieldType.value == AccountType.loan)) {
+      tally(account, categoryIds, <int>[
+        account.fieldCategoryIdForPrincipal.value,
+        account.fieldCategoryIdForInterest.value,
+      ]);
+    }
+    for (final RentBuilding building in rentBuildings.iterableList()) {
+      tally(building, categoryIds, <int>[
+        building.categoryForIncome.value,
+        building.categoryForInterest.value,
+        building.categoryForMaintenance.value,
+        building.categoryForManagement.value,
+        building.categoryForRepairs.value,
+        building.categoryForTaxes.value,
+      ]);
+    }
+    for (final Alias alias in aliases.iterableList()) {
+      tally(alias, payeeIds, <int>[alias.fieldPayeeId.value]);
+    }
+    return count;
+  }
+
+  /// Returns the ids of the items of type [T] in [items].
+  static Set<int> _idsOf<T extends DataObject>(List<DataObject> items) =>
+      items.whereType<T>().map((T item) => item.uniqueId).toSet();
+
+  /// Breaks the transfer link of [transaction], unlinking a counterpart that still points back at it.
+  @override
+  void unlinkTransfer(DataObject transaction) => _transferLinkage.unlinkTransfer(transaction as Transaction);
 
   /// Returns transfers that reference deleted accounts.
   Set<Transaction> getDanglingTransfers() {
@@ -375,8 +488,35 @@ class Data implements DataAbstract {
   Payee getOrCreatePayee(String name, {bool fireNotification = true}) =>
       payees.getOrCreate(name, fireNotification: fireNotification);
 
+  /// Re-points the split lines and aliases of each payee in [fromPayeeIds] that no longer has
+  /// transactions to [toPayeeId], then deletes that payee.
   @override
-  void removePayeesWithNoTransactions(List<int> payeeIds) => Payees.removePayeesThatHaveNoTransactions(payeeIds, this);
+  void mergePayeesWithNoTransactionsInto(List<int> fromPayeeIds, int toPayeeId) {
+    for (final int payeeId in fromPayeeIds) {
+      final Payee? payee = payees.get(payeeId);
+      if (payee == null || payeeId == toPayeeId) {
+        continue;
+      }
+      if (transactions.iterableList().any((Transaction t) => t.fieldPayee.value == payeeId)) {
+        continue; // still in use: a partial merge keeps this payee and its references
+      }
+      for (final TransactionSplit split in splits.iterableList()) {
+        if (split.fieldPayeeId.value == payeeId) {
+          split.stashValueBeforeEditing();
+          split.fieldPayeeId.value = toPayeeId;
+          notifyMutationChanged(mutation: MutationType.changed, moneyObject: split, recalculateBalances: false);
+        }
+      }
+      for (final Alias alias in aliases.iterableList()) {
+        if (alias.fieldPayeeId.value == payeeId) {
+          alias.stashValueBeforeEditing();
+          alias.fieldPayeeId.value = toPayeeId;
+          notifyMutationChanged(mutation: MutationType.changed, moneyObject: alias, recalculateBalances: false);
+        }
+      }
+      payees.deleteItem(payee);
+    }
+  }
 
   @override
   List<Payee> getPayees() => payees.iterableList().toList();

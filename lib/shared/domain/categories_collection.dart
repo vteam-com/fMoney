@@ -20,6 +20,13 @@ class Categories extends MoneyObjects<Category> {
 
   Category? _split;
 
+  /// Clears all categories and forgets the cached Split category so another file gets its own.
+  @override
+  void clear() {
+    super.clear();
+    _split = null;
+  }
+
   @override
   Category instanceFromJson(MyJson json) {
     return Category.fromJson(json, data);
@@ -357,11 +364,31 @@ class Categories extends MoneyObjects<Category> {
   /// Returns `true` if the category with [categoryId] is an income category.
   bool isCategoryAnIncome(int categoryId) => get(categoryId)?.isIncome ?? false;
 
+  /// Returns true when [category] is [ancestor] itself or sits anywhere below it.
+  bool isSameOrDescendantOf(Category category, Category ancestor) {
+    final Set<int> visited = <int>{};
+    Category? current = category;
+    // [visited] stops the walk should the stored hierarchy already contain a loop.
+    while (current != null && visited.add(current.uniqueId)) {
+      if (current.uniqueId == ancestor.uniqueId) {
+        return true;
+      }
+      current = get(current.fieldParentId.value);
+    }
+    return false;
+  }
+
   /// Moves [categoryToReparent] under [newParentCategory] and updates descendants' names.
-  void reparentCategory(
+  ///
+  /// Returns false, changing nothing, when [newParentCategory] is [categoryToReparent] itself
+  /// or one of its descendants, since that would create a cycle.
+  bool reparentCategory(
     Category categoryToReparent,
     Category newParentCategory,
   ) {
+    if (isSameOrDescendantOf(newParentCategory, categoryToReparent)) {
+      return false;
+    }
     categoryToReparent.stashValueBeforeEditing();
     categoryToReparent.fieldParentId.value = newParentCategory.uniqueId;
 
@@ -374,6 +401,7 @@ class Categories extends MoneyObjects<Category> {
     }
 
     this.data.updateAll();
+    return true;
   }
 
   /// Gets or creates the SharedDomainStrings.domainString139 expense category.

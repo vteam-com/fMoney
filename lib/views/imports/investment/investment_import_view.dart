@@ -10,9 +10,11 @@ import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/investment/investment_import_panel.dart';
+import 'package:money/views/imports/shared/data_import_view.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 
 /// Shows dialog for importing investment transactions.
 void showImportInvestment({InvestmentImportFields? inputData}) {
@@ -54,6 +56,13 @@ List<Widget> getActionButtons(
       text: AppL10n.tr(AppTranslationKeys.addInvestment),
       onPressed: () {
         // Import
+        if (inputData.units.isNaN || inputData.amountPerUnit.isNaN || inputData.transactionAmount.isNaN) {
+          SnackBarService.displayWarning(
+            autoDismiss: true,
+            message: AppL10n.tr(AppTranslationKeys.importInvalidNumberEntered),
+          );
+          return;
+        }
 
         final Security security = Data().securities.getOrCreate(
           inputData.symbol,
@@ -90,12 +99,8 @@ List<Widget> getActionButtons(
           data: Data(),
         );
 
-        Data().investments.appendNewMoneyObject(
-          investmentToBeAdded,
-          fireNotification: false,
-        );
         // Investment are linked to transactions by the uniqueId
-        investmentToBeAdded.fieldId.value = newTransaction.uniqueId;
+        appendInvestmentForTransaction(investmentToBeAdded, newTransaction);
 
         // update the app
         Data().updateAll();

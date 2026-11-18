@@ -33,8 +33,33 @@ class MyDatabaseImplementation {
     _db.execute(statement);
   }
 
+  /// Column names already present per table, so older files get missing columns added once.
+  final Map<String, Set<String>> _knownColumns = <String, Set<String>>{};
+
+  /// Adds any of [columnNames] missing from [tableName] (older files lack newer columns),
+  /// so a save never fails with "no such column".
+  void _ensureColumns(String tableName, Iterable<String> columnNames) {
+    final Set<String> known = _knownColumns.putIfAbsent(
+      tableName,
+      () => _db
+          .select(SharedSqlStrings.sqlTableInfoTemplate.replaceAll(SharedSqlStrings.sqlPlaceholderTable, tableName))
+          .map((Row row) => row[SharedSqlStrings.columnName] as String)
+          .toSet(),
+    );
+    for (final String columnName in columnNames) {
+      if (known.add(columnName)) {
+        _db.execute(
+          SharedSqlStrings.sqlAddColumnTemplate
+              .replaceAll(SharedSqlStrings.sqlPlaceholderTable, tableName)
+              .replaceAll(SharedSqlStrings.sqlPlaceholderColumns, columnName),
+        );
+      }
+    }
+  }
+
   /// SQL Insert
   void itemInsert(String tableName, MyJson data) {
+    _ensureColumns(tableName, data.keys);
     final String columnNames = data.keys.map((String key) => '"$key"').join(', ');
     final String columnValues = data.values.map((dynamic value) => encodeValueWrapStringTypes(value)).join(', ');
     final String statement = SharedSqlStrings.sqlInsertTemplate
@@ -50,6 +75,7 @@ class MyDatabaseImplementation {
     MyJson jsonMap,
     String whereClause,
   ) {
+    _ensureColumns(tableName, jsonMap.keys);
     final List<String> setStatements = jsonMap.keys
         .map(
           (String key) => '"$key" = ${encodeValueWrapStringTypes(jsonMap[key])}',
@@ -62,12 +88,18 @@ class MyDatabaseImplementation {
         .replaceAll(SharedSqlStrings.sqlPlaceholderSet, fieldNamesAndValues)
         .replaceAll(SharedSqlStrings.sqlPlaceholderWhere, whereClause);
     _db.execute(statement);
+    if (_db.updatedRows == 0) {
+      // the row is missing from the file: write it rather than silently dropping the change
+      itemInsert(tableName, jsonMap);
+    }
   }
 
   /// Loads database from file path.
   Future<void> load(String fileToOpen, Uint8List _ /* fileBytes */) async {
     if (File(fileToOpen).existsSync()) {
       _db = sqlite3.open(fileToOpen);
+      // wait for another app (e.g. a sync client) to release the file instead of failing mid-save
+      _db.execute(SharedSqlStrings.sqlBusyTimeout);
     } else {
       _db = sqlite3.open(fileToOpen);
       initDatabase(_db);

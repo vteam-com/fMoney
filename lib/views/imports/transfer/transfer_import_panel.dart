@@ -5,6 +5,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/views/imports/shared/import_number_input_helper.dart';
 import 'package:money/views/imports/transfer/transfer_import_fields_model.dart';
 import 'package:money/widgets/pickers/account_picker_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
@@ -15,7 +16,6 @@ import 'package:money/widgets/pure/my_text_input_widget.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const double _panelSpacing = 24.0;
-const double _zeroDouble = 0.0;
 
 /// use for free style text to transaction import
 class ImportFieldsForTransferPanel extends StatefulWidget {
@@ -175,7 +175,7 @@ class _ImportFieldsForTransferPanelState extends State<ImportFieldsForTransferPa
   }
 
   void _updateInputFields() {
-    widget.inputFields.amount = double.tryParse(_controllerAmount.text) ?? _zeroDouble;
+    widget.inputFields.amount = parseImportNumberInput(_controllerAmount.text);
     widget.inputFields.memo = _controllerDescription.text;
   }
 }

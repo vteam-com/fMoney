@@ -13,12 +13,16 @@ const int _sortByDate = 0;
 const int _sortByDescription = 1;
 const int _sortByAmount = 2;
 
-/// Callback function type for checking if a transaction already exists in the system.
+/// Callback function type that returns the existing transaction matching an imported row, or null.
+/// Rows already in [alreadyMatched] must not be returned again, so one existing
+/// transaction is matched by at most one imported row.
 /// This allows the value_parser.dart to be decoupled from data.dart dependencies.
-typedef TransactionExistsCallback = bool Function({
+typedef TransactionExistsCallback = Object? Function({
   required int accountId,
   required DateTime dateTime,
   required double amount,
+  required String fitid,
+  required Set<Object> alreadyMatched,
 });
 
 /// Represents value quality.
@@ -102,6 +106,7 @@ class ValuesQuality {
     this.stockAction = '',
     this.stockQuantity = 0.0,
     this.stockPrice = 0.0,
+    this.fitid = '',
   });
 
   factory ValuesQuality.empty() => ValuesQuality(
@@ -119,6 +124,9 @@ class ValuesQuality {
   final double stockQuantity;
   final double stockPrice;
 
+  /// Financial institution transaction id of the imported row, empty when unknown.
+  final String fitid;
+
   bool exist = false;
 
   @override
@@ -129,17 +137,35 @@ class ValuesQuality {
     return stockSymbol.isNotEmpty || stockAction.isNotEmpty || stockQuantity != 0 || stockPrice > 0;
   }
 
+  /// True when the date and amount parse and the description is not blank.
+  bool get isValid =>
+      date.asDate() != null &&
+      parseAmount(amount.valueAsString, amount.currency) != null &&
+      description.valueAsString.trim().isNotEmpty;
+
   /// Checks whether this value set already exists as a transaction for the given account.
+  /// A matched transaction is added to [alreadyMatched] so no other row can claim it.
   bool checkIfExistAlready({
     required int accountId,
     required TransactionExistsCallback transactionExistsCallback,
+    required Set<Object> alreadyMatched,
   }) {
-    exist = isTransactionAlreadyInTheSystem(
+    final DateTime? parsedDate = date.asDate();
+    if (parsedDate == null) {
+      exist = false;
+      return exist;
+    }
+    final Object? match = transactionExistsCallback(
       accountId: accountId,
-      dateTime: date.asDate() ?? DateTime.now(),
+      dateTime: parsedDate,
       amount: amount.asAmount(),
-      transactionExistsCallback: transactionExistsCallback,
+      fitid: fitid,
+      alreadyMatched: alreadyMatched,
     );
+    if (match != null) {
+      alreadyMatched.add(match);
+    }
+    exist = match != null;
     return exist;
   }
 
@@ -179,15 +205,3 @@ class ValuesQuality {
     });
   }
 }
-
-/// Delegates to [transactionExistsCallback] to check whether a transaction exists.
-bool isTransactionAlreadyInTheSystem({
-  required int accountId,
-  required DateTime dateTime,
-  required double amount,
-  required TransactionExistsCallback transactionExistsCallback,
-}) => transactionExistsCallback(
-  accountId: accountId,
-  dateTime: dateTime,
-  amount: amount,
-);

@@ -319,9 +319,9 @@ ImportData loadCSV(
     return importData;
   }
 
-  final int dateIndex = headers.indexOf(dateColumnName);
-  final int descriptionIndex = headers.indexOf(descriptionColumnName);
-  final int amountIndex = headers.indexOf(amountColumnName);
+  final int dateIndex = indexOfMappedColumn(headers, dateColumnName);
+  final int descriptionIndex = indexOfMappedColumn(headers, descriptionColumnName);
+  final int amountIndex = indexOfMappedColumn(headers, amountColumnName);
   final int actionIndex = _findActionHeaderIndex(headers);
 
   if (dateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
@@ -332,8 +332,8 @@ ImportData loadCSV(
   // Optional fields for investment/stock transactions
   final String? quantityColumnName = columnMapping['quantity'];
   final String? priceColumnName = columnMapping['price'];
-  final int quantityIndex = quantityColumnName != null ? headers.indexOf(quantityColumnName) : -1;
-  final int priceIndex = priceColumnName != null ? headers.indexOf(priceColumnName) : -1;
+  final int quantityIndex = quantityColumnName != null ? indexOfMappedColumn(headers, quantityColumnName) : -1;
+  final int priceIndex = priceColumnName != null ? indexOfMappedColumn(headers, priceColumnName) : -1;
   final DateFieldOrder dateOrder = dateFieldOrderForLocale();
 
   for (int i = 0; i < dataRows.length; i++) {

@@ -81,9 +81,7 @@ class LoanPayment extends DataObject {
   FieldDate fieldDate = FieldDate(
     serializeName: SharedDomainStrings.domainString044,
     getValueForDisplay: (DataInterface instance) => (instance as LoanPayment).fieldDate.value,
-    getValueForSerialization: (DataInterface instance) => dateToIso8601OrDefaultString(
-      (instance as LoanPayment).fieldDate.value,
-    ),
+    getValueForSerialization: (DataInterface instance) => dateToSqliteFormat((instance as LoanPayment).fieldDate.value),
   );
 
   /// ID
