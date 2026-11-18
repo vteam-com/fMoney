@@ -18,7 +18,7 @@ publish_to: none # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.19.0
+version: 1.20.0
 
 environment:
   # This is the dart constraint
@@ -58,7 +58,7 @@ dependencies:
   pasteboard: 0.6.1
   path: 1.9.1
   path_provider: 2.1.6
-  pdfrx: 2.13.0
+  pdfrx: 3.0.2
   shared_preferences: 2.5.6
   sqlite3: 3.9.1
   textify: 0.5.4 # path: "../textify"
@@ -77,22 +77,6 @@ dev_dependencies:
     sdk: flutter
   mockito: 5.8.1
   plugin_platform_interface: 2.1.8
-
-# https://pub.dev/packages/flutter_launcher_icons
-# after updating the main icon run this command from the root of the project
-# dart run flutter_launcher_icons
-flutter_launcher_icons:
-  image_path: ./assets/main_icon.png
-  android: true
-  ios: true
-  remove_alpha_ios: true
-  web:
-    generate: true
-  windows:
-    generate: true
-    icon_size: 256
-  macos:
-    generate: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -123,15 +107,3 @@ flutter:
         - asset: assets/fonts/RobotoMono.ttf
         - asset: assets/fonts/RobotoMono-Italic.ttf
           weight: 700
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # find unused code
-  # flutter pub run dart_code_metrics:metrics check-unused-code lib
