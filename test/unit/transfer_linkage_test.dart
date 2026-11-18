@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 
@@ -52,8 +53,8 @@ void main() {
       expect(related.fieldDateTime.value, source.fieldDateTime.value);
       expect(source.fieldTransfer.value, related.uniqueId);
       expect(related.fieldTransfer.value, source.uniqueId);
-      expect(source.fieldPayee.value, Data().categories.transfer.uniqueId);
-      expect(related.fieldPayee.value, Data().categories.transfer.uniqueId);
+      expect(source.fieldPayee.value, -1, reason: 'a transfer has no payee');
+      expect(related.fieldPayee.value, -1);
       // A negative source amount is the sending side of the transfer.
       expect(source.instanceOfTransfer!.source, source);
       expect(identical(source.instanceOfTransfer, related.instanceOfTransfer), isTrue);
@@ -133,5 +134,22 @@ void main() {
 
       expect(Data().convertDisconnectedTransactionsToTransfer(transaction: a, relatedTransaction: b), isFalse);
     });
+  });
+
+  test('a payee is not credited with transfers saved with a payee id', () {
+    final Payee payee =
+        Data().payees.appendNewMoneyObject(Payee()..fieldName.value = 'Grocer', fireNotification: false) as Payee;
+    final Transaction outgoing = _createTransaction(account: checking, amount: -25, date: DateTime(2024, 4, 1));
+    final Transaction incoming = _createTransaction(account: savings, amount: 25, date: DateTime(2024, 4, 1));
+    final Transaction purchase = _createTransaction(account: checking, amount: -10, date: DateTime(2024, 4, 2));
+    // older files stored the Transfer category id as payee, which can equal a real payee id
+    outgoing.fieldPayee.value = payee.uniqueId;
+    outgoing.fieldTransfer.value = incoming.uniqueId;
+    purchase.fieldPayee.value = payee.uniqueId;
+
+    Data().payees.onAllDataLoaded();
+
+    expect(payee.fieldCount.value, 1);
+    expect(payee.fieldSum.value.asDouble(), -10);
   });
 }

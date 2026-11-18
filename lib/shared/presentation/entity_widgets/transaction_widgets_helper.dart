@@ -328,15 +328,8 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
                     : null;
                 transaction.editingTransferAccount = transferAccount as Account?;
                 transaction.fieldTransfer.value = _transactionUnsetId; // this will cause a reevaluation of the transfer
-
-                if (transferAccount == null) {
-                  // No account has been selected yet by the users
-                  // do nothing since this is just the user taping between Payee | Transfer
-                  transaction.fieldPayee.value = _transactionUnsetId;
-                } else {
-                  // mark as Transfer
-                  transaction.fieldPayee.value = DataAbstract.instance.getTransferCategoryId();
-                }
+                // a transfer has no payee; the account link is set when the edit is applied
+                transaction.fieldPayee.value = _transactionUnsetId;
                 wasModified = true;
             }
             onEdited(wasModified); // notify container

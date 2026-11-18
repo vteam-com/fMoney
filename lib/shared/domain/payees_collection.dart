@@ -40,6 +40,10 @@ class Payees extends MoneyObjects<Payee> {
     }
 
     for (final Transaction t in data.getTransactions().cast<Transaction>()) {
+      if (t.isTransfer) {
+        // account-to-account: older files may still hold the Transfer category id as payee
+        continue;
+      }
       final Payee? item = get(t.fieldPayee.value);
       if (item != null) {
         item.fieldCount.value++;

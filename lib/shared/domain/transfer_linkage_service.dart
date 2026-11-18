@@ -10,6 +10,9 @@ import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 
+/// A transfer has no payee: its counterpart is the linked transaction's account.
+const int _noPayeeId = -1;
+
 /// Links transactions as transfers and answers "could this be a transfer?" queries.
 ///
 /// Extracted from `Data` so transfer rules change in one place; `Data` delegates to it.
@@ -191,11 +194,11 @@ class TransferLinkageService {
         ? Transfer(id: 0, source: sourceTransaction, relatedTransaction: targetTransaction, isOrphan: false)
         : Transfer(id: 0, source: targetTransaction, relatedTransaction: sourceTransaction, isOrphan: false);
 
-    sourceTransaction.fieldPayee.value = collections.categories.transfer.uniqueId;
+    sourceTransaction.fieldPayee.value = _noPayeeId;
     sourceTransaction.fieldTransfer.value = targetTransaction.uniqueId;
     sourceTransaction.instanceOfTransfer = transfer;
 
-    targetTransaction.fieldPayee.value = collections.categories.transfer.uniqueId;
+    targetTransaction.fieldPayee.value = _noPayeeId;
     targetTransaction.fieldTransfer.value = sourceTransaction.uniqueId;
     targetTransaction.instanceOfTransfer = transfer;
 
@@ -279,7 +282,7 @@ class TransferLinkageService {
       // Keep track changes done
       relatedTransaction.stashValueBeforeEditing();
 
-      relatedTransaction.fieldPayee.value = collections.categories.transfer.uniqueId;
+      relatedTransaction.fieldPayee.value = _noPayeeId;
       relatedTransaction.fieldTransfer.value = transactionSource.fieldId.value;
       relatedTransaction.instanceOfTransfer = transfer;
 
@@ -298,7 +301,7 @@ class TransferLinkageService {
       }
 
       // this needs to happen last since the ID for a new Relation Transaction will be establish in the above
-      transactionSource.fieldPayee.value = collections.categories.transfer.uniqueId;
+      transactionSource.fieldPayee.value = _noPayeeId;
       transactionSource.fieldTransfer.value = relatedTransaction.uniqueId;
       transactionSource.instanceOfTransfer = transfer;
     }

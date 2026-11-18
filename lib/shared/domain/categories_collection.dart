@@ -405,11 +405,6 @@ class Categories extends MoneyObjects<Category> {
     return getOrCreate(SharedDomainStrings.domainString144, CategoryType.none);
   }
 
-  /// Returns the unique ID of the special SharedDomainStrings.domainString144 category.
-  int transferCategoryId() {
-    return transfer.uniqueId;
-  }
-
   /// Gets or creates the SharedDomainStrings.domainString154 category.
   Category get transferFromDeletedAccount {
     return getOrCreate(SharedDomainStrings.domainString154, CategoryType.none);

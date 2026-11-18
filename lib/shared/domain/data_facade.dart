@@ -466,9 +466,6 @@ class Data implements DataAbstract {
   int getSplitCategoryId() => categories.splitCategoryId();
 
   @override
-  int getTransferCategoryId() => categories.transferCategoryId();
-
-  @override
   Category getTransferCategory() => categories.transfer;
 
   @override

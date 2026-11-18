@@ -371,7 +371,7 @@ class Transaction extends DataObject implements MergeableItem {
     setValue: (DataInterface instance, dynamic newValue) {
       final Transaction transaction = instance as Transaction;
       transaction.stashOriginalPayee();
-      if (newValue == _unsetId || newValue == transaction.data.getTransferCategoryId()) {
+      if (newValue == _unsetId) {
         // -1 means no payee, this is a Transfer?
         // TODO - implement was solution given that the call back here only has one value use for the Payee ID
       } else {

@@ -35,9 +35,6 @@ abstract class CategoryOperations {
   /// Returns the split category ID.
   int getSplitCategoryId();
 
-  /// Returns the transfer category ID.
-  int getTransferCategoryId();
-
   /// Deletes a category.
   void deleteCategory(DataObject category);
 
