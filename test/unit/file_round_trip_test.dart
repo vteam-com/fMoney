@@ -2,12 +2,16 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
+import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/domain/reconcile_service.dart';
+import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/money_data_io_service.dart';
 import 'package:sqlite3/sqlite3.dart';
@@ -219,6 +223,40 @@ void main() {
 
     expect(account.mutation, MutationType.changed);
     expect(_differences(original, file), isEmpty);
+  });
+
+  test('a finished reconciliation is saved and reopened as reconciled', () async {
+    final String file = copyOfOriginal('reconciled.mmdb');
+    await _load(file);
+    final Transaction transaction = Data().transactions.iterableList().firstWhere(
+      (Transaction t) =>
+          t.fieldStatus.value == TransactionStatus.none &&
+          ReconcileService.supportsAccount(Data().accounts.get(t.fieldAccountId.value)!),
+    );
+    final Account account = Data().accounts.get(transaction.fieldAccountId.value)!;
+    final DateTime statementDate = transaction.fieldDateTime.value!.startOfDay;
+    transaction.mutateField(transaction.fieldStatus.name, TransactionStatus.cleared, false);
+    final double clearedBalance = ReconcileService(
+      account: account,
+      data: Data(),
+      statementDate: statementDate,
+      statementBalance: 0,
+    ).clearedBalance;
+
+    final ReconcileService session = ReconcileService(
+      account: account,
+      data: Data(),
+      statementDate: statementDate,
+      statementBalance: clearedBalance,
+    );
+    expect(session.finish(), greaterThanOrEqualTo(1));
+    expect(await _save(file), isEmpty);
+    await _load(file);
+
+    final Transaction reopened = Data().transactions.get(transaction.uniqueId)!;
+    expect(reopened.fieldStatus.value, TransactionStatus.reconciled);
+    expect(reopened.fieldReconciledDate.value, statementDate);
+    expect(Data().accounts.get(account.uniqueId)!.fieldLastBalance.value, statementDate);
   });
 
   test('saving to an older file adds the columns it lacks and keeps a backup', () async {

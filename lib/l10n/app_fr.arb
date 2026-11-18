@@ -124,6 +124,7 @@
   "checkingOllamaStatus": "Verification du statut Ollama...",
   "chooseAnOptionToGetStarted": "Choisissez une option pour commencer :",
   "chooseColumns": "Choisir les colonnes",
+  "clearedBalance": "Solde pointé",
   "clearFilters": "Effacer les filtres",
   "close": "Fermer",
   "closedLabel": "Ferme",
@@ -220,6 +221,7 @@
   "description": "Libelle",
   "descriptionPayee": "Description/Beneficiaire",
   "details": "Détails",
+  "difference": "Écart",
   "discardChanges": "Ignorer",
   "dividend": "Dividende",
   "dropFilesHere": "Deposez les fichiers ici",
@@ -306,6 +308,7 @@
   },
   "filter": "filtre",
   "findMissingTransfers": "Trouver les transferts manquants",
+  "finish": "Terminer",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -425,6 +428,7 @@
     "description": "REVIEWED"
   },
   "largestTransactions": "Plus grosses transactions",
+  "lastReconciled": "Dernier rapprochement",
   "licenses": "Licences",
   "licensesDescription": "fMoney est construit avec des logiciels open-source. Consultez les licences de tous les packages utilisés dans cette application.",
   "lifeTimePnl": "P&L a vie",
@@ -550,6 +554,7 @@
   "navTransfers": "Transferts",
   "navTransfersTooltip": "Voir les transferts entre comptes",
   "networth": "Patrimoine",
+  "never": "Jamais",
   "newBankAccount": "Nouveau compte bancaire",
   "newFile": "Nouveau fichier ...",
   "newItemLabel": "Nouveau @item",
@@ -716,6 +721,17 @@
   "readMore": "Lire plus",
   "rebalanceMenuItem": "Reequilibrer...",
   "receiver": "Destinataire",
+  "reconciledBalance": "Solde rapproché",
+  "reconciledTransactionsCount": "{count} transactions rapprochées",
+  "@reconciledTransactionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reconcileInstructions": "Passez chaque transaction du relevé à C jusqu'à ce que l'écart soit nul.",
+  "reconcileWithStatement": "Rapprocher avec un relevé",
   "recordATransferBetweenTwoAccounts": "Convertir en transfert",
   "recordTransfer": "Enregistrer un transfert",
   "recurring": "Recurrent",
@@ -832,6 +848,8 @@
     }
   },
   "splits": "Scissions",
+  "start": "Commencer",
+  "statementDate": "Date du relevé",
   "stock": "Action",
   "stocks": "Actions",
   "stocksTrackingDescription": "Suivi des actions.",

@@ -447,4 +447,17 @@ abstract class AppTranslationKeys {
   static const String transactionsFoundInFileToImport = 'transactionsFoundInFileToImport';
   static const String unableToOpenFile = 'unableToOpenFile';
   static const String units = 'units';
+
+  /// Account reconciliation.
+  static const String clearedBalance = 'clearedBalance';
+  static const String difference = 'difference';
+  static const String finish = 'finish';
+  static const String lastReconciled = 'lastReconciled';
+  static const String never = 'never';
+  static const String reconcileInstructions = 'reconcileInstructions';
+  static const String reconcileWithStatement = 'reconcileWithStatement';
+  static const String reconciledBalance = 'reconciledBalance';
+  static const String reconciledTransactionsCount = 'reconciledTransactionsCount';
+  static const String start = 'start';
+  static const String statementDate = 'statementDate';
 }

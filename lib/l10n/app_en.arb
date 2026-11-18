@@ -124,6 +124,7 @@
   "checkingOllamaStatus": "Checking Ollama status...",
   "chooseAnOptionToGetStarted": "Choose an option to get started:",
   "chooseColumns": "Choose Columns",
+  "clearedBalance": "Cleared balance",
   "clearFilters": "Clear Filters",
   "close": "Close",
   "closedLabel": "Closed",
@@ -220,6 +221,7 @@
   "description": "Description",
   "descriptionPayee": "Description/Payee",
   "details": "Details",
+  "difference": "Difference",
   "discardChanges": "Discard",
   "dividend": "Dividend",
   "dropFilesHere": "Drop files here",
@@ -306,6 +308,7 @@
   },
   "filter": "filter",
   "findMissingTransfers": "Find missing transfers",
+  "finish": "Finish",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -425,6 +428,7 @@
     "description": "REVIEWED"
   },
   "largestTransactions": "Largest transactions",
+  "lastReconciled": "Last reconciled",
   "licenses": "Licenses",
   "licensesDescription": "fMoney is built using open-source software. View the licenses for all packages used in this application.",
   "lifeTimePnl": "Life Time P&L",
@@ -550,6 +554,7 @@
   "navTransfers": "Transfers",
   "navTransfersTooltip": "View transfers between accounts",
   "networth": "NetWorth",
+  "never": "Never",
   "newBankAccount": "New Bank Account",
   "newFile": "New File ...",
   "newItemLabel": "New @item",
@@ -716,6 +721,17 @@
   "readMore": "Read More",
   "rebalanceMenuItem": "Rebalance...",
   "receiver": "Receiver",
+  "reconciledBalance": "Reconciled balance",
+  "reconciledTransactionsCount": "{count} transactions reconciled",
+  "@reconciledTransactionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reconcileInstructions": "Set each transaction on the statement to C until the difference is zero.",
+  "reconcileWithStatement": "Reconcile with a statement",
   "recordATransferBetweenTwoAccounts": "Convert as Transfer",
   "recordTransfer": "Record Transfer",
   "recurring": "Recurring",
@@ -832,6 +848,8 @@
     }
   },
   "splits": "Splits",
+  "start": "Start",
+  "statementDate": "Statement date",
   "stock": "Stock",
   "stocks": "Stocks",
   "stocksTrackingDescription": "Stocks tracking.",

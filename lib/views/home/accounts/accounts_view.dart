@@ -27,6 +27,7 @@ import 'package:money/shared/domain/investments_collection.dart';
 import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/loan_payments_collection.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
+import 'package:money/shared/domain/reconcile_service.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
@@ -39,8 +40,10 @@ import 'package:money/shared/presentation/services/stock_cache_lookup_service.da
 import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/views/imports/import_wizard_view.dart';
 import 'package:money/views/imports/investment/investment_import_view.dart';
+import 'package:money/views/panels/dialogs/reconcile_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/reconcile_bar_widget.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/components/box_with_scrolling_content_widget.dart';
@@ -100,6 +103,9 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   // Filter related
   final List<bool> _selectedPivot = <bool>[false, false, false, false, true];
 
+  /// Reconciliation in progress, shown in its account's side panel transactions.
+  ReconcileService? _reconcile;
+
   @override
   Widget buildHeader([Widget? child]) {
     return super.buildHeader(_renderToggles());
@@ -119,6 +125,19 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
 
     if (forSidePanelTransactions) {
+      final Account? account = getFirstSelectedItem() as Account?;
+      if (account != null &&
+          PreferenceController.to.selectedSidePanelTabId == SidePanelSubViewEnum.transactions &&
+          ReconcileService.supportsAccount(account) &&
+          _reconcileSessionFor(account) == null) {
+        list.add(
+          IconButton(
+            icon: const Icon(Icons.fact_check_outlined),
+            tooltip: AppL10n.tr(AppTranslationKeys.reconcileWithStatement),
+            onPressed: () => _startReconcile(account),
+          ),
+        );
+      }
       list.add(
         buildJumpToButton(context, <MenuEntry>[
           MenuEntry(
@@ -283,7 +302,10 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   List<DataObject> getSidePanelTransactions() {
     final Account? account = getFirstSelectedItem() as Account?;
     if (account != null) {
-      return getTransactionForLastSelectedAccount(account);
+      // Running balances are computed on all the account's transactions before keeping only those to reconcile
+      final List<Transaction> transactions = getTransactionForLastSelectedAccount(account);
+      final ReconcileService? session = _reconcileSessionFor(account);
+      return session == null ? transactions : transactions.where(session.isPending).toList();
     }
     return <DataObject>[];
   }
@@ -760,8 +782,9 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       if (account.fieldType.value == AccountType.credit) columnIdPaidOn,
     ];
 
-    return ListenableBuilder(
-      listenable: DataFileController.to,
+    final Widget transactionsList = ListenableBuilder(
+      // Status toggles only notify the mutation tracker; listen to it too so the Status cells repaint
+      listenable: Listenable.merge(<Listenable>[DataFileController.to, DataFileController.to.trackMutations]),
       builder: (BuildContext _, Widget? _) {
         return buildSidePanelTransactionsList(
           key: Key(
@@ -793,6 +816,17 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               },
         );
       },
+    );
+
+    final ReconcileService? session = _reconcileSessionFor(account);
+    if (session == null) {
+      return transactionsList;
+    }
+    return Column(
+      children: <Widget>[
+        Expanded(child: transactionsList),
+        ReconcileBar(session: session, onCancel: _stopReconcile, onFinish: _finishReconcile),
+      ],
     );
   }
 
@@ -864,6 +898,38 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         );
       },
     );
+  }
+
+  /// Reconciles the cleared transactions, leaves reconcile mode and reports how many were reconciled.
+  void _finishReconcile() {
+    final int count = _reconcile?.finish() ?? _zeroInt;
+    _stopReconcile();
+    SnackBarService.displaySuccess(
+      message: AppL10n.tr(
+        AppTranslationKeys.reconciledTransactionsCount,
+        params: <String, String>{'count': getIntAsText(count)},
+      ),
+    );
+  }
+
+  /// Returns the reconciliation in progress for [account], or null when it is not being reconciled.
+  ReconcileService? _reconcileSessionFor(Account account) {
+    return identical(_reconcile?.account, account) ? _reconcile : null;
+  }
+
+  /// Asks for the statement date and balance, then shows [account]'s transactions in reconcile mode.
+  void _startReconcile(Account account) {
+    showReconcileDialog(
+      context: context,
+      account: account,
+      data: Data(),
+      onStart: (ReconcileService session) => setState(() => _reconcile = session),
+    );
+  }
+
+  /// Leaves reconcile mode; the transactions the user cleared stay cleared.
+  void _stopReconcile() {
+    setState(() => _reconcile = null);
   }
 
   /// Returns transactions for the last selected account with optional filtering.

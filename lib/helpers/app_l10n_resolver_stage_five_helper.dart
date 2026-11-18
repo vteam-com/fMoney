@@ -1,7 +1,7 @@
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/l10n/app_localizations.dart';
 
-/// Last stage of [resolveAppL10nKey] (file safety, deletes and import messages);
+/// Last stage of [resolveAppL10nKey] (file safety, deletes, import and reconciliation messages);
 /// returns [key] itself when it is unknown.
 String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String, String> p) {
   switch (key) {
@@ -31,6 +31,28 @@ String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String,
       return l10n.fileNoLongerExists(p['fileName'] ?? '');
     case AppTranslationKeys.fileChangedOnDisk:
       return l10n.fileChangedOnDisk(p['fileName'] ?? '');
+    case AppTranslationKeys.clearedBalance:
+      return l10n.clearedBalance;
+    case AppTranslationKeys.difference:
+      return l10n.difference;
+    case AppTranslationKeys.finish:
+      return l10n.finish;
+    case AppTranslationKeys.lastReconciled:
+      return l10n.lastReconciled;
+    case AppTranslationKeys.never:
+      return l10n.never;
+    case AppTranslationKeys.reconcileInstructions:
+      return l10n.reconcileInstructions;
+    case AppTranslationKeys.reconcileWithStatement:
+      return l10n.reconcileWithStatement;
+    case AppTranslationKeys.reconciledBalance:
+      return l10n.reconciledBalance;
+    case AppTranslationKeys.reconciledTransactionsCount:
+      return l10n.reconciledTransactionsCount(p['count'] ?? '');
+    case AppTranslationKeys.start:
+      return l10n.start;
+    case AppTranslationKeys.statementDate:
+      return l10n.statementDate;
     default:
       return key;
   }

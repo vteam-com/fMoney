@@ -550,6 +550,12 @@ abstract class AppLocalizations {
   /// **'Choose Columns'**
   String get chooseColumns;
 
+  /// No description provided for @clearedBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleared balance'**
+  String get clearedBalance;
+
   /// No description provided for @clearFilters.
   ///
   /// In en, this message translates to:
@@ -760,6 +766,12 @@ abstract class AppLocalizations {
   /// **'Details'**
   String get details;
 
+  /// No description provided for @difference.
+  ///
+  /// In en, this message translates to:
+  /// **'Difference'**
+  String get difference;
+
   /// No description provided for @discardChanges.
   ///
   /// In en, this message translates to:
@@ -921,6 +933,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Find missing transfers'**
   String get findMissingTransfers;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
 
   /// REVIEWED
   ///
@@ -1185,6 +1203,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Largest transactions'**
   String get largestTransactions;
+
+  /// No description provided for @lastReconciled.
+  ///
+  /// In en, this message translates to:
+  /// **'Last reconciled'**
+  String get lastReconciled;
 
   /// No description provided for @licenses.
   ///
@@ -1527,6 +1551,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'NetWorth'**
   String get networth;
+
+  /// No description provided for @never.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get never;
 
   /// No description provided for @newBankAccount.
   ///
@@ -2014,6 +2044,30 @@ abstract class AppLocalizations {
   /// **'Receiver'**
   String get receiver;
 
+  /// No description provided for @reconciledBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciled balance'**
+  String get reconciledBalance;
+
+  /// No description provided for @reconciledTransactionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions reconciled'**
+  String reconciledTransactionsCount(String count);
+
+  /// No description provided for @reconcileInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Set each transaction on the statement to C until the difference is zero.'**
+  String get reconcileInstructions;
+
+  /// No description provided for @reconcileWithStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconcile with a statement'**
+  String get reconcileWithStatement;
+
   /// No description provided for @recordATransferBetweenTwoAccounts.
   ///
   /// In en, this message translates to:
@@ -2313,6 +2367,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Splits'**
   String get splits;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @statementDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Statement date'**
+  String get statementDate;
 
   /// No description provided for @stock.
   ///

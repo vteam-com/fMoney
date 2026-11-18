@@ -252,6 +252,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get chooseColumns => 'Elegir columnas';
 
   @override
+  String get clearedBalance => 'Saldo compensado';
+
+  @override
   String get clearFilters => 'Limpiar filtros';
 
   @override
@@ -373,6 +376,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get details => 'Detalles';
 
   @override
+  String get difference => 'Diferencia';
+
+  @override
   String get discardChanges => 'Descartar';
 
   @override
@@ -469,6 +475,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get findMissingTransfers => 'Encontrar transferencias faltantes';
+
+  @override
+  String get finish => 'Finalizar';
 
   @override
   String get fmoney => 'fMoney';
@@ -615,6 +624,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get largestTransactions => 'Transacciones más grandes';
+
+  @override
+  String get lastReconciled => 'Última conciliación';
 
   @override
   String get licenses => 'Licencias';
@@ -799,6 +811,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get networth => 'Patrimonio neto';
+
+  @override
+  String get never => 'Nunca';
 
   @override
   String get newBankAccount => 'Nueva cuenta bancaria';
@@ -1061,6 +1076,20 @@ class AppLocalizationsEs extends AppLocalizations {
   String get receiver => 'Receptor';
 
   @override
+  String get reconciledBalance => 'Saldo conciliado';
+
+  @override
+  String reconciledTransactionsCount(String count) {
+    return '$count transacciones conciliadas';
+  }
+
+  @override
+  String get reconcileInstructions => 'Marque con C cada transacción del extracto hasta que la diferencia sea cero.';
+
+  @override
+  String get reconcileWithStatement => 'Conciliar con un extracto';
+
+  @override
   String get recordATransferBetweenTwoAccounts => 'Convertir como transferencia';
 
   @override
@@ -1222,6 +1251,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get splits => 'Desdoblamientos';
+
+  @override
+  String get start => 'Comenzar';
+
+  @override
+  String get statementDate => 'Fecha del extracto';
 
   @override
   String get stock => 'Accion';

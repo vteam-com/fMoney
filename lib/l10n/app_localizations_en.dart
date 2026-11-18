@@ -250,6 +250,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseColumns => 'Choose Columns';
 
   @override
+  String get clearedBalance => 'Cleared balance';
+
+  @override
   String get clearFilters => 'Clear Filters';
 
   @override
@@ -371,6 +374,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get details => 'Details';
 
   @override
+  String get difference => 'Difference';
+
+  @override
   String get discardChanges => 'Discard';
 
   @override
@@ -466,6 +472,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get findMissingTransfers => 'Find missing transfers';
+
+  @override
+  String get finish => 'Finish';
 
   @override
   String get fmoney => 'fMoney';
@@ -610,6 +619,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get largestTransactions => 'Largest transactions';
+
+  @override
+  String get lastReconciled => 'Last reconciled';
 
   @override
   String get licenses => 'Licenses';
@@ -793,6 +805,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get networth => 'NetWorth';
+
+  @override
+  String get never => 'Never';
 
   @override
   String get newBankAccount => 'New Bank Account';
@@ -1054,6 +1069,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get receiver => 'Receiver';
 
   @override
+  String get reconciledBalance => 'Reconciled balance';
+
+  @override
+  String reconciledTransactionsCount(String count) {
+    return '$count transactions reconciled';
+  }
+
+  @override
+  String get reconcileInstructions => 'Set each transaction on the statement to C until the difference is zero.';
+
+  @override
+  String get reconcileWithStatement => 'Reconcile with a statement';
+
+  @override
   String get recordATransferBetweenTwoAccounts => 'Convert as Transfer';
 
   @override
@@ -1215,6 +1244,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splits => 'Splits';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get statementDate => 'Statement date';
 
   @override
   String get stock => 'Stock';

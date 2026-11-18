@@ -252,6 +252,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chooseColumns => 'Choisir les colonnes';
 
   @override
+  String get clearedBalance => 'Solde pointé';
+
+  @override
   String get clearFilters => 'Effacer les filtres';
 
   @override
@@ -373,6 +376,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get details => 'Détails';
 
   @override
+  String get difference => 'Écart';
+
+  @override
   String get discardChanges => 'Ignorer';
 
   @override
@@ -469,6 +475,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get findMissingTransfers => 'Trouver les transferts manquants';
+
+  @override
+  String get finish => 'Terminer';
 
   @override
   String get fmoney => 'fMoney';
@@ -615,6 +624,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get largestTransactions => 'Plus grosses transactions';
+
+  @override
+  String get lastReconciled => 'Dernier rapprochement';
 
   @override
   String get licenses => 'Licences';
@@ -799,6 +811,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get networth => 'Patrimoine';
+
+  @override
+  String get never => 'Jamais';
 
   @override
   String get newBankAccount => 'Nouveau compte bancaire';
@@ -1061,6 +1076,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get receiver => 'Destinataire';
 
   @override
+  String get reconciledBalance => 'Solde rapproché';
+
+  @override
+  String reconciledTransactionsCount(String count) {
+    return '$count transactions rapprochées';
+  }
+
+  @override
+  String get reconcileInstructions => 'Passez chaque transaction du relevé à C jusqu\'à ce que l\'écart soit nul.';
+
+  @override
+  String get reconcileWithStatement => 'Rapprocher avec un relevé';
+
+  @override
   String get recordATransferBetweenTwoAccounts => 'Convertir en transfert';
 
   @override
@@ -1222,6 +1251,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get splits => 'Scissions';
+
+  @override
+  String get start => 'Commencer';
+
+  @override
+  String get statementDate => 'Date du relevé';
 
   @override
   String get stock => 'Action';

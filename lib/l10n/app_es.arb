@@ -124,6 +124,7 @@
   "checkingOllamaStatus": "Verificando estado de Ollama...",
   "chooseAnOptionToGetStarted": "Elige una opción para comenzar:",
   "chooseColumns": "Elegir columnas",
+  "clearedBalance": "Saldo compensado",
   "clearFilters": "Limpiar filtros",
   "close": "Cerrar",
   "closedLabel": "Cerradas",
@@ -220,6 +221,7 @@
   "description": "Descripcion",
   "descriptionPayee": "Descripcion/Beneficiario",
   "details": "Detalles",
+  "difference": "Diferencia",
   "discardChanges": "Descartar",
   "dividend": "Dividendo",
   "dropFilesHere": "Arrastra archivos aquí",
@@ -306,6 +308,7 @@
   },
   "filter": "Filtro",
   "findMissingTransfers": "Encontrar transferencias faltantes",
+  "finish": "Finalizar",
   "fmoney": "fMoney",
   "@fmoney": {
     "description": "REVIEWED"
@@ -425,6 +428,7 @@
     "description": "REVIEWED"
   },
   "largestTransactions": "Transacciones más grandes",
+  "lastReconciled": "Última conciliación",
   "licenses": "Licencias",
   "licensesDescription": "fMoney está construido con software de código abierto. Consulta las licencias de todos los paquetes utilizados en esta aplicación.",
   "lifeTimePnl": "P&L de por vida",
@@ -550,6 +554,7 @@
   "navTransfers": "Transferencias",
   "navTransfersTooltip": "Ver transferencias entre cuentas",
   "networth": "Patrimonio neto",
+  "never": "Nunca",
   "newBankAccount": "Nueva cuenta bancaria",
   "newFile": "Nuevo archivo...",
   "newItemLabel": "Nuevo @item",
@@ -716,6 +721,17 @@
   "readMore": "Leer mas",
   "rebalanceMenuItem": "Reequilibrar...",
   "receiver": "Receptor",
+  "reconciledBalance": "Saldo conciliado",
+  "reconciledTransactionsCount": "{count} transacciones conciliadas",
+  "@reconciledTransactionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reconcileInstructions": "Marque con C cada transacción del extracto hasta que la diferencia sea cero.",
+  "reconcileWithStatement": "Conciliar con un extracto",
   "recordATransferBetweenTwoAccounts": "Convertir como transferencia",
   "recordTransfer": "Registrar transferencia",
   "recurring": "Recurrente",
@@ -832,6 +848,8 @@
     }
   },
   "splits": "Desdoblamientos",
+  "start": "Comenzar",
+  "statementDate": "Fecha del extracto",
   "stock": "Accion",
   "stocks": "Acciones",
   "stocksTrackingDescription": "Seguimiento de acciones.",
