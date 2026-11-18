@@ -1,4 +1,6 @@
 // ignore: fcheck_one_class_per_file
+import 'dart:math' as math;
+
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -13,6 +15,7 @@ const int _oneYearOffset = 1;
 const int _microsecondPadding = 1;
 const int _zeroInt = 0;
 const int _minDurationDays = 1;
+const int _minDurationMonths = 1;
 const int _daysPerMonthApprox = 30;
 const int _daysPerYear = 365;
 const int _compareLess = -1;
@@ -114,9 +117,11 @@ class DateRange {
     SharedStrings.durationDays,
   );
 
-  /// Returns the duration of the date range in months (approximate).
+  /// Returns the duration of the date range in months (approximate, 30-day months).
+  ///
+  /// Never less than 1, so callers can divide by it to get a per-month average.
   int get durationInMonths {
-    return durationInDays ~/ _daysPerMonthApprox; // Close enough
+    return math.max(_minDurationMonths, durationInDays ~/ _daysPerMonthApprox);
   }
 
   /// Returns the duration of the date range in years.

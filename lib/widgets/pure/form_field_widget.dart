@@ -59,6 +59,13 @@ class MyFormFieldForWidgetState extends State<MyFormFieldForWidget> {
     controller.value = TextEditingValue(text: widget.valueAsText);
   }
 
+  /// Releases the text controller owned by this state.
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Opacity(

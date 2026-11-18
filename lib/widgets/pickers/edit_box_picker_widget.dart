@@ -63,6 +63,13 @@ class PickerEditBoxState extends State<PickerEditBox> {
     _textController.text = widget.initialValue ?? '';
   }
 
+  /// Releases the text controller owned by this state.
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

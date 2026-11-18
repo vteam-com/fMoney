@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/views/screens/about_screen.dart';
+import 'package:money/widgets/state/preferences_controller.dart';
 
 void main() {
   group('About Page Tests', () {
@@ -114,6 +115,21 @@ void main() {
 
       // Should render version information section
       expect(find.byType(Card), findsNWidgets(3), reason: 'Should have all 3 sections rendered');
+    });
+
+    testWidgets('About page applies the user text zoom', (WidgetTester tester) async {
+      PreferenceController.to.textScale = 1.5;
+      addTearDown(() => PreferenceController.to.textScale = 1.0);
+
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: AboutPage(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final BuildContext appBarContext = tester.element(find.byType(AppBar));
+      expect(MediaQuery.textScalerOf(appBarContext), const TextScaler.linear(1.5));
     });
   });
 }

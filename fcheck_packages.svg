@@ -506,7 +506,7 @@
 </g>
 <g>
   <path d="M 337.0 2166.0 H 217.0 Q 211.0 2166.0 211.0 2172.0 V 5866.0 Q 211.0 5872.0 217.0 5872.0 H 517.0" class="edgeVertical"/>
-  <title>pdfrx -> pdfium_flutter v0.4.3</title>
+  <title>pdfrx -> pdfium_flutter v0.4.4</title>
 </g>
 <g>
   <path d="M 337.0 2078.0 H 214.0 Q 208.0 2078.0 208.0 2084.0 V 5802.0 Q 208.0 5808.0 214.0 5808.0 H 517.0" class="edgeVertical"/>
@@ -514,7 +514,7 @@
 </g>
 <g>
   <path d="M 337.0 2166.0 H 211.0 Q 205.0 2166.0 205.0 2172.0 V 5930.0 Q 205.0 5936.0 211.0 5936.0 H 517.0" class="edgeVertical"/>
-  <title>pdfrx -> pdfrx_engine v0.9.3</title>
+  <title>pdfrx -> pdfrx_engine v0.9.4</title>
 </g>
 <g>
   <path d="M 337.0 1374.0 H 208.0 Q 202.0 1374.0 202.0 1380.0 V 5226.0 Q 202.0 5232.0 208.0 5232.0 H 517.0" class="edgeVertical"/>
@@ -886,7 +886,7 @@
 </g>
 <g>
   <path d="M 797.0 5936.0 H 854.0 Q 860.0 5936.0 860.0 5942.0 V 9076.0 Q 860.0 9082.0 854.0 9082.0 H 517.0" class="edgeVertical"/>
-  <title>pdfrx_engine -> pdfium_dart v0.4.3</title>
+  <title>pdfrx_engine -> pdfium_dart v0.4.4</title>
 </g>
 <g>
   <path d="M 797.0 5296.0 H 857.0 Q 863.0 5296.0 863.0 5302.0 V 8500.0 Q 863.0 8506.0 857.0 8506.0 H 517.0" class="edgeVertical"/>
@@ -894,7 +894,7 @@
 </g>
 <g>
   <path d="M 797.0 5872.0 H 860.0 Q 866.0 5872.0 866.0 5878.0 V 9076.0 Q 866.0 9082.0 860.0 9082.0 H 517.0" class="edgeVertical"/>
-  <title>pdfium_flutter -> pdfium_dart v0.4.3</title>
+  <title>pdfium_flutter -> pdfium_dart v0.4.4</title>
 </g>
 <g>
   <path d="M 797.0 5616.0 H 863.0 Q 869.0 5616.0 869.0 5622.0 V 8948.0 Q 869.0 8954.0 863.0 8954.0 H 517.0" class="edgeVertical"/>
@@ -1910,11 +1910,11 @@
   <path d="M 523.0,5808.0 L 511.0,5801.0 Q 508.0,5801.0 508.0,5804.0 L 508.0,5812.0 Q 508.0,5815.0 511.0,5815.0 Z" fill="#3b82f6"/>
   <text x="512.68" y="5809.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. path_provider</title></g><g class="packageNode">
 <rect x="517.0" y="5846.0" width="280.0" height="52.0" rx="8.0" ry="8.0" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
-<g class="packageMetadataPill"><title>Flutter &gt;=3.47.0</title><rect x="618.2" y="5885.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="5890" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.47.0</text></g>
+<g class="packageMetadataPill"><title>Flutter &gt;=3.50.0</title><rect x="618.2" y="5885.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="5890" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.50.0</text></g>
 <g class="platformBadge platformBadge--ios"><title>iOS</title><rect x="642.0" y="5869.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#111827" stroke="#0f172a" stroke-width="0.6"/><text x="648.5" y="5876.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">I</text></g>
 <g class="platformBadge platformBadge--macos"><title>macOS</title><rect x="659.0" y="5869.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#475569" stroke="#334155" stroke-width="0.6"/><text x="665.5" y="5876.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">M</text></g>
 <text x="525.0" y="5864.0" class="packageLabelDerivedName packageLabelCaption" text-anchor="start">pdfium_flutter</text>
-<text x="789.0" y="5864.0" class="packageLabelDerivedVersion" text-anchor="end">^0.4.3</text>
+<text x="789.0" y="5864.0" class="packageLabelDerivedVersion" text-anchor="end">^0.4.4</text>
 </g>
 <g class="badge incomingBadge">
   <path d="M 523.0,5872.0 L 511.0,5865.0 Q 508.0,5865.0 508.0,5868.0 L 508.0,5876.0 Q 508.0,5879.0 511.0,5879.0 Z" fill="#3b82f6"/>
@@ -1922,10 +1922,10 @@
   <path d="M 803.0,5872.0 L 791.0,5865.0 Q 788.0,5865.0 788.0,5868.0 L 788.0,5876.0 Q 788.0,5879.0 791.0,5879.0 Z" fill="#10b981"/>
   <text x="792.68" y="5873.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. pdfium_dart</title></g><g class="packageNode">
 <rect x="517.0" y="5910.0" width="280.0" height="52.0" rx="8.0" ry="8.0" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
-<g class="packageMetadataPill"><title>Dart ^3.13.0</title><rect x="626.4" y="5949.0" width="61.199999999999996" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="5954" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart ^3.13.0</text></g>
-<g class="platformBadge platformBadge--dart"><title>Dart SDK ^3.13.0</title><rect x="643.0" y="5933.0" width="28.0" height="13.0" rx="6.5" ry="6.5" fill="#0175c2" stroke="#0369a1" stroke-width="0.6"/><text x="657.0" y="5939.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">Dart</text></g>
+<g class="packageMetadataPill"><title>Dart ^3.14.0</title><rect x="626.4" y="5949.0" width="61.199999999999996" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="5954" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart ^3.14.0</text></g>
+<g class="platformBadge platformBadge--dart"><title>Dart SDK ^3.14.0</title><rect x="643.0" y="5933.0" width="28.0" height="13.0" rx="6.5" ry="6.5" fill="#0175c2" stroke="#0369a1" stroke-width="0.6"/><text x="657.0" y="5939.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">Dart</text></g>
 <text x="525.0" y="5928.0" class="packageLabelDerivedName packageLabelCaption" text-anchor="start">pdfrx_engine</text>
-<text x="789.0" y="5928.0" class="packageLabelDerivedVersion" text-anchor="end">^0.9.3</text>
+<text x="789.0" y="5928.0" class="packageLabelDerivedVersion" text-anchor="end">^0.9.4</text>
 </g>
 <g class="badge incomingBadge">
   <path d="M 523.0,5936.0 L 511.0,5929.0 Q 508.0,5929.0 508.0,5932.0 L 508.0,5940.0 Q 508.0,5943.0 511.0,5943.0 Z" fill="#3b82f6"/>
@@ -2419,10 +2419,10 @@
   <path d="M 791.0,9018.0 L 803.0,9011.0 Q 806.0,9011.0 806.0,9014.0 L 806.0,9022.0 Q 806.0,9025.0 803.0,9025.0 Z" fill="#3b82f6"/>
   <text x="801.32" y="9019.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. vector_graphics_compiler</title></g><g class="packageNode">
 <rect x="517.0" y="9056.0" width="280.0" height="52.0" rx="8.0" ry="8.0" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
-<g class="packageMetadataPill"><title>Dart ^3.13.0</title><rect x="626.4" y="9095.0" width="61.199999999999996" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="9100" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart ^3.13.0</text></g>
-<g class="platformBadge platformBadge--dart"><title>Dart SDK ^3.13.0</title><rect x="643.0" y="9079.0" width="28.0" height="13.0" rx="6.5" ry="6.5" fill="#0175c2" stroke="#0369a1" stroke-width="0.6"/><text x="657.0" y="9085.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">Dart</text></g>
+<g class="packageMetadataPill"><title>Dart ^3.14.0</title><rect x="626.4" y="9095.0" width="61.199999999999996" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="9100" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart ^3.14.0</text></g>
+<g class="platformBadge platformBadge--dart"><title>Dart SDK ^3.14.0</title><rect x="643.0" y="9079.0" width="28.0" height="13.0" rx="6.5" ry="6.5" fill="#0175c2" stroke="#0369a1" stroke-width="0.6"/><text x="657.0" y="9085.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">Dart</text></g>
 <text x="525.0" y="9074.0" class="packageLabelDerivedName packageLabelCaption" text-anchor="start">pdfium_dart</text>
-<text x="789.0" y="9074.0" class="packageLabelDerivedVersion" text-anchor="end">^0.4.3</text>
+<text x="789.0" y="9074.0" class="packageLabelDerivedVersion" text-anchor="end">^0.4.4</text>
 </g>
 <g class="badge incomingBadge">
   <path d="M 791.0,9082.0 L 803.0,9075.0 Q 806.0,9075.0 806.0,9078.0 L 806.0,9086.0 Q 806.0,9089.0 803.0,9089.0 Z" fill="#3b82f6"/>

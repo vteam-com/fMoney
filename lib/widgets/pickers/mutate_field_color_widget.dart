@@ -26,6 +26,13 @@ class _MutateFieldColorState extends State<MutateFieldColor> {
     text: widget.colorAsHex,
   );
 
+  /// Releases the text controller owned by this state.
+  @override
+  void dispose() {
+    controllerForText.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     late Color color = getColorFromString(controllerForText.text);

@@ -31,6 +31,13 @@ class PickerEditBoxDateState extends State<PickerEditBoxDate> {
     _textController.text = widget.initialValue ?? '';
   }
 
+  /// Releases the text controller owned by this state.
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(

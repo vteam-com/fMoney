@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
+import 'package:money/widgets/components/app_scaffold_widget.dart';
 import 'package:money/widgets/components/text_title_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/state/theme_controller.dart';
@@ -49,12 +49,13 @@ class SettingsPage extends StatelessWidget {
     return AnimatedBuilder(
       animation: controllers,
       builder: (BuildContext context, Widget? _) {
-        return Scaffold(
-          appBar: AppBar(
+        return myScaffold(
+          context,
+          AppBar(
             title: TextTitle(AppL10n.tr(AppTranslationKeys.settings)),
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           ),
-          body: ListView(
+          ListView(
             padding: const EdgeInsets.all(SizeForPadding.large),
             children: <Widget>[
               _buildClosedAccountsCard(preferenceController),

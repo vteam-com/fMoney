@@ -141,14 +141,15 @@ class MyListViewState<T> extends State<MyListView<T>> {
                   onChanged: (bool? value) {
                     setState(() {
                       if (value == true) {
+                        // selectedItem notifies onSelectionChanged itself
                         selectedItem(itemInstance.uniqueId);
                       }
                       if (value == false) {
                         widget.selectedItemIds.value.remove(
                           itemInstance.uniqueId,
                         );
+                        widget.onSelectionChanged?.call(itemInstance.uniqueId);
                       }
-                      widget.onSelectionChanged?.call(itemInstance.uniqueId);
                       if (!kIsWeb) {
                         FocusScope.of(context).requestFocus();
                       }

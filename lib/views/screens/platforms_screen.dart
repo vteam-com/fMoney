@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/github_artifacts_service.dart';
+import 'package:money/widgets/components/app_scaffold_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const double _platformsPageWidth = 400.0;
@@ -30,9 +30,10 @@ class _PlatformsPageState extends State<PlatformsPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(AppL10n.tr(AppTranslationKeys.availableOn))),
-    body: Center(
+  Widget build(BuildContext context) => myScaffold(
+    context,
+    AppBar(title: Text(AppL10n.tr(AppTranslationKeys.availableOn))),
+    Center(
       child: SizedBox(
         width: _platformsPageWidth,
         child: SingleChildScrollView(

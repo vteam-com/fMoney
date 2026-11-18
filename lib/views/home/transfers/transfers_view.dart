@@ -182,14 +182,9 @@ class _ViewTransfersState extends ViewForMoneyObjectsState {
           if (transactionOfReceiver.fieldTransferSplit.value != -1) {
             logger.i('This is a split'); // Log split transactions.
           }
+          // Log the missing sender; without it there is no Transfer to list.
           logger.e(
             'related account not found ${transactionOfReceiver.uniqueId} ${transactionOfReceiver.fieldAmount.value}',
-          ); // Log missing sender.
-          _addTransferToList(
-            list: listOfTransfers,
-            transactionSender: transactionOfSender!, // Non-nullable, but logged as error above.
-            transactionReceiver: transactionOfReceiver,
-            isOrphan: true,
           );
         }
       }

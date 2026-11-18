@@ -40,6 +40,7 @@ class MyIconButtonState extends State<MyIconButton> {
           color: _isHovered ? widget.hoverColor : null,
         ),
         onPressed: widget.onPressed,
+        tooltip: widget.tooltip.isEmpty ? null : widget.tooltip,
       ),
     );
   }

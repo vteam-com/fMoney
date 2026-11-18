@@ -124,6 +124,21 @@ void main() {
     DataFileController.instance = null;
   });
 
+  testWidgets('getList skips a receiver whose sender transaction is missing instead of crashing', (
+    WidgetTester tester,
+  ) async {
+    final ViewForMoneyObjectsState state = await _pumpTransfers(tester, services);
+    final Account receiverAccount = _createAccount(name: 'Savings', isOpen: true);
+    final Transaction receiver = _createTransaction(
+      account: receiverAccount,
+      amount: 200.0,
+      date: DateTime(2025, 1, 10),
+    );
+    receiver.fieldTransfer.value = 987654; // no such transaction
+
+    expect(state.getList(applyFilter: false), isEmpty);
+  });
+
   testWidgets('getList returns one transfer for a valid sender/receiver pair', (WidgetTester tester) async {
     final ViewForMoneyObjectsState state = await _pumpTransfers(tester, services);
 

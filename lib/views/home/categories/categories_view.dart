@@ -299,7 +299,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
   double _getTotalBalanceOfAccounts(List<CategoryType> types) {
     double total = _zeroDouble;
     getList().forEach((Category category) {
-      if (types.isEmpty || category.fieldType.value == types.first) {
+      if (types.isEmpty || types.contains(category.fieldType.value)) {
         total += category.fieldSum.value.asDouble();
       }
     });

@@ -90,7 +90,7 @@ class Accounts extends MoneyObjects<Account> {
     for (final Transaction t in transactionsSortedByDate) {
       final Account? account = get(t.fieldAccountId.value);
       if (account != null) {
-        if (account.fieldType.value == AccountType.moneyMarket || account.fieldType.value == AccountType.investment) {
+        if (account.isInvestmentAccount()) {
           t.getOrCreateInvestment();
         }
 

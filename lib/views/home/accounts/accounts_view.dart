@@ -692,7 +692,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
               account.fieldName.value,
               showAsNativeCurrency
                   ? account.balance
-                  : account.fieldBalanceNormalized.getValueForDisplay(account) as num,
+                  : (account.fieldBalanceNormalized.getValueForDisplay(account) as AmountModel).asDouble(),
             ),
           );
         }

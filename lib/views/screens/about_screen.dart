@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/generated_app_version_data.dart';
+import 'package:money/widgets/components/app_scaffold_widget.dart';
 
 /// A page displaying app version information and licenses.
 class AboutPage extends StatelessWidget {
@@ -12,12 +12,13 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return myScaffold(
+      context,
+      AppBar(
         title: Text(AppL10n.tr(AppTranslationKeys.about)),
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       ),
-      body: SingleChildScrollView(
+      SingleChildScrollView(
         padding: const EdgeInsets.all(Constants.aboutPagePadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

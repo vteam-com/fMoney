@@ -54,7 +54,7 @@ class Box extends StatelessWidget {
       if (adjustedMargin == null) {
         adjustedMargin = increaseTopMarginBy;
       } else {
-        adjustedMargin.add(increaseTopMarginBy);
+        adjustedMargin = adjustedMargin.add(increaseTopMarginBy);
       }
     }
 
