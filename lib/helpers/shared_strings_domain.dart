@@ -55,22 +55,13 @@ abstract class SharedDomainStrings {
   static const String domainString017 = 'Amount';
 
   /// Domain string token.
-  static const String domainString018 = 'AuthToken';
-
-  /// Domain string token.
   static const String domainString019 = 'Balance';
-
-  /// Domain string token.
-  static const String domainString020 = 'BankId';
 
   /// Domain string token.
   static const String domainString021 = 'Begin';
 
   /// Domain string token.
   static const String domainString022 = 'Begins';
-
-  /// Domain string token.
-  static const String domainString023 = 'BranchId';
 
   /// Domain string token.
   static const String domainString024 = 'Budget';
@@ -157,13 +148,7 @@ abstract class SharedDomainStrings {
   static const String domainString051 = 'FITID';
 
   /// Domain string token.
-  static const String domainString052 = 'Fdic';
-
-  /// Domain string token.
   static const String domainString053 = 'Fees';
-
-  /// Domain string token.
-  static const String domainString054 = 'Flag';
 
   /// Domain string token.
   static const String domainString055 = 'Flags';
@@ -173,9 +158,6 @@ abstract class SharedDomainStrings {
 
   /// Domain string token.
   static const String domainString057 = 'Id';
-
-  /// Domain string token.
-  static const String domainString058 = 'Institution';
 
   /// Domain string token.
   static const String domainString059 = 'Interest';
@@ -283,13 +265,7 @@ abstract class SharedDomainStrings {
   static const String domainString093 = 'Numerator';
 
   /// Domain string token.
-  static const String domainString094 = 'Ofx';
-
-  /// Domain string token.
   static const String domainString095 = 'OfxAccountId';
-
-  /// Domain string token.
-  static const String domainString096 = 'OfxVersion';
 
   /// Domain string token.
   static const String domainString097 = 'Online Accounts';
@@ -308,9 +284,6 @@ abstract class SharedDomainStrings {
 
   /// Domain string token.
   static const String domainString102 = 'ParentId';
-
-  /// Domain string token.
-  static const String domainString103 = 'Password';
 
   /// Domain string token.
   static const String domainString104 = 'Pattern';
@@ -414,6 +387,9 @@ abstract class SharedDomainStrings {
   /// Domain string token.
   static const String domainString137 = 'Taxable';
 
+  /// Column name of the Securities taxable flag (stored uppercase, like CUSPID).
+  static const String columnSecurityTaxable = 'TAXABLE';
+
   /// Domain string token.
   static const String domainString138 = 'Taxes';
 
@@ -452,9 +428,6 @@ abstract class SharedDomainStrings {
 
   /// Domain string token.
   static const String domainString150 = 'Unknown';
-
-  /// Domain string token.
-  static const String domainString151 = 'UserId';
 
   /// Domain string token.
   static const String domainString152 = 'WebSite';

@@ -186,9 +186,17 @@ class Investment extends DataObject {
     columnWidth: ColumnWidth.tiny,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).symbol,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
+    // The symbol shown comes from fieldSecurity, so an edit points the investment at the
+    // existing security with that symbol; an unknown symbol leaves the investment unchanged.
     setValue: (DataInterface instance, dynamic value) {
-      (instance as Investment).stashValueBeforeEditing();
-      instance.fieldSecuritySymbol.value = value as String;
+      final Investment investment = instance as Investment;
+      final String symbol = value as String;
+      final DataObject? security = investment.data?.getSecurityBySymbol(symbol);
+      if (security != null) {
+        investment.stashValueBeforeEditing();
+        investment.fieldSecurity.value = security.uniqueId;
+        investment.fieldSecuritySymbol.value = symbol;
+      }
     },
   );
 

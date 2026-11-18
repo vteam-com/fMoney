@@ -3,6 +3,7 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/shared/domain/field_definition_cache_helper.dart';
 
 const int _unsetId = -1;
 
@@ -30,66 +31,45 @@ const int _unsetId = -1;
   20   UserKeyExpireDate  datetime        0                    0
  */
 
+/// Online-banking columns that fMoney does not edit: they are loaded as text and
+/// written back unchanged, in schema order, so saving and CSV export keep them.
+const List<String> _passThroughColumns = <String>[
+  'Institution',
+  'OFX',
+  'OfxVersion',
+  'FID',
+  'UserId',
+  'Password',
+  'UserCred1',
+  'UserCred2',
+  'AuthToken',
+  'BankId',
+  'BranchId',
+  'BrokerId',
+  'LogoUrl',
+  'AppId',
+  'AppVersion',
+  'ClientUid',
+  'AccessKey',
+  'UserKey',
+  'UserKeyExpireDate',
+];
+
 /// Represents online account.
 class OnlineAccount extends DataObject {
-  OnlineAccount({
-    required String name,
-    required this.institution,
-    required this.ofx,
-    required this.ofxVersion,
-    required this.fdic,
-    required this.userId,
-    required this.password,
-    required this.userCred1,
-    required this.userCred2,
-    required this.authToken,
-    required this.bankId,
-    required this.branchId,
-  }) {
+  OnlineAccount({required String name}) {
     this.fieldName.value = name;
   }
 
   /// Constructor from a SQLite row
   factory OnlineAccount.fromJson(MyJson row) {
-    return OnlineAccount(
-      // 1
-      name: row.getString(SharedDomainStrings.domainString088),
-      // 2
-      institution: row.getString(SharedDomainStrings.domainString058),
-      // 3
-      ofx: row.getString(SharedDomainStrings.domainString094),
-      // 4
-      ofxVersion: row.getString(SharedDomainStrings.domainString096),
-      // 5
-      fdic: row.getString(SharedDomainStrings.domainString052),
-      // 6
-      userId: row.getString(SharedDomainStrings.domainString151),
-      // 7
-      password: row.getString(SharedDomainStrings.domainString103),
-      // 8
-      userCred1: row.getString('UserCred1'),
-      // 9
-      userCred2: row.getString('UserCred2'),
-      // 10
-      authToken: row.getString(SharedDomainStrings.domainString018),
-      // 11
-      bankId: row.getString(SharedDomainStrings.domainString020),
-      // 12
-      branchId: row.getString(SharedDomainStrings.domainString023),
-    )..fieldId.value = row.getInt(SharedDomainStrings.domainString057, _unsetId);
+    final OnlineAccount account = OnlineAccount(name: row.getString(SharedDomainStrings.domainString088))
+      ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, _unsetId);
+    for (final FieldString field in account.passThroughFields) {
+      field.value = row[field.serializeName]?.toString() ?? '';
+    }
+    return account;
   }
-
-  // 10
-  final String authToken;
-
-  // 11
-  final String bankId;
-
-  // 12
-  final String branchId;
-
-  // 5
-  final String fdic;
 
   // 0
   FieldId fieldId = FieldId(
@@ -102,26 +82,19 @@ class OnlineAccount extends DataObject {
     getValueForSerialization: (DataInterface instance) => (instance as OnlineAccount).fieldName.value,
   );
 
-  // 2
-  final String institution;
-
-  // 3
-  final String ofx;
-
-  // 4
-  final String ofxVersion;
-
-  // 7
-  final String password;
-
-  // 8
-  final String userCred1;
-
-  // 9
-  final String userCred2;
-
-  // 6
-  final String userId;
+  /// Columns 2 to 20, one text field per entry of [_passThroughColumns]; empty values are saved as null.
+  late final List<FieldString> passThroughFields = List<FieldString>.generate(
+    _passThroughColumns.length,
+    (int index) => FieldString(
+      serializeName: _passThroughColumns[index],
+      useAsDetailPanels: defaultCallbackValueFalse,
+      columnWidth: ColumnWidth.hidden,
+      getValueForSerialization: (DataInterface instance) {
+        final String text = (instance as OnlineAccount).passThroughFields[index].value;
+        return text.isEmpty ? null : text;
+      },
+    ),
+  );
 
   // Fields for this instance
   @override
@@ -129,15 +102,19 @@ class OnlineAccount extends DataObject {
 
   static final Fields<OnlineAccount> _fields = Fields<OnlineAccount>();
 
-  /// Returns the field definitions for OnlineAccount entities.
-  static Fields<OnlineAccount> get fields {
-    if (_fields.isEmpty) {
-      final OnlineAccount tmp = OnlineAccount.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[tmp.fieldId, tmp.fieldName]);
-    }
+  /// Builds [OnlineAccount] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(OnlineAccount tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldName,
+    ...tmp.passThroughFields,
+  ];
 
-    return _fields;
-  }
+  /// Returns the field definitions for OnlineAccount entities.
+  static Fields<OnlineAccount> get fields => ensureCachedFieldDefinitions<OnlineAccount>(
+    cache: _fields,
+    instanceFactory: () => OnlineAccount.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 
   @override
   int get uniqueId => fieldId.value;

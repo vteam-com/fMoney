@@ -70,7 +70,7 @@ class Security extends DataObject {
       // 6
       securityType: row.getInt(SharedDomainStrings.domainString120),
       // 7
-      taxable: row.getInt(SharedDomainStrings.domainString137),
+      taxable: row.getInt(SharedDomainStrings.columnSecurityTaxable),
       // 8
       priceDate: row.getDate(SharedDomainStrings.domainString109),
     );
@@ -221,7 +221,8 @@ class Security extends DataObject {
   List<StockSplit> splitsHistory = <StockSplit>[];
   // 7
   FieldInt taxable = FieldInt(
-    serializeName: SharedDomainStrings.domainString137,
+    serializeName: SharedDomainStrings.columnSecurityTaxable,
+    useAsDetailPanels: defaultCallbackValueFalse,
     getValueForDisplay: (DataInterface instance) => (instance as Security).taxable.value,
   );
 
@@ -248,6 +249,7 @@ class Security extends DataObject {
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPrice, includeInColumnView: true),
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldLastPrice, includeInColumnView: true),
     FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldCuspid),
+    FieldBlueprint<Security>(selector: (Security tmp) => tmp.taxable),
     FieldBlueprint<Security>(
       selector: (Security tmp) => tmp.fieldSecurityType,
       includeInColumnView: true,

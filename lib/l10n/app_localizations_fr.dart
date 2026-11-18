@@ -1321,6 +1321,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get trend => 'Tendance';
 
   @override
+  String unableToOpenFile(String fileName) {
+    return 'Impossible d\'ouvrir $fileName';
+  }
+
+  @override
   String get units => 'Unites';
 
   @override

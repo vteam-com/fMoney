@@ -1,6 +1,7 @@
 import 'package:money/data/models/data_interface.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
+import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
@@ -56,7 +57,11 @@ class TransactionExtra extends DataObject {
   // 4
   FieldDate fieldTaxDate = FieldDate(
     serializeName: SharedDomainStrings.domainString133,
-    getValueForSerialization: (DataInterface instance) => (instance as TransactionExtra).fieldTaxDate.value,
+    // Text, like the other ISO dates, so SQL statements quote it; null stays NULL.
+    getValueForSerialization: (DataInterface instance) {
+      final DateTime? taxDate = (instance as TransactionExtra).fieldTaxDate.value;
+      return taxDate == null ? null : dateToIso8601OrDefaultString(taxDate);
+    },
   );
 
   // 2

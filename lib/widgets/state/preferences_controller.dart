@@ -209,6 +209,13 @@ class PreferenceController extends ChangeNotifier {
   /// Returns an integer value from preferences with optional default.
   int getInt(String key, [int defaultValueIfNotFound = 0]) => _preferences?.getInt(key) ?? defaultValueIfNotFound;
 
+  /// Returns the enum value stored by index under [key], or [fallback] when none is
+  /// stored or the stored index is no longer valid (for example after a value was removed).
+  T _getEnum<T extends Enum>(String key, List<T> values, T fallback) {
+    final int index = getInt(key, fallback.index);
+    return index >= 0 && index < values.length ? values[index] : fallback;
+  }
+
   // Retrieve a string value from preferences
   /// Returns a string value from preferences with optional default.
   String getString(String key, [String defaultValueIfNotFound = '']) =>
@@ -310,23 +317,12 @@ class PreferenceController extends ChangeNotifier {
     _includeRentalManagement = getBool(settingKeyRentalsSupport, false);
     _apiKeyForStocks = getString(settingKeyStockApiKey, '');
     _localeCode = getString(settingKeyLocale, SharedStrings.localeCodeEnglish);
+    _textScale = getDouble(settingKeyTextScale, _textScale);
     notifyListeners();
 
-    cashflowViewAs =
-        CashflowViewAs.values[getInt(
-          settingKeyCashflowView,
-          CashflowViewAs.sankey.index,
-        )];
-    budgetViewAsForIncomes =
-        BudgetViewAs.values[getInt(
-          settingKeyBudgetViewAsIncomes,
-          BudgetViewAs.list.index,
-        )];
-    budgetViewAsForExpenses =
-        BudgetViewAs.values[getInt(
-          settingKeyBudgetViewAsExpenses,
-          BudgetViewAs.list.index,
-        )];
+    cashflowViewAs = _getEnum(settingKeyCashflowView, CashflowViewAs.values, CashflowViewAs.sankey);
+    budgetViewAsForIncomes = _getEnum(settingKeyBudgetViewAsIncomes, BudgetViewAs.values, BudgetViewAs.list);
+    budgetViewAsForExpenses = _getEnum(settingKeyBudgetViewAsExpenses, BudgetViewAs.values, BudgetViewAs.list);
     cashflowRecurringOccurrences = getInt(
       settingKeyCashflowRecurringOccurrences,
       _defaultCashflowRecurringOccurrences,

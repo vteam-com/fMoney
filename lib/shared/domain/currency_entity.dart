@@ -3,6 +3,7 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/shared/domain/field_definition_cache_helper.dart';
 
 /*
   cid  name         type          notnull  default  pk
@@ -105,19 +106,20 @@ class Currency extends DataObject {
 
   static final Fields<Currency> _fields = Fields<Currency>();
 
+  /// Builds [Currency] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(Currency tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldSymbol,
+    tmp.fieldName,
+    tmp.fieldRatio,
+    tmp.fieldLastRatio,
+    tmp.fieldCultureCode,
+  ];
+
   /// Returns the field definitions for Currency entities.
-  static Fields<Currency> get fields {
-    if (_fields.isEmpty) {
-      final Currency tmp = Currency.fromJson(<String, dynamic>{});
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldSymbol,
-        tmp.fieldName,
-        tmp.fieldRatio,
-        tmp.fieldLastRatio,
-        tmp.fieldCultureCode,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<Currency> get fields => ensureCachedFieldDefinitions<Currency>(
+    cache: _fields,
+    instanceFactory: () => Currency.fromJson(<String, dynamic>{}),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 }

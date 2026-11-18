@@ -16,7 +16,7 @@ class DataSimulatorReferenceDataDomain {
     Data().accountAliases.appendNewMoneyObject(
       AccountAlias.fromJson(<String, dynamic>{
         'Pattern': SharedSimulationStrings.simPatternFoo,
-        'Flag': DataSimulatorConstants.defaultFlags,
+        'Flags': DataSimulatorConstants.defaultFlags,
         'AccountId': 'A12345',
       }),
       fireNotification: false,
@@ -24,7 +24,7 @@ class DataSimulatorReferenceDataDomain {
     Data().accountAliases.appendNewMoneyObject(
       AccountAlias.fromJson(<String, dynamic>{
         'Pattern': SharedSimulationStrings.simPatternBar,
-        'Flag': DataSimulatorConstants.defaultFlags,
+        'Flags': DataSimulatorConstants.defaultFlags,
         'AccountId': 'B987654',
       }),
       fireNotification: false,

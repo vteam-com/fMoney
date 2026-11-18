@@ -6,6 +6,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/field_definition_cache_helper.dart';
 
 /*
   cid  name         type      notnull  dflt_value  pk
@@ -108,24 +109,19 @@ class StockSplit extends DataObject {
 
   static final Fields<StockSplit> _fields = Fields<StockSplit>();
 
+  /// Builds [StockSplit] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(StockSplit tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldDate,
+    tmp.fieldSecurity,
+    tmp.fieldNumerator,
+    tmp.fieldDenominator,
+  ];
+
   /// Returns the field definitions for StockSplit entities.
-  static Fields<StockSplit> get fields {
-    if (_fields.isEmpty) {
-      // Create a temporary instance for field definitions - no data relationships needed
-      final StockSplit tmp = StockSplit._static(
-        date: null,
-        security: -1,
-        numerator: 1,
-        denominator: 1,
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldDate,
-        tmp.fieldSecurity,
-        tmp.fieldNumerator,
-        tmp.fieldDenominator,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<StockSplit> get fields => ensureCachedFieldDefinitions<StockSplit>(
+    cache: _fields,
+    instanceFactory: () => StockSplit._static(date: null, security: -1, numerator: 1, denominator: 1),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 }

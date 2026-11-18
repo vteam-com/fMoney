@@ -2512,6 +2512,12 @@ abstract class AppLocalizations {
   /// **'Trend'**
   String get trend;
 
+  /// No description provided for @unableToOpenFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to open {fileName}'**
+  String unableToOpenFile(String fileName);
+
   /// No description provided for @units.
   ///
   /// In en, this message translates to:

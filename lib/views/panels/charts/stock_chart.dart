@@ -355,7 +355,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
         'https://api.twelvedata.com/splits?symbol=$symbol&range=full&apikey=${PreferenceController.to.apiKeyForStocks}',
       );
 
-      final http.Response response = await http.get(uri);
+      final http.Response response = await http.get(uri).timeout(Constants.httpRequestTimeout);
 
       if (response.statusCode == _httpOkStatus) {
         try {
@@ -412,7 +412,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
     final Uri uri = Uri.parse(baseUrl).replace(queryParameters: queryParams);
 
     // Send the GET request to the Yahoo Finance API
-    final http.Response response = await http.get(uri);
+    final http.Response response = await http.get(uri).timeout(Constants.httpRequestTimeout);
 
     // Check if the request was successful
     if (response.statusCode == _httpOkStatus) {

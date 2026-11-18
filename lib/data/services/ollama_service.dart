@@ -13,6 +13,12 @@ import 'package:url_launcher/url_launcher.dart';
 const int _exitCodeSuccess = 0;
 const int _httpOkStatus = 200;
 const int _startupDelaySeconds = 5;
+
+/// How long to wait for the local Ollama server to accept a connection.
+const Duration _connectionTimeout = Duration(seconds: 5);
+
+/// How long a health check (listing models) may take in total.
+const Duration _healthCheckTimeout = Duration(seconds: 10);
 const String _defaultPathEnvKey = 'PATH';
 const String _windowsPathEnvKey = 'Path';
 const String _windowsProgramsDirName = 'Programs';
@@ -70,13 +76,7 @@ class OllamaService {
   /// Returns true if the local Ollama HTTP API is responding.
   static Future<bool> checkIfOllamaRunning() async {
     try {
-      final Uri ollamaUrl = Uri.parse('http://localhost:11434/api/tags');
-      final HttpClient client = HttpClient();
-      final HttpClientResponse response = await client
-          .getUrl(ollamaUrl)
-          .then((HttpClientRequest request) => request.close());
-
-      return (response.statusCode == _httpOkStatus);
+      return await _isServerResponding();
     } catch (e) {
       AppLogger.warning(
         module: 'ollama_service',
@@ -100,17 +100,12 @@ class OllamaService {
   /// Starts the Ollama service in the background if it is not already running.
   static Future<void> startOllama() async {
     try {
-      final HttpClient client = HttpClient();
       try {
-        final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-        final HttpClientResponse response = await request.close();
-        if (response.statusCode == _httpOkStatus) {
+        if (await _isServerResponding()) {
           return;
         }
       } catch (_) {
         // Not running, we'll launch it
-      } finally {
-        client.close();
       }
 
       final String? ollamaExecutablePath = await _resolveOllamaExecutablePath();
@@ -152,19 +147,13 @@ class OllamaService {
 
       await Future<dynamic>.delayed(const Duration(seconds: _startupDelaySeconds));
 
-      final HttpClient verifyClient = HttpClient();
-      final HttpClientRequest verifyRequest = await verifyClient.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-      final HttpClientResponse verifyResponse = await verifyRequest.close();
-
-      if (verifyResponse.statusCode != _httpOkStatus) {
+      if (!await _isServerResponding()) {
         AppLogger.warning(
           module: 'ollama_service',
           operation: 'startOllama',
           message: 'Ollama started but not responding correctly',
         );
       }
-
-      verifyClient.close();
     } catch (e) {
       AppLogger.error(
         module: 'ollama_service',
@@ -177,11 +166,13 @@ class OllamaService {
   /// Loads the list of available models from the local Ollama API.
   static Future<List<Map<String, dynamic>>> loadAvailableModels() async {
     try {
-      final HttpClient client = HttpClient();
-      final HttpClientRequest request = await client.getUrl(Uri.parse('http://localhost:11434/api/tags'));
-      final HttpClientResponse response = await request.close();
-      if (response.statusCode == _httpOkStatus) {
-        final String responseBody = await response.transform(utf8.decoder).join();
+      final (int statusCode, String responseBody) = await _withClient(
+        (HttpClient client) async {
+          final HttpClientResponse response = await (await client.getUrl(_tagsUri)).close();
+          return (response.statusCode, await response.transform(utf8.decoder).join());
+        },
+      ).timeout(_healthCheckTimeout);
+      if (statusCode == _httpOkStatus) {
         final Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
         final List<dynamic> models = jsonResponse['models'] as List<dynamic>;
         availableModels.clear();
@@ -278,54 +269,77 @@ class OllamaService {
   static Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) async {
     const String endpoint = 'generate'; // Use /api/generate for context support instead of /api/chat
     final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
-    final HttpClient client = HttpClient();
-    final HttpClientRequest request = await client.postUrl(generateUrl);
-    request.headers.contentType = ContentType.json;
+    return _withClient((HttpClient client) async {
+      final HttpClientRequest request = await client.postUrl(generateUrl);
+      request.headers.contentType = ContentType.json;
 
-    // Convert messages format if needed for /api/generate
-    if (endpoint == 'generate' && payload.containsKey(SharedStrings.payloadKeyMessages)) {
-      final List<Map<String, String>> messages = payload[SharedStrings.payloadKeyMessages] as List<Map<String, String>>;
-      // Combine messages into a single prompt for /api/generate
-      final StringBuffer prompt = StringBuffer();
-      for (final Map<String, String> message in messages) {
-        final String role = message['role'] ?? '';
-        final String content = message['content'] ?? '';
-        if (role == 'system') {
-          prompt.write(SharedStrings.promptPrefixSystem + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
-        } else if (role == 'user') {
-          prompt.write(SharedStrings.promptPrefixUser + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
-        } else if (role == 'assistant') {
-          prompt.write(SharedStrings.promptPrefixAssistant + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
+      // Convert messages format if needed for /api/generate
+      if (endpoint == 'generate' && payload.containsKey(SharedStrings.payloadKeyMessages)) {
+        final List<Map<String, String>> messages =
+            payload[SharedStrings.payloadKeyMessages] as List<Map<String, String>>;
+        // Combine messages into a single prompt for /api/generate
+        final StringBuffer prompt = StringBuffer();
+        for (final Map<String, String> message in messages) {
+          final String role = message['role'] ?? '';
+          final String content = message['content'] ?? '';
+          if (role == 'system') {
+            prompt.write(SharedStrings.promptPrefixSystem + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
+          } else if (role == 'user') {
+            prompt.write(SharedStrings.promptPrefixUser + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
+          } else if (role == 'assistant') {
+            prompt.write(
+              SharedStrings.promptPrefixAssistant + content + SharedStrings.lineFeed + SharedStrings.lineFeed,
+            );
+          }
         }
+
+        // Create new payload for /api/generate
+        final Map<String, dynamic> generatePayload = <String, dynamic>{
+          'model': payload['model'],
+          'prompt': prompt.toString(),
+          'stream': false,
+        };
+
+        // Add context if present
+        if (payload.containsKey(SharedStrings.payloadKeyContext)) {
+          generatePayload[SharedStrings.payloadKeyContext] = payload[SharedStrings.payloadKeyContext];
+        }
+
+        final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
+        request.add(utf8Body);
+      } else {
+        final List<int> utf8Body = utf8.encode(jsonEncode(payload));
+        request.add(utf8Body);
       }
 
-      // Create new payload for /api/generate
-      final Map<String, dynamic> generatePayload = <String, dynamic>{
-        'model': payload['model'],
-        'prompt': prompt.toString(),
-        'stream': false,
-      };
-
-      // Add context if present
-      if (payload.containsKey(SharedStrings.payloadKeyContext)) {
-        generatePayload[SharedStrings.payloadKeyContext] = payload[SharedStrings.payloadKeyContext];
+      final HttpClientResponse response = await request.close();
+      final String responseBody = await response.transform(utf8.decoder).join();
+      if (response.statusCode != _httpOkStatus) {
+        throw Exception('HTTP ${response.statusCode}: $responseBody');
       }
-
-      final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
-      request.add(utf8Body);
-    } else {
-      final List<int> utf8Body = utf8.encode(jsonEncode(payload));
-      request.add(utf8Body);
-    }
-
-    final HttpClientResponse response = await request.close();
-    final String responseBody = await response.transform(utf8.decoder).join();
-    if (response.statusCode == _httpOkStatus) {
-      client.close();
       return jsonDecode(responseBody) as Map<String, dynamic>;
-    } else {
+    });
+  }
+
+  /// Local Ollama endpoint that lists installed models; also used as a health check.
+  static final Uri _tagsUri = Uri.parse('http://localhost:11434/api/tags');
+
+  /// Returns true when the local Ollama API answers the model list request in time.
+  static Future<bool> _isServerResponding() {
+    return _withClient((HttpClient client) async {
+      final HttpClientResponse response = await (await client.getUrl(_tagsUri)).close();
+      await response.drain<void>();
+      return response.statusCode == _httpOkStatus;
+    }).timeout(_healthCheckTimeout);
+  }
+
+  /// Runs [action] with a new [HttpClient] that times out when connecting and is always closed.
+  static Future<T> _withClient<T>(Future<T> Function(HttpClient client) action) async {
+    final HttpClient client = HttpClient()..connectionTimeout = _connectionTimeout;
+    try {
+      return await action(client);
+    } finally {
       client.close();
-      throw Exception('HTTP ${response.statusCode}: $responseBody');
     }
   }
 

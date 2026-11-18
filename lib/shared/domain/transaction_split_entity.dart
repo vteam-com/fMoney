@@ -9,6 +9,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
+import 'package:money/shared/domain/field_definition_cache_helper.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
@@ -209,36 +210,35 @@ class TransactionSplit extends DataObject {
   /// Returns the category name for this split.
   String get categoryName => data.getCategoryNameFromId(fieldCategoryId.value);
 
+  /// Builds [TransactionSplit] field definitions for cache initialization.
+  static FieldDefinitions _buildFieldDefinitions(TransactionSplit tmp) => <Field<dynamic>>[
+    tmp.fieldId,
+    tmp.fieldTransactionId,
+    tmp.fieldPayeeId,
+    tmp.fieldCategoryId,
+    tmp.fieldMemo,
+    tmp.fieldAmount,
+    tmp.fieldTransferId,
+    tmp.fieldFlags,
+    tmp.fieldBudgetBalanceDate,
+  ];
+
   /// Returns the field definitions for TransactionSplit entities.
-  static Fields<TransactionSplit> get fields {
-    if (_fields.isEmpty) {
-      // For static fields, we create a dummy instance without data
-      // The fields are just for metadata and won't use data-dependent functionality
-      final TransactionSplit tmp = TransactionSplit._static(
-        id: _unsetId,
-        transactionId: _unsetId,
-        categoryId: _unsetId,
-        payeeId: _unsetId,
-        amount: _zeroDouble,
-        transferId: _unsetId,
-        memo: '',
-        flags: _zeroInt,
-        budgetBalanceDate: null,
-      );
-      _fields.setDefinitions(<Field<dynamic>>[
-        tmp.fieldId,
-        tmp.fieldTransactionId,
-        tmp.fieldPayeeId,
-        tmp.fieldCategoryId,
-        tmp.fieldMemo,
-        tmp.fieldAmount,
-        tmp.fieldTransferId,
-        tmp.fieldFlags,
-        tmp.fieldBudgetBalanceDate,
-      ]);
-    }
-    return _fields;
-  }
+  static Fields<TransactionSplit> get fields => ensureCachedFieldDefinitions<TransactionSplit>(
+    cache: _fields,
+    instanceFactory: () => TransactionSplit._static(
+      id: _unsetId,
+      transactionId: _unsetId,
+      categoryId: _unsetId,
+      payeeId: _unsetId,
+      amount: _zeroDouble,
+      transferId: _unsetId,
+      memo: '',
+      flags: _zeroInt,
+      budgetBalanceDate: null,
+    ),
+    definitionsBuilder: _buildFieldDefinitions,
+  );
 
   /// Returns the parent transaction for this split.
   dynamic getTransferTransaction() {

@@ -30,13 +30,15 @@ class GitHubArtifactsService {
   /// Gets URLs from the latest GitHub release
   static Future<Map<String, String>> _getLatestReleaseUrls() async {
     try {
-      final http.Response response = await http.get(
-        Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/releases/latest'),
-        headers: <String, String>{
-          'Accept': SharedStrings.githubApiAcceptV3Json,
-          'User-Agent': 'fMoney-App',
-        },
-      );
+      final http.Response response = await http
+          .get(
+            Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/releases/latest'),
+            headers: <String, String>{
+              'Accept': SharedStrings.githubApiAcceptV3Json,
+              'User-Agent': 'fMoney-App',
+            },
+          )
+          .timeout(Constants.httpRequestTimeout);
 
       if (response.statusCode != Constants.httpStatusOk) {
         throw Exception('Failed to fetch latest release: ${response.statusCode}');
@@ -71,15 +73,17 @@ class GitHubArtifactsService {
   static Future<Map<String, String>> _getWorkflowArtifactUrls() async {
     try {
       // Get the latest successful workflow run for main branch
-      final http.Response workflowResponse = await http.get(
-        Uri.parse(
-          '$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/workflows/builds.yml/runs?branch=main&status=success&per_page=1',
-        ),
-        headers: <String, String>{
-          'Accept': SharedStrings.githubApiAcceptV3Json,
-          'User-Agent': 'fMoney-App',
-        },
-      );
+      final http.Response workflowResponse = await http
+          .get(
+            Uri.parse(
+              '$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/workflows/builds.yml/runs?branch=main&status=success&per_page=1',
+            ),
+            headers: <String, String>{
+              'Accept': SharedStrings.githubApiAcceptV3Json,
+              'User-Agent': 'fMoney-App',
+            },
+          )
+          .timeout(Constants.httpRequestTimeout);
 
       if (workflowResponse.statusCode != Constants.httpStatusOk) {
         throw Exception('Failed to fetch workflow runs: ${workflowResponse.statusCode}');
@@ -96,13 +100,15 @@ class GitHubArtifactsService {
       final int runId = latestRun['id'] as int;
 
       // Get artifacts for this run
-      final http.Response artifactsResponse = await http.get(
-        Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/runs/$runId/artifacts'),
-        headers: <String, String>{
-          'Accept': SharedStrings.githubApiAcceptV3Json,
-          'User-Agent': 'fMoney-App',
-        },
-      );
+      final http.Response artifactsResponse = await http
+          .get(
+            Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/runs/$runId/artifacts'),
+            headers: <String, String>{
+              'Accept': SharedStrings.githubApiAcceptV3Json,
+              'User-Agent': 'fMoney-App',
+            },
+          )
+          .timeout(Constants.httpRequestTimeout);
 
       if (artifactsResponse.statusCode != Constants.httpStatusOk) {
         throw Exception('Failed to fetch artifacts: ${artifactsResponse.statusCode}');

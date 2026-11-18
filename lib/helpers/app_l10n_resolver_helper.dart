@@ -891,6 +891,8 @@ String _resolveAppL10nKeyStageFour(L10n l10n, String key, L10nParams p) {
         p['fileType'] ?? '',
         p['account'] ?? '',
       );
+    case AppTranslationKeys.unableToOpenFile:
+      return l10n.unableToOpenFile(p['fileName'] ?? '');
     case AppTranslationKeys.units:
       return l10n.units;
     case AppTranslationKeys.errorInvalidResponseFromOllama:

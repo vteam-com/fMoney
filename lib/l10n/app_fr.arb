@@ -876,6 +876,14 @@
     }
   },
   "trend": "Tendance",
+  "unableToOpenFile": "Impossible d'ouvrir {fileName}",
+  "@unableToOpenFile": {
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
   "units": "Unites",
   "unknown": "Inconnu",
   "unselectAllCount": "Tout désélectionner {count}",

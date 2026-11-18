@@ -264,7 +264,7 @@ class Account extends DataObject {
     useAsDetailPanels: defaultCallbackValueFalse,
     getValueForSerialization: (DataInterface instance) =>
         // this field can not be blank, it needs to be a valid GUID or Null
-        (instance as Account).fieldSyncGuid.value.isEmpty ? null : instance.fieldSyncGuid.value.isEmpty,
+        (instance as Account).fieldSyncGuid.value.isEmpty ? null : instance.fieldSyncGuid.value,
   );
 
   // Type of account

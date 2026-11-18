@@ -432,5 +432,6 @@ abstract class AppTranslationKeys {
   static const String totalTransactionAmount = 'totalTransactionAmount';
   static const String transactionsAddedCount = 'transactionsAddedCount';
   static const String transactionsFoundInFileToImport = 'transactionsFoundInFileToImport';
+  static const String unableToOpenFile = 'unableToOpenFile';
   static const String units = 'units';
 }

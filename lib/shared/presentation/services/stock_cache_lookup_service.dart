@@ -53,9 +53,12 @@ Future<StockPriceHistoryCache> getFromCacheOrBackend(String symbol) async {
 }
 
 /// Loads stock price history from the backend and stores the results in the local cache.
+///
+/// The cache is keyed by the lowercase symbol, the same key [getFromCacheOrBackend] reads.
 Future<StockPriceHistoryCache> loadFomBackendAndSaveToCache(
-  String symbol,
+  String symbolAsTyped,
 ) async {
+  final String symbol = symbolAsTyped.toLowerCase();
   final StockPriceHistoryCache result = await _loadFromBackend(symbol);
   if (result.errorMessage.isNotEmpty) {
     SnackBarService.displayError(
@@ -68,7 +71,7 @@ Future<StockPriceHistoryCache> loadFomBackendAndSaveToCache(
       await _saveToCache(symbol, result.prices);
       return await _loadFromCache(symbol);
     case StockLookupStatus.invalidSymbol:
-      _saveToCacheInvalidSymbol(symbol);
+      await _saveToCacheInvalidSymbol(symbol);
     default:
   }
   return result;
@@ -158,7 +161,7 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
     return result;
   }
 
-  final http.Response response = await http.get(uri);
+  final http.Response response = await http.get(uri).timeout(Constants.httpRequestTimeout);
 
   if (response.statusCode == _httpOk) {
     try {
@@ -203,9 +206,12 @@ Future<StockPriceHistoryCache> _loadFromBackend(String symbol) async {
       }
     } catch (error) {
       logger.e(error.toString());
+      // unexpected payload: do not cache it as a valid (empty) price history
+      result.status = StockLookupStatus.error;
     }
   } else {
     result.errorMessage = response.body.toString();
+    result.status = StockLookupStatus.error;
   }
   return result;
 }

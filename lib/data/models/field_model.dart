@@ -81,6 +81,7 @@ class Field<T> {
         );
       } else {
         getValueForDisplay = (DataInterface _) => defaultDisplay(value);
+        _displaysOwnValue = true;
       }
     }
 
@@ -90,6 +91,7 @@ class Field<T> {
       // if there's no override function
       // apply the same data value to serial
       getValueForSerialization = getValueForDisplay;
+      _serializesDisplayValue = true;
     }
 
     ///----------------------------------------------
@@ -134,6 +136,27 @@ class Field<T> {
   int Function(DataInterface, DataInterface, bool)? sort;
 
   late T _value;
+
+  /// True when [getValueForDisplay] is the default callback, which reads this field's own [value].
+  bool _displaysOwnValue = false;
+
+  /// True when [getValueForSerialization] is the default callback, which reuses [getValueForDisplay].
+  bool _serializesDisplayValue = false;
+
+  /// Makes the default display and serialization callbacks read the matching field of each row.
+  ///
+  /// Field definitions come from one template instance and are shared by every row, so a
+  /// field declared without callbacks would otherwise show and save the template's value.
+  /// [fieldOf] returns, for a row, the field that this definition describes.
+  void bindToRows(Field<dynamic> Function(DataInterface row) fieldOf) {
+    final dynamic Function(dynamic)? defaultDisplay = type.defaultDisplayConverter;
+    if (_displaysOwnValue && defaultDisplay != null) {
+      getValueForDisplay = (DataInterface row) => defaultDisplay(fieldOf(row).value);
+    }
+    if (_serializesDisplayValue) {
+      getValueForSerialization = getValueForDisplay;
+    }
+  }
 
   /// Returns the best name to use for this field in headers and CSV output.
   String getBestFieldDescribingName() {
@@ -450,7 +473,8 @@ class Fields<T> {
         if (fieldDefinition.getValueForReading == null) {
           return fieldDefinition.getValueForSerialization(objectInstance).toString().toLowerCase();
         } else {
-          return fieldDefinition.getValueForReading!(objectInstance) as String;
+          // lowercase like the other branches: free-text search lowercases what the user typed
+          return fieldDefinition.getValueForReading!(objectInstance).toString().toLowerCase();
         }
 
       case FieldType.date:

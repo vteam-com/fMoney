@@ -119,6 +119,9 @@ class Constants {
   static const double aboutVersionSpacing = 12.0;
   static const double aboutLicenseIconSize = 48.0;
   static const int httpStatusOk = 200;
+
+  /// Longest wait for a web request (stock prices, GitHub releases) before giving up.
+  static const Duration httpRequestTimeout = Duration(seconds: 30);
   static String untitledFileName = 'Untitled';
   static String viewStockFieldNameAccount = 'Account';
   static String viewStockFieldNameSymbol = 'Symbol';

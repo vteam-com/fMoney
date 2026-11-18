@@ -94,9 +94,13 @@ class DataFileController extends ChangeNotifier {
     return MyFileSystems.append('.', defaultFileName);
   }
 
+  /// True when the current data came from (or was saved to) a real file, not a new "Untitled" one.
+  bool get hasRealFilePath =>
+      currentLoadedFileName.value.isNotEmpty && currentLoadedFileName.value != Constants.untitledFileName;
+
   /// Generates next folder path for saving based on current file location.
   Future<String> generateNextFolderToSaveTo() async {
-    if (currentLoadedFileName.value.isNotEmpty && currentLoadedFileName.value != Constants.untitledFileName) {
+    if (hasRealFilePath) {
       final String extension = p.extension(currentLoadedFileName.value);
       if (extension == '.mmcsv' || extension == '.mmdb') {
         return p.dirname(currentLoadedFileName.value);
@@ -275,7 +279,7 @@ class DataFileController extends ChangeNotifier {
   Future<bool> onSaveToSql() async {
     String fileNameAndPath = currentLoadedFileName.value;
 
-    if (fileNameAndPath.isEmpty) {
+    if (!hasRealFilePath) {
       // this happens if the user started with a new file and click save to SQL
       fileNameAndPath = await defaultFolderToSaveTo('mymoney.mmdb');
     }
@@ -292,7 +296,10 @@ class DataFileController extends ChangeNotifier {
       },
     );
 
-    DataAccess.addToMRU(fileNameAndPath);
+    if (result) {
+      // a new file now has a real path; also records it in the recent files
+      setCurrentFileName(fileNameAndPath);
+    }
     return result;
   }
 

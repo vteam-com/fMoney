@@ -177,10 +177,11 @@ void main() {
       expect(matches(_fieldReadingItem(FieldType.quantity), 1.50, '1.50'), isFalse);
     });
 
-    test('widget uses the reading text as-is, or the lower-cased serialization', () {
+    test('widget uses the lower-cased reading text, or the lower-cased serialization', () {
+      // the view lowercases the search text, so the reading text is lowercased too
       final Field<dynamic> withReading = _fieldReadingItem(FieldType.widget, reading: (DataObject _) => 'MiXed');
-      expect(matches(withReading, null, 'mixed'), isFalse);
-      expect(matches(withReading, null, 'MiXed'), isTrue);
+      expect(matches(withReading, null, 'mixed'), isTrue);
+      expect(matches(withReading, null, 'MiXed'), isFalse);
       expect(matches(_fieldReadingItem(FieldType.widget), 'ABC', 'abc'), isTrue);
     });
   });

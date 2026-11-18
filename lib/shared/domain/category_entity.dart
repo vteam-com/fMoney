@@ -81,6 +81,7 @@ class Category extends DataObject {
   /// 7|Balance|money|0||0
   FieldMoney fieldBudgetBalance = FieldMoney(
     name: 'BudgetBalance',
+    serializeName: SharedDomainStrings.domainString019,
     getValueForDisplay: (DataInterface instance) => (instance as Category).fieldBudgetBalance.value,
     getValueForSerialization: (DataInterface instance) => (instance as Category).fieldBudgetBalance.value.asDouble(),
   );

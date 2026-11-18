@@ -7,6 +7,8 @@ import 'package:archive/archive.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_source_model.dart';
 import 'package:money/data/storages/database_storage.dart';
+import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/file_systems_service.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -27,13 +29,22 @@ class MoneyDataIO {
         // Sqlite
         case SharedStrings.fileExtensionMmdb:
           // Load from SQLite
-          if (await loadFromSql(
+          if (!await loadFromSql(
             data,
             filePath: dateSource.filePath,
             fileBytes: dateSource.fileBytes,
           )) {
-            DataAccess.addToMRU(dateSource.filePath);
+            // the file is missing or unreadable: report it instead of opening empty data
+            SnackBarService.displayWarning(
+              autoDismiss: false,
+              message: AppL10n.tr(
+                AppTranslationKeys.unableToOpenFile,
+                params: <String, String>{'fileName': dateSource.filePath},
+              ),
+            );
+            return false;
           }
+          DataAccess.addToMRU(dateSource.filePath);
         case SharedStrings.fileExtensionMmcsv:
           // Zip CSV files
           await loadFromZippedCsv(data, dateSource.filePath, dateSource.fileBytes);

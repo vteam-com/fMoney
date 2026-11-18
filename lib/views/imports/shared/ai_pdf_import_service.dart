@@ -30,17 +30,29 @@ class AiPdfImportService {
       rawText: extractedText,
       filePath: filePath,
     );
-    final bool ollamaReady = await _ensureOllamaReady();
-    final List<String> aiAccountHints = await _extractAccountHintsWithOllama(
-      pdfText: extractedText,
-      ollamaReady: ollamaReady,
-    );
+    List<String> aiAccountHints = <String>[];
+    BankStatementParseResult? aiStatement;
+    try {
+      final bool ollamaReady = await _ensureOllamaReady();
+      aiAccountHints = await _extractAccountHintsWithOllama(
+        pdfText: extractedText,
+        ollamaReady: ollamaReady,
+      );
+      aiStatement = await _reviewStatementWithOllama(
+        filePath: filePath,
+        pdfText: extractedText,
+        ollamaReady: ollamaReady,
+      );
+    } catch (error, stackTrace) {
+      // The AI review is optional: when Ollama fails, keep the heuristic result.
+      AppLogger.error(
+        module: 'ai_pdf_import_service',
+        operation: 'parsePdfStatement',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
 
-    final BankStatementParseResult? aiStatement = await _reviewStatementWithOllama(
-      filePath: filePath,
-      pdfText: extractedText,
-      ollamaReady: ollamaReady,
-    );
     if (aiStatement != null) {
       return _copyStatementWithMergedAccountHints(
         statement: aiStatement,

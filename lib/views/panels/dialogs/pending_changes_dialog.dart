@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -48,20 +49,23 @@ class PendingChangesDialog extends StatefulWidget {
         child: PendingChangesDialog(),
       ),
       actionButtons: <Widget>[
-        DialogActionButton(
-          text: AppL10n.tr(AppTranslationKeys.saveToSql),
-          onPressed: () {
-            DataFileController.to.onSaveToSql();
-            Navigator.of(context).pop(true);
-          },
-        ),
-        DialogActionButton(
-          text: AppL10n.tr(AppTranslationKeys.saveToCsv),
-          onPressed: () {
-            DataFileController.to.onSaveToCsv();
-            Navigator.of(context).pop(true);
-          },
-        ),
+        // Saving writes local files, which the web build cannot do (same rule as the app bar File menu)
+        if (!kIsWeb) ...<Widget>[
+          DialogActionButton(
+            text: AppL10n.tr(AppTranslationKeys.saveToSql),
+            onPressed: () {
+              DataFileController.to.onSaveToSql();
+              Navigator.of(context).pop(true);
+            },
+          ),
+          DialogActionButton(
+            text: AppL10n.tr(AppTranslationKeys.saveToCsv),
+            onPressed: () {
+              DataFileController.to.onSaveToCsv();
+              Navigator.of(context).pop(true);
+            },
+          ),
+        ],
       ],
     );
   }

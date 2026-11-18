@@ -41,12 +41,13 @@ class LoanPayment extends DataObject {
     String reference = '',
     AccountOperations? data,
   }) {
-    if (data != null) {
-      this.data = data;
-      accountInstance = data.getAccount(this.fieldAccountId.value) as Account?;
-    }
     this.fieldId.value = id;
     this.fieldAccountId.value = accountId;
+    if (data != null) {
+      this.data = data;
+      // after fieldAccountId is set, so the lookup uses this payment's account
+      accountInstance = data.getAccount(accountId) as Account?;
+    }
     this.fieldDate.value = date;
     this.fieldMemo.value = memo;
     this.fieldPrincipal.value.setAmount(principal);

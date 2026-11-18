@@ -25,7 +25,7 @@ class AccountAlias extends DataObject {
     return AccountAlias()
       ..fieldId.value = row.getInt(SharedDomainStrings.domainString057, -1)
       ..fieldPattern.value = row.getString(SharedDomainStrings.domainString104)
-      ..fieldFlags.value = row.getInt(SharedDomainStrings.domainString054, 0)
+      ..fieldFlags.value = row.getInt(SharedDomainStrings.domainString055, 0)
       ..fieldAccountId.value = row.getString(SharedDomainStrings.domainString013);
   }
 
