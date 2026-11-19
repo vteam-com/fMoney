@@ -1,434 +1,224 @@
-# fMoney - Flutter edition
+# fMoney
 
-From the MoneyTools vTeam, we bring you the flutter edition of the MyMoney.net app
+fMoney is a free, open-source personal finance app from the MoneyTools vTeam. It is the Flutter edition of [MyMoney.Net](https://github.com/MoneyTools/MyMoney.Net) and opens the same `.mmdb` files.
 
-The app uses Flutter's built-in state management and navigation primitives, primarily `ChangeNotifier`, `ValueNotifier`, `ListenableBuilder`, and `Navigator`.
+It runs on macOS, Windows and Linux, and in a web browser. Your data stays in a file on your own computer.
 
-## Getting Started
-
-### GitHub
-
-- <https://github.com/MoneyTools/MoneyFlutter>
-This is the Flutter app, you will need to install the Flutter/Dart frameWork and an IDE, we suggest VSCode.
-
-## Install tools
-
-- ### VSCode
-
-  - <https://code.visualstudio.com/download>
-
-- ### Flutter * Dart
-
-  - <https://docs.flutter.dev/get-started/install>
-
-### Build, Run the app and when stared tap/click "Use Demo Data"
-
-1. Open the root folder in VSCode
-  
-2. Select a client, the app can builds and run on these Flutter supported platforms
-
-   - iOS
-   - Android
-   - MacOS
-   - Windows
-   - Web
-   - Linux
-
-## Demo version
-
-<https://money.vteam.com>
-
-## Main UI
+- Desktop downloads: <https://github.com/vteam-com/fMoney/releases/latest>
+- Web version: <https://money.vteam.com>
+- Source: <https://github.com/vteam-com/fMoney>
 
 ![overview.svg](documentation%2Foverview.svg)
 
-## AI Assistant Feature
+## Features
 
-The fMoney app now includes a powerful AI assistant powered by Ollama, providing intelligent insights into your financial data.
+- Accounts, transactions, splits, transfers and reconciliation
+- Categories, payees, and aliases that rename payees by pattern
+- Cash flow, investments, stocks, rentals and events
+- Import from QFX/OFX, QIF, CSV, Excel (XLSX) and PDF bank statements
+- An optional AI assistant that runs on your machine with [Ollama](https://ollama.com)
+- English, French and Spanish
 
-### Getting Started with AI
+## Try it in your browser
 
-1. **Install Ollama**: Follow the instructions in the app to install Ollama on your system
-2. **Download Models**: The AI assistant uses various language models (LLaMA, etc.) for analysis
-3. **Start Using**: Access the AI assistant from the main navigation
+Open <https://money.vteam.com> and click **Use Demo Data**. Nothing to install.
 
-### AI Features
+## Install the desktop app
 
-#### 💬 **Chat Interface**
+Download the file for your computer from the [latest release](https://github.com/vteam-com/fMoney/releases/latest):
 
-- Interactive conversation with the AI about your finances
-- Message history with timestamps and read more/less functionality
-- Copy messages to clipboard
-- Expandable messages for better readability
+| Platform | File                       | Requires                              |
+| -------- | -------------------------- | ------------------------------------- |
+| macOS    | `mymoney-app-macos.zip`    | macOS 12 or later, Apple silicon or Intel |
+| Windows  | `mymoney-app-windows.zip`  | Windows 10 or later, 64-bit           |
+| Linux    | `mymoney-app-linux.tar.gz` | 64-bit (x64) with GTK 3               |
 
-#### 🤖 **AI Models**
+Two things apply to every platform:
 
-- Switch between different AI models (LLaMA 3.2, etc.)
-- Automatic model detection and installation
-- Model size information and management
+- **Install it in a folder you can write to.** fMoney updates itself in place, so it needs to be able to replace its own files.
+- **Expect a security warning the first time you open it.** The builds are not signed with an Apple or Microsoft developer certificate. The steps below show how to open it.
 
-#### 📊 **Preset Financial Queries**
+### macOS
 
-Quick access preset buttons for common financial analyses:
+1. Download `mymoney-app-macos.zip` and double-click it to unzip it (Safari may unzip it for you). You get `money.app`.
+2. Drag `money.app` into your **Applications** folder. If your account is not an administrator, use the `Applications` folder in your home folder instead.
 
-- **Account Names**: List all your account names
-- **Largest Transactions**: Identify the biggest transactions per account
-- **Analyze Spending**: Get insights into spending patterns
-- **Expense Predictions**: Forecast future expenses
+   Don't run it from **Downloads**. macOS runs apps there from a read-only copy, and updates can't install.
+3. Double-click `money.app`. macOS blocks it the first time because Apple hasn't checked it. To open it:
+   1. Open **System Settings › Privacy & Security**.
+   2. Scroll down to **Security**, click **Open Anyway** next to the message about `money`, and confirm.
 
-#### 🎯 **Intelligent Features**
+   If macOS says the app "is damaged and can't be opened", remove the download flag in Terminal, then open it again:
 
-- Teach AI about your accounts using the "BankAccounts" button
-- Real-time processing status with cancel functionality
-- Context-aware responses based on your financial data
-- Formatted display of token counts and conversation statistics
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/money.app
+   ```
 
-### Technical Architecture
+### Windows
 
-#### Core Components
+1. Download `mymoney-app-windows.zip`.
+2. Right-click it, choose **Extract All…**, and extract it to a folder in your user profile, for example `%LOCALAPPDATA%\fMoney`.
 
-- **ViewAIInstructions**: Setup and installation guidance
-- **ViewAiHeader**: Model selection, chat statistics, and controls
-- **ChatMessageFooter**: Message actions (copy, expand, details)
-- **ChatInputArea**: Text input with preset buttons and processing states
+   Don't use `C:\Program Files`: fMoney can't update itself there.
+3. Open the folder and run `money.exe`. Leave it next to the files it came with. To launch it from somewhere else, pin it to Start or create a shortcut.
+4. If Windows shows **Windows protected your PC**, click **More info**, then **Run anyway**.
 
-#### AI Integration
+If Windows says `VCRUNTIME140_1.dll` or `MSVCP140.dll` was not found, install the [Microsoft Visual C++ Redistributable (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe) and run `money.exe` again.
 
-- **Ollama Service**: Handles AI model communication and responses
-- **Chat Messages**: Persistent message history with metadata
-- **Real-time Processing**: Streaming responses with cancellation support
+### Linux
 
-### Prerequisites
-
-**Ollama Installation**: The app will guide you through installing Ollama, but you can also visit [ollama.com/download](https://ollama.com/download) for manual installation.
-
-**Supported Platforms**: The AI assistant works across all Flutter-supported platforms where Ollama can run.
-
-### Testing
-
-Comprehensive unit test coverage for all AI components:
-
-- `view_ai_header_test.dart`: Header functionality and model selection
-- `view_ai_instructions_test.dart`: Setup and installation UI
-- `view_ai_chat_message_footer_test.dart`: Message actions and display
-- `view_ai_input_test.dart`: Input handling and preset queries
-- `view_ai_chat_message_test.dart`: Message serialization and deserialization
-
-## Data
-
-### SQLite Tables
-
-#### 1 - AccountAliases
+The archive has no top-level folder, so extract it into a folder of its own:
 
 ```bash
-sqlite3 mydata.MyMoney.mmdb .schema
-sqlite3 mydata.MyMoney.mmdb .dumb > backup.sql
+mkdir -p ~/.local/share/fmoney
+tar -xzf ~/Downloads/mymoney-app-linux.tar.gz -C ~/.local/share/fmoney
+~/.local/share/fmoney/money
 ```
 
-```text
-cid  name       type           notnull  dflt_value  pk
----  ---------  -------------  -------  ----------  --
-0    Id         INT            0                    1 
-1    Pattern    nvarchar(255)  1                    0 
-2    Flags      INT            1                    0 
-3    AccountId  nchar(20)      1                    0 
-```
+fMoney needs GTK 3. Most desktop distributions already have it. If not, install it: `sudo apt install libgtk-3-0` on Debian or Ubuntu, `sudo dnf install gtk3` on Fedora.
 
-#### 2 - Accounts
+The release is built on GitHub's `ubuntu-latest` runner. If an older distribution reports a missing `GLIBC_…` version, [build from source](#build-from-source) instead.
 
-```text
-cid  name                    type              notnull  dflt_value  pk
----  ----------------------  ----------------  -------  ----------  --
-0    Id                      INT               0                    1
-1    AccountId               nchar(20)         0                    0
-2    OfxAccountId            nvarchar(50)      0                    0
-3    Name                    nvarchar(80)      1                    0
-4    Description             nvarchar(255)     0                    0
-5    Type                    INT               1                    0
-6    OpeningBalance          money             0                    0
-7    Currency                nchar(3)          0                    0
-8    OnlineAccount           INT               0                    0
-9    WebSite                 nvarchar(512)     0                    0
-10   ReconcileWarning        INT               0                    0
-11   LastSync                datetime          0                    0
-12   SyncGuid                uniqueidentifier  0                    0
-13   Flags                   INT               0                    0
-14   LastBalance             datetime          0                    0
-15   CategoryIdForPrincipal  INT               0                    0
-16   CategoryIdForInterest   INT               0                    0
-```
+### Updates
 
-#### 3 - Aliases
+When the desktop app starts, it checks GitHub for a newer release. If there is one, a banner offers **Install and Restart**. You can also check at any time from the app bar menu with **Check for updates...**.
 
-```text
-cid  name     type           notnull  dflt_value  pk
----  -------  -------------  -------  ----------  --
-0    Id       INT            0                    1
-1    Pattern  nvarchar(255)  1                    0
-2    Flags    INT            1                    0
-3    Payee    INT            1                    0
-```
+If fMoney can't write to the folder it runs from, it asks you to download the new version and replace the old one yourself.
 
-#### 4 - Categories
+GitHub keeps the three most recent releases.
 
-```text
-cid  name         type           notnull  dflt_value  pk
----  -----------  -------------  -------  ----------  --
-0    Id           INT            0                    1 
-1    ParentId     INT            0                    0 
-2    Name         nvarchar(80)   1                    0 
-3    Description  nvarchar(255)  0                    0 
-4    Type         INT            1                    0 
-5    Color        nchar(10)      0                    0 
-6    Budget       money          0                    0 
-7    Balance      money          0                    0 
-8    Frequency    INT            0                    0 
-9    TaxRefNum    INT            0                    0
-```
+### First launch
 
-#### 5 - Currencies
+The welcome screen offers three choices:
 
-```text
-cid  name         type          notnull  dflt_value  pk
----  -----------  ------------  -------  ----------  --
-0    Id           INT           0                    1 
-1    Symbol       nchar(20)     1                    0 
-2    Name         nvarchar(80)  1                    0 
-3    Ratio        money         0                    0 
-4    LastRatio    money         0                    0 
-5    CultureCode  nvarchar(80)  0                    0 
-```
+- **Use Demo Data** loads sample data to explore.
+- **New File** creates an empty file.
+- **Open File** opens an existing file: a MyMoney.Net `.mmdb` (SQLite) file, or an fMoney `.mmcsv` file (a zip archive with one CSV file per table).
 
-#### 6 - Investments
+### Mobile
 
-```text
-cid  name            type    notnull  dflt_value  pk
----  --------------  ------  -------  ----------  --
-0    Id              bigint  0                    1 
-1    Security        INT     1                    0 
-2    UnitPrice       money   1                    0 
-3    Units           money   0                    0 
-4    Commission      money   0                    0 
-5    MarkUpDown      money   0                    0 
-6    Taxes           money   0                    0 
-7    Fees            money   0                    0 
-8    Load            money   0                    0 
-9    InvestmentType  INT     1                    0 
-10   TradeType       INT     0                    0 
-11   TaxExempt       bit     0                    0 
-12   Withholding     money   0                    0 
-```
+iOS and Android builds are not published to the app stores yet. You can [build them from source](#build-from-source).
 
-#### 7 - LoanPayments
+## AI assistant (optional)
 
-```text
-cid  name       type           notnull  dflt_value  pk
----  ---------  -------------  -------  ----------  --
-0    Id         INT            1                    0
-1    AccountId  INT            1                    0
-2    Date       datetime       1                    0
-3    Principal  money          0                    0
-4    Interest   money          0                    0
-5    Memo       nvarchar(255)  0                    0
-```
+The AI assistant answers questions about your finances. It uses [Ollama](https://ollama.com/download) on your own computer (at `http://localhost:11434`), not a cloud service.
 
-#### 8 - OnlineAccounts
+1. Install Ollama. The AI screen links to the download if Ollama isn't found.
+2. Download at least one model, for example `ollama pull llama3.2`. fMoney lists the models installed in Ollama and doesn't download them itself.
+3. Open the AI assistant from the main navigation and pick a model. Ask your own questions, or use the preset buttons: largest transactions, spending analysis and expense predictions.
 
-```text
-cid  name               type            notnull  dflt_value  pk
----  -----------------  --------------  -------  ----------  --
-0    Id                 INT             0                    1
-1    Name               nvarchar(80)    1                    0
-2    Institution        nvarchar(80)    0                    0
-3    OFX                nvarchar(255)   0                    0
-4    OfxVersion         nchar(10)       0                    0
-5    FID                nvarchar(50)    0                    0
-6    UserId             nchar(20)       0                    0
-7    Password           nvarchar(50)    0                    0
-8    UserCred1          nvarchar(200)   0                    0
-9    UserCred2          nvarchar(200)   0                    0
-10   AuthToken          nvarchar(200)   0                    0
-11   BankId             nvarchar(50)    0                    0
-12   BranchId           nvarchar(50)    0                    0
-13   BrokerId           nvarchar(50)    0                    0
-14   LogoUrl            nvarchar(1000)  0                    0
-15   AppId              nchar(10)       0                    0
-16   AppVersion         nchar(10)       0                    0
-17   ClientUid          nchar(36)       0                    0
-18   AccessKey          nchar(36)       0                    0
-19   UserKey            nvarchar(64)    0                    0
-20   UserKeyExpireDate  datetime        0                    0
-```
+## Build from source
 
-#### 9 - Payees
+You need:
 
-```text
-cid  name  type           notnull  dflt_value  pk
----  ----  -------------  -------  ----------  --
-0    Id    INT            0                    1 
-1    Name  nvarchar(255)  1                    0
-```
-
-#### 10 - RentBuildings
-
-```text
-cid  name                    type           notnull  dflt_value  pk
----  ----------------------  -------------  -------  ----------  --
-0    Id                      INT            0                    1
-1    Name                    nvarchar(255)  1                    0
-2    Address                 nvarchar(255)  0                    0
-3    PurchasedDate           datetime       0                    0
-4    PurchasedPrice          money          0                    0
-5    LandValue               money          0                    0
-6    EstimatedValue          money          0                    0
-7    OwnershipName1          nvarchar(255)  0                    0
-8    OwnershipName2          nvarchar(255)  0                    0
-9    OwnershipPercentage1    money          0                    0
-10   OwnershipPercentage2    money          0                    0
-11   Note                    nvarchar(255)  0                    0
-12   CategoryForTaxes        INT            0                    0
-13   CategoryForIncome       INT            0                    0
-14   CategoryForInterest     INT            0                    0
-15   CategoryForRepairs      INT            0                    0
-16   CategoryForMaintenance  INT            0                    0
-17   CategoryForManagement   INT            0                    0
-```
-
-#### 11 - RentUnits
-
-```text
-cid  name      type           notnull  dflt_value  pk
----  --------  -------------  -------  ----------  --
-0    Id        INT            0                    1 
-1    Building  INT            1                    0 
-2    Name      nvarchar(255)  1                    0 
-3    Renter    nvarchar(255)  0                    0 
-4    Note      nvarchar(255)  0                    0 
-```
-
-#### 12 - Securities
-
-```text
-cid  name          type          notnull  dflt_value  pk
----  ------------  ------------  -------  ----------  --
-0    Id            INT           0                    1
-1    Name          nvarchar(80)  1                    0
-2    Symbol        nchar(20)     1                    0
-3    Price         money         0                    0
-4    LastPrice     money         0                    0
-5    CUSPID        nchar(20)     0                    0
-6    SECURITYTYPE  INT           0                    0
-7    TAXABLE       tinyint       0                    0
-8    PriceDate     datetime      0                    0
-```
-
-#### 13 - Splits
-
-```text
-cid  name               type           notnull  dflt_value  pk
----  -----------------  -------------  -------  ----------  --
-0    Transaction        bigint         1                    0 
-1    Id                 INT            1                    0 
-2    Category           INT            0                    0 
-3    Payee              INT            0                    0 
-4    Amount             money          1                    0 
-5    Transfer           bigint         0                    0 
-6    Memo               nvarchar(255)  0                    0 
-7    Flags              INT            0                    0 
-8    BudgetBalanceDate  datetime       0                    0 
-```
-
-#### 14 - StockSplits
-
-```text
-cid  name         type      notnull  dflt_value  pk
----  -----------  --------  -------  ----------  --
-0    Id           bigint    0                    1 
-1    Date         datetime  1                    0 
-2    Security     INT       1                    0 
-3    Numerator    money     1                    0 
-4    Denominator  money     1                    0 
-```
-
-#### 15 - TransactionExtras
-
-```text
-cid  name         type      notnull  dflt_value  pk
----  -----------  --------  -------  ----------  --
-0    Id           INT       0                    1
-1    Transaction  bigint    1                    0
-2    TaxYear      INT       1                    0
-3    TaxDate      datetime  0                    0
-```
-
-#### 16 - Transactions
-
-```text
-cid  name               type           notnull  dflt_value  pk
----  -----------------  -------------  -------  ----------  --
-0    Id                 bigint         0                    1 
-1    Account            INT            1                    0 
-2    Date               datetime       1                    0 
-3    Status             INT            0                    0 
-4    Payee              INT            0                    0 
-5    OriginalPayee      nvarchar(255)  0                    0 
-6    Category           INT            0                    0 
-7    Memo               nvarchar(255)  0                    0 
-8    Number             nchar(10)      0                    0 
-9    ReconciledDate     datetime       0                    0 
-10   BudgetBalanceDate  datetime       0                    0 
-11   Transfer           bigint         0                    0 
-12   FITID              nchar(40)      0                    0 
-13   Flags              INT            1                    0 
-14   Amount             money          1                    0 
-15   SalesTax           money          0                    0 
-16   TransferSplit      INT            0                    0 
-17   MergeDate          datetime       0                    0 
-```
-
-## Code Style
-
-Ensure your code is formatted correctly by running this CLI before committing changes
-
-macOS
+- Flutter 3.50 or later (Dart 3.14 or later): <https://docs.flutter.dev/get-started/install>
+- The toolchain for the platform you build for:
+  - macOS and iOS: Xcode and CocoaPods
+  - Windows: Visual Studio 2022 with **Desktop development with C++**
+  - Linux: `cmake ninja-build g++ pkg-config libgtk-3-dev`
+  - Android: Android Studio
+- An editor. We suggest [VS Code](https://code.visualstudio.com/download) with the Flutter extension.
 
 ```bash
-./check.sh
+git clone https://github.com/vteam-com/fMoney.git
+cd fMoney
+flutter pub get
+flutter run -d macos   # or: windows, linux, chrome
 ```
 
-Windows
+Release builds:
 
-```batch
-./check.cmd
-```
+| Command                         | Output                                      |
+| ------------------------------- | ------------------------------------------- |
+| `flutter build macos --release` | `build/macos/Build/Products/Release/money.app` |
+| `flutter build windows`         | `build/windows/x64/runner/Release/`         |
+| `flutter build linux`           | `build/linux/x64/release/bundle/`           |
+| `flutter build web --release`   | `build/web/`                                |
 
-## Line of Code Heat map
+## Development
+
+The app uses Flutter's built-in state management and navigation: `ChangeNotifier`, `ValueNotifier`, `ListenableBuilder` and `Navigator`.
+
+| Script                | What it does |
+| --------------------- | ------------ |
+| `tool/check.sh`       | Run before every commit; it must pass cleanly. It updates the generated version data, gets packages, analyzes, runs the tests, runs [fCheck](https://pub.dev/packages/fcheck) in strict mode, then formats and fixes the code. |
+| `tool/test.sh`        | Runs the unit tests and the macOS integration tests, and opens a merged coverage report (needs `lcov`). |
+| `tool/format.sh`      | Formats the code at 120 columns. |
+| `tool/run_macos.sh`   | Runs a macOS release build. |
+
+Further reading:
+
+- [AGENTS.md](AGENTS.md) and [RULES.md](RULES.md): coding, naming and localization rules
+- [IMPORT_ARCHITECTURE.md](IMPORT_ARCHITECTURE.md) and [IMPORT_INVESTMENT_CSV.md](IMPORT_INVESTMENT_CSV.md): how imports work
+- [DESIGN_REVIEW.md](DESIGN_REVIEW.md): design review notes
+- [CHANGELOG.md](CHANGELOG.md): changes in each release
+
+### Localization
+
+Display text lives in the ARB files in [lib/l10n/](lib/l10n/) (`app_en.arb`, `app_fr.arb`, `app_es.arb`). After you edit them, run `flutter gen-l10n`.
+
+### Code metrics
+
+`tool/check.sh` regenerates these charts.
+
+Lines of code heat map:
 
 ![loc.svg](./fcheck_loc.svg)
 
-## Layer Dependencies
+Layer dependencies:
 
 ![layers.svg](./fcheck_folders.svg)
 
-## Deploy
+## Release and deploy
 
-### to Web
+### Desktop release
 
-- Install Firebase tool
-  ```npm install -g firebase-tools```
+```bash
+tool/release.sh patch   # or: minor, major, X.Y.Z
+```
 
-- Enable firebase experiments
-  ```firebase experiments:enable webframeworks```
+The script must run on `main` with a clean working tree. It:
 
-- Deploy to your account
-  ```firebase deploy```
+1. Sets the new version in `pubspec.yaml` and in the version the app reports.
+2. Adds the commits since the last release to `CHANGELOG.md`.
+3. Analyzes, tests, runs fCheck and builds macOS.
+4. Commits `Release v<version>` and pushes `main`.
 
-### To Android Google Play
+The push starts the [Flutter Desktop Build](https://github.com/vteam-com/fMoney/actions/workflows/builds.yml) workflow. It builds macOS, Windows and Linux, publishes them as the GitHub release `v<version>` with the changelog entry as notes, and deletes all but the three most recent releases. Installed apps then offer the update.
 
-- Build the bundle
-  
-  ```flutter build appbundle```
+### Web
 
-- Google App Console
-  - <https://play.google.com/console>
-  - Upload the bundle
+The web version is hosted on Firebase. Install the Firebase CLI once and sign in:
+
+```bash
+npm install -g firebase-tools
+firebase login
+```
+
+Then deploy. `firebase.json` builds the web app before it uploads it.
+
+```bash
+tool/deploy.sh
+```
+
+### Android (Google Play)
+
+1. Build the bundle: `flutter build appbundle`
+2. Upload it in the [Google Play Console](https://play.google.com/console).
+
+## Data
+
+fMoney stores data in the MyMoney.Net SQLite schema. The tables are defined in [lib/helpers/shared_strings_sql_helper.dart](lib/helpers/shared_strings_sql_helper.dart):
+
+`AccountAliases`, `Accounts`, `Aliases`, `Categories`, `Currencies`, `Events`, `Investments`, `LoanPayments`, `OnlineAccounts`, `Payees`, `RentBuildings`, `RentUnits`, `Securities`, `Splits`, `StockSplits`, `TransactionExtras`, `Transactions`
+
+To look at a file's schema, or back it up as SQL:
+
+```bash
+sqlite3 mydata.MyMoney.mmdb .schema
+sqlite3 mydata.MyMoney.mmdb .dump > backup.sql
+```
+
+## License
+
+[MIT](LICENSE)
