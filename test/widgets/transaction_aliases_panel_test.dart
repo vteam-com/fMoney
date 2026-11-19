@@ -69,6 +69,28 @@ void main() {
     expect(find.byKey(const Key('key_pick_alias_payee')), findsOneWidget);
   });
 
+  testWidgets('saving an alias from the panel moves the transactions it now matches', (WidgetTester tester) async {
+    createTestAlias(r'ATT\*BILL', att);
+    final Transaction bill = createTestTransaction(checking, 'ATT*BILL');
+    final Transaction wireless = createTestTransaction(checking, 'ATT WIRELESS');
+    await pumpTestApp(tester, services, TransactionAliasesPanel(transactions: <Transaction>[bill]));
+
+    await tester.tap(find.text(r'ATT\*BILL'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('key_alias_pattern')), 'ATT.*');
+    await tester.pump();
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.apply)));
+    await tester.pump();
+
+    expect(bill.fieldPayee.value, att.uniqueId);
+    expect(wireless.fieldPayee.value, att.uniqueId, reason: 'the edited pattern is the one applied');
+    expect(
+      find.text(AppL10n.tr(AppTranslationKeys.transactionsUpdatedCount, params: <String, String>{'count': '2'})),
+      findsOneWidget,
+    );
+    await dismissSnackBars(tester);
+  });
+
   testWidgets('the panel says so when no alias is related', (WidgetTester tester) async {
     final Transaction t = createTestTransaction(checking, 'Starbucks');
     await pumpTestApp(tester, services, TransactionAliasesPanel(transactions: <Transaction>[t]));

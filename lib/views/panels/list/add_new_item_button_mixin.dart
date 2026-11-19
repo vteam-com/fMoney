@@ -34,7 +34,10 @@ mixin AddNewItemButtonMixin on ViewForMoneyObjectsState {
         params: <String, String>{'item': getClassNameSingular()},
       ),
       moneyObject: newItem,
-      onApplyChange: () => setState(() {}),
+      onApplyChange: () {
+        setState(() {});
+        onEditApplied?.call(<DataObject>[newItem]);
+      },
     );
   }
 }

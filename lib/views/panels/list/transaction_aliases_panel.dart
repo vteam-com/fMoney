@@ -6,9 +6,11 @@ import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/helpers/alias_apply_helper.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 
-/// Side-panel list of the aliases related to the selected [transactions]; tapping one edits it.
+/// Side-panel list of the aliases related to the selected [transactions]; tapping one edits it, and
+/// Apply re-assigns the transactions it then matches.
 class TransactionAliasesPanel extends StatefulWidget {
   const TransactionAliasesPanel({required this.transactions, super.key});
 
@@ -37,7 +39,10 @@ class _TransactionAliasesPanelState extends State<TransactionAliasesPanel> {
             onTap: () => myShowDialogAndActionsForMoneyObject(
               title: AppL10n.tr(AppTranslationKeys.alias),
               moneyObject: alias,
-              onApplyChange: () => setState(() {}),
+              onApplyChange: () {
+                setState(() {});
+                applyAliasesAndReport(<Alias>[alias]);
+              },
             ),
           ),
       ],

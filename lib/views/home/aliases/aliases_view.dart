@@ -8,7 +8,7 @@ import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/shared/presentation/helpers/transactions_updated_snack_bar_helper.dart';
+import 'package:money/shared/presentation/helpers/alias_apply_helper.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
@@ -28,6 +28,8 @@ class ViewAliases extends ViewForMoneyObjects {
 class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewAliasesState() {
     viewId = ViewId.viewAliases;
+    // A saved alias re-assigns the transactions it matches to its payee, as MyMoney.Net does on save
+    onEditApplied = (List<DataObject> edited) => applyAliasesAndReport(edited.whereType<Alias>());
   }
 
   @override
@@ -61,18 +63,9 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
     );
     final Alias? alias = getFirstSelectedItem() as Alias?;
     if (alias != null) {
-      buttons.add(buildApplyAliasButton(() => _applyAlias(alias)));
+      buttons.add(buildApplyAliasButton(() => applyAliasesAndReport(<Alias>[alias])));
     }
     return buttons;
-  }
-
-  /// Re-assigns the transactions [alias] matches to its payee and tells the user how many changed.
-  void _applyAlias(Alias alias) {
-    final int count = Data().applyAlias(alias);
-    if (count > 0) {
-      Data().updateAll();
-    }
-    displayTransactionsUpdated(count);
   }
 
   @override

@@ -121,8 +121,13 @@ class Transaction extends DataObject implements MergeableItem {
   @override
   int get payeeId => fieldPayee.value;
 
+  /// Moves this transaction to payee [value], first keeping the current payee as its original bank
+  /// text when none is stored, so merging payees never loses that text.
   @override
-  set payeeId(int value) => fieldPayee.value = value;
+  set payeeId(int value) {
+    stashOriginalPayee();
+    fieldPayee.value = value;
+  }
 
   /// Balance native
   double balance = _zeroDouble;

@@ -101,6 +101,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   List<ValueSelection> listOfValueSelected = <ValueSelection>[];
   void Function()? onAddTransaction;
   VoidCallback? onDeleteItems;
+
+  /// Called after Apply in this view's add or edit dialog with the items saved; null does nothing.
+  void Function(List<DataObject> edited)? onEditApplied;
   VoidCallback? onEditItems;
 
   /// Called when the user right-clicks a row of the main list; null shows no menu.
@@ -400,14 +403,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       if (_selectedItemsByUniqueId.value.isNotEmpty) {
         ///  Edit
         widgets.add(
-          buildEditButton(() {
-            myShowDialogAndActionsForMoneyObjects(
-              title: _selectedItemsByUniqueId.value.length == 1 ? getClassNameSingular() : getClassNamePlural(),
-              moneyObjects: getSelectedItemsFromSelectedList(
-                _selectedItemsByUniqueId.value,
-              ),
-            );
-          }),
+          buildEditButton(
+            () => _onUserRequestToEdit(context, getSelectedItemsFromSelectedList(_selectedItemsByUniqueId.value)),
+          ),
         );
 
         /// Delete
@@ -880,19 +878,16 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     }
   }
 
-  /// Handles the user's request to edit the selected objects.
+  /// Opens the edit dialog on [moneyObjects], from the header Edit button or the details card;
+  /// Apply then passes them to [onEditApplied].
   void _onUserRequestToEdit(
     BuildContext _,
     List<DataObject> moneyObjects,
   ) {
     myShowDialogAndActionsForMoneyObjects(
-      title: getSingularPluralText(
-        AppL10n.tr(AppTranslationKeys.edit),
-        moneyObjects.length,
-        getClassNameSingular(),
-        getClassNamePlural(),
-      ),
+      title: moneyObjects.length == 1 ? getClassNameSingular() : getClassNamePlural(),
       moneyObjects: moneyObjects,
+      onApplyChange: () => onEditApplied?.call(moneyObjects),
     );
   }
 

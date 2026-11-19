@@ -66,6 +66,49 @@ void main() {
     await dismissSnackBars(tester);
   });
 
+  testWidgets('saving an edited alias moves the transactions it now matches', (WidgetTester tester) async {
+    final Payee att = Data().payees.getOrCreate('AT&T');
+    final Alias alias = createTestAlias('NOTHING', att);
+    final Transaction transaction = createTestTransaction(createTestAccount(), 'ATT*BILL');
+    await pumpTestApp(tester, services, const ViewAliases());
+    tester.state<ViewForMoneyObjectsState>(find.byType(ViewAliases)).updateListAndSelect(alias.uniqueId);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(Constants.keyEditSelectedItems));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('key_alias_pattern')), 'ATT.*');
+    await tester.pump();
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.apply)));
+    await tester.pump();
+
+    expect(transaction.fieldPayee.value, att.uniqueId);
+    expect(
+      find.text(AppL10n.tr(AppTranslationKeys.transactionsUpdatedCount, params: <String, String>{'count': '1'})),
+      findsOneWidget,
+    );
+    await dismissSnackBars(tester);
+  });
+
+  testWidgets('saving a new alias moves the transactions it matches', (WidgetTester tester) async {
+    final Payee att = Data().payees.getOrCreate('AT&T');
+    final Transaction transaction = createTestTransaction(createTestAccount(), 'ATT*BILL');
+    await pumpTestApp(tester, services, const ViewAliases());
+
+    await tester.tap(find.byKey(Constants.keyAddNewItem));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('key_alias_pattern')), 'ATT*BILL');
+    await tester.enterText(
+      find.descendant(of: find.byKey(const Key('key_pick_alias_payee')), matching: find.byType(TextField)),
+      'AT&T',
+    );
+    await tester.pump();
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.apply)));
+    await tester.pump();
+
+    expect(transaction.fieldPayee.value, att.uniqueId);
+    await dismissSnackBars(tester);
+  });
+
   test('the payee picker selects an existing payee or creates a new one', () {
     final Payee att = Data().payees.getOrCreate('AT&T');
     final Alias alias = Data().aliases.addNewAlias();

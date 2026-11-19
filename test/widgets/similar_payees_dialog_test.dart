@@ -75,6 +75,7 @@ void main() {
     await tester.pump();
 
     expect(bill.fieldPayee.value, att.uniqueId);
+    expect(bill.fieldOriginalPayee.value, 'ATT*BILL', reason: 'the bank text survives for aliases to match later');
     expect(wireless.fieldPayee.value, wirelessPayeeId);
     await dismissSnackBars(tester);
     expect(find.byType(SimilarPayeesDialog), findsNothing);

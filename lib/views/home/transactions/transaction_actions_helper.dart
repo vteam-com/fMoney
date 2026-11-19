@@ -14,7 +14,7 @@ import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
 import 'package:money/shared/presentation/entity_widgets/payee_widgets_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/transaction_widgets_helper.dart';
-import 'package:money/shared/presentation/helpers/transactions_updated_snack_bar_helper.dart';
+import 'package:money/shared/presentation/helpers/alias_apply_helper.dart';
 import 'package:money/views/panels/dialogs/similar_payees_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
@@ -229,11 +229,7 @@ void _createAlias(BuildContext _, List<Transaction> transactions) {
   myShowDialogAndActionsForMoneyObject(
     title: AppL10n.tr(AppTranslationKeys.createAlias),
     moneyObject: alias,
-    onApplyChange: () {
-      final int count = Data().applyAlias(alias);
-      Data().updateAll();
-      displayTransactionsUpdated(count);
-    },
+    onApplyChange: () => applyAliasesAndReport(<Alias>[alias]),
     onCancel: () => Data().deleteItems(<DataObject>[alias]),
     isNew: true,
   );
