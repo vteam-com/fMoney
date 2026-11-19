@@ -114,4 +114,28 @@ void main() {
     expect(alias.fieldPattern.value, 'ATT*BILL');
     expect(alias.fieldPayeeId.value, t.fieldPayee.value);
   });
+
+  testWidgets('create alias skips transfers, and offers nothing when only transfers are selected', (
+    WidgetTester tester,
+  ) async {
+    final Transaction transfer = createTestTransaction(checking, 'Savings', isTransfer: true);
+    final Transaction grocer = createTestTransaction(checking, 'Grocer');
+    await pumpTransactions(tester);
+    final TransactionAction createAlias = transactionActions.firstWhere(
+      (TransactionAction action) => action.label == AppL10n.tr(AppTranslationKeys.createAlias),
+    );
+
+    createAlias.run(tester.element(find.byType(ViewTransactions)), <Transaction>[transfer]);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('key_pick_alias_payee')), findsNothing);
+    expect(Data().aliases.iterableList(), isEmpty, reason: 'a transfer alone gives nothing to alias');
+
+    createAlias.run(tester.element(find.byType(ViewTransactions)), <Transaction>[transfer, grocer]);
+    await tester.pumpAndSettle();
+    final Alias alias = Data().aliases.iterableList().single;
+    expect(alias.fieldPattern.value, 'Grocer', reason: "the transfer's text is left out of the pattern");
+    expect(alias.fieldPayeeId.value, grocer.fieldPayee.value, reason: 'the payee comes from the non-transfer');
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.cancel)));
+    await tester.pumpAndSettle();
+  });
 }

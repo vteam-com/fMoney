@@ -347,7 +347,7 @@
     font-weight: 900;
   }
 </style>
-<text x="657.0" y="28.0" class="packageLabelTitle" text-anchor="middle">money v1.21.2</text>
+<text x="657.0" y="28.0" class="packageLabelTitle" text-anchor="middle">money v1.21.3</text>
 <g class="packageMetadataPill"><title>Dart &gt;=3.14.0</title><rect x="582.55" y="36.0" width="65.3" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="615.1999999999999" y="41" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart &gt;=3.14.0</text></g>
 <g class="packageMetadataPill"><title>Flutter &gt;=3.50.0</title><rect x="653.8499999999999" y="36.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="692.6499999999999" y="41" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.50.0</text></g>
 <text x="337.0" y="70.0" class="packageLabelSection">dependencies (31 items)</text>
@@ -1199,7 +1199,7 @@
 <g class="platformBadge platformBadge--windows"><title>Windows</title><rect x="456.0" y="1907.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#2563eb" stroke="#1d4ed8" stroke-width="0.6"/><text x="462.5" y="1914.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">W</text></g>
 <g class="platformBadge platformBadge--web"><title>Browser</title><rect x="473.0" y="1907.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#0891b2" stroke="#0e7490" stroke-width="0.6"/><text x="479.5" y="1914.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">B</text></g>
 <text x="437.0" y="1888.0" class="packageLabelNodeName packageLabelCaption" text-anchor="middle">pasteboard</text>
-<text x="437.0" y="1901.0" class="packageLabelNodeVersion" text-anchor="middle">v0.6.1</text>
+<text x="437.0" y="1901.0" class="packageLabelNodeVersion" text-anchor="middle">v0.6.2</text>
 </g>
 <g class="badge outgoingBadge">
   <path d="M 331.0,1902.0 L 343.0,1895.0 Q 346.0,1895.0 346.0,1898.0 L 346.0,1906.0 Q 346.0,1909.0 343.0,1909.0 Z" fill="#10b981"/>
@@ -1232,7 +1232,7 @@
 <rect x="337.0" y="2132.0" width="200.0" height="68.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
 <g class="packageMetadataPill"><title>Flutter &gt;=3.50.0</title><rect x="398.2" y="2187.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="437.0" y="2192" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.50.0</text></g>
 <text x="437.0" y="2152.0" class="packageLabelNodeName packageLabelCaption" text-anchor="middle">pdfrx</text>
-<text x="437.0" y="2165.0" class="packageLabelNodeVersion" text-anchor="middle">v3.0.2</text>
+<text x="437.0" y="2165.0" class="packageLabelNodeVersion" text-anchor="middle">v3.0.3</text>
 </g>
 <g class="badge outgoingBadge">
   <path d="M 331.0,2166.0 L 343.0,2159.0 Q 346.0,2159.0 346.0,2162.0 L 346.0,2170.0 Q 346.0,2173.0 343.0,2173.0 Z" fill="#10b981"/>

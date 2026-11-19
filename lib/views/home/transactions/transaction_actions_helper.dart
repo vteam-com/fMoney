@@ -203,11 +203,18 @@ void _changePayee(BuildContext context, List<Transaction> transactions) {
 
 /// Opens a new alias for the first transaction's payee that matches the bank text of every one of
 /// [transactions] (a regex when they differ); Apply re-assigns every matching transaction, Cancel
-/// discards the alias.
+/// discards the alias. Transfers, which aliases leave alone, and transactions without any text are
+/// skipped; when none is left there is nothing to alias.
 void _createAlias(BuildContext _, List<Transaction> transactions) {
-  final int payeeId = transactions.first.fieldPayee.value;
-  final Set<String> texts = transactions.map(Aliases.textOf).toSet();
-  final Set<Transaction> selected = transactions.toSet();
+  final List<Transaction> aliasable = transactions
+      .where((Transaction t) => !t.isTransfer && Aliases.textOf(t).trim().isNotEmpty)
+      .toList();
+  if (aliasable.isEmpty) {
+    return;
+  }
+  final int payeeId = aliasable.first.fieldPayee.value;
+  final Set<String> texts = aliasable.map(Aliases.textOf).toSet();
+  final Set<Transaction> selected = aliasable.toSet();
   // One text keeps its plain form; several get one regex, which must leave the other payees' transactions alone
   final Alias alias = Data().aliases.addNewAlias(
     pattern: texts.length == 1
