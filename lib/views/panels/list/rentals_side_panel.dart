@@ -5,9 +5,9 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
+import 'package:money/shared/domain/rental_category_role_enum.dart';
 import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
-import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/views/panels/cards/rental_pnl_card.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
@@ -29,48 +29,6 @@ class ViewRentalsSidePanel {
       textFilter: '',
       columnFilters: null,
     );
-  }
-
-  /// Resolves the rental category ID corresponding to the tapped PnL amount type.
-  static int getRentalCategoryIdForAmountType(
-    RentBuilding rental,
-    RentalPnLAmountType amountType,
-  ) {
-    switch (amountType) {
-      case RentalPnLAmountType.income:
-        return rental.categoryForIncome.value;
-      case RentalPnLAmountType.interest:
-        return rental.categoryForInterest.value;
-      case RentalPnLAmountType.maintenance:
-        return rental.categoryForMaintenance.value;
-      case RentalPnLAmountType.management:
-        return rental.categoryForManagement.value;
-      case RentalPnLAmountType.repairs:
-        return rental.categoryForRepairs.value;
-      case RentalPnLAmountType.taxes:
-        return rental.categoryForTaxes.value;
-    }
-  }
-
-  /// Filters transactions based on whether their categories match the rental property's categories for income, management, repairs, maintenance, taxes or interest.
-  ///
-  /// Considers split transactions by checking each split individually.
-  static bool filterByRentalCategories(
-    Transaction t,
-    RentBuilding rental,
-  ) {
-    final num categoryIdToMatch = t.fieldCategoryId.value;
-
-    if (t.isSplit) {
-      for (final TransactionSplit split in t.splits) {
-        if (isMatchingCategories(split.fieldCategoryId.value, rental)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    return isMatchingCategories(categoryIdToMatch, rental);
   }
 
   /// Retrieves a list of all rent buildings, including deleted ones.
@@ -146,8 +104,8 @@ class ViewRentalsSidePanel {
         pnlCards.add(
           RentalPnLCard(
             pnl: pnl,
-            onCaptionTap: (RentalPnLAmountType amountType) {
-              final int categoryId = getRentalCategoryIdForAmountType(rental, amountType);
+            onCaptionTap: (RentalCategoryRole role) {
+              final int categoryId = rental.categoryFieldOf(role).value;
               openCategoriesForRentalCategory(
                 categoryId: categoryId,
               );
@@ -176,22 +134,7 @@ class ViewRentalsSidePanel {
     RentBuilding rentBuildings,
   ) {
     return getTransactions(
-      filter: (Transaction transaction) => filterByRentalCategories(transaction, rentBuildings),
+      filter: rentBuildings.isTransactionOrSplitAssociatedWithThisRental,
     );
-  }
-
-  /// Checks if a given category ID is part of the rental's relevant category trees (income, management, repairs, etc.).
-  static bool isMatchingCategories(
-    num categoryIdToMatch,
-    RentBuilding rental,
-  ) {
-    Data().categories.getTreeIds(rental.categoryForIncome.value);
-
-    return rental.categoryForIncomeTreeIds.contains(categoryIdToMatch) ||
-        rental.categoryForManagementTreeIds.contains(categoryIdToMatch) ||
-        rental.categoryForRepairsTreeIds.contains(categoryIdToMatch) ||
-        rental.categoryForMaintenanceTreeIds.contains(categoryIdToMatch) ||
-        rental.categoryForTaxesTreeIds.contains(categoryIdToMatch) ||
-        rental.categoryForInterestTreeIds.contains(categoryIdToMatch);
   }
 }

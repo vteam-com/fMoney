@@ -1,7 +1,5 @@
 // ignore_for_file: always_put_control_body_on_new_line
 
-import 'dart:io';
-
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
@@ -10,6 +8,9 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
+import 'package:money/views/imports/shared/import_file_reader_helper.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 
 const String _investmentHeaderRunDate = 'Run Date';
 const String _investmentHeaderAccount = 'Account';
@@ -21,7 +22,6 @@ const String _investmentHeaderQuantity = 'Quantity';
 const String _investmentHeaderPrice = 'Price';
 const String _investmentHeaderAmount = 'Amount';
 const String _investmentHeaderCommission = 'Commission';
-const String _noDescriptionPlaceholder = 'no description';
 
 /// Finds a column index by matching header (handles variations like "Amount ($)").
 int _findColumnIndex(List<String> headers, String columnName) {
@@ -30,11 +30,6 @@ int _findColumnIndex(List<String> headers, String columnName) {
     (String header) => header.trim().toLowerCase().startsWith(normalizedColumnName),
   );
 }
-
-const String _skipReasonInvalidDate = 'invalidDate';
-const String _skipReasonEmptyDescription = 'emptyDescription';
-const String _skipReasonInvalidAmount = 'invalidAmount';
-const String _skipReasonMissingRequiredColumns = 'missingRequiredColumns';
 
 /// Checks if CSV appears to be an investment CSV export by examining headers.
 bool isInvestmentCSV(List<String> headers) {
@@ -47,15 +42,12 @@ bool isInvestmentCSV(List<String> headers) {
 /// Imports investment CSV files and maps standard investment transaction fields.
 Future<void> importInvestmentCSV(BuildContext context, String filePath) async {
   try {
-    final File file = File(filePath);
-    final String csvContent = await file.readAsString();
+    final String? csvContent = await readImportFileAsText(filePath);
 
-    if (!context.mounted) return;
+    if (csvContent == null || !context.mounted) return;
 
     if (csvContent.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.csvFileEmpty))),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.csvFileEmpty));
       return;
     }
 
@@ -64,66 +56,26 @@ Future<void> importInvestmentCSV(BuildContext context, String filePath) async {
     final List<String> headers = csvRowsData.headers;
     final List<List<String>> dataRows = csvRowsData.dataRows;
 
-    if (!context.mounted) {
-      return;
-    }
-
     // Verify supported investment CSV format
     if (!isInvestmentCSV(headers)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport)),
-        ),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport));
       return;
     }
 
     // Load and process investment CSV
     final ImportData importData = loadInvestmentCSV(headers, dataRows);
 
-    if (!context.mounted) {
-      return;
-    }
-
     if (importData.entries.isNotEmpty) {
+      showImportSkippedRowsWarning(importData);
       showAndConfirmTransactionToImport(context, importData);
     } else {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport))),
-        );
-      }
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport));
     }
   } catch (e) {
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppL10n.tr(
-              AppTranslationKeys.errorImportingCsvError,
-              params: <String, String>{
-                'error': e.toString(),
-              },
-            ),
-          ),
-        ),
-      );
-    }
+    SnackBarService.displayError(
+      message: AppL10n.tr(AppTranslationKeys.errorImportingCsvError, params: <String, String>{'error': e.toString()}),
+    );
   }
-}
-
-/// Normalizes a description-like value for robust placeholder matching.
-String _normalizeForPlaceholderCheck(String value) {
-  return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
-}
-
-/// Returns true when [descriptionValue] is considered a non-informative placeholder.
-bool _isDescriptionPlaceholder(String descriptionValue) {
-  final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
-  if (normalized.isEmpty) {
-    return true;
-  }
-  return normalized == _noDescriptionPlaceholder;
 }
 
 /// Resolves the investment description, preferring [actionValue] for placeholders.
@@ -132,7 +84,7 @@ String _resolveInvestmentDescription({
   required String actionValue,
 }) {
   final String trimmedDescription = descriptionValue.trim();
-  if (_isDescriptionPlaceholder(trimmedDescription)) {
+  if (isDescriptionPlaceholder(trimmedDescription)) {
     return actionValue.trim();
   }
   return trimmedDescription;
@@ -161,7 +113,7 @@ ImportData loadInvestmentCSV(
 
   // Verify required columns exist (Account & AccountNumber are optional for broker flexibility)
   if (runDateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
-    importData.diagnostics.incrementSkipped(_skipReasonMissingRequiredColumns);
+    importData.diagnostics.incrementSkipped(importSkipReasonMissingRequiredColumns);
     return importData;
   }
 
@@ -178,14 +130,14 @@ ImportData loadInvestmentCSV(
     ].reduce((int a, int b) => a > b ? a : b);
 
     if (row.length <= maxIndex) {
-      importData.diagnostics.incrementSkipped(_skipReasonMissingRequiredColumns);
+      importData.diagnostics.incrementSkipped(importSkipReasonInsufficientColumns);
       continue;
     }
 
     // Parse date
     final DateTime? date = parseDateFlexible(row[runDateIndex], order: DateFieldOrder.monthDayYear);
     if (date == null) {
-      importData.diagnostics.incrementSkipped(_skipReasonInvalidDate);
+      importData.diagnostics.incrementSkipped(importSkipReasonInvalidDate);
       continue;
     }
 
@@ -203,14 +155,14 @@ ImportData loadInvestmentCSV(
       actionValue: actionValue,
     );
     if (description.isEmpty) {
-      importData.diagnostics.incrementSkipped(_skipReasonEmptyDescription);
+      importData.diagnostics.incrementSkipped(importSkipReasonEmptyDescription);
       continue;
     }
 
     // Parse amount
     final double? amount = parseAmountFlexible(row[amountIndex]);
     if (amount == null) {
-      importData.diagnostics.incrementSkipped(_skipReasonInvalidAmount);
+      importData.diagnostics.incrementSkipped(importSkipReasonInvalidAmount);
       continue;
     }
 
@@ -241,11 +193,11 @@ ImportData loadInvestmentCSV(
 
     // Create entry
     final ImportEntry entry = ImportEntry(
-      type: 'investment_csv',
+      type: SharedStrings.importTypeInvestmentCsv,
       date: date,
       amount: amount,
       name: description,
-      fitid: 'investment_csv_${date.millisecondsSinceEpoch}_$i',
+      fitid: '${SharedStrings.importTypeInvestmentCsv}_${date.millisecondsSinceEpoch}_$i',
       memo: actionValue,
       number: '',
       stockAction: stockAction,

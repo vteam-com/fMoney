@@ -16,6 +16,7 @@ import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/views/imports/shared/import_duplicate_helper.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
 import 'package:money/views/imports/shared/transactions_import_list_preview_widget.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/widgets/columns/value_quality.dart';
@@ -356,19 +357,10 @@ void appendInvestmentForTransaction(Investment investment, Transaction transacti
 
 /// Warns the user when rows of [importData] were skipped because they could not be read.
 void showImportSkippedRowsWarning(ImportData importData) {
-  if (importData.diagnostics.skippedRows == 0) {
-    return;
-  }
-  SnackBarService.displayWarning(
-    autoDismiss: true,
-    message: AppL10n.tr(
-      AppTranslationKeys.importRowsParsedAndSkipped,
-      params: <String, String>{
-        'fileType': importData.fileType,
-        'imported': importData.entries.length.toString(),
-        'skipped': importData.diagnostics.skippedRows.toString(),
-      },
-    ),
+  showSkippedRowsWarning(
+    fileType: importData.fileType,
+    imported: importData.entries.length,
+    skipped: importData.diagnostics.skippedRows,
   );
 }
 

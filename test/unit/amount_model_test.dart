@@ -68,4 +68,35 @@ void main() {
     ]);
     expect(Data().transactionExtras.isEmpty, false);
   });
+
+  group('smartToDouble', () {
+    test('converts numbers, amounts and text', () {
+      expect(smartToDouble(12.5), 12.5);
+      expect(smartToDouble(3), 3.0);
+      expect(smartToDouble(AmountModel(amount: -4.25)), -4.25);
+      expect(smartToDouble('\$1,234.56'), 1234.56);
+    });
+
+    test('returns the default for null, text without a number and other types', () {
+      expect(smartToDouble(null), 0.0);
+      expect(smartToDouble('abc'), 0.0);
+      expect(smartToDouble(true), 0.0);
+      expect(smartToDouble(null, 9.5), 9.5);
+      expect(smartToDouble('abc', 9.5), 9.5);
+    });
+
+    test('setAmount and MyJson.getDouble convert through it', () {
+      final AmountModel amount = AmountModel(amount: 1)..setAmount(null);
+      expect(amount.asDouble(), 0.0);
+      amount.setAmount(AmountModel(amount: 7));
+      expect(amount.asDouble(), 7.0);
+      amount.setAmount('2.5');
+      expect(amount.asDouble(), 2.5);
+
+      final MyJson json = <String, dynamic>{'text': 'n/a', 'int': 4, 'missing': null};
+      expect(json.getDouble('text', 9.5), 9.5);
+      expect(json.getDouble('int'), 4.0);
+      expect(json.getDouble('missing', 1.5), 1.5);
+    });
+  });
 }

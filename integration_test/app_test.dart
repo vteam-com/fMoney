@@ -457,8 +457,9 @@ Future<void> testAccounts(WidgetTester tester) async {
   // CopyToCLipboard from the Side Panel Header
   await tapOnKey(tester, Constants.keyCopyListToClipboardHeaderSidePanel);
 
-  // Accounts - Add new
+  // Accounts - Add new (opens the editor of the new account)
   await tapOnKey(tester, Constants.keyAddNewItem);
+  await tapOnText(tester, 'Cancel');
 
   // Accounts - Edit
   await testAccountEdit(tester);

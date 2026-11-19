@@ -100,21 +100,20 @@ class OnlineAccount extends DataObject {
   @override
   FieldDefinitions get fieldDefinitions => fields.definitions;
 
-  static final Fields<OnlineAccount> _fields = Fields<OnlineAccount>();
-
-  /// Builds [OnlineAccount] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(OnlineAccount tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldName,
-    ...tmp.passThroughFields,
-  ];
+  static final FieldDefinitionCache<OnlineAccount> _fieldDefinitionCache = FieldDefinitionCache<OnlineAccount>(
+    instanceFactory: () => OnlineAccount.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<OnlineAccount>>[
+      FieldBlueprint<OnlineAccount>(selector: (OnlineAccount tmp) => tmp.fieldId),
+      FieldBlueprint<OnlineAccount>(selector: (OnlineAccount tmp) => tmp.fieldName),
+      ...List<FieldBlueprint<OnlineAccount>>.generate(
+        _passThroughColumns.length,
+        (int index) => FieldBlueprint<OnlineAccount>(selector: (OnlineAccount tmp) => tmp.passThroughFields[index]),
+      ),
+    ],
+  );
 
   /// Returns the field definitions for OnlineAccount entities.
-  static Fields<OnlineAccount> get fields => ensureCachedFieldDefinitions<OnlineAccount>(
-    cache: _fields,
-    instanceFactory: () => OnlineAccount.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<OnlineAccount> get fields => _fieldDefinitionCache.fields;
 
   @override
   int get uniqueId => fieldId.value;

@@ -80,7 +80,7 @@ class ThemeController extends ChangeNotifier {
 
   /// Loads theme mode and color index from persisted preferences.
   Future<void> loadThemeFromPreferences() async {
-    final PreferenceController preferenceController = _preferenceController ?? PreferenceController.to;
+    final PreferenceController preferenceController = _preferences;
     if (!preferenceController.isReady) {
       await preferenceController.init();
     }
@@ -94,8 +94,8 @@ class ThemeController extends ChangeNotifier {
 
   /// Persists theme mode and color index to preferences.
   Future<void> saveThemeToPreferences() async {
-    PreferenceController.to.setBool(settingKeyDarkMode, isDarkTheme);
-    PreferenceController.to.setInt(settingKeyTheme, colorSelected);
+    _preferences.setBool(settingKeyDarkMode, isDarkTheme);
+    _preferences.setInt(settingKeyTheme, colorSelected);
   }
 
   /// Sets the app window size to the predefined small width.
@@ -128,6 +128,9 @@ class ThemeController extends ChangeNotifier {
 
   /// Returns the current theme data (light or dark) based on the mode.
   ThemeData get themeData => isDarkTheme ? themeDataDark : themeDataLight;
+
+  /// The attached preference controller, else the app-wide one; used to both load and save the theme.
+  PreferenceController get _preferences => _preferenceController ?? PreferenceController.to;
 
   /// Ensures [colorSelected] points to a valid index in [_Themes.themeAsColors].
   void _ensureValidColorSelection() {

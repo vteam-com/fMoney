@@ -1,68 +1,13 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/widgets/components/text_title_widget.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/pivot_toggle_row_widget.dart';
-
-/// Builds the standardized pivot toggle row layout.
-Widget buildStandardPivotToggleRowUi({
-  Key? key,
-  required List<bool> selectedPivot,
-  required List<Widget> pivotChildren,
-  required EdgeInsetsGeometry padding,
-  required BorderRadius borderRadius,
-  required double minHeight,
-  required double minWidth,
-  required void Function(int) onPressed,
-}) {
-  return buildPivotToggleRow(
-    key: key,
-    isSelected: selectedPivot,
-    children: pivotChildren,
-    padding: padding,
-    borderRadius: borderRadius,
-    minHeight: minHeight,
-    minWidth: minWidth,
-    onPressed: onPressed,
-  );
-}
-
-/// Builds a common side-panel details wrapper around a money object card.
-Widget buildStandardSidePanelDetailsWrapUi<T extends DataObject>({
-  required T? selectedItem,
-  required List<Widget> extraPanels,
-  required double spacing,
-  required String title,
-}) {
-  if (selectedItem == null) {
-    return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
-  }
-
-  return SingleChildScrollView(
-    child: Center(
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        runSpacing: spacing,
-        spacing: spacing,
-        children: <Widget>[
-          MoneyObjectCard(
-            title: title,
-            moneyObject: selectedItem,
-          ),
-          ...extraPanels,
-        ],
-      ),
-    ),
-  );
-}
 
 /// Builds the default empty-list center message.
 Widget buildCenterMessageForEmptyListUi({

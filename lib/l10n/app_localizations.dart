@@ -868,6 +868,12 @@ abstract class AppLocalizations {
   /// **'Copy message to clipboard'**
   String get copyMessageToClipboard;
 
+  /// No description provided for @copyToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to clipboard'**
+  String get copyToClipboard;
+
   /// No description provided for @countSelected.
   ///
   /// In en, this message translates to:
@@ -909,12 +915,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'CSV import cancelled.'**
   String get csvImportCancelled;
-
-  /// No description provided for @csvImportRowsImportedAndSkipped.
-  ///
-  /// In en, this message translates to:
-  /// **'CSV import parsed {imported} entries and skipped {skipped} rows.'**
-  String csvImportRowsImportedAndSkipped(Object imported, Object skipped);
 
   /// No description provided for @dataPreviewFirst5Rows.
   ///
@@ -1012,6 +1012,12 @@ abstract class AppLocalizations {
   /// **'Dividend'**
   String get dividend;
 
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
   /// No description provided for @download.
   ///
   /// In en, this message translates to:
@@ -1029,6 +1035,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drop files here'**
   String get dropFilesHere;
+
+  /// No description provided for @duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get duplicate;
 
   /// No description provided for @edit.
   ///
@@ -2697,30 +2709,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suggestion'**
   String get suggestion;
-
-  /// No description provided for @switchToCategories.
-  ///
-  /// In en, this message translates to:
-  /// **'Switch to Categories'**
-  String get switchToCategories;
-
-  /// No description provided for @switchToPayees.
-  ///
-  /// In en, this message translates to:
-  /// **'Switch to Payees'**
-  String get switchToPayees;
-
-  /// No description provided for @switchToStocks.
-  ///
-  /// In en, this message translates to:
-  /// **'Switch to Stocks'**
-  String get switchToStocks;
-
-  /// No description provided for @switchToTransactions.
-  ///
-  /// In en, this message translates to:
-  /// **'Switch to Transactions'**
-  String get switchToTransactions;
 
   /// No description provided for @symbol.
   ///

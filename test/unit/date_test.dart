@@ -343,6 +343,8 @@ void main() {
       expect(parseDateFlexible('not-a-date'), isNull);
       expect(parseDateFlexible('31/02/2024', order: DateFieldOrder.dayMonthYear), isNull);
       expect(parseDateFlexible('13/13/2024'), isNull);
+      // ISO days are not rolled over (2024-02-31 is not March 2), as the AI PDF import relies on.
+      expect(parseDateFlexible('2024-02-31'), isNull);
     });
   });
 }

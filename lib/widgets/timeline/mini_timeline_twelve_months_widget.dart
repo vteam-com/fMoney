@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/pairs_model.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/vertical_line_with_tooltip_widget.dart';
 
 const int _monthsInYear = 12;
@@ -51,7 +51,7 @@ class MiniTimelineTwelveMonths extends StatelessWidget {
               VerticalLineWithTooltip(
                 height: height,
                 color: color,
-                tooltip: '${value.first} X ${doubleToCurrency(value.second)}',
+                tooltip: '${value.first} X ${getAmountAsStringUsingCurrency(value.second)}',
               ),
             );
           }

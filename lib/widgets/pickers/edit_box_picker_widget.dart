@@ -14,9 +14,11 @@ Widget pickerEnum<T>({
   required T selected,
   required String Function(T) toText,
   required void Function(T) onSelected,
+  Key? key,
 }) {
   final Map<String, T> valueByText = <String, T>{for (final T value in values) toText(value): value};
   return PickerEditBox(
+    key: key,
     title: title,
     items: valueByText.keys.toList(),
     initialValue: toText(selected),
@@ -25,6 +27,29 @@ Widget pickerEnum<T>({
         onSelected(valueByText[text] as T);
       }
     },
+  );
+}
+
+/// Shows in [controller] a value its owner changed from [oldValue] to [newValue] (for example a tapped
+/// suggestion), with the caret at the end.
+///
+/// Nothing changes while the owner's value is the same, or when [isSameValue]
+/// (text equality by default) says the text box already shows it, so an owner
+/// echoing what the user is typing never overwrites the text box.
+void showOwnerValueChange(
+  TextEditingController controller,
+  String? oldValue,
+  String? newValue, {
+  bool Function(String text, String value)? isSameValue,
+}) {
+  final String value = newValue ?? '';
+  final bool alreadyShown = isSameValue?.call(controller.text, value) ?? controller.text == value;
+  if (newValue == oldValue || alreadyShown) {
+    return;
+  }
+  controller.value = TextEditingValue(
+    text: value,
+    selection: TextSelection.collapsed(offset: value.length),
   );
 }
 
@@ -73,13 +98,7 @@ class PickerEditBoxState extends State<PickerEditBox> {
   @override
   void didUpdateWidget(PickerEditBox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final String value = widget.initialValue ?? '';
-    if (widget.initialValue != oldWidget.initialValue && value != _textController.text) {
-      _textController.value = TextEditingValue(
-        text: value,
-        selection: TextSelection.collapsed(offset: value.length),
-      );
-    }
+    showOwnerValueChange(_textController, oldWidget.initialValue, widget.initialValue);
   }
 
   @override

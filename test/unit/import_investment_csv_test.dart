@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/investment_csv_import_view.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
 
 // Shared header fixtures used across multiple tests.
 const List<String> _fullHeaders = <String>[
@@ -309,6 +311,8 @@ void main() {
 
       expect(result.entries.isEmpty, isTrue);
       expect(result.diagnostics.skippedRows, 1);
+      // Same reason as the generic CSV importer for a row shorter than its columns.
+      expect(result.diagnostics.skippedByReason[importSkipReasonInsufficientColumns], 1);
     });
 
     test('returns empty ImportData when Description column is missing from headers', () {
@@ -365,7 +369,9 @@ void main() {
         ],
       );
 
+      expect(result.entries[0].type, SharedStrings.importTypeInvestmentCsv);
       expect(result.entries[0].type, 'investment_csv');
+      expect(result.entries[0].fitid, startsWith('${SharedStrings.importTypeInvestmentCsv}_'));
     });
   });
 }

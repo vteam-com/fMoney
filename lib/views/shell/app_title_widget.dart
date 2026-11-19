@@ -42,17 +42,7 @@ class AppTitle extends StatelessWidget {
               children: <Widget>[
                 IntrinsicWidth(child: _buildNetWorthToggle(context)),
                 gapSmall(),
-                ListenableBuilder(
-                  listenable: dataController.trackMutations,
-                  builder: (BuildContext _, Widget? _) {
-                    return BadgePendingChanges(
-                      key: Constants.keyPendingChanges,
-                      itemsAdded: dataController.trackMutations.added,
-                      itemsChanged: dataController.trackMutations.changed,
-                      itemsDeleted: dataController.trackMutations.deleted,
-                    );
-                  },
-                ),
+                buildPendingChangesBadge(dataController),
               ],
             ),
             const MruDropdown(),
@@ -77,17 +67,7 @@ class AppTitle extends StatelessWidget {
           ),
         ),
         gapSmall(),
-        ListenableBuilder(
-          listenable: dataController.trackMutations,
-          builder: (BuildContext _, Widget? _) {
-            return BadgePendingChanges(
-              key: Constants.keyPendingChanges,
-              itemsAdded: dataController.trackMutations.added,
-              itemsChanged: dataController.trackMutations.changed,
-              itemsDeleted: dataController.trackMutations.deleted,
-            );
-          },
-        ),
+        buildPendingChangesBadge(dataController),
       ],
     );
   }

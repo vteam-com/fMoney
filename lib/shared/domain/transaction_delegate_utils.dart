@@ -2,6 +2,7 @@ import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
@@ -55,11 +56,8 @@ bool transactionContainsTransferTo(dynamic transaction, dynamic account) {
 
 /// Converts [nativeValue] into normalized currency using transaction account ratio.
 double transactionGetNormalizedAmount(dynamic transaction, double nativeValue) {
-  if (transaction.instanceOfAccount == null ||
-      transaction.instanceOfAccount.getCurrencyRatio() == _transactionZeroDouble) {
-    return nativeValue;
-  }
-  return nativeValue * (transaction.instanceOfAccount.getCurrencyRatio() as num).toDouble();
+  final Account? account = transaction.instanceOfAccount as Account?;
+  return account == null ? nativeValue : account.toNormalized(nativeValue);
 }
 
 /// Returns existing investment for a transaction or creates a default one.
@@ -171,6 +169,23 @@ bool transactionIsMatchingAnyOfTheseCategories(
   return false;
 }
 
+/// Links [transaction] and [relatedTransaction] as a transfer pair: each side caches its own [Transfer]
+/// whose source is itself and whose related transaction is the other side.
+void transactionLinkTransferPair(dynamic transaction, dynamic relatedTransaction) {
+  transaction.cachedTransfer = Transfer(
+    id: _transactionZeroInt,
+    source: transaction,
+    relatedTransaction: relatedTransaction,
+    isOrphan: false,
+  );
+  relatedTransaction.cachedTransfer = Transfer(
+    id: _transactionZeroInt,
+    source: relatedTransaction,
+    relatedTransaction: transaction,
+    isOrphan: false,
+  );
+}
+
 /// Lazily resolves and wires transfer linkage for a transaction.
 Transfer? transactionResolveInstanceOfTransfer(dynamic transaction) {
   if (transaction.cachedTransfer == null && (transaction.isTransfer as bool)) {
@@ -178,18 +193,7 @@ Transfer? transactionResolveInstanceOfTransfer(dynamic transaction) {
       transaction.fieldTransfer.value as int,
     );
     if (relatedTransaction != null) {
-      transaction.cachedTransfer = Transfer(
-        id: _transactionZeroInt,
-        source: transaction,
-        relatedTransaction: relatedTransaction,
-        isOrphan: false,
-      );
-      relatedTransaction.cachedTransfer = Transfer(
-        id: _transactionZeroInt,
-        source: relatedTransaction,
-        relatedTransaction: transaction,
-        isOrphan: false,
-      );
+      transactionLinkTransferPair(transaction, relatedTransaction);
     }
   }
   return transaction.cachedTransfer as Transfer?;

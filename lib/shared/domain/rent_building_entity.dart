@@ -14,6 +14,7 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
+import 'package:money/shared/domain/rental_category_role_enum.dart';
 import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
@@ -72,68 +73,8 @@ class RentBuilding extends DataObject {
       'OwnershipPercentage2',
     );
 
-    instance.categoryForIncome.value = row.getInt(SharedDomainStrings.domainString030, -1);
-    if (data != null) {
-      instance.categoryForIncomeTreeIds = data.getCategoryTreeIds(
-        instance.categoryForIncome.value,
-      );
-    }
-
-    instance.categoryForTaxes.value = row.getInt(SharedDomainStrings.domainString035, -1);
-    if (data != null) {
-      instance.categoryForTaxesTreeIds = data.getCategoryTreeIds(
-        instance.categoryForTaxes.value,
-      );
-    }
-
-    instance.categoryForInterest.value = row.getInt(SharedDomainStrings.domainString031, -1);
-    if (data != null) {
-      instance.categoryForInterestTreeIds = data.getCategoryTreeIds(
-        instance.categoryForInterest.value,
-      );
-    }
-
-    instance.categoryForRepairs.value = row.getInt(SharedDomainStrings.domainString034, -1);
-    if (data != null) {
-      instance.categoryForRepairsTreeIds = data.getCategoryTreeIds(
-        instance.categoryForRepairs.value,
-      );
-    }
-
-    instance.categoryForMaintenance.value = row.getInt(
-      SharedDomainStrings.domainString032,
-      -1,
-    );
-    if (data != null) {
-      instance.categoryForMaintenanceTreeIds = data.getCategoryTreeIds(
-        instance.categoryForMaintenance.value,
-      );
-    }
-
-    instance.categoryForManagement.value = row.getInt(
-      SharedDomainStrings.domainString033,
-      -1,
-    );
-    if (data != null) {
-      instance.categoryForManagementTreeIds = data.getCategoryTreeIds(
-        instance.categoryForManagement.value,
-      );
-    }
-
-    if (data != null) {
-      instance.listOfCategoryIdsExpenses.addAll(instance.categoryForTaxesTreeIds);
-      instance.listOfCategoryIdsExpenses.addAll(
-        instance.categoryForMaintenanceTreeIds,
-      );
-      instance.listOfCategoryIdsExpenses.addAll(
-        instance.categoryForManagementTreeIds,
-      );
-      instance.listOfCategoryIdsExpenses.addAll(
-        instance.categoryForRepairsTreeIds,
-      );
-      instance.listOfCategoryIdsExpenses.addAll(
-        instance.categoryForInterestTreeIds,
-      );
+    for (final RentalCategoryRole role in RentalCategoryRole.values) {
+      instance.categoryFieldOf(role).value = row.getInt(role.columnName, -1);
     }
 
     instance.note.value = row.getString(SharedDomainStrings.domainString091);
@@ -146,69 +87,31 @@ class RentBuilding extends DataObject {
 
   /// CategoryForIncome
   // 13    CategoryForIncome          money
-  FieldInt categoryForIncome = FieldInt(
-    serializeName: SharedDomainStrings.domainString030,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForIncome.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForIncome.value,
-  );
-
-  List<int> categoryForIncomeTreeIds = <int>[];
+  final FieldInt categoryForIncome = _categoryFieldFor(RentalCategoryRole.income);
 
   /// CategoryForInterest
   // 14    CategoryForInterest          money
-  FieldInt categoryForInterest = FieldInt(
-    serializeName: SharedDomainStrings.domainString031,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForInterest.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForInterest.value,
-  );
-
-  List<int> categoryForInterestTreeIds = <int>[];
+  final FieldInt categoryForInterest = _categoryFieldFor(RentalCategoryRole.interest);
 
   /// CategoryForMaintenance
   // 16    CategoryForMaintenance          money
-  FieldInt categoryForMaintenance = FieldInt(
-    serializeName: SharedDomainStrings.domainString032,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForMaintenance.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForMaintenance.value,
-  );
-
-  List<int> categoryForMaintenanceTreeIds = <int>[];
+  final FieldInt categoryForMaintenance = _categoryFieldFor(RentalCategoryRole.maintenance);
 
   /// CategoryForManagement
   // 17    CategoryForManagement          money
-  FieldInt categoryForManagement = FieldInt(
-    serializeName: SharedDomainStrings.domainString033,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForManagement.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForManagement.value,
-  );
-
-  List<int> categoryForManagementTreeIds = <int>[];
+  final FieldInt categoryForManagement = _categoryFieldFor(RentalCategoryRole.management);
 
   /// CategoryForRepairs
   // 15    CategoryForRepairs          money
-  FieldInt categoryForRepairs = FieldInt(
-    serializeName: SharedDomainStrings.domainString034,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForRepairs.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForRepairs.value,
-  );
-
-  List<int> categoryForRepairsTreeIds = <int>[];
+  final FieldInt categoryForRepairs = _categoryFieldFor(RentalCategoryRole.repairs);
 
   /// CategoryForTaxes
   // 12    CategoryForTaxes          money
-  FieldInt categoryForTaxes = FieldInt(
-    serializeName: SharedDomainStrings.domainString035,
-    getValueForDisplay: (DataInterface instance) =>
-        (instance as RentBuilding).getCategoryName(instance.categoryForTaxes.value),
-    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryForTaxes.value,
-  );
+  final FieldInt categoryForTaxes = _categoryFieldFor(RentalCategoryRole.taxes);
 
-  List<int> categoryForTaxesTreeIds = <int>[];
+  /// Category ids of each role's category tree, see [updateCategoryTreeIds].
+  final Map<RentalCategoryRole, List<int>> _categoryTreeIds = <RentalCategoryRole, List<int>>{};
+
   DateRange dateRangeOfOperation = DateRange();
 
   /// Address
@@ -381,7 +284,6 @@ class RentBuilding extends DataObject {
   );
 
   late RentalPnL lifeTimePnL;
-  List<int> listOfCategoryIdsExpenses = <int>[];
 
   /// Note
   // 11    Note          money
@@ -405,79 +307,81 @@ class RentBuilding extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<RentBuilding> _fields = Fields<RentBuilding>();
-  static final Fields<RentBuilding> _fieldsForColumns = Fields<RentBuilding>();
-  static final List<FieldBlueprint<RentBuilding>> _fieldBlueprints = <FieldBlueprint<RentBuilding>>[
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldId),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldName, includeInColumnView: true),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldAddress,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldCurrency,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedDate),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedPrice),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLandValue,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldEstimatedValue,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName1),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage1),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName2),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage2),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForIncome),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForInterest),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForManagement),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForMaintenance),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForRepairs),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForTaxes),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.note),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldTransactionsForIncomes,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldRevenue, includeInColumnView: true),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldTransactionsForExpenses,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldExpense, includeInColumnView: true),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseInterest,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseMaintenance,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseManagement,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseRepair,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(
-      selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseTaxes,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldProfit, includeInColumnView: true),
-  ];
+  static final FieldDefinitionCache<RentBuilding> _fieldDefinitionCache = FieldDefinitionCache<RentBuilding>(
+    instanceFactory: () => RentBuilding.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<RentBuilding>>[
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldId),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldName, includeInColumnView: true),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldAddress,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldCurrency,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedDate),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldPurchasedPrice),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLandValue,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldEstimatedValue,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName1),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage1),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipName2),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldOwnershipPercentage2),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForIncome),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForInterest),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForManagement),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForMaintenance),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForRepairs),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.categoryForTaxes),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.note),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldTransactionsForIncomes,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldRevenue, includeInColumnView: true),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldTransactionsForExpenses,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldExpense, includeInColumnView: true),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseInterest,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseMaintenance,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseManagement,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseRepair,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(
+        selector: (RentBuilding tmp) => tmp.fieldLifeTimeExpenseTaxes,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<RentBuilding>(selector: (RentBuilding tmp) => tmp.fieldProfit, includeInColumnView: true),
+    ],
+  );
 
   /// Attempts to associate this rental with an account by looking for the first matching income transaction.
   void associateAccountToBuilding() {
     final dynamic firstTransactionForThisBuilding = data
         .getTransactions(includeDeleted: true)
         .firstWhereOrNull(
-          (dynamic t) => this.categoryForIncomeTreeIds.contains((t as Transaction).fieldCategoryId.value),
+          (dynamic t) =>
+              categoryTreeIdsOf(RentalCategoryRole.income).contains((t as Transaction).fieldCategoryId.value),
         );
     if (firstTransactionForThisBuilding != null) {
       this.account = (firstTransactionForThisBuilding as Transaction).instanceOfAccount;
@@ -533,48 +437,59 @@ class RentBuilding extends DataObject {
 
   /// Applies a single income/expense amount to the correct PnL buckets.
   void cumulatePnLValues(RentalPnL pnl, int categoryId, double amount) {
-    if (this.categoryForIncomeTreeIds.contains(categoryId)) {
-      fieldTransactionsForIncomes.value++;
-      pnl.income += amount;
-    }
-
-    if (this.categoryForInterestTreeIds.contains(categoryId)) {
-      fieldTransactionsForExpenses.value++;
-      pnl.expenseInterest += amount;
-    }
-    if (this.categoryForRepairsTreeIds.contains(categoryId)) {
-      fieldTransactionsForExpenses.value++;
-      pnl.expenseRepairs += amount;
-    }
-    if (this.categoryForMaintenanceTreeIds.contains(categoryId)) {
-      fieldTransactionsForExpenses.value++;
-      pnl.expenseMaintenance += amount;
-    }
-    if (this.categoryForManagementTreeIds.contains(categoryId)) {
-      fieldTransactionsForExpenses.value++;
-      pnl.expenseManagement += amount;
-    }
-    if (this.categoryForTaxesTreeIds.contains(categoryId)) {
-      fieldTransactionsForExpenses.value++;
-      pnl.expenseTaxes += amount;
+    for (final RentalCategoryRole role in RentalCategoryRole.values) {
+      if (categoryTreeIdsOf(role).contains(categoryId)) {
+        if (role.isExpense) {
+          fieldTransactionsForExpenses.value++;
+        } else {
+          fieldTransactionsForIncomes.value++;
+        }
+        pnl.add(role, amount);
+      }
     }
   }
 
-  /// Returns the field definitions for RentBuilding entities.
-  static Fields<RentBuilding> get fields => ensureCachedFieldDefinitionsFromBlueprints<RentBuilding>(
-    cache: _fields,
-    instanceFactory: () => RentBuilding.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
+  /// Returns the field holding the category id of [role].
+  FieldInt categoryFieldOf(RentalCategoryRole role) => switch (role) {
+    RentalCategoryRole.income => categoryForIncome,
+    RentalCategoryRole.interest => categoryForInterest,
+    RentalCategoryRole.maintenance => categoryForMaintenance,
+    RentalCategoryRole.management => categoryForManagement,
+    RentalCategoryRole.repairs => categoryForRepairs,
+    RentalCategoryRole.taxes => categoryForTaxes,
+  };
+
+  /// Returns the ids of the category of [role] and of every category below it.
+  List<int> categoryTreeIdsOf(RentalCategoryRole role) => _categoryTreeIds[role] ?? const <int>[];
+
+  /// Recomputes the category tree of every role from the current categories.
+  void updateCategoryTreeIds() {
+    for (final RentalCategoryRole role in RentalCategoryRole.values) {
+      _categoryTreeIds[role] = data.getCategoryTreeIds(categoryFieldOf(role).value);
+    }
+  }
+
+  /// Clears the P&L, its date range and the transaction counters before they are cumulated again.
+  void resetTotals() {
+    pnlOverYears = <int, RentalPnL>{};
+    dateRangeOfOperation.clear();
+    fieldTransactionsForIncomes.value = 0;
+    fieldTransactionsForExpenses.value = 0;
+  }
+
+  /// Builds the field storing the category id of [role] in the role's column.
+  static FieldInt _categoryFieldFor(RentalCategoryRole role) => FieldInt(
+    serializeName: role.columnName,
+    getValueForDisplay: (DataInterface instance) =>
+        (instance as RentBuilding).getCategoryName(instance.categoryFieldOf(role).value),
+    getValueForSerialization: (DataInterface instance) => (instance as RentBuilding).categoryFieldOf(role).value,
   );
 
+  /// Returns the field definitions for RentBuilding entities.
+  static Fields<RentBuilding> get fields => _fieldDefinitionCache.fields;
+
   /// Returns the field definitions for RentBuilding column view.
-  static Fields<RentBuilding> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<RentBuilding>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => RentBuilding.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<RentBuilding> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns the category name for the given category [id].
   String getCategoryName(int id) {
@@ -595,12 +510,9 @@ class RentBuilding extends DataObject {
     final RentalPnL lifeTimePnL = RentalPnL(date: DateTime.now());
     pnlOverYears.forEach((int _ /* year */, RentalPnL pnl) {
       dateRangeOfOperation.inflate(pnl.date);
-      lifeTimePnL.income += pnl.income;
-      lifeTimePnL.expenseInterest += pnl.expenseInterest;
-      lifeTimePnL.expenseManagement += pnl.expenseManagement;
-      lifeTimePnL.expenseMaintenance += pnl.expenseMaintenance;
-      lifeTimePnL.expenseRepairs += pnl.expenseRepairs;
-      lifeTimePnL.expenseTaxes += pnl.expenseTaxes;
+      for (final RentalCategoryRole role in RentalCategoryRole.values) {
+        lifeTimePnL.add(role, pnl.amountOf(role));
+      }
       lifeTimePnL.currency = pnl.currency;
       lifeTimePnL.distributions = pnl.distributions;
     });
@@ -609,12 +521,9 @@ class RentBuilding extends DataObject {
 
   /// Returns true if a transaction category is associated with this rental.
   bool isTransactionAssociatedWithThisRental(int transactionCategoryId) {
-    return this.categoryForIncomeTreeIds.contains(transactionCategoryId) ||
-        this.categoryForInterestTreeIds.contains(transactionCategoryId) ||
-        this.categoryForRepairsTreeIds.contains(transactionCategoryId) ||
-        this.categoryForMaintenanceTreeIds.contains(transactionCategoryId) ||
-        this.categoryForManagementTreeIds.contains(transactionCategoryId) ||
-        this.categoryForTaxesTreeIds.contains(transactionCategoryId);
+    return RentalCategoryRole.values.any(
+      (RentalCategoryRole role) => categoryTreeIdsOf(role).contains(transactionCategoryId),
+    );
   }
 
   /// Returns true if a transaction or any split is associated with this rental.

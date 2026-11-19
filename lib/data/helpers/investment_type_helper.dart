@@ -35,7 +35,7 @@ String getInvestmentTypeTextFromValue(int value) {
 
 /// Returns InvestmentType from integer value.
 InvestmentType getInvestmentTypeFromValue(int value) {
-  return InvestmentType.values[value];
+  return enumFromIndex(InvestmentType.values, value, InvestmentType.none);
 }
 
 enum InvestmentTradeType {
@@ -55,7 +55,7 @@ String getInvestmentTradeTypeText(InvestmentTradeType type) {
 
 /// Returns InvestmentTradeType from integer value.
 InvestmentTradeType getInvestmentTradeTypeFromValue(int value) {
-  return InvestmentTradeType.values[value];
+  return enumFromIndex(InvestmentTradeType.values, value, InvestmentTradeType.none);
 }
 
 /// Returns InvestmentTradeType from string name.

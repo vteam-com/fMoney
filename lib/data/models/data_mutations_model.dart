@@ -16,7 +16,7 @@ class DataMutations extends ChangeNotifier {
     int increaseChanged = 0,
     int increaseDeleted = 0,
   }) {
-    setLastEditToNow();
+    lastDateTimeChanged = DateTime.now();
     added += increaseAdded;
     changed += increaseChanged;
     deleted += increaseDeleted;
@@ -35,7 +35,7 @@ class DataMutations extends ChangeNotifier {
 
   /// Resets all mutation counters and updates the last edit time.
   void reset() {
-    setLastEditToNow();
+    lastDateTimeChanged = DateTime.now();
     added = 0;
     changed = 0;
     deleted = 0;

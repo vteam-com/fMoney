@@ -96,68 +96,12 @@ List<Pair<T, U>> convertMapToListOfPair<T, U>(Map<dynamic, dynamic> map) {
   return list;
 }
 
-/// Converts a list of key-value pairs to a list of percentages.
-///
-/// This function takes a list of [PairStringDouble] objects, which represent
-/// key-value pairs where the value is a number. It calculates the total
-/// amount of all the values, then converts each value to a percentage of
-/// the total and returns a new list of [PairStringDouble] objects with the
-/// updated percentage values.
-///
-/// If any of the values are zero, the corresponding percentage is set to 0.0
-/// to handle division by zero.
-///
-/// Parameters:
-///   `PairStringDouble (List<PairStringDouble>)`: The input list of key-value pairs.
-///
-/// Returns:
-///   A new list of [PairStringDouble] objects with the values converted to
-///   percentages of the total.
-List<PairStringDouble> convertToPercentages(
-  List<PairStringDouble> pairStringDouble,
-) {
-  // Calculate total amount
-  final double totalAmount = pairStringDouble.fold(
-    0,
-    (double prev, PairStringDouble entry) => prev + (entry.value as num),
-  );
-
-  // Convert each amount to a percentage and retain key association
-  final List<PairStringDouble> percentages = pairStringDouble.map((PairStringDouble entry) {
-    final double percentage = ((entry.value as num) / totalAmount) * 100;
-    return PairStringDouble(
-      key: entry.key,
-      value: percentage.isNaN ? 0.0 : percentage,
-    ); // Handle division by zero
-  }).toList();
-
-  return percentages;
-}
-
 /// Returns list with min and max values from the input list.
 List<num> getMinMaxValues(List<double> list) {
   if (list.isEmpty) {
     return <num>[0, 0];
   }
-  if (list.length == 1) {
-    return <num>[list[0], list[0]];
-  }
-
-  double valueMin = 0.0;
-  double valueMax = 0.0;
-  if (list[0] < list[1]) {
-    valueMin = list[0];
-    valueMax = list[1];
-  } else {
-    valueMin = list[1];
-    valueMax = list[0];
-
-    for (double value in list) {
-      valueMin = min(valueMin, value);
-      valueMax = max(valueMax, value);
-    }
-  }
-  return <num>[valueMin, valueMax];
+  return <num>[list.reduce(min), list.reduce(max)];
 }
 
 /// Checks if index is within valid range for the array.
@@ -227,6 +171,11 @@ int sortByValue(num a, num b, bool ascending) {
 /// Converts enum values to list of strings.
 List<String> enumToStringList<T>(List<T> enumValues) {
   return enumValues.map((T e) => e.toString().split('.').last).toList();
+}
+
+/// Returns the value of [values] at [index], or [fallback] when [index] is out of range.
+T enumFromIndex<T extends Enum>(List<T> values, int index, T fallback) {
+  return isIndexInRange(values, index) ? values[index] : fallback;
 }
 
 extension RandomItemExtension<T> on List<T> {

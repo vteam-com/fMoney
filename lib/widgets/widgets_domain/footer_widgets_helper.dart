@@ -5,6 +5,7 @@ import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/widgets/pure/display_date.dart';
@@ -49,23 +50,20 @@ Widget getFooterForDateRange(DateRange dateRange) {
   );
 }
 
-/// Builds a footer widget for a monetary [amount].
-Widget getFooterForAmount(double amount, {String prefix = ''}) {
-  final TextStyle style = TextStyle(
-    color: AppRouter.context!.colorTheme.colorBasedOnValue(amount),
-    fontFamily: 'RobotoMono',
-  );
-
-  if (isSmallValue(amount)) {
-    return scaleDown(
-      Text(
-        prefix + getAmountAsStringUsingCurrency(amount),
-        style: style,
-      ),
-    );
-  }
+/// Builds a footer widget for a monetary [amount] in the [iso4217code] currency.
+Widget getFooterForAmount(
+  double amount, {
+  String prefix = '',
+  String iso4217code = Constants.defaultCurrency,
+}) {
   return scaleDown(
-    Text('$prefix\$${getAmountAsShorthandText(amount)}', style: style),
+    Text(
+      prefix + _formatValue(amount, FieldType.amount, iso4217code: iso4217code),
+      style: TextStyle(
+        color: AppRouter.context!.colorTheme.colorBasedOnValue(amount),
+        fontFamily: 'RobotoMono',
+      ),
+    ),
   );
 }
 
@@ -75,25 +73,29 @@ Widget getFooterForInt(
   bool applyColorBasedOnValue = true,
   String prefix = '',
 }) {
-  final TextStyle style = TextStyle(
-    color: applyColorBasedOnValue ? AppRouter.context!.colorTheme.colorBasedOnValue(value) : null,
-    fontFamily: 'RobotoMono',
+  return scaleDown(
+    Text(
+      prefix + _formatValue(value.toDouble(), FieldType.numeric),
+      style: TextStyle(
+        color: applyColorBasedOnValue ? AppRouter.context!.colorTheme.colorBasedOnValue(value) : null,
+        fontFamily: 'RobotoMono',
+      ),
+    ),
   );
-
-  if (isSmallValue(value)) {
-    return scaleDown(Text(prefix + getIntAsText(value.toInt()), style: style));
-  }
-  return scaleDown(Text(prefix + getNumberShorthandText(value), style: style));
 }
 
-/// Builds a footer widget that displays min/avg/max for a numeric [range].
-Widget getFooterForNumericRange(RunningAverage range, FieldType fieldType) {
+/// Builds a footer widget that displays min/avg/max for a numeric [range]; amounts use the [iso4217code] currency.
+Widget getFooterForNumericRange(
+  RunningAverage range,
+  FieldType fieldType, {
+  String iso4217code = Constants.defaultCurrency,
+}) {
   return LayoutBuilder(
     builder: (BuildContext _, BoxConstraints constraints) {
       final bool showLabels = constraints.maxWidth > _numericFooterMinWidth;
-      final double min = range.range.min.toDouble();
-      final double max = range.range.max.toDouble();
-      final double avg = range.getAverage();
+      final String min = _formatValue(range.range.min.toDouble(), fieldType, iso4217code: iso4217code);
+      final String max = _formatValue(range.range.max.toDouble(), fieldType, iso4217code: iso4217code);
+      final String avg = _formatValue(range.getAverage(), fieldType, iso4217code: iso4217code);
 
       return DefaultTextStyle(
         style: const TextStyle(
@@ -115,36 +117,36 @@ Widget getFooterForNumericRange(RunningAverage range, FieldType fieldType) {
                   TableRow(
                     children: <Widget>[
                       Text(AppL10n.tr(AppTranslationKeys.minLabel)),
-                      Text(_formatValue(min, fieldType), textAlign: TextAlign.right),
+                      Text(min, textAlign: TextAlign.right),
                     ],
                   ),
                   TableRow(
                     children: <Widget>[
                       Text(AppL10n.tr(AppTranslationKeys.avgLabel)),
-                      Text(_formatValue(avg, fieldType), textAlign: TextAlign.right),
+                      Text(avg, textAlign: TextAlign.right),
                     ],
                   ),
                   TableRow(
                     children: <Widget>[
                       Text(AppL10n.tr(AppTranslationKeys.maxLabel)),
-                      Text(_formatValue(max, fieldType), textAlign: TextAlign.right),
+                      Text(max, textAlign: TextAlign.right),
                     ],
                   ),
                 ],
               )
             else ...<Widget>[
               Text(
-                _formatValue(min, fieldType),
+                min,
                 maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                _formatValue(avg, fieldType),
+                avg,
                 maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                _formatValue(max, fieldType),
+                max,
                 maxLines: _numericFooterMaxLines,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -156,14 +158,22 @@ Widget getFooterForNumericRange(RunningAverage range, FieldType fieldType) {
   );
 }
 
-/// Formats a numeric footer value based on [fieldType] and shorthand threshold.
-String _formatValue(double value, FieldType fieldType) {
+/// Formats a footer [value] for [fieldType]: in full when small, as shorthand (e.g. "€12K") otherwise.
+///
+/// Amounts use the [iso4217code] currency.
+String _formatValue(
+  double value,
+  FieldType fieldType, {
+  String iso4217code = Constants.defaultCurrency,
+}) {
   if (!isNumber(value)) {
     return '---';
   }
   switch (fieldType) {
     case FieldType.amount:
-      return isSmallValue(value) ? getAmountAsStringUsingCurrency(value) : '\$${getAmountAsShorthandText(value)}';
+      return isSmallValue(value)
+          ? getAmountAsStringUsingCurrency(value, iso4217code: iso4217code)
+          : getAmountAsShortHandStringUsingCurrency(value, iso4217code: iso4217code);
     case FieldType.quantity:
       return formatDoubleUpToFiveZero(value);
     case FieldType.numeric:

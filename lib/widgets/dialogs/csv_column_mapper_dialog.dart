@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 
 const int _previewRowLimit = 5;
 const double _columnHighlightAlpha = 0.5;
@@ -12,8 +13,10 @@ const double _cellVerticalPadding = 4;
 const int _exactHeaderMatchScoreBase = 1000;
 const int _nonEmptyCellScoreWeight = 10;
 
-/// Header patterns for the Amount column, highest priority first.
-/// A running balance is never an amount, so 'balance' is intentionally absent.
+// Header keywords shared with the XLSX header row picker, so the row it picks can be mapped here.
+
+/// Header patterns for the Amount column, highest priority first; Portuguese and Spanish words come last.
+/// A running balance is never an amount, so 'balance' and 'saldo' are intentionally absent.
 const List<String> csvAmountColumnPatterns = <String>[
   'amount',
   'transaction amount',
@@ -31,8 +34,14 @@ const List<String> csvAmountColumnPatterns = <String>[
   'cost',
   'price',
   'total',
+  'valor',
+  'montante',
+  'entrada',
+  'saida',
 ];
-const List<String> _dateColumnPatterns = <String>[
+
+/// Header patterns for the Date column, highest priority first; Portuguese and Spanish words come last.
+const List<String> csvDateColumnPatterns = <String>[
   'run date',
   'transaction date',
   'date',
@@ -46,8 +55,13 @@ const List<String> _dateColumnPatterns = <String>[
   'settlement date', // Last priority: often empty in investment exports
   'timestamp',
   'time',
+  'data',
+  'fecha',
+  'dia',
 ];
-const List<String> _descriptionColumnPatterns = <String>[
+
+/// Header patterns for the Description column, highest priority first; Portuguese and Spanish words come last.
+const List<String> csvDescriptionColumnPatterns = <String>[
   'description',
   'transaction description',
   'action',
@@ -65,6 +79,8 @@ const List<String> _descriptionColumnPatterns = <String>[
   'recipient',
   'supplier',
   'store',
+  'desc',
+  'detalhes',
 ];
 const List<String> _quantityColumnPatterns = <String>[
   'quantity',
@@ -122,37 +138,20 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
   Widget build(BuildContext context) {
     if (widget.headers.isEmpty) {
       // Should not happen if CSV is valid and has headers
-      return AlertDialog(
-        title: Text(AppL10n.tr(AppTranslationKeys.error)), // Keep inner Text const if possible
-        content: Text(AppL10n.tr(AppTranslationKeys.csvHeadersAreMissingOrEmpty)), // Keep inner Text const
+      return MyAlertDialog(
+        title: AppL10n.tr(AppTranslationKeys.error),
         actions: <Widget>[
           TextButton(
             child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
+        child: Text(AppL10n.tr(AppTranslationKeys.csvHeadersAreMissingOrEmpty)),
       );
     }
 
-    return AlertDialog(
-      title: Text(AppL10n.tr(AppTranslationKeys.chooseColumns)),
-      content: SingleChildScrollView(
-        child: SizedBox(
-          width: double.maxFinite, // Use available width
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _buildMappingDropdowns(),
-              const SizedBox(height: _previewSpacing),
-              Text(
-                AppL10n.tr(AppTranslationKeys.dataPreviewFirst5Rows),
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              _buildPreviewTable(),
-            ],
-          ),
-        ),
-      ),
+    return MyAlertDialog(
+      title: AppL10n.tr(AppTranslationKeys.chooseColumns),
       actions: <Widget>[
         TextButton(
           child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
@@ -187,6 +186,23 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
           },
         ),
       ],
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: double.maxFinite, // Use available width
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _buildMappingDropdowns(),
+              const SizedBox(height: _previewSpacing),
+              Text(
+                AppL10n.tr(AppTranslationKeys.dataPreviewFirst5Rows),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              _buildPreviewTable(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -197,8 +213,8 @@ class _CsvColumnMapperDialogState extends State<CsvColumnMapperDialog> {
     }
 
     // Find best matches for each required column type
-    _selectedDateColumn = _findBestMatchUniqueId(_dateColumnPatterns, preferNonEmptyCells: true);
-    _selectedDescriptionColumn = _findBestMatchUniqueId(_descriptionColumnPatterns);
+    _selectedDateColumn = _findBestMatchUniqueId(csvDateColumnPatterns, preferNonEmptyCells: true);
+    _selectedDescriptionColumn = _findBestMatchUniqueId(csvDescriptionColumnPatterns);
     _selectedAmountColumn = _findBestMatchUniqueId(csvAmountColumnPatterns);
 
     // Find best matches for optional columns

@@ -6,12 +6,13 @@ import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/pairs_model.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
+import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/charts/distribution_bar_chart.dart';
 import 'package:money/views/panels/recurring/widgets/recurring_payment_widget.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/timeline/date_range_timeline_widget.dart';
 import 'package:money/widgets/timeline/mini_timeline_daily_widget.dart';
 import 'package:money/widgets/timeline/mini_timeline_twelve_months_widget.dart';
@@ -206,7 +207,10 @@ class RecurringCard extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  switchViewTransactionForPayee(payeeName);
+                  final Payee? payee = Data().payees.get(payment.payeeId);
+                  if (payee != null) {
+                    MenuEntry.toTransactionsOfPayee(payee: payee).onPressed();
+                  }
                 },
                 icon: const Icon(Icons.open_in_new),
               ),

@@ -9,6 +9,7 @@ import 'package:money/helpers/app_logger_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/helpers/string_helper.dart';
 
 const int _unsetId = -1;
 const int _zeroInt = 0;
@@ -339,6 +340,42 @@ class MoneyObjects<T> {
       (DataObject item) => item.mutation != MutationType.deleted,
     );
   }
+}
+
+/// Name lookups shared by the collections whose items are known by their name.
+mixin NamedMoneyObjects<T extends DataObject> on MoneyObjects<T> {
+  /// Finds a live item by [name], ignoring case; null when [name] is empty or matches none.
+  T? getByName(String name) {
+    if (name.isEmpty) {
+      return null;
+    }
+    return iterableList().firstWhereOrNull((T item) => stringCompareIgnoreCasing(nameOf(item), name) == _zeroInt);
+  }
+
+  /// Returns the live items accepted by [isListed], sorted by name.
+  List<T> getListSorted() {
+    final List<T> list = iterableList().where(isListed).toList();
+    list.sort((T a, T b) => sortByString(nameOf(a), nameOf(b), true));
+    return list;
+  }
+
+  /// Returns the name of the item with [id]: empty for the unset id, [nameOfMissingId] when no item has [id].
+  String getNameFromId(int id) {
+    if (id == _unsetId) {
+      return '';
+    }
+    final T? item = get(id);
+    return item == null ? nameOfMissingId(id) : nameOf(item);
+  }
+
+  /// Returns true when [getListSorted] offers the given item; every item by default.
+  bool isListed(T _) => true;
+
+  /// Returns the name of [item].
+  String nameOf(T item);
+
+  /// Returns what [getNameFromId] shows for an id that no item has; empty by default.
+  String nameOfMissingId(int _) => '';
 }
 
 /// Finds the first object with [uniqueId] in [listToSearch].

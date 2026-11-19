@@ -70,7 +70,7 @@ class Chart extends StatelessWidget {
               BarChartRodData(
                 toY: entry.yValue1.toDouble(),
                 borderRadius: BorderRadius.circular(_barBorderRadius),
-                color: entry.yValue1 < 0 ? Colors.red : Colors.green,
+                color: context.colorTheme.colorBasedOnValue(entry.yValue1),
                 width: barWidth, // Dynamically set the bar width
               ),
               if (entry.yValue2 != null)

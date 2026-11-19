@@ -236,63 +236,54 @@ class Security extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Security> _fields = Fields<Security>();
-  static final Fields<Security> _fieldsForColumns = Fields<Security>();
-  static final List<FieldBlueprint<Security>> _fieldBlueprints = <FieldBlueprint<Security>>[
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldId),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldName, includeInColumnView: true),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldSymbol, includeInColumnView: true),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldTransactionDateRange,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPrice, includeInColumnView: true),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldLastPrice, includeInColumnView: true),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldCuspid),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.taxable),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPriceDate),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldSecurityType,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldNumberOfTrades,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldHoldingShares,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldHoldingValue,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldActivityProfit,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(
-      selector: (Security tmp) => tmp.fieldActivityDividend,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldProfit, includeInColumnView: true),
-  ];
+  static final FieldDefinitionCache<Security> _fieldDefinitionCache = FieldDefinitionCache<Security>(
+    instanceFactory: () => Security.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Security>>[
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldId),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldName, includeInColumnView: true),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldSymbol, includeInColumnView: true),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldTransactionDateRange,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPrice, includeInColumnView: true),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldLastPrice, includeInColumnView: true),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldCuspid),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.taxable),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldPriceDate),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldSecurityType,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldNumberOfTrades,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldHoldingShares,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldHoldingValue,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldActivityProfit,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(
+        selector: (Security tmp) => tmp.fieldActivityDividend,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Security>(selector: (Security tmp) => tmp.fieldProfit, includeInColumnView: true),
+    ],
+  );
 
   /// Returns the field definitions for Security entities.
-  static Fields<Security> get fields => ensureCachedFieldDefinitionsFromBlueprints<Security>(
-    cache: _fields,
-    instanceFactory: () => Security.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Security> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Security column view.
-  static Fields<Security> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Security>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Security.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Security> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns a display string for the security type index.
   static String getSecurityTypeFromInt(int index) {

@@ -147,50 +147,51 @@ class LoanPayment extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<LoanPayment> _fields = Fields<LoanPayment>();
-  static final Fields<LoanPayment> _fieldsForColumns = Fields<LoanPayment>();
-  static final List<FieldBlueprint<LoanPayment>> _fieldBlueprints = <FieldBlueprint<LoanPayment>>[
-    FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldId),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldDate,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldAccountId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldMemo,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldReference,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.payment,
-      includeInEntity: false,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldRate,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldPrincipal,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest,
-      includeInEntity: false,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<LoanPayment>(
-      selector: (LoanPayment tmpInstance) => tmpInstance.fieldBalance,
-      includeInColumnView: true,
-    ),
-  ];
+  static final FieldDefinitionCache<LoanPayment> _fieldDefinitionCache = FieldDefinitionCache<LoanPayment>(
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: <FieldBlueprint<LoanPayment>>[
+      FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldId),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldDate,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldAccountId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldMemo,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldReference,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.payment,
+        includeInEntity: false,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldRate,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldPrincipal,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldInterest,
+        includeInEntity: false,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<LoanPayment>(
+        selector: (LoanPayment tmpInstance) => tmpInstance.fieldBalance,
+        includeInColumnView: true,
+      ),
+    ],
+  );
 
   /// Creates a lightweight static [LoanPayment] used only for field list assembly.
   static LoanPayment _createStaticFieldInstance() {
@@ -206,20 +207,10 @@ class LoanPayment extends DataObject {
   }
 
   /// Returns the field definitions for LoanPayment entities.
-  static Fields<LoanPayment> get fields => ensureCachedFieldDefinitionsFromBlueprints<LoanPayment>(
-    cache: _fields,
-    instanceFactory: _createStaticFieldInstance,
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<LoanPayment> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for LoanPayment column view.
-  static Fields<LoanPayment> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<LoanPayment>(
-    cache: _fieldsForColumns,
-    instanceFactory: _createStaticFieldInstance,
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<LoanPayment> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Calculates the annualized interest rate based on interest and principal change.
   double getRate() {

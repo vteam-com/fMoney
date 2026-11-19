@@ -1,6 +1,7 @@
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_full_screen.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
@@ -15,7 +16,9 @@ const double _dialogOuterPadding = 24;
 const double _dialogInnerTopPadding = 16;
 const int _actionButtonInsertIndex = 0;
 
-/// A stateless widget for my alert dialog.
+/// The app's dialog frame: an optional title, the [child], then the [actions] row.
+///
+/// On small screens it spans the whole window, without inset.
 ///
 /// Uses [Dialog] (not [AlertDialog]) to avoid the framework-imposed
 /// [IntrinsicWidth] wrapper that [AlertDialog] always applies. That wrapper
@@ -38,6 +41,7 @@ class MyAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: context.isWidthSmall ? EdgeInsets.zero : null,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(
           Radius.circular(_dialogBorderRadius),
@@ -81,11 +85,7 @@ class MyAlertDialog extends StatelessWidget {
                   SizeForPadding.normal,
                   SizeForPadding.normal,
                 ),
-                child: OverflowBar(
-                  alignment: MainAxisAlignment.end,
-                  spacing: SizeForPadding.normal,
-                  children: actions!,
-                ),
+                child: dialogActionButtons(actions!),
               ),
           ],
         ),

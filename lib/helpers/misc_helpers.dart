@@ -2,7 +2,6 @@
 // ignore: fcheck_one_class_per_file
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -17,17 +16,12 @@ Logger logger = Logger(
   output: null, // Use the default LogOutput (-> send everything to console)
 );
 
-const double _zeroDouble = 0.0;
 const double _defaultEpsilon = 0.009;
-const double _baseTen = 10.0;
-const int _baseTenInt = 10;
 const int _zeroInt = 0;
 const int _oneInt = 1;
 const int _notFoundIndex = -1;
-const int _minDecimalPlaces = 0;
 const int _snackBarDurationSeconds = 1;
 const int _defaultDebounceSeconds = 1;
-const double _fiveDecimalMultiplier = 100000.0;
 const List<int> _naturalFitDivisors = <int>[
   1000000,
   100000,
@@ -37,20 +31,6 @@ const List<int> _naturalFitDivisors = <int>[
   50,
   10,
 ];
-
-/// Converts dynamic value to double if possible.
-double getDoubleFromDynamic(dynamic value) {
-  if (value is double) {
-    return value;
-  }
-  if (value is int) {
-    return value.toDouble();
-  }
-  if (value is String) {
-    return attemptToGetDoubleFromText(value) ?? _zeroDouble;
-  }
-  return _zeroDouble;
-}
 
 /// Matches any digit.
 final RegExp _digitPattern = RegExp(r'\d');
@@ -175,27 +155,6 @@ bool isPlatformMobile() {
   //  return defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android;
 }
 
-/// Rounds double to specified number of decimal places.
-double roundDouble(double value, int places) {
-  final num mod = pow(_baseTen, places);
-  return (value * mod).round().toDouble() / mod;
-}
-
-/// Rounds a given value to the specified number of decimal places.
-///
-/// @param value The value to be rounded.
-/// @param places The number of decimal places to round to.
-/// @return The rounded value.
-/// @throws ArgumentError If the number of decimal places is negative.
-///
-double roundToDecimalPlaces(double value, int places) {
-  if (places < _minDecimalPlaces) {
-    throw ArgumentError('Decimal places must be non-negative');
-  }
-  final int factor = pow(_baseTenInt, places).toInt();
-  return (value * factor).round() / factor;
-}
-
 /// Round up to next divisor level
 int roundToNextNaturalFit(int number, int divisor) {
   if (number % divisor == _zeroInt) {
@@ -230,16 +189,6 @@ void showSnackBar(BuildContext context, String message) {
       duration: const Duration(seconds: _snackBarDurationSeconds),
     ),
   );
-}
-
-/// Trims double to exactly 5 decimal places.
-double trimToFiveDecimalPlaces(double value) {
-  // Multiply the value by 100,000 to move the decimal point 5 places to the right
-  final double multipliedValue = value * _fiveDecimalMultiplier;
-  // Round the result to the nearest integer
-  final double roundedValue = multipliedValue.roundToDouble();
-  // Divide the rounded value by 100,000 to move the decimal point back to its original position
-  return roundedValue / _fiveDecimalMultiplier;
 }
 
 /// Represents debouncer.

@@ -104,22 +104,18 @@ class Currency extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Currency> _fields = Fields<Currency>();
-
-  /// Builds [Currency] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(Currency tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldSymbol,
-    tmp.fieldName,
-    tmp.fieldRatio,
-    tmp.fieldLastRatio,
-    tmp.fieldCultureCode,
-  ];
+  static final FieldDefinitionCache<Currency> _fieldDefinitionCache = FieldDefinitionCache<Currency>(
+    instanceFactory: () => Currency.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Currency>>[
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldId),
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldSymbol),
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldName),
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldRatio),
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldLastRatio),
+      FieldBlueprint<Currency>(selector: (Currency tmp) => tmp.fieldCultureCode),
+    ],
+  );
 
   /// Returns the field definitions for Currency entities.
-  static Fields<Currency> get fields => ensureCachedFieldDefinitions<Currency>(
-    cache: _fields,
-    instanceFactory: () => Currency.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<Currency> get fields => _fieldDefinitionCache.fields;
 }

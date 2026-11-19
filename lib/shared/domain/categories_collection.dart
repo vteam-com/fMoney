@@ -3,16 +3,14 @@ import 'package:collection/collection.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 
 /// Represents categories.
-class Categories extends MoneyObjects<Category> {
+class Categories extends MoneyObjects<Category> with NamedMoneyObjects<Category> {
   Categories() {
     collectionName = SharedDomainStrings.domainString028;
   }
@@ -31,6 +29,9 @@ class Categories extends MoneyObjects<Category> {
   Category instanceFromJson(MyJson json) {
     return Category.fromJson(json, data);
   }
+
+  @override
+  String nameOf(Category item) => item.fieldName.value;
 
   @override
   void onAllDataLoaded() {
@@ -52,9 +53,7 @@ class Categories extends MoneyObjects<Category> {
         item.fieldTransactionCountRollup.value++;
         item.fieldSumRollup.value += t.fieldAmount.value.asDouble();
 
-        final List<Category> ancestors = <Category>[];
-        item.getAncestors(ancestors);
-        for (final Category ancestorCategory in ancestors) {
+        for (final Category ancestorCategory in ancestorsOf(item)) {
           ancestorCategory.fieldTransactionCountRollup.value++;
           ancestorCategory.fieldSumRollup.value += t.fieldAmount.value;
         }
@@ -106,6 +105,7 @@ class Categories extends MoneyObjects<Category> {
       type: typeToUse,
       color: color,
       description: description,
+      data: data,
     );
 
     data.appendNewCategory(category);
@@ -125,6 +125,7 @@ class Categories extends MoneyObjects<Category> {
       parentId: parentId,
       name: name,
       type: type,
+      data: data,
     );
 
     appendNewMoneyObject(category, fireNotification: fireNotification);
@@ -174,13 +175,6 @@ class Categories extends MoneyObjects<Category> {
     return iterableList().where((Category category) => category.isIncome).toList();
   }
 
-  /// Finds a category by full name (case-insensitive), like accounts and securities.
-  Category? getByName(String name) {
-    return iterableList().firstWhereOrNull(
-      (Category category) => stringCompareIgnoreCasing(category.fieldName.value, name) == 0,
-    );
-  }
-
   /// Returns the ID for a category by name; -1 if not found.
   int? getIdByName(String name) {
     return getByName(name)?.uniqueId ?? -1;
@@ -202,25 +196,16 @@ class Categories extends MoneyObjects<Category> {
     return list;
   }
 
-  /// Returns a sorted list of all categories by name.
-  List<Category> getListSorted() {
-    final List<Category> list = iterableList().toList();
-    list.sort(
-      (Category a, Category b) => sortByString(a.fieldName.value, b.fieldName.value, true),
-    );
-    return list;
-  }
-
-  /// Gets the category name for the given [id]; handles special cases.
+  /// Gets the category name for the given [id], showing the Split category as a marker.
+  ///
+  /// Only finds the Split category, never creates it, so naming a category has no side effect.
+  @override
   String getNameFromId(int id) {
-    if (id == -1) {
-      return '';
-    }
-
-    if (id == splitCategoryId()) {
+    final Category? category = get(id);
+    if (category != null && category == (_split ??= getByName(SharedDomainStrings.domainString126))) {
       return SharedDomainStrings.domainString008;
     }
-    return Category.getName(get(id));
+    return super.getNameFromId(id);
   }
 
   /// Gets or creates a category by [name] and [type]; restores if deleted.
@@ -240,36 +225,50 @@ class Categories extends MoneyObjects<Category> {
 
   /// Walks up the hierarchy to return the top-level ancestor category.
   Category getTopAncestor(Category category) {
-    if (category.fieldParentId.value == -1) {
-      return category; // this is the top
-    }
-    final Category? parent = get(category.fieldParentId.value);
-    if (parent == null) {
-      return category;
-    }
-    return getTopAncestor(parent);
+    return ancestorsOf(category).lastOrNull ?? category;
   }
 
-  /// Returns all descendant IDs in the tree starting from [rootIdToStartFrom].
+  /// Returns [rootIdToStartFrom] followed by the ids of its live descendants; empty for the unset id.
   List<int> getTreeIds(int rootIdToStartFrom) {
-    final List<int> list = <int>[];
-    if (rootIdToStartFrom > 0) {
-      getTreeIdsRecursive(rootIdToStartFrom, list);
+    if (rootIdToStartFrom == -1) {
+      return <int>[];
     }
-    return list;
+    return <int>[rootIdToStartFrom, ...descendantIdsOf(rootIdToStartFrom)];
   }
 
-  /// Recursive helper to collect descendant category IDs.
-  void getTreeIdsRecursive(int categoryId, List<int> list) {
-    if (categoryId > 0) {
-      list.add(categoryId);
-      final List<Category> descendants = getCategoriesWithThisParent(
-        categoryId,
-      );
-      for (final Category c in descendants) {
-        getTreeIdsRecursive(c.fieldId.value, list);
+  /// Returns the parent of [category], its grandparent and so on up to the top-level category.
+  ///
+  /// Stops at a parent already seen, should the stored hierarchy contain a loop.
+  List<Category> ancestorsOf(Category category) {
+    final List<Category> ancestors = <Category>[];
+    final Set<int> visited = <int>{category.uniqueId};
+    Category? parent = get(category.fieldParentId.value);
+    while (parent != null && visited.add(parent.uniqueId)) {
+      ancestors.add(parent);
+      parent = get(parent.fieldParentId.value);
+    }
+    return ancestors;
+  }
+
+  /// Returns the ids of the live categories below [categoryId], each parent before its children.
+  ///
+  /// Deleted categories, and so the branches under them, are left out; each id is listed once,
+  /// should the stored hierarchy contain a loop.
+  List<int> descendantIdsOf(int categoryId) {
+    final Map<int, List<int>> childIdsByParentId = <int, List<int>>{};
+    for (final Category category in iterableList()) {
+      (childIdsByParentId[category.fieldParentId.value] ??= <int>[]).add(category.uniqueId);
+    }
+    final List<int> treeIds = <int>[categoryId];
+    final Set<int> visited = <int>{categoryId};
+    for (int index = 0; index < treeIds.length; index++) {
+      for (final int childId in childIdsByParentId[treeIds[index]] ?? const <int>[]) {
+        if (visited.add(childId)) {
+          treeIds.add(childId);
+        }
       }
     }
+    return treeIds.sublist(1);
   }
 
   /// Gets or creates the SharedDomainStrings.domainString123 income category.
@@ -366,16 +365,8 @@ class Categories extends MoneyObjects<Category> {
 
   /// Returns true when [category] is [ancestor] itself or sits anywhere below it.
   bool isSameOrDescendantOf(Category category, Category ancestor) {
-    final Set<int> visited = <int>{};
-    Category? current = category;
-    // [visited] stops the walk should the stored hierarchy already contain a loop.
-    while (current != null && visited.add(current.uniqueId)) {
-      if (current.uniqueId == ancestor.uniqueId) {
-        return true;
-      }
-      current = get(current.fieldParentId.value);
-    }
-    return false;
+    return category.uniqueId == ancestor.uniqueId ||
+        ancestorsOf(category).any((Category item) => item.uniqueId == ancestor.uniqueId);
   }
 
   /// Moves [categoryToReparent] under [newParentCategory] and updates descendants' names.

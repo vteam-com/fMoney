@@ -75,21 +75,17 @@ class RentUnit extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<RentUnit> _fields = Fields<RentUnit>();
-
-  /// Builds [RentUnit] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(RentUnit tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldBuilding,
-    tmp.fieldName,
-    tmp.fieldRenter,
-    tmp.fieldNote,
-  ];
+  static final FieldDefinitionCache<RentUnit> _fieldDefinitionCache = FieldDefinitionCache<RentUnit>(
+    instanceFactory: () => RentUnit.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<RentUnit>>[
+      FieldBlueprint<RentUnit>(selector: (RentUnit tmp) => tmp.fieldId),
+      FieldBlueprint<RentUnit>(selector: (RentUnit tmp) => tmp.fieldBuilding),
+      FieldBlueprint<RentUnit>(selector: (RentUnit tmp) => tmp.fieldName),
+      FieldBlueprint<RentUnit>(selector: (RentUnit tmp) => tmp.fieldRenter),
+      FieldBlueprint<RentUnit>(selector: (RentUnit tmp) => tmp.fieldNote),
+    ],
+  );
 
   /// Returns the field definitions for RentUnit entities.
-  static Fields<RentUnit> get fields => ensureCachedFieldDefinitions<RentUnit>(
-    cache: _fields,
-    instanceFactory: () => RentUnit.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<RentUnit> get fields => _fieldDefinitionCache.fields;
 }

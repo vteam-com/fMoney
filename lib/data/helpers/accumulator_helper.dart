@@ -188,51 +188,6 @@ class AccumulatorAverage<K> {
   RunningAverage? getValue(K key) => values[key];
 }
 
-/// Calculates running range for values by key.
-/// Features:
-/// - Running min, average, max calculation
-/// - Count tracking
-/// - Zero value handling
-/// - High/low watermark tracking
-class AccumulatorRange<K> {
-  final Map<K, RunningAverage> values = <K, RunningAverage>{};
-  final Map<K, num> highWatermark = <K, num>{};
-  final Map<K, num> lowWatermark = <K, num>{};
-
-  /// Clears all accumulated range values and watermarks.
-  void clear() {
-    values.clear();
-    highWatermark.clear();
-    lowWatermark.clear();
-  }
-
-  /// Returns true if the accumulator contains the specified key.
-  bool containsKey(K key) => values.containsKey(key);
-
-  /// Accumulates the value for the specified key, updating range and watermarks.
-  void cumulate(K key, num value) {
-    final RunningAverage average = values.containsKey(key) ? values[key]! : values[key] = RunningAverage();
-    average.addValue(value);
-
-    // Update high/low watermarks
-    if (!highWatermark.containsKey(key) || value > highWatermark[key]!) {
-      highWatermark[key] = value;
-    }
-    if (!lowWatermark.containsKey(key) || value < lowWatermark[key]!) {
-      lowWatermark[key] = value;
-    }
-  }
-
-  /// Returns the running average for the specified key, or null if not found.
-  RunningAverage? getValue(K key) => values[key];
-
-  /// Returns the high watermark value for the specified key, or null if not found.
-  num? getHighWatermark(K key) => highWatermark[key];
-
-  /// Returns the low watermark value for the specified key, or null if not found.
-  num? getLowWatermark(K key) => lowWatermark[key];
-}
-
 /// Two-level accumulator mapping keys to sums.
 /// Features:
 /// - Nested key structure

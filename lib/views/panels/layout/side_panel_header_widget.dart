@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/views/panels/layout/side_panel_sub_view_helper.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/widgets/components/my_segment_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
@@ -12,11 +13,6 @@ const double _headerHorizontalPadding = 4.0;
 const double _smallDeviceMaxWidth = 500.0;
 const int _currencyIndexPrimary = 0;
 const int _currencyIndexSecondary = 1;
-const int _subViewIndexDetails = 0;
-const int _subViewIndexChart = 1;
-const int _subViewIndexTransactions = 2;
-const int _subViewIndexPnl = 3;
-const int _subViewIndexAliases = 4;
 
 /// A stateless widget for side panel header.
 class SidePanelHeader extends StatelessWidget {
@@ -138,45 +134,11 @@ class SidePanelHeader extends StatelessWidget {
     return mySegmentSelector(
       context: context,
       segments: <ButtonSegment<int>>[
-        if (sidePanelSupport.supportedSubViews.contains(
-          SidePanelSubViewEnum.details,
-        ))
+        for (final SidePanelSubViewEnum subView in sidePanelSupport.supportedSubViews)
           ButtonSegment<int>(
-            value: _subViewIndexDetails,
-            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.details)),
-            icon: const Icon(Icons.info_outline),
-          ),
-        if (sidePanelSupport.supportedSubViews.contains(
-          SidePanelSubViewEnum.chart,
-        ))
-          ButtonSegment<int>(
-            value: _subViewIndexChart,
-            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.chart)),
-            icon: const Icon(Icons.bar_chart),
-          ),
-        if (sidePanelSupport.supportedSubViews.contains(
-          SidePanelSubViewEnum.transactions,
-        ))
-          ButtonSegment<int>(
-            value: _subViewIndexTransactions,
-            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.transactions)),
-            icon: const Icon(Icons.calendar_view_day),
-          ),
-        if (sidePanelSupport.supportedSubViews.contains(
-          SidePanelSubViewEnum.pnl,
-        ))
-          ButtonSegment<int>(
-            value: _subViewIndexPnl,
-            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.pnl)),
-            icon: const Icon(Icons.calendar_view_day),
-          ),
-        if (sidePanelSupport.supportedSubViews.contains(
-          SidePanelSubViewEnum.aliases,
-        ))
-          ButtonSegment<int>(
-            value: _subViewIndexAliases,
-            label: smallDevice ? null : Text(AppL10n.tr(AppTranslationKeys.aliases)),
-            icon: Icon(ViewId.viewAliases.getIconData()),
+            value: subView.index,
+            label: smallDevice ? null : Text(AppL10n.tr(subView.labelKey)),
+            icon: Icon(subView.iconData),
           ),
       ],
       selectedId: subViewSelected.index,

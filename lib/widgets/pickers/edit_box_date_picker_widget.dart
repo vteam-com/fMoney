@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/date_helper.dart';
-import 'package:money/helpers/default_values_helper.dart';
+import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/my_text_input_widget.dart';
 
@@ -38,6 +38,19 @@ class PickerEditBoxDateState extends State<PickerEditBoxDate> {
     super.dispose();
   }
 
+  /// Shows a date the owner changed from outside; an owner echoing the date being typed (even
+  /// formatted differently) leaves the text box alone.
+  @override
+  void didUpdateWidget(PickerEditBoxDate oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    showOwnerValueChange(
+      _textController,
+      oldWidget.initialValue,
+      widget.initialValue,
+      isSameValue: (String text, String value) => attemptToGetDateFromText(text) == attemptToGetDateFromText(value),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -56,10 +69,7 @@ class PickerEditBoxDateState extends State<PickerEditBoxDate> {
         ),
         MyIconButton(
           onPressed: () async {
-            final DateTime dateSelected = valueOrDefaultDate(
-              attemptToGetDateFromText(widget.initialValue ?? ''),
-              defaultValueIfNull: DateTime.now(),
-            );
+            final DateTime dateSelected = attemptToGetDateFromText(_textController.text) ?? DateTime.now();
             final DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: dateSelected,

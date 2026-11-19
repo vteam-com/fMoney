@@ -55,16 +55,10 @@ class AmountModel {
     return this;
   }
 
-  /// Sets the _amount property of the MoneyModel instance based on the provided input.
-  /// If the input is a String, it attempts to parse it as a double using the attemptToGetDoubleFromText function.
-  /// If the input is not a String, it calls the toDouble() method on the input to convert it to a double.
+  /// Sets the amount from a number, an [AmountModel] or text, as converted by [smartToDouble];
+  /// anything else, including null, sets it to zero.
   void setAmount(dynamic newValueToSet) {
-    _amount =
-        newValueToSet
-            is String // Check if the input is a String
-        ? attemptToGetDoubleFromText(newValueToSet) ??
-              0.0 // If it's a String, attempt to parse it as a double
-        : (newValueToSet as num).toDouble(); // If it's not a String, call toDouble() to convert it to a double
+    _amount = smartToDouble(newValueToSet);
   }
 
   /// the raw value as double
@@ -87,3 +81,13 @@ int sortByAmount(AmountModel a, AmountModel b, bool ascending) {
     return b.asDouble().compareTo(a.asDouble());
   }
 }
+
+/// Converts [value] to a double: a number as is, an [AmountModel] by its amount and text
+/// through [attemptToGetDoubleFromText]. Returns [defaultValue] for null, for text without
+/// a number and for any other type.
+double smartToDouble(dynamic value, [double defaultValue = 0.0]) => switch (value) {
+  final num number => number.toDouble(),
+  final AmountModel amount => amount.asDouble(),
+  final String text => attemptToGetDoubleFromText(text) ?? defaultValue,
+  _ => defaultValue,
+};

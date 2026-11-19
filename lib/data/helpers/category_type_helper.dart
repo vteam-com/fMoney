@@ -1,4 +1,4 @@
-import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 
 enum CategoryType {
@@ -27,12 +27,7 @@ const Map<CategoryType, String> _categoryTypeLabels = <CategoryType, String>{
 
 extension CategoryTypeExtension on CategoryType {
   /// Returns CategoryType from integer index, with bounds checking.
-  static CategoryType fromInt(int index) {
-    if (isBetween(index, -1, CategoryType.values.length)) {
-      return CategoryType.values[index];
-    }
-    return CategoryType.none;
-  }
+  static CategoryType fromInt(int index) => enumFromIndex(CategoryType.values, index, CategoryType.none);
 
   /// Category types in the order they are offered to the user.
   static List<CategoryType> get valuesInDisplayOrder => _categoryTypeLabels.keys.toList();

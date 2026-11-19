@@ -156,7 +156,7 @@ class _DialogMutateMoneyObjectState extends State<DialogMutateMoneyObject> {
     return buildMutationDialogBody(
       moneyObject: _moneyObject,
       isInEditingMode: true,
-      wrapInDialogAutoSize: false,
+      wrapInDialogFrame: false,
       onEdited: (bool wasModified) {
         setState(() {
           dataWasModified = wasModified || DataObject.isDataModified(_moneyObject);

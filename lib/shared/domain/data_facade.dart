@@ -27,6 +27,7 @@ import 'package:money/shared/domain/payees_collection.dart';
 import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
 import 'package:money/shared/domain/rent_buildings_collection.dart';
+import 'package:money/shared/domain/rental_category_role_enum.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/rental_units_collection.dart';
 import 'package:money/shared/domain/securities_collection.dart';
@@ -305,14 +306,11 @@ class Data implements DataAbstract {
       ]);
     }
     for (final RentBuilding building in rentBuildings.iterableList()) {
-      tally(building, categoryIds, <int>[
-        building.categoryForIncome.value,
-        building.categoryForInterest.value,
-        building.categoryForMaintenance.value,
-        building.categoryForManagement.value,
-        building.categoryForRepairs.value,
-        building.categoryForTaxes.value,
-      ]);
+      tally(
+        building,
+        categoryIds,
+        RentalCategoryRole.values.map((RentalCategoryRole role) => building.categoryFieldOf(role).value),
+      );
     }
     for (final Alias alias in aliases.iterableList()) {
       tally(alias, payeeIds, <int>[alias.fieldPayeeId.value]);
@@ -497,7 +495,7 @@ class Data implements DataAbstract {
       if (payee == null || payeeId == toPayeeId) {
         continue;
       }
-      if (transactions.iterableList().any((Transaction t) => t.fieldPayee.value == payeeId)) {
+      if (transactions.iterableList().any((Transaction t) => t.isForPayee(payeeId))) {
         continue; // still in use: a partial merge keeps this payee and its references
       }
       for (final TransactionSplit split in splits.iterableList()) {
@@ -649,7 +647,7 @@ class Data implements DataAbstract {
     final int splitCategoryId = categories.splitCategoryId();
     for (final Transaction t in transactions.iterableList()) {
       final int categoryId = t.fieldCategoryId.value;
-      if (t.fieldPayee.value == payeeId && !t.isTransfer && categoryId != -1 && categoryId != splitCategoryId) {
+      if (t.isForPayee(payeeId) && categoryId != -1 && categoryId != splitCategoryId) {
         countByCategoryId[categoryId] = (countByCategoryId[categoryId] ?? 0) + 1;
       }
     }
@@ -666,6 +664,9 @@ class Data implements DataAbstract {
 
   @override
   List<int> getCategoryTreeIds(int categoryId) => categories.getTreeIds(categoryId);
+
+  @override
+  List<Category> getCategoryAncestors(DataObject category) => categories.ancestorsOf(category as Category);
 
   @override
   void appendNewCategory(DataObject category) => categories.appendNewMoneyObject(category as Category);

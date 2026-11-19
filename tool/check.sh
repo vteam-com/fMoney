@@ -10,6 +10,10 @@ echo --------------- PreStep Generate App Version Data
 echo --------------- Pub Get
 flutter pub get > /dev/null || { echo "Pub get failed"; exit 1; }
 
+echo --------------- Generate Localization Keys
+flutter gen-l10n > /dev/null
+dart run tool/l10n_keys_generator_helper.dart > /dev/null
+
 echo --------------- Pub Upgrade
 flutter pub upgrade > /dev/null
 

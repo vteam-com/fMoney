@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -143,23 +144,7 @@ extension MyJsonExtensions on MyJson {
   /// @param key The key to retrieve the double value for.
   /// @param defaultIfNotFound The default value to return if the key is not found or the value cannot be parsed as a double. Defaults to `0.0`.
   /// @return The double value associated with the key, or the default value if the key is not found or the value cannot be parsed as a double.
-  double getDouble(String key, [double defaultIfNotFound = 0.0]) {
-    final dynamic value = this[key];
-    if (value == null) {
-      return defaultIfNotFound;
-    }
-    try {
-      if (value is int) {
-        return value.toDouble();
-      }
-      if (value is String) {
-        return attemptToGetDoubleFromText(value) ?? 0.0;
-      }
-      return value as double;
-    } catch (_) {
-      return defaultIfNotFound;
-    }
-  }
+  double getDouble(String key, [double defaultIfNotFound = 0.0]) => smartToDouble(this[key], defaultIfNotFound);
 
   /// Retrieves an integer value from the JSON object for the given key.
   ///

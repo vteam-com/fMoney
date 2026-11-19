@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs_model.dart';
 
 void main() {
@@ -25,8 +24,8 @@ void main() {
       final Pair<double, double> result = getHueAndBrightnessFromColor(color);
 
       // Assert
-      expect(roundToDecimalPlaces(result.first, 1), equals(206.6));
-      expect(roundToDecimalPlaces(result.second, 1), equals(0.5));
+      expect(result.first, closeTo(206.6, 0.05));
+      expect(result.second, closeTo(0.5, 0.05));
     });
   });
 

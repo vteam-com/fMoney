@@ -75,6 +75,21 @@ void main() {
     });
   });
 
+  testWidgets('pickerEnum passes its key to the edit box', (WidgetTester tester) async {
+    await _pump(
+      tester,
+      pickerEnum<InvestmentType>(
+        key: const Key('key_investment_type'),
+        title: 'Type',
+        values: InvestmentType.values,
+        selected: InvestmentType.buy,
+        toText: getInvestmentTypeText,
+        onSelected: (InvestmentType _) {},
+      ),
+    );
+    expect(find.byKey(const Key('key_investment_type')), findsOneWidget);
+  });
+
   group('enum pickers ignore partially typed text', () {
     testWidgets('account type', (WidgetTester tester) async {
       final List<AccountType> selected = <AccountType>[];

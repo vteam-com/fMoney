@@ -318,6 +318,7 @@
   "copyListToClipboard": "Copy list to clipboard",
   "copyMessage": "Copy message",
   "copyMessageToClipboard": "Copy message to clipboard",
+  "copyToClipboard": "Copy to clipboard",
   "countSelected": "@count selected",
   "@countSelected": {
     "placeholders": {
@@ -339,13 +340,6 @@
   "csvFileEmpty": "CSV file is empty.",
   "csvHeadersAreMissingOrEmpty": "CSV headers are missing or empty.",
   "csvImportCancelled": "CSV import cancelled.",
-  "csvImportRowsImportedAndSkipped": "CSV import parsed {imported} entries and skipped {skipped} rows.",
-  "@csvImportRowsImportedAndSkipped": {
-    "placeholders": {
-      "imported": {},
-      "skipped": {}
-    }
-  },
   "dataPreviewFirst5Rows": "Data Preview (First 5 rows):",
   "date": "Date",
   "day": "Day",
@@ -389,6 +383,7 @@
   "difference": "Difference",
   "discardChanges": "Discard",
   "dividend": "Dividend",
+  "done": "Done",
   "download": "Download",
   "downloadingUpdate": "Downloading fMoney {version}...",
   "@downloadingUpdate": {
@@ -399,6 +394,7 @@
     }
   },
   "dropFilesHere": "Drop files here",
+  "duplicate": "Duplicate",
   "edit": "Edit",
   "editedElapsed": "Edited {elapsed}",
   "@editedElapsed": {
@@ -1047,10 +1043,6 @@
   "@suggestion": {
     "description": "REVIEWED"
   },
-  "switchToCategories": "Switch to Categories",
-  "switchToPayees": "Switch to Payees",
-  "switchToStocks": "Switch to Stocks",
-  "switchToTransactions": "Switch to Transactions",
   "symbol": "Symbol",
   "taxes": "Taxes",
   "@taxes": {

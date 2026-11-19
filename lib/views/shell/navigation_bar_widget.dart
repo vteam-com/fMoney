@@ -21,18 +21,22 @@ class MyNavigationBar extends StatelessWidget {
   const MyNavigationBar({
     super.key,
     required this.orientation,
-    required this.selectedIndex,
+    required this.selectedView,
     required this.onSelected,
   });
 
-  final void Function(int) onSelected;
+  final void Function(ViewId) onSelected;
   final Axis orientation;
-  final int selectedIndex;
+
+  /// The view shown now; it may have no destination (for example Policy, or Rentals when disabled).
+  final ViewId selectedView;
 
   @override
   Widget build(BuildContext context) {
+    final List<MyNavigationItem> items = getAppBarDestinations();
+    final int? selectedIndex = getSelectedIndex(items);
     if (orientation == Axis.vertical) {
-      final List<NavigationRailDestination> destinations = geMenuItemsFortNavRail();
+      final List<NavigationRailDestination> destinations = geMenuItemsFortNavRail(items);
       return Container(
         color: getColorTheme(context).secondaryContainer,
         child: SingleChildScrollView(
@@ -46,7 +50,7 @@ class MyNavigationBar extends StatelessWidget {
               indicatorColor: getColorTheme(context).onSecondary,
               backgroundColor: getColorTheme(context).secondaryContainer,
               onDestinationSelected: (int index) {
-                onSelected(index);
+                onSelected(items[index].viewId);
               },
             ),
           ),
@@ -54,11 +58,12 @@ class MyNavigationBar extends StatelessWidget {
       );
     }
     return NavigationBar(
-      selectedIndex: selectedIndex,
+      // the bar cannot show "no selection", so a view without a destination highlights the first one
+      selectedIndex: selectedIndex ?? 0,
       onDestinationSelected: (int index) {
-        onSelected(index);
+        onSelected(items[index].viewId);
       },
-      destinations: geMenuItemsFortNavBar(),
+      destinations: geMenuItemsFortNavBar(items),
       height: _navBarHeight,
       indicatorColor: getColorTheme(context).onSecondary,
       backgroundColor: getColorTheme(context).secondaryContainer,
@@ -66,9 +71,9 @@ class MyNavigationBar extends StatelessWidget {
     );
   }
 
-  /// Returns navigation destinations for bottom navigation bar.
-  List<NavigationDestination> geMenuItemsFortNavBar() {
-    return getAppBarDestinations()
+  /// Returns bottom navigation bar destinations for [items].
+  List<NavigationDestination> geMenuItemsFortNavBar(List<MyNavigationItem> items) {
+    return items
         .map(
           (MyNavigationItem item) => NavigationDestination(
             key: item.key,
@@ -81,9 +86,9 @@ class MyNavigationBar extends StatelessWidget {
         .toList();
   }
 
-  /// Returns navigation destinations for navigation rail.
-  List<NavigationRailDestination> geMenuItemsFortNavRail() {
-    return getAppBarDestinations()
+  /// Returns navigation rail destinations for [items].
+  List<NavigationRailDestination> geMenuItemsFortNavRail(List<MyNavigationItem> items) {
+    return items
         .map(
           (MyNavigationItem item) => NavigationRailDestination(
             icon: Tooltip(message: item.label, child: item.icon),
@@ -98,57 +103,68 @@ class MyNavigationBar extends StatelessWidget {
   List<MyNavigationItem> getAppBarDestinations() {
     final List<MyNavigationItem> appBarDestinations = <MyNavigationItem>[
       MyNavigationItem(
+        viewId: ViewId.viewCashFlow,
         label: AppL10n.tr(AppTranslationKeys.navCashflow),
         tooltip: AppL10n.tr(AppTranslationKeys.navCashflowTooltip),
         icon: ViewId.viewCashFlow.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewEvents,
         label: AppL10n.tr(AppTranslationKeys.navEvents),
         tooltip: AppL10n.tr(AppTranslationKeys.navEventsTooltip),
         icon: ViewId.viewEvents.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewAccounts,
         label: AppL10n.tr(AppTranslationKeys.navAccounts),
         tooltip: AppL10n.tr(AppTranslationKeys.navAccountsTooltip),
         icon: ViewId.viewAccounts.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewCategories,
         label: AppL10n.tr(AppTranslationKeys.navCategories),
         tooltip: AppL10n.tr(AppTranslationKeys.navCategoriesTooltip),
         icon: ViewId.viewCategories.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewPayees,
         label: AppL10n.tr(AppTranslationKeys.navPayees),
         tooltip: AppL10n.tr(AppTranslationKeys.navPayeesTooltip),
         icon: ViewId.viewPayees.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewAliases,
         label: AppL10n.tr(AppTranslationKeys.navAliases),
         tooltip: AppL10n.tr(AppTranslationKeys.navAliasesTooltip),
         icon: ViewId.viewAliases.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewTransactions,
         label: AppL10n.tr(AppTranslationKeys.navTransactions),
         tooltip: AppL10n.tr(AppTranslationKeys.navTransactionsTooltip),
         icon: ViewId.viewTransactions.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewTransfers,
         label: AppL10n.tr(AppTranslationKeys.navTransfers),
         tooltip: AppL10n.tr(AppTranslationKeys.navTransfersTooltip),
         icon: ViewId.viewTransfers.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewInvestments,
         label: AppL10n.tr(AppTranslationKeys.navInvestments),
         tooltip: AppL10n.tr(AppTranslationKeys.navInvestmentsTooltip),
         icon: ViewId.viewInvestments.getIcon(),
       ),
       MyNavigationItem(
+        viewId: ViewId.viewStocks,
         label: AppL10n.tr(AppTranslationKeys.navStocks),
         tooltip: AppL10n.tr(AppTranslationKeys.navStocksTooltip),
         icon: ViewId.viewStocks.getIcon(),
       ),
       if (PreferenceController.to.includeRentalManagement)
         MyNavigationItem(
+          viewId: ViewId.viewRentals,
           label: AppL10n.tr(AppTranslationKeys.navRentals),
           tooltip: AppL10n.tr(AppTranslationKeys.navRentalsTooltip),
           icon: ViewId.viewRentals.getIcon(),
@@ -156,6 +172,7 @@ class MyNavigationBar extends StatelessWidget {
 
       if (!kIsWeb && (Platform.isMacOS || Platform.isWindows))
         MyNavigationItem(
+          viewId: ViewId.viewAI,
           label: AppL10n.tr(AppTranslationKeys.aiAssistant),
           tooltip: AppL10n.tr(AppTranslationKeys.navAiAssistantTooltip),
           icon: ViewId.viewAI.getIcon(),
@@ -163,5 +180,11 @@ class MyNavigationBar extends StatelessWidget {
     ];
 
     return appBarDestinations;
+  }
+
+  /// Returns the position of [selectedView] among [items], or null when that view has no destination.
+  int? getSelectedIndex(List<MyNavigationItem> items) {
+    final int index = items.indexWhere((MyNavigationItem item) => item.viewId == selectedView);
+    return index < 0 ? null : index;
   }
 }

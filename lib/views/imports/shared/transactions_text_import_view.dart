@@ -14,11 +14,11 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/shared/ai_pdf_import_service.dart';
+import 'package:money/views/imports/shared/import_form_helper.dart';
 import 'package:money/views/imports/shared/transactions_import_panel.dart';
 import 'package:money/widgets/columns/value_parser.dart';
 import 'package:money/widgets/columns/value_quality.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/dialogs/message_box_dialog.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
@@ -380,29 +380,20 @@ void showImportTransactionsFromTextInput(
     ),
   ];
 
-  adaptiveScreenSizeDialog(
+  showImportFormDialog(
     context: context,
-    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
     actionButtons: actionButtons,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        gapLarge(),
-        Expanded(
-          child: ImportTransactionsPanel(
-            account: account,
-            inputText: initialText,
-            preferredCurrencyCode: preferredCurrencyCode,
-            onAccountChanged: (Account accountSelected) {
-              account = accountSelected;
-              setMostRecentUsedAccount(accountSelected);
-            },
-            onTransactionsFound: (ValuesParser newParser) {
-              parser.lines = newParser.lines;
-            },
-          ),
-        ),
-      ],
+    panel: ImportTransactionsPanel(
+      account: account,
+      inputText: initialText,
+      preferredCurrencyCode: preferredCurrencyCode,
+      onAccountChanged: (Account accountSelected) {
+        account = accountSelected;
+        setMostRecentUsedAccount(accountSelected);
+      },
+      onTransactionsFound: (ValuesParser newParser) {
+        parser.lines = newParser.lines;
+      },
     ),
   );
 }

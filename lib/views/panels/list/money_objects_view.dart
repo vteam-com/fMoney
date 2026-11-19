@@ -15,13 +15,10 @@ import 'package:money/helpers/list_controller.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
-import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
-import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/dialogs/delete_money_objects_dialog.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
-import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/money_objects_filter_helper.dart';
-import 'package:money/shared/presentation/helpers/money_objects_ui_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/shared/presentation/widgets/adaptable_list_view_widget.dart';
@@ -30,21 +27,17 @@ import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/layout/side_panel_widget.dart';
 import 'package:money/views/panels/list/money_objects_view_builders_helper.dart';
 import 'package:money/views/panels/list/money_objects_view_selection_helper.dart';
-import 'package:money/views/panels/list/transactions_list_view.dart';
+import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
-import 'package:money/widgets/dialogs/confirmation_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/dialogs/message_box_dialog.dart';
 import 'package:money/widgets/list/column_filter_panel.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/list/multiple_selection_context_model.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
+import 'package:money/widgets/pure/pivot_toggle_row_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/selection_controller.dart';
-import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 import 'package:money/widgets/widgets_domain/footer_accumulators_helper.dart';
 
 /// Default transaction columns shown in the side panel "Transactions" list.
@@ -66,6 +59,15 @@ const List<String> sidePanelTransactionsColumnNamesWithoutPayee = <String>[
   columnIdAmount,
 ];
 
+/// Minimum height of a pivot toggle.
+const double _pivotToggleMinHeight = 40.0;
+
+/// Minimum width of a pivot toggle.
+const double _pivotToggleMinWidth = 100.0;
+
+/// Space between the panels of the side panel details.
+const double _detailsPanelSpacing = 30.0;
+
 /// A stateful widget for view for money objects.
 class ViewForMoneyObjects extends StatefulWidget {
   const ViewForMoneyObjects({super.key, this.includeClosedAccount = false});
@@ -82,12 +84,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   FieldFilters _filterByFieldsValue = FieldFilters();
   String _filterByText = '';
   final FooterAccumulators _footerAccumulators = FooterAccumulators();
-
-  /// List instance the footer accumulators were last computed for.
-  List<DataObject>? _footerAccumulatorsComputedForList;
-
-  /// Data-version stamp of the last footer accumulator computation.
-  String _footerAccumulatorsDataVersion = '';
   bool _isMultiSelectionOn = false;
   int _lastSelectedItemId = -1;
   final ValueNotifier<List<int>> _selectedItemsByUniqueId = ValueNotifier<List<int>>(<int>[]);
@@ -123,8 +119,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   @override
   Widget build(BuildContext context) {
-    footerAccumulators();
-
     return buildViewContent(
       ListenableBuilder(
         listenable: Listenable.merge(<Listenable>[
@@ -132,6 +126,8 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
           dataController,
         ]),
         builder: (BuildContext _, Widget? _) {
+          // inside the builder: a data change rebuilds only this part, and the footers must follow it
+          footerAccumulators();
           final Key key = Key(
             '${preferenceController.includeClosedAccounts}|${list.length}|${areFiltersOn()}|${dataController.lastUpdateAsString}|${sidePanelOptions.selectedCurrency}}',
           );
@@ -266,39 +262,25 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     );
   }
 
-  /// Builds a standard pivot toggle row wired to refresh this view list on selection change.
+  /// Builds this view's pivot toggle row, one toggle per (key, label, total) of [pivots], [selectedPivot]
+  /// flagging the active one; tapping a toggle selects it and refreshes the list.
   Widget buildStandardPivotToggleRow({
     Key? key,
     required List<bool> selectedPivot,
-    required List<Widget> pivotChildren,
-    required EdgeInsetsGeometry padding,
-    required BorderRadius borderRadius,
-    required double minHeight,
-    required double minWidth,
+    required List<(Key?, String, String)> pivots,
   }) {
-    return buildStandardPivotToggleRowUi(
+    return buildPivotToggleRow(
       key: key,
-      selectedPivot: selectedPivot,
-      pivotChildren: pivotChildren,
-      padding: padding,
-      borderRadius: borderRadius,
-      minHeight: minHeight,
-      minWidth: minWidth,
+      isSelected: selectedPivot,
+      padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
+      borderRadius: const BorderRadius.all(Radius.circular(SizeForRadius.normal)),
+      minHeight: _pivotToggleMinHeight,
+      minWidth: _pivotToggleMinWidth,
       onPressed: (int index) => updatePivotSelectionAndRefresh(selectedPivot, index),
-    );
-  }
-
-  /// Builds the common details-panel layout with a money-object card and additional panels.
-  Widget buildStandardSidePanelDetailsWrap<T extends DataObject>({
-    required T? selectedItem,
-    required List<Widget> extraPanels,
-    required double spacing,
-  }) {
-    return buildStandardSidePanelDetailsWrapUi<T>(
-      selectedItem: selectedItem,
-      extraPanels: extraPanels,
-      spacing: spacing,
-      title: getClassNameSingular(),
+      children: <Widget>[
+        for (final (Key? pivotKey, String label, String total) in pivots)
+          ThreePartLabel(key: pivotKey, text1: label, small: true, isVertical: true, text2: total),
+      ],
     );
   }
 
@@ -363,16 +345,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   /// Recomputes only when the list instance or the data version changed, so
   /// unrelated rebuilds (selection, hover, scroll restore) stay cheap.
   void footerAccumulators() {
-    final String dataVersion = dataController.lastUpdateAsString;
-    if (identical(list, _footerAccumulatorsComputedForList) && dataVersion == _footerAccumulatorsDataVersion) {
-      return;
-    }
-    _footerAccumulatorsComputedForList = list;
-    _footerAccumulatorsDataVersion = dataVersion;
-
-    _footerAccumulators.recompute(
+    _footerAccumulators.recomputeIfChanged(
       items: list,
       definitions: _fieldToDisplay.definitions,
+      version: dataController.lastUpdateAsString,
     );
   }
 
@@ -498,30 +474,10 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     return getSelectedMoneyObjectsFromIds(selectedList, list);
   }
 
-  /// Returns the last selected item from the side panel list.
-  T? getSidePanelLastSelectedItem<T>(MoneyObjects<T> list) {
-    final int selectedItemId = getSidePanelLastSelectedItemId();
-    if (selectedItemId == -1) {
-      return null;
-    }
-    return list.get(selectedItemId);
-  }
-
-  /// Returns the last selected item ID from the side panel.
-  int getSidePanelLastSelectedItemId() {
-    return PreferenceController.to.getInt(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-      -1,
-    );
-  }
-
-  /// Returns the last selected transaction from the side panel.
-  Transaction? getSidePanelLastSelectedTransaction() {
-    final int selectedItemId = getSidePanelLastSelectedItemId();
-    if (selectedItemId == -1) {
-      return null;
-    }
-    return Data().transactions.get(selectedItemId);
+  /// Panels shown after the card of [selectedItem] in the side panel details; none by default.
+  List<Widget> getSidePanelDetailsExtraPanels(DataObject selectedItem) {
+    keepUnused(selectedItem);
+    return <Widget>[];
   }
 
   /// Returns side panel support configuration for the view.
@@ -554,14 +510,25 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
     }
 
+    final Widget card = MoneyObjectCard(
+      title: getClassNameSingular(),
+      moneyObject: moneyObject,
+      onEdit: _onUserRequestToEdit,
+      onDelete: _onUserRequestedToDelete,
+    );
+    final List<Widget> extraPanels = getSidePanelDetailsExtraPanels(moneyObject);
     return SingleChildScrollView(
       key: Key('detail_panel_${moneyObject.uniqueId}'),
-      child: MoneyObjectCard(
-        title: getClassNameSingular(),
-        moneyObject: moneyObject,
-        onEdit: _onUserRequestToEdit,
-        onDelete: _onUserRequestedToDelete,
-      ),
+      child: extraPanels.isEmpty
+          ? card
+          : Center(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runSpacing: _detailsPanelSpacing,
+                spacing: _detailsPanelSpacing,
+                children: <Widget>[card, ...extraPanels],
+              ),
+            ),
     );
   }
 
@@ -600,101 +567,33 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
 
   /// Opens column customization dialog for the specified field.
   void onCustomizeColumn(Field<dynamic> fieldDefinition) {
-    Widget content;
-    listOfValueSelected.clear();
+    final List<DataObject> unfilteredList = getList(applyFilter: false);
 
-    switch (fieldDefinition.type) {
-      case FieldType.quantity:
-        {
-          listOfUniqueString = collectUniqueNumericValues(
-            getList(applyFilter: false),
-            fieldDefinition,
-          );
+    // unique values of the column, sorted and aligned like the column itself
+    final (List<String> values, TextAlign textAlign) = switch (fieldDefinition.type) {
+      FieldType.quantity => (collectUniqueNumericValues(unfilteredList, fieldDefinition), TextAlign.right),
+      FieldType.date => (collectUniqueDateValues(unfilteredList, fieldDefinition), TextAlign.left),
+      FieldType.widget => (collectUniqueWidgetValues(unfilteredList, fieldDefinition), TextAlign.left),
+      FieldType.numeric ||
+      FieldType.numericShorthand ||
+      FieldType.percentage ||
+      FieldType.amount ||
+      FieldType.amountShorthand => (
+        collectUniqueStringValues(unfilteredList, fieldDefinition)..sort(compareStringsAsAmount),
+        TextAlign.right,
+      ),
+      FieldType.text || FieldType.dateRange || FieldType.toggle => (
+        collectUniqueStringValues(unfilteredList, fieldDefinition)..sort(),
+        TextAlign.left,
+      ),
+    };
 
-          for (final String item in listOfUniqueString) {
-            listOfValueSelected.add(
-              ValueSelection(name: item, isSelected: true),
-            );
-          }
-
-          content = ColumnFilterPanel(
-            listOfUniqueInstances: listOfValueSelected,
-            textAlign: TextAlign.right,
-          );
-        }
-
-      case FieldType.date:
-        {
-          listOfUniqueString = collectUniqueDateValues(
-            getList(applyFilter: false),
-            fieldDefinition,
-          );
-
-          for (final String item in listOfUniqueString) {
-            listOfValueSelected.add(
-              ValueSelection(name: item, isSelected: true),
-            );
-          }
-
-          content = ColumnFilterPanel(
-            listOfUniqueInstances: listOfValueSelected,
-            textAlign: TextAlign.left,
-          );
-        }
-
-      case FieldType.widget:
-        {
-          listOfUniqueString = collectUniqueWidgetValues(
-            getList(applyFilter: false),
-            fieldDefinition,
-          );
-
-          for (final String item in listOfUniqueString) {
-            listOfValueSelected.add(
-              ValueSelection(name: item, isSelected: true),
-            );
-          }
-
-          content = ColumnFilterPanel(
-            listOfUniqueInstances: listOfValueSelected,
-            textAlign: TextAlign.left,
-          );
-        }
-
-      case FieldType.text:
-      case FieldType.numeric:
-      case FieldType.numericShorthand:
-      case FieldType.percentage:
-      case FieldType.amount:
-      case FieldType.amountShorthand:
-      case FieldType.dateRange:
-      case FieldType.toggle:
-        {
-          listOfUniqueString = collectUniqueStringValues(
-            getList(applyFilter: false),
-            fieldDefinition,
-          );
-
-          if (fieldDefinition.type == FieldType.amount) {
-            listOfUniqueString.sort(
-              (String a, String b) => compareStringsAsAmount(a, b),
-            );
-          } else {
-            listOfUniqueString.sort();
-          }
-
-          for (final String item in listOfUniqueString) {
-            listOfValueSelected.add(
-              ValueSelection(name: item, isSelected: true),
-            );
-          }
-
-          content = ColumnFilterPanel(
-            listOfUniqueInstances: listOfValueSelected,
-            textAlign: fieldDefinition.type == FieldType.amount ? TextAlign.right : TextAlign.left,
-          );
-        }
-    }
+    listOfUniqueString = values;
+    listOfValueSelected = <ValueSelection>[
+      for (final String value in values)
+        ValueSelection(name: value, isSelected: _filterByFieldsValue.isValueSelected(fieldDefinition.name, value)),
+    ];
+    final Widget content = ColumnFilterPanel(listOfUniqueInstances: listOfValueSelected, textAlign: textAlign);
 
     adaptiveScreenSizeDialog(
       context: context,
@@ -717,11 +616,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
                 }
               }
 
-              if (selectedValues.length == listOfValueSelected.length) {
-                // all unique values are selected so clear the column filter;
-                _filterByFieldsValue.clear();
-              } else {
-                // apply filter
+              // replace this column's filter; none is needed when every value is selected
+              _filterByFieldsValue.removeByFieldName(fieldDefinition.name);
+              if (selectedValues.length != listOfValueSelected.length) {
                 _filterByFieldsValue.add(
                   FieldFilter(
                     fieldName: fieldDefinition.name,
@@ -796,6 +693,9 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       );
     });
   }
+
+  /// Columns of the side panel "Transactions" list; views scoped to one payee leave the payee out.
+  List<String> get sidePanelTransactionsColumns => sidePanelTransactionsColumnNames;
 
   /// Updates the list data and selects the specified item.
   void updateListAndSelect(int uniqueId) {
@@ -896,60 +796,11 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
     BuildContext context,
     List<DataObject> moneyObjects,
   ) {
-    if (moneyObjects.isEmpty) {
-      messageBox(context, AppL10n.tr(AppTranslationKeys.noItemsToDelete));
-      return;
-    }
-
-    // Accounts, categories, payees and securities still in use cannot be deleted.
-    final int references = Data().countBlockingReferences(moneyObjects);
-    if (references > 0) {
-      final Map<String, String> params = <String, String>{'count': getIntAsText(references)};
-      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.deleteBlockedByReferences, params: params));
-      return;
-    }
-
-    final String nameSingular = getClassNameSingular();
-    final String namePlural = getClassNamePlural();
-
-    final String title = getSingularPluralText(
-      AppL10n.tr(AppTranslationKeys.delete),
-      moneyObjects.length,
-      nameSingular,
-      namePlural,
-    );
-
-    final String question = moneyObjects.length == 1
-        ? AppL10n.tr(AppTranslationKeys.deleteThisItemQuestion, params: <String, String>{'item': nameSingular})
-        : AppL10n.tr(
-            AppTranslationKeys.deleteSelectedItemsQuestion,
-            params: <String, String>{'count': getIntAsText(moneyObjects.length), 'items': namePlural},
-          );
-    final RenderObjectWidget content = moneyObjects.length == 1
-        ? Column(
-            children: buildListOfNamesValuesWidgets(
-              moneyObjects.first,
-              builders: entityWidgetBuilders,
-              onEdit: null,
-              compact: true,
-            ),
-          )
-        : Center(
-            child: Text(
-              '${getIntAsText(moneyObjects.length)} $namePlural',
-              style: getTextTheme(context).displaySmall,
-            ),
-          );
-
-    showConfirmationDialog(
+    confirmAndDeleteMoneyObjects(
       context: context,
-      title: title,
-      question: question,
-      content: content,
-      buttonText: AppL10n.tr(AppTranslationKeys.delete),
-      onConfirmation: () {
-        Data().deleteItems(moneyObjects);
-      },
+      moneyObjects: moneyObjects,
+      nameSingular: getClassNameSingular(),
+      namePlural: getClassNamePlural(),
     );
   }
 
@@ -969,33 +820,4 @@ T? getMoneyObjectFromFirstSelectedId<T>(
   List<dynamic> listOfItems,
 ) {
   return getMoneyObjectFromFirstSelectedIdInList<T>(selectedIds, listOfItems);
-}
-
-/// Side panel "Transactions" list shared by the money object views.
-extension SidePanelTransactionsListExtension on ViewForMoneyObjectsState {
-  /// Builds the side panel "Transactions" list backed by [ViewForMoneyObjectsState.getSidePanelTransactions],
-  /// so the displayed rows and the side panel Copy action always match.
-  Widget buildSidePanelTransactionsList({
-    Key? key,
-    List<String> columnNames = sidePanelTransactionsColumnNames,
-    SelectionController? selectionController,
-    int sortFieldIndex = 0,
-    bool sortAscending = true,
-    bool showRightAdornment = false,
-    void Function(int, bool, int)? onUserChoiceChanged,
-  }) {
-    return ListViewTransactions(
-      key: key,
-      listController: AppScope.instance.listControllerSidePanel,
-      columnsToInclude: <Field<dynamic>>[
-        for (final String columnName in columnNames) Transaction.fields.getFieldByName(columnName),
-      ],
-      getList: () => List<Transaction>.from(getSidePanelTransactions()),
-      selectionController: selectionController ?? SelectionController(),
-      sortFieldIndex: sortFieldIndex,
-      sortAscending: sortAscending,
-      showRightAdornment: showRightAdornment,
-      onUserChoiceChanged: onUserChoiceChanged,
-    );
-  }
 }

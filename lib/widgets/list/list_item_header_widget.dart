@@ -5,12 +5,8 @@ import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/widgets/columns/column_header_button.dart';
+import 'package:money/widgets/list/column_resize_handle_widget.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
-
-// Width of the visible divider line drawn inside the drag-handle zone.
-const double _dragDividerWidth = 2;
-// Opacity of the drag-handle divider line.
-const double _dragDividerAlpha = 0.6;
 
 /// A Row for a Table view.
 ///
@@ -52,8 +48,6 @@ class MyListItemHeader<T> extends StatelessWidget {
     return ListenableBuilder(
       listenable: columnWidths,
       builder: (BuildContext _, Widget? _) {
-        final List<double> ratios = columnWidths.value;
-
         return Container(
           color: backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: SizeForPadding.normal),
@@ -70,52 +64,38 @@ class MyListItemHeader<T> extends StatelessWidget {
               Expanded(
                 child: LayoutBuilder(
                   builder: (BuildContext layoutCtx, BoxConstraints constraints) {
-                    if (ratios.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-                    final double handlesTotalWidth = (ratios.length - 1) * columnResizeHandleWidth;
-                    final double contentWidth = (constraints.maxWidth - handlesTotalWidth).clamp(
-                      0,
-                      double.infinity,
-                    );
-
-                    final List<Widget> rowChildren = <Widget>[];
-                    int visiblePos = 0;
-
-                    for (int i = 0; i < columns.length; i++) {
-                      final Field<dynamic> col = columns[i];
-                      if (col.columnWidth == ColumnWidth.hidden) {
-                        continue;
-                      }
-                      final int pos = visiblePos;
-                      rowChildren.add(
-                        buildColumnHeaderButton(
-                          context: layoutCtx,
-                          text: col.name,
-                          textAlign: col.align,
-                          flex: col.columnWidth.index,
-                          fixedWidth: pos < ratios.length ? contentWidth * ratios[pos] : 0,
-                          sortIndicator: getSortIndicator(sortByColumn, i, sortAscending),
-                          hasFilters:
-                              filterOn.list.firstWhereOrNull(
-                                (FieldFilter item) => item.fieldName == col.name,
-                              ) !=
-                              null,
-                          onPressed: () => onTap(i),
-                          onLongPress: () => onLongPress?.call(col),
-                        ),
-                      );
-
-                      if (pos < ratios.length - 1) {
-                        rowChildren.add(
-                          _buildDragHandle(context, pos, contentWidth),
-                        );
-                      }
-                      visiblePos++;
-                    }
-
                     return IntrinsicHeight(
-                      child: Row(children: rowChildren),
+                      child: Row(
+                        children: buildVisibleColumnCells(
+                          fields: columns,
+                          ratios: columnWidths.value,
+                          maxWidth: constraints.maxWidth,
+                          buildCell: (int i, double width) {
+                            final Field<dynamic> col = columns[i];
+                            return buildColumnHeaderButton(
+                              context: layoutCtx,
+                              text: col.name,
+                              textAlign: col.align,
+                              flex: col.columnWidth.index,
+                              fixedWidth: width,
+                              sortIndicator: getSortIndicator(sortByColumn, i, sortAscending),
+                              hasFilters:
+                                  filterOn.list.firstWhereOrNull(
+                                    (FieldFilter item) => item.fieldName == col.name,
+                                  ) !=
+                                  null,
+                              onPressed: () => onTap(i),
+                              onLongPress: () => onLongPress?.call(col),
+                            );
+                          },
+                          buildGap: (int leftColumnPosition, double contentWidth) => ColumnResizeHandle(
+                            columnWidths: columnWidths,
+                            leftColumnPosition: leftColumnPosition,
+                            contentWidth: contentWidth,
+                            showDivider: true,
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -124,44 +104,6 @@ class MyListItemHeader<T> extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  /// Builds a drag handle between two adjacent header columns.
-  ///
-  /// The handle shows a thin visible divider and changes the mouse cursor to
-  /// [SystemMouseCursors.resizeColumn] on hover.
-  Widget _buildDragHandle(
-    BuildContext context,
-    int leftColumnPos,
-    double contentWidth,
-  ) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.resizeColumn,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onHorizontalDragUpdate: (DragUpdateDetails details) {
-          if (contentWidth > 0) {
-            columnWidths.resizeAtBoundary(
-              leftColumnPos,
-              details.delta.dx / contentWidth,
-              minimumColumnWidth / contentWidth,
-            );
-          }
-        },
-        child: SizedBox(
-          width: columnResizeHandleWidth,
-          child: VerticalDivider(
-            width: columnResizeHandleWidth,
-            thickness: _dragDividerWidth,
-            indent: 0,
-            endIndent: 0,
-            color: Theme.of(context).dividerColor.withValues(
-              alpha: _dragDividerAlpha,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

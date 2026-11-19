@@ -4,15 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
-import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
-import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
+import 'package:money/widgets/dialogs/mutation_type_display_helper.dart';
+import 'package:money/widgets/list/column_resize_handle_widget.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item.dart';
-import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 
@@ -74,7 +73,6 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// Cached result of the cap-flip scan; valid for the current list instance.
   bool? _flipRightAdornmentCapsCache;
   double _rowHeight = _rowHeightColumn;
-  final List<int> _visibleColumnIndexes = <int>[];
   double padding = 0;
   @override
   void initState() {
@@ -94,9 +92,6 @@ class MyListViewState<T> extends State<MyListView<T>> {
     if (oldWidget.columnWidths != widget.columnWidths) {
       oldWidget.columnWidths.removeListener(_onColumnWidthsChanged);
       widget.columnWidths.addListener(_onColumnWidthsChanged);
-    }
-    if (oldWidget.fields.length != widget.fields.length || oldWidget.displayAsColumn != widget.displayAsColumn) {
-      _visibleColumnIndexes.clear();
     }
     if (!identical(oldWidget.list, widget.list)) {
       _flipRightAdornmentCapsCache = null;
@@ -200,7 +195,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
                         },
                   autoFocus: itemInstance.uniqueId == widget.selectedItemIds.value.firstOrNull,
                   isSelected: isSelected,
-                  adornmentColor: _getMutationColor(itemInstance),
+                  adornmentColor: itemInstance.mutation.getColor(context),
                   rightAdornmentColor: rightAdornmentColor,
                   showRightAdornmentTopCap: showRightAdornmentTopCap,
                   showRightAdornmentBottomCap: showRightAdornmentBottomCap,
@@ -262,7 +257,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   bool isIndexInView(int index) {
     if (index != -1) {
       final NumRange viewingIndexRange = indexOfItemsInView();
-      if (index.isBetween(viewingIndexRange.min, viewingIndexRange.max)) {
+      if (isBetweenOrEqual(index, viewingIndexRange.min, viewingIndexRange.max)) {
         return true;
       }
     }
@@ -468,58 +463,29 @@ class MyListViewState<T> extends State<MyListView<T>> {
 
   /// Builds one table row with draggable separators between columns.
   Widget _buildResizableColumnsRow(DataObject itemInstance, double maxRowWidth) {
-    _ensureResizableColumnsInitialized();
-
     if (maxRowWidth <= 0) {
       return buildRowOfColumns(widget.fields, itemInstance, widget.widgetBuilders);
     }
 
-    if (_visibleColumnIndexes.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final List<double> ratios = widget.columnWidths.value;
-
-    final int handleCount = _visibleColumnIndexes.length - 1;
-    final double totalHandleWidth = handleCount * columnResizeHandleWidth;
-    final double contentWidth = (maxRowWidth - totalHandleWidth).clamp(0, double.infinity);
-    final List<Widget> rowChildren = <Widget>[];
-
-    for (int i = 0; i < _visibleColumnIndexes.length; i++) {
-      final int fieldIndex = _visibleColumnIndexes[i];
-      final Field<dynamic> fieldDefinition = widget.fields[fieldIndex];
-
-      rowChildren.add(
-        SizedBox(
-          width: i < ratios.length ? contentWidth * ratios[i] : 0,
+    return Row(
+      children: buildVisibleColumnCells(
+        fields: widget.fields,
+        ratios: widget.columnWidths.value,
+        maxWidth: maxRowWidth,
+        buildCell: (int fieldIndex, double width) => SizedBox(
+          width: width,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: _rowHorizontalPadding),
-            child: buildFieldCellWidget(itemInstance, fieldDefinition, widget.widgetBuilders),
+            child: buildFieldCellWidget(itemInstance, widget.fields[fieldIndex], widget.widgetBuilders),
           ),
         ),
-      );
-
-      if (i < _visibleColumnIndexes.length - 1) {
-        rowChildren.add(
-          MouseRegion(
-            cursor: SystemMouseCursors.resizeColumn,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onHorizontalDragUpdate: (DragUpdateDetails details) {
-                _resizeColumnsAtBoundary(
-                  leftColumnPosition: i,
-                  dragDelta: details.delta.dx,
-                  contentWidth: contentWidth,
-                );
-              },
-              child: const SizedBox(width: columnResizeHandleWidth),
-            ),
-          ),
-        );
-      }
-    }
-
-    return Row(children: rowChildren);
+        buildGap: (int leftColumnPosition, double contentWidth) => ColumnResizeHandle(
+          columnWidths: widget.columnWidths,
+          leftColumnPosition: leftColumnPosition,
+          contentWidth: contentWidth,
+        ),
+      ),
+    );
   }
 
   /// Scans the list for the first top/bottom cap rows to decide cap flipping.
@@ -548,51 +514,9 @@ class MyListViewState<T> extends State<MyListView<T>> {
     return firstBottomCapIndex < firstTopCapIndex;
   }
 
-  /// Initializes the indexes of visible (non-hidden) columns.
-  void _ensureResizableColumnsInitialized() {
-    if (_visibleColumnIndexes.isNotEmpty) {
-      return;
-    }
-    for (int i = 0; i < widget.fields.length; i++) {
-      if (widget.fields[i].columnWidth != ColumnWidth.hidden) {
-        _visibleColumnIndexes.add(i);
-      }
-    }
-  }
-
-  /// Returns a color representing the mutation state of [instance].
-  Color _getMutationColor(DataObject instance) {
-    switch (instance.mutation) {
-      case MutationType.inserted:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.success);
-      case MutationType.changed:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.warning);
-      case MutationType.deleted:
-        return AppRouter.context!.colorTheme.getColorForState(ColorState.error);
-      default:
-        return Colors.transparent;
-    }
-  }
-
   /// Triggers a rebuild when the shared notifier emits a new value.
   void _onColumnWidthsChanged() {
     setState(() {});
-  }
-
-  /// Forwards a drag-based resize of two adjacent columns to [MyListView.columnWidths].
-  void _resizeColumnsAtBoundary({
-    required int leftColumnPosition,
-    required double dragDelta,
-    required double contentWidth,
-  }) {
-    if (contentWidth <= 0) {
-      return;
-    }
-    widget.columnWidths.resizeAtBoundary(
-      leftColumnPosition,
-      dragDelta / contentWidth,
-      minimumColumnWidth / contentWidth,
-    );
   }
 
   /// Returns true when right-adornment caps should be visually flipped.

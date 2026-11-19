@@ -1,16 +1,8 @@
-import 'package:money/data/models/data_object_model.dart';
-import 'package:money/data/models/mutation_type_enum.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
-import 'package:money/shared/presentation/dialogs/mutate_shared_dialog.dart';
-import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
-import 'package:money/widgets/dialogs/confirmation_dialog.dart';
-import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
+import 'package:money/shared/presentation/dialogs/mutate_in_place_dialog.dart';
 
 /// Shows dialog for editing transaction split with action buttons.
 Future<dynamic> showSplitAndActions({
@@ -20,130 +12,11 @@ Future<dynamic> showSplitAndActions({
   return showDialog(
     context: context,
     builder: (BuildContext _) {
-      return DialogMutateSplit(split: split);
+      return DialogMutateInPlace<TransactionSplit>(
+        moneyObject: split,
+        nameSingular: AppL10n.tr(AppTranslationKeys.split),
+        namePlural: AppL10n.tr(AppTranslationKeys.splits),
+      );
     },
   );
-}
-
-/// Dialog content
-class DialogMutateSplit extends StatefulWidget {
-  const DialogMutateSplit({required this.split, super.key});
-
-  final TransactionSplit split;
-
-  @override
-  State<DialogMutateSplit> createState() => _DialogMutateSplitState();
-}
-
-class _DialogMutateSplitState extends State<DialogMutateSplit> {
-  late TransactionSplit _split;
-
-  bool dataWasModified = false;
-
-  bool isInEditingMode = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _split = widget.split;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return buildMutationDialogBodyWithTrackedChanges<TransactionSplit>(
-      context: context,
-      moneyObject: _split,
-      isInEditingMode: isInEditingMode,
-      dataWasModified: dataWasModified,
-      setDataWasModified: (bool value) {
-        setState(() {
-          dataWasModified = value;
-        });
-      },
-      actionButtonsBuilder:
-          (
-            BuildContext context,
-            TransactionSplit split,
-            bool editMode,
-            bool dataWasModified,
-          ) {
-            return getActionButtons(
-              context: context,
-              split: split,
-              editMode: editMode,
-              dataWasModified: dataWasModified,
-            );
-          },
-    );
-  }
-
-  /// Builds action buttons for the split dialog.
-  List<Widget> getActionButtons({
-    required BuildContext context,
-    required TransactionSplit split,
-    required bool editMode,
-    required bool dataWasModified,
-  }) {
-    if (editMode) {
-      return <Widget>[
-        DialogActionButton(
-          key: Constants.keyButtonApplyOrDone,
-          text: dataWasModified ? AppL10n.tr(AppTranslationKeys.apply) : SharedStrings.labelDone,
-          onPressed: () {
-            // Changes were made
-            if (dataWasModified) {
-              Data().notifyMutationChanged(
-                mutation: MutationType.changed,
-                moneyObject: split,
-              );
-            }
-            Navigator.of(context).pop(true);
-          },
-        ),
-      ];
-    }
-
-    // Read only mode
-    return <Widget>[
-      // Close
-      DialogActionButton(
-        text: AppL10n.tr(AppTranslationKeys.close),
-        onPressed: () {
-          Navigator.of(context).pop(false);
-        },
-      ),
-      // Delete
-      DialogActionButton(
-        icon: Icons.delete_outlined,
-        text: AppL10n.tr(AppTranslationKeys.delete),
-        onPressed: () {
-          showConfirmationDialog(
-            context: context,
-            title: SharedStrings.labelDeleteSplit,
-            question: SharedStrings.questionDeleteSplit,
-            content: Column(
-              children: buildListOfNamesValuesWidgets(split, builders: entityWidgetBuilders, compact: true),
-            ),
-            buttonText: AppL10n.tr(AppTranslationKeys.delete),
-            onConfirmation: () {
-              Data().deleteItems(<DataObject>[split]);
-              Navigator.of(context).pop(false);
-            },
-          );
-        },
-      ),
-      // Edit
-      DialogActionButton(
-        key: Constants.keyButtonEdit,
-        icon: Icons.edit_outlined,
-        text: AppL10n.tr(AppTranslationKeys.edit),
-        onPressed: () {
-          split.stashValueBeforeEditing();
-          setState(() {
-            isInEditingMode = true;
-          });
-        },
-      ),
-    ];
-  }
 }

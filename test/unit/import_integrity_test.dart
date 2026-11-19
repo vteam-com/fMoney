@@ -181,6 +181,14 @@ void main() {
       );
     });
 
+    test('Portuguese headers picked by the XLSX row picker are mapped, Saldo is never the Amount', () {
+      const List<String> headers = <String>['Saldo', 'Data', 'Detalhes', 'Valor'];
+      expect(findBestMatchingColumnIndex(headers: headers, patterns: csvDateColumnPatterns), 1);
+      expect(findBestMatchingColumnIndex(headers: headers, patterns: csvDescriptionColumnPatterns), 2);
+      expect(findBestMatchingColumnIndex(headers: headers, patterns: csvAmountColumnPatterns), 3);
+      expect(findBestMatchingColumnIndex(headers: <String>['Fecha', 'Saldo'], patterns: csvAmountColumnPatterns), -1);
+    });
+
     test('duplicate headers resolve to their own column', () {
       final List<String> headers = <String>['Date', 'Description', 'Amount', 'Amount'];
       expect(buildUniqueColumnIds(headers), <String>['Date', 'Description', 'Amount', 'Amount (2)']);

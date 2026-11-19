@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
+import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
@@ -122,31 +123,22 @@ class TransferLinkageService {
       return null;
     }
     return collections.transactions.iterableList().firstWhereOrNull((Transaction candidate) {
-      final DateTime? candidateDate = candidate.fieldDateTime.value;
       return !candidate.isDeleted &&
           !candidate.isTransfer &&
           !candidate.isSplit &&
           candidate.fieldAccountId.value == accountId &&
           candidate.fieldAmount.value.asDouble() == amount &&
-          candidateDate != null &&
-          candidateDate.year == date.year &&
-          candidateDate.month == date.month &&
-          candidateDate.day == date.day;
+          isSameDateWithoutTime(candidate.fieldDateTime.value, date);
     });
   }
 
   /// Returns the other side of [transaction]'s transfer, or null when it has none.
   ///
-  /// A shared [Transfer] may list [transaction] as either its source or its related side,
-  /// so both are checked before falling back to the stored Transfer id.
+  /// Uses the related side of the cached [Transfer], falling back to the stored Transfer id.
   Transaction? _counterpartOf(Transaction transaction) {
-    final Transfer? transfer = transaction.instanceOfTransfer;
-    if (transfer != null) {
-      for (final dynamic side in <dynamic>[transfer.source, transfer.relatedTransaction]) {
-        if (side is Transaction && !identical(side, transaction)) {
-          return side;
-        }
-      }
+    final dynamic related = transaction.instanceOfTransfer?.relatedTransaction;
+    if (related is Transaction) {
+      return related;
     }
     if (transaction.fieldTransfer.value == _unsetId) {
       return null;
@@ -222,7 +214,7 @@ class TransferLinkageService {
   /// set is computed once and cached until the data version changes, making it
   /// safe to call from list row builders during scrolling.
   bool hasPotentialTransferMatch(Transaction sourceTransaction) {
-    if (sourceTransaction.isDeleted || sourceTransaction.isTransfer) {
+    if (!isTransferMatchEligible(sourceTransaction, includeClosedAccounts: true)) {
       return false;
     }
 
@@ -237,11 +229,11 @@ class TransferLinkageService {
     return _potentialTransferMatchIdsCache!.contains(sourceTransaction.uniqueId);
   }
 
-  /// Returns the transactions eligible as transfer-match sources or candidates.
+  /// Returns the transactions eligible as transfer-match sources or candidates, closed accounts included.
   List<Transaction> _eligibleTransferMatchTransactions() {
     return collections.transactions
         .iterableList(includeDeleted: false)
-        .where((Transaction t) => !t.isDeleted && !t.isTransfer)
+        .where((Transaction t) => isTransferMatchEligible(t, includeClosedAccounts: true))
         .toList();
   }
 
@@ -273,17 +265,13 @@ class TransferLinkageService {
     sourceTransaction.stashValueBeforeEditing();
     targetTransaction.stashValueBeforeEditing();
 
-    final Transfer transfer = sourceTransaction.fieldAmount.value.asDouble() < 0
-        ? Transfer(id: 0, source: sourceTransaction, relatedTransaction: targetTransaction, isOrphan: false)
-        : Transfer(id: 0, source: targetTransaction, relatedTransaction: sourceTransaction, isOrphan: false);
-
     sourceTransaction.fieldPayee.value = _noPayeeId;
     sourceTransaction.fieldTransfer.value = targetTransaction.uniqueId;
-    sourceTransaction.instanceOfTransfer = transfer;
 
     targetTransaction.fieldPayee.value = _noPayeeId;
     targetTransaction.fieldTransfer.value = sourceTransaction.uniqueId;
-    targetTransaction.instanceOfTransfer = transfer;
+
+    linkTransfer(sourceTransaction, targetTransaction);
 
     notifyMutationChanged(
       mutation: MutationType.changed,
@@ -356,32 +344,12 @@ class TransferLinkageService {
     );
 
     if (relatedTransaction != null) {
-      final Transfer transfer;
-
-      if (transactionSource.fieldAmount.value.asDouble() < 0) {
-        // transfer TO
-        transfer = Transfer(
-          id: 0,
-          source: transactionSource,
-          relatedTransaction: relatedTransaction,
-          isOrphan: false,
-        );
-      } else {
-        // transfer FROM
-        transfer = Transfer(
-          id: 0,
-          source: relatedTransaction,
-          relatedTransaction: transactionSource,
-          isOrphan: false,
-        );
-      }
-
       // Keep track changes done
       relatedTransaction.stashValueBeforeEditing();
 
       relatedTransaction.fieldPayee.value = _noPayeeId;
       relatedTransaction.fieldTransfer.value = transactionSource.fieldId.value;
-      relatedTransaction.instanceOfTransfer = transfer;
+      linkTransfer(transactionSource, relatedTransaction);
 
       if (relatedTransaction.uniqueId == -1) {
         // This is a new related transaction Append and get a new UniqueID
@@ -400,7 +368,6 @@ class TransferLinkageService {
       // this needs to happen last since the ID for a new Relation Transaction will be establish in the above
       transactionSource.fieldPayee.value = _noPayeeId;
       transactionSource.fieldTransfer.value = relatedTransaction.uniqueId;
-      transactionSource.instanceOfTransfer = transfer;
     }
 
     return relatedTransaction!;

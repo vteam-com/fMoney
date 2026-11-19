@@ -84,20 +84,16 @@ class TransactionExtra extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<TransactionExtra> _fields = Fields<TransactionExtra>();
-
-  /// Builds [TransactionExtra] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(TransactionExtra tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldTaxDate,
-    tmp.fieldTaxYear,
-    tmp.fieldTransaction,
-  ];
+  static final FieldDefinitionCache<TransactionExtra> _fieldDefinitionCache = FieldDefinitionCache<TransactionExtra>(
+    instanceFactory: () => TransactionExtra.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<TransactionExtra>>[
+      FieldBlueprint<TransactionExtra>(selector: (TransactionExtra tmp) => tmp.fieldId),
+      FieldBlueprint<TransactionExtra>(selector: (TransactionExtra tmp) => tmp.fieldTaxDate),
+      FieldBlueprint<TransactionExtra>(selector: (TransactionExtra tmp) => tmp.fieldTaxYear),
+      FieldBlueprint<TransactionExtra>(selector: (TransactionExtra tmp) => tmp.fieldTransaction),
+    ],
+  );
 
   /// Returns the field definitions for TransactionExtra entities.
-  static Fields<TransactionExtra> get fields => ensureCachedFieldDefinitions<TransactionExtra>(
-    cache: _fields,
-    instanceFactory: () => TransactionExtra.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<TransactionExtra> get fields => _fieldDefinitionCache.fields;
 }

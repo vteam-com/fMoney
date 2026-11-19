@@ -39,10 +39,14 @@ class ChartEvent {
   int get hashCode => Object.hash(dates, amount, quantity, description);
 
   /// Returns the display color based on buy/sell or amount sign.
+  ///
+  /// Matches the theme's quantity colors used by the quantity widget: a buy
+  /// (positive quantity) or a positive amount is blue, a sell or a negative
+  /// amount is orange.
   Color get colorToUse {
     if (this.color == null) {
       return colorBasedOnQuantity
-          ? (quantity == 0 ? Colors.grey : (isBuy ? Colors.orange : Colors.blue))
+          ? (quantity == 0 ? Colors.grey : (isBuy ? Colors.blue : Colors.orange))
           : (amount == 0 ? Colors.grey : (amount.isNegative ? Colors.orange : Colors.blue));
     }
     return this.color!;

@@ -1,7 +1,5 @@
 import 'package:money/widgets/components/app_scaffold_widget.dart';
-
-const double _actionButtonSpacing = 8;
-const double _actionButtonOverflowSpacing = 0;
+import 'package:money/widgets/dialogs/button_helpers.dart';
 
 ///
 class FullScreenDialog extends StatefulWidget {
@@ -30,15 +28,7 @@ class FullScreenDialogState extends State<FullScreenDialog> {
       Column(
         children: <Widget>[
           Expanded(child: widget.content),
-          if (widget.actionButtons.isNotEmpty)
-            OverflowBar(
-              alignment: MainAxisAlignment.end,
-              spacing: _actionButtonSpacing,
-              overflowAlignment: OverflowBarAlignment.end,
-              overflowDirection: VerticalDirection.down,
-              overflowSpacing: _actionButtonOverflowSpacing,
-              children: widget.actionButtons,
-            ),
+          if (widget.actionButtons.isNotEmpty) dialogActionButtons(widget.actionButtons),
         ],
       ),
     );

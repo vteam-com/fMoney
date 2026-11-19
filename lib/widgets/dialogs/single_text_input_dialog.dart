@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/my_text_input_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,9 +25,26 @@ Future<void> showTextInputDialog({
     builder: (BuildContext context) {
       final TextEditingController textEditingController = TextEditingController();
       textEditingController.text = initialValue;
-      return AlertDialog(
-        title: Text(title),
-        content: SizedBox(
+      return MyAlertDialog(
+        title: title,
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              onCancel?.call();
+            },
+            child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final String text = textEditingController.text;
+              Navigator.pop(context);
+              onContinue(text);
+            },
+            child: Text(AppL10n.tr(AppTranslationKeys.continueLabel)),
+          ),
+        ],
+        child: SizedBox(
           width: _dialogWidth,
           height: _dialogHeight,
           child: Column(
@@ -55,23 +73,6 @@ Future<void> showTextInputDialog({
             ],
           ),
         ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              onCancel?.call();
-            },
-            child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final String text = textEditingController.text;
-              Navigator.pop(context);
-              onContinue(text);
-            },
-            child: Text(AppL10n.tr(AppTranslationKeys.continueLabel)),
-          ),
-        ],
       );
     },
   );

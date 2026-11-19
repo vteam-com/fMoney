@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';
@@ -11,6 +12,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/models/recurring_expenses_model.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
@@ -33,7 +35,6 @@ const double _barWidthWide = 20.0;
 const double _barWidthNarrow = 10.0;
 const double _barRadius = 8.0;
 const int _barAlpha = 120;
-const double _lineAlpha = 0.3;
 const int _lineFeedCodePoint = 10;
 const int _tabCodePoint = 9;
 
@@ -160,7 +161,7 @@ class _PanelTrendState extends State<PanelTrend> {
               final int year = years[response.spot!.touchedBarGroupIndex];
 
               final FieldFilter fieldFilterToUseForYear = FieldFilter(
-                fieldName: Constants.viewTransactionFieldNameDate,
+                fieldName: columnIdDate,
                 strings: Data().transactions
                     .getAllTransactionDatesForYear(year)
                     .map((DateTime date) => dateToString(date))
@@ -180,10 +181,7 @@ class _PanelTrendState extends State<PanelTrend> {
               final List<String> sortedCategoryList = categoryNames.toList();
               sortedCategoryList.sort();
 
-              final FieldFilter fieldFilterToUseForCategories = FieldFilter(
-                fieldName: Constants.viewTransactionFieldNameCategory,
-                strings: sortedCategoryList,
-              );
+              final FieldFilter fieldFilterToUseForCategories = transactionsOfCategoriesFilter(sortedCategoryList);
 
               PreferenceController.to.jumpToView(
                 viewId: ViewId.viewTransactions,
@@ -208,22 +206,6 @@ class _PanelTrendState extends State<PanelTrend> {
         gridData: Chart.getChartGridData(),
       ),
     );
-  }
-
-  /// Returns border data with themed top/bottom colors for the trend chart.
-  FlBorderData getBorders(double min, double max) {
-    return FlBorderData(
-      show: true,
-      border: Border(
-        top: BorderSide(color: getHorizontalLineColorBasedOnValue(max)),
-        bottom: BorderSide(color: getHorizontalLineColorBasedOnValue(min)),
-      ),
-    );
-  }
-
-  /// Returns a themed horizontal line color based on the numeric value.
-  Color getHorizontalLineColorBasedOnValue(double value) {
-    return context.colorTheme.colorBasedOnValue(value).withValues(alpha: _lineAlpha);
   }
 
   /// Builds grouped bar chart data for each year using income, expense, and profit rods.

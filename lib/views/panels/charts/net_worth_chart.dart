@@ -61,65 +61,56 @@ class NetWorthChartState extends State<NetWorthChart> {
 
   @override
   Widget build(BuildContext context) {
-    const double marginLeft = 80.0;
-    const double marginBottom = 50.0;
-
-    final List<Transaction> transactionSubSet = _transactions
-        .where(
-          (Transaction t) => isBetweenOrEqual(
-            t.fieldDateTime.value!.year,
-            widget.minYear,
-            widget.maxYear,
-          ),
-        )
-        .toList();
-
-    _milestoneTransactions = getMilestonesEvents(transactionSubSet);
+    _milestoneTransactions = getMilestonesEvents(
+      Data().transactions.getListFlattenSplitsInYearRange(
+        minYear: widget.minYear,
+        maxYear: widget.maxYear,
+        where: (Transaction t) => t.isTransfer == false,
+      ),
+    );
 
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
-          ),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter: PaintActivities(
+        if (_yearMonthDataPoints.isNotEmpty)
+          lineChartOverlay(
+            PaintActivities(
               activities: _milestoneTransactions,
               minX: _yearMonthDataPoints.first.x,
               maxX: _yearMonthDataPoints.last.x,
             ),
           ),
-        ),
         MyLineChart(dataPoints: _yearMonthDataPoints, showDots: false),
       ],
     );
   }
 }
 
+/// Converts [events] to chart events spanning each event's begin and end dates (today while it
+/// has no end), colored by the event's category and sorted by begin date.
+List<ChartEvent> chartEventsFromEvents(Iterable<Event> events) {
+  final List<ChartEvent> chartEvents = events.map((Event event) {
+    final Category? category = Data().categories.get(event.fieldCategoryId.value);
+    return ChartEvent(
+      dates: DateRange(
+        min: event.fieldDateBegin.value!,
+        max: event.fieldDateEnd.value ?? DateTime.now(),
+      ),
+      amount: 0,
+      quantity: 1,
+      colorBasedOnQuantity: false, // use Amount
+      description: event.fieldName.value,
+      color: category == null ? Colors.blue : category.getColorOrAncestorsColor(),
+    );
+  }).toList();
+  chartEvents.sort((ChartEvent a, ChartEvent b) => a.dates.min!.compareTo(b.dates.min!));
+  return chartEvents;
+}
+
 /// Extracts milestone events from transactions for chart display.
 List<ChartEvent> getMilestonesEvents(List<Transaction> transactions) {
-  final List<ChartEvent> milestoneTransactions = <ChartEvent>[];
-
   if (PreferenceController.to.netWorthEventThreshold == 0) {
-    for (final Event event in Data().events.iterableList()) {
-      final Category? category = Data().categories.get(
-        event.fieldCategoryId.value,
-      );
-      milestoneTransactions.add(
-        ChartEvent(
-          dates: DateRange(min: event.fieldDateBegin.value!),
-          amount: 0,
-          quantity: 1,
-          colorBasedOnQuantity: false, // use Amount
-          description: event.fieldName.value,
-          color: category == null ? Colors.blue : category.getColorOrAncestorsColor(),
-        ),
-      );
-    }
-    return milestoneTransactions;
+    return chartEventsFromEvents(Data().events.iterableList());
   }
 
   // Calculate Z-scores for outlier detection based on amount
@@ -130,6 +121,7 @@ List<ChartEvent> getMilestonesEvents(List<Transaction> transactions) {
   }
 
   // Find outlier events
+  final List<ChartEvent> milestoneTransactions = <ChartEvent>[];
   final double mean = amounts.reduce((double a, double b) => a + b) / amounts.length;
   final double variance =
       amounts.map((double amount) => (amount - mean) * (amount - mean)).reduce((double a, double b) => a + b) /

@@ -1,7 +1,6 @@
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/views/panels/recurring/widgets/recurring_card.dart';
@@ -75,11 +74,7 @@ class _PanelRecurringState extends State<PanelRecurring> {
     final AccumulatorList<int, int> groupMonthsListByPayeeId = AccumulatorList<int, int>();
 
     // Step 1: Group transactions by payeeId and record transaction months
-    for (final Transaction transaction in transactions.where(
-      (Transaction t) =>
-          (isIncomeTransaction && t.fieldAmount.value.asDouble() > 0) ||
-          (isIncomeTransaction == false && t.fieldAmount.value.asDouble() <= 0),
-    )) {
+    for (final Transaction transaction in transactions) {
       final int payeeId = transaction.fieldPayee.value;
 
       groupTransactionsByPayeeId.cumulate(payeeId, transaction);
@@ -110,17 +105,11 @@ class _PanelRecurringState extends State<PanelRecurring> {
   /// Initializes recurring transactions filtered by income/expense type.
   void initRecurringTransactions({required bool forIncome}) {
     // get all transactions meeting the request of date and type
-    bool whereClause(Transaction t) {
-      return isBetweenOrEqual(
-            t.fieldDateTime.value!.year,
-            widget.minYear,
-            widget.maxYear,
-          ) &&
-          ((forIncome == true && t.fieldAmount.value.asDouble() > 0) ||
-              (forIncome == false && t.fieldAmount.value.asDouble() < 0));
-    }
-
-    final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplits(whereClause: whereClause);
+    final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplitsInYearRange(
+      minYear: widget.minYear,
+      maxYear: widget.maxYear,
+      where: (Transaction t) => forIncome ? t.fieldAmount.value.asDouble() > 0 : t.fieldAmount.value.asDouble() < 0,
+    );
 
     // get all transaction Income | Expenses
     findMonthlyRecurringPayments(flatTransactions, forIncome);

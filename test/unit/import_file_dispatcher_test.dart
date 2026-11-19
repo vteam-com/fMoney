@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -100,6 +101,18 @@ void main() {
       await csvFile.writeAsString(
         '\uFEFFRun Date,Account,Account Number,Amount\n'
         '2024-01-15,Brokerage,12345,100.00\n',
+      );
+
+      expect(await isInvestmentCSVFile(csvFile.path), isTrue);
+    });
+
+    test('returns true for a Latin-1 investment CSV', () async {
+      final File csvFile = File('${tempDir.path}/latin1.csv');
+      await csvFile.writeAsBytes(
+        latin1.encode(
+          'Run Date,Account,Description,Amount\n'
+          '2024-01-15,Courtage,Dépôt espèces,100.00\n',
+        ),
       );
 
       expect(await isInvestmentCSVFile(csvFile.path), isTrue);

@@ -1,7 +1,5 @@
 // ignore_for_file: always_put_control_body_on_new_line
 
-import 'dart:io';
-
 import 'package:csv/csv.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -10,16 +8,12 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
-import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart'; // Import the dialog
+import 'package:money/views/imports/shared/import_file_reader_helper.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
+import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 
 const int _previewRowLimit = 5;
-const String _skipReasonMissingMappedColumns = 'missingMappedColumns';
-const String _skipReasonInsufficientColumns = 'insufficientColumns';
-const String _skipReasonInvalidDate = 'invalidDate';
-const String _skipReasonEmptyDescription = 'emptyDescription';
-const String _skipReasonInvalidAmount = 'invalidAmount';
-const String _skipReasonMissingRequiredMapping = 'missingRequiredMapping';
-const String _noDescriptionPlaceholder = 'no description';
 const String _actionDescriptionSeparator = ' | ';
 const int _nearbyActionPrimaryOffset = 2;
 const int _nearbyActionSecondaryOffset = 1;
@@ -51,15 +45,12 @@ class CsvRowsData {
 /// Imports CSV file and parses transaction data from comma-separated format.
 Future<void> importCSV(BuildContext context, String filePath) async {
   try {
-    final File file = File(filePath);
-    final String csvContent = await file.readAsString();
+    final String? csvContent = await readImportFileAsText(filePath);
 
-    if (!context.mounted) return; // Guard after await
+    if (csvContent == null || !context.mounted) return; // Guard after await
 
     if (csvContent.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.csvFileEmpty))),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.csvFileEmpty));
       return;
     }
 
@@ -69,10 +60,6 @@ Future<void> importCSV(BuildContext context, String filePath) async {
     final List<List<String>> previewRows = dataRows.length > _previewRowLimit
         ? dataRows.sublist(0, _previewRowLimit)
         : dataRows;
-
-    if (!context.mounted) {
-      return;
-    }
 
     final Map<String, String>? columnMapping = await showCsvColumnMapperDialog(
       context: context,
@@ -88,46 +75,18 @@ Future<void> importCSV(BuildContext context, String filePath) async {
       final ImportData importData = loadCSV(headers, dataRows, columnMapping);
 
       if (importData.entries.isNotEmpty) {
-        if (importData.diagnostics.skippedRows > 0) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                AppL10n.tr(
-                  AppTranslationKeys.csvImportRowsImportedAndSkipped,
-                  params: <String, String>{
-                    'imported': importData.entries.length.toString(),
-                    'skipped': importData.diagnostics.skippedRows.toString(),
-                  },
-                ),
-              ),
-            ),
-          );
-        }
+        showImportSkippedRowsWarning(importData);
         showAndConfirmTransactionToImport(context, importData);
       } else {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport))),
-          );
-        }
+        SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInCsvToImport));
       }
     } else {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.csvImportCancelled))),
-        );
-      }
+      SnackBarService.displayInfo(message: AppL10n.tr(AppTranslationKeys.csvImportCancelled));
     }
   } catch (e) {
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppL10n.tr(AppTranslationKeys.errorImportingCsvError, params: <String, String>{'error': e.toString()}),
-          ),
-        ),
-      );
-    }
+    SnackBarService.displayError(
+      message: AppL10n.tr(AppTranslationKeys.errorImportingCsvError, params: <String, String>{'error': e.toString()}),
+    );
   }
 }
 
@@ -178,41 +137,19 @@ int _findActionHeaderIndex(List<String> headers) {
   return -1;
 }
 
-/// Normalizes a description-like value for robust placeholder matching.
-String _normalizeForPlaceholderCheck(String value) {
-  return value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), ' ').trim();
-}
-
-/// Returns true when [descriptionValue] is considered a non-informative placeholder.
-bool _isDescriptionPlaceholder(String descriptionValue) {
-  final String normalized = _normalizeForPlaceholderCheck(descriptionValue);
-  if (normalized.isEmpty) {
-    return true;
-  }
-  return normalized == _noDescriptionPlaceholder;
-}
-
 /// Returns true when [candidate] can be used as an Action fallback for [descriptionValue].
 bool _isValidActionCandidate(String candidate, String descriptionValue) {
-  final String trimmed = candidate.trim();
-  if (trimmed.isEmpty) {
+  if (isDescriptionPlaceholder(candidate)) {
     return false;
   }
-
-  final String normalizedCandidate = _normalizeForPlaceholderCheck(trimmed);
-  if (normalizedCandidate.isEmpty || normalizedCandidate == _noDescriptionPlaceholder) {
-    return false;
-  }
-
-  final String normalizedDescription = _normalizeForPlaceholderCheck(descriptionValue);
-  return normalizedCandidate != normalizedDescription;
+  return normalizeForPlaceholderCheck(candidate) != normalizeForPlaceholderCheck(descriptionValue);
 }
 
 /// Returns true when [headerValue] semantically represents action/details text.
 bool _isActionLikeHeader(String headerValue) {
-  final String normalizedHeader = _normalizeForPlaceholderCheck(headerValue);
+  final String normalizedHeader = normalizeForPlaceholderCheck(headerValue);
   for (final String headerAlias in _fallbackActionHeaderAliases) {
-    final String normalizedAlias = _normalizeForPlaceholderCheck(headerAlias);
+    final String normalizedAlias = normalizeForPlaceholderCheck(headerAlias);
     if (normalizedHeader.contains(normalizedAlias)) {
       return true;
     }
@@ -228,7 +165,7 @@ String _resolveActionValue({
   required int descriptionIndex,
   required String descriptionValue,
 }) {
-  final bool placeholderDescription = _isDescriptionPlaceholder(descriptionValue);
+  final bool placeholderDescription = isDescriptionPlaceholder(descriptionValue);
 
   if (actionIndex >= 0 && actionIndex < row.length) {
     final String actionFromHeader = row[actionIndex].trim();
@@ -284,7 +221,7 @@ String _resolveDescription(String descriptionValue, String actionValue) {
   final String trimmedAction = actionValue.trim();
   final String trimmedDescription = descriptionValue.trim();
 
-  if (_isDescriptionPlaceholder(trimmedDescription)) {
+  if (isDescriptionPlaceholder(trimmedDescription)) {
     return trimmedAction;
   }
 
@@ -315,7 +252,7 @@ ImportData loadCSV(
   final String? descriptionColumnName = columnMapping['description'];
   final String? amountColumnName = columnMapping['amount'];
   if (dateColumnName == null || descriptionColumnName == null || amountColumnName == null) {
-    importData.diagnostics.incrementSkipped(_skipReasonMissingRequiredMapping);
+    importData.diagnostics.incrementSkipped(importSkipReasonMissingRequiredMapping);
     return importData;
   }
 
@@ -325,7 +262,7 @@ ImportData loadCSV(
   final int actionIndex = _findActionHeaderIndex(headers);
 
   if (dateIndex == -1 || descriptionIndex == -1 || amountIndex == -1) {
-    importData.diagnostics.incrementSkipped(_skipReasonMissingMappedColumns);
+    importData.diagnostics.incrementSkipped(importSkipReasonMissingMappedColumns);
     return importData;
   }
 
@@ -349,13 +286,13 @@ ImportData loadCSV(
 
     final int maxIndex = requiredIndices.reduce((int a, int b) => a > b ? a : b);
     if (row.length <= maxIndex) {
-      importData.diagnostics.incrementSkipped(_skipReasonInsufficientColumns);
+      importData.diagnostics.incrementSkipped(importSkipReasonInsufficientColumns);
       continue;
     }
 
     final DateTime? date = parseDateFlexible(row[dateIndex], order: dateOrder);
     if (date == null) {
-      importData.diagnostics.incrementSkipped(_skipReasonInvalidDate);
+      importData.diagnostics.incrementSkipped(importSkipReasonInvalidDate);
       continue;
     }
 
@@ -368,13 +305,13 @@ ImportData loadCSV(
     );
     final String description = _resolveDescription(row[descriptionIndex], actionValue);
     if (description.isEmpty) {
-      importData.diagnostics.incrementSkipped(_skipReasonEmptyDescription);
+      importData.diagnostics.incrementSkipped(importSkipReasonEmptyDescription);
       continue;
     }
 
     final double? amount = parseAmountFlexible(row[amountIndex]);
     if (amount == null) {
-      importData.diagnostics.incrementSkipped(_skipReasonInvalidAmount);
+      importData.diagnostics.incrementSkipped(importSkipReasonInvalidAmount);
       continue;
     }
 
@@ -396,7 +333,7 @@ ImportData loadCSV(
         name: description,
         amount: amount,
         type: SharedStrings.importTypeCsv,
-        fitid: 'csv_row_${i + 1}_${date.millisecondsSinceEpoch}',
+        fitid: '${SharedStrings.fitidPrefixCsvRow}${i + 1}_${date.millisecondsSinceEpoch}',
         memo: actionValue,
         number: '',
         stockAction: '',

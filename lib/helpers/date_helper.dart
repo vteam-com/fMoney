@@ -18,18 +18,6 @@ const int _minValidDay = 1;
 const int _maxValidDay = 31;
 const int _daysPerYear = 365;
 const int _daysPerMonthApprox = 30;
-const int _qfxYearStart = 0;
-const int _qfxYearEnd = 4;
-const int _qfxMonthStart = 4;
-const int _qfxMonthEnd = 6;
-const int _qfxDayStart = 6;
-const int _qfxDayEnd = 8;
-const int _qfxHourStart = 8;
-const int _qfxHourEnd = 10;
-const int _qfxMinuteStart = 10;
-const int _qfxMinuteEnd = 12;
-const int _qfxSecondStart = 12;
-const int _qfxSecondEnd = 14;
 const int _endOfDayHour = 23;
 const int _endOfDayMinute = 59;
 const int _endOfDaySecond = 59;
@@ -389,49 +377,6 @@ DateTime? oldestDate(DateTime? a, DateTime? b) {
     return a;
   }
   return a.isBefore(b) ? a : b;
-}
-
-/// Parses a QFX date string and returns a [DateTime] object.
-///
-/// The QFX date string is expected to be in the format "20240103120000.000[-5:EST]",
-/// where the first 14 characters represent the date and time, and the remaining
-/// characters represent the time zone offset and abbreviation.
-///
-/// This function will attempt to parse the date and time components and create a
-/// [DateTime] object. If the parsing fails for any reason, it will return `null`.
-///
-/// @param qfxDate The QFX date string to parse.
-/// @return The parsed [DateTime] object, or `null` if the parsing fails.
-/// Input will look like this ```20240103120000.000[-5:EST]```
-///                           ```01234567890123456789012345```
-///                           ```0........10--------20_____```
-DateTime? parseQfxDataFormat(String qfxDate) {
-  // Extract date components
-  try {
-    // Extract date and time components
-    final int year = int.parse(qfxDate.substring(_qfxYearStart, _qfxYearEnd));
-    final int month = int.parse(qfxDate.substring(_qfxMonthStart, _qfxMonthEnd));
-    final int day = int.parse(qfxDate.substring(_qfxDayStart, _qfxDayEnd));
-    final int hour = int.parse(qfxDate.substring(_qfxHourStart, _qfxHourEnd));
-    final int minute = int.parse(qfxDate.substring(_qfxMinuteStart, _qfxMinuteEnd));
-    final int second = int.parse(qfxDate.substring(_qfxSecondStart, _qfxSecondEnd));
-
-    // Create DateTime object
-    final DateTime dateTime = DateTime(year, month, day, hour, minute, second);
-
-    // Import UTC based
-    // dateTime = dateTime.toUtc();
-
-    // // Extract time zone offset and abbreviation
-    // final tokens = qfxDate.substring(19).split(':');
-    // final int timeZoneOffset = int.parse(tokens[0]);
-    //
-    // // Adjust DateTime object with time zone offset
-    // dateTime = dateTime.add(Duration(hours: timeZoneOffset));
-    return dateTime;
-  } catch (e) {
-    return null;
-  }
 }
 
 /// Returns elapsed time string between two dates.

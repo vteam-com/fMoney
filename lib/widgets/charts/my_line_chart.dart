@@ -3,13 +3,17 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/chart_helper.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 
-const double _defaultMarginLeft = 80;
-const double _defaultMarginBottom = 50;
+/// Default space a [MyLineChart] reserves left of its plot area for the amount labels.
+const double lineChartMarginLeft = 80;
+
+/// Default space a [MyLineChart] reserves below its plot area for the date labels.
+const double lineChartMarginBottom = 50;
+
 const double _axisLabelFontSize = 10;
 
 /// A stateless widget for my line chart.
@@ -18,8 +22,8 @@ class MyLineChart extends StatelessWidget {
     super.key,
     required this.dataPoints,
     required this.showDots,
-    this.marginLeft = _defaultMarginLeft,
-    this.marginBottom = _defaultMarginBottom,
+    this.marginLeft = lineChartMarginLeft,
+    this.marginBottom = lineChartMarginBottom,
   });
 
   final List<FlSpot> dataPoints;
@@ -78,7 +82,7 @@ class MyLineChart extends StatelessWidget {
                 touchedSpot.x.toInt(),
               );
               return LineTooltipItem(
-                '${dateToString(date)}${SharedStrings.lineFeed}${doubleToCurrency(touchedSpot.y)}',
+                '${dateToString(date)}${SharedStrings.lineFeed}${getAmountAsStringUsingCurrency(touchedSpot.y)}',
                 const TextStyle(color: Colors.white),
               );
             }).toList(),
@@ -90,6 +94,15 @@ class MyLineChart extends StatelessWidget {
     );
   }
 }
+
+/// Places [child] over the plot area of a [MyLineChart] that uses the default margins.
+Widget lineChartPlotArea(Widget child) => Padding(
+  padding: const EdgeInsets.only(left: lineChartMarginLeft, bottom: lineChartMarginBottom),
+  child: child,
+);
+
+/// Paints [painter] over the plot area of a [MyLineChart] that uses the default margins.
+Widget lineChartOverlay(CustomPainter painter) => lineChartPlotArea(CustomPaint(size: Size.infinite, painter: painter));
 
 /// Formats a DateTime as 'yyyy\nMMM'.
 String formatDate(DateTime date) => DateFormat(SharedStrings.dateFormatYearLineMonth).format(date);

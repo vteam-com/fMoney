@@ -1,17 +1,13 @@
-import 'package:collection/collection.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/list_controller.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_split_dialog.dart';
-import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
-import 'package:money/widgets/list/column_widths_notifier.dart';
-import 'package:money/widgets/list/list_item_header_widget.dart';
-import 'package:money/widgets/list/list_view.dart';
+import 'package:money/shared/presentation/widgets/sortable_list_view_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
+import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 /// A stateful widget for list view transaction splits.
@@ -24,10 +20,9 @@ class ListViewTransactionSplits extends StatefulWidget {
   });
 
   final int defaultSortingField;
-  final
-  /// Returns a list of transaction splits with optional filtering and sorting.
-  List<TransactionSplit>
-  splits;
+
+  /// The splits listed.
+  final List<TransactionSplit> splits;
   final double totalAmount;
 
   @override
@@ -35,19 +30,12 @@ class ListViewTransactionSplits extends StatefulWidget {
 }
 
 class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
-  late ColumnWidthsNotifier _columnWidths;
-  bool _sortAscending = true;
-  late int _sortBy = widget.defaultSortingField;
-
-  @override
-  void initState() {
-    super.initState();
-    _columnWidths = ColumnWidthsNotifier.fromFields(TransactionSplit.fields.definitions);
-  }
+  final ListController _listController = ListController();
+  final SelectionController _selectionController = SelectionController();
 
   @override
   void dispose() {
-    _columnWidths.dispose();
+    _listController.dispose();
     super.dispose();
   }
 
@@ -55,38 +43,15 @@ class _ListViewTransactionSplitsState extends State<ListViewTransactionSplits> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        // Table Header
-        MyListItemHeader<TransactionSplit>(
-          columns: TransactionSplit.fields.definitions,
-          filterOn: FieldFilters(),
-          sortByColumn: _sortBy,
-          sortAscending: _sortAscending,
-          columnWidths: _columnWidths,
-          onTap: (int index) {
-            setState(() {
-              _sortAscending = sortAscendingAfterColumnTap(index, _sortBy, _sortAscending);
-              _sortBy = index;
-            });
-          },
-        ),
-        // Table list of rows
         Expanded(
-          child: MyListView<TransactionSplit>(
-            fields: TransactionSplit.fields.definitions,
-            list: widget.splits,
-            selectedItemIds: ValueNotifier<List<int>>(<int>[]),
-            onSelectionChanged: (int _) {},
-            columnWidths: _columnWidths,
-            widgetBuilders: entityWidgetBuilders,
-            onLongPress: (BuildContext context2, int uniqueId) {
-              final TransactionSplit? instance = widget.splits.firstWhereOrNull(
-                (TransactionSplit t) => t.uniqueId == uniqueId,
-              );
-              if (instance != null) {
-                showSplitAndActions(context: context2, split: instance);
-              }
-            },
-            scrollController: ScrollController(),
+          child: SortableListView<TransactionSplit>(
+            columnsToInclude: TransactionSplit.fields.definitions,
+            getList: () => widget.splits.toList(),
+            listController: _listController,
+            selectionController: _selectionController,
+            sortFieldIndex: widget.defaultSortingField,
+            onItemLongPress: (BuildContext context2, TransactionSplit split) =>
+                showSplitAndActions(context: context2, split: split),
           ),
         ),
         Row(

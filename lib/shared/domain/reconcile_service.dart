@@ -4,6 +4,7 @@ import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/account_entity.dart';
+import 'package:money/shared/domain/accounts_collection.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 
@@ -88,7 +89,7 @@ class ReconcileService {
   static double reconciledBalanceOf(Account account, DataAbstract data) {
     return account.fieldOpeningBalance.value.asDouble() +
         _sumOfAmounts(
-          _transactionsOf(account, data).where(
+          Accounts.transactionsOf(account, data).where(
             (Transaction t) => t.fieldStatus.value == TransactionStatus.reconciled,
           ),
         );
@@ -101,7 +102,7 @@ class ReconcileService {
   }
 
   /// Cleared transactions of the account dated on or before [statementDate].
-  Iterable<Transaction> get _clearedOnStatement => _transactionsOf(account, data).where(
+  Iterable<Transaction> get _clearedOnStatement => Accounts.transactionsOf(account, data).where(
     (Transaction t) => t.fieldStatus.value == TransactionStatus.cleared && _isOnStatement(t),
   );
 
@@ -116,13 +117,6 @@ class ReconcileService {
     return transactions.fold(
       _zeroDouble,
       (double sum, Transaction t) => sum + t.fieldAmount.value.asDouble(),
-    );
-  }
-
-  /// Returns the transactions of [account] that are not deleted.
-  static Iterable<Transaction> _transactionsOf(Account account, DataAbstract data) {
-    return data.getTransactions().whereType<Transaction>().where(
-      (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
   }
 }

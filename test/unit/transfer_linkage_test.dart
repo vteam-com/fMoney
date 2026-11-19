@@ -55,9 +55,23 @@ void main() {
       expect(related.fieldTransfer.value, source.uniqueId);
       expect(source.fieldPayee.value, -1, reason: 'a transfer has no payee');
       expect(related.fieldPayee.value, -1);
-      // A negative source amount is the sending side of the transfer.
+      // Each side gets its own Transfer: itself as source, the other side as related.
       expect(source.instanceOfTransfer!.source, source);
-      expect(identical(source.instanceOfTransfer, related.instanceOfTransfer), isTrue);
+      expect(source.instanceOfTransfer!.relatedTransaction, related);
+      expect(related.instanceOfTransfer!.source, related);
+      expect(related.instanceOfTransfer!.relatedTransaction, source);
+    });
+
+    test('the receiving side names the sending account right after linking', () {
+      final Transaction source = _createTransaction(account: checking, amount: -100, date: DateTime(2024, 1, 10));
+
+      final Transaction related = Data().makeTransferLinkage(transactionSource: source, destinationAccount: savings);
+
+      // Regression: the receiving side used to share the sender's Transfer and named its own account.
+      expect(related.relatedAccount, checking);
+      expect(related.getPayeeOrTransferCaption(), allOf(contains(' <- '), endsWith(checking.fieldName.value)));
+      expect(source.relatedAccount, savings);
+      expect(source.getPayeeOrTransferCaption(), allOf(contains(' -> '), endsWith(savings.fieldName.value)));
     });
 
     test('reuses an existing opposite transaction on the same day', () {
@@ -69,8 +83,8 @@ void main() {
 
       expect(related, existing);
       expect(Data().transactions.length, countBefore);
-      // A positive source amount is the receiving side of the transfer.
-      expect(existing.instanceOfTransfer!.source, source);
+      expect(existing.instanceOfTransfer!.source, existing);
+      expect(existing.instanceOfTransfer!.relatedTransaction, source);
       expect(existing.fieldTransfer.value, source.uniqueId);
     });
   });

@@ -335,14 +335,10 @@ class DataSimulator {
       memo: memo,
     );
 
-    final Transaction relatedTransaction = Data().makeTransferLinkage(
+    return Data().makeTransferLinkage(
       transactionSource: source,
       destinationAccount: accountDestination,
     );
-
-    linkTransfer(source, relatedTransaction);
-
-    return relatedTransaction;
   }
 
   /// Generates sample account aliases.

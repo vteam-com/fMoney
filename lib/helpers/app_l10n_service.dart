@@ -1,10 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:money/helpers/app_l10n_resolver_helper.dart';
 import 'package:money/helpers/app_router_service.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/l10n/app_localizations.dart';
-import 'package:money/l10n/app_localizations_en.dart';
-import 'package:money/l10n/app_localizations_es.dart';
-import 'package:money/l10n/app_localizations_fr.dart';
 
 /// Provides access to Flutter AppLocalizations without requiring BuildContext.
 class AppL10n {
@@ -27,12 +25,9 @@ class AppL10n {
       }
     }
     final Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
-    if (locale.languageCode == 'es') {
-      return AppLocalizationsEs();
-    }
-    if (locale.languageCode == 'fr') {
-      return AppLocalizationsFr();
-    }
-    return AppLocalizationsEn();
+    final bool isSupported = AppLocalizations.supportedLocales.any(
+      (Locale supported) => supported.languageCode == locale.languageCode,
+    );
+    return lookupAppLocalizations(Locale(isSupported ? locale.languageCode : SharedStrings.localeCodeEnglish));
   }
 }

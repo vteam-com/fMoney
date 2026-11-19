@@ -29,6 +29,9 @@ abstract class CategoryOperations {
   /// Returns all category tree IDs.
   List<int> getCategoryTreeIds(int categoryId);
 
+  /// Returns the parent of [category], its grandparent and so on up to the top-level category.
+  List<DataObject> getCategoryAncestors(DataObject category);
+
   /// Appends a new category.
   void appendNewCategory(DataObject category);
 

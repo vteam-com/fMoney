@@ -1,19 +1,15 @@
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/shared/domain/rental_category_role_enum.dart';
 
 const double _percentScale = 100;
+const double _zero = 0;
 const int _textPaddingWidth = 15;
 
 /// Represents rental pn l.
 class RentalPnL {
   RentalPnL({
     required this.date,
-    this.income = 0,
-    this.expenseInterest = 0,
-    this.expenseMaintenance = 0,
-    this.expenseManagement = 0,
-    this.expenseRepairs = 0,
-    this.expenseTaxes = 0,
     this.currency = SharedStrings.currencyUsd,
     Map<String, double>? distributions,
   }) {
@@ -24,12 +20,9 @@ class RentalPnL {
 
   String currency;
   late Map<String, double> distributions;
-  double expenseInterest;
-  double expenseMaintenance;
-  double expenseManagement;
-  double expenseRepairs;
-  double expenseTaxes;
-  double income;
+
+  /// Total of each category role; expenses are negative.
+  final Map<RentalCategoryRole, double> _amounts = <RentalCategoryRole, double>{};
 
   @override
   String toString() {
@@ -60,8 +53,36 @@ class RentalPnL {
     return text;
   }
 
+  /// Adds [amount] to the total of [role].
+  void add(RentalCategoryRole role, double amount) {
+    _amounts[role] = amountOf(role) + amount;
+  }
+
+  /// Returns the total of [role].
+  double amountOf(RentalCategoryRole role) => _amounts[role] ?? _zero;
+
+  /// Total of the interest expenses.
+  double get expenseInterest => amountOf(RentalCategoryRole.interest);
+
+  /// Total of the maintenance expenses.
+  double get expenseMaintenance => amountOf(RentalCategoryRole.maintenance);
+
+  /// Total of the management expenses.
+  double get expenseManagement => amountOf(RentalCategoryRole.management);
+
+  /// Total of the repair expenses.
+  double get expenseRepairs => amountOf(RentalCategoryRole.repairs);
+
+  /// Total of the tax expenses.
+  double get expenseTaxes => amountOf(RentalCategoryRole.taxes);
+
   /// Returns the sum of all expense categories.
-  double get expenses => expenseInterest + expenseMaintenance + expenseManagement + expenseRepairs + expenseTaxes;
+  double get expenses => RentalCategoryRole.values
+      .where((RentalCategoryRole role) => role.isExpense)
+      .fold(_zero, (double sum, RentalCategoryRole role) => sum + amountOf(role));
+
+  /// Total of the incomes.
+  double get income => amountOf(RentalCategoryRole.income);
 
   /// Returns total profit (income + expenses, where expenses are negative).
   double get profit => income + expenses; // since Expense is stored as a negative value we use a [+]

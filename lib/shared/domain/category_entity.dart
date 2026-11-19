@@ -228,70 +228,54 @@ class Category extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Category> _fields = Fields<Category>();
-  static final Fields<Category> _fieldsForColumns = Fields<Category>();
-  static final List<FieldBlueprint<Category>> _fieldBlueprints = <FieldBlueprint<Category>>[
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldId),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldParentId),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldLevel, includeInColumnView: true),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldColor, includeInColumnView: true),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldName, includeInColumnView: true),
-    FieldBlueprint<Category>(
-      selector: (Category tmp) => tmp.fieldDescription,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldType, includeInColumnView: true),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldBudget, includeInColumnView: true),
-    FieldBlueprint<Category>(
-      selector: (Category tmp) => tmp.fieldBudgetBalance,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldFrequency),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldTaxRefNum),
-    FieldBlueprint<Category>(
-      selector: (Category tmp) => tmp.fieldTransactionCount,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSum, includeInColumnView: true),
-    FieldBlueprint<Category>(
-      selector: (Category tmp) => tmp.fieldTransactionCountRollup,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSumRollup, includeInColumnView: true),
-  ];
+  static final FieldDefinitionCache<Category> _fieldDefinitionCache = FieldDefinitionCache<Category>(
+    instanceFactory: () => Category.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Category>>[
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldId),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldParentId),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldLevel, includeInColumnView: true),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldColor, includeInColumnView: true),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldName, includeInColumnView: true),
+      FieldBlueprint<Category>(
+        selector: (Category tmp) => tmp.fieldDescription,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldType, includeInColumnView: true),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldBudget, includeInColumnView: true),
+      FieldBlueprint<Category>(
+        selector: (Category tmp) => tmp.fieldBudgetBalance,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldFrequency),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldTaxRefNum),
+      FieldBlueprint<Category>(
+        selector: (Category tmp) => tmp.fieldTransactionCount,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSum, includeInColumnView: true),
+      FieldBlueprint<Category>(
+        selector: (Category tmp) => tmp.fieldTransactionCountRollup,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Category>(selector: (Category tmp) => tmp.fieldSumRollup, includeInColumnView: true),
+    ],
+  );
 
   /// Returns the field definitions for Category entities.
-  static Fields<Category> get fields => ensureCachedFieldDefinitionsFromBlueprints<Category>(
-    cache: _fields,
-    instanceFactory: () => Category.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Category> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Category column view.
-  static Fields<Category> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Category>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Category.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Category> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
-  /// Populates [list] with all ancestor categories recursively.
-  void getAncestors(List<Category> list) {
-    if (parentCategory != null) {
-      list.add(parentCategory!);
-      parentCategory!.getAncestors(list);
-    }
-  }
-
-  /// Returns the category color and hierarchy level.
+  /// Returns the color of this category or of its nearest colored ancestor, with [level] plus
+  /// the number of steps up to that category; transparent and level 0 when none has a color.
   Pair<Color, int> getColorAndLevel(int level) {
-    if (this.fieldColor.value.isNotEmpty) {
-      return Pair<Color, int>(getColorFromString(this.fieldColor.value), level);
-    }
-
-    if (parentCategory != null) {
-      return parentCategory!.getColorAndLevel(level + _levelStep);
+    final List<DataObject> lineage = <DataObject>[this, ...?data?.getCategoryAncestors(this)];
+    for (int step = _zeroInt; step < lineage.length; step++) {
+      final String color = (lineage[step] as Category).fieldColor.value;
+      if (color.isNotEmpty) {
+        return Pair<Color, int>(getColorFromString(color), level + step);
+      }
     }
 
     // reach the top
@@ -304,15 +288,14 @@ class Category extends DataObject {
     return pair.first;
   }
 
-  /// Populates [list] with all descendant categories recursively.
+  /// Appends the live categories below this one to [list], each parent before its children.
   void getDescendants(List<Category> list) {
-    final Iterable<Category> allCategories = data?.getCategories(includeDeleted: true).cast<Category>() ?? <Category>[];
-    for (final Category category in allCategories) {
-      if (category.fieldParentId.value == this.uniqueId) {
-        list.add(category);
-        category.getDescendants(list);
-      }
+    final DataAbstract? data = this.data;
+    if (data == null) {
+      return;
     }
+    // the tree ids start with this category's own id
+    list.addAll(data.getCategoryTreeIds(uniqueId).skip(1).map(data.getCategory).whereType<Category>());
   }
 
   /// Returns the category name; empty string if null.

@@ -1,6 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 
 const int _minHeaderColumnCount = 3;
 const int _maxPreviewRows = 10;
@@ -17,20 +19,6 @@ const int _bonusDatePlusOne = 8;
 const int _preferredColumnCountMin = 3;
 const int _preferredColumnCountMax = 5;
 const int _preferredColumnBonus = 5;
-const Set<String> _dateKeywords = <String>{'date', 'data', 'dia', 'fecha'};
-const Set<String> _descriptionKeywords = <String>{'description', 'desc', 'memo', 'reference', 'details', 'detalhes'};
-const Set<String> _amountKeywords = <String>{
-  'amount',
-  'valor',
-  'value',
-  'montante',
-  'debit',
-  'credit',
-  'entrada',
-  'saida',
-  'saldo',
-  'balance',
-};
 
 /// A stateful widget for xlsx header row selector dialog.
 class XlsxHeaderRowSelectorDialog extends StatefulWidget {
@@ -79,9 +67,19 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
   Widget build(BuildContext context) {
     final int maxRowsToShow = _originalIndices.length > _maxPreviewRows ? _maxPreviewRows : _originalIndices.length;
 
-    return AlertDialog(
-      title: Text(AppL10n.tr(AppTranslationKeys.selectHeaderRow)),
-      content: SingleChildScrollView(
+    return MyAlertDialog(
+      title: AppL10n.tr(AppTranslationKeys.selectHeaderRow),
+      actions: <Widget>[
+        TextButton(
+          child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        TextButton(
+          child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
+          onPressed: () => Navigator.of(context).pop(_selectedRowIndex),
+        ),
+      ],
+      child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -169,16 +167,6 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
           ],
         ),
       ),
-      actions: <Widget>[
-        TextButton(
-          child: Text(AppL10n.tr(AppTranslationKeys.cancel)),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        TextButton(
-          child: Text(AppL10n.tr(AppTranslationKeys.confirm)),
-          onPressed: () => Navigator.of(context).pop(_selectedRowIndex),
-        ),
-      ],
     );
   }
 
@@ -188,7 +176,7 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
       return -1;
     }
 
-    // Keywords for different column types (case insensitive)
+    // Same header keywords as the column mapper (case insensitive)
     int bestIndex = -1;
     int highestScore = -1;
 
@@ -199,9 +187,9 @@ class _XlsxHeaderRowSelectorDialogState extends State<XlsxHeaderRowSelectorDialo
       int score = 0;
 
       // Count matches for each type
-      final int dateMatches = headers.where((String h) => _dateKeywords.any((String k) => h.contains(k))).length;
-      final int descMatches = headers.where((String h) => _descriptionKeywords.any((String k) => h.contains(k))).length;
-      final int amountMatches = headers.where((String h) => _amountKeywords.any((String k) => h.contains(k))).length;
+      final int dateMatches = headers.where((String h) => csvDateColumnPatterns.any(h.contains)).length;
+      final int descMatches = headers.where((String h) => csvDescriptionColumnPatterns.any(h.contains)).length;
+      final int amountMatches = headers.where((String h) => csvAmountColumnPatterns.any(h.contains)).length;
 
       // Score based on having matches for different types
       score += dateMatches * _dateScoreWeight;

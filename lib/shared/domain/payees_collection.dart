@@ -1,16 +1,14 @@
 // ignore: fcheck_dead_code
 import 'package:collection/collection.dart';
 import 'package:money/helpers/json_helper.dart';
-import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 
 /// Represents payees.
-class Payees extends MoneyObjects<Payee> {
+class Payees extends MoneyObjects<Payee> with NamedMoneyObjects<Payee> {
   Payees() {
     collectionName = SharedDomainStrings.domainString106;
   }
@@ -33,19 +31,23 @@ class Payees extends MoneyObjects<Payee> {
   }
 
   @override
+  String nameOf(Payee item) => item.fieldName.value;
+
+  /// Names a payee id that no payee has, so the dangling reference stays visible.
+  @override
+  String nameOfMissingId(int id) => '${SharedDomainStrings.domainString162}$id${SharedDomainStrings.domainString163}';
+
+  @override
   void onAllDataLoaded() {
     for (final Payee payee in iterableList()) {
       payee.fieldCount.value = 0;
       payee.fieldSum.value.setAmount(0);
+      payee.categories.clear();
     }
 
     for (final Transaction t in data.getTransactions().cast<Transaction>()) {
-      if (t.isTransfer) {
-        // account-to-account: older files may still hold the Transfer category id as payee
-        continue;
-      }
       final Payee? item = get(t.fieldPayee.value);
-      if (item != null) {
+      if (item != null && t.isForPayee(item.uniqueId)) {
         item.fieldCount.value++;
         item.fieldSum.value += t.fieldAmount.value;
         final String categoryName = data.getCategoryNameFromId(t.fieldCategoryId.value).trim();
@@ -58,49 +60,18 @@ class Payees extends MoneyObjects<Payee> {
     }
   }
 
-  /// Finds a payee by name (case-insensitive), like accounts and securities.
-  Payee? getByName(String name) {
-    if (name.isEmpty) {
-      return null;
-    }
-    return iterableList().firstWhereOrNull(
-      (Payee payee) => stringCompareIgnoreCasing(payee.fieldName.value, name) == 0,
-    );
-  }
-
-  /// Returns a sorted list of all payees by name.
-  List<Payee> getListSorted() {
-    final List<Payee> list = iterableList().toList();
-    list.sort(
-      (Payee a, Payee b) => sortByString(a.fieldName.value, b.fieldName.value, true),
-    );
-    return list;
-  }
-
   /// Returns sorted payee names as strings.
   List<String> getSortedPayeeNames() {
     return getListSorted().map((Payee p) => p.fieldName.value).toList();
   }
 
-  /// Gets the payee name for the given [id]; returns placeholder if not found.
-  String getNameFromId(int id) {
-    if (id == -1) {
-      return '';
-    }
-
-    final Payee? payee = get(id);
-
-    if (payee == null) {
-      return '${SharedDomainStrings.domainString162}$id${SharedDomainStrings.domainString163}';
-    }
-    return payee.fieldName.value;
-  }
-
   /// Attempts to find payee wih the given name
   /// if not found create a new payee and return that instance
   Payee getOrCreate(String name, {bool fireNotification = true}) {
-    // find or add account of given name
-    Payee? payee = getByName(name);
+    // getByName finds nothing for an empty name, so look for the blank payee here to create it only once
+    Payee? payee = name.isEmpty
+        ? iterableList().firstWhereOrNull((Payee item) => item.fieldName.value.isEmpty)
+        : getByName(name);
 
     // if not found add new payee
     if (payee == null) {

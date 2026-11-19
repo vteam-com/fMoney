@@ -3,7 +3,6 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
-import 'package:money/shared/domain/rental_pnl_model.dart';
 import 'package:money/shared/domain/rental_unit_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 
@@ -22,14 +21,14 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   @override
   void onAllDataLoaded() {
     for (final RentBuilding rental in iterableList(includeDeleted: true)) {
+      rental.updateCategoryTreeIds();
       rental.associateAccountToBuilding();
       cumulateTransactions(rental);
-
-      for (final RentUnit unit in data.getRentUnits().cast<RentUnit>()) {
-        if (unit.fieldBuilding.value == rental.fieldId.value) {
-          rental.units.add(unit);
-        }
-      }
+      rental.units = data
+          .getRentUnits()
+          .cast<RentUnit>()
+          .where((RentUnit unit) => unit.fieldBuilding.value == rental.uniqueId)
+          .toList();
     }
   }
 
@@ -39,7 +38,7 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
   /// of the provided `rental` object to aggregate profit and loss data.
   void cumulateTransactions(RentBuilding rental) {
     // Reset the accumulated P&L data for the rental.
-    rental.pnlOverYears = <int, RentalPnL>{};
+    rental.resetTotals();
 
     // Iterate through all transactions in the data store.
     for (Transaction t in data.getTransactions().cast<Transaction>()) {

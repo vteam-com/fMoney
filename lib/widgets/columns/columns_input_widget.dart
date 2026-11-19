@@ -12,6 +12,9 @@ const int _threeColumnsTabIndex = 0;
 const int _freeStyleTabIndex = 1;
 const int _descriptionColumnFlex = 2;
 
+/// Characters accepted in a date column, e.g. 2024-12-31, 12/31/2024 or 31.12.2024.
+const String _dateAllowedCharacters = '0123456789/-.\\';
+
 /// A widget that provides input functionality for financial data in either
 /// three-column format (date, description, amount) or single-column freestyle format.
 class InputByColumnsOrFreeStyle extends StatefulWidget {
@@ -132,7 +135,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
         key: const Key('key_input_value'),
         title: SharedStrings.labelDateDescriptionAmount,
         controller: _controllerSingleColumn,
-        allowedCharacters: '0123456789/-.\\',
+        allowedCharacters: _dateAllowedCharacters,
         expectAmountAsInputValues: false,
       ),
     );
@@ -149,7 +152,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
           child: InputValues(
             title: AppL10n.tr(AppTranslationKeys.date),
             controller: _controllerColumn1,
-            allowedCharacters: '0123456789/-.\\',
+            allowedCharacters: _dateAllowedCharacters,
             expectAmountAsInputValues: false,
           ),
         ),
@@ -176,26 +179,26 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
     );
   }
 
-  /// Converts single-column text into three columns
-  void _fromOneToThreeColumn() {
-    // Create parser with user preferences
+  /// Parses [text] with the user's date, currency and sign preferences into the date, description and
+  /// amount columns, with text sync paused while they are filled.
+  void _fillThreeColumnsFrom(String text) {
     final ValuesParser parser = ValuesParser(
       dateFormat: widget.dateFormat,
       currency: widget.currency,
       reverseAmountValue: widget.reverseAmountValue,
     );
-
-    // Parse the single column text and update individual columns
-    parser.convertInputTextToTransactionList(
-      context,
-      _controllerSingleColumn.text,
-    );
+    parser.convertInputTextToTransactionList(context, text);
 
     _pauseTextSync = true;
     _controllerColumn1.text = parser.getListOfDatesString().join('\n');
     _controllerColumn2.text = parser.getListOfDescriptionString().join('\n');
     _controllerColumn3.text = parser.getListOfAmountString().join('\n');
     _pauseTextSync = false;
+  }
+
+  /// Converts single-column text into three columns
+  void _fromOneToThreeColumn() {
+    _fillThreeColumnsFrom(_controllerSingleColumn.text);
   }
 
   /// Combines three columns into a single text buffer
@@ -234,13 +237,13 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
     _controllerSingleColumn.removeListener(_syncText);
   }
 
-  /// Synchronizes text between three-column and single-column views
+  /// Synchronizes text between three-column and single-column views; edits made by this widget itself
+  /// (while [_pauseTextSync] is set) are ignored before they can schedule another sync.
   void _syncText() {
+    if (_pauseTextSync) {
+      return;
+    }
     _debouncer.run(() {
-      if (_pauseTextSync) {
-        return;
-      }
-
       // Prevent recursive updates
       _pauseTextSync = true;
 
@@ -261,18 +264,8 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
   void _updateAllTextControllerContentFromRawText(String inputText) {
     _controllerSingleColumn.text = inputText;
 
-    final ValuesParser parser = ValuesParser(
-      dateFormat: widget.dateFormat,
-      currency: widget.currency,
-      reverseAmountValue: widget.reverseAmountValue,
-    );
-
     if (context.mounted) {
-      parser.convertInputTextToTransactionList(context, inputText);
-
-      _controllerColumn1.text = parser.getListOfDatesString().join('\n');
-      _controllerColumn2.text = parser.getListOfDescriptionString().join('\n');
-      _controllerColumn3.text = parser.getListOfAmountString().join('\n');
+      _fillThreeColumnsFrom(inputText);
     }
   }
 }

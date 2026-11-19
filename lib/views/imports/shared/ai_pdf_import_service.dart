@@ -4,12 +4,10 @@ import 'dart:convert';
 
 import 'package:money/data/services/bank_statement_pdf_service.dart';
 import 'package:money/data/services/ollama_service.dart';
-import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_logger_helper.dart';
-import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
 import 'package:path/path.dart' as path;
 
 const int _maxPdfTextCharsForOllamaImport = 45000;
@@ -581,20 +579,14 @@ PDF_TEXT_END
     return transactions;
   }
 
-  /// Parses a date from [value], expected as ISO `YYYY-MM-DD`; other numeric
-  /// dates fall back to the operating system locale order (see [parseDateFlexible]).
+  /// Parses a date from [value], expected as ISO `YYYY-MM-DD` (any time part is ignored);
+  /// other numeric dates fall back to the operating system locale order (see [parseDateFlexible]).
   DateTime? _parseDateFromDynamic(dynamic value) {
     if (value == null) {
       return null;
     }
     final String text = value.toString().trim();
-    if (!_isoDatePattern.hasMatch(text)) {
-      return parseDateFlexible(text);
-    }
-    final String isoDay = text.substring(0, _isoDateLength);
-    final DateTime? date = DateTime.tryParse(isoDay);
-    // DateTime.tryParse rolls impossible days over (2024-02-31 becomes March 2); reject them instead.
-    return date != null && dateToString(date) == isoDay ? date : null;
+    return parseDateFlexible(_isoDatePattern.hasMatch(text) ? text.substring(0, _isoDateLength) : text);
   }
 
   /// Logs and shows how many rows returned by the AI in [decoded] were dropped
@@ -610,16 +602,10 @@ PDF_TEXT_END
       operation: '_reportDroppedRows',
       message: 'Dropped $droppedRows of $returnedRows AI rows with an unreadable date, description or amount.',
     );
-    SnackBarService.displayWarning(
-      autoDismiss: false,
-      message: AppL10n.tr(
-        AppTranslationKeys.importRowsParsedAndSkipped,
-        params: <String, String>{
-          'fileType': SharedStrings.fileExtensionPdf.toUpperCase(),
-          'imported': keptRows.toString(),
-          'skipped': droppedRows.toString(),
-        },
-      ),
+    showSkippedRowsWarning(
+      fileType: SharedStrings.fileExtensionPdf.toUpperCase(),
+      imported: keptRows,
+      skipped: droppedRows,
     );
   }
 

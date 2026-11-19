@@ -11,7 +11,6 @@ import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
@@ -98,7 +97,7 @@ class Investment extends DataObject {
   );
 
   FieldMoney fieldActivityAmount = FieldMoney(
-    name: 'ActivityAmount',
+    name: SharedStrings.investmentFieldActivityAmount,
     getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Investment).activityAmount),
   );
 
@@ -117,13 +116,13 @@ class Investment extends DataObject {
   );
 
   FieldQuantity fieldHoldingShares = FieldQuantity(
-    name: 'Holding',
+    name: SharedStrings.investmentFieldHolding,
     footer: FooterType.average,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldHoldingShares.value,
   );
 
   FieldMoney fieldHoldingSharesValue = FieldMoney(
-    name: 'HoldingValue',
+    name: SharedStrings.investmentFieldHoldingValue,
     footer: FooterType.average,
     getValueForDisplay: (DataInterface instance) {
       return AmountModel(
@@ -140,7 +139,7 @@ class Investment extends DataObject {
 
   /// 9    InvestmentType  INT     1                    0
   FieldInt fieldInvestmentType = FieldInt(
-    name: 'Activity',
+    name: SharedStrings.investmentFieldActivity,
     serializeName: SharedDomainStrings.domainString060,
     align: TextAlign.center,
     columnWidth: ColumnWidth.tiny,
@@ -182,7 +181,7 @@ class Investment extends DataObject {
   );
 
   FieldString fieldSecuritySymbol = FieldString(
-    name: SharedDomainStrings.domainString131,
+    name: SharedStrings.investmentFieldSymbol,
     columnWidth: ColumnWidth.tiny,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).symbol,
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldSecuritySymbol.value,
@@ -201,7 +200,7 @@ class Investment extends DataObject {
   );
 
   FieldString fieldSplitRatioAsText = FieldString(
-    name: SharedDomainStrings.domainString126,
+    name: SharedStrings.investmentFieldSplit,
     align: TextAlign.right,
     columnWidth: ColumnWidth.tiny,
     footer: FooterType.none,
@@ -243,7 +242,7 @@ class Investment extends DataObject {
   );
 
   FieldString fieldTransactionAccountName = FieldString(
-    name: SharedDomainStrings.domainString011,
+    name: SharedStrings.investmentFieldAccount,
     columnWidth: ColumnWidth.largest,
     getValueForDisplay: (DataInterface instance) {
       final dynamic transaction = (instance as Investment).transactionInstance;
@@ -255,7 +254,7 @@ class Investment extends DataObject {
   );
 
   FieldDate fieldTransactionDate = FieldDate(
-    name: SharedDomainStrings.domainString044,
+    name: SharedStrings.investmentFieldDate,
     columnWidth: ColumnWidth.small,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).date,
     sort: (DataInterface a, DataInterface b, bool ascending) =>
@@ -264,7 +263,7 @@ class Investment extends DataObject {
 
   /// 2    UnitPrice       money   1
   FieldMoney fieldUnitPrice = FieldMoney(
-    name: SharedDomainStrings.domainString108,
+    name: SharedStrings.investmentFieldPrice,
     serializeName: SharedDomainStrings.domainString148,
     footer: FooterType.average,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).fieldUnitPrice.value,
@@ -276,7 +275,7 @@ class Investment extends DataObject {
   );
 
   FieldMoney fieldUnitPriceAdjusted = FieldMoney(
-    name: 'Price A.S.',
+    name: SharedStrings.investmentFieldPriceAdjusted,
     footer: FooterType.average,
     getValueForDisplay: (DataInterface instance) => AmountModel(amount: (instance as Investment).unitPriceAdjusted),
   );
@@ -288,12 +287,12 @@ class Investment extends DataObject {
     getValueForSerialization: (DataInterface instance) => (instance as Investment).fieldUnits.value,
     setValue: (DataInterface instance, dynamic value) {
       // (instance as Investment).stashValueBeforeEditing();
-      (instance as Investment).fieldUnits.value = getDoubleFromDynamic(value);
+      (instance as Investment).fieldUnits.value = smartToDouble(value);
     },
   );
 
   FieldQuantity fieldUnitsAdjusted = FieldQuantity(
-    name: 'Units A.S.',
+    name: SharedStrings.investmentFieldUnitsAdjusted,
     getValueForDisplay: (DataInterface instance) => (instance as Investment).effectiveUnitsAdjusted,
   );
 
@@ -332,85 +331,86 @@ class Investment extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Investment> _fields = Fields<Investment>();
-  static final Fields<Investment> _fieldsForColumns = Fields<Investment>();
-  static final List<FieldBlueprint<Investment>> _fieldBlueprints = <FieldBlueprint<Investment>>[
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldId),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldTransactionDate,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldTransactionAccountName,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldSecurity),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldSecuritySymbol,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldInvestmentType,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldTradeType,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldUnits,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldSplitRatioAsText,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldUnitsAdjusted,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldHoldingShares,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldUnitPrice,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldUnitPriceAdjusted,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldCommission,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldMarkUpDown),
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldTaxes),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldFees,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldLoad,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldTaxExempt),
-    FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldWithholding),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldActivityAmount,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldHoldingSharesValue,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Investment>(
-      selector: (Investment instance) => instance.fieldNetValueOfEvent,
-      includeInEntity: false,
-      includeInColumnView: true,
-    ),
-  ];
+  static final FieldDefinitionCache<Investment> _fieldDefinitionCache = FieldDefinitionCache<Investment>(
+    instanceFactory: () => Investment.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Investment>>[
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldId),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldTransactionDate,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldTransactionAccountName,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldSecurity),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldSecuritySymbol,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldInvestmentType,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldTradeType,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldUnits,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldSplitRatioAsText,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldUnitsAdjusted,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldHoldingShares,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldUnitPrice,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldUnitPriceAdjusted,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldCommission,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldMarkUpDown),
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldTaxes),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldFees,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldLoad,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldTaxExempt),
+      FieldBlueprint<Investment>(selector: (Investment instance) => instance.fieldWithholding),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldActivityAmount,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldHoldingSharesValue,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Investment>(
+        selector: (Investment instance) => instance.fieldNetValueOfEvent,
+        includeInEntity: false,
+        includeInColumnView: true,
+      ),
+    ],
+  );
 
   /// Returns the investment activity type.
   InvestmentType get actionType => getInvestmentTypeFromValue(this.fieldInvestmentType.value);
@@ -467,20 +467,10 @@ class Investment extends DataObject {
   }
 
   /// Returns the field definitions for Investment entities.
-  static Fields<Investment> get fields => ensureCachedFieldDefinitionsFromBlueprints<Investment>(
-    cache: _fields,
-    instanceFactory: () => Investment.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Investment> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Investment column view.
-  static Fields<Investment> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Investment>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Investment.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Investment> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns the final cumulative amount for this investment.
   StockCumulative get finalAmount {

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 
 /// A published GitHub release: its tag, its web page and the download URL of each desktop archive.
@@ -14,13 +15,9 @@ class GitHubRelease {
   factory GitHubRelease.fromJson(Map<String, dynamic> json) {
     final Map<String, String> assetUrls = <String, String>{};
     for (final dynamic asset in json['assets'] as List<dynamic>? ?? <dynamic>[]) {
-      final String name = asset['name'] as String;
-      final String downloadUrl = asset['browser_download_url'] as String;
-      for (final String platformKey in _platformKeys) {
-        if (name.contains(platformKey)) {
-          assetUrls[platformKey] = downloadUrl;
-          break;
-        }
+      final String? platformKey = platformKeyForAssetName(asset['name'] as String);
+      if (platformKey != null) {
+        assetUrls[platformKey] = asset['browser_download_url'] as String;
       }
     }
     return GitHubRelease(
@@ -48,6 +45,11 @@ class GitHubRelease {
 
   /// The git tag the release was published under, for example `v1.20.0`.
   final String tagName;
+
+  /// Returns the `SharedStrings.platformKey*` value contained in the archive [name]
+  /// (for example `macos` for `mymoney-app-macos.zip`), or null when it names no platform.
+  static String? platformKeyForAssetName(String name) =>
+      _platformKeys.firstWhereOrNull((String platformKey) => name.contains(platformKey));
 
   /// The released version without the tag's leading `v`, for example `1.20.0`.
   String get version => tagName.startsWith(_tagPrefix) ? tagName.substring(_tagPrefix.length) : tagName;

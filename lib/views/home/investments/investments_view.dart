@@ -8,16 +8,15 @@ import 'package:money/helpers/list_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/investments_collection.dart';
-import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 
 /// Represents view investments.
 class ViewInvestments extends ViewForMoneyObjects {
@@ -58,27 +57,8 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
             ),
 
             // Jump to Stock view
-            MenuEntry(
-              icon: ViewId.viewStocks.getIconData(),
-              title: AppL10n.tr(AppTranslationKeys.switchToStocks),
-              onPressed: () {
-                // Prepare the Stocks view
-                // Filter by Stock Symbol
-                final String symbol = (selectedInvestment.fieldSecuritySymbol.getValueForDisplay(
-                  selectedInvestment,
-                ) as String).toLowerCase();
-                final Security? securityFound = Data().securities.getBySymbol(
-                  symbol,
-                );
-                if (securityFound != null) {
-                  PreferenceController.to.jumpToView(
-                    viewId: ViewId.viewStocks,
-                    selectedId: securityFound.uniqueId,
-                    textFilter: '',
-                    columnFilters: null,
-                  );
-                }
-              },
+            MenuEntry.toStocks(
+              symbol: selectedInvestment.fieldSecuritySymbol.getValueForDisplay(selectedInvestment) as String,
             ),
           ]),
         );
@@ -128,7 +108,7 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     return SidePanelSupport(
       onDetails: getSidePanelViewDetails,
       onChart: _getSubViewContentForChart,
-      onTransactions: _getSubViewContentForTransactions,
+      onTransactions: getSidePanelViewTransactions,
     );
   }
 
@@ -184,24 +164,6 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
       return false;
     }
     return true;
-  }
-
-  // Details Panel for Transactions Payees
-  Widget _getSubViewContentForTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(showAsNativeCurrency);
-    final Investment? instance = getMoneyObjectFromFirstSelectedId<Investment>(
-      selectedIds,
-      list,
-    );
-
-    if (instance == null) {
-      return CenterMessage.noTransaction();
-    }
-
-    return buildSidePanelTransactionsList(key: Key(instance.uniqueId.toString()));
   }
 
   @override

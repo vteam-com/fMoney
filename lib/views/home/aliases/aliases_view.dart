@@ -12,10 +12,9 @@ import 'package:money/shared/presentation/helpers/alias_apply_helper.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
-import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 
 /// Represents view aliases.
 class ViewAliases extends ViewForMoneyObjects {
@@ -69,6 +68,9 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
   }
 
   @override
+  List<String> get sidePanelTransactionsColumns => sidePanelTransactionsColumnNamesWithoutPayee;
+
+  @override
   String getClassNamePlural() {
     return AppL10n.tr(AppTranslationKeys.aliases);
   }
@@ -120,29 +122,5 @@ class _ViewAliasesState extends ViewForMoneyObjectsState with AddNewItemButtonMi
       );
     }
     return <DataObject>[];
-  }
-
-  /// Builds the side panel view for transactions with selection and currency options.
-  Widget getSidePanelViewTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(showAsNativeCurrency);
-    final SelectionController selectionController = SelectionController(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-    );
-
-    final Alias? alias = getMoneyObjectFromFirstSelectedId<Alias>(
-      selectedIds,
-      list,
-    );
-    if (alias != null && alias.fieldId.value > -1) {
-      return buildSidePanelTransactionsList(
-        key: Key(alias.uniqueId.toString()),
-        columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
-        selectionController: selectionController,
-      );
-    }
-    return CenterMessage.noTransaction();
   }
 }

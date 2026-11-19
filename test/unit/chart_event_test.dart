@@ -17,7 +17,8 @@ void main() {
       expect(chartEvent.dates.min, DateTime(2023, 1, 1));
       expect(chartEvent.amount, 100.0);
       expect(chartEvent.isBuy, true);
-      expect(chartEvent.colorToUse, Colors.orange);
+      // Same as the theme's quantityPositive color used by QuantityWidget.
+      expect(chartEvent.colorToUse, Colors.blue);
     });
 
     test('creates ChartEvent with zero value', () {
@@ -43,7 +44,8 @@ void main() {
 
       expect(chartEvent.amount, -100.0);
       expect(chartEvent.isSell, true);
-      expect(chartEvent.colorToUse, Colors.blue);
+      // Same as the theme's quantityNegative color used by QuantityWidget.
+      expect(chartEvent.colorToUse, Colors.orange);
     });
 
     test('compares ChartEvents correctly', () {

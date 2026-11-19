@@ -40,20 +40,6 @@ int countOccurrences(String input, String char) {
   return count;
 }
 
-/// Converts double value to formatted currency string.
-String doubleToCurrency(
-  double value, {
-  String symbol = '\$',
-  bool showPlusSign = false,
-}) {
-  final NumberFormat currencyFormatter = NumberFormat.currency(
-    locale: 'en_US',
-    symbol: symbol,
-  );
-  // Format the double value as currency text
-  return (showPlusSign ? getPlusSignIfPositive(value) : '') + currencyFormatter.format(value);
-}
-
 /// Returns plus sign if value is positive, empty string otherwise.
 ///
 /// @param value The value to check.
@@ -111,23 +97,6 @@ String getAmountAsShorthandText(
   symbol: symbol, // if you want to add currency symbol then pass that in this else leave it empty.
 ).format(value);
 
-/// Parses CSV line into list of columns, handling quoted fields.
-List<String> getColumnInCsvLine(String csvLine) {
-  List<String> items = csvLine.split(RegExp(r',|;(?=(?:[^"]*"[^"]*")*[^"]*$)'));
-  // remove quotes around elements
-  items = items.map((String item) => item.replaceAll('"', '')).toList();
-  return items;
-}
-
-/// return a ISO 3166-1 Alpha2  US | CA | ES
-String getCountryFromLocale(String locale) {
-  if (locale.isEmpty) {
-    return SharedStrings.countryCodeUs; // default to US
-  }
-  final List<String> tokens = locale.replaceAll('-', '_').split('_');
-  return tokens.last;
-}
-
 /// Returns the application document directory path.
 Future<String> getDocumentDirectory() async {
   if (kIsWeb) {
@@ -136,9 +105,6 @@ Future<String> getDocumentDirectory() async {
   final Directory directory = await getApplicationDocumentsDirectory();
   return directory.path;
 }
-
-/// Returns initials from full name (first letter of each word).
-String getInitials(String fullName) => fullName.split(' ').map((String word) => word[_zeroInt].toUpperCase()).join('');
 
 /// Converts integer to formatted string with optional plus sign.
 String getIntAsText(int value, {bool showPlusSign = false}) =>
@@ -366,6 +332,9 @@ int compareStringsAsAmount(String a, String b) {
 }
 
 /// Concatenates two strings with optional separator and deduplication.
+///
+/// With [doNotConcatIfPresent], [valueToConcat] is skipped when it already is one of the
+/// [separatorIfNeeded]-separated values of [existingValue].
 String concat(
   String existingValue,
   String valueToConcat, [
@@ -380,7 +349,7 @@ String concat(
   if (existingValue.isEmpty) {
     return valueToConcat;
   } else {
-    if (doNotConcatIfPresent && existingValue.contains(separatorIfNeeded)) {
+    if (doNotConcatIfPresent && existingValue.split(separatorIfNeeded).contains(valueToConcat)) {
       return existingValue;
     }
     return existingValue + separatorIfNeeded + valueToConcat;
@@ -413,12 +382,6 @@ String cleanString(String inputStr, String allowedChars) =>
 
 /// Converts valid number to currency string with plus sign.
 String validIntToCurrency(num value) => getIntAsText(isNumber(value) ? value.toInt() : _zeroInt, showPlusSign: true);
-
-/// Converts valid double to currency string with plus sign.
-String validDoubleToCurrency(num value) => doubleToCurrency(
-  isNumber(value) ? value.toDouble() : _zeroDouble,
-  showPlusSign: true,
-);
 
 /// Returns true if value is a finite number (not NaN or infinite).
 bool isNumber(num value) => value.isFinite && !value.isNaN;

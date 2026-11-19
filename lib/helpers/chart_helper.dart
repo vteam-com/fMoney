@@ -52,3 +52,12 @@ LineChartBarData getLineChartBarData(
     dotData: FlDotData(show: showDots), // Hide dots at endpoints
   );
 }
+
+/// Returns the horizontal offset of [x] in a plot [width] wide whose axis spans [minX] to [maxX].
+/// Values before [minX], and every value when the axis has no span, sit at the left edge (0).
+double chartXPosition(double x, double minX, double maxX, double width) {
+  if (x <= minX || maxX <= minX) {
+    return 0;
+  }
+  return (x - minX) / (maxX - minX) * width;
+}

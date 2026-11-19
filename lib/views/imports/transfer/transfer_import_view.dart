@@ -4,11 +4,10 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
+import 'package:money/views/imports/shared/import_form_helper.dart';
 import 'package:money/views/imports/transfer/transfer_import_fields_model.dart';
 import 'package:money/views/imports/transfer/transfer_import_panel.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 
 const double _transferAmountSign = -1.0;
@@ -26,22 +25,15 @@ void showImportTransfer({ImportFieldsForTransfer? inputData}) {
   );
 
   final BuildContext context = AppRouter.context!;
-  adaptiveScreenSizeDialog(
+  showImportFormDialog(
     context: context,
-    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
-    actionButtons: getActionButtons(inputData, context),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        gapLarge(),
-        Expanded(child: ImportFieldsForTransferPanel(inputFields: inputData)),
-      ],
-    ),
+    panel: ImportFieldsForTransferPanel(inputFields: inputData),
+    actionButtons: _buildTransferActionButtons(inputData, context),
   );
 }
 
 /// Builds action buttons for transfer import dialog.
-List<Widget> getActionButtons(
+List<Widget> _buildTransferActionButtons(
   ImportFieldsForTransfer inputData,
   BuildContext context,
 ) {

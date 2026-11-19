@@ -167,11 +167,7 @@ abstract class DataObject extends DataInterface {
   String toReadableString(Field<dynamic> field) {
     switch (field.type) {
       case FieldType.widget:
-        if (field.getValueForReading == null) {
-          return field.getValueForSerialization(this).toString();
-        } else {
-          return field.getValueForReading!(this).toString();
-        }
+        return field.getReadableValue(this);
       case FieldType.text:
       case FieldType.numeric:
       case FieldType.numericShorthand:

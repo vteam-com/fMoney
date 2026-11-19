@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -6,10 +5,11 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
+import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/icon_button.dart';
 
 const int _lineFeedCodePoint = 10;
 
@@ -58,12 +58,7 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
               }).toList(),
             ),
             gapMedium(),
-            MyIconButton(
-              icon: Icons.copy_all_outlined,
-              onPressed: () {
-                _copyToClipboard(sumByPeriod);
-              },
-            ),
+            buildCopyButton(() => _copyToClipboard(sumByPeriod), const Key('key_timeline_copy_to_clipboard')),
           ],
         ),
         Expanded(
@@ -112,17 +107,13 @@ class _TransactionTimelineChartState extends State<TransactionTimelineChart> {
     }
   }
 
-  /// Copies the aggregated timeline data to the system clipboard.
+  /// Copies the aggregated timeline data to the system clipboard and tells the user.
   void _copyToClipboard(List<PairXYY> data) {
     final String clipboardData = data
         .map(
           (PairXYY pair) => '${pair.xText} : ${getAmountAsStringUsingCurrency(pair.yValue1)}',
         )
         .join('\n');
-    Clipboard.setData(ClipboardData(text: clipboardData));
-    // Optional: Show a snackbar to confirm copy
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.copiedToClipboard))));
+    copyToClipboardAndInformUser(context, clipboardData);
   }
 }

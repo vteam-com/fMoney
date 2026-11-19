@@ -2,6 +2,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/github_artifacts_service.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/widgets/components/app_scaffold_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,7 +41,7 @@ class _PlatformsPageState extends State<PlatformsPage> {
           child: FutureBuilder<Map<String, String>>(
             future: _artifactUrlsFuture,
             builder: (BuildContext _, AsyncSnapshot<Map<String, String>> snapshot) {
-              final Map<String, String> artifactUrls = snapshot.data ?? <String, String>{};
+              final Map<String, String> artifactUrls = snapshot.data ?? GitHubArtifactsService.fallbackUrls;
 
               return Column(
                 children: <Widget>[
@@ -48,19 +49,19 @@ class _PlatformsPageState extends State<PlatformsPage> {
                     AppL10n.tr(AppTranslationKeys.platformMacos),
                     'assets/images/platforms/platformDesktopMacOS.png',
                     AppL10n.tr(AppTranslationKeys.platformDesktopIntelSiliconSoftware),
-                    artifactUrls['macos'] ?? 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
+                    artifactUrls[SharedStrings.platformKeyMacos]!,
                   ),
                   _buildPlatformItem(
                     AppL10n.tr(AppTranslationKeys.platformWindows),
                     'assets/images/platforms/platformDesktopWindows.png',
                     AppL10n.tr(AppTranslationKeys.platformDesktop64bitSoftware),
-                    artifactUrls['windows'] ?? 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
+                    artifactUrls[SharedStrings.platformKeyWindows]!,
                   ),
                   _buildPlatformItem(
                     AppL10n.tr(AppTranslationKeys.platformLinux),
                     'assets/images/platforms/platformDesktopLinux.png',
                     AppL10n.tr(AppTranslationKeys.platformDesktopSoftware),
-                    artifactUrls['linux'] ?? 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
+                    artifactUrls[SharedStrings.platformKeyLinux]!,
                   ),
                   const SizedBox(height: _sectionSpacing),
                   _buildPlatformItem(

@@ -1,4 +1,4 @@
-// ignore_for_file: always_put_control_body_on_new_line, use_build_context_synchronously
+// ignore_for_file: always_put_control_body_on_new_line
 
 import 'dart:convert';
 import 'dart:io';
@@ -13,6 +13,7 @@ import 'package:money/views/imports/formats/csv_import_view.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
 import 'package:money/widgets/dialogs/csv_column_mapper_dialog.dart';
 import 'package:money/widgets/dialogs/xlsx_header_row_selector_dialog.dart';
+import 'package:money/widgets/pure/snack_bar_service.dart';
 
 const int _zeroInt = 0;
 const int _oneInt = 1;
@@ -36,6 +37,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
   try {
     final File file = File(filePath);
     final Uint8List bytes = await file.readAsBytes();
+    if (!context.mounted) return;
     final Archive archive = ZipDecoder().decodeBytes(bytes);
 
     // Extract sharedStrings.xml if available
@@ -58,9 +60,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     );
 
     if (sheetFile.name.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noSheetXmlFoundInXlsxFile))),
-      );
+      SnackBarService.displayError(message: AppL10n.tr(AppTranslationKeys.noSheetXmlFoundInXlsxFile));
       return;
     }
 
@@ -73,9 +73,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
         .toList();
 
     if (filteredData.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoValidData))),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoValidData));
       return;
     }
 
@@ -83,9 +81,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     worksheetData.addAll(filteredData);
 
     if (worksheetData.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows))),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows));
       return;
     }
 
@@ -96,10 +92,9 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
           ? worksheetData.sublist(_zeroInt, _headerPreviewCount)
           : worksheetData,
     );
+    if (!context.mounted) return;
     if (headerRowIndex == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxImportCancelled))),
-      );
+      SnackBarService.displayInfo(message: AppL10n.tr(AppTranslationKeys.xlsxImportCancelled));
       return;
     }
 
@@ -127,9 +122,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
     final List<List<String>> dataRows = worksheetData.skip(headerRowIndex + _oneInt).toList();
 
     if (dataRows.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows))),
-      );
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.xlsxFileContainsNoDataRows));
       return;
     }
 
@@ -142,6 +135,7 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
       headers: headers,
       dataRows: previewRows,
     );
+    if (!context.mounted) return;
 
     if (columnMapping != null) {
       final ImportData importData = loadXLSX(headers, dataRows, columnMapping);
@@ -149,22 +143,14 @@ Future<void> importXLSX(BuildContext context, String filePath) async {
         showImportSkippedRowsWarning(importData);
         showAndConfirmTransactionToImport(context, importData);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInXlsxToImport))),
-        );
+        SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.noValidEntriesFoundInXlsxToImport));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppL10n.tr(AppTranslationKeys.xlsxImportCancelled))),
-      );
+      SnackBarService.displayInfo(message: AppL10n.tr(AppTranslationKeys.xlsxImportCancelled));
     }
   } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppL10n.tr(AppTranslationKeys.errorImportingXlsxError, params: <String, String>{'error': e.toString()}),
-        ),
-      ),
+    SnackBarService.displayError(
+      message: AppL10n.tr(AppTranslationKeys.errorImportingXlsxError, params: <String, String>{'error': e.toString()}),
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_entity.dart';
@@ -19,16 +18,10 @@ import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/transaction_aliases_panel.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
-import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 
-const int _pivotIndexIncome = 0;
-const int _pivotIndexExpense = 1;
-const int _pivotIndexAll = 2;
 const double _zeroDouble = 0.0;
-const double _pivotHeaderFontSize = 20.0;
 
 /// ViewTransactions is a widget that displays a list of financial transactions.
 ///
@@ -39,7 +32,6 @@ const double _pivotHeaderFontSize = 20.0;
 /// Key features:
 /// - Displays a list of transactions with customizable views
 /// - Supports multi-selection of transactions
-/// - Provides pivot options for filtering transactions (Incomes, Expenses, All)
 /// - Calculates and displays running balances for transactions
 /// - Allows navigation to related views (e.g., Accounts, Categories)
 ///
@@ -79,76 +71,27 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   List<Transaction> _transactionsOf(List<int> ids) =>
       getSelectedItemsFromSelectedList(ids).whereType<Transaction>().toList();
 
-  final List<Widget> pivots = <Widget>[];
-  final TextStyle styleHeader = const TextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: _pivotHeaderFontSize,
-  );
-
   bool balanceDone = false;
-
-  final List<bool> _selectedPivot = <bool>[false, false, true];
 
   @override
   List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
 
-    if (!forSidePanelTransactions && getFirstSelectedItem() != null) {
-      final Transaction? transaction = getFirstSelectedItem() as Transaction?;
+    final Transaction? transaction = getFirstSelectedItem() as Transaction?;
+    if (!forSidePanelTransactions && transaction != null) {
+      final Category? category = Data().categories.get(transaction.fieldCategoryId.value);
 
       // this can go last
       list.add(
         buildJumpToButton(context, <MenuEntry>[
-          // Account
-          MenuEntry.toAccounts(
-            accountId: transaction?.fieldAccountId.value ?? -1,
-          ),
-
-          // Category
-          MenuEntry(
-            icon: ViewId.viewCategories.getIconData(),
-            title: AppL10n.tr(AppTranslationKeys.switchToCategories),
-            onPressed: () {
-              final Transaction? transaction = getFirstSelectedItem() as Transaction?;
-              if (transaction != null) {
-                // Preselect the Category of this Transaction
-                PreferenceController.to.jumpToView(
-                  viewId: ViewId.viewCategories,
-                  selectedId: transaction.fieldCategoryId.value,
-                  textFilter: '',
-                  columnFilters: null,
-                );
-              }
-            },
-          ),
-
-          // Payee
-          MenuEntry(
-            icon: ViewId.viewPayees.getIconData(),
-            title: AppL10n.tr(AppTranslationKeys.switchToPayees),
-            onPressed: () {
-              final Transaction? transaction = getFirstSelectedItem() as Transaction?;
-              if (transaction != null) {
-                // Preselect the Payee of this Transaction
-                PreferenceController.to.jumpToView(
-                  viewId: ViewId.viewPayees,
-                  selectedId: transaction.fieldPayee.value,
-                  textFilter: '',
-                  columnFilters: null,
-                );
-              }
-            },
-          ),
+          MenuEntry.toAccounts(accountId: transaction.fieldAccountId.value),
+          if (category != null) MenuEntry.toCategory(category: category),
+          MenuEntry.toPayee(payeeId: transaction.fieldPayee.value),
           // Search Payee
           MenuEntry(
             icon: Icons.person_search_outlined,
             title: AppL10n.tr(AppTranslationKeys.searchForPayee),
-            onPressed: () {
-              final Transaction? transaction = getFirstSelectedItem() as Transaction?;
-              if (transaction != null) {
-                launchGoogleSearch(transaction.getPayeeOrTransferCaption());
-              }
-            },
+            onPressed: () => launchGoogleSearch(transaction.getPayeeOrTransferCaption()),
           ),
         ]),
       );
@@ -185,8 +128,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
     final List<Transaction> list = Data().transactions
         .iterableList(includeDeleted: includeDeleted)
         .where(
-          (Transaction transaction) =>
-              isMatchingIncomeExpense(transaction) && (applyFilter == false || isMatchingFilters(transaction)),
+          (Transaction transaction) => applyFilter == false || isMatchingFilters(transaction),
         )
         .toList();
 
@@ -214,68 +156,6 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
       return CenterMessage.noTransaction();
     }
     return TransactionAliasesPanel(key: Key(selectedIds.join(',')), transactions: transactions);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    pivots.add(
-      ThreePartLabel(
-        text1: AppL10n.tr(AppTranslationKeys.incomes),
-        small: true,
-        isVertical: true,
-        text2: getIntAsText(
-          Data().transactions
-              .iterableList()
-              .where(
-                (Transaction element) => element.fieldAmount.value.asDouble() > 0,
-              )
-              .length,
-        ),
-      ),
-    );
-    pivots.add(
-      ThreePartLabel(
-        text1: AppL10n.tr(AppTranslationKeys.expenses),
-        small: true,
-        isVertical: true,
-        text2: getIntAsText(
-          Data().transactions
-              .iterableList()
-              .where(
-                (Transaction element) => element.fieldAmount.value.asDouble() < 0,
-              )
-              .length,
-        ),
-      ),
-    );
-    pivots.add(
-      ThreePartLabel(
-        text1: AppL10n.tr(AppTranslationKeys.allLabel),
-        small: true,
-        isVertical: true,
-        text2: getIntAsText(Data().transactions.iterableList().length),
-      ),
-    );
-  }
-
-  /// Returns true if the transaction matches the current income/expense pivot.
-  bool isMatchingIncomeExpense(Transaction transaction) {
-    if (_selectedPivot[_pivotIndexAll]) {
-      return true;
-    }
-
-    // Expenses
-    if (_selectedPivot[_pivotIndexExpense]) {
-      return transaction.fieldAmount.value.asDouble() < 0;
-    }
-
-    // Incomes
-    if (_selectedPivot[_pivotIndexIncome]) {
-      return transaction.fieldAmount.value.asDouble() > 0;
-    }
-    return false;
   }
 
   /// Builds the side panel chart subview showing totals per top-level category.

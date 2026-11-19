@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/account_types_enum.dart';
@@ -7,10 +7,10 @@ import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
+import 'package:money/views/imports/shared/import_file_reader_helper.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
 
 const int _minFieldLength = 2;
-const String _skipReasonInvalidDate = 'invalidDate';
 
 /// QIF header line (after `!`) that starts an account description block.
 const String _qifHeaderAccount = 'Account';
@@ -21,23 +21,15 @@ const String _qifAccountFieldName = 'N';
 ///
 /// schema https://www.w3.org/2000/10/swap/pim/qif-doc/QIF-doc.htm
 ///
-Future<void> importQIF(BuildContext context, String filePath) {
-  final File file = File(filePath);
-
-  return file
-      .readAsLines()
-      .then((List<String> lines) {
-        final ImportData importData = loadQIF(lines);
-        importData.fileType = SharedStrings.fileTypeQif;
-        if (context.mounted) {
-          showImportSkippedRowsWarning(importData);
-          showAndConfirmTransactionToImport(context, importData);
-        }
-      })
-      .catchError((dynamic e) {
-        logger.e('Error reading file: $e');
-        SnackBarService.displayError(message: e.toString(), autoDismiss: false);
-      });
+Future<void> importQIF(BuildContext context, String filePath) async {
+  final String? text = await readImportFileAsText(filePath);
+  if (text == null || !context.mounted) {
+    return;
+  }
+  final ImportData importData = loadQIF(LineSplitter.split(text).toList());
+  importData.fileType = SharedStrings.fileTypeQif;
+  showImportSkippedRowsWarning(importData);
+  showAndConfirmTransactionToImport(context, importData);
 }
 
 /// Loads QIF data from lines and returns ImportData with parsed entries.
@@ -65,7 +57,7 @@ ImportData loadQIF(List<String> lines) {
           importData.sourceAccounts.add(currentAccountName);
         }
       } else {
-        importData.diagnostics.incrementSkipped(_skipReasonInvalidDate);
+        importData.diagnostics.incrementSkipped(importSkipReasonInvalidDate);
       }
       // started new transaction object
       currentEntry = ImportEntry.blank();

@@ -24,6 +24,7 @@
   - dialog titles/buttons/messages, menu labels, empty-state strings, error/status strings.
 - Use standard Flutter localization (`AppLocalizations`) through project helper (`AppL10n.tr(AppTranslationKeys.someKey)`), not raw `.tr` literals.
 - `AppTranslationKeys` values must be stable key IDs (for example `'settings'`), never English display strings.
+- `AppTranslationKeys` and the `app_l10n_resolver*_helper.dart` files are generated from the ARB: after `flutter gen-l10n`, run `dart run tool/l10n_keys_generator_helper.dart` (also run by `tool/check.sh`); never edit them by hand.
 - Every new key must be added to both:
   - `lib/l10n/app_en.arb`
   - `lib/l10n/app_fr.arb`

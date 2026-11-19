@@ -84,14 +84,6 @@ void main() {
   });
 
   group('String shortening:', () {
-    test('Full name to initials', () {
-      expect(getInitials('Bob Smith'), 'BS');
-
-      expect(getInitials('John F. Kennedy'), 'JFK');
-
-      expect(getInitials('Jean-Pierre Duplessis'), 'JD');
-    });
-
     test('Smart Full name to initials', () {
       // make sure that above 5 letter still works
       expect(shortenLongText('Bob Smith'), 'B.S');
@@ -216,6 +208,24 @@ void main() {
     test('returns null without a number', () {
       expect(parseAmountFlexible(''), isNull);
       expect(parseAmountFlexible('ABC'), isNull);
+    });
+  });
+
+  group('concat', () {
+    test('joins with the separator', () {
+      expect(concat('', 'a'), 'a');
+      expect(concat('a', ''), 'a');
+      expect(concat('a', 'b'), 'a; b');
+    });
+
+    test('with doNotConcatIfPresent, skips only a value already present', () {
+      String reference = concat('', 'Memo', ';', true);
+      reference = concat(reference, 'Payee', ';', true);
+      reference = concat(reference, 'Split', ';', true);
+      reference = concat(reference, 'Payee', ';', true);
+      expect(reference, 'Memo;Payee;Split');
+      // A value that is only part of an existing one is still appended
+      expect(concat('Payee Inc', 'Payee', ';', true), 'Payee Inc;Payee');
     });
   });
 }

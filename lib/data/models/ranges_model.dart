@@ -1,6 +1,7 @@
 // ignore: fcheck_one_class_per_file
 import 'dart:math' as math;
 
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
@@ -263,16 +264,4 @@ class NumRange {
 
   String _getDescription(String min, String max) =>
       min + SharedStrings.rangeMinInfix + max + SharedStrings.rangeMaxSuffix;
-}
-
-extension Range on num {
-  /// Returns true if number is strictly between from and to (exclusive).
-  bool isBetween(num from, num to) {
-    return from < this && this < to;
-  }
-
-  /// Returns true if number is between or equal to from and to (inclusive).
-  bool isBetweenOrEqual(num from, num to) {
-    return from < this && this < to;
-  }
 }

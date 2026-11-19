@@ -76,7 +76,21 @@ void main() {
       ),
     );
 
-    expect(find.text('1.23M'), findsOneWidget);
+    expect(find.text('\$1.23M'), findsOneWidget);
+  });
+
+  testWidgets('buildFieldWidgetForAmount shorthand shows the field currency', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: buildFieldWidgetForAmount(value: 1234567, shorthand: true, currency: 'EUR'),
+        ),
+      ),
+    );
+
+    expect(find.text('€1.23M'), findsOneWidget);
   });
 
   group('buildWidgetFromTypeAndValue', () {
@@ -284,7 +298,7 @@ void main() {
       expect(result, '1.23M');
 
       expect(find.byType(FittedBox), findsOneWidget);
-      expect(find.text('1.23M'), findsOneWidget);
+      expect(find.text('\$1.23M'), findsOneWidget);
     });
 
     testWidgets('renders the provided widget for widget field', (

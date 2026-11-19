@@ -50,8 +50,7 @@ List<String> collectUniqueWidgetValues(
 ) {
   final Set<String> values = <String>{};
   for (final DataObject item in data) {
-    final String value = field.getValueForReading?.call(item) as String? ?? '';
-    values.add(value);
+    values.add(field.getReadableValue(item));
   }
   final List<String> uniqueValues = values.toList();
   uniqueValues.sort();

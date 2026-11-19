@@ -1,15 +1,14 @@
 import 'dart:math';
 
 import 'package:money/data/helpers/category_type_helper.dart';
+import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
-import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/budget_analyzer_service.dart';
 import 'package:money/shared/domain/category_entity.dart';
@@ -32,8 +31,6 @@ const int _minYears = 1;
 const int _defaultSortColumnIndex = 1;
 const double _positiveMultiplier = 1.0;
 const double _negativeMultiplier = -1.0;
-const int _suggestionSegmentValue = 3;
-const int _unsetId = -1;
 const int _monthsPerYear = 12;
 const double _percentageMultiplier = 100.0;
 const int _percentageDecimalPlaces = 2;
@@ -146,16 +143,11 @@ class _PanelBudgetState extends State<PanelBudget> {
 
   /// Initializes the budget items from data based on current filters.
   void initializeItems() {
-    bool whereClause(Transaction t) {
-      return t.isCandidateForBudget &&
-          isBetweenOrEqual(
-            t.fieldDateTime.value!.year,
-            widget.minYear,
-            widget.maxYear,
-          );
-    }
-
-    final List<Transaction> transactions = Data().transactions.getListFlattenSplits(whereClause: whereClause);
+    final List<Transaction> transactions = Data().transactions.getListFlattenSplitsInYearRange(
+      minYear: widget.minYear,
+      maxYear: widget.maxYear,
+      where: (Transaction t) => t.isCandidateForBudget,
+    );
 
     final BudgetAnalyzer analyzer = BudgetAnalyzer(transactions);
     _budget = analyzer.calculateMonthlyBudget();
@@ -210,7 +202,10 @@ class _PanelBudgetState extends State<PanelBudget> {
               value: BudgetViewAs.recurrences.index,
               label: Text(AppL10n.tr(AppTranslationKeys.recurring)),
             ),
-            ButtonSegment<int>(value: _suggestionSegmentValue, label: Text(AppL10n.tr(AppTranslationKeys.suggestion))),
+            ButtonSegment<int>(
+              value: BudgetViewAs.suggestions.index,
+              label: Text(AppL10n.tr(AppTranslationKeys.suggestion)),
+            ),
           ],
           selectedId: panelType.index,
           onSelectionChanged: (int newSelection) {
@@ -622,22 +617,16 @@ class _PanelBudgetState extends State<PanelBudget> {
   Widget _categoryContextMenu(Category category) {
     return buildMenuButton(context, <MenuEntry>[
       // View - Transactions
-      MenuEntry.toTransactions(
-        transactionId: _unsetId,
-        filters: FieldFilters(<FieldFilter>[
-          FieldFilter(
-            fieldName: Constants.viewTransactionFieldNameCategory,
-            strings: <String>[category.name],
-          ),
-          FieldFilter(
-            fieldName: Constants.viewTransactionFieldNameDate,
-            byDateRange: true,
-            strings: <String>[
-              '${widget.minYear}-01-01',
-              '${widget.maxYear}-12-31',
-            ],
-          ),
-        ]),
+      MenuEntry.toTransactionsOfCategory(
+        category: category,
+        dates: FieldFilter(
+          fieldName: columnIdDate,
+          byDateRange: true,
+          strings: <String>[
+            '${widget.minYear}-01-01',
+            '${widget.maxYear}-12-31',
+          ],
+        ),
       ),
 
       // View - Category

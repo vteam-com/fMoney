@@ -204,27 +204,10 @@ class TransactionSplit extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<TransactionSplit> _fields = Fields<TransactionSplit>();
-
   /// Returns the category name for this split.
   String get categoryName => data.getCategoryNameFromId(fieldCategoryId.value);
 
-  /// Builds [TransactionSplit] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(TransactionSplit tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldTransactionId,
-    tmp.fieldPayeeId,
-    tmp.fieldCategoryId,
-    tmp.fieldMemo,
-    tmp.fieldAmount,
-    tmp.fieldTransferId,
-    tmp.fieldFlags,
-    tmp.fieldBudgetBalanceDate,
-  ];
-
-  /// Returns the field definitions for TransactionSplit entities.
-  static Fields<TransactionSplit> get fields => ensureCachedFieldDefinitions<TransactionSplit>(
-    cache: _fields,
+  static final FieldDefinitionCache<TransactionSplit> _fieldDefinitionCache = FieldDefinitionCache<TransactionSplit>(
     instanceFactory: () => TransactionSplit._static(
       id: _unsetId,
       transactionId: _unsetId,
@@ -236,8 +219,21 @@ class TransactionSplit extends DataObject {
       flags: _zeroInt,
       budgetBalanceDate: null,
     ),
-    definitionsBuilder: _buildFieldDefinitions,
+    blueprints: <FieldBlueprint<TransactionSplit>>[
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldId),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldTransactionId),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldPayeeId),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldCategoryId),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldMemo),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldAmount),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldTransferId),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldFlags),
+      FieldBlueprint<TransactionSplit>(selector: (TransactionSplit tmp) => tmp.fieldBudgetBalanceDate),
+    ],
   );
+
+  /// Returns the field definitions for TransactionSplit entities.
+  static Fields<TransactionSplit> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the parent transaction for this split.
   dynamic getTransferTransaction() {

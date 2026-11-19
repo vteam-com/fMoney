@@ -11,14 +11,13 @@ import 'package:money/shared/presentation/providers/data_file_controller_provide
 import 'package:money/widgets/components/my_segment_widget.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
+import 'package:money/widgets/dialogs/mutation_type_display_helper.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
 
 const double _dialogWidth = 600.0;
 const double _dialogHeight = 900.0;
 const int _zeroIndex = 0;
-const int _firstIndex = 1;
-const int _secondIndex = 2;
 const double _segmentLabelWidth = 120.0;
 const double _groupPaddingBottom = 4.0;
 const double _groupSpacing = 10.0;
@@ -74,21 +73,7 @@ class PendingChangesDialog extends StatefulWidget {
 class _PendingChangesDialogState extends State<PendingChangesDialog> {
   /// List of mutation types to display.
   final List<Mutations> _data = <Mutations>[
-    Mutations(
-      typeOfMutation: MutationType.inserted,
-      title: AppL10n.tr(AppTranslationKeys.mutationAdded),
-      color: Colors.green,
-    ),
-    Mutations(
-      typeOfMutation: MutationType.changed,
-      title: AppL10n.tr(AppTranslationKeys.mutationModified),
-      color: Colors.orange,
-    ),
-    Mutations(
-      typeOfMutation: MutationType.deleted,
-      title: AppL10n.tr(AppTranslationKeys.mutationDeleted),
-      color: Colors.red,
-    ),
+    for (final MutationType type in pendingMutationTypes) Mutations(typeOfMutation: type),
   ];
 
   /// Currently selected mutation type index.
@@ -130,9 +115,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
       child: mySegmentSelector(
         context: context,
         segments: <ButtonSegment<int>>[
-          _buildSegment(_zeroIndex, _data[_zeroIndex]),
-          _buildSegment(_firstIndex, _data[_firstIndex]),
-          _buildSegment(_secondIndex, _data[_secondIndex]),
+          for (int i = _zeroIndex; i < _data.length; i++) _buildSegment(i, _data[i]),
         ],
         selectedId: _displayMutationType,
         onSelectionChanged: (int newSelection) {
@@ -176,7 +159,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
         child: Text(
           mutations.fullTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(color: mutations.color),
+          style: TextStyle(color: mutations.typeOfMutation.getColor(context)),
         ),
       ),
     );
@@ -191,7 +174,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
       final Container w = Container(
         padding: const EdgeInsets.only(bottom: _groupPaddingBottom),
         child: Badge(
-          backgroundColor: mutations.color,
+          backgroundColor: mutations.typeOfMutation.getColor(context),
           label: Text(getIntAsText(group.whatWasMutated.length)),
           child: InputChip(
             label: Text(group.title),
@@ -234,14 +217,7 @@ class _PendingChangesDialogState extends State<PendingChangesDialog> {
 class Mutations {
   /// Constructs a new instance of the [Mutations] class.
 
-  Mutations({
-    required this.typeOfMutation,
-    required this.title,
-    required this.color,
-  });
-
-  /// The color associated with this mutation type.
-  final Color color;
+  Mutations({required this.typeOfMutation});
 
   /// The number of mutations in this group.
   int count = 0;
@@ -253,7 +229,7 @@ class Mutations {
   int selectedGroup = 0;
 
   /// The title of this mutation type (e.g., "added", "modified").
-  final String title;
+  String get title => AppL10n.tr(typeOfMutation.labelKey);
 
   /// The type of mutation (inserted, changed, deleted).
   final MutationType typeOfMutation;

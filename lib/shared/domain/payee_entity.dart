@@ -67,34 +67,25 @@ class Payee extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Payee> _fields = Fields<Payee>();
-  static final Fields<Payee> _fieldsForColumns = Fields<Payee>();
-  static final List<FieldBlueprint<Payee>> _fieldBlueprints = <FieldBlueprint<Payee>>[
-    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldId),
-    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldName, includeInColumnView: true),
-    FieldBlueprint<Payee>(
-      selector: (Payee tmp) => tmp.fieldCategoriesAsText,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldCount, includeInColumnView: true),
-    FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldSum, includeInColumnView: true),
-  ];
+  static final FieldDefinitionCache<Payee> _fieldDefinitionCache = FieldDefinitionCache<Payee>(
+    instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Payee>>[
+      FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldId),
+      FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldName, includeInColumnView: true),
+      FieldBlueprint<Payee>(
+        selector: (Payee tmp) => tmp.fieldCategoriesAsText,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldCount, includeInColumnView: true),
+      FieldBlueprint<Payee>(selector: (Payee tmp) => tmp.fieldSum, includeInColumnView: true),
+    ],
+  );
 
   /// Returns the field definitions for Payee entities.
-  static Fields<Payee> get fields => ensureCachedFieldDefinitionsFromBlueprints<Payee>(
-    cache: _fields,
-    instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Payee> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Payee column view.
-  static Fields<Payee> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Payee>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Payee.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Payee> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns a string representation of the categories associated with the payee.
   /// If there are no categories, an empty string is returned.

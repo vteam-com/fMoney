@@ -447,6 +447,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get copyMessageToClipboard => 'Copier le message dans le presse-papiers';
 
   @override
+  String get copyToClipboard => 'Copier dans le presse-papiers';
+
+  @override
   String countSelected(String count) {
     return '@count selectionnes';
   }
@@ -470,11 +473,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get csvImportCancelled => 'Import CSV annule.';
-
-  @override
-  String csvImportRowsImportedAndSkipped(Object imported, Object skipped) {
-    return 'Import CSV : $imported entrees analysees et $skipped lignes ignorees.';
-  }
 
   @override
   String get dataPreviewFirst5Rows => 'Apercu des donnees (5 premieres lignes) :';
@@ -531,6 +529,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dividend => 'Dividende';
 
   @override
+  String get done => 'Terminé';
+
+  @override
   String get download => 'Télécharger';
 
   @override
@@ -540,6 +541,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get dropFilesHere => 'Deposez les fichiers ici';
+
+  @override
+  String get duplicate => 'Dupliquer';
 
   @override
   String get edit => 'Modifier';
@@ -1452,18 +1456,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get suggestion => 'Suggestion';
-
-  @override
-  String get switchToCategories => 'Basculer vers Categories';
-
-  @override
-  String get switchToPayees => 'Basculer vers Beneficiaires';
-
-  @override
-  String get switchToStocks => 'Basculer vers Actions';
-
-  @override
-  String get switchToTransactions => 'Basculer vers Transactions';
 
   @override
   String get symbol => 'Symbole';

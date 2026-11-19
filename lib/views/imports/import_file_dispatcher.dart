@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:csv/csv.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/views/imports/formats/csv_import_view.dart';
@@ -11,6 +10,7 @@ import 'package:money/views/imports/formats/investment_csv_import_view.dart';
 import 'package:money/views/imports/formats/qfx_import_view.dart';
 import 'package:money/views/imports/formats/qif_import_view.dart';
 import 'package:money/views/imports/formats/xlsx_import_view.dart';
+import 'package:money/views/imports/shared/import_file_reader_helper.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:path/path.dart' as path;
 
@@ -43,27 +43,12 @@ Future<bool> isInvestmentCSVFile(String filePath) async {
       return false;
     }
 
-    final String csvContent = await file.readAsString();
+    final String csvContent = decodeImportFileBytes(await file.readAsBytes());
     if (csvContent.trim().isEmpty) {
       return false;
     }
 
-    final List<List<dynamic>> csvTable = const CsvDecoder(
-      dynamicTyping: false,
-    ).convert(csvContent);
-    if (csvTable.isEmpty) {
-      return false;
-    }
-
-    final List<String> headers = csvTable.first
-        .map((dynamic cell) => cell == null ? '' : cell.toString().trim())
-        .cast<String>()
-        .toList();
-    if (headers.isNotEmpty) {
-      headers[0] = headers[0].replaceFirst('\ufeff', '');
-    }
-
-    return isInvestmentCSV(headers);
+    return isInvestmentCSV(parseCsvContent(csvContent).headers);
   } catch (_) {
     return false;
   }

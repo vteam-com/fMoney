@@ -190,7 +190,7 @@ Widget buildFieldWidgetForAmount({
   return scaleDown(
     Text(
       shorthand
-          ? getAmountAsShorthandText(value as num)
+          ? getAmountAsShortHandStringUsingCurrency(value, iso4217code: currency)
           : getAmountAsStringUsingCurrency(
               value,
               iso4217code: currency,

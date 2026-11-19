@@ -164,39 +164,40 @@ class Event extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Event> _fields = Fields<Event>();
-  static final Fields<Event> _fieldsForColumnView = Fields<Event>();
-  static final List<FieldBlueprint<Event>> _fieldBlueprints = <FieldBlueprint<Event>>[
-    FieldBlueprint<Event>(selector: (Event tmpInstance) => tmpInstance.fieldId),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldName,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldCategoryId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldDateBegin,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldDateEnd,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldDuration,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldPeople,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Event>(
-      selector: (Event tmpInstance) => tmpInstance.fieldMemo,
-      includeInColumnView: true,
-    ),
-  ];
+  static final FieldDefinitionCache<Event> _fieldDefinitionCache = FieldDefinitionCache<Event>(
+    instanceFactory: _createStaticFieldInstance,
+    blueprints: <FieldBlueprint<Event>>[
+      FieldBlueprint<Event>(selector: (Event tmpInstance) => tmpInstance.fieldId),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldName,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldCategoryId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldDateBegin,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldDateEnd,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldDuration,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldPeople,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Event>(
+        selector: (Event tmpInstance) => tmpInstance.fieldMemo,
+        includeInColumnView: true,
+      ),
+    ],
+  );
 
   /// Returns the category name for this event.
   String get categoryName => data!.getCategoryNameFromId(this.fieldCategoryId.value);
@@ -246,20 +247,10 @@ class Event extends DataObject {
   }
 
   /// Returns the field definitions for Event entities.
-  static Fields<Event> get fields => ensureCachedFieldDefinitionsFromBlueprints<Event>(
-    cache: _fields,
-    instanceFactory: _createStaticFieldInstance,
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Event> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Event column view.
-  static Fields<Event> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Event>(
-    cache: _fieldsForColumnView,
-    instanceFactory: _createStaticFieldInstance,
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Event> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Creates a date field definition with picker/editor and serialization behavior.
   static FieldDate _createDateField(

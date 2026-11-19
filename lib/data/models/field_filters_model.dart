@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/helpers/json_helper.dart';
 
@@ -53,11 +54,28 @@ class FieldFilters {
     list.clear();
   }
 
+  /// Removes the filters on column [fieldName], keeping the other columns' filters.
+  void removeByFieldName(String fieldName) {
+    list.removeWhere((FieldFilter filter) => filter.fieldName == fieldName);
+  }
+
   /// Returns true if there are no filters.
   bool get isEmpty => list.isEmpty;
 
   /// Returns true if there is at least one filter.
   bool get isNotEmpty => !isEmpty;
+
+  /// Returns true when [value] of column [fieldName] passes that column's filter, or the column has none.
+  bool isValueSelected(String fieldName, String value) {
+    final FieldFilter? filter = list.firstWhereOrNull((FieldFilter filter) => filter.fieldName == fieldName);
+    if (filter == null) {
+      return true;
+    }
+    if (filter.byDateRange) {
+      return filter.asDateRange?.isBetweenEqual(DateTime.tryParse(value)) ?? true;
+    }
+    return filter.contains(value);
+  }
 
   /// Returns the number of filters in this group.
   int get length => list.length;

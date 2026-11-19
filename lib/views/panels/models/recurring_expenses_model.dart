@@ -1,6 +1,5 @@
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/ranges_model.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
@@ -58,12 +57,11 @@ class RecurringExpenses {
       category.getDescendants(listOfDescendants);
 
       // get all transactions meeting the request of date and type
-      bool whereClause(Transaction t) {
-        return listOfDescendants.contains(t.category) &&
-            isBetweenOrEqual(t.fieldDateTime.value!.year, minYear, maxYear);
-      }
-
-      final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplits(whereClause: whereClause);
+      final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplitsInYearRange(
+        minYear: minYear,
+        maxYear: maxYear,
+        where: (Transaction t) => listOfDescendants.contains(t.category),
+      );
 
       double totalForAllTimeForThisCategory = 0;
       final DateRange dateRangeOfTransactions = DateRange();
@@ -101,15 +99,10 @@ class RecurringExpenses {
   ) {
     final Map<int, RecurringExpenses> yearMap = <int, RecurringExpenses>{};
 
-    final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplits(
-      whereClause: (Transaction t) =>
-          t.category != null &&
-          isBetweenOrEqual(
-            t.fieldDateTime.value!.year,
-            minYear,
-            maxYear,
-          ) &&
-          (includeAssetAccounts || !t.isAssetAccount),
+    final List<Transaction> flatTransactions = Data().transactions.getListFlattenSplitsInYearRange(
+      minYear: minYear,
+      maxYear: maxYear,
+      where: (Transaction t) => t.category != null && (includeAssetAccounts || !t.isAssetAccount),
     );
 
     for (final Transaction t in flatTransactions) {

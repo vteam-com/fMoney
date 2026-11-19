@@ -39,8 +39,6 @@ class MyListItemFooter<T> extends StatelessWidget {
     return ListenableBuilder(
       listenable: columnWidths,
       builder: (BuildContext _, Widget? _) {
-        final List<double> ratios = columnWidths.value;
-
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: _footerPaddingHorizontal),
           decoration: _decoration,
@@ -54,46 +52,26 @@ class MyListItemFooter<T> extends StatelessWidget {
               Expanded(
                 child: LayoutBuilder(
                   builder: (BuildContext _, BoxConstraints constraints) {
-                    if (ratios.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-                    final double handlesTotalWidth = (ratios.length - 1) * columnResizeHandleWidth;
-                    final double contentWidth = (constraints.maxWidth - handlesTotalWidth).clamp(
-                      0,
-                      double.infinity,
+                    return Row(
+                      children: buildVisibleColumnCells(
+                        fields: columns,
+                        ratios: columnWidths.value,
+                        maxWidth: constraints.maxWidth,
+                        buildCell: (int i, double width) {
+                          final Field<dynamic> col = columns[i];
+                          return buildColumnFooterButton(
+                            textAlign: col.align,
+                            flex: col.columnWidth.index,
+                            fixedWidth: width,
+                            onPressed: () => onTap(i),
+                            onLongPress: () => onLongPress?.call(col),
+                            child: getColumnFooterWidget(col),
+                          );
+                        },
+                        // A spacer matching the header/body drag-handle width.
+                        buildGap: (int _, double _) => const SizedBox(width: columnResizeHandleWidth),
+                      ),
                     );
-
-                    final List<Widget> rowChildren = <Widget>[];
-                    int visiblePos = 0;
-
-                    for (int i = 0; i < columns.length; i++) {
-                      final Field<dynamic> col = columns[i];
-                      if (col.columnWidth == ColumnWidth.hidden) {
-                        continue;
-                      }
-                      final int pos = visiblePos;
-                      rowChildren.add(
-                        buildColumnFooterButton(
-                          context: context,
-                          textAlign: col.align,
-                          flex: col.columnWidth.index,
-                          fixedWidth: pos < ratios.length ? contentWidth * ratios[pos] : 0,
-                          onPressed: () => onTap(i),
-                          onLongPress: () => onLongPress?.call(col),
-                          child: getColumnFooterWidget(col),
-                        ),
-                      );
-
-                      // Insert a spacer matching the header/body drag-handle width.
-                      if (pos < ratios.length - 1) {
-                        rowChildren.add(
-                          const SizedBox(width: columnResizeHandleWidth),
-                        );
-                      }
-                      visiblePos++;
-                    }
-
-                    return Row(children: rowChildren);
                   },
                 ),
               ),

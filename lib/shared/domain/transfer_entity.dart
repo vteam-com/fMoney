@@ -130,49 +130,51 @@ class Transfer extends DataObject {
   @override
   set uniqueId(int value) => throw UnsupportedError(SharedStrings.errorTransferUniqueIdIsDerived);
 
-  static final Fields<Transfer> _fieldsForColumns = Fields<Transfer>();
-  static final List<FieldBlueprint<Transfer>> _fieldBlueprints = <FieldBlueprint<Transfer>>[
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldSenderTransactionDate,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldSenderAccountId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldSenderTransactionStatus,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldSenderTransactionMemo,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldReceiverTransactionDate,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldReceiverAccountId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldAccountStatusDestination,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldMemoDestination,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldTroubleshoot,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transfer>(
-      selector: (Transfer tmp) => tmp.fieldTransactionAmount,
-      includeInColumnView: true,
-    ),
-  ];
+  static final FieldDefinitionCache<Transfer> _fieldDefinitionCache = FieldDefinitionCache<Transfer>(
+    instanceFactory: () => Transfer.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Transfer>>[
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldSenderTransactionDate,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldSenderAccountId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldSenderTransactionStatus,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldSenderTransactionMemo,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldReceiverTransactionDate,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldReceiverAccountId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldAccountStatusDestination,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldMemoDestination,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldTroubleshoot,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transfer>(
+        selector: (Transfer tmp) => tmp.fieldTransactionAmount,
+        includeInColumnView: true,
+      ),
+    ],
+  );
 
   /// Returns the number of days between the sending and receiving transaction dates.
   int dateSpreadBetweenSendingAndReceiving() {
@@ -182,12 +184,7 @@ class Transfer extends DataObject {
   }
 
   /// Returns the field definitions for Transfer column view.
-  static Fields<Transfer> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Transfer>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Transfer.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Transfer> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   //---------------------------------------------
   /// Dates

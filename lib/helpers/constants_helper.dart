@@ -127,12 +127,6 @@ class Constants {
   /// Longest wait for a web request (stock prices, GitHub releases) before giving up.
   static const Duration httpRequestTimeout = Duration(seconds: 30);
   static String untitledFileName = 'Untitled';
-  static String viewStockFieldNameAccount = 'Account';
-  static String viewStockFieldNameSymbol = 'Symbol';
-  static String viewTransactionFieldNameAccount = 'Account';
-  static String viewTransactionFieldNameCategory = 'Category';
-  static String viewTransactionFieldNameDate = 'Date';
-  static String viewTransactionFieldNamePayee = 'Payee/Transfer';
 }
 
 /// Represents size for padding.

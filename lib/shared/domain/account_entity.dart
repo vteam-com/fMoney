@@ -16,6 +16,9 @@ import 'package:money/helpers/locale_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/field_definition_cache_helper.dart';
 
+/// Currency ratio of a currency whose exchange rate is unknown.
+const double _noCurrencyRatio = 0.0;
+
 /// Accounts like Banks
 class Account extends DataObject {
   /// Constructor
@@ -29,7 +32,11 @@ class Account extends DataObject {
       ..fieldOfxAccountId.value = row.getString(SharedDomainStrings.domainString095)
       ..fieldName.value = row.getString(SharedDomainStrings.domainString088)
       ..fieldDescription.value = row.getString(SharedDomainStrings.domainString046)
-      ..fieldType.value = AccountType.values[row.getInt(SharedDomainStrings.domainString146)]
+      ..fieldType.value = enumFromIndex(
+        AccountType.values,
+        row.getInt(SharedDomainStrings.domainString146),
+        AccountType.checking,
+      )
       ..fieldOpeningBalance.value.setAmount(row.getDouble(SharedDomainStrings.domainString099))
       ..fieldCurrency.value = row.getString(
         SharedDomainStrings.domainString042,
@@ -85,7 +92,7 @@ class Account extends DataObject {
     getValueForDisplay: (DataInterface instance) {
       final Account accountInstance = instance as Account;
       return AmountModel(
-        amount: accountInstance.getCurrencyRatio() * accountInstance.balance,
+        amount: accountInstance.toNormalized(accountInstance.balance),
         iso4217: Constants.defaultCurrency,
       );
     },
@@ -138,6 +145,7 @@ class Account extends DataObject {
     columnWidth: ColumnWidth.tiny,
     type: FieldType.widget,
     getValueForDisplay: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
+    getValueForReading: (DataInterface instance) => (instance as Account).getAccountCurrencyAsText(),
     // save what was stored: a blank currency means "the default" and must stay blank
     getValueForSerialization: (DataInterface instance) => (instance as Account).fieldCurrency.value,
     setValue: (DataInterface instance, dynamic value) => (instance as Account).fieldCurrency.value = value as String,
@@ -324,49 +332,40 @@ class Account extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Account> _fields = Fields<Account>();
-  static final Fields<Account> _fieldsForColumns = Fields<Account>();
-  static final List<FieldBlueprint<Account>> _fieldBlueprints = <FieldBlueprint<Account>>[
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldId),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldName, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldAccountId, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOfxAccountId),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldDescription, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldType, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOpeningBalance),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOnlineAccount),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldWebSite),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldReconcileWarning),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastSync),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldSyncGuid),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldUpdatedOn, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldFlags),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastBalance),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForPrincipal),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForInterest),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCount, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldStockHoldingEstimation),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNative, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCurrency, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNormalized, includeInColumnView: true),
-    FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldIsAccountOpen),
-  ];
+  static final FieldDefinitionCache<Account> _fieldDefinitionCache = FieldDefinitionCache<Account>(
+    instanceFactory: () => Account.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Account>>[
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldId),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldName, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldAccountId, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOfxAccountId),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldDescription, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldType, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOpeningBalance),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldOnlineAccount),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldWebSite),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldReconcileWarning),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastSync),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldSyncGuid),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldUpdatedOn, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldFlags),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldLastBalance),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForPrincipal),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCategoryIdForInterest),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCount, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldStockHoldingEstimation),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNative, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldCurrency, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldBalanceNormalized, includeInColumnView: true),
+      FieldBlueprint<Account>(selector: (Account tmp) => tmp.fieldIsAccountOpen),
+    ],
+  );
 
   /// Returns field definitions for Account entities.
-  static Fields<Account> get fields => ensureCachedFieldDefinitionsFromBlueprints<Account>(
-    cache: _fields,
-    instanceFactory: () => Account.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Account> get fields => _fieldDefinitionCache.fields;
 
   /// Returns field definitions for Account column view.
-  static Fields<Account> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Account>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Account.fromJson(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Account> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns the account currency as a display string.
   String getAccountCurrencyAsText() {
@@ -427,5 +426,12 @@ class Account extends DataObject {
       return !isFakeAccount();
     }
     return types.contains(fieldType.value);
+  }
+
+  /// Converts [nativeValue], in this account's currency, to the default currency;
+  /// returns [nativeValue] unchanged when the currency has no ratio (0).
+  double toNormalized(double nativeValue) {
+    final double ratio = getCurrencyRatio();
+    return ratio == _noCurrencyRatio ? nativeValue : nativeValue * ratio;
   }
 }

@@ -8,6 +8,7 @@ import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/views/home/ai/ai_chat_message_footer_widget.dart';
+import 'package:money/widgets/components/chat_bubble_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 const int _maxLinesBeforeTruncate = 100;
@@ -15,10 +16,6 @@ const int _truncatePreviewLines = 50;
 const double _bubbleMaxWidthFactor = 0.50;
 const double _detailsWidthFactor = 0.8;
 const double _detailsHeightFactor = 0.6;
-const double _bubbleVerticalMargin = 4.0;
-const double _bubblePadding = 12.0;
-const double _bubbleRadius = 16.0;
-const double _bubbleTailRadius = 3.0;
 const int _dividerAlpha = 60;
 const double _footerOpacity = 0.7;
 const double _monospaceFontSize = 12.0;
@@ -62,20 +59,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
           crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
             // Message bubble
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: _bubbleVerticalMargin),
-              padding: const EdgeInsets.all(_bubblePadding),
-              decoration: BoxDecoration(
-                color: isUser
-                    ? getColorTheme(context).primaryContainer
-                    : getColorTheme(context).surfaceContainerHighest,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(_bubbleRadius),
-                  topRight: const Radius.circular(_bubbleRadius),
-                  bottomLeft: isUser ? const Radius.circular(_bubbleRadius) : const Radius.circular(_bubbleTailRadius),
-                  bottomRight: isUser ? const Radius.circular(_bubbleTailRadius) : const Radius.circular(_bubbleRadius),
-                ),
-              ),
+            ChatBubble(
+              color: isUser ? getColorTheme(context).primaryContainer : getColorTheme(context).surfaceContainerHighest,
+              isFromUser: isUser,
               child: Column(
                 crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,

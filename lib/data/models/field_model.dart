@@ -111,6 +111,10 @@ class Field<T> {
   /// Only need for FieldType.widget
   dynamic Function(DataInterface)? getValueForReading;
 
+  /// Returns text a person can read for [instance]: [getValueForReading] when set, else the serialized value.
+  String getReadableValue(DataInterface instance) =>
+      (getValueForReading ?? getValueForSerialization)(instance).toString();
+
   TextAlign align;
   ColumnWidth columnWidth;
   bool fixedFont = false;
@@ -478,12 +482,8 @@ class Fields<T> {
   ) {
     switch (fieldDefinition.type) {
       case FieldType.widget:
-        if (fieldDefinition.getValueForReading == null) {
-          return fieldDefinition.getValueForSerialization(objectInstance).toString().toLowerCase();
-        } else {
-          // lowercase like the other branches: free-text search lowercases what the user typed
-          return fieldDefinition.getValueForReading!(objectInstance).toString().toLowerCase();
-        }
+        // lowercase like the other branches: free-text search lowercases what the user typed
+        return fieldDefinition.getReadableValue(objectInstance).toLowerCase();
 
       case FieldType.date:
         final dynamic fieldValue = fieldDefinition.getValueForDisplay(

@@ -4,6 +4,7 @@ import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/shared_strings_domain.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
@@ -13,12 +14,11 @@ import 'package:money/views/panels/dialogs/merge_payees_dialog.dart';
 import 'package:money/views/panels/dialogs/similar_payees_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
 
 const int _unsetId = -1;
 const int _chartMaxItems = 10;
@@ -50,7 +50,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
             final Payee payee = moneyObject as Payee;
             final Iterable<Transaction> transactions = Data().transactions
                 .iterableList(includeDeleted: true)
-                .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+                .where((Transaction t) => t.isForPayee(payee.uniqueId));
             showMergePayee(context, payee, transactions, Data());
           }),
         );
@@ -58,26 +58,16 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
       }
 
       // this can go last
-      if (getFirstSelectedItem() != null) {
-        list.add(
-          buildJumpToButton(context, <MenuEntry>[
-            MenuEntry(
-              icon: ViewId.viewTransactions.getIconData(),
-              title: AppL10n.tr(AppTranslationKeys.switchToTransactions),
-              onPressed: () {
-                final Payee? payee = getFirstSelectedItem() as Payee?;
-                if (payee != null) {
-                  // Prepare the Transaction view to show only the selected account
-                  switchViewTransactionForPayee(payee.fieldName.value);
-                }
-              },
-            ),
-          ]),
-        );
+      final Payee? payee = getFirstSelectedItem() as Payee?;
+      if (payee != null) {
+        list.add(buildJumpToButton(context, <MenuEntry>[MenuEntry.toTransactionsOfPayee(payee: payee)]));
       }
     }
     return list;
   }
+
+  @override
+  List<String> get sidePanelTransactionsColumns => sidePanelTransactionsColumnNamesWithoutPayee;
 
   @override
   String getClassNamePlural() {
@@ -116,7 +106,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     return SidePanelSupport(
       onDetails: getSidePanelViewDetails,
       onChart: _getSubViewContentForChart,
-      onTransactions: _getSubViewContentForTransactions,
+      onTransactions: getSidePanelViewTransactions,
     );
   }
 
@@ -126,7 +116,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     if (payee != null && payee.fieldId.value > _unsetId) {
       return getTransactions(
         flattenSplits: true,
-        filter: (Transaction transaction) => transaction.fieldPayee.value == payee.fieldId.value,
+        filter: (Transaction transaction) => transaction.isForPayee(payee.uniqueId),
       );
     }
     return <DataObject>[];
@@ -141,7 +131,7 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
     if (selectedIds.isEmpty) {
       final List<PairXYY> listChart = <PairXYY>[];
       for (final Payee item in getList()) {
-        if (item.fieldName.value != 'Transfer') {
+        if (item.fieldName.value != SharedDomainStrings.domainString144) {
           listChart.add(PairXYY(item.fieldName.value, item.fieldCount.value));
         }
       }
@@ -158,29 +148,10 @@ class _ViewPayeesState extends ViewForMoneyObjectsState {
 
     final List<Transaction> flatTransactions = Transactions.flatTransactions(
       Data().transactions.iterableList().where(
-        (Transaction t) => t.fieldPayee.value == selectedIds.first,
+        (Transaction t) => t.isForPayee(selectedIds.first),
       ),
     );
 
     return TransactionTimelineChart(transactions: flatTransactions);
-  }
-
-  // Details Panel for Transactions Payees
-  Widget _getSubViewContentForTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(showAsNativeCurrency);
-    final Payee? payee = getMoneyObjectFromFirstSelectedId<Payee>(
-      selectedIds,
-      list,
-    );
-    if (payee != null && payee.fieldId.value > _unsetId) {
-      return buildSidePanelTransactionsList(
-        key: Key(payee.uniqueId.toString()),
-        columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
-      );
-    }
-    return CenterMessage.noTransaction();
   }
 }

@@ -1,4 +1,3 @@
-// ignore: fcheck_one_class_per_file
 import 'dart:async';
 import 'dart:convert';
 
@@ -25,8 +24,6 @@ import 'package:money/widgets/pure/my_svg_widget.dart';
 import 'package:money/widgets/pure/view_widget.dart';
 import 'package:money/widgets/pure/working_indicator_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-
-// ignore: fcheck_one_class_per_file
 
 const double _checkingSpacing = 32.0;
 const double _checkingIconSize = 64.0;
@@ -55,20 +52,11 @@ final String _aiSelectedAccountIdsPreferenceKey = ViewId.viewAI.getViewPreferenc
 /// - Pattern recognition over data enumeration
 /// - Metadata aggregation before sending to AI
 /// - Privacy-by-design approach to financial AI
-///
-/// Example usage:
-/// ```dart
-/// ViewAI() // Uses default service implementation
-/// ViewAI(ollamaService: customService) // Uses custom service for testing
-/// ```
 class ViewAI extends ViewWidget {
-  const ViewAI({super.key, this.ollamaService});
-
-  /// Optional Ollama service to inject (mainly for testing)
-  final OllamaServiceInterface? ollamaService;
+  const ViewAI({super.key});
 
   @override
-  State<ViewWidget> createState() => ViewAIState();
+  State<ViewWidget> createState() => _ViewAIState();
 
   @override
   String getClassNamePlural() => '';
@@ -90,114 +78,7 @@ class ViewAI extends ViewWidget {
 ///
 /// This class manages complex async operations while maintaining UI responsiveness.
 /// All financial data interactions prioritize user privacy through anonymization.
-// ignore: always_specify_types
-/// Interface for Ollama service to enable testing with dependency injection
-abstract class OllamaServiceInterface {
-  /// Available models returned by the Ollama service.
-  List<Map<String, dynamic>> get availableModels;
-
-  /// Currently selected model name.
-  String get selectedModel;
-
-  /// Sets the currently selected model name.
-  set selectedModel(String value);
-
-  /// Returns true if Ollama is installed on this system.
-  Future<bool> checkIfOllamaInstalled();
-
-  /// Returns true if the Ollama HTTP API is reachable.
-  Future<bool> checkIfOllamaRunning();
-
-  /// Initiates Ollama installation.
-  Future<void> installOllama();
-
-  /// Starts the Ollama service.
-  Future<void> startOllama();
-
-  /// Loads available models from Ollama.
-  Future<List<Map<String, dynamic>>> loadAvailableModels();
-
-  /// Loads the last selected model from persistence.
-  Future<void> getLastUserSelectedModel();
-
-  /// Persists the selected model.
-  Future<void> saveSelectedModel(String model);
-
-  /// Loads the conversation context for the selected model.
-  Future<List<int>?> loadConversationContext();
-
-  /// Persists the conversation context for the selected model.
-  Future<void> saveConversationContext(List<int>? context);
-
-  /// Loads stored chat history for the selected model.
-  Future<List<ChatMessage>> loadChatHistory();
-
-  /// Persists chat history for the selected model.
-  Future<void> saveChatHistory(List<ChatMessage> chatHistory);
-
-  /// Sends an inference payload to Ollama.
-  Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload);
-
-  /// Checks Ollama status and returns installation/running info.
-  Future<OllamaStatus> checkOllamaStatus();
-}
-
-/// Implements the Ollama service interface by delegating to static methods
-class OllamaServiceImpl implements OllamaServiceInterface {
-  @override
-  List<Map<String, dynamic>> get availableModels => OllamaService.availableModels;
-
-  @override
-  String get selectedModel => OllamaService.selectedModel;
-
-  @override
-  set selectedModel(String value) => OllamaService.selectedModel = value;
-
-  @override
-  Future<bool> checkIfOllamaInstalled() => OllamaService.checkIfOllamaInstalled();
-
-  @override
-  Future<bool> checkIfOllamaRunning() => OllamaService.checkIfOllamaRunning();
-
-  @override
-  Future<void> installOllama() => OllamaService.installOllama();
-
-  @override
-  Future<void> startOllama() => OllamaService.startOllama();
-
-  @override
-  Future<List<Map<String, dynamic>>> loadAvailableModels() => OllamaService.loadAvailableModels();
-
-  @override
-  Future<void> getLastUserSelectedModel() => OllamaService.getLastUserSelectedModel();
-
-  @override
-  Future<void> saveSelectedModel(String model) => OllamaService.saveSelectedModel(model);
-
-  @override
-  Future<List<int>?> loadConversationContext() => OllamaService.loadConversationContext();
-
-  @override
-  Future<void> saveConversationContext(List<int>? context) => OllamaService.saveConversationContext(context);
-
-  @override
-  Future<List<ChatMessage>> loadChatHistory() => OllamaService.loadChatHistory();
-
-  @override
-  Future<void> saveChatHistory(List<ChatMessage> chatHistory) => OllamaService.saveChatHistory(chatHistory);
-
-  @override
-  Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) => OllamaService.sendPayload(payload);
-
-  @override
-  Future<OllamaStatus> checkOllamaStatus() => OllamaService.checkOllamaStatus();
-}
-
-/// State for view ai.
-class ViewAIState extends ViewWidgetState<ViewAI> {
-  /// Service instance to use (defaults to static implementation but can be injected for testing)
-  late OllamaServiceInterface _ollamaService;
-
+class _ViewAIState extends ViewWidgetState<ViewAI> {
   /// Whether Ollama AI service is installed on the system.
   bool _isOllamaInstalled = false;
 
@@ -306,17 +187,16 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
   @override
   void initState() {
     super.initState();
-    _ollamaService = widget.ollamaService ?? OllamaServiceImpl();
     _restorePromptDraft();
     _restorePromptAccountSelection();
     _textController.addListener(_onPromptDraftChanged);
 
     // Load the selected model from preferences first
-    _ollamaService.getLastUserSelectedModel().then((_) async {
+    OllamaService.getLastUserSelectedModel().then((_) async {
       try {
         // Load conversation context and chat history for the selected model
-        _conversationContext = await _ollamaService.loadConversationContext();
-        _chatHistory = await _ollamaService.loadChatHistory();
+        _conversationContext = await OllamaService.loadConversationContext();
+        _chatHistory = await OllamaService.loadChatHistory();
       } catch (e) {
         // Handle errors gracefully by using empty/default values
         _conversationContext = null;
@@ -358,15 +238,15 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
     final int contextTokensCount = _conversationContext?.length ?? 0;
 
     return ViewAiHeader(
-      availableModels: _ollamaService.availableModels,
-      selectedModel: _ollamaService.selectedModel,
+      availableModels: OllamaService.availableModels,
+      selectedModel: OllamaService.selectedModel,
       onModelSelected: (String selectedModel) async {
         setState(() {}); // Refresh to update the selected model display
-        _ollamaService.selectedModel = selectedModel;
-        await _ollamaService.saveSelectedModel(selectedModel);
+        OllamaService.selectedModel = selectedModel;
+        await OllamaService.saveSelectedModel(selectedModel);
         // Load context and chat history for the new model
-        _conversationContext = await _ollamaService.loadConversationContext();
-        _chatHistory = await _ollamaService.loadChatHistory();
+        _conversationContext = await OllamaService.loadConversationContext();
+        _chatHistory = await OllamaService.loadChatHistory();
       },
       onClearChat: () async {
         setState(() {
@@ -374,8 +254,8 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
           _conversationContext = null;
         });
         // Save the cleared context and chat history
-        await _ollamaService.saveConversationContext(null);
-        await _ollamaService.saveChatHistory(<ChatMessage>[]);
+        await OllamaService.saveConversationContext(null);
+        await OllamaService.saveChatHistory(<ChatMessage>[]);
       },
       questionCount: questionCount,
       contextTokensCount: contextTokensCount,
@@ -408,7 +288,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
       return ViewAIInstructions(
         isOllamaInstalled: _isOllamaInstalled,
         isOllamaRunning: _isOllamaRunning,
-        onInstall: () => _ollamaService.installOllama(),
+        onInstall: () => OllamaService.installOllama(),
         onCheckStatus: _checkOllamaStatus,
       );
     }
@@ -427,7 +307,7 @@ class ViewAIState extends ViewWidgetState<ViewAI> {
             onCancel: () async {
               _cancelled = true;
               _appendChatHistory(AppL10n.tr(AppTranslationKeys.requestWasCancelled), ChatFrom.ai);
-              await _ollamaService.saveChatHistory(_chatHistory);
+              await OllamaService.saveChatHistory(_chatHistory);
               setState(() {
                 _isProcessingPrompt = false;
               });
@@ -484,7 +364,7 @@ Guidelines:
 Answer the question:''';
 
     final Map<String, dynamic> payload = <String, dynamic>{
-      'model': _ollamaService.selectedModel,
+      'model': OllamaService.selectedModel,
       'messages': <Map<String, String>>[
         <String, String>{
           'role': SharedStrings.payloadRoleUser,
@@ -501,7 +381,7 @@ Answer the question:''';
 
     // Add user message to chat history
     _appendChatHistory(fullPrompt, ChatFrom.user, payload);
-    await _ollamaService.saveChatHistory(_chatHistory);
+    await OllamaService.saveChatHistory(_chatHistory);
     setState(() {
       _isProcessingPrompt = true;
     });
@@ -511,7 +391,7 @@ Answer the question:''';
         return;
       }
 
-      final Map<String, dynamic> jsonResponse = await _ollamaService.sendPayload(payload);
+      final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
 
       if (_cancelled) {
         return;
@@ -524,7 +404,7 @@ Answer the question:''';
         if (jsonResponse.containsKey(SharedStrings.payloadKeyContext)) {
           _conversationContext = (jsonResponse[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
           // Save updated context to persistent storage
-          await _ollamaService.saveConversationContext(_conversationContext);
+          await OllamaService.saveConversationContext(_conversationContext);
         }
 
         if (!_cancelled) {
@@ -533,12 +413,12 @@ Answer the question:''';
             _isProcessingPrompt = false;
           });
           // Save updated chat history
-          await _ollamaService.saveChatHistory(_chatHistory);
+          await OllamaService.saveChatHistory(_chatHistory);
         }
       } else {
         if (!_cancelled) {
           _appendChatHistory(AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), ChatFrom.ai);
-          await _ollamaService.saveChatHistory(_chatHistory);
+          await OllamaService.saveChatHistory(_chatHistory);
           setState(() {
             _isProcessingPrompt = false;
           });
@@ -553,7 +433,7 @@ Answer the question:''';
           ),
           ChatFrom.ai,
         );
-        await _ollamaService.saveChatHistory(_chatHistory);
+        await OllamaService.saveChatHistory(_chatHistory);
         setState(() {
           _isProcessingPrompt = false;
         });
@@ -740,7 +620,7 @@ Answer the question:''';
     setState(() => _isChecking = true);
 
     try {
-      final OllamaStatus status = await _ollamaService.checkOllamaStatus();
+      final OllamaStatus status = await OllamaService.checkOllamaStatus();
       _isOllamaInstalled = status.isInstalled;
       _isOllamaRunning = status.isRunning;
     } catch (e) {

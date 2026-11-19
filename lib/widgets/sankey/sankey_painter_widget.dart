@@ -80,16 +80,8 @@ class _SankeyPainter extends CustomPainter {
 
     double verticalStackOfTargets = topOfCenters;
 
-    final double totalIncome = leftEntries.fold(
-      0.00,
-      (double sum, SanKeyEntry item) => sum + item.value,
-    );
-    final double totalExpense = rightEntries
-        .fold(
-          0.00,
-          (double sum, SanKeyEntry item) => sum + item.value,
-        )
-        .abs();
+    final double totalIncome = sumValue(leftEntries);
+    final double totalExpense = sumValue(rightEntries).abs();
 
     final double bestHeightForIncomeBlock = compactView ? _incomeBlockHeightCompact : _incomeBlockHeightRegular;
 

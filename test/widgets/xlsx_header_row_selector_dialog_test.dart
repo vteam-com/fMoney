@@ -2,6 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/widgets/dialogs/xlsx_header_row_selector_dialog.dart';
 
+/// Returns the row index currently selected in the shown header row selector dialog.
+int? selectedRowIndex(WidgetTester tester) => tester.widget<RadioGroup<int>>(find.byType(RadioGroup<int>)).groupValue;
+
 void main() {
   group('XlsxHeaderRowSelectorDialog', () {
     testWidgets('filters out rows with less than 3 columns and shows message when none qualify', (
@@ -134,10 +137,10 @@ void main() {
     });
 
     testWidgets('falls back to first eligible row when no good matches found', (WidgetTester tester) async {
-      // Test rows with no financial headers
+      // Test rows with no financial headers ('Price' would count as an amount, like in the column mapper)
       final List<List<String>> testRows = <List<String>>[
         <String>['Name', 'Address', 'Phone'], // row 1: no financial keywords
-        <String>['Product', 'Category', 'Price'], // row 2: no strong financial match
+        <String>['Product', 'Category', 'Size'], // row 2: no financial keywords
       ];
 
       await tester.pumpWidget(
@@ -160,6 +163,34 @@ void main() {
         ),
       );
       expect(radioForRow1.value, 0);
+      expect(selectedRowIndex(tester), 0);
+    });
+
+    testWidgets('does not count a balance column as an amount, like the column mapper', (WidgetTester tester) async {
+      final List<List<String>> testRows = <List<String>>[
+        <String>['Date', 'Description', 'Balance'], // row 1: no amount column
+        <String>['Date', 'Description', 'Amount'], // row 2: mappable header row
+      ];
+
+      await tester.pumpWidget(const MaterialApp(home: Scaffold()));
+      showXlsxHeaderRowSelectorDialog(context: tester.element(find.byType(Scaffold)), rows: testRows);
+      await tester.pumpAndSettle();
+
+      expect(selectedRowIndex(tester), 1);
+    });
+
+    testWidgets('selects a Portuguese header row', (WidgetTester tester) async {
+      final List<List<String>> testRows = <List<String>>[
+        <String>['Extrato', 'Conta 123', 'Período'], // row 1: statement title
+        <String>['Data', 'Detalhes', 'Valor', 'Saldo'], // row 2: header row
+        <String>['2024-01-15', 'Café', '-5,00', '100,00'], // row 3: data
+      ];
+
+      await tester.pumpWidget(const MaterialApp(home: Scaffold()));
+      showXlsxHeaderRowSelectorDialog(context: tester.element(find.byType(Scaffold)), rows: testRows);
+      await tester.pumpAndSettle();
+
+      expect(selectedRowIndex(tester), 1);
     });
 
     testWidgets('prioritizes rows with 3-5 columns for financial data', (WidgetTester tester) async {

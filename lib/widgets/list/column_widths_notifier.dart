@@ -1,4 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'dart:math';
+
+import 'package:flutter/widgets.dart';
 import 'package:money/data/models/field_model.dart';
 
 /// Width of the drag-handle zone between resizable columns, in logical pixels.
@@ -6,6 +8,38 @@ const double columnResizeHandleWidth = 6;
 
 /// Minimum pixel width for any single resizable column.
 const double minimumColumnWidth = 64;
+
+/// Lays out the visible (non-hidden) columns of [fields] across a row [maxWidth] pixels wide.
+///
+/// One [columnResizeHandleWidth] gap is reserved between each pair of visible
+/// columns and the remaining content width is shared out by [ratios]; a column
+/// without a matching ratio gets zero width. Returns, in order, [buildCell] for
+/// each visible field and [buildGap] between neighbouring cells, so header, body
+/// and footer rows built from the same inputs stay aligned.
+List<Widget> buildVisibleColumnCells({
+  required FieldDefinitions fields,
+  required List<double> ratios,
+  required double maxWidth,
+  required Widget Function(int fieldIndex, double width) buildCell,
+  required Widget Function(int leftColumnPosition, double contentWidth) buildGap,
+}) {
+  final List<int> visibleFieldIndexes = <int>[
+    for (int i = 0; i < fields.length; i++)
+      if (fields[i].columnWidth != ColumnWidth.hidden) i,
+  ];
+  final double contentWidth = max(0, maxWidth - (visibleFieldIndexes.length - 1) * columnResizeHandleWidth);
+
+  final List<Widget> cells = <Widget>[];
+  for (int position = 0; position < visibleFieldIndexes.length; position++) {
+    if (position > 0) {
+      cells.add(buildGap(position - 1, contentWidth));
+    }
+    cells.add(
+      buildCell(visibleFieldIndexes[position], position < ratios.length ? contentWidth * ratios[position] : 0),
+    );
+  }
+  return cells;
+}
 
 /// Shared mutable column-width ratios for synchronized header and body resizing.
 ///

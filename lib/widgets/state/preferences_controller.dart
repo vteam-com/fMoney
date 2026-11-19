@@ -1,16 +1,20 @@
 // ignore: fcheck_dead_code
 import 'package:flutter/widgets.dart';
 import 'package:money/data/models/data_access_model.dart';
-import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
+import 'package:money/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const int _defaultCashflowRecurringOccurrences = 12;
 const int _defaultNetWorthEventThreshold = 5;
+
+/// Preference key of [PreferenceController.netWorthEventThreshold].
+const String _settingKeyNetWorthEventThreshold = 'keyNetWorthEventThreshold';
+const String _settingKeyTrendIncludeAssetAccounts = 'keyTrendIncludeAssetAccounts';
 
 /// Controller for managing application preferences and settings.
 /// Handles:
@@ -104,25 +108,6 @@ class PreferenceController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Side panel helper methods to reduce duplication
-  /// Returns the side panel sort field preference key.
-  int getSidePanelSortBy() => getInt('$settingKeySidePanel$settingKeySortBy', 0);
-
-  /// Sets the side panel sort field preference value.
-  void setSidePanelSortBy(int value) => setInt('$settingKeySidePanel$settingKeySortBy', value);
-
-  /// Returns the side panel sort ascending preference.
-  bool getSidePanelSortAscending() => getBool('$settingKeySidePanel$settingKeySortAscending', true);
-
-  /// Sets the side panel sort ascending preference.
-  void setSidePanelSortAscending(bool value) => setBool('$settingKeySidePanel$settingKeySortAscending', value);
-
-  /// Returns the side panel selected item ID preference.
-  int getSidePanelSelectedItemId() => getInt('$settingKeySidePanel$settingKeySelectedListItemId', -1);
-
-  /// Sets the side panel selected item ID preference.
-  void setSidePanelSelectedItemId(int value) => setInt('$settingKeySidePanel$settingKeySelectedListItemId', value);
-
   //////////////////////////////////////////////////////
   // Persistable user preference
 
@@ -167,16 +152,13 @@ class PreferenceController extends ChangeNotifier {
   /// Stock quote API Key
   String get apiKeyForStocks => _apiKeyForStocks;
 
-  /// Returns the persisted app locale code (`en`, `es`, or `fr`).
+  /// Returns the persisted app locale code, one of [AppLocalizations.supportedLocales].
   String get localeCode => _localeCode;
 
-  /// Sets app locale, persists it.
+  /// Sets app locale, persists it; unsupported codes fall back to English.
   set localeCode(String value) {
-    final String sanitized = switch (value) {
-      'es' => 'es',
-      'fr' => 'fr',
-      _ => SharedStrings.localeCodeEnglish,
-    };
+    final bool isSupported = AppLocalizations.supportedLocales.any((Locale locale) => locale.languageCode == value);
+    final String sanitized = isSupported ? value : SharedStrings.localeCodeEnglish;
     _localeCode = sanitized;
     setString(settingKeyLocale, sanitized);
     notifyListeners();
@@ -327,6 +309,8 @@ class PreferenceController extends ChangeNotifier {
       settingKeyCashflowRecurringOccurrences,
       _defaultCashflowRecurringOccurrences,
     );
+    netWorthEventThreshold = getInt(_settingKeyNetWorthEventThreshold, _defaultNetWorthEventThreshold);
+    trendIncludeAssetAccounts = getBool(_settingKeyTrendIncludeAssetAccounts, false);
   }
 
   // Remove a value from preferences
@@ -415,15 +399,17 @@ class PreferenceController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Sets the net worth chart anomaly threshold.
+  /// Sets the net worth chart anomaly threshold and persists it.
   void setNetWorthEventThreshold(int value) {
     netWorthEventThreshold = value;
+    setInt(_settingKeyNetWorthEventThreshold, value);
     notifyListeners();
   }
 
   /// Sets whether asset accounts are included in trend mode.
   void setTrendIncludeAssetAccounts(bool value) {
     trendIncludeAssetAccounts = value;
+    setBool(_settingKeyTrendIncludeAssetAccounts, value);
     notifyListeners();
   }
 
@@ -439,24 +425,4 @@ class PreferenceController extends ChangeNotifier {
 
   /// Returns the singleton PreferenceController instance.
   static PreferenceController get to => instance ??= PreferenceController();
-}
-
-/// Navigation helpers
-
-Future<void> switchViewTransactionForPayee(String payeeName) async {
-  final FieldFilters fieldFilters = FieldFilters();
-  fieldFilters.add(
-    FieldFilter(
-      fieldName: Constants.viewTransactionFieldNamePayee,
-      strings: <String>[payeeName],
-    ),
-  );
-
-  await PreferenceController.to.setString(
-    ViewId.viewTransactions.getViewPreferenceId(settingKeyFiltersColumns),
-    fieldFilters.toJsonString(),
-  );
-
-  // Switch view
-  PreferenceController.to.setView(ViewId.viewTransactions);
 }

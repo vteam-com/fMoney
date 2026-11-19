@@ -3,12 +3,12 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 
-/// Wraps action buttons in a row with end alignment.
+/// Lays out dialog action buttons in an end-aligned row that stacks them, still end-aligned, when they do not fit.
 Widget dialogActionButtons(List<Widget> actionsButtons) {
-  return Wrap(
-    alignment: WrapAlignment.end,
-    spacing: SizeForPadding.medium,
-    runSpacing: SizeForPadding.medium,
+  return OverflowBar(
+    alignment: MainAxisAlignment.end,
+    spacing: SizeForPadding.normal,
+    overflowAlignment: OverflowBarAlignment.end,
     children: actionsButtons,
   );
 }
@@ -87,13 +87,14 @@ Widget buildDeleteButton(void Function() callback) => _keyedIconButton(
   onPressed: callback,
 );
 
-/// Builds an IconButton for copying selected items to clipboard with a key.
+/// Builds an IconButton for copying to the clipboard with a [key] and a [tooltip] (by default "Copy list to clipboard").
 Widget buildCopyButton(
   void Function() callback, [
   Key key = Constants.keyCopyListToClipboardHeaderMain,
+  String? tooltip,
 ]) => _keyedIconButton(
   key: key,
   icon: Icons.copy_all,
-  tooltip: AppL10n.tr(AppTranslationKeys.copyListToClipboard),
+  tooltip: tooltip ?? AppL10n.tr(AppTranslationKeys.copyListToClipboard),
   onPressed: callback,
 );

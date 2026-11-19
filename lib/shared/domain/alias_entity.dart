@@ -139,38 +139,32 @@ class Alias extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Alias> _fields = Fields<Alias>();
-  static final Fields<Alias> _fieldsForColumns = Fields<Alias>();
-  static final List<FieldBlueprint<Alias>> _fieldBlueprints = <FieldBlueprint<Alias>>[
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldId),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId),
-  ];
+  static final FieldDefinitionCache<Alias> _fieldDefinitionCache = FieldDefinitionCache<Alias>(
+    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Alias>>[
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldId),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId),
+    ],
+  );
 
   /// Columns of the Aliases view: the payee first, so its patterns read together under it.
-  static final List<FieldBlueprint<Alias>> _columnBlueprints = <FieldBlueprint<Alias>>[
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId, includeInColumnView: true),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern, includeInColumnView: true),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags, includeInColumnView: true),
-    FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPatternCount, includeInColumnView: true),
-  ];
+  static final FieldDefinitionCache<Alias> _columnDefinitionCache = FieldDefinitionCache<Alias>(
+    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<Alias>>[
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPayeeId, includeInColumnView: true),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPattern, includeInColumnView: true),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldFlags, includeInColumnView: true),
+      FieldBlueprint<Alias>(selector: (Alias tmp) => tmp.fieldPatternCount, includeInColumnView: true),
+    ],
+  );
 
   /// Returns the field definitions for Alias entities.
-  static Fields<Alias> get fields => ensureCachedFieldDefinitionsFromBlueprints<Alias>(
-    cache: _fields,
-    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Alias> get fields => _fieldDefinitionCache.fields;
 
   /// Returns the field definitions for Alias column view.
-  static Fields<Alias> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Alias>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Alias._fromJsonStatic(<String, dynamic>{}),
-    blueprints: _columnBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Alias> get fieldsForColumnView => _columnDefinitionCache.fieldsForColumnView;
 
   /// Checks if the given [text] matches this alias, the way MyMoney.Net does:
   /// a regex must cover the whole text, a plain pattern must equal it ignoring case.

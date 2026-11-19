@@ -1,7 +1,5 @@
 import 'package:money/data/helpers/category_type_helper.dart';
 import 'package:money/data/models/data_object_model.dart';
-import 'package:money/data/models/field_filter_model.dart';
-import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -12,32 +10,35 @@ import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
-import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/panels/charts/transaction_timeline_chart.dart';
 import 'package:money/views/panels/dialogs/merge_categories_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
+import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
-import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 
-const int _zeroIndex = 0;
-const int _pivotIndexNone = 0;
-const int _pivotIndexExpense = 1;
-const int _pivotIndexIncome = 2;
-const int _pivotIndexSaving = 3;
-const int _pivotIndexInvestment = 4;
-const int _unsetId = -1;
 const double _zeroDouble = 0.0;
-const double _toggleMinHeight = 40.0;
-const double _toggleMinWidth = 100.0;
-const double _headerPadding = 5.0;
-const double _toggleRadius = 8.0;
 const int _chartMaxItems = 10;
+
+/// Pivot toggles in order: widget key, label translation key and the category types listed (all when empty).
+const List<(Key, String, List<CategoryType>)> _pivots = <(Key, String, List<CategoryType>)>[
+  (Key('key_toggle_show_none'), AppTranslationKeys.noneLabel, <CategoryType>[CategoryType.none]),
+  (
+    Key('key_toggle_show_expenses'),
+    AppTranslationKeys.expenseLabel,
+    <CategoryType>[CategoryType.expense, CategoryType.recurringExpense],
+  ),
+  (Key('key_toggle_show_income'), AppTranslationKeys.incomeLabel, <CategoryType>[CategoryType.income]),
+  (Key('key_toggle_show_saving'), AppTranslationKeys.savingLabel, <CategoryType>[CategoryType.saving]),
+  (Key('key_toggle_show_investments'), AppTranslationKeys.investment, <CategoryType>[CategoryType.investment]),
+  (Key('key_toggle_show_all'), AppTranslationKeys.allLabel, <CategoryType>[]),
+];
 
 /// Represents view categories.
 class ViewCategories extends ViewForMoneyObjects {
@@ -47,12 +48,11 @@ class ViewCategories extends ViewForMoneyObjects {
   State<ViewForMoneyObjects> createState() => _ViewCategoriesState();
 }
 
-class _ViewCategoriesState extends ViewForMoneyObjectsState {
+class _ViewCategoriesState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewCategoriesState() {
     viewId = ViewId.viewCategories;
   }
 
-  final List<Widget> _pivots = <Widget>[];
   final List<bool> _selectedPivot = <bool>[
     false,
     false,
@@ -61,6 +61,16 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     false,
     true,
   ];
+
+  @override
+  String get addNewItemTooltip => AppL10n.tr(AppTranslationKeys.addNewCategory);
+
+  /// Creates a category under the selected one, if any.
+  @override
+  DataObject createNewItem() {
+    final Category? currentSelectedCategory = getFirstSelectedItem() as Category?;
+    return Data().categories.addNewCategory(parentId: currentSelectedCategory?.uniqueId ?? -1);
+  }
 
   @override
   Widget buildHeader([Widget? child]) {
@@ -72,33 +82,6 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
   List<Widget> getActionsButtons(bool forSidePanelTransactions) {
     final List<Widget> list = super.getActionsButtons(forSidePanelTransactions);
     if (!forSidePanelTransactions) {
-      // Add a new Category, place this at the top of the list
-      list.insert(
-        _zeroIndex,
-        buildAddItemButton(() {
-          // add a new Category
-          final Category? currentSelectedCategory = getFirstSelectedItem() as Category?;
-          final Category newItem = Data().categories.addNewCategory(
-            parentId: currentSelectedCategory?.uniqueId ?? _unsetId,
-          );
-          updateListAndSelect(newItem.uniqueId);
-
-          // Queue up the edit dialog
-          myShowDialogAndActionsForMoneyObject(
-            title: AppL10n.tr(
-              AppTranslationKeys.newItemLabel,
-              params: <String, String>{'item': getClassNameSingular()},
-            ),
-            moneyObject: newItem,
-            onApplyChange: () {
-              setState(() {
-                /// update
-              });
-            },
-          );
-        }, AppL10n.tr(AppTranslationKeys.addNewCategory)),
-      );
-
       /// Merge
       final DataObject? moneyObject = getFirstSelectedItem();
       if (moneyObject != null) {
@@ -120,19 +103,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
       // this can go last
       final Category? category = getFirstSelectedItem() as Category?;
       if (category != null) {
-        list.add(
-          buildJumpToButton(context, <MenuEntry>[
-            MenuEntry.toTransactions(
-              transactionId: _unsetId,
-              filters: FieldFilters(<FieldFilter>[
-                FieldFilter(
-                  fieldName: Constants.viewTransactionFieldNameCategory,
-                  strings: <String>[category.uniqueId.toString()],
-                ),
-              ]),
-            ),
-          ]),
-        );
+        list.add(buildJumpToButton(context, <MenuEntry>[MenuEntry.toTransactionsOfCategory(category: category)]));
       }
     }
     return list;
@@ -180,129 +151,32 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
     return SidePanelSupport(
       onDetails: getSidePanelViewDetails,
       onChart: _getSubViewContentForChart,
-      onTransactions: _getSubViewContentForTransactions,
+      onTransactions: getSidePanelViewTransactions,
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_none'),
-        text1: AppL10n.tr(AppTranslationKeys.noneLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.none]),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_expenses'),
-        text1: AppL10n.tr(AppTranslationKeys.expenseLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[
-            CategoryType.expense,
-            CategoryType.recurringExpense,
-          ]),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_income'),
-        text1: AppL10n.tr(AppTranslationKeys.incomeLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.income]),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_saving'),
-        text1: AppL10n.tr(AppTranslationKeys.savingLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.saving]),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_investments'),
-        text1: AppL10n.tr(AppTranslationKeys.investment),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[CategoryType.investment]),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_all'),
-        text1: AppL10n.tr(AppTranslationKeys.allLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          _getTotalBalanceOfAccounts(<CategoryType>[]),
-        ),
-      ),
-    );
-  }
-
-  /// Builds the horizontal toggle row used to filter categories by type.
+  /// Builds the horizontal toggle row used to filter categories by type, each with the sum of its categories.
   Widget _buildToggles() {
     return buildStandardPivotToggleRow(
       selectedPivot: _selectedPivot,
-      pivotChildren: _pivots,
-      padding: const EdgeInsets.only(bottom: _headerPadding),
-      borderRadius: const BorderRadius.all(Radius.circular(_toggleRadius)),
-      minHeight: _toggleMinHeight,
-      minWidth: _toggleMinWidth,
+      pivots: <(Key?, String, String)>[
+        for (final (Key key, String labelKey, List<CategoryType> types) in _pivots)
+          (key, AppL10n.tr(labelKey), getAmountAsStringUsingCurrency(_getTotalBalanceOfCategories(types))),
+      ],
     );
   }
 
-  /// Returns the selected category type filter based on the current pivot toggle.
-  List<CategoryType> _getSelectedCategoryType() {
-    if (_selectedPivot[_pivotIndexNone]) {
-      return <CategoryType>[CategoryType.none];
-    }
-    if (_selectedPivot[_pivotIndexExpense]) {
-      return <CategoryType>[
-        CategoryType.expense,
-        CategoryType.recurringExpense,
-      ];
-    }
-    if (_selectedPivot[_pivotIndexIncome]) {
-      return <CategoryType>[CategoryType.income];
-    }
-    if (_selectedPivot[_pivotIndexSaving]) {
-      return <CategoryType>[CategoryType.saving];
-    }
-    if (_selectedPivot[_pivotIndexInvestment]) {
-      return <CategoryType>[CategoryType.investment];
-    }
+  /// Returns the category types listed by the selected pivot toggle; all when empty.
+  List<CategoryType> _getSelectedCategoryType() => _pivots[_selectedPivot.indexOf(true)].$3;
 
-    return <CategoryType>[]; // all
-  }
-
-  /// Sums balances across the currently listed categories, optionally filtered by type.
-  double _getTotalBalanceOfAccounts(List<CategoryType> types) {
+  /// Sums the categories of [types] (all when empty) matching the view filters.
+  double _getTotalBalanceOfCategories(List<CategoryType> types) {
     double total = _zeroDouble;
-    getList().forEach((Category category) {
-      if (types.isEmpty || types.contains(category.fieldType.value)) {
+    for (final Category category in Data().categories.iterableList()) {
+      if ((types.isEmpty || types.contains(category.fieldType.value)) && isMatchingFilters(category)) {
         total += category.fieldSum.value.asDouble();
       }
-    });
+    }
     return total;
   }
 
@@ -315,11 +189,7 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
       list,
     );
     if (category != null) {
-      final List<int> listOfDescendentCategories = <int>[];
-      Data().categories.getTreeIdsRecursive(
-        category.uniqueId,
-        listOfDescendentCategories,
-      );
+      final List<int> listOfDescendentCategories = Data().categories.getTreeIds(category.uniqueId);
       return getTransactions(
         flattenSplits: true,
         filter: (Transaction transaction) => listOfDescendentCategories.contains(transaction.fieldCategoryId.value),
@@ -364,15 +234,6 @@ class _ViewCategoriesState extends ViewForMoneyObjectsState {
         transactions: _getTransactionsFromSelectedIds(selectedIds),
       );
     }
-  }
-
-  // Details Panel for Transactions Categories
-  Widget _getSubViewContentForTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(selectedIds, showAsNativeCurrency);
-    return buildSidePanelTransactionsList();
   }
 
   @override

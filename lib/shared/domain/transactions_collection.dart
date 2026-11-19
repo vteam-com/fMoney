@@ -32,19 +32,10 @@ class Transactions extends MoneyObjects<Transaction> {
 
   DateRange dateRangeActiveAccount = DateRange();
   DateRange dateRangeIncludingClosedAccount = DateRange();
-  double runningBalance = _zeroDouble;
 
   @override
-  void loadFromJson(List<MyJson> rows) {
-    clear();
-
-    runningBalance = _zeroDouble;
-
-    for (final MyJson row in rows) {
-      final Transaction t = Transaction.fromJSon(row, runningBalance, data: data);
-      runningBalance += t.balance;
-      appendMoneyObject(t);
-    }
+  Transaction instanceFromJson(MyJson json) {
+    return Transaction.fromJSon(json, _zeroDouble, data: data);
   }
 
   /// Now that everything is loaded, adjust relation between MoneyObjects
@@ -227,7 +218,12 @@ class Transactions extends MoneyObjects<Transaction> {
     String fitid = '',
     Set<Object> excluded = const <Object>{},
   }) {
-    const List<String> generatedFitidPrefixes = <String>['csv_row_', 'xlsx_row_', 'investment_csv_'];
+    // 'xlsx_row_' is no longer generated but may still be stored in older files.
+    const List<String> generatedFitidPrefixes = <String>[
+      SharedStrings.fitidPrefixCsvRow,
+      'xlsx_row_',
+      '${SharedStrings.importTypeInvestmentCsv}_',
+    ];
 
     /// Returns [value] when it is a bank-issued FITID, otherwise an empty string.
     String bankFitid(String value) =>
@@ -338,6 +334,17 @@ class Transactions extends MoneyObjects<Transaction> {
       iterableList().where((Transaction t) => whereClause == null || whereClause(t)),
     );
   }
+
+  /// Returns the transactions dated from [minYear] to [maxYear] (inclusive) that are not pending
+  /// deletion and match [where] when given, with each split transaction listed as its split lines.
+  List<Transaction> getListFlattenSplitsInYearRange({
+    required int minYear,
+    required int maxYear,
+    bool Function(Transaction)? where,
+  }) => getListFlattenSplits(
+    whereClause: (Transaction t) =>
+        isBetweenOrEqual(t.fieldDateTime.value!.year, minYear, maxYear) && (where == null || where(t)),
+  );
 
   /// Filters transactions within a year range and optional income/expense.
   Iterable<Transaction> transactionInYearRange({

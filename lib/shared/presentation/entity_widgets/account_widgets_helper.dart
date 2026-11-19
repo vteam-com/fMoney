@@ -47,14 +47,13 @@ Widget buildAccountSmallScreenWidget(Account account) {
       account.fieldCurrency.value,
     );
   } else {
-    final double ratioCurrency = account.getCurrencyRatio();
     originalCurrencyAndValue = Tooltip(
-      message: ratioCurrency.toString(),
+      message: account.getCurrencyRatio().toString(),
       child: Row(
         children: <Widget>[
           Text(
             getAmountAsStringUsingCurrency(
-              account.balance / ratioCurrency,
+              account.balance,
               iso4217code: account.fieldCurrency.value,
             ),
           ),
@@ -68,7 +67,7 @@ Widget buildAccountSmallScreenWidget(Account account) {
   return MyListItemAsCard(
     leftTopAsString: account.fieldName.value,
     leftBottomAsString: getTypeAsText(account.fieldType.value),
-    rightTopAsString: getAmountAsStringUsingCurrency(account.balance),
+    rightTopAsString: getAmountAsStringUsingCurrency(account.toNormalized(account.balance)),
     rightBottomAsWidget: originalCurrencyAndValue,
   );
 }

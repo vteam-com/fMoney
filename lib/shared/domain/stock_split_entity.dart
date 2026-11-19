@@ -107,21 +107,17 @@ class StockSplit extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<StockSplit> _fields = Fields<StockSplit>();
-
-  /// Builds [StockSplit] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(StockSplit tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldDate,
-    tmp.fieldSecurity,
-    tmp.fieldNumerator,
-    tmp.fieldDenominator,
-  ];
+  static final FieldDefinitionCache<StockSplit> _fieldDefinitionCache = FieldDefinitionCache<StockSplit>(
+    instanceFactory: () => StockSplit._static(date: null, security: -1, numerator: 1, denominator: 1),
+    blueprints: <FieldBlueprint<StockSplit>>[
+      FieldBlueprint<StockSplit>(selector: (StockSplit tmp) => tmp.fieldId),
+      FieldBlueprint<StockSplit>(selector: (StockSplit tmp) => tmp.fieldDate),
+      FieldBlueprint<StockSplit>(selector: (StockSplit tmp) => tmp.fieldSecurity),
+      FieldBlueprint<StockSplit>(selector: (StockSplit tmp) => tmp.fieldNumerator),
+      FieldBlueprint<StockSplit>(selector: (StockSplit tmp) => tmp.fieldDenominator),
+    ],
+  );
 
   /// Returns the field definitions for StockSplit entities.
-  static Fields<StockSplit> get fields => ensureCachedFieldDefinitions<StockSplit>(
-    cache: _fields,
-    instanceFactory: () => StockSplit._static(date: null, security: -1, numerator: 1, denominator: 1),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<StockSplit> get fields => _fieldDefinitionCache.fields;
 }

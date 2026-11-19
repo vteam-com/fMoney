@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs_model.dart';
 
 void main() {
@@ -64,35 +63,6 @@ void main() {
     });
   });
 
-  group('convertToPercentages', () {
-    test('handles division by zero correctly', () {
-      final List<PairStringDouble> pairs = <PairStringDouble>[
-        PairStringDouble(key: 'a', value: 0.0),
-        PairStringDouble(key: 'b', value: 0.0),
-        PairStringDouble(key: 'c', value: 0.0),
-      ];
-      final List<PairStringDouble> expected = <PairStringDouble>[
-        PairStringDouble(key: 'a', value: 0.0),
-        PairStringDouble(key: 'b', value: 0.0),
-        PairStringDouble(key: 'c', value: 0.0),
-      ];
-      expect(convertToPercentages(pairs), expected);
-    });
-    test('converts key-value pairs to percentages correctly', () {
-      final List<PairStringDouble> pairs = <PairStringDouble>[
-        PairStringDouble(key: 'a', value: 10.0),
-        PairStringDouble(key: 'b', value: 20.0),
-        PairStringDouble(key: 'c', value: 30.0),
-      ];
-
-      final List<PairStringDouble> result = convertToPercentages(pairs);
-
-      expect(roundDouble(result[0].value, 3), 16.667);
-      expect(roundDouble(result[1].value, 3), 33.333);
-      expect(roundDouble(result[2].value, 3), 50.0);
-    });
-  });
-
   group('getMinMaxValues', () {
     test('returns correct min and max values for non-empty list', () {
       final List<double> list = <double>[3.0, 1.0, 4.0, 1.5, 9.0, 2.6];
@@ -105,6 +75,10 @@ void main() {
 
     test('returns single value for list with one element', () {
       expect(getMinMaxValues(<double>[5.0]), <double>[5.0, 5.0]);
+    });
+
+    test('scans the whole list when the first two values are ascending', () {
+      expect(getMinMaxValues(<double>[1.0, 3.0, 9.0, -2.0]), <double>[-2.0, 9.0]);
     });
   });
 }

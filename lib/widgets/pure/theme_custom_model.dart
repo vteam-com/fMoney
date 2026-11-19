@@ -88,17 +88,8 @@ class MoneyThemeData extends ThemeExtension<MoneyThemeData> {
     }
   }
 
-  /// Returns a color based on whether a numeric value is positive/negative/zero.
-  Color colorBasedOnValue(num value) {
-    if (value > 0) {
-      return success;
-    }
-    if (value < 0) {
-      return error;
-    }
-    // value == 0
-    return disabled;
-  }
+  /// Returns a color based on whether a numeric value is positive/negative/zero (within [isConsideredZero]).
+  Color colorBasedOnValue(num value) => getTextColorToUse(value)!;
 
   /// Returns a text color based on numeric value and optional auto coloring.
   Color? getTextColorToUse(num value, [bool autoColor = true]) {

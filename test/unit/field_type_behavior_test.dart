@@ -186,6 +186,14 @@ void main() {
     });
   });
 
+  group('getReadableValue', () {
+    test('uses reading text when set, else the serialized value', () {
+      final _Item item = _Item('serialized');
+      expect(_fieldReadingItem(FieldType.widget, reading: (DataObject _) => 'read').getReadableValue(item), 'read');
+      expect(_fieldReadingItem(FieldType.widget).getReadableValue(item), 'serialized');
+    });
+  });
+
   group('toReadableString', () {
     test('widget uses reading text, or serialization when there is none', () {
       final _Item item = _Item('display');
@@ -236,11 +244,11 @@ void main() {
       expect(range?.max, DateTime(2021));
     });
 
-    test('widget collects reading text only when available', () {
+    test('widget collects reading text, or the serialization when there is none', () {
       final Field<dynamic> withReading = _fieldReadingItem(FieldType.widget, reading: (DataObject _) => 'r');
       expect(accumulate(withReading, <dynamic>[1]).accumulatorListOfText.getList(withReading), <String>['r']);
       final Field<dynamic> noReading = _fieldReadingItem(FieldType.widget);
-      expect(accumulate(noReading, <dynamic>[1]).accumulatorListOfText.containsKey(noReading), isFalse);
+      expect(accumulate(noReading, <dynamic>[1]).accumulatorListOfText.getList(noReading), <String>['1']);
     });
 
     test('amount sums into the amount accumulator', () {

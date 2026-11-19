@@ -23,7 +23,6 @@ import 'package:money/shared/domain/transaction_split_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 
 const int _unsetId = -1;
-const int _zeroInt = 0;
 const int _oneInt = 1;
 const double _zeroDouble = 0.0;
 
@@ -76,7 +75,11 @@ class Transaction extends DataObject implements MergeableItem {
     t.fieldAccountId.value = json.getInt(SharedDomainStrings.domainString011, _unsetId);
     t.instanceOfAccount = t.data.getAccount(t.fieldAccountId.value) as Account?;
     // 3 Status
-    t.fieldStatus.value = TransactionStatus.values[json.getInt(SharedDomainStrings.domainString128)];
+    t.fieldStatus.value = enumFromIndex(
+      TransactionStatus.values,
+      json.getInt(SharedDomainStrings.domainString128),
+      TransactionStatus.none,
+    );
     // 4 Payee ID
     t.fieldPayee.value = json.getInt(SharedDomainStrings.domainString105, _unsetId);
     // 5 Original Payee
@@ -221,7 +224,7 @@ class Transaction extends DataObject implements MergeableItem {
 
   /// Balance Normalized to USD
   FieldMoney fieldBalanceNormalized = FieldMoney(
-    name: 'Balance(USD)',
+    name: columnIdBalanceNormalized,
     columnWidth: ColumnWidth.small,
     footer: FooterType.range,
     useAsDetailPanels: defaultCallbackValueFalse,
@@ -366,7 +369,7 @@ class Transaction extends DataObject implements MergeableItem {
   /// Payee Id (displayed as Text name of the Payee)
   /// SQLite 4|Payee|INT|0||0
   FieldInt fieldPayee = FieldInt(
-    name: 'Payee/Transfer',
+    name: columnIdPayee,
     serializeName: SharedDomainStrings.domainString105,
     defaultValue: _unsetId,
     type: FieldType.widget,
@@ -379,6 +382,7 @@ class Transaction extends DataObject implements MergeableItem {
       ascending,
     ),
     getValueForDisplay: (DataInterface instance) => (instance as Transaction).getPayeeOrTransferCaption(),
+    getValueForReading: (DataInterface instance) => (instance as Transaction).getPayeeOrTransferCaption(),
     // Matches [sort]: transfers have no payee name, so they file under no letter.
     getJumpBarText: (DataInterface instance) => (instance as Transaction).payeeName,
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldPayee.value,
@@ -520,56 +524,57 @@ class Transaction extends DataObject implements MergeableItem {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<Transaction> _fields = Fields<Transaction>();
-  static final Fields<Transaction> _fieldsForColumns = Fields<Transaction>();
-  static final List<FieldBlueprint<Transaction>> _fieldBlueprints = <FieldBlueprint<Transaction>>[
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldId),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldDateTime,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldAccountId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldNumber,
-      includeInEntity: false,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldPayee,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldOriginalPayee),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldCategoryId,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMemo, includeInColumnView: true),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldNumber),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldReconciledDate),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBudgetBalanceDate),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransfer),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldStatus, includeInColumnView: true),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFitid),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFlags),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldCurrency, includeInColumnView: true),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldSalesTax),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransferSplit),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMergeDate),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldAmount, includeInColumnView: true),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldAmountAsTextNormalized,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBalanceNative),
-    FieldBlueprint<Transaction>(
-      selector: (Transaction tmp) => tmp.fieldBalanceNormalized,
-      includeInColumnView: true,
-    ),
-    FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldPaidOn),
-  ];
+  static final FieldDefinitionCache<Transaction> _fieldDefinitionCache = FieldDefinitionCache<Transaction>(
+    instanceFactory: () => Transaction(date: DateTime.now()),
+    blueprints: <FieldBlueprint<Transaction>>[
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldId),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldDateTime,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldAccountId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldNumber,
+        includeInEntity: false,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldPayee,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldOriginalPayee),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldCategoryId,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMemo, includeInColumnView: true),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldNumber),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldReconciledDate),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBudgetBalanceDate),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransfer),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldStatus, includeInColumnView: true),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFitid),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldFlags),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldCurrency, includeInColumnView: true),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldSalesTax),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldTransferSplit),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldMergeDate),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldAmount, includeInColumnView: true),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldAmountAsTextNormalized,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldBalanceNative),
+      FieldBlueprint<Transaction>(
+        selector: (Transaction tmp) => tmp.fieldBalanceNormalized,
+        includeInColumnView: true,
+      ),
+      FieldBlueprint<Transaction>(selector: (Transaction tmp) => tmp.fieldPaidOn),
+    ],
+  );
 
   /// Returns the display account name for this transaction.
   String get accountName => instanceOfAccount?.fieldName.value ?? SharedDomainStrings.domainString006;
@@ -663,20 +668,10 @@ class Transaction extends DataObject implements MergeableItem {
   String get dateTimeAsString => dateToString(fieldDateTime.value);
 
   /// Returns cached field definitions for entity/detail views.
-  static Fields<Transaction> get fields => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
-    cache: _fields,
-    instanceFactory: () => Transaction(date: DateTime.now()),
-    blueprints: _fieldBlueprints,
-    forColumnView: false,
-  );
+  static Fields<Transaction> get fields => _fieldDefinitionCache.fields;
 
   /// Returns cached field definitions for table/column views.
-  static Fields<Transaction> get fieldsForColumnView => ensureCachedFieldDefinitionsFromBlueprints<Transaction>(
-    cache: _fieldsForColumns,
-    instanceFactory: () => Transaction(date: DateTime.now()),
-    blueprints: _fieldBlueprints,
-    forColumnView: true,
-  );
+  static Fields<Transaction> get fieldsForColumnView => _fieldDefinitionCache.fieldsForColumnView;
 
   /// Returns [nativeValue] converted into normalized/default currency.
   double getNormalizedAmount(double nativeValue) {
@@ -738,6 +733,11 @@ class Transaction extends DataObject implements MergeableItem {
   /// Returns true when this transaction is linked to a transfer.
   bool get isTransfer => fieldTransfer.value != _unsetId;
 
+  /// Returns true when this transaction is paid to or from payee [payeeId].
+  ///
+  /// Transfers never are: older files store the Transfer category id in their payee column.
+  bool isForPayee(int payeeId) => !isTransfer && fieldPayee.value == payeeId;
+
   /// Returns one-line description combining payee/transfer and category.
   String get oneLinePayeeAndDescription {
     return transactionOneLinePayeeAndDescription(this);
@@ -778,22 +778,8 @@ class Transaction extends DataObject implements MergeableItem {
   }
 }
 
-/// Links two transactions as a transfer pair
-void linkTransfer(
-  dynamic transactionSource,
-  dynamic transactionRelated,
-) {
-  (transactionSource as Transaction).instanceOfTransfer = Transfer(
-    id: _zeroInt,
-    source: transactionSource,
-    relatedTransaction: transactionRelated,
-    isOrphan: false,
-  );
-
-  (transactionRelated as Transaction).instanceOfTransfer = Transfer(
-    id: _zeroInt,
-    source: transactionRelated,
-    relatedTransaction: transactionSource,
-    isOrphan: false,
-  );
+/// Links two transactions as a transfer pair: each side gets its own [Transfer] whose source is itself
+/// and whose related transaction is the other side.
+void linkTransfer(Transaction transactionSource, Transaction transactionRelated) {
+  transactionLinkTransferPair(transactionSource, transactionRelated);
 }

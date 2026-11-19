@@ -54,20 +54,16 @@ class AccountAlias extends DataObject {
   @override
   set uniqueId(int value) => fieldId.value = value;
 
-  static final Fields<AccountAlias> _fields = Fields<AccountAlias>();
-
-  /// Builds [AccountAlias] field definitions for cache initialization.
-  static FieldDefinitions _buildFieldDefinitions(AccountAlias tmp) => <Field<dynamic>>[
-    tmp.fieldId,
-    tmp.fieldPattern,
-    tmp.fieldFlags,
-    tmp.fieldAccountId,
-  ];
+  static final FieldDefinitionCache<AccountAlias> _fieldDefinitionCache = FieldDefinitionCache<AccountAlias>(
+    instanceFactory: () => AccountAlias.fromJson(<String, dynamic>{}),
+    blueprints: <FieldBlueprint<AccountAlias>>[
+      FieldBlueprint<AccountAlias>(selector: (AccountAlias tmp) => tmp.fieldId),
+      FieldBlueprint<AccountAlias>(selector: (AccountAlias tmp) => tmp.fieldPattern),
+      FieldBlueprint<AccountAlias>(selector: (AccountAlias tmp) => tmp.fieldFlags),
+      FieldBlueprint<AccountAlias>(selector: (AccountAlias tmp) => tmp.fieldAccountId),
+    ],
+  );
 
   /// Returns the field definitions for AccountAlias entities.
-  static Fields<AccountAlias> get fields => ensureCachedFieldDefinitions<AccountAlias>(
-    cache: _fields,
-    instanceFactory: () => AccountAlias.fromJson(<String, dynamic>{}),
-    definitionsBuilder: _buildFieldDefinitions,
-  );
+  static Fields<AccountAlias> get fields => _fieldDefinitionCache.fields;
 }

@@ -57,4 +57,29 @@ void main() {
       '{"filters":[{"fieldName":"date","strings":["2023-01-01","2023-12-31"],"byDateRange":true}]}',
     );
   });
+
+  test('removeByFieldName drops only the filters of that column', () {
+    final FieldFilters filters = FieldFilters(<FieldFilter>[
+      FieldFilter(fieldName: 'color', strings: <String>['blue']),
+      FieldFilter(fieldName: 'size', strings: <String>['small']),
+      FieldFilter(fieldName: 'color', strings: <String>['red']),
+    ]);
+
+    filters.removeByFieldName('color');
+
+    expect(filters.list.map((FieldFilter filter) => filter.fieldName), <String>['size']);
+  });
+
+  test('isValueSelected follows the column filter, ignoring case, and keeps unfiltered columns selected', () {
+    final FieldFilters filters = FieldFilters(<FieldFilter>[
+      FieldFilter(fieldName: 'color', strings: <String>['Blue']),
+      FieldFilter(fieldName: 'date', strings: <String>['2023-01-01', '2023-12-31'], byDateRange: true),
+    ]);
+
+    expect(filters.isValueSelected('color', 'blue'), isTrue);
+    expect(filters.isValueSelected('color', 'red'), isFalse);
+    expect(filters.isValueSelected('size', 'small'), isTrue);
+    expect(filters.isValueSelected('date', '2023-12-31'), isTrue);
+    expect(filters.isValueSelected('date', '2024-01-01'), isFalse);
+  });
 }

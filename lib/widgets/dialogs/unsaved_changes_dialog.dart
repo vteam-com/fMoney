@@ -1,6 +1,7 @@
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 
 /// What the user chose when asked about unsaved changes.
 enum UnsavedChangesChoice { save, discard, cancel }
@@ -15,14 +16,8 @@ Future<UnsavedChangesChoice> showUnsavedChangesDialog(BuildContext context, int 
       /// Closes the dialog with [result].
       void close(UnsavedChangesChoice result) => Navigator.of(dialogContext).pop(result);
 
-      return AlertDialog(
-        title: Text(AppL10n.tr(AppTranslationKeys.unsavedChanges)),
-        content: Text(
-          AppL10n.tr(
-            AppTranslationKeys.unsavedChangesMessage,
-            params: <String, String>{'count': '$numberOfChanges'},
-          ),
-        ),
+      return MyAlertDialog(
+        title: AppL10n.tr(AppTranslationKeys.unsavedChanges),
         actions: <Widget>[
           DialogActionButton(
             text: AppL10n.tr(AppTranslationKeys.cancel),
@@ -38,6 +33,12 @@ Future<UnsavedChangesChoice> showUnsavedChangesDialog(BuildContext context, int 
             onPressed: () => close(UnsavedChangesChoice.save),
           ),
         ],
+        child: Text(
+          AppL10n.tr(
+            AppTranslationKeys.unsavedChangesMessage,
+            params: <String, String>{'count': '$numberOfChanges'},
+          ),
+        ),
       );
     },
   );

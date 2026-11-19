@@ -4,9 +4,10 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/data/models/ranges_model.dart';
+import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/default_values_helper.dart';
+import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/widgets/widgets_domain/footer_widgets_helper.dart';
 
@@ -15,11 +16,20 @@ const int _sampleLimit = 10;
 /// Represents footer accumulators.
 class FooterAccumulators {
   final AccumulatorDateRange<Field<dynamic>> accumulatorDateRange = AccumulatorDateRange<Field<dynamic>>();
-  final AccumulatorRange<Field<dynamic>> accumulatorNumericRange = AccumulatorRange<Field<dynamic>>();
+  final AccumulatorAverage<Field<dynamic>> accumulatorNumericRange = AccumulatorAverage<Field<dynamic>>();
   final AccumulatorAverage<Field<dynamic>> accumulatorForAverage = AccumulatorAverage<Field<dynamic>>();
   final AccumulatorList<Field<dynamic>, String> accumulatorListOfText = AccumulatorList<Field<dynamic>, String>();
   final AccumulatorSum<Field<dynamic>, double> accumulatorSumAmount = AccumulatorSum<Field<dynamic>, double>();
   final AccumulatorSum<Field<dynamic>, double> accumulatorSumNumber = AccumulatorSum<Field<dynamic>, double>();
+
+  /// List instance the accumulators were last computed for by [recomputeIfChanged].
+  List<DataObject>? _computedForItems;
+
+  /// Data-version stamp the accumulators were last computed for by [recomputeIfChanged].
+  String _computedForVersion = '';
+
+  /// ISO 4217 code shared by every amount of each amount column; the default currency once a column mixes currencies.
+  final Map<Field<dynamic>, String> _currencyOfAmountColumn = <Field<dynamic>, String>{};
 
   /// Allowed  to be overridden by derived class
   /// Use the field FooterType to decide how to render the bottom button of each columns
@@ -36,19 +46,14 @@ class FooterAccumulators {
             field.type == FieldType.quantity) {
           if (accumulatorNumericRange.containsKey(field)) {
             final RunningAverage range = accumulatorNumericRange.getValue(field)!;
-            return getFooterForNumericRange(range, field.type);
+            return getFooterForNumericRange(range, field.type, iso4217code: _currencyOf(field));
           }
         }
       case FooterType.count:
-        List<String> list = <String>[];
-
-        if (accumulatorListOfText.containsKey(field)) {
-          list = accumulatorListOfText.getList(field);
-        } else {
-          if (accumulatorSumNumber.containsKey(field)) {
-            list = accumulatorSumNumber.getValue(field) as List<String>;
-          }
-        }
+        // Count footers only ever accumulate text: numeric columns with a count footer store their values as text.
+        final List<String> list = accumulatorListOfText.containsKey(field)
+            ? accumulatorListOfText.getList(field)
+            : <String>[];
 
         final int count = list.length;
         if (count > 0) {
@@ -73,6 +78,7 @@ class FooterAccumulators {
         if (accumulatorSumAmount.containsKey(field)) {
           widget = getFooterForAmount(
             accumulatorSumAmount.getValue(field) as double,
+            iso4217code: _currencyOf(field),
           );
         } else {
           if (accumulatorSumNumber.containsKey(field)) {
@@ -92,7 +98,7 @@ class FooterAccumulators {
           final double value = range.getAverage();
           final String averagePrefix = AppL10n.tr(AppTranslationKeys.avgLabel);
           final Widget widget = field.type == FieldType.amount
-              ? getFooterForAmount(value, prefix: averagePrefix)
+              ? getFooterForAmount(value, prefix: averagePrefix, iso4217code: _currencyOf(field))
               : getFooterForInt(value, prefix: averagePrefix);
           return Tooltip(
             message: field.type == FieldType.amount ? range.descriptionAsMoney : range.descriptionAsInt,
@@ -115,6 +121,7 @@ class FooterAccumulators {
     accumulatorNumericRange.clear();
     accumulatorDateRange.clear();
     accumulatorListOfText.clear();
+    _currencyOfAmountColumn.clear();
   }
 
   /// Clears and recomputes all footer accumulators from [items] using the
@@ -158,16 +165,16 @@ class FooterAccumulators {
             }
 
           case FieldType.widget:
-            if (field.getValueForReading != null) {
-              accumulatorListOfText.cumulate(
-                field,
-                field.getValueForReading?.call(item)!.toString() ?? '',
-              );
-            }
+            accumulatorListOfText.cumulate(field, field.getReadableValue(item));
 
           case FieldType.amount:
-            final double value = smartToDouble(field.getValueForDisplay(item));
+            final dynamic displayValue = field.getValueForDisplay(item);
+            final double value = smartToDouble(displayValue);
             if (isNumber(value)) {
+              _cumulateCurrency(
+                field,
+                displayValue is AmountModel ? displayValue.iso4217 : Constants.defaultCurrency,
+              );
               accumulatorSumAmount.cumulate(field, value);
               if (field.footer == FooterType.average) {
                 accumulatorForAverage.cumulate(
@@ -220,4 +227,31 @@ class FooterAccumulators {
       }
     }
   }
+
+  /// Recomputes from [items] only when the list instance or the data [version] stamp changed since the last call.
+  ///
+  /// Unrelated rebuilds such as selection changes then skip the full re-scan;
+  /// pass a [version] that changes on every data edit when [items] can be
+  /// edited in place.
+  void recomputeIfChanged({
+    required List<DataObject> items,
+    required FieldDefinitions definitions,
+    String version = '',
+  }) {
+    if (identical(items, _computedForItems) && version == _computedForVersion) {
+      return;
+    }
+    _computedForItems = items;
+    _computedForVersion = version;
+    recompute(items: items, definitions: definitions);
+  }
+
+  /// Records that [field] holds an amount in [iso4217]; a column mixing currencies falls back to the default currency.
+  void _cumulateCurrency(Field<dynamic> field, String iso4217) {
+    final String? known = _currencyOfAmountColumn[field];
+    _currencyOfAmountColumn[field] = known == null || known == iso4217 ? iso4217 : Constants.defaultCurrency;
+  }
+
+  /// Returns the ISO 4217 code to format [field]'s footer amounts with.
+  String _currencyOf(Field<dynamic> field) => _currencyOfAmountColumn[field] ?? Constants.defaultCurrency;
 }

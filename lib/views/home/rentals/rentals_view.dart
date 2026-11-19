@@ -1,8 +1,8 @@
+import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
-import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
@@ -11,10 +11,8 @@ import 'package:money/shared/presentation/widgets/money_object_card_widget.dart'
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/rentals_side_panel.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-
-const double _panelSpacing = 30.0;
-const int _dividerAlpha = 100;
 
 /// Represents view rentals.
 class ViewRentals extends ViewForMoneyObjects {
@@ -70,7 +68,7 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
       onDetails: getSidePanelViewDetails,
       onChart: ViewRentalsSidePanel.getSubViewContentForChart,
       onPnL: ViewRentalsSidePanel.getSubViewContentForPnL,
-      onTransactions: _getSidePanelViewTransactions,
+      onTransactions: getSidePanelViewTransactions,
     );
   }
 
@@ -83,29 +81,10 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
     return ViewRentalsSidePanel.getTransactionLastSelectedItem(item);
   }
 
-  /// Builds the side panel transactions list for the selected rental property.
-  Widget _getSidePanelViewTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(showAsNativeCurrency);
-    if (Data().rentBuildings.get(selectedIds.first) == null) {
-      return Center(child: Text(AppL10n.tr(AppTranslationKeys.rentalPropertyNotFound)));
-    }
-    return buildSidePanelTransactionsList();
-  }
-
+  /// Shows the building's renters next to its card.
   @override
-  Widget getSidePanelViewDetails({required List<int> selectedIds}) {
-    keepUnused(selectedIds);
-    final RentBuilding? selectedItem = getFirstSelectedItem() as RentBuilding?;
-    return buildStandardSidePanelDetailsWrap<RentBuilding>(
-      selectedItem: selectedItem,
-      spacing: _panelSpacing,
-      extraPanels: <Widget>[
-        if (selectedItem != null) buildRenters(context, selectedItem),
-      ],
-    );
+  List<Widget> getSidePanelDetailsExtraPanels(DataObject selectedItem) {
+    return <Widget>[buildRenters(context, selectedItem as RentBuilding)];
   }
 
   /// Builds a renters list for the given building.
@@ -120,26 +99,20 @@ class _ViewRentalsState extends ViewForMoneyObjectsState {
     return buildAdaptiveBox(
       context: context,
       title: AppL10n.tr(AppTranslationKeys.renters),
-      content: ListView.separated(
-        itemCount: rentersInThisBuilding.length,
-        itemBuilder: (BuildContext _, int index) {
-          final RentUnit renter = rentersInThisBuilding[index];
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(renter.fieldName.value),
-              gapLarge(),
-              Expanded(child: Text(renter.fieldRenter.value)),
-              gapLarge(),
-              Text(renter.fieldNote.value),
-            ],
-          );
-        },
-        separatorBuilder: (BuildContext context, int _) => Divider(
-          color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
-        ),
-      ),
       count: rentersInThisBuilding.length,
+      itemBuilder: (BuildContext _, int index) {
+        final RentUnit renter = rentersInThisBuilding[index];
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(renter.fieldName.value),
+            gapLarge(),
+            Expanded(child: Text(renter.fieldRenter.value)),
+            gapLarge(),
+            Text(renter.fieldNote.value),
+          ],
+        );
+      },
     );
   }
 }

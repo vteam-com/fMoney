@@ -6,8 +6,8 @@ import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
-import 'package:money/widgets/dialogs/auto_size_dialog.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 /// The state of a live object when an edit dialog opened, so an abandoned edit can be rolled back.
@@ -61,13 +61,15 @@ class EditSnapshot {
   }
 }
 
-/// Shared content layout for mutation dialogs.
+/// Shared content layout for mutation dialogs: the fields of [moneyObject] above the [actionButtons] row.
+///
+/// [wrapInDialogFrame] puts it in the app's dialog frame ([MyAlertDialog]).
 Widget buildMutationDialogBody({
   required DataObject moneyObject,
   required bool isInEditingMode,
   required void Function(bool) onEdited,
   required List<Widget> actionButtons,
-  bool wrapInDialogAutoSize = true,
+  bool wrapInDialogFrame = true,
 }) {
   final Widget body = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,33 +90,9 @@ Widget buildMutationDialogBody({
     ],
   );
 
-  if (!wrapInDialogAutoSize) {
+  if (!wrapInDialogFrame) {
     return body;
   }
 
-  return DialogAutoSize(child: body);
-}
-
-/// Builds mutation dialog body and tracks modifications by consulting [DataObject.isDataModified].
-Widget buildMutationDialogBodyWithTrackedChanges<T extends DataObject>({
-  required BuildContext context,
-  required T moneyObject,
-  required bool isInEditingMode,
-  required bool dataWasModified,
-  required ValueChanged<bool> setDataWasModified,
-  required List<Widget> Function(BuildContext, T, bool, bool) actionButtonsBuilder,
-}) {
-  return buildMutationDialogBody(
-    moneyObject: moneyObject,
-    isInEditingMode: isInEditingMode,
-    onEdited: (bool wasModified) {
-      setDataWasModified(wasModified || DataObject.isDataModified(moneyObject));
-    },
-    actionButtons: actionButtonsBuilder(
-      context,
-      moneyObject,
-      isInEditingMode,
-      dataWasModified,
-    ),
-  );
+  return MyAlertDialog(title: '', child: body);
 }

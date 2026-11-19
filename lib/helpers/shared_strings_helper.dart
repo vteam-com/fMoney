@@ -70,9 +70,6 @@ abstract class SharedStrings {
   /// Number format pattern with up to two decimal places.
   static const String numberFormatTrimmedDecimals = '#,##0.##';
 
-  /// Country code used as default locale fallback.
-  static const String countryCodeUs = 'US';
-
   /// Lowercase locale fallback country code.
   static const String countryCodeUsLower = 'us';
 
@@ -358,6 +355,12 @@ abstract class SharedStrings {
   /// Internal import-entry type identifier for CSV rows.
   static const String importTypeCsv = 'CSVImport';
 
+  /// Import type of investment CSV rows; also the prefix of the FITIDs they are given.
+  static const String importTypeInvestmentCsv = 'investment_csv';
+
+  /// Prefix of the FITIDs generated for CSV rows (no bank-issued id).
+  static const String fitidPrefixCsvRow = 'csv_row_';
+
   /// Internal import-entry type identifier for XLSX rows.
   static const String importTypeXlsx = 'XLSXImport';
 
@@ -517,6 +520,9 @@ abstract class SharedStrings {
   /// Canonical investment-field name: date.
   static const String investmentFieldDate = 'Date';
 
+  /// Column name of the investment security symbol.
+  static const String investmentFieldSymbol = 'Symbol';
+
   /// Canonical investment-field name: account.
   static const String investmentFieldAccount = 'Account';
 
@@ -616,26 +622,8 @@ abstract class SharedStrings {
   /// Placeholder shown when description text is empty.
   static const String placeholderNoDescription = '< no description >';
 
-  /// Generic action label for completing read-only dialogs.
-  static const String labelDone = 'Done';
-
   /// Generic close action label.
   static const String labelClose = 'Close';
-
-  /// Generic action label for duplicating entities.
-  static const String labelDuplicate = 'Duplicate';
-
-  /// Delete confirmation title for split entities.
-  static const String labelDeleteSplit = 'Delete Split';
-
-  /// Delete confirmation question for split entities.
-  static const String questionDeleteSplit = 'Are you sure you want to delete this Split?';
-
-  /// Delete confirmation title for transaction entities.
-  static const String labelDeleteTransaction = 'Delete Transaction';
-
-  /// Delete confirmation question for transaction entities.
-  static const String questionDeleteTransaction = 'Are you sure you want to delete this transaction?';
 
   /// Message shown when no items are available for edit.
   static const String messageNoItemsToEdit = 'No items to edit';

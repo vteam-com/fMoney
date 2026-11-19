@@ -11,9 +11,8 @@ import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/views/imports/investment/investment_import_panel.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
+import 'package:money/views/imports/shared/import_form_helper.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 
 /// Shows dialog for importing investment transactions.
@@ -31,22 +30,15 @@ void showImportInvestment({InvestmentImportFields? inputData}) {
   );
 
   final BuildContext context = AppRouter.context!;
-  adaptiveScreenSizeDialog(
+  showImportFormDialog(
     context: context,
-    captionForClose: AppL10n.tr(AppTranslationKeys.cancel),
-    actionButtons: getActionButtons(inputData, context),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        gapLarge(),
-        Expanded(child: ImportInvestmentPanel(inputFields: inputData)),
-      ],
-    ),
+    panel: ImportInvestmentPanel(inputFields: inputData),
+    actionButtons: _buildInvestmentActionButtons(inputData, context),
   );
 }
 
 /// Builds action buttons for investment import dialog.
-List<Widget> getActionButtons(
+List<Widget> _buildInvestmentActionButtons(
   InvestmentImportFields inputData,
   BuildContext context,
 ) {

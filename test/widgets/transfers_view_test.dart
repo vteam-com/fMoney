@@ -293,4 +293,16 @@ void main() {
     await scanPair(tester, 50, 50, potentialTransferDefaultMaxDays + 1);
     expect(find.text(AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts)), findsNothing);
   });
+
+  testWidgets('recording the last magic wand suggestion links the pair and closes the sheet', (
+    WidgetTester tester,
+  ) async {
+    await scanPair(tester, 75, 75, 0);
+
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts)));
+    await tester.pumpAndSettle();
+
+    expect(Data().transactions.iterableList().where((Transaction t) => t.isTransfer), hasLength(2));
+    expect(find.text(AppL10n.tr(AppTranslationKeys.possibleTransferMatches)), findsNothing);
+  });
 }

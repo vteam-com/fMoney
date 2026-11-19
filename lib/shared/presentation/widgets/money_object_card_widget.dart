@@ -6,12 +6,14 @@ import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
+import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 
 const double _adaptiveBoxHeight = 300.0;
+const int _dividerAlpha = 100;
 
 /// A stateless widget for money object card.
 class MoneyObjectCard extends StatelessWidget {
@@ -69,35 +71,13 @@ class MoneyObjectCard extends StatelessWidget {
         // Header Action buttons
         Row(
           children: <Widget>[
-            if (onMergeWith != null)
-              IconButton(
-                icon: const Icon(Icons.merge),
-                onPressed: () {
-                  onMergeWith?.call(context, moneyObject);
-                },
-              ),
-            if (onEdit != null)
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  onEdit?.call(context, <DataObject>[moneyObject!]);
-                },
-              ),
-            if (onDelete != null)
-              IconButton(
-                icon: const Icon(Icons.delete_outline),
-                onPressed: () {
-                  onDelete?.call(context, <DataObject>[moneyObject!]);
-                },
-              ),
-            IconButton(
-              icon: const Icon(Icons.copy_all),
-              onPressed: () {
-                copyToClipboardAndInformUser(
-                  context,
-                  moneyObject!.getPersistableJSon().toString(),
-                );
-              },
+            if (onMergeWith != null) buildMergeButton(() => onMergeWith?.call(context, moneyObject)),
+            if (onEdit != null) buildEditButton(() => onEdit?.call(context, <DataObject>[moneyObject!])),
+            if (onDelete != null) buildDeleteButton(() => onDelete?.call(context, <DataObject>[moneyObject!])),
+            buildCopyButton(
+              () => copyToClipboardAndInformUser(context, moneyObject!.getPersistableJSon().toString()),
+              const Key('key_copy_money_object_card'),
+              AppL10n.tr(AppTranslationKeys.copyToClipboard),
             ),
           ],
         ),
@@ -106,12 +86,12 @@ class MoneyObjectCard extends StatelessWidget {
   }
 }
 
-/// Builds an adaptive box with title, count, and content.
+/// Builds an adaptive box titled [title] listing [count] rows made by [itemBuilder], separated by dividers.
 Widget buildAdaptiveBox({
   required BuildContext context,
   required String title,
   required int count,
-  required Widget content,
+  required IndexedWidgetBuilder itemBuilder,
   Widget? footer,
 }) {
   return Box(
@@ -124,6 +104,14 @@ Widget buildAdaptiveBox({
     ),
     footer: footer,
     padding: SizeForPadding.huge,
-    child: count == 0 ? CenterMessage(message: '${AppL10n.tr(AppTranslationKeys.noItems)} $title') : content,
+    child: count == 0
+        ? CenterMessage(message: '${AppL10n.tr(AppTranslationKeys.noItems)} $title')
+        : ListView.separated(
+            itemCount: count,
+            itemBuilder: itemBuilder,
+            separatorBuilder: (BuildContext context, int _) => Divider(
+              color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha),
+            ),
+          ),
   );
 }

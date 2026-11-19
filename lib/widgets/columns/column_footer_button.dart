@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/widgets/widgets_domain/field_widgets_helper.dart';
 
 /// Builds a column footer button with alignment and callbacks.
 ///
@@ -7,7 +8,6 @@ import 'package:money/helpers/constants_helper.dart';
 /// width (for pixel-aligned layout); otherwise it is wrapped in an
 /// [Expanded] with weight [flex] (for proportional flex layout).
 Widget buildColumnFooterButton({
-  required BuildContext context,
   required TextAlign textAlign,
   required int flex,
   required VoidCallback? onPressed,
@@ -31,33 +31,12 @@ Widget buildColumnFooterButton({
     onPressed: onPressed,
     onLongPress: onLongPress,
     // clipBehavior: Clip.hardEdge,
-    child: _alignChild(context, textAlign, child ?? const SizedBox()),
+    child: Stack(
+      children: <Widget>[Align(alignment: textAlignToAlignment(textAlign), child: child ?? const SizedBox())],
+    ),
   );
   if (fixedWidth != null) {
     return SizedBox(width: fixedWidth, child: inner);
   }
   return Expanded(flex: flex, child: inner);
-}
-
-/// Aligns the footer cell content based on the requested [align] value.
-Widget _alignChild(BuildContext _, TextAlign align, Widget content) {
-  Alignment alignment = Alignment.center;
-
-  switch (align) {
-    case TextAlign.center:
-      alignment = Alignment.center;
-
-    case TextAlign.right:
-    case TextAlign.end:
-      alignment = Alignment.centerRight;
-
-    case TextAlign.left:
-    case TextAlign.start:
-    default:
-      alignment = Alignment.centerLeft;
-  }
-
-  return Stack(
-    children: <Widget>[Align(alignment: alignment, child: content)],
-  );
 }

@@ -1,3 +1,5 @@
+import 'package:money/helpers/app_l10n_service.dart';
+import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/widgets/pure/icon_button.dart';
@@ -129,8 +131,11 @@ class Box extends StatelessWidget {
   Widget _buildCopyToClipboardButton() => Card(
     elevation: 1,
     shadowColor: Colors.transparent,
+    // the shared buildCopyButton lives in widgets/dialogs, above this layer, so match its icon and tooltip here
     child: MyIconButton(
-      icon: Icons.copy_all_outlined,
+      key: const Key('key_box_copy_to_clipboard'),
+      icon: Icons.copy_all,
+      tooltip: AppL10n.tr(AppTranslationKeys.copyListToClipboard),
       onPressed: () {
         copyToClipboard?.call();
       },

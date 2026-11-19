@@ -37,4 +37,13 @@ void main() {
       expect(release.assetUrls, isEmpty);
     });
   });
+
+  group('GitHubRelease.platformKeyForAssetName', () {
+    test('finds the platform named in the archive, or null', () {
+      expect(GitHubRelease.platformKeyForAssetName('mymoney-app-windows.zip'), 'windows');
+      expect(GitHubRelease.platformKeyForAssetName('mymoney-app-linux.tar.gz'), 'linux');
+      expect(GitHubRelease.platformKeyForAssetName('mymoney-app-macos'), 'macos');
+      expect(GitHubRelease.platformKeyForAssetName('checksums.txt'), isNull);
+    });
+  });
 }

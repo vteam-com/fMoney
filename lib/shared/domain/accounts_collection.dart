@@ -6,12 +6,14 @@ import 'dart:ui' show Color;
 import 'package:collection/collection.dart';
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/stock_summary_model.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/list_helper.dart';
+import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/investment_entity.dart';
@@ -20,6 +22,7 @@ import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/loan_payments_collection.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/securities_collection.dart';
+import 'package:money/shared/domain/transaction_operations_interface.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
 
 /// Statement segment gradient start color (accrual start).
@@ -34,13 +37,11 @@ const double _zeroDouble = 0.0;
 const double _negativeMultiplier = -1.0;
 const int _decimalBase = 10;
 const int _defaultPrecision = 2;
-const int _accountTokenIndex = 0;
-const int _symbolTokenIndex = 1;
 const int _intBitCount = 32;
 const int _creditCardLookbackDays = 60;
 
 /// Represents accounts.
-class Accounts extends MoneyObjects<Account> {
+class Accounts extends MoneyObjects<Account> with NamedMoneyObjects<Account> {
   Accounts() {
     collectionName = SharedDomainStrings.domainString014;
   }
@@ -126,41 +127,14 @@ class Accounts extends MoneyObjects<Account> {
     }
 
     // Increase the balance of any investment account with the current Stock value
-    final List<Account> investmentAccounts = this
-        .iterableList()
-        .where((Account account) => account.isInvestmentAccount())
-        .toList();
-
-    final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
-
-    for (final Account account in investmentAccounts) {
-      groupAccountStockSymbols(account, groupBySymbol, this.data);
-    }
-
-    // apply the investment running balance amount
-    groupBySymbol.values.forEach((
-      String keyAccountAndSymbol,
-      Set<Investment> valuesInvestments,
-    ) {
-      final double totalAdjustedShareForThisStockInThisAccount = Investments.applyHoldingSharesAdjustedForSplits(
-        valuesInvestments.toList(),
+    for (final Account account in iterableList().where((Account account) => account.isInvestmentAccount())) {
+      final double holdingsValue = holdingsOf(account).fold(
+        _zeroDouble,
+        (double sum, StockSummary holding) => sum + holding.holdingValue,
       );
-      final List<String> tokens = keyAccountAndSymbol.split('|');
-      final String accountId = tokens[_accountTokenIndex];
-      final String symbol = tokens[_symbolTokenIndex];
-      final Account? account = this.get(int.parse(accountId));
-      if (account != null) {
-        final Security? security = this.data.getSecurityBySymbol(symbol) as Security?;
-        if (security != null) {
-          account.fieldStockHoldingEstimation.value.setAmount(
-            totalAdjustedShareForThisStockInThisAccount * security.fieldPrice.value.asDouble(),
-          );
-          if (account.fieldStockHoldingEstimation.value.asDouble() != _zeroDouble) {
-            account.balance += account.fieldStockHoldingEstimation.value.asDouble();
-          }
-        }
-      }
-    });
+      account.fieldStockHoldingEstimation.value.setAmount(holdingsValue);
+      account.balance += holdingsValue;
+    }
 
     // Loans
     final List<Account> accountLoans = this
@@ -289,41 +263,55 @@ class Accounts extends MoneyObjects<Account> {
     });
   }
 
-  /// Finds an account by name (case-insensitive).
-  Account? getByName(String name) {
-    return iterableList().firstWhereOrNull((Account item) {
-      return stringCompareIgnoreCasing(item.fieldName.value, name) == _zeroInt;
-    });
-  }
-
-  /// Returns a sorted list of accounts matching user choice (excluding category funds).
-  List<Account> getListSorted() {
-    final List<Account> list = iterableList()
-        .where(
-          (Account account) =>
-              _isMatchingUserChoiceIncludingClosedAccount(account) &&
-              account.fieldType.value != AccountType.categoryFund,
-        )
-        .toList();
-    list.sort(
-      (Account a, Account b) => sortByString(a.fieldName.value, b.fieldName.value, true),
-    );
-    return list;
-  }
-
   /// Returns sorted account names for display.
   List<String> getSortedAccountNames() {
     return getListSorted().map((Account a) => a.fieldName.value).toList();
   }
 
-  /// Gets the account name for the given [id]; returns the ID as string if not found.
-  String getNameFromId(int id) {
-    final Account? account = get(id);
-    if (account == null) {
-      return id.toString();
+  /// Returns the holdings of [account], one per security symbol with shares: the shares adjusted
+  /// for splits, the current share price (0 when no security has the symbol) and the average cost.
+  List<StockSummary> holdingsOf(Account account) {
+    final AccumulatorList<String, Investment> investmentsBySymbol = AccumulatorList<String, Investment>();
+    for (final Investment investment in this.data.getInvestments().cast<Investment>()) {
+      final Security? security = this.data.getSecurity(investment.fieldSecurity.value) as Security?;
+      if (security != null && investment.transactionInstance?.fieldAccountId.value == account.uniqueId) {
+        investmentsBySymbol.cumulate(security.fieldSymbol.value, investment);
+      }
     }
-    return account.fieldName.value;
+
+    final List<StockSummary> holdings = <StockSummary>[];
+    investmentsBySymbol.values.forEach((String symbol, Set<Investment> investments) {
+      final double shares = Investments.applyHoldingSharesAdjustedForSplits(investments.toList());
+      if (!isConsideredZero(shares)) {
+        final double cost = investments.fold(
+          _zeroDouble,
+          (double sum, Investment investment) => sum + investment.costForShares,
+        );
+        final Security? security = this.data.getSecurityBySymbol(symbol) as Security?;
+        holdings.add(
+          StockSummary(
+            symbol: symbol,
+            shares: shares,
+            sharePrice: security?.fieldPrice.value.asDouble() ?? _zeroDouble,
+            averageCost: cost / shares,
+          ),
+        );
+      }
+    });
+    return holdings;
   }
+
+  /// Lists only the accounts matching the user's choice about closed accounts, and no category funds.
+  @override
+  bool isListed(Account item) =>
+      _isMatchingUserChoiceIncludingClosedAccount(item) && item.fieldType.value != AccountType.categoryFund;
+
+  @override
+  String nameOf(Account item) => item.fieldName.value;
+
+  /// Shows an account id that no account has as the id itself.
+  @override
+  String nameOfMissingId(int id) => id.toString();
 
   /// Returns all open accounts.
   List<Account> getOpenAccounts() {
@@ -352,31 +340,13 @@ class Accounts extends MoneyObjects<Account> {
   }
 
   /// Returns all transactions associated with the given [account].
-  Iterable<Transaction> getTransactions(Account account) {
-    return this.data.getTransactions().cast<Transaction>().where(
+  Iterable<Transaction> getTransactions(Account account) => transactionsOf(account, this.data);
+
+  /// Returns the live transactions of [account] in [data].
+  static Iterable<Transaction> transactionsOf(Account account, TransactionOperations data) {
+    return data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
-  }
-
-  /// Groups investments by stock symbol for the given [account].
-  static void groupAccountStockSymbols(
-    Account account,
-    AccumulatorList<String, Investment> groupBySymbol,
-    DataAbstract data,
-  ) {
-    final Iterable<Investment> investments = data.getInvestments().cast<Investment>().where(
-      (Investment i) => i.transactionInstance!.fieldAccountId.value == account.uniqueId,
-    );
-
-    for (final Investment investment in investments) {
-      final Security? security = data.getSecurity(
-        investment.fieldSecurity.value,
-      ) as Security?;
-      if (security != null) {
-        final String stockSymbol = security.fieldSymbol.value;
-        groupBySymbol.cumulate('${account.uniqueId}|$stockSymbol', investment);
-      }
-    }
   }
 
   /// Removes an account and cleans up related transfers and transactions.
@@ -405,23 +375,10 @@ class Accounts extends MoneyObjects<Account> {
 
   /// Updates the `paidOn` markers for credit card transactions based on matching statement payments.
   void _updateCreditCardPaidOn(Account account) {
-    final List<Transaction> transactionForAccountSortedByDateAscending = this.data
-        .getTransactions()
-        .cast<Transaction>()
-        .where(
-          (Transaction t) => t.fieldAccountId.value == account.uniqueId,
-        )
-        .toList();
-    // sort date as string to match the ListView sorting logic
-    transactionForAccountSortedByDateAscending.sort(
-      (Transaction a, Transaction b) => Transaction.sortByDateTime(a, b, true),
-    );
-
-    double runningBalanceForThisAccount = _zeroDouble;
+    final List<Transaction> transactionForAccountSortedByDateAscending = getTransactions(account).toList();
+    Transactions.applyRunningBalance(transactionForAccountSortedByDateAscending);
 
     for (final Transaction t in transactionForAccountSortedByDateAscending) {
-      runningBalanceForThisAccount += t.fieldAmount.value.asDouble();
-      t.balance = runningBalanceForThisAccount;
       t.fieldPaidOn.value = '';
       t.pairHighlightColor = null;
       t.pairHighlightTopCap = false;
@@ -460,7 +417,8 @@ class Accounts extends MoneyObjects<Account> {
             final double target = t.fieldAmount.value.asDouble() * _negativeMultiplier;
             final double delta = closest.balance - target;
             final String sign = delta >= _zeroDouble ? '+' : '-';
-            final String deltaStr = sign + doubleToCurrency(delta.abs());
+            final String deltaStr =
+                sign + getAmountAsStringUsingCurrency(delta.abs(), iso4217code: account.getAccountCurrencyAsText());
             // Payment row is a transfer — it IS the payment, not "paid on" anything.
             t.fieldPaidOn.value = '';
             // Statement-close row: show approximate payment date + discrepancy.

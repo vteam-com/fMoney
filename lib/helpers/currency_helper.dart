@@ -260,3 +260,9 @@ String? getLocaleFromCurrencyIso4217(String iso4217code) {
   // Default to 'en_US' if the currency code is not found
   return currencyLocales[iso4217code];
 }
+
+/// Formats [value] in the default currency with a plus sign when positive; non-finite values show as zero.
+String validDoubleToCurrency(num value) {
+  final double amount = isNumber(value) ? value.toDouble() : 0.0;
+  return getPlusSignIfPositive(amount) + getAmountAsStringUsingCurrency(amount);
+}

@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:material_ui/material_ui.dart';
+import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/pairs_model.dart';
-import 'package:money/helpers/string_helper.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
 import 'package:money/widgets/pure/vertical_line_with_tooltip_widget.dart';
 
@@ -69,7 +69,7 @@ class MiniTimelineDaily extends StatelessWidget {
                 width: lineWidth,
                 color: context.colorTheme.colorBasedOnValue(value.second).withValues(alpha: _barAlpha),
                 tooltip:
-                    '${dateToString(DateTime.fromMillisecondsSinceEpoch(oneDaySlot))}\n${doubleToCurrency(value.second)}',
+                    '${dateToString(DateTime.fromMillisecondsSinceEpoch(oneDaySlot))}\n${getAmountAsStringUsingCurrency(value.second)}',
               ),
             ),
           );

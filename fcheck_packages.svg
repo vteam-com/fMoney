@@ -514,7 +514,7 @@
 </g>
 <g>
   <path d="M 337.0 2166.0 H 211.0 Q 205.0 2166.0 205.0 2172.0 V 5930.0 Q 205.0 5936.0 211.0 5936.0 H 517.0" class="edgeVertical"/>
-  <title>pdfrx -> pdfrx_engine v0.9.5</title>
+  <title>pdfrx -> pdfrx_engine v0.9.6</title>
 </g>
 <g>
   <path d="M 337.0 1374.0 H 208.0 Q 202.0 1374.0 202.0 1380.0 V 5226.0 Q 202.0 5232.0 208.0 5232.0 H 517.0" class="edgeVertical"/>
@@ -1925,7 +1925,7 @@
 <g class="packageMetadataPill"><title>Dart ^3.14.0</title><rect x="626.4" y="5949.0" width="61.199999999999996" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="657.0" y="5954" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart ^3.14.0</text></g>
 <g class="platformBadge platformBadge--dart"><title>Dart SDK ^3.14.0</title><rect x="643.0" y="5933.0" width="28.0" height="13.0" rx="6.5" ry="6.5" fill="#0175c2" stroke="#0369a1" stroke-width="0.6"/><text x="657.0" y="5939.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">Dart</text></g>
 <text x="525.0" y="5928.0" class="packageLabelDerivedName packageLabelCaption" text-anchor="start">pdfrx_engine</text>
-<text x="789.0" y="5928.0" class="packageLabelDerivedVersion" text-anchor="end">^0.9.5</text>
+<text x="789.0" y="5928.0" class="packageLabelDerivedVersion" text-anchor="end">^0.9.6</text>
 </g>
 <g class="badge incomingBadge">
   <path d="M 523.0,5936.0 L 511.0,5929.0 Q 508.0,5929.0 508.0,5932.0 L 508.0,5940.0 Q 508.0,5943.0 511.0,5943.0 Z" fill="#3b82f6"/>

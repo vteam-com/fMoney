@@ -28,7 +28,6 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
     this.onColumnHeaderLongPress,
     this.onItemTap,
     this.onItemLongPress,
-    this.getColumnFooterWidget,
     this.backgroundColorForHeaderFooter,
   });
 
@@ -39,8 +38,6 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
   final FieldDefinitions fieldDefinitions;
 
   final FieldFilters filters;
-
-  final Widget? Function(Field<dynamic> field)? getColumnFooterWidget;
 
   final List<DataObject> list;
 
@@ -77,16 +74,15 @@ class AdaptiveListColumnsOrRowsSingleSelection extends StatefulWidget {
 class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListColumnsOrRowsSingleSelection> {
   final FooterAccumulators _footerAccumulators = FooterAccumulators();
 
-  /// List instance the footer accumulators were last computed for.
-  List<DataObject>? _footerAccumulatorsComputedForList;
-
   late final ValueNotifier<List<int>> selectionCollectionOfOnlyOneItem = ValueNotifier<List<int>>(<int>[
     widget.selectedId,
   ]);
 
   @override
   Widget build(BuildContext context) {
-    footerAccumulators();
+    // Data mutations always reach this widget as a freshly built list, so the list identity is enough to
+    // decide when to re-scan.
+    _footerAccumulators.recomputeIfChanged(items: widget.list, definitions: widget.fieldDefinitions);
 
     return AdaptiveListColumnsOrRows(
       list: widget.list,
@@ -114,23 +110,6 @@ class _AdaptiveListColumnsOrRowsSingleSelectionState extends State<AdaptiveListC
       onItemLongPress: widget.onItemLongPress,
       getColumnFooterWidget: getColumnFooterWidget,
       backgroundColorForHeaderFooter: widget.backgroundColorForHeaderFooter,
-    );
-  }
-
-  /// Updates footer accumulators with counts from the filtered list.
-  ///
-  /// Recomputes only when the list instance changed; data mutations always
-  /// reach this widget as a freshly built list, so unrelated rebuilds such as
-  /// selection changes skip the full re-scan.
-  void footerAccumulators() {
-    if (identical(widget.list, _footerAccumulatorsComputedForList)) {
-      return;
-    }
-    _footerAccumulatorsComputedForList = widget.list;
-
-    _footerAccumulators.recompute(
-      items: widget.list,
-      definitions: widget.fieldDefinitions,
     );
   }
 

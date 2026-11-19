@@ -90,7 +90,7 @@ class _SimilarPayeesDialogState extends State<SimilarPayeesDialog> {
     final Alias alias = Data().aliases.addNewAlias(
       pattern: Data().aliasPatternFor(
         _similarPayees.where((Payee p) => _checkedIds.contains(p.uniqueId)).map((Payee p) => p.fieldName.value),
-        (Transaction t) => payeeIds.contains(t.fieldPayee.value),
+        (Transaction t) => payeeIds.any(t.isForPayee),
       ),
       type: AliasType.regex,
       payeeId: widget.payee.uniqueId,
@@ -105,7 +105,7 @@ class _SimilarPayeesDialogState extends State<SimilarPayeesDialog> {
   void _merge() {
     final List<Transaction> transactions = Data().transactions
         .iterableList(includeDeleted: true)
-        .where((Transaction t) => _checkedIds.contains(t.fieldPayee.value))
+        .where((Transaction t) => _checkedIds.any(t.isForPayee))
         .toList();
     final Set<int> payeeIdsWithTransactions = transactions.map((Transaction t) => t.fieldPayee.value).toSet();
     mutateMergeableItemsToPayee<Transaction>(transactions, widget.payee.uniqueId, null, Data());

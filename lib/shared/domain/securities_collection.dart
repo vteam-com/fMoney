@@ -14,7 +14,7 @@ import 'package:money/shared/domain/stock_split_entity.dart';
 export 'package:money/shared/domain/security_entity.dart';
 
 /// Represents securities.
-class Securities extends MoneyObjects<Security> {
+class Securities extends MoneyObjects<Security> with NamedMoneyObjects<Security> {
   Securities() {
     collectionName = SharedDomainStrings.domainString124;
   }
@@ -62,12 +62,8 @@ class Securities extends MoneyObjects<Security> {
     );
   }
 
-  /// Retrieves a security by its display name (case-insensitive).
-  Security? getByName(String nameToFind) {
-    return iterableList().firstWhereOrNull(
-      (Security item) => stringCompareIgnoreCasing(item.fieldName.value, nameToFind) == 0,
-    );
-  }
+  @override
+  String nameOf(Security item) => item.fieldName.value;
 
   /// Normalizes a free-form investment input into a likely stock symbol.
   ///

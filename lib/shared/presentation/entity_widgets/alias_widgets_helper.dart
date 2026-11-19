@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
@@ -42,19 +41,15 @@ Widget? buildAliasFieldEditWidget(
     );
   }
   if (field.isSameDefinition(alias.fieldFlags)) {
-    return PickerEditBox(
+    return pickerEnum<AliasType>(
       key: const Key('key_pick_alias_type'),
       title: field.name,
-      items: AliasType.values.map(getAliasTypeAsString).toList(),
-      initialValue: getAliasTypeAsString(alias.type),
-      onChanged: (String text) {
-        final AliasType? type = AliasType.values.firstWhereOrNull(
-          (AliasType candidate) => getAliasTypeAsString(candidate) == text,
-        );
-        if (type != null) {
-          alias.fieldFlags.value = type.index;
-          onEdited(true);
-        }
+      values: AliasType.values,
+      selected: alias.type,
+      toText: getAliasTypeAsString,
+      onSelected: (AliasType type) {
+        alias.fieldFlags.value = type.index;
+        onEdited(true);
       },
     );
   }

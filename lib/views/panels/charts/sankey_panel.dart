@@ -56,10 +56,9 @@ class SankeyPanel extends StatelessWidget {
     final List<SanKeyEntry> sanKeyListOfExpenses = <SanKeyEntry>[];
     final List<SanKeyEntry> sanKeyListOfIncomes = <SanKeyEntry>[];
 
-    final Iterable<Transaction> transactions = Data().transactions.transactionInYearRange(
+    final List<Transaction> transactions = Data().transactions.getListFlattenSplitsInYearRange(
       minYear: minYear,
       maxYear: maxYear,
-      incomesOrExpenses: null,
     );
 
     for (final Transaction element in transactions) {
@@ -93,7 +92,7 @@ class SankeyPanel extends StatelessWidget {
       }
     }
 
-    // Clean up the Incomes, drop 0.00
+    // Keep only the income categories that brought money in
     mapOfIncomes.removeWhere((Category _, double v) => v <= _zeroDouble);
     // Sort Descending
     final Map<Category, double> sortedIncomes = Map<Category, double>.fromEntries(
@@ -101,7 +100,7 @@ class SankeyPanel extends StatelessWidget {
         (
           MapEntry<Category, double> e1,
           MapEntry<Category, double> e2,
-        ) => (e2.value - e1.value).toInt(),
+        ) => e2.value.compareTo(e1.value),
       ),
     );
 
@@ -113,8 +112,8 @@ class SankeyPanel extends StatelessWidget {
       );
     });
 
-    // Clean up the Expenses, drop 0.00
-    mapOfExpenses.removeWhere((Category _, double v) => v == _zeroDouble);
+    // Keep only the expense categories that took money out
+    mapOfExpenses.removeWhere((Category _, double v) => v >= _zeroDouble);
 
     // Sort Ascending, in the case of expenses that means the largest negative number to the least negative number
     final Map<Category, double> sortedExpenses = Map<Category, double>.fromEntries(
@@ -122,7 +121,7 @@ class SankeyPanel extends StatelessWidget {
         (
           MapEntry<Category, double> e1,
           MapEntry<Category, double> e2,
-        ) => (e1.value - e2.value).toInt(),
+        ) => e1.value.compareTo(e2.value),
       ),
     );
 

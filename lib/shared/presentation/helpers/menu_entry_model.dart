@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -8,6 +9,7 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
 import 'package:money/widgets/components/popup_menu_icon_button.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
@@ -95,7 +97,7 @@ class MenuEntry {
     if (symbol.isNotEmpty) {
       filters.add(
         FieldFilter(
-          fieldName: Constants.viewStockFieldNameSymbol,
+          fieldName: SharedStrings.investmentFieldSymbol,
           strings: <String>[symbol],
         ),
       );
@@ -103,7 +105,7 @@ class MenuEntry {
     if (accountName.isNotEmpty) {
       filters.add(
         FieldFilter(
-          fieldName: Constants.viewStockFieldNameAccount,
+          fieldName: SharedStrings.investmentFieldAccount,
           strings: <String>[accountName],
         ),
       );
@@ -124,11 +126,27 @@ class MenuEntry {
     );
   }
 
+  /// Jumps to the Payees view with the payee [payeeId] selected.
+  factory MenuEntry.toPayee({required int payeeId}) {
+    return MenuEntry(
+      icon: ViewId.viewPayees.getIconData(),
+      title: AppL10n.tr(AppTranslationKeys.navPayees),
+      onPressed: () {
+        PreferenceController.to.jumpToView(
+          viewId: ViewId.viewPayees,
+          selectedId: payeeId,
+          textFilter: '',
+          columnFilters: null,
+        );
+      },
+    );
+  }
+
   factory MenuEntry.toStocks({String symbol = ''}) {
     final List<FieldFilter> filters = <FieldFilter>[
       if (symbol.isNotEmpty)
         FieldFilter(
-          fieldName: Constants.viewStockFieldNameSymbol,
+          fieldName: SharedDomainStrings.domainString131,
           strings: <String>[symbol],
         ),
     ];
@@ -168,6 +186,29 @@ class MenuEntry {
     );
   }
 
+  /// Jumps to the Transactions view listing only the transactions of [account].
+  factory MenuEntry.toTransactionsOfAccount({required Account account}) {
+    return MenuEntry._toTransactionsMatching(<FieldFilter>[
+      FieldFilter(fieldName: columnIdAccount, strings: <String>[account.fieldName.value]),
+    ]);
+  }
+
+  /// Jumps to the Transactions view listing only the transactions of [category], also within [dates] when given.
+  factory MenuEntry.toTransactionsOfCategory({required Category category, FieldFilter? dates}) {
+    return MenuEntry._toTransactionsMatching(<FieldFilter>[
+      transactionsOfCategoriesFilter(<String>[category.name]),
+      ?dates,
+    ]);
+  }
+
+  /// Jumps to the Transactions view listing only the transactions of [payee];
+  /// the Payee column filters on the payee name it shows.
+  factory MenuEntry.toTransactionsOfPayee({required Payee payee}) {
+    return MenuEntry._toTransactionsMatching(<FieldFilter>[
+      FieldFilter(fieldName: columnIdPayee, strings: <String>[payee.fieldName.value]),
+    ]);
+  }
+
   factory MenuEntry.toWeb({required String url}) {
     return MenuEntry(
       icon: Icons.web_asset_outlined,
@@ -183,9 +224,19 @@ class MenuEntry {
     );
   }
 
+  /// Jumps to the Transactions view listing only the transactions matching all [filters], with no text filter.
+  factory MenuEntry._toTransactionsMatching(List<FieldFilter> filters) {
+    return MenuEntry.toTransactions(transactionId: -1, filters: FieldFilters(filters));
+  }
+
   final IconData? icon;
   final void Function() onPressed;
   final String title;
+}
+
+/// Returns the Transactions view column filter keeping the transactions of the categories named [categoryNames].
+FieldFilter transactionsOfCategoriesFilter(List<String> categoryNames) {
+  return FieldFilter(fieldName: columnIdCategory, strings: categoryNames);
 }
 
 /// Builds a menu button with a dropdown of menu items.

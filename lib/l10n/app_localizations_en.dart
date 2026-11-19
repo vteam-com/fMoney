@@ -445,6 +445,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copyMessageToClipboard => 'Copy message to clipboard';
 
   @override
+  String get copyToClipboard => 'Copy to clipboard';
+
+  @override
   String countSelected(String count) {
     return '@count selected';
   }
@@ -468,11 +471,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get csvImportCancelled => 'CSV import cancelled.';
-
-  @override
-  String csvImportRowsImportedAndSkipped(Object imported, Object skipped) {
-    return 'CSV import parsed $imported entries and skipped $skipped rows.';
-  }
 
   @override
   String get dataPreviewFirst5Rows => 'Data Preview (First 5 rows):';
@@ -529,6 +527,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dividend => 'Dividend';
 
   @override
+  String get done => 'Done';
+
+  @override
   String get download => 'Download';
 
   @override
@@ -538,6 +539,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dropFilesHere => 'Drop files here';
+
+  @override
+  String get duplicate => 'Duplicate';
 
   @override
   String get edit => 'Edit';
@@ -1445,18 +1449,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suggestion => 'Suggestion';
-
-  @override
-  String get switchToCategories => 'Switch to Categories';
-
-  @override
-  String get switchToPayees => 'Switch to Payees';
-
-  @override
-  String get switchToStocks => 'Switch to Stocks';
-
-  @override
-  String get switchToTransactions => 'Switch to Transactions';
 
   @override
   String get symbol => 'Symbol';

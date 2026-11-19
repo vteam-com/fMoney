@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/widgets/components/my_segment_widget.dart';
+import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/pickers/account_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
@@ -107,10 +108,7 @@ class _PickPayeeOrTransferState extends State<PickPayeeOrTransfer> {
             ),
           ),
           if (widget.selectedPayeeName != null && widget.onMergePayee != null)
-            IconButton(
-              onPressed: () => widget.onMergePayee!(widget.selectedPayeeName!, context),
-              icon: const Icon(Icons.merge_outlined),
-            ),
+            buildMergeButton(() => widget.onMergePayee!(widget.selectedPayeeName!, context)),
         ],
       );
     } else {

@@ -48,7 +48,6 @@ class ImportTransactionsPanel extends StatefulWidget {
 class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   late Account _account;
   bool _allowCurrencyAutoDetection = true;
-  final FocusNode _focusNode = FocusNode();
   final List<String> _possibleDateFormats = <String>[
     // Dash
     'yyyy-MM-dd',
@@ -98,70 +97,62 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
   Widget build(BuildContext context) {
     markExistingImportValues(accountId: _account.uniqueId, values: _values);
 
-    return Focus(
-      onFocusChange: (bool _) {},
-      child: KeyboardListener(
-        focusNode: _focusNode,
-        child: SizedBox(
-          width: _panelWidth,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _buildHeaderAndAccountPicker(),
+    return SizedBox(
+      width: _panelWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _buildHeaderAndAccountPicker(),
 
-              gapMedium(),
+          gapMedium(),
 
-              Expanded(
-                flex: 1,
-                child: InputByColumnsOrFreeStyle(
-                  inputText: _textToParse,
-                  dateFormat: userChoiceOfDateFormat,
-                  currency: _userChoiceNativeVsUSD == 0
-                      ? _account.getAccountCurrencyAsText()
-                      : Constants.defaultCurrency,
-                  reverseAmountValue: _userChoiceDebitVsCredit == 1,
-                  onChanged: (String newTextInput) {
-                    setState(() {
-                      convertAndNotify(context, newTextInput);
-                      _textToParse = newTextInput;
-                    });
-                  },
-                ),
-              ),
-
-              ///
-              /// Date Format | Credit/Debit | Currency
-              ///
-              if (_values.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: SizeForPadding.large),
-                  child: Row(
-                    children: <Widget>[
-                      _buildChoiceOfDateFormat(),
-                      const Spacer(),
-                      _buildChoiceOfDebitVsCredit(),
-                      gapLarge(),
-                      _buildChoiceOfAmountFormat(),
-                    ],
-                  ),
-                ),
-
-              const Divider(),
-              gapMedium(),
-
-              // Results
-              Expanded(
-                flex: _listPreviewFlex,
-                child: Center(
-                  child: ImportTransactionsListPreview(
-                    accountId: _account.uniqueId,
-                    values: _values,
-                  ),
-                ),
-              ),
-            ],
+          Expanded(
+            flex: 1,
+            child: InputByColumnsOrFreeStyle(
+              inputText: _textToParse,
+              dateFormat: userChoiceOfDateFormat,
+              currency: _userChoiceNativeVsUSD == 0 ? _account.getAccountCurrencyAsText() : Constants.defaultCurrency,
+              reverseAmountValue: _userChoiceDebitVsCredit == 1,
+              onChanged: (String newTextInput) {
+                setState(() {
+                  convertAndNotify(context, newTextInput);
+                  _textToParse = newTextInput;
+                });
+              },
+            ),
           ),
-        ),
+
+          ///
+          /// Date Format | Credit/Debit | Currency
+          ///
+          if (_values.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: SizeForPadding.large),
+              child: Row(
+                children: <Widget>[
+                  _buildChoiceOfDateFormat(),
+                  const Spacer(),
+                  _buildChoiceOfDebitVsCredit(),
+                  gapLarge(),
+                  _buildChoiceOfAmountFormat(),
+                ],
+              ),
+            ),
+
+          const Divider(),
+          gapMedium(),
+
+          // Results
+          Expanded(
+            flex: _listPreviewFlex,
+            child: Center(
+              child: ImportTransactionsListPreview(
+                accountId: _account.uniqueId,
+                values: _values,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -221,11 +212,6 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     }
 
     return _unsetId; // No clear format detected
-  }
-
-  /// Requests focus for the text input field.
-  void requestFocus() {
-    FocusScope.of(context).requestFocus(_focusNode);
   }
 
   /// Offer assistance for the currency format

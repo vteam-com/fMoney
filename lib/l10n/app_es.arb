@@ -318,6 +318,7 @@
   "copyListToClipboard": "Copiar lista al portapapeles",
   "copyMessage": "Copiar mensaje",
   "copyMessageToClipboard": "Copiar mensaje al portapapeles",
+  "copyToClipboard": "Copiar al portapapeles",
   "countSelected": "@count seleccionado(s)",
   "@countSelected": {
     "placeholders": {
@@ -339,13 +340,6 @@
   "csvFileEmpty": "El archivo CSV está vacío.",
   "csvHeadersAreMissingOrEmpty": "Los encabezados CSV faltan o están vacíos.",
   "csvImportCancelled": "Importación CSV cancelada.",
-  "csvImportRowsImportedAndSkipped": "La importacion CSV proceso {imported} entradas y omitio {skipped} filas.",
-  "@csvImportRowsImportedAndSkipped": {
-    "placeholders": {
-      "imported": {},
-      "skipped": {}
-    }
-  },
   "dataPreviewFirst5Rows": "Vista previa de datos (primeras 5 filas):",
   "date": "Fecha",
   "day": "Dia",
@@ -389,6 +383,7 @@
   "difference": "Diferencia",
   "discardChanges": "Descartar",
   "dividend": "Dividendo",
+  "done": "Listo",
   "download": "Descargar",
   "downloadingUpdate": "Descargando fMoney {version}...",
   "@downloadingUpdate": {
@@ -399,6 +394,7 @@
     }
   },
   "dropFilesHere": "Arrastra archivos aquí",
+  "duplicate": "Duplicar",
   "edit": "Editar",
   "editedElapsed": "Editado {elapsed}",
   "@editedElapsed": {
@@ -1047,10 +1043,6 @@
   "@suggestion": {
     "description": "REVIEWED"
   },
-  "switchToCategories": "Cambiar a categorias",
-  "switchToPayees": "Cambiar a beneficiarios",
-  "switchToStocks": "Cambiar a acciones",
-  "switchToTransactions": "Cambiar a transacciones",
   "symbol": "Simbolo",
   "taxes": "Impuestos",
   "@taxes": {

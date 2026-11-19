@@ -1,11 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
 import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/data_object_model.dart';
-import 'package:money/data/models/field_filter_model.dart';
-import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/pair_xyz_model.dart';
 import 'package:money/data/models/ranges_model.dart';
@@ -15,72 +12,71 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
-import 'package:money/helpers/list_helper.dart';
-import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/account_entity.dart';
-import 'package:money/shared/domain/accounts_collection.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/data_facade.dart';
-import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/investment_import_fields_helper.dart';
-import 'package:money/shared/domain/investments_collection.dart';
 import 'package:money/shared/domain/loan_payment_entity.dart';
 import 'package:money/shared/domain/loan_payments_collection.dart';
-import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/reconcile_service.dart';
-import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
-import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
-import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/shared/presentation/services/stock_cache_lookup_service.dart';
-import 'package:money/shared/presentation/widgets/money_object_card_widget.dart';
 import 'package:money/views/imports/import_wizard_view.dart';
 import 'package:money/views/imports/investment/investment_import_view.dart';
 import 'package:money/views/panels/dialogs/reconcile_dialog.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
+import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/reconcile_bar_widget.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
 import 'package:money/widgets/charts/chart_widget.dart';
 import 'package:money/widgets/components/box_with_scrolling_content_widget.dart';
 import 'package:money/widgets/components/label_and_amount_widget.dart';
 import 'package:money/widgets/components/label_and_quantity_widget.dart';
 import 'package:money/widgets/components/text_title_widget.dart';
-import 'package:money/widgets/components/three_part_label_widget.dart';
-import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/list/adaptive_columns_or_rows_single_selection_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
-import 'package:money/widgets/pure/pivot_toggle_row_widget.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _zeroInt = 0;
 const int _oneInt = 1;
 const double _zeroDouble = 0.0;
-const double _oneDouble = 1.0;
 const double _negativeMultiplier = -1.0;
-const int _accountTypeIndexBank = 0;
-const int _accountTypeIndexInvestment = 1;
-const int _accountTypeIndexCredit = 2;
-const int _accountTypeIndexAssets = 3;
 const int _accountTypeIndexAll = -1;
 const int _approxDateOffsetDays = 1;
-const double _toggleMinHeight = 40.0;
-const double _toggleMinWidth = 100.0;
-const double _pivotSpacing = 10.0;
 const double _stockPanelHeight = 180.0;
 const double _summaryPanelHeight = 150.0;
 const int _chartMaxPointsLarge = 100;
 const int _chartMaxPointsSmall = 10;
-const int _symbolTokenIndex = 1;
+
+/// Side panel list id keeping the loan payments sort apart from the transactions sort.
+const String _loanPaymentsListId = 'loan_payments_';
+
+/// Pivot toggles in order: widget key (the integration tests tap them), label translation key
+/// and the account types listed (all when empty).
+const List<(Key, String, List<AccountType>)> _pivots = <(Key, String, List<AccountType>)>[
+  (Key('key_toggle_show_bank'), AppTranslationKeys.banks, <AccountType>[AccountType.checking, AccountType.savings]),
+  (
+    Key('key_toggle_show_investment'),
+    AppTranslationKeys.investments,
+    <AccountType>[AccountType.investment, AccountType.retirement],
+  ),
+  (Key('key_toggle_show_credit'), AppTranslationKeys.credit, <AccountType>[AccountType.credit, AccountType.creditLine]),
+  (
+    Key('key_toggle_show_assets'),
+    AppTranslationKeys.assets,
+    <AccountType>[AccountType.asset, AccountType.cash, AccountType.loan],
+  ),
+  (Key('key_toggle_show_all'), AppTranslationKeys.allLabel, <AccountType>[]),
+];
 
 /// Main view for all Accounts
 class ViewAccounts extends ViewForMoneyObjects {
@@ -90,12 +86,10 @@ class ViewAccounts extends ViewForMoneyObjects {
   State<ViewForMoneyObjects> createState() => _ViewAccountsState();
 }
 
-class _ViewAccountsState extends ViewForMoneyObjectsState {
+class _ViewAccountsState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewAccountsState() {
     viewId = ViewId.viewAccounts;
   }
-
-  final List<Widget> _pivots = <Widget>[];
 
   // Footer related
   final DateRange _footerColumnDate = DateRange();
@@ -105,6 +99,13 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
 
   /// Reconciliation in progress, shown in its account's side panel transactions.
   ReconcileService? _reconcile;
+
+  @override
+  String get addNewItemTooltip => AppL10n.tr(AppTranslationKeys.addNewAccount);
+
+  /// Creates a bank account.
+  @override
+  DataObject createNewItem() => Data().accounts.addNewAccount(AppL10n.tr(AppTranslationKeys.newBankAccount));
 
   @override
   Widget buildHeader([Widget? child]) {
@@ -183,33 +184,12 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
         ]),
       );
     } else {
-      // Place this in front off all the other actions button
-      list.insert(
-        _zeroInt,
-        buildAddItemButton(() {
-          // add a new Account
-          final Account newItem = Data().accounts.addNewAccount(
-            AppL10n.tr(AppTranslationKeys.newBankAccount),
-          );
-          updateListAndSelect(newItem.uniqueId);
-        }, AppL10n.tr(AppTranslationKeys.addNewAccount)),
-      );
-
       // this can go last
       final Account? account = getFirstSelectedItem() as Account?;
       if (account != null) {
         list.add(
           buildJumpToButton(context, <MenuEntry>[
-            MenuEntry.toTransactions(
-              transactionId: _accountTypeIndexAll,
-              // Prepare the Transaction view Filter to show only the selected account
-              filters: FieldFilters(<FieldFilter>[
-                FieldFilter(
-                  fieldName: Constants.viewTransactionFieldNameAccount,
-                  strings: <String>[account.fieldName.value],
-                ),
-              ]),
-            ),
+            MenuEntry.toTransactionsOfAccount(account: account),
             MenuEntry.toInvestments(accountName: account.fieldName.value),
           ]),
         );
@@ -292,7 +272,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
   @override
   SidePanelSupport getSidePanelSupport() {
     return SidePanelSupport(
-      onDetails: _getSidePanelViewDetails,
+      onDetails: getSidePanelViewDetails,
       onChart: _getSubViewContentForChart,
       onTransactions: _getSidePanelViewTransactions,
     );
@@ -317,62 +297,6 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     onAddTransaction = () {
       showImportTransactionsWizard();
     };
-
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_bank'),
-        text1: AppL10n.tr(AppTranslationKeys.banks),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexBank)),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_investment'),
-        text1: AppL10n.tr(AppTranslationKeys.investments),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexInvestment)),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_credit'),
-        text1: AppL10n.tr(AppTranslationKeys.credit),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexCredit)),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_assets'),
-        text1: AppL10n.tr(AppTranslationKeys.assets),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexAssets)),
-        ),
-      ),
-    );
-    _pivots.add(
-      ThreePartLabel(
-        key: const Key('key_toggle_show_all'),
-        text1: AppL10n.tr(AppTranslationKeys.allLabel),
-        small: true,
-        isVertical: true,
-        text2: getAmountAsStringUsingCurrency(
-          getTotalBalanceOfAccounts(getSelectedAccountTypesByIndex(_accountTypeIndexAll)),
-        ),
-      ),
-    );
   }
 
   /// Calculates the total balance of the specified account types.
@@ -391,158 +315,34 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     return t.fieldAccountId.value == accountId;
   }
 
-  /// Returns the selected account types based on UI pivot selections.
-  List<AccountType> getSelectedAccountType() {
-    if (_selectedPivot[_accountTypeIndexBank]) {
-      return getSelectedAccountTypesByIndex(_accountTypeIndexBank);
-    }
+  /// Returns the account types listed by the selected pivot toggle; all when empty.
+  List<AccountType> getSelectedAccountType() => _pivots[_selectedPivot.indexOf(true)].$3;
 
-    if (_selectedPivot[_accountTypeIndexInvestment]) {
-      return getSelectedAccountTypesByIndex(_accountTypeIndexInvestment);
-    }
-
-    if (_selectedPivot[_accountTypeIndexCredit]) {
-      return getSelectedAccountTypesByIndex(_accountTypeIndexCredit);
-    }
-
-    if (_selectedPivot[_accountTypeIndexAssets]) {
-      return getSelectedAccountTypesByIndex(_accountTypeIndexAssets);
-    }
-
-    return getSelectedAccountTypesByIndex(_accountTypeIndexAll);
-  }
-
-  /// Returns a list of [AccountType] based on the provided [index].
-  List<AccountType> getSelectedAccountTypesByIndex(int index) {
-    switch (index) {
-      case _accountTypeIndexBank:
-        return <AccountType>[AccountType.checking, AccountType.savings];
-
-      case _accountTypeIndexInvestment:
-        return <AccountType>[AccountType.investment, AccountType.retirement];
-
-      case _accountTypeIndexCredit:
-        return <AccountType>[AccountType.credit, AccountType.creditLine];
-
-      case _accountTypeIndexAssets:
-        return <AccountType>[
-          AccountType.asset,
-          AccountType.cash,
-          AccountType.loan,
-        ];
-
-      default: // all
-        return <AccountType>[];
-    }
-  }
-
-  /// Builds the horizontal toggle row used to select account type pivots.
+  /// Builds the horizontal toggle row used to select account type pivots, each with its total balance.
   Widget _renderToggles() {
-    return buildPivotToggleRow(
+    return buildStandardPivotToggleRow(
       key: const Key('view_accounts_pivots'),
-      isSelected: _selectedPivot,
-      children: _pivots,
-      padding: const EdgeInsets.only(bottom: SizeForPadding.medium),
-      borderRadius: const BorderRadius.all(Radius.circular(SizeForPadding.normal)),
-      minHeight: _toggleMinHeight,
-      minWidth: _toggleMinWidth,
-      onPressed: (int index) {
-        updatePivotSelectionAndRefresh(_selectedPivot, index);
-      },
+      selectedPivot: _selectedPivot,
+      pivots: <(Key?, String, String)>[
+        for (final (Key key, String labelKey, List<AccountType> types) in _pivots)
+          (key, AppL10n.tr(labelKey), getAmountAsStringUsingCurrency(getTotalBalanceOfAccounts(types))),
+      ],
     );
   }
 
-  /// Builds the side panel details view for the currently selected account.
-  Widget _getSidePanelViewDetails({
-    required List<int> selectedIds,
-  }) {
-    keepUnused(selectedIds);
-    final Account? selectedAccount = getFirstSelectedItem() as Account?;
-    if (selectedAccount == null) {
-      return CenterMessage(message: AppL10n.tr(AppTranslationKeys.noItemSelected));
-    }
-
-    if (selectedAccount.isInvestmentAccount()) {
-      return SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(SizeForPadding.large),
-              child: MoneyObjectCard(
-                title: getClassNameSingular(),
-                moneyObject: selectedAccount,
-              ),
-            ),
-            Expanded(
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                runSpacing: _pivotSpacing,
-                spacing: _pivotSpacing,
-                children: _buildStockHoldingCards(selectedAccount),
-              ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return SingleChildScrollView(
-        child: Center(
-          child: MoneyObjectCard(
-            title: getClassNameSingular(),
-            moneyObject: selectedAccount,
-          ),
-        ),
-      );
-    }
+  /// Shows the holdings of an investment account next to its card.
+  @override
+  List<Widget> getSidePanelDetailsExtraPanels(DataObject selectedItem) {
+    final Account account = selectedItem as Account;
+    return account.isInvestmentAccount() ? _buildStockHoldingCards(account) : <Widget>[];
   }
 
   /// Builds holding summary cards for an investment account grouped by stock symbol.
   List<Widget> _buildStockHoldingCards(Account account) {
-    final AccumulatorList<String, Investment> groupBySymbol = AccumulatorList<String, Investment>();
-    Accounts.groupAccountStockSymbols(account, groupBySymbol, Data());
-
-    if (groupBySymbol.getKeys().isEmpty) {
+    final List<StockSummary> stockSummaries = Data().accounts.holdingsOf(account);
+    if (stockSummaries.isEmpty) {
       return <Widget>[];
     }
-
-    final List<StockSummary> stockSummaries = <StockSummary>[];
-
-    groupBySymbol.values.forEach((
-      String key,
-      Set<Investment> listOfInvestmentsForAccount,
-    ) {
-      final double sharesForThisStock = Investments.applyHoldingSharesAdjustedForSplits(
-        listOfInvestmentsForAccount.toList(),
-      );
-
-      if (isConsideredZero(sharesForThisStock) == false) {
-        //  "123|MSFT" >> "MSFT"
-        // tally the cost of the stock
-        double totalCost = _zeroDouble;
-        for (final Investment investment in listOfInvestmentsForAccount.toList()) {
-          totalCost += investment.costForShares;
-        }
-
-        final String symbol = key.split('|')[_symbolTokenIndex];
-
-        final Security? stock = Data().securities.getBySymbol(symbol);
-        double stockPrice = _oneDouble;
-
-        if (stock != null) {
-          stockPrice = stock.fieldPrice.value.asDouble();
-        }
-
-        stockSummaries.add(
-          StockSummary(
-            symbol: symbol,
-            shares: sharesForThisStock,
-            sharePrice: stockPrice,
-            averageCost: totalCost / sharesForThisStock,
-          ),
-        );
-      }
-    });
 
     // sort by descending holding-value
     stockSummaries.sort(
@@ -692,7 +492,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
       }
 
       account.maxBalancePerYears.forEach((int key, double value) {
-        final double valueCurrencyChoice = showAsNativeCurrency ? value : value * account.getCurrencyRatio();
+        final double valueCurrencyChoice = showAsNativeCurrency ? value : account.toNormalized(value);
 
         listOfPairXY.add(PairXYY(key.toString(), valueCurrencyChoice));
       });
@@ -761,15 +561,6 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     required Account account,
     required bool showAsNativeCurrency,
   }) {
-    int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
-    final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
-
-    final SelectionController selectionController = SelectionController(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-    );
-
-    selectionController.load();
-
     final List<String> columnsToDisplay = <String>[
       columnIdDate,
       columnIdPayee,
@@ -792,28 +583,6 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
           ),
           columnNames: columnsToDisplay,
           showRightAdornment: account.fieldType.value == AccountType.credit,
-          sortFieldIndex: sortFieldIndex,
-          sortAscending: sortAscending,
-          selectionController: selectionController,
-          onUserChoiceChanged:
-              (
-                int sortByFieldIndex,
-                bool sortAscending,
-                int selectedTransactionId,
-              ) {
-                // keep track of user choice
-                sortFieldIndex = sortByFieldIndex;
-
-                // Save user choices
-
-                // Select Column
-                PreferenceController.to.setSidePanelSortBy(sortByFieldIndex);
-                // Sort
-                PreferenceController.to.setSidePanelSortAscending(sortAscending);
-
-                // last item selected
-                PreferenceController.to.setSidePanelSelectedItemId(selectedTransactionId);
-              },
         );
       },
     );
@@ -836,65 +605,20 @@ class _ViewAccountsState extends ViewForMoneyObjectsState {
     required bool showAsNativeCurrency,
     required DataAbstract data,
   }) {
-    int sortFieldIndex = PreferenceController.to.getSidePanelSortBy();
-    final bool sortAscending = PreferenceController.to.getSidePanelSortAscending();
-
-    final SelectionController selectionController = SelectionController(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-    );
-
-    selectionController.load();
-
     return ListenableBuilder(
       listenable: DataFileController.to,
       builder: (BuildContext _, Widget? _) {
-        final List<LoanPayment> aggregatedList = getAccountLoanPayments(account, data);
-
-        MoneyObjects.sortList(
-          aggregatedList,
-          LoanPayment.fieldsForColumnView.definitions,
-          sortFieldIndex,
-          sortAscending,
-        );
-
-        return AdaptiveListColumnsOrRowsSingleSelection(
+        return buildSidePanelList<LoanPayment>(
           key: Key(
             'loan_payment_list_currency_${showAsNativeCurrency}_changedOn${DataFileController.to.lastUpdateAsString}',
           ),
-          list: aggregatedList,
-          fieldDefinitions: LoanPayment.fieldsForColumnView.definitions,
-          filters: FieldFilters(),
-          sortByFieldIndex: sortFieldIndex,
-          sortAscending: sortAscending,
-          selectedId: selectionController.firstSelectedId,
-          listController: AppScope.instance.listControllerSidePanel,
-          widgetBuilders: entityWidgetBuilders,
-          displayAsColumns: true,
-          backgroundColorForHeaderFooter: Colors.transparent,
-          onSelectionChanged: (int uniqueId) {
-            sortFieldIndex = sortFieldIndex;
-            selectionController.select(uniqueId);
-            PreferenceController.to.setSidePanelSelectedItemId(uniqueId);
-          },
-          onColumnHeaderTap: (int columnHeaderIndex) {
-            // ignore: invalid_use_of_protected_member
-            setState(() {
-              PreferenceController.to.setSidePanelSortAscending(
-                sortAscendingAfterColumnTap(columnHeaderIndex, sortFieldIndex, sortAscending),
-              );
-              sortFieldIndex = columnHeaderIndex;
-              PreferenceController.to.setSidePanelSortBy(sortFieldIndex);
-            });
-          },
-          onItemLongPress: (BuildContext _, int itemId) {
-            final LoanPayment instance = findObjectById(itemId, aggregatedList) as LoanPayment;
-            myShowDialogAndActionsForMoneyObject(
-              title: AppL10n.tr(AppTranslationKeys.loanPayment),
-              moneyObject: instance,
-            );
-            selectionController.select(itemId);
-            PreferenceController.to.setSidePanelSelectedItemId(itemId);
-          },
+          listId: _loanPaymentsListId,
+          columns: LoanPayment.fieldsForColumnView.definitions,
+          getList: () => getAccountLoanPayments(account, data),
+          onItemLongPress: (BuildContext _, LoanPayment payment) => myShowDialogAndActionsForMoneyObject(
+            title: AppL10n.tr(AppTranslationKeys.loanPayment),
+            moneyObject: payment,
+          ),
         );
       },
     );

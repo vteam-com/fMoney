@@ -11,11 +11,12 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transfer_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/category_widgets_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widget_providers_model.dart';
-import 'package:money/widgets/dialogs/dialog_button.dart';
+import 'package:money/shared/presentation/entity_widgets/potential_transfer_sheet_helper.dart';
 import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_date_picker_widget.dart';
@@ -31,15 +32,12 @@ import 'package:money/widgets/widgets_domain/widget_from_data.dart';
 
 const int _transactionUnsetId = -1;
 const int _transactionZeroInt = 0;
-const double _transactionZeroDouble = 0.0;
 const double _transferPickerWidth = 300.0;
 const double _transferPickerHeight = 80.0;
 const int _maxCategorySuggestions = 3;
 const double _potentialTransferHintIconSize = 14.0;
 const double _potentialTransferHintIconButtonSize = 18.0;
-const double _potentialTransferSheetHeaderPadding = 12.0;
-const double _potentialTransferSheetMaxHeightFactor = 0.5;
-const double _potentialTransferSheetMaxWidth = 900.0;
+const double _potentialTransferPreviewCardPadding = 12.0;
 const int _potentialTransferSingleBestMatch = 1;
 const double _potentialTransferPreviewCardSpacing = 16.0;
 const double _potentialTransferPreviewCardPreferredWidth = 320.0;
@@ -224,7 +222,7 @@ Widget transactionBuildCategoryCellWidget(Transaction transaction) {
 /// disconnected transfer candidates are available for [transaction].
 Widget transactionBuildPayeeOrTransferWidget(Transaction transaction) {
   final String caption = transaction.getPayeeOrTransferCaption();
-  final bool showHintIcon = _hasPotentialTransferMatch(transaction);
+  final bool showHintIcon = DataAbstract.instance.hasPotentialTransferMatch(transaction);
 
   return Row(
     children: <Widget>[
@@ -375,7 +373,7 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
                 includeDeleted: true,
               )
               .cast<Transaction>()
-              .where((Transaction t) => t.fieldPayee.value == payee.uniqueId);
+              .where((Transaction t) => t.isForPayee(payee.uniqueId));
           Navigator.of(context).pop(false);
           EntityWidgetProviders.mergePayee!.showMergePayee<Transaction>(
             context,
@@ -389,20 +387,7 @@ Widget _buildPayeeOrTransferEditWidget(Transaction transaction, void Function(bo
   );
 }
 
-/// Returns true when [transaction] has at least one likely disconnected
-/// counterpart that can be converted into a transfer.
-///
-/// Uses the cached per-data-version lookup so it stays cheap when called for
-/// every row while scrolling.
-bool _hasPotentialTransferMatch(Transaction transaction) {
-  if (transaction.isDeleted || transaction.isTransfer || transaction.isSplit) {
-    return false;
-  }
-  return DataAbstract.instance.hasPotentialTransferMatch(transaction);
-}
-
-/// Opens a side-panel style bottom sheet using the transfer sender/receiver
-/// cards and one primary action to convert two disconnected entries.
+/// Opens the potential-transfer sheet with the best disconnected counterpart of [transaction].
 void _showPotentialTransferMatchPanel(
   BuildContext context,
   Transaction transaction,
@@ -419,57 +404,31 @@ void _showPotentialTransferMatchPanel(
     return;
   }
 
-  final Transaction bestMatch = matches.first as Transaction;
-  final Transfer previewTransfer = _buildPreviewTransfer(transaction, bestMatch);
+  final Transfer preview = buildTransferPreview(transaction, matches.first as Transaction);
 
-  showModalBottomSheet<void>(
+  showPotentialTransferSheet(
     context: context,
-    isScrollControlled: true,
-    constraints: const BoxConstraints(
-      maxWidth: _potentialTransferSheetMaxWidth,
-    ),
-    builder: (BuildContext dialogContext) {
-      final double maxHeight = MediaQuery.of(dialogContext).size.height * _potentialTransferSheetMaxHeightFactor;
-      return SafeArea(
-        child: SizedBox(
-          height: maxHeight,
-          child: Column(
-            spacing: SizeForPadding.normal,
+    builder: (BuildContext sheetContext, StateSetter _) => Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: SizeForPadding.normal,
+      children: <Widget>[
+        Text(
+          AppL10n.tr(AppTranslationKeys.matchingTransaction),
+          style: Theme.of(sheetContext).textTheme.titleMedium,
+        ),
+        Expanded(
+          child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(_potentialTransferSheetHeaderPadding),
-                child: Text(
-                  AppL10n.tr(AppTranslationKeys.matchingTransaction),
-                  style: Theme.of(dialogContext).textTheme.titleMedium,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: _potentialTransferSheetHeaderPadding),
-                child: DialogActionButton(
-                  text: AppL10n.tr(AppTranslationKeys.recordATransferBetweenTwoAccounts),
-                  onPressed: () {
-                    final bool didConvert = DataAbstract.instance.convertDisconnectedTransactionsToTransfer(
-                      transaction: transaction,
-                      relatedTransaction: bestMatch,
-                    );
-                    if (didConvert) {
-                      Navigator.of(dialogContext).pop();
-                    }
-                  },
-                ),
-              ),
-
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: _potentialTransferSheetHeaderPadding),
-                  child: _buildTransferSenderReceiverPreview(previewTransfer),
-                ),
+              buildPotentialTransferCard(
+                preview: preview,
+                previewWidget: _buildTransferSenderReceiverPreview(preview),
+                onConverted: () => Navigator.of(sheetContext).pop(),
               ),
             ],
           ),
         ),
-      );
-    },
+      ],
+    ),
   );
 }
 
@@ -519,7 +478,7 @@ Widget _buildTransferPreviewObjectCard({
 
   return Card(
     child: Padding(
-      padding: const EdgeInsets.all(_potentialTransferSheetHeaderPadding),
+      padding: const EdgeInsets.all(_potentialTransferPreviewCardPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -529,23 +488,5 @@ Widget _buildTransferPreviewObjectCard({
         ],
       ),
     ),
-  );
-}
-
-/// Creates a temporary transfer model used only for sender/receiver preview UI.
-Transfer _buildPreviewTransfer(Transaction transaction, Transaction relatedTransaction) {
-  if (transaction.fieldAmount.value.asDouble() < _transactionZeroDouble) {
-    return Transfer(
-      id: _transactionZeroInt,
-      source: transaction,
-      relatedTransaction: relatedTransaction,
-      isOrphan: false,
-    );
-  }
-  return Transfer(
-    id: _transactionZeroInt,
-    source: relatedTransaction,
-    relatedTransaction: transaction,
-    isOrphan: false,
   );
 }

@@ -10,129 +10,87 @@ class GitHubArtifactsService {
   /// User-Agent sent with every request to GitHub, which rejects requests without one.
   static const String userAgent = 'fMoney-App';
 
+  /// Download URL of each desktop archive, used for every platform GitHub does not provide.
+  static const Map<String, String> fallbackUrls = <String, String>{
+    SharedStrings.platformKeyWindows: 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
+    SharedStrings.platformKeyLinux: 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
+    SharedStrings.platformKeyMacos: 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
+  };
+
   static const String _repoOwner = 'vteam-com';
   static const String _repoName = 'fMoney';
   static const String _apiBaseUrl = 'https://api.github.com';
 
-  /// Fetches the latest release artifacts and falls back to workflow artifacts
-  static Future<Map<String, String>> getLatestArtifactUrls() async {
-    try {
-      // First try to get the latest release
-      final Map<String, String> releaseUrls = await _getLatestReleaseUrls();
-      if (releaseUrls.isNotEmpty) {
-        return releaseUrls;
-      }
+  /// API path listing the latest successful build of the main branch.
+  static const String _latestBuildRunsPath = 'actions/workflows/builds.yml/runs?branch=main&status=success&per_page=1';
 
-      // Fallback to workflow artifacts if no releases found
-      return await _getWorkflowArtifactUrls();
-    } catch (_) {
-      // Return fallback URLs if both GitHub API calls fail
-      return _getFallbackUrls();
+  /// Returns the download URL of each desktop archive, keyed by the `SharedStrings.platformKey*` values:
+  /// the latest release's archives, else the latest successful build's artifacts, and
+  /// [fallbackUrls] for every platform neither provides.
+  static Future<Map<String, String>> getLatestArtifactUrls() async {
+    Map<String, String> urls = await _getLatestReleaseUrls();
+    if (urls.isEmpty) {
+      urls = await _getWorkflowArtifactUrls();
     }
+    return <String, String>{...fallbackUrls, ...urls};
   }
 
   /// Fetches the latest published release, or null when GitHub can't be reached or answers with an error.
   static Future<GitHubRelease?> fetchLatestRelease() async {
     try {
-      final http.Response response = await http
-          .get(
-            Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/releases/latest'),
-            headers: <String, String>{
-              'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': userAgent,
-            },
-          )
-          .timeout(Constants.httpRequestTimeout);
-
-      if (response.statusCode != Constants.httpStatusOk) {
-        return null;
-      }
-      return GitHubRelease.fromJson(json.decode(response.body) as Map<String, dynamic>);
+      final Map<String, dynamic>? release = await _getJson('releases/latest');
+      return release == null ? null : GitHubRelease.fromJson(release);
     } catch (_) {
       return null;
     }
+  }
+
+  /// GETs [path] under this repository's GitHub API URL and returns the decoded JSON object,
+  /// or null when GitHub answers with an error status.
+  static Future<Map<String, dynamic>?> _getJson(String path) async {
+    final http.Response response = await http
+        .get(
+          Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/$path'),
+          headers: <String, String>{
+            'Accept': SharedStrings.githubApiAcceptV3Json,
+            'User-Agent': userAgent,
+          },
+        )
+        .timeout(Constants.httpRequestTimeout);
+
+    if (response.statusCode != Constants.httpStatusOk) {
+      return null;
+    }
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   /// Gets URLs from the latest GitHub release
   static Future<Map<String, String>> _getLatestReleaseUrls() async =>
       (await fetchLatestRelease())?.assetUrls ?? <String, String>{};
 
-  /// Gets URLs from workflow artifacts (fallback)
+  /// Gets the artifact URLs of the latest successful build of the main branch,
+  /// or an empty map when GitHub can't be reached or has none.
   static Future<Map<String, String>> _getWorkflowArtifactUrls() async {
     try {
-      // Get the latest successful workflow run for main branch
-      final http.Response workflowResponse = await http
-          .get(
-            Uri.parse(
-              '$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/workflows/builds.yml/runs?branch=main&status=success&per_page=1',
-            ),
-            headers: <String, String>{
-              'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': userAgent,
-            },
-          )
-          .timeout(Constants.httpRequestTimeout);
-
-      if (workflowResponse.statusCode != Constants.httpStatusOk) {
-        throw Exception('Failed to fetch workflow runs: ${workflowResponse.statusCode}');
-      }
-
-      final Map<String, dynamic> workflowData = json.decode(workflowResponse.body) as Map<String, dynamic>;
-      final List<dynamic> runs = workflowData['workflow_runs'] as List<dynamic>;
-
+      final Map<String, dynamic>? workflowData = await _getJson(_latestBuildRunsPath);
+      final List<dynamic> runs = workflowData?['workflow_runs'] as List<dynamic>? ?? <dynamic>[];
       if (runs.isEmpty) {
-        throw Exception('No successful workflow runs found');
+        return <String, String>{};
       }
 
-      final dynamic latestRun = runs.first;
-      final int runId = latestRun['id'] as int;
-
-      // Get artifacts for this run
-      final http.Response artifactsResponse = await http
-          .get(
-            Uri.parse('$_apiBaseUrl/repos/$_repoOwner/$_repoName/actions/runs/$runId/artifacts'),
-            headers: <String, String>{
-              'Accept': SharedStrings.githubApiAcceptV3Json,
-              'User-Agent': userAgent,
-            },
-          )
-          .timeout(Constants.httpRequestTimeout);
-
-      if (artifactsResponse.statusCode != Constants.httpStatusOk) {
-        throw Exception('Failed to fetch artifacts: ${artifactsResponse.statusCode}');
-      }
-
-      final Map<String, dynamic> artifactsData = json.decode(artifactsResponse.body) as Map<String, dynamic>;
-      final List<dynamic> artifacts = artifactsData['artifacts'] as List<dynamic>;
+      final int runId = runs.first['id'] as int;
+      final Map<String, dynamic>? artifactsData = await _getJson('actions/runs/$runId/artifacts');
 
       final Map<String, String> artifactUrls = <String, String>{};
-
-      for (final dynamic artifact in artifacts) {
-        final String name = artifact['name'] as String;
-        final String archiveDownloadUrl = artifact['archive_download_url'] as String;
-
-        // Map artifact names to platforms
-        if (name.contains(SharedStrings.platformKeyWindows)) {
-          artifactUrls[SharedStrings.platformKeyWindows] = archiveDownloadUrl;
-        } else if (name.contains(SharedStrings.platformKeyLinux)) {
-          artifactUrls[SharedStrings.platformKeyLinux] = archiveDownloadUrl;
-        } else if (name.contains(SharedStrings.platformKeyMacos)) {
-          artifactUrls[SharedStrings.platformKeyMacos] = archiveDownloadUrl;
+      for (final dynamic artifact in artifactsData?['artifacts'] as List<dynamic>? ?? <dynamic>[]) {
+        final String? platformKey = GitHubRelease.platformKeyForAssetName(artifact['name'] as String);
+        if (platformKey != null) {
+          artifactUrls[platformKey] = artifact['archive_download_url'] as String;
         }
       }
-
       return artifactUrls;
     } catch (_) {
       return <String, String>{};
     }
-  }
-
-  /// Gets fallback URLs
-  static Map<String, String> _getFallbackUrls() {
-    return <String, String>{
-      SharedStrings.platformKeyWindows: 'https://money.vteam.com/downloads/mymoney-app-windows.zip',
-      SharedStrings.platformKeyLinux: 'https://money.vteam.com/downloads/mymoney-app-linux.zip',
-      SharedStrings.platformKeyMacos: 'https://money.vteam.com/downloads/mymoney-app-macos.zip',
-    };
   }
 }

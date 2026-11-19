@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_this
 // ignore: fcheck_one_class_per_file
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:cupertino_ui/cupertino_ui.dart';
@@ -9,6 +10,7 @@ import 'package:money/data/models/dividend_model.dart';
 import 'package:money/data/models/stock_date_price_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/helpers/chart_helper.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
@@ -47,8 +49,6 @@ const int _epochMillisPerSecond = 1000;
 const int _zeroInt = 0;
 const int _oneInt = 1;
 const double _zeroDouble = 0.0;
-const double _chartMarginLeft = 80.0;
-const double _chartMarginBottom = 50.0;
 const double _lineRectWidth = 0.5;
 const double _labelLineHeight = 0.7;
 const double _labelMaxWidth = 400.0;
@@ -207,62 +207,35 @@ class _StockChartWidgetState extends State<StockChartWidget> {
       alignment: Alignment.topCenter,
       children: <Widget>[
         // Splits
-        Padding(
-          padding: const EdgeInsets.only(
-            left: _chartMarginLeft,
-            bottom: _chartMarginBottom,
-          ),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter: _PaintSplits(
-              splits: widget.splits,
-              minX: dataPoints.first.x,
-              maxX: dataPoints.last.x,
-            ),
+        lineChartOverlay(
+          _PaintSplits(
+            splits: widget.splits,
+            minX: dataPoints.first.x,
+            maxX: dataPoints.last.x,
           ),
         ),
 
         // Activities Buy & Sell
-        Padding(
-          padding: const EdgeInsets.only(
-            left: _chartMarginLeft,
-            bottom: _chartMarginBottom,
-          ),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter: PaintActivities(
-              activities: widget.holdingsActivities,
-              minX: dataPoints.first.x,
-              maxX: dataPoints.last.x,
-            ),
+        lineChartOverlay(
+          PaintActivities(
+            activities: widget.holdingsActivities,
+            minX: dataPoints.first.x,
+            maxX: dataPoints.last.x,
           ),
         ),
 
         // Dividends
-        Padding(
-          padding: const EdgeInsets.only(
-            left: _chartMarginLeft,
-            bottom: _chartMarginBottom,
-          ),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter: _PaintDividends(
-              list: widget.dividends,
-              minX: dataPoints.first.x,
-              maxX: dataPoints.last.x,
-            ),
+        lineChartOverlay(
+          _PaintDividends(
+            list: widget.dividends,
+            minX: dataPoints.first.x,
+            maxX: dataPoints.last.x,
           ),
         ),
         MyLineChart(dataPoints: dataPoints, showDots: false),
 
         /// Price and Refresh button
-        Padding(
-          padding: const EdgeInsets.only(
-            left: _chartMarginLeft,
-            bottom: _chartMarginBottom,
-          ),
-          child: _buildPriceRefreshButton(),
-        ),
+        lineChartPlotArea(_buildPriceRefreshButton()),
       ],
     );
   }
@@ -288,7 +261,7 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                   horizontal: SizeForPadding.medium,
                 ),
                 child: Text(
-                  '${widget.symbol} ${doubleToCurrency(dataPoints.last.y)}',
+                  '${widget.symbol} ${getAmountAsStringUsingCurrency(dataPoints.last.y)}',
                   style: const TextStyle(fontSize: SizeForText.large),
                 ),
               ),
@@ -544,10 +517,7 @@ class _PaintSplits extends CustomPainter {
     // lines are drawn lef to right sorted by time
     // the label are drawn bottom to top sorted by ascending amount
     for (final StockSplit split in splits) {
-      double left = _zeroDouble;
-      if (split.fieldDate.value!.millisecondsSinceEpoch > minX) {
-        left = ((split.fieldDate.value!.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
-      }
+      double left = chartXPosition(split.fieldDate.value!.millisecondsSinceEpoch.toDouble(), minX, maxX, chartWidth);
       _paintLine(canvas, Colors.grey, left, chartHeight - _gridLineOffsetY, _gridLineHeight);
       _paintLabel(
         canvas,
@@ -595,14 +565,7 @@ class PaintActivities extends CustomPainter {
     double nextVerticalLabelPosition = chartHeight - labelVerticalDistribution;
 
     for (final ChartEvent activity in activities) {
-      double left = _zeroDouble;
-      double right = _zeroDouble;
-      if (activity.dates.min!.millisecondsSinceEpoch > minX) {
-        left = ((activity.dates.min!.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
-      }
-      if (activity.dates.max != null) {
-        right = ((activity.dates.max!.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
-      }
+      final double left = chartXPosition(activity.dates.min!.millisecondsSinceEpoch.toDouble(), minX, maxX, chartWidth);
       _paintLine(
         canvas,
         lineColor?.withAlpha(_lineAlpha) ?? activity.colorToUse.withValues(alpha: _activityLineOpacity),
@@ -618,7 +581,7 @@ class PaintActivities extends CustomPainter {
       }
       // show the value is not zero
       if (activity.amount != _zeroDouble) {
-        text += doubleToCurrency(activity.amount, showPlusSign: true);
+        text += getPlusSignIfPositive(activity.amount) + getAmountAsStringUsingCurrency(activity.amount);
       }
       // add description
       if (activity.description.isNotEmpty) {
@@ -627,6 +590,11 @@ class PaintActivities extends CustomPainter {
       final Color boxColor = (lineColor ?? activity.colorToUse).withAlpha(_boxAlpha);
       Color textColor = boxColor;
       if (activity.dates.max != null) {
+        // Keep the box inside the chart when the event ends after the last data point
+        final double right = min(
+          chartXPosition(activity.dates.max!.millisecondsSinceEpoch.toDouble(), minX, maxX, chartWidth),
+          chartWidth,
+        );
         _paintBox(
           canvas,
           left,
@@ -684,10 +652,7 @@ class _PaintDividends extends CustomPainter {
     // lines are drawn lef to right sorted by time
     // the label are drawn at bottom
     for (final Dividend item in list) {
-      double left = _zeroDouble;
-      if (item.date.millisecondsSinceEpoch > minX) {
-        left = ((item.date.millisecondsSinceEpoch - minX) / (maxX - minX)) * chartWidth;
-      }
+      double left = chartXPosition(item.date.millisecondsSinceEpoch.toDouble(), minX, maxX, chartWidth);
       _paintLine(canvas, Colors.grey, left, chartHeight - _gridLineOffsetY, _gridLineHeight);
       _paintLabel(
         canvas,

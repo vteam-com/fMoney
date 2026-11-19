@@ -1,12 +1,9 @@
 // ignore: fcheck_dead_code
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:material_ui/material_ui.dart';
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
-import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
@@ -14,10 +11,8 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/views/imports/shared/data_import_view.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
-
-const String _skipReasonInvalidDate = 'invalidDate';
-const String _skipReasonInvalidAmount = 'invalidAmount';
+import 'package:money/views/imports/shared/import_file_reader_helper.dart';
+import 'package:money/views/imports/shared/import_row_helper.dart';
 
 /// Imports QFX file and processes transactions from file path.
 Future<bool> importQFX(
@@ -35,29 +30,6 @@ Future<bool> importQFX(
   importQfxFromString(context, text);
 
   return true;
-}
-
-/// Reads [filePath] as UTF-8 text, falling back to Latin-1 for legacy bank files.
-/// Shows an error and returns null when the file cannot be read.
-Future<String?> readImportFileAsText(String filePath) async {
-  try {
-    final List<int> bytes = await File(filePath).readAsBytes();
-    try {
-      return utf8.decode(bytes);
-    } on FormatException {
-      return latin1.decode(bytes, allowInvalid: true);
-    }
-  } catch (error) {
-    logger.e('Error reading file: $error');
-    SnackBarService.displayError(
-      autoDismiss: false,
-      message: AppL10n.tr(
-        AppTranslationKeys.importUnableToReadFile,
-        params: <String, String>{'error': error.toString()},
-      ),
-    );
-    return null;
-  }
 }
 
 /// Processes QFX data from string content and imports transactions.
@@ -204,14 +176,14 @@ List<ImportEntry> parseQFXTransactions(List<String> lines, {ImportDiagnostics? d
       final double? amount = parseAmountFlexible(rawAmount);
       if (amount == null) {
         logger.w('Skipping QFX transaction with malformed amount: $rawAmount');
-        diagnostics?.incrementSkipped(_skipReasonInvalidAmount);
+        diagnostics?.incrementSkipped(importSkipReasonInvalidAmount);
         continue;
       }
       final String rawDate = findAndGetValueOf(rawTransactionText, SharedStrings.ofxTagDatePosted, '');
       final DateTime? date = parseOfxDate(rawDate);
       if (date == null) {
         logger.w('Skipping QFX transaction with malformed date: $rawDate');
-        diagnostics?.incrementSkipped(_skipReasonInvalidDate);
+        diagnostics?.incrementSkipped(importSkipReasonInvalidDate);
         continue;
       }
       final ImportEntry currentTransaction = ImportEntry(

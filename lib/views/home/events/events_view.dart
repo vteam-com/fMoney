@@ -1,23 +1,21 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
-import 'package:money/data/models/ranges_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/event_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
+import 'package:money/views/panels/charts/net_worth_chart.dart';
 import 'package:money/views/panels/charts/stock_chart.dart';
 import 'package:money/views/panels/layout/side_panel_support_model.dart';
 import 'package:money/views/panels/list/add_new_item_button_mixin.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
+import 'package:money/views/panels/list/side_panel_lists_helper.dart';
 import 'package:money/views/panels/list/transactions_list_view.dart';
-import 'package:money/widgets/charts/chart_event_model.dart';
 import 'package:money/widgets/charts/my_line_chart.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 
 /// ViewForMoneyObjects class with ViewEvents as a subclass.
 class ViewEvents extends ViewForMoneyObjects {
@@ -35,7 +33,7 @@ class ViewEvents extends ViewForMoneyObjects {
 
 class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMixin {
   _ViewEventsState() {
-    viewId = ViewId.viewAliases;
+    viewId = ViewId.viewEvents;
   }
 
   @override
@@ -43,6 +41,9 @@ class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMix
 
   @override
   DataObject createNewItem() => Data().events.addNewEvent();
+
+  @override
+  List<String> get sidePanelTransactionsColumns => sidePanelTransactionsColumnNamesWithoutPayee;
 
   @override
   String getClassNamePlural() {
@@ -93,7 +94,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMix
     return SidePanelSupport(
       onDetails: getSidePanelViewDetails,
       onChart: _getSidePanelViewChart,
-      onTransactions: _getSidePanelViewTransactions,
+      onTransactions: getSidePanelViewTransactions,
     );
   }
 
@@ -122,79 +123,19 @@ class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMix
       Data(),
     );
 
-    const double marginLeft = 80.0;
-    const double marginBottom = 50.0;
-
-    // get the events
-    final List<ChartEvent> milestoneTransactions = <ChartEvent>[];
-
-    for (final Event event in getList()) {
-      final Category? category = Data().categories.get(
-        event.fieldCategoryId.value,
-      );
-      milestoneTransactions.add(
-        ChartEvent(
-          dates: DateRange(
-            min: event.fieldDateBegin.value!,
-            max: event.fieldDateEnd.value ?? DateTime.now(),
-          ),
-          amount: 0,
-          quantity: 1,
-          colorBasedOnQuantity: false, // use Amount
-          description: event.fieldName.value,
-          color: category == null ? Colors.blue : category.getColorOrAncestorsColor(),
-        ),
-      );
-    }
-
-    // sort by ascending date
-    milestoneTransactions.sort(
-      (ChartEvent a, ChartEvent b) => a.dates.min!.compareTo(b.dates.min!),
-    );
-
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(
-            left: marginLeft,
-            bottom: marginBottom,
-          ),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter: PaintActivities(
-              activities: milestoneTransactions,
+        if (tmpDataPointsWithNetWorth.isNotEmpty)
+          lineChartOverlay(
+            PaintActivities(
+              activities: chartEventsFromEvents(getList()),
               minX: tmpDataPointsWithNetWorth.first.x,
               maxX: tmpDataPointsWithNetWorth.last.x,
             ),
           ),
-        ),
         MyLineChart(dataPoints: tmpDataPointsWithNetWorth, showDots: false),
       ],
-    );
-  }
-
-  /// Returns a view for displaying the transactions in this view.
-  ///
-  /// The view is a ListView that displays the transaction fields, including date,
-  /// account, category, memo, and amount.
-  ///
-  /// @param {```List<int>```} selectedIds - A list of IDs of items currently selected.
-  /// @param {bool} showAsNativeCurrency - Whether to display the values in native currency format.
-  ///
-  /// @return The view widget for this view.
-  Widget _getSidePanelViewTransactions({
-    required List<int> selectedIds,
-    required bool showAsNativeCurrency,
-  }) {
-    keepUnused(selectedIds, showAsNativeCurrency);
-    final SelectionController selectionController = SelectionController(
-      getPreferenceKey(settingKeySidePanel + settingKeySelectedListItemId),
-    );
-
-    return buildSidePanelTransactionsList(
-      columnNames: sidePanelTransactionsColumnNamesWithoutPayee,
-      selectionController: selectionController,
     );
   }
 

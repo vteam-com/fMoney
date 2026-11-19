@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
             orientation: Axis.vertical,
             key: Key(PreferenceController.to.currentView.toString()),
             onSelected: _handleSubViewSelectionChanged,
-            selectedIndex: PreferenceController.to.currentView.index,
+            selectedView: PreferenceController.to.currentView,
           ),
           Expanded(
             child: Container(
@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
           orientation: Axis.horizontal,
           key: Key(PreferenceController.to.currentView.toString()),
           onSelected: _handleSubViewSelectionChanged,
-          selectedIndex: PreferenceController.to.currentView.index,
+          selectedView: PreferenceController.to.currentView,
         ),
       ],
     );
@@ -158,7 +158,8 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  void _handleSubViewSelectionChanged(int selectedIndex) {
-    PreferenceController.to.setView(ViewId.values[selectedIndex]);
+  /// Shows [view], picked in the navigation bar.
+  void _handleSubViewSelectionChanged(ViewId view) {
+    PreferenceController.to.setView(view);
   }
 }
