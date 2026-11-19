@@ -1,5 +1,11 @@
 # Change Log
 
+## [version 1.21.1] 2026-11-19
+
+- release.sh: push unpushed commits with the release instead of stopping
+- DRY review of the alias, payee and release work
+- Fix invisible update banner and snack bars; add Check for updates
+
 ## [version 1.21.0] 2026-11-18
 
 - Add tool/release.sh to bump, check, commit and push a release
