@@ -1,5 +1,11 @@
 # Change Log
 
+## [version 1.21.3] 2026-11-19
+
+- update packages
+- Show the jump bar for Transactions sorted by Payee or Category
+- Add A–Z jump bar to lists sorted on a text column
+
 ## [version 1.21.2] 2026-11-19
 
 - update README.md
