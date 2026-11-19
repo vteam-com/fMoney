@@ -4,12 +4,19 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/shared/domain/account_entity.dart';
+import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/entity_widgets_helper.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
+import 'package:money/shared/presentation/services/app_scope_service.dart';
+import 'package:money/views/home/transactions/transactions_view.dart';
 import 'package:money/widgets/list/adaptive_columns_or_rows_list_widget.dart';
 import 'package:money/widgets/list/list_jump_bar_widget.dart';
+
+import '../helpers/test_fixtures_helper.dart';
 
 /// Column index of the payee name, a text column, in [Payee.fieldsForColumnView].
 const int _nameColumn = 0;
@@ -113,6 +120,41 @@ void main() {
       final ListController listController = await _pumpPayeeList(tester, _countColumn);
       expect(find.byType(ListJumpBar), findsNothing);
       listController.dispose();
+    });
+  });
+
+  group('Transactions view jump bar', () {
+    late AppServices services;
+
+    setUp(() {
+      resetTestData();
+      services = createTestServices();
+    });
+
+    tearDown(() => disposeTestServices(services));
+
+    /// Returns the letters the jump bar currently offers.
+    Set<String> offeredLetters(WidgetTester tester) =>
+        tester.widget<ListJumpBar>(find.byType(ListJumpBar)).firstIndexByLetter.keys.toSet();
+
+    testWidgets('offers the payee and category letters, leaving out transfers', (WidgetTester tester) async {
+      final Account checking = createTestAccount();
+      final Category food = Data().categories.addNewCategory(name: 'Food');
+      final Category household = Data().categories.addNewCategory(name: 'Household');
+      createTestTransaction(checking, 'Amazon', category: food);
+      createTestTransaction(checking, 'Costco', category: household);
+      createTestTransaction(checking, 'Zeller', isTransfer: true).fieldPayee.value = -1;
+
+      await pumpTestApp(tester, services, const ViewTransactions());
+      final Transaction template = Transaction(date: DateTime(2024));
+
+      await tester.tap(find.text(template.fieldPayee.name));
+      await tester.pumpAndSettle();
+      expect(offeredLetters(tester), <String>{'A', 'C'}, reason: 'a transfer has no payee name, whatever its caption');
+
+      await tester.tap(find.text(template.fieldCategoryId.name));
+      await tester.pumpAndSettle();
+      expect(offeredLetters(tester), <String>{'F', 'H'});
     });
   });
 }

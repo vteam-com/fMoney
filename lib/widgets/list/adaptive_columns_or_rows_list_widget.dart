@@ -73,7 +73,7 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
 class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
   late ColumnWidthsNotifier _columnWidths;
 
-  /// Cached first row index of each initial letter of the sorted text column.
+  /// Cached first row index of each initial letter of the sorted column.
   Map<String, int> _jumpLetterIndexes = <String, int>{};
 
   /// Inputs [_jumpLetterIndexes] was computed from: the list, the sorted field and the direction.
@@ -175,7 +175,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
 
     // The jump bar sits outside the horizontal scroll so it stays visible,
     // and beside header, body and footer alike so their columns stay aligned.
-    final Field<dynamic>? jumpField = _sortedTextField();
+    final Field<dynamic>? jumpField = _sortedJumpBarField();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -195,18 +195,20 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
     if (_jumpLetterIndexesKey != key) {
       _jumpLetterIndexesKey = key;
       _jumpLetterIndexes = firstIndexByJumpLetter(
-        widget.list.map((DataObject row) => field.getValueForDisplay(row)?.toString() ?? ''),
+        widget.list.map(
+          (DataObject row) => field.getJumpBarText?.call(row) ?? field.getValueForDisplay(row)?.toString() ?? '',
+        ),
       );
     }
     return _jumpLetterIndexes;
   }
 
-  /// Returns the field the list is sorted on when it is a text column, the only kind the jump bar supports.
-  Field<dynamic>? _sortedTextField() {
+  /// Returns the field the list is sorted on when it supports the jump bar: a text column, or one with [Field.getJumpBarText].
+  Field<dynamic>? _sortedJumpBarField() {
     if (!isIndexInRange(widget.fieldDefinitions, widget.sortByFieldIndex)) {
       return null;
     }
     final Field<dynamic> field = widget.fieldDefinitions[widget.sortByFieldIndex];
-    return field.type == FieldType.text ? field : null;
+    return field.getJumpBarText != null || field.type == FieldType.text ? field : null;
   }
 }

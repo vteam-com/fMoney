@@ -255,6 +255,7 @@ class Transaction extends DataObject implements MergeableItem {
     defaultValue: _unsetId,
     getValueForDisplay: (DataInterface instance) => (instance as Transaction).categoryName,
     getValueForReading: (DataInterface instance) => (instance as Transaction).categoryName,
+    getJumpBarText: (DataInterface instance) => (instance as Transaction).categoryName,
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldCategoryId.value,
     sort: (DataInterface a, DataInterface b, bool ascending) => sortByString(
       (a as Transaction).categoryName,
@@ -373,6 +374,8 @@ class Transaction extends DataObject implements MergeableItem {
       ascending,
     ),
     getValueForDisplay: (DataInterface instance) => (instance as Transaction).getPayeeOrTransferCaption(),
+    // Matches [sort]: transfers have no payee name, so they file under no letter.
+    getJumpBarText: (DataInterface instance) => (instance as Transaction).payeeName,
     getValueForSerialization: (DataInterface instance) => (instance as Transaction).fieldPayee.value,
     setValue: (DataInterface instance, dynamic newValue) {
       final Transaction transaction = instance as Transaction;

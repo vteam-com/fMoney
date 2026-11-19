@@ -56,6 +56,7 @@ class Field<T> {
     // ignore: avoid_init_to_null
     this.getValueForReading = null,
     this.getValueForSerialization = defaultCallbackValue,
+    this.getJumpBarText,
     this.setValue,
     this.sort,
   }) {
@@ -124,6 +125,12 @@ class Field<T> {
 
   /// Get the value for storing the instance
   dynamic Function(DataInterface) getValueForSerialization;
+
+  /// Returns the text whose initial letter files a row under the list jump bar.
+  ///
+  /// Set it on non-text columns sorted by a name, returning the text [sort] compares;
+  /// when null, text columns use their display value and other columns get no jump bar.
+  String Function(DataInterface)? getJumpBarText;
 
   // Static properties
   String name;
@@ -260,6 +267,7 @@ class FieldInt extends Field<int> {
     super.getValueForDisplay,
     super.getValueForSerialization,
     super.getValueForReading,
+    super.getJumpBarText,
     super.columnWidth,
     super.useAsDetailPanels,
     super.defaultValue = -1,
