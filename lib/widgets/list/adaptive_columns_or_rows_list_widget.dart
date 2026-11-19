@@ -1,11 +1,14 @@
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
+import 'package:money/data/models/field_type_enum.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/list_controller.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/widgets/list/column_widths_notifier.dart';
 import 'package:money/widgets/list/list_item_footer_widget.dart';
 import 'package:money/widgets/list/list_item_header_widget.dart';
+import 'package:money/widgets/list/list_jump_bar_widget.dart';
 import 'package:money/widgets/list/list_view.dart';
 import 'package:money/widgets/pure/scale_down_widget.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
@@ -69,6 +72,15 @@ class AdaptiveListColumnsOrRows extends StatefulWidget {
 /// State for [AdaptiveListColumnsOrRows].
 class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
   late ColumnWidthsNotifier _columnWidths;
+
+  /// Cached first row index of each initial letter of the sorted text column.
+  Map<String, int> _jumpLetterIndexes = <String, int>{};
+
+  /// Inputs [_jumpLetterIndexes] was computed from: the list, the sorted field and the direction.
+  (List<DataObject>, Field<dynamic>, bool)? _jumpLetterIndexesKey;
+
+  /// Gives the jump bar access to the list body so it can scroll a row to the top.
+  final GlobalKey<MyListViewState<DataObject>> _listViewKey = GlobalKey<MyListViewState<DataObject>>();
   @override
   void initState() {
     super.initState();
@@ -123,6 +135,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
         Expanded(
           flex: 1,
           child: MyListView<DataObject>(
+            key: _listViewKey,
             fields: widget.fieldDefinitions,
             list: widget.list,
             selectedItemIds: widget.selectedItemsByUniqueId,
@@ -153,13 +166,47 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
       ],
     );
 
-    if (widget.displayAsColumns && !context.isWidthLarge) {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(width: _minColumnLayoutWidth, child: theContent),
+    final Widget content = widget.displayAsColumns && !context.isWidthLarge
+        ? SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(width: _minColumnLayoutWidth, child: theContent),
+          )
+        : theContent;
+
+    // The jump bar sits outside the horizontal scroll so it stays visible,
+    // and beside header, body and footer alike so their columns stay aligned.
+    final Field<dynamic>? jumpField = _sortedTextField();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(child: content),
+        if (jumpField != null)
+          ListJumpBar(
+            firstIndexByLetter: _firstIndexByLetter(jumpField),
+            onJump: (int index) => _listViewKey.currentState?.scrollIndexToTop(index),
+          ),
+      ],
+    );
+  }
+
+  /// Returns the first row index of each initial letter of [field], recomputed only when the list, field or direction changes.
+  Map<String, int> _firstIndexByLetter(Field<dynamic> field) {
+    final (List<DataObject>, Field<dynamic>, bool) key = (widget.list, field, widget.sortAscending);
+    if (_jumpLetterIndexesKey != key) {
+      _jumpLetterIndexesKey = key;
+      _jumpLetterIndexes = firstIndexByJumpLetter(
+        widget.list.map((DataObject row) => field.getValueForDisplay(row)?.toString() ?? ''),
       );
-    } else {
-      return theContent;
     }
+    return _jumpLetterIndexes;
+  }
+
+  /// Returns the field the list is sorted on when it is a text column, the only kind the jump bar supports.
+  Field<dynamic>? _sortedTextField() {
+    if (!isIndexInRange(widget.fieldDefinitions, widget.sortByFieldIndex)) {
+      return null;
+    }
+    final Field<dynamic> field = widget.fieldDefinitions[widget.sortByFieldIndex];
+    return field.type == FieldType.text ? field : null;
   }
 }

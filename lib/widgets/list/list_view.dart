@@ -352,6 +352,18 @@ class MyListViewState<T> extends State<MyListView<T>> {
     }
   }
 
+  /// Scrolls so the item at [index] becomes the first visible row, or as close as the scroll range allows.
+  void scrollIndexToTop(int index) {
+    if (!widget.scrollController.hasClients || !isIndexInRange(widget.list, index)) {
+      return;
+    }
+    final ScrollPosition position = widget.scrollController.position;
+    final double rowExtent = MediaQuery.textScalerOf(context).scale(_rowHeight);
+    widget.scrollController.jumpTo(
+      (index * rowExtent).clamp(position.minScrollExtent, position.maxScrollExtent),
+    );
+  }
+
   /// if the uniqueID is valid,
   /// if the index of this ID is valid
   /// if the item is not in view
