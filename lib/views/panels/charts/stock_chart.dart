@@ -292,7 +292,6 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                 splits = await _fetchSplitsFromTwelveData(widget.symbol);
               }
               if (mounted) {
-                final bool shouldUpdateAll = DataFileController.to.trackMutations.isMutated();
                 setState(() {
                   _refreshing = false;
 
@@ -300,8 +299,9 @@ class _StockChartWidgetState extends State<StockChartWidget> {
                   Data().stockSplits.setStockSplits(security!.uniqueId, splits);
                 });
 
+                // Read after adding the splits: a new split is a pending change that the holdings must reflect.
                 // Call updateAll AFTER setState completes to avoid destroying widget mid-render
-                if (shouldUpdateAll) {
+                if (DataFileController.to.trackMutations.isMutated()) {
                   Data().updateAll();
                 }
               }

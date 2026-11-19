@@ -7,7 +7,6 @@ import 'package:collection/collection.dart';
 import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/stock_summary_model.dart';
-import 'package:money/helpers/amount_model.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/currency_helper.dart';
 import 'package:money/helpers/json_helper.dart';
@@ -333,7 +332,7 @@ class Accounts extends MoneyObjects<Account> with NamedMoneyObjects<Account> {
 
     for (final Account account in iterableList()) {
       if (_isMatchingUserChoiceIncludingClosedAccount(account)) {
-        sum += (account.fieldBalanceNormalized.getValueForDisplay(account) as AmountModel).asDouble();
+        sum += account.toNormalized(account.balance);
       }
     }
     return sum;
@@ -347,30 +346,6 @@ class Accounts extends MoneyObjects<Account> with NamedMoneyObjects<Account> {
     return data.getTransactions().cast<Transaction>().where(
       (Transaction t) => t.fieldAccountId.value == account.uniqueId,
     );
-  }
-
-  /// Removes an account and cleans up related transfers and transactions.
-  bool removeAccount(Account a, [bool forceRemoveAfterSave = false]) {
-    if (a.isInserted || forceRemoveAfterSave) {
-      if (this.containsKey(a.uniqueId)) {
-        deleteItem(a);
-      }
-    }
-
-    // Fix up any transfers that are pointing to this account.
-    Iterable<Transaction> view = this.data.findTransfersToAccount(a).cast<Transaction>();
-    if (view.isNotEmpty) {
-      for (Transaction u in view) {
-        this.data.clearTransferToAccount(u.uniqueId, a);
-      }
-    }
-
-    view = getTransactions(a);
-
-    for (Transaction t in view) {
-      this.data.removeTransaction(t.uniqueId);
-    }
-    return true;
   }
 
   /// Updates the `paidOn` markers for credit card transactions based on matching statement payments.

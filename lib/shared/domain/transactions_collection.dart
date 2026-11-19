@@ -8,7 +8,6 @@ import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/helpers/pairs_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
-import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
@@ -145,12 +144,9 @@ class Transactions extends MoneyObjects<Transaction> {
   }
 
   /// Checks all transactions for dangling transfers and populates collections.
-  void checkTransfers(
-    Set<Transaction> dangling,
-    List<Account> deletedAccounts,
-  ) {
+  void checkTransfers(Set<Transaction> dangling) {
     for (Transaction t in iterableList()) {
-      t.checkTransfers(dangling, deletedAccounts);
+      t.checkTransfers(dangling);
     }
   }
 
@@ -252,22 +248,6 @@ class Transactions extends MoneyObjects<Transaction> {
       final String existingFitid = bankFitid(transaction.fieldFitid.value);
       return importedFitid.isEmpty || existingFitid.isEmpty || existingFitid == importedFitid;
     });
-  }
-
-  /// Returns transfers that point to the given account.
-  Iterable<Transaction> findTransfersToAccount(Account a) {
-    final List<Transaction> view = <Transaction>[];
-    for (Transaction t in iterableList()) {
-      if (t.isDeleted) {
-        continue;
-      }
-
-      if (t.containsTransferTo(a)) {
-        view.add(t);
-      }
-    }
-    // view.sort(SortByDate);
-    return view;
   }
 
   /// Sorts [list] by date (then id, so same-day order is stable) and stores the

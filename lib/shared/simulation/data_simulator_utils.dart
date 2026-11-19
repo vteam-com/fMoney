@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:money/shared/simulation/data_simulator_constants.dart';
 
-const int oneMonthOffset = 1;
 const int lastDayOfPreviousMonth = 0;
 const int maxDaysInMonth = 31;
 const int currencyRoundingDecimals = 2;
@@ -53,18 +52,14 @@ DateTime getDateShiftedByYears(int yearsToShift, int month, int day) {
   return DateTime(now.year + yearsToShift, month, day);
 }
 
-/// Returns the last day of the month preceding [date].
+/// Returns the last day of the month preceding [date] (day 0 of a month is the last day of the one before).
 DateTime getLastDayOfPreviousMonth(DateTime date) {
-  return DateTime(
-    date.year,
-    date.month - oneMonthOffset,
-    lastDayOfPreviousMonth,
-  );
+  return DateTime(date.year, date.month, lastDayOfPreviousMonth);
 }
 
-/// Returns a random negative amount up to [maxValue].
+/// Returns a random positive amount up to [maxValue], rounded to cents; callers choose the sign.
 double getRandomAmount(int maxValue) {
-  return -Random().nextInt(maxValue + 1).toDouble();
+  return double.parse((Random().nextDouble() * maxValue).toStringAsFixed(currencyRoundingDecimals));
 }
 
 /// Returns a year offset from now.

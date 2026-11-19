@@ -37,10 +37,6 @@ class ViewHeader extends StatelessWidget {
     this.onClearAllFilters, // A callback for when the clear filters button is pressed.
     this.multipleSelection, // A flag indicating whether multiple selection is enabled.
     this.getActionButtons, // A callback that returns a list of action buttons.
-    this.onAddMoneyObject, // A callback for when the add money object button is pressed.
-    this.onMergeMoneyObject, // A callback for when the merge money object button is pressed.
-    this.onEditMoneyObject, // A callback for when the edit money object button is pressed.
-    this.onDeleteMoneyObject, // A callback for when the delete money object button is pressed.
     this.onScrollToTop, // scroll action - top
     this.onScrollToSelection, // scroll action - selection
     this.onScrollToBottom, // scroll action - bottom
@@ -58,15 +54,7 @@ class ViewHeader extends StatelessWidget {
 
   final ViewHeaderMultipleSelection? multipleSelection;
 
-  final VoidCallback? onAddMoneyObject;
-
   final void Function()? onClearAllFilters;
-
-  final VoidCallback? onDeleteMoneyObject;
-
-  final VoidCallback? onEditMoneyObject;
-
-  final VoidCallback? onMergeMoneyObject;
 
   final VoidCallback? onScrollToBottom;
 
@@ -156,7 +144,7 @@ class ViewHeader extends StatelessWidget {
     );
 
     if (multipleSelection != null || (getActionButtons != null)) {
-      final List<Widget> listOfActionButtons = getActionButtons!(false);
+      final List<Widget> listOfActionButtons = getActionButtons?.call(false) ?? <Widget>[];
 
       // Multiple-Selection
       if (multipleSelection != null) {

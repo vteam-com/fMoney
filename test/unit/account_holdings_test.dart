@@ -6,6 +6,7 @@ import 'package:money/data/models/stock_summary_model.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/investment_entity.dart';
+import 'package:money/shared/domain/investments_collection.dart';
 import 'package:money/shared/domain/securities_collection.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 
@@ -81,5 +82,28 @@ void main() {
     expect(earlier.balance, -10);
     expect(later.balance, -40);
     expect(Data().accounts.getTransactions(card), unorderedEquals(<Transaction>[earlier, later]));
+  });
+
+  test('each trade holds the running shares of its own position, not of every security', () {
+    final Security msft = Data().securities.getOrCreate('MSFT');
+    final Security aapl = Data().securities.getOrCreate('AAPL');
+    buy(aapl, 10, 1);
+    buy(msft, 5, 1);
+    buy(aapl, 2, 1);
+    Data().investments.onAllDataLoaded();
+
+    Investments.applyHoldingSharesPerPosition(Data().investments.iterableList());
+
+    final Investment msftTrade = Data().investments.iterableList().firstWhere(
+      (Investment i) => i.fieldSecurity.value == msft.uniqueId,
+    );
+    expect(msftTrade.fieldHoldingShares.value, 5, reason: 'AAPL shares must not add up into the MSFT position');
+    expect(
+      Data().investments
+          .iterableList()
+          .where((Investment i) => i.fieldSecurity.value == aapl.uniqueId)
+          .map((Investment i) => i.fieldHoldingShares.value),
+      unorderedEquals(<double>[10, 12]),
+    );
   });
 }

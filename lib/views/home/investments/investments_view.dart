@@ -92,15 +92,10 @@ class _ViewInvestmentsState extends ViewForMoneyObjectsState {
     bool includeDeleted = false,
     bool applyFilter = true,
   }) {
-    final List<Investment> list = Data().investments
-        .iterableList(includeDeleted: includeDeleted)
-        .where(
-          (Investment instance) => applyFilter == false || isMatchingFilters(instance),
-        )
-        .toList();
-    Investments.applyHoldingSharesAdjustedForSplits(list);
-
-    return list;
+    final List<Investment> all = Data().investments.iterableList(includeDeleted: includeDeleted).toList();
+    // Holdings run over every trade of each position, so the filter can't change them.
+    Investments.applyHoldingSharesPerPosition(all);
+    return all.where((Investment instance) => applyFilter == false || isMatchingFilters(instance)).toList();
   }
 
   @override

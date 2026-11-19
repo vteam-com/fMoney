@@ -13,6 +13,8 @@ abstract class AppTranslationKeys {
   static const String accounts = 'accounts';
   static const String accountsDescription = 'accountsDescription';
   static const String activeLabel = 'activeLabel';
+  static const String actualPerMonth = 'actualPerMonth';
+  static const String actualPerYear = 'actualPerYear';
   static const String add = 'add';
   static const String addInvestment = 'addInvestment';
   static const String addInvestmentTransaction = 'addInvestmentTransaction';
@@ -100,6 +102,8 @@ abstract class AppTranslationKeys {
   static const String budgetAccuracyActualZero = 'budgetAccuracyActualZero';
   static const String budgetAccuracyBothZero = 'budgetAccuracyBothZero';
   static const String budgetAccuracyPercent = 'budgetAccuracyPercent';
+  static const String budgetedPerMonth = 'budgetedPerMonth';
+  static const String budgetedPerYear = 'budgetedPerYear';
   static const String budgetVariancePercent = 'budgetVariancePercent';
   static const String budgetVarianceUndefined = 'budgetVarianceUndefined';
   static const String buildNumberLabel = 'buildNumberLabel';

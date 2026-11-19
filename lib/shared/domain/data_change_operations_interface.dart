@@ -10,12 +10,6 @@ abstract class DataChangeOperations {
     bool recalculateBalances = true,
   });
 
-  /// Removes a transaction by ID.
-  bool removeTransaction(int transactionId);
-
-  /// Clears transfer-to reference for a transaction.
-  void clearTransferToAccount(int transactionId, DataObject account);
-
   /// Updates all data/collections after changes.
   void updateAll();
 }

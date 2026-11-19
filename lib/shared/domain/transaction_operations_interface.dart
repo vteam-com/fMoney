@@ -8,17 +8,11 @@ abstract class TransactionOperations {
   /// Returns all transactions.
   Iterable<DataObject> getTransactions({bool includeDeleted = false});
 
-  /// Appends a transaction.
-  void appendTransaction(DataObject transaction);
-
   /// Appends a new transaction with optional notification.
   void appendNewTransaction(DataObject transaction, {bool fireNotification = true});
 
   /// Returns transactions with splits flattened.
   List<DataObject> getTransactionsFlattenSplits({bool Function(DataObject)? whereClause});
-
-  /// Finds transfers pointing to the given account.
-  Iterable<DataObject> findTransfersToAccount(DataObject account);
 
   /// Changes the category for a transaction.
   void changeCategory(DataObject transaction, int categoryId);

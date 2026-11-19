@@ -88,9 +88,8 @@ class PreferenceController extends ChangeNotifier {
   set sidePanelHeight(int value) {
     _sidePanelHeight = value;
 
-    // persist
+    // persist; no notify: only the splitter that sets it reads it, and it is set on every drag frame
     setInt(settingKeySidePanelHeight, value);
-    notifyListeners();
   }
 
   ///---------------------------------
@@ -247,7 +246,8 @@ class PreferenceController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Navigates to specified view with selected item ID.
+  /// Navigates to [viewId] with [selectedId] selected, replacing its text and column filters with
+  /// [textFilter] and [columnFilters] (none when null), so a stale filter can't hide the item jumped to.
   Future<void> jumpToView({
     required ViewId viewId,
     required int selectedId,
@@ -259,13 +259,10 @@ class PreferenceController extends ChangeNotifier {
       viewId.getViewPreferenceId(settingKeyFilterText),
       textFilter,
     );
-    if (columnFilters != null) {
-      final String jsonString = columnFilters.toJsonString();
-      await setString(
-        viewId.getViewPreferenceId(settingKeyFiltersColumns),
-        jsonString,
-      );
-    }
+    await setString(
+      viewId.getViewPreferenceId(settingKeyFiltersColumns),
+      columnFilters?.toJsonString() ?? '',
+    );
 
     // Set the last selected item, in order to have it selected when the view changes
     if (selectedId != -1) {

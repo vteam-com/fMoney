@@ -1,13 +1,10 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
-import 'package:money/shared/domain/transaction_split_entity.dart';
-import 'package:money/shared/domain/transactions_collection.dart';
 import 'package:money/widgets/components/info_banner_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pure/box_widget.dart';
@@ -161,7 +158,7 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
                     context,
                     AppL10n.tr(AppTranslationKeys.noNeedToMergeCategoryToItself),
                   );
-                } else if (mergeCategoryInto(widget.categoryToMove, _categoryPicked)) {
+                } else if (Data().mergeCategoryInto(widget.categoryToMove, _categoryPicked)) {
                   Navigator.pop(context);
                 } else {
                   showSnackBar(context, AppL10n.tr(AppTranslationKeys.cannotMoveCategoryUnderItself));
@@ -172,58 +169,6 @@ class _MergeCategoriesTransactionsDialogState extends State<MergeCategoriesTrans
           ),
         ],
       ),
-    );
-  }
-}
-
-/// Moves every transaction, split line and child category of [source] to [target], then deletes [source].
-///
-/// Returns false, changing nothing, when [target] is [source] or one of its subcategories.
-bool mergeCategoryInto(Category source, Category target) {
-  if (Data().categories.isSameOrDescendantOf(target, source)) {
-    return false;
-  }
-
-  moveTransactionsToCategory(
-    Data().transactions
-        .iterableList(includeDeleted: true)
-        .where((Transaction t) => t.fieldCategoryId.value == source.uniqueId)
-        .toList(),
-    target,
-  );
-
-  for (final TransactionSplit split in Data().splits.iterableList()) {
-    if (split.fieldCategoryId.value == source.uniqueId) {
-      split.stashValueBeforeEditing();
-      split.fieldCategoryId.value = target.uniqueId;
-      Data().notifyMutationChanged(mutation: MutationType.changed, moneyObject: split, recalculateBalances: false);
-    }
-  }
-
-  // Children keep their own subtree; reparenting renames them and marks them changed.
-  for (final Category child in Data().categories.getCategoriesWithThisParent(source.uniqueId)) {
-    Data().categories.reparentCategory(child, target);
-  }
-
-  source.stashValueBeforeEditing();
-  Data().notifyMutationChanged(mutation: MutationType.deleted, moneyObject: source, recalculateBalances: false);
-  Data().updateAll();
-  return true;
-}
-
-/// Moves a list of transactions to the specified category, updating data.
-void moveTransactionsToCategory(
-  List<Transaction> transactions,
-  Category moveToCategory,
-) {
-  for (final Transaction t in transactions) {
-    t.stashValueBeforeEditing();
-    t.fieldCategoryId.value = moveToCategory.uniqueId;
-
-    Data().notifyMutationChanged(
-      mutation: MutationType.changed,
-      moneyObject: t,
-      recalculateBalances: false,
     );
   }
 }

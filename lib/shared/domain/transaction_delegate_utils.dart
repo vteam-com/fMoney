@@ -1,5 +1,4 @@
 import 'package:money/data/helpers/investment_type_helper.dart';
-import 'package:money/helpers/constants_helper.dart';
 import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
@@ -13,12 +12,7 @@ const int _transactionZeroInt = 0;
 const double _transactionZeroDouble = 0.0;
 
 /// Checks transfer linkage consistency and adds invalid transactions to [dangling].
-void transactionCheckTransfers(
-  dynamic transaction,
-  Set<dynamic> dangling,
-  List<dynamic> deletedAccounts,
-) {
-  keepUnused(deletedAccounts);
+void transactionCheckTransfers(dynamic transaction, Set<dynamic> dangling) {
   if (transaction.fieldTransfer.value != _transactionUnsetId && transaction.instanceOfTransfer == null) {
     dangling.add(transaction);
   }
@@ -35,23 +29,6 @@ void transactionCheckTransfers(
       }
     }
   }
-}
-
-/// Returns true when [transaction] contains a transfer to [account].
-bool transactionContainsTransferTo(dynamic transaction, dynamic account) {
-  if (transaction.isSplit as bool) {
-    for (final TransactionSplit split in transaction.splits as List<TransactionSplit>) {
-      if (split.fieldTransferId.value != _transactionUnsetId &&
-          split.getTransferTransaction()?.fieldAccountId.value == account.uniqueId) {
-        return true;
-      }
-    }
-  }
-  if (transaction.instanceOfTransfer != null &&
-      transaction.instanceOfTransfer.relatedTransaction?.fieldAccountId.value == account.uniqueId) {
-    return true;
-  }
-  return false;
 }
 
 /// Converts [nativeValue] into normalized currency using transaction account ratio.

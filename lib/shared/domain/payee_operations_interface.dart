@@ -24,10 +24,4 @@ abstract class PayeeOperations {
 
   /// Returns all payee names sorted.
   List<String> getPayeeNamesSorted();
-
-  /// Returns all payees.
-  List<DataObject> getPayees();
-
-  /// Deletes a payee.
-  void deletePayee(DataObject payee);
 }

@@ -139,9 +139,6 @@ abstract class SharedStrings {
   /// Comma + space separator used in elapsed-time formatting.
   static const String commaSpace = ', ';
 
-  /// URI scheme used for opening local filesystem locations.
-  static const String fileUriScheme = 'file:';
-
   /// Preferred desktop application title.
   static const String appWindowTitle = 'fMoney by vTeam';
 

@@ -127,6 +127,8 @@ void _mutateAll(Iterable<Transaction> transactions, void Function(Transaction tr
   for (final Transaction transaction in transactions) {
     transaction.stashValueBeforeEditing();
     change(transaction);
+    // The pending suggestion was for the old category/payee; updateAll suggests again for rows still uncategorized.
+    transaction.possibleMatchingCategoryId = -1;
     Data().notifyMutationChanged(mutation: MutationType.changed, moneyObject: transaction, recalculateBalances: false);
   }
   Data().updateAll();

@@ -72,6 +72,7 @@ class _InputByColumnsOrFreeStyleState extends State<InputByColumnsOrFreeStyle> {
 
   @override
   void dispose() {
+    _debouncer.cancel();
     _controllerSingleColumn.dispose();
     _stopListening();
     _controllerColumn1.dispose();

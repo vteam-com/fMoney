@@ -6,6 +6,8 @@
   "accounts": "Accounts",
   "accountsDescription": "Your main assets.",
   "activeLabel": "Active",
+  "actualPerMonth": "Actual/M",
+  "actualPerYear": "Actual/Y",
   "add": "Add",
   "addInvestment": "Add investment",
   "addInvestmentTransaction": "Add Investment Transaction",
@@ -258,6 +260,8 @@
       }
     }
   },
+  "budgetedPerMonth": "Budgeted/M",
+  "budgetedPerYear": "Budgeted/Y",
   "budgetVariancePercent": "Variance:    @value%",
   "@budgetVariancePercent": {
     "placeholders": {

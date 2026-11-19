@@ -21,7 +21,6 @@ import 'package:money/shared/domain/loan_payments_collection.dart';
 import 'package:money/shared/domain/reconcile_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
-import 'package:money/shared/presentation/helpers/account_selection_helper.dart';
 import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/stock_cache_lookup_service.dart';
@@ -379,7 +378,7 @@ class _ViewAccountsState extends ViewForMoneyObjectsState with AddNewItemButtonM
                       onPressed: () async {
                         showImportInvestment(
                           inputData: InvestmentImportFields(
-                            account: getMostRecentlySelectedAccount(),
+                            account: account,
                             date: DateTime.now(),
                             // inverse the position
                             investmentType: summary.shares > 0 ? InvestmentType.sell : InvestmentType.buy,

@@ -643,16 +643,8 @@ class Transaction extends DataObject implements MergeableItem {
   }
 
   /// Validates transfer linkage and appends broken links to [dangling].
-  void checkTransfers(
-    Set<Transaction> dangling,
-    List<dynamic> deletedAccounts,
-  ) {
-    transactionCheckTransfers(this, dangling, deletedAccounts);
-  }
-
-  /// Returns true if this transaction or one of its splits transfers to account [a].
-  bool containsTransferTo(dynamic a) {
-    return transactionContainsTransferTo(this, a);
+  void checkTransfers(Set<Transaction> dangling) {
+    transactionCheckTransfers(this, dangling);
   }
 
   /// Returns the transaction currency code derived from the linked account.

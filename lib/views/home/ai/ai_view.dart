@@ -57,15 +57,6 @@ class ViewAI extends ViewWidget {
 
   @override
   State<ViewWidget> createState() => _ViewAIState();
-
-  @override
-  String getClassNamePlural() => '';
-
-  @override
-  String getClassNameSingular() => '';
-
-  @override
-  String getDescription() => '';
 }
 
 /// State management for the ViewAI widget.
@@ -91,8 +82,8 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
   /// Whether an AI prompt is currently being processed.
   bool _isProcessingPrompt = false;
 
-  /// Whether the current prompt processing should be cancelled.
-  bool _cancelled = false;
+  /// Identifies the prompt being answered; Cancel and each new prompt bump it so a late reply is dropped.
+  int _requestId = 0;
 
   /// Controller for the text input field used for manual queries.
   final TextEditingController _textController = TextEditingController();
@@ -193,21 +184,10 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
 
     // Load the selected model from preferences first
     OllamaService.getLastUserSelectedModel().then((_) async {
-      try {
-        // Load conversation context and chat history for the selected model
-        _conversationContext = await OllamaService.loadConversationContext();
-        _chatHistory = await OllamaService.loadChatHistory();
-      } catch (e) {
-        // Handle errors gracefully by using empty/default values
-        _conversationContext = null;
-        _chatHistory = <ChatMessage>[];
-        AppLogger.error(
-          module: 'ai_view',
-          operation: 'initState',
-          error: e,
-        );
-      }
-      _checkOllamaStatus();
+      // The status check can switch models (none saved yet, or the saved one is gone),
+      // and history is kept per model, so load the conversation after it.
+      await _checkOllamaStatus();
+      await _loadModelConversation();
     });
   }
 
@@ -244,9 +224,7 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
         setState(() {}); // Refresh to update the selected model display
         OllamaService.selectedModel = selectedModel;
         await OllamaService.saveSelectedModel(selectedModel);
-        // Load context and chat history for the new model
-        _conversationContext = await OllamaService.loadConversationContext();
-        _chatHistory = await OllamaService.loadChatHistory();
+        await _loadModelConversation();
       },
       onClearChat: () async {
         setState(() {
@@ -305,7 +283,7 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
             onSendPrompt: _submitPrompt,
             isProcessing: _isProcessingPrompt,
             onCancel: () async {
-              _cancelled = true;
+              _requestId++;
               _appendChatHistory(AppL10n.tr(AppTranslationKeys.requestWasCancelled), ChatFrom.ai);
               await OllamaService.saveChatHistory(_chatHistory);
               setState(() {
@@ -380,20 +358,23 @@ Answer the question:''';
     }
 
     // Add user message to chat history
+    final int requestId = ++_requestId;
     _appendChatHistory(fullPrompt, ChatFrom.user, payload);
     await OllamaService.saveChatHistory(_chatHistory);
+    if (!mounted) {
+      return;
+    }
     setState(() {
       _isProcessingPrompt = true;
     });
 
-    try {
-      if (_cancelled) {
-        return;
-      }
+    /// Returns true while this prompt is still the one the view is waiting for (not cancelled, not left).
+    bool isCurrent() => mounted && requestId == _requestId;
 
+    try {
       final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
 
-      if (_cancelled) {
+      if (!isCurrent()) {
         return;
       }
 
@@ -407,39 +388,64 @@ Answer the question:''';
           await OllamaService.saveConversationContext(_conversationContext);
         }
 
-        if (!_cancelled) {
-          _appendChatHistory(aiResponse.trim(), ChatFrom.ai, payload);
-          setState(() {
-            _isProcessingPrompt = false;
-          });
-          // Save updated chat history
-          await OllamaService.saveChatHistory(_chatHistory);
+        if (!isCurrent()) {
+          return;
         }
+        _appendChatHistory(aiResponse.trim(), ChatFrom.ai);
+        setState(() {
+          _isProcessingPrompt = false;
+        });
+        // Save updated chat history
+        await OllamaService.saveChatHistory(_chatHistory);
       } else {
-        if (!_cancelled) {
-          _appendChatHistory(AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), ChatFrom.ai);
-          await OllamaService.saveChatHistory(_chatHistory);
+        _appendChatHistory(AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), ChatFrom.ai);
+        await OllamaService.saveChatHistory(_chatHistory);
+        if (mounted) {
           setState(() {
             _isProcessingPrompt = false;
           });
         }
       }
     } catch (e) {
-      if (!_cancelled) {
-        _appendChatHistory(
-          AppL10n.tr(
-            AppTranslationKeys.errorWithReason,
-            params: <String, String>{'reason': e.toString()},
-          ),
-          ChatFrom.ai,
-        );
-        await OllamaService.saveChatHistory(_chatHistory);
+      if (!isCurrent()) {
+        return;
+      }
+      _appendChatHistory(
+        AppL10n.tr(
+          AppTranslationKeys.errorWithReason,
+          params: <String, String>{'reason': e.toString()},
+        ),
+        ChatFrom.ai,
+      );
+      await OllamaService.saveChatHistory(_chatHistory);
+      if (mounted) {
         setState(() {
           _isProcessingPrompt = false;
         });
       }
     }
-    _cancelled = false;
+  }
+
+  /// Loads the selected model's saved conversation context and chat history, then shows them.
+  Future<void> _loadModelConversation() async {
+    List<int>? conversationContext;
+    List<ChatMessage> chatHistory;
+    try {
+      conversationContext = await OllamaService.loadConversationContext();
+      chatHistory = await OllamaService.loadChatHistory();
+    } catch (e) {
+      // Fall back to an empty conversation rather than failing the view.
+      conversationContext = null;
+      chatHistory = <ChatMessage>[];
+      AppLogger.error(module: 'ai_view', operation: '_loadModelConversation', error: e);
+    }
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _conversationContext = conversationContext;
+      _chatHistory = chatHistory;
+    });
   }
 
   /// Returns sorted, open real accounts available for AI prompt context.
@@ -633,7 +639,9 @@ Answer the question:''';
       _isOllamaRunning = false;
     }
 
-    setState(() => _isChecking = false);
+    if (mounted) {
+      setState(() => _isChecking = false);
+    }
   }
 
   /// Builds the chat list view including history and processing indicator.

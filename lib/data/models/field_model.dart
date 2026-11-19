@@ -2,6 +2,7 @@
 
 import 'dart:ui' show TextAlign;
 
+import 'package:collection/collection.dart';
 import 'package:money/data/models/data_interface.dart';
 import 'package:money/data/models/field_filter_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
@@ -186,11 +187,6 @@ class Field<T> {
   /// Returns a string representation for [value] based on this field's type.
   String getString(dynamic value) => type.formatValue(value);
 
-  /// Sets the amount model value for money fields.
-  void setAmount(dynamic newValue) {
-    (this as FieldMoney).value.setAmount(newValue);
-  }
-
   /// Gets the current field value.
   // ignore: unnecessary_getters_setters
   T get value {
@@ -300,6 +296,9 @@ class FieldMoney extends Field<AmountModel> {
          align: TextAlign.right,
          type: FieldType.amount,
        );
+
+  /// Sets the amount held by this field from [newValue] (a number or numeric text).
+  void setAmount(dynamic newValue) => value.setAmount(newValue);
 }
 
 /// Represents field quantity.
@@ -405,7 +404,13 @@ class Fields<T> {
     FieldFilters filterByFieldsValue,
   ) {
     for (final FieldFilter filter in filterByFieldsValue.list) {
-      final Field<dynamic> fieldDefinition = getFieldByName(filter.fieldName);
+      // A filter saved for a column that no longer exists (renamed or removed) is ignored.
+      final Field<dynamic>? fieldDefinition = definitions.firstWhereOrNull(
+        (Field<dynamic> field) => field.name == filter.fieldName,
+      );
+      if (fieldDefinition == null) {
+        continue;
+      }
       if (filter.byDateRange) {
         // caller supplied a date range
         final DateTime date = _getFieldValueAsDate(

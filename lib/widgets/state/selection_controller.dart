@@ -9,13 +9,10 @@ import 'package:money/widgets/state/preferences_controller.dart';
 /// - Support for first selected ID retrieval
 class SelectionController {
   SelectionController([this.preferenceKeyForPersistingSelections = '']) {
-    SelectionController._lastCreated = this;
     if (preferenceKeyForPersistingSelections.isNotEmpty) {
       load();
     }
   }
-
-  static SelectionController? _lastCreated;
 
   String preferenceKeyForPersistingSelections = '';
   final Set<int> selectedItems = <int>{};
@@ -62,11 +59,5 @@ class SelectionController {
       selectedItems.add(id);
     }
     save();
-  }
-
-  /// Returns the most recently created selection controller.
-  static SelectionController get to {
-    assert(_lastCreated != null, 'SelectionController.to accessed before any SelectionController was created.');
-    return _lastCreated!;
   }
 }

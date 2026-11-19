@@ -5,12 +5,12 @@ import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/misc_helpers.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/shared/presentation/widgets/zoom_widget.dart';
 import 'package:money/views/imports/import_wizard_view.dart';
-import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/views/shell/app_title_widget.dart';
 import 'package:money/widgets/components/app_update_banner_widget.dart';
 import 'package:money/widgets/components/popup_menu_icon_button.dart';
@@ -58,10 +58,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Handles app bar actions such as add transactions, settings, and theme changes.
   void onAppBarAction(BuildContext context, int value) {
     switch (value) {
-      case Constants.commandAddTransactions:
-        showImportTransactionsFromTextInput(context);
-        DataFileController.to.update();
-        break;
       case Constants.commandSettings:
         Navigator.of(context).pushNamed(Constants.routeSettingsPage);
         break;
@@ -79,8 +75,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         DataFileController.to.update();
         break;
       default:
-        ThemeController.to.setThemeColor(value);
-        DataFileController.to.update();
+        // Only the theme color rows carry a color index; other rows (Zoom, the debug palette) only host controls.
+        if (isIndexInRange(ThemeController.to.themeColorNames, value)) {
+          ThemeController.to.setThemeColor(value);
+          DataFileController.to.update();
+        }
     }
   }
 

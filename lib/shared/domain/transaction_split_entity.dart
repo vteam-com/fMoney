@@ -234,9 +234,4 @@ class TransactionSplit extends DataObject {
 
   /// Returns the field definitions for TransactionSplit entities.
   static Fields<TransactionSplit> get fields => _fieldDefinitionCache.fields;
-
-  /// Returns the parent transaction for this split.
-  dynamic getTransferTransaction() {
-    return data.getTransaction(this.fieldTransactionId.value);
-  }
 }

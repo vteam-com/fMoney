@@ -17,7 +17,6 @@ import 'package:money/widgets/components/my_segment_widget.dart';
 import 'package:money/widgets/list/view_header_widget.dart';
 import 'package:money/widgets/pickers/number_picker_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
-import 'package:money/widgets/pure/view_widget.dart';
 import 'package:money/widgets/state/preferences_controller.dart';
 import 'package:money/widgets/timeline/years_range_selector.dart';
 
@@ -28,26 +27,16 @@ const int _eventToleranceMin = 0;
 const int _eventToleranceMax = 12;
 
 /// Represents view cash flow.
-class ViewCashFlow extends ViewWidget {
+class ViewCashFlow extends StatefulWidget {
   const ViewCashFlow({super.key});
 
   @override
-  State<ViewWidget> createState() => _ViewCashFlowState();
-
-  @override
-  String getClassNamePlural() => '';
-
-  @override
-  String getClassNameSingular() => '';
-
-  @override
-  String getDescription() => '';
+  State<ViewCashFlow> createState() => _ViewCashFlowState();
 }
 
-// ignore: always_specify_types
-class _ViewCashFlowState extends ViewWidgetState {
+class _ViewCashFlowState extends State<ViewCashFlow> {
   _ViewCashFlowState();
-
+  final Debouncer _debouncer = Debouncer();
   List<Account> accountsOpened = Data().accounts.getOpenAccounts();
   late DateRange dateRangeTransactions;
   Map<Category, double> mapOfExpenses = <Category, double>{};
@@ -61,17 +50,6 @@ class _ViewCashFlowState extends ViewWidgetState {
   double totalInvestments = _zeroDouble;
   double totalNones = _zeroDouble;
   double totalSavings = _zeroDouble;
-
-  final Debouncer _debouncer = Debouncer();
-
-  @override
-  Widget buildHeader([Widget? child]) {
-    return const SizedBox();
-  }
-
-  @override
-  Widget buildViewContent(Widget child) => const SizedBox();
-
   @override
   void initState() {
     super.initState();
@@ -115,23 +93,6 @@ class _ViewCashFlowState extends ViewWidgetState {
           ],
         );
       },
-    );
-  }
-
-  /// Builds the trend asset-account toggle.
-  Widget _buildIncludeAssetAccountsToggle() {
-    return Row(
-      children: <Widget>[
-        Checkbox.adaptive(
-          value: PreferenceController.to.trendIncludeAssetAccounts,
-          onChanged: (bool? newValue) {
-            if (newValue != null) {
-              PreferenceController.to.setTrendIncludeAssetAccounts(newValue);
-            }
-          },
-        ),
-        Text(AppL10n.tr(AppTranslationKeys.includeAssetAccounts)),
-      ],
     );
   }
 
@@ -199,6 +160,23 @@ class _ViewCashFlowState extends ViewWidgetState {
               },
             ),
           ),
+      ],
+    );
+  }
+
+  /// Builds the trend asset-account toggle.
+  Widget _buildIncludeAssetAccountsToggle() {
+    return Row(
+      children: <Widget>[
+        Checkbox.adaptive(
+          value: PreferenceController.to.trendIncludeAssetAccounts,
+          onChanged: (bool? newValue) {
+            if (newValue != null) {
+              PreferenceController.to.setTrendIncludeAssetAccounts(newValue);
+            }
+          },
+        ),
+        Text(AppL10n.tr(AppTranslationKeys.includeAssetAccounts)),
       ],
     );
   }

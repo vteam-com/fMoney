@@ -190,9 +190,7 @@ void main() {
       RentBuilding()..fieldName.value = 'Duplex',
       fireNotification: false,
     ) as RentBuilding;
-    building
-      ..data = Data()
-      ..lifeTimePnL = building.getLifeTimePnL();
+    building.data = Data();
     for (final String unit in <String>['Upstairs', 'Downstairs']) {
       Data().rentUnits.appendNewMoneyObject(
         RentUnit()

@@ -1,7 +1,7 @@
-import 'package:money/data/helpers/transaction_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/data_access_model.dart';
 import 'package:money/data/models/data_object_model.dart';
+import 'package:money/data/models/field_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/amount_model.dart';
 import 'package:money/shared/domain/account_aliases_collection.dart';
@@ -162,40 +162,6 @@ class Data implements DataAbstract {
     }
   }
 
-  @override
-  void clearTransferToAccount(int transactionId, DataObject account) {
-    final Transaction? t = transactions.get(transactionId);
-    if (t == null) {
-      return; // Transaction not found
-    }
-    // TODO
-    // if (t.isSplit) {
-    //   for (MoneySplit s in t.splits) {
-    //     if (s.Transfer != null && s.Transfer.Transaction.Account == a) {
-    //       ClearTransferToAccount(s.Transfer);
-    //       s.ClearTransfer();
-    //       s.Category =
-    //           s.Amount < 0 ? this.Categories.TransferToDeletedAccount : this.Categories.TransferFromDeletedAccount;
-    //       if (string.IsNullOrEmpty(s.Memo)) {
-    //         s.Memo = a.Name;
-    //       }
-    //     }
-    //   }
-    // }
-
-    // if (t.Transfer != null && t.Transfer.Transaction.Account == a) {
-    //   ClearTransferToAccount(t.Transfer);
-    //   t.Transfer = null;
-    //   if (!t.IsSplit) {
-    //     t.Category =
-    //         t.Amount < 0 ? this.Categories.TransferToDeletedAccount : this.Categories.TransferFromDeletedAccount;
-    //   }
-    //   if (string.IsNullOrEmpty(t.Memo)) {
-    //     t.Memo = a.Name;
-    //   }
-    // }
-  }
-
   /// Close data source
   void close() {
     clearExistingData();
@@ -329,11 +295,7 @@ class Data implements DataAbstract {
   /// Returns transfers that reference deleted accounts.
   Set<Transaction> getDanglingTransfers() {
     final Set<Transaction> dangling = <Transaction>{};
-    final List<Account> deletedAccounts = <Account>[];
-    transactions.checkTransfers(dangling, deletedAccounts);
-    for (final Account a in deletedAccounts) {
-      accounts.removeAccount(a);
-    }
+    transactions.checkTransfers(dangling);
     return dangling;
   }
 
@@ -426,53 +388,25 @@ class Data implements DataAbstract {
     }
   }
 
-  /// When Changes are done we can force a reevaluation of the balances
+  /// Recalculates every table, then reports dangling transfers; used after loading and on Rebalance.
   void recalculateBalances() {
-    for (final MoneyObjects<dynamic> moneyObjects in tables) {
-      moneyObjects.onAllDataLoaded();
-    }
-
-    // one last thing, Transfer are complex and we try to confirm or clean up any problem found
+    _recalculateTables();
     checkTransfers();
   }
 
-  @override
-  bool removeTransaction(int transactionId) {
-    final Transaction? t = transactions.get(transactionId);
-    if (t == null) {
-      return false; // Transaction not found
+  /// Recalculates every table's derived values (balances, totals, cross references) in load order.
+  void _recalculateTables() {
+    for (final MoneyObjects<dynamic> moneyObjects in tables) {
+      moneyObjects.onAllDataLoaded();
     }
-    if (t.fieldStatus.value == TransactionStatus.reconciled && t.fieldAmount.value.asDouble() != 0) {
-      throw Exception('Cannot removed reconciled transaction');
-    }
-    // TODO
-    // this.removeTransfer(t);
-
-    // this.transactions.RemoveTransaction(t);
-    // if (t.Unaccepted) {
-    //   if (t.Account != null) {
-    //     t.Account.Unaccepted--;
-    //   }
-    //   if (t.Payee != null) {
-    //     t.Payee.UnacceptedTransactions--;
-    //   }
-    // }
-
-    // if (t.Category == null && t.Transfer == null && !t.IsSplit) {
-    //   if (t.Payee != null) {
-    //     t.Payee.UnCategorizedTransactions--;
-    //   }
-    // }
-
-    // this.Rebalance(t);
-    return true;
   }
 
   /// ReBalance all objects values
   /// and Rebuild the UI
   @override
   void updateAll() {
-    recalculateBalances();
+    // Edits don't re-run the dangling-transfer check: its warning stays up until dismissed, so it would pile up.
+    _recalculateTables();
     DataAccess.onDataChanged();
   }
 
@@ -485,6 +419,54 @@ class Data implements DataAbstract {
   @override
   Payee getOrCreatePayee(String name, {bool fireNotification = true}) =>
       payees.getOrCreate(name, fireNotification: fireNotification);
+
+  /// Re-points everything that uses [source] to [target]: transactions, split lines, child categories,
+  /// loan accounts, events and rental buildings; then deletes [source].
+  ///
+  /// Returns false, changing nothing, when [target] is [source] or one of its subcategories.
+  bool mergeCategoryInto(Category source, Category target) {
+    if (categories.isSameOrDescendantOf(target, source)) {
+      return false;
+    }
+
+    /// Moves [field] of [item] from [source] to [target] as a pending edit.
+    void repoint(DataObject item, Field<int> field) {
+      if (field.value == source.uniqueId) {
+        item.stashValueBeforeEditing();
+        field.value = target.uniqueId;
+        notifyMutationChanged(mutation: MutationType.changed, moneyObject: item, recalculateBalances: false);
+      }
+    }
+
+    for (final Transaction t in transactions.iterableList(includeDeleted: true)) {
+      repoint(t, t.fieldCategoryId);
+    }
+    for (final TransactionSplit split in splits.iterableList()) {
+      repoint(split, split.fieldCategoryId);
+    }
+    // Only loan accounts use these; other accounts carry the 0 default, which is not a real reference.
+    for (final Account account in accounts.iterableList().where((Account a) => a.fieldType.value == AccountType.loan)) {
+      repoint(account, account.fieldCategoryIdForPrincipal);
+      repoint(account, account.fieldCategoryIdForInterest);
+    }
+    for (final Event event in events.iterableList()) {
+      repoint(event, event.fieldCategoryId);
+    }
+    for (final RentBuilding building in rentBuildings.iterableList()) {
+      for (final RentalCategoryRole role in RentalCategoryRole.values) {
+        repoint(building, building.categoryFieldOf(role));
+      }
+    }
+    // Children keep their own subtree; reparenting renames them and marks them changed.
+    for (final Category child in categories.getCategoriesWithThisParent(source.uniqueId)) {
+      categories.reparentCategory(child, target);
+    }
+
+    source.stashValueBeforeEditing();
+    notifyMutationChanged(mutation: MutationType.deleted, moneyObject: source, recalculateBalances: false);
+    updateAll();
+    return true;
+  }
 
   /// Re-points the split lines and aliases of each payee in [fromPayeeIds] that no longer has
   /// transactions to [toPayeeId], then deletes that payee.
@@ -552,16 +534,10 @@ class Data implements DataAbstract {
   }
 
   @override
-  List<Payee> getPayees() => payees.iterableList().toList();
-
-  @override
   String getPayeeName(int id) => payees.getNameFromId(id);
 
   @override
   List<String> getPayeeNamesSorted() => payees.getSortedPayeeNames();
-
-  @override
-  void deletePayee(DataObject payee) => payees.deleteItem(payee as Payee);
 
   // Accounts
   @override
@@ -575,15 +551,6 @@ class Data implements DataAbstract {
 
   @override
   List<String> getAccountNamesSorted() => accounts.getSortedAccountNames();
-
-  @override
-  String getAccountCurrency(int id) {
-    final Account? a = accounts.get(id);
-    if (a != null) {
-      return a.fieldCurrency.value;
-    }
-    return '';
-  }
 
   @override
   bool isAccountAsset(int id) {
@@ -627,9 +594,6 @@ class Data implements DataAbstract {
   Security? getSecurityBySymbol(String symbol) => securities.getBySymbol(symbol);
 
   @override
-  List<Security> getSecurities() => securities.iterableList().toList();
-
-  @override
   int? getCategoryIdFromName(String name) => categories.getIdByName(name);
 
   @override
@@ -657,12 +621,6 @@ class Data implements DataAbstract {
   }
 
   @override
-  Category getTransferCategory() => categories.transfer;
-
-  @override
-  Category getSplitCategory() => categories.split;
-
-  @override
   List<int> getCategoryTreeIds(int categoryId) => categories.getTreeIds(categoryId);
 
   @override
@@ -672,27 +630,8 @@ class Data implements DataAbstract {
   void appendNewCategory(DataObject category) => categories.appendNewMoneyObject(category as Category);
 
   @override
-  void deleteCategory(DataObject category) => categories.deleteItem(category as Category);
-
-  @override
-  List<Category> getCategories({bool includeDeleted = false}) =>
-      categories.iterableList(includeDeleted: includeDeleted).toList();
-
-  @override
   List<StockSplit> getStockSplitsForSecurity(DataObject security) =>
       stockSplits.getStockSplitsForSecurity(security as Security);
-
-  @override
-  List<StockSplit> getStockSplitsForSecurityId(int securityId) {
-    final Security? security = securities.get(securityId);
-    if (security != null) {
-      return stockSplits.getStockSplitsForSecurity(security);
-    }
-    return <StockSplit>[];
-  }
-
-  @override
-  LoanPayment? getLoanPayment(int id) => loanPayments.get(id);
 
   @override
   List<LoanPayment> getLoanPayments() => loanPayments.iterableList().toList();
@@ -711,19 +650,12 @@ class Data implements DataAbstract {
       transactions.iterableList(includeDeleted: includeDeleted);
 
   @override
-  void appendTransaction(DataObject t) => transactions.appendMoneyObject(t as Transaction);
-
-  @override
   void appendNewTransaction(DataObject t, {bool fireNotification = true}) =>
       transactions.appendNewMoneyObject(t as Transaction, fireNotification: fireNotification);
 
   @override
   List<Transaction> getTransactionsFlattenSplits({bool Function(Transaction)? whereClause}) =>
       transactions.getListFlattenSplits(whereClause: (Transaction t) => whereClause == null || whereClause(t));
-
-  @override
-  Iterable<Transaction> findTransfersToAccount(DataObject account) =>
-      transactions.findTransfersToAccount(account as Account);
 
   @override
   void changeCategory(DataObject t, int categoryId) => Transaction.changeCategory(t as Transaction, categoryId);

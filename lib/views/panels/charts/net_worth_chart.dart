@@ -41,10 +41,7 @@ class NetWorthChartState extends State<NetWorthChart> {
   void initState() {
     super.initState();
 
-    _transactions = Data().transactions
-        .iterableList(includeDeleted: true)
-        .where((Transaction t) => t.isTransfer == false)
-        .toList();
+    _transactions = Data().transactions.iterableList().where((Transaction t) => t.isTransfer == false).toList();
 
     final List<FlSpot> tmpDataPointsWithNetWorth = Transactions.cumulateTransactionPerYearMonth(_transactions, Data());
 

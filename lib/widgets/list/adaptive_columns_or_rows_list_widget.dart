@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_filters_model.dart';
 import 'package:money/data/models/field_model.dart';
@@ -96,7 +97,7 @@ class _AdaptiveListColumnsOrRowsState extends State<AdaptiveListColumnsOrRows> {
   @override
   void didUpdateWidget(covariant AdaptiveListColumnsOrRows oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.fieldDefinitions != widget.fieldDefinitions) {
+    if (!listEquals(oldWidget.fieldDefinitions, widget.fieldDefinitions)) {
       _columnWidths.dispose();
       _columnWidths = ColumnWidthsNotifier.fromFields(widget.fieldDefinitions);
     }

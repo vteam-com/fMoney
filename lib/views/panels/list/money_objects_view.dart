@@ -93,21 +93,16 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
   bool firstLoadCompleted = false;
   final ListControllerMain lc = ListControllerMain();
   List<DataObject> list = <DataObject>[];
-  List<String> listOfUniqueString = <String>[];
   List<ValueSelection> listOfValueSelected = <ValueSelection>[];
   void Function()? onAddTransaction;
-  VoidCallback? onDeleteItems;
 
   /// Called after Apply in this view's add or edit dialog with the items saved; null does nothing.
   void Function(List<DataObject> edited)? onEditApplied;
-  VoidCallback? onEditItems;
 
   /// Called when the user right-clicks a row of the main list; null shows no menu.
   ListItemContextMenuCallback? onItemContextMenu;
-  VoidCallback? onMultiSelect;
   PreferenceController preferenceController = AppScope.instance.preferenceController;
   late final SidePanelSupport sidePanelOptions;
-  Object? subViewSelectedItem;
   bool supportsMultiSelection = false;
   late final ViewId viewId;
   @override
@@ -229,8 +224,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       description: getDescription(),
       multipleSelection: multipleSelectionOptions,
       getActionButtons: getActionsButtons,
-      onEditMoneyObject: onEditItems,
-      onDeleteMoneyObject: onDeleteItems,
       textFilter: _filterByText,
       onTextFilterChanged: _onFilterTextChanged,
       onClearAllFilters: areFiltersOn()
@@ -588,7 +581,6 @@ class ViewForMoneyObjectsState extends State<ViewForMoneyObjects> {
       ),
     };
 
-    listOfUniqueString = values;
     listOfValueSelected = <ValueSelection>[
       for (final String value in values)
         ValueSelection(name: value, isSelected: _filterByFieldsValue.isValueSelected(fieldDefinition.name, value)),

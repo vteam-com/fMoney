@@ -4,6 +4,7 @@ import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
+import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/event_entity.dart';
 import 'package:money/shared/domain/transactions_collection.dart';
@@ -114,7 +115,7 @@ class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMix
     keepUnused(selectedIds, showAsNativeCurrency);
     // get net worth over time
     final List<Transaction> transactionsWithoutTransfers = Data().transactions
-        .iterableList(includeDeleted: true)
+        .iterableList()
         .where((Transaction t) => t.isTransfer == false)
         .toList();
 
@@ -139,10 +140,20 @@ class _ViewEventsState extends ViewForMoneyObjectsState with AddNewItemButtonMix
     );
   }
 
+  /// Returns the transactions dated within the selected event; an event with no end date runs to today.
   @override
   List<DataObject> getSidePanelTransactions() {
+    final Event? event = getFirstSelectedItem() as Event?;
+    final DateTime? begin = event?.fieldDateBegin.value;
+    if (event == null || begin == null) {
+      return <DataObject>[];
+    }
+    final DateTime end = (event.fieldDateEnd.value ?? DateTime.now()).endOfDay;
     return getTransactions(
-      // filter: (final Transaction transaction) => transaction.fieldDateTime.value == DateTime.now(),
+      filter: (Transaction transaction) {
+        final DateTime? date = transaction.fieldDateTime.value;
+        return date != null && !date.isBefore(begin) && !date.isAfter(end);
+      },
     );
   }
 }

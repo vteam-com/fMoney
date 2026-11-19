@@ -186,6 +186,7 @@ class OllamaService {
         );
 
         // Verify that the selected model is still available, otherwise use the first one
+        final String previousModel = selectedModel;
         if (selectedModel.isNotEmpty &&
             !availableModels.any((Map<String, dynamic> model) => model['name'] == selectedModel)) {
           // User's selected model is no longer available, reset to first available
@@ -193,6 +194,10 @@ class OllamaService {
         } else if (selectedModel.isEmpty && models.isNotEmpty) {
           // No model selected yet, use the first available
           selectedModel = models.first['name'] as String;
+        }
+        // Chat history and context are stored per model, so the next launch must start on the same one.
+        if (selectedModel != previousModel) {
+          await saveSelectedModel(selectedModel);
         }
 
         return availableModels;

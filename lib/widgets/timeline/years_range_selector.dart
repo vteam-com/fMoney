@@ -88,7 +88,8 @@ class YearRangeSliderState extends State<YearRangeSlider> {
                   _selectedYearRange.min.toString(),
                   _selectedYearRange.max.toString(),
                 ),
-                divisions: widget.yearRange.span.toInt(),
+                // One stop per year: a range of n years has n - 1 steps.
+                divisions: widget.yearRange.span > 1 ? widget.yearRange.span.toInt() - 1 : null,
                 onChanged: (RangeValues values) {
                   setState(() {
                     _selectedYearRange.update(

@@ -1,21 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/data/helpers/category_type_helper.dart';
+import 'package:money/data/models/account_types_enum.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/event_entity.dart';
 import 'package:money/shared/domain/investment_entity.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/domain/rent_building_entity.dart';
+import 'package:money/shared/domain/rental_category_role_enum.dart';
 import 'package:money/shared/domain/security_entity.dart';
 import 'package:money/shared/domain/stock_split_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
+import 'package:money/shared/presentation/dialogs/merge_payees_dialog.dart';
 import 'package:money/shared/presentation/dialogs/mutate_shared_dialog.dart';
 import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
-import 'package:money/views/panels/dialogs/merge_categories_dialog.dart';
-import 'package:money/views/panels/dialogs/merge_payees_dialog.dart';
 
 /// Creates and appends an account fixture.
 Account _createAccount(String name) {
@@ -97,7 +100,7 @@ void main() {
       final Transaction related = Data().makeTransferLinkage(transactionSource: source, destinationAccount: savings);
 
       expect(<Transaction>[deleted, alreadyTransfer, splitParent], isNot(contains(related)));
-      expect(related.isInserted, isTrue);
+      expect(related.mutation, MutationType.inserted);
       expect(alreadyTransfer.fieldTransfer.value, alreadyTransferLink);
       expect(splitParent.isTransfer, isFalse);
     });
@@ -343,7 +346,7 @@ void main() {
       final TransactionSplit split = _createSplit(t, categoryId: from.uniqueId);
       _markLoaded(<DataObject>[from, child, to, t, split]);
 
-      expect(mergeCategoryInto(from, to), isTrue);
+      expect(Data().mergeCategoryInto(from, to), isTrue);
 
       expect(split.fieldCategoryId.value, to.uniqueId);
       expect(split.mutation, MutationType.changed);
@@ -353,11 +356,45 @@ void main() {
       expect(from.isDeleted, isTrue);
     });
 
+    test('category merge re-points loan accounts, events and rental buildings', () {
+      final Category from = _createCategory('Mortgage');
+      final Category to = _createCategory('Home loan');
+      final Account loan = _createAccount('Loan')..fieldType.value = AccountType.loan;
+      loan.fieldCategoryIdForInterest.value = from.uniqueId;
+      final Event event = Data().events.appendNewMoneyObject(
+        Event(
+          id: -1,
+          name: 'Move',
+          categoryId: from.uniqueId,
+          dateBegin: null,
+          dateEnd: null,
+          people: '',
+          memo: '',
+          data: Data(),
+        ),
+        fireNotification: false,
+      ) as Event;
+      final RentBuilding building = Data().rentBuildings.appendNewMoneyObject(
+        RentBuilding()..data = Data(),
+        fireNotification: false,
+      ) as RentBuilding;
+      building.categoryFieldOf(RentalCategoryRole.interest).value = from.uniqueId;
+      _markLoaded(<DataObject>[from, to, loan, event, building]);
+
+      expect(Data().mergeCategoryInto(from, to), isTrue);
+
+      expect(loan.fieldCategoryIdForInterest.value, to.uniqueId);
+      expect(loan.mutation, MutationType.changed);
+      expect(event.fieldCategoryId.value, to.uniqueId);
+      expect(building.categoryFieldOf(RentalCategoryRole.interest).value, to.uniqueId);
+      expect(Data().countBlockingReferences(<DataObject>[from]), 0);
+    });
+
     test('category merge into its own subcategory is rejected', () {
       final Category from = _createCategory('Auto');
       final Category child = _createCategory('Auto:Fuel', parentId: from.uniqueId);
 
-      expect(mergeCategoryInto(from, child), isFalse);
+      expect(Data().mergeCategoryInto(from, child), isFalse);
       expect(from.isDeleted, isFalse);
     });
   });

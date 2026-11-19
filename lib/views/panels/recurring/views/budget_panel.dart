@@ -73,8 +73,8 @@ class PanelBudget extends StatefulWidget {
   @override
   State<PanelBudget> createState() => _PanelBudgetState();
 
-  /// Returns the number of years covered by the budget panel.
-  int get numberOfYears => max(_minYears, maxYear - minYear);
+  /// Returns the number of years covered by the budget panel; both [minYear] and [maxYear] are included.
+  int get numberOfYears => max(_minYears, maxYear - minYear + 1);
 }
 
 class _PanelBudgetState extends State<PanelBudget> {
@@ -415,7 +415,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           verticalLine(dividersColor),
           buildColumnHeaderButton(
             context: context,
-            text: 'Budgeted/M',
+            text: AppL10n.tr(AppTranslationKeys.budgetedPerMonth),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
             sortIndicator: getSortIndicator(
@@ -427,7 +427,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           ),
           buildColumnHeaderButton(
             context: context,
-            text: 'Actual/M',
+            text: AppL10n.tr(AppTranslationKeys.actualPerMonth),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
             sortIndicator: getSortIndicator(
@@ -440,7 +440,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           verticalLine(dividersColor),
           buildColumnHeaderButton(
             context: context,
-            text: 'Budgeted/Y',
+            text: AppL10n.tr(AppTranslationKeys.budgetedPerYear),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
             sortIndicator: getSortIndicator(
@@ -452,7 +452,7 @@ class _PanelBudgetState extends State<PanelBudget> {
           ),
           buildColumnHeaderButton(
             context: context,
-            text: 'Actual/Y',
+            text: AppL10n.tr(AppTranslationKeys.actualPerYear),
             textAlign: TextAlign.end,
             flex: _columnFlexSingle,
             sortIndicator: getSortIndicator(

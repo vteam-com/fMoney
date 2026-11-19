@@ -136,6 +136,18 @@ abstract class AppLocalizations {
   /// **'Active'**
   String get activeLabel;
 
+  /// No description provided for @actualPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual/M'**
+  String get actualPerMonth;
+
+  /// No description provided for @actualPerYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual/Y'**
+  String get actualPerYear;
+
   /// No description provided for @add.
   ///
   /// In en, this message translates to:
@@ -651,6 +663,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Accuracy:    @value%'**
   String budgetAccuracyPercent(String value);
+
+  /// No description provided for @budgetedPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Budgeted/M'**
+  String get budgetedPerMonth;
+
+  /// No description provided for @budgetedPerYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Budgeted/Y'**
+  String get budgetedPerYear;
 
   /// No description provided for @budgetVariancePercent.
   ///

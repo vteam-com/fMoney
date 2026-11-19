@@ -106,10 +106,10 @@ class AiPdfImportService {
     }
 
     final List<BankStatementTransactionRecord> transactions = _extractTransactionsFromDecoded(decoded);
-    _reportDroppedRows(decoded: decoded, keptRows: transactions.length);
     if (transactions.isEmpty) {
-      return null;
+      return null; // the caller falls back to the text parser, so no AI rows were dropped
     }
+    _reportDroppedRows(decoded: decoded, keptRows: transactions.length);
     final String? detectedCurrencyCode = _extractDetectedCurrencyCodeFromDecoded(decoded);
 
     return _buildStatementFromOllamaTransactions(

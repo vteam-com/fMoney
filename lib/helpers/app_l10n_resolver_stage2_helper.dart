@@ -6,6 +6,14 @@ import 'package:money/l10n/app_localizations.dart';
 /// Continues [resolveAppL10nKey] for the keys of stage 2; returns [key] when unknown.
 String resolveAppL10nKeyStage2(AppLocalizations l10n, String key, Map<String, String> p) {
   switch (key) {
+    case AppTranslationKeys.noChartToDisplay:
+      return l10n.noChartToDisplay;
+    case AppTranslationKeys.noData:
+      return l10n.noData;
+    case AppTranslationKeys.noDataPoints:
+      return l10n.noDataPoints;
+    case AppTranslationKeys.noDataRowsToPreview:
+      return l10n.noDataRowsToPreview;
     case AppTranslationKeys.noDataToDisplay:
       return l10n.noDataToDisplay;
     case AppTranslationKeys.noDateRangeYet:

@@ -95,8 +95,6 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
 
   @override
   Widget build(BuildContext context) {
-    markExistingImportValues(accountId: _account.uniqueId, values: _values);
-
     return SizedBox(
       width: _panelWidth,
       child: Column(
@@ -177,6 +175,7 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
     }
 
     _values = parser.lines;
+    markExistingImportValues(accountId: _account.uniqueId, values: _values);
     widget.onTransactionsFound(parser);
   }
 
@@ -336,6 +335,8 @@ class ImportTransactionsPanelState extends State<ImportTransactionsPanel> {
                 setState(() {
                   _account = accountSelected;
                   widget.onAccountChanged(_account);
+                  // Amounts parse with the account's currency, and duplicates are checked against its transactions.
+                  convertAndNotify(context, _textToParse);
                 });
               }
             },

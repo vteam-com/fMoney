@@ -8,8 +8,6 @@ const int _zeroInt = 0;
 const int _oneInt = 1;
 const int _twoInt = 2;
 const int _monthsPerYear = 12;
-const int _quarterMonths = 3;
-const int _biannualMonths = 6;
 const double _minimumExpenseMultiplier = 0.9;
 const double _maximumExpenseMultiplier = 1.2;
 const double _trendNeutralMultiplier = 1.0;
@@ -174,10 +172,7 @@ class BudgetAnalyzer {
       List<Transaction> transactions,
     ) {
       final ExpenseFrequency frequency = _detectExpenseFrequency(transactions);
-      final double monthlyAmount = _calculateMonthlyAmount(
-        transactions,
-        frequency,
-      );
+      final double monthlyAmount = _calculateMonthlyAmount(transactions);
       final double originalAmount = _calculateAverageOriginalAmount(
         transactions,
       );
@@ -193,11 +188,8 @@ class BudgetAnalyzer {
     });
   }
 
-  /// Calculates a monthly-equivalent amount based on detected [frequency].
-  double _calculateMonthlyAmount(
-    List<Transaction> transactions,
-    ExpenseFrequency frequency,
-  ) {
+  /// Calculates the monthly-equivalent amount of [transactions]: their total over the months they span.
+  double _calculateMonthlyAmount(List<Transaction> transactions) {
     if (transactions.isEmpty) {
       return _zeroDouble;
     }
@@ -217,28 +209,8 @@ class BudgetAnalyzer {
       dateRange.end,
     );
 
-    // Adjust for frequency
-    double monthlyAmount;
-    switch (frequency) {
-      case ExpenseFrequency.monthly:
-        monthlyAmount = totalAmount / monthsSpan;
-        break;
-      case ExpenseFrequency.quarterly:
-        monthlyAmount = (totalAmount / (monthsSpan / _quarterMonths)) / _quarterMonths;
-        break;
-      case ExpenseFrequency.biannual:
-        monthlyAmount = (totalAmount / (monthsSpan / _biannualMonths)) / _biannualMonths;
-        break;
-      case ExpenseFrequency.annual:
-        monthlyAmount = (totalAmount / (monthsSpan / _monthsPerYear)) / _monthsPerYear;
-        break;
-      case ExpenseFrequency.irregular:
-        // For irregular expenses, use a conservative approach
-        monthlyAmount = totalAmount / monthsSpan;
-        break;
-    }
-
-    return monthlyAmount;
+    // Every frequency reduces to the same average: the total spread over the months it spans.
+    return totalAmount / monthsSpan;
   }
 
   /// Aggregates transactions into totals per month.

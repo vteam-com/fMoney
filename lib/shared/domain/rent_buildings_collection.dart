@@ -45,5 +45,6 @@ class RentBuildings extends MoneyObjects<RentBuilding> {
       // Accumulate P&L for the rental based on the current transaction.
       rental.cumulatePnL(t);
     }
+    rental.lifeTimePnL = rental.getLifeTimePnL();
   }
 }

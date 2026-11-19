@@ -108,9 +108,6 @@ abstract class DataObject extends DataInterface {
   /// True if this object is marked as deleted.
   bool get isDeleted => mutation == MutationType.deleted;
 
-  /// True if this object is newly inserted.
-  bool get isInserted => mutation == MutationType.inserted;
-
   /// Returns true if any fields differ from the stashed values.
   bool isMutated<T>() {
     return getMutatedDiff<T>().keys.isNotEmpty;

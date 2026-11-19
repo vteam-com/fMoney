@@ -8,9 +8,6 @@ abstract class AccountOperations {
   /// Returns the name of an account by ID.
   String getAccountName(int id);
 
-  /// Returns the currency symbol for an account by ID.
-  String getAccountCurrency(int id);
-
   /// Returns true if the account is an asset type.
   bool isAccountAsset(int id);
 

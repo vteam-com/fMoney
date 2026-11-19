@@ -20,12 +20,6 @@ abstract class CategoryOperations {
   /// Returns true if the category is an income type.
   bool isCategoryIncome(int id);
 
-  /// Returns the transfer category.
-  DataObject getTransferCategory();
-
-  /// Returns the split category.
-  DataObject getSplitCategory();
-
   /// Returns all category tree IDs.
   List<int> getCategoryTreeIds(int categoryId);
 
@@ -40,10 +34,4 @@ abstract class CategoryOperations {
 
   /// Returns how many of [payeeId]'s non-transfer transactions use each category, most used first.
   Map<int, int> getCategoryCountsForPayee(int payeeId);
-
-  /// Deletes a category.
-  void deleteCategory(DataObject category);
-
-  /// Returns all categories.
-  List<DataObject> getCategories({bool includeDeleted = false});
 }

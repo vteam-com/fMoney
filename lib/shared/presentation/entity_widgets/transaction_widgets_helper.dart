@@ -25,7 +25,6 @@ import 'package:money/widgets/pickers/picker_panel.dart';
 import 'package:money/widgets/pure/icon_button.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
 import 'package:money/widgets/pure/theme_custom_model.dart';
-import 'package:money/widgets/state/selection_controller.dart';
 import 'package:money/widgets/widgets_domain/data_object_widget_builders_model.dart';
 import 'package:money/widgets/widgets_domain/data_object_widgets_helper.dart';
 import 'package:money/widgets/widgets_domain/widget_from_data.dart';
@@ -144,7 +143,6 @@ Widget transactionBuildStatusButtonToggle(dynamic transaction) {
       } else {
         transaction.mutateField(transaction.fieldStatus.name, TransactionStatus.cleared, false);
       }
-      SelectionController.to.select(transaction.uniqueId as int);
     },
   );
 }

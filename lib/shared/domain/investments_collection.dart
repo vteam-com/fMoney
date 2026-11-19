@@ -1,5 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:money/data/helpers/investment_type_helper.dart';
-import 'package:money/data/models/field_model.dart';
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/stock_cumulative_model.dart';
 import 'package:money/helpers/json_helper.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
@@ -34,17 +35,15 @@ class Investments extends MoneyObjects<Investment> {
     }
   }
 
-  /// Applies holding shares adjusted for stock splits across investments.
+  /// Sorts [investments] by date then trade type, and sets each one's holding to the running
+  /// split-adjusted share count; returns the final count. Pass the trades of a single position.
   static double applyHoldingSharesAdjustedForSplits(
     List<Investment> investments,
   ) {
-    // first sort by date, TradeType, Amount
-    final Field<dynamic> fieldToSortBy = Investment.fields.getFieldByName(
-      SharedDomainStrings.domainString044,
-    );
     MoneyObjects.sortListFallbackOnIdForTieBreaker(
       investments,
-      fieldToSortBy.sort!,
+      (DataObject a, DataObject b, bool ascending) =>
+          Investment.sortByDateAndInvestmentType(a as Investment, b as Investment, ascending),
       true,
     );
     double runningShares = 0;
@@ -55,6 +54,15 @@ class Investments extends MoneyObjects<Investment> {
     }
 
     return runningShares;
+  }
+
+  /// Sets each of [investments]' holding to the running share count of its own position
+  /// (same security in the same account), so trades of other securities or accounts don't add up.
+  static void applyHoldingSharesPerPosition(Iterable<Investment> investments) {
+    groupBy(
+      investments,
+      (Investment investment) => (investment.fieldSecurity.value, investment.transactionInstance?.fieldAccountId.value),
+    ).values.forEach(applyHoldingSharesAdjustedForSplits);
   }
 
   /// Returns all investments for a given security ID.

@@ -21,6 +21,10 @@ String resolveAppL10nKey(AppLocalizations l10n, String key, Map<String, String> 
       return l10n.accountsDescription;
     case AppTranslationKeys.activeLabel:
       return l10n.activeLabel;
+    case AppTranslationKeys.actualPerMonth:
+      return l10n.actualPerMonth;
+    case AppTranslationKeys.actualPerYear:
+      return l10n.actualPerYear;
     case AppTranslationKeys.add:
       return l10n.add;
     case AppTranslationKeys.addInvestment:
@@ -193,6 +197,10 @@ String resolveAppL10nKey(AppLocalizations l10n, String key, Map<String, String> 
       return l10n.budgetAccuracyBothZero;
     case AppTranslationKeys.budgetAccuracyPercent:
       return l10n.budgetAccuracyPercent(p['value'] ?? '');
+    case AppTranslationKeys.budgetedPerMonth:
+      return l10n.budgetedPerMonth;
+    case AppTranslationKeys.budgetedPerYear:
+      return l10n.budgetedPerYear;
     case AppTranslationKeys.budgetVariancePercent:
       return l10n.budgetVariancePercent(p['value'] ?? '');
     case AppTranslationKeys.budgetVarianceUndefined:
@@ -599,14 +607,6 @@ String resolveAppL10nKey(AppLocalizations l10n, String key, Map<String, String> 
       return l10n.noAccountSelectedPeriod;
     case AppTranslationKeys.noBudgetIncomeCategoryFound:
       return l10n.noBudgetIncomeCategoryFound;
-    case AppTranslationKeys.noChartToDisplay:
-      return l10n.noChartToDisplay;
-    case AppTranslationKeys.noData:
-      return l10n.noData;
-    case AppTranslationKeys.noDataPoints:
-      return l10n.noDataPoints;
-    case AppTranslationKeys.noDataRowsToPreview:
-      return l10n.noDataRowsToPreview;
     default:
       return resolveAppL10nKeyStage2(l10n, key, p);
   }

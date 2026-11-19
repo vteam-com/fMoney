@@ -6,6 +6,8 @@
   "accounts": "Comptes",
   "accountsDescription": "Vos principaux actifs.",
   "activeLabel": "Actif",
+  "actualPerMonth": "Réel/M",
+  "actualPerYear": "Réel/A",
   "add": "Ajouter",
   "addInvestment": "Ajouter un investissement",
   "addInvestmentTransaction": "Ajouter une transaction d'investissement",
@@ -258,6 +260,8 @@
       }
     }
   },
+  "budgetedPerMonth": "Budgété/M",
+  "budgetedPerYear": "Budgété/A",
   "budgetVariancePercent": "Variation:    @value%",
   "@budgetVariancePercent": {
     "placeholders": {

@@ -11,15 +11,6 @@ abstract class ViewWidget extends StatefulWidget {
 
   @override
   State<ViewWidget> createState();
-
-  /// Returns the plural class name for the view.
-  String getClassNamePlural();
-
-  /// Returns the singular class name for the view.
-  String getClassNameSingular();
-
-  /// Returns the description text for the view.
-  String getDescription();
 }
 
 /// Base state class for [ViewWidget] providing common layout structure.

@@ -63,8 +63,10 @@ class MruDropdown extends StatelessWidget {
                           final DataSource dataSource = DataSource(
                             filePath: selectedTextRepresentingFileNamePath,
                           );
-                          await DataFileController.to.loadFileFromPath(dataSource);
-                          AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+                          // Like File > Open: a file that failed to load (moved, deleted) must not land on Home.
+                          if (await DataFileController.to.loadFileFromPath(dataSource)) {
+                            AppRouter.pushNamedAndRemoveUntil<dynamic>(Constants.routeHomePage);
+                          }
                         },
                   );
                 },

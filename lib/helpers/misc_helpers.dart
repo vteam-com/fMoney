@@ -204,6 +204,9 @@ class Debouncer {
     _timer?.cancel();
     _timer = Timer(duration, callback);
   }
+
+  /// Drops the pending callback, if any; call it when the owner is disposed.
+  void cancel() => _timer?.cancel();
 }
 
 /// Represents time lapse.
@@ -227,7 +230,7 @@ bool isConsideredZero(num value, [double epsilon = _defaultEpsilon]) {
 
 /// Launches Google search with the specified query.
 Future<void> launchGoogleSearch(String query) async {
-  final Uri url = Uri.parse('https://www.google.com/search?q=$query');
+  final Uri url = Uri.https('www.google.com', '/search', <String, String>{'q': query});
   if (!await launchUrl(url)) {
     throw Exception('Could not launch $url');
   }

@@ -283,7 +283,8 @@ class RentBuilding extends DataObject {
     getValueForDisplay: (DataInterface instance) => (instance as RentBuilding).fieldTransactionsForIncomes.value,
   );
 
-  late RentalPnL lifeTimePnL;
+  /// Profit and loss over every year of operation, recomputed by [RentBuildings.cumulateTransactions].
+  RentalPnL lifeTimePnL = RentalPnL(date: DateTime.now());
 
   /// Note
   // 11    Note          money
@@ -431,8 +432,6 @@ class RentBuilding extends DataObject {
         );
       }
     }
-
-    lifeTimePnL = getLifeTimePnL();
   }
 
   /// Applies a single income/expense amount to the correct PnL buckets.

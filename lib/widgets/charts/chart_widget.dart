@@ -99,11 +99,12 @@ class Chart extends StatelessWidget {
             titlesData: FlTitlesData(
               topTitles: const AxisTitles(), // hide
               rightTitles: const AxisTitles(), // hide
-              leftTitles: const AxisTitles(
+              leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: _leftTitlesReservedSize,
-                  getTitlesWidget: getWidgetChartAmount,
+                  getTitlesWidget: (double value, TitleMeta meta) =>
+                      getWidgetChartAmount(value, meta, iso4217code: currency),
                 ),
               ),
               bottomTitles: AxisTitles(
@@ -233,10 +234,10 @@ FlBorderData getBorders(double min, double max) => FlBorderData(
 Color getHorizontalLineColorBasedOnValue(double value) =>
     AppRouter.context!.colorTheme.colorBasedOnValue(value).withValues(alpha: _horizontalLineAlpha);
 
-/// Builds a currency-formatted widget for chart axis labels.
-Widget getWidgetChartAmount(double value, TitleMeta meta) {
+/// Builds a chart axis label showing [value] in [iso4217code].
+Widget getWidgetChartAmount(double value, TitleMeta meta, {String iso4217code = Constants.defaultCurrency}) {
   final Widget widget = Text(
-    getAmountAsStringUsingCurrency(value, decimalDigits: 0),
+    getAmountAsStringUsingCurrency(value, iso4217code: iso4217code, decimalDigits: 0),
     textAlign: TextAlign.end,
     softWrap: false,
     style: const TextStyle(fontSize: _legendFontSize),

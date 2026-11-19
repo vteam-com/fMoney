@@ -72,6 +72,9 @@ class MyListView<T> extends StatefulWidget {
 class MyListViewState<T> extends State<MyListView<T>> {
   /// Cached result of the cap-flip scan; valid for the current list instance.
   bool? _flipRightAdornmentCapsCache;
+
+  /// On-screen height of one row: [_rowHeight] scaled by the app zoom, used by all scroll math.
+  double _rowExtent = _rowHeightColumn;
   double _rowHeight = _rowHeightColumn;
   double padding = 0;
   @override
@@ -111,12 +114,14 @@ class MyListViewState<T> extends State<MyListView<T>> {
       padding = 0;
     }
 
+    _rowExtent = textScaler.scale(_rowHeight);
+
     return ListView.builder(
       primary: false,
       scrollDirection: Axis.vertical,
       controller: widget.scrollController,
       itemCount: widget.list.length,
-      itemExtent: textScaler.scale(_rowHeight),
+      itemExtent: _rowExtent,
       itemBuilder: (BuildContext context, int index) {
         final DataObject itemInstance = getMoneyObjectFromIndex(index);
         final bool isLastItemOfTheList = (index == widget.list.length - 1);
@@ -226,16 +231,11 @@ class MyListViewState<T> extends State<MyListView<T>> {
   }
 
   /// don't make it flush to the top, we do this in order to give some clue that there's other item above,
-  double getListOffsetOfItemIndex(int index) => index * _rowHeight;
+  double getListOffsetOfItemIndex(int index) => index * _rowExtent;
 
   /// Returns the DataObject at the specified [index].
   DataObject getMoneyObjectFromIndex(int index) {
     return widget.list[index] as DataObject;
-  }
-
-  /// Returns the uniqueId of the DataObject at the specified [index].
-  int getUniqueIdFromIndex(int index) {
-    return getMoneyObjectFromIndex(index).uniqueId;
   }
 
   /// use this if total item count is known
@@ -251,17 +251,6 @@ class MyListViewState<T> extends State<MyListView<T>> {
     final int lastVisibleItemIndex = firstVisibleItemIndex + numberOfItemOnViewPort() - 1;
 
     return NumRange(min: firstVisibleItemIndex, max: lastVisibleItemIndex);
-  }
-
-  /// Returns true if the item at [index] is currently visible.
-  bool isIndexInView(int index) {
-    if (index != -1) {
-      final NumRange viewingIndexRange = indexOfItemsInView();
-      if (isBetweenOrEqual(index, viewingIndexRange.min, viewingIndexRange.max)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   /// Moves the current selection by [incrementBy] and updates selection state.
@@ -287,7 +276,7 @@ class MyListViewState<T> extends State<MyListView<T>> {
   /// Returns the number of items that fit within the current viewport height.
   int numberOfItemOnViewPort() {
     final double viewportHeight = widget.scrollController.position.viewportDimension;
-    final int numberOfItemDisplayed = (viewportHeight / _rowHeight).floor();
+    final int numberOfItemDisplayed = (viewportHeight / _rowExtent).floor();
     return numberOfItemDisplayed;
   }
 
@@ -329,22 +318,10 @@ class MyListViewState<T> extends State<MyListView<T>> {
             getListOffsetOfItemIndex(widget.list.length - 1),
           );
           return KeyEventResult.handled;
-
-        case LogicalKeyboardKey.pageUp:
-        case LogicalKeyboardKey.pageDown:
-          // TODO
-          return KeyEventResult.handled;
       }
     }
 
     return KeyEventResult.ignored;
-  }
-
-  /// Scrolls the first selected item into view.
-  void scrollFirstItemIntoView() {
-    if (widget.selectedItemIds.value.isNotEmpty) {
-      scrollToId(widget.selectedItemIds.value.first);
-    }
   }
 
   /// Scrolls so the item at [index] becomes the first visible row, or as close as the scroll range allows.
@@ -353,9 +330,8 @@ class MyListViewState<T> extends State<MyListView<T>> {
       return;
     }
     final ScrollPosition position = widget.scrollController.position;
-    final double rowExtent = MediaQuery.textScalerOf(context).scale(_rowHeight);
     widget.scrollController.jumpTo(
-      (index * rowExtent).clamp(position.minScrollExtent, position.maxScrollExtent),
+      (index * _rowExtent).clamp(position.minScrollExtent, position.maxScrollExtent),
     );
   }
 
@@ -396,16 +372,16 @@ class MyListViewState<T> extends State<MyListView<T>> {
         late double desiredNewPosition;
         if (index == viewingIndexRange.min - 1) {
           // scroll up by one
-          desiredNewPosition = widget.scrollController.offset - _rowHeight;
+          desiredNewPosition = widget.scrollController.offset - _rowExtent;
         } else {
           if (index == viewingIndexRange.max + 1) {
-            desiredNewPosition = widget.scrollController.offset + _rowHeight;
+            desiredNewPosition = widget.scrollController.offset + _rowExtent;
           } else {
-            desiredNewPosition = _rowHeight * index;
+            desiredNewPosition = _rowExtent * index;
           }
         }
-        final int numberOfItems = (desiredNewPosition / _rowHeight).floor();
-        desiredNewPosition = numberOfItems * _rowHeight;
+        final int numberOfItems = (desiredNewPosition / _rowExtent).floor();
+        desiredNewPosition = numberOfItems * _rowExtent;
 
         //print('current offset ${_scrollController.offset}, requesting $desiredNewPosition for index $index');
         widget.scrollController.jumpTo(desiredNewPosition);
@@ -425,16 +401,6 @@ class MyListViewState<T> extends State<MyListView<T>> {
       widget.selectedItemIds.value.add(uniqueId);
       widget.onSelectionChanged?.call(uniqueId);
     }
-  }
-
-  /// Returns the offset of the selected item within the list.
-  void selectedItemOffset(int delta) {
-    int newPosition = 0;
-    if (widget.selectedItemIds.value.isNotEmpty) {
-      newPosition = widget.selectedItemIds.value[0] + delta;
-    }
-
-    selectedItem(newPosition);
   }
 
   /// Builds the list row content for either column view or compact small-screen view.

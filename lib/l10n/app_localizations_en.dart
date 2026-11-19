@@ -33,6 +33,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activeLabel => 'Active';
 
   @override
+  String get actualPerMonth => 'Actual/M';
+
+  @override
+  String get actualPerYear => 'Actual/Y';
+
+  @override
   String get add => 'Add';
 
   @override
@@ -329,6 +335,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String budgetAccuracyPercent(String value) {
     return 'Accuracy:    @value%';
   }
+
+  @override
+  String get budgetedPerMonth => 'Budgeted/M';
+
+  @override
+  String get budgetedPerYear => 'Budgeted/Y';
 
   @override
   String budgetVariancePercent(String value) {
