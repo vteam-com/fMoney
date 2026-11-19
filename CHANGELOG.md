@@ -1,5 +1,11 @@
 # Change Log
 
+## [version 1.21.2] 2026-11-19
+
+- update README.md
+- DRY review of the alias pattern work
+- Explain and optimize alias patterns
+
 ## [version 1.21.1] 2026-11-19
 
 - release.sh: push unpushed commits with the release instead of stopping
