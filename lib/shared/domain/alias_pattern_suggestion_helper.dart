@@ -18,16 +18,15 @@ extension AliasPatternSuggestions on Data {
     return optimizedAliasPattern(
       texts,
       mustNotMatch: <String>{
-        for (final Transaction transaction in _aliasableTransactions())
-          if (!mayMatch(transaction)) ...<String>[transaction.fieldOriginalPayee.value, transaction.payeeName],
+        for (final Transaction transaction in aliasableTransactions())
+          if (!mayMatch(transaction)) ...Aliases.textsOf(transaction),
       },
     );
   }
 
   /// Number of transactions [alias] matches, transfers aside (which aliases leave alone).
-  int countAliasMatches(Alias alias) => _aliasableTransactions()
-      .where((Transaction transaction) => Aliases.matchesTransaction(alias, transaction))
-      .length;
+  int countAliasMatches(Alias alias) =>
+      aliasableTransactions().where((Transaction transaction) => Aliases.matchesTransaction(alias, transaction)).length;
 
   /// Looks for a better pattern for [alias]: one covering what it matches now, the texts it lists and
   /// the bank texts of its payee's transactions, without reaching any other transaction. It is
@@ -36,9 +35,9 @@ extension AliasPatternSuggestions on Data {
     final int payeeId = alias.fieldPayeeId.value;
     final Set<String> texts = <String>{
       ..._textsListedIn(alias),
-      for (final Transaction transaction in _aliasableTransactions()) ...<String>[
+      for (final Transaction transaction in aliasableTransactions()) ...<String>[
         if (payeeId != -1 && transaction.fieldPayee.value == payeeId) transaction.fieldOriginalPayee.value,
-        ...<String>[transaction.fieldOriginalPayee.value, transaction.payeeName].where(alias.isMatch),
+        ...Aliases.textsOf(transaction).where(alias.isMatch),
       ],
     };
     final int currentMatches = countAliasMatches(alias);
@@ -57,10 +56,6 @@ extension AliasPatternSuggestions on Data {
         matches > currentMatches || (matches == currentMatches && pattern.length < alias.fieldPattern.value.length);
     return (currentMatches: currentMatches, pattern: isBetter ? pattern : null, matches: matches);
   }
-
-  /// The transactions an alias can rename: all but transfers.
-  Iterable<Transaction> _aliasableTransactions() =>
-      transactions.iterableList().where((Transaction transaction) => !transaction.isTransfer);
 
   /// The texts [alias]'s pattern spells out: the plain pattern, or the texts of a regex that only lists texts.
   List<String> _textsListedIn(Alias alias) {

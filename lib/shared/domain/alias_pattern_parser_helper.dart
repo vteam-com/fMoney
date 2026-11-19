@@ -138,13 +138,10 @@ AliasPatternParts? parseAliasPattern(String pattern) {
   if (tryParseAliasRegex(pattern) == null) {
     return null;
   }
-  final bool ignoreCase = pattern.startsWith(aliasCaseInsensitivePrefix);
-  final _AliasPatternReader reader = _AliasPatternReader(
-    ignoreCase ? pattern.substring(aliasCaseInsensitivePrefix.length) : pattern,
-  );
-  final List<List<AliasPatternPart>> choices = reader.readChoices();
+  final ({bool ignoreCase, String source}) split = splitAliasCaseOption(pattern);
+  final List<List<AliasPatternPart>> choices = _AliasPatternReader(split.source).readChoices();
   return (
-    ignoreCase: ignoreCase,
+    ignoreCase: split.ignoreCase,
     parts: choices.length == 1
         ? choices.first
         : <AliasPatternPart>[AliasPatternPart(AliasPatternPartKind.choices, choices: choices)],

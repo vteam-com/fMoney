@@ -518,6 +518,10 @@ class Data implements DataAbstract {
     }
   }
 
+  /// The transactions an alias can rename: all but transfers, which aliases leave alone.
+  Iterable<Transaction> aliasableTransactions() =>
+      transactions.iterableList().where((Transaction transaction) => !transaction.isTransfer);
+
   /// Points every non-transfer transaction and split line that [alias] matches at the alias payee,
   /// and returns how many changed. A transaction matches on its original bank text or its payee name.
   int applyAlias(Alias alias) {
@@ -526,8 +530,8 @@ class Data implements DataAbstract {
       return 0;
     }
     int count = 0;
-    for (final Transaction t in transactions.iterableList()) {
-      if (t.fieldPayee.value != toPayeeId && !t.isTransfer && Aliases.matchesTransaction(alias, t)) {
+    for (final Transaction t in aliasableTransactions()) {
+      if (t.fieldPayee.value != toPayeeId && Aliases.matchesTransaction(alias, t)) {
         t.stashValueBeforeEditing();
         t.stashOriginalPayee();
         t.fieldPayee.value = toPayeeId;

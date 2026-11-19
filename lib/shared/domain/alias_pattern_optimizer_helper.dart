@@ -24,12 +24,6 @@ final RegExp _firstWord = RegExp('[A-Z0-9]+');
 /// A letter or a digit.
 final RegExp _alphanumeric = RegExp('[A-Za-z0-9]');
 
-/// A single letter or digit.
-final RegExp _alphanumericCharacter = RegExp(r'^[A-Za-z0-9]$');
-
-/// A single digit.
-final RegExp _digit = RegExp(r'^[0-9]$');
-
 /// One or more digits, and nothing else.
 final RegExp _digitsOnly = RegExp(r'^[0-9]+$');
 
@@ -98,11 +92,11 @@ String? _generalize(List<String> texts) {
     suffix++;
   }
   // A number that varies is generalized whole, not from its middle digits
-  while (prefix > 0 && _digit.hasMatch(first[prefix - 1])) {
+  while (prefix > 0 && _digitsOnly.hasMatch(first[prefix - 1])) {
     prefix--;
   }
   // A shared end counts from the start of a word: a letter or two in common is chance
-  while (suffix > 0 && _alphanumericCharacter.hasMatch(first[first.length - suffix])) {
+  while (suffix > 0 && _alphanumeric.hasMatch(first[first.length - suffix])) {
     suffix--;
   }
 

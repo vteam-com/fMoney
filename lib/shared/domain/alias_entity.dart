@@ -210,12 +210,17 @@ bool isWholeAliasMatch(RegExp regex, String text) {
   return match != null && match.start == 0 && match.end == text.length;
 }
 
+/// Splits an alias [pattern] into whether it starts with [aliasCaseInsensitivePrefix] and the regex source after it.
+({bool ignoreCase, String source}) splitAliasCaseOption(String pattern) {
+  final bool ignoreCase = pattern.startsWith(aliasCaseInsensitivePrefix);
+  return (ignoreCase: ignoreCase, source: ignoreCase ? pattern.substring(aliasCaseInsensitivePrefix.length) : pattern);
+}
+
 /// Compiles an alias [pattern], honoring a leading `(?i)`; returns null when the pattern is not a valid regex.
 RegExp? tryParseAliasRegex(String pattern) {
-  final bool ignoreCase = pattern.startsWith(aliasCaseInsensitivePrefix);
-  final String source = ignoreCase ? pattern.substring(aliasCaseInsensitivePrefix.length) : pattern;
+  final ({bool ignoreCase, String source}) split = splitAliasCaseOption(pattern);
   try {
-    return RegExp(source, caseSensitive: !ignoreCase);
+    return RegExp(split.source, caseSensitive: !split.ignoreCase);
   } on FormatException {
     return null;
   }

@@ -31,9 +31,14 @@ class Aliases extends MoneyObjects<Alias> {
   static String textOf(Transaction transaction) =>
       transaction.fieldOriginalPayee.value.isEmpty ? transaction.payeeName : transaction.fieldOriginalPayee.value;
 
+  /// The texts of [transaction] an alias is matched against: its original bank text and its payee name.
+  static List<String> textsOf(Transaction transaction) => <String>[
+    transaction.fieldOriginalPayee.value,
+    transaction.payeeName,
+  ];
+
   /// True when [alias] matches [transaction]'s original bank text or its payee name.
-  static bool matchesTransaction(Alias alias, Transaction transaction) =>
-      alias.isMatch(transaction.fieldOriginalPayee.value) || alias.isMatch(transaction.payeeName);
+  static bool matchesTransaction(Alias alias, Transaction transaction) => textsOf(transaction).any(alias.isMatch);
 
   /// Returns the aliases that match the original or current payee name of any of [transactions],
   /// or that point at one of their payees.
