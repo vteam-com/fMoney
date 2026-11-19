@@ -1,23 +1,20 @@
-import 'package:money/data/helpers/accumulator_helper.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mergeable_item_interface.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
-import 'package:money/helpers/list_helper.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/payee_widgets_helper.dart';
 import 'package:money/widgets/dialogs/button_helpers.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
-import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 import 'package:money/widgets/pure/box_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 const int _zeroIndex = 0;
-const int _countIncrement = 1;
 const double _payeeLabelWidth = 100.0;
 const double _categoryChoicesHeight = 400.0;
 
@@ -73,8 +70,8 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
 
   Payee? _selectedPayee;
 
-  /// Tracks how often each category ID appears for the selected payee.
-  AccumulatorSum<int, int> categoryIdsFound = AccumulatorSum<int, int>();
+  /// How often the selected payee's transactions use each category, most used first.
+  Map<int, int> categoryIdsFound = <int, int>{};
 
   /// Builds the dialog UI to pick a target payee and optional category changes.
   @override
@@ -100,24 +97,13 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
               SizedBox(width: _payeeLabelWidth, child: Text(AppL10n.tr(AppTranslationKeys.toPayee))),
               Expanded(
                 child: Box(
-                  child: PickerEditBox(
-                    title: AppL10n.tr(AppTranslationKeys.payee),
-                    items: widget.data.getPayeeNamesSorted(),
-                    initialValue: widget.currentPayee.fieldName.value,
-                    onChanged: (String? name) {
-                      final Payee? payee = name != null ? widget.data.getPayeeByName(name) as Payee? : null;
-                      setState(() {
-                        _selectedPayee = payee;
-                        getAssociatedCategories();
-                      });
-                    },
-                    onAddNew: (String newPayeeText) {
-                      final Payee found = widget.data.getOrCreatePayee(newPayeeText) as Payee;
-                      setState(() {
-                        _selectedPayee = found;
-                        getAssociatedCategories();
-                      });
-                    },
+                  child: pickerPayee(
+                    data: widget.data,
+                    selectedName: widget.currentPayee.fieldName.value,
+                    onSelected: (DataObject? payee) => setState(() {
+                      _selectedPayee = payee as Payee?;
+                      getAssociatedCategories();
+                    }),
                   ),
                 ),
               ),
@@ -153,28 +139,18 @@ class _MergeTransactionsDialogState<T extends MergeableItem> extends State<Merge
   /// Computes category counts of the selected target payee's existing transactions.
   void getAssociatedCategories() {
     if (_selectedPayee != null) {
-      categoryIdsFound.clear();
-      for (final MergeableItem t in widget.data.getTransactions().whereType<MergeableItem>()) {
-        if (t.payeeId == _selectedPayee!.uniqueId) {
-          categoryIdsFound.cumulate(t.categoryId, _countIncrement);
-        }
-      }
+      categoryIdsFound = widget.data.getCategoryCountsForPayee(_selectedPayee!.uniqueId);
     }
   }
 
   /// Builds the category suggestion and override radio list.
   Widget _buildCategoryChoices() {
-    if (categoryIdsFound.values.isEmpty) {
+    if (categoryIdsFound.isEmpty) {
       return const SizedBox();
     }
 
     final List<Widget> radioButtonChoices = <Widget>[];
-    final List<MapEntry<int, int>> sortedDescendingListOfCategories = categoryIdsFound.getEntries();
-    sortedDescendingListOfCategories.sort(
-      (MapEntry<int, int> a, MapEntry<int, int> b) => sortByValue(a.value, b.value, false),
-    );
-
-    for (final MapEntry<int, int> entry in sortedDescendingListOfCategories) {
+    for (final MapEntry<int, int> entry in categoryIdsFound.entries) {
       final int categoryId = entry.key;
       final int categoryCounts = entry.value;
 

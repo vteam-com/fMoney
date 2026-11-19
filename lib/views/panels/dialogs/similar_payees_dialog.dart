@@ -84,12 +84,13 @@ class _SimilarPayeesDialogState extends State<SimilarPayeesDialog> {
 
   /// Adds one regex alias matching every checked name, applies it, then removes the emptied payees.
   void _createAlias() {
-    final Alias alias = Data().aliases.addNewAlias();
-    alias.fieldPattern.value = aliasPatternForNames(
-      _similarPayees.where((Payee p) => _checkedIds.contains(p.uniqueId)).map((Payee p) => p.fieldName.value),
+    final Alias alias = Data().aliases.addNewAlias(
+      pattern: aliasPatternForNames(
+        _similarPayees.where((Payee p) => _checkedIds.contains(p.uniqueId)).map((Payee p) => p.fieldName.value),
+      ),
+      type: AliasType.regex,
+      payeeId: widget.payee.uniqueId,
     );
-    alias.fieldFlags.value = AliasType.regex.index;
-    alias.fieldPayeeId.value = widget.payee.uniqueId;
     final int count = Data().applyAlias(alias);
     Data().mergePayeesWithNoTransactionsInto(_checkedIds.toList(), widget.payee.uniqueId);
     Data().updateAll();

@@ -62,12 +62,8 @@ case "$1" in
 	*) usage ;;
 esac
 # fMoney's version has no build number; one that is there goes up by one
-build="0"
 full_version="$version"
-if [[ "$current" == *+* ]]; then
-	build="$((${current#*+} + 1))"
-	full_version="$version+$build"
-fi
+[[ "$current" == *+* ]] && full_version="$version+$((${current#*+} + 1))"
 tag="v$version"
 previous_tag="v$current_name"
 
@@ -108,13 +104,7 @@ read -r answer
 trap 'git checkout --quiet -- "$PUBSPEC" "$CHANGELOG" "$VERSION_DATA"' EXIT
 sed -i.bak "s/^version: .*/version: $full_version/" "$PUBSPEC"
 rm "$PUBSPEC.bak"
-sed -i.bak \
-	-e "s/\(static const String version = \)'[^']*';/\1'$version';/" \
-	-e "s/\(static const String buildNumber = \)'[^']*';/\1'$build';/" \
-	"$VERSION_DATA"
-rm "$VERSION_DATA.bak"
-grep -q "version = '$version';" "$VERSION_DATA" ||
-	fail "could not set the version in $VERSION_DATA"
+tool/generate_version_data.sh
 # The new release goes above the one before, under the file's title
 SECTION="$section" awk '
 	!added && /^## / { print ENVIRON["SECTION"]; print ""; added = 1 }

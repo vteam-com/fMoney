@@ -20,12 +20,16 @@ class Aliases extends MoneyObjects<Alias> {
     return Alias.fromJson(json, data);
   }
 
-  /// Appends a new, empty plain alias for the user to fill in, and returns it.
-  Alias addNewAlias() {
-    final Alias alias = Alias(id: -1, pattern: '', flags: AliasType.none.index, payeeId: -1, data: data);
+  /// Appends a new alias mapping [pattern] (empty for the user to fill in) to [payeeId], and returns it.
+  Alias addNewAlias({String pattern = '', AliasType type = AliasType.none, int payeeId = -1}) {
+    final Alias alias = Alias(id: -1, pattern: pattern, flags: type.index, payeeId: payeeId, data: data);
     appendNewMoneyObject(alias);
     return alias;
   }
+
+  /// True when [alias] matches [transaction]'s original bank text or its payee name.
+  static bool matchesTransaction(Alias alias, Transaction transaction) =>
+      alias.isMatch(transaction.fieldOriginalPayee.value) || alias.isMatch(transaction.payeeName);
 
   /// Returns the aliases that match the original or current payee name of any of [transactions],
   /// or that point at one of their payees.
@@ -35,8 +39,7 @@ class Aliases extends MoneyObjects<Alias> {
           (Alias alias) => transactions.any(
             (Transaction t) =>
                 (t.fieldPayee.value != -1 && alias.fieldPayeeId.value == t.fieldPayee.value) ||
-                alias.isMatch(t.fieldOriginalPayee.value) ||
-                alias.isMatch(t.payeeName),
+                matchesTransaction(alias, t),
           ),
         )
         .toList();

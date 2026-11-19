@@ -35,8 +35,8 @@ abstract class CategoryOperations {
   /// Returns the split category ID.
   int getSplitCategoryId();
 
-  /// Returns the categories of [payeeId]'s non-transfer transactions, most used first.
-  List<int> getCategoryIdsUsedByPayee(int payeeId);
+  /// Returns how many of [payeeId]'s non-transfer transactions use each category, most used first.
+  Map<int, int> getCategoryCountsForPayee(int payeeId);
 
   /// Deletes a category.
   void deleteCategory(DataObject category);

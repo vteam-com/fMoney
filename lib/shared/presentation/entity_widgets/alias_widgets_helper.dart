@@ -4,13 +4,14 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/payee_widgets_helper.dart';
 import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
 /// Builds the small-screen card for [alias].
 Widget buildAliasSmallScreenWidget(Alias alias) {
   return MyListItemAsCard(
-    leftTopAsString: alias.data!.getPayeeName(alias.fieldPayeeId.value),
+    leftTopAsString: alias.payeeName,
     leftBottomAsString: alias.fieldPattern.value,
     rightBottomAsString: '${getAliasTypeAsString(alias.type)}${SharedDomainStrings.domainString158}',
   );
@@ -23,21 +24,15 @@ Widget? buildAliasFieldEditWidget(
   void Function(bool /* wasModified */) onEdited,
 ) {
   if (field.isSameDefinition(alias.fieldPayeeId)) {
-    return PickerEditBox(
+    return pickerPayee(
       key: const Key('key_pick_alias_payee'),
-      title: field.name,
-      items: alias.data!.getPayeeNamesSorted(),
-      initialValue: alias.data!.getPayeeName(alias.fieldPayeeId.value),
-      onChanged: (String name) {
-        final DataObject? payee = alias.data!.getPayeeByName(name);
+      data: alias.data!,
+      selectedName: alias.payeeName,
+      onSelected: (DataObject? payee) {
         if (payee != null) {
           alias.fieldPayeeId.value = payee.uniqueId;
           onEdited(true);
         }
-      },
-      onAddNew: (String name) {
-        alias.fieldPayeeId.value = alias.data!.getOrCreatePayee(name).uniqueId;
-        onEdited(true);
       },
     );
   }

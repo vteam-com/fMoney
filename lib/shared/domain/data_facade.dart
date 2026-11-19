@@ -527,9 +527,7 @@ class Data implements DataAbstract {
     }
     int count = 0;
     for (final Transaction t in transactions.iterableList()) {
-      if (t.fieldPayee.value != toPayeeId &&
-          !t.isTransfer &&
-          (alias.isMatch(t.fieldOriginalPayee.value) || alias.isMatch(t.payeeName))) {
+      if (t.fieldPayee.value != toPayeeId && !t.isTransfer && Aliases.matchesTransaction(alias, t)) {
         t.stashValueBeforeEditing();
         t.stashOriginalPayee();
         t.fieldPayee.value = toPayeeId;
@@ -639,10 +637,10 @@ class Data implements DataAbstract {
   int getSplitCategoryId() => categories.splitCategoryId();
 
   @override
-  List<int> getCategoryIdsUsedByPayee(int payeeId) {
+  Map<int, int> getCategoryCountsForPayee(int payeeId) {
     final Map<int, int> countByCategoryId = <int, int>{};
     if (payeeId == -1) {
-      return <int>[];
+      return countByCategoryId;
     }
     final int splitCategoryId = categories.splitCategoryId();
     for (final Transaction t in transactions.iterableList()) {
@@ -651,8 +649,9 @@ class Data implements DataAbstract {
         countByCategoryId[categoryId] = (countByCategoryId[categoryId] ?? 0) + 1;
       }
     }
-    return countByCategoryId.keys.toList()
+    final List<int> mostUsedFirst = countByCategoryId.keys.toList()
       ..sort((int a, int b) => countByCategoryId[b]!.compareTo(countByCategoryId[a]!));
+    return <int, int>{for (final int id in mostUsedFirst) id: countByCategoryId[id]!};
   }
 
   @override

@@ -309,7 +309,8 @@ Widget _buildCategoryEditWidget(Transaction transaction, void Function(bool /* w
 /// Returns the names of up to three categories [payeeId] uses most, leaving out [excludeCategoryId].
 List<String> suggestedCategoryNamesForPayee(int payeeId, {int excludeCategoryId = _transactionUnsetId}) {
   return DataAbstract.instance
-      .getCategoryIdsUsedByPayee(payeeId)
+      .getCategoryCountsForPayee(payeeId)
+      .keys
       .where((int id) => id != excludeCategoryId)
       .take(_maxCategorySuggestions)
       .map(DataAbstract.instance.getCategoryNameFromId)

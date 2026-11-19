@@ -761,11 +761,11 @@ class Transaction extends DataObject implements MergeableItem {
     if (fieldCategoryId.value != _unsetId) {
       return false;
     }
-    final List<int> categoryIds = data.getCategoryIdsUsedByPayee(fieldPayee.value);
-    if (categoryIds.length != _oneInt) {
+    final Map<int, int> categoryCounts = data.getCategoryCountsForPayee(fieldPayee.value);
+    if (categoryCounts.length != _oneInt) {
       return false;
     }
-    fieldCategoryId.value = categoryIds.first;
+    fieldCategoryId.value = categoryCounts.keys.first;
     return true;
   }
 }

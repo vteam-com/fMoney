@@ -1,6 +1,6 @@
 /// Auto-generated application metadata from `pubspec.yaml`.
 ///
-/// This file is refreshed by `tool/check.sh`.
+/// This file is refreshed by `tool/generate_version_data.sh`.
 abstract final class GeneratedAppVersionData {
   /// The pub package name from `pubspec.yaml`.
   static const String packageName = 'money';

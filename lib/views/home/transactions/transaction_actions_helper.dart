@@ -9,13 +9,13 @@ import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/dialogs/mutate_money_object_dialog.dart';
+import 'package:money/shared/presentation/entity_widgets/payee_widgets_helper.dart';
 import 'package:money/shared/presentation/entity_widgets/transaction_widgets_helper.dart';
 import 'package:money/shared/presentation/helpers/transactions_updated_snack_bar_helper.dart';
 import 'package:money/views/panels/dialogs/similar_payees_dialog.dart';
 import 'package:money/widgets/dialogs/dialog_button.dart';
 import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
-import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
 
 /// An action on the selected transactions, offered in the right-click menu and as a Ctrl/Cmd shortcut.
@@ -174,12 +174,10 @@ void _changePayee(BuildContext context, List<Transaction> transactions) {
   adaptiveScreenSizeDialog(
     context: context,
     title: AppL10n.tr(AppTranslationKeys.changePayee),
-    child: PickerEditBox(
+    child: pickerPayee(
       key: const Key('key_pick_payee'),
-      title: AppL10n.tr(AppTranslationKeys.payee),
-      items: Data().getPayeeNamesSorted(),
-      onChanged: (String name) => payeeId = Data().getPayeeByName(name)?.uniqueId,
-      onAddNew: (String name) => payeeId = Data().getOrCreatePayee(name).uniqueId,
+      data: Data(),
+      onSelected: (DataObject? payee) => payeeId = payee?.uniqueId,
     ),
     actionButtons: <Widget>[
       DialogActionButton(
@@ -204,11 +202,12 @@ void _changePayee(BuildContext context, List<Transaction> transactions) {
 /// matching transaction, Cancel discards the alias.
 void _createAlias(BuildContext _, List<Transaction> transactions) {
   final Transaction transaction = transactions.first;
-  final Alias alias = Data().aliases.addNewAlias();
-  alias.fieldPattern.value = transaction.fieldOriginalPayee.value.isEmpty
-      ? transaction.payeeName
-      : transaction.fieldOriginalPayee.value;
-  alias.fieldPayeeId.value = transaction.fieldPayee.value;
+  final Alias alias = Data().aliases.addNewAlias(
+    pattern: transaction.fieldOriginalPayee.value.isEmpty
+        ? transaction.payeeName
+        : transaction.fieldOriginalPayee.value,
+    payeeId: transaction.fieldPayee.value,
+  );
   myShowDialogAndActionsForMoneyObject(
     title: AppL10n.tr(AppTranslationKeys.createAlias),
     moneyObject: alias,

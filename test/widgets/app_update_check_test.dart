@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/generated_app_version_data.dart';
 import 'package:money/helpers/github_release_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/main.dart';
+import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/widgets/components/app_update_banner_widget.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/theme_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/test_fixtures_helper.dart';
 
 /// A release tagged [tagName] with an archive for every desktop platform.
 GitHubRelease _release(String tagName) => GitHubRelease(
@@ -28,23 +28,17 @@ GitHubRelease _release(String tagName) => GitHubRelease(
 );
 
 void main() {
-  tearDown(() {
-    SnackBarService.clearQueue();
-    ThemeController.instance = null;
-    PreferenceController.instance = null;
+  late AppServices services;
+
+  setUp(() {
+    resetTestData();
+    services = createTestServices();
   });
 
+  tearDown(() => disposeTestServices(services));
+
   /// Pumps a page laid out like the app: snack bars and banners go through MaterialApp's messenger.
-  Future<void> pumpPage(WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        navigatorKey: AppRouter.navigatorKey,
-        scaffoldMessengerKey: SnackBarService.scaffoldKey,
-        theme: ThemeController().themeData,
-        home: const Scaffold(body: Text('home')),
-      ),
-    );
-  }
+  Future<void> pumpPage(WidgetTester tester) => pumpTestApp(tester, services, const Text('home'));
 
   /// The banner text for an update to [version].
   String updateMessage(String version) => AppL10n.tr(
@@ -78,8 +72,7 @@ void main() {
       ),
       findsOneWidget,
     );
-    SnackBarService.clearQueue();
-    await tester.pumpAndSettle(const Duration(seconds: 10));
+    await dismissSnackBars(tester);
   });
 
   testWidgets('from the menu, says when GitHub could not be reached', (WidgetTester tester) async {
@@ -89,8 +82,7 @@ void main() {
     await tester.pump();
 
     expect(find.text(AppL10n.tr(AppTranslationKeys.updateCheckFailed)), findsOneWidget);
-    SnackBarService.clearQueue();
-    await tester.pumpAndSettle(const Duration(seconds: 10));
+    await dismissSnackBars(tester);
   });
 
   testWidgets('the launch check stays quiet when there is no update', (WidgetTester tester) async {

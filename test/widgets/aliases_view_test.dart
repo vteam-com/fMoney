@@ -3,85 +3,37 @@ import 'package:material_ui/material_ui.dart';
 import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/app_l10n_service.dart';
-import 'package:money/helpers/app_router_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/constants_helper.dart';
-import 'package:money/helpers/list_controller.dart';
-import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/alias_widgets_helper.dart';
-import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/home/aliases/aliases_view.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
-import 'package:money/widgets/pure/snack_bar_service.dart';
-import 'package:money/widgets/state/preferences_controller.dart';
-import 'package:money/widgets/state/theme_controller.dart';
 
-/// Hosts [ViewAliases] with the app-scope services list views need.
-class AliasesTestHost extends StatelessWidget {
-  /// Creates a host wrapper with the provided [services].
-  const AliasesTestHost({required this.services, super.key});
-
-  /// Shared services for app-scoped controllers.
-  final AppServices services;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppScope(
-      services: services,
-      child: MaterialApp(
-        navigatorKey: AppRouter.navigatorKey,
-        scaffoldMessengerKey: SnackBarService.scaffoldKey,
-        theme: services.themeController.themeData,
-        home: const Scaffold(
-          body: SizedBox(height: 700, width: 1100, child: ViewAliases()),
-        ),
-      ),
-    );
-  }
-}
+import '../helpers/test_fixtures_helper.dart';
 
 /// Returns the picker built for [field] of [alias], with an [onEdited] that records it was called.
 PickerEditBox _picker(Alias alias, Field<dynamic> field, List<bool> edits) =>
     buildAliasFieldEditWidget(alias, field, edits.add)! as PickerEditBox;
 
 void main() {
-  late ListControllerMain listControllerMain;
-  late ListControllerSidePanel listControllerSidePanel;
   late AppServices services;
 
   setUp(() {
-    Data().clearExistingData();
-    listControllerMain = ListControllerMain();
-    listControllerSidePanel = ListControllerSidePanel();
-    DataFileController.instance = DataFileController();
-    services = AppServices(
-      listControllerMain: listControllerMain,
-      listControllerSidePanel: listControllerSidePanel,
-      preferenceController: PreferenceController(),
-      themeController: ThemeController(),
-    );
-    AppScope.register(services);
+    resetTestData();
+    services = createTestServices();
   });
 
-  tearDown(() {
-    Data().clearExistingData();
-    listControllerMain.dispose();
-    listControllerSidePanel.dispose();
-    PreferenceController.instance = null;
-    ThemeController.instance = null;
-    DataFileController.instance = null;
-  });
+  tearDown(() => disposeTestServices(services));
 
   testWidgets('the add button creates an alias and opens it with payee and type pickers', (WidgetTester tester) async {
-    await tester.pumpWidget(AliasesTestHost(services: services));
-    await tester.pumpAndSettle();
+    await pumpTestApp(tester, services, const ViewAliases());
     expect(Data().aliases.length, 0);
 
     await tester.tap(find.byKey(Constants.keyAddNewItem));
@@ -94,21 +46,10 @@ void main() {
 
   testWidgets('the apply button moves matching transactions to the selected alias payee', (WidgetTester tester) async {
     final Payee att = Data().payees.getOrCreate('AT&T');
-    final Alias alias = Data().aliases.appendNewMoneyObject(
-      Alias(id: -1, pattern: 'ATT.*', flags: AliasType.regex.index, payeeId: att.uniqueId, data: Data()),
-      fireNotification: false,
-    ) as Alias;
-    final Account account = Account();
-    account.fieldName.value = 'Checking';
-    Data().accounts.appendNewMoneyObject(account, fireNotification: false);
-    final Transaction transaction = Transaction(date: DateTime(2024));
-    transaction.fieldAccountId.value = account.uniqueId;
-    transaction.fieldPayee.value = Data().payees.getOrCreate('ATT*BILL').uniqueId;
-    transaction.fieldTransfer.value = -1;
-    Data().appendNewTransaction(transaction, fireNotification: false);
+    final Alias alias = createTestAlias('ATT.*', att);
+    final Transaction transaction = createTestTransaction(createTestAccount(), 'ATT*BILL');
 
-    await tester.pumpWidget(AliasesTestHost(services: services));
-    await tester.pumpAndSettle();
+    await pumpTestApp(tester, services, const ViewAliases());
     expect(find.byKey(Constants.keyApplyAliasButton), findsNothing);
 
     tester.state<ViewForMoneyObjectsState>(find.byType(ViewAliases)).updateListAndSelect(alias.uniqueId);
@@ -121,8 +62,7 @@ void main() {
       find.text(AppL10n.tr(AppTranslationKeys.transactionsUpdatedCount, params: <String, String>{'count': '1'})),
       findsOneWidget,
     );
-    SnackBarService.clearQueue();
-    await tester.pumpAndSettle(const Duration(seconds: 10));
+    await dismissSnackBars(tester);
   });
 
   test('the payee picker selects an existing payee or creates a new one', () {
@@ -159,18 +99,11 @@ void main() {
     final Alias alias = Data().aliases.addNewAlias();
     expect(buildAliasFieldEditWidget(alias, alias.fieldPattern, (bool _) {}), isNull);
   });
+
   group('grouping by payee', () {
     /// Appends a plain alias mapping [pattern] to the payee named [payeeName].
-    Alias addAlias(String payeeName, String pattern) => Data().aliases.appendNewMoneyObject(
-      Alias(
-        id: -1,
-        pattern: pattern,
-        flags: AliasType.none.index,
-        payeeId: Data().payees.getOrCreate(payeeName).uniqueId,
-        data: Data(),
-      ),
-      fireNotification: false,
-    ) as Alias;
+    Alias addAlias(String payeeName, String pattern) =>
+        createTestAlias(pattern, Data().payees.getOrCreate(payeeName), type: AliasType.none);
 
     test('the payee comes first in the view, while stored fields keep their order', () {
       expect(Alias.fieldsForColumnView.definitions.map((Field<dynamic> f) => f.name), <String>[
@@ -213,8 +146,7 @@ void main() {
       addAlias('AT&T', 'B');
       addAlias('AT&T', 'A');
       addAlias('Grocer', 'G');
-      await tester.pumpWidget(AliasesTestHost(services: services));
-      await tester.pumpAndSettle();
+      await pumpTestApp(tester, services, const ViewAliases());
       final ViewForMoneyObjectsState state = tester.state<ViewForMoneyObjectsState>(find.byType(ViewAliases));
       expect(state.list.length, 3);
 

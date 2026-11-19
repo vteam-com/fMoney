@@ -1,29 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
-import 'package:money/shared/domain/alias_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
-import 'package:money/shared/domain/data_abstract_interface.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/presentation/entity_widgets/transaction_widgets_helper.dart';
-import 'package:money/shared/presentation/providers/data_file_controller_provider.dart';
 import 'package:money/widgets/pickers/category_picker_widget.dart';
 import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
 
-/// Creates and appends a transaction on [account] for [payee] in [category] (none when null).
-Transaction _createTransaction(Account account, Payee payee, Category? category, {bool isTransfer = false}) {
-  final Transaction transaction = Transaction(date: DateTime(2024, 5, 1));
-  transaction.fieldAccountId.value = account.uniqueId;
-  transaction.fieldPayee.value = payee.uniqueId;
-  transaction.fieldCategoryId.value = category?.uniqueId ?? -1;
-  transaction.fieldTransfer.value = isTransfer ? 1 : -1;
-  transaction.fieldTransferSplit.value = -1;
-  Data().appendNewTransaction(transaction, fireNotification: false);
-  return transaction;
-}
+import '../helpers/test_fixtures_helper.dart';
 
 void main() {
   late Account checking;
@@ -31,45 +17,45 @@ void main() {
   late Category food;
   late Category household;
 
+  /// Creates a transaction for [payee] in [category] (none when null).
+  Transaction transactionFor(Payee payee, Category? category, {bool isTransfer = false}) =>
+      createTestTransaction(checking, payee.fieldName.value, category: category, isTransfer: isTransfer);
+
   setUp(() {
-    DataFileController.instance = DataFileController();
-    Data().clearExistingData();
-    DataAbstract.instance = Data();
-    final Account account = Account();
-    account.fieldName.value = 'Checking';
-    account.fieldCurrency.value = 'USD';
-    checking = Data().accounts.appendNewMoneyObject(account, fireNotification: false) as Account;
+    resetTestData();
+    checking = createTestAccount();
     grocer = Data().payees.getOrCreate('Grocer', fireNotification: false);
     food = Data().categories.addNewCategory(name: 'Food');
     household = Data().categories.addNewCategory(name: 'Household');
   });
 
   test('categories used by a payee are ranked by use, ignoring transfers, splits and blanks', () {
-    _createTransaction(checking, grocer, household);
-    _createTransaction(checking, grocer, food);
-    _createTransaction(checking, grocer, food);
-    _createTransaction(checking, grocer, null);
-    _createTransaction(checking, grocer, Data().categories.addNewCategory(name: 'Moved'), isTransfer: true);
-    _createTransaction(checking, grocer, Data().categories.split);
+    transactionFor(grocer, household);
+    transactionFor(grocer, food);
+    transactionFor(grocer, food);
+    transactionFor(grocer, null);
+    transactionFor(grocer, Data().categories.addNewCategory(name: 'Moved'), isTransfer: true);
+    transactionFor(grocer, Data().categories.split);
 
-    expect(Data().getCategoryIdsUsedByPayee(grocer.uniqueId), <int>[food.uniqueId, household.uniqueId]);
-    expect(Data().getCategoryIdsUsedByPayee(-1), isEmpty);
+    expect(Data().getCategoryCountsForPayee(grocer.uniqueId), <int, int>{food.uniqueId: 2, household.uniqueId: 1});
+    expect(Data().getCategoryCountsForPayee(grocer.uniqueId).keys.first, food.uniqueId, reason: 'most used first');
+    expect(Data().getCategoryCountsForPayee(-1), isEmpty);
   });
 
   group('applyCategoryFromPayeeHistory', () {
     test('applies the only category the payee uses', () {
-      _createTransaction(checking, grocer, food);
-      final Transaction t = _createTransaction(checking, grocer, null);
+      transactionFor(grocer, food);
+      final Transaction t = transactionFor(grocer, null);
 
       expect(t.applyCategoryFromPayeeHistory(), isTrue);
       expect(t.fieldCategoryId.value, food.uniqueId);
     });
 
     test('leaves the category alone when the payee uses several or it already has one', () {
-      _createTransaction(checking, grocer, food);
-      _createTransaction(checking, grocer, household);
-      final Transaction uncategorized = _createTransaction(checking, grocer, null);
-      final Transaction categorized = _createTransaction(checking, grocer, household);
+      transactionFor(grocer, food);
+      transactionFor(grocer, household);
+      final Transaction uncategorized = transactionFor(grocer, null);
+      final Transaction categorized = transactionFor(grocer, household);
 
       expect(uncategorized.applyCategoryFromPayeeHistory(), isFalse);
       expect(uncategorized.fieldCategoryId.value, -1);
@@ -79,20 +65,13 @@ void main() {
   });
 
   test('import and alias apply give new transactions the payee category', () {
-    _createTransaction(checking, grocer, food);
-    Data().aliases.appendNewMoneyObject(
-      Alias(id: -1, pattern: 'GROCER.*', flags: AliasType.regex.index, payeeId: grocer.uniqueId, data: Data()),
-      fireNotification: false,
-    );
+    transactionFor(grocer, food);
+    createTestAlias('GROCER.*', grocer);
 
     final Transaction imported = Transaction.fromDateDescriptionAmount(checking, DateTime(2024), 'GROCER #12', -9);
     expect(imported.fieldCategoryId.value, food.uniqueId);
 
-    final Transaction existing = _createTransaction(
-      checking,
-      Data().payees.getOrCreate('GROCER #40', fireNotification: false),
-      null,
-    );
+    final Transaction existing = createTestTransaction(checking, 'GROCER #40');
     Data().applyAlias(Data().aliases.iterableList().first);
     expect(existing.fieldCategoryId.value, food.uniqueId);
   });
@@ -103,7 +82,7 @@ void main() {
     ];
     for (int i = 0; i < categories.length; i++) {
       for (int count = 0; count < 4 - i; count++) {
-        _createTransaction(checking, grocer, categories[i]);
+        transactionFor(grocer, categories[i]);
       }
     }
 

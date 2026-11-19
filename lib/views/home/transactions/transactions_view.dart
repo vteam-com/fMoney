@@ -73,8 +73,11 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
   }
 
   /// Returns the transactions selected in the main list.
-  List<Transaction> _selectedTransactions() =>
-      getSelectedItemsFromSelectedList(selectedIds).whereType<Transaction>().toList();
+  List<Transaction> _selectedTransactions() => _transactionsOf(selectedIds);
+
+  /// Returns the main list's transactions with [ids].
+  List<Transaction> _transactionsOf(List<int> ids) =>
+      getSelectedItemsFromSelectedList(ids).whereType<Transaction>().toList();
 
   final List<Widget> pivots = <Widget>[];
   final TextStyle styleHeader = const TextStyle(
@@ -206,10 +209,7 @@ class _ViewTransactionsState extends ViewForMoneyObjectsState {
 
   /// Builds the side panel list of aliases related to the selected transactions.
   Widget _getSidePanelViewAliases({required List<int> selectedIds}) {
-    final List<Transaction> transactions = selectedIds
-        .map((int id) => Data().transactions.get(id))
-        .whereType<Transaction>()
-        .toList();
+    final List<Transaction> transactions = _transactionsOf(selectedIds);
     if (transactions.isEmpty) {
       return CenterMessage.noTransaction();
     }
