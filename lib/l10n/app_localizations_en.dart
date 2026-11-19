@@ -110,6 +110,129 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aliases => 'Aliases';
 
   @override
+  String get aliasPatternAnyCharacter => 'Any character';
+
+  @override
+  String get aliasPatternAnyText => 'Any text';
+
+  @override
+  String get aliasPatternAnyTextOrNothing => 'Any text, or nothing';
+
+  @override
+  String aliasPatternAtLeast(String item, String min) {
+    return '$item, $min or more times';
+  }
+
+  @override
+  String aliasPatternBetween(String item, String min, String max) {
+    return '$item, $min to $max times';
+  }
+
+  @override
+  String aliasPatternCharacterSet(String set) {
+    return 'One of the characters “$set”';
+  }
+
+  @override
+  String aliasPatternChoice(String number) {
+    return 'Choice $number';
+  }
+
+  @override
+  String aliasPatternChoices(String count) {
+    return 'One of these $count choices';
+  }
+
+  @override
+  String get aliasPatternDigit => 'A digit';
+
+  @override
+  String get aliasPatternEnd => 'The end of the text';
+
+  @override
+  String aliasPatternExactly(String item, String min) {
+    return '$item, $min times';
+  }
+
+  @override
+  String aliasPatternExactText(String text) {
+    return 'Matches a bank text or payee name equal to “$text”, ignoring case';
+  }
+
+  @override
+  String get aliasPatternGroup => 'This group';
+
+  @override
+  String get aliasPatternIgnoreCase => 'Upper and lower case are treated the same';
+
+  @override
+  String get aliasPatternInvalid => 'This is not a valid regular expression';
+
+  @override
+  String get aliasPatternMatchCase => 'Upper and lower case must match';
+
+  @override
+  String aliasPatternNoBetter(String count) {
+    return 'No better pattern found. This one matches $count transactions.';
+  }
+
+  @override
+  String aliasPatternNotCharacterSet(String set) {
+    return 'One character other than “$set”';
+  }
+
+  @override
+  String get aliasPatternNumber => 'A number (one or more digits)';
+
+  @override
+  String aliasPatternOneOrMore(String item) {
+    return '$item, one or more times';
+  }
+
+  @override
+  String get aliasPatternOptimize => 'Optimize';
+
+  @override
+  String aliasPatternOptional(String item) {
+    return '$item, optional';
+  }
+
+  @override
+  String aliasPatternOther(String part) {
+    return 'The pattern “$part”';
+  }
+
+  @override
+  String get aliasPatternSpace => 'A space';
+
+  @override
+  String get aliasPatternStart => 'The start of the text';
+
+  @override
+  String aliasPatternSuggested(String count, String current) {
+    return 'Suggested pattern, matches $count transactions (now $current):';
+  }
+
+  @override
+  String aliasPatternText(String text) {
+    return 'The text “$text”';
+  }
+
+  @override
+  String get aliasPatternUseSuggestion => 'Use';
+
+  @override
+  String get aliasPatternWholeText => 'It must match the whole bank text or payee name';
+
+  @override
+  String get aliasPatternWordCharacter => 'A letter, digit or underscore';
+
+  @override
+  String aliasPatternZeroOrMore(String item) {
+    return '$item, any number of times, or none';
+  }
+
+  @override
   String get allLabel => 'All';
 
   @override

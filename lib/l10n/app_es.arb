@@ -44,6 +44,157 @@
   "aiUnableToReadPdf": "No se puede leer este archivo PDF.",
   "alias": "Seudonimo",
   "aliases": "Seudonimos",
+  "aliasPatternAnyCharacter": "Cualquier carácter",
+  "aliasPatternAnyText": "Cualquier texto",
+  "aliasPatternAnyTextOrNothing": "Cualquier texto, o nada",
+  "aliasPatternAtLeast": "{item}, {min} o más veces",
+  "@aliasPatternAtLeast": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternBetween": "{item}, de {min} a {max} veces",
+  "@aliasPatternBetween": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternCharacterSet": "Uno de los caracteres «{set}»",
+  "@aliasPatternCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoice": "Opción {number}",
+  "@aliasPatternChoice": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoices": "Una de estas {count} opciones",
+  "@aliasPatternChoices": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternDigit": "Un dígito",
+  "aliasPatternEnd": "El final del texto",
+  "aliasPatternExactly": "{item}, {min} veces",
+  "@aliasPatternExactly": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternExactText": "Coincide con un texto bancario o nombre de beneficiario igual a «{text}», sin distinguir mayúsculas",
+  "@aliasPatternExactText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternGroup": "Este grupo",
+  "aliasPatternIgnoreCase": "Mayúsculas y minúsculas se tratan igual",
+  "aliasPatternInvalid": "No es una expresión regular válida",
+  "aliasPatternMatchCase": "Las mayúsculas y minúsculas deben coincidir",
+  "aliasPatternNoBetter": "No se encontró un patrón mejor. Este coincide con {count} transacciones.",
+  "@aliasPatternNoBetter": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNotCharacterSet": "Un carácter distinto de «{set}»",
+  "@aliasPatternNotCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNumber": "Un número (uno o más dígitos)",
+  "aliasPatternOneOrMore": "{item}, una o más veces",
+  "@aliasPatternOneOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOptimize": "Optimizar",
+  "aliasPatternOptional": "{item}, opcional",
+  "@aliasPatternOptional": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOther": "El patrón «{part}»",
+  "@aliasPatternOther": {
+    "placeholders": {
+      "part": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternSpace": "Un espacio",
+  "aliasPatternStart": "El inicio del texto",
+  "aliasPatternSuggested": "Patrón sugerido, coincide con {count} transacciones (ahora {current}):",
+  "@aliasPatternSuggested": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternText": "El texto «{text}»",
+  "@aliasPatternText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternUseSuggestion": "Usar",
+  "aliasPatternWholeText": "Debe coincidir con todo el texto bancario o el nombre del beneficiario",
+  "aliasPatternWordCharacter": "Una letra, un dígito o un guion bajo",
+  "aliasPatternZeroOrMore": "{item}, cualquier número de veces, o ninguna",
+  "@aliasPatternZeroOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "allLabel": "Todo",
   "allTime": "Todo el tiempo",
   "@allTime": {

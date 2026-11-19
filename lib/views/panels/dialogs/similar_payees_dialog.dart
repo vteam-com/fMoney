@@ -3,6 +3,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/string_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
+import 'package:money/shared/domain/alias_pattern_suggestion_helper.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/similar_payees_helper.dart';
@@ -83,10 +84,13 @@ class _SimilarPayeesDialogState extends State<SimilarPayeesDialog> {
   }
 
   /// Adds one regex alias matching every checked name, applies it, then removes the emptied payees.
+  /// The regex may grow to cover future variants, but not the transactions of unchecked payees.
   void _createAlias() {
+    final Set<int> payeeIds = <int>{..._checkedIds, widget.payee.uniqueId};
     final Alias alias = Data().aliases.addNewAlias(
-      pattern: aliasPatternForNames(
+      pattern: Data().aliasPatternFor(
         _similarPayees.where((Payee p) => _checkedIds.contains(p.uniqueId)).map((Payee p) => p.fieldName.value),
+        (Transaction t) => payeeIds.contains(t.fieldPayee.value),
       ),
       type: AliasType.regex,
       payeeId: widget.payee.uniqueId,

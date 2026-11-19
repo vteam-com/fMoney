@@ -61,20 +61,6 @@ void main() {
 
       expect(findSimilarPayees(att, Data().payees.iterableList(), <Alias>[alias]), <Payee>[wireless, bill]);
     });
-
-    test('the alias pattern matches exactly the given names, ignoring case', () {
-      final Alias alias = Alias(
-        id: -1,
-        pattern: aliasPatternForNames(<String>['ATT*BILL', 'ATT WIRELESS']),
-        flags: AliasType.regex.index,
-        payeeId: att.uniqueId,
-        data: null,
-      );
-      expect(alias.isMatch('att*bill'), isTrue);
-      expect(alias.isMatch('ATT WIRELESS'), isTrue);
-      expect(alias.isMatch('ATTXBILL'), isFalse, reason: 'the * is literal');
-      expect(alias.isMatch('ATT WIRELESS 2'), isFalse);
-    });
   });
 
   testWidgets('merge moves only the checked payees into the dialog payee', (WidgetTester tester) async {
@@ -104,10 +90,29 @@ void main() {
 
     final Alias alias = Data().aliases.iterableList().single;
     expect(alias.fieldPayeeId.value, att.uniqueId);
-    expect(alias.isMatch('ATT*BILL') && alias.isMatch('ATT WIRELESS'), isTrue);
+    expect(alias.fieldPattern.value, '(?i)ATT.*', reason: 'one pattern for both, ready for future variants');
+    expect(alias.type, AliasType.regex);
     expect(bill.fieldPayee.value, att.uniqueId);
     expect(wireless.fieldPayee.value, att.uniqueId);
     expect(Data().payees.getByName('ATT*BILL')?.isDeleted ?? true, isTrue);
+    await dismissSnackBars(tester);
+  });
+
+  testWidgets('create alias leaves the unchecked payees alone', (WidgetTester tester) async {
+    createTestTransaction(checking, 'ATT*BILL');
+    createTestTransaction(checking, 'ATT WIRELESS');
+    final Transaction uverse = createTestTransaction(checking, 'ATT UVERSE');
+    final int uversePayeeId = uverse.fieldPayee.value;
+    await openDialog(tester, att);
+
+    await tester.tap(find.text('ATT UVERSE'));
+    await tester.pump();
+    await tester.tap(find.text(AppL10n.tr(AppTranslationKeys.createAlias)));
+    await tester.pump();
+
+    final Alias alias = Data().aliases.iterableList().single;
+    expect(alias.fieldPattern.value, r'(?i)(?:ATT WIRELESS|ATT\*BILL)', reason: 'ATT.* would take ATT UVERSE');
+    expect(uverse.fieldPayee.value, uversePayeeId);
     await dismissSnackBars(tester);
   });
 

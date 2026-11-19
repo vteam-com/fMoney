@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:money/data/helpers/alias_type_helper.dart';
 import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/mutation_type_enum.dart';
 import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/shared/domain/alias_entity.dart';
+import 'package:money/shared/domain/alias_pattern_suggestion_helper.dart';
+import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
@@ -198,15 +201,23 @@ void _changePayee(BuildContext context, List<Transaction> transactions) {
   );
 }
 
-/// Opens a new alias prefilled with the first transaction's bank text and payee; Apply re-assigns every
-/// matching transaction, Cancel discards the alias.
+/// Opens a new alias for the first transaction's payee that matches the bank text of every one of
+/// [transactions] (a regex when they differ); Apply re-assigns every matching transaction, Cancel
+/// discards the alias.
 void _createAlias(BuildContext _, List<Transaction> transactions) {
-  final Transaction transaction = transactions.first;
+  final int payeeId = transactions.first.fieldPayee.value;
+  final Set<String> texts = transactions.map(Aliases.textOf).toSet();
+  final Set<Transaction> selected = transactions.toSet();
+  // One text keeps its plain form; several get one regex, which must leave the other payees' transactions alone
   final Alias alias = Data().aliases.addNewAlias(
-    pattern: transaction.fieldOriginalPayee.value.isEmpty
-        ? transaction.payeeName
-        : transaction.fieldOriginalPayee.value,
-    payeeId: transaction.fieldPayee.value,
+    pattern: texts.length == 1
+        ? texts.first
+        : Data().aliasPatternFor(
+            texts,
+            (Transaction t) => t.fieldPayee.value == payeeId || selected.contains(t),
+          ),
+    type: texts.length == 1 ? AliasType.none : AliasType.regex,
+    payeeId: payeeId,
   );
   myShowDialogAndActionsForMoneyObject(
     title: AppL10n.tr(AppTranslationKeys.createAlias),

@@ -91,6 +91,68 @@ String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String,
       return l10n.appIsUpToDate(p['version'] ?? '');
     case AppTranslationKeys.updateCheckFailed:
       return l10n.updateCheckFailed;
+    case AppTranslationKeys.aliasPatternIgnoreCase:
+      return l10n.aliasPatternIgnoreCase;
+    case AppTranslationKeys.aliasPatternMatchCase:
+      return l10n.aliasPatternMatchCase;
+    case AppTranslationKeys.aliasPatternWholeText:
+      return l10n.aliasPatternWholeText;
+    case AppTranslationKeys.aliasPatternExactText:
+      return l10n.aliasPatternExactText(p['text'] ?? '');
+    case AppTranslationKeys.aliasPatternInvalid:
+      return l10n.aliasPatternInvalid;
+    case AppTranslationKeys.aliasPatternText:
+      return l10n.aliasPatternText(p['text'] ?? '');
+    case AppTranslationKeys.aliasPatternAnyCharacter:
+      return l10n.aliasPatternAnyCharacter;
+    case AppTranslationKeys.aliasPatternAnyText:
+      return l10n.aliasPatternAnyText;
+    case AppTranslationKeys.aliasPatternAnyTextOrNothing:
+      return l10n.aliasPatternAnyTextOrNothing;
+    case AppTranslationKeys.aliasPatternDigit:
+      return l10n.aliasPatternDigit;
+    case AppTranslationKeys.aliasPatternNumber:
+      return l10n.aliasPatternNumber;
+    case AppTranslationKeys.aliasPatternSpace:
+      return l10n.aliasPatternSpace;
+    case AppTranslationKeys.aliasPatternWordCharacter:
+      return l10n.aliasPatternWordCharacter;
+    case AppTranslationKeys.aliasPatternCharacterSet:
+      return l10n.aliasPatternCharacterSet(p['set'] ?? '');
+    case AppTranslationKeys.aliasPatternNotCharacterSet:
+      return l10n.aliasPatternNotCharacterSet(p['set'] ?? '');
+    case AppTranslationKeys.aliasPatternStart:
+      return l10n.aliasPatternStart;
+    case AppTranslationKeys.aliasPatternEnd:
+      return l10n.aliasPatternEnd;
+    case AppTranslationKeys.aliasPatternChoices:
+      return l10n.aliasPatternChoices(p['count'] ?? '');
+    case AppTranslationKeys.aliasPatternChoice:
+      return l10n.aliasPatternChoice(p['number'] ?? '');
+    case AppTranslationKeys.aliasPatternGroup:
+      return l10n.aliasPatternGroup;
+    case AppTranslationKeys.aliasPatternOther:
+      return l10n.aliasPatternOther(p['part'] ?? '');
+    case AppTranslationKeys.aliasPatternOptimize:
+      return l10n.aliasPatternOptimize;
+    case AppTranslationKeys.aliasPatternSuggested:
+      return l10n.aliasPatternSuggested(p['count'] ?? '', p['current'] ?? '');
+    case AppTranslationKeys.aliasPatternUseSuggestion:
+      return l10n.aliasPatternUseSuggestion;
+    case AppTranslationKeys.aliasPatternNoBetter:
+      return l10n.aliasPatternNoBetter(p['count'] ?? '');
+    case AppTranslationKeys.aliasPatternOptional:
+      return l10n.aliasPatternOptional(p['item'] ?? '');
+    case AppTranslationKeys.aliasPatternZeroOrMore:
+      return l10n.aliasPatternZeroOrMore(p['item'] ?? '');
+    case AppTranslationKeys.aliasPatternOneOrMore:
+      return l10n.aliasPatternOneOrMore(p['item'] ?? '');
+    case AppTranslationKeys.aliasPatternExactly:
+      return l10n.aliasPatternExactly(p['item'] ?? '', p['min'] ?? '');
+    case AppTranslationKeys.aliasPatternAtLeast:
+      return l10n.aliasPatternAtLeast(p['item'] ?? '', p['min'] ?? '');
+    case AppTranslationKeys.aliasPatternBetween:
+      return l10n.aliasPatternBetween(p['item'] ?? '', p['min'] ?? '', p['max'] ?? '');
     default:
       return key;
   }

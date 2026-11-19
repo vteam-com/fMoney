@@ -180,8 +180,7 @@ class Alias extends DataObject {
     }
     if (type == AliasType.regex) {
       final RegExp? regex = _compiledRegex();
-      final RegExpMatch? match = regex?.firstMatch(text);
-      return match != null && match.start == 0 && match.end == text.length;
+      return regex != null && isWholeAliasMatch(regex, text);
     }
     return stringCompareIgnoreCasing(fieldPattern.value, text) == 0;
   }
@@ -203,12 +202,18 @@ class Alias extends DataObject {
 }
 
 /// MyMoney.Net inline option that makes a whole pattern case-insensitive; Dart's RegExp rejects it.
-const String _caseInsensitivePrefix = '(?i)';
+const String aliasCaseInsensitivePrefix = '(?i)';
+
+/// True when [regex]'s first match covers all of [text], the MyMoney.Net rule for alias regexes.
+bool isWholeAliasMatch(RegExp regex, String text) {
+  final RegExpMatch? match = regex.firstMatch(text);
+  return match != null && match.start == 0 && match.end == text.length;
+}
 
 /// Compiles an alias [pattern], honoring a leading `(?i)`; returns null when the pattern is not a valid regex.
 RegExp? tryParseAliasRegex(String pattern) {
-  final bool ignoreCase = pattern.startsWith(_caseInsensitivePrefix);
-  final String source = ignoreCase ? pattern.substring(_caseInsensitivePrefix.length) : pattern;
+  final bool ignoreCase = pattern.startsWith(aliasCaseInsensitivePrefix);
+  final String source = ignoreCase ? pattern.substring(aliasCaseInsensitivePrefix.length) : pattern;
   try {
     return RegExp(source, caseSensitive: !ignoreCase);
   } on FormatException {

@@ -4,6 +4,7 @@ import 'package:money/data/models/data_object_model.dart';
 import 'package:money/data/models/field_model.dart';
 import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/alias_pattern_editor_widget.dart';
 import 'package:money/shared/presentation/entity_widgets/payee_widgets_helper.dart';
 import 'package:money/widgets/list/list_item_card.dart';
 import 'package:money/widgets/pickers/edit_box_picker_widget.dart';
@@ -17,12 +18,16 @@ Widget buildAliasSmallScreenWidget(Alias alias) {
   );
 }
 
-/// Returns the alias-specific editor for [field] of [alias] (payee and type pickers), or null for the generic one.
+/// Returns the alias-specific editor for [field] of [alias] (pattern with its explanation, payee and type
+/// pickers), or null for the generic one.
 Widget? buildAliasFieldEditWidget(
   Alias alias,
   Field<dynamic> field,
   void Function(bool /* wasModified */) onEdited,
 ) {
+  if (field.isSameDefinition(alias.fieldPattern)) {
+    return AliasPatternEditor(alias: alias, onEdited: onEdited);
+  }
   if (field.isSameDefinition(alias.fieldPayeeId)) {
     return pickerPayee(
       key: const Key('key_pick_alias_payee'),

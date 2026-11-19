@@ -10,15 +10,6 @@ const int _minComparableLength = 3;
 /// Leading characters two compacted names must share to look like the same merchant.
 const int _sharedPrefixLength = 5;
 
-/// Starts a case-insensitive, non-capturing regex group (MyMoney.Net style, see [tryParseAliasRegex]).
-const String _caseInsensitiveGroupStart = '(?i)(?:';
-
-/// Separates the alternatives of a regex group.
-const String _alternative = '|';
-
-/// Closes a regex group.
-const String _groupEnd = ')';
-
 /// Everything that is not an uppercase letter or a digit.
 final RegExp _nonAlphanumeric = RegExp('[^A-Z0-9]');
 
@@ -50,7 +41,3 @@ List<Payee> findSimilarPayees(Payee payee, Iterable<Payee> candidates, Iterable<
       .toList()
     ..sort((Payee a, Payee b) => sortByString(a.fieldName.value, b.fieldName.value, true));
 }
-
-/// Builds a case-insensitive regex alias pattern that matches exactly any of [names].
-String aliasPatternForNames(Iterable<String> names) =>
-    _caseInsensitiveGroupStart + names.map(RegExp.escape).join(_alternative) + _groupEnd;

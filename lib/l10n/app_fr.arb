@@ -44,6 +44,157 @@
   "aiUnableToReadPdf": "Impossible de lire ce fichier PDF.",
   "alias": "Surnom",
   "aliases": "Alias",
+  "aliasPatternAnyCharacter": "N’importe quel caractère",
+  "aliasPatternAnyText": "N’importe quel texte",
+  "aliasPatternAnyTextOrNothing": "N’importe quel texte, ou rien",
+  "aliasPatternAtLeast": "{item}, {min} fois ou plus",
+  "@aliasPatternAtLeast": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternBetween": "{item}, de {min} à {max} fois",
+  "@aliasPatternBetween": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternCharacterSet": "Un des caractères « {set} »",
+  "@aliasPatternCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoice": "Choix {number}",
+  "@aliasPatternChoice": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoices": "Un de ces {count} choix",
+  "@aliasPatternChoices": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternDigit": "Un chiffre",
+  "aliasPatternEnd": "La fin du texte",
+  "aliasPatternExactly": "{item}, {min} fois",
+  "@aliasPatternExactly": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternExactText": "Correspond à un texte bancaire ou un nom de bénéficiaire égal à « {text} », sans tenir compte de la casse",
+  "@aliasPatternExactText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternGroup": "Ce groupe",
+  "aliasPatternIgnoreCase": "Majuscules et minuscules sont traitées pareil",
+  "aliasPatternInvalid": "Ce n’est pas une expression régulière valide",
+  "aliasPatternMatchCase": "Les majuscules et minuscules doivent correspondre",
+  "aliasPatternNoBetter": "Aucun meilleur motif trouvé. Celui-ci correspond à {count} transactions.",
+  "@aliasPatternNoBetter": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNotCharacterSet": "Un caractère autre que « {set} »",
+  "@aliasPatternNotCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNumber": "Un nombre (un chiffre ou plus)",
+  "aliasPatternOneOrMore": "{item}, une fois ou plus",
+  "@aliasPatternOneOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOptimize": "Optimiser",
+  "aliasPatternOptional": "{item}, facultatif",
+  "@aliasPatternOptional": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOther": "Le motif « {part} »",
+  "@aliasPatternOther": {
+    "placeholders": {
+      "part": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternSpace": "Une espace",
+  "aliasPatternStart": "Le début du texte",
+  "aliasPatternSuggested": "Motif suggéré, correspond à {count} transactions (actuellement {current}) :",
+  "@aliasPatternSuggested": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternText": "Le texte « {text} »",
+  "@aliasPatternText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternUseSuggestion": "Utiliser",
+  "aliasPatternWholeText": "Il doit correspondre à tout le texte bancaire ou au nom du bénéficiaire",
+  "aliasPatternWordCharacter": "Une lettre, un chiffre ou un trait de soulignement",
+  "aliasPatternZeroOrMore": "{item}, autant de fois que voulu, ou aucune",
+  "@aliasPatternZeroOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "allLabel": "Tous",
   "allTime": "Depuis toujours",
   "@allTime": {

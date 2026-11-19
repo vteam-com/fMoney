@@ -110,6 +110,129 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aliases => 'Alias';
 
   @override
+  String get aliasPatternAnyCharacter => 'N’importe quel caractère';
+
+  @override
+  String get aliasPatternAnyText => 'N’importe quel texte';
+
+  @override
+  String get aliasPatternAnyTextOrNothing => 'N’importe quel texte, ou rien';
+
+  @override
+  String aliasPatternAtLeast(String item, String min) {
+    return '$item, $min fois ou plus';
+  }
+
+  @override
+  String aliasPatternBetween(String item, String min, String max) {
+    return '$item, de $min à $max fois';
+  }
+
+  @override
+  String aliasPatternCharacterSet(String set) {
+    return 'Un des caractères « $set »';
+  }
+
+  @override
+  String aliasPatternChoice(String number) {
+    return 'Choix $number';
+  }
+
+  @override
+  String aliasPatternChoices(String count) {
+    return 'Un de ces $count choix';
+  }
+
+  @override
+  String get aliasPatternDigit => 'Un chiffre';
+
+  @override
+  String get aliasPatternEnd => 'La fin du texte';
+
+  @override
+  String aliasPatternExactly(String item, String min) {
+    return '$item, $min fois';
+  }
+
+  @override
+  String aliasPatternExactText(String text) {
+    return 'Correspond à un texte bancaire ou un nom de bénéficiaire égal à « $text », sans tenir compte de la casse';
+  }
+
+  @override
+  String get aliasPatternGroup => 'Ce groupe';
+
+  @override
+  String get aliasPatternIgnoreCase => 'Majuscules et minuscules sont traitées pareil';
+
+  @override
+  String get aliasPatternInvalid => 'Ce n’est pas une expression régulière valide';
+
+  @override
+  String get aliasPatternMatchCase => 'Les majuscules et minuscules doivent correspondre';
+
+  @override
+  String aliasPatternNoBetter(String count) {
+    return 'Aucun meilleur motif trouvé. Celui-ci correspond à $count transactions.';
+  }
+
+  @override
+  String aliasPatternNotCharacterSet(String set) {
+    return 'Un caractère autre que « $set »';
+  }
+
+  @override
+  String get aliasPatternNumber => 'Un nombre (un chiffre ou plus)';
+
+  @override
+  String aliasPatternOneOrMore(String item) {
+    return '$item, une fois ou plus';
+  }
+
+  @override
+  String get aliasPatternOptimize => 'Optimiser';
+
+  @override
+  String aliasPatternOptional(String item) {
+    return '$item, facultatif';
+  }
+
+  @override
+  String aliasPatternOther(String part) {
+    return 'Le motif « $part »';
+  }
+
+  @override
+  String get aliasPatternSpace => 'Une espace';
+
+  @override
+  String get aliasPatternStart => 'Le début du texte';
+
+  @override
+  String aliasPatternSuggested(String count, String current) {
+    return 'Motif suggéré, correspond à $count transactions (actuellement $current) :';
+  }
+
+  @override
+  String aliasPatternText(String text) {
+    return 'Le texte « $text »';
+  }
+
+  @override
+  String get aliasPatternUseSuggestion => 'Utiliser';
+
+  @override
+  String get aliasPatternWholeText => 'Il doit correspondre à tout le texte bancaire ou au nom du bénéficiaire';
+
+  @override
+  String get aliasPatternWordCharacter => 'Une lettre, un chiffre ou un trait de soulignement';
+
+  @override
+  String aliasPatternZeroOrMore(String item) {
+    return '$item, autant de fois que voulu, ou aucune';
+  }
+
+  @override
   String get allLabel => 'Tous';
 
   @override

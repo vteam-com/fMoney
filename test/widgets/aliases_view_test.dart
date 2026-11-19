@@ -10,6 +10,7 @@ import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/presentation/entity_widgets/alias_pattern_editor_widget.dart';
 import 'package:money/shared/presentation/entity_widgets/alias_widgets_helper.dart';
 import 'package:money/shared/presentation/services/app_scope_service.dart';
 import 'package:money/views/home/aliases/aliases_view.dart';
@@ -95,9 +96,9 @@ void main() {
     expect(edits, <bool>[true, true]);
   });
 
-  test('the pattern keeps the generic text editor', () {
+  test('the pattern gets the editor that explains and optimizes it', () {
     final Alias alias = Data().aliases.addNewAlias();
-    expect(buildAliasFieldEditWidget(alias, alias.fieldPattern, (bool _) {}), isNull);
+    expect(buildAliasFieldEditWidget(alias, alias.fieldPattern, (bool _) {}), isA<AliasPatternEditor>());
   });
 
   group('grouping by payee', () {

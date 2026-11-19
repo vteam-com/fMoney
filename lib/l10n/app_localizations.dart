@@ -280,6 +280,192 @@ abstract class AppLocalizations {
   /// **'Aliases'**
   String get aliases;
 
+  /// No description provided for @aliasPatternAnyCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Any character'**
+  String get aliasPatternAnyCharacter;
+
+  /// No description provided for @aliasPatternAnyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Any text'**
+  String get aliasPatternAnyText;
+
+  /// No description provided for @aliasPatternAnyTextOrNothing.
+  ///
+  /// In en, this message translates to:
+  /// **'Any text, or nothing'**
+  String get aliasPatternAnyTextOrNothing;
+
+  /// No description provided for @aliasPatternAtLeast.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, {min} or more times'**
+  String aliasPatternAtLeast(String item, String min);
+
+  /// No description provided for @aliasPatternBetween.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, {min} to {max} times'**
+  String aliasPatternBetween(String item, String min, String max);
+
+  /// No description provided for @aliasPatternCharacterSet.
+  ///
+  /// In en, this message translates to:
+  /// **'One of the characters “{set}”'**
+  String aliasPatternCharacterSet(String set);
+
+  /// No description provided for @aliasPatternChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Choice {number}'**
+  String aliasPatternChoice(String number);
+
+  /// No description provided for @aliasPatternChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'One of these {count} choices'**
+  String aliasPatternChoices(String count);
+
+  /// No description provided for @aliasPatternDigit.
+  ///
+  /// In en, this message translates to:
+  /// **'A digit'**
+  String get aliasPatternDigit;
+
+  /// No description provided for @aliasPatternEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'The end of the text'**
+  String get aliasPatternEnd;
+
+  /// No description provided for @aliasPatternExactly.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, {min} times'**
+  String aliasPatternExactly(String item, String min);
+
+  /// No description provided for @aliasPatternExactText.
+  ///
+  /// In en, this message translates to:
+  /// **'Matches a bank text or payee name equal to “{text}”, ignoring case'**
+  String aliasPatternExactText(String text);
+
+  /// No description provided for @aliasPatternGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'This group'**
+  String get aliasPatternGroup;
+
+  /// No description provided for @aliasPatternIgnoreCase.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper and lower case are treated the same'**
+  String get aliasPatternIgnoreCase;
+
+  /// No description provided for @aliasPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a valid regular expression'**
+  String get aliasPatternInvalid;
+
+  /// No description provided for @aliasPatternMatchCase.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper and lower case must match'**
+  String get aliasPatternMatchCase;
+
+  /// No description provided for @aliasPatternNoBetter.
+  ///
+  /// In en, this message translates to:
+  /// **'No better pattern found. This one matches {count} transactions.'**
+  String aliasPatternNoBetter(String count);
+
+  /// No description provided for @aliasPatternNotCharacterSet.
+  ///
+  /// In en, this message translates to:
+  /// **'One character other than “{set}”'**
+  String aliasPatternNotCharacterSet(String set);
+
+  /// No description provided for @aliasPatternNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'A number (one or more digits)'**
+  String get aliasPatternNumber;
+
+  /// No description provided for @aliasPatternOneOrMore.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, one or more times'**
+  String aliasPatternOneOrMore(String item);
+
+  /// No description provided for @aliasPatternOptimize.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimize'**
+  String get aliasPatternOptimize;
+
+  /// No description provided for @aliasPatternOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, optional'**
+  String aliasPatternOptional(String item);
+
+  /// No description provided for @aliasPatternOther.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern “{part}”'**
+  String aliasPatternOther(String part);
+
+  /// No description provided for @aliasPatternSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'A space'**
+  String get aliasPatternSpace;
+
+  /// No description provided for @aliasPatternStart.
+  ///
+  /// In en, this message translates to:
+  /// **'The start of the text'**
+  String get aliasPatternStart;
+
+  /// No description provided for @aliasPatternSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested pattern, matches {count} transactions (now {current}):'**
+  String aliasPatternSuggested(String count, String current);
+
+  /// No description provided for @aliasPatternText.
+  ///
+  /// In en, this message translates to:
+  /// **'The text “{text}”'**
+  String aliasPatternText(String text);
+
+  /// No description provided for @aliasPatternUseSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get aliasPatternUseSuggestion;
+
+  /// No description provided for @aliasPatternWholeText.
+  ///
+  /// In en, this message translates to:
+  /// **'It must match the whole bank text or payee name'**
+  String get aliasPatternWholeText;
+
+  /// No description provided for @aliasPatternWordCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'A letter, digit or underscore'**
+  String get aliasPatternWordCharacter;
+
+  /// No description provided for @aliasPatternZeroOrMore.
+  ///
+  /// In en, this message translates to:
+  /// **'{item}, any number of times, or none'**
+  String aliasPatternZeroOrMore(String item);
+
   /// No description provided for @allLabel.
   ///
   /// In en, this message translates to:

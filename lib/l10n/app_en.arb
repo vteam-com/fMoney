@@ -44,6 +44,157 @@
   "aiUnableToReadPdf": "Unable to read this PDF file.",
   "alias": "Alias",
   "aliases": "Aliases",
+  "aliasPatternAnyCharacter": "Any character",
+  "aliasPatternAnyText": "Any text",
+  "aliasPatternAnyTextOrNothing": "Any text, or nothing",
+  "aliasPatternAtLeast": "{item}, {min} or more times",
+  "@aliasPatternAtLeast": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternBetween": "{item}, {min} to {max} times",
+  "@aliasPatternBetween": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternCharacterSet": "One of the characters “{set}”",
+  "@aliasPatternCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoice": "Choice {number}",
+  "@aliasPatternChoice": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternChoices": "One of these {count} choices",
+  "@aliasPatternChoices": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternDigit": "A digit",
+  "aliasPatternEnd": "The end of the text",
+  "aliasPatternExactly": "{item}, {min} times",
+  "@aliasPatternExactly": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternExactText": "Matches a bank text or payee name equal to “{text}”, ignoring case",
+  "@aliasPatternExactText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternGroup": "This group",
+  "aliasPatternIgnoreCase": "Upper and lower case are treated the same",
+  "aliasPatternInvalid": "This is not a valid regular expression",
+  "aliasPatternMatchCase": "Upper and lower case must match",
+  "aliasPatternNoBetter": "No better pattern found. This one matches {count} transactions.",
+  "@aliasPatternNoBetter": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNotCharacterSet": "One character other than “{set}”",
+  "@aliasPatternNotCharacterSet": {
+    "placeholders": {
+      "set": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternNumber": "A number (one or more digits)",
+  "aliasPatternOneOrMore": "{item}, one or more times",
+  "@aliasPatternOneOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOptimize": "Optimize",
+  "aliasPatternOptional": "{item}, optional",
+  "@aliasPatternOptional": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternOther": "The pattern “{part}”",
+  "@aliasPatternOther": {
+    "placeholders": {
+      "part": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternSpace": "A space",
+  "aliasPatternStart": "The start of the text",
+  "aliasPatternSuggested": "Suggested pattern, matches {count} transactions (now {current}):",
+  "@aliasPatternSuggested": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternText": "The text “{text}”",
+  "@aliasPatternText": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "aliasPatternUseSuggestion": "Use",
+  "aliasPatternWholeText": "It must match the whole bank text or payee name",
+  "aliasPatternWordCharacter": "A letter, digit or underscore",
+  "aliasPatternZeroOrMore": "{item}, any number of times, or none",
+  "@aliasPatternZeroOrMore": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
   "allLabel": "All",
   "allTime": "All time",
   "@allTime": {
