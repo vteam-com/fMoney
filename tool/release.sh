@@ -1,10 +1,11 @@
 #!/bin/bash
 # Releases fMoney: sets the new version in pubspec.yaml and in the version the
 # app reports, adds the release to CHANGELOG.md (one line per commit since the
-# last release), checks and builds the code, then commits and pushes it. The
-# push to main runs the "Flutter Desktop Build" workflow, which sees the new
-# version, builds macOS, Windows and Linux, and publishes them as the GitHub
-# release v<version> (creating that tag) with this CHANGELOG entry as notes.
+# last release), checks and builds the code, then commits it and pushes it with
+# any local commits not pushed yet, in one push. That push to main runs the
+# "Flutter Desktop Build" workflow once: it sees the new version, builds macOS,
+# Windows and Linux, and publishes them as the GitHub release v<version>
+# (creating that tag) with this CHANGELOG entry as notes.
 #
 # Usage: tool/release.sh <major|minor|patch|X.Y.Z>
 #   patch  1.2.3 -> 1.2.4      minor  1.2.3 -> 1.3.0
@@ -74,8 +75,11 @@ previous_tag="v$current_name"
 	fail "commit or stash your changes first"
 [ -f "$CHANGELOG" ] || fail "no $CHANGELOG"
 git fetch --quiet --tags "$REMOTE" "$RELEASE_BRANCH"
-[ "$(git rev-parse HEAD)" = "$(git rev-parse "$REMOTE/$RELEASE_BRANCH")" ] ||
-	fail "$RELEASE_BRANCH differs from $REMOTE/$RELEASE_BRANCH: pull or push first"
+# Local commits are fine, they go out with the release; the remote's must be here
+# first, or the push would be refused
+git merge-base --is-ancestor "$REMOTE/$RELEASE_BRANCH" HEAD ||
+	fail "$REMOTE/$RELEASE_BRANCH has commits that $RELEASE_BRANCH does not: pull first"
+unpushed="$(git rev-list --count "$REMOTE/$RELEASE_BRANCH..HEAD")"
 
 # The workflow tags each version it releases, so the tags tell what shipped
 [ -z "$(git ls-remote --tags "$REMOTE" "refs/tags/$tag")" ] ||
@@ -95,6 +99,8 @@ section="## [version $version] $(date +%Y-%m-%d)
 $changes"
 
 printf '%s\n\n' "$section"
+[ "$unpushed" -eq 0 ] ||
+	echo "The release push also sends the $unpushed commit(s) not on $REMOTE yet."
 printf 'Release %s -> %s with this %s entry? [y/N] ' "$current" "$full_version" "$CHANGELOG"
 read -r answer
 [[ "$answer" =~ ^[Yy]$ ]] || fail "cancelled"
