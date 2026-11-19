@@ -58,6 +58,14 @@
   "appCopyright": "© 2024 fMoney Team. Tous droits reserves.",
   "appDescription": "Application gratuite de gestion financière personnelle Flutter open-source",
   "append": "Ajouter",
+  "appIsUpToDate": "fMoney est à jour (version {version}).",
+  "@appIsUpToDate": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "appLongDescription": "Une solution complète de gestion d'argent pour suivre les dépenses, gérer les budgets et surveiller les investissements.",
   "apply": "Appliquer",
   "applyAliasToTransactions": "Appliquer l'alias aux transactions existantes",
@@ -125,6 +133,7 @@
   "chart": "Graphique",
   "chartUpperSpacer": "GRAPHIQUE ",
   "chatTruncatedSuffix": "\n(suite...)",
+  "checkForUpdatesMenuItem": "Rechercher des mises à jour...",
   "checkingOllamaStatus": "Verification du statut Ollama...",
   "chooseAnOptionToGetStarted": "Choisissez une option pour commencer :",
   "chooseColumns": "Choisir les colonnes",
@@ -1032,6 +1041,7 @@
     }
   },
   "updateCannotInstallHere": "Cette copie de fMoney ne peut pas se remplacer là où elle est installée. Téléchargez la nouvelle version et remplacez celle-ci.",
+  "updateCheckFailed": "Impossible de rechercher des mises à jour. Vérifiez votre connexion Internet et réessayez.",
   "updateFailed": "Impossible d'installer la mise à jour : {error}",
   "@updateFailed": {
     "placeholders": {

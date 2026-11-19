@@ -5,6 +5,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/app_update_service.dart';
 import 'package:money/helpers/generated_app_version_data.dart';
+import 'package:money/helpers/github_artifacts_service.dart';
 import 'package:money/helpers/github_release_model.dart';
 import 'package:money/helpers/window_manager_service.dart';
 import 'package:money/widgets/pure/snack_bar_service.dart';
@@ -13,19 +14,48 @@ import 'package:url_launcher/url_launcher.dart';
 /// Checks GitHub for a newer desktop release and, when there is one, shows a banner offering to
 /// install it and restart, or to download it when this copy of the app can't replace itself.
 ///
+/// The launch check ([fromMenu] false) runs only in installed release builds and stays quiet unless
+/// there is an update; "Check for updates" ([fromMenu] true) runs in any desktop build and also says
+/// when the app is up to date or GitHub can't be reached.
+Future<void> checkForAppUpdate({bool fromMenu = false}) async {
+  if (!fromMenu && !AppUpdateService.isSupported) {
+    return;
+  }
+  showUpdateCheckResult(await GitHubArtifactsService.fetchLatestRelease(), fromMenu: fromMenu);
+}
+
+/// Shows the update banner when [latest] is an update; from the menu ([fromMenu]) also reports that
+/// the app is up to date, or that the check failed when [latest] is null.
+///
 /// The banner lives in the app's [ScaffoldMessenger], so it stays put while startup navigation
 /// replaces pages, and it does not hold back snack bars.
-Future<void> checkForAppUpdate() async {
-  if (!AppUpdateService.isSupported) {
-    return;
-  }
-  final GitHubRelease? release = await AppUpdateService.findUpdate();
+void showUpdateCheckResult(GitHubRelease? latest, {required bool fromMenu}) {
   final ScaffoldMessengerState? messenger = SnackBarService.scaffoldKey.currentState;
-  if (release == null || messenger == null) {
+  if (messenger == null) {
     return;
   }
-  final bool canInstall = AppUpdateService.canInstallInPlace();
+  if (latest == null) {
+    if (fromMenu) {
+      SnackBarService.displayWarning(message: AppL10n.tr(AppTranslationKeys.updateCheckFailed));
+    }
+    return;
+  }
+  if (!AppUpdateService.isUpdate(latest)) {
+    if (fromMenu) {
+      SnackBarService.displayInfo(
+        message: AppL10n.tr(
+          AppTranslationKeys.appIsUpToDate,
+          params: <String, String>{'version': GeneratedAppVersionData.version},
+        ),
+      );
+    }
+    return;
+  }
+  final GitHubRelease release = latest;
+  // Only an installed release build replaces itself; a development build offers the download
+  final bool canInstall = AppUpdateService.isSupported && AppUpdateService.canInstallInPlace();
 
+  messenger.clearMaterialBanners();
   messenger.showMaterialBanner(
     MaterialBanner(
       leading: const Icon(Icons.system_update),

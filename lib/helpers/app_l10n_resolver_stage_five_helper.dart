@@ -85,6 +85,12 @@ String resolveAppL10nKeyStageFive(AppLocalizations l10n, String key, Map<String,
       return l10n.showOneRowPerPayee;
     case AppTranslationKeys.showEveryPattern:
       return l10n.showEveryPattern;
+    case AppTranslationKeys.checkForUpdatesMenuItem:
+      return l10n.checkForUpdatesMenuItem;
+    case AppTranslationKeys.appIsUpToDate:
+      return l10n.appIsUpToDate(p['version'] ?? '');
+    case AppTranslationKeys.updateCheckFailed:
+      return l10n.updateCheckFailed;
     default:
       return key;
   }

@@ -143,6 +143,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get append => 'Anexar';
 
   @override
+  String appIsUpToDate(String version) {
+    return 'fMoney está actualizado (versión $version).';
+  }
+
+  @override
   String get appLongDescription =>
       'Una solución completa de gestión de dinero para seguir gastos, administrar presupuestos y monitorear inversiones.';
 
@@ -253,6 +258,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get chatTruncatedSuffix => '\n(...)';
+
+  @override
+  String get checkForUpdatesMenuItem => 'Buscar actualizaciones...';
 
   @override
   String get checkingOllamaStatus => 'Verificando estado de Ollama...';
@@ -1487,6 +1495,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get updateCannotInstallHere =>
       'Esta copia de fMoney no puede reemplazarse donde está instalada. Descargue la nueva versión y reemplace esta.';
+
+  @override
+  String get updateCheckFailed =>
+      'No se pudieron buscar actualizaciones. Compruebe su conexión a Internet y vuelva a intentarlo.';
 
   @override
   String updateFailed(String error) {

@@ -122,20 +122,12 @@ Remove-Item -LiteralPath $TempDir -Recurse -Force -ErrorAction SilentlyContinue
     }
   }
 
-  /// The latest GitHub release when it is newer than this app and has an archive for this
-  /// platform; null otherwise, including when GitHub can't be reached.
-  static Future<GitHubRelease?> findUpdate() async {
+  /// True when [release] is newer than this app and has an archive for this platform.
+  static bool isUpdate(GitHubRelease release) {
     final String? platformKey = _platformKey;
-    if (platformKey == null) {
-      return null;
-    }
-    final GitHubRelease? release = await GitHubArtifactsService.fetchLatestRelease();
-    if (release == null ||
-        !release.assetUrls.containsKey(platformKey) ||
-        !isNewerVersion(release.tagName, GeneratedAppVersionData.version)) {
-      return null;
-    }
-    return release;
+    return platformKey != null &&
+        release.assetUrls.containsKey(platformKey) &&
+        isNewerVersion(release.tagName, GeneratedAppVersionData.version);
   }
 
   /// True when [candidate] is a higher `major.minor.patch` version than [current]; false when

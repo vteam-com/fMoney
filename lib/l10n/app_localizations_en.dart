@@ -143,6 +143,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get append => 'Append';
 
   @override
+  String appIsUpToDate(String version) {
+    return 'fMoney is up to date (version $version).';
+  }
+
+  @override
   String get appLongDescription =>
       'A comprehensive money management solution for tracking expenses, managing budgets, and monitoring investments.';
 
@@ -251,6 +256,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatTruncatedSuffix => '\n...';
+
+  @override
+  String get checkForUpdatesMenuItem => 'Check for updates...';
 
   @override
   String get checkingOllamaStatus => 'Checking Ollama status...';
@@ -1479,6 +1487,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get updateCannotInstallHere =>
       'This copy of fMoney can\'t replace itself where it is installed. Download the new version and replace this one.';
+
+  @override
+  String get updateCheckFailed => 'Could not check for updates. Check your internet connection and try again.';
 
   @override
   String updateFailed(String error) {

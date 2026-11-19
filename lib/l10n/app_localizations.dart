@@ -346,6 +346,12 @@ abstract class AppLocalizations {
   /// **'Append'**
   String get append;
 
+  /// No description provided for @appIsUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'fMoney is up to date (version {version}).'**
+  String appIsUpToDate(String version);
+
   /// No description provided for @appLongDescription.
   ///
   /// In en, this message translates to:
@@ -555,6 +561,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'\n...'**
   String get chatTruncatedSuffix;
+
+  /// No description provided for @checkForUpdatesMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates...'**
+  String get checkForUpdatesMenuItem;
 
   /// No description provided for @checkingOllamaStatus.
   ///
@@ -2787,6 +2799,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This copy of fMoney can\'t replace itself where it is installed. Download the new version and replace this one.'**
   String get updateCannotInstallHere;
+
+  /// No description provided for @updateCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not check for updates. Check your internet connection and try again.'**
+  String get updateCheckFailed;
 
   /// No description provided for @updateFailed.
   ///

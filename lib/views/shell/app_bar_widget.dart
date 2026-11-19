@@ -12,6 +12,7 @@ import 'package:money/shared/presentation/widgets/zoom_widget.dart';
 import 'package:money/views/imports/import_wizard_view.dart';
 import 'package:money/views/imports/shared/transactions_text_import_view.dart';
 import 'package:money/views/shell/app_title_widget.dart';
+import 'package:money/widgets/components/app_update_banner_widget.dart';
 import 'package:money/widgets/components/popup_menu_icon_button.dart';
 import 'package:money/widgets/components/three_part_label_widget.dart';
 import 'package:money/widgets/pure/color_palette_widget.dart';
@@ -66,6 +67,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         break;
       case Constants.commandInstallPlatforms:
         Navigator.of(context).pushNamed(Constants.routeInstallPlatformsPage);
+        break;
+      case Constants.commandCheckForUpdates:
+        checkForAppUpdate(fromMenu: true);
         break;
       case Constants.commandAbout:
         Navigator.of(context).pushNamed(Constants.routeAboutPage);
@@ -176,6 +180,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Icons.install_desktop,
         key: Constants.keyPlatformsButton,
       ),
+      if (!kIsWeb && !isPlatformMobile())
+        _buildSettingsMenuItem(
+          Constants.commandCheckForUpdates,
+          AppL10n.tr(AppTranslationKeys.checkForUpdatesMenuItem),
+          Icons.system_update,
+          key: const Key('key_check_for_updates'),
+        ),
       _buildSettingsMenuItem(
         Constants.commandAbout,
         AppL10n.tr(AppTranslationKeys.aboutMenuItem),

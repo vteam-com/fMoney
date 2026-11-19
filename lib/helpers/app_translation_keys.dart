@@ -481,4 +481,7 @@ abstract class AppTranslationKeys {
   static const String changePayee = 'changePayee';
   static const String showOneRowPerPayee = 'showOneRowPerPayee';
   static const String showEveryPattern = 'showEveryPattern';
+  static const String checkForUpdatesMenuItem = 'checkForUpdatesMenuItem';
+  static const String appIsUpToDate = 'appIsUpToDate';
+  static const String updateCheckFailed = 'updateCheckFailed';
 }

@@ -118,30 +118,30 @@ class MyApp extends StatelessWidget {
         ]),
         builder: (BuildContext _, Widget? _) {
           final Widget app = _WebStartupFocusGuard(
-            child: ScaffoldMessenger(
-              key: SnackBarService.scaffoldKey,
-              child: MaterialApp(
-                navigatorKey: AppRouter.navigatorKey,
-                debugShowCheckedModeBanner: false,
-                theme: _services.themeController.themeDataLight,
-                darkTheme: _services.themeController.themeDataDark,
-                themeMode: _services.themeController.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-                onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
-                locale: Locale(_services.preferenceController.localeCode),
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                  AppLocalizations.delegate,
-                  ...GlobalMaterialLocalizations.delegates,
-                ],
-                initialRoute: '/',
-                onGenerateRoute: _onGenerateRoute,
-                // Map the material_ui theme and localizations for packages that
-                // still build on the SDK's deprecated material library.
-                // Remove once fl_chart, flutter_markdown, multi_split_view,
-                // dotted_border and desktop_drop move to package:material_ui.
-                // ignore: deprecated_member_use
-                builder: (BuildContext _, Widget? child) => MaterialUiCompatibilityBridge(child: child!),
-              ),
+            child: MaterialApp(
+              navigatorKey: AppRouter.navigatorKey,
+              // The messenger MaterialApp creates is the one its pages' Scaffolds show snack bars and
+              // banners in; a ScaffoldMessenger wrapped around MaterialApp would have no Scaffold to use
+              scaffoldMessengerKey: SnackBarService.scaffoldKey,
+              debugShowCheckedModeBanner: false,
+              theme: _services.themeController.themeDataLight,
+              darkTheme: _services.themeController.themeDataDark,
+              themeMode: _services.themeController.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+              onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
+              locale: Locale(_services.preferenceController.localeCode),
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizations.delegate,
+                ...GlobalMaterialLocalizations.delegates,
+              ],
+              initialRoute: '/',
+              onGenerateRoute: _onGenerateRoute,
+              // Map the material_ui theme and localizations for packages that
+              // still build on the SDK's deprecated material library.
+              // Remove once fl_chart, flutter_markdown, multi_split_view,
+              // dotted_border and desktop_drop move to package:material_ui.
+              // ignore: deprecated_member_use
+              builder: (BuildContext _, Widget? child) => MaterialUiCompatibilityBridge(child: child!),
             ),
           );
 
