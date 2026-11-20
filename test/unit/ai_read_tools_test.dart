@@ -72,6 +72,11 @@ void main() {
       });
       expect((recent['rows'] as List<dynamic>).map((dynamic r) => r['id']), <int>[hydro.uniqueId]);
 
+      final Map<String, dynamic> utilityBills = await runAiTool(tools, 'search_transactions', <String, dynamic>{
+        'category': 'UTILITIES',
+      });
+      expect((utilityBills['rows'] as List<dynamic>).map((dynamic r) => r['id']), <int>[hydro.uniqueId]);
+
       final Map<String, dynamic> large = await runAiTool(tools, 'search_transactions', <String, dynamic>{
         'min_amount': '1000',
       });

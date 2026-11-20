@@ -1,9 +1,11 @@
 // ignore: fcheck_hardcoded_strings
 // Tool names, descriptions and results are written for the AI model, in English; the user never sees them.
+import 'package:money/data/models/data_object_model.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/domain/money_objects_collection_base.dart';
 import 'package:money/shared/domain/payee_entity.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
@@ -28,9 +30,6 @@ const int _centsPerUnit = 100;
 
 /// Characters of a YYYY-MM month key.
 const int _monthKeyLength = 7;
-
-/// Characters of a YYYY year key.
-const int _yearKeyLength = 4;
 
 /// Argument: how many rows to return.
 const String _argLimit = 'limit';
@@ -142,15 +141,30 @@ List<AiTool> aiDataTools() => <AiTool>[
 /// Returns [value] rounded to cents.
 double aiRoundToCents(double value) => (value * _centsPerUnit).round() / _centsPerUnit;
 
-/// Returns the transaction [args] names by its `id`, or throws a message the model can act on.
-Transaction aiTransactionFromArgs(Map<String, dynamic> args, String key) {
-  final int? id = args.intArg(key);
-  final Transaction? transaction = id == null ? null : Data().transactions.get(id);
-  if (transaction == null || transaction.isDeleted) {
-    throw ArgumentError('No transaction with id ${args[key]}; use search_transactions to find ids.');
+/// Returns the live item of [collection] with [id], or throws telling the model to find ids with [listTool].
+T aiItemById<T extends DataObject>(int? id, MoneyObjects<T> collection, String listTool) {
+  final T? item = id == null ? null : collection.get(id);
+  if (item == null || item.isDeleted) {
+    throw ArgumentError('Nothing has the id $id; use $listTool to find ids.');
   }
-  return transaction;
+  return item;
 }
+
+/// Returns the transaction whose id is the argument [key] of [args], or throws a message the model can act on.
+Transaction aiTransactionFromArgs(Map<String, dynamic> args, String key) =>
+    aiItemById(args.intArg(key), Data().transactions, 'search_transactions');
+
+/// Returns the payee whose id is the argument [key] of [args], or throws a message the model can act on.
+Payee aiPayeeFromArgs(Map<String, dynamic> args, String key) =>
+    aiItemById(args.intArg(key), Data().payees, 'list_payees');
+
+/// Returns [payee] as a row for a tool result.
+Map<String, Object> aiPayeeRow(Payee payee) => <String, Object>{
+  'id': payee.uniqueId,
+  'name': payee.fieldName.value,
+  'transactions': payee.fieldCount.value,
+  'total': aiRoundToCents(payee.fieldSum.value.asDouble()),
+};
 
 /// Returns [rows] capped at [limit] with the total, telling the model when rows were left out.
 Map<String, Object> aiLimitedRows(List<Map<String, Object>> rows, int limit) {
@@ -187,12 +201,11 @@ Map<String, Object> _getTransaction(Map<String, dynamic> args) {
 
 /// Returns the group key of [t] for [groupBy].
 String _groupKeyOf(Transaction t, String groupBy) {
-  final String date = dateToString(t.fieldDateTime.value);
   switch (groupBy) {
     case _groupMonth:
-      return date.substring(0, _monthKeyLength);
+      return dateToString(t.fieldDateTime.value).substring(0, _monthKeyLength);
     case _groupYear:
-      return date.substring(0, _yearKeyLength);
+      return dateToYearString(t.fieldDateTime.value);
     case _groupPayee:
       return aiPayeeOrTransferName(t);
     case _groupAccount:
@@ -240,10 +253,8 @@ Map<String, Object> _listAccounts(Map<String, dynamic> args) {
 
 /// Returns the categories asked for by [args].
 Map<String, Object> _listCategories(Map<String, dynamic> args) {
-  final String search = args.stringArg(_argSearch).toLowerCase();
-  final List<Category> categories =
-      Data().categories.iterableList().where((Category c) => c.name.toLowerCase().contains(search)).toList()
-        ..sort((Category a, Category b) => a.name.compareTo(b.name));
+  final List<Category> categories = aiCategoriesNamed(args.stringArg(_argSearch)).toList()
+    ..sort((Category a, Category b) => a.name.compareTo(b.name));
   return aiLimitedRows(
     categories
         .map(
@@ -265,19 +276,7 @@ Map<String, Object> _listPayees(Map<String, dynamic> args) {
   final List<Payee> payees =
       Data().payees.iterableList().where((Payee p) => p.fieldName.value.toLowerCase().contains(search)).toList()
         ..sort((Payee a, Payee b) => b.fieldCount.value.compareTo(a.fieldCount.value));
-  return aiLimitedRows(
-    payees
-        .map(
-          (Payee p) => <String, Object>{
-            'id': p.uniqueId,
-            'name': p.fieldName.value,
-            'transactions': p.fieldCount.value,
-            'total': aiRoundToCents(p.fieldSum.value.asDouble()),
-          },
-        )
-        .toList(),
-    _maxNamedItems,
-  );
+  return aiLimitedRows(payees.map(aiPayeeRow).toList(), _maxNamedItems);
 }
 
 /// Returns the transactions matching [args], sorted and capped as asked.

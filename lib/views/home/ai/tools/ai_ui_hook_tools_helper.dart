@@ -9,6 +9,7 @@ import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
+import 'package:money/shared/presentation/helpers/menu_entry_model.dart';
 import 'package:money/views/home/ai/tools/ai_tool_args_helper.dart';
 import 'package:money/views/home/ai/tools/ai_tool_model.dart';
 import 'package:money/views/home/ai/tools/ai_transaction_query_model.dart';
@@ -110,9 +111,9 @@ List<AiTool> aiUiHookTools(List<AiChatAction> actions) => <AiTool>[
 /// Returns the Transactions view action [args] describes, with the account and category names and
 /// dates as column filters.
 AiChatAction _transactionsAction(Map<String, dynamic> args) {
+  final AiTransactionQuery query = AiTransactionQuery.fromArgs(args);
   final FieldFilters filters = FieldFilters();
-  final List<String> accountNames = args
-      .intListArg(aiArgAccountIds)
+  final List<String> accountNames = query.accountIds
       .map((int id) => Data().accounts.get(id))
       .whereType<Account>()
       .map((Account account) => account.fieldName.value)
@@ -120,27 +121,15 @@ AiChatAction _transactionsAction(Map<String, dynamic> args) {
   if (accountNames.isNotEmpty) {
     filters.add(FieldFilter(fieldName: columnIdAccount, strings: accountNames));
   }
-  final String category = args.stringArg(aiArgCategory).toLowerCase();
-  if (category.isNotEmpty) {
-    filters.add(
-      FieldFilter(
-        fieldName: columnIdCategory,
-        strings: Data().categories
-            .iterableList()
-            .map((Category c) => c.name)
-            .where((String name) => name.toLowerCase().contains(category))
-            .toList(),
-      ),
-    );
+  if (query.category.isNotEmpty) {
+    filters.add(transactionsOfCategoriesFilter(aiCategoriesNamed(query.category).map((Category c) => c.name).toList()));
   }
-  final DateTime? dateFrom = args.dateArg(aiArgDateFrom);
-  final DateTime? dateTo = args.dateArg(aiArgDateTo);
-  if (dateFrom != null || dateTo != null) {
+  if (query.dateFrom != null || query.dateTo != null) {
     filters.add(
       FieldFilter(
         fieldName: columnIdDate,
         byDateRange: true,
-        strings: <String>[dateToString(dateFrom ?? _earliestDate), dateToString(dateTo ?? _latestDate)],
+        strings: <String>[dateToString(query.dateFrom ?? _earliestDate), dateToString(query.dateTo ?? _latestDate)],
       ),
     );
   }

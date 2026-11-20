@@ -6,12 +6,12 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/alias_entity.dart';
-import 'package:money/shared/domain/aliases_collection.dart';
 import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
-import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/shared/domain/transfer_linkage_service.dart';
+import 'package:money/shared/presentation/dialogs/merge_payees_dialog.dart';
 import 'package:money/views/home/ai/tools/ai_data_tools_helper.dart';
 import 'package:money/views/home/ai/tools/ai_tool_args_helper.dart';
 import 'package:money/views/home/ai/tools/ai_tool_model.dart';
@@ -141,16 +141,6 @@ String _detailLine(Transaction t) =>
 List<String> _detailLines(Iterable<Transaction> transactions) =>
     transactions.take(_maxDetailLines).map(_detailLine).toList();
 
-/// Returns the payee the argument [key] of [args] names, or throws a message the model can act on.
-Payee _payeeFromArgs(Map<String, dynamic> args, String key) {
-  final int? id = args.intArg(key);
-  final Payee? payee = id == null ? null : Data().payees.get(id);
-  if (payee == null || payee.isDeleted) {
-    throw ArgumentError('No payee with id ${args[key]}; use list_payees to find ids.');
-  }
-  return payee;
-}
-
 /// Returns the category [args] names by id or full name, or throws listing similar names.
 Category _categoryFromArgs(Map<String, dynamic> args) {
   final int? id = args.intArg(_argCategoryId);
@@ -158,19 +148,15 @@ Category _categoryFromArgs(Map<String, dynamic> args) {
   if (byId != null) {
     return byId;
   }
-  final String name = args.stringArg(_argCategory).toLowerCase();
-  final Iterable<Category> categories = Data().categories.iterableList();
-  final Category? byName = categories.firstWhereOrNull((Category c) => c.name.toLowerCase() == name);
-  if (byName != null && name.isNotEmpty) {
+  final String name = args.stringArg(_argCategory);
+  final List<Category> similar = name.isEmpty ? <Category>[] : aiCategoriesNamed(name).toList();
+  final Category? byName = similar.firstWhereOrNull((Category c) => c.name.toLowerCase() == name.toLowerCase());
+  if (byName != null) {
     return byName;
   }
-  final List<String> similar = categories
-      .map((Category c) => c.name)
-      .where((String n) => name.isNotEmpty && n.toLowerCase().contains(name))
-      .take(_maxSuggestions)
-      .toList();
   throw ArgumentError(
-    'No category "${args[_argCategory] ?? id}". Similar: ${similar.join(', ')}. The AI cannot create categories.',
+    'No category "${args[_argCategory] ?? id}". Similar: '
+    '${similar.take(_maxSuggestions).map((Category c) => c.name).join(', ')}. The AI cannot create categories.',
   );
 }
 
@@ -180,13 +166,13 @@ List<Transaction> _transactionsFromArgs(Map<String, dynamic> args, String key) {
   if (ids.isEmpty || ids.length > _maxTransactionsPerChange) {
     throw ArgumentError('Give between 1 and $_maxTransactionsPerChange transaction ids in $key.');
   }
-  return ids.map((int id) => aiTransactionFromArgs(<String, dynamic>{key: id}, key)).toList();
+  return ids.map((int id) => aiItemById(id, Data().transactions, 'search_transactions')).toList();
 }
 
 /// Proposes, then makes, the alias [args] describes, and applies it to the matching transactions.
 Future<Map<String, Object>> _createAlias(Map<String, dynamic> args, AiConfirmChange confirm) async {
   final String pattern = args.stringArg(_argPattern);
-  final Payee payee = _payeeFromArgs(args, _argPayeeId);
+  final Payee payee = aiPayeeFromArgs(args, _argPayeeId);
   final AliasType type = (args.boolArg(_argIsRegex) ?? false) ? AliasType.regex : AliasType.none;
   if (pattern.isEmpty) {
     throw ArgumentError('Give the bank text to match in $_argPattern.');
@@ -195,10 +181,7 @@ Future<Map<String, Object>> _createAlias(Map<String, dynamic> args, AiConfirmCha
     throw ArgumentError('Invalid regular expression: $pattern');
   }
   final Alias preview = Alias(id: -1, pattern: pattern, flags: type.index, payeeId: payee.uniqueId, data: Data());
-  final List<Transaction> renamed = Data()
-      .aliasableTransactions()
-      .where((Transaction t) => t.fieldPayee.value != payee.uniqueId && Aliases.matchesTransaction(preview, t))
-      .toList();
+  final List<Transaction> renamed = Data().transactionsRenamedBy(preview).toList();
   final bool applied = await confirm(
     summary: AppL10n.tr(
       AppTranslationKeys.aiChangeCreateAlias,
@@ -219,17 +202,11 @@ Future<Map<String, Object>> _createAlias(Map<String, dynamic> args, AiConfirmCha
 Future<Map<String, Object>> _linkTransfer(Map<String, dynamic> args, AiConfirmChange confirm) async {
   final Transaction a = aiTransactionFromArgs(args, _argTransactionId);
   final Transaction b = aiTransactionFromArgs(args, _argOtherTransactionId);
-  final String? problem = a.uniqueId == b.uniqueId
-      ? 'Both ids are the same transaction.'
-      : a.isTransfer || b.isTransfer
-      ? 'One of them is already a transfer.'
-      : a.fieldAccountId.value == b.fieldAccountId.value
-      ? 'Both are in the same account.'
-      : !isOppositeAmountWithinTolerance(a.fieldAmount.value.asDouble(), b.fieldAmount.value.asDouble())
-      ? 'Their amounts are not opposite.'
-      : null;
-  if (problem != null) {
-    throw ArgumentError('Cannot link them: $problem');
+  if (!canLinkAsTransfer(a, b)) {
+    throw ArgumentError(
+      'Cannot link them: a transfer needs two different transactions, in different accounts, neither already '
+      'a transfer, with opposite amounts.',
+    );
   }
   final bool applied = await confirm(
     summary: AppL10n.tr(AppTranslationKeys.aiChangeLinkTransfer),
@@ -244,11 +221,11 @@ Future<Map<String, Object>> _linkTransfer(Map<String, dynamic> args, AiConfirmCh
 
 /// Proposes, then makes, the payee merge [args] describes.
 Future<Map<String, Object>> _mergePayees(Map<String, dynamic> args, AiConfirmChange confirm) async {
-  final Payee to = _payeeFromArgs(args, _argToPayeeId);
+  final Payee to = aiPayeeFromArgs(args, _argToPayeeId);
   final List<Payee> from = args
       .intListArg(_argFromPayeeIds)
       .where((int id) => id != to.uniqueId)
-      .map((int id) => _payeeFromArgs(<String, dynamic>{_argFromPayeeIds: id}, _argFromPayeeIds))
+      .map((int id) => aiItemById(id, Data().payees, 'list_payees'))
       .toList();
   if (from.isEmpty) {
     throw ArgumentError('Give at least one payee id, other than $_argToPayeeId, in $_argFromPayeeIds.');
@@ -268,9 +245,9 @@ Future<Map<String, Object>> _mergePayees(Map<String, dynamic> args, AiConfirmCha
   if (!applied) {
     return _outcome(false, 0);
   }
-  mutateTransactions(moved, (Transaction t) => t.payeeId = to.uniqueId);
+  // Payees with only split lines or aliases merge first; the move below merges those with transactions.
   Data().mergePayeesWithNoTransactionsInto(fromIds, to.uniqueId);
-  Data().updateAll();
+  mutateMergeableItemsToPayee<Transaction>(moved, to.uniqueId, null, Data());
   return _outcome(true, moved.length);
 }
 

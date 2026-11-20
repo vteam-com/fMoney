@@ -17,6 +17,18 @@ const int _noPayeeId = -1;
 /// Id meaning "none" for transactions and accounts.
 const int _unsetId = -1;
 
+/// Returns true when [a] and [b] can be linked as one transfer: two different live transactions,
+/// neither already a transfer, in different accounts, with opposite amounts.
+bool canLinkAsTransfer(Transaction a, Transaction b) {
+  return a.uniqueId != b.uniqueId &&
+      !a.isDeleted &&
+      !b.isDeleted &&
+      !a.isTransfer &&
+      !b.isTransfer &&
+      a.fieldAccountId.value != b.fieldAccountId.value &&
+      isOppositeAmountWithinTolerance(a.fieldAmount.value.asDouble(), b.fieldAmount.value.asDouble());
+}
+
 /// Links transactions as transfers and answers "could this be a transfer?" queries.
 ///
 /// Extracted from `Data` so transfer rules change in one place; `Data` delegates to it.
@@ -243,22 +255,7 @@ class TransferLinkageService {
     required Transaction sourceTransaction,
     required Transaction targetTransaction,
   }) {
-    if (sourceTransaction.uniqueId == targetTransaction.uniqueId) {
-      return false;
-    }
-    if (sourceTransaction.isDeleted || targetTransaction.isDeleted) {
-      return false;
-    }
-    if (sourceTransaction.isTransfer || targetTransaction.isTransfer) {
-      return false;
-    }
-    if (sourceTransaction.fieldAccountId.value == targetTransaction.fieldAccountId.value) {
-      return false;
-    }
-    if (!isOppositeAmountWithinTolerance(
-      sourceTransaction.fieldAmount.value.asDouble(),
-      targetTransaction.fieldAmount.value.asDouble(),
-    )) {
+    if (!canLinkAsTransfer(sourceTransaction, targetTransaction)) {
       return false;
     }
 

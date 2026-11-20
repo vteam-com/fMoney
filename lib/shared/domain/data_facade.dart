@@ -502,6 +502,12 @@ class Data implements DataAbstract {
   Iterable<Transaction> aliasableTransactions() =>
       transactions.iterableList().where((Transaction transaction) => !transaction.isTransfer);
 
+  /// The transactions [applyAlias] would point at [alias]'s payee: the non-transfers it matches that
+  /// have another payee.
+  Iterable<Transaction> transactionsRenamedBy(Alias alias) => aliasableTransactions().where(
+    (Transaction t) => t.fieldPayee.value != alias.fieldPayeeId.value && Aliases.matchesTransaction(alias, t),
+  );
+
   /// Points every non-transfer transaction and split line that [alias] matches at the alias payee,
   /// and returns how many changed. A transaction matches on its original bank text or its payee name.
   int applyAlias(Alias alias) {
@@ -510,15 +516,13 @@ class Data implements DataAbstract {
       return 0;
     }
     int count = 0;
-    for (final Transaction t in aliasableTransactions()) {
-      if (t.fieldPayee.value != toPayeeId && Aliases.matchesTransaction(alias, t)) {
-        t.stashValueBeforeEditing();
-        t.stashOriginalPayee();
-        t.fieldPayee.value = toPayeeId;
-        t.applyCategoryFromPayeeHistory();
-        notifyMutationChanged(mutation: MutationType.changed, moneyObject: t, recalculateBalances: false);
-        count++;
-      }
+    for (final Transaction t in transactionsRenamedBy(alias).toList()) {
+      t.stashValueBeforeEditing();
+      t.stashOriginalPayee();
+      t.fieldPayee.value = toPayeeId;
+      t.applyCategoryFromPayeeHistory();
+      notifyMutationChanged(mutation: MutationType.changed, moneyObject: t, recalculateBalances: false);
+      count++;
     }
     for (final TransactionSplit split in splits.iterableList()) {
       if (split.fieldPayeeId.value != toPayeeId &&

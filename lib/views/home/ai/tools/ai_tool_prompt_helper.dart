@@ -2,13 +2,11 @@
 // Tool names, descriptions and results are written for the AI model, in English; the user never sees them.
 import 'package:money/data/models/ai_chat_model.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 
 /// Chat role of the instructions.
 const String _roleSystem = 'system';
-
-/// Chat role of the user's messages.
-const String _roleUser = 'user';
 
 /// Chat role of the model's answers.
 const String _roleAssistant = 'assistant';
@@ -43,9 +41,9 @@ List<Map<String, dynamic>> aiToolConversationStart({
     },
     for (final ChatMessage message in history)
       <String, dynamic>{
-        'role': message.type == ChatFrom.user ? _roleUser : _roleAssistant,
+        'role': message.type == ChatFrom.user ? SharedStrings.payloadRoleUser : _roleAssistant,
         'content': message.message,
       },
-    <String, dynamic>{'role': _roleUser, 'content': question},
+    <String, dynamic>{'role': SharedStrings.payloadRoleUser, 'content': question},
   ];
 }

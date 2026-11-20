@@ -2,6 +2,7 @@
 // Tool names, descriptions and results are written for the AI model, in English; the user never sees them.
 import 'package:money/helpers/date_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
+import 'package:money/shared/domain/category_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
 import 'package:money/shared/domain/transaction_split_entity.dart';
@@ -56,6 +57,9 @@ class AiTransactionQuery {
       text = args.stringArg(aiArgText).toLowerCase(),
       payee = args.stringArg(aiArgPayee).toLowerCase(),
       category = args.stringArg(aiArgCategory).toLowerCase(),
+      _categoryIds = args.stringArg(aiArgCategory).isEmpty
+          ? null
+          : aiCategoriesNamed(args.stringArg(aiArgCategory)).map((Category c) => c.uniqueId).toList(),
       dateFrom = args.dateArg(aiArgDateFrom),
       dateTo = args.dateArg(aiArgDateTo),
       minAmount = args.doubleArg(aiArgMinAmount),
@@ -68,6 +72,9 @@ class AiTransactionQuery {
 
   /// Lowercase part of a category name to find, or empty.
   final String category;
+
+  /// Ids of the categories whose name contains [category], or null when [category] is empty.
+  final List<int>? _categoryIds;
 
   /// First date kept, or null.
   final DateTime? dateFrom;
@@ -125,7 +132,7 @@ class AiTransactionQuery {
     if (payee.isNotEmpty && !aiPayeeOrTransferName(t).toLowerCase().contains(payee)) {
       return false;
     }
-    if (category.isNotEmpty && !_categoryNamesOf(t).any((String name) => name.toLowerCase().contains(category))) {
+    if (_categoryIds != null && !t.isMatchingAnyOfTheseCategories(_categoryIds)) {
       return false;
     }
     return text.isEmpty || _searchableTextsOf(t).any((String value) => value.toLowerCase().contains(text));
@@ -133,14 +140,6 @@ class AiTransactionQuery {
 
   /// Returns the live transactions passing every filter.
   List<Transaction> run() => Data().transactions.iterableList().where(matches).toList();
-
-  /// Returns the category names of [t] and of its split lines.
-  static Iterable<String> _categoryNamesOf(Transaction t) sync* {
-    yield t.categoryName;
-    for (final TransactionSplit split in t.splits) {
-      yield Data().getCategoryNameFromId(split.fieldCategoryId.value);
-    }
-  }
 
   /// Returns true when [date] is within [dateFrom] and [dateTo].
   bool _isInDateRange(DateTime? date) {
@@ -162,12 +161,19 @@ class AiTransactionQuery {
     yield aiPayeeOrTransferName(t);
     yield t.fieldOriginalPayee.value;
     yield t.fieldMemo.value;
-    yield* _categoryNamesOf(t);
+    yield t.categoryName;
     for (final TransactionSplit split in t.splits) {
+      yield Data().getCategoryNameFromId(split.fieldCategoryId.value);
       yield split.fieldMemo.value;
       yield Data().getPayeeName(split.fieldPayeeId.value);
     }
   }
+}
+
+/// Returns the categories whose full name contains [part], ignoring case; all of them when [part] is empty.
+Iterable<Category> aiCategoriesNamed(String part) {
+  final String lowerPart = part.toLowerCase();
+  return Data().categories.iterableList().where((Category c) => c.name.toLowerCase().contains(lowerPart));
 }
 
 /// Returns the payee name of [t], or the name of the other account when [t] is a transfer.

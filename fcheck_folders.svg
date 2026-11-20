@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="8876.0" height="18670.0" viewBox="0 0 8876.0 18670.0" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<svg width="8894.0" height="18670.0" viewBox="0 0 8894.0 18670.0" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
 <defs>
   <filter id="whiteShadow" x="-20%" y="-20%" width="140%" height="140%">
     <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
@@ -4958,8 +4958,8 @@
   <title>lib/shared/domain/reconcile_service.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 1402.0 Q 1408.0 904.0 1408.0 910.0 V 5629.0 Q 1408.0 5635.0 1402.0 5635.0 H 1010.0" class="edgeVertical"/>
-  <title>lib/views/home/rentals/rentals_view.dart ▶ lib/views/panels/layout/side_panel_support_model.dart</title>
+  <path d="M 990.0 2066.0 H 1402.0 Q 1408.0 2066.0 1408.0 2072.0 V 6791.0 Q 1408.0 6797.0 1402.0 6797.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 14636.0 H 1402.0 Q 1408.0 14636.0 1408.0 14642.0 V 17797.0 Q 1408.0 17803.0 1402.0 17803.0 H 1058.0" class="edgeVertical"/>
@@ -4970,8 +4970,8 @@
   <title>lib/shared/presentation/entity_widgets/security_widgets_helper.dart ▶ lib/shared/domain/security_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 1405.0 Q 1411.0 1514.0 1411.0 1520.0 V 6251.0 Q 1411.0 6257.0 1405.0 6257.0 H 1010.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/views/panels/dialogs/reconcile_dialog.dart</title>
+  <path d="M 1014.0 904.0 H 1405.0 Q 1411.0 904.0 1411.0 910.0 V 5629.0 Q 1411.0 5635.0 1405.0 5635.0 H 1010.0" class="edgeVertical"/>
+  <title>lib/views/home/rentals/rentals_view.dart ▶ lib/views/panels/layout/side_panel_support_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 14604.0 H 1405.0 Q 1411.0 14604.0 1411.0 14610.0 V 17765.0 Q 1411.0 17771.0 1405.0 17771.0 H 1058.0" class="edgeVertical"/>
@@ -4982,8 +4982,8 @@
   <title>lib/shared/domain/data_facade.dart ▶ lib/shared/domain/investment_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 1408.0 Q 1414.0 1148.0 1414.0 1154.0 V 5911.0 Q 1414.0 5917.0 1408.0 5917.0 H 1010.0" class="edgeVertical"/>
-  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/views/panels/charts/sankey_panel.dart</title>
+  <path d="M 1014.0 1514.0 H 1408.0 Q 1414.0 1514.0 1414.0 1520.0 V 6251.0 Q 1414.0 6257.0 1408.0 6257.0 H 1010.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/views/panels/dialogs/reconcile_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 15264.0 H 1408.0 Q 1414.0 15264.0 1414.0 15270.0 V 18437.0 Q 1414.0 18443.0 1408.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -4994,8 +4994,8 @@
   <title>lib/shared/domain/securities_collection.dart ▶ lib/shared/domain/data_abstract_interface.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 1411.0 Q 1417.0 3070.0 1417.0 3076.0 V 7855.0 Q 1417.0 7861.0 1411.0 7861.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
+  <path d="M 1014.0 1148.0 H 1411.0 Q 1417.0 1148.0 1417.0 1154.0 V 5911.0 Q 1417.0 5917.0 1411.0 5917.0 H 1010.0" class="edgeVertical"/>
+  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/views/panels/charts/sankey_panel.dart</title>
 </g>
 <g>
   <path d="M 862.0 14604.0 H 1411.0 Q 1417.0 14604.0 1417.0 14610.0 V 17797.0 Q 1417.0 17803.0 1411.0 17803.0 H 1058.0" class="edgeVertical"/>
@@ -5006,8 +5006,8 @@
   <title>lib/shared/domain/transfer_linkage_service.dart ▶ lib/shared/domain/transfer_entity.dart</title>
 </g>
 <g>
-  <path d="M 926.0 4446.0 H 1414.0 Q 1420.0 4446.0 1420.0 4452.0 V 9293.0 Q 1420.0 9299.0 1414.0 9299.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/imports/shared/import_duplicate_helper.dart ▶ lib/shared/domain/data_facade.dart</title>
+  <path d="M 1014.0 3070.0 H 1414.0 Q 1420.0 3070.0 1420.0 3076.0 V 7855.0 Q 1420.0 7861.0 1414.0 7861.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 15200.0 H 1414.0 Q 1420.0 15200.0 1420.0 15206.0 V 18405.0 Q 1420.0 18411.0 1414.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -5018,8 +5018,8 @@
   <title>lib/shared/domain/accounts_collection.dart ▶ lib/shared/domain/data_abstract_interface.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 1417.0 Q 1423.0 1026.0 1423.0 1032.0 V 5879.0 Q 1423.0 5885.0 1417.0 5885.0 H 1010.0" class="edgeVertical"/>
-  <title>lib/views/home/payees/payees_view.dart ▶ lib/views/panels/charts/transaction_timeline_chart.dart</title>
+  <path d="M 926.0 4446.0 H 1417.0 Q 1423.0 4446.0 1423.0 4452.0 V 9293.0 Q 1423.0 9299.0 1417.0 9299.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/imports/shared/import_duplicate_helper.dart ▶ lib/shared/domain/data_facade.dart</title>
 </g>
 <g>
   <path d="M 862.0 14572.0 H 1417.0 Q 1423.0 14572.0 1423.0 14578.0 V 17797.0 Q 1423.0 17803.0 1417.0 17803.0 H 1058.0" class="edgeVertical"/>
@@ -5030,8 +5030,8 @@
   <title>lib/shared/domain/transfer_linkage_service.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 1420.0 Q 1426.0 3070.0 1426.0 3076.0 V 8169.0 Q 1426.0 8175.0 1420.0 8175.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart</title>
+  <path d="M 1014.0 1026.0 H 1420.0 Q 1426.0 1026.0 1426.0 1032.0 V 5879.0 Q 1426.0 5885.0 1420.0 5885.0 H 1010.0" class="edgeVertical"/>
+  <title>lib/views/home/payees/payees_view.dart ▶ lib/views/panels/charts/transaction_timeline_chart.dart</title>
 </g>
 <g>
   <path d="M 862.0 13720.0 H 1420.0 Q 1426.0 13720.0 1426.0 13726.0 V 16955.0 Q 1426.0 16961.0 1420.0 16961.0 H 858.0" class="edgeVertical"/>
@@ -5090,8 +5090,8 @@
   <title>lib/shared/domain/rent_building_entity.dart ▶ lib/shared/domain/rental_category_role_enum.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 1435.0 Q 1441.0 1026.0 1441.0 1032.0 V 6283.0 Q 1441.0 6289.0 1435.0 6289.0 H 1010.0" class="edgeVertical"/>
-  <title>lib/views/home/payees/payees_view.dart ▶ lib/views/panels/dialogs/similar_payees_dialog.dart</title>
+  <path d="M 1014.0 3070.0 H 1435.0 Q 1441.0 3070.0 1441.0 3076.0 V 8169.0 Q 1441.0 8175.0 1435.0 8175.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart</title>
 </g>
 <g>
   <path d="M 862.0 15104.0 H 1435.0 Q 1441.0 15104.0 1441.0 15110.0 V 18373.0 Q 1441.0 18379.0 1435.0 18379.0 H 1058.0" class="edgeVertical"/>
@@ -5126,8 +5126,8 @@
   <title>lib/shared/domain/loan_payment_entity.dart ▶ lib/shared/domain/account_operations_interface.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 1444.0 Q 1450.0 1514.0 1450.0 1520.0 V 6791.0 Q 1450.0 6797.0 1444.0 6797.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
+  <path d="M 1014.0 1026.0 H 1444.0 Q 1450.0 1026.0 1450.0 1032.0 V 6283.0 Q 1450.0 6289.0 1444.0 6289.0 H 1010.0" class="edgeVertical"/>
+  <title>lib/views/home/payees/payees_view.dart ▶ lib/views/panels/dialogs/similar_payees_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 14700.0 H 1444.0 Q 1450.0 14700.0 1450.0 14706.0 V 18021.0 Q 1450.0 18027.0 1444.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -5138,8 +5138,8 @@
   <title>lib/shared/domain/reconcile_service.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 1447.0 Q 1453.0 3070.0 1453.0 3076.0 V 8361.0 Q 1453.0 8367.0 1447.0 8367.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/entity_widgets/payee_widgets_helper.dart</title>
+  <path d="M 1014.0 1514.0 H 1447.0 Q 1453.0 1514.0 1453.0 1520.0 V 6791.0 Q 1453.0 6797.0 1447.0 6797.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 15104.0 H 1447.0 Q 1453.0 15104.0 1453.0 15110.0 V 18437.0 Q 1453.0 18443.0 1447.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -5150,8 +5150,8 @@
   <title>lib/shared/simulation/data_simulator_callbacks_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 1450.0 Q 1456.0 1270.0 1456.0 1276.0 V 6791.0 Q 1456.0 6797.0 1450.0 6797.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
+  <path d="M 1014.0 3070.0 H 1450.0 Q 1456.0 3070.0 1456.0 3076.0 V 8361.0 Q 1456.0 8367.0 1450.0 8367.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/presentation/entity_widgets/payee_widgets_helper.dart</title>
 </g>
 <g>
   <path d="M 862.0 15072.0 H 1450.0 Q 1456.0 15072.0 1456.0 15078.0 V 18437.0 Q 1456.0 18443.0 1450.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -5162,8 +5162,8 @@
   <title>lib/shared/simulation/data_simulator_reference_data_helper.dart ▶ lib/shared/domain/alias_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 1453.0 Q 1459.0 1514.0 1459.0 1520.0 V 7169.0 Q 1459.0 7175.0 1453.0 7175.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
+  <path d="M 1014.0 1270.0 H 1453.0 Q 1459.0 1270.0 1459.0 1276.0 V 6791.0 Q 1459.0 6797.0 1453.0 6797.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 15040.0 H 1453.0 Q 1459.0 15040.0 1459.0 15046.0 V 18437.0 Q 1459.0 18443.0 1453.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -5174,8 +5174,8 @@
   <title>lib/shared/domain/reconcile_service.dart ▶ lib/shared/domain/data_abstract_interface.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 1456.0 Q 1462.0 1026.0 1462.0 1032.0 V 6791.0 Q 1462.0 6797.0 1456.0 6797.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
+  <path d="M 1014.0 1514.0 H 1456.0 Q 1462.0 1514.0 1462.0 1520.0 V 7169.0 Q 1462.0 7175.0 1456.0 7175.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
 </g>
 <g>
   <path d="M 862.0 14572.0 H 1456.0 Q 1462.0 14572.0 1462.0 14578.0 V 17989.0 Q 1462.0 17995.0 1456.0 17995.0 H 1058.0" class="edgeVertical"/>
@@ -5198,8 +5198,8 @@
   <title>lib/shared/domain/investments_collection.dart ▶ lib/shared/domain/investment_operations_interface.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 1462.0 Q 1468.0 1270.0 1468.0 1276.0 V 7387.0 Q 1468.0 7393.0 1462.0 7393.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/widgets/money_object_card_widget.dart</title>
+  <path d="M 1014.0 1026.0 H 1462.0 Q 1468.0 1026.0 1468.0 1032.0 V 6791.0 Q 1468.0 6797.0 1462.0 6797.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/presentation/helpers/menu_entry_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 12342.0 H 1462.0 Q 1468.0 12342.0 1468.0 12348.0 V 15791.0 Q 1468.0 15797.0 1462.0 15797.0 H 858.0" class="edgeVertical"/>
@@ -5210,8 +5210,8 @@
   <title>lib/shared/simulation/data_simulator_accounts_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 1465.0 Q 1471.0 1514.0 1471.0 1520.0 V 7669.0 Q 1471.0 7675.0 1465.0 7675.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/services/stock_cache_lookup_service.dart</title>
+  <path d="M 990.0 2002.0 H 1465.0 Q 1471.0 2002.0 1471.0 2008.0 V 7823.0 Q 1471.0 7829.0 1465.0 7829.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/presentation/dialogs/merge_payees_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 14918.0 H 1465.0 Q 1471.0 14918.0 1471.0 14924.0 V 18373.0 Q 1471.0 18379.0 1465.0 18379.0 H 1058.0" class="edgeVertical"/>
@@ -5222,8 +5222,8 @@
   <title>lib/shared/presentation/entity_widgets/entity_widgets_helper.dart ▶ lib/shared/domain/security_entity.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 1468.0 Q 1474.0 570.0 1474.0 576.0 V 6823.0 Q 1474.0 6829.0 1468.0 6829.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/screens/welcome_screen.dart ▶ lib/shared/presentation/helpers/mru_dropdown_widget.dart</title>
+  <path d="M 1014.0 1270.0 H 1468.0 Q 1474.0 1270.0 1474.0 1276.0 V 7387.0 Q 1474.0 7393.0 1468.0 7393.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/widgets/money_object_card_widget.dart</title>
 </g>
 <g>
   <path d="M 862.0 12214.0 H 1468.0 Q 1474.0 12214.0 1474.0 12220.0 V 15695.0 Q 1474.0 15701.0 1468.0 15701.0 H 858.0" class="edgeVertical"/>
@@ -5234,8 +5234,8 @@
   <title>lib/shared/simulation/data_simulator_transactions_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 1471.0 Q 1477.0 1514.0 1477.0 1520.0 V 7855.0 Q 1477.0 7861.0 1471.0 7861.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
+  <path d="M 1014.0 1514.0 H 1471.0 Q 1477.0 1514.0 1477.0 1520.0 V 7669.0 Q 1477.0 7675.0 1471.0 7675.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/services/stock_cache_lookup_service.dart</title>
 </g>
 <g>
   <path d="M 862.0 14918.0 H 1471.0 Q 1477.0 14918.0 1477.0 14924.0 V 18405.0 Q 1477.0 18411.0 1471.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -5246,8 +5246,8 @@
   <title>lib/shared/simulation/data_simulator_callbacks_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 1474.0 Q 1480.0 904.0 1480.0 910.0 V 7387.0 Q 1480.0 7393.0 1474.0 7393.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/rentals/rentals_view.dart ▶ lib/shared/presentation/widgets/money_object_card_widget.dart</title>
+  <path d="M 1038.0 570.0 H 1474.0 Q 1480.0 570.0 1480.0 576.0 V 6823.0 Q 1480.0 6829.0 1474.0 6829.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/screens/welcome_screen.dart ▶ lib/shared/presentation/helpers/mru_dropdown_widget.dart</title>
 </g>
 <g>
   <path d="M 862.0 13938.0 H 1474.0 Q 1480.0 13938.0 1480.0 13944.0 V 17445.0 Q 1480.0 17451.0 1474.0 17451.0 H 1058.0" class="edgeVertical"/>
@@ -5258,8 +5258,8 @@
   <title>lib/shared/simulation/data_simulator_transactions_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 1477.0 Q 1483.0 1270.0 1483.0 1276.0 V 7855.0 Q 1483.0 7861.0 1477.0 7861.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
+  <path d="M 1014.0 1514.0 H 1477.0 Q 1483.0 1514.0 1483.0 1520.0 V 7855.0 Q 1483.0 7861.0 1477.0 7861.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 14258.0 H 1477.0 Q 1483.0 14258.0 1483.0 14264.0 V 17765.0 Q 1483.0 17771.0 1477.0 17771.0 H 1058.0" class="edgeVertical"/>
@@ -5270,8 +5270,8 @@
   <title>lib/shared/presentation/entity_widgets/event_widgets_helper.dart ▶ lib/shared/domain/event_entity.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 1480.0 Q 1486.0 570.0 1486.0 576.0 V 7169.0 Q 1486.0 7175.0 1480.0 7175.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/screens/welcome_screen.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
+  <path d="M 1014.0 904.0 H 1480.0 Q 1486.0 904.0 1486.0 910.0 V 7387.0 Q 1486.0 7393.0 1480.0 7393.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/rentals/rentals_view.dart ▶ lib/shared/presentation/widgets/money_object_card_widget.dart</title>
 </g>
 <g>
   <path d="M 862.0 12214.0 H 1480.0 Q 1486.0 12214.0 1486.0 12220.0 V 15759.0 Q 1486.0 15765.0 1480.0 15765.0 H 858.0" class="edgeVertical"/>
@@ -5282,8 +5282,8 @@
   <title>lib/shared/presentation/entity_widgets/merge_payee_provider_interface.dart ▶ lib/shared/domain/payee_entity.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 1483.0 Q 1489.0 538.0 1489.0 544.0 V 7169.0 Q 1489.0 7175.0 1483.0 7175.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/screens/home_screen.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
+  <path d="M 1014.0 1270.0 H 1483.0 Q 1489.0 1270.0 1489.0 1276.0 V 7855.0 Q 1489.0 7861.0 1483.0 7861.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/presentation/dialogs/mutate_money_object_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 14854.0 H 1483.0 Q 1489.0 14854.0 1489.0 14860.0 V 18405.0 Q 1489.0 18411.0 1483.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -5294,8 +5294,8 @@
   <title>lib/shared/simulation/data_simulator_investments_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 1486.0 Q 1492.0 1026.0 1492.0 1032.0 V 7823.0 Q 1492.0 7829.0 1486.0 7829.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/presentation/dialogs/merge_payees_dialog.dart</title>
+  <path d="M 1038.0 570.0 H 1486.0 Q 1492.0 570.0 1492.0 576.0 V 7169.0 Q 1492.0 7175.0 1486.0 7175.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/screens/welcome_screen.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
 </g>
 <g>
   <path d="M 862.0 14854.0 H 1486.0 Q 1492.0 14854.0 1492.0 14860.0 V 18437.0 Q 1492.0 18443.0 1486.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -5318,8 +5318,8 @@
   <title>lib/shared/domain/accounts_collection.dart ▶ lib/shared/domain/transaction_operations_interface.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 1492.0 Q 1498.0 364.0 1498.0 370.0 V 7169.0 Q 1498.0 7175.0 1492.0 7175.0 H 922.0" class="edgeVertical"/>
-  <title>lib/main.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
+  <path d="M 1038.0 538.0 H 1492.0 Q 1498.0 538.0 1498.0 544.0 V 7169.0 Q 1498.0 7175.0 1492.0 7175.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/screens/home_screen.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
 </g>
 <g>
   <path d="M 862.0 14002.0 H 1492.0 Q 1498.0 14002.0 1498.0 14008.0 V 17605.0 Q 1498.0 17611.0 1492.0 17611.0 H 1058.0" class="edgeVertical"/>
@@ -5330,8 +5330,8 @@
   <title>lib/shared/simulation/data_simulator_accounts_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 1495.0 Q 1501.0 1392.0 1501.0 1398.0 V 8393.0 Q 1501.0 8399.0 1495.0 8399.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/presentation/entity_widgets/potential_transfer_sheet_helper.dart</title>
+  <path d="M 1014.0 1026.0 H 1495.0 Q 1501.0 1026.0 1501.0 1032.0 V 7823.0 Q 1501.0 7829.0 1495.0 7829.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/presentation/dialogs/merge_payees_dialog.dart</title>
 </g>
 <g>
   <path d="M 862.0 14418.0 H 1495.0 Q 1501.0 14418.0 1501.0 14424.0 V 18021.0 Q 1501.0 18027.0 1495.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -5342,8 +5342,8 @@
   <title>lib/shared/simulation/data_simulator_service.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 602.0 H 1498.0 Q 1504.0 602.0 1504.0 608.0 V 7701.0 Q 1504.0 7707.0 1498.0 7707.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/screens/settings_screen.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
+  <path d="M 1062.0 364.0 H 1498.0 Q 1504.0 364.0 1504.0 370.0 V 7169.0 Q 1504.0 7175.0 1498.0 7175.0 H 922.0" class="edgeVertical"/>
+  <title>lib/main.dart ▶ lib/shared/presentation/providers/data_file_controller_provider.dart</title>
 </g>
 <g>
   <path d="M 862.0 13938.0 H 1498.0 Q 1504.0 13938.0 1504.0 13944.0 V 17573.0 Q 1504.0 17579.0 1498.0 17579.0 H 1058.0" class="edgeVertical"/>
@@ -5354,8 +5354,8 @@
   <title>lib/shared/presentation/entity_widgets/entity_widgets_helper.dart ▶ lib/shared/domain/event_entity.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 1501.0 Q 1507.0 538.0 1507.0 544.0 V 7701.0 Q 1507.0 7707.0 1501.0 7707.0 H 922.0" class="edgeVertical"/>
-  <title>lib/views/screens/home_screen.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
+  <path d="M 1038.0 602.0 H 1501.0 Q 1507.0 602.0 1507.0 608.0 V 7701.0 Q 1507.0 7707.0 1501.0 7707.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/screens/settings_screen.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
 </g>
 <g>
   <path d="M 862.0 14130.0 H 1501.0 Q 1507.0 14130.0 1507.0 14136.0 V 17797.0 Q 1507.0 17803.0 1501.0 17803.0 H 1058.0" class="edgeVertical"/>
@@ -5366,8 +5366,8 @@
   <title>lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart ▶ lib/shared/domain/potential_transfer_match_service.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 1504.0 Q 1510.0 364.0 1510.0 370.0 V 7701.0 Q 1510.0 7707.0 1504.0 7707.0 H 922.0" class="edgeVertical"/>
-  <title>lib/main.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
+  <path d="M 1014.0 1392.0 H 1504.0 Q 1510.0 1392.0 1510.0 1398.0 V 8393.0 Q 1510.0 8399.0 1504.0 8399.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/presentation/entity_widgets/potential_transfer_sheet_helper.dart</title>
 </g>
 <g>
   <path d="M 862.0 14354.0 H 1504.0 Q 1510.0 14354.0 1510.0 14360.0 V 18021.0 Q 1510.0 18027.0 1504.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -5378,12 +5378,20 @@
   <title>lib/shared/simulation/data_simulator_service.dart ▶ lib/shared/domain/investment_entity.dart</title>
 </g>
 <g>
+  <path d="M 1038.0 538.0 H 1507.0 Q 1513.0 538.0 1513.0 544.0 V 7701.0 Q 1513.0 7707.0 1507.0 7707.0 H 922.0" class="edgeVertical"/>
+  <title>lib/views/screens/home_screen.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
+</g>
+<g>
   <path d="M 862.0 14066.0 H 1507.0 Q 1513.0 14066.0 1513.0 14072.0 V 17765.0 Q 1513.0 17771.0 1507.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/components/filter_input_widget.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
   <path d="M 950.0 8932.0 H 1507.0 Q 1513.0 8932.0 1513.0 8938.0 V 10733.0 Q 1513.0 10739.0 1507.0 10739.0 H 946.0" class="edgeVertical"/>
   <title>lib/shared/simulation/data_simulator_transactions_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
+</g>
+<g>
+  <path d="M 1062.0 364.0 H 1510.0 Q 1516.0 364.0 1516.0 370.0 V 7701.0 Q 1516.0 7707.0 1510.0 7707.0 H 922.0" class="edgeVertical"/>
+  <title>lib/main.dart ▶ lib/shared/presentation/services/app_scope_service.dart</title>
 </g>
 <g>
   <path d="M 862.0 14322.0 H 1510.0 Q 1516.0 14322.0 1516.0 14328.0 V 18021.0 Q 1516.0 18027.0 1510.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -6830,32 +6838,32 @@
   <title>lib/widgets/pickers/mutate_field_color_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 2068.0 Q 2074.0 3070.0 2074.0 3076.0 V 10509.0 Q 2074.0 10515.0 2068.0 10515.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/domain/alias_entity.dart</title>
+  <path d="M 990.0 2002.0 H 2068.0 Q 2074.0 2002.0 2074.0 2008.0 V 9325.0 Q 2074.0 9331.0 2068.0 9331.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/transfer_linkage_service.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2068.0 Q 2074.0 10750.0 2074.0 10756.0 V 16763.0 Q 2074.0 16769.0 2068.0 16769.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/account_entity.dart ▶ lib/data/models/account_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2428.0 H 2071.0 Q 2077.0 2428.0 2077.0 2434.0 V 9901.0 Q 2077.0 9907.0 2071.0 9907.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/events/events_view.dart ▶ lib/shared/domain/event_entity.dart</title>
+  <path d="M 1014.0 3070.0 H 2071.0 Q 2077.0 3070.0 2077.0 3076.0 V 10509.0 Q 2077.0 10515.0 2071.0 10515.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/domain/alias_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10622.0 H 2071.0 Q 2077.0 10622.0 2077.0 10628.0 V 16635.0 Q 2077.0 16641.0 2071.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/category_entity.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 2074.0 Q 2080.0 3070.0 2080.0 3076.0 V 10573.0 Q 2080.0 10579.0 2074.0 10579.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
+  <path d="M 1014.0 2428.0 H 2074.0 Q 2080.0 2428.0 2080.0 2434.0 V 9901.0 Q 2080.0 9907.0 2074.0 9907.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/events/events_view.dart ▶ lib/shared/domain/event_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10686.0 H 2074.0 Q 2080.0 10686.0 2080.0 10692.0 V 16699.0 Q 2080.0 16705.0 2074.0 16705.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/investment_entity.dart ▶ lib/data/models/stock_cumulative_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 2077.0 Q 2083.0 1688.0 2083.0 1694.0 V 9293.0 Q 2083.0 9299.0 2077.0 9299.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/ai_view.dart ▶ lib/shared/domain/data_facade.dart</title>
+  <path d="M 1014.0 3070.0 H 2077.0 Q 2083.0 3070.0 2083.0 3076.0 V 10573.0 Q 2083.0 10579.0 2077.0 10579.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10590.0 H 2077.0 Q 2083.0 10590.0 2083.0 10596.0 V 16603.0 Q 2083.0 16609.0 2077.0 16609.0 H 858.0" class="edgeVertical"/>
@@ -6878,8 +6886,8 @@
   <title>lib/shared/domain/category_entity.dart ▶ lib/data/models/field_type_enum.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2089.0 Q 2095.0 2002.0 2095.0 2008.0 V 9645.0 Q 2095.0 9651.0 2089.0 9651.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/aliases_collection.dart</title>
+  <path d="M 990.0 1688.0 H 2089.0 Q 2095.0 1688.0 2095.0 1694.0 V 9293.0 Q 2095.0 9299.0 2089.0 9299.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/ai_view.dart ▶ lib/shared/domain/data_facade.dart</title>
 </g>
 <g>
   <path d="M 950.0 10590.0 H 2089.0 Q 2095.0 10590.0 2095.0 10596.0 V 16635.0 Q 2095.0 16641.0 2089.0 16641.0 H 858.0" class="edgeVertical"/>
@@ -6934,8 +6942,8 @@
   <title>lib/widgets/pickers/picker_panel.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 2110.0 Q 2116.0 1392.0 2116.0 1398.0 V 9293.0 Q 2116.0 9299.0 2110.0 9299.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/data_facade.dart</title>
+  <path d="M 990.0 2034.0 H 2110.0 Q 2116.0 2034.0 2116.0 2040.0 V 9933.0 Q 2116.0 9939.0 2110.0 9939.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/potential_transfer_match_service.dart</title>
 </g>
 <g>
   <path d="M 950.0 10526.0 H 2110.0 Q 2116.0 10526.0 2116.0 10532.0 V 16635.0 Q 2116.0 16641.0 2110.0 16641.0 H 858.0" class="edgeVertical"/>
@@ -6950,8 +6958,8 @@
   <title>lib/widgets/list/multiple_selection_toggle_widget.dart ▶ lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2116.0 Q 2122.0 2002.0 2122.0 2008.0 V 9933.0 Q 2122.0 9939.0 2116.0 9939.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/potential_transfer_match_service.dart</title>
+  <path d="M 1014.0 1392.0 H 2116.0 Q 2122.0 1392.0 2122.0 1398.0 V 9293.0 Q 2122.0 9299.0 2116.0 9299.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/data_facade.dart</title>
 </g>
 <g>
   <path d="M 950.0 10526.0 H 2116.0 Q 2122.0 10526.0 2122.0 10532.0 V 16667.0 Q 2122.0 16673.0 2116.0 16673.0 H 858.0" class="edgeVertical"/>
@@ -7046,24 +7054,24 @@
   <title>lib/shared/domain/payee_entity.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 2155.0 Q 2161.0 1392.0 2161.0 1398.0 V 9581.0 Q 2161.0 9587.0 2155.0 9587.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/transactions_collection.dart</title>
+  <path d="M 990.0 2098.0 H 2155.0 Q 2161.0 2098.0 2161.0 2104.0 V 10253.0 Q 2161.0 10259.0 2155.0 10259.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/money_objects_collection_base.dart</title>
 </g>
 <g>
   <path d="M 862.0 11740.0 H 2155.0 Q 2161.0 11740.0 2161.0 11746.0 V 18021.0 Q 2161.0 18027.0 2155.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/list_item_card.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 2158.0 Q 2164.0 1270.0 2164.0 1276.0 V 9485.0 Q 2164.0 9491.0 2158.0 9491.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/domain/investments_collection.dart</title>
+  <path d="M 1014.0 1392.0 H 2158.0 Q 2164.0 1392.0 2164.0 1398.0 V 9581.0 Q 2164.0 9587.0 2158.0 9587.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/transactions_collection.dart</title>
 </g>
 <g>
   <path d="M 862.0 11452.0 H 2158.0 Q 2164.0 11452.0 2164.0 11458.0 V 17733.0 Q 2164.0 17739.0 2158.0 17739.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/view_header_widget.dart ▶ lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 2161.0 Q 2167.0 1026.0 2167.0 1032.0 V 9293.0 Q 2167.0 9299.0 2161.0 9299.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/domain/data_facade.dart</title>
+  <path d="M 1014.0 1270.0 H 2161.0 Q 2167.0 1270.0 2167.0 1276.0 V 9485.0 Q 2167.0 9491.0 2161.0 9491.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/domain/investments_collection.dart</title>
 </g>
 <g>
   <path d="M 950.0 10302.0 H 2161.0 Q 2167.0 10302.0 2167.0 10308.0 V 16603.0 Q 2167.0 16609.0 2161.0 16609.0 H 858.0" class="edgeVertical"/>
@@ -7082,8 +7090,8 @@
   <title>lib/widgets/list/list_item.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2170.0 Q 2176.0 2034.0 2176.0 2040.0 V 10317.0 Q 2176.0 10323.0 2170.0 10323.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/similar_payees_helper.dart</title>
+  <path d="M 1014.0 1026.0 H 2170.0 Q 2176.0 1026.0 2176.0 1032.0 V 9293.0 Q 2176.0 9299.0 2170.0 9299.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/payees/payees_view.dart ▶ lib/shared/domain/data_facade.dart</title>
 </g>
 <g>
   <path d="M 862.0 12118.0 H 2170.0 Q 2176.0 12118.0 2176.0 12124.0 V 18437.0 Q 2176.0 18443.0 2170.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -7106,8 +7114,8 @@
   <title>lib/shared/domain/transaction_extra_entity.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2179.0 Q 2185.0 2034.0 2185.0 2040.0 V 10349.0 Q 2185.0 10355.0 2179.0 10355.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/payee_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2179.0 Q 2185.0 2034.0 2185.0 2040.0 V 10317.0 Q 2185.0 10323.0 2179.0 10323.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/similar_payees_helper.dart</title>
 </g>
 <g>
   <path d="M 862.0 11452.0 H 2179.0 Q 2185.0 11452.0 2185.0 11458.0 V 17797.0 Q 2185.0 17803.0 2179.0 17803.0 H 1058.0" class="edgeVertical"/>
@@ -7122,8 +7130,8 @@
   <title>lib/shared/domain/security_entity.dart ▶ lib/data/helpers/investment_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2185.0 Q 2191.0 2002.0 2191.0 2008.0 V 10349.0 Q 2191.0 10355.0 2185.0 10355.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/payee_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2185.0 Q 2191.0 2034.0 2191.0 2040.0 V 10349.0 Q 2191.0 10355.0 2185.0 10355.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/payee_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 12086.0 H 2185.0 Q 2191.0 12086.0 2191.0 12092.0 V 18437.0 Q 2191.0 18443.0 2185.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -7138,32 +7146,32 @@
   <title>lib/shared/domain/money_objects_collection_base.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2191.0 Q 2197.0 2034.0 2197.0 2040.0 V 10413.0 Q 2197.0 10419.0 2191.0 10419.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/rental_pnl_model.dart</title>
+  <path d="M 990.0 2002.0 H 2191.0 Q 2197.0 2002.0 2197.0 2008.0 V 10349.0 Q 2197.0 10355.0 2191.0 10355.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/payee_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11612.0 H 2191.0 Q 2197.0 11612.0 2197.0 11618.0 V 17989.0 Q 2197.0 17995.0 2191.0 17995.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/multiple_selection_toggle_widget.dart ▶ lib/helpers/shared_strings_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2130.0 H 2194.0 Q 2200.0 2130.0 2200.0 2136.0 V 10573.0 Q 2200.0 10579.0 2194.0 10579.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/transaction_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2194.0 Q 2200.0 2034.0 2200.0 2040.0 V 10413.0 Q 2200.0 10419.0 2194.0 10419.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/rental_pnl_model.dart</title>
 </g>
 <g>
   <path d="M 862.0 12054.0 H 2194.0 Q 2200.0 12054.0 2200.0 12060.0 V 18437.0 Q 2200.0 18443.0 2194.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/pickers/picker_account_type.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2098.0 H 2197.0 Q 2203.0 2098.0 2203.0 2104.0 V 10573.0 Q 2203.0 10579.0 2197.0 10579.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
+  <path d="M 990.0 2130.0 H 2197.0 Q 2203.0 2130.0 2203.0 2136.0 V 10573.0 Q 2203.0 10579.0 2197.0 10579.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10878.0 H 2197.0 Q 2203.0 10878.0 2203.0 10884.0 V 17275.0 Q 2203.0 17281.0 2197.0 17281.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/data_change_operations_interface.dart ▶ lib/data/models/mutation_type_enum.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2200.0 Q 2206.0 2034.0 2206.0 2040.0 V 10541.0 Q 2206.0 10547.0 2200.0 10547.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/budget_analyzer_service.dart</title>
+  <path d="M 990.0 2098.0 H 2200.0 Q 2206.0 2098.0 2206.0 2104.0 V 10573.0 Q 2206.0 10579.0 2200.0 10579.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10846.0 H 2200.0 Q 2206.0 10846.0 2206.0 10852.0 V 17243.0 Q 2206.0 17249.0 2200.0 17249.0 H 858.0" class="edgeVertical"/>
@@ -7182,16 +7190,16 @@
   <title>lib/shared/presentation/entity_widgets/account_widgets_helper.dart ▶ lib/widgets/widgets_domain/widget_from_data.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2098.0 H 2209.0 Q 2215.0 2098.0 2215.0 2104.0 V 10605.0 Q 2215.0 10611.0 2209.0 10611.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
+  <path d="M 990.0 2130.0 H 2209.0 Q 2215.0 2130.0 2215.0 2136.0 V 10605.0 Q 2215.0 10611.0 2209.0 10611.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11516.0 H 2209.0 Q 2215.0 11516.0 2215.0 11522.0 V 17925.0 Q 2215.0 17931.0 2209.0 17931.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/adaptive_columns_or_rows_list_widget.dart ▶ lib/helpers/list_controller.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2212.0 Q 2218.0 2002.0 2218.0 2008.0 V 10509.0 Q 2218.0 10515.0 2212.0 10515.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/alias_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2212.0 Q 2218.0 2034.0 2218.0 2040.0 V 10541.0 Q 2218.0 10547.0 2212.0 10547.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/budget_analyzer_service.dart</title>
 </g>
 <g>
   <path d="M 862.0 11612.0 H 2212.0 Q 2218.0 11612.0 2218.0 11618.0 V 18021.0 Q 2218.0 18027.0 2212.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -7222,8 +7230,8 @@
   <title>lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart ▶ lib/widgets/widgets_domain/data_object_widgets_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2227.0 Q 2233.0 2034.0 2233.0 2040.0 V 10573.0 Q 2233.0 10579.0 2227.0 10579.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
+  <path d="M 990.0 2098.0 H 2227.0 Q 2233.0 2098.0 2233.0 2104.0 V 10605.0 Q 2233.0 10611.0 2227.0 10611.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11484.0 H 2227.0 Q 2233.0 11484.0 2233.0 11490.0 V 17925.0 Q 2233.0 17931.0 2227.0 17931.0 H 1058.0" class="edgeVertical"/>
@@ -7234,16 +7242,16 @@
   <title>lib/shared/domain/aliases_collection.dart ▶ lib/data/helpers/alias_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 2233.0 Q 2239.0 2066.0 2239.0 2072.0 V 10605.0 Q 2239.0 10611.0 2233.0 10611.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
+  <path d="M 990.0 2002.0 H 2233.0 Q 2239.0 2002.0 2239.0 2008.0 V 10509.0 Q 2239.0 10515.0 2233.0 10515.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/alias_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11990.0 H 2233.0 Q 2239.0 11990.0 2239.0 11996.0 V 18437.0 Q 2239.0 18443.0 2233.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/pickers/payee_or_transfer_picker_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2162.0 H 2236.0 Q 2242.0 2162.0 2242.0 2168.0 V 10733.0 Q 2242.0 10739.0 2236.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_tool_prompt_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2236.0 Q 2242.0 2034.0 2242.0 2040.0 V 10573.0 Q 2242.0 10579.0 2236.0 10579.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2236.0 Q 2242.0 10750.0 2242.0 10756.0 V 17211.0 Q 2242.0 17217.0 2236.0 17217.0 H 858.0" class="edgeVertical"/>
@@ -7258,16 +7266,16 @@
   <title>lib/shared/domain/online_account_entity.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2242.0 Q 2248.0 2002.0 2248.0 2008.0 V 10573.0 Q 2248.0 10579.0 2242.0 10579.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
+  <path d="M 990.0 2066.0 H 2242.0 Q 2248.0 2066.0 2248.0 2072.0 V 10605.0 Q 2248.0 10611.0 2242.0 10611.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10782.0 H 2242.0 Q 2248.0 10782.0 2248.0 10788.0 V 17243.0 Q 2248.0 17249.0 2242.0 17249.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/transaction_split_entity.dart ▶ lib/data/models/data_interface.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2130.0 H 2245.0 Q 2251.0 2130.0 2251.0 2136.0 V 10733.0 Q 2251.0 10739.0 2245.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2162.0 H 2245.0 Q 2251.0 2162.0 2251.0 2168.0 V 10733.0 Q 2251.0 10739.0 2245.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_tool_prompt_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11548.0 H 2245.0 Q 2251.0 11548.0 2251.0 11554.0 V 18021.0 Q 2251.0 18027.0 2245.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -7278,8 +7286,8 @@
   <title>lib/shared/domain/categories_collection.dart ▶ lib/data/helpers/category_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 2251.0 Q 2257.0 2002.0 2257.0 2008.0 V 10605.0 Q 2257.0 10611.0 2251.0 10611.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
+  <path d="M 990.0 2002.0 H 2251.0 Q 2257.0 2002.0 2257.0 2008.0 V 10573.0 Q 2257.0 10579.0 2251.0 10579.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/transaction_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2251.0 Q 2257.0 10750.0 2257.0 10756.0 V 17243.0 Q 2257.0 17249.0 2251.0 17249.0 H 858.0" class="edgeVertical"/>
@@ -7294,16 +7302,16 @@
   <title>lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart ▶ lib/widgets/widgets_domain/widget_from_data.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2098.0 H 2260.0 Q 2266.0 2098.0 2266.0 2104.0 V 10733.0 Q 2266.0 10739.0 2260.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2130.0 H 2260.0 Q 2266.0 2130.0 2266.0 2136.0 V 10733.0 Q 2266.0 10739.0 2260.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11516.0 H 2260.0 Q 2266.0 11516.0 2266.0 11522.0 V 18021.0 Q 2266.0 18027.0 2260.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/adaptive_columns_or_rows_list_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 2263.0 Q 2269.0 2066.0 2269.0 2072.0 V 10733.0 Q 2269.0 10739.0 2263.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2002.0 H 2263.0 Q 2269.0 2002.0 2269.0 2008.0 V 10605.0 Q 2269.0 10611.0 2263.0 10611.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2263.0 Q 2269.0 10750.0 2269.0 10756.0 V 17275.0 Q 2269.0 17281.0 2263.0 17281.0 H 858.0" class="edgeVertical"/>
@@ -7342,8 +7350,8 @@
   <title>lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart ▶ lib/widgets/widgets_domain/data_object_widget_builders_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2130.0 H 2281.0 Q 2287.0 2130.0 2287.0 2136.0 V 10765.0 Q 2287.0 10771.0 2281.0 10771.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/transaction_split_entity.dart</title>
+  <path d="M 990.0 2098.0 H 2281.0 Q 2287.0 2098.0 2287.0 2104.0 V 10733.0 Q 2287.0 10739.0 2281.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11452.0 H 2281.0 Q 2287.0 11452.0 2287.0 11458.0 V 17989.0 Q 2287.0 17995.0 2281.0 17995.0 H 1058.0" class="edgeVertical"/>
@@ -7366,8 +7374,8 @@
   <title>lib/shared/presentation/entity_widgets/entity_widgets_helper.dart ▶ lib/widgets/widgets_domain/data_object_widget_builders_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2098.0 H 2293.0 Q 2299.0 2098.0 2299.0 2104.0 V 10765.0 Q 2299.0 10771.0 2293.0 10771.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/transaction_split_entity.dart</title>
+  <path d="M 990.0 2130.0 H 2293.0 Q 2299.0 2130.0 2299.0 2136.0 V 10765.0 Q 2299.0 10771.0 2293.0 10771.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/shared/domain/transaction_split_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11452.0 H 2293.0 Q 2299.0 11452.0 2299.0 11458.0 V 18021.0 Q 2299.0 18027.0 2293.0 18027.0 H 1058.0" class="edgeVertical"/>
@@ -7418,8 +7426,8 @@
   <title>lib/shared/domain/transaction_entity.dart ▶ lib/data/models/data_interface.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2034.0 H 2323.0 Q 2329.0 2034.0 2329.0 2040.0 V 10733.0 Q 2329.0 10739.0 2323.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2098.0 H 2323.0 Q 2329.0 2098.0 2329.0 2104.0 V 10765.0 Q 2329.0 10771.0 2323.0 10771.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/shared/domain/transaction_split_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11740.0 H 2323.0 Q 2329.0 11740.0 2329.0 11746.0 V 18405.0 Q 2329.0 18411.0 2323.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -7434,8 +7442,8 @@
   <title>lib/shared/domain/transaction_entity.dart ▶ lib/data/models/mutation_type_enum.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 2332.0 Q 2338.0 1688.0 2338.0 1694.0 V 10733.0 Q 2338.0 10739.0 2332.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/ai/ai_view.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2066.0 H 2332.0 Q 2338.0 2066.0 2338.0 2072.0 V 10733.0 Q 2338.0 10739.0 2332.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10782.0 H 2332.0 Q 2338.0 10782.0 2338.0 10788.0 V 17477.0 Q 2338.0 17483.0 2332.0 17483.0 H 1058.0" class="edgeVertical"/>
@@ -7450,8 +7458,8 @@
   <title>lib/shared/domain/event_entity.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 2341.0 Q 2347.0 1514.0 2347.0 1520.0 V 10733.0 Q 2347.0 10739.0 2341.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 990.0 2034.0 H 2341.0 Q 2347.0 2034.0 2347.0 2040.0 V 10733.0 Q 2347.0 10739.0 2341.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_analysis_tools_helper.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2341.0 Q 2347.0 10750.0 2347.0 10756.0 V 17477.0 Q 2347.0 17483.0 2341.0 17483.0 H 1058.0" class="edgeVertical"/>
@@ -7466,16 +7474,16 @@
   <title>lib/shared/domain/event_entity.dart ▶ lib/data/models/field_type_enum.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 2350.0 Q 2356.0 1392.0 2356.0 1398.0 V 10701.0 Q 2356.0 10707.0 2350.0 10707.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/transfer_entity.dart</title>
+  <path d="M 990.0 1688.0 H 2350.0 Q 2356.0 1688.0 2356.0 1694.0 V 10733.0 Q 2356.0 10739.0 2350.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/ai_view.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2350.0 Q 2356.0 10750.0 2356.0 10756.0 V 17509.0 Q 2356.0 17515.0 2350.0 17515.0 H 1058.0" class="edgeVertical"/>
   <title>lib/shared/domain/account_entity.dart ▶ lib/helpers/locale_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 2353.0 Q 2359.0 1270.0 2359.0 1276.0 V 10669.0 Q 2359.0 10675.0 2353.0 10675.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/domain/investment_entity.dart</title>
+  <path d="M 1014.0 1392.0 H 2353.0 Q 2359.0 1392.0 2359.0 1398.0 V 10701.0 Q 2359.0 10707.0 2353.0 10707.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/transfer_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10718.0 H 2353.0 Q 2359.0 10718.0 2359.0 10724.0 V 17477.0 Q 2359.0 17483.0 2353.0 17483.0 H 1058.0" class="edgeVertical"/>
@@ -7494,32 +7502,32 @@
   <title>lib/shared/domain/stock_split_entity.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 2365.0 Q 2371.0 1148.0 2371.0 1154.0 V 10605.0 Q 2371.0 10611.0 2365.0 10611.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/shared/domain/category_entity.dart</title>
+  <path d="M 1014.0 1270.0 H 2365.0 Q 2371.0 1270.0 2371.0 1276.0 V 10669.0 Q 2371.0 10675.0 2365.0 10675.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/stocks/stocks_view.dart ▶ lib/shared/domain/investment_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10686.0 H 2365.0 Q 2371.0 10686.0 2371.0 10692.0 V 17477.0 Q 2371.0 17483.0 2365.0 17483.0 H 1058.0" class="edgeVertical"/>
   <title>lib/shared/domain/investment_entity.dart ▶ lib/helpers/json_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 2368.0 Q 2374.0 1514.0 2374.0 1520.0 V 10797.0 Q 2374.0 10803.0 2368.0 10803.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/domain/data_abstract_interface.dart</title>
+  <path d="M 1014.0 1514.0 H 2368.0 Q 2374.0 1514.0 2374.0 1520.0 V 10733.0 Q 2374.0 10739.0 2368.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 11198.0 H 2368.0 Q 2374.0 11198.0 2374.0 11204.0 V 17989.0 Q 2374.0 17995.0 2368.0 17995.0 H 1058.0" class="edgeVertical"/>
   <title>lib/shared/domain/rental_category_role_enum.dart ▶ lib/helpers/shared_strings_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 2371.0 Q 2377.0 1392.0 2377.0 1398.0 V 10733.0 Q 2377.0 10739.0 2371.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 1014.0 1514.0 H 2371.0 Q 2377.0 1514.0 2377.0 1520.0 V 10797.0 Q 2377.0 10803.0 2371.0 10803.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/accounts/accounts_view.dart ▶ lib/shared/domain/data_abstract_interface.dart</title>
 </g>
 <g>
   <path d="M 862.0 11644.0 H 2371.0 Q 2377.0 11644.0 2377.0 11650.0 V 18437.0 Q 2377.0 18443.0 2371.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/widgets/list/column_filter_panel.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 2374.0 Q 2380.0 1148.0 2380.0 1154.0 V 10733.0 Q 2380.0 10739.0 2374.0 10739.0 H 946.0" class="edgeVertical"/>
-  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/shared/domain/account_entity.dart</title>
+  <path d="M 1014.0 1392.0 H 2374.0 Q 2380.0 1392.0 2380.0 1398.0 V 10733.0 Q 2380.0 10739.0 2374.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/transfers/transfers_view.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11612.0 H 2374.0 Q 2380.0 11612.0 2380.0 11618.0 V 18405.0 Q 2380.0 18411.0 2374.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -7534,8 +7542,8 @@
   <title>lib/shared/domain/stock_split_entity.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 2383.0 Q 2389.0 1148.0 2389.0 1154.0 V 11435.0 Q 2389.0 11441.0 2383.0 11441.0 H 858.0" class="edgeVertical"/>
-  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/widgets/list/view_header_widget.dart</title>
+  <path d="M 1014.0 1148.0 H 2383.0 Q 2389.0 1148.0 2389.0 1154.0 V 10605.0 Q 2389.0 10611.0 2383.0 10611.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/shared/domain/category_entity.dart</title>
 </g>
 <g>
   <path d="M 862.0 11580.0 H 2383.0 Q 2389.0 11580.0 2389.0 11586.0 V 18405.0 Q 2389.0 18411.0 2383.0 18411.0 H 1058.0" class="edgeVertical"/>
@@ -7552,6 +7560,10 @@
 <g>
   <path d="M 950.0 9790.0 H 2392.0 Q 2398.0 9790.0 2398.0 9796.0 V 16635.0 Q 2398.0 16641.0 2392.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/security_entity.dart ▶ lib/data/models/field_model.dart</title>
+</g>
+<g>
+  <path d="M 1014.0 1148.0 H 2395.0 Q 2401.0 1148.0 2401.0 1154.0 V 10733.0 Q 2401.0 10739.0 2395.0 10739.0 H 946.0" class="edgeVertical"/>
+  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/shared/domain/account_entity.dart</title>
 </g>
 <g>
   <path d="M 950.0 10750.0 H 2395.0 Q 2401.0 10750.0 2401.0 10756.0 V 17605.0 Q 2401.0 17611.0 2395.0 17611.0 H 1058.0" class="edgeVertical"/>
@@ -7612,6 +7624,10 @@
 <g>
   <path d="M 950.0 9630.0 H 2437.0 Q 2443.0 9630.0 2443.0 9636.0 V 16603.0 Q 2443.0 16609.0 2437.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/shared/domain/splits_collection.dart ▶ lib/data/models/data_object_model.dart</title>
+</g>
+<g>
+  <path d="M 1014.0 1148.0 H 2440.0 Q 2446.0 1148.0 2446.0 1154.0 V 11435.0 Q 2446.0 11441.0 2440.0 11441.0 H 858.0" class="edgeVertical"/>
+  <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/widgets/list/view_header_widget.dart</title>
 </g>
 <g>
   <path d="M 862.0 11452.0 H 2440.0 Q 2446.0 11452.0 2446.0 11458.0 V 18437.0 Q 2446.0 18443.0 2440.0 18443.0 H 1058.0" class="edgeVertical"/>
@@ -11126,707 +11142,715 @@
   <title>lib/views/shell/navigation_bar_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2672.0 H 5074.0 Q 5080.0 2672.0 5080.0 2678.0 V 17179.0 Q 5080.0 17185.0 5074.0 17185.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 2098.0 H 5074.0 Q 5080.0 2098.0 5080.0 2104.0 V 16603.0 Q 5080.0 16609.0 5074.0 16609.0 H 858.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/data/models/data_object_model.dart</title>
+</g>
+<g>
+  <path d="M 1014.0 2672.0 H 5077.0 Q 5083.0 2672.0 5083.0 2678.0 V 17179.0 Q 5083.0 17185.0 5077.0 17185.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/categories/categories_view.dart ▶ lib/data/models/pair_xyz_model.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3914.0 H 5077.0 Q 5083.0 3914.0 5083.0 3920.0 V 18437.0 Q 5083.0 18443.0 5077.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3914.0 H 5080.0 Q 5086.0 3914.0 5086.0 3920.0 V 18437.0 Q 5086.0 18443.0 5080.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/formats/xlsx_import_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5080.0 Q 5086.0 3240.0 5086.0 3246.0 V 17765.0 Q 5086.0 17771.0 5080.0 17771.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5083.0 Q 5089.0 3240.0 5089.0 3246.0 V 17765.0 Q 5089.0 17771.0 5083.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5083.0 Q 5089.0 364.0 5089.0 370.0 V 14901.0 Q 5089.0 14907.0 5083.0 14907.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5086.0 Q 5092.0 364.0 5092.0 370.0 V 14901.0 Q 5092.0 14907.0 5086.0 14907.0 H 858.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/widgets/state/preferences_controller.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5086.0 Q 5092.0 3240.0 5092.0 3246.0 V 17797.0 Q 5092.0 17803.0 5086.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5089.0 Q 5095.0 3240.0 5095.0 3246.0 V 17797.0 Q 5095.0 17803.0 5089.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5089.0 Q 5095.0 1514.0 5095.0 1520.0 V 16077.0 Q 5095.0 16083.0 5089.0 16083.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5092.0 Q 5098.0 1514.0 5098.0 1520.0 V 16077.0 Q 5098.0 16083.0 5092.0 16083.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/helpers/transaction_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3850.0 H 5092.0 Q 5098.0 3850.0 5098.0 3856.0 V 18437.0 Q 5098.0 18443.0 5092.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3850.0 H 5095.0 Q 5101.0 3850.0 5101.0 3856.0 V 18437.0 Q 5101.0 18443.0 5095.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/formats/investment_csv_import_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5095.0 Q 5101.0 1514.0 5101.0 1520.0 V 16141.0 Q 5101.0 16147.0 5095.0 16147.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5098.0 Q 5104.0 1514.0 5104.0 1520.0 V 16141.0 Q 5104.0 16147.0 5098.0 16147.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/helpers/investment_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2162.0 H 5098.0 Q 5104.0 2162.0 5104.0 2168.0 V 16827.0 Q 5104.0 16833.0 5098.0 16833.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 2162.0 H 5101.0 Q 5107.0 2162.0 5107.0 2168.0 V 16827.0 Q 5107.0 16833.0 5101.0 16833.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_tool_prompt_helper.dart ▶ lib/data/models/ai_chat_model.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3664.0 H 5101.0 Q 5107.0 3664.0 5107.0 3670.0 V 18373.0 Q 5107.0 18379.0 5101.0 18379.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3664.0 H 5104.0 Q 5110.0 3664.0 5110.0 3670.0 V 18373.0 Q 5110.0 18379.0 5104.0 18379.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/investment/investment_import_view.dart ▶ lib/helpers/app_router_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 5104.0 Q 5110.0 538.0 5110.0 544.0 V 15247.0 Q 5110.0 15253.0 5104.0 15253.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1038.0 538.0 H 5107.0 Q 5113.0 538.0 5113.0 544.0 V 15247.0 Q 5113.0 15253.0 5107.0 15253.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/screens/home_screen.dart ▶ lib/widgets/pure/drop_zone_widget.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3304.0 H 5107.0 Q 5113.0 3304.0 5113.0 3310.0 V 18021.0 Q 5113.0 18027.0 5107.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3304.0 H 5110.0 Q 5116.0 3304.0 5116.0 3310.0 V 18021.0 Q 5116.0 18027.0 5110.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/navigation_bar_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5110.0 Q 5116.0 364.0 5116.0 370.0 V 15087.0 Q 5116.0 15093.0 5110.0 15093.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5113.0 Q 5119.0 364.0 5119.0 370.0 V 15087.0 Q 5119.0 15093.0 5113.0 15093.0 H 858.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/widgets/pure/snack_bar_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 5113.0 Q 5119.0 3070.0 5119.0 3076.0 V 17797.0 Q 5119.0 17803.0 5113.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3070.0 H 5116.0 Q 5122.0 3070.0 5122.0 3076.0 V 17797.0 Q 5122.0 17803.0 5116.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3038.0 H 5116.0 Q 5122.0 3038.0 5122.0 3044.0 V 17765.0 Q 5122.0 17771.0 5116.0 17771.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3038.0 H 5119.0 Q 5125.0 3038.0 5125.0 3044.0 V 17765.0 Q 5125.0 17771.0 5119.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transactions_view.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3696.0 H 5119.0 Q 5125.0 3696.0 5125.0 3702.0 V 18437.0 Q 5125.0 18443.0 5119.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3696.0 H 5122.0 Q 5128.0 3696.0 5128.0 3702.0 V 18437.0 Q 5128.0 18443.0 5122.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/investment/investment_import_panel.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3272.0 H 5122.0 Q 5128.0 3272.0 5128.0 3278.0 V 18021.0 Q 5128.0 18027.0 5122.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3272.0 H 5125.0 Q 5131.0 3272.0 5131.0 3278.0 V 18021.0 Q 5131.0 18027.0 5125.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_title_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3038.0 H 5125.0 Q 5131.0 3038.0 5131.0 3044.0 V 17797.0 Q 5131.0 17803.0 5125.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3038.0 H 5128.0 Q 5134.0 3038.0 5134.0 3044.0 V 17797.0 Q 5134.0 17803.0 5128.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transactions_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5128.0 Q 5134.0 1688.0 5134.0 1694.0 V 16449.0 Q 5134.0 16455.0 5128.0 16455.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5131.0 Q 5137.0 1688.0 5137.0 1694.0 V 16449.0 Q 5137.0 16455.0 5131.0 16455.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/data/services/ollama_service.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3664.0 H 5131.0 Q 5137.0 3664.0 5137.0 3670.0 V 18437.0 Q 5137.0 18443.0 5131.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3664.0 H 5134.0 Q 5140.0 3664.0 5140.0 3670.0 V 18437.0 Q 5140.0 18443.0 5134.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/investment/investment_import_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5134.0 Q 5140.0 3240.0 5140.0 3246.0 V 18021.0 Q 5140.0 18027.0 5134.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5137.0 Q 5143.0 3240.0 5143.0 3246.0 V 18021.0 Q 5143.0 18027.0 5137.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2916.0 H 5137.0 Q 5143.0 2916.0 5143.0 2922.0 V 17701.0 Q 5143.0 17707.0 5137.0 17707.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2916.0 H 5140.0 Q 5146.0 2916.0 5146.0 2922.0 V 17701.0 Q 5146.0 17707.0 5140.0 17707.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/investments/investments_view.dart ▶ lib/helpers/list_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 5140.0 Q 5146.0 2066.0 5146.0 2072.0 V 16859.0 Q 5146.0 16865.0 5140.0 16865.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 2066.0 H 5143.0 Q 5149.0 2066.0 5149.0 2072.0 V 16859.0 Q 5149.0 16865.0 5143.0 16865.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/data/models/ai_chat_action_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 5143.0 Q 5149.0 2066.0 5149.0 2072.0 V 16891.0 Q 5149.0 16897.0 5143.0 16897.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 2066.0 H 5146.0 Q 5152.0 2066.0 5152.0 2072.0 V 16891.0 Q 5152.0 16897.0 5146.0 16897.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/data/models/field_filters_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 5146.0 Q 5152.0 2066.0 5152.0 2072.0 V 16923.0 Q 5152.0 16929.0 5146.0 16929.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 2066.0 H 5149.0 Q 5155.0 2066.0 5155.0 2072.0 V 16923.0 Q 5155.0 16929.0 5149.0 16929.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/data/models/field_filter_model.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3510.0 H 5149.0 Q 5155.0 3510.0 5155.0 3516.0 V 18373.0 Q 5155.0 18379.0 5149.0 18379.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3510.0 H 5152.0 Q 5158.0 3510.0 5158.0 3516.0 V 18373.0 Q 5158.0 18379.0 5152.0 18379.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/import_wizard_view.dart ▶ lib/helpers/app_router_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2916.0 H 5152.0 Q 5158.0 2916.0 5158.0 2922.0 V 17797.0 Q 5158.0 17803.0 5152.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2916.0 H 5155.0 Q 5161.0 2916.0 5161.0 2922.0 V 17797.0 Q 5161.0 17803.0 5155.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/investments/investments_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5155.0 Q 5161.0 904.0 5161.0 910.0 V 15791.0 Q 5161.0 15797.0 5155.0 15797.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5158.0 Q 5164.0 904.0 5164.0 910.0 V 15791.0 Q 5164.0 15797.0 5158.0 15797.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/widgets/pure/gaps_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5158.0 Q 5164.0 1148.0 5164.0 1154.0 V 16045.0 Q 5164.0 16051.0 5158.0 16051.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5161.0 Q 5167.0 1148.0 5167.0 1154.0 V 16045.0 Q 5167.0 16051.0 5161.0 16051.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/data/helpers/category_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 926.0 3510.0 H 5161.0 Q 5167.0 3510.0 5167.0 3516.0 V 18437.0 Q 5167.0 18443.0 5161.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 926.0 3510.0 H 5164.0 Q 5170.0 3510.0 5170.0 3516.0 V 18437.0 Q 5170.0 18443.0 5164.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/imports/import_wizard_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2672.0 H 5164.0 Q 5170.0 2672.0 5170.0 2678.0 V 17637.0 Q 5170.0 17643.0 5164.0 17643.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2672.0 H 5167.0 Q 5173.0 2672.0 5173.0 2678.0 V 17637.0 Q 5173.0 17643.0 5167.0 17643.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/categories/categories_view.dart ▶ lib/helpers/currency_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1880.0 H 5167.0 Q 5173.0 1880.0 5173.0 1886.0 V 16859.0 Q 5173.0 16865.0 5167.0 16865.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1880.0 H 5170.0 Q 5176.0 1880.0 5176.0 1886.0 V 16859.0 Q 5176.0 16865.0 5170.0 16865.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_actions_widget.dart ▶ lib/data/models/ai_chat_action_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2794.0 H 5170.0 Q 5176.0 2794.0 5176.0 2800.0 V 17797.0 Q 5176.0 17803.0 5170.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2794.0 H 5173.0 Q 5179.0 2794.0 5179.0 2800.0 V 17797.0 Q 5179.0 17803.0 5173.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/policy/policy_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1816.0 H 5173.0 Q 5179.0 1816.0 5179.0 1822.0 V 16827.0 Q 5179.0 16833.0 5173.0 16833.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1816.0 H 5176.0 Q 5182.0 1816.0 5182.0 1822.0 V 16827.0 Q 5182.0 16833.0 5176.0 16833.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_footer_widget.dart ▶ lib/data/models/ai_chat_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 730.0 H 5176.0 Q 5182.0 730.0 5182.0 736.0 V 15791.0 Q 5182.0 15797.0 5176.0 15797.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1038.0 730.0 H 5179.0 Q 5185.0 730.0 5185.0 736.0 V 15791.0 Q 5185.0 15797.0 5179.0 15797.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/screens/splash_screen.dart ▶ lib/widgets/pure/gaps_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3336.0 H 5179.0 Q 5185.0 3336.0 5185.0 3342.0 V 18405.0 Q 5185.0 18411.0 5179.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3336.0 H 5182.0 Q 5188.0 3336.0 5188.0 3342.0 V 18405.0 Q 5188.0 18411.0 5182.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/navigation_item_model.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5182.0 Q 5188.0 364.0 5188.0 370.0 V 15439.0 Q 5188.0 15445.0 5182.0 15445.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5185.0 Q 5191.0 364.0 5191.0 370.0 V 15439.0 Q 5191.0 15445.0 5185.0 15445.0 H 858.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/widgets/pure/scale_down_widget.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5185.0 Q 5191.0 1688.0 5191.0 1694.0 V 16763.0 Q 5191.0 16769.0 5185.0 16769.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5188.0 Q 5194.0 1688.0 5194.0 1694.0 V 16763.0 Q 5194.0 16769.0 5188.0 16769.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/data/models/account_type_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5188.0 Q 5194.0 1514.0 5194.0 1520.0 V 16603.0 Q 5194.0 16609.0 5188.0 16609.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5191.0 Q 5197.0 1514.0 5197.0 1520.0 V 16603.0 Q 5197.0 16609.0 5191.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3304.0 H 5191.0 Q 5197.0 3304.0 5197.0 3310.0 V 18405.0 Q 5197.0 18411.0 5191.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3304.0 H 5194.0 Q 5200.0 3304.0 5200.0 3310.0 V 18405.0 Q 5200.0 18411.0 5194.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/navigation_bar_widget.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1720.0 H 5194.0 Q 5200.0 1720.0 5200.0 1726.0 V 16827.0 Q 5200.0 16833.0 5194.0 16833.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1720.0 H 5197.0 Q 5203.0 1720.0 5203.0 1726.0 V 16827.0 Q 5203.0 16833.0 5197.0 16833.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_widget.dart ▶ lib/data/models/ai_chat_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5197.0 Q 5203.0 1514.0 5203.0 1520.0 V 16635.0 Q 5203.0 16641.0 5197.0 16641.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5200.0 Q 5206.0 1514.0 5206.0 1520.0 V 16635.0 Q 5206.0 16641.0 5200.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2672.0 H 5200.0 Q 5206.0 2672.0 5206.0 2678.0 V 17797.0 Q 5206.0 17803.0 5200.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2672.0 H 5203.0 Q 5209.0 2672.0 5209.0 2678.0 V 17797.0 Q 5209.0 17803.0 5203.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/categories/categories_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5203.0 Q 5209.0 3240.0 5209.0 3246.0 V 18373.0 Q 5209.0 18379.0 5203.0 18379.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5206.0 Q 5212.0 3240.0 5212.0 3246.0 V 18373.0 Q 5212.0 18379.0 5206.0 18379.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/app_router_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3272.0 H 5206.0 Q 5212.0 3272.0 5212.0 3278.0 V 18405.0 Q 5212.0 18411.0 5206.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3272.0 H 5209.0 Q 5215.0 3272.0 5215.0 3278.0 V 18405.0 Q 5215.0 18411.0 5209.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_title_widget.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3304.0 H 5209.0 Q 5215.0 3304.0 5215.0 3310.0 V 18437.0 Q 5215.0 18443.0 5209.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3304.0 H 5212.0 Q 5218.0 3304.0 5218.0 3310.0 V 18437.0 Q 5218.0 18443.0 5212.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/navigation_bar_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5212.0 Q 5218.0 1688.0 5218.0 1694.0 V 16827.0 Q 5218.0 16833.0 5212.0 16833.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5215.0 Q 5221.0 1688.0 5221.0 1694.0 V 16827.0 Q 5221.0 16833.0 5215.0 16833.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/data/models/ai_chat_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5215.0 Q 5221.0 3240.0 5221.0 3246.0 V 18405.0 Q 5221.0 18411.0 5215.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5218.0 Q 5224.0 3240.0 5224.0 3246.0 V 18405.0 Q 5224.0 18411.0 5218.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5218.0 Q 5224.0 1688.0 5224.0 1694.0 V 16859.0 Q 5224.0 16865.0 5218.0 16865.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5221.0 Q 5227.0 1688.0 5227.0 1694.0 V 16859.0 Q 5227.0 16865.0 5221.0 16865.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/data/models/ai_chat_action_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 5221.0 Q 5227.0 538.0 5227.0 544.0 V 15727.0 Q 5227.0 15733.0 5221.0 15733.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1038.0 538.0 H 5224.0 Q 5230.0 538.0 5230.0 544.0 V 15727.0 Q 5230.0 15733.0 5224.0 15733.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/screens/home_screen.dart ▶ lib/widgets/pure/working_indicator_widget.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 3240.0 H 5224.0 Q 5230.0 3240.0 5230.0 3246.0 V 18437.0 Q 5230.0 18443.0 5224.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 3240.0 H 5227.0 Q 5233.0 3240.0 5233.0 3246.0 V 18437.0 Q 5233.0 18443.0 5227.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/shell/app_bar_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5227.0 Q 5233.0 1392.0 5233.0 1398.0 V 16603.0 Q 5233.0 16609.0 5227.0 16609.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5230.0 Q 5236.0 1392.0 5236.0 1398.0 V 16603.0 Q 5236.0 16609.0 5230.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 5230.0 Q 5236.0 570.0 5236.0 576.0 V 15791.0 Q 5236.0 15797.0 5230.0 15797.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1038.0 570.0 H 5233.0 Q 5239.0 570.0 5239.0 576.0 V 15791.0 Q 5239.0 15797.0 5233.0 15797.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/screens/welcome_screen.dart ▶ lib/widgets/pure/gaps_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5233.0 Q 5239.0 1392.0 5239.0 1398.0 V 16635.0 Q 5239.0 16641.0 5233.0 16641.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5236.0 Q 5242.0 1392.0 5242.0 1398.0 V 16635.0 Q 5242.0 16641.0 5236.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2550.0 H 5236.0 Q 5242.0 2550.0 5242.0 2556.0 V 17797.0 Q 5242.0 17803.0 5236.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2550.0 H 5239.0 Q 5245.0 2550.0 5245.0 2556.0 V 17797.0 Q 5245.0 17803.0 5239.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/aliases/aliases_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5239.0 Q 5245.0 1270.0 5245.0 1276.0 V 16603.0 Q 5245.0 16609.0 5239.0 16609.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5242.0 Q 5248.0 1270.0 5248.0 1276.0 V 16603.0 Q 5248.0 16609.0 5242.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5242.0 Q 5248.0 1270.0 5248.0 1276.0 V 16635.0 Q 5248.0 16641.0 5242.0 16641.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5245.0 Q 5251.0 1270.0 5251.0 1276.0 V 16635.0 Q 5251.0 16641.0 5245.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3070.0 H 5245.0 Q 5251.0 3070.0 5251.0 3076.0 V 18437.0 Q 5251.0 18443.0 5245.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3070.0 H 5248.0 Q 5254.0 3070.0 5254.0 3076.0 V 18437.0 Q 5254.0 18443.0 5248.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transaction_actions_helper.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3038.0 H 5248.0 Q 5254.0 3038.0 5254.0 3044.0 V 18405.0 Q 5254.0 18411.0 5248.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3038.0 H 5251.0 Q 5257.0 3038.0 5257.0 3044.0 V 18405.0 Q 5257.0 18411.0 5251.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transactions_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2428.0 H 5251.0 Q 5257.0 2428.0 5257.0 2434.0 V 17797.0 Q 5257.0 17803.0 5251.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2428.0 H 5254.0 Q 5260.0 2428.0 5260.0 2434.0 V 17797.0 Q 5260.0 17803.0 5254.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/events/events_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 3038.0 H 5254.0 Q 5260.0 3038.0 5260.0 3044.0 V 18437.0 Q 5260.0 18443.0 5254.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 3038.0 H 5257.0 Q 5263.0 3038.0 5263.0 3044.0 V 18437.0 Q 5263.0 18443.0 5257.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transactions/transactions_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5257.0 Q 5263.0 1514.0 5263.0 1520.0 V 16955.0 Q 5263.0 16961.0 5257.0 16961.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5260.0 Q 5266.0 1514.0 5266.0 1520.0 V 16955.0 Q 5266.0 16961.0 5260.0 16961.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/ranges_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2916.0 H 5260.0 Q 5266.0 2916.0 5266.0 2922.0 V 18405.0 Q 5266.0 18411.0 5260.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2916.0 H 5263.0 Q 5269.0 2916.0 5269.0 2922.0 V 18405.0 Q 5269.0 18411.0 5263.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/investments/investments_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2916.0 H 5263.0 Q 5269.0 2916.0 5269.0 2922.0 V 18437.0 Q 5269.0 18443.0 5263.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2916.0 H 5266.0 Q 5272.0 2916.0 5272.0 2922.0 V 18437.0 Q 5272.0 18443.0 5266.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/investments/investments_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5266.0 Q 5272.0 1688.0 5272.0 1694.0 V 17211.0 Q 5272.0 17217.0 5266.0 17217.0 H 858.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5269.0 Q 5275.0 1688.0 5275.0 1694.0 V 17211.0 Q 5275.0 17217.0 5269.0 17217.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/data/models/account_types_enum.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2428.0 H 5269.0 Q 5275.0 2428.0 5275.0 2434.0 V 17957.0 Q 5275.0 17963.0 5269.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2428.0 H 5272.0 Q 5278.0 2428.0 5278.0 2434.0 V 17957.0 Q 5278.0 17963.0 5272.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/events/events_view.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5272.0 Q 5278.0 1514.0 5278.0 1520.0 V 17051.0 Q 5278.0 17057.0 5272.0 17057.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5275.0 Q 5281.0 1514.0 5281.0 1520.0 V 17051.0 Q 5281.0 17057.0 5275.0 17057.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/stock_summary_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5275.0 Q 5281.0 1026.0 5281.0 1032.0 V 16603.0 Q 5281.0 16609.0 5275.0 16609.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5278.0 Q 5284.0 1026.0 5284.0 1032.0 V 16603.0 Q 5284.0 16609.0 5278.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5278.0 Q 5284.0 1026.0 5284.0 1032.0 V 16635.0 Q 5284.0 16641.0 5278.0 16641.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5281.0 Q 5287.0 1026.0 5287.0 1032.0 V 16635.0 Q 5287.0 16641.0 5281.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2794.0 H 5281.0 Q 5287.0 2794.0 5287.0 2800.0 V 18405.0 Q 5287.0 18411.0 5281.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2794.0 H 5284.0 Q 5290.0 2794.0 5290.0 2800.0 V 18405.0 Q 5290.0 18411.0 5284.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/policy/policy_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2794.0 H 5284.0 Q 5290.0 2794.0 5290.0 2800.0 V 18437.0 Q 5290.0 18443.0 5284.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2794.0 H 5287.0 Q 5293.0 2794.0 5293.0 2800.0 V 18437.0 Q 5293.0 18443.0 5287.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/policy/policy_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5287.0 Q 5293.0 1514.0 5293.0 1520.0 V 17179.0 Q 5293.0 17185.0 5287.0 17185.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5290.0 Q 5296.0 1514.0 5296.0 1520.0 V 17179.0 Q 5296.0 17185.0 5290.0 17185.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/pair_xyz_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5290.0 Q 5296.0 1270.0 5296.0 1276.0 V 16955.0 Q 5296.0 16961.0 5290.0 16961.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5293.0 Q 5299.0 1270.0 5299.0 1276.0 V 16955.0 Q 5299.0 16961.0 5293.0 16961.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/data/models/ranges_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5293.0 Q 5299.0 1514.0 5299.0 1520.0 V 17211.0 Q 5299.0 17217.0 5293.0 17217.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5296.0 Q 5302.0 1514.0 5302.0 1520.0 V 17211.0 Q 5302.0 17217.0 5296.0 17217.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/data/models/account_types_enum.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5296.0 Q 5302.0 904.0 5302.0 910.0 V 16603.0 Q 5302.0 16609.0 5296.0 16609.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5299.0 Q 5305.0 904.0 5305.0 910.0 V 16603.0 Q 5305.0 16609.0 5299.0 16609.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/data/models/data_object_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5299.0 Q 5305.0 904.0 5305.0 910.0 V 16635.0 Q 5305.0 16641.0 5299.0 16641.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5302.0 Q 5308.0 904.0 5308.0 910.0 V 16635.0 Q 5308.0 16641.0 5302.0 16641.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/data/models/field_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2672.0 H 5302.0 Q 5308.0 2672.0 5308.0 2678.0 V 18405.0 Q 5308.0 18411.0 5302.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2672.0 H 5305.0 Q 5311.0 2672.0 5311.0 2678.0 V 18405.0 Q 5311.0 18411.0 5305.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/categories/categories_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2672.0 H 5305.0 Q 5311.0 2672.0 5311.0 2678.0 V 18437.0 Q 5311.0 18443.0 5305.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2672.0 H 5308.0 Q 5314.0 2672.0 5314.0 2678.0 V 18437.0 Q 5314.0 18443.0 5308.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/categories/categories_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2162.0 H 5308.0 Q 5314.0 2162.0 5314.0 2168.0 V 17957.0 Q 5314.0 17963.0 5308.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2162.0 H 5311.0 Q 5317.0 2162.0 5317.0 2168.0 V 17957.0 Q 5317.0 17963.0 5311.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_tool_prompt_helper.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 5311.0 Q 5317.0 2002.0 5317.0 2008.0 V 17797.0 Q 5317.0 17803.0 5311.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2002.0 H 5314.0 Q 5320.0 2002.0 5320.0 2008.0 V 17797.0 Q 5320.0 17803.0 5314.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5314.0 Q 5320.0 1148.0 5320.0 1154.0 V 16955.0 Q 5320.0 16961.0 5314.0 16961.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5317.0 Q 5323.0 1148.0 5323.0 1154.0 V 16955.0 Q 5323.0 16961.0 5317.0 16961.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/data/models/ranges_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2130.0 H 5317.0 Q 5323.0 2130.0 5323.0 2136.0 V 17957.0 Q 5323.0 17963.0 5317.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2162.0 H 5320.0 Q 5326.0 2162.0 5326.0 2168.0 V 17989.0 Q 5326.0 17995.0 5320.0 17995.0 H 1058.0" class="edgeVertical"/>
+  <title>lib/views/home/ai/tools/ai_tool_prompt_helper.dart ▶ lib/helpers/shared_strings_helper.dart</title>
+</g>
+<g>
+  <path d="M 990.0 2130.0 H 5323.0 Q 5329.0 2130.0 5329.0 2136.0 V 17957.0 Q 5329.0 17963.0 5323.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_transaction_query_model.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2550.0 H 5320.0 Q 5326.0 2550.0 5326.0 2556.0 V 18405.0 Q 5326.0 18411.0 5320.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2550.0 H 5326.0 Q 5332.0 2550.0 5332.0 2556.0 V 18405.0 Q 5332.0 18411.0 5326.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/aliases/aliases_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2098.0 H 5323.0 Q 5329.0 2098.0 5329.0 2104.0 V 17957.0 Q 5329.0 17963.0 5323.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2098.0 H 5329.0 Q 5335.0 2098.0 5335.0 2104.0 V 17957.0 Q 5335.0 17963.0 5329.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_data_tools_helper.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5326.0 Q 5332.0 1270.0 5332.0 1276.0 V 17147.0 Q 5332.0 17153.0 5326.0 17153.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5332.0 Q 5338.0 1270.0 5338.0 1276.0 V 17147.0 Q 5338.0 17153.0 5332.0 17153.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/data/models/dividend_model.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2550.0 H 5329.0 Q 5335.0 2550.0 5335.0 2556.0 V 18437.0 Q 5335.0 18443.0 5329.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2550.0 H 5335.0 Q 5341.0 2550.0 5341.0 2556.0 V 18437.0 Q 5341.0 18443.0 5335.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/aliases/aliases_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 5332.0 Q 5338.0 2066.0 5338.0 2072.0 V 17957.0 Q 5338.0 17963.0 5332.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2066.0 H 5338.0 Q 5344.0 2066.0 5344.0 2072.0 V 17957.0 Q 5344.0 17963.0 5338.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1848.0 H 5335.0 Q 5341.0 1848.0 5341.0 1854.0 V 17797.0 Q 5341.0 17803.0 5335.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1848.0 H 5341.0 Q 5347.0 1848.0 5347.0 1854.0 V 17797.0 Q 5347.0 17803.0 5341.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_change_confirm_dialog.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1784.0 H 5338.0 Q 5344.0 1784.0 5344.0 1790.0 V 17733.0 Q 5344.0 17739.0 5338.0 17739.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1784.0 H 5344.0 Q 5350.0 1784.0 5350.0 1790.0 V 17733.0 Q 5350.0 17739.0 5344.0 17739.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_header_widget.dart ▶ lib/helpers/string_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 5341.0 Q 5347.0 2002.0 5347.0 2008.0 V 17957.0 Q 5347.0 17963.0 5341.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2002.0 H 5347.0 Q 5353.0 2002.0 5353.0 2008.0 V 17957.0 Q 5353.0 17963.0 5347.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2428.0 H 5344.0 Q 5350.0 2428.0 5350.0 2434.0 V 18405.0 Q 5350.0 18411.0 5344.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2428.0 H 5350.0 Q 5356.0 2428.0 5356.0 2434.0 V 18405.0 Q 5356.0 18411.0 5350.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/events/events_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1816.0 H 5347.0 Q 5353.0 1816.0 5353.0 1822.0 V 17797.0 Q 5353.0 17803.0 5347.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1816.0 H 5353.0 Q 5359.0 1816.0 5359.0 1822.0 V 17797.0 Q 5359.0 17803.0 5353.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_footer_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5350.0 Q 5356.0 1688.0 5356.0 1694.0 V 17669.0 Q 5356.0 17675.0 5350.0 17675.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5356.0 Q 5362.0 1688.0 5362.0 1694.0 V 17669.0 Q 5362.0 17675.0 5356.0 17675.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/app_logger_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 2428.0 H 5353.0 Q 5359.0 2428.0 5359.0 2434.0 V 18437.0 Q 5359.0 18443.0 5353.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 2428.0 H 5359.0 Q 5365.0 2428.0 5365.0 2434.0 V 18437.0 Q 5365.0 18443.0 5359.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/events/events_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1784.0 H 5356.0 Q 5362.0 1784.0 5362.0 1790.0 V 17797.0 Q 5362.0 17803.0 5356.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1784.0 H 5362.0 Q 5368.0 1784.0 5368.0 1790.0 V 17797.0 Q 5368.0 17803.0 5362.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_header_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1752.0 H 5359.0 Q 5365.0 1752.0 5365.0 1758.0 V 17797.0 Q 5365.0 17803.0 5359.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1752.0 H 5365.0 Q 5371.0 1752.0 5371.0 1758.0 V 17797.0 Q 5371.0 17803.0 5365.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_instructions_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1720.0 H 5362.0 Q 5368.0 1720.0 5368.0 1726.0 V 17797.0 Q 5368.0 17803.0 5362.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1720.0 H 5368.0 Q 5374.0 1720.0 5374.0 1726.0 V 17797.0 Q 5374.0 17803.0 5368.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_widget.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5365.0 Q 5371.0 1514.0 5371.0 1520.0 V 17605.0 Q 5371.0 17611.0 5365.0 17611.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5371.0 Q 5377.0 1514.0 5377.0 1520.0 V 17605.0 Q 5377.0 17611.0 5371.0 17611.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/helpers/amount_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5368.0 Q 5374.0 1688.0 5374.0 1694.0 V 17797.0 Q 5374.0 17803.0 5368.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5374.0 Q 5380.0 1688.0 5380.0 1694.0 V 17797.0 Q 5380.0 17803.0 5374.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5371.0 Q 5377.0 1514.0 5377.0 1520.0 V 17637.0 Q 5377.0 17643.0 5371.0 17643.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5377.0 Q 5383.0 1514.0 5383.0 1520.0 V 17637.0 Q 5383.0 17643.0 5377.0 17643.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/helpers/currency_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1816.0 H 5374.0 Q 5380.0 1816.0 5380.0 1822.0 V 17957.0 Q 5380.0 17963.0 5374.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1816.0 H 5380.0 Q 5386.0 1816.0 5386.0 1822.0 V 17957.0 Q 5386.0 17963.0 5380.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_footer_widget.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5377.0 Q 5383.0 1026.0 5383.0 1032.0 V 17179.0 Q 5383.0 17185.0 5377.0 17185.0 H 858.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5383.0 Q 5389.0 1026.0 5389.0 1032.0 V 17179.0 Q 5389.0 17185.0 5383.0 17185.0 H 858.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/data/models/pair_xyz_model.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1816.0 H 5380.0 Q 5386.0 1816.0 5386.0 1822.0 V 18021.0 Q 5386.0 18027.0 5380.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1816.0 H 5386.0 Q 5392.0 1816.0 5392.0 1822.0 V 18021.0 Q 5392.0 18027.0 5386.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_footer_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1720.0 H 5383.0 Q 5389.0 1720.0 5389.0 1726.0 V 17957.0 Q 5389.0 17963.0 5383.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1720.0 H 5389.0 Q 5395.0 1720.0 5395.0 1726.0 V 17957.0 Q 5395.0 17963.0 5389.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_widget.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5386.0 Q 5392.0 1514.0 5392.0 1520.0 V 17797.0 Q 5392.0 17803.0 5386.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5392.0 Q 5398.0 1514.0 5398.0 1520.0 V 17797.0 Q 5398.0 17803.0 5392.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1720.0 H 5389.0 Q 5395.0 1720.0 5395.0 1726.0 V 18021.0 Q 5395.0 18027.0 5389.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1720.0 H 5395.0 Q 5401.0 1720.0 5401.0 1726.0 V 18021.0 Q 5401.0 18027.0 5395.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_widget.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5392.0 Q 5398.0 1688.0 5398.0 1694.0 V 17989.0 Q 5398.0 17995.0 5392.0 17995.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5398.0 Q 5404.0 1688.0 5404.0 1694.0 V 17989.0 Q 5404.0 17995.0 5398.0 17995.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/shared_strings_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5395.0 Q 5401.0 1688.0 5401.0 1694.0 V 18021.0 Q 5401.0 18027.0 5395.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5401.0 Q 5407.0 1688.0 5407.0 1694.0 V 18021.0 Q 5407.0 18027.0 5401.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2066.0 H 5398.0 Q 5404.0 2066.0 5404.0 2072.0 V 18405.0 Q 5404.0 18411.0 5398.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2066.0 H 5404.0 Q 5410.0 2066.0 5410.0 2072.0 V 18405.0 Q 5410.0 18411.0 5404.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5401.0 Q 5407.0 1270.0 5407.0 1276.0 V 17637.0 Q 5407.0 17643.0 5401.0 17643.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5407.0 Q 5413.0 1270.0 5413.0 1276.0 V 17637.0 Q 5413.0 17643.0 5407.0 17643.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/currency_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5404.0 Q 5410.0 1392.0 5410.0 1398.0 V 17765.0 Q 5410.0 17771.0 5404.0 17771.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5410.0 Q 5416.0 1392.0 5416.0 1398.0 V 17765.0 Q 5416.0 17771.0 5410.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5407.0 Q 5413.0 1392.0 5413.0 1398.0 V 17797.0 Q 5413.0 17803.0 5407.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5413.0 Q 5419.0 1392.0 5419.0 1398.0 V 17797.0 Q 5419.0 17803.0 5413.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 2002.0 H 5410.0 Q 5416.0 2002.0 5416.0 2008.0 V 18437.0 Q 5416.0 18443.0 5410.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 2002.0 H 5416.0 Q 5422.0 2002.0 5422.0 2008.0 V 18437.0 Q 5422.0 18443.0 5416.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/tools/ai_write_tools_helper.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5413.0 Q 5419.0 1270.0 5419.0 1276.0 V 17765.0 Q 5419.0 17771.0 5413.0 17771.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5419.0 Q 5425.0 1270.0 5425.0 1276.0 V 17765.0 Q 5425.0 17771.0 5419.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1880.0 H 5416.0 Q 5422.0 1880.0 5422.0 1886.0 V 18405.0 Q 5422.0 18411.0 5416.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1880.0 H 5422.0 Q 5428.0 1880.0 5428.0 1886.0 V 18405.0 Q 5428.0 18411.0 5422.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_actions_widget.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5419.0 Q 5425.0 1270.0 5425.0 1276.0 V 17797.0 Q 5425.0 17803.0 5419.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5425.0 Q 5431.0 1270.0 5431.0 1276.0 V 17797.0 Q 5431.0 17803.0 5425.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5422.0 Q 5428.0 1392.0 5428.0 1398.0 V 17957.0 Q 5428.0 17963.0 5422.0 17963.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5428.0 Q 5434.0 1392.0 5434.0 1398.0 V 17957.0 Q 5434.0 17963.0 5428.0 17963.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/date_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1848.0 H 5425.0 Q 5431.0 1848.0 5431.0 1854.0 V 18437.0 Q 5431.0 18443.0 5425.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1848.0 H 5431.0 Q 5437.0 1848.0 5437.0 1854.0 V 18437.0 Q 5437.0 18443.0 5431.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_change_confirm_dialog.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5428.0 Q 5434.0 1148.0 5434.0 1154.0 V 17765.0 Q 5434.0 17771.0 5428.0 17771.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5434.0 Q 5440.0 1148.0 5440.0 1154.0 V 17765.0 Q 5440.0 17771.0 5434.0 17771.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/helpers/misc_helpers.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1816.0 H 5431.0 Q 5437.0 1816.0 5437.0 1822.0 V 18437.0 Q 5437.0 18443.0 5431.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1816.0 H 5437.0 Q 5443.0 1816.0 5443.0 1822.0 V 18437.0 Q 5443.0 18443.0 5437.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_footer_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5434.0 Q 5440.0 1392.0 5440.0 1398.0 V 18021.0 Q 5440.0 18027.0 5434.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5440.0 Q 5446.0 1392.0 5446.0 1398.0 V 18021.0 Q 5446.0 18027.0 5440.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5437.0 Q 5443.0 1148.0 5443.0 1154.0 V 17797.0 Q 5443.0 17803.0 5437.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5443.0 Q 5449.0 1148.0 5449.0 1154.0 V 17797.0 Q 5449.0 17803.0 5443.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1784.0 H 5440.0 Q 5446.0 1784.0 5446.0 1790.0 V 18437.0 Q 5446.0 18443.0 5440.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1784.0 H 5446.0 Q 5452.0 1784.0 5452.0 1790.0 V 18437.0 Q 5452.0 18443.0 5446.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_header_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1752.0 H 5443.0 Q 5449.0 1752.0 5449.0 1758.0 V 18405.0 Q 5449.0 18411.0 5443.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1752.0 H 5449.0 Q 5455.0 1752.0 5455.0 1758.0 V 18405.0 Q 5455.0 18411.0 5449.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_instructions_widget.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1752.0 H 5446.0 Q 5452.0 1752.0 5452.0 1758.0 V 18437.0 Q 5452.0 18443.0 5446.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1752.0 H 5452.0 Q 5458.0 1752.0 5458.0 1758.0 V 18437.0 Q 5458.0 18443.0 5452.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_instructions_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1720.0 H 5449.0 Q 5455.0 1720.0 5455.0 1726.0 V 18437.0 Q 5455.0 18443.0 5449.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1720.0 H 5455.0 Q 5461.0 1720.0 5461.0 1726.0 V 18437.0 Q 5461.0 18443.0 5455.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_chat_message_widget.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5452.0 Q 5458.0 1688.0 5458.0 1694.0 V 18405.0 Q 5458.0 18411.0 5452.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5458.0 Q 5464.0 1688.0 5464.0 1694.0 V 18405.0 Q 5464.0 18411.0 5458.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5455.0 Q 5461.0 1270.0 5461.0 1276.0 V 17989.0 Q 5461.0 17995.0 5455.0 17995.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5461.0 Q 5467.0 1270.0 5467.0 1276.0 V 17989.0 Q 5467.0 17995.0 5461.0 17995.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/shared_strings_helper.dart</title>
 </g>
 <g>
-  <path d="M 990.0 1688.0 H 5458.0 Q 5464.0 1688.0 5464.0 1694.0 V 18437.0 Q 5464.0 18443.0 5458.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 990.0 1688.0 H 5464.0 Q 5470.0 1688.0 5470.0 1694.0 V 18437.0 Q 5470.0 18443.0 5464.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/ai/ai_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5461.0 Q 5467.0 1270.0 5467.0 1276.0 V 18021.0 Q 5467.0 18027.0 5461.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5467.0 Q 5473.0 1270.0 5473.0 1276.0 V 18021.0 Q 5473.0 18027.0 5467.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5464.0 Q 5470.0 1026.0 5470.0 1032.0 V 17797.0 Q 5470.0 17803.0 5464.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5470.0 Q 5476.0 1026.0 5476.0 1032.0 V 17797.0 Q 5476.0 17803.0 5470.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5467.0 Q 5473.0 1148.0 5473.0 1154.0 V 18021.0 Q 5473.0 18027.0 5467.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5473.0 Q 5479.0 1148.0 5479.0 1154.0 V 18021.0 Q 5479.0 18027.0 5473.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5470.0 Q 5476.0 1514.0 5476.0 1520.0 V 18405.0 Q 5476.0 18411.0 5470.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5476.0 Q 5482.0 1514.0 5482.0 1520.0 V 18405.0 Q 5482.0 18411.0 5476.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5473.0 Q 5479.0 904.0 5479.0 910.0 V 17797.0 Q 5479.0 17803.0 5473.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5479.0 Q 5485.0 904.0 5485.0 910.0 V 17797.0 Q 5485.0 17803.0 5479.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 634.0 H 5476.0 Q 5482.0 634.0 5482.0 640.0 V 17541.0 Q 5482.0 17547.0 5476.0 17547.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 634.0 H 5482.0 Q 5488.0 634.0 5488.0 640.0 V 17541.0 Q 5488.0 17547.0 5482.0 17547.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/platforms_screen.dart ▶ lib/helpers/github_artifacts_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1514.0 H 5479.0 Q 5485.0 1514.0 5485.0 1520.0 V 18437.0 Q 5485.0 18443.0 5479.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1514.0 H 5485.0 Q 5491.0 1514.0 5491.0 1520.0 V 18437.0 Q 5491.0 18443.0 5485.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/accounts/accounts_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5482.0 Q 5488.0 1392.0 5488.0 1398.0 V 18405.0 Q 5488.0 18411.0 5482.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5488.0 Q 5494.0 1392.0 5494.0 1398.0 V 18405.0 Q 5494.0 18411.0 5488.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1392.0 H 5485.0 Q 5491.0 1392.0 5491.0 1398.0 V 18437.0 Q 5491.0 18443.0 5485.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1392.0 H 5491.0 Q 5497.0 1392.0 5497.0 1398.0 V 18437.0 Q 5497.0 18443.0 5491.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/transfers/transfers_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 730.0 H 5488.0 Q 5494.0 730.0 5494.0 736.0 V 17797.0 Q 5494.0 17803.0 5488.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 730.0 H 5494.0 Q 5500.0 730.0 5500.0 736.0 V 17797.0 Q 5500.0 17803.0 5494.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/splash_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 698.0 H 5491.0 Q 5497.0 698.0 5497.0 704.0 V 17797.0 Q 5497.0 17803.0 5491.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 698.0 H 5497.0 Q 5503.0 698.0 5503.0 704.0 V 17797.0 Q 5503.0 17803.0 5497.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/about_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 666.0 H 5494.0 Q 5500.0 666.0 5500.0 672.0 V 17797.0 Q 5500.0 17803.0 5494.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 666.0 H 5500.0 Q 5506.0 666.0 5506.0 672.0 V 17797.0 Q 5506.0 17803.0 5500.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/policy_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5497.0 Q 5503.0 1270.0 5503.0 1276.0 V 18405.0 Q 5503.0 18411.0 5497.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5503.0 Q 5509.0 1270.0 5509.0 1276.0 V 18405.0 Q 5509.0 18411.0 5503.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 634.0 H 5500.0 Q 5506.0 634.0 5506.0 640.0 V 17797.0 Q 5506.0 17803.0 5500.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 634.0 H 5506.0 Q 5512.0 634.0 5512.0 640.0 V 17797.0 Q 5512.0 17803.0 5506.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/platforms_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1270.0 H 5503.0 Q 5509.0 1270.0 5509.0 1276.0 V 18437.0 Q 5509.0 18443.0 5503.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1270.0 H 5509.0 Q 5515.0 1270.0 5515.0 1276.0 V 18437.0 Q 5515.0 18443.0 5509.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/stocks/stocks_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 602.0 H 5506.0 Q 5512.0 602.0 5512.0 608.0 V 17797.0 Q 5512.0 17803.0 5506.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 602.0 H 5512.0 Q 5518.0 602.0 5518.0 608.0 V 17797.0 Q 5518.0 17803.0 5512.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/settings_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5509.0 Q 5515.0 364.0 5515.0 370.0 V 17573.0 Q 5515.0 17579.0 5509.0 17579.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5515.0 Q 5521.0 364.0 5521.0 370.0 V 17573.0 Q 5521.0 17579.0 5515.0 17579.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/window_manager_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5512.0 Q 5518.0 1026.0 5518.0 1032.0 V 18245.0 Q 5518.0 18251.0 5512.0 18251.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5518.0 Q 5524.0 1026.0 5524.0 1032.0 V 18245.0 Q 5524.0 18251.0 5518.0 18251.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/helpers/shared_strings_domain.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 5515.0 Q 5521.0 570.0 5521.0 576.0 V 17797.0 Q 5521.0 17803.0 5515.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 570.0 H 5521.0 Q 5527.0 570.0 5527.0 576.0 V 17797.0 Q 5527.0 17803.0 5521.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/welcome_screen.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5518.0 Q 5524.0 1148.0 5524.0 1154.0 V 18405.0 Q 5524.0 18411.0 5518.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5524.0 Q 5530.0 1148.0 5530.0 1154.0 V 18405.0 Q 5530.0 18411.0 5524.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1148.0 H 5521.0 Q 5527.0 1148.0 5527.0 1154.0 V 18437.0 Q 5527.0 18443.0 5521.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1148.0 H 5527.0 Q 5533.0 1148.0 5533.0 1154.0 V 18437.0 Q 5533.0 18443.0 5527.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/cashflow/cashflow_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 634.0 H 5524.0 Q 5530.0 634.0 5530.0 640.0 V 17989.0 Q 5530.0 17995.0 5524.0 17995.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 634.0 H 5530.0 Q 5536.0 634.0 5536.0 640.0 V 17989.0 Q 5536.0 17995.0 5530.0 17995.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/platforms_screen.dart ▶ lib/helpers/shared_strings_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 666.0 H 5527.0 Q 5533.0 666.0 5533.0 672.0 V 18021.0 Q 5533.0 18027.0 5527.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 666.0 H 5533.0 Q 5539.0 666.0 5539.0 672.0 V 18021.0 Q 5539.0 18027.0 5533.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/policy_screen.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5530.0 Q 5536.0 1026.0 5536.0 1032.0 V 18405.0 Q 5536.0 18411.0 5530.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5536.0 Q 5542.0 1026.0 5542.0 1032.0 V 18405.0 Q 5542.0 18411.0 5536.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 1026.0 H 5533.0 Q 5539.0 1026.0 5539.0 1032.0 V 18437.0 Q 5539.0 18443.0 5533.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 1026.0 H 5539.0 Q 5545.0 1026.0 5545.0 1032.0 V 18437.0 Q 5545.0 18443.0 5539.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/payees/payees_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5536.0 Q 5542.0 364.0 5542.0 370.0 V 17797.0 Q 5542.0 17803.0 5536.0 17803.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5542.0 Q 5548.0 364.0 5548.0 370.0 V 17797.0 Q 5548.0 17803.0 5542.0 17803.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/app_l10n_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 5539.0 Q 5545.0 538.0 5545.0 544.0 V 18021.0 Q 5545.0 18027.0 5539.0 18027.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 538.0 H 5545.0 Q 5551.0 538.0 5551.0 544.0 V 18021.0 Q 5551.0 18027.0 5545.0 18027.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/home_screen.dart ▶ lib/helpers/color_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5542.0 Q 5548.0 904.0 5548.0 910.0 V 18405.0 Q 5548.0 18411.0 5542.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5548.0 Q 5554.0 904.0 5554.0 910.0 V 18405.0 Q 5554.0 18411.0 5548.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1014.0 904.0 H 5545.0 Q 5551.0 904.0 5551.0 910.0 V 18437.0 Q 5551.0 18443.0 5545.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1014.0 904.0 H 5551.0 Q 5557.0 904.0 5557.0 910.0 V 18437.0 Q 5557.0 18443.0 5551.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/home/rentals/rentals_view.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5548.0 Q 5554.0 364.0 5554.0 370.0 V 17925.0 Q 5554.0 17931.0 5548.0 17931.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5554.0 Q 5560.0 364.0 5560.0 370.0 V 17925.0 Q 5560.0 17931.0 5554.0 17931.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/list_controller.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 698.0 H 5551.0 Q 5557.0 698.0 5557.0 704.0 V 18309.0 Q 5557.0 18315.0 5551.0 18315.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 698.0 H 5557.0 Q 5563.0 698.0 5563.0 704.0 V 18309.0 Q 5563.0 18315.0 5557.0 18315.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/about_screen.dart ▶ lib/helpers/generated_app_version_data.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5554.0 Q 5560.0 364.0 5560.0 370.0 V 18053.0 Q 5560.0 18059.0 5554.0 18059.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5560.0 Q 5566.0 364.0 5566.0 370.0 V 18053.0 Q 5566.0 18059.0 5560.0 18059.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/app_intents_model.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 698.0 H 5557.0 Q 5563.0 698.0 5563.0 704.0 V 18405.0 Q 5563.0 18411.0 5557.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 698.0 H 5563.0 Q 5569.0 698.0 5569.0 704.0 V 18405.0 Q 5569.0 18411.0 5563.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/about_screen.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 730.0 H 5560.0 Q 5566.0 730.0 5566.0 736.0 V 18437.0 Q 5566.0 18443.0 5560.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 730.0 H 5566.0 Q 5572.0 730.0 5572.0 736.0 V 18437.0 Q 5572.0 18443.0 5566.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/splash_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 698.0 H 5563.0 Q 5569.0 698.0 5569.0 704.0 V 18437.0 Q 5569.0 18443.0 5563.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 698.0 H 5569.0 Q 5575.0 698.0 5575.0 704.0 V 18437.0 Q 5575.0 18443.0 5569.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/about_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 634.0 H 5566.0 Q 5572.0 634.0 5572.0 640.0 V 18405.0 Q 5572.0 18411.0 5566.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 634.0 H 5572.0 Q 5578.0 634.0 5578.0 640.0 V 18405.0 Q 5578.0 18411.0 5572.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/platforms_screen.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 666.0 H 5569.0 Q 5575.0 666.0 5575.0 672.0 V 18437.0 Q 5575.0 18443.0 5569.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 666.0 H 5575.0 Q 5581.0 666.0 5581.0 672.0 V 18437.0 Q 5581.0 18443.0 5575.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/policy_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 634.0 H 5572.0 Q 5578.0 634.0 5578.0 640.0 V 18437.0 Q 5578.0 18443.0 5572.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 634.0 H 5578.0 Q 5584.0 634.0 5584.0 640.0 V 18437.0 Q 5584.0 18443.0 5578.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/platforms_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 602.0 H 5575.0 Q 5581.0 602.0 5581.0 608.0 V 18405.0 Q 5581.0 18411.0 5575.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 602.0 H 5581.0 Q 5587.0 602.0 5587.0 608.0 V 18405.0 Q 5587.0 18411.0 5581.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/settings_screen.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 5578.0 Q 5584.0 570.0 5584.0 576.0 V 18373.0 Q 5584.0 18379.0 5578.0 18379.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 570.0 H 5584.0 Q 5590.0 570.0 5590.0 576.0 V 18373.0 Q 5590.0 18379.0 5584.0 18379.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/welcome_screen.dart ▶ lib/helpers/app_router_service.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 602.0 H 5581.0 Q 5587.0 602.0 5587.0 608.0 V 18437.0 Q 5587.0 18443.0 5581.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 602.0 H 5587.0 Q 5593.0 602.0 5593.0 608.0 V 18437.0 Q 5593.0 18443.0 5587.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/settings_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 5584.0 Q 5590.0 570.0 5590.0 576.0 V 18405.0 Q 5590.0 18411.0 5584.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 570.0 H 5590.0 Q 5596.0 570.0 5596.0 576.0 V 18405.0 Q 5596.0 18411.0 5590.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/welcome_screen.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 538.0 H 5587.0 Q 5593.0 538.0 5593.0 544.0 V 18405.0 Q 5593.0 18411.0 5587.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 538.0 H 5593.0 Q 5599.0 538.0 5599.0 544.0 V 18405.0 Q 5599.0 18411.0 5593.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/home_screen.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1038.0 570.0 H 5590.0 Q 5596.0 570.0 5596.0 576.0 V 18437.0 Q 5596.0 18443.0 5590.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1038.0 570.0 H 5596.0 Q 5602.0 570.0 5602.0 576.0 V 18437.0 Q 5602.0 18443.0 5596.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/views/screens/welcome_screen.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5593.0 Q 5599.0 364.0 5599.0 370.0 V 18373.0 Q 5599.0 18379.0 5593.0 18379.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5599.0 Q 5605.0 364.0 5605.0 370.0 V 18373.0 Q 5605.0 18379.0 5599.0 18379.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/app_router_service.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5596.0 Q 5602.0 364.0 5602.0 370.0 V 18405.0 Q 5602.0 18411.0 5596.0 18411.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5602.0 Q 5608.0 364.0 5608.0 370.0 V 18405.0 Q 5608.0 18411.0 5602.0 18411.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/constants_helper.dart</title>
 </g>
 <g>
-  <path d="M 1062.0 364.0 H 5599.0 Q 5605.0 364.0 5605.0 370.0 V 18437.0 Q 5605.0 18443.0 5599.0 18443.0 H 1058.0" class="edgeVertical"/>
+  <path d="M 1062.0 364.0 H 5605.0 Q 5611.0 364.0 5611.0 370.0 V 18437.0 Q 5611.0 18443.0 5605.0 18443.0 H 1058.0" class="edgeVertical"/>
   <title>lib/main.dart ▶ lib/helpers/app_translation_keys.dart</title>
 </g>
 <text x="724.0" y="184.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">main_test.dart</text>
@@ -12108,7 +12132,8 @@
 40. lib/shared/domain/transfer_linkage_service.dart</title></g><text x="720.0" y="9304.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">data_facade.dart</text>
 <g class="badge incomingBadge">
   <path d="M 940.0,9331.0 L 952.0,9324.0 Q 955.0,9324.0 955.0,9327.0 L 955.0,9335.0 Q 955.0,9338.0 952.0,9338.0 Z" fill="#3b82f6"/>
-  <text x="950.32" y="9332.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/shared/domain/data_facade.dart</title></g><g class="badge outgoingBadge">
+  <text x="950.32" y="9332.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">2</text><title>1. lib/shared/domain/data_facade.dart
+2. lib/views/home/ai/tools/ai_write_tools_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 958.0,9342.0 L 942.0,9334.4 Q 939.0,9334.4 939.0,9337.4 L 939.0,9346.6 Q 939.0,9349.6 942.0,9349.6 Z" fill="#10b981"/>
   <text x="944.72" y="9343.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">11</text><title>1. lib/data/models/data_access_model.dart
 2. lib/data/models/data_object_model.dart
@@ -12299,12 +12324,11 @@
 8. lib/shared/domain/transaction_split_entity.dart</title></g><text x="720.0" y="9624.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">splits_collection.dart</text>
 <g class="badge incomingBadge">
   <path d="M 940.0,9651.0 L 952.0,9644.0 Q 955.0,9644.0 955.0,9647.0 L 955.0,9655.0 Q 955.0,9658.0 952.0,9658.0 Z" fill="#3b82f6"/>
-  <text x="950.32" y="9652.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">6</text><title>1. lib/shared/domain/alias_pattern_suggestion_helper.dart
+  <text x="950.32" y="9652.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text><title>1. lib/shared/domain/alias_pattern_suggestion_helper.dart
 2. lib/shared/domain/data_collections_registry_model.dart
 3. lib/shared/domain/data_facade.dart
-4. lib/views/home/ai/tools/ai_write_tools_helper.dart
-5. lib/views/home/aliases/aliases_view.dart
-6. lib/views/home/transactions/transaction_actions_helper.dart</title></g><g class="badge outgoingBadge">
+4. lib/views/home/aliases/aliases_view.dart
+5. lib/views/home/transactions/transaction_actions_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 956.0,9662.0 L 944.0,9655.0 Q 941.0,9655.0 941.0,9658.0 L 941.0,9666.0 Q 941.0,9669.0 944.0,9669.0 Z" fill="#10b981"/>
   <text x="945.68" y="9663.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. lib/data/helpers/alias_type_helper.dart
 2. lib/helpers/json_helper.dart
@@ -12457,7 +12481,7 @@
   <text x="950.32" y="9940.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text><title>1. lib/shared/domain/data_facade.dart
 2. lib/shared/domain/transfer_linkage_service.dart
 3. lib/shared/presentation/entity_widgets/transaction_widgets_helper.dart
-4. lib/views/home/ai/tools/ai_write_tools_helper.dart
+4. lib/views/home/ai/tools/ai_analysis_tools_helper.dart
 5. lib/views/home/transfers/transfers_view.dart</title></g><g class="badge outgoingBadge">
   <path d="M 956.0,9950.0 L 944.0,9943.0 Q 941.0,9943.0 941.0,9946.0 L 941.0,9954.0 Q 941.0,9957.0 944.0,9957.0 Z" fill="#10b981"/>
   <text x="945.68" y="9951.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">5</text><title>1. lib/data/models/account_types_enum.dart
@@ -12559,7 +12583,7 @@
 4. lib/shared/domain/transaction_extra_entity.dart</title></g><text x="720.0" y="10232.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">transaction_extras_collection.dart</text>
 <g class="badge incomingBadge">
   <path d="M 938.0,10259.0 L 954.0,10251.4 Q 957.0,10251.4 957.0,10254.4 L 957.0,10263.6 Q 957.0,10266.6 954.0,10266.6 Z" fill="#3b82f6"/>
-  <text x="951.28" y="10260.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">25</text><title>1. lib/shared/domain/account_aliases_collection.dart
+  <text x="951.28" y="10260.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">26</text><title>1. lib/shared/domain/account_aliases_collection.dart
 2. lib/shared/domain/accounts_collection.dart
 3. lib/shared/domain/aliases_collection.dart
 4. lib/shared/domain/categories_collection.dart
@@ -12582,8 +12606,9 @@
 21. lib/shared/presentation/services/money_data_io_service.dart
 22. lib/shared/presentation/widgets/adaptable_list_view_widget.dart
 23. lib/shared/presentation/widgets/sortable_list_view_widget.dart
-24. lib/views/panels/list/money_objects_view.dart
-25. lib/views/panels/list/side_panel_lists_helper.dart</title></g><g class="badge outgoingBadge">
+24. lib/views/home/ai/tools/ai_data_tools_helper.dart
+25. lib/views/panels/list/money_objects_view.dart
+26. lib/views/panels/list/side_panel_lists_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 956.0,10270.0 L 944.0,10263.0 Q 941.0,10263.0 941.0,10266.0 L 941.0,10274.0 Q 941.0,10277.0 944.0,10277.0 Z" fill="#10b981"/>
   <text x="945.68" y="10271.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text><title>1. lib/data/models/data_object_model.dart
 2. lib/data/models/database_interface.dart
@@ -12782,7 +12807,7 @@
 21. lib/shared/domain/transfer_entity.dart</title></g><text x="720.0" y="10584.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">transaction_entity.dart</text>
 <g class="badge incomingBadge">
   <path d="M 938.0,10611.0 L 954.0,10603.4 Q 957.0,10603.4 957.0,10606.4 L 957.0,10615.6 Q 957.0,10618.6 954.0,10618.6 Z" fill="#3b82f6"/>
-  <text x="951.28" y="10612.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">30</text><title>1. lib/shared/domain/categories_collection.dart
+  <text x="951.28" y="10612.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">31</text><title>1. lib/shared/domain/categories_collection.dart
 2. lib/shared/domain/data_facade.dart
 3. lib/shared/domain/investment_import_fields_helper.dart
 4. lib/shared/domain/transaction_entity.dart
@@ -12795,23 +12820,24 @@
 11. lib/shared/simulation/data_simulator_service.dart
 12. lib/shared/simulation/data_simulator_transactions_helper.dart
 13. lib/views/home/ai/tools/ai_data_tools_helper.dart
-14. lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart
-15. lib/views/home/ai/tools/ai_write_tools_helper.dart
-16. lib/views/home/cashflow/cashflow_view.dart
-17. lib/views/home/categories/categories_view.dart
-18. lib/views/home/transactions/transactions_view.dart
-19. lib/views/imports/investment/investment_import_panel.dart
-20. lib/views/imports/shared/import_form_helper.dart
-21. lib/views/imports/transfer/transfer_import_fields_model.dart
-22. lib/views/imports/transfer/transfer_import_panel.dart
-23. lib/views/panels/charts/distribution_bar_chart.dart
-24. lib/views/panels/charts/net_worth_chart.dart
-25. lib/views/panels/charts/sankey_panel.dart
-26. lib/views/panels/charts/trend_panel.dart
-27. lib/views/panels/dialogs/merge_categories_dialog.dart
-28. lib/views/panels/models/recurring_expenses_model.dart
-29. lib/views/panels/recurring/views/budget_panel.dart
-30. lib/views/panels/recurring/widgets/recurring_payment_widget.dart</title></g><g class="badge outgoingBadge">
+14. lib/views/home/ai/tools/ai_transaction_query_model.dart
+15. lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart
+16. lib/views/home/ai/tools/ai_write_tools_helper.dart
+17. lib/views/home/cashflow/cashflow_view.dart
+18. lib/views/home/categories/categories_view.dart
+19. lib/views/home/transactions/transactions_view.dart
+20. lib/views/imports/investment/investment_import_panel.dart
+21. lib/views/imports/shared/import_form_helper.dart
+22. lib/views/imports/transfer/transfer_import_fields_model.dart
+23. lib/views/imports/transfer/transfer_import_panel.dart
+24. lib/views/panels/charts/distribution_bar_chart.dart
+25. lib/views/panels/charts/net_worth_chart.dart
+26. lib/views/panels/charts/sankey_panel.dart
+27. lib/views/panels/charts/trend_panel.dart
+28. lib/views/panels/dialogs/merge_categories_dialog.dart
+29. lib/views/panels/models/recurring_expenses_model.dart
+30. lib/views/panels/recurring/views/budget_panel.dart
+31. lib/views/panels/recurring/widgets/recurring_payment_widget.dart</title></g><g class="badge outgoingBadge">
   <path d="M 958.0,10622.0 L 942.0,10614.4 Q 939.0,10614.4 939.0,10617.4 L 939.0,10626.6 Q 939.0,10629.6 942.0,10629.6 Z" fill="#10b981"/>
   <text x="944.72" y="10623.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. lib/data/helpers/category_type_helper.dart
 2. lib/data/models/data_interface.dart
@@ -13470,9 +13496,10 @@
 4. lib/widgets/state/theme_controller.dart</title></g><text x="740.0" y="7712.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">app_scope_service.dart</text>
 <g class="badge incomingBadge">
   <path d="M 916.0,7829.0 L 928.0,7822.0 Q 931.0,7822.0 931.0,7825.0 L 931.0,7833.0 Q 931.0,7836.0 928.0,7836.0 Z" fill="#3b82f6"/>
-  <text x="926.32" y="7830.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. lib/shared/presentation/providers/merge_payee_provider.dart
-2. lib/views/home/payees/payees_view.dart
-3. lib/views/panels/dialogs/similar_payees_dialog.dart</title></g><g class="badge outgoingBadge">
+  <text x="926.32" y="7830.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. lib/shared/presentation/providers/merge_payee_provider.dart
+2. lib/views/home/ai/tools/ai_write_tools_helper.dart
+3. lib/views/home/payees/payees_view.dart
+4. lib/views/panels/dialogs/similar_payees_dialog.dart</title></g><g class="badge outgoingBadge">
   <path d="M 934.0,7840.0 L 918.0,7832.4 Q 915.0,7832.4 915.0,7835.4 L 915.0,7844.6 Q 915.0,7847.6 918.0,7847.6 Z" fill="#10b981"/>
   <text x="920.72" y="7841.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">15</text><title>1. lib/data/models/data_object_model.dart
 2. lib/data/models/mergeable_item_interface.dart
@@ -13668,16 +13695,17 @@
 5. lib/widgets/state/preferences_controller.dart
 6. lib/widgets/state/theme_controller.dart</title></g><text x="740.0" y="7526.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">zoom_widget.dart</text>
 <g class="badge incomingBadge">
-  <path d="M 916.0,6797.0 L 928.0,6790.0 Q 931.0,6790.0 931.0,6793.0 L 931.0,6801.0 Q 931.0,6804.0 928.0,6804.0 Z" fill="#3b82f6"/>
-  <text x="926.32" y="6798.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">9</text><title>1. lib/views/home/accounts/accounts_view.dart
-2. lib/views/home/categories/categories_view.dart
-3. lib/views/home/investments/investments_view.dart
-4. lib/views/home/payees/payees_view.dart
-5. lib/views/home/stocks/stocks_view.dart
-6. lib/views/home/transactions/transactions_view.dart
-7. lib/views/panels/charts/trend_panel.dart
-8. lib/views/panels/recurring/views/budget_panel.dart
-9. lib/views/panels/recurring/widgets/recurring_card.dart</title></g><g class="badge outgoingBadge">
+  <path d="M 914.0,6797.0 L 930.0,6789.4 Q 933.0,6789.4 933.0,6792.4 L 933.0,6801.6 Q 933.0,6804.6 930.0,6804.6 Z" fill="#3b82f6"/>
+  <text x="927.28" y="6798.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">10</text><title>1. lib/views/home/accounts/accounts_view.dart
+2. lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart
+3. lib/views/home/categories/categories_view.dart
+4. lib/views/home/investments/investments_view.dart
+5. lib/views/home/payees/payees_view.dart
+6. lib/views/home/stocks/stocks_view.dart
+7. lib/views/home/transactions/transactions_view.dart
+8. lib/views/panels/charts/trend_panel.dart
+9. lib/views/panels/recurring/views/budget_panel.dart
+10. lib/views/panels/recurring/widgets/recurring_card.dart</title></g><g class="badge outgoingBadge">
   <path d="M 934.0,6808.0 L 918.0,6800.4 Q 915.0,6800.4 915.0,6803.4 L 915.0,6812.6 Q 915.0,6815.6 918.0,6815.6 Z" fill="#10b981"/>
   <text x="920.72" y="6809.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">16</text><title>1. lib/data/helpers/transaction_type_helper.dart
 2. lib/data/models/field_filter_model.dart
@@ -13856,7 +13884,7 @@
   <text x="857.68" y="16159.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/helpers/list_helper.dart</title></g><text x="676.0" y="16152.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">investment_type_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 850.0,16609.0 L 866.0,16601.4 Q 869.0,16601.4 869.0,16604.4 L 869.0,16613.6 Q 869.0,16616.6 866.0,16616.6 Z" fill="#3b82f6"/>
-  <text x="863.28" y="16610.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">72</text><title>1. lib/shared/domain/account_alias_entity.dart
+  <text x="863.28" y="16610.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">73</text><title>1. lib/shared/domain/account_alias_entity.dart
 2. lib/shared/domain/account_entity.dart
 3. lib/shared/domain/account_operations_interface.dart
 4. lib/shared/domain/alias_entity.dart
@@ -13906,28 +13934,29 @@
 48. lib/shared/presentation/widgets/sortable_list_view_widget.dart
 49. lib/shared/presentation/widgets/suggestion_approval_widget.dart
 50. lib/views/home/accounts/accounts_view.dart
-51. lib/views/home/aliases/aliases_view.dart
-52. lib/views/home/categories/categories_view.dart
-53. lib/views/home/events/events_view.dart
-54. lib/views/home/investments/investments_view.dart
-55. lib/views/home/payees/payees_view.dart
-56. lib/views/home/rentals/rentals_view.dart
-57. lib/views/home/stocks/stocks_view.dart
-58. lib/views/home/transactions/transaction_actions_helper.dart
-59. lib/views/home/transactions/transactions_view.dart
-60. lib/views/home/transfers/transfers_view.dart
-61. lib/views/imports/shared/data_import_view.dart
-62. lib/views/panels/list/add_new_item_button_mixin.dart
-63. lib/views/panels/list/money_objects_view.dart
-64. lib/views/panels/list/money_objects_view_selection_helper.dart
-65. lib/views/panels/list/side_panel_lists_helper.dart
-66. lib/widgets/list/adaptive_columns_or_rows_list_widget.dart
-67. lib/widgets/list/adaptive_columns_or_rows_single_selection_widget.dart
-68. lib/widgets/list/list_view.dart
-69. lib/widgets/widgets_domain/data_object_widget_builders_model.dart
-70. lib/widgets/widgets_domain/data_object_widgets_helper.dart
-71. lib/widgets/widgets_domain/field_widgets_helper.dart
-72. lib/widgets/widgets_domain/footer_accumulators_helper.dart</title></g><g class="badge outgoingBadge">
+51. lib/views/home/ai/tools/ai_data_tools_helper.dart
+52. lib/views/home/aliases/aliases_view.dart
+53. lib/views/home/categories/categories_view.dart
+54. lib/views/home/events/events_view.dart
+55. lib/views/home/investments/investments_view.dart
+56. lib/views/home/payees/payees_view.dart
+57. lib/views/home/rentals/rentals_view.dart
+58. lib/views/home/stocks/stocks_view.dart
+59. lib/views/home/transactions/transaction_actions_helper.dart
+60. lib/views/home/transactions/transactions_view.dart
+61. lib/views/home/transfers/transfers_view.dart
+62. lib/views/imports/shared/data_import_view.dart
+63. lib/views/panels/list/add_new_item_button_mixin.dart
+64. lib/views/panels/list/money_objects_view.dart
+65. lib/views/panels/list/money_objects_view_selection_helper.dart
+66. lib/views/panels/list/side_panel_lists_helper.dart
+67. lib/widgets/list/adaptive_columns_or_rows_list_widget.dart
+68. lib/widgets/list/adaptive_columns_or_rows_single_selection_widget.dart
+69. lib/widgets/list/list_view.dart
+70. lib/widgets/widgets_domain/data_object_widget_builders_model.dart
+71. lib/widgets/widgets_domain/data_object_widgets_helper.dart
+72. lib/widgets/widgets_domain/field_widgets_helper.dart
+73. lib/widgets/widgets_domain/footer_accumulators_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 868.0,16620.0 L 856.0,16613.0 Q 853.0,16613.0 853.0,16616.0 L 853.0,16624.0 Q 853.0,16627.0 856.0,16627.0 Z" fill="#10b981"/>
   <text x="857.68" y="16621.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">6</text><title>1. lib/data/models/data_interface.dart
 2. lib/data/models/field_model.dart
@@ -14808,7 +14837,7 @@
   <text x="1057.68" y="17975.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/helpers/shared_strings_helper.dart</title></g><text x="744.0" y="17968.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">date_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 1048.0,17995.0 L 1068.0,17986.8 Q 1071.0,17986.8 1071.0,17989.8 L 1071.0,18000.2 Q 1071.0,18003.2 1068.0,18003.2 Z" fill="#3b82f6"/>
-  <text x="1064.24" y="17996.0" text-anchor="middle" fill="white" font-size="6.8" font-weight="bold" textLength="11.96" lengthAdjust="spacingAndGlyphs">117</text><title>1. lib/data/helpers/accumulator_helper.dart
+  <text x="1064.24" y="17996.0" text-anchor="middle" fill="white" font-size="6.8" font-weight="bold" textLength="11.96" lengthAdjust="spacingAndGlyphs">118</text><title>1. lib/data/helpers/accumulator_helper.dart
 2. lib/data/helpers/alias_type_helper.dart
 3. lib/data/helpers/category_type_helper.dart
 4. lib/data/helpers/transaction_type_helper.dart
@@ -14887,44 +14916,45 @@
 77. lib/shared/simulation/data_simulator_service.dart
 78. lib/shared/simulation/data_simulator_transactions_helper.dart
 79. lib/views/home/ai/ai_view.dart
-80. lib/views/home/stocks/stocks_view.dart
-81. lib/views/imports/formats/csv_import_view.dart
-82. lib/views/imports/formats/investment_csv_import_view.dart
-83. lib/views/imports/formats/qfx_import_view.dart
-84. lib/views/imports/formats/qif_import_view.dart
-85. lib/views/imports/formats/xlsx_import_view.dart
-86. lib/views/imports/import_file_dispatcher.dart
-87. lib/views/imports/import_wizard_view.dart
-88. lib/views/imports/shared/ai_pdf_import_service.dart
-89. lib/views/imports/shared/data_import_view.dart
-90. lib/views/imports/shared/transactions_import_list_preview_widget.dart
-91. lib/views/imports/shared/transactions_text_import_view.dart
-92. lib/views/panels/charts/distribution_bar_chart.dart
-93. lib/views/panels/charts/stock_chart.dart
-94. lib/views/panels/dialogs/pending_changes_dialog.dart
-95. lib/views/panels/layout/pending_changes_badge_widget.dart
-96. lib/views/panels/recurring/views/budget_panel.dart
-97. lib/views/screens/platforms_screen.dart
-98. lib/widgets/charts/chart_widget.dart
-99. lib/widgets/charts/my_line_chart.dart
-100. lib/widgets/columns/column_header_button.dart
-101. lib/widgets/columns/columns_input_widget.dart
-102. lib/widgets/columns/input_values_widget.dart
-103. lib/widgets/columns/value_parser.dart
-104. lib/widgets/columns/value_quality.dart
-105. lib/widgets/dialogs/dialog_widget.dart
-106. lib/widgets/dialogs/single_text_input_dialog.dart
-107. lib/widgets/list/multiple_selection_toggle_widget.dart
-108. lib/widgets/list/view_header_widget.dart
-109. lib/widgets/pickers/picker_security_type.dart
-110. lib/widgets/pure/chat_input_area_widget.dart
-111. lib/widgets/pure/color_palette_widget.dart
-112. lib/widgets/pure/display_date.dart
-113. lib/widgets/pure/ocr_widget.dart
-114. lib/widgets/sankey/sankey_painter_widget.dart
-115. lib/widgets/state/preferences_controller.dart
-116. lib/widgets/widgets_domain/field_widgets_helper.dart
-117. lib/widgets/widgets_domain/footer_accumulators_helper.dart</title></g><g class="badge outgoingBadge">
+80. lib/views/home/ai/tools/ai_tool_prompt_helper.dart
+81. lib/views/home/stocks/stocks_view.dart
+82. lib/views/imports/formats/csv_import_view.dart
+83. lib/views/imports/formats/investment_csv_import_view.dart
+84. lib/views/imports/formats/qfx_import_view.dart
+85. lib/views/imports/formats/qif_import_view.dart
+86. lib/views/imports/formats/xlsx_import_view.dart
+87. lib/views/imports/import_file_dispatcher.dart
+88. lib/views/imports/import_wizard_view.dart
+89. lib/views/imports/shared/ai_pdf_import_service.dart
+90. lib/views/imports/shared/data_import_view.dart
+91. lib/views/imports/shared/transactions_import_list_preview_widget.dart
+92. lib/views/imports/shared/transactions_text_import_view.dart
+93. lib/views/panels/charts/distribution_bar_chart.dart
+94. lib/views/panels/charts/stock_chart.dart
+95. lib/views/panels/dialogs/pending_changes_dialog.dart
+96. lib/views/panels/layout/pending_changes_badge_widget.dart
+97. lib/views/panels/recurring/views/budget_panel.dart
+98. lib/views/screens/platforms_screen.dart
+99. lib/widgets/charts/chart_widget.dart
+100. lib/widgets/charts/my_line_chart.dart
+101. lib/widgets/columns/column_header_button.dart
+102. lib/widgets/columns/columns_input_widget.dart
+103. lib/widgets/columns/input_values_widget.dart
+104. lib/widgets/columns/value_parser.dart
+105. lib/widgets/columns/value_quality.dart
+106. lib/widgets/dialogs/dialog_widget.dart
+107. lib/widgets/dialogs/single_text_input_dialog.dart
+108. lib/widgets/list/multiple_selection_toggle_widget.dart
+109. lib/widgets/list/view_header_widget.dart
+110. lib/widgets/pickers/picker_security_type.dart
+111. lib/widgets/pure/chat_input_area_widget.dart
+112. lib/widgets/pure/color_palette_widget.dart
+113. lib/widgets/pure/display_date.dart
+114. lib/widgets/pure/ocr_widget.dart
+115. lib/widgets/sankey/sankey_painter_widget.dart
+116. lib/widgets/state/preferences_controller.dart
+117. lib/widgets/widgets_domain/field_widgets_helper.dart
+118. lib/widgets/widgets_domain/footer_accumulators_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 1068.0,18006.0 L 1056.0,17999.0 Q 1053.0,17999.0 1053.0,18002.0 L 1053.0,18010.0 Q 1053.0,18013.0 1056.0,18013.0 Z" fill="#10b981"/>
   <text x="1057.68" y="18007.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. lib/helpers/shared_strings_domain.dart
 2. lib/helpers/shared_strings_simulation_helper.dart
@@ -17251,12 +17281,12 @@
 3. lib/helpers/app_translation_keys.dart
 4. lib/helpers/date_helper.dart
 5. lib/shared/domain/alias_entity.dart
-6. lib/shared/domain/aliases_collection.dart
-7. lib/shared/domain/category_entity.dart
-8. lib/shared/domain/data_facade.dart
-9. lib/shared/domain/payee_entity.dart
-10. lib/shared/domain/potential_transfer_match_service.dart
-11. lib/shared/domain/transaction_entity.dart
+6. lib/shared/domain/category_entity.dart
+7. lib/shared/domain/data_facade.dart
+8. lib/shared/domain/payee_entity.dart
+9. lib/shared/domain/transaction_entity.dart
+10. lib/shared/domain/transfer_linkage_service.dart
+11. lib/shared/presentation/dialogs/merge_payees_dialog.dart
 12. lib/views/home/ai/tools/ai_data_tools_helper.dart
 13. lib/views/home/ai/tools/ai_tool_args_helper.dart
 14. lib/views/home/ai/tools/ai_tool_model.dart
@@ -17266,24 +17296,25 @@
   <path d="M 980.0,2023.0 L 992.0,2016.0 Q 995.0,2016.0 995.0,2019.0 L 995.0,2027.0 Q 995.0,2030.0 992.0,2030.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2024.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/views/home/ai/ai_view.dart</title></g><g class="badge outgoingBadge">
   <path d="M 998.0,2034.0 L 982.0,2026.4 Q 979.0,2026.4 979.0,2029.4 L 979.0,2038.6 Q 979.0,2041.6 982.0,2041.6 Z" fill="#10b981"/>
-  <text x="984.72" y="2035.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">13</text><title>1. lib/shared/domain/account_entity.dart
+  <text x="984.72" y="2035.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">14</text><title>1. lib/shared/domain/account_entity.dart
 2. lib/shared/domain/budget_analyzer_service.dart
 3. lib/shared/domain/data_facade.dart
 4. lib/shared/domain/payee_entity.dart
-5. lib/shared/domain/reconcile_service.dart
-6. lib/shared/domain/rent_building_entity.dart
-7. lib/shared/domain/rental_pnl_model.dart
-8. lib/shared/domain/similar_payees_helper.dart
-9. lib/shared/domain/transaction_entity.dart
-10. lib/views/home/ai/tools/ai_data_tools_helper.dart
-11. lib/views/home/ai/tools/ai_tool_args_helper.dart
-12. lib/views/home/ai/tools/ai_tool_model.dart
-13. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2028.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_analysis_tools_helper.dart</text>
+5. lib/shared/domain/potential_transfer_match_service.dart
+6. lib/shared/domain/reconcile_service.dart
+7. lib/shared/domain/rent_building_entity.dart
+8. lib/shared/domain/rental_pnl_model.dart
+9. lib/shared/domain/similar_payees_helper.dart
+10. lib/shared/domain/transaction_entity.dart
+11. lib/views/home/ai/tools/ai_data_tools_helper.dart
+12. lib/views/home/ai/tools/ai_tool_args_helper.dart
+13. lib/views/home/ai/tools/ai_tool_model.dart
+14. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2028.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_analysis_tools_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 980.0,2055.0 L 992.0,2048.0 Q 995.0,2048.0 995.0,2051.0 L 995.0,2059.0 Q 995.0,2062.0 992.0,2062.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2056.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/views/home/ai/ai_view.dart</title></g><g class="badge outgoingBadge">
   <path d="M 998.0,2066.0 L 982.0,2058.4 Q 979.0,2058.4 979.0,2061.4 L 979.0,2070.6 Q 979.0,2073.6 982.0,2073.6 Z" fill="#10b981"/>
-  <text x="984.72" y="2067.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">12</text><title>1. lib/data/helpers/transaction_type_helper.dart
+  <text x="984.72" y="2067.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">13</text><title>1. lib/data/helpers/transaction_type_helper.dart
 2. lib/data/models/ai_chat_action_model.dart
 3. lib/data/models/field_filter_model.dart
 4. lib/data/models/field_filters_model.dart
@@ -17292,25 +17323,28 @@
 7. lib/shared/domain/account_entity.dart
 8. lib/shared/domain/category_entity.dart
 9. lib/shared/domain/data_facade.dart
-10. lib/views/home/ai/tools/ai_tool_args_helper.dart
-11. lib/views/home/ai/tools/ai_tool_model.dart
-12. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2060.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_ui_hook_tools_helper.dart</text>
+10. lib/shared/presentation/helpers/menu_entry_model.dart
+11. lib/views/home/ai/tools/ai_tool_args_helper.dart
+12. lib/views/home/ai/tools/ai_tool_model.dart
+13. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2060.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_ui_hook_tools_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 980.0,2087.0 L 992.0,2080.0 Q 995.0,2080.0 995.0,2083.0 L 995.0,2091.0 Q 995.0,2094.0 992.0,2094.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2088.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. lib/views/home/ai/ai_view.dart
 2. lib/views/home/ai/tools/ai_analysis_tools_helper.dart
 3. lib/views/home/ai/tools/ai_write_tools_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 998.0,2098.0 L 982.0,2090.4 Q 979.0,2090.4 979.0,2093.4 L 979.0,2102.6 Q 979.0,2105.6 982.0,2105.6 Z" fill="#10b981"/>
-  <text x="984.72" y="2099.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">10</text><title>1. lib/helpers/date_helper.dart
-2. lib/shared/domain/account_entity.dart
-3. lib/shared/domain/category_entity.dart
-4. lib/shared/domain/data_facade.dart
-5. lib/shared/domain/payee_entity.dart
-6. lib/shared/domain/transaction_entity.dart
-7. lib/shared/domain/transaction_split_entity.dart
-8. lib/views/home/ai/tools/ai_tool_args_helper.dart
-9. lib/views/home/ai/tools/ai_tool_model.dart
-10. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2092.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_data_tools_helper.dart</text>
+  <text x="984.72" y="2099.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold" textLength="10.120000000000001" lengthAdjust="spacingAndGlyphs">12</text><title>1. lib/data/models/data_object_model.dart
+2. lib/helpers/date_helper.dart
+3. lib/shared/domain/account_entity.dart
+4. lib/shared/domain/category_entity.dart
+5. lib/shared/domain/data_facade.dart
+6. lib/shared/domain/money_objects_collection_base.dart
+7. lib/shared/domain/payee_entity.dart
+8. lib/shared/domain/transaction_entity.dart
+9. lib/shared/domain/transaction_split_entity.dart
+10. lib/views/home/ai/tools/ai_tool_args_helper.dart
+11. lib/views/home/ai/tools/ai_tool_model.dart
+12. lib/views/home/ai/tools/ai_transaction_query_model.dart</title></g><text x="804.0" y="2092.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_data_tools_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 980.0,2119.0 L 992.0,2112.0 Q 995.0,2112.0 995.0,2115.0 L 995.0,2123.0 Q 995.0,2126.0 992.0,2126.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2120.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. lib/views/home/ai/tools/ai_analysis_tools_helper.dart
@@ -17318,20 +17352,22 @@
 3. lib/views/home/ai/tools/ai_ui_hook_tools_helper.dart
 4. lib/views/home/ai/tools/ai_write_tools_helper.dart</title></g><g class="badge outgoingBadge">
   <path d="M 996.0,2130.0 L 984.0,2123.0 Q 981.0,2123.0 981.0,2126.0 L 981.0,2134.0 Q 981.0,2137.0 984.0,2137.0 Z" fill="#10b981"/>
-  <text x="985.68" y="2131.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">7</text><title>1. lib/helpers/date_helper.dart
+  <text x="985.68" y="2131.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">8</text><title>1. lib/helpers/date_helper.dart
 2. lib/shared/domain/account_entity.dart
-3. lib/shared/domain/data_facade.dart
-4. lib/shared/domain/transaction_entity.dart
-5. lib/shared/domain/transaction_split_entity.dart
-6. lib/views/home/ai/tools/ai_tool_args_helper.dart
-7. lib/views/home/ai/tools/ai_tool_model.dart</title></g><text x="804.0" y="2124.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_transaction_query_model.dart</text>
+3. lib/shared/domain/category_entity.dart
+4. lib/shared/domain/data_facade.dart
+5. lib/shared/domain/transaction_entity.dart
+6. lib/shared/domain/transaction_split_entity.dart
+7. lib/views/home/ai/tools/ai_tool_args_helper.dart
+8. lib/views/home/ai/tools/ai_tool_model.dart</title></g><text x="804.0" y="2124.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_transaction_query_model.dart</text>
 <g class="badge incomingBadge">
   <path d="M 980.0,2151.0 L 992.0,2144.0 Q 995.0,2144.0 995.0,2147.0 L 995.0,2155.0 Q 995.0,2158.0 992.0,2158.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2152.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/views/home/ai/ai_view.dart</title></g><g class="badge outgoingBadge">
   <path d="M 996.0,2162.0 L 984.0,2155.0 Q 981.0,2155.0 981.0,2158.0 L 981.0,2166.0 Q 981.0,2169.0 984.0,2169.0 Z" fill="#10b981"/>
-  <text x="985.68" y="2163.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">3</text><title>1. lib/data/models/ai_chat_model.dart
+  <text x="985.68" y="2163.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">4</text><title>1. lib/data/models/ai_chat_model.dart
 2. lib/helpers/date_helper.dart
-3. lib/shared/domain/account_entity.dart</title></g><text x="804.0" y="2156.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_tool_prompt_helper.dart</text>
+3. lib/helpers/shared_strings_helper.dart
+4. lib/shared/domain/account_entity.dart</title></g><text x="804.0" y="2156.0" text-anchor="middle" dominant-baseline="middle" class="textNormal">ai_tool_prompt_helper.dart</text>
 <g class="badge incomingBadge">
   <path d="M 980.0,2183.0 L 992.0,2176.0 Q 995.0,2176.0 995.0,2179.0 L 995.0,2187.0 Q 995.0,2190.0 992.0,2190.0 Z" fill="#3b82f6"/>
   <text x="990.32" y="2184.0" text-anchor="middle" fill="white" font-size="8.0" font-weight="bold">1</text><title>1. lib/views/home/ai/ai_view.dart</title></g><g class="badge outgoingBadge">

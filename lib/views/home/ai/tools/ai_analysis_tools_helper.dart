@@ -4,6 +4,7 @@ import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/budget_analyzer_service.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/payee_entity.dart';
+import 'package:money/shared/domain/potential_transfer_match_service.dart';
 import 'package:money/shared/domain/reconcile_service.dart';
 import 'package:money/shared/domain/rent_building_entity.dart';
 import 'package:money/shared/domain/rental_pnl_model.dart';
@@ -141,7 +142,7 @@ Map<String, Object> _budgetRecommendation(Map<String, dynamic> args) {
 /// Returns the likely transfer counterparts of the transaction [args] names.
 Map<String, Object> _findTransferMatches(Map<String, dynamic> args) {
   final Transaction t = aiTransactionFromArgs(args, _argTransactionId);
-  if (t.isTransfer || t.isSplit) {
+  if (!isTransferMatchEligible(t, includeClosedAccounts: true)) {
     return <String, Object>{
       'note': 'Transaction ${t.uniqueId} is already a transfer or is split; it cannot be matched.',
     };
@@ -154,32 +155,20 @@ Map<String, Object> _findTransferMatches(Map<String, dynamic> args) {
 
 /// Returns the payees similar to the payee [args] names.
 Map<String, Object> _findSimilarPayees(Map<String, dynamic> args) {
-  final int? payeeId = args.intArg(_argPayeeId);
-  final Payee? payee = payeeId == null ? null : Data().payees.get(payeeId);
-  if (payee == null) {
-    throw ArgumentError('No payee with id ${args[_argPayeeId]}; use list_payees to find ids.');
-  }
+  final Payee payee = aiPayeeFromArgs(args, _argPayeeId);
   return <String, Object>{
     'payee': payee.fieldName.value,
-    'similar': findSimilarPayees(payee, Data().payees.iterableList(), Data().aliases.iterableList())
-        .map(
-          (Payee p) => <String, Object>{
-            'id': p.uniqueId,
-            'name': p.fieldName.value,
-            'transactions': p.fieldCount.value,
-          },
-        )
-        .toList(),
+    'similar': findSimilarPayees(
+      payee,
+      Data().payees.iterableList(),
+      Data().aliases.iterableList(),
+    ).map(aiPayeeRow).toList(),
   };
 }
 
 /// Returns the balances of the account [args] names.
 Map<String, Object> _reconciledBalance(Map<String, dynamic> args) {
-  final int? accountId = args.intArg(_argAccountId);
-  final Account? account = accountId == null ? null : Data().accounts.get(accountId);
-  if (account == null) {
-    throw ArgumentError('No account with id ${args[_argAccountId]}; use list_accounts to find ids.');
-  }
+  final Account account = aiItemById(args.intArg(_argAccountId), Data().accounts, 'list_accounts');
   if (!ReconcileService.supportsAccount(account)) {
     return <String, Object>{'note': 'Investment and loan accounts are not reconciled.'};
   }
