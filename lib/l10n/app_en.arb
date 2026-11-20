@@ -19,6 +19,45 @@
   "addTransactionBetweenTwoAccounts": "Add a transaction between two accounts.",
   "addTransactionsMenuItem": "Add transactions...",
   "aiAssistant": "AI Assistant",
+  "aiChangeCreateAlias": "Create the alias \"{pattern}\" for the payee \"{payee}\". Transactions it renames ({count}):",
+  "@aiChangeCreateAlias": {
+    "placeholders": {
+      "pattern": {
+        "type": "String"
+      },
+      "payee": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aiChangeLinkTransfer": "Link these two transactions as one transfer:",
+  "aiChangeMergePayees": "Merge these payees into \"{payee}\" ({count} transactions move):",
+  "@aiChangeMergePayees": {
+    "placeholders": {
+      "payee": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aiChangeSetCategory": "Set the category to \"{category}\" on these transactions ({count}):",
+  "@aiChangeSetCategory": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "aiConfirmChangePendingNote": "Nothing is saved: the change stays pending until you save, and you can still discard it.",
+  "aiConfirmChangeTitle": "Apply the AI's change?",
   "aiDropPdfFileOnly": "Please drop a PDF file.",
   "aiLearnedAboutAccountsAndTransactions": "AI has learned about {count} accounts and their transactions.",
   "@aiLearnedAboutAccountsAndTransactions": {

@@ -47,6 +47,18 @@ String resolveAppL10nKey(AppLocalizations l10n, String key, Map<String, String> 
       return l10n.addTransactionsMenuItem;
     case AppTranslationKeys.aiAssistant:
       return l10n.aiAssistant;
+    case AppTranslationKeys.aiChangeCreateAlias:
+      return l10n.aiChangeCreateAlias(p['pattern'] ?? '', p['payee'] ?? '', p['count'] ?? '');
+    case AppTranslationKeys.aiChangeLinkTransfer:
+      return l10n.aiChangeLinkTransfer;
+    case AppTranslationKeys.aiChangeMergePayees:
+      return l10n.aiChangeMergePayees(p['payee'] ?? '', p['count'] ?? '');
+    case AppTranslationKeys.aiChangeSetCategory:
+      return l10n.aiChangeSetCategory(p['category'] ?? '', p['count'] ?? '');
+    case AppTranslationKeys.aiConfirmChangePendingNote:
+      return l10n.aiConfirmChangePendingNote;
+    case AppTranslationKeys.aiConfirmChangeTitle:
+      return l10n.aiConfirmChangeTitle;
     case AppTranslationKeys.aiDropPdfFileOnly:
       return l10n.aiDropPdfFileOnly;
     case AppTranslationKeys.aiLearnedAboutAccountsAndTransactions:
@@ -595,18 +607,6 @@ String resolveAppL10nKey(AppLocalizations l10n, String key, Map<String, String> 
       return l10n.never;
     case AppTranslationKeys.newBankAccount:
       return l10n.newBankAccount;
-    case AppTranslationKeys.newFile:
-      return l10n.newFile;
-    case AppTranslationKeys.newItemLabel:
-      return l10n.newItemLabel(p['item'] ?? '');
-    case AppTranslationKeys.newMenuItem:
-      return l10n.newMenuItem;
-    case AppTranslationKeys.noAccountSelected:
-      return l10n.noAccountSelected;
-    case AppTranslationKeys.noAccountSelectedPeriod:
-      return l10n.noAccountSelectedPeriod;
-    case AppTranslationKeys.noBudgetIncomeCategoryFound:
-      return l10n.noBudgetIncomeCategoryFound;
     default:
       return resolveAppL10nKeyStage2(l10n, key, p);
   }

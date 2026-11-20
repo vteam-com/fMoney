@@ -72,6 +72,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiAssistant => 'Assistant IA';
 
   @override
+  String aiChangeCreateAlias(String pattern, String payee, String count) {
+    return 'Créer l\'alias « $pattern » pour le bénéficiaire « $payee ». Transactions renommées ($count) :';
+  }
+
+  @override
+  String get aiChangeLinkTransfer => 'Lier ces deux transactions en un seul transfert :';
+
+  @override
+  String aiChangeMergePayees(String payee, String count) {
+    return 'Fusionner ces bénéficiaires dans « $payee » ($count transactions déplacées) :';
+  }
+
+  @override
+  String aiChangeSetCategory(String category, String count) {
+    return 'Mettre la catégorie « $category » sur ces transactions ($count) :';
+  }
+
+  @override
+  String get aiConfirmChangePendingNote =>
+      'Rien n\'est enregistré : le changement reste en attente jusqu\'à ce que vous enregistriez, et vous pouvez encore l\'annuler.';
+
+  @override
+  String get aiConfirmChangeTitle => 'Appliquer le changement de l\'IA ?';
+
+  @override
   String get aiDropPdfFileOnly => 'Veuillez deposer un fichier PDF.';
 
   @override

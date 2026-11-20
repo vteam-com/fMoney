@@ -7,6 +7,7 @@ import 'package:money/helpers/app_l10n_service.dart';
 import 'package:money/helpers/app_translation_keys.dart';
 import 'package:money/helpers/color_helper.dart';
 import 'package:money/helpers/date_helper.dart';
+import 'package:money/views/home/ai/ai_chat_actions_widget.dart';
 import 'package:money/views/home/ai/ai_chat_message_footer_widget.dart';
 import 'package:money/widgets/components/chat_bubble_widget.dart';
 import 'package:money/widgets/pure/gaps_helper.dart';
@@ -78,6 +79,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                     ),
                     selectable: true,
                   ),
+                  if (message.actions.isNotEmpty) AiChatActions(actions: message.actions),
                   Divider(color: getColorTheme(context).onPrimaryContainer.withAlpha(_dividerAlpha)),
                   Opacity(
                     opacity: _footerOpacity,

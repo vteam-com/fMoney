@@ -72,6 +72,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiAssistant => 'AI Assistant';
 
   @override
+  String aiChangeCreateAlias(String pattern, String payee, String count) {
+    return 'Create the alias \"$pattern\" for the payee \"$payee\". Transactions it renames ($count):';
+  }
+
+  @override
+  String get aiChangeLinkTransfer => 'Link these two transactions as one transfer:';
+
+  @override
+  String aiChangeMergePayees(String payee, String count) {
+    return 'Merge these payees into \"$payee\" ($count transactions move):';
+  }
+
+  @override
+  String aiChangeSetCategory(String category, String count) {
+    return 'Set the category to \"$category\" on these transactions ($count):';
+  }
+
+  @override
+  String get aiConfirmChangePendingNote =>
+      'Nothing is saved: the change stays pending until you save, and you can still discard it.';
+
+  @override
+  String get aiConfirmChangeTitle => 'Apply the AI\'s change?';
+
+  @override
   String get aiDropPdfFileOnly => 'Please drop a PDF file.';
 
   @override

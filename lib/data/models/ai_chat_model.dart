@@ -1,3 +1,8 @@
+import 'package:money/data/models/ai_chat_action_model.dart';
+
+/// JSON key of [ChatMessage.actions].
+const String _keyActions = 'actions';
+
 enum ChatFrom { user, ai }
 
 /// Represents chat message.
@@ -8,7 +13,11 @@ class ChatMessage {
     required this.timestamp,
     required this.payloadSentToOllama,
     this.isExpanded = false,
+    this.actions = const <AiChatAction>[],
   });
+
+  /// Views the AI offers to open from this answer, shown as buttons under it.
+  final List<AiChatAction> actions;
 
   final String message;
   final ChatFrom type;
@@ -26,6 +35,7 @@ class ChatMessage {
       'type': type.name, // Convert enum to string
       'timestamp': timestamp.toIso8601String(), // Convert DateTime to ISO string
       'isExpanded': isExpanded,
+      if (actions.isNotEmpty) _keyActions: actions.map((AiChatAction action) => action.toJson()).toList(),
     };
   }
 
@@ -40,6 +50,9 @@ class ChatMessage {
       timestamp: DateTime.parse(json['timestamp'] as String),
       payloadSentToOllama: (json['payloadSentToOllama'] as Map<String, dynamic>?) ?? <String, dynamic>{},
       isExpanded: (json['isExpanded'] as bool?) ?? false,
+      actions: ((json[_keyActions] as List<dynamic>?) ?? <dynamic>[])
+          .map((dynamic action) => AiChatAction.fromJson(action as Map<String, dynamic>))
+          .toList(),
     );
   }
 }

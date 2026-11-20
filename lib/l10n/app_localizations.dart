@@ -214,6 +214,42 @@ abstract class AppLocalizations {
   /// **'AI Assistant'**
   String get aiAssistant;
 
+  /// No description provided for @aiChangeCreateAlias.
+  ///
+  /// In en, this message translates to:
+  /// **'Create the alias \"{pattern}\" for the payee \"{payee}\". Transactions it renames ({count}):'**
+  String aiChangeCreateAlias(String pattern, String payee, String count);
+
+  /// No description provided for @aiChangeLinkTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Link these two transactions as one transfer:'**
+  String get aiChangeLinkTransfer;
+
+  /// No description provided for @aiChangeMergePayees.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge these payees into \"{payee}\" ({count} transactions move):'**
+  String aiChangeMergePayees(String payee, String count);
+
+  /// No description provided for @aiChangeSetCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the category to \"{category}\" on these transactions ({count}):'**
+  String aiChangeSetCategory(String category, String count);
+
+  /// No description provided for @aiConfirmChangePendingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is saved: the change stays pending until you save, and you can still discard it.'**
+  String get aiConfirmChangePendingNote;
+
+  /// No description provided for @aiConfirmChangeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply the AI\'s change?'**
+  String get aiConfirmChangeTitle;
+
   /// No description provided for @aiDropPdfFileOnly.
   ///
   /// In en, this message translates to:

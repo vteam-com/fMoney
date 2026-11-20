@@ -6,6 +6,18 @@ import 'package:money/l10n/app_localizations.dart';
 /// Continues [resolveAppL10nKey] for the keys of stage 2; returns [key] when unknown.
 String resolveAppL10nKeyStage2(AppLocalizations l10n, String key, Map<String, String> p) {
   switch (key) {
+    case AppTranslationKeys.newFile:
+      return l10n.newFile;
+    case AppTranslationKeys.newItemLabel:
+      return l10n.newItemLabel(p['item'] ?? '');
+    case AppTranslationKeys.newMenuItem:
+      return l10n.newMenuItem;
+    case AppTranslationKeys.noAccountSelected:
+      return l10n.noAccountSelected;
+    case AppTranslationKeys.noAccountSelectedPeriod:
+      return l10n.noAccountSelectedPeriod;
+    case AppTranslationKeys.noBudgetIncomeCategoryFound:
+      return l10n.noBudgetIncomeCategoryFound;
     case AppTranslationKeys.noChartToDisplay:
       return l10n.noChartToDisplay;
     case AppTranslationKeys.noData:

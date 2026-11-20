@@ -46,6 +46,19 @@ const int _contextWindowGrowthFactor = 2;
 
 /// Ollama request option that sets the context window size in tokens.
 const String _optionNumCtx = 'num_ctx';
+
+/// Ollama request option that sets how freely the model picks its words.
+const String _optionTemperature = 'temperature';
+
+/// Temperature of tool conversations: low, so the model keeps to the tool-call format instead of
+/// writing calls as plain text, and sticks to the data the tools return.
+const double _toolChatTemperature = 0.1;
+
+/// Key of a model's capability list in Ollama's model description.
+const String _keyCapabilities = 'capabilities';
+
+/// Capability Ollama lists for models that can call tools.
+const String _capabilityTools = 'tools';
 const String _defaultPathEnvKey = 'PATH';
 const String _windowsPathEnvKey = 'Path';
 const String _windowsProgramsDirName = 'Programs';
@@ -320,49 +333,76 @@ class OllamaService {
 
   /// Sends a payload to the local Ollama API and returns the decoded JSON response.
   static Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) async {
-    const String endpoint = 'generate'; // Use /api/generate, which takes the conversation as one prompt
-    final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
+    // Use /api/generate, which takes the conversation as one prompt
+    if (!payload.containsKey(SharedStrings.payloadKeyMessages)) {
+      return _postJson(_generateUri, payload);
+    }
+    final List<Map<String, String>> messages = payload[SharedStrings.payloadKeyMessages] as List<Map<String, String>>;
+    // Combine messages into a single prompt for /api/generate
+    final StringBuffer prompt = StringBuffer();
+    for (final Map<String, String> message in messages) {
+      final String role = message['role'] ?? '';
+      final String content = message['content'] ?? '';
+      if (role == 'system') {
+        prompt.write(SharedStrings.promptPrefixSystem + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
+      } else if (role == 'user') {
+        prompt.write(SharedStrings.promptPrefixUser + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
+      } else if (role == 'assistant') {
+        prompt.write(
+          SharedStrings.promptPrefixAssistant + content + SharedStrings.lineFeed + SharedStrings.lineFeed,
+        );
+      }
+    }
+
+    final String promptText = prompt.toString();
+    return _postJson(_generateUri, <String, dynamic>{
+      'model': payload['model'],
+      'prompt': promptText,
+      'stream': false,
+      'options': <String, int>{_optionNumCtx: contextWindowFor(promptText)},
+    });
+  }
+
+  /// Sends [messages] and the [tools] the model may call to Ollama's chat API, and returns the decoded
+  /// reply: its `message` holds either the answer or the tool calls the model wants run.
+  static Future<Map<String, dynamic>> sendChat({
+    required List<Map<String, dynamic>> messages,
+    required List<Map<String, dynamic>> tools,
+    required int contextWindow,
+  }) {
+    return _postJson(_chatUri, <String, dynamic>{
+      'model': selectedModel,
+      'messages': messages,
+      if (tools.isNotEmpty) 'tools': tools,
+      'stream': false,
+      'options': <String, Object>{_optionNumCtx: contextWindow, _optionTemperature: _toolChatTemperature},
+    });
+  }
+
+  /// Returns true when Ollama lists the `tools` capability for [model], so it can call the app's tools;
+  /// false when it does not or Ollama cannot say. Answers are remembered per model.
+  static Future<bool> supportsTools(String model) async {
+    final bool? known = _toolSupportByModel[model];
+    if (known != null) {
+      return known;
+    }
+    try {
+      final Map<String, dynamic> info = await _postJson(_showUri, <String, dynamic>{'model': model});
+      final List<dynamic> capabilities = (info[_keyCapabilities] as List<dynamic>?) ?? <dynamic>[];
+      return _toolSupportByModel[model] = capabilities.contains(_capabilityTools);
+    } catch (e) {
+      AppLogger.warning(module: 'ollama_service', operation: 'supportsTools', message: e.toString());
+      return false;
+    }
+  }
+
+  /// POSTs [body] as JSON to [uri] and returns the decoded JSON reply; [cancelPayload] aborts it.
+  static Future<Map<String, dynamic>> _postJson(Uri uri, Map<String, dynamic> body) {
     return _withClient((HttpClient client) async {
       _payloadClient = client;
-      final HttpClientRequest request = await client.postUrl(generateUrl);
+      final HttpClientRequest request = await client.postUrl(uri);
       request.headers.contentType = ContentType.json;
-
-      // Convert messages format if needed for /api/generate
-      if (endpoint == 'generate' && payload.containsKey(SharedStrings.payloadKeyMessages)) {
-        final List<Map<String, String>> messages =
-            payload[SharedStrings.payloadKeyMessages] as List<Map<String, String>>;
-        // Combine messages into a single prompt for /api/generate
-        final StringBuffer prompt = StringBuffer();
-        for (final Map<String, String> message in messages) {
-          final String role = message['role'] ?? '';
-          final String content = message['content'] ?? '';
-          if (role == 'system') {
-            prompt.write(SharedStrings.promptPrefixSystem + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
-          } else if (role == 'user') {
-            prompt.write(SharedStrings.promptPrefixUser + content + SharedStrings.lineFeed + SharedStrings.lineFeed);
-          } else if (role == 'assistant') {
-            prompt.write(
-              SharedStrings.promptPrefixAssistant + content + SharedStrings.lineFeed + SharedStrings.lineFeed,
-            );
-          }
-        }
-
-        // Create new payload for /api/generate
-        final String promptText = prompt.toString();
-        final Map<String, dynamic> generatePayload = <String, dynamic>{
-          'model': payload['model'],
-          'prompt': promptText,
-          'stream': false,
-          'options': <String, int>{_optionNumCtx: contextWindowFor(promptText)},
-        };
-
-        final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
-        request.add(utf8Body);
-      } else {
-        final List<int> utf8Body = utf8.encode(jsonEncode(payload));
-        request.add(utf8Body);
-      }
-
+      request.add(utf8.encode(jsonEncode(body)));
       final HttpClientResponse response = await request.close();
       final String responseBody = await response.transform(utf8.decoder).join();
       if (response.statusCode != _httpOkStatus) {
@@ -372,8 +412,8 @@ class OllamaService {
     });
   }
 
-  /// Aborts the [sendPayload] request in flight, if any; closing the connection makes Ollama stop
-  /// working on it, and the pending [sendPayload] call throws.
+  /// Aborts the [sendPayload] or [sendChat] request in flight, if any; closing the connection makes
+  /// Ollama stop working on it, and the pending call throws.
   static void cancelPayload() {
     _payloadClient?.close(force: true);
   }
@@ -393,6 +433,18 @@ class OllamaService {
 
   /// Local Ollama endpoint that lists installed models; also used as a health check.
   static final Uri _tagsUri = Uri.parse('http://localhost:11434/api/tags');
+
+  /// Local Ollama endpoint that completes a single prompt.
+  static final Uri _generateUri = Uri.parse('http://localhost:11434/api/generate');
+
+  /// Local Ollama endpoint that continues a conversation and can call tools.
+  static final Uri _chatUri = Uri.parse('http://localhost:11434/api/chat');
+
+  /// Local Ollama endpoint that describes a model, including its capabilities.
+  static final Uri _showUri = Uri.parse('http://localhost:11434/api/show');
+
+  /// Model names already checked by [supportsTools], with the answer.
+  static final Map<String, bool> _toolSupportByModel = <String, bool>{};
 
   /// Returns true when the local Ollama API answers the model list request in time.
   static Future<bool> _isServerResponding() {

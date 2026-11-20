@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:money/data/models/account_type_helper.dart';
 import 'package:money/data/models/account_types_enum.dart';
+import 'package:money/data/models/ai_chat_action_model.dart';
 import 'package:money/data/models/ai_chat_model.dart';
 import 'package:money/data/services/ollama_service.dart';
 import 'package:money/helpers/app_l10n_service.dart';
@@ -14,9 +15,17 @@ import 'package:money/helpers/shared_strings_helper.dart';
 import 'package:money/shared/domain/account_entity.dart';
 import 'package:money/shared/domain/data_facade.dart';
 import 'package:money/shared/domain/transaction_entity.dart';
+import 'package:money/views/home/ai/ai_change_confirm_dialog.dart';
 import 'package:money/views/home/ai/ai_chat_message_widget.dart';
 import 'package:money/views/home/ai/ai_header_widget.dart';
 import 'package:money/views/home/ai/ai_instructions_widget.dart';
+import 'package:money/views/home/ai/tools/ai_analysis_tools_helper.dart';
+import 'package:money/views/home/ai/tools/ai_data_tools_helper.dart';
+import 'package:money/views/home/ai/tools/ai_tool_chat_service.dart';
+import 'package:money/views/home/ai/tools/ai_tool_model.dart';
+import 'package:money/views/home/ai/tools/ai_tool_prompt_helper.dart';
+import 'package:money/views/home/ai/tools/ai_ui_hook_tools_helper.dart';
+import 'package:money/views/home/ai/tools/ai_write_tools_helper.dart';
 import 'package:money/widgets/components/processing_indicator_widget.dart';
 import 'package:money/widgets/components/text_title_widget.dart';
 import 'package:money/widgets/pure/chat_input_area_widget.dart';
@@ -320,51 +329,26 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
     _textController.clear();
     await PreferenceController.to.remove(_aiPromptDraftPreferenceKey);
 
-    String fullPrompt = promptAsked;
-
     // Ensure the prompt is valid UTF-8
-    fullPrompt = utf8.decode(utf8.encode(fullPrompt));
+    final String question = utf8.decode(utf8.encode(promptAsked));
 
-    // Create direct prompt combining context instructions + user question
-    final List<Account> selectedAccounts = _getSelectedPromptAccounts();
-    final String accountContextForPrompt = _buildPromptAccountContext(selectedAccounts);
-
-    // The account data comes first so follow-ups with the same selection start with the same text,
-    // which Ollama reuses from its cache instead of reading it again.
-    final String aiPrompt =
-        '''
-You have been provided with financial data containing accounts and transactions (dates and amounts).
-
-  $_promptAccountSectionHeader
-  $accountContextForPrompt
-${_buildConversationRecap()}
-Answer this question directly using the financial data you learned: $fullPrompt
-
-Guidelines:
-- Use ONLY the account and transaction data provided
-- Answer in plain English
-- Be concise and direct
-- List specific account names and amounts when asked
-- Do NOT add generic financial advice
-- Do NOT introduce yourself or talk about capabilities
-- Focus only on the financial data and the specific question asked
-
-Answer the question:''';
-
-    final Map<String, dynamic> payload = <String, dynamic>{
-      'model': OllamaService.selectedModel,
-      'messages': <Map<String, String>>[
-        <String, String>{
-          'role': SharedStrings.payloadRoleUser,
-          'content': aiPrompt,
-        },
-      ],
-      'stream': false,
-    };
+    // Models that can call tools look up only what they need; others get the selected accounts' data.
+    final bool useTools = await OllamaService.supportsTools(OllamaService.selectedModel);
+    final List<Map<String, dynamic>> toolMessages = useTools
+        ? aiToolConversationStart(
+            question: question,
+            history: _recentHistory(),
+            focusedAccounts: _allAccountsSelected ? <Account>[] : _getSelectedPromptAccounts(),
+          )
+        : <Map<String, dynamic>>[];
+    // The tool conversation grows in place, so the details popup shows every tool call and result.
+    final Map<String, dynamic> payload = useTools
+        ? <String, dynamic>{'model': OllamaService.selectedModel, SharedStrings.payloadKeyMessages: toolMessages}
+        : _buildPromptPayload(question);
 
     // Add user message to chat history
     final int requestId = ++_requestId;
-    _appendChatHistory(fullPrompt, ChatFrom.user, payload);
+    _appendChatHistory(question, ChatFrom.user, payload: payload);
     await OllamaService.saveChatHistory(_chatHistory);
     if (!mounted) {
       return;
@@ -377,30 +361,19 @@ Answer the question:''';
     bool isCurrent() => mounted && requestId == _requestId;
 
     try {
-      final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
-
-      if (!isCurrent()) {
+      final List<AiChatAction> actions = <AiChatAction>[];
+      final ({String text, int promptTokens})? reply = useTools
+          ? await _askWithTools(toolMessages, actions, isCurrent)
+          : await _askWithPrompt(payload);
+      if (reply == null || !isCurrent()) {
         return;
       }
-
-      if (jsonResponse.containsKey(SharedStrings.payloadKeyResponse)) {
-        final String aiResponse = jsonResponse[SharedStrings.payloadKeyResponse] as String;
-        _appendChatHistory(aiResponse.trim(), ChatFrom.ai);
-        setState(() {
-          _isProcessingPrompt = false;
-          _lastPromptTokenCount = (jsonResponse[SharedStrings.payloadKeyPromptEvalCount] as int?) ?? 0;
-        });
-        // Save updated chat history
-        await OllamaService.saveChatHistory(_chatHistory);
-      } else {
-        _appendChatHistory(AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), ChatFrom.ai);
-        await OllamaService.saveChatHistory(_chatHistory);
-        if (mounted) {
-          setState(() {
-            _isProcessingPrompt = false;
-          });
-        }
-      }
+      _appendChatHistory(reply.text, ChatFrom.ai, actions: actions);
+      setState(() {
+        _isProcessingPrompt = false;
+        _lastPromptTokenCount = reply.promptTokens;
+      });
+      await OllamaService.saveChatHistory(_chatHistory);
     } catch (e) {
       if (!isCurrent()) {
         return;
@@ -440,18 +413,100 @@ Answer the question:''';
     });
   }
 
-  /// Returns the last [_recapMessageCount] chat messages as text under [_promptRecapHeader], or an
-  /// empty string when there are none, so follow-up questions keep their meaning without re-sending
-  /// earlier prompts' account data.
+  /// Answers with a tool conversation over [messages]: the model looks up what it needs, adds to
+  /// [actions] the views it offers to open, and proposes changes the user confirms. Returns null when
+  /// [isCurrent] turns false (cancelled or left).
+  Future<({String text, int promptTokens})?> _askWithTools(
+    List<Map<String, dynamic>> messages,
+    List<AiChatAction> actions,
+    bool Function() isCurrent,
+  ) {
+    return AiToolChatService(
+      tools: <AiTool>[
+        ...aiDataTools(),
+        ...aiAnalysisTools(),
+        ...aiUiHookTools(actions),
+        ...aiWriteTools(_confirmChange),
+      ],
+      isCancelled: () => !isCurrent(),
+    ).answer(messages);
+  }
+
+  /// Answers with one prompt carrying the selected accounts' data, for models that cannot call tools.
+  Future<({String text, int promptTokens})> _askWithPrompt(Map<String, dynamic> payload) async {
+    final Map<String, dynamic> jsonResponse = await OllamaService.sendPayload(payload);
+    if (!jsonResponse.containsKey(SharedStrings.payloadKeyResponse)) {
+      return (text: AppL10n.tr(AppTranslationKeys.errorInvalidResponseFromOllama), promptTokens: 0);
+    }
+    return (
+      text: (jsonResponse[SharedStrings.payloadKeyResponse] as String).trim(),
+      promptTokens: (jsonResponse[SharedStrings.payloadKeyPromptEvalCount] as int?) ?? 0,
+    );
+  }
+
+  /// Returns the one-prompt request for [question]: the selected accounts' data, a recap of the recent
+  /// messages, then the question.
+  Map<String, dynamic> _buildPromptPayload(String question) {
+    final String accountContextForPrompt = _buildPromptAccountContext(_getSelectedPromptAccounts());
+
+    // The account data comes first so follow-ups with the same selection start with the same text,
+    // which Ollama reuses from its cache instead of reading it again.
+    final String aiPrompt =
+        '''
+You have been provided with financial data containing accounts and transactions (dates and amounts).
+
+  $_promptAccountSectionHeader
+  $accountContextForPrompt
+${_buildConversationRecap()}
+Answer this question directly using the financial data you learned: $question
+
+Guidelines:
+- Use ONLY the account and transaction data provided
+- Answer in plain English
+- Be concise and direct
+- List specific account names and amounts when asked
+- Do NOT add generic financial advice
+- Do NOT introduce yourself or talk about capabilities
+- Focus only on the financial data and the specific question asked
+
+Answer the question:''';
+
+    return <String, dynamic>{
+      'model': OllamaService.selectedModel,
+      'messages': <Map<String, String>>[
+        <String, String>{
+          'role': SharedStrings.payloadRoleUser,
+          'content': aiPrompt,
+        },
+      ],
+      'stream': false,
+    };
+  }
+
+  /// Asks the user to apply a change the AI proposes; false when the view is gone.
+  Future<bool> _confirmChange({required String summary, required List<String> details}) async {
+    if (!mounted) {
+      return false;
+    }
+    return showAiChangeConfirmDialog(context, summary: summary, details: details);
+  }
+
+  /// Returns the last [_recapMessageCount] chat messages, which give follow-up questions their meaning.
+  List<ChatMessage> _recentHistory() {
+    final int firstIndex = _chatHistory.length > _recapMessageCount ? _chatHistory.length - _recapMessageCount : 0;
+    return _chatHistory.sublist(firstIndex);
+  }
+
+  /// Returns the [_recentHistory] as text under [_promptRecapHeader], or an empty string when there is
+  /// none, so follow-up questions keep their meaning without re-sending earlier prompts' account data.
   String _buildConversationRecap() {
     if (_chatHistory.isEmpty) {
       return '';
     }
-    final int firstIndex = _chatHistory.length > _recapMessageCount ? _chatHistory.length - _recapMessageCount : 0;
     final StringBuffer recap = StringBuffer()
       ..writeln()
       ..writeln(_promptRecapHeader);
-    for (final ChatMessage message in _chatHistory.sublist(firstIndex)) {
+    for (final ChatMessage message in _recentHistory()) {
       final String prefix = message.type == ChatFrom.user
           ? SharedStrings.promptPrefixUser
           : SharedStrings.promptPrefixAssistant;
@@ -613,17 +668,20 @@ Answer the question:''';
   /// [text] is the message text to append.
   /// [source] is the source of the message (user or AI).
   /// [payload] is the payload sent to Ollama, if any.
+  /// [actions] are the views an AI answer offers to open.
   void _appendChatHistory(
     String text,
-    ChatFrom source, [
+    ChatFrom source, {
     Map<String, dynamic>? payload,
-  ]) {
+    List<AiChatAction> actions = const <AiChatAction>[],
+  }) {
     _chatHistory.add(
       ChatMessage(
         message: text,
         type: source,
         timestamp: DateTime.now(),
         payloadSentToOllama: payload ?? <String, dynamic>{},
+        actions: actions,
       ),
     );
 

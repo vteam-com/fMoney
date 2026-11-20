@@ -19,6 +19,12 @@
   "addTransactionBetweenTwoAccounts": "Agregar una transaccion entre dos cuentas.",
   "addTransactionsMenuItem": "Agregar transacciones...",
   "aiAssistant": "Asistente de IA",
+  "aiChangeCreateAlias": "Crear el alias \"{pattern}\" para el beneficiario \"{payee}\". Transacciones que renombra ({count}):",
+  "aiChangeLinkTransfer": "Vincular estas dos transacciones como una sola transferencia:",
+  "aiChangeMergePayees": "Fusionar estos beneficiarios en \"{payee}\" ({count} transacciones se mueven):",
+  "aiChangeSetCategory": "Poner la categoría \"{category}\" en estas transacciones ({count}):",
+  "aiConfirmChangePendingNote": "Nada se guarda: el cambio queda pendiente hasta que guarde, y todavía puede descartarlo.",
+  "aiConfirmChangeTitle": "¿Aplicar el cambio de la IA?",
   "aiDropPdfFileOnly": "Suelta un archivo PDF.",
   "aiLearnedAboutAccountsAndTransactions": "La IA ha aprendido sobre {count} cuentas y sus transacciones.",
   "@aiLearnedAboutAccountsAndTransactions": {

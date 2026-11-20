@@ -123,7 +123,7 @@ void _edit(BuildContext _, List<Transaction> transactions) {
 }
 
 /// Applies [change] to each of [transactions] as a pending edit, then refreshes the data.
-void _mutateAll(Iterable<Transaction> transactions, void Function(Transaction transaction) change) {
+void mutateTransactions(Iterable<Transaction> transactions, void Function(Transaction transaction) change) {
   for (final Transaction transaction in transactions) {
     transaction.stashValueBeforeEditing();
     change(transaction);
@@ -164,7 +164,7 @@ void _changeCategory(BuildContext context, List<Transaction> transactions) {
         onPressed: () {
           final int? categoryId = Data().getCategoryIdFromName(chosenName);
           if (categoryId != null) {
-            _mutateAll(transactions, (Transaction t) => t.fieldCategoryId.value = categoryId);
+            mutateTransactions(transactions, (Transaction t) => t.fieldCategoryId.value = categoryId);
           }
           Navigator.pop(context);
         },
@@ -190,7 +190,7 @@ void _changePayee(BuildContext context, List<Transaction> transactions) {
         onPressed: () {
           final int? newPayeeId = payeeId;
           if (newPayeeId != null) {
-            _mutateAll(transactions.where((Transaction t) => !t.isTransfer), (Transaction t) {
+            mutateTransactions(transactions.where((Transaction t) => !t.isTransfer), (Transaction t) {
               t.stashOriginalPayee();
               t.fieldPayee.value = newPayeeId;
               t.applyCategoryFromPayeeHistory();

@@ -26,6 +26,12 @@ abstract class AppTranslationKeys {
   static const String addTransactionBetweenTwoAccounts = 'addTransactionBetweenTwoAccounts';
   static const String addTransactionsMenuItem = 'addTransactionsMenuItem';
   static const String aiAssistant = 'aiAssistant';
+  static const String aiChangeCreateAlias = 'aiChangeCreateAlias';
+  static const String aiChangeLinkTransfer = 'aiChangeLinkTransfer';
+  static const String aiChangeMergePayees = 'aiChangeMergePayees';
+  static const String aiChangeSetCategory = 'aiChangeSetCategory';
+  static const String aiConfirmChangePendingNote = 'aiConfirmChangePendingNote';
+  static const String aiConfirmChangeTitle = 'aiConfirmChangeTitle';
   static const String aiDropPdfFileOnly = 'aiDropPdfFileOnly';
   static const String aiLearnedAboutAccountsAndTransactions = 'aiLearnedAboutAccountsAndTransactions';
   static const String aiMatchedAccount = 'aiMatchedAccount';

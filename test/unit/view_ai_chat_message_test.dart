@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:money/data/models/ai_chat_action_model.dart';
 import 'package:money/data/models/ai_chat_model.dart';
+import 'package:money/helpers/constants_helper.dart';
 
 void main() {
   final DateTime testDateTime = DateTime(2023, 12, 15, 10, 30, 45);
@@ -172,6 +174,28 @@ void main() {
       final ChatMessage restored = ChatMessage.fromJson(json);
 
       expect(restored.timestamp, preciseTime);
+    });
+
+    test('keeps the buttons of an AI answer, and saves no actions key when there are none', () {
+      final ChatMessage withButton = ChatMessage(
+        message: 'See the condo transfers.',
+        type: ChatFrom.ai,
+        timestamp: testDateTime,
+        payloadSentToOllama: <String, dynamic>{},
+        actions: <AiChatAction>[AiChatAction(label: 'Condo', viewId: ViewId.viewTransactions, textFilter: 'condo')],
+      );
+      final ChatMessage plain = ChatMessage(
+        message: 'Hi',
+        type: ChatFrom.user,
+        timestamp: testDateTime,
+        payloadSentToOllama: <String, dynamic>{},
+      );
+
+      final ChatMessage restored = ChatMessage.fromJson(withButton.toJson());
+
+      expect(restored.actions.single.label, 'Condo');
+      expect(restored.actions.single.textFilter, 'condo');
+      expect(plain.toJson().containsKey('actions'), isFalse);
     });
   });
 }
