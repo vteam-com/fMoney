@@ -31,6 +31,12 @@ const String _promptAccountSectionHeader = 'Selected account context as JSON (us
 const String _promptNoAccountDataLine = 'No selected account data is available.';
 const String _promptContextVersion = '1.0';
 const int _maxTransactionsPerAccountInPrompt = 250;
+
+/// How many of the latest chat messages (questions and answers) are recapped in each prompt.
+const int _recapMessageCount = 6;
+
+/// Introduces the recap of earlier messages in the prompt.
+const String _promptRecapHeader = 'Earlier messages in this conversation (for follow-up questions):';
 final String _aiPromptDraftPreferenceKey = ViewId.viewAI.getViewPreferenceId(settingKeyAiPromptDraftText);
 final String _aiAllAccountsSelectedPreferenceKey = ViewId.viewAI.getViewPreferenceId('aiAllAccountsSelected');
 final String _aiSelectedAccountIdsPreferenceKey = ViewId.viewAI.getViewPreferenceId('aiSelectedAccountIds');
@@ -94,9 +100,8 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
   /// Controller for the chat list scroll view to enable auto-scrolling.
   final ScrollController _scrollController = ScrollController();
 
-  /// Conversation context tokens returned by Ollama for maintaining AI memory.
-  /// Stored as nullable to indicate when no context exists yet.
-  List<int>? _conversationContext;
+  /// Size in tokens of the last answered prompt, as reported by Ollama; 0 until one is answered.
+  int _lastPromptTokenCount = 0;
 
   /// True when all available accounts are selected for chat context.
   bool _allAccountsSelected = true;
@@ -185,7 +190,7 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
     // Load the selected model from preferences first
     OllamaService.getLastUserSelectedModel().then((_) async {
       // Histories saved by older versions can be huge enough to make every preference write slow.
-      await OllamaService.compactSavedChatHistories();
+      await OllamaService.compactSavedConversations();
       if (!mounted) {
         return;
       }
@@ -220,7 +225,6 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
   @override
   Widget buildHeader([Widget? child]) {
     final int questionCount = _chatHistory.where((ChatMessage message) => message.type == ChatFrom.user).length;
-    final int contextTokensCount = _conversationContext?.length ?? 0;
 
     return ViewAiHeader(
       availableModels: OllamaService.availableModels,
@@ -234,14 +238,12 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
       onClearChat: () async {
         setState(() {
           _chatHistory.clear();
-          _conversationContext = null;
+          _lastPromptTokenCount = 0;
         });
-        // Save the cleared context and chat history
-        await OllamaService.saveConversationContext(null);
         await OllamaService.saveChatHistory(<ChatMessage>[]);
       },
       questionCount: questionCount,
-      contextTokensCount: contextTokensCount,
+      contextTokensCount: _lastPromptTokenCount,
     );
   }
 
@@ -289,6 +291,7 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
             isProcessing: _isProcessingPrompt,
             onCancel: () async {
               _requestId++;
+              OllamaService.cancelPayload();
               _appendChatHistory(AppL10n.tr(AppTranslationKeys.requestWasCancelled), ChatFrom.ai);
               await OllamaService.saveChatHistory(_chatHistory);
               setState(() {
@@ -326,13 +329,15 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
     final List<Account> selectedAccounts = _getSelectedPromptAccounts();
     final String accountContextForPrompt = _buildPromptAccountContext(selectedAccounts);
 
+    // The account data comes first so follow-ups with the same selection start with the same text,
+    // which Ollama reuses from its cache instead of reading it again.
     final String aiPrompt =
         '''
 You have been provided with financial data containing accounts and transactions (dates and amounts).
 
   $_promptAccountSectionHeader
   $accountContextForPrompt
-
+${_buildConversationRecap()}
 Answer this question directly using the financial data you learned: $fullPrompt
 
 Guidelines:
@@ -357,11 +362,6 @@ Answer the question:''';
       'stream': false,
     };
 
-    // Add conversation context to payload if it exists and has content
-    if (_conversationContext != null && _conversationContext!.isNotEmpty) {
-      payload[SharedStrings.payloadKeyContext] = _conversationContext;
-    }
-
     // Add user message to chat history
     final int requestId = ++_requestId;
     _appendChatHistory(fullPrompt, ChatFrom.user, payload);
@@ -385,20 +385,10 @@ Answer the question:''';
 
       if (jsonResponse.containsKey(SharedStrings.payloadKeyResponse)) {
         final String aiResponse = jsonResponse[SharedStrings.payloadKeyResponse] as String;
-
-        // Update conversation context with the returned context
-        if (jsonResponse.containsKey(SharedStrings.payloadKeyContext)) {
-          _conversationContext = (jsonResponse[SharedStrings.payloadKeyContext] as List<dynamic>).cast<int>();
-          // Save updated context to persistent storage
-          await OllamaService.saveConversationContext(_conversationContext);
-        }
-
-        if (!isCurrent()) {
-          return;
-        }
         _appendChatHistory(aiResponse.trim(), ChatFrom.ai);
         setState(() {
           _isProcessingPrompt = false;
+          _lastPromptTokenCount = (jsonResponse[SharedStrings.payloadKeyPromptEvalCount] as int?) ?? 0;
         });
         // Save updated chat history
         await OllamaService.saveChatHistory(_chatHistory);
@@ -431,16 +421,13 @@ Answer the question:''';
     }
   }
 
-  /// Loads the selected model's saved conversation context and chat history, then shows them.
+  /// Loads the selected model's saved chat history, then shows it.
   Future<void> _loadModelConversation() async {
-    List<int>? conversationContext;
     List<ChatMessage> chatHistory;
     try {
-      conversationContext = await OllamaService.loadConversationContext();
       chatHistory = await OllamaService.loadChatHistory();
     } catch (e) {
       // Fall back to an empty conversation rather than failing the view.
-      conversationContext = null;
       chatHistory = <ChatMessage>[];
       AppLogger.error(module: 'ai_view', operation: '_loadModelConversation', error: e);
     }
@@ -448,9 +435,29 @@ Answer the question:''';
       return;
     }
     setState(() {
-      _conversationContext = conversationContext;
       _chatHistory = chatHistory;
+      _lastPromptTokenCount = 0;
     });
+  }
+
+  /// Returns the last [_recapMessageCount] chat messages as text under [_promptRecapHeader], or an
+  /// empty string when there are none, so follow-up questions keep their meaning without re-sending
+  /// earlier prompts' account data.
+  String _buildConversationRecap() {
+    if (_chatHistory.isEmpty) {
+      return '';
+    }
+    final int firstIndex = _chatHistory.length > _recapMessageCount ? _chatHistory.length - _recapMessageCount : 0;
+    final StringBuffer recap = StringBuffer()
+      ..writeln()
+      ..writeln(_promptRecapHeader);
+    for (final ChatMessage message in _chatHistory.sublist(firstIndex)) {
+      final String prefix = message.type == ChatFrom.user
+          ? SharedStrings.promptPrefixUser
+          : SharedStrings.promptPrefixAssistant;
+      recap.writeln('$prefix${message.message}');
+    }
+    return recap.toString();
   }
 
   /// Returns sorted, open real accounts available for AI prompt context.
@@ -597,7 +604,8 @@ Answer the question:''';
       'accounts': accountsPayload,
     };
 
-    return const JsonEncoder.withIndent('  ').convert(contextPayload);
+    // Compact JSON: indentation made the prompt ~25% more tokens, and so slower to read.
+    return jsonEncode(contextPayload);
   }
 
   /// Appends a message to chat history and triggers UI update.

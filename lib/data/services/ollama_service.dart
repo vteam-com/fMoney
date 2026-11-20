@@ -22,6 +22,30 @@ const Duration _healthCheckTimeout = Duration(seconds: 10);
 
 /// Preference key prefix of each model's saved chat history; the model name follows it.
 const String _chatHistoryKeyPrefix = 'ollama_chat_history_';
+
+/// Preference key prefix of the conversation tokens older versions saved per model and re-sent with
+/// every question; no longer used.
+const String _legacyConversationContextKeyPrefix = 'ollama_context_';
+
+/// Characters per token assumed when sizing the context window, a little under the ~2.8 measured
+/// on the account JSON prompts so the window errs on the large side.
+const double _estimatedCharsPerToken = 2.5;
+
+/// Tokens left free in the context window for the model's answer.
+const int _answerTokenReserve = 4096;
+
+/// Smallest context window (`num_ctx`) requested from Ollama.
+const int _minContextTokens = 8192;
+
+/// Largest context window (`num_ctx`) requested from Ollama. Larger windows can outgrow GPU memory
+/// with 30B models, making Ollama run partly on the CPU and swap; Ollama truncates longer prompts.
+const int _maxContextTokens = 65536;
+
+/// Each larger context window step doubles the previous one (8K, 16K, 32K, 64K).
+const int _contextWindowGrowthFactor = 2;
+
+/// Ollama request option that sets the context window size in tokens.
+const String _optionNumCtx = 'num_ctx';
 const String _defaultPathEnvKey = 'PATH';
 const String _windowsPathEnvKey = 'Path';
 const String _windowsProgramsDirName = 'Programs';
@@ -60,6 +84,9 @@ class OllamaStatus {
 class OllamaService {
   static final List<Map<String, dynamic>> availableModels = <Map<String, dynamic>>[];
   static String selectedModel = '';
+
+  /// Client of the [sendPayload] request in flight, so [cancelPayload] can abort it.
+  static HttpClient? _payloadClient;
 
   /// Returns true if the `ollama` executable is available on the system.
   static Future<bool> checkIfOllamaInstalled() async {
@@ -229,27 +256,6 @@ class OllamaService {
     await prefs.setString('selected_ollama_model', model);
   }
 
-  /// Persists the conversation context token list for the current model.
-  static Future<void> saveConversationContext(List<int>? context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (context != null) {
-      await prefs.setString('ollama_context_$selectedModel', jsonEncode(context));
-    } else {
-      await prefs.remove('ollama_context_$selectedModel');
-    }
-  }
-
-  /// Loads the conversation context token list for the current model.
-  static Future<List<int>?> loadConversationContext() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? contextString = prefs.getString('ollama_context_$selectedModel');
-    if (contextString != null) {
-      final List<dynamic> contextList = jsonDecode(contextString) as List<dynamic>;
-      return contextList.cast<int>();
-    }
-    return null;
-  }
-
   /// Persists chat history for the current model.
   static Future<void> saveChatHistory(List<ChatMessage> chatHistory) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -271,16 +277,17 @@ class OllamaService {
   }
 
   /// Re-saves every model's chat history in the current format, which drops the per-question
-  /// prompt payloads older versions stored. Those grew the preferences to hundreds of MB, and on
-  /// macOS every preference write (such as the prompt draft saved on each keystroke) then took ~1s.
-  static Future<void> compactSavedChatHistories() async {
+  /// prompt payloads older versions stored, and removes their saved conversation tokens. Those grew
+  /// the preferences to hundreds of MB, and on macOS every preference write (such as the prompt
+  /// draft saved on each keystroke) then took ~1s.
+  static Future<void> compactSavedConversations() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final List<String> historyKeys = prefs
-          .getKeys()
-          .where((String key) => key.startsWith(_chatHistoryKeyPrefix))
-          .toList();
-      for (final String key in historyKeys) {
+      final List<String> keys = prefs.getKeys().toList();
+      for (final String key in keys.where((String key) => key.startsWith(_legacyConversationContextKeyPrefix))) {
+        await prefs.remove(key);
+      }
+      for (final String key in keys.where((String key) => key.startsWith(_chatHistoryKeyPrefix))) {
         final String? saved = prefs.getString(key);
         if (saved == null) {
           continue;
@@ -293,7 +300,7 @@ class OllamaService {
     } catch (e, stackTrace) {
       AppLogger.error(
         module: 'ollama_service',
-        operation: 'compactSavedChatHistories',
+        operation: 'compactSavedConversations',
         error: e,
         stackTrace: stackTrace,
       );
@@ -313,9 +320,10 @@ class OllamaService {
 
   /// Sends a payload to the local Ollama API and returns the decoded JSON response.
   static Future<Map<String, dynamic>> sendPayload(Map<String, dynamic> payload) async {
-    const String endpoint = 'generate'; // Use /api/generate for context support instead of /api/chat
+    const String endpoint = 'generate'; // Use /api/generate, which takes the conversation as one prompt
     final Uri generateUrl = Uri.parse('http://localhost:11434/api/$endpoint');
     return _withClient((HttpClient client) async {
+      _payloadClient = client;
       final HttpClientRequest request = await client.postUrl(generateUrl);
       request.headers.contentType = ContentType.json;
 
@@ -340,16 +348,13 @@ class OllamaService {
         }
 
         // Create new payload for /api/generate
+        final String promptText = prompt.toString();
         final Map<String, dynamic> generatePayload = <String, dynamic>{
           'model': payload['model'],
-          'prompt': prompt.toString(),
+          'prompt': promptText,
           'stream': false,
+          'options': <String, int>{_optionNumCtx: contextWindowFor(promptText)},
         };
-
-        // Add context if present
-        if (payload.containsKey(SharedStrings.payloadKeyContext)) {
-          generatePayload[SharedStrings.payloadKeyContext] = payload[SharedStrings.payloadKeyContext];
-        }
 
         final List<int> utf8Body = utf8.encode(jsonEncode(generatePayload));
         request.add(utf8Body);
@@ -365,6 +370,25 @@ class OllamaService {
       }
       return jsonDecode(responseBody) as Map<String, dynamic>;
     });
+  }
+
+  /// Aborts the [sendPayload] request in flight, if any; closing the connection makes Ollama stop
+  /// working on it, and the pending [sendPayload] call throws.
+  static void cancelPayload() {
+    _payloadClient?.close(force: true);
+  }
+
+  /// Returns the context window (`num_ctx`) to request for [prompt]: the smallest power of two
+  /// that fits the estimated prompt tokens plus an answer, between [_minContextTokens] and
+  /// [_maxContextTokens]. Powers of two keep the size stable across similar prompts, since a new
+  /// size makes Ollama reload the model.
+  static int contextWindowFor(String prompt) {
+    final int neededTokens = (prompt.length / _estimatedCharsPerToken).ceil() + _answerTokenReserve;
+    int window = _minContextTokens;
+    while (window < neededTokens && window < _maxContextTokens) {
+      window *= _contextWindowGrowthFactor;
+    }
+    return window;
   }
 
   /// Local Ollama endpoint that lists installed models; also used as a health check.

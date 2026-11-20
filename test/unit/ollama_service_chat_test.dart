@@ -209,8 +209,8 @@ void main() {
     });
   });
 
-  group('OllamaService.compactSavedChatHistories', () {
-    test('drops prompt payloads saved by older versions for every model, keeping the messages', () async {
+  group('OllamaService.compactSavedConversations', () {
+    test('drops what older versions saved: prompt payloads and conversation tokens, keeping the messages', () async {
       const String legacyMessage =
           '{"message":"Hi","type":"user","timestamp":"2023-12-15T10:30:45.000",'
           '"payloadSentToOllama":{"model":"m","messages":[{"role":"user","content":"all transactions"}]},'
@@ -218,10 +218,11 @@ void main() {
       SharedPreferences.setMockInitialValues(<String, Object>{
         'ollama_chat_history_model-A': '[$legacyMessage]',
         'ollama_chat_history_': '[$legacyMessage]',
+        'ollama_context_model-A': '[1,2,3]',
         'unrelated_key': 'payloadSentToOllama',
       });
 
-      await OllamaService.compactSavedChatHistories();
+      await OllamaService.compactSavedConversations();
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       for (final String key in <String>['ollama_chat_history_model-A', 'ollama_chat_history_']) {
@@ -229,7 +230,24 @@ void main() {
         expect(saved, isNot(contains('payloadSentToOllama')));
         expect(saved, contains('"message":"Hi"'));
       }
+      expect(prefs.containsKey('ollama_context_model-A'), isFalse);
       expect(prefs.getString('unrelated_key'), 'payloadSentToOllama');
+    });
+  });
+
+  group('OllamaService.contextWindowFor', () {
+    test('uses the smallest window for short prompts', () {
+      expect(OllamaService.contextWindowFor('How much did I spend?'), 8192);
+    });
+
+    test('rounds up to the power of two that fits the prompt and an answer', () {
+      // 74,000 chars ≈ 29,600 tokens, + 4,096 for the answer → 33,696 → 64K, not 32K.
+      expect(OllamaService.contextWindowFor('x' * 74000), 65536);
+      expect(OllamaService.contextWindowFor('x' * 40000), 32768);
+    });
+
+    test('never asks for more than 64K, however long the prompt', () {
+      expect(OllamaService.contextWindowFor('x' * 2000000), 65536);
     });
   });
 }

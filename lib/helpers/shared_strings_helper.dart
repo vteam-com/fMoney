@@ -589,8 +589,8 @@ abstract class SharedStrings {
   /// Payload key that stores generated response text.
   static const String payloadKeyResponse = 'response';
 
-  /// Payload key that stores model conversation context.
-  static const String payloadKeyContext = 'context';
+  /// Response key that stores how many tokens the prompt took.
+  static const String payloadKeyPromptEvalCount = 'prompt_eval_count';
 
   /// Generic comma token for CSV serialization.
   static const String csvComma = ',';
