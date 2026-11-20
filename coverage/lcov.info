@@ -11381,7 +11381,7 @@ TN:
 SF:lib/views/home/payees/payees_view.dart
 FNF:0
 FNH:0
-DA:28,1
+DA:28,2
 DA:30,3
 DA:31,3
 DA:35,3
@@ -11759,7 +11759,7 @@ TN:
 SF:lib/views/home/transactions/transactions_view.dart
 FNF:0
 FNH:0
-DA:42,1
+DA:42,2
 DA:46,5
 DA:47,5
 DA:51,5
@@ -15051,7 +15051,7 @@ TN:
 SF:lib/views/panels/list/money_objects_view.dart
 FNF:0
 FNH:0
-DA:73,1
+DA:73,2
 DA:77,0
 DA:78,0
 DA:108,8

@@ -1,4 +1,5 @@
 // ignore: fcheck_dead_code
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/app_router_service.dart';
 import 'package:money/views/panels/layout/side_panel_widget.dart';
@@ -12,6 +13,33 @@ const int _defaultPumpMs = 300;
 const int _defaultMyPumpMs = 100;
 const int _minFinds = 1;
 const double _scrollDeltaY = -100.0;
+
+/// Records each tap that lands on the modal barrier of a dialog that taps outside cannot dismiss.
+///
+/// Flutter answers such a tap with [SystemSoundType.alert] (the macOS beep) rather than an error, so this
+/// intercepts that sound request, keeps the test's own frames of its call stack (which name the line that
+/// tapped), and forwards every other platform message unchanged. Returns one entry per stray tap.
+List<String> recordModalBarrierTaps(WidgetTester tester) {
+  final List<String> taps = <String>[];
+  final TestDefaultBinaryMessenger messenger = tester.binding.defaultBinaryMessenger;
+  const MethodChannel channel = SystemChannels.platform;
+  messenger.setMockMessageHandler(channel.name, (ByteData? message) {
+    final MethodCall call = channel.codec.decodeMethodCall(message);
+    if (call.method == 'SystemSound.play' && call.arguments == SystemSoundType.alert.toString()) {
+      taps.add(
+        StackTrace.current
+            .toString()
+            .split('\n')
+            .where((String frame) => frame.contains('integration_test/') && !frame.contains('recordModalBarrierTaps'))
+            .join('\n'),
+      );
+      return Future<ByteData?>.value(channel.codec.encodeSuccessEnvelope(null));
+    }
+    return messenger.delegate.send(channel.name, message);
+  });
+  addTearDown(() => messenger.setMockMessageHandler(channel.name, null));
+  return taps;
+}
 
 Future<void> tapOnText(
   WidgetTester tester,

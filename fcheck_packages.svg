@@ -1113,7 +1113,7 @@
 <rect x="337.0" y="1164.0" width="200.0" height="68.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
 <g class="packageMetadataPill"><title>Flutter &gt;=3.44.0</title><rect x="398.2" y="1219.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="437.0" y="1224" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.44.0</text></g>
 <text x="437.0" y="1184.0" class="packageLabelNodeName packageLabelCaption" text-anchor="middle">flutter_svg</text>
-<text x="437.0" y="1197.0" class="packageLabelNodeVersion" text-anchor="middle">v2.4.0</text>
+<text x="437.0" y="1197.0" class="packageLabelNodeVersion" text-anchor="middle">v2.5.0</text>
 </g>
 <g class="badge outgoingBadge">
   <path d="M 331.0,1198.0 L 343.0,1191.0 Q 346.0,1191.0 346.0,1194.0 L 346.0,1202.0 Q 346.0,1205.0 343.0,1205.0 Z" fill="#10b981"/>
@@ -1232,7 +1232,7 @@
 <rect x="337.0" y="2132.0" width="200.0" height="68.0" rx="8.0" ry="8.0" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
 <g class="packageMetadataPill"><title>Flutter &gt;=3.50.0</title><rect x="398.2" y="2187.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="437.0" y="2192" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.50.0</text></g>
 <text x="437.0" y="2152.0" class="packageLabelNodeName packageLabelCaption" text-anchor="middle">pdfrx</text>
-<text x="437.0" y="2165.0" class="packageLabelNodeVersion" text-anchor="middle">v3.0.3</text>
+<text x="437.0" y="2165.0" class="packageLabelNodeVersion" text-anchor="middle">v3.1.0</text>
 </g>
 <g class="badge outgoingBadge">
   <path d="M 331.0,2166.0 L 343.0,2159.0 Q 346.0,2159.0 346.0,2162.0 L 346.0,2170.0 Q 346.0,2173.0 343.0,2173.0 Z" fill="#10b981"/>

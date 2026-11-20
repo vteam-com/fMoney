@@ -34,6 +34,9 @@ const double _splitterDragOffsetY = -340.0;
 void main() {
   group('App Test', () {
     testWidgets('Full app test', (WidgetTester tester) async {
+      // A tap outside a dialog beeps instead of failing: collect them and fail at the end.
+      final List<String> modalBarrierTaps = recordModalBarrierTaps(tester);
+
       // Use an empty SharedPreferences to get the same results each time
       SharedPreferences.setMockInitialValues(<String, Object>{});
 
@@ -82,6 +85,12 @@ void main() {
       //
       await switchToSmall(tester);
       await stepDemoDataViewInSmallScreen(tester);
+
+      expect(
+        modalBarrierTaps,
+        isEmpty,
+        reason: 'These taps landed outside the open dialog (each one beeps):\n\n${modalBarrierTaps.join('\n\n')}',
+      );
     });
   });
 }
@@ -524,7 +533,7 @@ Future<void> testAccountEdit(WidgetTester tester) async {
   await tapOnKeyString(tester, 'key_dropdown');
   await tapOnText(tester, 'Savings');
 
-  await tapOnKey(tester, Constants.keyEditSelectedItems);
+  // The edit dialog is still open: change the type back in it.
   await tapOnKeyString(tester, 'key_dropdown');
   await tapOnText(tester, 'Checking');
 
@@ -682,7 +691,6 @@ Future<void> testPayees(WidgetTester tester) async {
   // Test with one row selected
   await tapOnFirstRowOfListView(tester);
   await tapOnKey(tester, Constants.keyMergeButton);
-  await tapOnText(tester, 'Comcast');
   await tapOnText(tester, 'Cancel');
   await sidePanelTabs(tester);
 
