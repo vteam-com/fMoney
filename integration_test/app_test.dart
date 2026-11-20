@@ -37,6 +37,9 @@ void main() {
       // A tap outside a dialog beeps instead of failing: collect them and fail at the end.
       final List<String> modalBarrierTaps = recordModalBarrierTaps(tester);
 
+      // Without this, the test stalls whenever other windows cover the app's window.
+      keepFramesWhileHidden(tester);
+
       // Use an empty SharedPreferences to get the same results each time
       SharedPreferences.setMockInitialValues(<String, Object>{});
 
@@ -274,20 +277,9 @@ Future<void> testImportBulkManualTextInput(WidgetTester tester) async {
 }
 
 Future<void> testThemeColors(WidgetTester tester) async {
-  // Change Colors, Purple is the default, and we use "Teal" as the last color.
-  {
-    for (final String themeColorName in <String>[
-      'Blue',
-      'Green',
-      'Yellow',
-      'Orange',
-      'Pink',
-      'Teal',
-    ]) {
-      await tapOnKey(tester, Constants.keySettingsButton);
-      await tapOnKeyString(tester, 'key_theme_$themeColorName');
-    }
-  }
+  // Change the color from the default Purple to Teal; every color runs the same code.
+  await tapOnKey(tester, Constants.keySettingsButton);
+  await tapOnKeyString(tester, 'key_theme_Teal');
 }
 
 Future<void> testSettingsFontsAndRental(WidgetTester tester) async {

@@ -1,10 +1,14 @@
 #!/bin/sh
 
-tool/clean.sh
+# A clean start (flutter clean, pods, pub upgrade) recompiles everything and adds minutes: only on request.
+if [ "$1" = "--clean" ]; then
+	tool/clean.sh
+fi
+
+# Unit tests first: they take seconds, and a failure there stops before the long integration test.
+flutter test --coverage --coverage-path=coverage/lcov_units.info || exit 1
 
 flutter test integration_test --coverage --coverage-path=coverage/lcov_integration.info -d macos --enable-impeller || exit 1
-
-flutter test --coverage --coverage-path=coverage/lcov_units.info || exit 1
 
 # Flutter emits FNF:0/FNH:0 (line coverage only), which lcov 2.x treats as a
 # fatal "empty" error; demote it so the merge can complete.

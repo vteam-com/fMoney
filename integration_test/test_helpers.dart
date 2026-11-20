@@ -1,4 +1,6 @@
 // ignore: fcheck_dead_code
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/app_router_service.dart';
@@ -8,7 +10,6 @@ import 'package:money/widgets/state/theme_controller.dart';
 
 const int _zeroIndex = 0;
 const double _zeroDouble = 0.0;
-const int _shortPumpMs = 500;
 const int _defaultPumpMs = 300;
 const int _defaultMyPumpMs = 100;
 const int _minFinds = 1;
@@ -41,6 +42,24 @@ List<String> recordModalBarrierTaps(WidgetTester tester) {
   return taps;
 }
 
+/// Keeps the app drawing frames while its window is covered, minimized or on another Space.
+///
+/// macOS reports such a window as [AppLifecycleState.hidden], which turns frames off, so every pump
+/// waits until the window shows again: minutes, or forever. This puts the app back in
+/// [AppLifecycleState.inactive] right away. Call it before starting the app.
+void keepFramesWhileHidden(WidgetTester tester) {
+  void enableFrames() {
+    if (!tester.binding.framesEnabled) {
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    }
+  }
+
+  enableFrames();
+  // Deferred: changing the state from inside a state change notification would nest the two.
+  final AppLifecycleListener listener = AppLifecycleListener(onHide: () => Timer.run(enableFrames));
+  addTearDown(listener.dispose);
+}
+
 Future<void> tapOnText(
   WidgetTester tester,
   String textToFind, {
@@ -61,7 +80,7 @@ Future<void> tapOnText(
 
   expect(firstMatchingElement, findsOneWidget);
   await tester.tap(firstMatchingElement, warnIfMissed: false);
-  await tester.pumpAndSettle(const Duration(milliseconds: _shortPumpMs));
+  await tester.pumpAndSettle();
 }
 
 Finder findByKeyString(String keyString) {
@@ -76,7 +95,7 @@ Future<void> tapOnKeyString(
 ) async {
   final Finder firstMatchingElement = findByKeyString(keyString);
   await tester.tap(firstMatchingElement, warnIfMissed: false);
-  await tester.pumpAndSettle(const Duration(milliseconds: _shortPumpMs));
+  await tester.pumpAndSettle();
 }
 
 Future<void> tapOnKey(WidgetTester tester, Key key) async {
