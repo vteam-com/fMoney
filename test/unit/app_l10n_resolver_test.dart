@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:money/helpers/app_l10n_resolver_helper.dart';
 import 'package:money/helpers/app_translation_keys.dart';
+import 'package:money/l10n/app_localizations.dart';
 import 'package:money/l10n/app_localizations_en.dart';
+import 'package:money/l10n/app_localizations_es.dart';
+import 'package:money/l10n/app_localizations_fr.dart';
 
 import '../../tool/l10n_keys_generator_helper.dart';
 
@@ -43,6 +46,29 @@ void main() {
         l10n.aliasPatternAtLeast('x', '2'),
       );
       expect(resolveAppL10nKey(l10n, 'notAKey', <String, String>{}), 'notAKey');
+    });
+
+    test('every locale shows each parameter value (ARB placeholders use {name}, not @name)', () {
+      final List<AppLocalizations> locales = <AppLocalizations>[
+        AppLocalizationsEn(),
+        AppLocalizationsFr(),
+        AppLocalizationsEs(),
+      ];
+      final List<String> missing = <String>[];
+      for (final AppLocalizations l10n in locales) {
+        for (final L10nMessage message in messages.where((L10nMessage m) => m.parameters.isNotEmpty)) {
+          final Map<String, String> params = <String, String>{
+            for (final String name in message.parameters) name: '<$name>',
+          };
+          final String text = resolveAppL10nKey(l10n, message.name, params);
+          for (final String value in params.values) {
+            if (!text.contains(value)) {
+              missing.add('${l10n.localeName}.${message.name} drops $value: "$text"');
+            }
+          }
+        }
+      }
+      expect(missing, isEmpty);
     });
   });
 }

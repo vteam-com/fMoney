@@ -20,7 +20,7 @@
   "addTransactionsMenuItem": "Agregar transacciones...",
   "aiAssistant": "Asistente de IA",
   "aiDropPdfFileOnly": "Suelta un archivo PDF.",
-  "aiLearnedAboutAccountsAndTransactions": "La IA ha aprendido sobre @count cuentas y sus transacciones.",
+  "aiLearnedAboutAccountsAndTransactions": "La IA ha aprendido sobre {count} cuentas y sus transacciones.",
   "@aiLearnedAboutAccountsAndTransactions": {
     "placeholders": {
       "count": {
@@ -28,7 +28,7 @@
       }
     }
   },
-  "aiMatchedAccount": "Cuenta coincidente: @account",
+  "aiMatchedAccount": "Cuenta coincidente: {account}",
   "@aiMatchedAccount": {
     "placeholders": {
       "account": {
@@ -252,7 +252,7 @@
   "@budgetAccuracyBothZero": {
     "description": "REVIEWED"
   },
-  "budgetAccuracyPercent": "Precision:    @value%",
+  "budgetAccuracyPercent": "Precision:    {value}%",
   "@budgetAccuracyPercent": {
     "placeholders": {
       "value": {
@@ -262,7 +262,7 @@
   },
   "budgetedPerMonth": "Presup./M",
   "budgetedPerYear": "Presup./A",
-  "budgetVariancePercent": "Variacion:    @value%",
+  "budgetVariancePercent": "Variacion:    {value}%",
   "@budgetVariancePercent": {
     "placeholders": {
       "value": {
@@ -323,7 +323,7 @@
   "copyMessage": "Copiar mensaje",
   "copyMessageToClipboard": "Copiar mensaje al portapapeles",
   "copyToClipboard": "Copiar al portapapeles",
-  "countSelected": "@count seleccionado(s)",
+  "countSelected": "{count} seleccionado(s)",
   "@countSelected": {
     "placeholders": {
       "count": {
@@ -331,7 +331,7 @@
       }
     }
   },
-  "countYears": "@count año(s)",
+  "countYears": "{count} año(s)",
   "@countYears": {
     "placeholders": {
       "count": {
@@ -409,7 +409,7 @@
     }
   },
   "editSelectedItems": "Editar elemento(s) seleccionado(s)",
-  "elapsedElapsed": "Transcurrido: @elapsed",
+  "elapsedElapsed": "Transcurrido: {elapsed}",
   "@elapsedElapsed": {
     "placeholders": {
       "elapsed": {
@@ -430,7 +430,7 @@
   "@error": {
     "description": "REVIEWED"
   },
-  "errorImportingCsvError": "Error al importar CSV: @error",
+  "errorImportingCsvError": "Error al importar CSV: {error}",
   "@errorImportingCsvError": {
     "placeholders": {
       "error": {
@@ -438,7 +438,7 @@
       }
     }
   },
-  "errorImportingXlsxError": "Error al importar XLSX: @error",
+  "errorImportingXlsxError": "Error al importar XLSX: {error}",
   "@errorImportingXlsxError": {
     "placeholders": {
       "error": {
@@ -447,7 +447,7 @@
     }
   },
   "errorInvalidResponseFromOllama": "Error: respuesta invalida de Ollama",
-  "errorWithReason": "Error de IA: @reason",
+  "errorWithReason": "Error de IA: {reason}",
   "@errorWithReason": {
     "placeholders": {
       "reason": {
@@ -636,7 +636,7 @@
   "memo": "Nota",
   "merge": "Combinar",
   "mergeItems": "Combinar elemento(s)",
-  "mergeTransactionsCount": "Combinar @count transacciones",
+  "mergeTransactionsCount": "Combinar {count} transacciones",
   "@mergeTransactionsCount": {
     "placeholders": {
       "count": {
@@ -644,7 +644,7 @@
       }
     }
   },
-  "mergeTransactionsIntoCategory": "Usa esta opcion para combinar transacciones de \"@from\" en \"@to\".",
+  "mergeTransactionsIntoCategory": "Usa esta opcion para combinar transacciones de \"{from}\" en \"{to}\".",
   "@mergeTransactionsIntoCategory": {
     "placeholders": {
       "from": {
@@ -665,7 +665,7 @@
   "monthlyActual": "Real mensual",
   "monthlyBudgeted": "Presupuestado mensual",
   "moveCategory": "Mover categoria",
-  "moveCategoryAsChild": "Usa esta opcion para mover \"@from\" como categoria hija de \"@to\".",
+  "moveCategoryAsChild": "Usa esta opcion para mover \"{from}\" como categoria hija de \"{to}\".",
   "@moveCategoryAsChild": {
     "placeholders": {
       "from": {
@@ -713,7 +713,7 @@
   "navPayeesTooltip": "Ver beneficiarios",
   "navRentals": "Alquileres",
   "navRentalsTooltip": "Alquileres",
-  "navShowLabel": "Mostrar @label",
+  "navShowLabel": "Mostrar {label}",
   "@navShowLabel": {
     "placeholders": {
       "label": {
@@ -734,7 +734,7 @@
   "never": "Nunca",
   "newBankAccount": "Nueva cuenta bancaria",
   "newFile": "Nuevo archivo...",
-  "newItemLabel": "Nuevo @item",
+  "newItemLabel": "Nuevo {item}",
   "@newItemLabel": {
     "placeholders": {
       "item": {
@@ -752,7 +752,7 @@
   "noDataRowsToPreview": "No hay filas de datos para previsualizar.",
   "noDataToDisplay": "Sin datos para mostrar",
   "noDateRangeYet": "Aún sin rango de fechas",
-  "noFieldsFoundForItem": "No se encontraron campos para @item",
+  "noFieldsFoundForItem": "No se encontraron campos para {item}",
   "@noFieldsFoundForItem": {
     "placeholders": {
       "item": {
@@ -771,7 +771,7 @@
   "noItems": "Sin elementos",
   "noItemSelected": "Ningún elemento seleccionado.",
   "noItemsToDelete": "No hay elementos para eliminar",
-  "noItemsWereTitle": "Ningún elemento fue @title",
+  "noItemsWereTitle": "Ningún elemento fue {title}",
   "@noItemsWereTitle": {
     "placeholders": {
       "title": {
@@ -837,7 +837,7 @@
     "description": "REVIEWED"
   },
   "pickAccountToImportTo": "Elige cuenta para importar",
-  "pickDifferentCategoryThan": "Elige una categoria diferente de \"@category\".",
+  "pickDifferentCategoryThan": "Elige una categoria diferente de \"{category}\".",
   "@pickDifferentCategoryThan": {
     "placeholders": {
       "category": {
@@ -1069,7 +1069,7 @@
   "@timeline": {
     "description": "REVIEWED"
   },
-  "timestampTimestamp": "Marca de tiempo: @timestamp",
+  "timestampTimestamp": "Marca de tiempo: {timestamp}",
   "@timestampTimestamp": {
     "placeholders": {
       "timestamp": {
@@ -1100,7 +1100,7 @@
       }
     }
   },
-  "transactionsAveraging": "@count transacciones en promedio",
+  "transactionsAveraging": "{count} transacciones en promedio",
   "@transactionsAveraging": {
     "placeholders": {
       "count": {

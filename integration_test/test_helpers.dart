@@ -115,16 +115,24 @@ Future<Finder> tapOnFirstRowOfListViewFirstOrLast(
   return firstMatchingElement;
 }
 
+/// Finds the list whose rows a test selects by text: an open dialog's list when there is one
+/// (dialogs sit last in the tree), else the view's main list; never the side panel's list,
+/// which also shows rows once an item is selected.
+Finder _listToScrollFinder() => find
+    .byElementPredicate(
+      (Element element) => element.widget is ListView && element.findAncestorWidgetOfExactType<SidePanel>() == null,
+    )
+    .last;
+
 Future<Finder> selectListViewItemByText(
   WidgetTester tester,
   String text,
 ) async {
-  final Finder listFinder = find.byType(ListView);
   final Finder itemFinder = find.text(text);
 
   await tester.dragUntilVisible(
     itemFinder, // What you're looking for
-    listFinder, // ListView finder
+    _listToScrollFinder(), // the main list, or the open dialog's list
     const Offset(_zeroDouble, _scrollDeltaY), // Scroll down by 100 pixels
   );
 

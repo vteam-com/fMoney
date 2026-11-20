@@ -23,6 +23,7 @@ import 'package:money/views/home/rentals/rentals_view.dart';
 import 'package:money/views/home/stocks/stocks_view.dart';
 import 'package:money/views/panels/list/money_objects_view.dart';
 import 'package:money/views/panels/list/side_panel_lists_helper.dart';
+import 'package:money/widgets/dialogs/dialog_widget.dart';
 import 'package:money/widgets/pure/center_message_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -159,7 +160,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(Data().categories.iterableList().last.fieldParentId.value, food.uniqueId);
-    expect(find.text(_newItemTitle(AppTranslationKeys.category)), findsOneWidget);
+    // The dialog title "New Category" is also the new category's default name, so check the title itself.
+    expect(tester.widget<MyAlertDialog>(find.byType(MyAlertDialog)).title, _newItemTitle(AppTranslationKeys.category));
   });
 
   testWidgets('the stocks side panel copy has no investments to copy when no security is selected', (

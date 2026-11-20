@@ -76,12 +76,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String aiLearnedAboutAccountsAndTransactions(String count) {
-    return 'L\'IA a appris @count comptes et leurs transactions.';
+    return 'L\'IA a appris $count comptes et leurs transactions.';
   }
 
   @override
   String aiMatchedAccount(String account) {
-    return 'Compte correspondant : @account';
+    return 'Compte correspondant : $account';
   }
 
   @override
@@ -334,7 +334,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String budgetAccuracyPercent(String value) {
-    return 'Precision:    @value%';
+    return 'Precision:    $value%';
   }
 
   @override
@@ -345,7 +345,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String budgetVariancePercent(String value) {
-    return 'Variation:    @value%';
+    return 'Variation:    $value%';
   }
 
   @override
@@ -463,12 +463,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String countSelected(String count) {
-    return '@count selectionnes';
+    return '$count selectionnes';
   }
 
   @override
   String countYears(String count) {
-    return '@count ans';
+    return '$count ans';
   }
 
   @override
@@ -570,7 +570,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String elapsedElapsed(String elapsed) {
-    return 'Ecoule : @elapsed';
+    return 'Ecoule : $elapsed';
   }
 
   @override
@@ -586,12 +586,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String errorImportingCsvError(String error) {
-    return 'Erreur lors de l\'import CSV : @error';
+    return 'Erreur lors de l\'import CSV : $error';
   }
 
   @override
   String errorImportingXlsxError(String error) {
-    return 'Erreur lors de l\'import XLSX : @error';
+    return 'Erreur lors de l\'import XLSX : $error';
   }
 
   @override
@@ -599,7 +599,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String errorWithReason(String reason) {
-    return 'Erreur : @reason';
+    return 'Erreur : $reason';
   }
 
   @override
@@ -866,12 +866,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String mergeTransactionsCount(String count) {
-    return 'Fusionner @count transactions';
+    return 'Fusionner $count transactions';
   }
 
   @override
   String mergeTransactionsIntoCategory(String from, String to) {
-    return 'Utilisez cette option pour fusionner les transactions de \"@from\" dans \"@to\".';
+    return 'Utilisez cette option pour fusionner les transactions de \"$from\" dans \"$to\".';
   }
 
   @override
@@ -897,7 +897,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String moveCategoryAsChild(String from, String to) {
-    return 'Utilisez cette option pour deplacer \"@from\" comme sous-categorie de \"@to\".';
+    return 'Utilisez cette option pour deplacer \"$from\" comme sous-categorie de \"$to\".';
   }
 
   @override
@@ -967,7 +967,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String navShowLabel(String label) {
-    return 'Afficher @label';
+    return 'Afficher $label';
   }
 
   @override
@@ -1002,7 +1002,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String newItemLabel(String item) {
-    return 'Nouveau @item';
+    return 'Nouveau $item';
   }
 
   @override
@@ -1037,7 +1037,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String noFieldsFoundForItem(String item) {
-    return 'Aucun champ trouve pour @item';
+    return 'Aucun champ trouve pour $item';
   }
 
   @override
@@ -1056,7 +1056,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String noItemsWereTitle(String title) {
-    return 'Aucun element n\'a ete @title';
+    return 'Aucun element n\'a ete $title';
   }
 
   @override
@@ -1172,7 +1172,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String pickDifferentCategoryThan(String category) {
-    return 'Choisissez une categorie differente de \"@category\".';
+    return 'Choisissez une categorie differente de \"$category\".';
   }
 
   @override
@@ -1511,7 +1511,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String timestampTimestamp(String timestamp) {
-    return 'Horodatage : @timestamp';
+    return 'Horodatage : $timestamp';
   }
 
   @override
@@ -1548,7 +1548,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String transactionsAveraging(String count) {
-    return '@count transactions en moyenne';
+    return '$count transactions en moyenne';
   }
 
   @override

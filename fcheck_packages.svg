@@ -862,7 +862,7 @@
 </g>
 <g>
   <path d="M 797.0 6192.0 H 836.0 Q 842.0 6192.0 842.0 6198.0 V 8628.0 Q 842.0 8634.0 836.0 8634.0 H 517.0" class="edgeVertical"/>
-  <title>shared_preferences_android -> jni v1.2.0</title>
+  <title>shared_preferences_android -> jni v1.2.1</title>
 </g>
 <g>
   <path d="M 797.0 6710.0 H 839.0 Q 845.0 6710.0 845.0 6716.0 V 9396.0 Q 845.0 9402.0 839.0 9402.0 H 517.0" class="edgeVertical"/>
@@ -878,7 +878,7 @@
 </g>
 <g>
   <path d="M 797.0 5552.0 H 848.0 Q 854.0 5552.0 854.0 5558.0 V 8628.0 Q 854.0 8634.0 848.0 8634.0 H 517.0" class="edgeVertical"/>
-  <title>path_provider_android -> jni v1.2.0</title>
+  <title>path_provider_android -> jni v1.2.1</title>
 </g>
 <g>
   <path d="M 797.0 5552.0 H 851.0 Q 857.0 5552.0 857.0 5558.0 V 8692.0 Q 857.0 8698.0 851.0 8698.0 H 517.0" class="edgeVertical"/>
@@ -2352,7 +2352,7 @@
 <g class="platformBadge platformBadge--linux"><title>Linux</title><rect x="650.5" y="8631.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#7c3aed" stroke="#6d28d9" stroke-width="0.6"/><text x="657.0" y="8638.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">L</text></g>
 <g class="platformBadge platformBadge--windows"><title>Windows</title><rect x="667.5" y="8631.0" width="13.0" height="13.0" rx="6.5" ry="6.5" fill="#2563eb" stroke="#1d4ed8" stroke-width="0.6"/><text x="674.0" y="8638.5" class="packageLabelPlatformBadge" text-anchor="middle" dominant-baseline="middle">W</text></g>
 <text x="525.0" y="8626.0" class="packageLabelDerivedName packageLabelCaption" text-anchor="start">jni</text>
-<text x="789.0" y="8626.0" class="packageLabelDerivedVersion" text-anchor="end">^1.2.0</text>
+<text x="789.0" y="8626.0" class="packageLabelDerivedVersion" text-anchor="end">^1.2.1</text>
 </g>
 <g class="badge incomingBadge">
   <path d="M 791.0,8629.0 L 803.0,8622.0 Q 806.0,8622.0 806.0,8625.0 L 806.0,8633.0 Q 806.0,8636.0 803.0,8636.0 Z" fill="#3b82f6"/>

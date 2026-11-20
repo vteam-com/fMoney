@@ -20,7 +20,7 @@
   "addTransactionsMenuItem": "Add transactions...",
   "aiAssistant": "AI Assistant",
   "aiDropPdfFileOnly": "Please drop a PDF file.",
-  "aiLearnedAboutAccountsAndTransactions": "AI has learned about @count accounts and their transactions.",
+  "aiLearnedAboutAccountsAndTransactions": "AI has learned about {count} accounts and their transactions.",
   "@aiLearnedAboutAccountsAndTransactions": {
     "placeholders": {
       "count": {
@@ -28,7 +28,7 @@
       }
     }
   },
-  "aiMatchedAccount": "Matched account: @account",
+  "aiMatchedAccount": "Matched account: {account}",
   "@aiMatchedAccount": {
     "placeholders": {
       "account": {
@@ -252,7 +252,7 @@
   "@budgetAccuracyBothZero": {
     "description": "REVIEWED"
   },
-  "budgetAccuracyPercent": "Accuracy:    @value%",
+  "budgetAccuracyPercent": "Accuracy:    {value}%",
   "@budgetAccuracyPercent": {
     "placeholders": {
       "value": {
@@ -262,7 +262,7 @@
   },
   "budgetedPerMonth": "Budgeted/M",
   "budgetedPerYear": "Budgeted/Y",
-  "budgetVariancePercent": "Variance:    @value%",
+  "budgetVariancePercent": "Variance:    {value}%",
   "@budgetVariancePercent": {
     "placeholders": {
       "value": {
@@ -323,7 +323,7 @@
   "copyMessage": "Copy message",
   "copyMessageToClipboard": "Copy message to clipboard",
   "copyToClipboard": "Copy to clipboard",
-  "countSelected": "@count selected",
+  "countSelected": "{count} selected",
   "@countSelected": {
     "placeholders": {
       "count": {
@@ -331,7 +331,7 @@
       }
     }
   },
-  "countYears": "@count years",
+  "countYears": "{count} years",
   "@countYears": {
     "placeholders": {
       "count": {
@@ -409,7 +409,7 @@
     }
   },
   "editSelectedItems": "Edit selected item(s)",
-  "elapsedElapsed": "Elapsed: @elapsed",
+  "elapsedElapsed": "Elapsed: {elapsed}",
   "@elapsedElapsed": {
     "placeholders": {
       "elapsed": {
@@ -430,7 +430,7 @@
   "@error": {
     "description": "REVIEWED"
   },
-  "errorImportingCsvError": "Error importing CSV: @error",
+  "errorImportingCsvError": "Error importing CSV: {error}",
   "@errorImportingCsvError": {
     "placeholders": {
       "error": {
@@ -438,7 +438,7 @@
       }
     }
   },
-  "errorImportingXlsxError": "Error importing XLSX: @error",
+  "errorImportingXlsxError": "Error importing XLSX: {error}",
   "@errorImportingXlsxError": {
     "placeholders": {
       "error": {
@@ -447,7 +447,7 @@
     }
   },
   "errorInvalidResponseFromOllama": "Error: Invalid response from Ollama",
-  "errorWithReason": "Error: @reason",
+  "errorWithReason": "Error: {reason}",
   "@errorWithReason": {
     "placeholders": {
       "reason": {
@@ -636,7 +636,7 @@
   "memo": "Memo",
   "merge": "Merge",
   "mergeItems": "Merge item(s)",
-  "mergeTransactionsCount": "Merge @count transactions",
+  "mergeTransactionsCount": "Merge {count} transactions",
   "@mergeTransactionsCount": {
     "placeholders": {
       "count": {
@@ -644,7 +644,7 @@
       }
     }
   },
-  "mergeTransactionsIntoCategory": "Use this option to merge transactions from \"@from\" into \"@to\".",
+  "mergeTransactionsIntoCategory": "Use this option to merge transactions from \"{from}\" into \"{to}\".",
   "@mergeTransactionsIntoCategory": {
     "placeholders": {
       "from": {
@@ -665,7 +665,7 @@
   "monthlyActual": "Monthly Actual",
   "monthlyBudgeted": "Monthly Budgeted",
   "moveCategory": "Move Category",
-  "moveCategoryAsChild": "Use this option to move \"@from\" as a child category of \"@to\".",
+  "moveCategoryAsChild": "Use this option to move \"{from}\" as a child category of \"{to}\".",
   "@moveCategoryAsChild": {
     "placeholders": {
       "from": {
@@ -713,7 +713,7 @@
   "navPayeesTooltip": "Show Payees",
   "navRentals": "Rentals",
   "navRentalsTooltip": "Rentals",
-  "navShowLabel": "Show @label",
+  "navShowLabel": "Show {label}",
   "@navShowLabel": {
     "placeholders": {
       "label": {
@@ -734,7 +734,7 @@
   "never": "Never",
   "newBankAccount": "New Bank Account",
   "newFile": "New File ...",
-  "newItemLabel": "New @item",
+  "newItemLabel": "New {item}",
   "@newItemLabel": {
     "placeholders": {
       "item": {
@@ -752,7 +752,7 @@
   "noDataRowsToPreview": "No data rows to preview.",
   "noDataToDisplay": "No data to display",
   "noDateRangeYet": "No date range yet",
-  "noFieldsFoundForItem": "No fields found for @item",
+  "noFieldsFoundForItem": "No fields found for {item}",
   "@noFieldsFoundForItem": {
     "placeholders": {
       "item": {
@@ -771,7 +771,7 @@
   "noItems": "No items",
   "noItemSelected": "No item selected.",
   "noItemsToDelete": "No items to delete",
-  "noItemsWereTitle": "No items were @title",
+  "noItemsWereTitle": "No items were {title}",
   "@noItemsWereTitle": {
     "placeholders": {
       "title": {
@@ -837,7 +837,7 @@
     "description": "REVIEWED"
   },
   "pickAccountToImportTo": "Pick account to import to",
-  "pickDifferentCategoryThan": "Pick a different category than \"@category\".",
+  "pickDifferentCategoryThan": "Pick a different category than \"{category}\".",
   "@pickDifferentCategoryThan": {
     "placeholders": {
       "category": {
@@ -1069,7 +1069,7 @@
   "@timeline": {
     "description": "REVIEWED"
   },
-  "timestampTimestamp": "Timestamp: @timestamp",
+  "timestampTimestamp": "Timestamp: {timestamp}",
   "@timestampTimestamp": {
     "placeholders": {
       "timestamp": {
@@ -1100,7 +1100,7 @@
       }
     }
   },
-  "transactionsAveraging": "@count transactions averaging",
+  "transactionsAveraging": "{count} transactions averaging",
   "@transactionsAveraging": {
     "placeholders": {
       "count": {

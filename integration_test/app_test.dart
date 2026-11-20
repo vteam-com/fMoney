@@ -416,7 +416,8 @@ Future<void> testAliases(WidgetTester tester) async {
 
   // Edit field "Pattern"
   await tapOnKey(tester, Constants.keyEditSelectedItems);
-  await inputTextToTextFieldWithThisLabel(tester, 'Pattern', 'ABC_XYZ');
+  // The pattern editor has no label (it shows an explanation below the field instead), so find it by key.
+  await inputTextToElementByKey(tester, const Key('key_alias_pattern'), 'ABC_XYZ');
   await tapOnText(tester, 'Apply');
 
   await sidePanelTabs(tester, expectChart: false);

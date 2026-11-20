@@ -223,13 +223,13 @@ abstract class AppLocalizations {
   /// No description provided for @aiLearnedAboutAccountsAndTransactions.
   ///
   /// In en, this message translates to:
-  /// **'AI has learned about @count accounts and their transactions.'**
+  /// **'AI has learned about {count} accounts and their transactions.'**
   String aiLearnedAboutAccountsAndTransactions(String count);
 
   /// No description provided for @aiMatchedAccount.
   ///
   /// In en, this message translates to:
-  /// **'Matched account: @account'**
+  /// **'Matched account: {account}'**
   String aiMatchedAccount(String account);
 
   /// No description provided for @aiNoMatchingAccountFound.
@@ -661,7 +661,7 @@ abstract class AppLocalizations {
   /// No description provided for @budgetAccuracyPercent.
   ///
   /// In en, this message translates to:
-  /// **'Accuracy:    @value%'**
+  /// **'Accuracy:    {value}%'**
   String budgetAccuracyPercent(String value);
 
   /// No description provided for @budgetedPerMonth.
@@ -679,7 +679,7 @@ abstract class AppLocalizations {
   /// No description provided for @budgetVariancePercent.
   ///
   /// In en, this message translates to:
-  /// **'Variance:    @value%'**
+  /// **'Variance:    {value}%'**
   String budgetVariancePercent(String value);
 
   /// REVIEWED
@@ -901,13 +901,13 @@ abstract class AppLocalizations {
   /// No description provided for @countSelected.
   ///
   /// In en, this message translates to:
-  /// **'@count selected'**
+  /// **'{count} selected'**
   String countSelected(String count);
 
   /// No description provided for @countYears.
   ///
   /// In en, this message translates to:
-  /// **'@count years'**
+  /// **'{count} years'**
   String countYears(String count);
 
   /// No description provided for @createAlias.
@@ -1087,7 +1087,7 @@ abstract class AppLocalizations {
   /// No description provided for @elapsedElapsed.
   ///
   /// In en, this message translates to:
-  /// **'Elapsed: @elapsed'**
+  /// **'Elapsed: {elapsed}'**
   String elapsedElapsed(String elapsed);
 
   /// No description provided for @end.
@@ -1111,13 +1111,13 @@ abstract class AppLocalizations {
   /// No description provided for @errorImportingCsvError.
   ///
   /// In en, this message translates to:
-  /// **'Error importing CSV: @error'**
+  /// **'Error importing CSV: {error}'**
   String errorImportingCsvError(String error);
 
   /// No description provided for @errorImportingXlsxError.
   ///
   /// In en, this message translates to:
-  /// **'Error importing XLSX: @error'**
+  /// **'Error importing XLSX: {error}'**
   String errorImportingXlsxError(String error);
 
   /// No description provided for @errorInvalidResponseFromOllama.
@@ -1129,7 +1129,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorWithReason.
   ///
   /// In en, this message translates to:
-  /// **'Error: @reason'**
+  /// **'Error: {reason}'**
   String errorWithReason(String reason);
 
   /// No description provided for @event.
@@ -1615,13 +1615,13 @@ abstract class AppLocalizations {
   /// No description provided for @mergeTransactionsCount.
   ///
   /// In en, this message translates to:
-  /// **'Merge @count transactions'**
+  /// **'Merge {count} transactions'**
   String mergeTransactionsCount(String count);
 
   /// No description provided for @mergeTransactionsIntoCategory.
   ///
   /// In en, this message translates to:
-  /// **'Use this option to merge transactions from \"@from\" into \"@to\".'**
+  /// **'Use this option to merge transactions from \"{from}\" into \"{to}\".'**
   String mergeTransactionsIntoCategory(String from, String to);
 
   /// No description provided for @messageDetails.
@@ -1669,7 +1669,7 @@ abstract class AppLocalizations {
   /// No description provided for @moveCategoryAsChild.
   ///
   /// In en, this message translates to:
-  /// **'Use this option to move \"@from\" as a child category of \"@to\".'**
+  /// **'Use this option to move \"{from}\" as a child category of \"{to}\".'**
   String moveCategoryAsChild(String from, String to);
 
   /// No description provided for @multipleSelectionCount.
@@ -1801,7 +1801,7 @@ abstract class AppLocalizations {
   /// No description provided for @navShowLabel.
   ///
   /// In en, this message translates to:
-  /// **'Show @label'**
+  /// **'Show {label}'**
   String navShowLabel(String label);
 
   /// No description provided for @navStocks.
@@ -1867,7 +1867,7 @@ abstract class AppLocalizations {
   /// No description provided for @newItemLabel.
   ///
   /// In en, this message translates to:
-  /// **'New @item'**
+  /// **'New {item}'**
   String newItemLabel(String item);
 
   /// No description provided for @newMenuItem.
@@ -1933,7 +1933,7 @@ abstract class AppLocalizations {
   /// No description provided for @noFieldsFoundForItem.
   ///
   /// In en, this message translates to:
-  /// **'No fields found for @item'**
+  /// **'No fields found for {item}'**
   String noFieldsFoundForItem(String item);
 
   /// No description provided for @noHistoryInformationAboutSymbol.
@@ -1963,7 +1963,7 @@ abstract class AppLocalizations {
   /// No description provided for @noItemsWereTitle.
   ///
   /// In en, this message translates to:
-  /// **'No items were @title'**
+  /// **'No items were {title}'**
   String noItemsWereTitle(String title);
 
   /// No description provided for @noMatchingAliases.
@@ -2179,7 +2179,7 @@ abstract class AppLocalizations {
   /// No description provided for @pickDifferentCategoryThan.
   ///
   /// In en, this message translates to:
-  /// **'Pick a different category than \"@category\".'**
+  /// **'Pick a different category than \"{category}\".'**
   String pickDifferentCategoryThan(String category);
 
   /// REVIEWED
@@ -2815,7 +2815,7 @@ abstract class AppLocalizations {
   /// No description provided for @timestampTimestamp.
   ///
   /// In en, this message translates to:
-  /// **'Timestamp: @timestamp'**
+  /// **'Timestamp: {timestamp}'**
   String timestampTimestamp(String timestamp);
 
   /// No description provided for @toAccount.
@@ -2881,7 +2881,7 @@ abstract class AppLocalizations {
   /// No description provided for @transactionsAveraging.
   ///
   /// In en, this message translates to:
-  /// **'@count transactions averaging'**
+  /// **'{count} transactions averaging'**
   String transactionsAveraging(String count);
 
   /// No description provided for @transactionsDescription.
