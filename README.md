@@ -33,10 +33,7 @@ Download the file for your computer from the [latest release](https://github.com
 | Windows  | `mymoney-app-windows.zip`  | Windows 10 or later, 64-bit           |
 | Linux    | `mymoney-app-linux.tar.gz` | 64-bit (x64) with GTK 3               |
 
-Two things apply to every platform:
-
-- **Install it in a folder you can write to.** fMoney updates itself in place, so it needs to be able to replace its own files.
-- **Expect a security warning the first time you open it.** The builds are not signed with an Apple or Microsoft developer certificate. The steps below show how to open it.
+On every platform, **install it in a folder you can write to.** fMoney updates itself in place, so it needs to be able to replace its own files.
 
 ### macOS
 
@@ -44,15 +41,7 @@ Two things apply to every platform:
 2. Drag `money.app` into your **Applications** folder. If your account is not an administrator, use the `Applications` folder in your home folder instead.
 
    Don't run it from **Downloads**. macOS runs apps there from a read-only copy, and updates can't install.
-3. Double-click `money.app`. macOS blocks it the first time because Apple hasn't checked it. To open it:
-   1. Open **System Settings › Privacy & Security**.
-   2. Scroll down to **Security**, click **Open Anyway** next to the message about `money`, and confirm.
-
-   If macOS says the app "is damaged and can't be opened", remove the download flag in Terminal, then open it again:
-
-   ```bash
-   xattr -dr com.apple.quarantine /Applications/money.app
-   ```
+3. Double-click `money.app`. The app is signed and notarized by Apple, so macOS only asks you to confirm opening an app downloaded from the Internet: click **Open**.
 
 ### Windows
 
@@ -61,7 +50,7 @@ Two things apply to every platform:
 
    Don't use `C:\Program Files`: fMoney can't update itself there.
 3. Open the folder and run `money.exe`. Leave it next to the files it came with. To launch it from somewhere else, pin it to Start or create a shortcut.
-4. If Windows shows **Windows protected your PC**, click **More info**, then **Run anyway**.
+4. The Windows build isn't signed with a Microsoft developer certificate yet. If Windows shows **Windows protected your PC**, click **More info**, then **Run anyway**.
 
 If Windows says `VCRUNTIME140_1.dll` or `MSVCP140.dll` was not found, install the [Microsoft Visual C++ Redistributable (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe) and run `money.exe` again.
 
@@ -184,7 +173,25 @@ The script must run on `main` with a clean working tree. It:
 3. Analyzes, tests, runs fCheck and builds macOS.
 4. Commits `Release v<version>` and pushes `main`.
 
-The push starts the [Flutter Desktop Build](https://github.com/vteam-com/fMoney/actions/workflows/builds.yml) workflow. It builds macOS, Windows and Linux, publishes them as the GitHub release `v<version>` with the changelog entry as notes, and deletes all but the three most recent releases. Installed apps then offer the update.
+The push starts the [Flutter Desktop Build](https://github.com/vteam-com/fMoney/actions/workflows/builds.yml) workflow. It builds macOS, Windows and Linux, [signs and notarizes](#signing-the-macos-build) the macOS build, publishes them as the GitHub release `v<version>` with the changelog entry as notes, and deletes all but the three most recent releases. Installed apps then offer the update.
+
+### Signing the macOS build
+
+The workflow signs the macOS app with a Developer ID certificate and has Apple notarize it, so macOS opens it without asking to allow it in Privacy & Security. The macOS build fails when the secrets below are missing, and then no release is published. To set them up once, with a paid Apple Developer account:
+
+1. **Developer ID certificate** (only the team's Account Holder can create one): in Xcode › Settings › Accounts, select the team, click **Manage Certificates…**, then **+ › Developer ID Application**. In Keychain Access › My Certificates, right-click **Developer ID Application: …** and export it, with its private key, as a `.p12` file protected by a password.
+2. **Notarization key**: in [App Store Connect › Users and Access › Integrations](https://appstoreconnect.apple.com/access/integrations/api), generate a Team Key with the Developer role and download its `AuthKey_<KEY ID>.p8` (Apple offers the download only once). Note its Key ID and the Issuer ID shown above the keys.
+3. **Repository secrets**, from the repository folder:
+
+   ```bash
+   base64 -i DeveloperID.p12 | gh secret set MACOS_CERTIFICATE
+   gh secret set MACOS_CERTIFICATE_PASSWORD          # asks for the .p12 password
+   gh secret set APPLE_API_KEY < AuthKey_<KEY ID>.p8
+   gh secret set APPLE_API_KEY_ID --body <KEY ID>
+   gh secret set APPLE_API_ISSUER_ID --body <ISSUER ID>
+   ```
+
+Apple shows the certificate's expiration date when it creates it: before then, make a new one and update the two `MACOS_CERTIFICATE` secrets (builds signed before stay valid).
 
 ### Web
 

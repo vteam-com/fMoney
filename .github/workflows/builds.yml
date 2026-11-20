@@ -150,6 +150,9 @@ jobs:
     needs: version
     if: needs.version.outputs.new_version == 'true'
     runs-on: macos-latest
+    env:
+      # The app bundle the macOS steps sign, notarize and zip
+      MACOS_APP: build/macos/Build/Products/Release/money.app
     steps:
       - uses: actions/checkout@v5
 
@@ -169,13 +172,92 @@ jobs:
       - name: Build macOS App
         run: flutter build macos
 
+      # Signs with the Developer ID certificate, inside out (each framework before the app
+      # holding it), with the hardened runtime and secure timestamp notarization requires. The
+      # app takes Release.entitlements again: the build's own signature added get-task-allow,
+      # which notarization refuses. The secrets are listed in the README's "Signing the macOS
+      # build".
+      - name: Sign macOS App
+        shell: bash
+        env:
+          CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+        run: |
+          if [[ -z "$CERTIFICATE" || -z "$CERTIFICATE_PASSWORD" ]]; then
+            echo "::error::Set the MACOS_CERTIFICATE and MACOS_CERTIFICATE_PASSWORD secrets: see the README's \"Signing the macOS build\""
+            exit 1
+          fi
+
+          # A keychain of its own, gone with the runner, that never locks
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          keychain_password="$(uuidgen)"
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+          base64 --decode <<<"$CERTIFICATE" >"$RUNNER_TEMP/certificate.p12"
+          security import "$RUNNER_TEMP/certificate.p12" -k "$keychain" \
+            -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          rm "$RUNNER_TEMP/certificate.p12"
+          security set-key-partition-list -S apple-tool:,apple: -s \
+            -k "$keychain_password" "$keychain" >/dev/null
+          security list-keychains -d user -s "$keychain"
+
+          identity="$(security find-identity -v -p codesigning "$keychain" |
+            awk '/"Developer ID Application: / { print $2; exit }')"
+          if [[ -z "$identity" ]]; then
+            echo "::error::MACOS_CERTIFICATE holds no valid Developer ID Application certificate"
+            exit 1
+          fi
+
+          find "$MACOS_APP/Contents/Frameworks" -depth \
+            \( -name '*.framework' -o -name '*.dylib' \) -print0 |
+          while IFS= read -r -d '' code; do
+            codesign --force --timestamp --options runtime --sign "$identity" "$code"
+          done
+          codesign --force --timestamp --options runtime --sign "$identity" \
+            --entitlements macos/Runner/Release.entitlements "$MACOS_APP"
+          codesign --verify --strict --deep --verbose=2 "$MACOS_APP"
+
+      # Apple's notary service scans the signed app; the ticket stapled to it lets Gatekeeper
+      # open it, even offline, as any app from the Internet. `notarytool submit --wait` can end
+      # well on a rejected app, so the status decides, and Apple's log of a rejection says what
+      # to fix.
+      - name: Notarize macOS App
+        shell: bash
+        timeout-minutes: 60
+        env:
+          API_KEY: ${{ secrets.APPLE_API_KEY }}
+          API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+        run: |
+          if [[ -z "$API_KEY" || -z "$API_KEY_ID" || -z "$API_ISSUER_ID" ]]; then
+            echo "::error::Set the APPLE_API_KEY, APPLE_API_KEY_ID and APPLE_API_ISSUER_ID secrets: see the README's \"Signing the macOS build\""
+            exit 1
+          fi
+
+          printf '%s\n' "$API_KEY" >"$RUNNER_TEMP/api_key.p8"
+          auth=(--key "$RUNNER_TEMP/api_key.p8" --key-id "$API_KEY_ID" --issuer "$API_ISSUER_ID")
+          submission="$RUNNER_TEMP/notarize.zip"
+          result="$RUNNER_TEMP/notarization.json"
+          ditto -c -k --keepParent "$MACOS_APP" "$submission"
+          xcrun notarytool submit "$submission" "${auth[@]}" --wait \
+            --output-format json >"$result" || true
+          cat "$result"
+          if [[ "$(jq -r '.status // empty' "$result" || true)" != "Accepted" ]]; then
+            id="$(jq -r '.id // empty' "$result" || true)"
+            [[ -z "$id" ]] || xcrun notarytool log "$id" "${auth[@]}"
+            echo "::error::Apple did not notarize the app; its log above says why"
+            exit 1
+          fi
+
+          xcrun stapler staple "$MACOS_APP"
+          spctl --assess --type execute --verbose=2 "$MACOS_APP"
+
       # ditto keeps the framework symlinks the code signature needs; leaving out
       # resource forks and extended attributes keeps "._*" files out of the bundle
       # when the app extracts its own updates.
       - name: Create macOS ZIP
-        run: |
-          cd build/macos/Build/Products/Release
-          ditto -c -k --norsrc --noextattr --noacl --keepParent money.app ../../../../../mymoney-app-macos.zip
+        run: ditto -c -k --norsrc --noextattr --noacl --keepParent "$MACOS_APP" mymoney-app-macos.zip
 
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v7
