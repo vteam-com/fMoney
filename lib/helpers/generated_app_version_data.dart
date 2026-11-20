@@ -6,7 +6,7 @@ abstract final class GeneratedAppVersionData {
   static const String packageName = 'money';
 
   /// The semantic app version from `pubspec.yaml`.
-  static const String version = '1.21.3';
+  static const String version = '1.21.4';
 
   /// The build number extracted from `pubspec.yaml`.
   static const String buildNumber = '0';

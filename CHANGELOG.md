@@ -1,5 +1,14 @@
 # Change Log
 
+## [version 1.21.4] 2026-11-20
+
+- Integration test: fail on taps outside the open dialog, fix the two that beeped
+- Fix @name placeholders shown raw and the failing integration test
+- SOLID review: fix the bugs mixed responsibilities hid
+- DRY review: consolidate duplicated logic and fix the bugs it hid
+- Re-apply aliases on save and keep bank text on payee merge
+- Create alias: skip transfers and transactions without text
+
 ## [version 1.21.3] 2026-11-19
 
 - update packages
