@@ -1,5 +1,14 @@
 # Change Log
 
+## [version 1.21.5] 2026-11-20
+
+- sign the macOS release bits
+- Speed up tool/test.sh: no stalls, unit tests first
+- DRY review of the AI tools: reuse the app's rules instead of copies
+- AI assistant: tools, UI hooks and confirmed edits
+- Stop AI prompts from overwhelming Ollama
+- Fix slow typing in the AI chat box
+
 ## [version 1.21.4] 2026-11-20
 
 - Integration test: fail on taps outside the open dialog, fix the two that beeped
