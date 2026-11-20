@@ -347,7 +347,7 @@
     font-weight: 900;
   }
 </style>
-<text x="657.0" y="28.0" class="packageLabelTitle" text-anchor="middle">money v1.21.3</text>
+<text x="657.0" y="28.0" class="packageLabelTitle" text-anchor="middle">money v1.21.4</text>
 <g class="packageMetadataPill"><title>Dart &gt;=3.14.0</title><rect x="582.55" y="36.0" width="65.3" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="615.1999999999999" y="41" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Dart &gt;=3.14.0</text></g>
 <g class="packageMetadataPill"><title>Flutter &gt;=3.50.0</title><rect x="653.8499999999999" y="36.0" width="77.6" height="9.0" rx="4.5" ry="4.5" class="packageMetadataPillShape"/><text x="692.6499999999999" y="41" class="packageLabelMetadata" text-anchor="middle" dominant-baseline="middle">Flutter &gt;=3.50.0</text></g>
 <text x="337.0" y="70.0" class="packageLabelSection">dependencies (31 items)</text>

@@ -13,16 +13,18 @@ class ChatMessage {
   final String message;
   final ChatFrom type;
   final DateTime timestamp;
+
+  /// The full request sent to Ollama for this message, kept in memory only: it embeds the selected
+  /// accounts' transactions, so saving it with every question made the stored history huge.
   final Map<String, dynamic> payloadSentToOllama;
   bool isExpanded;
 
-  /// Serializes this message to JSON.
+  /// Serializes this message to JSON, leaving out [payloadSentToOllama].
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'message': message,
       'type': type.name, // Convert enum to string
       'timestamp': timestamp.toIso8601String(), // Convert DateTime to ISO string
-      'payloadSentToOllama': payloadSentToOllama,
       'isExpanded': isExpanded,
     };
   }

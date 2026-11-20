@@ -19,6 +19,9 @@ const Duration _connectionTimeout = Duration(seconds: 5);
 
 /// How long a health check (listing models) may take in total.
 const Duration _healthCheckTimeout = Duration(seconds: 10);
+
+/// Preference key prefix of each model's saved chat history; the model name follows it.
+const String _chatHistoryKeyPrefix = 'ollama_chat_history_';
 const String _defaultPathEnvKey = 'PATH';
 const String _windowsPathEnvKey = 'Path';
 const String _windowsProgramsDirName = 'Programs';
@@ -251,23 +254,61 @@ class OllamaService {
   static Future<void> saveChatHistory(List<ChatMessage> chatHistory) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (chatHistory.isNotEmpty) {
-      final List<Map<String, dynamic>> serializedHistory = chatHistory.map((ChatMessage msg) => msg.toJson()).toList();
-      await prefs.setString('ollama_chat_history_$selectedModel', jsonEncode(serializedHistory));
+      await prefs.setString('$_chatHistoryKeyPrefix$selectedModel', _encodeChatHistory(chatHistory));
     } else {
-      await prefs.remove('ollama_chat_history_$selectedModel');
+      await prefs.remove('$_chatHistoryKeyPrefix$selectedModel');
     }
   }
 
   /// Loads chat history for the current model.
   static Future<List<ChatMessage>> loadChatHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? historyString = prefs.getString('ollama_chat_history_$selectedModel');
+    final String? historyString = prefs.getString('$_chatHistoryKeyPrefix$selectedModel');
     if (historyString != null) {
-      final List<dynamic> historyList = jsonDecode(historyString) as List<dynamic>;
-      final List<Map<String, dynamic>> historyMaps = historyList.cast<Map<String, dynamic>>();
-      return historyMaps.map(ChatMessage.fromJson).toList();
+      return _decodeChatHistory(historyString);
     }
     return <ChatMessage>[];
+  }
+
+  /// Re-saves every model's chat history in the current format, which drops the per-question
+  /// prompt payloads older versions stored. Those grew the preferences to hundreds of MB, and on
+  /// macOS every preference write (such as the prompt draft saved on each keystroke) then took ~1s.
+  static Future<void> compactSavedChatHistories() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final List<String> historyKeys = prefs
+          .getKeys()
+          .where((String key) => key.startsWith(_chatHistoryKeyPrefix))
+          .toList();
+      for (final String key in historyKeys) {
+        final String? saved = prefs.getString(key);
+        if (saved == null) {
+          continue;
+        }
+        final String compacted = _encodeChatHistory(_decodeChatHistory(saved));
+        if (compacted != saved) {
+          await prefs.setString(key, compacted);
+        }
+      }
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        module: 'ollama_service',
+        operation: 'compactSavedChatHistories',
+        error: e,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
+  /// Serializes [chatHistory] to the JSON text stored in preferences.
+  static String _encodeChatHistory(List<ChatMessage> chatHistory) {
+    return jsonEncode(chatHistory.map((ChatMessage msg) => msg.toJson()).toList());
+  }
+
+  /// Parses chat history JSON text stored in preferences.
+  static List<ChatMessage> _decodeChatHistory(String historyString) {
+    final List<dynamic> historyList = jsonDecode(historyString) as List<dynamic>;
+    return historyList.cast<Map<String, dynamic>>().map(ChatMessage.fromJson).toList();
   }
 
   /// Sends a payload to the local Ollama API and returns the decoded JSON response.

@@ -23,10 +23,7 @@ void main() {
       expect(json['type'], 'user');
       expect(json['timestamp'], '2023-12-15T10:30:45.000');
       expect(json['isExpanded'], true);
-      expect(json['payloadSentToOllama'], <String, dynamic>{
-        'model': 'test-model',
-        'context': <int>[1, 2, 3],
-      });
+      expect(json.containsKey('payloadSentToOllama'), isFalse);
     });
 
     test('serializes AI message correctly', () {
@@ -44,7 +41,7 @@ void main() {
       expect(json['type'], 'ai');
       expect(json['timestamp'], '2023-12-15T10:30:45.000');
       expect(json['isExpanded'], false);
-      expect(json['payloadSentToOllama'], <String, dynamic>{});
+      expect(json.containsKey('payloadSentToOllama'), isFalse);
     });
 
     test('serializes message with special characters', () {
@@ -153,11 +150,11 @@ void main() {
       // Deserialize
       final ChatMessage restored = ChatMessage.fromJson(json);
 
-      // Verify all properties are preserved
+      // Verify all properties are preserved, except the payload, which is kept in memory only
       expect(restored.message, original.message);
       expect(restored.type, original.type);
       expect(restored.timestamp, original.timestamp);
-      expect(restored.payloadSentToOllama, original.payloadSentToOllama);
+      expect(restored.payloadSentToOllama, isEmpty);
       expect(restored.isExpanded, original.isExpanded);
     });
 

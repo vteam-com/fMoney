@@ -154,7 +154,7 @@ void main() {
       expect(restored.type, complexMessage.type);
       expect(restored.timestamp, complexMessage.timestamp);
       expect(restored.isExpanded, complexMessage.isExpanded);
-      expect(restored.payloadSentToOllama, complexMessage.payloadSentToOllama);
+      expect(restored.payloadSentToOllama, isEmpty);
     });
 
     test('handles messages without timestamps correctly', () async {
@@ -205,7 +205,31 @@ void main() {
       expect(restored.type, original.type);
       expect(restored.timestamp, original.timestamp);
       expect(restored.isExpanded, original.isExpanded);
-      expect(restored.payloadSentToOllama, original.payloadSentToOllama);
+      expect(restored.payloadSentToOllama, isEmpty);
+    });
+  });
+
+  group('OllamaService.compactSavedChatHistories', () {
+    test('drops prompt payloads saved by older versions for every model, keeping the messages', () async {
+      const String legacyMessage =
+          '{"message":"Hi","type":"user","timestamp":"2023-12-15T10:30:45.000",'
+          '"payloadSentToOllama":{"model":"m","messages":[{"role":"user","content":"all transactions"}]},'
+          '"isExpanded":false}';
+      SharedPreferences.setMockInitialValues(<String, Object>{
+        'ollama_chat_history_model-A': '[$legacyMessage]',
+        'ollama_chat_history_': '[$legacyMessage]',
+        'unrelated_key': 'payloadSentToOllama',
+      });
+
+      await OllamaService.compactSavedChatHistories();
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      for (final String key in <String>['ollama_chat_history_model-A', 'ollama_chat_history_']) {
+        final String saved = prefs.getString(key)!;
+        expect(saved, isNot(contains('payloadSentToOllama')));
+        expect(saved, contains('"message":"Hi"'));
+      }
+      expect(prefs.getString('unrelated_key'), 'payloadSentToOllama');
     });
   });
 }

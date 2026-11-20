@@ -184,6 +184,11 @@ class _ViewAIState extends ViewWidgetState<ViewAI> {
 
     // Load the selected model from preferences first
     OllamaService.getLastUserSelectedModel().then((_) async {
+      // Histories saved by older versions can be huge enough to make every preference write slow.
+      await OllamaService.compactSavedChatHistories();
+      if (!mounted) {
+        return;
+      }
       // The status check can switch models (none saved yet, or the saved one is gone),
       // and history is kept per model, so load the conversation after it.
       await _checkOllamaStatus();
